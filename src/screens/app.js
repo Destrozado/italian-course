@@ -386,9 +386,32 @@ export function appShell(appDataReady) {
     // Getters reactivos (Alpine los recomputa por dependencias granulares)
     // ════════════════════════════════════════════════════════════════════════
 
-    /** Ejercicio actualmente mostrado en la sesión. */
+    /**
+     * Ejercicio actualmente mostrado en la sesión.
+     *
+     * Devuelve `null` (NO `undefined`) cuando:
+     *   - El cursor ya pasó del último ejercicio (`sessionDone`).
+     *   - `content` aún no cargó (pre-init).
+     *   - El id no existe en `exerciseById` (no debería pasar; defensivo).
+     *
+     * Importante: este getter se evalúa también durante el "tick de unmount"
+     * de Alpine cuando `currentScreen` cambia de `'session'` a otra pantalla
+     * (UAT 02-03 finding 2). Sin esta guard explícita, los bindings del
+     * template — `payload.prompt`, `payload.options`, `payload.correctIndex` —
+     * intentan leer `.payload` de `undefined` y lanzan
+     * `TypeError: Cannot read properties of undefined`. El patrón es el mismo
+     * que Phase 1 usó en `<template x-if="ready && !done">` (UAT 01-02), pero
+     * aquí lo aplicamos también en el getter para que la guard sea doblemente
+     * segura (Phase 1 SUMMARY: defensa en profundidad).
+     *
+     * @returns {object|null}
+     */
     get sessionCurrentExercise() {
-      return this.content?.exerciseById?.[this.sessionExerciseIds[this.sessionCursor]];
+      if (!this.content) return null;
+      if (this.sessionCursor >= this.sessionExerciseIds.length) return null;
+      const id = this.sessionExerciseIds[this.sessionCursor];
+      if (!id) return null;
+      return this.content.exerciseById?.[id] ?? null;
     },
 
     /** SESSION-04: indicador "Ejercicio X / N" visible toda la sesión. */
