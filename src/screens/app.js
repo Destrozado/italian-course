@@ -57,7 +57,7 @@
 //   - Imports solo de capas inferiores: `domain/`, `data/storage.js`,
 //     `exercise-types/`. NUNCA imports cross-screen (solo hay un screen).
 
-import { buildSession, buildFullTest } from '../domain/session.js';
+import { buildSession, buildFullTest, fisherYates } from '../domain/session.js';
 import { applySessionResult, applyImmediateFailure } from '../domain/progress.js';
 import { todayLocal } from '../domain/dates.js';
 import { saveState } from '../data/storage.js';
@@ -109,6 +109,28 @@ export function appShell(appDataReady) {
     sessionFeedback: null,
     sessionAutoAdvanceHandle: null,
 
+    // ─── Sub-estado word-buttons (Phase 3 plan 01; D-56, D-57, D-64) ────────
+    /** Palabras VISIBLES del banco en orden actual (se vacía al colocar). */
+    wordButtonsBank: [],
+    /** Tokens colocados en el área respuesta, en orden cronológico. */
+    wordButtonsAnswer: [],
+
+    // ─── Sub-estado match (placeholders; Phase 3 plan 02 los activa) ────────
+    // Declarados AQUÍ en plan 01 para que `initSubStateForExercise` los
+    // pueda resetear uniformemente sin tener que tocar el factory en 03-02.
+    matchLeft: [],
+    matchRight: [],
+    /** null | number — índice del item izq actualmente seleccionado. */
+    matchSelectedLeftIdx: null,
+    /** Array<{leftIdx, rightIdx, pairIdx}> — parejas correctas ya formadas. */
+    matchPairsConsumed: [],
+    /** True si el usuario falló al menos UNA pareja en este ejercicio (D-60). */
+    matchHadFailure: false,
+    /** null | number — índice de pareja parpadeando rojo (D-60 flash). */
+    matchFlashIdx: null,
+    /** Handle del setTimeout del flash rojo (Pitfall #5 cleanup). */
+    matchFlashHandle: null,
+
     // ─── Sub-estado summary (stub; Plan 02-04 lo poblará) ───────────────────
     summaryDelta: null,
     summaryHeaderLabel: '',
@@ -144,6 +166,7 @@ export function appShell(appDataReady) {
      */
     destroy() {
       this.cancelAutoAdvance();
+      this.cancelMatchFlash();
     },
 
     // ════════════════════════════════════════════════════════════════════════
@@ -227,12 +250,24 @@ export function appShell(appDataReady) {
      */
     resetSession() {
       this.cancelAutoAdvance();
+      this.cancelMatchFlash();
       this.sessionMode = null;
       this.sessionExerciseIds = [];
       this.sessionCursor = 0;
       this.sessionResults = [];
       this.sessionSelectedIndex = null;
       this.sessionFeedback = null;
+      // Phase 3 plan 01: limpiar también los sub-estados de los tipos nuevos.
+      // Match queda con sus placeholders (plan 02 los activará); aquí solo
+      // reset uniforme. Si en el futuro emergen más sub-estados por tipo,
+      // este helper sigue siendo el único sitio donde se resetean.
+      this.wordButtonsBank = [];
+      this.wordButtonsAnswer = [];
+      this.matchLeft = [];
+      this.matchRight = [];
+      this.matchSelectedLeftIdx = null;
+      this.matchPairsConsumed = [];
+      this.matchHadFailure = false;
     },
 
     // ════════════════════════════════════════════════════════════════════════
@@ -326,6 +361,14 @@ export function appShell(appDataReady) {
       this.sessionResults = [];
       this.sessionSelectedIndex = null;
       this.sessionFeedback = null;
+
+      // Phase 3 plan 01: inicializar sub-estado del PRIMER ejercicio (si
+      // hay alguno). En pool vacío `result.exerciseIds = []` y el getter
+      // sessionCurrentExercise devuelve null defensivamente.
+      if (result.exerciseIds.length > 0) {
+        const firstEx = this.content.exerciseById[result.exerciseIds[0]];
+        this.initSubStateForExercise(firstEx);
+      }
 
       // D-41 / D-42 (Plan 02-04): primer write de inFlightTest para Test
       // completo. A partir de aquí cada respuesta y cada advance lo
@@ -424,6 +467,15 @@ export function appShell(appDataReady) {
       // persistInFlightTest mid-resume capture las mismas categorías (no es
       // crítico — persistInFlightTest cae al fallback `prev?.categoryIds`).
       this.pickerCheckedCategoryIds = [...ift.categoryIds];
+      // Phase 3 plan 01: inicializar sub-estado del ejercicio en el cursor
+      // restaurado. Si el ejercicio actual es word-buttons, el banco se
+      // re-baraja (D-57); no preservamos el banco previo entre sesiones
+      // porque inFlightTest no guarda sub-estado de tipo (sólo cursor +
+      // answers). Trade-off aceptable — la frase a construir es la misma.
+      if (this.sessionExerciseIds[this.sessionCursor]) {
+        const ex = this.content.exerciseById[this.sessionExerciseIds[this.sessionCursor]];
+        this.initSubStateForExercise(ex);
+      }
       this.currentScreen = 'session';
     },
 
@@ -580,10 +632,19 @@ export function appShell(appDataReady) {
 
       if (this.sessionCursor >= this.sessionExerciseIds.length) {
         this.completeSession();
-      } else if (this.sessionMode === 'test-completo') {
-        // D-42: persistir cursor avanzado (captura el avance post-advance
-        // ya aplicado).
-        this.persistInFlightTest();
+      } else {
+        // Phase 3 plan 01: inicializar sub-estado del NUEVO ejercicio antes
+        // de que Alpine reactive bindings lean el x-data (Pitfall #3: el
+        // wordButtonsBank del ejercicio anterior arrastra basura si no
+        // limpiamos antes del render del siguiente).
+        const nextEx = this.content.exerciseById[this.sessionExerciseIds[this.sessionCursor]];
+        this.initSubStateForExercise(nextEx);
+
+        if (this.sessionMode === 'test-completo') {
+          // D-42: persistir cursor avanzado (captura el avance post-advance
+          // ya aplicado).
+          this.persistInFlightTest();
+        }
       }
     },
 
@@ -596,6 +657,226 @@ export function appShell(appDataReady) {
         clearTimeout(this.sessionAutoAdvanceHandle);
         this.sessionAutoAdvanceHandle = null;
       }
+    },
+
+    // ════════════════════════════════════════════════════════════════════════
+    // Word-buttons handlers (Phase 3 plan 01; D-56, D-58, D-69)
+    // ════════════════════════════════════════════════════════════════════════
+
+    /**
+     * Mueve la palabra en posición `idx` del banco al final del área respuesta.
+     * Inmutable: asigna arrays NUEVOS para que la reactividad de Alpine los
+     * detecte (in-place `splice`/`push` no triggerea reactividad fiable).
+     *
+     * Guard: si ya hay feedback (acertó/falló), no hacer nada. Esto cubre
+     * tanto el click de ratón como las teclas 1-9 después del Comprobar.
+     *
+     * @param {number} idx - Índice de la palabra en `wordButtonsBank`.
+     */
+    wordButtonsAddWord(idx) {
+      if (this.sessionFeedback !== null) return;
+      if (idx < 0 || idx >= this.wordButtonsBank.length) return;
+      const word = this.wordButtonsBank[idx];
+      this.wordButtonsBank = this.wordButtonsBank.filter((_, i) => i !== idx);
+      this.wordButtonsAnswer = [...this.wordButtonsAnswer, word];
+    },
+
+    /**
+     * Inverso simétrico: mueve la palabra en posición `idx` del área respuesta
+     * de vuelta al final del banco. D-56: la palabra que regresa NO preserva
+     * su posición original en el banco — se append-ea al final. Esto es
+     * coherente con la mecánica "vuelve al banco" sin estado de "huecos".
+     *
+     * @param {number} idx - Índice en `wordButtonsAnswer`.
+     */
+    wordButtonsRemoveWord(idx) {
+      if (this.sessionFeedback !== null) return;
+      if (idx < 0 || idx >= this.wordButtonsAnswer.length) return;
+      const word = this.wordButtonsAnswer[idx];
+      this.wordButtonsAnswer = this.wordButtonsAnswer.filter((_, i) => i !== idx);
+      this.wordButtonsBank = [...this.wordButtonsBank, word];
+    },
+
+    /**
+     * D-58: handler del botón "Comprobar" (también Enter cuando word-buttons
+     * está en sessionFeedback === null). Llama al grader del registry y
+     * delega en `applyResultToSession` (single call-site D-54).
+     *
+     * Guards: si ya hay feedback o el área respuesta está vacía (D-58
+     * "deshabilitado"), no hacer nada.
+     */
+    wordButtonsCheck() {
+      if (this.sessionFeedback !== null) return;
+      if (!this.wordButtonsCanCheck) return;
+      const ex = this.sessionCurrentExercise;
+      const handler = registry[ex.type];
+      const correct = handler.grade(ex, { tokens: this.wordButtonsAnswer });
+      this.applyResultToSession(ex, correct);
+    },
+
+    // ════════════════════════════════════════════════════════════════════════
+    // Sub-state init por tipo de ejercicio (Phase 3 plan 01; D-56/D-57/D-62)
+    // ════════════════════════════════════════════════════════════════════════
+
+    /**
+     * Inicializa los sub-estados específicos del tipo de ejercicio que se va
+     * a mostrar. SIEMPRE limpia primero TODOS los sub-estados (word-buttons +
+     * match) — uniformidad: el estado al entrar a un ejercicio nunca arrastra
+     * residuo del anterior. Después rellena los del tipo actual.
+     *
+     * Invocado desde:
+     *   - `startSession()` tras computar `sessionExerciseIds[0]`.
+     *   - `sessionAdvance()` tras incrementar el cursor (si no terminó).
+     *   - `resumeInFlightTest()` tras restaurar el cursor.
+     *
+     * Match: en plan 01 solo se DECLARAN los sub-estados (placeholder). Plan
+     * 02 añade la rama `if (exercise.type === 'match')` para barajar las dos
+     * columnas con `fisherYates`. La limpieza universal aquí ya cubre el
+     * reset del flag `matchHadFailure` por ejercicio (D-60: el flag es por
+     * ejercicio, NO por sesión).
+     *
+     * @param {object|null} exercise - El ejercicio a inicializar; null = solo limpieza.
+     */
+    initSubStateForExercise(exercise) {
+      // Limpieza universal de TODOS los sub-estados de tipos nuevos.
+      this.wordButtonsBank = [];
+      this.wordButtonsAnswer = [];
+      this.matchLeft = [];
+      this.matchRight = [];
+      this.matchSelectedLeftIdx = null;
+      this.matchPairsConsumed = [];
+      this.matchHadFailure = false;
+      this.cancelMatchFlash();
+
+      if (!exercise) return;
+
+      if (exercise.type === 'word-buttons') {
+        // D-57: banco = shuffle(answer ∪ distractors). El shuffle usa
+        // Math.random (no seedable aquí — el sampler ya usa seed determinista
+        // para los IDs, pero el banco visual es non-deterministic intentional:
+        // queremos que el autor vea órdenes distintos en cada session reload).
+        const all = [
+          ...(exercise.payload.answer ?? []),
+          ...(exercise.payload.distractors ?? [])
+        ];
+        this.wordButtonsBank = fisherYates(all);
+        this.wordButtonsAnswer = [];
+      }
+      // Plan 02 añade la rama `match` (shuffle de matchLeft/matchRight,
+      // matchSelectedLeftIdx = null, matchPairsConsumed = [], matchHadFailure
+      // ya resetado arriba).
+    },
+
+    /**
+     * Cancela el setTimeout del flash rojo de match (D-60). Idempotente.
+     * Stub en plan 01 — match no llega hasta plan 02, pero se declara aquí
+     * para que `destroy()` y `resetSession()` puedan invocarlo uniformemente
+     * sin necesitar guard de existencia.
+     */
+    cancelMatchFlash() {
+      if (this.matchFlashHandle !== null) {
+        clearTimeout(this.matchFlashHandle);
+        this.matchFlashHandle = null;
+      }
+      this.matchFlashIdx = null;
+    },
+
+    // ════════════════════════════════════════════════════════════════════════
+    // Handler global de teclado (Phase 3 plan 01; D-68/D-69/D-71/D-72)
+    // ════════════════════════════════════════════════════════════════════════
+
+    /**
+     * Handler global del session screen registrado vía `@keydown.window` en
+     * `index.html`. Cubre la ergonomía SESSION-06 + D-68 + D-69 + D-71.
+     *
+     * Cleanup: `@keydown.window` se desmonta automáticamente cuando el outer
+     * `<template x-if="currentScreen === 'session'">` se desmonta (D-72).
+     * Defensa adicional: guard `!sessionCurrentExercise` al inicio descarta
+     * eventos durante el "tick de unmount" de Alpine.
+     *
+     * Ramas (en orden de evaluación):
+     *   1. Modificadores Ctrl/Meta/Alt → return (no consumir; deja pasar
+     *      combos de navegador).
+     *   2. `!sessionCurrentExercise` → return (defensivo).
+     *   3. `Enter` / `Space`:
+     *      - Space: preventDefault() para evitar scroll de página.
+     *      - Si sessionFeedback === 'incorrect' → sessionAdvance (D-71).
+     *      - Si word-buttons + sin feedback + canCheck → wordButtonsCheck.
+     *      - En cualquier otro caso (acierto reciente, banco vacío, etc.):
+     *        return (D-71: tras acierto, deja correr el auto-avance 600ms).
+     *   4. `Backspace`: si word-buttons + sin feedback + área respuesta no
+     *      vacía → wordButtonsRemoveWord(last). preventDefault para evitar
+     *      navegación al historial.
+     *   5. Dígitos '1'..'9': si feedback != null → return. Si no:
+     *      - multiple-choice: si idx < options.length → sessionSelectOption.
+     *      - word-buttons: si idx < bank.length AND idx < 9 → wordButtonsAddWord.
+     *      - match: placeholder no-op — plan 02 añade matchSelectLeft.
+     *   6. Letras 'a'..'i': placeholder no-op — plan 02 añade matchPickRight.
+     *   7. Cualquier otra tecla: noop, no preventDefault.
+     *
+     * @param {KeyboardEvent} event
+     */
+    handleSessionKey(event) {
+      // 1. Combos modificados — no interceptar.
+      if (event.ctrlKey || event.metaKey || event.altKey) return;
+
+      // 2. Defensivo: durante el tick de unmount o si no hay ejercicio.
+      const ex = this.sessionCurrentExercise;
+      if (!ex) return;
+
+      const key = event.key;
+
+      // 3. Enter / Space — Comprobar o Siguiente según contexto (D-71).
+      if (key === 'Enter' || key === ' ') {
+        if (key === ' ') event.preventDefault(); // evitar scroll
+        if (this.sessionFeedback === 'incorrect') {
+          // D-71: tras fallo, Enter/Space avanza (= click Siguiente).
+          this.sessionAdvance();
+          return;
+        }
+        if (ex.type === 'word-buttons' && this.sessionFeedback === null && this.wordButtonsCanCheck) {
+          // D-58: Enter dispara Comprobar (mismo handler que el botón).
+          this.wordButtonsCheck();
+          return;
+        }
+        // Acierto reciente o área respuesta vacía: no hacer nada.
+        // D-71: el auto-avance 600ms gestiona el avance tras acierto.
+        return;
+      }
+
+      // 4. Backspace — quita última palabra colocada (word-buttons, D-69).
+      if (key === 'Backspace') {
+        if (ex.type === 'word-buttons' && this.sessionFeedback === null && this.wordButtonsAnswer.length > 0) {
+          event.preventDefault(); // evitar navegación back en algunos navegadores
+          this.wordButtonsRemoveWord(this.wordButtonsAnswer.length - 1);
+        }
+        return;
+      }
+
+      // 5. Dígitos 1..9 — selección según tipo (D-68 + D-69).
+      if (/^[1-9]$/.test(key)) {
+        if (this.sessionFeedback !== null) return;
+        const idx = parseInt(key, 10) - 1;
+        if (ex.type === 'multiple-choice') {
+          // D-68: 1..4 selecciona opción N-1; teclas que excedan se ignoran.
+          if (idx < (ex.payload.options?.length ?? 0)) {
+            this.sessionSelectOption(idx);
+          }
+          return;
+        }
+        if (ex.type === 'word-buttons') {
+          // D-69: 1..9 dinámicos sobre las palabras visibles del banco.
+          if (idx < this.wordButtonsBank.length && idx < 9) {
+            this.wordButtonsAddWord(idx);
+          }
+          return;
+        }
+        // ramas match (números sobre matchLeft) llegan en 03-02
+        return;
+      }
+
+      // 6. Letras a..i — match letras a-i llegan en 03-02
+      // (Sin preventDefault — deja al navegador procesar normalmente.)
     },
 
     /**
@@ -697,6 +978,42 @@ export function appShell(appDataReady) {
     /** SESSION-04: indicador "Ejercicio X / N" visible toda la sesión. */
     get sessionProgressLabel() {
       return `Ejercicio ${this.sessionCursor + 1} / ${this.sessionExerciseIds.length}`;
+    },
+
+    /**
+     * D-69: vista derivada del banco con sufijos numéricos visibles para
+     * teclas 1..9. Re-numeración DINÁMICA: el bind `1` siempre apunta a la
+     * primera palabra VISIBLE actual; al colocar una palabra, la posición
+     * 2 se convierte en 1, etc.
+     *
+     * Para palabras en posiciones >=9 (raro en A1/A2 pero defendible), la
+     * key es string vacío — el sufijo simplemente no se renderiza y la
+     * palabra solo es alcanzable por click. UI-SPEC `.kbd-hint` se oculta
+     * por string vacío en el HTML via `x-text="entry.key"` (Alpine renderea
+     * "" como nada).
+     *
+     * Double-defense Alpine: si no hay ejercicio actual, retornar []
+     * (evita TypeError durante el tick de unmount).
+     *
+     * @returns {Array<{word: string, key: string}>}
+     */
+    get bankWithKeys() {
+      if (!this.sessionCurrentExercise) return [];
+      return this.wordButtonsBank.map((word, idx) => ({
+        word,
+        key: idx < 9 ? String(idx + 1) : ''
+      }));
+    },
+
+    /**
+     * D-58: condición de habilitación del botón "Comprobar". Requiere que
+     * el área respuesta NO esté vacía (al menos 1 token colocado) Y que no
+     * haya ya un feedback (verde/rojo bloquea la segunda comprobación).
+     *
+     * @returns {boolean}
+     */
+    get wordButtonsCanCheck() {
+      return this.wordButtonsAnswer.length > 0 && this.sessionFeedback === null;
     },
 
     /**
