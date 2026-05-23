@@ -79,9 +79,9 @@ Phase: 1 (Loop mínimo end-to-end (Avere + multiple-choice)) — ALL PLANS COMPL
 
 ### Last Session
 
-- **Fecha:** 2026-05-23 (Phase 2 context-gathering)
-- **Trabajo:** Phase 2 discuss-phase ejecutado — 8 áreas de implementación discutidas (navegación, home dashboard, picker, resumen, racha, cascada, persistencia in-flight, testabilidad). 30 decisiones documentadas (D-24..D-53) en `02-CONTEXT.md`. Commit `57c6041 docs(02): capture phase context`.
-- **Siguiente paso:** `/gsd:plan-phase 2` — descomponer Phase 2 en planes ejecutables a partir de `02-CONTEXT.md`.
+- **Fecha:** 2026-05-23 (Phase 2 planning)
+- **Trabajo:** Phase 2 plan-phase ejecutado con `--skip-ui` implícito (UI decisions ya en CONTEXT.md D-29..D-37). Research (`02-RESEARCH.md`, 1599 líneas) + Pattern map (`02-PATTERNS.md`, 9 files clasificados) + 4 plans MVP vertical-slice (`02-01..02-04-PLAN.md`) + ROADMAP.md actualizado. Plan checker veredicto: **PASS** (cobertura 13/13 reqs, 6/6 success criteria, sin scope creep, sin contradicciones con CONTEXT.md). Commits: `e885957 docs(02): add phase research`, `7987873 docs(02): add pattern map`, `f7e569f docs(02): create phase plans (4 plans)`.
+- **Siguiente paso:** `/gsd:execute-phase 2` — ejecutar Wave 1 (Plan 02-01) y avanzar secuencialmente hasta Wave 4. Plan 02-03 y 02-04 incluyen UAT humano (browser).
 
 ### Files Generated
 
@@ -123,7 +123,7 @@ Phase: 1 (Loop mínimo end-to-end (Avere + multiple-choice)) — ALL PLANS COMPL
 ### Next Action
 
 ```
-/gsd:plan-phase 2   # descomponer Phase 2 en planes ejecutables a partir de 02-CONTEXT.md
+/gsd:execute-phase 2   # ejecutar los 4 plans secuencialmente (Wave 1→4), UAT en 02-03 y 02-04
 ```
 
 ---
