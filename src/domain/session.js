@@ -20,11 +20,41 @@
 //   - D-51 (Phase 2): oversubscription silente — si `categoryIds.length >
 //     requestedSize`, la GUARANTEE phase corta cuando `|session| >= target`;
 //     las categorías sobrantes se ignoran sin warning (diferido a Phase 5).
+//   - D-62 (Phase 3): `fisherYates(arr, rng)` se exporta como helper público
+//     reusable para shuffles deterministas — usado por `buildFullTest` aquí
+//     y por el banco word-buttons / las columnas match en el screen layer.
 //
 // Layer purity: este módulo no importa de `../data/*` ni de `../screens/*`.
 
 /** Cap de timesShown a la hora de computar el peso. */
 const WEIGHT_CAP = 10;
+
+/**
+ * Fisher-Yates shuffle seedable. Copia defensiva — NO muta `arr`.
+ *
+ * D-62 (Phase 3): se exporta como helper público para reusar el mismo
+ * algoritmo determinista (mismo RNG → mismo orden) en tres sitios:
+ *   1. `buildFullTest` aquí (paso 2 — shuffle del pool entero).
+ *   2. Banco de palabras del tipo word-buttons (init sub-state al cargar
+ *      ejercicio, mezcla `answer ∪ distractors`).
+ *   3. Las dos columnas del tipo match (init sub-state — shuffle
+ *      independiente de `pairs.map(p => p[0])` y `pairs.map(p => p[1])`).
+ *
+ * Pure: el RNG es inyectable; con seed fijo el orden es reproducible.
+ *
+ * @template T
+ * @param {T[]} arr - Array de entrada (NO se muta).
+ * @param {() => number} [rng=Math.random] - RNG inyectable; debe devolver float en [0,1).
+ * @returns {T[]} Array nuevo con los mismos elementos en orden barajado.
+ */
+export function fisherYates(arr, rng = Math.random) {
+  const out = [...arr];
+  for (let i = out.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1));
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  return out;
+}
 
 /**
  * Peso de un ejercicio en función de cuántas veces se ha mostrado.
@@ -114,14 +144,15 @@ export function buildSession(categoryIds, allExercises, state, requestedSize, mo
 
   // 4. Fisher-Yates final con el mismo rng — los picks de GUARANTEE no quedan
   //    todos al inicio del array. Mantiene determinismo dado un RNG fijo.
-  for (let i = session.length - 1; i > 0; i--) {
-    const j = Math.floor(rng() * (i + 1));
-    [session[i], session[j]] = [session[j], session[i]];
-  }
+  //    D-62: usamos el helper exportable `fisherYates` para consolidar el
+  //    algoritmo en un único sitio. `fisherYates` devuelve copia; sobreescribimos
+  //    `session` con el resultado para mantener la semántica del bucle inline
+  //    original (no muta el array compartido fuera de scope).
+  const shuffledSession = fisherYates(session, rng);
 
   return {
-    exerciseIds: session.map(ex => ex.id),
-    actualSize: session.length
+    exerciseIds: shuffledSession.map(ex => ex.id),
+    actualSize: shuffledSession.length
   };
 }
 
@@ -146,11 +177,9 @@ export function buildFullTest(categoryIds, allExercises, rng = Math.random) {
   );
 
   // 2. Fisher-Yates sobre el pool entero. Sin tope, sin weighted, sin guarantee.
-  const shuffled = [...pool];
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(rng() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
+  //    D-62: usamos el helper exportable `fisherYates` (mismo algoritmo,
+  //    mismo determinismo dado RNG fijo — un único call-site para el shuffle).
+  const shuffled = fisherYates(pool, rng);
 
   return {
     exerciseIds: shuffled.map(ex => ex.id),
