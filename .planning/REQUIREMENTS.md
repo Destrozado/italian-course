@@ -109,16 +109,54 @@ Explicitly excluded for v1. Documented to prevent scope creep.
 
 ## Traceability
 
-(Empty — populated by gsd-roadmapper)
-
 | Requirement | Phase | Status |
 |-------------|-------|--------|
+| FOUND-01 | Fase 1 | Pending |
+| FOUND-02 | Fase 1 | Pending |
+| FOUND-03 | Fase 1 | Pending |
+| FOUND-04 | Fase 1 | Pending |
+| CONT-01 | Fase 1 | Pending |
+| CONT-02 | Fase 1 | Pending |
+| CONT-03 | Fase 1 | Pending |
+| CONT-04 | Fase 1 | Pending |
+| CONT-05 | Fase 1 | Pending |
+| CONT-06 | Fase 1 | Pending |
+| EXTYPE-01 | Fase 1 | Pending |
+| EXTYPE-02 | Fase 3 | Pending |
+| EXTYPE-03 | Fase 3 | Pending |
+| DOMAIN-01 | Fase 1 | Pending |
+| DOMAIN-02 | Fase 1 | Pending |
+| DOMAIN-03 | Fase 2 | Pending |
+| DOMAIN-04 | Fase 2 | Pending |
+| DOMAIN-05 | Fase 2 | Pending |
+| DOMAIN-06 | Fase 2 | Pending |
+| DOMAIN-07 | Fase 2 | Pending |
+| DOMAIN-08 | Fase 2 | Pending |
+| DOMAIN-09 | Fase 1 | Pending |
+| DOMAIN-10 | Fase 2 | Pending |
+| SESSION-01 | Fase 2 | Pending |
+| SESSION-02 | Fase 2 | Pending |
+| SESSION-03 | Fase 2 | Pending |
+| SESSION-04 | Fase 1 | Pending |
+| SESSION-05 | Fase 1 | Pending |
+| SESSION-06 | Fase 3 | Pending |
+| SESSION-07 | Fase 2 | Pending |
+| SESSION-08 | Fase 2 | Pending |
+| SESSION-09 | Fase 2 | Pending |
+| BACK-01 | Fase 1 | Pending |
+| BACK-02 | Fase 1 | Pending |
+| BACK-03 | Fase 1 | Pending |
+| BACK-04 | Fase 4 | Pending |
+| BACK-05 | Fase 4 | Pending |
+| BACK-06 | Fase 4 | Pending |
+| SEED-01 | Fase 4 | Pending |
+| SEED-02 | Fase 4 | Pending |
 
 **Coverage:**
 - v1 requirements: 40 total
-- Mapped to phases: 0
-- Unmapped: 40 ⚠️ (pending roadmap)
+- Mapped to phases: 40 (100%)
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-05-23*
-*Last updated: 2026-05-23 after initialization*
+*Last updated: 2026-05-23 after roadmap creation*
