@@ -25,7 +25,7 @@
 
 - [x] **EXTYPE-01**: Tipo `multiple-choice`: muestra una frase con un hueco y 3-4 botones de opción; el usuario pulsa una; valida acertado/fallado
 - [ ] **EXTYPE-02**: Tipo `word-buttons`: muestra una frase en español a traducir; presenta botones con palabras italianas (más algunas distractoras); el usuario las pulsa en orden para construir la traducción; valida cuando el usuario marca terminado
-- [ ] **EXTYPE-03**: Tipo `match`: muestra dos columnas (ej. sustantivos ↔ artículos); el usuario hace click en un ítem de la izquierda y luego en su pareja a la derecha; valida cuando todos están emparejados
+- [x] **EXTYPE-03**: Tipo `match`: muestra dos columnas (ej. sustantivos ↔ artículos); el usuario hace click en un ítem de la izquierda y luego en su pareja a la derecha; valida cuando todos están emparejados (completado Phase 3 plan 02 — handler `match.grade` puro + sub-template Alpine 2 columnas + cascada D-61 inmediata idempotente + teclado 1-9 + a-i + seed avere-200..202 incluyendo duplicados D-66; ver 03-02-SUMMARY.md)
 
 ### Domain Core (DOMAIN)
 
@@ -125,7 +125,7 @@ Explicitly excluded for v1. Documented to prevent scope creep.
 | CONT-06 | Fase 1 | In Progress (awaiting verifier) |
 | EXTYPE-01 | Fase 1 | In Progress (awaiting verifier) |
 | EXTYPE-02 | Fase 3 | Pending |
-| EXTYPE-03 | Fase 3 | Pending |
+| EXTYPE-03 | Fase 3 | Complete (Plan 03-02) |
 | DOMAIN-01 | Fase 1 | In Progress (awaiting verifier) |
 | DOMAIN-02 | Fase 1 | In Progress (awaiting verifier) |
 | DOMAIN-03 | Fase 2 | Complete |

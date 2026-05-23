@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-05-23T21:32:30Z"
+last_updated: "2026-05-23T21:56:34.675Z"
 progress:
   total_phases: 4
   completed_phases: 2
   total_plans: 9
-  completed_plans: 7
-  percent: 78
+  completed_plans: 8
+  percent: 50
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -23,22 +23,22 @@ progress:
 ## Current Position
 
 Phase: 3 (Variedad de ejercicios + ergonomía de teclado) — EXECUTING
-Plan: 1 of 3 — **COMPLETED** (2026-05-23, ver [03-01-SUMMARY.md](./phases/03-variedad-de-ejercicios-ergonom-a-de-teclado/03-01-SUMMARY.md))
-Next: Plan 03-02 (Slice vertical match)
+Plan: 2 of 3 — **COMPLETED** (2026-05-23, ver [03-02-SUMMARY.md](./phases/03-variedad-de-ejercicios-ergonom-a-de-teclado/03-02-SUMMARY.md))
+Next: Plan 03-03 (Checkpoint UAT exhaustivo)
 
 - **Phase:** 3
-- **Plan:** 03-01 completado; siguiente 03-02
+- **Plan:** 03-02 completado; siguiente 03-03 (UAT checkpoint)
 - **Status:** Executing Phase 3
-- **Progress:** [████████░░] 78% (7/9 planes — 2 de 4 fases completadas + 1/3 planes de Phase 3)
+- **Progress:** [█████████░] 89% (8/9 planes — 2 de 4 fases completadas + 2/3 planes de Phase 3)
 
 ## Performance Metrics
 
 | Métrica | Valor |
 |---------|-------|
 | Fases completadas | 2/4 |
-| Requisitos v1 completos | 32/40 (80% — Phase 1: 19 + Phase 2: 13) |
+| Requisitos v1 completos | 33/40 (83% — Phase 1: 19 + Phase 2: 13 + Phase 3 03-02: 1 EXTYPE-03) |
 | Requisitos v1 mapeados | 40/40 (100%) |
-| Tests dominio | 58 verdes |
+| Tests dominio + UI smoke | 105 verdes |
 | Granularidad | coarse |
 | Mode | MVP (vertical slices) |
 
@@ -69,6 +69,10 @@ Next: Plan 03-02 (Slice vertical match)
 | 2026-05-23 | Plan 03-01 — `fisherYates` exportable público desde `src/domain/session.js` | Un único algoritmo de shuffle determinista reusable por `buildSession`, `buildFullTest`, y `initSubStateForExercise` (banco word-buttons). Layer purity preservada — screen importa de domain, no al revés |
 | 2026-05-23 | Plan 03-01 — `@keydown.window` dentro de outer `x-if="currentScreen === 'session'"` | Cleanup automático al desmontar (D-72 confirmado; A1 Assumptions Log no requirió fallback a addEventListener manual). Pattern reusable por 03-02 sin re-evaluar |
 | 2026-05-23 | Plan 03-01 — Sub-estados de TODOS los tipos declarados desde el primer plan que los toca | Match sub-estados (matchLeft, matchRight, matchPairsConsumed, etc.) declarados en el factory en 03-01 aunque la lógica llega en 03-02 — permite limpieza universal en `initSubStateForExercise` sin tener que volver a tocar el factory |
+| 2026-05-23 | Plan 03-02 — `applyImmediateFailure` tiene 2 call-sites EXACTOS (no 1) | El primero en `applyResultToSession` (decisión final, 3 tipos); el segundo directo en `matchPickRight` con guard `if (!this.matchHadFailure)` (D-61 primer fallo match, antes de que el ejercicio termine). Test W3 cuenta los call-sites para detectar regresiones arquitectónicas (3 = copy-paste mal hecho, 1 = refactor que centralizó incorrectamente) |
+| 2026-05-23 | Plan 03-02 — Retorno enriquecido `{correct, pairIdx?}` de `match.grade()` justificado funcionalmente | Asimetría con multi-choice/word-buttons (booleano) NO es inconsistencia del registry — es necesidad D-66 (caller necesita el `pairIdx` consumido para marcar el pair). El JSDoc en `match.js` lo explicita; `index.js` también referencia la asimetría |
+| 2026-05-23 | Plan 03-02 — `test.skip` condicional con detección runtime (matchPickRightExists) | Patrón reusable cuando un test añadido en Task N verifica código que llega en Task N+1. La función predicate desactiva el skip automáticamente al landed Task N+1 sin editar el archivo de tests. Auditable: el commit de Task N tiene exit 0 con skipped explicado; el commit de Task N+1 activa los tests sin cambiar tests |
+| 2026-05-23 | Plan 03-02 — Forced last pair: NO auto-completar (UI-SPEC normativo) | Coherencia mecánica: todas las parejas siguen el mismo flujo, incluso la última. Implementación verificada por inspección: `applyResultToSession` se invoca SOLO cuando `matchPairsConsumed.length === pairs.length` (el último click es manual) |
 
 ### Active Todos
 
@@ -76,7 +80,7 @@ Next: Plan 03-02 (Slice vertical match)
 - [x] Ejecutar Plan 01-01 — esqueleto del proyecto + dominio + seed Avere
 - [x] Ejecutar Plan 01-02 — Pantalla de sesión Alpine + persistencia end-to-end — UAT 8/8 aprobado
 - [x] Ejecutar Plan 03-01 — word-buttons end-to-end + atajos teclado mínimos + helpers compartidos
-- [ ] Ejecutar Plan 03-02 — match end-to-end (reemplaza stub validator, añade matchPickRight + flashMatchPair, rama match en handleSessionKey/initSubStateForExercise)
+- [x] Ejecutar Plan 03-02 — match end-to-end (reemplaza stub validator, añade matchPickRight + flashMatchPair, rama match en handleSessionKey/initSubStateForExercise) — 105/105 tests verdes, 2 commits
 - [ ] Ejecutar Plan 03-03 — UAT checkpoint (4 criterios ROADMAP + 8 pitfalls + 2 exploit-proof + W2 regression smoke Phase 2)
 
 ### Blockers
@@ -91,8 +95,9 @@ Next: Plan 03-02 (Slice vertical match)
 
 ### Last Session
 
-- **Fecha:** 2026-05-23 (Plan 03-01 completed)
-- **Trabajo actual (Plan 03-01):** ejecución end-to-end de 3 tasks en 6 commits (cb17a97, dd45a0a, 9b1beac, 14ec6d4, 3be17c0, f12838a) — word-buttons handler + dispatch-table validator + 23 tests, refactor fisherYates exportable, refactor sessionSelectOption→applyResultToSession single call-site D-54, sub-estados word-buttons + match placeholders + handlers + handleSessionKey + initSubStateForExercise, 2 ejercicios word-buttons en avere.json, sub-template HTML + CSS .wb-*. 81/81 tests verdes (58 baseline Phase 1+2 + 23 nuevos). Phase 2 regression smoke (5 pasos UAT humano) NO ejecutado en wave sequential — mitigado por equivalencia algebraica del refactor + single call-site verificado por grep + 58 tests baseline siguen verdes. Recomendación 03-03: ejecutar el smoke regression Phase 2 ANTES de los pasos word-buttons/match en el UAT.
+- **Fecha:** 2026-05-23 (Plan 03-02 completed)
+- **Trabajo actual (Plan 03-02):** ejecución end-to-end de 2 tasks en 2 commits (f9e400e, f4000b7) — match handler puro + validateMatchPayload impl real + registry final con 3 entradas + 2 call-sites EXACTOS de applyImmediateFailure (uno en applyResultToSession decisión final, otro en matchPickRight primer-fallo con guard matchHadFailure) + sub-template HTML match + 5 selectores CSS + 3 ejercicios match seed (incluyendo avere-202 con duplicados D-66) + W3 idempotencia tests (skipped en Task 1, activados automáticamente al landed Task 2 vía detección runtime de matchPickRight en source) + W5 smoke tests (presencia textual de handlers + ramas match en handleSessionKey + shuffle en initSubStateForExercise). 105/105 tests verdes (81 baseline + 24 nuevos). Comentarios placeholder '03-02' eliminados (grep `03-02` en src/screens/app.js retorna nada). Stub message `'aún no soportado'` completamente erradicado. EXTYPE-03 cierra; SESSION-06 contribuido por 03-01 + 03-02 pero closure formal en UAT 03-03.
+- **Trabajo previo (Plan 03-01):** ejecución end-to-end de 3 tasks en 6 commits (cb17a97, dd45a0a, 9b1beac, 14ec6d4, 3be17c0, f12838a) — word-buttons handler + dispatch-table validator + 23 tests, refactor fisherYates exportable, refactor sessionSelectOption→applyResultToSession single call-site D-54, sub-estados word-buttons + match placeholders + handlers + handleSessionKey + initSubStateForExercise, 2 ejercicios word-buttons en avere.json, sub-template HTML + CSS .wb-*. 81/81 tests verdes (58 baseline Phase 1+2 + 23 nuevos). Phase 2 regression smoke (5 pasos UAT humano) NO ejecutado en wave sequential — mitigado por equivalencia algebraica del refactor + single call-site verificado por grep + 58 tests baseline siguen verdes. Recomendación 03-03: ejecutar el smoke regression Phase 2 ANTES de los pasos word-buttons/match en el UAT.
 - **Trabajo previo (Phase 3 discuss):** `/gsd:discuss-phase 3` ejecutado. 4 áreas grises discutidas (UX word-buttons, UX match, ergonomía teclado, schema JSON + grading), 16 preguntas single-turn, 17 decisiones nuevas capturadas (D-56..D-72).
 - **Trabajo (Phase 3 UI-SPEC):** `/gsd:ui-phase 3` ejecutado. `gsd-ui-researcher` (opus) generó `03-UI-SPEC.md` (352 líneas, 28 KB) resolviendo 5 puntos de Claude's discretion: superíndice Unicode `¹²³ᵃᵇᶜ` con `.kbd-hint` (vs `<kbd>`), outline 2px Pico primary para item izq seleccionado en match, `@keyframes match-flash-red` 300ms única WCAG §2.3.1 safe, placeholder vía `::before` italic muted, forced-last-pair NO auto-completar. `gsd-ui-checker` (sonnet) aprobó 6/6 dimensiones (copywriting, visuals, color, typography, spacing, registry safety) sin issues bloqueantes. 3 notas de calidad no bloqueantes para el planner: documentar inline el selector `.wb-answer.incorrecta`, garantizar cleanup del `setTimeout` de match-flash, aceptar `aria-live="polite"` sobre `.wb-answer`. Commit `47f2995`. Resumen:
   - Word-buttons: banco → área respuesta, distractoras opcionales, botón Comprobar + Enter, frase correcta literal al fallar.
@@ -140,15 +145,18 @@ Next: Plan 03-02 (Slice vertical match)
 | 1 | 01-01 | ~14 min | 3 | 16 |
 | 1 | 01-02 | ~22 min | 3 (2 auto + 1 checkpoint) | 4 |
 | 3 | 03-01 | ~38 min | 3 (Task 1 + Task 2a en 4 sub-commits + Task 2b) | 10 (3 created + 7 modified) |
+| 3 | 03-02 | ~10 min | 2 (Task 1 TDD + Task 2 sub-template/handlers/seed/W5) | 9 (2 created + 7 modified) |
 
 ### Next Action
 
 ```
-# Plan 03-01 completado. Siguiente:
-/gsd:execute-phase 3   # continuar con 03-02 (match) y 03-03 (UAT)
+
+# Plan 03-02 completado. Siguiente:
+
+/gsd:execute-phase 3   # continuar con 03-03 (UAT checkpoint)
 ```
 
-Plan 03-02 reusará los helpers de 03-01 (applyResultToSession, initSubStateForExercise, handleSessionKey, cancelMatchFlash, fisherYates) sin modificarlos — solo añade la rama match en cada uno, reemplaza el stub validateMatchPayload por impl real, y añade el archivo nuevo `src/exercise-types/match.js`.
+Plan 03-03 (UAT) verificará manualmente los 4 criterios ROADMAP + 11 pasos human-check + D-61 exploit-proof + D-66 duplicados visuales + W2 Phase 2 regression smoke. Los 3 tipos finales están operativos end-to-end (handler + render + grading + cascada D-54/D-61). 105 tests verdes como baseline de regresión.
 
 ---
 *State initialized: 2026-05-23*
