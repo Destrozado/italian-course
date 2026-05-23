@@ -59,23 +59,39 @@ button.incorrecta {
 .badge-dominada { color: var(--pico-color-amber-500, #f59e0b); font-weight: 600; }
 
 /*
- * Botones grandes de la home (`Repaso 20` / `Test completo`). UAT 02-03 detectó
- * que `role="group"` (Pico's button group) los renderizaba pegados sin gap, y
- * casi no parecían botones distintos. Sustituimos por un flex wrapper propio:
- *   - `gap: 1rem` separa los dos botones visiblemente.
- *   - `flex: 1` les da ancho similar (se reparten el espacio del article).
- *   - `font-size: 1.1rem` + `padding` los engorda lo justo para que se lean
- *     como acciones primarias claras y NO como un título.
- * Pico ya estiliza `<button>` con background sólido + hover state, así que no
- * hace falta override de colores.
+ * Patrón genérico para filas de botones adyacentes (`.button-row`).
+ *
+ * Origen: UAT 02-03 round 1 detectó que `role="group"` (Pico's button group)
+ * renderizaba los dos botones grandes de la home `Repaso 20` / `Test completo`
+ * pegados sin gap, casi como un título. Fix inicial: clase específica
+ * `.home-actions`.
+ *
+ * UAT 02-04 round 2: el MISMO problema reapareció en el picker
+ * (`Seleccionar todo` / `Quitar todo`) — Pico classless no añade gap entre
+ * `<button>` adyacentes en ningún contexto, no solo el home. Generalizamos la
+ * clase a `.button-row` para reusar en CUALQUIER fila de botones adyacentes
+ * (home, picker, banner in-flight, confirmación inline). Lección: el patrón
+ * de spacing entre botones es recurrente — un solo selector reutilizable lo
+ * previene a futuro.
+ *
+ * Variantes:
+ *   - `.button-row` (base): flex con gap visible. Los botones interiores
+ *     se reparten el ancho disponible.
+ *   - `.button-row.button-row-prominent`: añade font-size/padding extra
+ *     para acciones primarias (home `Repaso 20`/`Test completo`).
+ *
+ * Pico ya estiliza `<button>` con background sólido + hover state, así que
+ * no hace falta override de colores.
  */
-.home-actions {
+.button-row {
   display: flex;
   gap: 1rem;
   margin: 1.5rem 0;
 }
-.home-actions button {
+.button-row button {
   flex: 1;
+}
+.button-row-prominent button {
   font-size: 1.1rem;
   padding: 0.75rem 1.5rem;
 }
