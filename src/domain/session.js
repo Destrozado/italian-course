@@ -1,18 +1,27 @@
 // src/domain/session.js
 //
-// Pure domain module — sampler de sesión. Sin DOM, sin storage, sin fetch.
+// Pure domain module — sampler de sesión. Sin DOM, sin storage, sin fetch
+// (D-02 layer-purity).
 //
 // Decisiones aplicadas:
-//   - DOMAIN-02: `buildSession(...)` con weighted random + sin reemplazo.
-//   - D-13: si `#pool < requestedSize`, reducimos al disponible (NO repetir).
-//   - D-14: ejercicios dentro de una sesión son únicos (sin reemplazo).
+//   - DOMAIN-02 (Phase 1): `buildSession(...)` con weighted random + sin reemplazo.
+//   - D-13 (Phase 1): si `#pool < requestedSize`, reducimos al disponible (NO repetir).
+//   - D-14 (Phase 1): ejercicios dentro de una sesión son únicos (sin reemplazo).
 //   - Weight cap = 10: `weight = 1 / (1 + min(timesShown, 10))` — evita que
 //     ejercicios nuevos (timesShown=0) monopolicen el muestreo durante semanas.
+//   - D-49 (Phase 2): `buildSession` añade GUARANTEE phase **antes** del FILL.
+//     Para cada categoría seleccionada, garantiza ≥1 ejercicio si hay candidates;
+//     un ejercicio multi-cat picked una sola vez puede cubrir N categorías
+//     (chequeo `alreadyCovered`).
+//   - D-50 (Phase 2): `buildFullTest(categoryIds, allExercises, rng)` nueva export.
+//     Modo "Test completo" del picker — Fisher-Yates determinista sobre el pool
+//     entero. Sin tope, sin weighted, sin guarantee phase (todos los ejercicios
+//     entran, orden random determinista).
+//   - D-51 (Phase 2): oversubscription silente — si `categoryIds.length >
+//     requestedSize`, la GUARANTEE phase corta cuando `|session| >= target`;
+//     las categorías sobrantes se ignoran sin warning (diferido a Phase 5).
 //
-// Phase 1 scope (per Assumption A5 del RESEARCH.md): solo FILL phase con
-// weighted random. La GUARANTEE phase (set-cover greedy para multi-categoría)
-// llega en Phase 2 cuando haya >1 categoría. En Phase 1 hay una sola categoría
-// ("avere") así que el set-cover es trivial / no-op.
+// Layer purity: este módulo no importa de `../data/*` ni de `../screens/*`.
 
 /** Cap de timesShown a la hora de computar el peso. */
 const WEIGHT_CAP = 10;
@@ -35,10 +44,18 @@ export function exerciseWeight(timesShown) {
 /**
  * Construye una sesión de práctica.
  *
- * - Filtra el pool a ejercicios cuyo `categoryIds` solape con `categoryIds`.
- * - Muestrea sin reemplazo con probabilidad proporcional a `exerciseWeight`.
- * - Si el pool es menor que `requestedSize`, devuelve el pool entero (D-13).
- * - Reordena la lista final con Fisher-Yates usando el mismo `rng`.
+ * Algoritmo (4 pasos):
+ *
+ *   1. **Pool**: ejercicios cuyo `categoryIds` solape con `categoryIds`.
+ *   2. **GUARANTEE phase** (D-49): para cada `cat` en `categoryIds`, si nadie en
+ *      `session` la cubre todavía, pickear un candidate ponderado por
+ *      `exerciseWeight`. Skip silencioso si no hay candidates (D-51). Break si
+ *      `session.length >= targetSize` (oversubscription protection).
+ *   3. **FILL phase** (Phase 1, refactorizado para reusar `weightedPickOne`):
+ *      mientras `session.length < targetSize` y queden ejercicios, pickear
+ *      del `remaining` (= `pool \ session`) ponderado.
+ *   4. **Fisher-Yates final** con el mismo `rng` — los picks de GUARANTEE NO se
+ *      quedan al inicio (orden randomizado).
  *
  * Pure: no muta `state` ni `allExercises`.
  *
@@ -51,46 +68,122 @@ export function exerciseWeight(timesShown) {
  * @returns {{ exerciseIds: string[], actualSize: number }}
  */
 export function buildSession(categoryIds, allExercises, state, requestedSize, mode = 'repaso', rng = Math.random) {
-  // 1. Filtrar el pool a ejercicios elegibles
+  // 1. Pool por solapamiento de categoryIds.
   const pool = allExercises.filter(ex =>
     Array.isArray(ex.categoryIds) && ex.categoryIds.some(c => categoryIds.includes(c))
   );
 
   if (pool.length === 0) return { exerciseIds: [], actualSize: 0 };
 
-  // 2. Reducir al disponible (D-13)
   const targetSize = Math.min(requestedSize, pool.length);
-  const remaining = [...pool];
-  const picked = [];
+  const session = []; // ejercicios elegidos (referencias del pool)
 
-  // 3. Loop de weighted sampling sin reemplazo
-  while (picked.length < targetSize && remaining.length > 0) {
-    const weights = remaining.map(ex =>
-      exerciseWeight(state.exerciseStats?.[ex.id]?.timesShown ?? 0)
+  // 2. GUARANTEE phase (D-49) — set-cover greedy.
+  //    Para cada categoría seleccionada, asegurar ≥1 ejercicio en session si
+  //    hay candidates disponibles. Multi-cat: un solo pick puede cubrir varias.
+  for (const cat of categoryIds) {
+    // 2a. alreadyCovered: ¿algún ejercicio ya en session pertenece a `cat`?
+    //     Funciona para multi-cat: un pick `[avere, genero]` cubre ambas.
+    const alreadyCovered = session.some(ex => (ex.categoryIds ?? []).includes(cat));
+    if (alreadyCovered) continue;
+
+    // 2b. Oversubscription protection (D-51): si ya llenamos, paramos sin
+    //     warning. Las categorías restantes quedan silenciosamente sin cubrir.
+    if (session.length >= targetSize) break;
+
+    // 2c. Candidates: pool ∩ ejercicios que incluyen `cat`, menos los ya en session.
+    const candidates = pool.filter(ex =>
+      (ex.categoryIds ?? []).includes(cat) && !session.includes(ex)
     );
-    const totalWeight = weights.reduce((a, b) => a + b, 0);
+    if (candidates.length === 0) continue; // D-51: skip silente
 
-    let r = rng() * totalWeight;
-    let idx = 0;
-    for (; idx < weights.length; idx++) {
-      r -= weights[idx];
-      if (r <= 0) break;
-    }
-    // Safety por float-rounding: si nada salió debajo de 0, el último índice
-    if (idx >= remaining.length) idx = remaining.length - 1;
+    // 2d. Pick ponderado.
+    const picked = weightedPickOne(candidates, state, rng);
+    session.push(picked);
+  }
 
-    picked.push(remaining[idx]);
+  // 3. FILL phase (Phase 1, sin cambios estructurales — D-49 paso 3).
+  //    `remaining` = pool sin los ya picked en GUARANTEE.
+  const remaining = pool.filter(ex => !session.includes(ex));
+  while (session.length < targetSize && remaining.length > 0) {
+    const picked = weightedPickOne(remaining, state, rng);
+    session.push(picked);
+    const idx = remaining.indexOf(picked);
     remaining.splice(idx, 1); // D-14: sin reemplazo
   }
 
-  // 4. Fisher-Yates final con el mismo rng
-  for (let i = picked.length - 1; i > 0; i--) {
+  // 4. Fisher-Yates final con el mismo rng — los picks de GUARANTEE no quedan
+  //    todos al inicio del array. Mantiene determinismo dado un RNG fijo.
+  for (let i = session.length - 1; i > 0; i--) {
     const j = Math.floor(rng() * (i + 1));
-    [picked[i], picked[j]] = [picked[j], picked[i]];
+    [session[i], session[j]] = [session[j], session[i]];
   }
 
   return {
-    exerciseIds: picked.map(ex => ex.id),
-    actualSize: picked.length
+    exerciseIds: session.map(ex => ex.id),
+    actualSize: session.length
   };
+}
+
+/**
+ * Modo "Test completo" del picker (D-50).
+ *
+ * Devuelve TODOS los ejercicios del pool filtrado por las categorías, ordenados
+ * con Fisher-Yates usando el RNG inyectado. Sin tope, sin weighted sampling,
+ * sin guarantee phase (todos los ejercicios entran exactamente una vez).
+ *
+ * Pure: no muta `allExercises`. Determinista con seed (mismo seed → mismo orden).
+ *
+ * @param {string[]} categoryIds - Categorías seleccionadas.
+ * @param {Array<{id: string, categoryIds: string[]}>} allExercises - Pool completo.
+ * @param {() => number} [rng=Math.random] - RNG inyectable para tests.
+ * @returns {{ exerciseIds: string[], actualSize: number }}
+ */
+export function buildFullTest(categoryIds, allExercises, rng = Math.random) {
+  // 1. Pool por solapamiento de categoryIds (mismo filtro que buildSession).
+  const pool = allExercises.filter(ex =>
+    Array.isArray(ex.categoryIds) && ex.categoryIds.some(c => categoryIds.includes(c))
+  );
+
+  // 2. Fisher-Yates sobre el pool entero. Sin tope, sin weighted, sin guarantee.
+  const shuffled = [...pool];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+
+  return {
+    exerciseIds: shuffled.map(ex => ex.id),
+    actualSize: shuffled.length
+  };
+}
+
+// ─── Helpers privados ───────────────────────────────────────────────────────
+
+/**
+ * Muestreo ponderado de UN ejercicio entre `candidates`, ponderado por
+ * `exerciseWeight(timesShown)`. Helper privado factorizado para que GUARANTEE
+ * phase y FILL phase usen el mismo algoritmo.
+ *
+ * Safety por float-rounding: si el accumulator nunca cae por debajo de 0
+ * (caso patológico con totalWeight cercano a Number.EPSILON o rng()→1.0),
+ * devuelve el último candidato.
+ *
+ * @param {Array<{id:string}>} candidates
+ * @param {{exerciseStats?: Record<string, {timesShown: number}>}} state
+ * @param {() => number} rng
+ * @returns {object} El ejercicio elegido (referencia del array de input).
+ */
+function weightedPickOne(candidates, state, rng) {
+  const weights = candidates.map(ex =>
+    exerciseWeight(state.exerciseStats?.[ex.id]?.timesShown ?? 0)
+  );
+  const totalWeight = weights.reduce((a, b) => a + b, 0);
+  let r = rng() * totalWeight;
+  for (let i = 0; i < candidates.length; i++) {
+    r -= weights[i];
+    if (r <= 0) return candidates[i];
+  }
+  // Safety por float-rounding.
+  return candidates[candidates.length - 1];
 }
