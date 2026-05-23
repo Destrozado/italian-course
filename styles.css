@@ -105,3 +105,27 @@ button.incorrecta {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   z-index: 1000;
 }
+
+/*
+ * Resumen pantalla completa (D-37, SESSION-07). Tono neutro factúal —
+ * sin emojis decorativos, sin badges grandes, sin reformulaciones positivas.
+ * Los colores sólo aparecen en la flecha → cuando hay un cambio de estado
+ * significativo (promoción verde sutil, regresión rojo sutil); el resto del
+ * texto es neutral. El badge visual con glifo Unicode vive sólo en la tabla
+ * home (D-31 explícito: "el resumen menciona el cambio una vez, sin fanfare").
+ */
+.summary-delta { list-style: none; padding-left: 0; }
+.summary-delta li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--pico-muted-border-color, #e0e0e0);
+}
+.summary-delta li:last-child { border-bottom: none; }
+.delta-arrow { margin: 0 0.3rem; font-weight: 600; }
+.delta-regression { color: var(--pico-color-red-500, #d32f2f); }
+.delta-promotion { color: var(--pico-color-green-500, #2e7d32); }
+.delta-reason,
+.delta-streak,
+.delta-pending {
+  color: var(--pico-muted-color, #6c757d);
+  font-size: 0.9em;
+}

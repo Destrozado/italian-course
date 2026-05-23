@@ -207,12 +207,47 @@
       </template>
 
       <!-- ════════════════════════════════════════════════════════════════ -->
-      <!-- Pantalla SUMMARY (stub Plan 02-03; Plan 02-04 la poblará)         -->
+      <!-- Pantalla SUMMARY (D-37, SESSION-07 — Plan 02-04)                  -->
       <!-- ════════════════════════════════════════════════════════════════ -->
-      <template x-if="currentScreen === 'summary'">
+      <!--
+        Resumen factústico tras completar una sesión. Tono neutro (D-37):
+        SIN emojis decorativos, SIN reformulaciones positivas, SIN botón
+        "Repetir sesión". Sólo lista limpia de `categoría: antes → después`
+        con flechas de color sutil (rojizo si regresión, verde si promoción).
+
+        Guard `summaryDelta` (UAT round 1 Plan 02-03 lesson): el x-if NO
+        monta el template hasta que `summaryDelta` esté poblado. Sin esto,
+        el `x-for entry in summaryDelta` lanzaría TypeError sobre null
+        durante el tick de unmount al cambiar `currentScreen` a 'home'.
+      -->
+      <template x-if="currentScreen === 'summary' && summaryDelta">
         <article>
-          <p>Sesión terminada. (Resumen detallado en próximo plan.)</p>
-          <button type="button" @click="currentScreen = 'home'">Volver al home</button>
+          <header x-text="summaryHeaderLabel"></header>
+
+          <ul class="summary-delta">
+            <template x-for="entry in summaryDelta" :key="entry.categoryId">
+              <li>
+                <strong x-text="entry.categoryName"></strong>:
+                <span x-text="entry.statusBefore"></span>
+                <span class="delta-arrow"
+                      :class="{ 'delta-regression': entry.isRegression, 'delta-promotion': entry.isPromotion }">→</span>
+                <span x-text="entry.statusAfter"></span>
+                <template x-if="entry.failed">
+                  <span class="delta-reason" x-text="' · ' + entry.failureReason"></span>
+                </template>
+                <template x-if="entry.streakBefore !== entry.streakAfter">
+                  <span class="delta-streak"
+                        x-text="' · racha ' + entry.streakBefore + ' → ' + entry.streakAfter"></span>
+                </template>
+                <template x-if="entry.statusAfter === 'no-hecha' && entry.pendingForHecha > 0">
+                  <span class="delta-pending"
+                        x-text="' · ' + entry.pendingForHecha + ' ejercicios para volver a hecha'"></span>
+                </template>
+              </li>
+            </template>
+          </ul>
+
+          <button type="button" @click="returnToHomeFromSummary">Volver al home</button>
         </article>
       </template>
 

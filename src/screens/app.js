@@ -388,23 +388,66 @@ export function appShell(appDataReady) {
     },
 
     /**
-     * Cierra la sesión: aplica la cascada/promociones (D-39) y persiste el
-     * nuevo estado (D-20 write-once-on-done para Repaso).
+     * Cierra la sesión: aplica la cascada/promociones (D-39), persiste el
+     * nuevo estado (D-20 write-once-on-done para Repaso) y navega al
+     * resumen pantalla-completa con el delta factústico por categoría tocada.
      *
-     * Plan 02-03 (versión simple): tras persistir, vuelve directamente a
-     * home — sin pantalla de resumen aún. La tabla de home muestra el state
-     * actualizado al volver.
+     * Plan 02-04 (D-37, SESSION-07): tras applySessionResult, computa
+     * `summaryDelta` comparando `categoryProgress` antes vs después, deriva
+     * `summaryHeaderLabel` (`Sesión terminada · X/N correctos`) y transiciona
+     * `currentScreen = 'summary'`. El template summary renderiza la lista
+     * `antes → después` con flechas sutiles de color (regresión rojo,
+     * promoción verde) — sin emojis decorativos ni fanfare.
      *
-     * Plan 02-04 REEMPLAZARÁ este final por: computar `summaryDelta` con
-     * categoryProgress antes/después, `currentScreen = 'summary'`, etc.
+     * Importante: el snapshot ANTES de aplicar usa `JSON.parse(JSON.stringify)`
+     * (deep clone) — necesitamos identidad por categoría para el delta y los
+     * shapes son pequeños (categoryProgress es un dict con ~10 categorías x
+     * pocos campos). El `categoryProgress` ya `next.categoryProgress = {...}`
+     * spread-clone en applySessionResult, pero las sub-categorías comparten
+     * referencia con el input — por eso necesitamos la copia profunda aquí.
+     *
+     * NO usar getter para summaryDelta: el getter se re-evaluaría en cada
+     * render de Alpine (research D-37 explícito) y necesitamos preservar el
+     * snapshot de `before` que NO está disponible tras applySessionResult.
      */
     completeSession() {
       const sessionResult = { answers: this.sessionResults };
       const today = todayLocal();
+      // Snapshot deep clone del categoryProgress ANTES de aplicar (D-37 + research).
+      // JSON.parse(JSON.stringify) elide undefined — está OK aquí porque
+      // categoryProgress no usa undefined como valor significativo (sólo en
+      // campos opcionales que se cuelan via `?? defaults`).
+      const before = JSON.parse(JSON.stringify(this.state.categoryProgress ?? {}));
+
       const newState = applySessionResult(this.state, sessionResult, this.content, today);
       saveState(newState);
       this.state = newState;
+
+      // Computar el delta + header label.
+      const { delta, headerLabel } = computeSummaryDelta(before, newState, sessionResult, this.content);
+      this.summaryDelta = delta;
+      this.summaryHeaderLabel = headerLabel;
+
+      // NO llamar resetSession aún — el usuario puede mirar el resumen. Al
+      // pulsar "Volver al home" se llama returnToHomeFromSummary() que sí
+      // resetea. Sin embargo, sí cancelamos cualquier setTimeout pendiente
+      // (Pitfall #5) — el usuario podría haber abandonado vía botón "Volver"
+      // mientras estaba en feedback verde con auto-advance scheduled.
+      this.cancelAutoAdvance();
+
+      this.currentScreen = 'summary';
+    },
+
+    /**
+     * Vuelve al home desde la pantalla de resumen. Limpia el sub-estado de
+     * sesión y de summary (no necesitamos preservar el delta una vez que el
+     * usuario ya lo vio). El template del summary engancha esto al botón
+     * único "Volver al home".
+     */
+    returnToHomeFromSummary() {
       this.resetSession();
+      this.summaryDelta = null;
+      this.summaryHeaderLabel = '';
       this.currentScreen = 'home';
     },
 
@@ -618,6 +661,118 @@ function formatRelativeDate(isoDate, today) {
   if (diffDays > 1) return `hace ${diffDays} d`;
   // diffDays < 0: fecha futura (clock skew, edición manual). Fallback defensivo.
   return isoDate;
+}
+
+/**
+ * Computa el delta del resumen (D-37, SESSION-07) comparando `before` y
+ * `newState.categoryProgress` para todas las categorías tocadas en la sesión.
+ *
+ * Devuelve un objeto con dos campos:
+ *   - `delta`: array de entradas por categoría tocada, con:
+ *       categoryId, categoryName, statusBefore, statusAfter, streakBefore,
+ *       streakAfter, totalInCat, pendingForHecha (sólo si statusAfter='no-hecha'),
+ *       failed (bool), failureReason (string | null), isPromotion (bool),
+ *       isRegression (bool).
+ *   - `headerLabel`: string formato `Sesión terminada · X/N correctos`.
+ *
+ * Orden del delta: regresiones primero (más relevante para el autor),
+ * promociones después, neutrales al final. Sub-orden alfabético por
+ * `categoryName` para determinismo.
+ *
+ * NO es un método del factory — vive como función módulo-level para
+ * legibilidad y para no contaminar el `$data` de DevTools con un helper
+ * que sólo se invoca desde `completeSession`.
+ *
+ * @param {object} before - Deep clone del categoryProgress antes de applySessionResult.
+ * @param {object} newState - Estado tras applySessionResult.
+ * @param {{answers: Array<{exerciseId:string, correct:boolean}>}} sessionResult
+ * @param {{categories: Array<{id:string,name:string}>, exerciseById: object}} content
+ * @returns {{delta: Array<object>, headerLabel: string}}
+ */
+function computeSummaryDelta(before, newState, sessionResult, content) {
+  const answers = sessionResult.answers ?? [];
+
+  // Conjuntos auxiliares (mismo patrón que applySessionResult).
+  const practicedCategoryIds = new Set(
+    answers.flatMap(a => content.exerciseById[a.exerciseId]?.categoryIds ?? [])
+  );
+  const failedCategoryIds = new Set(
+    answers.filter(a => !a.correct).flatMap(a => content.exerciseById[a.exerciseId]?.categoryIds ?? [])
+  );
+
+  // Índice ejercicios por categoría para computar totalInCat / pendingForHecha.
+  const exercisesByCategory = {};
+  for (const ex of Object.values(content.exerciseById ?? {})) {
+    for (const cid of ex.categoryIds ?? []) {
+      (exercisesByCategory[cid] ??= []).push(ex.id);
+    }
+  }
+
+  // Mapa id → name para el render del template.
+  const catNameById = {};
+  for (const cat of content.categories ?? []) {
+    catNameById[cat.id] = cat.name;
+  }
+
+  const delta = [];
+  const failedCatList = [...failedCategoryIds];
+
+  for (const catId of practicedCategoryIds) {
+    const beforeCat = before[catId];
+    const afterCat = newState.categoryProgress?.[catId] ?? {};
+
+    const statusBefore = beforeCat?.status ?? 'no-hecha';
+    const statusAfter = afterCat.status ?? 'no-hecha';
+    const streakBefore = beforeCat?.streakDays ?? 0;
+    const streakAfter = afterCat.streakDays ?? 0;
+
+    const totalInCat = (exercisesByCategory[catId] ?? []).length;
+    const clearedCount = (afterCat.clearedExerciseIds ?? []).length;
+    const pendingForHecha = statusAfter === 'no-hecha' ? Math.max(0, totalInCat - clearedCount) : 0;
+
+    const failed = failedCategoryIds.has(catId);
+    let failureReason = null;
+    if (failed) {
+      if (failedCatList.length > 1) {
+        // Cascada multi-cat: indicar las categorías que cascadearon juntas.
+        failureReason = `falló (cascada multi: ${failedCatList.join(' + ')})`;
+      } else {
+        failureReason = 'falló';
+      }
+    }
+
+    const isPromotion = statusBefore === 'no-hecha' && (statusAfter === 'hecha' || statusAfter === 'dominada');
+    const isRegression = (statusBefore === 'hecha' || statusBefore === 'dominada') && statusAfter === 'no-hecha';
+
+    delta.push({
+      categoryId: catId,
+      categoryName: catNameById[catId] ?? catId,
+      statusBefore,
+      statusAfter,
+      streakBefore,
+      streakAfter,
+      totalInCat,
+      pendingForHecha,
+      failed,
+      failureReason,
+      isPromotion,
+      isRegression
+    });
+  }
+
+  // Orden: regresiones → promociones → neutrales. Sub-orden alfabético.
+  delta.sort((a, b) => {
+    const orderA = a.isRegression ? 0 : (a.isPromotion ? 1 : 2);
+    const orderB = b.isRegression ? 0 : (b.isPromotion ? 1 : 2);
+    if (orderA !== orderB) return orderA - orderB;
+    return a.categoryName.localeCompare(b.categoryName);
+  });
+
+  const correctCount = answers.filter(a => a.correct).length;
+  const total = answers.length;
+  const headerLabel = `Sesión terminada · ${correctCount}/${total} correctos`;
+
+  return { delta, headerLabel };
 }
 
 /**
