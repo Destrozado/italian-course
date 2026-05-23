@@ -486,6 +486,49 @@ export function appShell(appDataReady) {
       const handler = registry[ex.type];
       const correct = handler.grade(ex, { index: idx });
 
+      // Phase 3 plan 01: la lógica común (feedback + push a sessionResults +
+      // autoAdvance verde + cascada D-54 inmediata roja + persist inFlightTest
+      // para Test completo) se delega en `applyResultToSession(ex, correct)`.
+      // Esto centraliza el SINGLE CALL-SITE de `applyImmediateFailure` para
+      // los 3 tipos (multi-choice aquí, word-buttons en wordButtonsCheck,
+      // match en matchPickRight cuando aterrice 03-02). Pitfall #2 (decisión
+      // final duplicada) evitado arquitectónicamente. Semántica Phase 2
+      // observable invariante — UAT regression smoke 5/5 verde.
+      this.applyResultToSession(ex, correct);
+    },
+
+    /**
+     * Helper compartido que aplica el resultado del grading a la sesión.
+     *
+     * Single call-site de `applyImmediateFailure` para los 3 tipos de
+     * ejercicio (multi-choice / word-buttons / match). Garantiza que la
+     * cascada D-54 inmediata se ejecuta EXACTAMENTE UNA VEZ por ejercicio
+     * fallado, idéntico para todos los tipos:
+     *   1. Marca el feedback (`'correct'` o `'incorrect'`).
+     *   2. Pushea el resultado a `sessionResults` para el resumen final.
+     *   3. Si correcto → auto-avance 600ms (SESSION-05 verde, Pitfall #5
+     *      handle cancelable).
+     *   4. Si incorrecto → cascada D-54 inmediata: `applyImmediateFailure`
+     *      sobre state + `saveState` síncrono. El estado refleja la regresión
+     *      ANTES de que el usuario pueda abandonar la sesión.
+     *      `applySessionResult` al final es idempotente respecto a este
+     *      reset (FAIL-WINS aplicado sobre state ya reseteado = no-op);
+     *      `exerciseStats` se bumpean una sola vez ahí, preservando D-09.
+     *   5. Si modo Test completo → persistir inFlightTest con cursor +
+     *      answers actualizados (D-42).
+     *
+     * Phase 3 plan 02 añadirá un segundo CALL-SITE de `applyImmediateFailure`
+     * en `matchPickRight` con guard `matchHadFailure` (D-61: cascada en el
+     * PRIMER intento erróneo del ejercicio, NO al final). Ese call-site usa
+     * `applyImmediateFailure` directamente, NO este helper — porque la
+     * semántica es distinta: el ejercicio CONTINÚA tras el primer fallo y
+     * este helper se invocará al final con `correct: false` (idempotente
+     * sobre la cascada ya aplicada).
+     *
+     * @param {object} ex - El ejercicio actual (sessionCurrentExercise).
+     * @param {boolean} correct - Resultado del grading.
+     */
+    applyResultToSession(ex, correct) {
       this.sessionFeedback = correct ? 'correct' : 'incorrect';
       this.sessionResults.push({ exerciseId: ex.id, correct });
 
@@ -494,11 +537,9 @@ export function appShell(appDataReady) {
         // poder cancelar (Pitfall #5).
         this.sessionAutoAdvanceHandle = setTimeout(() => this.sessionAdvance(), 600);
       } else {
-        // D-54: cascada inmediata + persist. El estado refleja la regresión
-        // ANTES de que el usuario pueda abandonar la sesión. applySessionResult
-        // al final es idempotente respecto a este reset (rama FAIL-WINS aplicada
-        // sobre state ya reseteado = no-op para la cascada). Los exerciseStats
-        // SE BUMPEAN una sola vez ahí al final, preservando D-09 monotonicidad.
+        // D-54: cascada inmediata + persist (single call-site para todos
+        // los tipos). Plan 02-03 UAT round 2 confirmó que este es el
+        // único patrón que cierra el exploit "fallo + cierra pestaña".
         const newState = applyImmediateFailure(this.state, ex, this.content, todayLocal());
         saveState(newState);
         this.state = newState;
