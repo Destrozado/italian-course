@@ -40,6 +40,10 @@
 //   - D-49: `buildSession` con GUARANTEE + FILL phase (transparente al caller).
 //   - D-50: `buildFullTest` para Test completo (Fisher-Yates sobre pool entero).
 //   - D-52: `applySessionResult` con 4 args; `today` se inyecta desde el screen layer.
+//   - D-54 (UAT round 2): `applyImmediateFailure` invocado desde
+//     `sessionSelectOption` cuando feedback === 'incorrect'. Persiste la
+//     regresión de categoría INMEDIATAMENTE (saveState mid-session) para
+//     cerrar el exploit "fallo + abandono" que violaba el core value.
 //
 // Reglas de pureza del módulo:
 //   - NO toca `document`, `window`, ni `innerHTML`. La manipulación del DOM
@@ -50,7 +54,7 @@
 //     `exercise-types/`. NUNCA imports cross-screen (solo hay un screen).
 
 import { buildSession, buildFullTest } from '../domain/session.js';
-import { applySessionResult } from '../domain/progress.js';
+import { applySessionResult, applyImmediateFailure } from '../domain/progress.js';
 import { todayLocal } from '../domain/dates.js';
 import { saveState } from '../data/storage.js';
 import { registry } from '../exercise-types/index.js';
@@ -308,6 +312,15 @@ export function appShell(appDataReady) {
      * Migrado de Phase 1 sin cambios estructurales — solo prefijo de nombres.
      * T-02-02: guard contra double-clicks (si ya hay feedback, ignora).
      *
+     * D-54 (UAT round 2): cuando la respuesta es INCORRECTA, aplicamos
+     * `applyImmediateFailure` Y persistimos con `saveState` ANTES de exponer
+     * el botón "Siguiente". Esto cierra el exploit "fallo + cierra pestaña":
+     * la regresión de categoría queda persistida en el instante del click,
+     * independientemente de si el usuario completa la sesión, descarta el
+     * Repaso, o cierra la pestaña. Para aciertos, mantenemos el patrón
+     * write-once-on-done de D-20 (acumulan en sessionResults y se persisten
+     * al final via applySessionResult).
+     *
      * @param {number} idx - Índice de la opción clicada (0-based).
      */
     sessionSelectOption(idx) {
@@ -326,9 +339,18 @@ export function appShell(appDataReady) {
         // SESSION-05 verde: auto-avance tras ~600ms. Guardar handle para
         // poder cancelar (Pitfall #5).
         this.sessionAutoAdvanceHandle = setTimeout(() => this.sessionAdvance(), 600);
+      } else {
+        // D-54: cascada inmediata + persist. El estado refleja la regresión
+        // ANTES de que el usuario pueda abandonar la sesión. applySessionResult
+        // al final es idempotente respecto a este reset (rama FAIL-WINS aplicada
+        // sobre state ya reseteado = no-op para la cascada). Los exerciseStats
+        // SE BUMPEAN una sola vez ahí al final, preservando D-09 monotonicidad.
+        const newState = applyImmediateFailure(this.state, ex, this.content, todayLocal());
+        saveState(newState);
+        this.state = newState;
+        // No schedule: el HTML expone "Siguiente" que llamará sessionAdvance()
+        // cuando el usuario decida.
       }
-      // Si !correct, no schedule: el HTML expone "Siguiente" que llamará
-      // sessionAdvance() cuando el usuario decida.
     },
 
     /**
