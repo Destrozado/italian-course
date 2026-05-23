@@ -27,6 +27,16 @@
 //     inyectan strings deterministas. La firma rompe Phase 1
 //     intencionalmente: `applySessionResult(state, sessionResult, content, today)`
 //     ahora exige 4 argumentos (Pitfall #2 de RESEARCH).
+//   - D-54 (Plan 02-03 UAT round 2): fail-cascade INMEDIATA. Refinement de
+//     D-39: la combinación "cascada al final de sesión" + SESSION-08
+//     ("abandono descarta") creaba un exploit (fallas → cierras pestaña →
+//     fallo no se registra) que violaba el core value "te obliga a no
+//     olvidar". Solución: el helper `applyImmediateFailure(state, exercise,
+//     content, today)` aplica la cascada de UN solo ejercicio fallado en el
+//     instante del click. `applySessionResult` SIGUE corriendo al final de
+//     sesión SIN CAMBIOS — la cascada es idempotente respecto al state ya
+//     reseteado, y los `exerciseStats` se bumpean UNA SOLA VEZ ahí
+//     (preservando D-09 monotonicidad sin doble conteo).
 
 /**
  * Aplica el resultado de una sesión al estado. PURA: devuelve un estado nuevo,
@@ -231,6 +241,94 @@ export function applyNewExerciseRegression(state, content) {
     }
     // else: categoría intacta (idempotente cuando no hay regresión).
   }
+
+  return next;
+}
+
+/**
+ * D-54 (Plan 02-03 UAT round 2) — Aplica la cascada INMEDIATA de un solo
+ * ejercicio fallado, sin esperar al final de sesión.
+ *
+ * Motivación (cita del autor): "Si a mitad de sesión de ejercicios, fallas,
+ * y te sales del ejercicio y vuelves a la home, no te cambia el estado ni la
+ * racha, como si no hubieras fallado, eso debería ser inmediato, en cuanto
+ * fallas, lección no hecha y racha perdida."
+ *
+ * Combinada con SESSION-08 (Repaso abandonado se descarta), la cascada-al-
+ * final-de-sesión de D-39 creaba un exploit que violaba el core value "te
+ * obliga a no olvidar". Este helper se invoca desde `app.js > selectOption`
+ * en el instante en que `feedback === 'incorrect'`, ANTES de cualquier
+ * posibilidad de abandono de sesión.
+ *
+ * Qué hace:
+ *   - Para cada categoría en `exercise.categoryIds`: reset cascade idéntico a
+ *     la rama FAIL-WINS de `applySessionResult` (status='no-hecha',
+ *     clearedExerciseIds=[], streakDays=0, becameHechaAt/becameDominadaAt
+ *     undefined). `lastSuccessDate` se preserva (huella histórica).
+ *   - `lastPracticedDate = today` para las categorías tocadas (alinea con el
+ *     paso 4d de D-39).
+ *   - Añade las categorías a `dailyLog[today].categoriesPracticed` Y
+ *     `.categoriesWithFailure` (idempotente con uniqueStrings).
+ *   - **NO toca `exerciseStats`**: el bump monotónico (DOMAIN-09) ocurre
+ *     EXCLUSIVAMENTE en `applySessionResult` al final de sesión. Sin esta
+ *     separación habría doble conteo: el ejercicio se contaría 2 veces
+ *     (1 vez aquí + 1 vez en applySessionResult). Una sesión abandonada tras
+ *     un fallo NO bumpea exerciseStats — pero SÍ persiste la regresión de
+ *     categoría, que es lo crítico para el core value.
+ *
+ * Idempotencia:
+ *   - Re-invocar `applyImmediateFailure` con el MISMO ejercicio devuelve un
+ *     state funcionalmente idéntico (las categorías ya están a 'no-hecha',
+ *     re-resetar es no-op; uniqueStrings dedupea el dailyLog).
+ *   - `applyImmediateFailure(state, ex, ...)` seguido de `applySessionResult`
+ *     con el mismo fail incluido en `answers` produce el MISMO state final que
+ *     llamar solo a `applySessionResult` (la rama FAIL-WINS reaplica el
+ *     reset sobre state ya reseteado = no-op).
+ *
+ * Pure: no muta `state` ni `exercise` ni `content`.
+ *
+ * @param {{schemaVersion:2, exerciseStats:object, categoryProgress:object, dailyLog:object}} state
+ * @param {{id:string, categoryIds:string[]}} exercise - El ejercicio que se acaba de fallar.
+ * @param {{exerciseById: Record<string, object>}} content - Necesario para la firma simétrica con applySessionResult (aunque este helper no lo lee directamente, lo recibimos para coherencia y para futuros usos).
+ * @param {string} today - Fecha local en formato `YYYY-MM-DD`.
+ * @returns {object} Nuevo estado (shape v2) con la cascada inmediata aplicada.
+ */
+export function applyImmediateFailure(state, exercise, content, today) {
+  // 1. Spread-clone defensivo (state + categoryProgress + dailyLog).
+  const next = {
+    ...state,
+    categoryProgress: { ...(state.categoryProgress ?? {}) },
+    dailyLog: { ...(state.dailyLog ?? {}) }
+  };
+
+  const catIds = exercise?.categoryIds ?? [];
+
+  // 2. Reset cascada por categoría (rama FAIL-WINS de D-39, paso 2).
+  for (const catId of catIds) {
+    const prev = next.categoryProgress[catId] ?? blankCategoryProgress();
+    next.categoryProgress[catId] = {
+      ...prev,
+      status: 'no-hecha',
+      clearedExerciseIds: [],
+      streakDays: 0,
+      becameHechaAt: undefined,
+      becameDominadaAt: undefined,
+      lastPracticedDate: today
+      // lastSuccessDate se preserva (huella histórica; esta sesión no fue éxito).
+    };
+  }
+
+  // 3. dailyLog[today] — categoría fallada se añade a AMBOS arrays (idempotente).
+  const prevEntry = next.dailyLog[today] ?? {
+    date: today,
+    categoriesPracticed: [],
+    categoriesWithFailure: []
+  };
+  next.dailyLog[today] = {
+    date: today,
+    categoriesPracticed: uniqueStrings([...prevEntry.categoriesPracticed, ...catIds]),
+    categoriesWithFailure: uniqueStrings([...prevEntry.categoriesWithFailure, ...catIds])
+  };
 
   return next;
 }

@@ -18,7 +18,7 @@
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { applySessionResult, applyNewExerciseRegression } from '../src/domain/progress.js';
+import { applySessionResult, applyNewExerciseRegression, applyImmediateFailure } from '../src/domain/progress.js';
 import {
   blankStateV2,
   makeContent,
@@ -615,6 +615,225 @@ describe('domain/progress — D-53.3b applyNewExerciseRegression (DOMAIN-06)', (
     applyNewExerciseRegression(before, content);
 
     // Tras la llamada el input sigue idéntico (no fue mutado).
+    assert.deepEqual(before, snapshot);
+  });
+});
+
+// ────────────────────────────────────────────────────────────────────────────
+// D-54 — applyImmediateFailure (fail-cascade INMEDIATA, UAT round 2)
+// ────────────────────────────────────────────────────────────────────────────
+//
+// Refinement de D-39 tras UAT round 2 del Plan 02-03. Combinación
+// "cascada-al-final" + SESSION-08 ("abandono descarta") creaba un exploit:
+// fallas → cierras pestaña → fallo no se registra → core value violado.
+//
+// applyImmediateFailure se invoca desde `app.js > sessionSelectOption` cuando
+// `feedback === 'incorrect'`, ANTES de cualquier posibilidad de abandono.
+//
+// Invariantes:
+//   - Cascada por categoría idéntica a la rama FAIL-WINS de applySessionResult.
+//   - NO toca exerciseStats (eso se hace UNA SOLA VEZ en applySessionResult al
+//     final, para preservar DOMAIN-09 monotonicidad sin doble conteo).
+//   - Idempotente respecto a applySessionResult: la combinación
+//     `applyImmediateFailure + applySessionResult con mismo fail` produce el
+//     MISMO state final que solo `applySessionResult` (re-aplicar la cascada
+//     sobre state ya reseteado es no-op).
+
+describe('domain/progress — D-54 applyImmediateFailure (cascada inmediata)', () => {
+  test('resetea cascada de una categoría sin tocar exerciseStats (idempotencia + monotonicidad)', () => {
+    const state = setupHechaState('avere', ['a1', 'a2'], {
+      streakDays: 5,
+      lastSuccessDate: '2026-05-22',
+      becameHechaAt: '2026-05-18'
+    });
+    // Sembrar exerciseStats previos para verificar que NO se tocan.
+    state.exerciseStats = {
+      a1: { timesShown: 10, timesCorrect: 7, timesFailed: 3 },
+      a2: { timesShown: 8, timesCorrect: 6, timesFailed: 2 }
+    };
+
+    const content = makeContent([
+      { id: 'a1', categoryIds: ['avere'] },
+      { id: 'a2', categoryIds: ['avere'] }
+    ]);
+    const exercise = content.exerciseById['a1'];
+
+    const after = applyImmediateFailure(state, exercise, content, '2026-05-23');
+
+    // Cascada aplicada.
+    const cat = after.categoryProgress['avere'];
+    assert.equal(cat.status, 'no-hecha');
+    assert.deepEqual(cat.clearedExerciseIds, []);
+    assert.equal(cat.streakDays, 0);
+    assert.equal(cat.becameHechaAt, undefined);
+    assert.equal(cat.becameDominadaAt, undefined);
+    assert.equal(cat.lastPracticedDate, '2026-05-23');
+    // lastSuccessDate preservado (huella histórica).
+    assert.equal(cat.lastSuccessDate, '2026-05-22');
+
+    // CRÍTICO: exerciseStats NO se han tocado (eso es responsabilidad de
+    // applySessionResult al final de sesión). DOMAIN-09 monotonicidad
+    // preservada sin doble conteo.
+    assert.deepEqual(after.exerciseStats.a1, { timesShown: 10, timesCorrect: 7, timesFailed: 3 });
+    assert.deepEqual(after.exerciseStats.a2, { timesShown: 8, timesCorrect: 6, timesFailed: 2 });
+  });
+
+  test('añade categoría a dailyLog.categoriesPracticed y dailyLog.categoriesWithFailure', () => {
+    const state = blankStateV2();
+    const content = makeContent([
+      { id: 'mix', categoryIds: ['avere', 'genero'] }
+    ]);
+    const exercise = content.exerciseById['mix'];
+
+    const after = applyImmediateFailure(state, exercise, content, '2026-05-23');
+
+    assert.deepEqual(after.dailyLog['2026-05-23'], {
+      date: '2026-05-23',
+      categoriesPracticed: ['avere', 'genero'],
+      categoriesWithFailure: ['avere', 'genero']
+    });
+  });
+
+  test('idempotencia integral: applyImmediateFailure + applySessionResult con mismo fail = solo applySessionResult', () => {
+    // E2E: el state final tras ejecutar "fallo inmediato + cierre normal de
+    // sesión con ese mismo fail" debe ser IDÉNTICO al state final tras
+    // ejecutar solo "applySessionResult con ese fail" (sin paso intermedio).
+    // Esto garantiza que el nuevo helper no introduce desviaciones del modelo
+    // canónico — solo acelera el momento en que el efecto es observable.
+    const content = makeContent([
+      { id: 'a1', categoryIds: ['avere'] },
+      { id: 'a2', categoryIds: ['avere'] }
+    ]);
+    const initialState = setupHechaState('avere', ['a1', 'a2'], {
+      streakDays: 5,
+      lastSuccessDate: '2026-05-22',
+      becameHechaAt: '2026-05-18'
+    });
+
+    // Path A: el flujo nuevo — fail inmediato + cierre de sesión completo.
+    const afterImmediate = applyImmediateFailure(
+      initialState,
+      content.exerciseById['a1'],
+      content,
+      '2026-05-23'
+    );
+    const finalA = applySessionResult(afterImmediate, {
+      answers: [
+        { exerciseId: 'a1', correct: false }
+      ]
+    }, content, '2026-05-23');
+
+    // Path B: el flujo canónico — solo applySessionResult.
+    const finalB = applySessionResult(initialState, {
+      answers: [
+        { exerciseId: 'a1', correct: false }
+      ]
+    }, content, '2026-05-23');
+
+    // Los estados finales son funcionalmente idénticos.
+    assert.deepEqual(finalA.categoryProgress, finalB.categoryProgress);
+    assert.deepEqual(finalA.exerciseStats, finalB.exerciseStats);
+    assert.deepEqual(finalA.dailyLog, finalB.dailyLog);
+  });
+
+  test('caso E2E exploit: cat hecha → fail inmediato → abandono sin applySessionResult = regresión persiste', () => {
+    // El test que justifica D-54. Sin applyImmediateFailure, el state nunca
+    // se persistiría con la regresión si el usuario abandona tras fallar.
+    const state = setupHechaState('avere', ['a1', 'a2'], {
+      streakDays: 5,
+      lastSuccessDate: '2026-05-22',
+      becameHechaAt: '2026-05-18'
+    });
+    const content = makeContent([
+      { id: 'a1', categoryIds: ['avere'] },
+      { id: 'a2', categoryIds: ['avere'] }
+    ]);
+
+    // Fallo inmediato en a1. Usuario abandona aquí (NO se llama applySessionResult).
+    const after = applyImmediateFailure(state, content.exerciseById['a1'], content, '2026-05-23');
+
+    // La regresión es observable en el state que app.js persiste con saveState.
+    const cat = after.categoryProgress['avere'];
+    assert.equal(cat.status, 'no-hecha');
+    assert.equal(cat.streakDays, 0);
+    assert.deepEqual(cat.clearedExerciseIds, []);
+    assert.equal(cat.becameHechaAt, undefined);
+
+    // exerciseStats SIGUE vacío (el bump monotónico no ocurre porque la sesión
+    // no se completó — esto es coherente con SESSION-08 para los aciertos:
+    // solo se cuenta lo que termina con applySessionResult). PERO la regresión
+    // de categoría SÍ se persiste, que es lo crítico para el core value.
+    assert.deepEqual(after.exerciseStats, {});
+
+    // dailyLog refleja el fallo del día.
+    assert.deepEqual(after.dailyLog['2026-05-23'], {
+      date: '2026-05-23',
+      categoriesPracticed: ['avere'],
+      categoriesWithFailure: ['avere']
+    });
+  });
+
+  test('ejercicio multi-cat: cascada inmediata afecta TODAS las categorías del ejercicio', () => {
+    const state = setupHechaState('avere', ['a1'], {
+      streakDays: 3,
+      lastSuccessDate: '2026-05-22'
+    });
+    // genero también en hecha.
+    state.categoryProgress['genero'] = {
+      status: 'hecha',
+      clearedExerciseIds: ['g1'],
+      streakDays: 7,
+      lastPracticedDate: '2026-05-22',
+      lastSuccessDate: '2026-05-22',
+      becameHechaAt: '2026-05-15',
+      becameDominadaAt: undefined
+    };
+
+    const content = makeContent([
+      { id: 'a1', categoryIds: ['avere'] },
+      { id: 'g1', categoryIds: ['genero'] },
+      { id: 'mix', categoryIds: ['avere', 'genero'] }
+    ]);
+
+    const after = applyImmediateFailure(state, content.exerciseById['mix'], content, '2026-05-23');
+
+    // Ambas categorías reseteadas.
+    assert.equal(after.categoryProgress['avere'].status, 'no-hecha');
+    assert.equal(after.categoryProgress['avere'].streakDays, 0);
+    assert.deepEqual(after.categoryProgress['avere'].clearedExerciseIds, []);
+
+    assert.equal(after.categoryProgress['genero'].status, 'no-hecha');
+    assert.equal(after.categoryProgress['genero'].streakDays, 0);
+    assert.deepEqual(after.categoryProgress['genero'].clearedExerciseIds, []);
+
+    // dailyLog refleja AMBAS categorías como practicadas + falladas.
+    assert.deepEqual([...after.dailyLog['2026-05-23'].categoriesPracticed].sort(), ['avere', 'genero']);
+    assert.deepEqual([...after.dailyLog['2026-05-23'].categoriesWithFailure].sort(), ['avere', 'genero']);
+  });
+
+  test('pureza: input state NO se muta tras applyImmediateFailure', () => {
+    const makeFixture = () => ({
+      schemaVersion: 2,
+      exerciseStats: { a1: { timesShown: 5, timesCorrect: 4, timesFailed: 1 } },
+      categoryProgress: {
+        avere: {
+          status: 'hecha',
+          clearedExerciseIds: ['a1'],
+          streakDays: 3,
+          lastPracticedDate: '2026-05-22',
+          lastSuccessDate: '2026-05-22',
+          becameHechaAt: '2026-05-20',
+          becameDominadaAt: undefined
+        }
+      },
+      dailyLog: {}
+    });
+    const before = makeFixture();
+    const snapshot = makeFixture();
+    const content = makeContent([{ id: 'a1', categoryIds: ['avere'] }]);
+
+    applyImmediateFailure(before, content.exerciseById['a1'], content, '2026-05-23');
+
     assert.deepEqual(before, snapshot);
   });
 });
