@@ -26,7 +26,7 @@
   4. Al terminar la sesión, los contadores `timesShown`/`timesCorrect`/`timesFailed` por ejercicio se persisten una sola vez en localStorage bajo la clave `italianCourse.v1` (con `schemaVersion`), y al recargar la página los contadores reflejan exactamente la sesión anterior
   5. La función `dates.todayLocal()` devuelve `YYYY-MM-DD` en hora local (no UTC) y la función `session.buildSession()` genera sesiones que respetan el muestreo ponderado básico `1/(1+min(timesShown,10))` — verificable con un smoke test manual contra una semilla mínima de Avere
 **Plans**: 2 plans
-- [ ] 01-01-PLAN.md — Esqueleto del proyecto: HTML+CDN(SRI), módulos src/{domain,data,exercise-types}, validador, storage wrapper, funciones puras testadas con node --test, seed Avere (10-12 ejercicios)
+- [x] 01-01-PLAN.md — Esqueleto del proyecto: HTML+CDN(SRI), módulos src/{domain,data,exercise-types}, validador, storage wrapper, funciones puras testadas con node --test, seed Avere (10-12 ejercicios) — **completado 2026-05-23**, ver [01-01-SUMMARY.md](./phases/01-loop-m-nimo-end-to-end-avere-multiple-choice/01-01-SUMMARY.md)
 - [ ] 01-02-PLAN.md — Pantalla de sesión Alpine: render multiple-choice, feedback verde/rojo, indicador Ejercicio X/N, auto-avance 600ms, persistencia única al final + verificación humana end-to-end
 
 ### Phase 2: Mecánica completa de re-verificación (cascada + estados + dashboard)
@@ -75,7 +75,7 @@
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Loop mínimo end-to-end | 0/2 | Planned | - |
+| 1. Loop mínimo end-to-end | 1/2 | In Progress|  |
 | 2. Mecánica completa de re-verificación | 0/? | Not started | - |
 | 3. Variedad de ejercicios + ergonomía | 0/? | Not started | - |
 | 4. Backup robusto + contenido completo | 0/? | Not started | - |
@@ -111,4 +111,4 @@ Cada fase entrega valor usable independientemente:
 
 ---
 *Roadmap created: 2026-05-23*
-*Last updated: 2026-05-23 after initialization*
+*Last updated: 2026-05-23 after Plan 01-01 completion (Walking Skeleton)*
