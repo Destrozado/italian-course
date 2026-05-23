@@ -1,37 +1,48 @@
 // src/main.js
 //
-// Bootstrap del proyecto. Phase 1 completo (Plan 01 + Plan 02).
+// Bootstrap del proyecto. Phase 1 + Phase 2 (Plans 02-01, 02-02, 02-03).
 //
-// Patrón de registro Alpine (la pieza clave que evita la race condition):
+// Patrón de registro Alpine (la pieza clave que evita la race condition
+// descubierta en UAT 01-02):
 //   1. ESTE MÓDULO se declara en index.html ANTES del <script defer> de Alpine.
 //   2. AL TOPE del módulo, de forma SÍNCRONA, registramos el listener
 //      `alpine:init`. Para entonces Alpine aún no ha cargado (su script
 //      defer corre después), así que el listener queda en su sitio antes
 //      del evento.
-//   3. Dentro del listener resolvemos `Alpine.data('sessionScreen', ...)`
+//   3. Dentro del listener resolvemos `Alpine.data('appShell', ...)`
 //      pasándole una Promise que `bootstrap()` cumple cuando el contenido
 //      JSON está cargado y validado.
-//   4. `sessionScreen` espera esa Promise en su `init()` antes de construir
-//      la sesión y poner `ready = true`. Eso permite que Alpine arranque
+//   4. `appShell.init()` espera esa Promise antes de marcar `ready = true`
+//      y de quedar en pantalla `home`. Eso permite que Alpine arranque
 //      con el factory ya registrado pero sin bloquear su scan inicial.
+//
+// Boot pipeline (Phase 2 ampliado):
+//   1. Lee `content/categories.json` para derivar `categoryIds` dinámicamente
+//      (NO hard-coded `['avere']` — añadir categorías al JSON debe funcionar
+//      sin tocar código).
+//   2. `loadContent(categoryIds)` — fetch + NFC normalize + schema validate.
+//   3. `loadState()` — devuelve v2 state (migrate1to2 corre transparente).
+//   4. `applyNewExerciseRegression(state, content)` — DOMAIN-06 / D-40: las
+//      categorías `hecha`/`dominada` con ejercicios nuevos regresan a
+//      `no-hecha` ANTES de que la home las muestre. Si hubo regresión,
+//      persistimos el state.
+//   5. Resolvemos `appDataReady` con `{content, state}`.
 //
 // La capa del banner de error sigue siendo síncrona y vive aparte: si la
 // validación falla, NUNCA resolvemos la Promise → el factory se queda
-// esperando para siempre y `ready` permanece false (sale el template
-// "no hay ejercicios", que en error path queda enmascarado por el banner).
+// esperando para siempre y `ready` permanece false (no se ve la app, solo
+// el banner como output único — D-10 all-or-nothing).
 
 import { loadContent } from './data/content-loader.js';
-import { loadState } from './data/storage.js';
-import { sessionScreen } from './screens/session.js';
-
-/** Phase 1: hard-coded. Phase 2 derivará esto de `categories.json`. */
-const REGISTRY = ['avere'];
+import { loadState, saveState } from './data/storage.js';
+import { applyNewExerciseRegression } from './domain/progress.js';
+import { appShell } from './screens/app.js';
 
 /**
  * Promise que se resuelve con `{content, state}` cuando bootstrap completa
- * la carga + validación. Si bootstrap falla, esta Promise nunca resuelve
- * (intencionado — banner de error es el único output y Alpine queda en el
- * template "no ready").
+ * la carga + validación + boot regression. Si bootstrap falla, esta Promise
+ * nunca resuelve (intencionado — banner de error es el único output y
+ * Alpine queda en el placeholder removed pero sin contenido reactivo visible).
  */
 let resolveAppData;
 const appDataReady = new Promise((resolve) => {
@@ -44,13 +55,37 @@ const appDataReady = new Promise((resolve) => {
 // en index.html, su cuerpo top-level corre primero y este addEventListener
 // queda activo a tiempo.
 document.addEventListener('alpine:init', () => {
-  window.Alpine.data('sessionScreen', () => sessionScreen(appDataReady));
+  window.Alpine.data('appShell', () => appShell(appDataReady));
 });
 
 async function bootstrap() {
   try {
-    const content = await loadContent(REGISTRY);
-    const state = loadState();
+    // 1. Derivar categoryIds desde categories.json (Phase 2: no hard-coded).
+    //    `loadContent` luego volverá a fetchear el mismo archivo internamente;
+    //    el cost es ~1 KB y no perceptible. Si emerge como problema, se puede
+    //    refactorizar loadContent para devolver también categories.json.
+    const categoriesIndex = await fetch('content/categories.json').then(r => {
+      if (!r.ok) throw new Error(`No se pudo cargar content/categories.json: HTTP ${r.status}`);
+      return r.json();
+    });
+    const categoryIds = (categoriesIndex?.categories ?? []).map(c => c.id);
+
+    // 2. Load + validate content (NFC normalize, schema validate).
+    const content = await loadContent(categoryIds);
+
+    // 3. Load state (auto-migrate v1 → v2 vía storage.js).
+    const state0 = loadState();
+
+    // 4. DOMAIN-06 boot regression (D-40, Pitfall #10): categorías
+    //    `hecha`/`dominada` con ejercicios nuevos regresan a `no-hecha`.
+    //    `clearedExerciseIds` se PRESERVA — los aciertos previos siguen
+    //    contando para futuras sesiones. Persistimos sólo si hubo cambio
+    //    (evita writes innecesarios al boot — la función puede devolver el
+    //    mismo objeto si no hubo regresión, comparable por identidad).
+    const state = applyNewExerciseRegression(state0, content);
+    if (state !== state0) {
+      saveState(state);
+    }
 
     // Handoff diagnóstico — útil para DevTools.
     window.__appBoot = { content, state, ready: true };
@@ -61,15 +96,15 @@ async function bootstrap() {
     const placeholder = document.getElementById('app-placeholder');
     if (placeholder) placeholder.remove();
 
-    // Cumplimos la promise — `sessionScreen.init()` (que la está esperando)
-    // continúa, llama a buildSession, y pone `ready = true`. Alpine reactiva
-    // y los templates condicionales muestran el ejercicio.
+    // 5. Cumplimos la promise — `appShell.init()` (que la está esperando)
+    //    continúa: asigna content/state, `ready = true`, queda en `home`.
+    //    Alpine reactiva y los templates condicionales muestran la home.
     resolveAppData({ content, state });
   } catch (err) {
     const errors = err?.errors ?? [{ file: '?', reason: String(err?.message ?? err) }];
     renderValidationBanner(errors);
     window.__appBoot = { ready: false, errors };
-    // No resolvemos `appDataReady` — Alpine arrancará pero `sessionScreen.init()`
+    // No resolvemos `appDataReady` — Alpine arrancará pero `appShell.init()`
     // se queda esperando para siempre. `ready` permanece false. El banner queda
     // como único output (D-10: all-or-nothing boot).
   }

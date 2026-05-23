@@ -43,3 +43,43 @@ button.incorrecta {
   border-color: var(--pico-color-red-600, #b71c1c);
   color: white;
 }
+
+/*
+ * Plan 02-03 — appShell shell (home/picker/session/summary)
+ *
+ * Badges de estado de categoría (D-30). Sólo color + font-weight; el glifo
+ * Unicode (●/✓/★) es el contenido del `<span x-text="cat.badgeGlyph">`.
+ * NO se carga `pico.colors.min.css` (sería +50 KB para usar 3 colores); los
+ * fallback hex son la fuente real de color en práctica. Las vars de Pico
+ * existen pero no están definidas por la variante `classless.min` — son
+ * para compatibilidad con la variante full si el autor decide migrar.
+ */
+.badge-no-hecha { color: var(--pico-muted-color, #6c757d); font-weight: 600; }
+.badge-hecha    { color: var(--pico-color-green-500, #2e7d32); font-weight: 600; }
+.badge-dominada { color: var(--pico-color-amber-500, #f59e0b); font-weight: 600; }
+
+/* Aviso inline en el picker para Test completo (D-36). Texto plano discreto. */
+.picker-warning {
+  color: var(--pico-muted-color, #6c757d);
+  font-size: 0.9em;
+  margin-top: 0.5rem;
+}
+
+/*
+ * Confirmación inline reusable (D-27 ahora; D-43/D-44 en Plan 02-04). Panel
+ * discreto en la esquina superior derecha — NO bloquea el resto de la UI
+ * (semántica D-27: "confirmación inline", no modal). z-index alto para
+ * quedar por encima de cualquier card de Pico.
+ */
+.confirm-inline {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  max-width: 22rem;
+  padding: 1rem;
+  border: 1px solid var(--pico-muted-color, #6c757d);
+  border-radius: var(--pico-border-radius, 0.25rem);
+  background: var(--pico-card-background-color, #fff);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+}
