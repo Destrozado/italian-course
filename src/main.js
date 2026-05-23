@@ -39,21 +39,23 @@ async function bootstrap() {
     const placeholder = document.getElementById('app-placeholder');
     if (placeholder) placeholder.remove();
 
-    // --- Registro Alpine: patrón dual para manejar ambos órdenes de carga ---
-    // Path A: Alpine aún no ha emitido `alpine:init` → el listener lo capturará.
+    // El inline script en index.html instaló `window.deferLoadingAlpine`, así
+    // que Alpine está esperando a que `__resolveAppReady()` se cumpla. Antes
+    // de liberar Alpine, registramos el factory en el listener `alpine:init`
+    // — Alpine lo dispara una vez al arrancar (después de startAlpine()), y
+    // encontrará nuestro factory en su scan del DOM.
     document.addEventListener('alpine:init', () => {
       window.Alpine.data('sessionScreen', () => sessionScreen(content, state));
     });
-    // Path B: Alpine YA cargó (defer-vs-module race) → registramos en caliente
-    // y arrancamos. `Alpine.start()` segunda llamada es no-op en Alpine 3.
-    if (window.Alpine) {
-      window.Alpine.data('sessionScreen', () => sessionScreen(content, state));
-      window.Alpine.start();
-    }
+    // Liberamos Alpine — startAlpine() corre en la próxima microtask y emite
+    // alpine:init, lo que ejecuta el listener de arriba y luego escanea el DOM.
+    window.__resolveAppReady();
   } catch (err) {
     const errors = err?.errors ?? [{ file: '?', reason: String(err?.message ?? err) }];
     renderValidationBanner(errors);
     window.__appBoot = { ready: false, errors };
+    // No resolvemos __resolveAppReady — Alpine queda intencionadamente sin
+    // arrancar (D-10: all-or-nothing boot). El banner es el único output.
   }
 }
 
