@@ -1,3 +1,17 @@
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: milestone
+status: executing
+last_updated: "2026-05-23T14:17:45.441Z"
+progress:
+  total_phases: 4
+  completed_phases: 0
+  total_plans: 2
+  completed_plans: 0
+  percent: 0
+---
+
 # Project State: Italian Course — Ejercicios A1/A2
 
 ## Project Reference
@@ -10,7 +24,7 @@
 
 - **Phase:** — (aún no iniciada; siguiente: Fase 1)
 - **Plan:** —
-- **Status:** Roadmap creado, pendiente `/gsd:plan-phase 1`
+- **Status:** Ready to execute
 - **Progress:** [░░░░░░░░░░░░] 0/4 fases
 
 ## Performance Metrics
