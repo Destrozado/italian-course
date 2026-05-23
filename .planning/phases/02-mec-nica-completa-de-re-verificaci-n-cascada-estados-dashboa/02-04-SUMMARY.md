@@ -55,10 +55,10 @@ decisions:
   - "Smoke test integrado DOMAIN-10: UN solo describe + UN test combinando 30+ días con todos los aspectos del dominio. Alternativa (varios tests más pequeños) descartada por la suite ya tener tests por aspecto en Plans 02-01 y 02-02. El test integrado es la prueba final del invariante combinado: el dominio funciona end-to-end en un escenario complejo realista."
   - "Patrón Alpine double-defense (Plan 02-03 SUMMARY lessons learned #1) DEBE aplicarse a TODO nuevo binding que traverse un recurso nullable. Round 1 detectó que el banner inFlightTest NO había aplicado el patrón — anti-pattern recurrente. Fix: getter defensivo (inFlightTestActive returns false cuando state null) + outer x-if guard. Lección a documentar más arriba en CONTEXT.md / ADR para que sea un invariante del proyecto, no algo que se redescubre en cada UAT."
 metrics:
-  duration: "~3h plan original + ~25min UAT round 1 fix"
+  duration: "~3h plan original + ~25min UAT round 1 fix + ~15min UAT round 2 fix"
   completed_date: "2026-05-23"
   files_changed: "4 (1 SUMMARY creado, 3 código modificados)"
-  commits: 4
+  commits: 6
   tests_passing: 58/58
 ---
 
@@ -146,6 +146,26 @@ Tras el primer pase del plan, la consola DevTools mostraba al recargar `http://l
 
 Aplicado fix double-defense — ver sección "Deviations from Plan" más abajo.
 
+**UAT Round 2 — Picker button spacing fix:**
+
+Tras el round 1, el autor reportó:
+
+> "Los botones 'Seleccionar todo' y 'Quitar todo' tienen el mismo problema que tenían los botones de la home, demasiado pegados, no parecen dos botones, parecen 1 título."
+
+Mismo root cause que el fix de UAT 02-03 round 1 — Pico classless no espacía botones adyacentes. Resuelto generalizando la clase específica `.home-actions` a la clase reutilizable `.button-row` y aplicándola en picker, banner in-flight, y panel de confirmación inline (3 sitios preventivos detectados por audit `grep`). Ver sección "Deviations from Plan" item 2.
+
+**Auditoría post-UAT round 2:**
+
+```
+$ grep -c "button-row\|home-actions" index.html
+11   # 4 aplicaciones live + 7 comentarios docs (rationale en el HTML)
+$ grep -nE 'class="button-row' index.html
+107: in-flight banner (Reanudar/Descartar)
+124: home actions (Repaso 20/Test completo) — usa también .button-row-prominent
+177: picker (Seleccionar todo/Quitar todo) — el finding directo
+319: confirm-inline panel (D-27/D-43/D-44)
+```
+
 ## Deviations from Plan
 
 ### Auto-fixed Issues
@@ -163,6 +183,27 @@ Aplicado fix double-defense — ver sección "Deviations from Plan" más abajo.
   4. **Comentario HTML extenso** dentro del template documentando el anti-pattern del `?.` left-to-right + el patrón canónico (para futura referencia, no se vuelva a repetir).
 - **Files modified:** `src/screens/app.js` (+~50 LOC: 2 getters defensivos), `index.html` (banner block reescrito de `<div x-show>` a `<template x-if>` + bindings directos).
 - **Commit:** `b998812` — `fix(02-04): guard inFlightTest banner against null state at boot`.
+
+**2. [Rule 1 - Bug visual recurrente] Picker `Seleccionar todo` / `Quitar todo` pegados parecían un título**
+
+- **Found during:** UAT round 2 — el autor reportó:
+
+  > "Los botones 'Seleccionar todo' y 'Quitar todo' tienen el mismo problema que tenían los botones de la home, demasiado pegados, no parecen dos botones, parecen 1 título."
+
+- **Root cause:** Idéntico al fix de UAT 02-03 round 1 (commit `060c1f7`, "widen home action buttons with flex gap"). Pico classless no añade gap entre `<button>` adyacentes y `role="group"` (Pico's button group) une los bordes para que se lean como un solo control. La clase `.home-actions` se creó en 02-03 para resolverlo en el home, pero NO se reutilizó en el picker — el patrón visual de spacing entre botones adyacentes es **recurrente** (mismo problema, distinto sitio).
+- **Fix (generalización del patrón):**
+  1. **Renombrar `.home-actions` → `.button-row`** en `styles.css` y `index.html`. Clase ahora genérica, reusable en cualquier fila de botones adyacentes (no atada a home).
+  2. **Añadir variante `.button-row-prominent`** que añade `font-size: 1.1rem` + `padding: 0.75rem 1.5rem` para acciones primarias (preserva el look existente del home `Repaso 20` / `Test completo`).
+  3. **Aplicar `.button-row` al picker** (`Seleccionar todo` / `Quitar todo`) — fix directo del finding.
+  4. **Aplicar `.button-row` preventivamente** a los OTROS pares de botones adyacentes detectados por audit `grep -nE '<button.*>\s*\n\s*<button' index.html`:
+     - Banner in-flight Test completo (home): `Reanudar` / `Descartar`.
+     - Confirmación inline (D-27/D-43/D-44): botones confirm/cancel.
+  5. Los botones de opciones de la sesión (MCQ, `role="group"`) NO se cambian — son opciones de una misma pregunta, deben leerse agrupadas (semántica distinta).
+- **Verificación visual esperada:** los pares de botones se ven separados con un gap >= 1rem; cada uno con estilo de botón Pico (background sólido, padding, hover state). Ya no parecen un título.
+- **Files modified:** `styles.css` (rename + variant `.button-row-prominent`), `index.html` (4 wrappers: home + picker + banner + confirm panel).
+- **Commits:**
+  - `89df7f1` — `style(02-04): rename .home-actions to .button-row for reuse`.
+  - `5dd205d` — `style(02-04): apply .button-row to picker / banner / confirm buttons`.
 
 ### Lección estructural pendiente (ADR)
 
@@ -186,6 +227,8 @@ Ninguno. App local sin auth.
 | `80c93f6` | `feat(02-04): inFlightTest persistence + banner home + D-43/D-44 confirmaciones` | `src/screens/app.js`, `index.html`, `styles.css` |
 | `415dc6f` | `test(02-04): smoke test integrado 30 días (DOMAIN-10)` | `tests/domain-progress.test.js` |
 | `b998812` | `fix(02-04): guard inFlightTest banner against null state at boot` | `src/screens/app.js`, `index.html` |
+| `89df7f1` | `style(02-04): rename .home-actions to .button-row for reuse` | `styles.css`, `index.html` |
+| `5dd205d` | `style(02-04): apply .button-row to picker / banner / confirm buttons` | `index.html` |
 
 ## Lessons learned
 
@@ -198,6 +241,8 @@ Ninguno. App local sin auth.
 4. **summaryDelta como prop (no getter) — research D-37 acertada:** la decisión de no exponer summaryDelta como getter (porque Alpine NO cachea getters y recomputaría el cálculo en cada render) demostró ser correcta. El cálculo de delta consume el snapshot `before` que ya no está disponible tras applySessionResult; un getter no podría reconstruirlo sin re-llamar applySessionResult. Patrón a replicar: para datos derivados que dependen de snapshots temporales, usar prop + invalidación explícita en lugar de getter.
 
 5. **Smoke test integrado vale más que muchos tests pequeños:** un solo test de 30+ días que combina cascada multi-cat + promoción + dominada + regresión + racha guard sirve como invariante final del dominio. Si este test falla, la combinación de aspectos se ha roto — incluso si los tests unitarios por aspecto pasan. Patrón a replicar: cada subsistema cerrado merece un smoke test integrado además de los tests unitarios.
+
+6. **Patrón visual recurrente — spacing entre botones adyacentes:** Pico CSS classless no añade `gap` entre `<button>` consecutivos en ningún contexto, y `role="group"` los une como un solo control. UAT 02-03 round 1 lo detectó en el home y se resolvió con `.home-actions`; UAT 02-04 round 2 lo redetectó en el picker con `.home-actions` sin reutilizar. La lección: cuando un problema visual aparece en un sitio, el fix debería ser una clase **genérica** (`.button-row`), no específica (`.home-actions`), porque el patrón VA a reaparecer en cada par de botones nuevo que el plan añada. Patrón a replicar: nombrar clases CSS por el patrón visual que resuelven, no por el sitio donde aparecen primero. Renombrar tras la segunda aparición sale más barato que vivir con N clases duplicadas.
 
 ## Lo que queda para Phase 2
 
@@ -223,7 +268,9 @@ Commits present in `git log --oneline`:
 - `80c93f6` — FOUND (inFlightTest persistence + banner + D-43/D-44).
 - `415dc6f` — FOUND (DOMAIN-10 smoke test 30 días).
 - `b998812` — FOUND (banner null state guard — UAT round 1 fix).
+- `89df7f1` — FOUND (rename .home-actions → .button-row — UAT round 2 fix).
+- `5dd205d` — FOUND (apply .button-row to picker / banner / confirm — UAT round 2 fix).
 
 Domain tests: 58/58 verdes (`node --test tests/*.test.js` exits 0).
 
-Pending UAT humano 6/6 round 2 (post-fix). Orquestador maneja el re-checkpoint.
+Pending UAT humano 6/6 round 3 (post-fix). Orquestador maneja el re-checkpoint.
