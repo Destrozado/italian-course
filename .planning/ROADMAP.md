@@ -41,7 +41,11 @@
   4. Una categoría `hecha` o `dominada` vuelve automáticamente a `no-hecha` cuando se añade al JSON un ejercicio nuevo que no está en su `clearedExerciseIds`
   5. Al terminar cualquier sesión aparece una pantalla de resumen (no toast) con aciertos/fallos y, por cada categoría tocada, su estado antes→después, racha antes→después y ejercicios pendientes para `hecha`; una sesión Repaso abandonada (cerrar pestaña antes del resumen) se descarta sin afectar al estado; una sesión "Test completo" abandonada se ofrece reanudar al volver
   6. Existen smoke tests unitarios que simulan ≥30 días de actividad cubriendo cascada multi-categoría, racha-una-vez-por-día, promoción `no-hecha → hecha → dominada`, regresión `dominada → no-hecha`, sampler con categorías de 1-2 ejercicios, oversubscription y weight cap
-**Plans**: TBD
+**Plans**: 4 plans
+- [ ] 02-01-PLAN.md — Storage v2 (schemaVersion 1→2 migration + blankState v2) + applySessionResult extendido con cascada + promociones + racha guard + dailyLog + tests D-53.1/.2/.3 (cascada multi-cat, simulación 21 días, racha guard)
+- [ ] 02-02-PLAN.md — Sampler GUARANTEE phase + buildFullTest export + applyNewExerciseRegression (DOMAIN-06 boot) + tests D-53.4 (sampler edges + statistical ratio + regresión por ejercicio nuevo)
+- [ ] 02-03-PLAN.md — appShell factory plano único + home dashboard (tabla densa, badges, botones grandes) + picker compartido (Repaso 20 / Test completo, labels dinámicos, aviso inline) + sesión migrada + main.js refactor (categoryIds dinámico + DOMAIN-06 boot integration) + UAT 7/7
+- [ ] 02-04-PLAN.md — Pantalla summary con delta factústico + inFlightTest persistence per-answer + banner home reanudar/descartar + confirmaciones D-43/D-44 + smoke test integrado 30 días (DOMAIN-10 final) + UAT final 6/6
 **UI hint**: yes
 
 ### Phase 3: Variedad de ejercicios + ergonomía de teclado
@@ -76,7 +80,7 @@
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Loop mínimo end-to-end | 2/2 | Complete    | 2026-05-23 |
-| 2. Mecánica completa de re-verificación | 0/? | Not started | - |
+| 2. Mecánica completa de re-verificación | 0/4 | Planning   | -          |
 | 3. Variedad de ejercicios + ergonomía | 0/? | Not started | - |
 | 4. Backup robusto + contenido completo | 0/? | Not started | - |
 
