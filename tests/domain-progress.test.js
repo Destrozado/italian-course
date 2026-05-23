@@ -837,3 +837,164 @@ describe('domain/progress — D-54 applyImmediateFailure (cascada inmediata)', (
     assert.deepEqual(before, snapshot);
   });
 });
+
+// ────────────────────────────────────────────────────────────────────────────
+// DOMAIN-10 — smoke test integrado 30 días (D-53 combinado)
+//
+// El plan 02-01/02 ya splitea los aspectos del dominio en suites unitarias
+// (D-53.1 cascada, D-53.2 promoción, D-53.3 racha guard). Este test integrado
+// combina los tres en una sola simulación de 30+ días con un escenario
+// realista de uso: el autor practica varias categorías, falla, recupera, se
+// promociona, vuelve a fallar, prueba la racha guard del mismo día. Es la
+// red de seguridad final contra regresiones que pasen las suites unitarias
+// pero rompan combinaciones específicas.
+// ────────────────────────────────────────────────────────────────────────────
+
+describe('domain — smoke test integrado 30 días (DOMAIN-10)', () => {
+  test('escenario completo: cascada multi-cat + promoción + dominada + regresión + racha guard', () => {
+    // Helpers locales scoped al test.
+    const isoDay = n => `2026-06-${String(n).padStart(2, '0')}`;
+    /**
+     * Construye `sessionResult.answers` desde una lista de exerciseIds.
+     * `correctMap`: opcional, valor `false` para un id marca el answer
+     * como incorrecto. Defecto: todos correctos.
+     */
+    const sessionAnswers = (exerciseIds, correctMap = {}) =>
+      exerciseIds.map(id => ({ exerciseId: id, correct: correctMap[id] !== false }));
+
+    // Setup: 2 categorías (avere, genero) con 1 ejercicio multi-cat.
+    // avere tiene 4 ejercicios (a1, a2, a3, m1); genero tiene 3 (g1, g2, m1).
+    const content = makeContent([
+      { id: 'a1', categoryIds: ['avere'] },
+      { id: 'a2', categoryIds: ['avere'] },
+      { id: 'a3', categoryIds: ['avere'] },
+      { id: 'g1', categoryIds: ['genero'] },
+      { id: 'g2', categoryIds: ['genero'] },
+      { id: 'm1', categoryIds: ['avere', 'genero'] }
+    ]);
+
+    let state = blankStateV2();
+
+    // ─── Días 1-7: promoción + 7 días racha continua sobre avere Y genero ───
+    // Cada día el autor responde TODOS los ejercicios de ambas categorías sin fallar.
+    // Día 1: ambas promocionan no-hecha → hecha con streak=1.
+    // Día 2-7: streak incrementa 1 por día.
+    for (let day = 1; day <= 7; day++) {
+      state = applySessionResult(
+        state,
+        { answers: sessionAnswers(['a1', 'a2', 'a3', 'm1', 'g1', 'g2']) },
+        content,
+        isoDay(day)
+      );
+    }
+    assert.equal(state.categoryProgress.avere.status, 'hecha', 'avere debe ser hecha tras 7 días sin fallar');
+    assert.equal(state.categoryProgress.avere.streakDays, 7, 'avere.streak debe ser 7 tras 7 días');
+    assert.equal(state.categoryProgress.avere.becameHechaAt, isoDay(1), 'avere se promocionó el día 1');
+    assert.equal(state.categoryProgress.genero.status, 'hecha', 'genero debe ser hecha tras 7 días sin fallar');
+    assert.equal(state.categoryProgress.genero.streakDays, 7, 'genero.streak debe ser 7 tras 7 días');
+
+    // ─── Día 8: cascada multi-cat por fallo en m1 ───
+    // Tras aciertos previos en a1/g1 en la MISMA sesión, m1 falla. La cascada
+    // borra TODO para ambas categorías (D-39 fail-wins absoluto).
+    state = applySessionResult(
+      state,
+      {
+        answers: [
+          { exerciseId: 'a1', correct: true },
+          { exerciseId: 'g1', correct: true },
+          { exerciseId: 'm1', correct: false }
+        ]
+      },
+      content,
+      isoDay(8)
+    );
+    assert.equal(state.categoryProgress.avere.status, 'no-hecha', 'cascada multi-cat avere → no-hecha');
+    assert.equal(state.categoryProgress.avere.streakDays, 0, 'avere.streak reseteada a 0');
+    assert.deepEqual(state.categoryProgress.avere.clearedExerciseIds, [], 'avere.cleared vaciado');
+    assert.equal(state.categoryProgress.avere.becameHechaAt, undefined, 'becameHechaAt limpiado en cascada');
+    assert.equal(state.categoryProgress.genero.status, 'no-hecha', 'cascada multi-cat genero → no-hecha');
+    assert.equal(state.categoryProgress.genero.streakDays, 0, 'genero.streak reseteada a 0');
+    assert.deepEqual(state.categoryProgress.genero.clearedExerciseIds, [], 'genero.cleared vaciado');
+
+    // exerciseStats monotónico: timesShown sigue creciendo (DOMAIN-09).
+    // m1 ha sido visto 7 veces (días 1-7) + 1 vez (día 8) = 8. timesFailed=1.
+    assert.ok(state.exerciseStats.m1.timesShown >= 8, `m1.timesShown debe ser ≥8, fue ${state.exerciseStats.m1.timesShown}`);
+    assert.ok(state.exerciseStats.m1.timesFailed >= 1, 'm1.timesFailed debe haber crecido por el fallo del día 8');
+
+    // ─── Días 9-29: recuperación + 21 días racha continua sobre avere ───
+    // El autor SOLO toca avere (sin genero) durante 21 días consecutivos.
+    // Día 9: avere promociona a hecha (streak=1).
+    // Día 9+20=29: avere debería ser dominada (al cruzar 21 días).
+    for (let day = 9; day <= 29; day++) {
+      state = applySessionResult(
+        state,
+        { answers: sessionAnswers(['a1', 'a2', 'a3', 'm1']) },
+        content,
+        isoDay(day)
+      );
+    }
+    assert.equal(state.categoryProgress.avere.status, 'dominada', 'avere debe ser dominada tras 21 días continuos');
+    assert.equal(state.categoryProgress.avere.streakDays, 21, 'avere.streak debe ser 21');
+    assert.equal(state.categoryProgress.avere.becameDominadaAt, isoDay(29), 'becameDominadaAt en el día de cruce');
+    // genero NO se tocó: sigue no-hecha desde el día 8.
+    assert.equal(state.categoryProgress.genero.status, 'no-hecha', 'genero sigue no-hecha (sin tocar 21 días)');
+    assert.equal(state.categoryProgress.genero.streakDays, 0, 'genero.streak intacto');
+
+    // ─── Día 30 (sesión 1): regresión desde dominada por fallo ───
+    state = applySessionResult(
+      state,
+      { answers: [{ exerciseId: 'a1', correct: false }] },
+      content,
+      isoDay(30)
+    );
+    assert.equal(state.categoryProgress.avere.status, 'no-hecha', 'avere regresa desde dominada a no-hecha por fallo');
+    assert.equal(state.categoryProgress.avere.streakDays, 0, 'avere.streak reseteada a 0');
+    assert.deepEqual(state.categoryProgress.avere.clearedExerciseIds, [], 'avere.cleared vaciado');
+    assert.equal(state.categoryProgress.avere.becameDominadaAt, undefined, 'becameDominadaAt limpiado');
+    assert.equal(state.categoryProgress.avere.becameHechaAt, undefined, 'becameHechaAt limpiado');
+
+    // ─── Día 30 (sesión 2): completa avere → promociona de nuevo a hecha ───
+    state = applySessionResult(
+      state,
+      { answers: sessionAnswers(['a1', 'a2', 'a3', 'm1']) },
+      content,
+      isoDay(30)
+    );
+    assert.equal(state.categoryProgress.avere.status, 'hecha', 'avere vuelve a hecha en la sesión 2 del día 30');
+    assert.equal(state.categoryProgress.avere.streakDays, 1, 'streak=1 tras promoción');
+    assert.equal(state.categoryProgress.avere.lastSuccessDate, isoDay(30), 'lastSuccessDate registrado');
+
+    // ─── Día 30 (sesiones 3-7): racha guard `lastSuccessDate === today` ───
+    // 5 sesiones más el MISMO día con aciertos. streak NO debe incrementar
+    // (D-53.3 racha guard) — sigue siendo 1.
+    for (let i = 0; i < 5; i++) {
+      state = applySessionResult(
+        state,
+        { answers: [{ exerciseId: 'a1', correct: true }] },
+        content,
+        isoDay(30)
+      );
+    }
+    assert.equal(state.categoryProgress.avere.streakDays, 1, 'racha guard: streak sigue siendo 1 tras 5 sesiones más el mismo día');
+    assert.equal(state.categoryProgress.avere.lastSuccessDate, isoDay(30), 'lastSuccessDate sigue siendo día 30');
+    assert.equal(state.categoryProgress.avere.status, 'hecha', 'avere sigue hecha');
+
+    // ─── Aserciones finales: monotonicidad + dailyLog ───
+    // exerciseStats.a1: visto en días 1-7 (7) + sesiones del 9-29 (21) +
+    // día 30 sesión 1 fallo (1) + día 30 sesión 2 (1) + día 30 sesiones 3-7 (5) = 35.
+    assert.ok(state.exerciseStats.a1.timesShown >= 30, `a1.timesShown=${state.exerciseStats.a1.timesShown}, esperado ≥30`);
+    // dailyLog tiene entradas para días distintos (idempotente por día — múltiples
+    // sesiones el mismo día = una sola entrada).
+    // Días tocados distintos: 1-7 (7), 8 (1), 9-29 (21), 30 (1) = 30 entradas.
+    const dailyLogKeys = Object.keys(state.dailyLog);
+    assert.ok(dailyLogKeys.length >= 30, `dailyLog debe tener ≥30 días distintos, tenía ${dailyLogKeys.length}`);
+    assert.ok(dailyLogKeys.includes(isoDay(30)), 'dailyLog debe contener el día 30');
+    assert.ok(state.dailyLog[isoDay(30)].categoriesWithFailure.includes('avere'), 'día 30 marca avere como falló');
+
+    // ─── Pureza del content: no se mutó ni añadió campos sorpresa ───
+    assert.equal(typeof content.exerciseById, 'object', 'content.exerciseById sigue siendo objeto');
+    assert.equal(Object.keys(content.exerciseById).length, 6, 'content.exerciseById sigue teniendo 6 ejercicios');
+    assert.equal(content.exerciseById.a1.id, 'a1', 'a1 intacto');
+    assert.deepEqual(content.exerciseById.m1.categoryIds, ['avere', 'genero'], 'm1.categoryIds intacto');
+  });
+});
