@@ -18,7 +18,7 @@
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { applySessionResult } from '../src/domain/progress.js';
+import { applySessionResult, applyNewExerciseRegression } from '../src/domain/progress.js';
 import {
   blankStateV2,
   makeContent,
@@ -468,5 +468,153 @@ describe('domain/progress — D-53.3 racha guard + edge cases', () => {
     assert.equal(cat.status, 'hecha');
     assert.equal(cat.streakDays, 5);                    // 4 + 1
     assert.equal(cat.lastSuccessDate, '2026-05-23');
+  });
+});
+
+// ────────────────────────────────────────────────────────────────────────────
+// D-53.3b — DOMAIN-06 applyNewExerciseRegression (boot regression)
+// ────────────────────────────────────────────────────────────────────────────
+//
+// Invariante crítico (D-40): al añadir un ejercicio nuevo al content, las
+// categorías 'hecha' o 'dominada' cuyo `clearedExerciseIds` no cubre el nuevo
+// ejercicio regresan a 'no-hecha' con `streakDays=0` y
+// `becameHechaAt`/`becameDominadaAt=undefined`. PERO `clearedExerciseIds` se
+// PRESERVA — los aciertos previos siguen contando para futuras sesiones que
+// cubran el ejercicio nuevo. Sin este invariante el autor perdería todo su
+// trabajo al añadir un solo ejercicio.
+//
+// Esta función NO va dentro de `applySessionResult` (Pitfall #10): se invoca
+// UNA vez al boot de `main.js` tras `loadState + loadContent`.
+
+describe('domain/progress — D-53.3b applyNewExerciseRegression (DOMAIN-06)', () => {
+  test('hecha → no-hecha cuando content añade ejercicio nuevo; clearedExerciseIds PRESERVADO (D-40)', () => {
+    const state = setupHechaState('avere', ['a1', 'a2'], {
+      streakDays: 5,
+      lastSuccessDate: '2026-05-22',
+      lastPracticedDate: '2026-05-22',
+      becameHechaAt: '2026-05-18'
+    });
+    const content = makeContent([
+      { id: 'a1', categoryIds: ['avere'] },
+      { id: 'a2', categoryIds: ['avere'] },
+      { id: 'a3', categoryIds: ['avere'] }  // ← ejercicio nuevo añadido por el autor
+    ]);
+
+    const result = applyNewExerciseRegression(state, content);
+    const cat = result.categoryProgress['avere'];
+
+    assert.equal(cat.status, 'no-hecha');
+    assert.equal(cat.streakDays, 0);
+    assert.equal(cat.becameHechaAt, undefined);
+    assert.equal(cat.becameDominadaAt, undefined);
+    // D-40 explícito: cleared se PRESERVA, no se vacía.
+    assert.deepEqual(cat.clearedExerciseIds, ['a1', 'a2']);
+    // lastPracticedDate / lastSuccessDate preservados (huella histórica).
+    assert.equal(cat.lastPracticedDate, '2026-05-22');
+    assert.equal(cat.lastSuccessDate, '2026-05-22');
+  });
+
+  test('dominada → no-hecha cuando content añade ejercicio nuevo; becameDominadaAt borrado, cleared PRESERVADO', () => {
+    const state = setupDominadaState('avere', ['a1', 'a2'], {
+      streakDays: 25,
+      lastSuccessDate: '2026-05-22',
+      lastPracticedDate: '2026-05-22',
+      becameHechaAt: '2026-04-10',
+      becameDominadaAt: '2026-05-01'
+    });
+    const content = makeContent([
+      { id: 'a1', categoryIds: ['avere'] },
+      { id: 'a2', categoryIds: ['avere'] },
+      { id: 'a3', categoryIds: ['avere'] }  // ← ejercicio nuevo
+    ]);
+
+    const result = applyNewExerciseRegression(state, content);
+    const cat = result.categoryProgress['avere'];
+
+    assert.equal(cat.status, 'no-hecha');
+    assert.equal(cat.streakDays, 0);
+    assert.equal(cat.becameDominadaAt, undefined);
+    assert.equal(cat.becameHechaAt, undefined);
+    // D-40: cleared preservado.
+    assert.deepEqual(cat.clearedExerciseIds, ['a1', 'a2']);
+  });
+
+  test('categoría no-hecha con cleared parcial NO se toca (la regresión solo aplica a hecha/dominada)', () => {
+    const state = blankStateV2();
+    state.categoryProgress['avere'] = {
+      status: 'no-hecha',
+      clearedExerciseIds: ['a1'],
+      streakDays: 0,
+      lastPracticedDate: '2026-05-22',
+      lastSuccessDate: '2026-05-22',
+      becameHechaAt: undefined,
+      becameDominadaAt: undefined
+    };
+    const content = makeContent([
+      { id: 'a1', categoryIds: ['avere'] },
+      { id: 'a2', categoryIds: ['avere'] }  // ejercicio "nuevo" presente
+    ]);
+
+    const result = applyNewExerciseRegression(state, content);
+    const catAfter = result.categoryProgress['avere'];
+
+    // Sin cambios funcionales: la categoría sigue no-hecha con los mismos campos.
+    assert.equal(catAfter.status, 'no-hecha');
+    assert.deepEqual(catAfter.clearedExerciseIds, ['a1']);
+    assert.equal(catAfter.streakDays, 0);
+    assert.equal(catAfter.lastPracticedDate, '2026-05-22');
+  });
+
+  test('idempotencia: categoría hecha cuyo cleared cubre TODOS los ejercicios → no se regresa', () => {
+    const state = setupHechaState('avere', ['a1', 'a2', 'a3'], {
+      streakDays: 7,
+      lastSuccessDate: '2026-05-22',
+      becameHechaAt: '2026-05-15'
+    });
+    const content = makeContent([
+      { id: 'a1', categoryIds: ['avere'] },
+      { id: 'a2', categoryIds: ['avere'] },
+      { id: 'a3', categoryIds: ['avere'] }
+    ]);
+
+    const result = applyNewExerciseRegression(state, content);
+    const cat = result.categoryProgress['avere'];
+
+    // Sin ejercicios nuevos → la categoría queda igual.
+    assert.equal(cat.status, 'hecha');
+    assert.equal(cat.streakDays, 7);
+    assert.equal(cat.becameHechaAt, '2026-05-15');
+    assert.deepEqual([...cat.clearedExerciseIds].sort(), ['a1', 'a2', 'a3']);
+  });
+
+  test('pureza: input state NO se muta tras applyNewExerciseRegression', () => {
+    // Doble fixture builder — evitamos JSON.parse(JSON.stringify) porque ese
+    // round-trip pierde claves con valor `undefined` y dispara falsos positivos
+    // en strict deep-equal (lección aprendida en Plan 02-01).
+    const makeFixture = () => {
+      const s = blankStateV2();
+      s.categoryProgress['avere'] = {
+        status: 'hecha',
+        clearedExerciseIds: ['a1', 'a2'],
+        streakDays: 5,
+        lastPracticedDate: '2026-05-22',
+        lastSuccessDate: '2026-05-22',
+        becameHechaAt: '2026-05-18',
+        becameDominadaAt: undefined
+      };
+      return s;
+    };
+    const before = makeFixture();
+    const snapshot = makeFixture();
+    const content = makeContent([
+      { id: 'a1', categoryIds: ['avere'] },
+      { id: 'a2', categoryIds: ['avere'] },
+      { id: 'a3', categoryIds: ['avere'] }  // ← provocará regresión en el output
+    ]);
+
+    applyNewExerciseRegression(before, content);
+
+    // Tras la llamada el input sigue idéntico (no fue mutado).
+    assert.deepEqual(before, snapshot);
   });
 });

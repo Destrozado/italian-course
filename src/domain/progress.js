@@ -12,6 +12,13 @@
 //   - D-39: cascada fail-wins absoluto. Un solo ejercicio fallado de la
 //     categoría borra TODOS los aciertos previos (esta sesión + acumulados).
 //     Promociones `no-hecha → hecha → dominada` a los 21 días.
+//   - D-40 (Phase 2): DOMAIN-06 boot regression. Cuando el autor añade un
+//     ejercicio nuevo al content, las categorías `hecha`/`dominada` cuyo
+//     `clearedExerciseIds` no cubre algún ejercicio actual del content regresan
+//     a `no-hecha`. CRÍTICO: `clearedExerciseIds` se PRESERVA — los aciertos
+//     previos siguen contando para futuras sesiones. Implementado como export
+//     SEPARADA `applyNewExerciseRegression(state, content)` invocada UNA VEZ
+//     al boot por `main.js` (Pitfall #10): NO va dentro de `applySessionResult`.
 //   - D-47: `categoryProgress[id]` se inicializa lazy con
 //     `blankCategoryProgress()` la primera vez que la categoría es tocada.
 //   - D-48: `dailyLog[isoDate] = {date, categoriesPracticed[], categoriesWithFailure[]}`.
@@ -20,11 +27,6 @@
 //     inyectan strings deterministas. La firma rompe Phase 1
 //     intencionalmente: `applySessionResult(state, sessionResult, content, today)`
 //     ahora exige 4 argumentos (Pitfall #2 de RESEARCH).
-//
-// IMPORTANTE — `applyNewExerciseRegression` (DOMAIN-06): NO vive aquí. Se
-// implementará en Plan 02-02 como export separada para invocarse SOLO en el
-// boot de `main.js` (no en cada `applySessionResult`). Esto evita falsos
-// positivos de regresión durante la sesión (Pitfall #10).
 
 /**
  * Aplica el resultado de una sesión al estado. PURA: devuelve un estado nuevo,
@@ -167,6 +169,67 @@ export function applySessionResult(state, sessionResult, content, today) {
   // 6. Limpiar inFlightTest (Pitfall #9). El caller asume idempotencia.
   if (next.inFlightTest !== undefined) {
     delete next.inFlightTest;
+  }
+
+  return next;
+}
+
+/**
+ * DOMAIN-06 (D-40) — Regresión por ejercicio nuevo añadido al content.
+ *
+ * Para cada categoría con `status ∈ {'hecha', 'dominada'}`, si existe algún
+ * ejercicio en el content cuyo `id` NO está en `clearedExerciseIds`: la
+ * categoría regresa a `no-hecha` con `streakDays=0`, `becameHechaAt=undefined`,
+ * `becameDominadaAt=undefined`. **`clearedExerciseIds` se PRESERVA (D-40
+ * explícito y crítico)** — los aciertos previos siguen contando para futuras
+ * sesiones que cubran el ejercicio nuevo. Sin este invariante el autor
+ * perdería todo su trabajo al añadir un solo ejercicio al JSON.
+ *
+ * Las categorías `no-hecha` no se tocan; las categorías cuyo content no
+ * cambió tampoco (idempotente). `dailyLog` y `exerciseStats` no se tocan.
+ *
+ * **IMPORTANTE — esta función NO va dentro de `applySessionResult` (Pitfall
+ * #10).** Se invoca UNA VEZ al boot de la app (`src/main.js`, Plan 02-03), tras
+ * `loadState + loadContent` y antes de resolver `appDataReady`. Si se llamase
+ * en cada sesión generaría falsos positivos de regresión.
+ *
+ * Pure: no muta `state` ni `content`.
+ *
+ * @param {{schemaVersion:2, categoryProgress: Record<string, object>}} state
+ * @param {{exerciseById: Record<string, {id:string, categoryIds:string[]}>}} content
+ * @returns {object} Nuevo estado con las regresiones aplicadas (mismo shape v2).
+ */
+export function applyNewExerciseRegression(state, content) {
+  // 1. Índice ejercicios por categoría (reusa el helper privado del módulo).
+  const exercisesByCategory = buildExercisesByCategory(content);
+
+  // 2. Spread-clone defensivo (state + categoryProgress).
+  const next = {
+    ...state,
+    categoryProgress: { ...(state.categoryProgress ?? {}) }
+  };
+
+  // 3. Bucle por categorías existentes en categoryProgress.
+  for (const [catId, cat] of Object.entries(next.categoryProgress)) {
+    // Solo regresan estados promocionados; las `no-hecha` se dejan tal cual.
+    if (cat.status !== 'hecha' && cat.status !== 'dominada') continue;
+
+    const allInCat = exercisesByCategory[catId] ?? [];
+    const cleared = cat.clearedExerciseIds ?? [];
+    const hasNewExercise = allInCat.some(eid => !cleared.includes(eid));
+
+    if (hasNewExercise) {
+      next.categoryProgress[catId] = {
+        ...cat,
+        status: 'no-hecha',
+        streakDays: 0,
+        becameHechaAt: undefined,
+        becameDominadaAt: undefined
+        // D-40 explícito: clearedExerciseIds NO se vacía — preservado del input.
+        // lastPracticedDate y lastSuccessDate preservados (huella histórica).
+      };
+    }
+    // else: categoría intacta (idempotente cuando no hay regresión).
   }
 
   return next;
