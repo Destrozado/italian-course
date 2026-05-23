@@ -44,6 +44,10 @@
 //     `sessionSelectOption` cuando feedback === 'incorrect'. Persiste la
 //     regresión de categoría INMEDIATAMENTE (saveState mid-session) para
 //     cerrar el exploit "fallo + abandono" que violaba el core value.
+//   - D-55 (UAT round 2): `formatStreak(streak, status)` formatea la celda
+//     de Racha de la home como `N / 21 d` cuando status != 'dominada'
+//     (visualiza el objetivo 21 días) y `N d` cuando dominada (ya superó
+//     el objetivo).
 //
 // Reglas de pureza del módulo:
 //   - NO toca `document`, `window`, ni `innerHTML`. La manipulación del DOM
@@ -523,7 +527,9 @@ export function appShell(appDataReady) {
           status,
           badgeGlyph: badgeGlyphFor(status),
           statusLabel: statusLabelFor(status),
-          streakLabel: formatStreak(streak),
+          // D-55 (UAT round 2): formato `N / 21 d` para no-dominada (visualiza
+          // el objetivo 21 días), `N d` para dominada (ya superó el objetivo).
+          streakLabel: formatStreak(streak, status),
           totalCount: (exercisesByCat[cat.id] ?? []).length,
           lastPracticedLabel: formatRelativeDate(lastPracticedDate, today)
         };
@@ -560,16 +566,34 @@ function statusLabelFor(status) {
 }
 
 /**
- * Formato del label de racha (D-29): siempre con sufijo " d", cap visual a
- * "21+ d" cuando alcanza 21 (para no llenar la celda con cifras grandes).
+ * Formato del label de racha en la home (D-29 + D-55).
+ *
+ * D-55 (UAT round 2): el formato comunica el objetivo de 21 días.
+ *   - status != 'dominada': `{N} / 21 d` (ej. `0 / 21 d`, `5 / 21 d`).
+ *     Visualiza al usuario CUÁNTO le falta para alcanzar el objetivo.
+ *   - status === 'dominada': `{N} d` solo (ej. `25 d`). Ya superó el objetivo,
+ *     el `/ 21 d` ya no aporta — y la columna Estado tiene el ★ que indica
+ *     dominada. Si se prefiere visual minimalista, el contador acumulado
+ *     sigue siendo informativo (cuántos días llevas dominada).
+ *
+ * Defensivo con valores inválidos: streak=null/undefined/NaN/negativo → trata
+ * como 0.
  *
  * @param {number} streak
+ * @param {string} [status='no-hecha'] - Status de la categoría para decidir formato.
  * @returns {string}
  */
-function formatStreak(streak) {
-  if (typeof streak !== 'number' || streak < 0 || Number.isNaN(streak)) return '0 d';
-  if (streak >= 21) return '21+ d';
-  return `${streak} d`;
+function formatStreak(streak, status = 'no-hecha') {
+  let safeStreak;
+  if (typeof streak !== 'number' || streak < 0 || Number.isNaN(streak)) {
+    safeStreak = 0;
+  } else {
+    safeStreak = streak;
+  }
+  // D-55: dominada → sin tope visual, mostrar contador acumulado limpio.
+  if (status === 'dominada') return `${safeStreak} d`;
+  // D-55: el resto → mostrar progreso hacia el objetivo 21 días.
+  return `${safeStreak} / 21 d`;
 }
 
 /**
