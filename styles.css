@@ -159,3 +159,80 @@ button.incorrecta {
   color: var(--pico-muted-color, #6c757d);
   font-size: 0.9em;
 }
+
+/* ─── Phase 3 — word-buttons (Plan 03-01) ─────────────────────────────────
+ *
+ * Sub-template del tipo word-buttons en `index.html`. Las clases viven aquí
+ * para mantener `index.html` declarativo y testeable por inspección visual.
+ *
+ * Decisiones aplicadas (UI-SPEC líneas 116-141):
+ *   - D-56: layout vertical banco arriba / área respuesta abajo.
+ *   - D-57: distractoras mezcladas con las correctas en el banco (shuffle
+ *     determinista vive en initSubStateForExercise, sin impacto CSS).
+ *   - D-58: botón Comprobar deshabilitado cuando el área respuesta está
+ *     vacía — el estilo `:disabled` viene de Pico por defecto, sin override.
+ *   - D-59: frase correcta literal al fallar — `.wb-correct-answer` con
+ *     color verde sutil (mismo verde que `button.correcta` para coherencia
+ *     visual con multi-choice — el verde dice "esto es lo correcto").
+ *   - D-69: sufijos numéricos `¹²³ᵃᵇᶜ` con `.kbd-hint` (small muted),
+ *     visibles dentro de cada botón del banco.
+ */
+
+/* D-56: banco con palabras separadas por gap, wrap natural en filas. */
+.wb-bank {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1.5rem 0;
+}
+
+/* D-56: área respuesta con borde dashed + min-height para que sea evidente
+ * antes del primer click. Min-height ~3rem alinea visualmente con el área
+ * vacía sin colapsar el layout. */
+.wb-answer {
+  min-height: 3rem;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  border: 1px dashed var(--pico-muted-border-color, #e0e0e0);
+  border-radius: var(--pico-border-radius, 0.25rem);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* D-58: placeholder italic muted vía ::before cuando el área está vacía y
+ * sin feedback. Pseudo-element evita necesitar un nodo extra en el DOM. */
+.wb-answer-empty::before {
+  content: 'Construye la frase pulsando las palabras del banco...';
+  color: var(--pico-muted-color, #6c757d);
+  font-style: italic;
+}
+
+/* D-59: al fallar, borde sólido rojo en el área respuesta. La frase correcta
+ * (.wb-correct-answer) aparece debajo en verde. Coherente con multi-choice
+ * donde el botón clicado se queda en rojo y el correcto en verde. */
+.wb-answer.incorrecta {
+  border-color: var(--pico-color-red-500, #d32f2f);
+  border-style: solid;
+}
+
+/* D-59: frase correcta literal — texto verde sutil para que "esto es lo
+ * que esperaba" sea inmediato visualmente sin gritar. Mismo verde que la
+ * clase .correcta de los botones de multi-choice. */
+.wb-correct-answer {
+  color: var(--pico-color-green-500, #2e7d32);
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+/* D-69: sufijos numéricos visibles en cada botón del banco. Superíndice
+ * Unicode (¹²³ — aplicados desde JS via bankWithKeys.key) — pero el
+ * HTML usa <sup> y CSS aquí solo controla color/tamaño. Muted para que el
+ * dígito no domine visualmente sobre la palabra italiana. */
+.kbd-hint {
+  color: var(--pico-muted-color, #6c757d);
+  font-size: 0.75em;
+  margin-left: 0.25rem;
+  font-weight: 600;
+}

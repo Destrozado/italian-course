@@ -224,31 +224,101 @@
         Phase 1 usó con `<template x-if="ready && !done">` (UAT 01-02).
       -->
       <template x-if="currentScreen === 'session' && sessionCurrentExercise">
-        <article>
+        <article @keydown.window="handleSessionKey($event)">
           <!-- SESSION-04: indicador "Ejercicio X / N" visible toda la sesión. -->
           <header x-text="sessionProgressLabel"></header>
 
           <p x-text="sessionCurrentExercise.payload.prompt"></p>
 
-          <div role="group">
-            <template x-for="(opt, idx) in sessionCurrentExercise.payload.options" :key="idx">
-              <button type="button"
-                      @click="sessionSelectOption(idx)"
-                      :disabled="sessionFeedback !== null"
-                      :class="{
-                        'correcta': sessionFeedback !== null && idx === sessionCurrentExercise.payload.correctIndex,
-                        'incorrecta': sessionFeedback === 'incorrect' && idx === sessionSelectedIndex
-                      }"
-                      x-text="opt"></button>
-            </template>
-          </div>
+          <!--
+            Sub-template MULTIPLE-CHOICE (Phase 1 + 2 — sin cambios funcionales
+            respecto a 02-04, solo anidado bajo `x-if="...type === 'multiple-choice'"`
+            para no entremezclarse con los sub-templates de los otros tipos).
+          -->
+          <template x-if="sessionCurrentExercise.type === 'multiple-choice'">
+            <div>
+              <div role="group">
+                <template x-for="(opt, idx) in sessionCurrentExercise.payload.options" :key="idx">
+                  <button type="button"
+                          @click="sessionSelectOption(idx)"
+                          :disabled="sessionFeedback !== null"
+                          :class="{
+                            'correcta': sessionFeedback !== null && idx === sessionCurrentExercise.payload.correctIndex,
+                            'incorrecta': sessionFeedback === 'incorrect' && idx === sessionSelectedIndex
+                          }"
+                          x-text="opt"></button>
+                </template>
+              </div>
 
-          <!-- Solo en respuesta incorrecta: muestra la correcta + botón Siguiente. -->
-          <p x-show="sessionFeedback === 'incorrect'">
-            Respuesta correcta:
-            <strong x-text="sessionCurrentExercise.payload.options[sessionCurrentExercise.payload.correctIndex]"></strong>
-          </p>
-          <button x-show="sessionFeedback === 'incorrect'" @click="sessionAdvance">Siguiente</button>
+              <!-- Solo en respuesta incorrecta: muestra la correcta + botón Siguiente. -->
+              <p x-show="sessionFeedback === 'incorrect'">
+                Respuesta correcta:
+                <strong x-text="sessionCurrentExercise.payload.options[sessionCurrentExercise.payload.correctIndex]"></strong>
+              </p>
+              <button x-show="sessionFeedback === 'incorrect'" @click="sessionAdvance">Siguiente</button>
+            </div>
+          </template>
+
+          <!--
+            Sub-template WORD-BUTTONS (Phase 3 plan 01; D-56/D-58/D-59/D-69).
+
+            Layout vertical: banco arriba → área respuesta abajo → frase
+            correcta (solo en fallo) → button-row con Comprobar/Siguiente.
+
+            `.button-row` (NO role="group" — UAT 02-03/02-04 lesson recurrente)
+            para que Comprobar y Siguiente se rendericen con gap visible.
+
+            `x-text` exclusivamente para escapado seguro (T-02-01 invariante;
+            ningún binding del JSON cruza por la directiva contraria que
+            inyectaría markup sin escapar).
+          -->
+          <template x-if="sessionCurrentExercise.type === 'word-buttons'">
+            <div>
+              <!-- D-56 banco: botones con palabras + sufijo numérico ¹..⁹ (D-69). -->
+              <div class="wb-bank">
+                <template x-for="(entry, idx) in bankWithKeys" :key="entry.word + '_' + idx">
+                  <button type="button"
+                          @click="wordButtonsAddWord(idx)"
+                          :disabled="sessionFeedback !== null"
+                          :aria-label="'Palabra ' + entry.key + ': ' + entry.word">
+                    <span x-text="entry.word"></span><sup class="kbd-hint" x-text="entry.key"></sup>
+                  </button>
+                </template>
+              </div>
+
+              <!-- D-56 área respuesta + D-58 placeholder italic (::before en CSS). -->
+              <div class="wb-answer"
+                   :class="{
+                     'wb-answer-empty': wordButtonsAnswer.length === 0 && sessionFeedback === null,
+                     'incorrecta': sessionFeedback === 'incorrect'
+                   }"
+                   aria-live="polite">
+                <template x-for="(word, idx) in wordButtonsAnswer" :key="word + '_' + idx">
+                  <button type="button"
+                          @click="wordButtonsRemoveWord(idx)"
+                          :disabled="sessionFeedback !== null"
+                          x-text="word"></button>
+                </template>
+              </div>
+
+              <!-- D-59 frase correcta literal al fallar. -->
+              <p x-show="sessionFeedback === 'incorrect'" class="wb-correct-answer">
+                Respuesta correcta:
+                <strong x-text="sessionCurrentExercise.payload.answer.join(' ')"></strong>
+              </p>
+
+              <!-- D-58 botón Comprobar + Siguiente (mismo button-row pattern). -->
+              <div class="button-row">
+                <button type="button"
+                        x-show="sessionFeedback === null"
+                        @click="wordButtonsCheck"
+                        :disabled="!wordButtonsCanCheck">Comprobar</button>
+                <button type="button"
+                        x-show="sessionFeedback === 'incorrect'"
+                        @click="sessionAdvance">Siguiente</button>
+              </div>
+            </div>
+          </template>
 
           <hr>
           <button type="button" class="secondary" @click="requestReturnToHome">← Volver al home</button>
