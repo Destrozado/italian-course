@@ -14,7 +14,18 @@ Web personal de ejercicios de italiano para preparar el A1 (y luego A2). Es una 
 
 <!-- Shipped and confirmed valuable. -->
 
-(None yet — ship to validate)
+**Phase 1 — Loop mínimo end-to-end (2026-05-23):**
+- ✓ Stack web estático con Alpine + Pico + ES modules + localStorage funciona en local con `npx serve`
+- ✓ Schema validator hand-written rechaza JSON malformado y `categoryId` desconocido con banner visible
+- ✓ Multiple-choice exercise type: render + grade + feedback verde/rojo + auto-avance 600ms
+- ✓ Función pura `buildSession()` con sampler ponderado `1/(1+min(timesShown,10))` y reduce-a-disponibles
+- ✓ Función pura `dates.todayLocal()` usa reloj local (no UTC)
+- ✓ Contadores de ejercicio monotónicos en `localStorage` bajo `italianCourse.v1` con `schemaVersion`
+- ✓ Persistencia única al final de sesión (no per-answer)
+- ✓ NFC normalize on load
+- ✓ Sesión abandonada se descarta (cerrar pestaña a medias → estado no se actualiza)
+- ✓ 12 ejercicios seed de Avere (presente indicativo, 6 personas + variantes contextuales)
+- ✓ 14 tests unitarios con `node --test` cubren dominio puro
 
 ### Active
 
@@ -99,4 +110,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-05-23 after initialization*
+*Last updated: 2026-05-23 after Phase 1 completion*
