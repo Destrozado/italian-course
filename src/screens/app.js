@@ -155,9 +155,31 @@ export function appShell(appDataReady) {
      * D-34: checkboxes DESMARCADOS al entrar (cada vez, no recuerda última
      * selección — decisión deliberada para forzar elección consciente).
      *
+     * D-44 (Plan 02-04): si el usuario pulsa `Test completo` cuando ya hay un
+     * `inFlightTest` pendiente, mostramos confirmación antes de abrir el
+     * picker. Esto previene que el usuario pierda accidentalmente el progreso
+     * del test en curso sin haber visto el banner del home (caso típico: el
+     * usuario olvidó que tenía un test a medias). Para `Repaso` no aplica
+     * (Repaso no persiste por diseño SESSION-08).
+     *
      * @param {'repaso'|'test-completo'} mode
      */
     openPicker(mode) {
+      // D-44: conflicto si pulsa Test completo con uno in-flight pendiente.
+      if (mode === 'test-completo' && this.state.inFlightTest) {
+        this.requestConfirm({
+          message: 'Ya hay un Test completo en curso. ¿Descartarlo y empezar uno nuevo?',
+          confirmLabel: 'Descartar y empezar',
+          cancelLabel: 'Cancelar',
+          onConfirm: () => {
+            this.clearInFlightTest();
+            this.pickerMode = mode;
+            this.pickerCheckedCategoryIds = [];
+            this.currentScreen = 'picker';
+          }
+        });
+        return;
+      }
       this.pickerMode = mode;
       this.pickerCheckedCategoryIds = []; // D-34
       this.currentScreen = 'picker';
@@ -273,8 +295,10 @@ export function appShell(appDataReady) {
      * `buildFullTest` para Test completo) y transiciona a la pantalla
      * `session` con todos los sub-estados de sesión a default.
      *
-     * NO escribe `inFlightTest` aún (eso es Plan 02-04, persistencia per-answer
-     * de Test completo).
+     * Para `test-completo`: escribe `inFlightTest` inicial (cursor=0,
+     * answers=[]) ANTES de transicionar a session, así si el usuario cierra
+     * la pestaña antes de responder el primer ejercicio, el banner aparecerá
+     * con `0/N ejercicios` (D-41/D-42).
      */
     startSession() {
       const allExercises = Object.values(this.content.exerciseById);
@@ -302,7 +326,133 @@ export function appShell(appDataReady) {
       this.sessionResults = [];
       this.sessionSelectedIndex = null;
       this.sessionFeedback = null;
+
+      // D-41 / D-42 (Plan 02-04): primer write de inFlightTest para Test
+      // completo. A partir de aquí cada respuesta y cada advance lo
+      // re-escribirán. Se preserva startedAt si por alguna razón ya existía
+      // (no debería en el path normal de Test nuevo — el conflict de D-44
+      // lo limpia primero — pero defensivo).
+      if (this.pickerMode === 'test-completo') {
+        this.persistInFlightTest();
+      }
+
       this.currentScreen = 'session';
+    },
+
+    // ════════════════════════════════════════════════════════════════════════
+    // Persistencia in-flight Test completo (D-41/D-42/D-43/D-44/D-45)
+    // ════════════════════════════════════════════════════════════════════════
+
+    /**
+     * D-41/D-42 (Plan 02-04): persiste el state actual del Test completo en
+     * curso como `state.inFlightTest`. Invocado desde:
+     *   - `startSession` cuando mode='test-completo' (initial write).
+     *   - `sessionSelectOption` tras cada push a sessionResults.
+     *   - `sessionAdvance` cuando NO termina (cursor avanzado).
+     *
+     * Shape del inFlightTest (D-41):
+     *   {
+     *     categoryIds: string[],   // las cats elegidas en el picker; preservadas
+     *                              // del valor previo cuando el usuario reanuda
+     *                              // un test (no toca picker)
+     *     exerciseIds: string[],   // orden generado por buildFullTest
+     *     cursor: number,          // 0..length
+     *     answers: Array<{exerciseId, correct}>,
+     *     startedAt: number        // epoch ms; preservado si ya existe
+     *   }
+     *
+     * Notas:
+     *   - `pickerCheckedCategoryIds` puede estar vacío si el usuario reanudó
+     *     (el picker no se tocó); por eso si está vacío preservamos el
+     *     `inFlightTest.categoryIds` previo.
+     *   - `startedAt` se setea sólo la primera vez (initial write); luego
+     *     se preserva. Informativo — no usado para staleness en v1.
+     */
+    persistInFlightTest() {
+      const prev = this.state.inFlightTest;
+      const categoryIds = this.pickerCheckedCategoryIds.length > 0
+        ? [...this.pickerCheckedCategoryIds]
+        : (prev?.categoryIds ?? []);
+      this.state = {
+        ...this.state,
+        inFlightTest: {
+          categoryIds,
+          exerciseIds: [...this.sessionExerciseIds],
+          cursor: this.sessionCursor,
+          answers: [...this.sessionResults],
+          startedAt: prev?.startedAt ?? Date.now()
+        }
+      };
+      saveState(this.state);
+    },
+
+    /**
+     * D-43 (Plan 02-04): click sobre `Reanudar` en el banner in-flight del
+     * home. Restaura el sub-estado de sesión desde `state.inFlightTest` y
+     * navega a `session`.
+     *
+     * Pitfall #5 (RESEARCH): validación de IDs stale. Si el autor editó el
+     * JSON entre sesiones y borró ejercicios del test, los IDs en
+     * `inFlightTest.exerciseIds` pueden no existir ya en `content.exerciseById`.
+     * Comportamiento: si NO hay ejercicios válidos restantes (todos los que
+     * faltan por responder son stale), pedimos confirmación para descartar el
+     * test en lugar de crashear al intentar renderizar `null.payload.prompt`.
+     */
+    resumeInFlightTest() {
+      const ift = this.state.inFlightTest;
+      if (!ift) return; // defensivo — no debería pasar si el banner está visible
+      // Validación stale: ¿algún exerciseId restante (>= cursor) ya no existe?
+      const remainingIds = ift.exerciseIds.slice(ift.cursor);
+      const allRemainingExist = remainingIds.every(eid => this.content.exerciseById[eid] !== undefined);
+      if (!allRemainingExist) {
+        this.requestConfirm({
+          message: 'El test que tenías a medias ya no es válido (algún ejercicio fue eliminado del contenido). ¿Descartarlo?',
+          confirmLabel: 'Descartar',
+          cancelLabel: 'Cancelar',
+          onConfirm: () => this.clearInFlightTest()
+        });
+        return;
+      }
+      // Restaurar sub-estado session desde el inFlightTest.
+      this.sessionMode = 'test-completo';
+      this.sessionExerciseIds = [...ift.exerciseIds];
+      this.sessionCursor = ift.cursor;
+      this.sessionResults = [...ift.answers];
+      this.sessionSelectedIndex = null;
+      this.sessionFeedback = null;
+      // Preservar categoryIds en pickerCheckedCategoryIds para que un futuro
+      // persistInFlightTest mid-resume capture las mismas categorías (no es
+      // crítico — persistInFlightTest cae al fallback `prev?.categoryIds`).
+      this.pickerCheckedCategoryIds = [...ift.categoryIds];
+      this.currentScreen = 'session';
+    },
+
+    /**
+     * D-45 (Plan 02-04): limpia `state.inFlightTest` (lo pone undefined) y
+     * persiste. No requiere confirmación porque las rutas que llaman aquí
+     * ya pasaron por un `requestConfirm` (D-43 botón Descartar; D-44 conflict
+     * en openPicker; futuro: completar el Test completo lo borra vía
+     * applySessionResult paso 6 — ese path NO pasa por aquí).
+     *
+     * `JSON.stringify` elide `undefined`, así que tras saveState el blob
+     * persistido en localStorage NO contiene la clave `inFlightTest`.
+     */
+    clearInFlightTest() {
+      this.state = { ...this.state, inFlightTest: undefined };
+      saveState(this.state);
+    },
+
+    /**
+     * D-43 (Plan 02-04): click sobre `Descartar` en el banner in-flight del
+     * home. Confirmación inline con el helper estándar; al confirmar, limpia.
+     */
+    discardInFlightTestWithConfirm() {
+      this.requestConfirm({
+        message: '¿Descartar el test? Los aciertos hasta ahora no se guardarán.',
+        confirmLabel: 'Descartar',
+        cancelLabel: 'Cancelar',
+        onConfirm: () => this.clearInFlightTest()
+      });
     },
 
     // ════════════════════════════════════════════════════════════════════════
@@ -355,6 +505,16 @@ export function appShell(appDataReady) {
         // No schedule: el HTML expone "Siguiente" que llamará sessionAdvance()
         // cuando el usuario decida.
       }
+
+      // D-42 (Plan 02-04): Test completo per-answer write. Tras pushear la
+      // respuesta al sessionResults, persistir el inFlightTest con cursor +
+      // answers actualizados. Esto cubre el caso de cerrar la pestaña entre
+      // selectOption y advance (el botón Siguiente aún no fue pulsado).
+      // Para Repaso: NO escribimos inFlightTest (SESSION-08: abandono
+      // descarta — aciertos no se persisten mid-sesión, sólo fallos vía D-54).
+      if (this.sessionMode === 'test-completo') {
+        this.persistInFlightTest();
+      }
     },
 
     /**
@@ -363,6 +523,12 @@ export function appShell(appDataReady) {
      *
      * Si tras incrementar el cursor la sesión está terminada, dispara
      * `completeSession()` para aplicar la cascada/promociones y persistir.
+     *
+     * D-42 (Plan 02-04): para Test completo no-terminado, re-persistir el
+     * inFlightTest con el cursor actualizado (captura el avance correcto post-
+     * advance). Si la sesión está terminada, completeSession() correrá y
+     * applySessionResult borrará inFlightTest (paso 6, D-45) — NO escribimos
+     * aquí en ese caso para evitar un write redundante.
      */
     sessionAdvance() {
       this.cancelAutoAdvance();
@@ -373,6 +539,10 @@ export function appShell(appDataReady) {
 
       if (this.sessionCursor >= this.sessionExerciseIds.length) {
         this.completeSession();
+      } else if (this.sessionMode === 'test-completo') {
+        // D-42: persistir cursor avanzado (captura el avance post-advance
+        // ya aplicado).
+        this.persistInFlightTest();
       }
     },
 

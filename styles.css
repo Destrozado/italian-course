@@ -107,6 +107,20 @@ button.incorrecta {
 }
 
 /*
+ * Banner persistente in-flight Test completo (D-43, Plan 02-04). Color
+ * amarillo/ámbar sutil — distingue visualmente del resto de la card del home
+ * pero sin alarmismo. El border + background tintado es suficiente; los dos
+ * botones interiores usan estilos Pico por defecto (el secundario gris).
+ */
+.inflight-banner {
+  border: 1px solid var(--pico-color-amber-500, #f59e0b);
+  background: rgba(245, 158, 11, 0.08);
+  padding: 0.75rem 1rem;
+  border-radius: var(--pico-border-radius, 0.25rem);
+  margin-bottom: 1rem;
+}
+
+/*
  * Resumen pantalla completa (D-37, SESSION-07). Tono neutro factúal —
  * sin emojis decorativos, sin badges grandes, sin reformulaciones positivas.
  * Los colores sólo aparecen en la flecha → cuando hay un cambio de estado
