@@ -320,6 +320,76 @@
             </div>
           </template>
 
+          <!--
+            Sub-template MATCH (Phase 3 plan 02; D-60/D-61/D-63/D-66/D-70).
+
+            Layout dos columnas (`.match-grid`, 1fr 1fr) con items botón
+            verticales en cada columna. Sufijos visibles:
+              - Columna izq: superíndice numérico ¹..⁹ (idx + 1, vacío si idx ≥ 9).
+              - Columna der: superíndice alfabético ᵃ..ⁱ (`letterFor(idx)`).
+
+            Estados visuales (UI-SPEC Estados visuales por componente — match):
+              - `.match-selected` (izq): outline 2px azul Pico primary cuando
+                el item izq está seleccionado y NO consumed.
+              - `.match-consumed` (ambos): muted gris + opacity 0.55 +
+                `:disabled` cuando la pareja ya fue formada correctamente.
+              - `.match-flash` (ambos): animation `match-flash-red` 300ms única
+                cuando el intento incorrecto involucra a este item.
+
+            Double-defense Alpine: outer x-if `currentScreen === 'session' &&
+            sessionCurrentExercise` ya guarda; `matchFlashIdx` se accede con
+            null check explícito en el binding `:class`.
+
+            x-text exclusivamente (T-02-01). `aria-label` con texto humano
+            ("Sustantivo 1: casa", "Letra a: la") porque los lectores de
+            pantalla NO leen superíndices Unicode de forma consistente.
+
+            Botón Siguiente bajo el grid solo aparece tras fallo final
+            (matchHadFailure + ejercicio completo). El flujo "match" muestra
+            el botón Siguiente vía `sessionFeedback === 'incorrect'` cuando
+            applyResultToSession se invoca con correct=false al cerrar el
+            ejercicio con matchHadFailure=true. Mientras quedan parejas,
+            sessionFeedback === null y los items siguen interactuables.
+          -->
+          <template x-if="sessionCurrentExercise.type === 'match'">
+            <div>
+              <div class="match-grid">
+                <div class="match-col">
+                  <template x-for="(item, idx) in matchLeft" :key="'L_' + idx + '_' + item">
+                    <button type="button"
+                            @click="matchSelectLeft(idx)"
+                            :disabled="matchLeftIsConsumed(idx) || sessionFeedback !== null"
+                            :class="{
+                              'match-selected': matchSelectedLeftIdx === idx && !matchLeftIsConsumed(idx),
+                              'match-consumed': matchLeftIsConsumed(idx),
+                              'match-flash': matchFlashIdx && matchFlashIdx.left === idx
+                            }"
+                            :aria-label="'Sustantivo ' + (idx + 1) + ': ' + item">
+                      <span x-text="item"></span><sup class="kbd-hint" x-text="idx < 9 ? (idx + 1) : ''"></sup>
+                    </button>
+                  </template>
+                </div>
+                <div class="match-col">
+                  <template x-for="(item, idx) in matchRight" :key="'R_' + idx + '_' + item">
+                    <button type="button"
+                            @click="matchPickRight(idx)"
+                            :disabled="matchRightIsConsumed(idx) || sessionFeedback !== null"
+                            :class="{
+                              'match-consumed': matchRightIsConsumed(idx),
+                              'match-flash': matchFlashIdx && matchFlashIdx.right === idx
+                            }"
+                            :aria-label="'Letra ' + letterFor(idx) + ': ' + item">
+                      <span x-text="item"></span><sup class="kbd-hint" x-text="letterFor(idx)"></sup>
+                    </button>
+                  </template>
+                </div>
+              </div>
+              <button type="button"
+                      x-show="sessionFeedback === 'incorrect'"
+                      @click="sessionAdvance">Siguiente</button>
+            </div>
+          </template>
+
           <hr>
           <button type="button" class="secondary" @click="requestReturnToHome">← Volver al home</button>
         </article>

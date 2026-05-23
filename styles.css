@@ -236,3 +236,74 @@ button.incorrecta {
   margin-left: 0.25rem;
   font-weight: 600;
 }
+
+/* ─── Phase 3 — match (Plan 03-02) ────────────────────────────────────────
+ *
+ * Sub-template del tipo match en `index.html`. Layout dos columnas verticales
+ * con sufijos numéricos (¹..⁹) en izq y alfabéticos (ᵃ..ⁱ) en der (D-70).
+ *
+ * Decisiones aplicadas (UI-SPEC líneas 143-167):
+ *   - D-60 estados visuales: idle / selected (outline azul) / consumed
+ *     (muted gris) / flash (parpadeo rojo 300ms).
+ *   - D-61 cascada inmediata: el CSS no añade señal visual extra al
+ *     parpadeo — el parpadeo + persistencia silenciosa son suficientes
+ *     (tono sobrio sin gamificación).
+ *   - D-63 layout variable 2..10 parejas: `grid-template-columns: 1fr 1fr`
+ *     funciona idéntico para cualquier N en el rango (desktop only v1).
+ *   - D-70 sufijos: la clase `.kbd-hint` ya existente cubre el render
+ *     consistente con el banco word-buttons (color muted, font-size 0.75em).
+ *   - WCAG 2.1 §2.3.1 safe: `@keyframes match-flash-red` corre 1 vez
+ *     (`animation: ... 1`), NO loop. Sin riesgo de seizure.
+ */
+
+/* D-63: dos columnas lado a lado con gap; cada columna stack vertical. */
+.match-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.match-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* D-60 selected (solo izq): outline 2px azul Pico primary, sin background fill
+ * para preservar legibilidad del texto y diferenciar visualmente de los
+ * estados .correcta/.incorrecta que sí usan fondo lleno. */
+.match-selected {
+  outline: 2px solid var(--pico-primary, #1095c1);
+  outline-offset: 2px;
+}
+
+/* D-60 consumed: pareja correcta ya fijada, "apagada" visualmente. Pico
+ * aplica :disabled para affordance (cursor not-allowed automático). */
+.match-consumed {
+  color: var(--pico-muted-color, #6c757d);
+  background: transparent;
+  border-color: var(--pico-muted-border-color, #e0e0e0);
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/*
+ * D-60 parpadeo rojo único (300ms ease-out, iteración 1 — NO loop).
+ * WCAG 2.1 §2.3.1 safe (max 3 flashes/sec, este es 1 único).
+ * El setTimeout en flashMatchPair desactiva el flag matchFlashIdx tras 300ms
+ * (cancelable vía cancelMatchFlash en resetSession/destroy — Pitfall #4/#5).
+ */
+@keyframes match-flash-red {
+  0%, 100% {
+    background-color: transparent;
+    border-color: var(--pico-primary-border, currentColor);
+  }
+  50% {
+    background-color: var(--pico-color-red-500, #d32f2f);
+    border-color: var(--pico-color-red-600, #b71c1c);
+    color: white;
+  }
+}
+.match-flash {
+  animation: match-flash-red 300ms ease-out 1;
+}

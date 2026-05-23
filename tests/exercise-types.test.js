@@ -789,3 +789,68 @@ describe('appShell.matchPickRight — D-61 idempotencia (W3)', () => {
       `Se esperan EXACTAMENTE 2 call-sites de applyImmediateFailure(this.state, ...); encontrados: ${matches.length}.`);
   });
 });
+
+// ────────────────────────────────────────────────────────────────────────────
+// appShell match handlers — smoke (W5 revisión iteración 1)
+// ────────────────────────────────────────────────────────────────────────────
+
+describe('appShell match handlers — smoke (W5)', () => {
+  // W5 revisión iteración 1: el factory `appShell` toma una Promise
+  // `appDataReady` y depende de `await` en `init()`; aunque se podría
+  // instanciar sin Alpine pasándole una Promise resuelta mock, los getters
+  // reactivos (`sessionCurrentExercise`, `bankWithKeys`) y handlers acceden
+  // a `this.content`/`this.state` que tendrían que estar populados con
+  // shapes precisos. Setup pesado y frágil — aceptado como gap en el plan
+  // (UAT humano paso 4-8 del 03-03 valida UI behaviors mid-sesión).
+  //
+  // Estrategia adoptada: verificación textual de presencia de los métodos
+  // clave en `src/screens/app.js`. Si alguien quitase/renombrase un método
+  // o introdujese una regresión a la rama match de `handleSessionKey`, este
+  // test falla. Es la garantía estructural mínima que el plan exige (W5
+  // skip + grep es aceptable y documentado).
+
+  test('matchSelectLeft, matchPickRight, flashMatchPair, helpers de consumed están presentes en app.js', () => {
+    const src = readFileSync(new URL('../src/screens/app.js', import.meta.url), 'utf8');
+    assert.ok(src.includes('matchSelectLeft('),
+      'matchSelectLeft debe estar definido en app.js');
+    assert.ok(src.includes('matchPickRight('),
+      'matchPickRight debe estar definido en app.js');
+    assert.ok(src.includes('flashMatchPair('),
+      'flashMatchPair debe estar definido en app.js');
+    assert.ok(src.includes('matchLeftIsConsumed('),
+      'matchLeftIsConsumed debe estar definido en app.js');
+    assert.ok(src.includes('matchRightIsConsumed('),
+      'matchRightIsConsumed debe estar definido en app.js');
+    assert.ok(src.includes('letterFor('),
+      'letterFor debe estar definido en app.js');
+  });
+
+  test('rama match en handleSessionKey cubre dígitos 1-9 (matchSelectLeft) Y letras a-i (matchPickRight)', () => {
+    const src = readFileSync(new URL('../src/screens/app.js', import.meta.url), 'utf8');
+    // Localiza el bloque handleSessionKey y verifica que tiene ambas ramas.
+    const handlerIdx = src.indexOf('handleSessionKey(event)');
+    assert.ok(handlerIdx > -1, 'handleSessionKey debe existir en app.js');
+    const handlerBody = src.slice(handlerIdx, handlerIdx + 8000); // margen generoso
+    // Rama dígitos para match (matchSelectLeft via dígito).
+    assert.match(handlerBody, /matchSelectLeft\(idx\)/,
+      'handleSessionKey debe invocar matchSelectLeft(idx) en la rama dígitos para match');
+    // Rama letras a-i.
+    assert.match(handlerBody, /key >= 'a' && key <= 'i'/,
+      'handleSessionKey debe tener una rama de letras a-i');
+    assert.match(handlerBody, /matchPickRight\(idx\)/,
+      'handleSessionKey debe invocar matchPickRight(idx) en la rama letras');
+  });
+
+  test('initSubStateForExercise tiene rama match con shuffle de ambas columnas (D-62)', () => {
+    const src = readFileSync(new URL('../src/screens/app.js', import.meta.url), 'utf8');
+    const initIdx = src.indexOf('initSubStateForExercise(exercise)');
+    assert.ok(initIdx > -1, 'initSubStateForExercise debe existir en app.js');
+    const initBody = src.slice(initIdx, initIdx + 3000);
+    assert.match(initBody, /exercise\.type === 'match'/,
+      'initSubStateForExercise debe tener una rama para exercise.type === "match"');
+    assert.match(initBody, /this\.matchLeft\s*=\s*fisherYates/,
+      'initSubStateForExercise debe barajar matchLeft con fisherYates (D-62)');
+    assert.match(initBody, /this\.matchRight\s*=\s*fisherYates/,
+      'initSubStateForExercise debe barajar matchRight con fisherYates (D-62)');
+  });
+});

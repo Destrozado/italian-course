@@ -153,6 +153,50 @@
         "distractors": ["sete", "ho"]
       },
       "notes": "Idiomático avere fame — sin distractoras correctas."
+    },
+    {
+      "id": "avere-200",
+      "type": "match",
+      "categoryIds": ["avere"],
+      "payload": {
+        "prompt": "Empareja el sujeto con la forma de avere.",
+        "pairs": [
+          ["io", "ho"],
+          ["tu", "hai"],
+          ["lui", "ha"],
+          ["noi", "abbiamo"]
+        ]
+      },
+      "notes": "Match de conjugaciones avere — 4 parejas, sin duplicados."
+    },
+    {
+      "id": "avere-201",
+      "type": "match",
+      "categoryIds": ["avere"],
+      "payload": {
+        "prompt": "Empareja la persona con la forma de avere correspondiente.",
+        "pairs": [
+          ["voi", "avete"],
+          ["loro", "hanno"],
+          ["io", "ho"],
+          ["lei", "ha"]
+        ]
+      },
+      "notes": "Match con 'ha' en derecha — verifica que duplicados textuales serían posibles si existieran; aquí cada izq es distinta."
+    },
+    {
+      "id": "avere-202",
+      "type": "match",
+      "categoryIds": ["avere"],
+      "payload": {
+        "prompt": "Empareja sujeto con forma de avere (con duplicados).",
+        "pairs": [
+          ["lui", "ha"],
+          ["lei", "ha"],
+          ["noi", "abbiamo"]
+        ]
+      },
+      "notes": "Match con DUPLICADOS textuales en columna derecha (D-66): dos 'ha' válidos — el grading los consume por índice; el usuario puede emparejar 'lui'→primer 'ha' o 'lui'→segundo 'ha' indistintamente."
     }
   ]
 }

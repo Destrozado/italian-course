@@ -115,9 +115,7 @@ export function appShell(appDataReady) {
     /** Tokens colocados en el área respuesta, en orden cronológico. */
     wordButtonsAnswer: [],
 
-    // ─── Sub-estado match (placeholders; Phase 3 plan 02 los activa) ────────
-    // Declarados AQUÍ en plan 01 para que `initSubStateForExercise` los
-    // pueda resetear uniformemente sin tener que tocar el factory en 03-02.
+    // ─── Sub-estado match (Phase 3 plan 02 — D-60/D-61/D-62/D-63/D-66/D-70) ─
     matchLeft: [],
     matchRight: [],
     /** null | number — índice del item izq actualmente seleccionado. */
@@ -126,7 +124,10 @@ export function appShell(appDataReady) {
     matchPairsConsumed: [],
     /** True si el usuario falló al menos UNA pareja en este ejercicio (D-60). */
     matchHadFailure: false,
-    /** null | number — índice de pareja parpadeando rojo (D-60 flash). */
+    /**
+     * null | {left: number, right: number} — par de índices con animación
+     * `.match-flash` activa durante 300ms tras un intento incorrecto (D-60).
+     */
     matchFlashIdx: null,
     /** Handle del setTimeout del flash rojo (Pitfall #5 cleanup). */
     matchFlashHandle: null,
@@ -538,14 +539,16 @@ export function appShell(appDataReady) {
       const handler = registry[ex.type];
       const correct = handler.grade(ex, { index: idx });
 
-      // Phase 3 plan 01: la lógica común (feedback + push a sessionResults +
+      // Phase 3: la lógica común (feedback + push a sessionResults +
       // autoAdvance verde + cascada D-54 inmediata roja + persist inFlightTest
       // para Test completo) se delega en `applyResultToSession(ex, correct)`.
-      // Esto centraliza el SINGLE CALL-SITE de `applyImmediateFailure` para
-      // los 3 tipos (multi-choice aquí, word-buttons en wordButtonsCheck,
-      // match en matchPickRight cuando aterrice 03-02). Pitfall #2 (decisión
-      // final duplicada) evitado arquitectónicamente. Semántica Phase 2
-      // observable invariante — UAT regression smoke 5/5 verde.
+      // Esto centraliza el call-site de `applyImmediateFailure` para los 3
+      // tipos en su "decisión final" (multi-choice aquí, word-buttons en
+      // wordButtonsCheck, match en matchPickRight al completar todas las
+      // parejas). Pitfall #2 (decisión final duplicada) evitado
+      // arquitectónicamente. matchPickRight tiene ADEMÁS un segundo
+      // call-site directo de applyImmediateFailure en el primer fallo,
+      // protegido por `matchHadFailure` (D-61).
       this.applyResultToSession(ex, correct);
     },
 
@@ -715,6 +718,171 @@ export function appShell(appDataReady) {
     },
 
     // ════════════════════════════════════════════════════════════════════════
+    // Match handlers (Phase 3 plan 02; D-60/D-61/D-66/D-70)
+    // ════════════════════════════════════════════════════════════════════════
+
+    /**
+     * Selecciona un item de la columna izquierda. Sustituye cualquier
+     * selección previa (D-70: pulsar otro número antes de letra reemplaza).
+     *
+     * Guards:
+     *   - Si ya hay feedback → ignorado (final del ejercicio, no más selección).
+     *   - Si el item izq ya está consumed (parte de una pareja correcta
+     *     fijada) → ignorado.
+     *
+     * @param {number} idx - Índice en `matchLeft`.
+     */
+    matchSelectLeft(idx) {
+      if (this.sessionFeedback !== null) return;
+      if (this.matchLeftIsConsumed(idx)) return;
+      this.matchSelectedLeftIdx = idx;
+    },
+
+    /**
+     * Click sobre un item de la columna derecha. Evalúa la pareja formada
+     * por `{matchLeft[matchSelectedLeftIdx], matchRight[rightIdx]}` invocando
+     * el handler `match.grade()` del registry.
+     *
+     * Rama CORRECTA:
+     *   - Añade la pareja a `matchPairsConsumed` (inmutable, asignación nueva
+     *     para Alpine reactivity).
+     *   - Limpia `matchSelectedLeftIdx`.
+     *   - Si `matchPairsConsumed.length === pairs.length` (completado el
+     *     ejercicio), invoca `applyResultToSession(ex, !matchHadFailure)`.
+     *     Nota: `applyResultToSession` SIEMPRE se llama UNA vez al completar
+     *     match — con `correct = false` si hubo cualquier intento erróneo.
+     *     La cascada D-54 al final es idempotente (state.categoryProgress ya
+     *     reseteado por el primer fallo); el bumpeo de exerciseStats vía
+     *     applySessionResult al final preserva D-09 monotonicidad.
+     *
+     * Rama INCORRECTA (D-61 + Pitfall #2 idempotencia):
+     *   - Guard `if (!this.matchHadFailure)`: SOLO el primer intento erróneo
+     *     del ejercicio dispara `applyImmediateFailure(...)` + `saveState`.
+     *     Intentos erróneos posteriores son no-op respecto a localStorage —
+     *     state.categoryProgress ya reseteado, escribir de nuevo sería ruido.
+     *   - Dispara el parpadeo rojo de ambos items durante 300ms
+     *     (`flashMatchPair`).
+     *   - Limpia `matchSelectedLeftIdx` (D-60: la selección se deshace tras
+     *     fallo, ambos items vuelven a clickeables).
+     *
+     * @param {number} rightIdx - Índice en `matchRight`.
+     */
+    matchPickRight(rightIdx) {
+      if (this.sessionFeedback !== null) return;
+      if (this.matchSelectedLeftIdx === null) return; // letra sin número previo
+      if (this.matchRightIsConsumed(rightIdx)) return;
+
+      const ex = this.sessionCurrentExercise;
+      const leftIdx = this.matchSelectedLeftIdx;
+      const leftWord = this.matchLeft[leftIdx];
+      const rightWord = this.matchRight[rightIdx];
+
+      const handler = registry['match'];
+      const result = handler.grade(ex, {
+        leftWord,
+        rightWord,
+        consumedPairIdx: this.matchPairsConsumed.map(p => p.pairIdx)
+      });
+
+      if (result.correct === true) {
+        // Pareja válida: fijar como consumed, deselecccionar izq.
+        this.matchPairsConsumed = [
+          ...this.matchPairsConsumed,
+          { leftIdx, rightIdx, pairIdx: result.pairIdx }
+        ];
+        this.matchSelectedLeftIdx = null;
+
+        // ¿Completado el ejercicio? (todas las parejas consumidas)
+        if (this.matchPairsConsumed.length === ex.payload.pairs.length) {
+          // D-60: el ejercicio se considera fallado si hubo cualquier fallo
+          // previo, AUNQUE el usuario completó todas las parejas correctamente.
+          // applyResultToSession con correct=false aplica la cascada D-54
+          // idempotentemente (state ya reseteado por el primer fallo); el
+          // bump de exerciseStats al final vía applySessionResult preserva
+          // D-09 monotonicidad.
+          this.applyResultToSession(ex, !this.matchHadFailure);
+        }
+      } else {
+        // Pareja incorrecta — D-61 cascada inmediata SOLO en el primer fallo.
+        // Pitfall #2 idempotencia: el guard `matchHadFailure` evita writes
+        // redundantes a localStorage en fallos consecutivos del MISMO ejercicio.
+        if (!this.matchHadFailure) {
+          const newState = applyImmediateFailure(this.state, ex, this.content, todayLocal());
+          saveState(newState);
+          this.state = newState;
+          this.matchHadFailure = true;
+          if (this.sessionMode === 'test-completo') {
+            // D-42: el inFlightTest no traquea sub-estado match, pero sí el
+            // cursor/answers. La cascada D-61 ya persistió categoryProgress;
+            // aquí re-grabamos el snapshot de inFlightTest por consistencia
+            // (mismo patrón que applyResultToSession).
+            this.persistInFlightTest();
+          }
+        }
+        // Disparar el parpadeo + deshacer la selección (los dos items vuelven
+        // a clickeables tras 300ms).
+        this.flashMatchPair(leftIdx, rightIdx);
+        this.matchSelectedLeftIdx = null;
+      }
+    },
+
+    /**
+     * Programa el parpadeo rojo (animation `.match-flash`) durante 300ms en
+     * los items izq/der involucrados en un intento incorrecto (D-60).
+     *
+     * Cleanup defensivo: invoca `cancelMatchFlash()` ANTES de schedule por si
+     * había un flash previo activo (raro en uso normal, pero posible si el
+     * usuario hace click muy rápido entre dos fallos consecutivos).
+     *
+     * @param {number} leftIdx
+     * @param {number} rightIdx
+     */
+    flashMatchPair(leftIdx, rightIdx) {
+      this.cancelMatchFlash();
+      this.matchFlashIdx = { left: leftIdx, right: rightIdx };
+      this.matchFlashHandle = setTimeout(() => {
+        this.matchFlashIdx = null;
+        this.matchFlashHandle = null;
+      }, 300);
+    },
+
+    /**
+     * D-66/D-60: ¿el item izq en posición `idx` ya forma parte de una pareja
+     * correcta consumida? Defensivo: si `matchPairsConsumed` no es array,
+     * trata como vacío.
+     *
+     * @param {number} idx
+     * @returns {boolean}
+     */
+    matchLeftIsConsumed(idx) {
+      if (!Array.isArray(this.matchPairsConsumed)) return false;
+      return this.matchPairsConsumed.some(p => p.leftIdx === idx);
+    },
+
+    /**
+     * Simétrico a `matchLeftIsConsumed`.
+     *
+     * @param {number} idx
+     * @returns {boolean}
+     */
+    matchRightIsConsumed(idx) {
+      if (!Array.isArray(this.matchPairsConsumed)) return false;
+      return this.matchPairsConsumed.some(p => p.rightIdx === idx);
+    },
+
+    /**
+     * D-70: mapea índice 0..8 a letra 'a'..'i'. Para idx >= 9 devuelve string
+     * vacío (no es alcanzable por teclado, pero el item sigue clickeable —
+     * cap natural del schema 2 ≤ pairs ≤ 10 deja en raro el caso de >9).
+     *
+     * @param {number} idx
+     * @returns {string}
+     */
+    letterFor(idx) {
+      return idx < 9 ? String.fromCharCode(97 + idx) : '';
+    },
+
+    // ════════════════════════════════════════════════════════════════════════
     // Sub-state init por tipo de ejercicio (Phase 3 plan 01; D-56/D-57/D-62)
     // ════════════════════════════════════════════════════════════════════════
 
@@ -729,11 +897,11 @@ export function appShell(appDataReady) {
      *   - `sessionAdvance()` tras incrementar el cursor (si no terminó).
      *   - `resumeInFlightTest()` tras restaurar el cursor.
      *
-     * Match: en plan 01 solo se DECLARAN los sub-estados (placeholder). Plan
-     * 02 añade la rama `if (exercise.type === 'match')` para barajar las dos
-     * columnas con `fisherYates`. La limpieza universal aquí ya cubre el
-     * reset del flag `matchHadFailure` por ejercicio (D-60: el flag es por
-     * ejercicio, NO por sesión).
+     * Match (D-62 shuffle ambas columnas; D-66 duplicados
+     * permiten que `matchRight` contenga textos repetidos; el grading los
+     * consume por índice via `matchPairsConsumed`). La limpieza universal
+     * arriba ya cubre el reset del flag `matchHadFailure` por ejercicio
+     * (D-60: el flag es por ejercicio, NO por sesión).
      *
      * @param {object|null} exercise - El ejercicio a inicializar; null = solo limpieza.
      */
@@ -761,10 +929,19 @@ export function appShell(appDataReady) {
         ];
         this.wordButtonsBank = fisherYates(all);
         this.wordButtonsAnswer = [];
+      } else if (exercise.type === 'match') {
+        // D-62: shuffle independiente de cada columna con `fisherYates`.
+        // Mismo helper que el sampler de session — un único algoritmo de
+        // shuffle determinista (Math.random aquí también, coherente con el
+        // banco word-buttons: el orden visual es intencional non-deterministic
+        // por carga). D-66: si hay duplicados textuales en `pairs[i][1]`,
+        // `matchRight` los preserva como entradas separadas — el grading los
+        // consume por índice via `matchPairsConsumed`.
+        this.matchLeft = fisherYates(exercise.payload.pairs.map(p => p[0]));
+        this.matchRight = fisherYates(exercise.payload.pairs.map(p => p[1]));
+        // matchSelectedLeftIdx, matchPairsConsumed, matchHadFailure ya están
+        // a default por la limpieza universal arriba.
       }
-      // Plan 02 añade la rama `match` (shuffle de matchLeft/matchRight,
-      // matchSelectedLeftIdx = null, matchPairsConsumed = [], matchHadFailure
-      // ya resetado arriba).
     },
 
     /**
@@ -810,8 +987,13 @@ export function appShell(appDataReady) {
      *   5. Dígitos '1'..'9': si feedback != null → return. Si no:
      *      - multiple-choice: si idx < options.length → sessionSelectOption.
      *      - word-buttons: si idx < bank.length AND idx < 9 → wordButtonsAddWord.
-     *      - match: placeholder no-op — plan 02 añade matchSelectLeft.
-     *   6. Letras 'a'..'i': placeholder no-op — plan 02 añade matchPickRight.
+     *      - match: si idx < matchLeft.length AND no consumed → matchSelectLeft (D-70).
+     *   6. Letras 'a'..'i' (match):
+     *      - Si feedback != null → return.
+     *      - Si no es match → return.
+     *      - Si matchSelectedLeftIdx === null → return (letra sin número
+     *        previo: ignorada silenciosamente, D-70).
+     *      - Si idx < matchRight.length AND no consumed → matchPickRight.
      *   7. Cualquier otra tecla: noop, no preventDefault.
      *
      * @param {KeyboardEvent} event
@@ -871,12 +1053,28 @@ export function appShell(appDataReady) {
           }
           return;
         }
-        // ramas match (números sobre matchLeft) llegan en 03-02
+        if (ex.type === 'match') {
+          // D-70: 1..9 sobre matchLeft. Ignora si idx >= length o consumed.
+          if (idx < this.matchLeft.length && idx < 9 && !this.matchLeftIsConsumed(idx)) {
+            this.matchSelectLeft(idx);
+          }
+          return;
+        }
         return;
       }
 
-      // 6. Letras a..i — match letras a-i llegan en 03-02
-      // (Sin preventDefault — deja al navegador procesar normalmente.)
+      // 6. Letras a..i — match columna derecha (D-70).
+      if (key >= 'a' && key <= 'i') {
+        if (this.sessionFeedback !== null) return;
+        if (ex.type !== 'match') return;
+        if (this.matchSelectedLeftIdx === null) return; // letra sin número previo
+        const idx = key.charCodeAt(0) - 97;
+        if (idx < this.matchRight.length && idx < 9 && !this.matchRightIsConsumed(idx)) {
+          this.matchPickRight(idx);
+        }
+        return;
+      }
+      // Sin preventDefault — deja al navegador procesar normalmente.
     },
 
     /**
