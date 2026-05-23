@@ -162,7 +162,19 @@
       <!-- ════════════════════════════════════════════════════════════════ -->
       <!-- Pantalla SESSION (D-24, D-25 — migrado íntegro de Phase 1)        -->
       <!-- ════════════════════════════════════════════════════════════════ -->
-      <template x-if="currentScreen === 'session'">
+      <!--
+        Guard `&& sessionCurrentExercise` (UAT 02-03 finding 2 — segundo nivel
+        de defensa, complementa el getter defensivo). Alpine reevalúa los
+        bindings de un x-if UNA VEZ con el state nuevo antes de desmontarlo
+        (tick de unmount). Cuando `completeSession()` o el modal de descartar
+        cambian `currentScreen` a `'home'`, los bindings internos del template
+        — `payload.prompt`, `payload.options[correctIndex]`, etc. — se
+        evalúan con `sessionCurrentExercise = null`, lo que provocaba
+        TypeError. Añadir el check al `x-if` hace que el template no monte ni
+        evalúe sus bindings cuando no hay ejercicio actual. Mismo patrón que
+        Phase 1 usó con `<template x-if="ready && !done">` (UAT 01-02).
+      -->
+      <template x-if="currentScreen === 'session' && sessionCurrentExercise">
         <article>
           <!-- SESSION-04: indicador "Ejercicio X / N" visible toda la sesión. -->
           <header x-text="sessionProgressLabel"></header>
