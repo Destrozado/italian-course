@@ -12,11 +12,11 @@
 //   - D-04: `id` de categoría es slug ASCII (`[a-z0-9][a-z0-9-]*`).
 //   - FOUND-04: mensajes de error en español.
 //   - Phase 3: dispatch table `PAYLOAD_VALIDATORS` con los 3 tipos
-//     soportados. `multiple-choice` y `word-buttons` (D-64) son full impls;
-//     `match` es un stub temporal con mensaje estable (B3 — wording SIN
-//     referencia a plan ID; un plan posterior reemplaza el stub por la
-//     impl real). El stub mantiene la promesa "dispatch table cerrada" — los
-//     3 tipos del catálogo Phase 3 están listados aquí.
+//     soportados (cerrada). Los 3 son full impls:
+//       `multiple-choice` (D-07), `word-buttons` (D-64), `match` (D-65).
+//     El stub previo de `match` (plan 03-01) ha sido reemplazado por la
+//     impl real en este plan; el dispatch table es la ÚNICA fuente de verdad
+//     de los tipos soportados.
 
 /** Slug ASCII: minúsculas, dígitos, guiones; primer char no puede ser `-`. */
 const ID_SLUG_RE = /^[a-z0-9][a-z0-9-]*$/;
@@ -24,11 +24,8 @@ const ID_SLUG_RE = /^[a-z0-9][a-z0-9-]*$/;
 /**
  * Dispatch table: tipo de ejercicio → función validadora del payload.
  *
- * Phase 3: cerrada con los 3 tipos del catálogo. `match` es un stub
- * (mensaje estable sin referencia a plan ID — B3) hasta que un plan posterior
- * lo reemplace por la impl real. El stub se mantiene en la tabla en lugar
- * de ser un caso especial fuera, para que el dispatch table sea la ÚNICA
- * fuente de verdad de los tipos soportados Phase 3.
+ * Phase 3: cerrada con los 3 tipos del catálogo, todos en impl real. La
+ * tabla es la ÚNICA fuente de verdad de los tipos soportados.
  */
 const PAYLOAD_VALIDATORS = {
   'multiple-choice': validateMultipleChoicePayload,
@@ -211,19 +208,47 @@ function validateWordButtonsPayload(ex, file, push) {
 }
 
 /**
- * Validador stub del payload de `match` (Phase 3).
+ * Validador del payload de `match` (D-65).
  *
- * B3: el mensaje es LITERAL, estable y NO referencia planning artifacts (sin
- * "en este plan", sin sufijo de plan ID). Un plan posterior reemplaza esta
- * función por la impl real cuando active el tipo `match`.
+ * Reglas:
+ *   - `prompt` string no vacío.
+ *   - `pairs` array de tuples [izq, der]; longitud entre 2 y 10.
+ *   - Cada `pair` es array de exactamente 2 strings no vacíos.
  *
- * El stub vive en `PAYLOAD_VALIDATORS` (no como caso especial) para que la
- * dispatch table sea la única fuente de verdad de los tipos soportados.
+ * D-08: acumula errores sin early-return GLOBAL. SÍ early-return dentro del
+ * `forEach` cuando una pair no es array (para evitar `TypeError: p[0]` al
+ * traversar `p = null` o `p = string`).
  *
  * @param {object} ex
  * @param {string} file
  * @param {(file:string, exerciseId:string, reason:string) => void} push
  */
 function validateMatchPayload(ex, file, push) {
-  push(file, ex.id, 'type "match" aún no soportado');
+  const { prompt, pairs } = ex.payload;
+
+  if (typeof prompt !== 'string' || !prompt.trim()) {
+    push(file, ex.id, '"payload.prompt" debe ser string no vacío');
+  }
+
+  if (!Array.isArray(pairs)) {
+    push(file, ex.id, `"payload.pairs" debe ser array de tuples [izq, der] (encontrado: ${typeof pairs})`);
+    return; // sin array no podemos traversar
+  }
+
+  if (pairs.length < 2 || pairs.length > 10) {
+    push(file, ex.id, `"payload.pairs" debe tener entre 2 y 10 entradas (encontrado: ${pairs.length})`);
+  }
+
+  pairs.forEach((p, idx) => {
+    if (!Array.isArray(p) || p.length !== 2) {
+      push(file, ex.id, `"payload.pairs[${idx}]" debe ser tuple de exactamente 2 strings`);
+      return; // skip esta iteración del forEach — no traversar p[0]/p[1]
+    }
+    if (typeof p[0] !== 'string' || !p[0].trim()) {
+      push(file, ex.id, `"payload.pairs[${idx}][0]" debe ser string no vacío`);
+    }
+    if (typeof p[1] !== 'string' || !p[1].trim()) {
+      push(file, ex.id, `"payload.pairs[${idx}][1]" debe ser string no vacío`);
+    }
+  });
 }

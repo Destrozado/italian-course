@@ -14,7 +14,10 @@
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
 
+import { readFileSync } from 'node:fs';
+
 import { wordButtons } from '../src/exercise-types/word-buttons.js';
+import { match } from '../src/exercise-types/match.js';
 import { registry } from '../src/exercise-types/index.js';
 import { validateContent } from '../src/data/schema-validator.js';
 
@@ -374,32 +377,415 @@ describe('data/schema-validator — type unknown dispatch', () => {
   });
 });
 
-describe('data/schema-validator — match stub', () => {
-  test('match type emits stable stub message without plan ID reference (B3 revisión iteración 1)', () => {
+// ────────────────────────────────────────────────────────────────────────────
+// exercise-types/match — grade() (D-65 payload, D-66 duplicados, D-67 case-insensitive)
+// ────────────────────────────────────────────────────────────────────────────
+
+describe('exercise-types/match', () => {
+  test('grade returns {correct: true, pairIdx: 0} when matched pair is first', () => {
+    const ex = { payload: { pairs: [['casa', 'la'], ['libro', 'il']] } };
+    const result = match.grade(ex, { leftWord: 'casa', rightWord: 'la', consumedPairIdx: [] });
+    assert.deepEqual(result, { correct: true, pairIdx: 0 });
+  });
+
+  test('grade returns {correct: false} when pair is wrong (no pairIdx field)', () => {
+    const ex = { payload: { pairs: [['casa', 'la'], ['libro', 'il']] } };
+    const result = match.grade(ex, { leftWord: 'casa', rightWord: 'il', consumedPairIdx: [] });
+    assert.equal(result.correct, false);
+    // El campo `pairIdx` NO debe aparecer cuando es incorrecto (coherente con
+    // RESEARCH.md Pattern 7 — la ausencia del campo es la señal de "no match").
+    assert.equal('pairIdx' in result, false,
+      `correct:false NO debe incluir pairIdx; recibido: ${JSON.stringify(result)}`);
+  });
+
+  test('grade is case-insensitive on both sides (D-67)', () => {
+    const ex = { payload: { pairs: [['CASA', 'LA']] } };
+    const result = match.grade(ex, { leftWord: 'casa', rightWord: 'la', consumedPairIdx: [] });
+    assert.deepEqual(result, { correct: true, pairIdx: 0 });
+    // Y al revés: payload minúsculas y response mayúsculas.
+    const ex2 = { payload: { pairs: [['casa', 'la']] } };
+    assert.deepEqual(
+      match.grade(ex2, { leftWord: 'CASA', rightWord: 'LA', consumedPairIdx: [] }),
+      { correct: true, pairIdx: 0 }
+    );
+  });
+
+  test('D-66 duplicados — consumedPairIdx skip primer pair y matchea el segundo', () => {
+    // Dos pares con derecha 'la' duplicada. El primer match consume idx 0.
+    // El segundo intento con consumedPairIdx:[0] debe matchear pair 1 (porta-la).
+    const ex = { payload: { pairs: [['casa', 'la'], ['porta', 'la']] } };
+    const first = match.grade(ex, { leftWord: 'casa', rightWord: 'la', consumedPairIdx: [] });
+    assert.deepEqual(first, { correct: true, pairIdx: 0 });
+    const second = match.grade(ex, { leftWord: 'porta', rightWord: 'la', consumedPairIdx: [0] });
+    assert.deepEqual(second, { correct: true, pairIdx: 1 });
+  });
+
+  test('D-66 orden inverso — porta con la matchea pair[1] (no pair[0])', () => {
+    // El grading busca el PRIMER pair libre que coincide AMBOS lados textualmente
+    // (NO solo la derecha). 'porta'+'la' no matchea pair 0 (izq es 'casa'), pero
+    // sí matchea pair 1.
+    const ex = { payload: { pairs: [['casa', 'la'], ['porta', 'la']] } };
+    const result = match.grade(ex, { leftWord: 'porta', rightWord: 'la', consumedPairIdx: [] });
+    assert.deepEqual(result, { correct: true, pairIdx: 1 });
+  });
+
+  test('índice consumido se ignora (no quedan pairs libres → correct false)', () => {
+    const ex = { payload: { pairs: [['casa', 'la']] } };
+    const result = match.grade(ex, { leftWord: 'casa', rightWord: 'la', consumedPairIdx: [0] });
+    assert.equal(result.correct, false);
+    assert.equal('pairIdx' in result, false);
+  });
+
+  test('response sin consumedPairIdx → tratado como [] (defensivo)', () => {
+    const ex = { payload: { pairs: [['casa', 'la']] } };
+    const result = match.grade(ex, { leftWord: 'casa', rightWord: 'la' });
+    assert.deepEqual(result, { correct: true, pairIdx: 0 });
+  });
+
+  test('match.grade puro — invocaciones repetidas con mismos args son deterministas', () => {
+    // La idempotencia de applyImmediateFailure NO está aquí (vive en el caller
+    // `matchPickRight` con el guard `matchHadFailure`). Aquí solo verificamos
+    // que el handler puro es referentially transparent.
+    const ex = { payload: { pairs: [['a', 'b'], ['c', 'd']] } };
+    const result1 = match.grade(ex, { leftWord: 'a', rightWord: 'd', consumedPairIdx: [] });
+    const result2 = match.grade(ex, { leftWord: 'a', rightWord: 'd', consumedPairIdx: [] });
+    assert.deepEqual(result1, { correct: false });
+    assert.deepEqual(result2, { correct: false });
+    assert.deepEqual(result1, result2);
+  });
+});
+
+// ────────────────────────────────────────────────────────────────────────────
+// exercise-types/index — registry final con 3 entradas (Phase 3 plan 02)
+// ────────────────────────────────────────────────────────────────────────────
+
+describe('exercise-types/index — registry final con 3 entradas', () => {
+  test('registry expone los 3 tipos finales con identidades correctas', () => {
+    assert.ok(registry['multiple-choice'], 'registry debería tener "multiple-choice"');
+    assert.ok(registry['word-buttons'], 'registry debería tener "word-buttons"');
+    assert.ok(registry['match'], 'registry debería tener "match"');
+    assert.equal(registry['word-buttons'], wordButtons);
+    assert.equal(registry['match'], match);
+    assert.equal(typeof registry['match'].grade, 'function');
+  });
+});
+
+// ────────────────────────────────────────────────────────────────────────────
+// data/schema-validator — match payload (D-65 schema)
+// ────────────────────────────────────────────────────────────────────────────
+
+describe('data/schema-validator — match payload', () => {
+  const validCategories = [{ id: 'avere', name: 'Avere', order: 1 }];
+
+  test('accepts a well-formed match exercise (happy path)', () => {
     const result = validateContent({
-      categories: [{ id: 'avere', name: 'Avere' }],
+      categories: validCategories,
       exercisesByFile: {
         'avere.json': [
           {
-            id: 'match-stub',
+            id: 'm-001',
             type: 'match',
             categoryIds: ['avere'],
-            payload: { prompt: 'Empareja.', pairs: [['casa', 'la']] }
+            payload: {
+              prompt: 'Empareja sustantivo con artículo.',
+              pairs: [['a', 'b'], ['c', 'd']]
+            }
+          }
+        ]
+      }
+    });
+    assert.equal(result.ok, true, `Errores inesperados: ${JSON.stringify(result.errors)}`);
+    assert.deepEqual(result.errors, []);
+  });
+
+  test('rejects empty prompt', () => {
+    const result = validateContent({
+      categories: validCategories,
+      exercisesByFile: {
+        'avere.json': [
+          {
+            id: 'm-bad-prompt',
+            type: 'match',
+            categoryIds: ['avere'],
+            payload: { prompt: '', pairs: [['a', 'b'], ['c', 'd']] }
           }
         ]
       }
     });
     assert.equal(result.ok, false);
-    // B3 revisión iteración 1: el wording es LITERAL, estable, SIN sufijo de planificación.
-    const stubErr = result.errors.find(e => e.exerciseId === 'match-stub');
-    assert.ok(stubErr, `Esperaba un error para el match stub; errores: ${JSON.stringify(result.errors)}`);
-    assert.equal(
-      stubErr.reason,
-      'type "match" aún no soportado',
-      `Mensaje stub debe ser exactamente 'type "match" aún no soportado' (sin "en este plan", sin "03-02"). Actual: "${stubErr.reason}"`
+    assert.ok(
+      result.errors.some(e => /prompt/.test(e.reason) && e.exerciseId === 'm-bad-prompt'),
+      `Esperaba error sobre prompt; errores: ${JSON.stringify(result.errors)}`
     );
-    // Y no debe contener referencias a plan ID en el mensaje.
-    assert.equal(/03-02|en este plan/.test(stubErr.reason), false,
-      `Mensaje stub NO debe mencionar plan ID. Actual: "${stubErr.reason}"`);
+  });
+
+  test('rejects non-string prompt', () => {
+    const result = validateContent({
+      categories: validCategories,
+      exercisesByFile: {
+        'avere.json': [
+          {
+            id: 'm-prompt-num',
+            type: 'match',
+            categoryIds: ['avere'],
+            payload: { prompt: 42, pairs: [['a', 'b'], ['c', 'd']] }
+          }
+        ]
+      }
+    });
+    assert.equal(result.ok, false);
+    assert.ok(
+      result.errors.some(e => /prompt/.test(e.reason) && e.exerciseId === 'm-prompt-num'),
+      `Esperaba error sobre prompt; errores: ${JSON.stringify(result.errors)}`
+    );
+  });
+
+  test('rejects non-array pairs', () => {
+    const result = validateContent({
+      categories: validCategories,
+      exercisesByFile: {
+        'avere.json': [
+          {
+            id: 'm-pairs-not-array',
+            type: 'match',
+            categoryIds: ['avere'],
+            payload: { prompt: 'p', pairs: 'not-array' }
+          }
+        ]
+      }
+    });
+    assert.equal(result.ok, false);
+    assert.ok(
+      result.errors.some(e => /pairs/.test(e.reason) && e.exerciseId === 'm-pairs-not-array'),
+      `Esperaba error sobre pairs no-array; errores: ${JSON.stringify(result.errors)}`
+    );
+  });
+
+  test('rejects pairs with length < 2', () => {
+    const result = validateContent({
+      categories: validCategories,
+      exercisesByFile: {
+        'avere.json': [
+          {
+            id: 'm-pairs-too-few',
+            type: 'match',
+            categoryIds: ['avere'],
+            payload: { prompt: 'p', pairs: [['a', 'b']] }
+          }
+        ]
+      }
+    });
+    assert.equal(result.ok, false);
+    assert.ok(
+      result.errors.some(e => /pairs/.test(e.reason) && e.exerciseId === 'm-pairs-too-few'),
+      `Esperaba error sobre length < 2; errores: ${JSON.stringify(result.errors)}`
+    );
+  });
+
+  test('rejects pairs with length > 10', () => {
+    const tooMany = [];
+    for (let i = 0; i < 11; i++) tooMany.push([`l${i}`, `r${i}`]);
+    const result = validateContent({
+      categories: validCategories,
+      exercisesByFile: {
+        'avere.json': [
+          {
+            id: 'm-pairs-too-many',
+            type: 'match',
+            categoryIds: ['avere'],
+            payload: { prompt: 'p', pairs: tooMany }
+          }
+        ]
+      }
+    });
+    assert.equal(result.ok, false);
+    assert.ok(
+      result.errors.some(e => /pairs/.test(e.reason) && e.exerciseId === 'm-pairs-too-many'),
+      `Esperaba error sobre length > 10; errores: ${JSON.stringify(result.errors)}`
+    );
+  });
+
+  test('rejects pair that is not an array', () => {
+    const result = validateContent({
+      categories: validCategories,
+      exercisesByFile: {
+        'avere.json': [
+          {
+            id: 'm-pair-not-array',
+            type: 'match',
+            categoryIds: ['avere'],
+            payload: { prompt: 'p', pairs: [['a', 'b'], 'oops'] }
+          }
+        ]
+      }
+    });
+    assert.equal(result.ok, false);
+    assert.ok(
+      result.errors.some(e => /pairs/.test(e.reason) && e.exerciseId === 'm-pair-not-array'),
+      `Esperaba error sobre pair no-array; errores: ${JSON.stringify(result.errors)}`
+    );
+  });
+
+  test('rejects pair with length !== 2', () => {
+    const result = validateContent({
+      categories: validCategories,
+      exercisesByFile: {
+        'avere.json': [
+          {
+            id: 'm-pair-len-1',
+            type: 'match',
+            categoryIds: ['avere'],
+            payload: { prompt: 'p', pairs: [['a', 'b'], ['c']] }
+          }
+        ]
+      }
+    });
+    assert.equal(result.ok, false);
+    assert.ok(
+      result.errors.some(e => /pairs/.test(e.reason) && e.exerciseId === 'm-pair-len-1'),
+      `Esperaba error sobre pair length 1; errores: ${JSON.stringify(result.errors)}`
+    );
+  });
+
+  test('rejects pair with empty string at [0]', () => {
+    const result = validateContent({
+      categories: validCategories,
+      exercisesByFile: {
+        'avere.json': [
+          {
+            id: 'm-empty-left',
+            type: 'match',
+            categoryIds: ['avere'],
+            payload: { prompt: 'p', pairs: [['a', 'b'], ['', 'd']] }
+          }
+        ]
+      }
+    });
+    assert.equal(result.ok, false);
+    assert.ok(
+      result.errors.some(e => /pairs/.test(e.reason) && e.exerciseId === 'm-empty-left'),
+      `Esperaba error sobre [0] vacío; errores: ${JSON.stringify(result.errors)}`
+    );
+  });
+
+  test('rejects pair with non-string at [1]', () => {
+    const result = validateContent({
+      categories: validCategories,
+      exercisesByFile: {
+        'avere.json': [
+          {
+            id: 'm-num-right',
+            type: 'match',
+            categoryIds: ['avere'],
+            payload: { prompt: 'p', pairs: [['a', 'b'], ['c', 42]] }
+          }
+        ]
+      }
+    });
+    assert.equal(result.ok, false);
+    assert.ok(
+      result.errors.some(e => /pairs/.test(e.reason) && e.exerciseId === 'm-num-right'),
+      `Esperaba error sobre [1] no-string; errores: ${JSON.stringify(result.errors)}`
+    );
+  });
+
+  test('el mensaje stub previo "aún no soportado" ya NO aparece para match (impl real reemplaza al stub)', () => {
+    // Acceptance criterion explícito del plan 03-02: el stub de 03-01 ya
+    // NO debe estar presente. Un payload match válido pasa sin error;
+    // un payload match malformado emite errores ESPECÍFICOS (no el genérico
+    // "type \"match\" aún no soportado").
+    const validResult = validateContent({
+      categories: [{ id: 'avere', name: 'Avere' }],
+      exercisesByFile: {
+        'avere.json': [
+          {
+            id: 'm-now-works',
+            type: 'match',
+            categoryIds: ['avere'],
+            payload: { prompt: 'p', pairs: [['a', 'b'], ['c', 'd']] }
+          }
+        ]
+      }
+    });
+    assert.equal(validResult.ok, true,
+      `match válido no debería emitir errores; errores: ${JSON.stringify(validResult.errors)}`);
+    // Y un match malformado no emite el stub message:
+    const badResult = validateContent({
+      categories: [{ id: 'avere', name: 'Avere' }],
+      exercisesByFile: {
+        'avere.json': [
+          {
+            id: 'm-bad',
+            type: 'match',
+            categoryIds: ['avere'],
+            payload: { prompt: 'p', pairs: 'oops' }
+          }
+        ]
+      }
+    });
+    assert.equal(badResult.ok, false);
+    const stubMessage = badResult.errors.find(e => /aún no soportado/.test(e.reason));
+    assert.equal(stubMessage, undefined,
+      `El mensaje stub no debe estar presente; errores: ${JSON.stringify(badResult.errors)}`);
+  });
+});
+
+// ────────────────────────────────────────────────────────────────────────────
+// appShell.matchPickRight — D-61 idempotencia (W3 revisión iteración 1)
+// ────────────────────────────────────────────────────────────────────────────
+
+describe('appShell.matchPickRight — D-61 idempotencia (W3)', () => {
+  // W3 revisión iteración 1: el factory `appShell` no es trivialmente
+  // instanciable bajo node sin Alpine (depende de getters reactivos y
+  // referencias al `content`/`state` ya cargados via Promise-handoff).
+  // Estrategia adoptada (documentada en plan 03-02): PROXY canónico por
+  // inspección textual del código fuente — verifica que el guard
+  // `if (!this.matchHadFailure)` está presente en `matchPickRight` antes
+  // del call-site de `applyImmediateFailure`. Robusto a refactors: si
+  // alguien quitase el guard, los tests fallan. Cumple T-03-02-03 mitigate
+  // del threat model; UAT humano paso 8 (03-03) cierra el gap residual de
+  // verificación behavioural mid-sesión.
+  //
+  // Estos tests se SKIPpean condicionalmente cuando `matchPickRight` aún
+  // no existe en `src/screens/app.js` (Task 1 → Task 2 transición). En
+  // cuanto Task 2 añade el método y su guard, los tests se activan
+  // automáticamente sin tener que editar el archivo de tests.
+
+  function matchPickRightExists() {
+    try {
+      const src = readFileSync(new URL('../src/screens/app.js', import.meta.url), 'utf8');
+      return src.includes('matchPickRight(');
+    } catch {
+      return false;
+    }
+  }
+
+  const skipReason = matchPickRightExists()
+    ? false
+    : 'matchPickRight aún no existe en src/screens/app.js — los tests W3 se activan cuando Task 2 del plan 03-02 añade el método (presence-of-source check, no behavioural).';
+
+  test('guard `if (!this.matchHadFailure)` está presente antes del call-site de applyImmediateFailure en matchPickRight', { skip: skipReason }, () => {
+    const src = readFileSync(new URL('../src/screens/app.js', import.meta.url), 'utf8');
+    const mprIdx = src.indexOf('matchPickRight(');
+    assert.ok(mprIdx > -1, 'matchPickRight debe existir en app.js');
+    const tail = src.slice(mprIdx);
+    // El guard `if (!this.matchHadFailure)` debe aparecer entre la declaración
+    // del método y el siguiente método. Buscamos hasta 4000 chars (margen).
+    const window = tail.slice(0, 4000);
+    assert.match(window, /if \(!this\.matchHadFailure\)\s*\{/,
+      `Guard 'if (!this.matchHadFailure) {' debe estar en matchPickRight (Pitfall #2 D-61).`);
+    // Y el call-site de applyImmediateFailure debe vivir dentro de ese mismo guard.
+    assert.match(window, /applyImmediateFailure\(this\.state/,
+      'applyImmediateFailure(this.state, ...) debe estar dentro de matchPickRight');
+  });
+
+  test('el archivo src/screens/app.js contiene EXACTAMENTE 2 call-sites de applyImmediateFailure (decisión final + primer-fallo-match)', { skip: skipReason }, () => {
+    // Acceptance criterion del plan 03-02: arquitectura clara, 2 call-sites
+    // (uno en applyResultToSession Phase 3 plan 01 + otro en matchPickRight
+    // con guard). Cualquier desviación de 2 indica una regresión.
+    const src = readFileSync(new URL('../src/screens/app.js', import.meta.url), 'utf8');
+    const matches = src.match(/applyImmediateFailure\(this\.state/g) || [];
+    assert.equal(matches.length, 2,
+      `Se esperan EXACTAMENTE 2 call-sites de applyImmediateFailure(this.state, ...); encontrados: ${matches.length}.`);
   });
 });
