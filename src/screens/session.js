@@ -42,21 +42,28 @@ import { registry } from '../exercise-types/index.js';
  * Construye el objeto Alpine para la pantalla de sesión.
  *
  * El registro con Alpine se hace en `main.js`:
- *   Alpine.data('sessionScreen', () => sessionScreen(content, state));
+ *   Alpine.data('sessionScreen', () => sessionScreen(appDataReady));
  *
  * Luego el HTML hace `<div x-data="sessionScreen" x-init="init()">`.
  *
- * @param {{categories: Array, exerciseById: Record<string, object>}} content
- *   Resultado de `loadContent(['avere'])` — Plan 01.
- * @param {{schemaVersion: number, exerciseStats: object}} state
- *   Resultado de `loadState()` — Plan 01.
+ * Patrón: el factory acepta una Promise (no content/state directos) para
+ * desacoplar el ciclo de vida de Alpine (que arranca síncrono con su defer
+ * script) del fetch async del contenido. Alpine puede montar el componente
+ * en cuanto evalúa `x-data`; el `init()` espera la promise antes de
+ * construir la sesión.
+ *
+ * @param {Promise<{content: object, state: object}>} appDataReady
+ *   Promise resuelta por main.js cuando el JSON está cargado y validado.
+ *   Si nunca resuelve (caso error de validación), `init()` queda en `await`
+ *   indefinidamente y `ready` permanece false — el banner de error de
+ *   main.js es entonces el único output (D-10: all-or-nothing).
  * @returns {object} Objeto Alpine data con métodos y reactive props.
  */
-export function sessionScreen(content, state) {
+export function sessionScreen(appDataReady) {
   return {
-    // ---- referencias inyectadas ----
-    content,
-    state,
+    // ---- referencias inyectadas (llenadas en init() tras await) ----
+    content: null,
+    state: null,
 
     // ---- bootstrap ----
     ready: false,
@@ -74,8 +81,17 @@ export function sessionScreen(content, state) {
     /**
      * Lifecycle: Alpine llama `init()` cuando monta el x-data
      * (en este HTML lo invocamos explícitamente con `x-init="init()"`).
+     *
+     * Esperamos la promise `appDataReady` ANTES de construir la sesión.
+     * Mientras tanto Alpine muestra el template "no ready" (el de "no hay
+     * ejercicios"). Una vez cumplida, llamamos a buildSession y ponemos
+     * `ready = true`, lo que cambia al template activo de sesión.
      */
-    init() {
+    async init() {
+      const { content, state } = await appDataReady;
+      this.content = content;
+      this.state = state;
+
       const allExercises = Object.values(this.content.exerciseById);
       const { exerciseIds, actualSize } = buildSession(
         ['avere'],

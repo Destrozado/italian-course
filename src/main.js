@@ -1,23 +1,24 @@
 // src/main.js
 //
-// Bootstrap del proyecto. Phase 1 completo (Plan 01 + Plan 02):
-//   1. loadContent(REGISTRY) — descarga, NFC, valida.
-//   2. loadState() — lee localStorage (o blankState).
-//   3. Si OK: registra el componente Alpine `sessionScreen(content, state)` Y
-//      expone `window.__appBoot = { content, state, ready: true }` (handoff
-//      diagnóstico mantenido para DevTools).
-//   4. Si KO: render banner DOM directo con `textContent` (jamás interpretar
-//      HTML del contenido validado) y NO se llama a `Alpine.start()`
-//      (D-10: all-or-nothing boot).
+// Bootstrap del proyecto. Phase 1 completo (Plan 01 + Plan 02).
 //
-// Patrón dual de registro Alpine (RESEARCH.md Pattern 8):
-//   - `document.addEventListener('alpine:init', ...)` cubre el caso en que
-//     `bootstrap()` resuelve ANTES de que Alpine haya emitido `alpine:init`.
-//   - `if (window.Alpine) { Alpine.data(...); Alpine.start(); }` cubre el caso
-//     en que Alpine ya emitió `alpine:init` y auto-arrancó antes de que la
-//     promesa de `loadContent` resolviera (race típica con `defer + module`).
-//   - `Alpine.start()` doble es no-op en Alpine 3 (verificado por la lib),
-//     pero el guard `window.Alpine` evita el TypeError si Alpine aún no cargó.
+// Patrón de registro Alpine (la pieza clave que evita la race condition):
+//   1. ESTE MÓDULO se declara en index.html ANTES del <script defer> de Alpine.
+//   2. AL TOPE del módulo, de forma SÍNCRONA, registramos el listener
+//      `alpine:init`. Para entonces Alpine aún no ha cargado (su script
+//      defer corre después), así que el listener queda en su sitio antes
+//      del evento.
+//   3. Dentro del listener resolvemos `Alpine.data('sessionScreen', ...)`
+//      pasándole una Promise que `bootstrap()` cumple cuando el contenido
+//      JSON está cargado y validado.
+//   4. `sessionScreen` espera esa Promise en su `init()` antes de construir
+//      la sesión y poner `ready = true`. Eso permite que Alpine arranque
+//      con el factory ya registrado pero sin bloquear su scan inicial.
+//
+// La capa del banner de error sigue siendo síncrona y vive aparte: si la
+// validación falla, NUNCA resolvemos la Promise → el factory se queda
+// esperando para siempre y `ready` permanece false (sale el template
+// "no hay ejercicios", que en error path queda enmascarado por el banner).
 
 import { loadContent } from './data/content-loader.js';
 import { loadState } from './data/storage.js';
@@ -26,36 +27,51 @@ import { sessionScreen } from './screens/session.js';
 /** Phase 1: hard-coded. Phase 2 derivará esto de `categories.json`. */
 const REGISTRY = ['avere'];
 
+/**
+ * Promise que se resuelve con `{content, state}` cuando bootstrap completa
+ * la carga + validación. Si bootstrap falla, esta Promise nunca resuelve
+ * (intencionado — banner de error es el único output y Alpine queda en el
+ * template "no ready").
+ */
+let resolveAppData;
+const appDataReady = new Promise((resolve) => {
+  resolveAppData = resolve;
+});
+
+// --- Registro SÍNCRONO del listener Alpine al cargar el módulo ---------
+// Tiene que correr antes de que Alpine emita `alpine:init`. Como este
+// <script type="module"> está declarado ANTES del <script defer> de Alpine
+// en index.html, su cuerpo top-level corre primero y este addEventListener
+// queda activo a tiempo.
+document.addEventListener('alpine:init', () => {
+  window.Alpine.data('sessionScreen', () => sessionScreen(appDataReady));
+});
+
 async function bootstrap() {
   try {
     const content = await loadContent(REGISTRY);
     const state = loadState();
 
-    // Handoff diagnóstico — útil para DevTools (Plan 01 lo introdujo).
+    // Handoff diagnóstico — útil para DevTools.
     window.__appBoot = { content, state, ready: true };
 
-    // Quitamos el placeholder ANTES de registrar Alpine — si lo dejamos,
-    // Alpine podría procesarlo como árbol vacío y dar un flash visual.
+    // Quitamos el placeholder. Para entonces Alpine ya puede haber arrancado
+    // y mostrado el template (con `ready: false` mientras `init()` espera la
+    // promise). Eliminamos el placeholder para no dejar "Cargando…" debajo.
     const placeholder = document.getElementById('app-placeholder');
     if (placeholder) placeholder.remove();
 
-    // El inline script en index.html instaló `window.deferLoadingAlpine`, así
-    // que Alpine está esperando a que `__resolveAppReady()` se cumpla. Antes
-    // de liberar Alpine, registramos el factory en el listener `alpine:init`
-    // — Alpine lo dispara una vez al arrancar (después de startAlpine()), y
-    // encontrará nuestro factory en su scan del DOM.
-    document.addEventListener('alpine:init', () => {
-      window.Alpine.data('sessionScreen', () => sessionScreen(content, state));
-    });
-    // Liberamos Alpine — startAlpine() corre en la próxima microtask y emite
-    // alpine:init, lo que ejecuta el listener de arriba y luego escanea el DOM.
-    window.__resolveAppReady();
+    // Cumplimos la promise — `sessionScreen.init()` (que la está esperando)
+    // continúa, llama a buildSession, y pone `ready = true`. Alpine reactiva
+    // y los templates condicionales muestran el ejercicio.
+    resolveAppData({ content, state });
   } catch (err) {
     const errors = err?.errors ?? [{ file: '?', reason: String(err?.message ?? err) }];
     renderValidationBanner(errors);
     window.__appBoot = { ready: false, errors };
-    // No resolvemos __resolveAppReady — Alpine queda intencionadamente sin
-    // arrancar (D-10: all-or-nothing boot). El banner es el único output.
+    // No resolvemos `appDataReady` — Alpine arrancará pero `sessionScreen.init()`
+    // se queda esperando para siempre. `ready` permanece false. El banner queda
+    // como único output (D-10: all-or-nothing boot).
   }
 }
 

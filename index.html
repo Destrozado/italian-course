@@ -15,29 +15,19 @@
   <link rel="stylesheet" href="./styles.css">
 
   <!--
-    Defer-load Alpine until main.js terminó de cargar el contenido y registró
-    `Alpine.data('sessionScreen', ...)`. Sin este patrón, Alpine arrancaría
-    en cuanto su script defer evalúe (antes de que main.js, también deferred,
-    ejecute su cuerpo async), escanearía el DOM, encontraría
-    `x-data="sessionScreen"` sin factory y dejaría los templates sin
-    expandir. Referencia: alpinejs.dev/essentials/installation#deferring-alpine.
+    main.js se carga ANTES que Alpine para garantizar que su listener
+    `alpine:init` quede registrado de forma síncrona en el top-level del
+    módulo, ANTES de que Alpine emita el evento. Alpine luego carga (defer)
+    y al arrancar emite `alpine:init` con nuestro listener ya en su sitio,
+    listo para registrar el factory `sessionScreen` justo antes del DOM scan.
   -->
-  <script>
-    window.__appReady = new Promise((resolve) => {
-      window.__resolveAppReady = resolve;
-    });
-    window.deferLoadingAlpine = function (startAlpine) {
-      window.__appReady.then(() => startAlpine());
-    };
-  </script>
+  <script type="module" src="./src/main.js"></script>
 
   <!-- Alpine.js 3.15.12 — SRI pinned per RESEARCH.md 2026-05-23. -->
   <script defer
           src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.12/dist/cdn.min.js"
           integrity="sha384-pb6hrQvo4s23cEUFtj0CZkzGE3jyK3pj26RIupXXxhSrrcUA/Cn0lZgcCrGH0t6L"
           crossorigin="anonymous"></script>
-
-  <script type="module" src="./src/main.js"></script>
 </head>
 <body>
   <main>
