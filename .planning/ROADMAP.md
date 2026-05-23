@@ -7,14 +7,14 @@
 
 ## Phases
 
-- [ ] **Fase 1: Loop mínimo end-to-end** — La app arranca, carga JSON validado y permite hacer una sesión real de multiple-choice sobre Avere con persistencia básica
-- [ ] **Fase 2: Mecánica completa de re-verificación** — Estados, cascada de fallo, racha, dashboard y resumen — el motor que "te obliga a no olvidar" está operativo
-- [ ] **Fase 3: Variedad de ejercicios + ergonomía de teclado** — word-buttons y match completan los tres tipos; atajos 1-4/Enter/Space hacen la práctica diaria fluida
-- [ ] **Fase 4: Backup robusto + contenido completo** — Export/import + recordatorio de backup + los 6 PDFs transcritos a JSON (incluyendo ejercicios multi-categoría para ejercitar la cascada en uso real)
+- [ ] **Phase 1: Loop mínimo end-to-end** — La app arranca, carga JSON validado y permite hacer una sesión real de multiple-choice sobre Avere con persistencia básica
+- [ ] **Phase 2: Mecánica completa de re-verificación** — Estados, cascada de fallo, racha, dashboard y resumen — el motor que "te obliga a no olvidar" está operativo
+- [ ] **Phase 3: Variedad de ejercicios + ergonomía de teclado** — word-buttons y match completan los tres tipos; atajos 1-4/Enter/Space hacen la práctica diaria fluida
+- [ ] **Phase 4: Backup robusto + contenido completo** — Export/import + recordatorio de backup + los 6 PDFs transcritos a JSON (incluyendo ejercicios multi-categoría para ejercitar la cascada en uso real)
 
 ## Phase Details
 
-### Fase 1: Loop mínimo end-to-end (Avere + multiple-choice)
+### Phase 1: Loop mínimo end-to-end (Avere + multiple-choice)
 **Goal**: El autor puede arrancar la app con `npx serve`, ver una categoría real (Avere) y completar una sesión de multiple-choice cuyo resultado persiste en localStorage al recargar
 **Mode:** mvp
 **Depends on**: Nada (primera fase)
@@ -27,10 +27,10 @@
   5. La función `dates.todayLocal()` devuelve `YYYY-MM-DD` en hora local (no UTC) y la función `session.buildSession()` genera sesiones que respetan el muestreo ponderado básico `1/(1+min(timesShown,10))` — verificable con un smoke test manual contra una semilla mínima de Avere
 **Plans**: TBD
 
-### Fase 2: Mecánica completa de re-verificación (cascada + estados + dashboard)
+### Phase 2: Mecánica completa de re-verificación (cascada + estados + dashboard)
 **Goal**: El autor ve la home con todas las categorías (estado / racha / fecha) y experimenta la mecánica completa: fallar un ejercicio multi-categoría resetea todas sus categorías y la racha a 0; completar sin fallar promociona a `hecha`; 21 días seguidos promocionan a `dominada`; el resumen de fin de sesión hace visible el delta
 **Mode:** mvp
-**Depends on**: Fase 1
+**Depends on**: Phase 1
 **Requirements**: DOMAIN-03, DOMAIN-04, DOMAIN-05, DOMAIN-06, DOMAIN-07, DOMAIN-08, DOMAIN-10, SESSION-01, SESSION-02, SESSION-03, SESSION-07, SESSION-08, SESSION-09
 **Success Criteria** (qué tiene que ser CIERTO):
   1. La pantalla home muestra TODAS las categorías cargadas con su estado (`no-hecha`/`hecha`/`dominada` con marcas visuales distintas), días de racha actuales, total de ejercicios y última fecha practicada
@@ -42,10 +42,10 @@
 **Plans**: TBD
 **UI hint**: yes
 
-### Fase 3: Variedad de ejercicios + ergonomía de teclado
+### Phase 3: Variedad de ejercicios + ergonomía de teclado
 **Goal**: El autor puede practicar los tres tipos de ejercicio (multiple-choice, word-buttons, match) en una misma sesión y operar toda la práctica desde el teclado (1-4 / Enter / Space) sin tocar el ratón
 **Mode:** mvp
-**Depends on**: Fase 2
+**Depends on**: Phase 2
 **Requirements**: EXTYPE-02, EXTYPE-03, SESSION-06
 **Success Criteria** (qué tiene que ser CIERTO):
   1. Un ejercicio `word-buttons` muestra una frase en español, presenta botones con palabras italianas (más distractoras si las hay), permite construir la traducción pulsándolos en orden y validar con un botón "terminado"; la cascada de fallo y la actualización de contadores funcionan exactamente igual que para multiple-choice
@@ -55,10 +55,10 @@
 **Plans**: TBD
 **UI hint**: yes
 
-### Fase 4: Backup robusto + contenido completo
+### Phase 4: Backup robusto + contenido completo
 **Goal**: El autor tiene la app cargada con los 6 PDFs reales (Avere, Género y Número, Verbos de Movimiento, Profesiones, Sustantivos Irregulares, Preposiciones) incluyendo ejercicios multi-categoría que ejercitan la cascada, y puede exportar/importar su progreso en JSON con un recordatorio cuando lleva >7 días sin backup
 **Mode:** mvp
-**Depends on**: Fase 3
+**Depends on**: Phase 3
 **Requirements**: BACK-04, BACK-05, BACK-06, SEED-01, SEED-02
 **Success Criteria** (qué tiene que ser CIERTO):
   1. La pantalla "Backup" tiene un botón "Exportar progreso" que descarga el estado completo (`italianCourse.v1`) como un archivo JSON con fecha en el nombre
@@ -89,23 +89,23 @@
 ## Dependency Graph
 
 ```
-Fase 1 (loop mínimo: foundation + content + multiple-choice + persistencia mínima)
+Phase 1 (loop mínimo: foundation + content + multiple-choice + persistencia mínima)
    │
    ▼
-Fase 2 (mecánica completa: cascada + estados + dashboard + resumen)
+Phase 2 (mecánica completa: cascada + estados + dashboard + resumen)
    │
    ▼
-Fase 3 (variedad: word-buttons + match + teclado)
+Phase 3 (variedad: word-buttons + match + teclado)
    │
    ▼
-Fase 4 (backup UI + contenido real de los 6 PDFs)
+Phase 4 (backup UI + contenido real de los 6 PDFs)
 ```
 
 Cada fase entrega valor usable independientemente:
-- Después de Fase 1: el autor valida que el loop funciona con multiple-choice de Avere (contenido de scratch)
-- Después de Fase 2: el motor "te obliga a no olvidar" está completo y observable
-- Después de Fase 3: la app es funcionalmente completa para uso diario
-- Después de Fase 4: la app es daily-driver con los 6 PDFs reales y backup seguro
+- Después de Phase 1: el autor valida que el loop funciona con multiple-choice de Avere (contenido de scratch)
+- Después de Phase 2: el motor "te obliga a no olvidar" está completo y observable
+- Después de Phase 3: la app es funcionalmente completa para uso diario
+- Después de Phase 4: la app es daily-driver con los 6 PDFs reales y backup seguro
 
 ---
 *Roadmap created: 2026-05-23*
