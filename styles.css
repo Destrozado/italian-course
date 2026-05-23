@@ -11,3 +11,35 @@
 :root {
   color-scheme: light dark;
 }
+
+/*
+ * Plan 02 — Alpine session screen
+ *
+ * `[x-cloak]` impide que el árbol del componente sea visible hasta que Alpine
+ * lo procesa (evita un FOUC con `{{ }}` o templates sin evaluar). Alpine
+ * remueve este atributo cuando inicializa el x-data.
+ *
+ * `.correcta` / `.incorrecta` son las clases de feedback que Alpine aplica
+ * condicionalmente a los botones de opción tras `selectOption()`:
+ *   - verde sobre el botón correcto (SESSION-05).
+ *   - rojo sobre el botón clicado cuando fue incorrecto (simultáneamente con
+ *     el verde sobre el correcto).
+ * Pico classless no define estas clases — las añadimos aquí como overrides
+ * locales. Usamos las CSS vars de Pico cuando existen (verde/rojo del tema)
+ * con fallback a hex tradicional verde/rojo.
+ */
+[x-cloak] {
+  display: none !important;
+}
+
+button.correcta {
+  background-color: var(--pico-color-green-500, #2e7d32);
+  border-color: var(--pico-color-green-600, #1b5e20);
+  color: white;
+}
+
+button.incorrecta {
+  background-color: var(--pico-color-red-500, #d32f2f);
+  border-color: var(--pico-color-red-600, #b71c1c);
+  color: white;
+}
