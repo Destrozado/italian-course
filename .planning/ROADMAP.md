@@ -8,7 +8,7 @@
 ## Phases
 
 - [x] **Phase 1: Loop mínimo end-to-end** — La app arranca, carga JSON validado y permite hacer una sesión real de multiple-choice sobre Avere con persistencia básica (completed 2026-05-23)
-- [ ] **Phase 2: Mecánica completa de re-verificación** — Estados, cascada de fallo, racha, dashboard y resumen — el motor que "te obliga a no olvidar" está operativo
+- [x] **Phase 2: Mecánica completa de re-verificación** — Estados, cascada de fallo, racha, dashboard y resumen — el motor que "te obliga a no olvidar" está operativo (completed 2026-05-23)
 - [ ] **Phase 3: Variedad de ejercicios + ergonomía de teclado** — word-buttons y match completan los tres tipos; atajos 1-4/Enter/Space hacen la práctica diaria fluida
 - [ ] **Phase 4: Backup robusto + contenido completo** — Export/import + recordatorio de backup + los 6 PDFs transcritos a JSON (incluyendo ejercicios multi-categoría para ejercitar la cascada en uso real)
 
@@ -42,10 +42,10 @@
   5. Al terminar cualquier sesión aparece una pantalla de resumen (no toast) con aciertos/fallos y, por cada categoría tocada, su estado antes→después, racha antes→después y ejercicios pendientes para `hecha`; una sesión Repaso abandonada (cerrar pestaña antes del resumen) se descarta sin afectar al estado; una sesión "Test completo" abandonada se ofrece reanudar al volver
   6. Existen smoke tests unitarios que simulan ≥30 días de actividad cubriendo cascada multi-categoría, racha-una-vez-por-día, promoción `no-hecha → hecha → dominada`, regresión `dominada → no-hecha`, sampler con categorías de 1-2 ejercicios, oversubscription y weight cap
 **Plans**: 4 plans
-- [ ] 02-01-PLAN.md — Storage v2 (schemaVersion 1→2 migration + blankState v2) + applySessionResult extendido con cascada + promociones + racha guard + dailyLog + tests D-53.1/.2/.3 (cascada multi-cat, simulación 21 días, racha guard)
-- [ ] 02-02-PLAN.md — Sampler GUARANTEE phase + buildFullTest export + applyNewExerciseRegression (DOMAIN-06 boot) + tests D-53.4 (sampler edges + statistical ratio + regresión por ejercicio nuevo)
-- [ ] 02-03-PLAN.md — appShell factory plano único + home dashboard (tabla densa, badges, botones grandes) + picker compartido (Repaso 20 / Test completo, labels dinámicos, aviso inline) + sesión migrada + main.js refactor (categoryIds dinámico + DOMAIN-06 boot integration) + UAT 7/7
-- [ ] 02-04-PLAN.md — Pantalla summary con delta factústico + inFlightTest persistence per-answer + banner home reanudar/descartar + confirmaciones D-43/D-44 + smoke test integrado 30 días (DOMAIN-10 final) + UAT final 6/6
+- [x] 02-01-PLAN.md — Storage v2 + applySessionResult extendido con cascada + promociones + racha guard + dailyLog + tests dominio — **completado 2026-05-23**, ver [02-01-SUMMARY.md](./phases/02-mec-nica-completa-de-re-verificaci-n-cascada-estados-dashboa/02-01-SUMMARY.md)
+- [x] 02-02-PLAN.md — Sampler GUARANTEE phase + buildFullTest + applyNewExerciseRegression (DOMAIN-06 boot) + tests sampler — **completado 2026-05-23**, ver [02-02-SUMMARY.md](./phases/02-mec-nica-completa-de-re-verificaci-n-cascada-estados-dashboa/02-02-SUMMARY.md)
+- [x] 02-03-PLAN.md — appShell factory plano + home dashboard + picker compartido + sesión migrada + main.js refactor + UAT 7/7 — **completado 2026-05-23** (UAT 7/7 aprobado tras 2 rondas, includes D-54 fail inmediato + D-55 racha display refinements), ver [02-03-SUMMARY.md](./phases/02-mec-nica-completa-de-re-verificaci-n-cascada-estados-dashboa/02-03-SUMMARY.md)
+- [x] 02-04-PLAN.md — Pantalla summary + inFlightTest persistence + banner home reanudar/descartar + confirmaciones D-43/D-44 + smoke test integrado 30 días + UAT 6/6 — **completado 2026-05-23** (UAT 6/6 aprobado tras 2 rondas), ver [02-04-SUMMARY.md](./phases/02-mec-nica-completa-de-re-verificaci-n-cascada-estados-dashboa/02-04-SUMMARY.md)
 **UI hint**: yes
 
 ### Phase 3: Variedad de ejercicios + ergonomía de teclado
@@ -80,7 +80,7 @@
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Loop mínimo end-to-end | 2/2 | Complete    | 2026-05-23 |
-| 2. Mecánica completa de re-verificación | 0/4 | Planning   | -          |
+| 2. Mecánica completa de re-verificación | 4/4 | Complete   | 2026-05-23 |
 | 3. Variedad de ejercicios + ergonomía | 0/? | Not started | - |
 | 4. Backup robusto + contenido completo | 0/? | Not started | - |
 
@@ -115,4 +115,4 @@ Cada fase entrega valor usable independientemente:
 
 ---
 *Roadmap created: 2026-05-23*
-*Last updated: 2026-05-23 after Plan 01-02 completion (Walking Skeleton end-to-end — Phase 1 awaiting verifier)*
+*Last updated: 2026-05-23 after Phase 2 completion (verifier PASS — 6/6 success criteria, 13/13 reqs, 58 tests, UAT 13/13 humano aprobado)*

@@ -31,28 +31,28 @@
 
 - [x] **DOMAIN-01**: Función pura `dates.todayLocal()` devuelve la fecha local en formato `YYYY-MM-DD` usando reloj local (no UTC)
 - [x] **DOMAIN-02**: Función pura `session.buildSession(categories, exercises, state, size, mode)` que genera una sesión: garantiza min 1 ejercicio por categoría elegida (set-cover greedy), rellena hasta `size` con muestreo aleatorio ponderado por `weight = 1/(1+min(timesShown, 10))`
-- [ ] **DOMAIN-03**: Función pura `session.buildFullTest(categories, exercises)` devuelve TODOS los ejercicios que tocan al menos una categoría elegida (sin tope)
-- [ ] **DOMAIN-04**: Función pura `progress.applySessionResult(state, sessionResults)` aplica los efectos al final de sesión: actualiza contadores por ejercicio, aplica cascada de fallo (todas las categorías de un ejercicio fallado pasan a `no-hecha`, racha a 0, vacía `clearedExerciseIds`), promociona a `hecha` cuando `clearedExerciseIds` cubre todos los ejercicios de la categoría
+- [x] **DOMAIN-03**: Función pura `session.buildFullTest(categories, exercises)` devuelve TODOS los ejercicios que tocan al menos una categoría elegida (sin tope)
+- [x] **DOMAIN-04**: Función pura `progress.applySessionResult(state, sessionResults)` aplica los efectos al final de sesión: actualiza contadores por ejercicio, aplica cascada de fallo (todas las categorías de un ejercicio fallado pasan a `no-hecha`, racha a 0, vacía `clearedExerciseIds`), promociona a `hecha` cuando `clearedExerciseIds` cubre todos los ejercicios de la categoría
   > **Excepción tras Plan 02-03 UAT round 2 (D-54):** los **fallos individuales** de un ejercicio se persisten inmediatamente vía `applyImmediateFailure` — el core value "te obliga a no olvidar" prevalece sobre la promesa "abandono descarta". Solo los aciertos de un Repaso abandonado se descartan. La cascada al final de sesión sigue corriendo idempotente sobre el state ya reseteado; los `exerciseStats` se bumpean una sola vez ahí (preserva DOMAIN-09 monotonicidad).
-- [ ] **DOMAIN-05**: Estados de categoría: `no-hecha` → `hecha` → `dominada` (con 21 días de racha consecutivos)
-- [ ] **DOMAIN-06**: Una categoría `hecha` o `dominada` vuelve a `no-hecha` automáticamente si se añade un ejercicio nuevo al JSON que no está en su `clearedExerciseIds`
-- [ ] **DOMAIN-07**: La racha por categoría se incrementa solo cuando, en una sesión completada, esa categoría fue practicada y no tuvo ningún fallo, Y `lastSuccessDate !== todayLocal()` (sólo cuenta una vez por día)
-- [ ] **DOMAIN-08**: Al alcanzar 21 días consecutivos de racha sin fallar, la categoría pasa a `dominada` (visible) pero sigue apareciendo en sesiones igual que el resto
+- [x] **DOMAIN-05**: Estados de categoría: `no-hecha` → `hecha` → `dominada` (con 21 días de racha consecutivos)
+- [x] **DOMAIN-06**: Una categoría `hecha` o `dominada` vuelve a `no-hecha` automáticamente si se añade un ejercicio nuevo al JSON que no está en su `clearedExerciseIds`
+- [x] **DOMAIN-07**: La racha por categoría se incrementa solo cuando, en una sesión completada, esa categoría fue practicada y no tuvo ningún fallo, Y `lastSuccessDate !== todayLocal()` (sólo cuenta una vez por día)
+- [x] **DOMAIN-08**: Al alcanzar 21 días consecutivos de racha sin fallar, la categoría pasa a `dominada` (visible) pero sigue apareciendo en sesiones igual que el resto
 - [x] **DOMAIN-09**: Contadores por ejercicio (`timesShown`, `timesCorrect`, `timesFailed`) son monotónicos crecientes — nunca se resetean, ni siquiera cuando la categoría se desmarca
-- [ ] **DOMAIN-10**: La lógica de dominio tiene tests unitarios (smoke tests) que simulan 30+ días de actividad cubriendo: cascada de fallo en ejercicios multi-categoría, racha contando una vez por día, promoción `no-hecha → hecha → dominada`, regresión `dominada → no-hecha`, sampler con categorías de 1-2 ejercicios, oversubscription, weight cap
+- [x] **DOMAIN-10**: La lógica de dominio tiene tests unitarios (smoke tests) que simulan 30+ días de actividad cubriendo: cascada de fallo en ejercicios multi-categoría, racha contando una vez por día, promoción `no-hecha → hecha → dominada`, regresión `dominada → no-hecha`, sampler con categorías de 1-2 ejercicios, oversubscription, weight cap
 
 ### Session UI (SESSION)
 
-- [ ] **SESSION-01**: Pantalla home muestra todas las categorías con: nombre, estado (`no-hecha` / `hecha` / `dominada` con marca visual distinta), días de racha actuales, total de ejercicios, última fecha practicada
-- [ ] **SESSION-02**: Botón "Repaso de 20" abre una pantalla de selección de categorías con checkboxes (con select-all / clear-all)
-- [ ] **SESSION-03**: Botón "Test completo" abre la misma pantalla de selección de categorías; al lanzar muestra advertencia con el número total de ejercicios incluidos
+- [x] **SESSION-01**: Pantalla home muestra todas las categorías con: nombre, estado (`no-hecha` / `hecha` / `dominada` con marca visual distinta), días de racha actuales, total de ejercicios, última fecha practicada
+- [x] **SESSION-02**: Botón "Repaso de 20" abre una pantalla de selección de categorías con checkboxes (con select-all / clear-all)
+- [x] **SESSION-03**: Botón "Test completo" abre la misma pantalla de selección de categorías; al lanzar muestra advertencia con el número total de ejercicios incluidos
 - [x] **SESSION-04**: Durante la sesión, muestra indicador de progreso (ej. "Ejercicio 7 / 20" o "Ejercicio 7 / 152" para test completo)
 - [x] **SESSION-05**: Feedback binario: al acertar, el ejercicio se marca en verde y auto-avanza tras ~600ms; al fallar, se marca en rojo y muestra la respuesta correcta + botón "Siguiente" (no auto-avance)
 - [ ] **SESSION-06**: Atajos de teclado: 1-4 para multiple-choice, Enter para confirmar/avanzar tras fallo, Space como alias de Enter
-- [ ] **SESSION-07**: Al final de la sesión, pantalla de resumen (no toast) que muestra: ejercicios acertados/fallados, y por cada categoría tocada: estado antes → después, racha antes → después, ejercicios que faltan para `hecha`
-- [ ] **SESSION-08**: Una sesión Repaso abandonada (cierre de pestaña / navegación atrás antes de terminar) **se descarta** completamente — los aciertos/fallos no afectan al estado ni a los contadores
+- [x] **SESSION-07**: Al final de la sesión, pantalla de resumen (no toast) que muestra: ejercicios acertados/fallados, y por cada categoría tocada: estado antes → después, racha antes → después, ejercicios que faltan para `hecha`
+- [x] **SESSION-08**: Una sesión Repaso abandonada (cierre de pestaña / navegación atrás antes de terminar) **se descarta** completamente — los aciertos/fallos no afectan al estado ni a los contadores
   > **Excepción tras Plan 02-03 UAT round 2 (D-54):** los **fallos individuales** de un ejercicio se persisten inmediatamente — el core value "te obliga a no olvidar" prevalece sobre la promesa "abandono descarta". Solo los **aciertos** de un Repaso abandonado se descartan; los fallos quedan registrados (cascada de categoría + entrada en `dailyLog`).
-- [ ] **SESSION-09**: Una sesión "Test completo" abandonada se puede reanudar al volver a abrir la app (se persiste el cursor y las respuestas hasta ese punto)
+- [x] **SESSION-09**: Una sesión "Test completo" abandonada se puede reanudar al volver a abrir la app (se persiste el cursor y las respuestas hasta ese punto)
 
 ### Backup & Persistence (BACK)
 
@@ -128,23 +128,23 @@ Explicitly excluded for v1. Documented to prevent scope creep.
 | EXTYPE-03 | Fase 3 | Pending |
 | DOMAIN-01 | Fase 1 | In Progress (awaiting verifier) |
 | DOMAIN-02 | Fase 1 | In Progress (awaiting verifier) |
-| DOMAIN-03 | Fase 2 | Pending |
-| DOMAIN-04 | Fase 2 | Pending |
-| DOMAIN-05 | Fase 2 | Pending |
-| DOMAIN-06 | Fase 2 | Pending |
-| DOMAIN-07 | Fase 2 | Pending |
-| DOMAIN-08 | Fase 2 | Pending |
+| DOMAIN-03 | Fase 2 | Complete |
+| DOMAIN-04 | Fase 2 | Complete |
+| DOMAIN-05 | Fase 2 | Complete |
+| DOMAIN-06 | Fase 2 | Complete |
+| DOMAIN-07 | Fase 2 | Complete |
+| DOMAIN-08 | Fase 2 | Complete |
 | DOMAIN-09 | Fase 1 | In Progress (awaiting verifier) |
-| DOMAIN-10 | Fase 2 | Pending |
-| SESSION-01 | Fase 2 | Pending |
-| SESSION-02 | Fase 2 | Pending |
-| SESSION-03 | Fase 2 | Pending |
+| DOMAIN-10 | Fase 2 | Complete |
+| SESSION-01 | Fase 2 | Complete |
+| SESSION-02 | Fase 2 | Complete |
+| SESSION-03 | Fase 2 | Complete |
 | SESSION-04 | Fase 1 | In Progress (awaiting verifier) |
 | SESSION-05 | Fase 1 | In Progress (awaiting verifier) |
 | SESSION-06 | Fase 3 | Pending |
-| SESSION-07 | Fase 2 | Pending |
-| SESSION-08 | Fase 2 | Pending |
-| SESSION-09 | Fase 2 | Pending |
+| SESSION-07 | Fase 2 | Complete |
+| SESSION-08 | Fase 2 | Complete |
+| SESSION-09 | Fase 2 | Complete |
 | BACK-01 | Fase 1 | In Progress (awaiting verifier) |
 | BACK-02 | Fase 1 | In Progress (awaiting verifier) |
 | BACK-03 | Fase 1 | In Progress (awaiting verifier) |
@@ -161,4 +161,4 @@ Explicitly excluded for v1. Documented to prevent scope creep.
 
 ---
 *Requirements defined: 2026-05-23*
-*Last updated: 2026-05-23 after Plan 02-03 UAT round 2 — D-54 exception added to DOMAIN-04 and SESSION-08 (fail-cascade inmediata cierra el exploit "fallo + abandono")*
+*Last updated: 2026-05-23 after Phase 2 completion — los 13 IDs de Phase 2 (DOMAIN-03..08+10, SESSION-01..03+07..09) marcados Complete tras verifier PASS y UAT humano 13/13. D-54 exception en DOMAIN-04/SESSION-08 (cascada inmediata).*

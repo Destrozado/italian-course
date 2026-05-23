@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-last_updated: "2026-05-23T17:34:42.986Z"
+status: completed
+last_updated: "2026-05-23T19:08:48.297Z"
 progress:
   total_phases: 4
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 6
-  completed_plans: 2
-  percent: 25
+  completed_plans: 6
+  percent: 50
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -18,24 +18,26 @@ progress:
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 02 — Mecánica completa de re-verificación (cascada + estados + dashboard)
+**Current Focus:** Phase 3 — Variedad de ejercicios + ergonomía de teclado (word-buttons + match + atajos 1-4/Enter/Space)
 
 ## Current Position
 
-Phase: 02 (Mecánica completa de re-verificación (cascada + estados + dashboard)) — EXECUTING
-Plan: 1 of 4
+Phase: 02 — COMPLETE (4/4 planes, verifier PASS, UAT 13/13)
+Next: Phase 03 (Variedad de ejercicios + ergonomía de teclado)
 
-- **Phase:** 2
+- **Phase:** 3
 - **Plan:** Not started
-- **Status:** Executing Phase 02
-- **Progress:** [██████████] 100% (2/2 planes de Phase 1 — Phase 1 esperando verificación independiente)
+- **Status:** Ready to discuss Phase 3
+- **Progress:** [█████░░░░░] 50% (6/6 planes hasta Phase 2 — 2 de 4 fases completadas)
 
 ## Performance Metrics
 
 | Métrica | Valor |
 |---------|-------|
-| Fases completadas | 0/4 |
+| Fases completadas | 2/4 |
+| Requisitos v1 completos | 32/40 (80% — Phase 1: 19 + Phase 2: 13) |
 | Requisitos v1 mapeados | 40/40 (100%) |
+| Tests dominio | 58 verdes |
 | Granularidad | coarse |
 | Mode | MVP (vertical slices) |
 
@@ -80,9 +82,10 @@ Plan: 1 of 4
 
 ### Last Session
 
-- **Fecha:** 2026-05-23 (Phase 2 planning)
-- **Trabajo:** Phase 2 plan-phase ejecutado con `--skip-ui` implícito (UI decisions ya en CONTEXT.md D-29..D-37). Research (`02-RESEARCH.md`, 1599 líneas) + Pattern map (`02-PATTERNS.md`, 9 files clasificados) + 4 plans MVP vertical-slice (`02-01..02-04-PLAN.md`) + ROADMAP.md actualizado. Plan checker veredicto: **PASS** (cobertura 13/13 reqs, 6/6 success criteria, sin scope creep, sin contradicciones con CONTEXT.md). Commits: `e885957 docs(02): add phase research`, `7987873 docs(02): add pattern map`, `f7e569f docs(02): create phase plans (4 plans)`.
-- **Siguiente paso:** `/gsd:execute-phase 2` — ejecutar Wave 1 (Plan 02-01) y avanzar secuencialmente hasta Wave 4. Plan 02-03 y 02-04 incluyen UAT humano (browser).
+- **Fecha:** 2026-05-23 (Phase 2 ejecutada completa)
+- **Trabajo:** Phase 2 execute-phase ejecutado end-to-end. 4 planes secuenciales (02-01 storage v2 + applySessionResult, 02-02 sampler + DOMAIN-06, 02-03 appShell + home + picker, 02-04 resumen + inFlightTest + smoke 30 días). 2 UAT humanos: 02-03 (7/7 tras 2 rondas, descubriendo D-54 fail inmediato y D-55 racha display) y 02-04 (6/6 tras 2 rondas, boot crash Alpine fix + picker button spacing). Verifier PASS (6/6 success criteria, 13/13 reqs, 58 tests, layer purity OK). Commits totales en Phase 2: 28 (research+pattern+plans+code+fixes+verification).
+- **Lección recurrente capturada:** patrón "double-defense Alpine" (getter null-safe + x-if guard) descubierto 2 veces en UAT. Pendiente ADR o entrada en CLAUDE.md para que sea invariante del proyecto.
+- **Siguiente paso:** `/gsd:discuss-phase 3` (o `/gsd:plan-phase 3` si quieres saltar discusión) — Phase 3 cubre EXTYPE-02 (word-buttons), EXTYPE-03 (match), SESSION-06 (atajos de teclado 1-4/Enter/Space). La infraestructura de Phase 2 (registry + appShell + sampler multi-cat) está lista para los dos tipos nuevos.
 
 ### Files Generated
 
@@ -124,8 +127,10 @@ Plan: 1 of 4
 ### Next Action
 
 ```
-/gsd:execute-phase 2   # ejecutar los 4 plans secuencialmente (Wave 1→4), UAT en 02-03 y 02-04
+/gsd:discuss-phase 3   # gather context para Phase 3 (word-buttons + match + atajos teclado)
 ```
+
+(o `/gsd:plan-phase 3` directo si las decisiones ya están claras — Phase 3 es más pequeña en alcance que Phase 2)
 
 ---
 *State initialized: 2026-05-23*
