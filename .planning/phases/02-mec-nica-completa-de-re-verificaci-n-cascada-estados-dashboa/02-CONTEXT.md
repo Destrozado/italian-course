@@ -154,6 +154,36 @@ Phase 2 entrega el **motor completo de re-verificación**: estados de categoría
 - **D-50:** **`buildFullTest(selectedCategoryIds, allExercises)`** = función pura nueva: pool filtrado por categorías + Fisher-Yates (con RNG inyectable para tests). Sin tope, sin weighted sampling, sin guarantee phase (todos los ejercicios entran).
 - **D-51:** **Sampler con categorías oversubscritas** (ej. 25 categorías seleccionadas, target 20): la GUARANTEE phase intentará picks hasta target. Si después de la guarantee `|session| === target`, no hay FILL phase. Si la GUARANTEE phase no puede cubrir todas las categorías (ej. categoría sin ejercicios), simplemente no se cubren. La research advertía sobre mostrar un aviso "Has elegido 25 categorías para 20 ejercicios — algunas quedarán fuera" — **diferido a deferred** ya que en v1 el usuario tiene 6 categorías máximo y el caso es teórico.
 
+### Refinements post-UAT round 2 de Plan 02-03 (cambios de semántica)
+
+- **D-54: Fail-cascade INMEDIATA (refinement de D-39 tras UAT round 2 de Plan 02-03).** El autor probó la app y detectó un exploit que violaba el core value:
+
+  > "Si a mitad de sesión de ejercicios, fallas, y te sales del ejercicio y vuelves a la home, no te cambia el estado ni la racha, como si no hubieras fallado, eso debería ser inmediato, en cuanto fallas, lección no hecha y racha perdida."
+
+  **Root cause:** D-39 decidió "cascada evaluada al final de sesión" + SESSION-08 dice "Repaso abandonado se descarta". La combinación creaba un atajo perverso: fallas un ejercicio → te das cuenta → cierras pestaña / pulsas Descartar → el fallo NO se registra → core value "te obliga a no olvidar" violado.
+
+  **Nueva regla canónica:**
+  - En cuanto el usuario selecciona una opción INCORRECTA en un ejercicio:
+    - Para cada categoría en `exercise.categoryIds`: aplicar la cascada (`status='no-hecha'`, `clearedExerciseIds=[]`, `streakDays=0`, `becameHechaAt=undefined`, `becameDominadaAt=undefined`)
+    - Añadir las categorías a `dailyLog[today].categoriesPracticed` Y `.categoriesWithFailure`
+    - Persistir a localStorage INMEDIATAMENTE (`saveState`)
+  - Los ACIERTOS siguen el patrón existente (write-once-at-session-end via `applySessionResult`, D-20).
+  - Al final de sesión, `applySessionResult` SIGUE corriéndose con el `sessionResults` COMPLETO (fails + successes). La cascada es **idempotente** (state.categoryProgress ya está reseteado, re-aplicar es no-op). Los contadores `exerciseStats` SE BUMPEAN UNA SOLA VEZ ahí (no en el mid-session write), preservando D-09 monotonicidad sin doble conteo.
+
+  **Implementación:** export pura `applyImmediateFailure(state, exercise, content, today)` en `src/domain/progress.js`. Caller: `src/screens/app.js > sessionSelectOption` en el branch `!correct`. `applySessionResult` NO cambia su firma ni su lógica.
+
+  **Excepción D-54 vs SESSION-08:** los fallos individuales se persisten inmediatamente; SOLO los aciertos de un Repaso abandonado se descartan. Esta excepción está documentada en REQUIREMENTS.md DOMAIN-04 / SESSION-08 como nota explícita.
+
+- **D-55: Display de Racha `N / 21 d` (refinement de D-29 tras UAT round 2 de Plan 02-03).** Cita del autor:
+
+  > "Y en racha, debería poner 1 d / 21 d para saber que el objetivo es llegar a 21 días."
+
+  **Nueva regla en la celda Racha de la tabla home:**
+  - `no-hecha` o `hecha` con cualquier streakDays: mostrar `{N} / 21 d` (ej. `0 / 21 d`, `5 / 21 d`, `20 / 21 d`). El usuario ve cuánto le falta para alcanzar el objetivo.
+  - `dominada` (ya superó los 21 días): mostrar `{N} d` solo (ej. `25 d`). El `/ 21 d` no aporta — la columna Estado tiene el ★ que indica dominada. El contador acumulado sigue siendo informativo (cuántos días llevas en dominada).
+
+  **Implementación:** `formatStreak(streak, status)` en `src/screens/app.js` con el nuevo parámetro `status`. No requiere cambios en `index.html` (la celda ya bindea `x-text="cat.streakLabel"`).
+
 ### Testabilidad del dominio (DOMAIN-10)
 
 - **D-52:** **`today` como parámetro explícito** de `applySessionResult(state, sessionResult, content, today)`. El caller (screens) llama con `today: todayLocal()`. Los tests inyectan strings ISO arbitrarios (`'2026-05-23'`, `'2026-06-13'`, etc.). Más puro y testeable. Rompe la firma de Phase 1 — la actualización del caller (screens/session.js → screens/app.js refactor) es parte del plan.
@@ -317,3 +347,4 @@ tests/
 
 *Phase: 2-Mecánica completa de re-verificación (cascada + estados + dashboard)*
 *Context gathered: 2026-05-23*
+*Last updated: 2026-05-23 — refined D-39 + D-29 from UAT round 2 of Plan 02-03 (D-54 fail-cascade inmediata + D-55 racha display N/21 d)*
