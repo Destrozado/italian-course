@@ -1,0 +1,136 @@
+{
+  "exercises": [
+    {
+      "id": "avere-001",
+      "type": "multiple-choice",
+      "categoryIds": ["avere"],
+      "payload": {
+        "prompt": "Io ___ una macchina nuova.",
+        "options": ["ho", "hai", "ha", "abbiamo"],
+        "correctIndex": 0
+      },
+      "notes": "Presente indicativo, 1ª persona singular (io). Posesión."
+    },
+    {
+      "id": "avere-002",
+      "type": "multiple-choice",
+      "categoryIds": ["avere"],
+      "payload": {
+        "prompt": "Tu ___ una sorella più grande?",
+        "options": ["ho", "hai", "ha", "avete"],
+        "correctIndex": 1
+      },
+      "notes": "Presente indicativo, 2ª persona singular (tu). Familia."
+    },
+    {
+      "id": "avere-003",
+      "type": "multiple-choice",
+      "categoryIds": ["avere"],
+      "payload": {
+        "prompt": "Lui ___ ventidue anni.",
+        "options": ["hai", "ha", "abbiamo", "hanno"],
+        "correctIndex": 1
+      },
+      "notes": "Presente indicativo, 3ª persona singular (lui). En italiano, la edad se expresa con avere (no con essere)."
+    },
+    {
+      "id": "avere-004",
+      "type": "multiple-choice",
+      "categoryIds": ["avere"],
+      "payload": {
+        "prompt": "Noi ___ molti amici a Roma.",
+        "options": ["abbiamo", "avete", "hanno", "ha"],
+        "correctIndex": 0
+      },
+      "notes": "Presente indicativo, 1ª persona plural (noi)."
+    },
+    {
+      "id": "avere-005",
+      "type": "multiple-choice",
+      "categoryIds": ["avere"],
+      "payload": {
+        "prompt": "Voi ___ tempo per un caffè?",
+        "options": ["abbiamo", "avete", "hanno", "hai"],
+        "correctIndex": 1
+      },
+      "notes": "Presente indicativo, 2ª persona plural (voi)."
+    },
+    {
+      "id": "avere-006",
+      "type": "multiple-choice",
+      "categoryIds": ["avere"],
+      "payload": {
+        "prompt": "Loro ___ una casa al mare.",
+        "options": ["abbiamo", "avete", "hanno", "ha"],
+        "correctIndex": 2
+      },
+      "notes": "Presente indicativo, 3ª persona plural (loro)."
+    },
+    {
+      "id": "avere-007",
+      "type": "multiple-choice",
+      "categoryIds": ["avere"],
+      "payload": {
+        "prompt": "Non ho mangiato niente: ___ fame!",
+        "options": ["ho", "sono", "hai", "è"],
+        "correctIndex": 0
+      },
+      "notes": "Expresión idiomática: 'avere fame' (tener hambre). En italiano se usa avere, no essere."
+    },
+    {
+      "id": "avere-008",
+      "type": "multiple-choice",
+      "categoryIds": ["avere"],
+      "payload": {
+        "prompt": "Apri la finestra, per favore: ___ caldo.",
+        "options": ["sono", "ho", "è", "siamo"],
+        "correctIndex": 1
+      },
+      "notes": "Expresión idiomática: 'avere caldo' (tener calor)."
+    },
+    {
+      "id": "avere-009",
+      "type": "multiple-choice",
+      "categoryIds": ["avere"],
+      "payload": {
+        "prompt": "Stamattina io ___ mangiato una pizza enorme.",
+        "options": ["ho", "sono", "abbiamo", "hanno"],
+        "correctIndex": 0
+      },
+      "notes": "Passato prossimo, 1ª singular. Verbo transitivo (mangiare) → auxiliar avere. PDF §3."
+    },
+    {
+      "id": "avere-010",
+      "type": "multiple-choice",
+      "categoryIds": ["avere"],
+      "payload": {
+        "prompt": "Tu ___ parlato con Marco ieri sera?",
+        "options": ["sei", "hai", "ha", "avete"],
+        "correctIndex": 1
+      },
+      "notes": "Passato prossimo, 2ª singular. Verbo de comunicación (parlare) → auxiliar avere. PDF §3."
+    },
+    {
+      "id": "avere-011",
+      "type": "multiple-choice",
+      "categoryIds": ["avere"],
+      "payload": {
+        "prompt": "Noi ___ dormito bene questa notte.",
+        "options": ["siamo", "avete", "abbiamo", "hanno"],
+        "correctIndex": 2
+      },
+      "notes": "Passato prossimo, 1ª plural. Actividad física (dormire) → auxiliar avere. PDF §3."
+    },
+    {
+      "id": "avere-012",
+      "type": "multiple-choice",
+      "categoryIds": ["avere"],
+      "payload": {
+        "prompt": "Loro ___ capito tutta la lezione.",
+        "options": ["sono", "hanno", "abbiamo", "ha"],
+        "correctIndex": 1
+      },
+      "notes": "Passato prossimo, 3ª plural. Verbo cognitivo (capire) → auxiliar avere. PDF §3."
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Italiano A1/A2 — Ejercicios</title>
+
+  <!-- Pico CSS 2.1.1 (classless variant) — SRI pinned per RESEARCH.md 2026-05-23 -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.1.1/css/pico.classless.min.css"
+        integrity="sha384-NZhm4G1I7BpEGdjDKnzEfy3d78xvy7ECKUwwnKTYi036z42IyF056PbHfpQLIYgL"
+        crossorigin="anonymous">
+
+  <link rel="stylesheet" href="./styles.css">
+
+  <!-- Alpine.js 3.15.12 — SRI pinned per RESEARCH.md 2026-05-23. Plan 02 conectará Alpine.start(). -->
+  <script defer
+          src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.12/dist/cdn.min.js"
+          integrity="sha384-pb6hrQvo4s23cEUFtj0CZkzGE3jyK3pj26RIupXXxhSrrcUA/Cn0lZgcCrGH0t6L"
+          crossorigin="anonymous"></script>
+
+  <script type="module" src="./src/main.js"></script>
+</head>
+<body>
+  <main>
+    <h1>Italiano A1/A2</h1>
+    <!-- Banner de errores de validación (oculto por defecto; main.js lo rellena). -->
+    <div id="error-banner" hidden></div>
+    <!-- Placeholder mientras se carga el contenido. Plan 02 lo reemplaza por la pantalla de sesión Alpine. -->
+    <div id="app-placeholder">Cargando…</div>
+  </main>
+</body>
+</html>

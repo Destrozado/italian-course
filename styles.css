@@ -1,0 +1,13 @@
+/*
+ * styles.css
+ *
+ * Hoja mínima. Pico CSS classless (2.1.1) cubre todo lo que necesitamos en
+ * Phase 1. Las customizaciones visuales reales llegan en Phase 5 (Polish).
+ *
+ * `color-scheme` deja al navegador alinear scrollbars/inputs nativos con
+ * el modo claro/oscuro automático que Pico activa vía prefers-color-scheme.
+ */
+
+:root {
+  color-scheme: light dark;
+}
