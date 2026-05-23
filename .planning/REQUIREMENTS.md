@@ -33,6 +33,7 @@
 - [x] **DOMAIN-02**: Función pura `session.buildSession(categories, exercises, state, size, mode)` que genera una sesión: garantiza min 1 ejercicio por categoría elegida (set-cover greedy), rellena hasta `size` con muestreo aleatorio ponderado por `weight = 1/(1+min(timesShown, 10))`
 - [ ] **DOMAIN-03**: Función pura `session.buildFullTest(categories, exercises)` devuelve TODOS los ejercicios que tocan al menos una categoría elegida (sin tope)
 - [ ] **DOMAIN-04**: Función pura `progress.applySessionResult(state, sessionResults)` aplica los efectos al final de sesión: actualiza contadores por ejercicio, aplica cascada de fallo (todas las categorías de un ejercicio fallado pasan a `no-hecha`, racha a 0, vacía `clearedExerciseIds`), promociona a `hecha` cuando `clearedExerciseIds` cubre todos los ejercicios de la categoría
+  > **Excepción tras Plan 02-03 UAT round 2 (D-54):** los **fallos individuales** de un ejercicio se persisten inmediatamente vía `applyImmediateFailure` — el core value "te obliga a no olvidar" prevalece sobre la promesa "abandono descarta". Solo los aciertos de un Repaso abandonado se descartan. La cascada al final de sesión sigue corriendo idempotente sobre el state ya reseteado; los `exerciseStats` se bumpean una sola vez ahí (preserva DOMAIN-09 monotonicidad).
 - [ ] **DOMAIN-05**: Estados de categoría: `no-hecha` → `hecha` → `dominada` (con 21 días de racha consecutivos)
 - [ ] **DOMAIN-06**: Una categoría `hecha` o `dominada` vuelve a `no-hecha` automáticamente si se añade un ejercicio nuevo al JSON que no está en su `clearedExerciseIds`
 - [ ] **DOMAIN-07**: La racha por categoría se incrementa solo cuando, en una sesión completada, esa categoría fue practicada y no tuvo ningún fallo, Y `lastSuccessDate !== todayLocal()` (sólo cuenta una vez por día)
@@ -50,6 +51,7 @@
 - [ ] **SESSION-06**: Atajos de teclado: 1-4 para multiple-choice, Enter para confirmar/avanzar tras fallo, Space como alias de Enter
 - [ ] **SESSION-07**: Al final de la sesión, pantalla de resumen (no toast) que muestra: ejercicios acertados/fallados, y por cada categoría tocada: estado antes → después, racha antes → después, ejercicios que faltan para `hecha`
 - [ ] **SESSION-08**: Una sesión Repaso abandonada (cierre de pestaña / navegación atrás antes de terminar) **se descarta** completamente — los aciertos/fallos no afectan al estado ni a los contadores
+  > **Excepción tras Plan 02-03 UAT round 2 (D-54):** los **fallos individuales** de un ejercicio se persisten inmediatamente — el core value "te obliga a no olvidar" prevalece sobre la promesa "abandono descarta". Solo los **aciertos** de un Repaso abandonado se descartan; los fallos quedan registrados (cascada de categoría + entrada en `dailyLog`).
 - [ ] **SESSION-09**: Una sesión "Test completo" abandonada se puede reanudar al volver a abrir la app (se persiste el cursor y las respuestas hasta ese punto)
 
 ### Backup & Persistence (BACK)
@@ -159,4 +161,4 @@ Explicitly excluded for v1. Documented to prevent scope creep.
 
 ---
 *Requirements defined: 2026-05-23*
-*Last updated: 2026-05-23 after Plan 01-02 completion — 19 Phase-1 reqs marked "In Progress (awaiting verifier)"; verifier agent will flip to "Complete" after independent verification*
+*Last updated: 2026-05-23 after Plan 02-03 UAT round 2 — D-54 exception added to DOMAIN-04 and SESSION-08 (fail-cascade inmediata cierra el exploit "fallo + abandono")*
