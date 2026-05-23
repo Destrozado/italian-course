@@ -131,6 +131,28 @@
         "correctIndex": 1
       },
       "notes": "Passato prossimo, 3ª plural. Verbo cognitivo (capire) → auxiliar avere. PDF §3."
+    },
+    {
+      "id": "avere-100",
+      "type": "word-buttons",
+      "categoryIds": ["avere"],
+      "payload": {
+        "prompt": "Yo tengo un coche.",
+        "answer": ["io", "ho", "una", "macchina"],
+        "distractors": ["hai", "sono"]
+      },
+      "notes": "Posesión simple — D-64 ejemplo canónico."
+    },
+    {
+      "id": "avere-101",
+      "type": "word-buttons",
+      "categoryIds": ["avere"],
+      "payload": {
+        "prompt": "Nosotros tenemos hambre.",
+        "answer": ["noi", "abbiamo", "fame"],
+        "distractors": ["sete", "ho"]
+      },
+      "notes": "Idiomático avere fame — sin distractoras correctas."
     }
   ]
 }
