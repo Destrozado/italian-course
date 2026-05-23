@@ -53,11 +53,11 @@ decisions:
   - "Patrón establecido en `applyNewExerciseRegression`: la función devuelve el MISMO objeto (===) si no hubo cambios, o uno NUEVO si hubo regresión. main.js compara `state !== state0` por identidad para decidir si persistir (evita writes innecesarios al boot)."
   - "El Test completo NO requiere confirmación al volver al home (porque siempre persistirá vía inFlightTest en Plan 02-04). Solo el Repaso mid-sesión la requiere (D-27)."
 metrics:
-  duration: "~3.5h (incluye UAT humano + 2 fixes UAT)"
+  duration: "~4h (incluye UAT humano round 1 + 2 fixes UAT + UAT round 2 + 2 design refinements)"
   completed_date: "2026-05-23"
-  files_changed: 4 (1 created, 3 modified, 1 deleted)
-  commits: 5
-  tests_passing: 51/51 (dominio; UI no se testea con node --test todavía)
+  files_changed: 6 (1 created, 4 modified, 1 deleted)
+  commits: 11
+  tests_passing: 57/57 (dominio; UI no se testea con node --test todavía)
 ---
 
 # Phase 02 Plan 03: Vertical slice UI — Home dashboard + Picker + Session migrada Summary
@@ -135,6 +135,78 @@ Vertical slice de UI: un único `appShell` Alpine factory plano que gestiona las
 
 Ninguna. La app es local sin auth.
 
+## UAT Round 2 — Design Refinements
+
+Tras el UAT round 1 (7/7 aprobado), el autor siguió probando la app durante el día y detectó **dos refinements de diseño** que invocó por separado del UAT formal. Ambos son cambios semánticos del modelo que el autor pidió DESPUÉS de ver la implementación funcional — refinan dos decisiones previas (D-39 y D-29) sin tocar el resto de la arquitectura. Documentados como Rule 2 (design-level changes solicitados por el usuario, no auto-aplicados): nuevas decisiones D-54 y D-55 añadidas a CONTEXT.md, código y tests actualizados.
+
+### Finding 3 — Exploit "fail + escape" (CRITICAL: viola core value)
+
+**Cita del autor:**
+
+> "Si a mitad de sesión de ejercicios, fallas, y te sales del ejercicio y vuelves a la home, no te cambia el estado ni la racha, como si no hubieras fallado, eso debería ser inmediato, en cuanto fallas, lección no hecha y racha perdida."
+
+**Root cause:** D-39 (cascada al final de sesión) + SESSION-08 (Repaso abandonado se descarta) en combinación creaban un atajo perverso: el usuario falla → se da cuenta → cierra la pestaña o pulsa Descartar → el fallo no se registra → core value "te obliga a no olvidar" violado. La separación clean de "evaluar todo al final" había sonado bien en el diseño pero rompía en la práctica.
+
+**Nueva decisión D-54: Fail-cascade INMEDIATA (refinement de D-39).**
+
+- **Semántica nueva:** en cuanto `feedback === 'incorrect'` en `sessionSelectOption`, aplicar `applyImmediateFailure(state, exercise, content, today)`:
+  - Para cada categoría en `exercise.categoryIds`: reset cascade idéntico a la rama FAIL-WINS de D-39 (`status='no-hecha'`, `clearedExerciseIds=[]`, `streakDays=0`, `becameHechaAt/becameDominadaAt=undefined`).
+  - Añadir las categorías a `dailyLog[today].categoriesPracticed` Y `.categoriesWithFailure`.
+  - Persistir inmediatamente con `saveState(newState)`.
+  - **NO tocar `exerciseStats`** (eso lo hace `applySessionResult` al final de sesión, UNA sola vez).
+- **Los aciertos NO cambian:** siguen el patrón Phase 1 write-once-on-done (D-20). Acumulan en `sessionResults` y se persisten al final via `applySessionResult`.
+- **`applySessionResult` SIN CAMBIOS:** se sigue llamando al cerrar sesión con el `sessionResults` COMPLETO (fails + successes). La cascada es **idempotente** respecto al state ya reseteado por `applyImmediateFailure` (re-aplicar el reset sobre state idéntico = no-op). Los `exerciseStats` se bumpean ahí UNA SOLA VEZ, preservando DOMAIN-09 monotonicidad sin doble conteo.
+
+**Por qué `applySessionResult` no cambia:**
+
+| Paso de D-39 | Idempotente respecto a `applyImmediateFailure`? |
+| --- | --- |
+| Paso 1: calcular `failedCategoryIds` | Sí — la lista se calcula del sessionResults, no depende del state actual. |
+| Paso 2: rama FAIL-WINS (reset cat) | **Sí** — re-aplicar `status='no-hecha'`, `clearedExerciseIds=[]`, `streakDays=0` sobre state que ya está así produce el MISMO state. |
+| Paso 3: rama PROMOTION (cleared/streak) | N/A — las categorías falladas NO entran a esta rama. |
+| Paso 4: `lastPracticedDate=today` | Sí — re-set al mismo valor. |
+| Paso 5: dailyLog | Sí — `uniqueStrings` dedupea categorías ya presentes. |
+| Paso 6: `exerciseStats` monotónico | **Bumpea UNA sola vez** aquí (NO en applyImmediateFailure). |
+
+El test de integralidad lo verifica explícitamente: `applyImmediateFailure(state, ex, ...)` + `applySessionResult(answers: [ex fallado])` = `applySessionResult(answers: [ex fallado])` directamente (mismo state final).
+
+**Cómo afecta a futuras fases:**
+- **Aciertos siguen siendo write-once-on-session-end.** Plan 02-04 `inFlightTest` (persistencia per-answer del Test completo) sigue válido tal como estaba diseñado — el Test completo persiste cada respuesta (acierto o fallo) en `inFlightTest`, y `applySessionResult` corre al completar el último ejercicio. D-54 NO toca esto.
+- **`dailyLog` puede ser eventualmente sobre-poblado** (un fallo persiste mid-session aunque la sesión se abandone — la entrada en `dailyLog` ya está escrita). Esto es desirable: refleja el día en que el usuario tocó la categoría aunque no terminara la sesión.
+- **SESSION-08 mantiene su validez para aciertos.** REQUIREMENTS.md añade una nota explícita de excepción en DOMAIN-04 y SESSION-08: "los fallos individuales se persisten inmediatamente; solo los aciertos de un Repaso abandonado se descartan".
+
+**Tests nuevos (6 tests):** `tests/domain-progress.test.js` extendido con un `describe('domain/progress — D-54 applyImmediateFailure (cascada inmediata)')`:
+1. Resetea cascada sin tocar exerciseStats (idempotencia + monotonicidad).
+2. Añade categoría a dailyLog.categoriesPracticed y dailyLog.categoriesWithFailure.
+3. Idempotencia integral: applyImmediateFailure + applySessionResult con mismo fail = solo applySessionResult.
+4. Caso E2E exploit: cat hecha → fail inmediato → abandono sin applySessionResult = regresión persiste.
+5. Ejercicio multi-cat: cascada inmediata afecta TODAS las categorías del ejercicio.
+6. Pureza: input state NO se muta tras applyImmediateFailure.
+
+### Finding 4 — Racha display: mostrar `N / 21 d` para visibilizar objetivo
+
+**Cita del autor:**
+
+> "Y en racha, debería poner 1 d / 21 d para saber que el objetivo es llegar a 21 días."
+
+**Diagnosis:** El header `Racha` mostraba `0 d`, `5 d`, `21+ d` — comunicaba el valor actual pero no contextualizaba con el objetivo. El usuario quería que el formato hiciera explícito hacia dónde va.
+
+**Nueva decisión D-55: Display de Racha `N / 21 d` (refinement de D-29).**
+
+- **Reglas del formato:**
+  - `status != 'dominada'` (no-hecha o hecha con cualquier streakDays): mostrar `{N} / 21 d` (ej. `0 / 21 d`, `5 / 21 d`, `20 / 21 d`).
+  - `status === 'dominada'` (streakDays >= 21 con promoción confirmada): mostrar `{N} d` (ej. `25 d`). Ya superó el objetivo; el `/ 21 d` no aporta, y la columna Estado ya tiene el ★ que indica dominada. El contador acumulado sigue siendo informativo (cuántos días llevas en dominada).
+- **Implementación:** `formatStreak(streak, status)` en `src/screens/app.js` con el nuevo segundo parámetro. La celda HTML ya bindea `x-text="cat.streakLabel"`, así que no requiere cambios en `index.html`.
+
+**Por qué no hay tests dedicados:** el formato es UI puro (string formatting); los tests del dominio cubren `streakDays` numérico. El smoke check visual durante UAT es suficiente — el verifier verá en la tabla home que la racha de avere sale como `5 / 21 d` en vez de `5 d`.
+
+### Resumen de cambios UAT round 2
+
+- **2 decisiones nuevas:** D-54 (fail-cascade inmediata) + D-55 (racha display).
+- **2 archivos del dominio modificados:** `src/domain/progress.js` (nuevo export `applyImmediateFailure`), `src/screens/app.js` (call site en `sessionSelectOption` + `formatStreak(streak, status)`).
+- **2 archivos de docs modificados:** `02-CONTEXT.md` (nueva sección "Refinements post-UAT round 2 de Plan 02-03"), `REQUIREMENTS.md` (excepción D-54 en DOMAIN-04 y SESSION-08).
+- **6 tests nuevos** verdes (D-54). Suite total: 57/57.
+
 ## Commits
 
 | Hash | Mensaje | Archivos |
@@ -145,6 +217,11 @@ Ninguna. La app es local sin auth.
 | `060c1f7` | `fix(02-03): widen home action buttons with flex gap` | `index.html`, `styles.css` |
 | `dd4a5f4` | `fix(02-03): make sessionCurrentExercise getter return null when out of bounds` | `src/screens/app.js` |
 | `9c11fcf` | `fix(02-03): guard session template x-if with sessionCurrentExercise non-null check` | `index.html` |
+| `85466b1` | `feat(02-03): add applyImmediateFailure helper for eager cascade on fail (D-54)` | `src/domain/progress.js`, `tests/domain-progress.test.js` |
+| `2a91850` | `feat(02-03): wire selectOption to apply immediate failure (D-54)` | `src/screens/app.js` |
+| `36d1cba` | `feat(02-03): show racha as N / 21 d with dominada exception (D-55)` | `src/screens/app.js` |
+| `743f937` | `docs(02): update CONTEXT.md with D-54 + D-55 from UAT round 2` | `.planning/phases/02-.../02-CONTEXT.md` |
+| `6d8fd1f` | `docs(02): note D-54 exception in REQUIREMENTS.md DOMAIN-04/SESSION-08` | `.planning/REQUIREMENTS.md` |
 
 ## Lessons learned / anti-patterns evitados
 
@@ -173,10 +250,14 @@ Ninguna. La app es local sin auth.
 ## Self-Check: PASSED
 
 Files exist:
-- `src/screens/app.js` — FOUND (590 LOC, includes defensive `sessionCurrentExercise` getter).
-- `index.html` — FOUND (4 x-if templates + confirm-inline + `.home-actions` wrapper + session guard).
+- `src/screens/app.js` — FOUND (~620 LOC tras UAT round 2; incluye `applyImmediateFailure` wire en `sessionSelectOption` + `formatStreak(streak, status)` D-55 + defensive `sessionCurrentExercise` getter).
+- `index.html` — FOUND (4 x-if templates + confirm-inline + `.home-actions` wrapper + session guard; sin cambios en UAT round 2 — D-55 es internal a app.js).
 - `styles.css` — FOUND (badges + picker-warning + confirm-inline + home-actions).
 - `src/main.js` — FOUND (registers appShell, derives categoryIds, applies applyNewExerciseRegression).
+- `src/domain/progress.js` — FOUND (incluye nuevo export `applyImmediateFailure` para D-54).
+- `tests/domain-progress.test.js` — FOUND (incluye `describe('D-54 applyImmediateFailure')` con 6 tests).
+- `.planning/phases/02-.../02-CONTEXT.md` — FOUND (sección "Refinements post-UAT round 2" con D-54 y D-55).
+- `.planning/REQUIREMENTS.md` — FOUND (nota de excepción D-54 en DOMAIN-04 y SESSION-08).
 - `src/screens/session.js` — CORRECTLY ABSENT (deleted as planned).
 
 Commits present in `git log --oneline`:
@@ -186,5 +267,10 @@ Commits present in `git log --oneline`:
 - `060c1f7` — FOUND (home buttons flex gap).
 - `dd4a5f4` — FOUND (getter null defensive).
 - `9c11fcf` — FOUND (template x-if guard).
+- `85466b1` — FOUND (applyImmediateFailure helper + 6 tests D-54).
+- `2a91850` — FOUND (wire selectOption D-54).
+- `36d1cba` — FOUND (racha display N / 21 d D-55).
+- `743f937` — FOUND (CONTEXT.md D-54 + D-55).
+- `6d8fd1f` — FOUND (REQUIREMENTS.md D-54 exception).
 
-Domain tests: 51/51 verdes (`node --test tests/*.test.js` exits 0).
+Domain tests: 57/57 verdes (`node --test tests/*.test.js` exits 0).
