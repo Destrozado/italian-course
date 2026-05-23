@@ -18,9 +18,9 @@ import { todayLocal } from '../src/domain/dates.js';
 import { buildSession, exerciseWeight } from '../src/domain/session.js';
 import { applySessionResult } from '../src/domain/progress.js';
 import { validateContent } from '../src/data/schema-validator.js';
+import { multipleChoice } from '../src/exercise-types/multiple-choice.js';
+import { registry } from '../src/exercise-types/index.js';
 import { seededLcg } from './util/seeded-rng.js';
-// NOTE: imports de `exercise-types` se añaden en Task 2 cuando se creen
-// `src/exercise-types/multiple-choice.js` y `src/exercise-types/index.js`.
 
 // ────────────────────────────────────────────────────────────────────────────
 // domain/dates
@@ -200,5 +200,32 @@ describe('data/schema-validator', () => {
 });
 
 // ────────────────────────────────────────────────────────────────────────────
-// Tests de exercise-types se añaden en Task 2 (Plan 01-01)
+// exercise-types/multiple-choice
 // ────────────────────────────────────────────────────────────────────────────
+
+describe('exercise-types/multiple-choice', () => {
+  test('grade returns true when response.index matches correctIndex', () => {
+    const ex = { payload: { correctIndex: 2 } };
+    assert.equal(multipleChoice.grade(ex, { index: 2 }), true);
+  });
+
+  test('grade returns false when response.index does not match', () => {
+    const ex = { payload: { correctIndex: 2 } };
+    assert.equal(multipleChoice.grade(ex, { index: 0 }), false);
+    assert.equal(multipleChoice.grade(ex, { index: 1 }), false);
+    assert.equal(multipleChoice.grade(ex, { index: 3 }), false);
+  });
+});
+
+// ────────────────────────────────────────────────────────────────────────────
+// exercise-types/index — registry
+// ────────────────────────────────────────────────────────────────────────────
+
+describe('exercise-types/index', () => {
+  test('registry exposes multiple-choice handler with grade()', () => {
+    assert.ok(registry['multiple-choice'], 'registry debería tener una entrada "multiple-choice"');
+    assert.equal(typeof registry['multiple-choice'].grade, 'function');
+    // Misma identidad que el módulo (Test 9 del plan)
+    assert.equal(registry['multiple-choice'], multipleChoice);
+  });
+});
