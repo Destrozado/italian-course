@@ -2,8 +2,8 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: completed
-last_updated: "2026-05-23T19:08:48.297Z"
+status: Ready to discuss Phase 3
+last_updated: "2026-05-23T19:50:51.790Z"
 progress:
   total_phases: 4
   completed_phases: 2
@@ -82,10 +82,15 @@ Next: Phase 03 (Variedad de ejercicios + ergonomía de teclado)
 
 ### Last Session
 
-- **Fecha:** 2026-05-23 (Phase 2 ejecutada completa)
-- **Trabajo:** Phase 2 execute-phase ejecutado end-to-end. 4 planes secuenciales (02-01 storage v2 + applySessionResult, 02-02 sampler + DOMAIN-06, 02-03 appShell + home + picker, 02-04 resumen + inFlightTest + smoke 30 días). 2 UAT humanos: 02-03 (7/7 tras 2 rondas, descubriendo D-54 fail inmediato y D-55 racha display) y 02-04 (6/6 tras 2 rondas, boot crash Alpine fix + picker button spacing). Verifier PASS (6/6 success criteria, 13/13 reqs, 58 tests, layer purity OK). Commits totales en Phase 2: 28 (research+pattern+plans+code+fixes+verification).
-- **Lección recurrente capturada:** patrón "double-defense Alpine" (getter null-safe + x-if guard) descubierto 2 veces en UAT. Pendiente ADR o entrada en CLAUDE.md para que sea invariante del proyecto.
-- **Siguiente paso:** `/gsd:discuss-phase 3` (o `/gsd:plan-phase 3` si quieres saltar discusión) — Phase 3 cubre EXTYPE-02 (word-buttons), EXTYPE-03 (match), SESSION-06 (atajos de teclado 1-4/Enter/Space). La infraestructura de Phase 2 (registry + appShell + sampler multi-cat) está lista para los dos tipos nuevos.
+- **Fecha:** 2026-05-23 (Phase 3 context gathered)
+- **Trabajo:** `/gsd:discuss-phase 3` ejecutado. 4 áreas grises discutidas (UX word-buttons, UX match, ergonomía teclado, schema JSON + grading), 16 preguntas single-turn, 17 decisiones nuevas capturadas (D-56..D-72). Resumen:
+  - Word-buttons: banco → área respuesta, distractoras opcionales, botón Comprobar + Enter, frase correcta literal al fallar.
+  - Match: validación instantánea por pareja, cualquier intento erróneo → ejercicio fallado (cascada D-54 inmediata en el primer error), shuffle ambas columnas, tamaño 2..~10 variable.
+  - Teclado: 1-9 dinámicos en word-buttons (Backspace quita última, Enter = Comprobar); 1-9 izq + a-i der en match; Enter/Space tras fallo dispara sessionAdvance (auto-avance 600ms intacto); foco al body con keydown listener global del session sub-template.
+  - Schema: word-buttons `{prompt, answer[], distractors?[]}`; match `{prompt, pairs:[[izq,der]]}`; duplicados en derecha permitidos con grading textual + consumo por índice; case-insensitive global en grading (no en multi-choice).
+- **Archivos generados:** `.planning/phases/03-variedad-de-ejercicios-ergonom-a-de-teclado/03-CONTEXT.md` + `03-DISCUSSION-LOG.md`. Commit `53f0aba`.
+- **Lección recurrente pendiente:** double-defense Alpine sigue sin ADR (heredado de Phase 2). Phase 3 lo aplica también a los nuevos sub-templates (`sessionCurrentExercise.payload.answer`, `.pairs`).
+- **Siguiente paso:** `/clear` luego `/gsd:plan-phase 3` para descomponer Phase 3 en planes ejecutables. Plan probable: 03-01 schema validator + grade() de los 2 tipos + tests; 03-02 sub-templates en index.html + sub-estados en appShell + handlers UI; 03-03 keydown global + sufijos visibles + UAT.
 
 ### Files Generated
 
