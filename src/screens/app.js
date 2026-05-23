@@ -658,6 +658,59 @@ export function appShell(appDataReady) {
       return `Ejercicio ${this.sessionCursor + 1} / ${this.sessionExerciseIds.length}`;
     },
 
+    /**
+     * D-41/D-43 + UAT 02-04 round 1 fix: getter defensivo del estado del banner
+     * in-flight Test completo.
+     *
+     * Devuelve `true` SÓLO cuando el state está cargado Y hay un inFlightTest
+     * con ejercicios pendientes (`cursor < length`). Se evalúa también durante
+     * el "tick de unmount" de Alpine y durante el boot ANTES de que `init()`
+     * resuelva `appDataReady` — en ambos casos `this.state` es `null`. La
+     * expresión `this.state && this.state.inFlightTest && ...` corta el acceso
+     * a `.inFlightTest` de un null, evitando el TypeError visible en consola.
+     *
+     * Patrón canónico (Plan 02-03 SUMMARY lessons learned #1): cualquier
+     * binding Alpine que traverse propiedades anidadas de un recurso nullable
+     * (`state`, `content`, ...) DEBE protegerse con doble defensa:
+     *   1. Getter defensivo que devuelva un sentinel (false/null) cuando el
+     *      recurso no está listo.
+     *   2. `<template x-if="<getter>">` en el HTML que evite que los bindings
+     *      internos se evalúen cuando el getter es false/null.
+     *
+     * El optional chaining `?.` por sí solo NO basta: `this.state?.inFlightTest`
+     * funciona, pero la sintaxis `state.inFlightTest?.cursor` en una expresión
+     * Alpine se evalúa como `(state.inFlightTest)?.cursor` — el `?.` protege
+     * el SEGUNDO acceso, no el primero. Por eso un `state` null sigue
+     * lanzando TypeError sobre `.inFlightTest`.
+     *
+     * @returns {boolean}
+     */
+    get inFlightTestActive() {
+      return !!(
+        this.state &&
+        this.state.inFlightTest &&
+        Array.isArray(this.state.inFlightTest.exerciseIds) &&
+        this.state.inFlightTest.cursor < this.state.inFlightTest.exerciseIds.length
+      );
+    },
+
+    /**
+     * D-41 + UAT 02-04 round 1 fix: contadores `{cursor, total}` del banner
+     * in-flight. Devuelve `null` cuando no hay test in-flight activo (idéntica
+     * lógica de guard que `inFlightTestActive`). El template usa
+     * `<template x-if="inFlightTestActive">` como gate de monte, y SÓLO
+     * DENTRO del template se accede a `inFlightTestProgress.cursor /
+     * inFlightTestProgress.total` con acceso directo (sin `?.`) — porque el
+     * x-if garantiza que el sub-árbol no se evalúa cuando este getter es null.
+     *
+     * @returns {{cursor:number, total:number}|null}
+     */
+    get inFlightTestProgress() {
+      if (!this.inFlightTestActive) return null;
+      const ift = this.state.inFlightTest;
+      return { cursor: ift.cursor, total: ift.exerciseIds.length };
+    },
+
     /** True cuando el cursor ha pasado del último ejercicio. */
     get sessionDone() {
       return this.sessionCursor >= this.sessionExerciseIds.length;

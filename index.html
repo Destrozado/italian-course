@@ -74,16 +74,33 @@
             responder. Color amarillo sutil — alerta clara pero sin alarmismo.
             Orden vertical: banner → botones grandes → tabla (CONTEXT.md
             "orden vertical sugerido").
+
+            UAT 02-04 round 1 fix (DOBLE DEFENSA — patrón canónico Plan 02-03):
+            antes este bloque usaba `x-show="state.inFlightTest"` con bindings
+            `state.inFlightTest?.cursor`. El `?.` NO protege el primer acceso a
+            `.inFlightTest` cuando `state` mismo es `null` durante el boot (en
+            el tick entre `Alpine.start()` y `init()` resolviendo `appDataReady`).
+            Resultado: TypeError visible en consola tras cada recarga.
+
+            Fix: outer `<template x-if="inFlightTestActive">` (getter defensivo
+            en src/screens/app.js que devuelve `false` cuando `state` es null).
+            El template gate evita que los bindings internos se evalúen hasta
+            que el state esté cargado Y haya un inFlightTest con ejercicios
+            pendientes. INSIDE the x-if, los bindings usan `inFlightTestProgress.X`
+            con acceso DIRECTO (sin `?.`) — el getter garantiza que el subtree
+            no se monta cuando el objeto es null.
           -->
-          <div x-show="state.inFlightTest" role="alert" class="inflight-banner">
-            ⚠ Tienes un Test completo a medias
-            (<span x-text="state.inFlightTest?.cursor || 0"></span>
-            / <span x-text="state.inFlightTest?.exerciseIds?.length || 0"></span> ejercicios).
-            <div role="group" style="margin-top:0.5rem;">
-              <button type="button" @click="resumeInFlightTest">Reanudar</button>
-              <button type="button" class="secondary" @click="discardInFlightTestWithConfirm">Descartar</button>
+          <template x-if="inFlightTestActive">
+            <div role="alert" class="inflight-banner">
+              ⚠ Tienes un Test completo a medias
+              (<span x-text="inFlightTestProgress.cursor"></span>
+              / <span x-text="inFlightTestProgress.total"></span> ejercicios).
+              <div role="group" style="margin-top:0.5rem;">
+                <button type="button" @click="resumeInFlightTest">Reanudar</button>
+                <button type="button" class="secondary" @click="discardInFlightTestWithConfirm">Descartar</button>
+              </div>
             </div>
-          </div>
+          </template>
 
           <!--
             Dos botones grandes lado a lado (D-32). Usamos un wrapper propio
