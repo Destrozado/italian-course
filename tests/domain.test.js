@@ -16,7 +16,6 @@ import assert from 'node:assert/strict';
 
 import { todayLocal } from '../src/domain/dates.js';
 import { buildSession, exerciseWeight } from '../src/domain/session.js';
-import { applySessionResult } from '../src/domain/progress.js';
 import { validateContent } from '../src/data/schema-validator.js';
 import { multipleChoice } from '../src/exercise-types/multiple-choice.js';
 import { registry } from '../src/exercise-types/index.js';
@@ -90,42 +89,10 @@ describe('domain/session', () => {
 });
 
 // ────────────────────────────────────────────────────────────────────────────
-// domain/progress
+// domain/progress — split a tests/domain-progress.test.js en Phase 2 (D-52).
+// La firma del export se extendió (state, sessionResult, content, today) y la
+// suite creció a ≥12 tests, así que vive en archivo aparte.
 // ────────────────────────────────────────────────────────────────────────────
-
-describe('domain/progress', () => {
-  test('applySessionResult increments counters monotonically and does not mutate input', () => {
-    const before = { schemaVersion: 1, exerciseStats: {} };
-    const after = applySessionResult(before, {
-      answers: [
-        { exerciseId: 'a1', correct: true },
-        { exerciseId: 'a1', correct: false },
-        { exerciseId: 'a2', correct: true }
-      ]
-    });
-    assert.deepEqual(after.exerciseStats['a1'], { timesShown: 2, timesCorrect: 1, timesFailed: 1 });
-    assert.deepEqual(after.exerciseStats['a2'], { timesShown: 1, timesCorrect: 1, timesFailed: 0 });
-    // Input no se muta — `before.exerciseStats` sigue vacío
-    assert.deepEqual(before.exerciseStats, {});
-    // Es un objeto distinto
-    assert.notEqual(after.exerciseStats, before.exerciseStats);
-  });
-
-  test('applySessionResult acumula sobre estado preexistente', () => {
-    const before = {
-      schemaVersion: 1,
-      exerciseStats: {
-        a1: { timesShown: 5, timesCorrect: 3, timesFailed: 2 }
-      }
-    };
-    const after = applySessionResult(before, {
-      answers: [{ exerciseId: 'a1', correct: true }]
-    });
-    assert.deepEqual(after.exerciseStats['a1'], { timesShown: 6, timesCorrect: 4, timesFailed: 2 });
-    // Sin mutar
-    assert.deepEqual(before.exerciseStats['a1'], { timesShown: 5, timesCorrect: 3, timesFailed: 2 });
-  });
-});
 
 // ────────────────────────────────────────────────────────────────────────────
 // data/schema-validator
