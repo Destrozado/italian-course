@@ -70,8 +70,15 @@
 
           <!-- (Plan 02-04 añadirá aquí el banner in-flight Test completo). -->
 
-          <!-- Dos botones grandes lado a lado (D-32). -->
-          <div role="group">
+          <!--
+            Dos botones grandes lado a lado (D-32). Usamos un wrapper propio
+            `.home-actions` con `display:flex; gap: 1rem` en vez de `role="group"`
+            porque Pico's button group une los bordes (parecen un solo control) y
+            UAT 02-03 detectó que los dos botones se veían "pegados y casi como un
+            título". El wrapper custom da el gap visible y deja los botones con su
+            estilo Pico por defecto (background sólido, padding, hover state).
+          -->
+          <div class="home-actions">
             <button type="button" @click="openPicker('repaso')">Repaso 20</button>
             <button type="button" @click="openPicker('test-completo')">Test completo</button>
           </div>

@@ -58,6 +58,28 @@ button.incorrecta {
 .badge-hecha    { color: var(--pico-color-green-500, #2e7d32); font-weight: 600; }
 .badge-dominada { color: var(--pico-color-amber-500, #f59e0b); font-weight: 600; }
 
+/*
+ * Botones grandes de la home (`Repaso 20` / `Test completo`). UAT 02-03 detectó
+ * que `role="group"` (Pico's button group) los renderizaba pegados sin gap, y
+ * casi no parecían botones distintos. Sustituimos por un flex wrapper propio:
+ *   - `gap: 1rem` separa los dos botones visiblemente.
+ *   - `flex: 1` les da ancho similar (se reparten el espacio del article).
+ *   - `font-size: 1.1rem` + `padding` los engorda lo justo para que se lean
+ *     como acciones primarias claras y NO como un título.
+ * Pico ya estiliza `<button>` con background sólido + hover state, así que no
+ * hace falta override de colores.
+ */
+.home-actions {
+  display: flex;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.home-actions button {
+  flex: 1;
+  font-size: 1.1rem;
+  padding: 0.75rem 1.5rem;
+}
+
 /* Aviso inline en el picker para Test completo (D-36). Texto plano discreto. */
 .picker-warning {
   color: var(--pico-muted-color, #6c757d);
