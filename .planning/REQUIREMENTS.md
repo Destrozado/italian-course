@@ -7,37 +7,37 @@
 
 ### Foundation (FOUND)
 
-- [ ] **FOUND-01**: La app arranca con `npx serve` apuntando a la carpeta del proyecto (o equivalente local) y se accede via `http://localhost:3000`
-- [ ] **FOUND-02**: Stack: HTML + CSS + JS vanilla con Alpine.js (CDN, versión pinned) y Pico CSS (CDN, versión pinned); cero build step
-- [ ] **FOUND-03**: La app es responsive a nivel básico (no rota en desktop pequeño), pero el target primario es desktop
-- [ ] **FOUND-04**: Idioma de UI: español (textos hardcoded en v1, sin sistema i18n)
+- [x] **FOUND-01**: La app arranca con `npx serve` apuntando a la carpeta del proyecto (o equivalente local) y se accede via `http://localhost:3000`
+- [x] **FOUND-02**: Stack: HTML + CSS + JS vanilla con Alpine.js (CDN, versión pinned) y Pico CSS (CDN, versión pinned); cero build step
+- [x] **FOUND-03**: La app es responsive a nivel básico (no rota en desktop pequeño), pero el target primario es desktop
+- [x] **FOUND-04**: Idioma de UI: español (textos hardcoded en v1, sin sistema i18n)
 
 ### Content & Schema (CONT)
 
-- [ ] **CONT-01**: El contenido (ejercicios) vive en archivos JSON dentro de `content/exercises/`, un archivo por categoría (`avere.json`, `genero-numero.json`, etc.)
-- [ ] **CONT-02**: Existe `content/categories.json` como registro maestro de categorías (id slug ASCII, nombre humano, orden de carga)
-- [ ] **CONT-03**: Cada ejercicio en JSON tiene: `id` único, `type` (`multiple-choice` | `word-buttons` | `match`), `categoryIds` (array de 1..N ids), `payload` (estructura según tipo), opcionalmente `notes`
-- [ ] **CONT-04**: Existe un schema validator que se ejecuta al cargar y rechaza JSON malformado o referencias a `categoryId` desconocidas
-- [ ] **CONT-05**: Si falla la carga/validación, la UI muestra un banner de error visible (no silencioso en consola) con el nombre del archivo y el problema
-- [ ] **CONT-06**: Las strings se normalizan a NFC al cargarse (para evitar problemas con acentos copiados desde PDFs)
+- [x] **CONT-01**: El contenido (ejercicios) vive en archivos JSON dentro de `content/exercises/`, un archivo por categoría (`avere.json`, `genero-numero.json`, etc.)
+- [x] **CONT-02**: Existe `content/categories.json` como registro maestro de categorías (id slug ASCII, nombre humano, orden de carga)
+- [x] **CONT-03**: Cada ejercicio en JSON tiene: `id` único, `type` (`multiple-choice` | `word-buttons` | `match`), `categoryIds` (array de 1..N ids), `payload` (estructura según tipo), opcionalmente `notes`
+- [x] **CONT-04**: Existe un schema validator que se ejecuta al cargar y rechaza JSON malformado o referencias a `categoryId` desconocidas
+- [x] **CONT-05**: Si falla la carga/validación, la UI muestra un banner de error visible (no silencioso en consola) con el nombre del archivo y el problema
+- [x] **CONT-06**: Las strings se normalizan a NFC al cargarse (para evitar problemas con acentos copiados desde PDFs)
 
 ### Exercise Types (EXTYPE)
 
-- [ ] **EXTYPE-01**: Tipo `multiple-choice`: muestra una frase con un hueco y 3-4 botones de opción; el usuario pulsa una; valida acertado/fallado
+- [x] **EXTYPE-01**: Tipo `multiple-choice`: muestra una frase con un hueco y 3-4 botones de opción; el usuario pulsa una; valida acertado/fallado
 - [ ] **EXTYPE-02**: Tipo `word-buttons`: muestra una frase en español a traducir; presenta botones con palabras italianas (más algunas distractoras); el usuario las pulsa en orden para construir la traducción; valida cuando el usuario marca terminado
 - [ ] **EXTYPE-03**: Tipo `match`: muestra dos columnas (ej. sustantivos ↔ artículos); el usuario hace click en un ítem de la izquierda y luego en su pareja a la derecha; valida cuando todos están emparejados
 
 ### Domain Core (DOMAIN)
 
-- [ ] **DOMAIN-01**: Función pura `dates.todayLocal()` devuelve la fecha local en formato `YYYY-MM-DD` usando reloj local (no UTC)
-- [ ] **DOMAIN-02**: Función pura `session.buildSession(categories, exercises, state, size, mode)` que genera una sesión: garantiza min 1 ejercicio por categoría elegida (set-cover greedy), rellena hasta `size` con muestreo aleatorio ponderado por `weight = 1/(1+min(timesShown, 10))`
+- [x] **DOMAIN-01**: Función pura `dates.todayLocal()` devuelve la fecha local en formato `YYYY-MM-DD` usando reloj local (no UTC)
+- [x] **DOMAIN-02**: Función pura `session.buildSession(categories, exercises, state, size, mode)` que genera una sesión: garantiza min 1 ejercicio por categoría elegida (set-cover greedy), rellena hasta `size` con muestreo aleatorio ponderado por `weight = 1/(1+min(timesShown, 10))`
 - [ ] **DOMAIN-03**: Función pura `session.buildFullTest(categories, exercises)` devuelve TODOS los ejercicios que tocan al menos una categoría elegida (sin tope)
 - [ ] **DOMAIN-04**: Función pura `progress.applySessionResult(state, sessionResults)` aplica los efectos al final de sesión: actualiza contadores por ejercicio, aplica cascada de fallo (todas las categorías de un ejercicio fallado pasan a `no-hecha`, racha a 0, vacía `clearedExerciseIds`), promociona a `hecha` cuando `clearedExerciseIds` cubre todos los ejercicios de la categoría
 - [ ] **DOMAIN-05**: Estados de categoría: `no-hecha` → `hecha` → `dominada` (con 21 días de racha consecutivos)
 - [ ] **DOMAIN-06**: Una categoría `hecha` o `dominada` vuelve a `no-hecha` automáticamente si se añade un ejercicio nuevo al JSON que no está en su `clearedExerciseIds`
 - [ ] **DOMAIN-07**: La racha por categoría se incrementa solo cuando, en una sesión completada, esa categoría fue practicada y no tuvo ningún fallo, Y `lastSuccessDate !== todayLocal()` (sólo cuenta una vez por día)
 - [ ] **DOMAIN-08**: Al alcanzar 21 días consecutivos de racha sin fallar, la categoría pasa a `dominada` (visible) pero sigue apareciendo en sesiones igual que el resto
-- [ ] **DOMAIN-09**: Contadores por ejercicio (`timesShown`, `timesCorrect`, `timesFailed`) son monotónicos crecientes — nunca se resetean, ni siquiera cuando la categoría se desmarca
+- [x] **DOMAIN-09**: Contadores por ejercicio (`timesShown`, `timesCorrect`, `timesFailed`) son monotónicos crecientes — nunca se resetean, ni siquiera cuando la categoría se desmarca
 - [ ] **DOMAIN-10**: La lógica de dominio tiene tests unitarios (smoke tests) que simulan 30+ días de actividad cubriendo: cascada de fallo en ejercicios multi-categoría, racha contando una vez por día, promoción `no-hecha → hecha → dominada`, regresión `dominada → no-hecha`, sampler con categorías de 1-2 ejercicios, oversubscription, weight cap
 
 ### Session UI (SESSION)
@@ -45,8 +45,8 @@
 - [ ] **SESSION-01**: Pantalla home muestra todas las categorías con: nombre, estado (`no-hecha` / `hecha` / `dominada` con marca visual distinta), días de racha actuales, total de ejercicios, última fecha practicada
 - [ ] **SESSION-02**: Botón "Repaso de 20" abre una pantalla de selección de categorías con checkboxes (con select-all / clear-all)
 - [ ] **SESSION-03**: Botón "Test completo" abre la misma pantalla de selección de categorías; al lanzar muestra advertencia con el número total de ejercicios incluidos
-- [ ] **SESSION-04**: Durante la sesión, muestra indicador de progreso (ej. "Ejercicio 7 / 20" o "Ejercicio 7 / 152" para test completo)
-- [ ] **SESSION-05**: Feedback binario: al acertar, el ejercicio se marca en verde y auto-avanza tras ~600ms; al fallar, se marca en rojo y muestra la respuesta correcta + botón "Siguiente" (no auto-avance)
+- [x] **SESSION-04**: Durante la sesión, muestra indicador de progreso (ej. "Ejercicio 7 / 20" o "Ejercicio 7 / 152" para test completo)
+- [x] **SESSION-05**: Feedback binario: al acertar, el ejercicio se marca en verde y auto-avanza tras ~600ms; al fallar, se marca en rojo y muestra la respuesta correcta + botón "Siguiente" (no auto-avance)
 - [ ] **SESSION-06**: Atajos de teclado: 1-4 para multiple-choice, Enter para confirmar/avanzar tras fallo, Space como alias de Enter
 - [ ] **SESSION-07**: Al final de la sesión, pantalla de resumen (no toast) que muestra: ejercicios acertados/fallados, y por cada categoría tocada: estado antes → después, racha antes → después, ejercicios que faltan para `hecha`
 - [ ] **SESSION-08**: Una sesión Repaso abandonada (cierre de pestaña / navegación atrás antes de terminar) **se descarta** completamente — los aciertos/fallos no afectan al estado ni a los contadores
@@ -54,9 +54,9 @@
 
 ### Backup & Persistence (BACK)
 
-- [ ] **BACK-01**: Todo el estado de usuario (estado de categorías, contadores de ejercicios, log de actividad diaria, rachas) se persiste en `localStorage` bajo una única clave `italianCourse.v1`
-- [ ] **BACK-02**: El estado se escribe a localStorage solo al final de una sesión completada (no por respuesta individual)
-- [ ] **BACK-03**: El estado incluye un campo `schemaVersion` para soportar migraciones futuras
+- [x] **BACK-01**: Todo el estado de usuario (estado de categorías, contadores de ejercicios, log de actividad diaria, rachas) se persiste en `localStorage` bajo una única clave `italianCourse.v1`
+- [x] **BACK-02**: El estado se escribe a localStorage solo al final de una sesión completada (no por respuesta individual)
+- [x] **BACK-03**: El estado incluye un campo `schemaVersion` para soportar migraciones futuras
 - [ ] **BACK-04**: Pantalla "Backup" con botón "Exportar progreso" que descarga el estado actual como archivo JSON
 - [ ] **BACK-05**: Pantalla "Backup" con botón "Importar progreso" que acepta un archivo JSON y reemplaza el estado actual (con confirmación)
 - [ ] **BACK-06**: La home muestra un banner discreto si han pasado más de 7 días desde el último export (recordatorio de backup)
@@ -111,41 +111,41 @@ Explicitly excluded for v1. Documented to prevent scope creep.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FOUND-01 | Fase 1 | Pending |
-| FOUND-02 | Fase 1 | Pending |
-| FOUND-03 | Fase 1 | Pending |
-| FOUND-04 | Fase 1 | Pending |
-| CONT-01 | Fase 1 | Pending |
-| CONT-02 | Fase 1 | Pending |
-| CONT-03 | Fase 1 | Pending |
-| CONT-04 | Fase 1 | Pending |
-| CONT-05 | Fase 1 | Pending |
-| CONT-06 | Fase 1 | Pending |
-| EXTYPE-01 | Fase 1 | Pending |
+| FOUND-01 | Fase 1 | In Progress (awaiting verifier) |
+| FOUND-02 | Fase 1 | In Progress (awaiting verifier) |
+| FOUND-03 | Fase 1 | In Progress (awaiting verifier) |
+| FOUND-04 | Fase 1 | In Progress (awaiting verifier) |
+| CONT-01 | Fase 1 | In Progress (awaiting verifier) |
+| CONT-02 | Fase 1 | In Progress (awaiting verifier) |
+| CONT-03 | Fase 1 | In Progress (awaiting verifier) |
+| CONT-04 | Fase 1 | In Progress (awaiting verifier) |
+| CONT-05 | Fase 1 | In Progress (awaiting verifier) |
+| CONT-06 | Fase 1 | In Progress (awaiting verifier) |
+| EXTYPE-01 | Fase 1 | In Progress (awaiting verifier) |
 | EXTYPE-02 | Fase 3 | Pending |
 | EXTYPE-03 | Fase 3 | Pending |
-| DOMAIN-01 | Fase 1 | Pending |
-| DOMAIN-02 | Fase 1 | Pending |
+| DOMAIN-01 | Fase 1 | In Progress (awaiting verifier) |
+| DOMAIN-02 | Fase 1 | In Progress (awaiting verifier) |
 | DOMAIN-03 | Fase 2 | Pending |
 | DOMAIN-04 | Fase 2 | Pending |
 | DOMAIN-05 | Fase 2 | Pending |
 | DOMAIN-06 | Fase 2 | Pending |
 | DOMAIN-07 | Fase 2 | Pending |
 | DOMAIN-08 | Fase 2 | Pending |
-| DOMAIN-09 | Fase 1 | Pending |
+| DOMAIN-09 | Fase 1 | In Progress (awaiting verifier) |
 | DOMAIN-10 | Fase 2 | Pending |
 | SESSION-01 | Fase 2 | Pending |
 | SESSION-02 | Fase 2 | Pending |
 | SESSION-03 | Fase 2 | Pending |
-| SESSION-04 | Fase 1 | Pending |
-| SESSION-05 | Fase 1 | Pending |
+| SESSION-04 | Fase 1 | In Progress (awaiting verifier) |
+| SESSION-05 | Fase 1 | In Progress (awaiting verifier) |
 | SESSION-06 | Fase 3 | Pending |
 | SESSION-07 | Fase 2 | Pending |
 | SESSION-08 | Fase 2 | Pending |
 | SESSION-09 | Fase 2 | Pending |
-| BACK-01 | Fase 1 | Pending |
-| BACK-02 | Fase 1 | Pending |
-| BACK-03 | Fase 1 | Pending |
+| BACK-01 | Fase 1 | In Progress (awaiting verifier) |
+| BACK-02 | Fase 1 | In Progress (awaiting verifier) |
+| BACK-03 | Fase 1 | In Progress (awaiting verifier) |
 | BACK-04 | Fase 4 | Pending |
 | BACK-05 | Fase 4 | Pending |
 | BACK-06 | Fase 4 | Pending |
@@ -159,4 +159,4 @@ Explicitly excluded for v1. Documented to prevent scope creep.
 
 ---
 *Requirements defined: 2026-05-23*
-*Last updated: 2026-05-23 after roadmap creation*
+*Last updated: 2026-05-23 after Plan 01-02 completion — 19 Phase-1 reqs marked "In Progress (awaiting verifier)"; verifier agent will flip to "Complete" after independent verification*

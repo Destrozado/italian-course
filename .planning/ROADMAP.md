@@ -7,7 +7,7 @@
 
 ## Phases
 
-- [ ] **Phase 1: Loop mínimo end-to-end** — La app arranca, carga JSON validado y permite hacer una sesión real de multiple-choice sobre Avere con persistencia básica
+- [x] **Phase 1: Loop mínimo end-to-end** — La app arranca, carga JSON validado y permite hacer una sesión real de multiple-choice sobre Avere con persistencia básica (completed 2026-05-23)
 - [ ] **Phase 2: Mecánica completa de re-verificación** — Estados, cascada de fallo, racha, dashboard y resumen — el motor que "te obliga a no olvidar" está operativo
 - [ ] **Phase 3: Variedad de ejercicios + ergonomía de teclado** — word-buttons y match completan los tres tipos; atajos 1-4/Enter/Space hacen la práctica diaria fluida
 - [ ] **Phase 4: Backup robusto + contenido completo** — Export/import + recordatorio de backup + los 6 PDFs transcritos a JSON (incluyendo ejercicios multi-categoría para ejercitar la cascada en uso real)
@@ -27,7 +27,7 @@
   5. La función `dates.todayLocal()` devuelve `YYYY-MM-DD` en hora local (no UTC) y la función `session.buildSession()` genera sesiones que respetan el muestreo ponderado básico `1/(1+min(timesShown,10))` — verificable con un smoke test manual contra una semilla mínima de Avere
 **Plans**: 2 plans
 - [x] 01-01-PLAN.md — Esqueleto del proyecto: HTML+CDN(SRI), módulos src/{domain,data,exercise-types}, validador, storage wrapper, funciones puras testadas con node --test, seed Avere (10-12 ejercicios) — **completado 2026-05-23**, ver [01-01-SUMMARY.md](./phases/01-loop-m-nimo-end-to-end-avere-multiple-choice/01-01-SUMMARY.md)
-- [ ] 01-02-PLAN.md — Pantalla de sesión Alpine: render multiple-choice, feedback verde/rojo, indicador Ejercicio X/N, auto-avance 600ms, persistencia única al final + verificación humana end-to-end
+- [x] 01-02-PLAN.md — Pantalla de sesión Alpine: render multiple-choice, feedback verde/rojo, indicador Ejercicio X/N, auto-avance 600ms, persistencia única al final + verificación humana end-to-end — **completado 2026-05-23** (UAT 8/8 aprobado), ver [01-02-SUMMARY.md](./phases/01-loop-m-nimo-end-to-end-avere-multiple-choice/01-02-SUMMARY.md)
 
 ### Phase 2: Mecánica completa de re-verificación (cascada + estados + dashboard)
 **Goal**: El autor ve la home con todas las categorías (estado / racha / fecha) y experimenta la mecánica completa: fallar un ejercicio multi-categoría resetea todas sus categorías y la racha a 0; completar sin fallar promociona a `hecha`; 21 días seguidos promocionan a `dominada`; el resumen de fin de sesión hace visible el delta
@@ -75,7 +75,7 @@
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Loop mínimo end-to-end | 1/2 | In Progress|  |
+| 1. Loop mínimo end-to-end | 2/2 | Complete   | 2026-05-23 |
 | 2. Mecánica completa de re-verificación | 0/? | Not started | - |
 | 3. Variedad de ejercicios + ergonomía | 0/? | Not started | - |
 | 4. Backup robusto + contenido completo | 0/? | Not started | - |
@@ -111,4 +111,4 @@ Cada fase entrega valor usable independientemente:
 
 ---
 *Roadmap created: 2026-05-23*
-*Last updated: 2026-05-23 after Plan 01-01 completion (Walking Skeleton)*
+*Last updated: 2026-05-23 after Plan 01-02 completion (Walking Skeleton end-to-end — Phase 1 awaiting verifier)*

@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-05-23T14:46:11Z"
+last_updated: "2026-05-23T17:30:00Z"
 progress:
   total_phases: 4
   completed_phases: 0
   total_plans: 2
-  completed_plans: 1
-  percent: 50
+  completed_plans: 2
+  percent: 100
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -22,13 +22,12 @@ progress:
 
 ## Current Position
 
-Phase: 1 (Loop mínimo end-to-end (Avere + multiple-choice)) — EXECUTING
-Plan: 2 of 2 (siguiente — 01-01 completado)
+Phase: 1 (Loop mínimo end-to-end (Avere + multiple-choice)) — ALL PLANS COMPLETE — READY FOR VERIFIER
 
 - **Phase:** 1 — Loop mínimo end-to-end (Avere + multiple-choice)
-- **Plan:** 01-02 (Pantalla de sesión Alpine) — siguiente
-- **Status:** Plan 01-01 completado; pendiente Plan 01-02
-- **Progress:** [█████░░░░░] 50% (1/2 planes de Phase 1 — equivalente a 12.5% del proyecto: 1/8 planes nominales si las fases siguientes mantienen ~2 planes)
+- **Plan:** 01-02 (Pantalla de sesión Alpine) — completado 2026-05-23, UAT aprobado por usuario
+- **Status:** Plan 01-01 ✓ + Plan 01-02 ✓ — Phase 1 lista para el verifier agent (no marcamos la fase complete aquí; eso lo decide el verifier)
+- **Progress:** [██████████] 100% (2/2 planes de Phase 1 — Phase 1 esperando verificación independiente)
 
 ## Performance Metrics
 
@@ -58,12 +57,15 @@ Plan: 2 of 2 (siguiente — 01-01 completado)
 | 2026-05-23 | Plan 01 `applySessionResult` reducido — solo actualiza exerciseStats | Cascada y estados de categoría llegan en Phase 2; contadores monotónicos garantizados |
 | 2026-05-23 | README invoca `node --test tests/*.test.js` (glob) en vez de `tests/` | Node 22.20 trata `tests/` como módulo y falla; el glob es portable entre versiones |
 | 2026-05-23 | Avere seed = 12 ejercicios (top del rango 10-12) | Maximiza material disponible para el sampler; 6 presente indicativo + 2 idiomáticos + 4 passato prossimo del PDF |
+| 2026-05-23 | Alpine init pattern: script-ordering (main.js antes que Alpine en `<head>`) + sync top-level `alpine:init` listener + factory acepta Promise<{content,state}> | Plan 02 descubrió en UAT que el patrón dual (`alpine:init` + `window.Alpine` guard) de `01-RESEARCH.md` Pattern 8 NO funciona cuando la registración ocurre después de `await loadContent`. El nuevo patrón es determinista (HTML script ordering spec) y desacopla el ciclo Alpine del fetch async vía Promise handoff |
+| 2026-05-23 | `applySessionResult` solo escribe localStorage al final de sesión (no por respuesta) | D-20 materializada — verificado en UAT 4: la key `italianCourse.v1` no aparece hasta que se completa la última respuesta |
 
 ### Active Todos
 
 - [x] Ejecutar `/gsd:plan-phase 1` para descomponer Fase 1 en planes ejecutables (hecho previo)
 - [x] Ejecutar Plan 01-01 — esqueleto del proyecto + dominio + seed Avere
-- [ ] Ejecutar Plan 01-02 — Pantalla de sesión Alpine + persistencia end-to-end
+- [x] Ejecutar Plan 01-02 — Pantalla de sesión Alpine + persistencia end-to-end — UAT 8/8 aprobado
+- [ ] Verifier agent — verificación independiente de Phase 1 antes de marcarla complete
 
 ### Blockers
 
@@ -77,9 +79,9 @@ Plan: 2 of 2 (siguiente — 01-01 completado)
 
 ### Last Session
 
-- **Fecha:** 2026-05-23T14:46:11Z
-- **Trabajo:** Plan 01-01 ejecutado — Walking Skeleton + 12 ejercicios seed de Avere + 14 tests `node --test` verdes. 3 commits atómicos (997388c, 9fbb947, 4aca6a1) + commit final docs.
-- **Siguiente paso:** Plan 01-02 — Pantalla de sesión Alpine sobre `window.__appBoot` (`session.js` screen + Alpine.start + persistencia única al final de sesión)
+- **Fecha:** 2026-05-23T17:30:00Z
+- **Trabajo:** Plan 01-02 ejecutado — Pantalla de sesión Alpine end-to-end. 2 commits atómicos (`a6a37ef`, `5cdecda`) + partial SUMMARY (`e9fd750`) + 2 commits de fix para race condition Alpine descubierta en UAT (`6a27d2c`, `ac46d70`). UAT humano: 8/8 verificaciones aprobadas. Tests del dominio: 14/14 verdes.
+- **Siguiente paso:** Verifier agent — verificar Phase 1 de forma independiente antes de marcar la fase complete y proceder a `/gsd:plan-phase 2`.
 
 ### Files Generated
 
@@ -101,18 +103,26 @@ Plan: 2 of 2 (siguiente — 01-01 completado)
 - `tests/domain.test.js`, `tests/util/seeded-rng.js`
 - `.planning/phases/01-loop-m-nimo-end-to-end-avere-multiple-choice/01-01-SUMMARY.md`
 
+**Plan 01-02 (Session Screen Alpine):**
+- `src/screens/session.js` (new)
+- `src/main.js` (extended con sync top-level Alpine listener + Promise handoff)
+- `index.html` (extended con markup Alpine; ordering main.js antes que Alpine defer)
+- `styles.css` (extended con [x-cloak] + .correcta/.incorrecta)
+- `.planning/phases/01-loop-m-nimo-end-to-end-avere-multiple-choice/01-02-SUMMARY.md`
+
 ## Performance Metrics
 
 | Phase | Plan | Duration | Tasks | Files |
 |-------|------|----------|-------|-------|
 | 1 | 01-01 | ~14 min | 3 | 16 |
+| 1 | 01-02 | ~22 min | 3 (2 auto + 1 checkpoint) | 4 |
 
 ### Next Action
 
 ```
-/gsd:execute-phase 1   # continúa con Plan 01-02
+/gsd:verify-phase 1   # verificación independiente de Phase 1 por el verifier agent
 ```
 
 ---
 *State initialized: 2026-05-23*
-*Last updated: 2026-05-23T14:46:11Z after Plan 01-01 completion*
+*Last updated: 2026-05-23T17:30:00Z after Plan 01-02 completion (UAT 8/8 approved)*
