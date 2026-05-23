@@ -19,7 +19,7 @@
     `alpine:init` quede registrado de forma síncrona en el top-level del
     módulo, ANTES de que Alpine emita el evento. Alpine luego carga (defer)
     y al arrancar emite `alpine:init` con nuestro listener ya en su sitio,
-    listo para registrar el factory `sessionScreen` justo antes del DOM scan.
+    listo para registrar el factory `appShell` justo antes del DOM scan.
   -->
   <script type="module" src="./src/main.js"></script>
 
@@ -39,61 +39,183 @@
     <div id="app-placeholder">Cargando…</div>
 
     <!--
-      Pantalla de sesión Alpine (Plan 02).
+      App shell Alpine (Plan 02-03).
 
       `x-cloak` evita FOUC mientras Alpine inicializa el componente.
-      `x-init="init()"` dispara el buildSession en cuanto el x-data monta.
+      `x-init="init()"` dispara el await de `appDataReady` cuando el x-data monta.
 
-      Tres templates condicionales (mutuamente exclusivos):
-        1. `ready && !done` — sesión activa: prompt + opciones + feedback.
-        2. `ready && done`  — sesión terminada (stub minimal; Phase 2 añade resumen).
-        3. `!ready`         — pool vacío (D-13 edge case, inalcanzable con el seed).
+      Cuatro pantallas mutuamente excluyentes vía `currentScreen` (D-24):
+        1. home    — tabla densa de categorías + dos botones grandes.
+        2. picker  — checkboxes compartidos entre Repaso y Test completo (D-33).
+        3. session — multiple-choice migrada de Phase 1 con prefijo `session*` (D-25).
+        4. summary — stub en Plan 02-03; poblado en Plan 02-04.
 
-      Seguridad (T-01-02 + T-02-01): TODO el contenido del JSON se renderiza
-      vía `x-text` (textContent) — jamás `x-html`. Si un prompt contiene
+      Confirmación inline (D-27) renderizada al final del x-data root como un
+      panel discreto reusable (Plan 02-04 lo reusará para D-43 y D-44).
+
+      Seguridad (T-02-01): TODO el contenido del JSON se renderiza via `x-text`
+      (textContent) — jamás la directiva contraria. Si un prompt contiene
       `<script>` o markup peligroso, se mostrará como texto literal.
     -->
-    <div x-data="sessionScreen" x-init="init()" x-cloak>
-      <template x-if="ready && !done">
+    <div x-data="appShell" x-init="init()" x-cloak>
+
+      <!-- ════════════════════════════════════════════════════════════════ -->
+      <!-- Pantalla HOME (D-24, D-29, D-30, D-32)                            -->
+      <!-- ════════════════════════════════════════════════════════════════ -->
+      <template x-if="currentScreen === 'home'">
+        <article>
+          <header>
+            <h2>Categorías</h2>
+          </header>
+
+          <!-- (Plan 02-04 añadirá aquí el banner in-flight Test completo). -->
+
+          <!-- Dos botones grandes lado a lado (D-32). -->
+          <div role="group">
+            <button type="button" @click="openPicker('repaso')">Repaso 20</button>
+            <button type="button" @click="openPicker('test-completo')">Test completo</button>
+          </div>
+
+          <!-- Tabla densa (D-29) con 5 columnas exactas. -->
+          <figure>
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Estado</th>
+                  <th scope="col">Categoría</th>
+                  <th scope="col">Racha</th>
+                  <th scope="col">Ejercicios</th>
+                  <th scope="col">Última vez</th>
+                </tr>
+              </thead>
+              <tbody>
+                <template x-for="cat in categoriesForDisplay" :key="cat.id">
+                  <tr>
+                    <td>
+                      <span :class="`badge-${cat.status}`"
+                            :aria-label="cat.statusLabel"
+                            x-text="cat.badgeGlyph"></span>
+                    </td>
+                    <td x-text="cat.name"></td>
+                    <td x-text="cat.streakLabel"></td>
+                    <td x-text="cat.totalCount"></td>
+                    <td x-text="cat.lastPracticedLabel"></td>
+                  </tr>
+                </template>
+              </tbody>
+            </table>
+          </figure>
+        </article>
+      </template>
+
+      <!-- ════════════════════════════════════════════════════════════════ -->
+      <!-- Pantalla PICKER (D-24, D-33, D-34, D-35, D-36)                    -->
+      <!-- ════════════════════════════════════════════════════════════════ -->
+      <template x-if="currentScreen === 'picker'">
+        <article>
+          <header>
+            <h2 x-text="pickerHeaderLabel"></h2>
+          </header>
+
+          <!-- Botones de selección masiva. -->
+          <div role="group">
+            <button type="button" class="secondary" @click="pickerSelectAll">Seleccionar todo</button>
+            <button type="button" class="secondary" @click="pickerClearAll">Quitar todo</button>
+          </div>
+
+          <!-- Checkboxes por categoría (D-34: vacíos al entrar). -->
+          <fieldset>
+            <template x-for="cat in content.categories" :key="cat.id">
+              <label>
+                <input type="checkbox"
+                       :value="cat.id"
+                       :checked="pickerCheckedCategoryIds.includes(cat.id)"
+                       @change="pickerToggleCategory(cat.id)">
+                <span x-text="cat.name"></span>
+              </label>
+            </template>
+          </fieldset>
+
+          <!-- Botón Empezar con label dinámico (D-35). -->
+          <button type="button"
+                  @click="startSession"
+                  :disabled="pickerPoolSize === 0"
+                  x-text="pickerStartLabel"></button>
+
+          <!-- Aviso inline para Test completo (D-36) — texto plano en español. -->
+          <p x-show="pickerMode === 'test-completo' && pickerPoolSize > 0" class="picker-warning">
+            ⚠ Test completo — <span x-text="pickerPoolSize"></span> ejercicios sin tope. Se puede reanudar si lo cierras a medias.
+          </p>
+
+          <hr>
+          <button type="button" class="secondary" @click="requestReturnToHome">← Volver al home</button>
+        </article>
+      </template>
+
+      <!-- ════════════════════════════════════════════════════════════════ -->
+      <!-- Pantalla SESSION (D-24, D-25 — migrado íntegro de Phase 1)        -->
+      <!-- ════════════════════════════════════════════════════════════════ -->
+      <template x-if="currentScreen === 'session'">
         <article>
           <!-- SESSION-04: indicador "Ejercicio X / N" visible toda la sesión. -->
-          <header x-text="progressLabel"></header>
+          <header x-text="sessionProgressLabel"></header>
 
-          <p x-text="currentExercise.payload.prompt"></p>
+          <p x-text="sessionCurrentExercise.payload.prompt"></p>
 
           <div role="group">
-            <template x-for="(opt, idx) in currentExercise.payload.options" :key="idx">
+            <template x-for="(opt, idx) in sessionCurrentExercise.payload.options" :key="idx">
               <button type="button"
-                      @click="selectOption(idx)"
-                      :disabled="feedback !== null"
+                      @click="sessionSelectOption(idx)"
+                      :disabled="sessionFeedback !== null"
                       :class="{
-                        'correcta': feedback !== null && idx === currentExercise.payload.correctIndex,
-                        'incorrecta': feedback === 'incorrect' && idx === selectedIndex
+                        'correcta': sessionFeedback !== null && idx === sessionCurrentExercise.payload.correctIndex,
+                        'incorrecta': sessionFeedback === 'incorrect' && idx === sessionSelectedIndex
                       }"
                       x-text="opt"></button>
             </template>
           </div>
 
           <!-- Solo en respuesta incorrecta: muestra la correcta + botón Siguiente. -->
-          <p x-show="feedback === 'incorrect'">
+          <p x-show="sessionFeedback === 'incorrect'">
             Respuesta correcta:
-            <strong x-text="currentExercise.payload.options[currentExercise.payload.correctIndex]"></strong>
+            <strong x-text="sessionCurrentExercise.payload.options[sessionCurrentExercise.payload.correctIndex]"></strong>
           </p>
-          <button x-show="feedback === 'incorrect'" @click="advance">Siguiente</button>
+          <button x-show="sessionFeedback === 'incorrect'" @click="sessionAdvance">Siguiente</button>
+
+          <hr>
+          <button type="button" class="secondary" @click="requestReturnToHome">← Volver al home</button>
         </article>
       </template>
 
-      <template x-if="ready && done">
+      <!-- ════════════════════════════════════════════════════════════════ -->
+      <!-- Pantalla SUMMARY (stub Plan 02-03; Plan 02-04 la poblará)         -->
+      <!-- ════════════════════════════════════════════════════════════════ -->
+      <template x-if="currentScreen === 'summary'">
         <article>
-          <p>Sesión terminada. Recarga la página para empezar otra.</p>
+          <p>Sesión terminada. (Resumen detallado en próximo plan.)</p>
+          <button type="button" @click="currentScreen = 'home'">Volver al home</button>
         </article>
       </template>
 
-      <template x-if="!ready">
-        <article>
-          <p>No hay ejercicios disponibles. Añade ejercicios a <code>content/exercises/avere.json</code>.</p>
-        </article>
-      </template>
+      <!-- ════════════════════════════════════════════════════════════════ -->
+      <!-- Confirmación inline reusable (D-27 ahora; D-43/D-44 en Plan 02-04) -->
+      <!-- ════════════════════════════════════════════════════════════════ -->
+      <div x-show="confirmDialog"
+           x-cloak
+           role="alertdialog"
+           aria-labelledby="confirm-message"
+           class="confirm-inline">
+        <p id="confirm-message" x-text="confirmDialog?.message"></p>
+        <div role="group">
+          <button type="button"
+                  @click="(() => { const cb = confirmDialog?.onConfirm; confirmDialog = null; if (cb) cb(); })()"
+                  x-text="confirmDialog?.confirmLabel"></button>
+          <button type="button"
+                  class="secondary"
+                  @click="confirmDialog = null"
+                  x-text="confirmDialog?.cancelLabel"></button>
+        </div>
+      </div>
     </div>
   </main>
 </body>
