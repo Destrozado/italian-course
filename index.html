@@ -95,7 +95,16 @@
               ⚠ Tienes un Test completo a medias
               (<span x-text="inFlightTestProgress.cursor"></span>
               / <span x-text="inFlightTestProgress.total"></span> ejercicios).
-              <div role="group" style="margin-top:0.5rem;">
+              <!--
+                `.button-row` en vez de `role="group"`: Pico's button group une
+                los bordes (parecen un solo control). UAT 02-04 round 2 detectó
+                el problema en el picker; aplicamos el mismo fix preventivo aquí
+                en el banner para evitar redescubrirlo en una ronda futura.
+                `margin-top` inline en lugar del `margin: 1.5rem 0` por defecto
+                de `.button-row` — el banner es compacto y el wrapper exterior
+                ya tiene padding.
+              -->
+              <div class="button-row" style="margin: 0.5rem 0 0 0;">
                 <button type="button" @click="resumeInFlightTest">Reanudar</button>
                 <button type="button" class="secondary" @click="discardInFlightTestWithConfirm">Descartar</button>
               </div>
@@ -158,8 +167,14 @@
             <h2 x-text="pickerHeaderLabel"></h2>
           </header>
 
-          <!-- Botones de selección masiva. -->
-          <div role="group">
+          <!--
+            Botones de selección masiva. UAT 02-04 round 2: con `role="group"`
+            los dos botones se veían "pegados, no parecen dos botones, parecen
+            un título" — mismo root cause que en la home (UAT 02-03). Fix:
+            `.button-row` (gap visible + flex layout). Misma clase reusable
+            que el home y el banner in-flight.
+          -->
+          <div class="button-row">
             <button type="button" class="secondary" @click="pickerSelectAll">Seleccionar todo</button>
             <button type="button" class="secondary" @click="pickerClearAll">Quitar todo</button>
           </div>
@@ -294,7 +309,14 @@
            aria-labelledby="confirm-message"
            class="confirm-inline">
         <p id="confirm-message" x-text="confirmDialog?.message"></p>
-        <div role="group">
+        <!--
+          Botones de confirmación (`Descartar` / `Continuar` o equivalentes).
+          UAT 02-04 round 2: aplicamos `.button-row` preventivamente — el panel
+          confirm aparece en D-27/D-43/D-44 con etiquetas distintas y los dos
+          botones deben leerse como acciones separadas, no como un título. El
+          margin override interior compacta el wrapper dentro del panel.
+        -->
+        <div class="button-row" style="margin: 0.5rem 0 0 0;">
           <button type="button"
                   @click="(() => { const cb = confirmDialog?.onConfirm; confirmDialog = null; if (cb) cb(); })()"
                   x-text="confirmDialog?.confirmLabel"></button>
