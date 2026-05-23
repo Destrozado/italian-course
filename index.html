@@ -27,8 +27,67 @@
     <h1>Italiano A1/A2</h1>
     <!-- Banner de errores de validación (oculto por defecto; main.js lo rellena). -->
     <div id="error-banner" hidden></div>
-    <!-- Placeholder mientras se carga el contenido. Plan 02 lo reemplaza por la pantalla de sesión Alpine. -->
+    <!-- Placeholder mientras se carga el contenido. main.js lo remueve antes de
+         que Alpine procese el árbol del componente. -->
     <div id="app-placeholder">Cargando…</div>
+
+    <!--
+      Pantalla de sesión Alpine (Plan 02).
+
+      `x-cloak` evita FOUC mientras Alpine inicializa el componente.
+      `x-init="init()"` dispara el buildSession en cuanto el x-data monta.
+
+      Tres templates condicionales (mutuamente exclusivos):
+        1. `ready && !done` — sesión activa: prompt + opciones + feedback.
+        2. `ready && done`  — sesión terminada (stub minimal; Phase 2 añade resumen).
+        3. `!ready`         — pool vacío (D-13 edge case, inalcanzable con el seed).
+
+      Seguridad (T-01-02 + T-02-01): TODO el contenido del JSON se renderiza
+      vía `x-text` (textContent) — jamás `x-html`. Si un prompt contiene
+      `<script>` o markup peligroso, se mostrará como texto literal.
+    -->
+    <div x-data="sessionScreen" x-init="init()" x-cloak>
+      <template x-if="ready && !done">
+        <article>
+          <!-- SESSION-04: indicador "Ejercicio X / N" visible toda la sesión. -->
+          <header x-text="progressLabel"></header>
+
+          <p x-text="currentExercise.payload.prompt"></p>
+
+          <div role="group">
+            <template x-for="(opt, idx) in currentExercise.payload.options" :key="idx">
+              <button type="button"
+                      @click="selectOption(idx)"
+                      :disabled="feedback !== null"
+                      :class="{
+                        'correcta': feedback !== null && idx === currentExercise.payload.correctIndex,
+                        'incorrecta': feedback === 'incorrect' && idx === selectedIndex
+                      }"
+                      x-text="opt"></button>
+            </template>
+          </div>
+
+          <!-- Solo en respuesta incorrecta: muestra la correcta + botón Siguiente. -->
+          <p x-show="feedback === 'incorrect'">
+            Respuesta correcta:
+            <strong x-text="currentExercise.payload.options[currentExercise.payload.correctIndex]"></strong>
+          </p>
+          <button x-show="feedback === 'incorrect'" @click="advance">Siguiente</button>
+        </article>
+      </template>
+
+      <template x-if="ready && done">
+        <article>
+          <p>Sesión terminada. Recarga la página para empezar otra.</p>
+        </article>
+      </template>
+
+      <template x-if="!ready">
+        <article>
+          <p>No hay ejercicios disponibles. Añade ejercicios a <code>content/exercises/avere.json</code>.</p>
+        </article>
+      </template>
+    </div>
   </main>
 </body>
 </html>
