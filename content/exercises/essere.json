@@ -362,6 +362,72 @@
         "distractors": ["abbiamo"]
       },
       "notes": "Passato prossimo plural masc + preposición `a` con ciudad + `per` con duración — D-90 word-buttons sub-área participio. Trampa clásica: hispanohablante diría 'abbiamo stato' (calco). Distractora `abbiamo` = avere."
+    },
+    {
+      "id": "essere-300",
+      "type": "multiple-choice",
+      "categoryIds": ["essere", "avere"],
+      "payload": {
+        "prompt": "Mio fratello ___ medico e ha trent'anni.",
+        "options": ["sei", "è", "ha", "sono"],
+        "correctIndex": 1
+      },
+      "notes": "Cruce essere + avere (D-94). Misma frase obliga a usar essere (profesión) Y avere (edad `ha trent'anni`). Trampa máxima: hispanohablante puede equivocar las dos. Distractora `ha` también es la conjugación correcta de avere para el 2º hueco (`ha trent'anni`) — refuerza que avere se usa para edad pero NO aquí para 'es médico'. Apóstrofe ASCII en `trent'anni`. Fallar cascadea D-54 a essere + avere."
+    },
+    {
+      "id": "essere-301",
+      "type": "multiple-choice",
+      "categoryIds": ["essere", "profesiones"],
+      "payload": {
+        "prompt": "Lei ___ avvocata.",
+        "options": ["ha", "sei", "è", "sono"],
+        "correctIndex": 2
+      },
+      "notes": "Cruce essere + profesiones (D-94). Profesión fem (regla -o→-a profesiones.json) introducida con essere. Trampa `ha avvocata` = calco erróneo. Fallar cascadea D-54 a essere + profesiones."
+    },
+    {
+      "id": "essere-302",
+      "type": "multiple-choice",
+      "categoryIds": ["essere", "verbos-movimiento"],
+      "payload": {
+        "prompt": "Maria ___ andata al cinema.",
+        "options": ["ha", "siamo", "è", "sono"],
+        "correctIndex": 2
+      },
+      "notes": "Cruce essere + verbos-movimiento (D-94). Auxiliar essere + participio fem sing `andata` — patrón A1 clásico de passato prossimo intransitivo. Trampa `ha andata` = calco 'ha ido' del español (en italiano `andare` requiere essere como auxiliar). D-95 sugiere fallar este ejercicio en UAT para verificar cascada D-54."
+    },
+    {
+      "id": "essere-303",
+      "type": "multiple-choice",
+      "categoryIds": ["essere", "genero-numero"],
+      "payload": {
+        "prompt": "Noi ___ italiani di Milano.",
+        "options": ["abbiamo", "siamo", "siete", "sono"],
+        "correctIndex": 1
+      },
+      "notes": "Cruce essere + genero-numero (D-94). Plural masc + concordancia adjetival (italiani, no italianos) + preposición `di` origen. Fallar cascadea D-54 a essere + genero-numero."
+    },
+    {
+      "id": "essere-304",
+      "type": "multiple-choice",
+      "categoryIds": ["essere", "sustantivos-irregulares"],
+      "payload": {
+        "prompt": "Le mie braccia ___ stanche.",
+        "options": ["hanno", "siamo", "siete", "sono"],
+        "correctIndex": 3
+      },
+      "notes": "Cruce essere + sustantivos-irregulares (D-94). Plural irregular `braccia` (singular masc `braccio` → plural fem `braccia`) + concordancia adjetival `stanche` (fem plural) + 3ª plural essere `sono`. Reverso pedagógico de avere-302 (mismo plural irregular visto desde essere). Fallar cascadea D-54 a essere + sustantivos-irregulares."
+    },
+    {
+      "id": "essere-305",
+      "type": "multiple-choice",
+      "categoryIds": ["essere", "preposiciones"],
+      "payload": {
+        "prompt": "Io ___ di Milano e parlo italiano.",
+        "options": ["ho", "è", "sono", "sei"],
+        "correctIndex": 2
+      },
+      "notes": "Cruce essere + preposiciones (D-94). Preposición `di` con origen (regla canónica PDF Preposizioni) + identidad con essere. Caso canónico A1 'soy de X'. Fallar cascadea D-54 a essere + preposiciones."
     }
   ]
 }
