@@ -698,7 +698,31 @@ export function appShell(appDataReady) {
       // clearedExerciseIds no cubra los ejercicios actuales — el home table
       // mentiría sobre el progreso hasta que el usuario re-practicara la
       // categoría. La regresión es idempotente cuando el backup ya cubre todo.
-      const imported = applyNewExerciseRegression(this.backupPendingImport.state, this.content);
+      let imported = applyNewExerciseRegression(this.backupPendingImport.state, this.content);
+
+      // ME-04 fix: reap orphan entries en exerciseStats y categoryProgress.
+      // Un backup viejo puede contener stats / progress de ejercicios o
+      // categorías que ya no existen en el content actual (ej. el autor
+      // renombró o eliminó un ejercicio entre exports). Estas entradas son
+      // huérfanas — nunca se referencian y van acumulando localStorage
+      // bytes import tras import. Coste de cleanup: O(N) sobre keys, una
+      // sola vez por import. Idempotente cuando no hay huérfanos.
+      const validExerciseIds = new Set(Object.keys(this.content.exerciseById ?? {}));
+      const validCategoryIds = new Set((this.content.categories ?? []).map(c => c.id));
+      const reapedExerciseStats = {};
+      for (const [eid, stat] of Object.entries(imported.exerciseStats ?? {})) {
+        if (validExerciseIds.has(eid)) reapedExerciseStats[eid] = stat;
+      }
+      const reapedCategoryProgress = {};
+      for (const [cid, prog] of Object.entries(imported.categoryProgress ?? {})) {
+        if (validCategoryIds.has(cid)) reapedCategoryProgress[cid] = prog;
+      }
+      imported = {
+        ...imported,
+        exerciseStats: reapedExerciseStats,
+        categoryProgress: reapedCategoryProgress
+      };
+
       this.state = imported;
       saveState(this.state);
       this.backupPendingImport = null;

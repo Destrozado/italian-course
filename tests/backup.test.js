@@ -469,6 +469,142 @@ describe('data/backup HI-01 — commitImport re-corre applyNewExerciseRegression
 });
 
 // ────────────────────────────────────────────────────────────────────────────
+// ME-04 — commitImport debe reapar orphans (exerciseStats / categoryProgress
+// con keys que no existen en el content actual). Bounded leak prevention.
+//
+// commitImport en sí no es testeable bajo node --test (Alpine/DOM); aquí
+// validamos la composición lógica: tras parseBackupFile → reap, las keys
+// huérfanas desaparecen y las válidas se preservan.
+// ────────────────────────────────────────────────────────────────────────────
+
+describe('data/backup ME-04 — commitImport reapa huérfanos en exerciseStats/categoryProgress', () => {
+  test('exerciseStats con IDs huérfanos (no presentes en content.exerciseById) se eliminan; las válidas se preservan', () => {
+    const wrapper = {
+      kind: 'italian-course-backup',
+      exportedAt: '2026-01-15T10:00:00.000Z',
+      schemaVersion: 3,
+      state: {
+        schemaVersion: 3,
+        exerciseStats: {
+          'a1': { timesShown: 5, timesCorrect: 3, timesFailed: 2 },
+          'a2': { timesShown: 4, timesCorrect: 4, timesFailed: 0 },
+          'ghost-001': { timesShown: 10, timesCorrect: 10, timesFailed: 0 },  // huérfano
+          'ghost-002': { timesShown: 1, timesCorrect: 0, timesFailed: 1 }     // huérfano
+        },
+        categoryProgress: {},
+        dailyLog: {},
+        lastBackupAt: '2026-01-15T10:00:00.000Z',
+        firstUsedAt: '2026-01-01T09:00:00.000Z'
+      }
+    };
+    // Content actual sólo conoce a1 + a2; ghost-* fueron eliminados / renombrados.
+    const content = {
+      categories: [{ id: 'avere', name: 'avere', order: 1 }],
+      exerciseById: {
+        a1: { id: 'a1', categoryIds: ['avere'], type: 'multiple-choice', payload: {} },
+        a2: { id: 'a2', categoryIds: ['avere'], type: 'multiple-choice', payload: {} }
+      }
+    };
+
+    const parsed = parseBackupFile(JSON.stringify(wrapper));
+    assert.equal(parsed.ok, true);
+
+    // Simula la lógica de commitImport (reap):
+    const validExerciseIds = new Set(Object.keys(content.exerciseById));
+    const reaped = {};
+    for (const [eid, stat] of Object.entries(parsed.state.exerciseStats)) {
+      if (validExerciseIds.has(eid)) reaped[eid] = stat;
+    }
+    assert.deepEqual(Object.keys(reaped).sort(), ['a1', 'a2'],
+      'sólo las keys presentes en content.exerciseById se preservan');
+    assert.deepEqual(reaped.a1, { timesShown: 5, timesCorrect: 3, timesFailed: 2 });
+    assert.deepEqual(reaped.a2, { timesShown: 4, timesCorrect: 4, timesFailed: 0 });
+    assert.equal(reaped['ghost-001'], undefined);
+    assert.equal(reaped['ghost-002'], undefined);
+  });
+
+  test('categoryProgress con cat huérfanas (no presentes en content.categories) se eliminan; las válidas se preservan', () => {
+    const wrapper = {
+      kind: 'italian-course-backup',
+      exportedAt: '2026-01-15T10:00:00.000Z',
+      schemaVersion: 3,
+      state: {
+        schemaVersion: 3,
+        exerciseStats: {},
+        categoryProgress: {
+          'avere': { status: 'hecha', clearedExerciseIds: ['a1'], streakDays: 3, lastSuccessDate: '2026-01-14' },
+          'old-category': { status: 'dominada', clearedExerciseIds: ['x1'], streakDays: 30 }  // huérfana
+        },
+        dailyLog: {},
+        lastBackupAt: null,
+        firstUsedAt: null
+      }
+    };
+    const content = {
+      categories: [{ id: 'avere', name: 'avere', order: 1 }],
+      exerciseById: {
+        a1: { id: 'a1', categoryIds: ['avere'], type: 'multiple-choice', payload: {} }
+      }
+    };
+
+    const parsed = parseBackupFile(JSON.stringify(wrapper));
+    assert.equal(parsed.ok, true);
+
+    const validCategoryIds = new Set(content.categories.map(c => c.id));
+    const reaped = {};
+    for (const [cid, prog] of Object.entries(parsed.state.categoryProgress)) {
+      if (validCategoryIds.has(cid)) reaped[cid] = prog;
+    }
+    assert.deepEqual(Object.keys(reaped), ['avere']);
+    assert.equal(reaped['old-category'], undefined);
+    // La cat válida se preserva íntegra.
+    assert.equal(reaped.avere.status, 'hecha');
+    assert.equal(reaped.avere.streakDays, 3);
+  });
+
+  test('idempotencia: sin huérfanos, el reap es no-op (todas las keys se preservan)', () => {
+    const wrapper = {
+      kind: 'italian-course-backup',
+      exportedAt: '2026-05-20T10:00:00.000Z',
+      schemaVersion: 3,
+      state: {
+        schemaVersion: 3,
+        exerciseStats: {
+          a1: { timesShown: 1, timesCorrect: 1, timesFailed: 0 },
+          a2: { timesShown: 1, timesCorrect: 0, timesFailed: 1 }
+        },
+        categoryProgress: {
+          avere: { status: 'no-hecha', clearedExerciseIds: ['a1'], streakDays: 0 }
+        },
+        dailyLog: {},
+        lastBackupAt: null,
+        firstUsedAt: null
+      }
+    };
+    const content = {
+      categories: [{ id: 'avere', name: 'avere', order: 1 }],
+      exerciseById: {
+        a1: { id: 'a1', categoryIds: ['avere'], type: 'multiple-choice', payload: {} },
+        a2: { id: 'a2', categoryIds: ['avere'], type: 'multiple-choice', payload: {} }
+      }
+    };
+    const parsed = parseBackupFile(JSON.stringify(wrapper));
+    const validExerciseIds = new Set(Object.keys(content.exerciseById));
+    const validCategoryIds = new Set(content.categories.map(c => c.id));
+    const reapedStats = {};
+    for (const [eid, stat] of Object.entries(parsed.state.exerciseStats)) {
+      if (validExerciseIds.has(eid)) reapedStats[eid] = stat;
+    }
+    const reapedProg = {};
+    for (const [cid, p] of Object.entries(parsed.state.categoryProgress)) {
+      if (validCategoryIds.has(cid)) reapedProg[cid] = p;
+    }
+    assert.deepEqual(Object.keys(reapedStats).sort(), ['a1', 'a2']);
+    assert.deepEqual(Object.keys(reapedProg), ['avere']);
+  });
+});
+
+// ────────────────────────────────────────────────────────────────────────────
 // domain/dates — daysSinceISO
 // ────────────────────────────────────────────────────────────────────────────
 
