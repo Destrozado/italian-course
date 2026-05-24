@@ -144,139 +144,202 @@
       "notes": "Sustantivo invariable — préstamo del inglés terminado en consonante → no flexiona en plural. Distractoras: `sports` (plural inglés con -s, error de calco frecuente), `sporti` (regla -o→-i ingenua), `sporte` (calco -e fem). Mismo principio que `film`/`bar`/`computer`: los anglicismos conservan su forma. Nota artículo: `uno sport` (no `un sport`) por la s+cons inicial."
     },
     {
-      "id": "sustantivos-irregulares-200",
-      "type": "match",
+      "id": "sustantivos-irregulares-014",
+      "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Empareja singular ↔ plural (Familia §1 — primera mitad).",
-        "pairs": [
-          ["uomo", "uomini"],
-          ["donna", "donne"],
-          ["padre", "padri"],
-          ["madre", "madri"]
-        ]
+        "prompt": "Una donna, due ___ (familia §1).",
+        "options": ["donne", "donni", "donna", "donnas"],
+        "correctIndex": 0
       },
-      "notes": "PDF §1 Personas y Familia, primera mitad. uomo→uomini es la única realmente irregular del grupo; las otras siguen la regla mixta -e→-i o -a→-e."
+      "notes": "Convertido de ex-match-200. Regla regular fem -a→-e. Distractoras: `donni` (calco masc -i), `donna` (invariable falso), `donnas` (calco español -s). Pitfall A1: familia fem siempre -a→-e."
     },
     {
-      "id": "sustantivos-irregulares-201",
-      "type": "match",
+      "id": "sustantivos-irregulares-015",
+      "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Empareja singular ↔ plural (Familia §1 — hermanos y cónyuges).",
-        "pairs": [
-          ["fratello", "fratelli"],
-          ["sorella", "sorelle"],
-          ["marito", "mariti"],
-          ["moglie", "mogli"]
-        ]
+        "prompt": "Un padre, due ___ (familia §1).",
+        "options": ["padre", "padres", "padri", "padrei"],
+        "correctIndex": 2
       },
-      "notes": "PDF §1 Personas y Familia, segunda mitad. moglie→mogli (no `moglie` invariable) — atención al apóstrofe ausente."
+      "notes": "Convertido de ex-match-200. Grupo mixto -e→-i. Distractoras: `padre` (invariable falso), `padres` (calco español), `padrei` (doble vocal final, error A1). Pitfall: padre/madre comparten regla -e→-i — opuesto a casa/donna que es -a→-e."
     },
     {
-      "id": "sustantivos-irregulares-202",
-      "type": "match",
+      "id": "sustantivos-irregulares-016",
+      "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Empareja singular masc ↔ plural fem (Cuerpo §2 — los clásicos -o/-a).",
-        "pairs": [
-          ["braccio", "braccia"],
-          ["dito", "dita"],
-          ["ginocchio", "ginocchia"],
-          ["osso", "ossa"]
-        ]
+        "prompt": "Una madre, due ___ (familia §1).",
+        "options": ["madre", "madri", "madres", "madras"],
+        "correctIndex": 1
       },
-      "notes": "PDF §2 Cuerpo Humano. Patrón estrella: masc sing -o → fem plural -a. Los 4 más comunes en la conversación cotidiana."
+      "notes": "Convertido de ex-match-200. Grupo mixto -e→-i (idéntica regla a padre). Distractoras: `madre` (invariable falso), `madres` (calco español), `madras` (mezcla -a+-s calco; también nombre de ciudad, posible despiste). Refuerzo: madre/padre/sorella/fratello — ojo a la mezcla de reglas."
     },
     {
-      "id": "sustantivos-irregulares-203",
-      "type": "match",
+      "id": "sustantivos-irregulares-017",
+      "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Empareja singular ↔ plural (Cuerpo §2 — labbro/labbra y orecchio/orecchie).",
-        "pairs": [
-          ["labbro", "labbra"],
-          ["orecchio", "orecchie"]
-        ]
+        "prompt": "Un fratello, due ___ (familia §1).",
+        "options": ["fratelli", "fratellos", "fratelle", "fratellas"],
+        "correctIndex": 0
       },
-      "notes": "PDF §2 Cuerpo Humano. labbro→labbra sigue el patrón masc→fem -a; orecchio→orecchie es la excepción de la excepción (NO va a -a sino a -ie). Match de 2 pares (límite inferior schema 2..10) para resaltar el contraste."
+      "notes": "Convertido de ex-match-201. Regla regular masc -o→-i. Distractoras: `fratellos` (calco español), `fratelle` (regla fem -e mal aplicada al masc), `fratellas` (mezcla -a+-s). Pitfall: hermano es masc en -o → plural -i estándar."
     },
     {
-      "id": "sustantivos-irregulares-204",
-      "type": "match",
+      "id": "sustantivos-irregulares-018",
+      "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Empareja singular ↔ plural (Casos especiales §3 — cambios de raíz).",
-        "pairs": [
-          ["dio", "dei"],
-          ["bue", "buoi"],
-          ["uovo", "uova"],
-          ["tempio", "templi"]
-        ]
+        "prompt": "Una sorella, due ___ (familia §1).",
+        "options": ["sorelli", "sorelle", "sorella", "sorellas"],
+        "correctIndex": 1
       },
-      "notes": "PDF §3 Casos Especiales. Cambios de raíz radicales: dio→dei (no `dii`), bue→buoi, uovo→uova (masc→fem -a como cuerpo), tempio→templi (inserción de -l-)."
+      "notes": "Convertido de ex-match-201. Regla regular fem -a→-e. Distractoras: `sorelli` (calco masc -i, error de género), `sorella` (invariable falso), `sorellas` (calco español). Contraste pedagógico con fratello (masc) — mismo concepto familiar, regla opuesta por género."
     },
     {
-      "id": "sustantivos-irregulares-205",
-      "type": "match",
+      "id": "sustantivos-irregulares-019",
+      "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Empareja singular ↔ plural (locución `giovane uomo`).",
-        "pairs": [
-          ["giovane uomo", "giovani uomini"],
-          ["uomo", "uomini"]
-        ]
+        "prompt": "Un marito, due ___ (familia §1).",
+        "options": ["marite", "marita", "mariti", "maritos"],
+        "correctIndex": 2
       },
-      "notes": "PDF §3 último bullet — `giovane uomo`/`giovani uomini` aparece como entrada propia en el PDF. Match de 2 pares minimales (límite inferior schema 2..10) para resaltar la concordancia adjetivo+sustantivo cuando ambos pluralizan."
+      "notes": "Convertido de ex-match-201. Regla regular masc -o→-i. Distractoras: `marite` (calco fem -e mal aplicado al masc), `marita` (singular fem que es palabra distinta), `maritos` (calco español -s). Pitfall: marito (masc -o) → plural regular -i, NO confundir con moglie (fem -e) → plural -i también pero por otra regla."
     },
     {
-      "id": "sustantivos-irregulares-206",
-      "type": "match",
+      "id": "sustantivos-irregulares-020",
+      "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Empareja plural ↔ singular (dirección inversa, mezcla de las 3 secciones).",
-        "pairs": [
-          ["uomini", "uomo"],
-          ["donne", "donna"],
-          ["braccia", "braccio"],
-          ["uova", "uovo"],
-          ["dei", "dio"]
-        ]
+        "prompt": "Un dito, due ___ (cuerpo §2).",
+        "options": ["diti", "dita", "ditos", "ditti"],
+        "correctIndex": 1
       },
-      "notes": "Repaso transversal en DIRECCIÓN INVERSA (plural→singular) — refuerza el reconocimiento bidireccional. Mezcla los tres temas del PDF (familia, cuerpo, casos especiales)."
+      "notes": "Convertido de ex-match-202. Caso especial cuerpo masc -o → fem plural -a. Distractoras: `diti` (regla ingenua -o→-i), `ditos` (calco español), `ditti` (duplicación consonante errónea, además homófono cercano a `detti`). Familia con braccio/osso/ginocchio."
     },
     {
-      "id": "sustantivos-irregulares-207",
-      "type": "match",
+      "id": "sustantivos-irregulares-021",
+      "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Empareja los 5 ítems del PDF §4 ¡A practicar!: singular → plural.",
-        "pairs": [
-          ["uomo", "uomini"],
-          ["uovo", "uova"],
-          ["braccio", "braccia"],
-          ["moglie", "mogli"],
-          ["dio", "dei"]
-        ]
+        "prompt": "Un ginocchio, due ___ (cuerpo §2) — forma fem más usada en italiano moderno.",
+        "options": ["ginocchi", "ginocchia", "ginocchios", "ginocche"],
+        "correctIndex": 1
       },
-      "notes": "Ejercicio de cierre — los 5 problemas del §4 ¡A practicar! del PDF reagrupados como match para refuerzo final. Cubre 1:1 las soluciones publicadas (Uomini | Uova | Braccia | Mogli | Dei)."
+      "notes": "Convertido de ex-match-202. Caso especial cuerpo masc -o → fem plural -a. Nota: `ginocchi` (masc plural regular) existe como variante pero `ginocchia` (fem -a) es la más común en italiano moderno y la que recoge el PDF §2. Distractoras: `ginocchi` (variante minoritaria, plausible pero no es la respuesta esperada por el PDF), `ginocchios` (calco español), `ginocche` (mezcla -e). Pitfall: las partes pares del cuerpo prefieren plural fem -a."
     },
     {
-      "id": "sustantivos-irregulares-208",
-      "type": "match",
+      "id": "sustantivos-irregulares-022",
+      "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Empareja singular ↔ plural (cuerpo §2 — los 6 ítems completos del PDF).",
-        "pairs": [
-          ["braccio", "braccia"],
-          ["dito", "dita"],
-          ["ginocchio", "ginocchia"],
-          ["labbro", "labbra"],
-          ["osso", "ossa"],
-          ["orecchio", "orecchie"]
-        ]
+        "prompt": "Un osso, due ___ (cuerpo §2).",
+        "options": ["ossi", "ossa", "osses", "osso"],
+        "correctIndex": 1
       },
-      "notes": "Cobertura completa del PDF §2 Cuerpo Humano en un solo match (6 pares, dentro del schema 2..10). Resalta que orecchio→orecchie rompe el patrón general -a del resto."
+      "notes": "Convertido de ex-match-202. Caso especial cuerpo masc -o → fem plural -a. Distractoras: `ossi` (regla ingenua -o→-i; existe como variante para `huesos sueltos/no humanos` pero `ossa` es el plural humano del PDF), `osses` (calco español), `osso` (invariable falso). Familia con braccio/dito/ginocchio."
+    },
+    {
+      "id": "sustantivos-irregulares-023",
+      "type": "multiple-choice",
+      "categoryIds": ["sustantivos-irregulares"],
+      "payload": {
+        "prompt": "Un labbro, due ___ (cuerpo §2).",
+        "options": ["labbri", "labbra", "labbros", "labbre"],
+        "correctIndex": 1
+      },
+      "notes": "Convertido de ex-match-203. Caso especial cuerpo masc -o → fem plural -a. Distractoras: `labbri` (regla ingenua -o→-i; existe en italiano para `bordes/orillas` pero NO para labios), `labbros` (calco español), `labbre` (mezcla -e). Sigue el patrón de braccio/dito/osso del PDF."
+    },
+    {
+      "id": "sustantivos-irregulares-024",
+      "type": "multiple-choice",
+      "categoryIds": ["sustantivos-irregulares"],
+      "payload": {
+        "prompt": "Un bue, due ___ (animales §3).",
+        "options": ["bua", "bui", "buoi", "buei"],
+        "correctIndex": 2
+      },
+      "notes": "Convertido de ex-match-204. Caso especial radical bue→buoi (inserción de -o-). Distractoras: `bua` (regla fem -a mal aplicada), `bui` (regla ingenua -e→-i sin la inserción de -o-), `buei` (mezcla -e+-i). Pitfall A1: el plural irregular añade -o- antes de la -i (raíz bu- + suffix -oi)."
+    },
+    {
+      "id": "sustantivos-irregulares-025",
+      "type": "multiple-choice",
+      "categoryIds": ["sustantivos-irregulares"],
+      "payload": {
+        "prompt": "Un tempio, due ___ (lugares §3) — inserción de consonante.",
+        "options": ["tempi", "templi", "tempios", "templios"],
+        "correctIndex": 1
+      },
+      "notes": "Convertido de ex-match-204 (refuerzo de mc-008). Cambio de raíz con inserción de -l-: tempio→templi. Distractoras: `tempi` (regla ingenua -io→-i; además homófono con `tempi` plural de `tempo` — trampa de doble sentido), `tempios` (calco español), `templios` (calco con -s sobre la forma correcta). Pitfall A1: hay que aprender que esta familia inserta -l- en plural."
+    },
+    {
+      "id": "sustantivos-irregulares-026",
+      "type": "multiple-choice",
+      "categoryIds": ["sustantivos-irregulares"],
+      "payload": {
+        "prompt": "Un giovane uomo, due ___ (locución §3) — concordancia adjetivo+sustantivo.",
+        "options": ["giovani uomini", "giovane uomini", "giovani uomo", "giovanes uomos"],
+        "correctIndex": 0
+      },
+      "notes": "Convertido de ex-match-205. La locución refuerza la concordancia plural en compuestos: ambos elementos pluralizan. Distractoras: `giovane uomini` (solo el sustantivo pluraliza, adjetivo queda en singular — error A1 frecuente), `giovani uomo` (solo el adjetivo pluraliza, sustantivo queda singular — más raro pero pedagógicamente útil), `giovanes uomos` (calco español duplicado). Pitfall A1: en italiano, adjetivo y sustantivo concuerdan SIEMPRE en número y género."
+    },
+    {
+      "id": "sustantivos-irregulares-027",
+      "type": "multiple-choice",
+      "categoryIds": ["sustantivos-irregulares"],
+      "payload": {
+        "prompt": "Due uomini, un ___ (dirección inversa).",
+        "options": ["uomine", "uomo", "uome", "uomini"],
+        "correctIndex": 1
+      },
+      "notes": "Convertido de ex-match-206 — refuerzo bidireccional (plural→singular). El reconocimiento inverso es crítico para lectura/comprensión. Distractoras: `uomine` (singular regularizado, calco con donna/donne), `uome` (forma inventada plausible para alguien que piensa en fem), `uomini` (invariable falso). Pitfall A1: ver `uomini` y recuperar el lema base `uomo`."
+    },
+    {
+      "id": "sustantivos-irregulares-028",
+      "type": "multiple-choice",
+      "categoryIds": ["sustantivos-irregulares"],
+      "payload": {
+        "prompt": "Due donne, una ___ (dirección inversa).",
+        "options": ["donno", "donna", "donne", "donni"],
+        "correctIndex": 1
+      },
+      "notes": "Convertido de ex-match-206. Dirección inversa fem plural→singular. Distractoras: `donno` (masc regular inexistente), `donne` (invariable falso), `donni` (plural masc inexistente). Refuerzo: -e plural → -a singular en regla regular fem."
+    },
+    {
+      "id": "sustantivos-irregulares-029",
+      "type": "multiple-choice",
+      "categoryIds": ["sustantivos-irregulares"],
+      "payload": {
+        "prompt": "Due braccia, un ___ (cuerpo, dirección inversa).",
+        "options": ["braccia", "braccio", "braccie", "bracce"],
+        "correctIndex": 1
+      },
+      "notes": "Convertido de ex-match-206. Dirección inversa cuerpo §2: fem plural -a → masc singular -o. Distractoras: `braccia` (invariable falso, trampa para quien duda), `braccie` (calco con orecchie), `bracce` (calco regular fem -e). Pitfall A1: ver `braccia` y recuperar el masculino `braccio` es contraintuitivo porque parece femenino — la trampa central del cuerpo humano italiano."
+    },
+    {
+      "id": "sustantivos-irregulares-030",
+      "type": "multiple-choice",
+      "categoryIds": ["sustantivos-irregulares"],
+      "payload": {
+        "prompt": "Due uova, un ___ (casos especiales, dirección inversa).",
+        "options": ["uovo", "uova", "uove", "uovas"],
+        "correctIndex": 0
+      },
+      "notes": "Convertido de ex-match-206. Mismo patrón que braccia→braccio: fem plural -a → masc singular -o. Distractoras: `uova` (invariable falso), `uove` (calco regular fem), `uovas` (calco español). Refuerzo bidireccional crítico — sin esto el alumno reconoce el plural pero no recupera el lema."
+    },
+    {
+      "id": "sustantivos-irregulares-031",
+      "type": "multiple-choice",
+      "categoryIds": ["sustantivos-irregulares"],
+      "payload": {
+        "prompt": "Due dei, un ___ (casos especiales, dirección inversa).",
+        "options": ["dei", "dee", "deo", "dio"],
+        "correctIndex": 3
+      },
+      "notes": "Convertido de ex-match-206. Dirección inversa: dei→dio (cambio radical). Distractoras: `dei` (invariable falso), `dee` (singular fem inexistente), `deo` (forma regularizada plausible pero incorrecta — esta es la trampa: parece que `dei` viniera de `deo`, pero NO). Pitfall A1: ver `dei` y recuperar `dio` requiere conocer el lema, no derivarlo."
     }
   ]
 }
