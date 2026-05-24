@@ -41,13 +41,22 @@ Web personal de ejercicios de italiano para preparar el A1 (y luego A2). Es una 
 - ✓ Smoke test integrado simulando ≥30 días reales — 58 tests verdes totales
 - ✓ Home dashboard con tabla densa (5 columnas: Estado / Categoría / Racha / Ejercicios / Última vez), badges Unicode (`●`/`✓`/`★`) con colores Pico
 
+**Phase 3 — Variedad de ejercicios + ergonomía de teclado (2026-05-24):**
+- ✓ Tipo `word-buttons`: banco → área respuesta (mover palabras), distractoras opcionales (`distractors[]`), botón "Comprobar" + Enter, frase correcta literal en rojo al fallar
+- ✓ Tipo `match`: dos columnas con shuffle Fisher-Yates seedable, validación instantánea por pareja (correcta = verde fija + apagada / incorrecta = parpadeo rojo + deshecha), CUALQUIER intento erróneo → ejercicio fallado con cascada D-61 inmediata idempotente (un solo `applyImmediateFailure` por ejercicio fallado)
+- ✓ Duplicados textuales en columna derecha de `match` permitidos (grading por consumo de pair por índice — D-66)
+- ✓ Grading case-insensitive para los nuevos tipos (`toLowerCase() + NFC compare`); render mantiene capitalización
+- ✓ Atajos de teclado completos sin ratón: `1-4` multiple-choice; `1-9` dinámicos word-buttons + `Backspace` + `Enter` = Comprobar; `1-9` izq + `a-i` der en match; `Enter`/`Space` tras fallo dispara `sessionAdvance`; tras acierto NO hacen nada (auto-avance 600ms intacto); `Space` con `preventDefault` (no scroll)
+- ✓ Foco al body (sin elemento focado visualmente) con `@keydown.window` Alpine; cleanup automático al cambiar `currentScreen` via el lifecycle del template
+- ✓ Sufijos visibles `¹²³ᵃᵇᶜ` (superíndice Unicode) en banco word-buttons y columnas match
+- ✓ Helper `applyResultToSession(exercise, correct)` extraído — call-sites exactos de `applyImmediateFailure`: **2** (decisión final + primer fallo match) — Pitfall #2 prevenido arquitectónicamente
+- ✓ Schema validator refactorizado a dispatch table `PAYLOAD_VALIDATORS` por tipo
+- ✓ 105 tests verdes totales (58 baseline Phase 1+2 + 23 word-buttons + 24 match), UAT humano PASS (15 pasos cubriendo 4 criterios ROADMAP + 8 pitfalls + exploit-proof D-54/D-61 + D-66 duplicados visuales + Phase 2 regression smoke)
+
 ### Active
 
 <!-- Current scope. Building toward these. -->
 
-- [ ] Tipo de ejercicio: traducción construyendo la frase con botones de palabras en orden (Phase 3)
-- [ ] Tipo de ejercicio: emparejar columnas (match) (Phase 3)
-- [ ] Atajos de teclado: 1-4 para multiple-choice, Enter para confirmar/avanzar, Space alias de Enter (Phase 3)
 - [ ] Datos en `localStorage` con export/import a JSON (backup manual del progreso) (Phase 4)
 - [ ] Recordatorio de backup tras 7 días sin export (Phase 4)
 - [ ] Transcripción de los 6 PDFs reales a JSON (incluyendo ejercicios multi-categoría) (Phase 4)
@@ -101,6 +110,11 @@ Web personal de ejercicios de italiano para preparar el A1 (y luego A2). Es una 
 | Test completo se reanuda; Repaso se descarta (excepto fallos) | Test completo es inversión grande; Repaso es desechable salvo el fallo individual (D-54) | ✓ Validado Phase 2 (`inFlightTest` subkey per-answer) |
 | AppShell único factory plano con `currentScreen` switch | Más simple que router; deep-link no aporta en app local | ✓ Validado Phase 2 (D-24/D-25, 4 pantallas en `src/screens/app.js`) |
 | Double-defense Alpine: getter null-safe + x-if guard | Anti-pattern recurrente; bindings se evalúan antes de `init()` | ✓ Validado Phase 2 (descubierto 2 veces en UAT 02-03 y 02-04; pendiente ADR) |
+| Helper `applyResultToSession` extraído — UN solo path arquitectónico para acierto/fallo de cualquier tipo | Pitfall #2 (duplicar `applyImmediateFailure` por tipo) prevenido al nivel de codebase, no de revisión humana; refactor de un solo método si cambia la mecánica de cascada | ✓ Validado Phase 3 (2 call-sites exactos en `src/screens/app.js` — verificable con grep) |
+| `match` permite duplicados textuales en columna derecha; grading consume por índice de pair (no por texto) | Crítico para artículos italianos donde varios sustantivos comparten artículo (`la casa` + `la porta`); el grading textual con consumo evita ambigüedad | ✓ Validado Phase 3 (D-66, `avere-202` con dos "ha"; tests + UAT) |
+| Grading case-insensitive para `word-buttons` y `match` (NO para multi-choice que va por índice) | Reduce fricción al autor transcribir PDFs (la profesora a veces empieza frases con mayúscula); trade-off aceptado vs "ocultar typos de mayúsculas" | ✓ Validado Phase 3 (D-67, `toLowerCase + NFC compare` en `grade()`) |
+| `@keydown.window` Alpine para listener global de sesión (vs `addEventListener` manual con cleanup) | Cleanup automático con el lifecycle del `<template x-if>` — elimina clase entera de bugs por listener huérfano | ✓ Validado Phase 3 (D-72, una sola línea sobre el `<article>` del session screen) |
+| Sufijos teclado visibles como superíndice Unicode `¹²³ᵃᵇᶜ` (vs `<kbd>` tags) | Mínimo ruido visual + sin doble borde de control en botones; el binding `tecla ↔ botón` es siempre obvio sin tabular | ✓ Validado Phase 3 (UI-SPEC resolution; `.kbd-hint` muted en styles.css) |
 
 ## Evolution
 
@@ -120,4 +134,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-05-23 after Phase 2 completion (motor "te obliga a no olvidar" operativo end-to-end; verifier PASS, UAT 13/13)*
+*Last updated: 2026-05-24 after Phase 3 completion (los 3 tipos de ejercicio operativos + sesión sin ratón end-to-end; verifier PASS 15/15, UAT humano PASS 4/4 criterios ROADMAP + 8 pitfalls + exploit-proof D-54/D-61 + D-66 duplicados)*
