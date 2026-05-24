@@ -588,16 +588,23 @@ export function appShell(appDataReady) {
         a.click();
         setTimeout(() => URL.revokeObjectURL(url), 0); // Pitfall #1 + #7
 
-        // Actualiza lastBackupAt (D-77) — spread inmutable, mismo patrón
-        // que persistInFlightTest (Alpine reactivity).
-        this.state = { ...this.state, lastBackupAt: new Date().toISOString() };
-        // Phase 4 D-78: primer-export-guard. Si nunca se había marcado
-        // firstUsedAt (porque el usuario nunca completó una sesión), el
-        // export también lo marca — el banner debería respetar este instant
-        // como "comencé a usar la app".
-        if (this.state.firstUsedAt === null) {
-          this.state = { ...this.state, firstUsedAt: new Date().toISOString() };
-        }
+        // ME-03 fix: timestamp único compartido. Antes se llamaba a
+        // `new Date().toISOString()` dos veces (lastBackupAt + firstUsedAt
+        // en sus respectivos spreads), produciendo ISOs que podían diferir
+        // por microsegundos y disparando dos updates reactivos de Alpine en
+        // lugar de uno. Ahora computamos el ISO una vez y hacemos UN solo
+        // spread.
+        const now = new Date().toISOString();
+        // D-77 actualiza lastBackupAt. D-78 primer-export-guard: si nunca se
+        // había marcado firstUsedAt (porque el usuario nunca completó una
+        // sesión), el export también lo marca — el banner respeta este
+        // instant como "comencé a usar la app". `firstUsedAt ?? now` mantiene
+        // el valor previo cuando ya estaba seteado.
+        this.state = {
+          ...this.state,
+          lastBackupAt: now,
+          firstUsedAt: this.state.firstUsedAt ?? now
+        };
         saveState(this.state);
 
         this.backupLastMessage = {
