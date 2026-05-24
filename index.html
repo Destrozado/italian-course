@@ -511,11 +511,16 @@
             la fila renderiza sólo el prompt sin las dos líneas Tu/Correcta
             (UI-SPEC §Copywriting "ausencia preferible al placeholder").
           -->
-          <template x-if="sessionResults.some(r => !r.correct)">
+          <template x-if="sessionResults.some(r => !r.correct && content.exerciseById[r.exerciseId])">
             <section class="summary-errors">
               <h3>Errores cometidos</h3>
               <ul>
-                <template x-for="result in sessionResults.filter(r => !r.correct)" :key="result.exerciseId">
+                <!-- CR-01 fix: el filter exige `content.exerciseById[r.exerciseId]`
+                     truthy (no null). Si el autor editó el JSON entre arranque y
+                     fin de sesión y el `exerciseId` ya no existe en `content`, la
+                     fila se omite silenciosamente en lugar de crashear con
+                     `TypeError: Cannot read properties of null`. T-02-01 intacto. -->
+                <template x-for="result in sessionResults.filter(r => !r.correct && content.exerciseById[r.exerciseId])" :key="result.exerciseId">
                   <li>
                     <strong x-text="content.exerciseById[result.exerciseId].payload.prompt"></strong>
 
