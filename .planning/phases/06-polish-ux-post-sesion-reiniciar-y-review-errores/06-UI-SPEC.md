@@ -166,11 +166,17 @@ Razones:
  * <span> si Alpine lo permite — Pico no tiene selectores que restrinjan
  * la clase a button. Esta variante explícita es defensiva por si el CSS
  * existente de button.incorrecta colisiona visualmente (padding del
- * button no aplica a span). Decisión del executor — ambas son válidas. */
+ * button no aplica a span). Decisión del executor — ambas son válidas.
+ *
+ * Spacing: padding 0 vertical + 0.25rem (4px) horizontal. Multiplo del
+ * token base de la spacing scale; cero vertical porque la line-height
+ * 1.5 de Pico ya da respiración suficiente al span inline, y 4px
+ * horizontal es separación mínima válida entre el texto y el borde
+ * rojo del background. */
 .summary-errors .user-answer {
   background-color: var(--pico-color-red-500, #d32f2f);
   color: white;
-  padding: 0.1rem 0.4rem;
+  padding: 0 0.25rem;
   border-radius: var(--pico-border-radius, 0.25rem);
   /* Word-wrap defensivo para userAnswer largos (word-buttons join + match
    * pair con strings de 50+ chars). */
@@ -618,7 +624,7 @@ Phase 6 introduce **cero dependencias externas nuevas, cero registry blocks, cer
 | Hidden (sin errores) | No renderizada — `<template x-if>` evita el mount | `sessionResults.every(r => r.correct)` o `sessionResults.length === 0` |
 | Rendered (≥1 error) | `<section>` con header + lista | `sessionResults.some(r => !r.correct)` |
 | Cada `<li>` rendered | Flex column, border-bottom muted, padding 0.5rem 0 | x-for sobre `sessionResults.filter(!correct)` |
-| `<span class="user-answer">` dentro de `<li>` | Rojo sólido `#d32f2f` + texto blanco + padding 0.1rem 0.4rem | Siempre (mientras la fila se renderiza) |
+| `<span class="user-answer">` dentro de `<li>` | Rojo sólido `#d32f2f` + texto blanco + padding `0 0.25rem` (0px vertical, 4px horizontal) | Siempre (mientras la fila se renderiza) |
 | `<strong>` de respuesta correcta | Pico semibold sin color | Siempre |
 | Match con `userAnswer === null` | Las dos líneas "Tu respuesta:" + "Respuesta correcta:" se omiten; solo prompt | `result.userAnswer === null` (caso match completado sin fallos pero entró por bug; o inFlightTest pre-Phase 6 reanudado tras migrate3to4 backfill) |
 
@@ -654,7 +660,7 @@ Phase 6 introduce **cero dependencias externas nuevas, cero registry blocks, cer
 - [ ] Dimension 2 Visuals: PASS — botón Reiniciar dentro de `.button-row` existente con posición izquierda (Reiniciar) → derecha (Volver al home); sección `.summary-errors` con `margin-top: 1.5rem` bajo `<ul.summary-delta>` y antes de `Volver al home`; 6 estados del botón + 6 estados de la sección documentados; wireframes ASCII de las 2 pantallas afectadas
 - [ ] Dimension 3 Color: PASS — 60/30/10 heredado de Phase 2-5 sin cambios; cero tokens nuevos; `.incorrecta` reusada (rojo sólido + blanco) para `userAnswer`; `<strong>` sin color verde para respuesta correcta (justificado por coherencia con multi-choice sesión); accent `secondary` aplicado a 1 solo elemento nuevo (botón Reiniciar)
 - [ ] Dimension 4 Typography: PASS — cero tamaños y pesos nuevos; Pico defaults para `<h3>`, `<strong>`, body; `.user-answer` solo con padding inline y `overflow-wrap` — sin font-size ni font-style nuevos
-- [ ] Dimension 5 Spacing: PASS — cero tokens nuevos; `.button-row` existente reusado intacto; `.summary-errors` con `margin-top: 1.5rem` + `padding: 0.5rem 0` + `gap: 0.25rem` — todo múltiplos rem de 0.25rem (= 4px); sin `<hr>`, sin role="group"
+- [ ] Dimension 5 Spacing: PASS — cero tokens nuevos; `.button-row` existente reusado intacto; `.summary-errors` con `margin-top: 1.5rem` + `padding: 0.5rem 0` + `gap: 0.25rem` + `.user-answer` con `padding: 0 0.25rem` — todo múltiplos rem de 0.25rem (= 4px) o cero; sin `<hr>`, sin role="group"
 - [ ] Dimension 6 Registry Safety: PASS — none (proyecto vanilla, sin terceros más allá de Pico+Alpine CDN ya pinned con SRI desde Phase 1)
 
 **Approval:** pending (gsd-ui-checker debe validar y upgradear a `approved`)
