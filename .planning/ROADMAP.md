@@ -87,7 +87,7 @@
 **Goal**: La app tiene una categoría `essere` con cobertura A1 completa (conjugación presente + identidad + profesión + nacionalidad + estado + contraste con avere) que el autor puede practicar en sesiones reales, incluyendo al menos 1 ejercicio multi-categoría que cruza essere con otra categoría existente para ejercitar la cascada D-54.
 **Mode:** mvp
 **Depends on**: Phase 4
-**Requirements**: TBD (nuevo requisito SEED-03 a definir en plan-phase — añade `essere` a la lista de categorías obligatorias y la cobertura A1 mínima)
+**Requirements**: SEED-03 (definido en plan-phase — `essere` como 7ª categoría obligatoria con cobertura A1 mínima: conjugación presente + identidad + nacionalidad + profesión + estado/condición + cópula + participio `stato/stata/stati/state`, ≥1 cruce multi-categoría que ejercita la cascada D-54)
 **Success Criteria** (qué tiene que ser CIERTO):
   1. `content/categories.json` incluye una 7ª entrada `essere` con nombre humano apropiado y `order: 2` (justo después de Avere para reflejar el peso pedagógico equivalente — alterando el orden actual del resto en 1).
   2. `content/exercises/essere.json` existe con al menos 30 ejercicios, validados por schema, normalizados a NFC al cargar, apóstrofes ASCII.
@@ -95,7 +95,8 @@
   4. Aplica la DESIGN RULE codificada en Phase 4: `match` solo si pareo requiere regla NO derivable por raíz; mayoría multi-choice con distractoras plausibles (formas de avere que el hispanohablante confunde, otras formas de essere mal conjugadas).
   5. Al menos 1 ejercicio multi-categoría `categoryIds: ["essere", <otra>]` (e.g., essere + profesiones tipo `Lei ___ avvocata` o essere + verbos-movimiento tipo `Maria ___ andata al cinema`) que dispara cascada D-54 al fallar.
   6. UAT humano: el autor lanza un Repaso 20 incluyendo essere y completa la sesión sin errores de UX/grading; falla deliberadamente el ejercicio multi-cat y observa la cascada en el resumen.
-**Plans**: TBD (probablemente 1 plan único — patrón de Plan 04-02 Task 2)
+**Plans**: 1 plan
+- [ ] 05-01-PLAN.md — categories.json shift (essere order:2) + essere.json ~39 ejercicios (33 base D-92 + 6 multi-cat D-94) commits secuenciales por bloque revisado pedagógicamente + extensión smoke multi-cat tests/domain.test.js + UAT INTEGRAL 6/6 Phase 5
 
 ## Progress
 
@@ -105,7 +106,7 @@
 | 2. Mecánica completa de re-verificación | 4/4 | Complete   | 2026-05-23 |
 | 3. Variedad de ejercicios + ergonomía | 3/3 | Complete    | 2026-05-24 |
 | 4. Backup robusto + contenido completo | 4/4 | Complete    | 2026-05-24 |
-| 5. Essere — categoría fundamental que faltaba | 0/? | Not started | - |
+| 5. Essere — categoría fundamental que faltaba | 0/1 | Not started | - |
 
 ## Coverage Summary
 
