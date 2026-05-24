@@ -553,6 +553,16 @@ export function appShell(appDataReady) {
       // el restart no arrastre la captura del pareo erróneo de una sesión
       // previa que tuviera fallos match.
       this.matchFirstWrongPair = null;
+      // WR-02 defensa explícita: el reset del flash state ya lo hace
+      // `cancelMatchFlash()` (línea 487 de este método) pero lo replicamos
+      // aquí inline para que el invariante "post-restartRepaso, ningún
+      // sub-estado de match queda residual" sea legible en bloque, sin
+      // tener que cruzar a la implementación de cancelMatchFlash. Si en
+      // el futuro cancelMatchFlash se refactoriza y deja de limpiar
+      // `matchFlashIdx` incondicionalmente, este reset inline mantiene la
+      // garantía.
+      this.matchFlashIdx = null;
+      this.matchFlashHandle = null;
 
       // Inicializar sub-estado del PRIMER ejercicio del nuevo sample.
       // Si el pool quedó vacío (edge improbable post-cascada masiva),
