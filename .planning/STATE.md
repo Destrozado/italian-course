@@ -38,10 +38,10 @@ Next: Verifier pass on Phase 4 (`phase.complete` tras VERIFICATION.md status:pas
 | Fases completadas | 3/4 (Phase 4 pending verifier — 4/4 plans complete) |
 | Requisitos v1 completos | 40/40 (100% — Phase 1: 19 + Phase 2: 13 + Phase 3: 1 EXTYPE-03 + Phase 4: 5 BACK-04/-05/-06 + SEED-01 + SEED-02) tras Plan 04-04 cierre SEED-02 + UAT INTEGRAL 5/5 PASS revalidando BACK-04/05/06/SEED-01 |
 | Requisitos v1 mapeados | 40/40 (100%) |
-| Tests dominio + UI smoke | 130 verdes (128 baseline post-04-03 + 2 nuevos del smoke test multi-cat en Plan 04-04 Task 1c) |
+| Tests dominio + UI smoke | 145 verdes (130 baseline post-04-04 + 6 nuevos sub-tests smoke multi-cat paramétrico Phase 5 Task 6 + 1 nuevo bundle test) |
 | Granularidad | coarse |
 | Mode | MVP (vertical slices) |
-| Ejercicios totales en la app | 232 (23 avere — 17 originales + 6 multi-cat avere-300..305 — + 50 preposiciones + 37 verbos-movimiento + 31 sustantivos-irregulares + 40 genero-numero + 51 profesiones) |
+| Ejercicios totales en la app | 271 (23 avere + 39 essere — 33 base + 6 multi-cat essere-300..305 — + 50 preposiciones + 37 verbos-movimiento + 31 sustantivos-irregulares + 40 genero-numero + 51 profesiones) en 7 categorías |
 
 ## Accumulated Context
 
