@@ -197,6 +197,72 @@
         ]
       },
       "notes": "Match con DUPLICADOS textuales en columna derecha (D-66): dos 'ha' válidos — el grading los consume por índice; el usuario puede emparejar 'lui'→primer 'ha' o 'lui'→segundo 'ha' indistintamente."
+    },
+    {
+      "id": "avere-300",
+      "type": "multiple-choice",
+      "categoryIds": ["avere", "profesiones"],
+      "payload": {
+        "prompt": "Lui ___ un fratello medico.",
+        "options": ["ho", "hai", "ha", "abbiamo"],
+        "correctIndex": 2
+      },
+      "notes": "Cruce Avere + Profesiones (D-87 / SEED-02). Posesión 3ª singular + profesión masculina (medico). Fallarlo cascadeará D-54 sobre ambas categorías."
+    },
+    {
+      "id": "avere-301",
+      "type": "multiple-choice",
+      "categoryIds": ["avere", "profesiones"],
+      "payload": {
+        "prompt": "Io ___ una sorella avvocata.",
+        "options": ["ho", "hai", "ha", "abbiamo"],
+        "correctIndex": 0
+      },
+      "notes": "Cruce Avere + Profesiones (D-87 / SEED-02). Posesión 1ª singular + profesión femenina (avvocata, regla -o→-a del PDF Profesiones)."
+    },
+    {
+      "id": "avere-302",
+      "type": "multiple-choice",
+      "categoryIds": ["avere", "sustantivos-irregulares"],
+      "payload": {
+        "prompt": "Lui ___ due braccia stanche.",
+        "options": ["ho", "hai", "ha", "abbiamo"],
+        "correctIndex": 2
+      },
+      "notes": "Cruce Avere + Sustantivos Irregulares (D-87 / SEED-02). Posesión 3ª singular + plural irregular `braccia` (singular masc `braccio` → plural fem `braccia`, concordancia `stanche`)."
+    },
+    {
+      "id": "avere-303",
+      "type": "multiple-choice",
+      "categoryIds": ["avere", "preposiciones"],
+      "payload": {
+        "prompt": "Maria ___ una zia a Milano.",
+        "options": ["ho", "hai", "ha", "abbiamo"],
+        "correctIndex": 2
+      },
+      "notes": "Cruce Avere + Preposiciones (D-87 / SEED-02). Posesión 3ª singular + `a` de ciudad (preposición simple, regla canónica PDF Preposizioni). Fallarlo cascadeará sobre Avere y Preposiciones."
+    },
+    {
+      "id": "avere-304",
+      "type": "multiple-choice",
+      "categoryIds": ["avere", "genero-numero"],
+      "payload": {
+        "prompt": "Lui ___ due figli e una figlia.",
+        "options": ["ho", "hai", "ha", "abbiamo"],
+        "correctIndex": 2
+      },
+      "notes": "Cruce Avere + Genero/Numero (D-87 / SEED-02). Posesión 3ª singular + plural masc (figli) + singular fem (figlia) en la misma frase — concordancia género/número del PDF Genero y Número."
+    },
+    {
+      "id": "avere-305",
+      "type": "multiple-choice",
+      "categoryIds": ["avere", "verbos-movimiento"],
+      "payload": {
+        "prompt": "Maria è andata al cinema e ___ visto un bel film.",
+        "options": ["ho", "hai", "ha", "abbiamo"],
+        "correctIndex": 2
+      },
+      "notes": "Cruce Avere + Verbos de movimiento (D-87 / SEED-02). Contrasta los dos auxiliares del passato prossimo: `è andata` (essere para verbo de movimiento, regla PDF Verbos Movimiento) vs `ha visto` (avere para verbo transitivo `vedere`). Fallarlo cascadeará sobre Avere y Verbos de movimiento."
     }
   ]
 }
