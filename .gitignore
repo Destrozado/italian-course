@@ -1,0 +1,5 @@
+# Plan 04-04 — snapshot temporal del proceso (W-4 fix).
+# scripts/snapshot-avere-prefix.mjs lo escribe pre-edit; scripts/assert-avere-prefix-unchanged.mjs
+# lo compara post-edit. NO debe commitearse — se regenera deliberadamente cuando
+# el autor decide aceptar nueva baseline.
+scripts/.avere-prefix-snapshot.json
