@@ -1,0 +1,554 @@
+{
+  "exercises": [
+    {
+      "id": "preposiciones-001",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Sono ___ Roma.",
+        "options": ["di", "a", "da", "in"],
+        "correctIndex": 0
+      },
+      "notes": "Preposición simple 'di' = origen/procedencia ('soy de Roma'). PDF preposizioni_italiano §Preposizioni semplici, ejemplo canónico 'Sono di Roma'."
+    },
+    {
+      "id": "preposiciones-002",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Vado ___ casa.",
+        "options": ["in", "a", "da", "per"],
+        "correctIndex": 1
+      },
+      "notes": "Preposición 'a' = dirección con 'casa' (excepción A1 idiomática). PDF §Preposizioni semplici, ejemplo 'Vado a casa'."
+    },
+    {
+      "id": "preposiciones-003",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Vengo ___ Milano.",
+        "options": ["di", "a", "da", "in"],
+        "correctIndex": 2
+      },
+      "notes": "Preposición 'da' = provenienza (vengo desde Milán). PDF §Preposizioni semplici, ejemplo 'Vengo da Milano'."
+    },
+    {
+      "id": "preposiciones-004",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Vivo ___ Italia.",
+        "options": ["a", "in", "da", "su"],
+        "correctIndex": 1
+      },
+      "notes": "Preposición 'in' = luogo (paesi/regioni). PDF §Preposizioni semplici, ejemplo canónico 'Vivo in Italia'. Pitfall A1 frecuente: 'in' con países, 'a' con ciudades."
+    },
+    {
+      "id": "preposiciones-005",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Esco ___ amici stasera.",
+        "options": ["di", "per", "con", "tra"],
+        "correctIndex": 2
+      },
+      "notes": "Preposición 'con' = compagnia. PDF §Preposizioni semplici, ejemplo 'Esco con amici'."
+    },
+    {
+      "id": "preposiciones-006",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Il gatto è ___ tavolo.",
+        "options": ["sul", "nel", "al", "dal"],
+        "correctIndex": 0
+      },
+      "notes": "Preposición articolata 'sul' = su + il (sobre la mesa). PDF §Preposizioni articolate, ejemplo canónico 'Il gatto è sul tavolo'. Distractoras = otras articolate +il del mismo cuadro."
+    },
+    {
+      "id": "preposiciones-007",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Studio ___ imparare l'italiano.",
+        "options": ["di", "a", "per", "con"],
+        "correctIndex": 2
+      },
+      "notes": "Preposición 'per' = scopo/finalidad. PDF §Preposizioni semplici, ejemplo 'Studio per imparare'."
+    },
+    {
+      "id": "preposiciones-008",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "___ due giorni parto.",
+        "options": ["Per", "In", "Tra", "Da"],
+        "correctIndex": 2
+      },
+      "notes": "Preposición 'tra' = tempo futuro (dentro de). PDF §Preposizioni semplici, ejemplo 'Tra due giorni parto'. Mayúscula inicial por estar al inicio de frase. Nota: PDF presenta 'tra/fra' como sinónimos sin distinción eufónica, por lo que sólo cubrimos 'tra' explícito."
+    },
+    {
+      "id": "preposiciones-009",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Ho studiato ___ due ore.",
+        "options": ["a", "per", "in", "da"],
+        "correctIndex": 1
+      },
+      "notes": "Preposición 'per' = durata (durante). PDF §Preposizioni semplici, ejemplo 'per due ore'."
+    },
+    {
+      "id": "preposiciones-010",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Il libro ___ Marco è interessante.",
+        "options": ["di", "da", "per", "a"],
+        "correctIndex": 0
+      },
+      "notes": "Preposición 'di' = posesso. PDF §Preposizioni semplici, 'di → possesso'. 'Il libro di Marco' = el libro de Marco."
+    },
+    {
+      "id": "preposiciones-011",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Andiamo ___ cinema.",
+        "options": ["a", "al", "nel", "in"],
+        "correctIndex": 1
+      },
+      "notes": "Preposición articolata 'al' = a + il. PDF §Preposizioni articolate, fila 'a' columna 'il'. 'Andiamo al cinema' = vamos al cine. Distractora 'a' = preposición simple (incorrecta — falta el artículo); 'nel' = en el (luogo cerrado distinto)."
+    },
+    {
+      "id": "preposiciones-012",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "La macchina ___ Maria è rossa.",
+        "options": ["di", "della", "dalla", "alla"],
+        "correctIndex": 0
+      },
+      "notes": "Preposición simple 'di' con nombre propio (posesión). Antes de nombre propio NO se contrae con artículo (no 'della Maria'). Distractoras = articolate del mismo grupo."
+    },
+    {
+      "id": "preposiciones-013",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Le chiavi sono ___ tavolo.",
+        "options": ["nel", "sul", "al", "dal"],
+        "correctIndex": 1
+      },
+      "notes": "Preposición articolata 'sul' = su + il (sobre). PDF §Preposizioni articolate. Refuerza preposiciones-006 con otra escena. Distractora 'nel' = dentro de (semánticamente plausible pero incorrecta para 'sobre')."
+    },
+    {
+      "id": "preposiciones-014",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Vengo ___ stazione.",
+        "options": ["dalla", "alla", "nella", "sulla"],
+        "correctIndex": 0
+      },
+      "notes": "Preposición articolata 'dalla' = da + la (vengo desde la estación). PDF §Preposizioni articolate, fila 'da' columna 'la'. Distractoras = otras articolate +la del mismo cuadro."
+    },
+    {
+      "id": "preposiciones-015",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Parlo ___ telefono.",
+        "options": ["a", "al", "per", "con"],
+        "correctIndex": 1
+      },
+      "notes": "Preposición articolata 'al' = a + il (al teléfono, idiomático). PDF §Preposizioni articolate. Distractora 'a' = sin artículo (incorrecta — 'parlare al telefono' es la forma fija)."
+    },
+    {
+      "id": "preposiciones-016",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Vado ___ Roma quest'estate.",
+        "options": ["in", "a", "da", "per"],
+        "correctIndex": 1
+      },
+      "notes": "Preposición 'a' = direzione con ciudad (caso particular A1). PDF §Preposizioni semplici, 'a → direzione'. Pitfall A1 frecuente: 'a' con ciudades vs 'in' con países (ver preposiciones-004). Distractora 'in' = país (incorrecta — Roma es ciudad)."
+    },
+    {
+      "id": "preposiciones-017",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Pranziamo ___ mezzogiorno.",
+        "options": ["in", "per", "a", "tra"],
+        "correctIndex": 2
+      },
+      "notes": "Preposición 'a' = tempo (la hora). PDF §Preposizioni semplici, ejemplo 'a mezzogiorno'."
+    },
+    {
+      "id": "preposiciones-018",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Il libro è scritto ___ lui.",
+        "options": ["da", "di", "per", "con"],
+        "correctIndex": 0
+      },
+      "notes": "Preposición 'da' = agente (complemento agente en pasiva). PDF §Preposizioni semplici, ejemplo 'libro scritto da lui'."
+    },
+    {
+      "id": "preposiciones-019",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Vado al lavoro ___ macchina.",
+        "options": ["con", "a", "in", "per"],
+        "correctIndex": 2
+      },
+      "notes": "Preposición 'in' = mezzo di trasporto. PDF §Preposizioni semplici, ejemplo 'in macchina'. Distractora 'con' es la trampa A1 típica (en español 'voy con coche' suena válido, pero italiano usa 'in')."
+    },
+    {
+      "id": "preposiciones-020",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Ho letto un libro ___ Roma antica.",
+        "options": ["di", "su", "per", "in"],
+        "correctIndex": 1
+      },
+      "notes": "Preposición 'su' = argomento (sobre/acerca de). PDF §Preposizioni semplici, ejemplo 'un libro su Roma'. Distractora 'di' es la trampa (en español 'libro de Roma' funciona, en italiano 'su' marca el tema)."
+    },
+    {
+      "id": "preposiciones-021",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Il colore ___ cielo è azzurro.",
+        "options": ["del", "al", "dal", "nel"],
+        "correctIndex": 0
+      },
+      "notes": "Preposición articolata 'del' = di + il (posesión / pertenencia). PDF §Preposizioni articolate, fila 'di' columna 'il'."
+    },
+    {
+      "id": "preposiciones-022",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Il libro ___ studente è sul banco.",
+        "options": ["del", "dello", "della", "dei"],
+        "correctIndex": 1
+      },
+      "notes": "Preposición articolata 'dello' = di + lo (artículo 'lo' delante de s+consonante: 'studente'). PDF §Preposizioni articolate, fila 'di' columna 'lo'."
+    },
+    {
+      "id": "preposiciones-023",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "La porta ___ casa è aperta.",
+        "options": ["del", "dello", "della", "dalla"],
+        "correctIndex": 2
+      },
+      "notes": "Preposición articolata 'della' = di + la. PDF §Preposizioni articolate, fila 'di' columna 'la'."
+    },
+    {
+      "id": "preposiciones-024",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Il rumore ___ bambini è forte.",
+        "options": ["dei", "degli", "delle", "del"],
+        "correctIndex": 0
+      },
+      "notes": "Preposición articolata 'dei' = di + i (plural masculino regular). PDF §Preposizioni articolate, fila 'di' columna 'i'."
+    },
+    {
+      "id": "preposiciones-025",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Le lezioni ___ studenti sono finite.",
+        "options": ["dei", "degli", "delle", "dello"],
+        "correctIndex": 1
+      },
+      "notes": "Preposición articolata 'degli' = di + gli (plural masculino con 'gli' delante de s+consonante / vocal). PDF §Preposizioni articolate, fila 'di' columna 'gli'."
+    },
+    {
+      "id": "preposiciones-026",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "I libri ___ ragazze sono nuovi.",
+        "options": ["dei", "degli", "delle", "della"],
+        "correctIndex": 2
+      },
+      "notes": "Preposición articolata 'delle' = di + le (plural femenino). PDF §Preposizioni articolate, fila 'di' columna 'le'."
+    },
+    {
+      "id": "preposiciones-027",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Le chiavi sono ___ cassetto.",
+        "options": ["sul", "nel", "al", "dal"],
+        "correctIndex": 1
+      },
+      "notes": "Preposición articolata 'nel' = in + il (dentro). PDF §Preposizioni articolate, fila 'in' columna 'il'. Distractora 'sul' = sobre (semánticamente plausible pero incorrecta para 'dentro de un cajón')."
+    },
+    {
+      "id": "preposiciones-028",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "I libri sono ___ zaino.",
+        "options": ["nel", "nello", "nella", "negli"],
+        "correctIndex": 1
+      },
+      "notes": "Preposición articolata 'nello' = in + lo ('zaino' lleva 'lo' por z- inicial). PDF §Preposizioni articolate, fila 'in' columna 'lo'."
+    },
+    {
+      "id": "preposiciones-029",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Vivo ___ città di Milano.",
+        "options": ["nel", "nella", "alla", "dalla"],
+        "correctIndex": 1
+      },
+      "notes": "Preposición articolata 'nella' = in + la ('vivo en la ciudad de Milán'). PDF §Preposizioni articolate, fila 'in' columna 'la'."
+    },
+    {
+      "id": "preposiciones-030",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "I bambini giocano ___ giardini pubblici.",
+        "options": ["nei", "negli", "nelle", "dei"],
+        "correctIndex": 0
+      },
+      "notes": "Preposición articolata 'nei' = in + i (plural masculino). PDF §Preposizioni articolate, fila 'in' columna 'i'."
+    },
+    {
+      "id": "preposiciones-031",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "I libri sono ___ scaffali alti.",
+        "options": ["nei", "negli", "nelle", "sugli"],
+        "correctIndex": 1
+      },
+      "notes": "Preposición articolata 'negli' = in + gli ('scaffali' plural masculino con 'gli' por s+consonante). PDF §Preposizioni articolate, fila 'in' columna 'gli'."
+    },
+    {
+      "id": "preposiciones-032",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Le foto sono ___ pareti.",
+        "options": ["nei", "negli", "nelle", "sulle"],
+        "correctIndex": 2
+      },
+      "notes": "Preposición articolata 'nelle' = in + le (plural femenino). PDF §Preposizioni articolate, fila 'in' columna 'le'."
+    },
+    {
+      "id": "preposiciones-033",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Vado ___ stadio domenica.",
+        "options": ["al", "allo", "alla", "agli"],
+        "correctIndex": 1
+      },
+      "notes": "Preposición articolata 'allo' = a + lo ('stadio' lleva 'lo' por s+consonante). PDF §Preposizioni articolate, fila 'a' columna 'lo'."
+    },
+    {
+      "id": "preposiciones-034",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Andiamo ___ stazione in taxi.",
+        "options": ["al", "allo", "alla", "alle"],
+        "correctIndex": 2
+      },
+      "notes": "Preposición articolata 'alla' = a + la. PDF §Preposizioni articolate, fila 'a' columna 'la'."
+    },
+    {
+      "id": "preposiciones-035",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Do un regalo ___ bambini.",
+        "options": ["ai", "agli", "alle", "dei"],
+        "correctIndex": 0
+      },
+      "notes": "Preposición articolata 'ai' = a + i (plural masculino regular, 'a los niños'). PDF §Preposizioni articolate, fila 'a' columna 'i'."
+    },
+    {
+      "id": "preposiciones-036",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Spiego la lezione ___ studenti.",
+        "options": ["ai", "agli", "alle", "allo"],
+        "correctIndex": 1
+      },
+      "notes": "Preposición articolata 'agli' = a + gli (plural masculino con 'gli' por s+consonante). PDF §Preposizioni articolate, fila 'a' columna 'gli'."
+    },
+    {
+      "id": "preposiciones-037",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Scrivo una lettera ___ mie amiche.",
+        "options": ["ai", "agli", "alle", "delle"],
+        "correctIndex": 2
+      },
+      "notes": "Preposición articolata 'alle' = a + le (plural femenino). PDF §Preposizioni articolate, fila 'a' columna 'le'."
+    },
+    {
+      "id": "preposiciones-038",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Esco ___ lavoro alle sei.",
+        "options": ["dal", "dallo", "dalla", "dai"],
+        "correctIndex": 0
+      },
+      "notes": "Preposición articolata 'dal' = da + il (salgo del trabajo). PDF §Preposizioni articolate, fila 'da' columna 'il'."
+    },
+    {
+      "id": "preposiciones-039",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Esco ___ studio del dentista.",
+        "options": ["dal", "dallo", "dalla", "dai"],
+        "correctIndex": 1
+      },
+      "notes": "Preposición articolata 'dallo' = da + lo ('studio' lleva 'lo' por s+consonante). PDF §Preposizioni articolate, fila 'da' columna 'lo'."
+    },
+    {
+      "id": "preposiciones-040",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Torno ___ amici a casa.",
+        "options": ["dai", "dagli", "dalle", "degli"],
+        "correctIndex": 0
+      },
+      "notes": "Preposición articolata 'dai' = da + i (plural masculino: vuelvo de [casa de] los amigos). PDF §Preposizioni articolate, fila 'da' columna 'i'."
+    },
+    {
+      "id": "preposiciones-041",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Esco ___ studenti dopo la lezione.",
+        "options": ["dai", "dagli", "dalle", "degli"],
+        "correctIndex": 1
+      },
+      "notes": "Preposición articolata 'dagli' = da + gli (plural masculino con 'gli' por s+consonante: 'studenti'). PDF §Preposizioni articolate, fila 'da' columna 'gli'."
+    },
+    {
+      "id": "preposiciones-042",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Vengo ___ mie zie.",
+        "options": ["dai", "dagli", "dalle", "delle"],
+        "correctIndex": 2
+      },
+      "notes": "Preposición articolata 'dalle' = da + le (plural femenino: vengo de [casa de] mis tías). PDF §Preposizioni articolate, fila 'da' columna 'le'."
+    },
+    {
+      "id": "preposiciones-043",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Il quaderno è ___ banco.",
+        "options": ["sul", "sullo", "sulla", "nel"],
+        "correctIndex": 0
+      },
+      "notes": "Preposición articolata 'sul' = su + il ('sobre el pupitre'). PDF §Preposizioni articolate, fila 'su' columna 'il'. Refuerza preposiciones-006 con sustantivo escolar."
+    },
+    {
+      "id": "preposiciones-044",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Lo zucchero è ___ scaffale.",
+        "options": ["sul", "sullo", "sulla", "sui"],
+        "correctIndex": 1
+      },
+      "notes": "Preposición articolata 'sullo' = su + lo ('scaffale' lleva 'lo' por s+consonante). PDF §Preposizioni articolate, fila 'su' columna 'lo'."
+    },
+    {
+      "id": "preposiciones-045",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "La penna è ___ sedia.",
+        "options": ["sul", "sullo", "sulla", "alla"],
+        "correctIndex": 2
+      },
+      "notes": "Preposición articolata 'sulla' = su + la. PDF §Preposizioni articolate, fila 'su' columna 'la'."
+    },
+    {
+      "id": "preposiciones-046",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "I quadri sono ___ muri.",
+        "options": ["sui", "sugli", "sulle", "nei"],
+        "correctIndex": 0
+      },
+      "notes": "Preposición articolata 'sui' = su + i (plural masculino: sobre los muros). PDF §Preposizioni articolate, fila 'su' columna 'i'."
+    },
+    {
+      "id": "preposiciones-047",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Le foglie cadono ___ alberi.",
+        "options": ["sui", "sugli", "sulle", "negli"],
+        "correctIndex": 1
+      },
+      "notes": "Preposición articolata 'sugli' = su + gli (plural masculino con 'gli' delante de vocal: 'alberi'). PDF §Preposizioni articolate, fila 'su' columna 'gli'."
+    },
+    {
+      "id": "preposiciones-048",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "I libri sono ___ scrivanie.",
+        "options": ["sui", "sugli", "sulle", "nelle"],
+        "correctIndex": 2
+      },
+      "notes": "Preposición articolata 'sulle' = su + le (plural femenino). PDF §Preposizioni articolate, fila 'su' columna 'le'."
+    },
+    {
+      "id": "preposiciones-049",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "___ tre giorni partiamo per Roma.",
+        "options": ["tra", "fra", "da", "in"],
+        "correctIndex": 1
+      },
+      "notes": "'tra' y 'fra' son sinónimos para tempo futuro (dentro de). Regla eufónica EXTERNA al PDF (conocimiento añadido): se prefiere 'fra' delante de palabras que empiezan con 'tr-' para evitar la cacofonía 'tra tre' (repetición de 'tr'). Por eso 'fra tre giorni' es la forma natural en italiano cuidado. El PDF presenta tra/fra como intercambiables pero esta regla eufónica es estándar."
+    },
+    {
+      "id": "preposiciones-050",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Mangio la pasta ___ la forchetta.",
+        "options": ["a", "con", "di", "per"],
+        "correctIndex": 1
+      },
+      "notes": "Preposición 'con' = mezzo / strumento (instrumental, NO compagnia). PDF §Preposizioni semplici lista 'con → compagnia / mezzo' pero sólo ejemplifica compagnia (ver preposiciones-005). Este ejercicio cubre el segundo uso documentado: el instrumento con el que se realiza la acción ('como pasta con el tenedor')."
+    }
+  ]
+}
