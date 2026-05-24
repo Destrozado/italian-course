@@ -511,7 +511,13 @@
             la fila renderiza sólo el prompt sin las dos líneas Tu/Correcta
             (UI-SPEC §Copywriting "ausencia preferible al placeholder").
           -->
-          <template x-if="sessionResults.some(r => !r.correct && content.exerciseById[r.exerciseId])">
+          <!-- CR-02 fix: leer del snapshot `summarySessionResults` (set en
+               `completeSession()`, limpiado en `returnToHomeFromSummary()`),
+               NO del live `sessionResults`. Esto blinda el render frente al
+               tick de unmount cuando `returnToHomeFromSummary()` llama
+               `resetSession()` antes de cambiar `currentScreen` a 'home' —
+               mismo patrón de snapshot que `summaryDelta` (línea 462). -->
+          <template x-if="summarySessionResults.some(r => !r.correct && content.exerciseById[r.exerciseId])">
             <section class="summary-errors">
               <h3>Errores cometidos</h3>
               <ul>
@@ -520,7 +526,7 @@
                      fin de sesión y el `exerciseId` ya no existe en `content`, la
                      fila se omite silenciosamente en lugar de crashear con
                      `TypeError: Cannot read properties of null`. T-02-01 intacto. -->
-                <template x-for="result in sessionResults.filter(r => !r.correct && content.exerciseById[r.exerciseId])" :key="result.exerciseId">
+                <template x-for="result in summarySessionResults.filter(r => !r.correct && content.exerciseById[r.exerciseId])" :key="result.exerciseId">
                   <li>
                     <strong x-text="content.exerciseById[result.exerciseId].payload.prompt"></strong>
 

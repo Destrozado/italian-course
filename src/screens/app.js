@@ -155,6 +155,27 @@ export function appShell(appDataReady) {
     // ─── Sub-estado summary (stub; Plan 02-04 lo poblará) ───────────────────
     summaryDelta: null,
     summaryHeaderLabel: '',
+    /**
+     * Phase 6 (CR-02 fix) — snapshot de `sessionResults` tomado al final de
+     * `completeSession()`, idéntico patrón al de `summaryDelta`
+     * (snapshot-on-completion → render → clear-on-return). El summary lee
+     * `summarySessionResults` en lugar del live `sessionResults` para que
+     * cualquier evaluación reactiva durante el tick de unmount en
+     * `returnToHomeFromSummary()` (que llama `resetSession()` ANTES de cambiar
+     * `currentScreen` a `'home'`) no vea un array vacío y oculte silenciosamente
+     * los errores que el autor acababa de ver.
+     *
+     * Lifecycle:
+     *   - Inicializado a `[]` (no `null`) para que el `.some()`/`.filter()` del
+     *     template no necesite guards extra.
+     *   - Set por `completeSession()` con `[...this.sessionResults]` (clon shallow
+     *     — los items ya son plain objects de shape D-105 que el inFlightTest
+     *     persiste por separado; sin getters / setters / prototipos custom).
+     *   - Limpiado por `returnToHomeFromSummary()` junto con `summaryDelta`
+     *     (mismo paso, mismo trigger). NO se toca en `restartRepaso()` (path
+     *     ortogonal — no involucra `completeSession` ni `returnToHomeFromSummary`).
+     */
+    summarySessionResults: [],
 
     // ─── Sub-estado backup (Phase 4 D-84) ───────────────────────────────────
     /** null | { kind: 'success' | 'error', text: string }. Limpiado al salir
@@ -1531,6 +1552,15 @@ export function appShell(appDataReady) {
       this.summaryDelta = delta;
       this.summaryHeaderLabel = headerLabel;
 
+      // CR-02 fix: snapshot de sessionResults para que la sección
+      // "Errores cometidos" lea de una propiedad estable que NO se ve afectada
+      // por el `resetSession()` que dispara `returnToHomeFromSummary()`.
+      // Mismo patrón que `summaryDelta` (línea 1531). Clon shallow del array
+      // — los items son plain objects shape D-105 (`{exerciseId, correct, userAnswer}`);
+      // mutarlos en este punto no es posible porque `sessionResults` se vacía
+      // al `resetSession()` y no se vuelve a tocar hasta `startSession()`.
+      this.summarySessionResults = [...this.sessionResults];
+
       // NO llamar resetSession aún — el usuario puede mirar el resumen. Al
       // pulsar "Volver al home" se llama returnToHomeFromSummary() que sí
       // resetea. Sin embargo, sí cancelamos cualquier setTimeout pendiente
@@ -1551,6 +1581,9 @@ export function appShell(appDataReady) {
       this.resetSession();
       this.summaryDelta = null;
       this.summaryHeaderLabel = '';
+      // CR-02 fix: el snapshot del summary se limpia con el mismo trigger que
+      // `summaryDelta` (el usuario ya vio los errores; pueden descartarse).
+      this.summarySessionResults = [];
       this.currentScreen = 'home';
     },
 

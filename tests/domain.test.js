@@ -545,3 +545,71 @@ describe('Phase 6 — sessionResults shape extendido (UX-02)', () => {
     assert.equal(errors[1].userAnswer.left, 'casa');
   });
 });
+
+// ────────────────────────────────────────────────────────────────────────────
+// Phase 6 (CR-02 fix) — summarySessionResults snapshot semantics
+//
+// El snapshot que `completeSession()` toma de `sessionResults` antes de
+// llamar `applySessionResult` debe ser INDEPENDIENTE del array original —
+// mutar (o vaciar) `sessionResults` después no debe afectar al snapshot.
+// Esto es lo que protege la sección "Errores cometidos" durante el tick de
+// unmount en `returnToHomeFromSummary()`, que llama `resetSession()` (vacía
+// `sessionResults`) ANTES de cambiar `currentScreen` a 'home'.
+//
+// Testeamos el CONTRATO del clon shallow (`[...this.sessionResults]`) sin
+// importar el screen layer — la operación `[...arr]` es vanilla JS y el
+// snapshot debe sobrevivir intacto al `arr.length = 0`.
+// ────────────────────────────────────────────────────────────────────────────
+
+describe('Phase 6 — summarySessionResults snapshot (CR-02 fix)', () => {
+  test('snapshot [...sessionResults] es independiente del array original tras vaciado', () => {
+    const sessionResults = [
+      { exerciseId: 'a1', correct: false, userAnswer: 'hai' },
+      { exerciseId: 'a2', correct: true,  userAnswer: 'ho' },
+      { exerciseId: 'm1', correct: false, userAnswer: { left: 'casa', right: 'il' } }
+    ];
+
+    // Mock del snapshot que `completeSession()` toma:
+    //   `this.summarySessionResults = [...this.sessionResults];`
+    const summarySessionResults = [...sessionResults];
+
+    // Vaciamos sessionResults — emula el efecto de `resetSession()` durante
+    // `returnToHomeFromSummary()` ANTES de cambiar de pantalla.
+    sessionResults.length = 0;
+
+    // El snapshot debe conservar las 3 entradas intactas.
+    assert.equal(summarySessionResults.length, 3,
+      'snapshot preserva longitud tras vaciar sessionResults original');
+    assert.equal(sessionResults.length, 0,
+      'sessionResults original quedó vacío (control)');
+
+    // Verificación clave: el `.filter(!correct)` que el summary usa NO
+    // devuelve array vacío — devuelve los 2 errores correctamente. Sin el
+    // snapshot, esto sería 0 errores silenciados.
+    const errors = summarySessionResults.filter(r => !r.correct);
+    assert.equal(errors.length, 2, 'snapshot.filter(!correct) sigue viendo los 2 errores tras vaciar live array');
+    assert.deepEqual(errors.map(e => e.exerciseId), ['a1', 'm1']);
+  });
+
+  test('snapshot shallow: mutar un item del snapshot SÍ refleja en el original (esperado, no requiere deep clone)', () => {
+    // Documentamos explícitamente el contrato shallow: el snapshot evita el
+    // efecto "array vacío silencioso" del unmount tick, pero NO protege
+    // contra mutación de los items individuales (innecesario aquí — los
+    // items son plain objects que nadie muta tras push).
+    const sessionResults = [
+      { exerciseId: 'a1', correct: false, userAnswer: 'hai' }
+    ];
+    const summarySessionResults = [...sessionResults];
+
+    // Mutar el item: ambos arrays comparten la misma referencia al objeto.
+    summarySessionResults[0].userAnswer = 'mutated';
+    assert.equal(sessionResults[0].userAnswer, 'mutated',
+      'clon shallow: ambos arrays comparten referencia a los items (esperado)');
+
+    // Pero la longitud sigue siendo independiente, que es lo que importa
+    // para el CR-02 fix:
+    sessionResults.length = 0;
+    assert.equal(summarySessionResults.length, 1,
+      'longitud del snapshot independiente — el bug del CR-02 requiere solo eso');
+  });
+});
