@@ -13,7 +13,7 @@
 
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 
 import { todayLocal } from '../src/domain/dates.js';
 import { buildSession, exerciseWeight } from '../src/domain/session.js';
@@ -202,123 +202,141 @@ describe('exercise-types/index', () => {
 // daysSinceISO tests live en tests/backup.test.js (co-located con los otros tests Phase 4).
 
 // ────────────────────────────────────────────────────────────────────────────
-// multi-cat real cascade — Phase 4 SEED-02 integration
+// multi-cat real cascade — Phase 4 SEED-02 + Phase 5 SEED-03 integration
 //
-// Estos dos tests cierran SEED-02 ejercitando la cascada D-54 sobre el
-// contenido REAL committeado (avere.json con ejercicios avere-3XX multi-cat).
-// No usan content sintético — leen los archivos del disco para garantizar que
-// si el autor edita avere.json sin pensarlo dos veces y mete un cruce roto,
-// los smoke tests pinchan inmediatamente.
+// Estos tests cierran SEED-02 (Phase 4) y SEED-03 (Phase 5) ejercitando la
+// cascada D-54 sobre el contenido REAL committeado en TODOS los archivos de
+// content/exercises/ (no solo avere.json). Iteración paramétrica: añadir un
+// nuevo archivo con ejercicios multi-cat hace que esos cruces se prueben
+// automáticamente sin tocar este test (cubre essere-300..305 al instante y
+// cualquier categoría futura del mismo modo).
 //
-//   Test 1: fallar el primer ejercicio multi-cat real propaga cascada
-//           inmediata a TODAS sus categorías (status='no-hecha', racha=0,
-//           clearedExerciseIds=[]). Verifica D-54 sobre N≥2 cats con
-//           datos reales del disco.
-//   Test 2: avere.json (extendido con multi-cat) + categories.json pasan
-//           validateContent sin errores — roundtrip de schema sobre el
-//           contenido tal como vive en el repo.
+//   Iteración 1: para CADA archivo de content/exercises/, fallar el primer
+//                ejercicio multi-cat propaga cascada inmediata a TODAS sus
+//                categoryIds (status='no-hecha', racha=0, clearedExerciseIds=[]).
+//   Iteración 2: el bundle completo (categories.json + todos los archivos de
+//                exercises/) pasa validateContent sin errores — roundtrip de
+//                schema sobre el contenido tal como vive en el repo.
 // ────────────────────────────────────────────────────────────────────────────
 
-describe('multi-cat real cascade — Phase 4 SEED-02 integration', () => {
-  test('applyImmediateFailure on a real multi-cat exercise from avere.json propagates cascade to all its categoryIds', () => {
-    // Cargar el contenido real del disco (no sintético).
-    const avere = JSON.parse(
-      readFileSync(new URL('../content/exercises/avere.json', import.meta.url), 'utf8')
-    );
+const EXERCISES_DIR = new URL('../content/exercises/', import.meta.url);
 
-    // Encontrar el primer ejercicio multi-cat — auto-actualizable si el orden cambia.
-    const multiCat = avere.exercises.find(
-      ex => Array.isArray(ex.categoryIds) && ex.categoryIds.length >= 2
-    );
-    assert.ok(multiCat, 'expected at least one multi-cat exercise in avere.json (SEED-02 cierre)');
-    assert.ok(
-      multiCat.categoryIds.length >= 2,
-      `multi-cat exercise ${multiCat.id} debe tener >=2 categoryIds (got ${multiCat.categoryIds.length})`
-    );
+function loadAllExerciseFiles() {
+  const files = readdirSync(EXERCISES_DIR)
+    .filter(f => f.endsWith('.json'))
+    .sort();
+  return files.map(name => ({
+    name,
+    slug: name.replace(/\.json$/, ''),
+    data: JSON.parse(readFileSync(new URL(name, EXERCISES_DIR), 'utf8'))
+  }));
+}
 
-    // Construir contentArg con la firma documentada en progress.js:290-296:
-    //   content = {exerciseById: Record<string, {id, categoryIds, ...}>}.
-    const contentArg = {
-      exerciseById: Object.fromEntries(avere.exercises.map(e => [e.id, e]))
-    };
+describe('multi-cat real cascade — SEED-02 (Phase 4) + SEED-03 (Phase 5) integration', () => {
+  const files = loadAllExerciseFiles();
 
-    // Estado v3 realista (Phase 4 schema): ambas categorías DEMOTABLES desde
-    // 'hecha' con racha y clearedExerciseIds populados — queremos verificar
-    // que la cascada las RESETEA.
-    const state = {
-      schemaVersion: 3,
-      exerciseStats: {
-        [multiCat.id]: { timesShown: 3, timesCorrect: 2, timesFailed: 1 }
-      },
-      categoryProgress: {},
-      dailyLog: {},
-      lastBackupAt: null,
-      firstUsedAt: '2026-05-01T08:00:00.000Z'
-    };
-    for (const catId of multiCat.categoryIds) {
-      state.categoryProgress[catId] = {
-        status: 'hecha',
-        clearedExerciseIds: [multiCat.id, 'some-other-id'],
-        streakDays: 5,
-        lastPracticedDate: '2026-05-20',
-        lastSuccessDate: '2026-05-20',
-        becameHechaAt: '2026-05-15',
-        becameDominadaAt: undefined
-      };
-    }
-
-    const today = '2026-05-24';
-    const result = applyImmediateFailure(state, multiCat, contentArg, today);
-
-    // Asertar cascada D-54 sobre TODAS las categoryIds del ejercicio (≥2).
-    for (const catId of multiCat.categoryIds) {
-      const cat = result.categoryProgress[catId];
-      assert.equal(
-        cat.status, 'no-hecha',
-        `${catId} debe quedar 'no-hecha' tras fallo multi-cat (got ${cat.status})`
+  for (const file of files) {
+    test(`applyImmediateFailure on a real multi-cat exercise from ${file.name} propagates cascade to all its categoryIds`, () => {
+      const multiCat = file.data.exercises.find(
+        ex => Array.isArray(ex.categoryIds) && ex.categoryIds.length >= 2
       );
-      assert.equal(
-        cat.streakDays, 0,
-        `${catId} debe quedar con racha 0 (got ${cat.streakDays})`
-      );
-      assert.deepEqual(
-        cat.clearedExerciseIds, [],
-        `${catId} debe quedar con clearedExerciseIds=[] (got ${JSON.stringify(cat.clearedExerciseIds)})`
-      );
-      assert.equal(
-        cat.lastPracticedDate, today,
-        `${catId} debe actualizar lastPracticedDate a hoy (got ${cat.lastPracticedDate})`
-      );
-    }
 
-    // Bonus: dailyLog también queda registrado (D-54 paso 3).
-    assert.ok(result.dailyLog[today], 'dailyLog[today] debe existir tras la cascada inmediata');
-    for (const catId of multiCat.categoryIds) {
+      // Skip files without multi-cat exercises (e.g., placeholder, single-cat
+      // content). The cascade test is meaningful only when ≥2 categoryIds.
+      if (!multiCat) {
+        return;
+      }
+
       assert.ok(
-        result.dailyLog[today].categoriesWithFailure.includes(catId),
-        `dailyLog[today].categoriesWithFailure debe incluir "${catId}"`
+        multiCat.categoryIds.length >= 2,
+        `multi-cat exercise ${multiCat.id} debe tener >=2 categoryIds (got ${multiCat.categoryIds.length})`
       );
-    }
-  });
 
-  test('avere.json + categories.json pass validateContent after multi-cat extension', () => {
-    const avere = JSON.parse(
-      readFileSync(new URL('../content/exercises/avere.json', import.meta.url), 'utf8')
-    );
+      // Construir contentArg con la firma documentada en progress.js:290-296:
+      //   content = {exerciseById: Record<string, {id, categoryIds, ...}>}.
+      const contentArg = {
+        exerciseById: Object.fromEntries(file.data.exercises.map(e => [e.id, e]))
+      };
+
+      // Estado v3 realista (Phase 4 schema): todas las categorías del cruce
+      // DEMOTABLES desde 'hecha' con racha y clearedExerciseIds populados —
+      // queremos verificar que la cascada las RESETEA.
+      const state = {
+        schemaVersion: 3,
+        exerciseStats: {
+          [multiCat.id]: { timesShown: 3, timesCorrect: 2, timesFailed: 1 }
+        },
+        categoryProgress: {},
+        dailyLog: {},
+        lastBackupAt: null,
+        firstUsedAt: '2026-05-01T08:00:00.000Z'
+      };
+      for (const catId of multiCat.categoryIds) {
+        state.categoryProgress[catId] = {
+          status: 'hecha',
+          clearedExerciseIds: [multiCat.id, 'some-other-id'],
+          streakDays: 5,
+          lastPracticedDate: '2026-05-20',
+          lastSuccessDate: '2026-05-20',
+          becameHechaAt: '2026-05-15',
+          becameDominadaAt: undefined
+        };
+      }
+
+      const today = '2026-05-24';
+      const result = applyImmediateFailure(state, multiCat, contentArg, today);
+
+      for (const catId of multiCat.categoryIds) {
+        const cat = result.categoryProgress[catId];
+        assert.equal(
+          cat.status, 'no-hecha',
+          `${file.slug}: ${catId} debe quedar 'no-hecha' tras fallo multi-cat (got ${cat.status})`
+        );
+        assert.equal(
+          cat.streakDays, 0,
+          `${file.slug}: ${catId} debe quedar con racha 0 (got ${cat.streakDays})`
+        );
+        assert.deepEqual(
+          cat.clearedExerciseIds, [],
+          `${file.slug}: ${catId} debe quedar con clearedExerciseIds=[] (got ${JSON.stringify(cat.clearedExerciseIds)})`
+        );
+        assert.equal(
+          cat.lastPracticedDate, today,
+          `${file.slug}: ${catId} debe actualizar lastPracticedDate a hoy (got ${cat.lastPracticedDate})`
+        );
+      }
+
+      assert.ok(
+        result.dailyLog[today],
+        `${file.slug}: dailyLog[today] debe existir tras la cascada inmediata`
+      );
+      for (const catId of multiCat.categoryIds) {
+        assert.ok(
+          result.dailyLog[today].categoriesWithFailure.includes(catId),
+          `${file.slug}: dailyLog[today].categoriesWithFailure debe incluir "${catId}"`
+        );
+      }
+    });
+  }
+
+  test('whole content bundle (categories.json + all content/exercises/*.json) passes validateContent', () => {
     const categoriesRaw = JSON.parse(
       readFileSync(new URL('../content/categories.json', import.meta.url), 'utf8')
     );
 
+    const exercisesByFile = {};
+    for (const file of files) {
+      exercisesByFile[`content/exercises/${file.name}`] = file.data.exercises;
+    }
+
     const result = validateContent({
       categories: categoriesRaw.categories,
-      exercisesByFile: {
-        'content/exercises/avere.json': avere.exercises
-      }
+      exercisesByFile
     });
 
     assert.equal(
       result.ok, true,
-      `validateContent debería aceptar avere.json + categories.json del repo. Errores: ${JSON.stringify(result.errors, null, 2)}`
+      `validateContent debería aceptar el bundle completo del repo. Errores: ${JSON.stringify(result.errors, null, 2)}`
     );
     assert.deepEqual(result.errors, []);
   });
