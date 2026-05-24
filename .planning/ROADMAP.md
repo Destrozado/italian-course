@@ -120,6 +120,35 @@ Cada fase entrega valor usable independientemente:
 - Después de Phase 3: la app es funcionalmente completa para uso diario
 - Después de Phase 4: la app es daily-driver con los 6 PDFs reales y backup seguro
 
+## Backlog
+
+### Phase 999.1: Botón "Reiniciar ejercicios" en pantalla de sesión (BACKLOG)
+
+**Goal:** [Captured for future planning] Añadir un botón "Reiniciar ejercicios" junto a "Volver al home" en la pantalla de sesión, que reinicie la sesión actual con las mismas categorías seleccionadas en 1 clic (vs los 4 actuales: Volver al home → Descartar → Repaso 20 → Empezar). Captura UAT Phase 4: el autor comenta "muchas veces, fallas a mitad y tienes que darle a 'Volver al home' luego a 'Descartar' luego a 'Repaso 20' luego seleccionar la sección y luego a 'Empezar', son 4 clicks con 2 pantallas, por 1 solo click que reinicie los ejercicios con los que estas."
+
+**Requirements:** TBD — necesita `/gsd:discuss-phase` para clarificar semántica:
+- ¿Reset descarta aciertos acumulados de la sesión actual?
+- ¿Los fallos D-54 ya persistidos se mantienen (invariante "te obliga a no olvidar")?
+- ¿Afecta al `inFlightTest` (Test completo reanudable) o solo al Repaso 20?
+- ¿Confirma con `requestConfirm()` (inline) o reset directo?
+
+**Plans:** 0 plans
+- [ ] TBD (promote con /gsd:review-backlog cuando esté listo)
+
+### Phase 999.2: Pantalla "Resultado" final con review de errores cometidos (BACKLOG)
+
+**Goal:** [Captured for future planning] Extender la pantalla de resumen (SESSION-07) al final de cada sesión con una sección de "Errores cometidos" que muestre, para cada ejercicio fallado: qué respondió el autor, qué era correcto, y sobre qué frase. Captura UAT Phase 4: *"al terminar, estaria ver bien una pantalla de 'Resultado' donde veas sobretodo los errores que has cometido, que dijiste y que era sobre que frase, por si quieres al final del todo repasar todos los errores en vez de repasarlos segun vas fallando."*
+
+**Requirements:** TBD — necesita `/gsd:discuss-phase` para clarificar:
+- ¿Se almacena la respuesta dada del autor en el state de la sesión (no actualmente — solo `correct: boolean`)? Implica extender `sessionResults` con `userAnswer`.
+- ¿Muestra todos los errores o paginado/scroll si la sesión es larga (Test completo con 100+ ejercicios)?
+- ¿Layout: por ejercicio (frase + tu respuesta + correcta) o por categoría agrupado?
+- ¿Aplica a los 3 tipos (multi-choice / word-buttons / match) — captura es distinta en cada uno?
+- ¿Persiste el histórico en localStorage (consulta posterior) o es solo end-of-session?
+
+**Plans:** 0 plans
+- [ ] TBD (promote con /gsd:review-backlog cuando esté listo)
+
 ---
 *Roadmap created: 2026-05-23*
 *Last updated: 2026-05-24 after Plan 04-04 completion (130/130 tests verdes, 3 task commits + plan docs commit, +6 ejercicios multi-cat avere-300..305 cierran SEED-02, 232 ejercicios totales en la app, UAT INTEGRAL 5/5 PASS por el autor sobre los 5 criterios ROADMAP §Phase 4. Phase 4 4/4 plans complete — pending verifier `phase.complete` tras VERIFICATION.md status:passed para marcar Phase 4 [x]. Milestone v1.0 listo para `/gsd:complete-milestone` tras verifier pass.)*
