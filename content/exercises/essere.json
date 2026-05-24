@@ -142,6 +142,171 @@
         "distractors": ["ho", "ha"]
       },
       "notes": "Identidad + presentación múltiple — D-90 word-buttons sub-área identidad/presentación. Frase con dos personas (io/sono y lui/è) para reforzar la conjugación. Distractoras `ho`/`ha` = formas de avere (trampa típica del hispanohablante)."
+    },
+    {
+      "id": "essere-013",
+      "type": "multiple-choice",
+      "categoryIds": ["essere"],
+      "payload": {
+        "prompt": "Io ___ spagnolo.",
+        "options": ["sei", "ho", "sono", "siamo"],
+        "correctIndex": 2
+      },
+      "notes": "Nacionalidad masc sing. En italiano las nacionalidades NO se capitalizan (spagnolo, no Spagnolo). Distractora `ho` = avere."
+    },
+    {
+      "id": "essere-014",
+      "type": "multiple-choice",
+      "categoryIds": ["essere"],
+      "payload": {
+        "prompt": "Lei ___ italiana di Milano.",
+        "options": ["è", "ha", "sono", "siamo"],
+        "correctIndex": 0
+      },
+      "notes": "Nacionalidad fem sing + preposición `di` con origen. Concordancia italiana (no italiano). Distractora `ha` = avere."
+    },
+    {
+      "id": "essere-015",
+      "type": "multiple-choice",
+      "categoryIds": ["essere"],
+      "payload": {
+        "prompt": "Loro ___ tedeschi.",
+        "options": ["siamo", "hanno", "siete", "sono"],
+        "correctIndex": 3
+      },
+      "notes": "Nacionalidad plural masc (tedesco → tedeschi). Distractora `hanno` = avere."
+    },
+    {
+      "id": "essere-101",
+      "type": "word-buttons",
+      "categoryIds": ["essere"],
+      "payload": {
+        "prompt": "Nosotros somos italianos de Milán.",
+        "answer": ["noi", "siamo", "italiani", "di", "Milano"],
+        "distractors": ["abbiamo"]
+      },
+      "notes": "Nacionalidad plural masc + preposición `di` con origen — D-90 word-buttons sub-área nacionalidad. Distractora `abbiamo` = avere."
+    },
+    {
+      "id": "essere-016",
+      "type": "multiple-choice",
+      "categoryIds": ["essere"],
+      "payload": {
+        "prompt": "Lui ___ medico.",
+        "options": ["ha", "è", "sei", "sono"],
+        "correctIndex": 1
+      },
+      "notes": "Profesión masc + contraste essere/avere. Trampa fuerte: hispanohablante puede traducir 'él es médico' como `ha medico` (calco erróneo). En italiano la profesión va con essere."
+    },
+    {
+      "id": "essere-017",
+      "type": "multiple-choice",
+      "categoryIds": ["essere"],
+      "payload": {
+        "prompt": "Mia sorella ___ avvocata.",
+        "options": ["è", "ha", "sei", "sono"],
+        "correctIndex": 0
+      },
+      "notes": "Profesión fem (regla -o→-a de profesiones.json: avvocato → avvocata). Distractora `ha` = avere."
+    },
+    {
+      "id": "essere-018",
+      "type": "multiple-choice",
+      "categoryIds": ["essere"],
+      "payload": {
+        "prompt": "Voi ___ studenti di lingue.",
+        "options": ["siamo", "avete", "siete", "sono"],
+        "correctIndex": 2
+      },
+      "notes": "Rol/profesión plural masc. `studenti` es masculino plural genérico (incluye fem si grupo mixto). Distractora `avete` = avere."
+    },
+    {
+      "id": "essere-019",
+      "type": "multiple-choice",
+      "categoryIds": ["essere"],
+      "payload": {
+        "prompt": "Tu ___ professore o studente?",
+        "options": ["hai", "è", "sei", "sono"],
+        "correctIndex": 2
+      },
+      "notes": "Profesión + disyuntiva interrogativa. Confirma que essere se usa para identificación de rol/profesión. Distractora `hai` = avere."
+    },
+    {
+      "id": "essere-102",
+      "type": "word-buttons",
+      "categoryIds": ["essere"],
+      "payload": {
+        "prompt": "Ella es médica en un hospital.",
+        "answer": ["lei", "è", "medico", "in", "un", "ospedale"],
+        "distractors": ["ha"]
+      },
+      "notes": "Profesión fem + preposición `in` con lugar de trabajo — D-90 word-buttons sub-área profesión. En italiano contemporáneo `medico` suele usarse también para mujeres (alternativa: `dottoressa`). Distractora `ha` = avere."
+    },
+    {
+      "id": "essere-020",
+      "type": "multiple-choice",
+      "categoryIds": ["essere"],
+      "payload": {
+        "prompt": "Maria ___ stanca.",
+        "options": ["sei", "ha", "è", "sono"],
+        "correctIndex": 2
+      },
+      "notes": "Estado fem sing + falso amigo crítico: español 'estar cansada' → italiano `essere` (NO `avere` ni `stare`). Distractora `ha` = avere (trampa máxima: calco 'Maria tiene cansada')."
+    },
+    {
+      "id": "essere-021",
+      "type": "multiple-choice",
+      "categoryIds": ["essere"],
+      "payload": {
+        "prompt": "Io ___ felice oggi.",
+        "options": ["ho", "sei", "sono", "è"],
+        "correctIndex": 2
+      },
+      "notes": "Estado / emoción 1ª singular. `felice` es invariable singular (vale masc y fem). Distractora `ho` = avere."
+    },
+    {
+      "id": "essere-022",
+      "type": "multiple-choice",
+      "categoryIds": ["essere"],
+      "payload": {
+        "prompt": "Noi ___ contenti della scuola.",
+        "options": ["siamo", "siete", "abbiamo", "sono"],
+        "correctIndex": 0
+      },
+      "notes": "Estado plural masc + preposición articulada `della` (= `di + la`) con causa. Distractora `abbiamo` = avere."
+    },
+    {
+      "id": "essere-023",
+      "type": "multiple-choice",
+      "categoryIds": ["essere"],
+      "payload": {
+        "prompt": "Voi non ___ tristi.",
+        "options": ["avete", "siamo", "siete", "sono"],
+        "correctIndex": 2
+      },
+      "notes": "Estado plural masc + negación. `non` antes del verbo. Distractora `avete` = avere."
+    },
+    {
+      "id": "essere-024",
+      "type": "multiple-choice",
+      "categoryIds": ["essere"],
+      "payload": {
+        "prompt": "Roma ___ una città italiana.",
+        "options": ["ha", "è", "sei", "sono"],
+        "correctIndex": 1
+      },
+      "notes": "Cópula clasificatoria: X es de la clase Y. Uso puramente esencial de essere (no estado ni acción). Distractora `ha` = avere."
+    },
+    {
+      "id": "essere-025",
+      "type": "multiple-choice",
+      "categoryIds": ["essere"],
+      "payload": {
+        "prompt": "Il gatto ___ un animale domestico.",
+        "options": ["è", "ha", "sono", "sei"],
+        "correctIndex": 0
+      },
+      "notes": "Cópula clasificatoria: X pertenece a la clase Y. Patrón A1 canónico de definición. Distractora `ha` = avere."
     }
   ]
 }
