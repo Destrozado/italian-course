@@ -11,6 +11,7 @@
 - [x] **Phase 2: Mecánica completa de re-verificación** — Estados, cascada de fallo, racha, dashboard y resumen — el motor que "te obliga a no olvidar" está operativo (completed 2026-05-23)
 - [x] **Phase 3: Variedad de ejercicios + ergonomía de teclado** — word-buttons y match completan los tres tipos; atajos 1-4/Enter/Space hacen la práctica diaria fluida (completed 2026-05-24)
 - [x] **Phase 4: Backup robusto + contenido completo** — Export/import + recordatorio de backup + los 6 PDFs transcritos a JSON (incluyendo ejercicios multi-categoría para ejercitar la cascada en uso real) — 4/4 plans complete (pending verifier) (completed 2026-05-24)
+- [ ] **Phase 5: Essere — categoría fundamental que faltaba** — Detectado durante UAT post-Phase 4: tenemos Avere como categoría dedicada pero NO Essere, pese a ser igualmente fundamental para A1 (identidad, profesión, nacionalidad, estado, copula). Essere está exercitado indirectamente vía verbos-movimiento (auxiliar passato prossimo) pero no como verbo independiente. Esta fase añade `content/exercises/essere.json` siguiendo el patrón D-85 (Claude propone desde conocimiento A1 genérico — no hay PDF — autor revisa pedagógicamente y commitea).
 
 ## Phase Details
 
@@ -82,6 +83,20 @@
 - [x] 04-04-PLAN.md — avere.json multi-cat extension (6 cruces avere-300..305) + smoke test cascada multi-cat real + UAT INTEGRAL 5/5 PASS de los 5 criterios ROADMAP §Phase 4. **completado 2026-05-24** (130/130 tests verdes, 3 commits + plan docs, +6 ejercicios multi-cat = 232 totales en la app, SEED-02 cerrado + revalidación cruzada BACK-04/05/06/SEED-01), ver [04-04-SUMMARY.md](./phases/04-backup-robusto-contenido-completo/04-04-SUMMARY.md)
 **UI hint**: yes
 
+### Phase 5: Essere — categoría fundamental que faltaba
+**Goal**: La app tiene una categoría `essere` con cobertura A1 completa (conjugación presente + identidad + profesión + nacionalidad + estado + contraste con avere) que el autor puede practicar en sesiones reales, incluyendo al menos 1 ejercicio multi-categoría que cruza essere con otra categoría existente para ejercitar la cascada D-54.
+**Mode:** mvp
+**Depends on**: Phase 4
+**Requirements**: TBD (nuevo requisito SEED-03 a definir en plan-phase — añade `essere` a la lista de categorías obligatorias y la cobertura A1 mínima)
+**Success Criteria** (qué tiene que ser CIERTO):
+  1. `content/categories.json` incluye una 7ª entrada `essere` con nombre humano apropiado y `order: 2` (justo después de Avere para reflejar el peso pedagógico equivalente — alterando el orden actual del resto en 1).
+  2. `content/exercises/essere.json` existe con al menos 30 ejercicios, validados por schema, normalizados a NFC al cargar, apóstrofes ASCII.
+  3. La cobertura abarca: conjugación presente (io sono / tu sei / lui è / noi siamo / voi siete / loro sono — 6 personas), uso de identidad ("Io ___ Maria"), nacionalidad ("Noi ___ italiani"), profesión ("Lui ___ medico" — contraste con `avere` que se usaría para edad/posesión), estado/condición ("Maria ___ stanca"), copula clasificatoria, y participio (`stato`/`stata`/`stati`/`state`) si es viable A1.
+  4. Aplica la DESIGN RULE codificada en Phase 4: `match` solo si pareo requiere regla NO derivable por raíz; mayoría multi-choice con distractoras plausibles (formas de avere que el hispanohablante confunde, otras formas de essere mal conjugadas).
+  5. Al menos 1 ejercicio multi-categoría `categoryIds: ["essere", <otra>]` (e.g., essere + profesiones tipo `Lei ___ avvocata` o essere + verbos-movimiento tipo `Maria ___ andata al cinema`) que dispara cascada D-54 al fallar.
+  6. UAT humano: el autor lanza un Repaso 20 incluyendo essere y completa la sesión sin errores de UX/grading; falla deliberadamente el ejercicio multi-cat y observa la cascada en el resumen.
+**Plans**: TBD (probablemente 1 plan único — patrón de Plan 04-02 Task 2)
+
 ## Progress
 
 | Phase | Plans Complete | Status | Completed |
@@ -90,6 +105,7 @@
 | 2. Mecánica completa de re-verificación | 4/4 | Complete   | 2026-05-23 |
 | 3. Variedad de ejercicios + ergonomía | 3/3 | Complete    | 2026-05-24 |
 | 4. Backup robusto + contenido completo | 4/4 | Complete    | 2026-05-24 |
+| 5. Essere — categoría fundamental que faltaba | 0/? | Not started | - |
 
 ## Coverage Summary
 
