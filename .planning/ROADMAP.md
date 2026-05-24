@@ -84,7 +84,7 @@
 |-------|----------------|--------|-----------|
 | 1. Loop mínimo end-to-end | 2/2 | Complete    | 2026-05-23 |
 | 2. Mecánica completa de re-verificación | 4/4 | Complete   | 2026-05-23 |
-| 3. Variedad de ejercicios + ergonomía | 3/3 | Complete   | 2026-05-24 |
+| 3. Variedad de ejercicios + ergonomía | 3/3 | Complete    | 2026-05-24 |
 | 4. Backup robusto + contenido completo | 0/? | Not started | - |
 
 ## Coverage Summary

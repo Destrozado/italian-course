@@ -24,7 +24,7 @@
 ### Exercise Types (EXTYPE)
 
 - [x] **EXTYPE-01**: Tipo `multiple-choice`: muestra una frase con un hueco y 3-4 botones de opción; el usuario pulsa una; valida acertado/fallado
-- [ ] **EXTYPE-02**: Tipo `word-buttons`: muestra una frase en español a traducir; presenta botones con palabras italianas (más algunas distractoras); el usuario las pulsa en orden para construir la traducción; valida cuando el usuario marca terminado
+- [x] **EXTYPE-02**: Tipo `word-buttons`: muestra una frase en español a traducir; presenta botones con palabras italianas (más algunas distractoras); el usuario las pulsa en orden para construir la traducción; valida cuando el usuario marca terminado
 - [x] **EXTYPE-03**: Tipo `match`: muestra dos columnas (ej. sustantivos ↔ artículos); el usuario hace click en un ítem de la izquierda y luego en su pareja a la derecha; valida cuando todos están emparejados (completado Phase 3 plan 02 — handler `match.grade` puro + sub-template Alpine 2 columnas + cascada D-61 inmediata idempotente + teclado 1-9 + a-i + seed avere-200..202 incluyendo duplicados D-66; ver 03-02-SUMMARY.md)
 
 ### Domain Core (DOMAIN)
@@ -48,7 +48,7 @@
 - [x] **SESSION-03**: Botón "Test completo" abre la misma pantalla de selección de categorías; al lanzar muestra advertencia con el número total de ejercicios incluidos
 - [x] **SESSION-04**: Durante la sesión, muestra indicador de progreso (ej. "Ejercicio 7 / 20" o "Ejercicio 7 / 152" para test completo)
 - [x] **SESSION-05**: Feedback binario: al acertar, el ejercicio se marca en verde y auto-avanza tras ~600ms; al fallar, se marca en rojo y muestra la respuesta correcta + botón "Siguiente" (no auto-avance)
-- [ ] **SESSION-06**: Atajos de teclado: 1-4 para multiple-choice, Enter para confirmar/avanzar tras fallo, Space como alias de Enter
+- [x] **SESSION-06**: Atajos de teclado: 1-4 para multiple-choice, Enter para confirmar/avanzar tras fallo, Space como alias de Enter
 - [x] **SESSION-07**: Al final de la sesión, pantalla de resumen (no toast) que muestra: ejercicios acertados/fallados, y por cada categoría tocada: estado antes → después, racha antes → después, ejercicios que faltan para `hecha`
 - [x] **SESSION-08**: Una sesión Repaso abandonada (cierre de pestaña / navegación atrás antes de terminar) **se descarta** completamente — los aciertos/fallos no afectan al estado ni a los contadores
   > **Excepción tras Plan 02-03 UAT round 2 (D-54):** los **fallos individuales** de un ejercicio se persisten inmediatamente — el core value "te obliga a no olvidar" prevalece sobre la promesa "abandono descarta". Solo los **aciertos** de un Repaso abandonado se descartan; los fallos quedan registrados (cascada de categoría + entrada en `dailyLog`).
@@ -124,7 +124,7 @@ Explicitly excluded for v1. Documented to prevent scope creep.
 | CONT-05 | Fase 1 | In Progress (awaiting verifier) |
 | CONT-06 | Fase 1 | In Progress (awaiting verifier) |
 | EXTYPE-01 | Fase 1 | In Progress (awaiting verifier) |
-| EXTYPE-02 | Fase 3 | Pending |
+| EXTYPE-02 | Fase 3 | Complete |
 | EXTYPE-03 | Fase 3 | Complete (Plan 03-02) |
 | DOMAIN-01 | Fase 1 | In Progress (awaiting verifier) |
 | DOMAIN-02 | Fase 1 | In Progress (awaiting verifier) |
@@ -141,7 +141,7 @@ Explicitly excluded for v1. Documented to prevent scope creep.
 | SESSION-03 | Fase 2 | Complete |
 | SESSION-04 | Fase 1 | In Progress (awaiting verifier) |
 | SESSION-05 | Fase 1 | In Progress (awaiting verifier) |
-| SESSION-06 | Fase 3 | Pending |
+| SESSION-06 | Fase 3 | Complete |
 | SESSION-07 | Fase 2 | Complete |
 | SESSION-08 | Fase 2 | Complete |
 | SESSION-09 | Fase 2 | Complete |
