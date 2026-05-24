@@ -412,7 +412,31 @@
           </template>
 
           <hr>
-          <button type="button" class="secondary" @click="requestReturnToHome">← Volver al home</button>
+          <!--
+            Phase 6 plan 01 (UX-01) — D-100/D-103. Botón "Reiniciar ejercicios"
+            junto a "← Volver al home" en un `.button-row` (NO role="group" —
+            lección recurrente UAT 02-03/02-04). Orden izquierda → derecha:
+            "Reiniciar" (acción en contexto) → "Volver al home" (salir del
+            contexto), análogo al banner in-flight `[Reanudar] [Descartar]`.
+
+            Visibilidad: `x-show="sessionMode === 'repaso'"` (D-100) — oculto
+            en Test completo. Doble defensa con el guard de `restartRepaso()`
+            en src/screens/app.js: aunque el botón estuviera visible por bug,
+            el handler hace early-return.
+
+            Sin confirmación inline (D-102), sin animación post-reset (UI-SPEC
+            §Visual cue tras el reset), sin atajo de teclado (UI-SPEC
+            §Keyboard shortcut "sin atajo en v1" — saturación de teclas +
+            colisión con Ctrl+R), sin disabled durante feedback (UI-SPEC
+            §Disabled state: SIEMPRE clickable).
+          -->
+          <div class="button-row">
+            <button type="button"
+                    class="secondary"
+                    x-show="sessionMode === 'repaso'"
+                    @click="restartRepaso">Reiniciar ejercicios</button>
+            <button type="button" class="secondary" @click="requestReturnToHome">← Volver al home</button>
+          </div>
         </article>
       </template>
 

@@ -411,6 +411,105 @@ export function appShell(appDataReady) {
       this.currentScreen = 'session';
     },
 
+    /**
+     * Phase 6 plan 01 (UX-01) — D-100/D-101/D-102/D-103/D-104.
+     *
+     * Reinicia un Repaso 20 en 1 clic desde la pantalla session, manteniendo
+     * MISMAS categorías seleccionadas y descartando los aciertos no
+     * comprometidos. Los fallos D-54 ya persistidos vía applyImmediateFailure
+     * NO se deshacen — el invariante "te obliga a no olvidar" prevalece.
+     *
+     * Semántica (D-101):
+     *   - Pickeable solo cuando `sessionMode === 'repaso'` (D-100). Guard
+     *     defensivo de entrada — el botón ya está oculto en Test completo
+     *     vía `x-show` en index.html, pero el guard hace que un click
+     *     accidental por teclado/script sea no-op.
+     *   - Re-llama `buildSession` con `pickerCheckedCategoryIds` preservadas
+     *     y el state actual (post-D-54 cascada si aplica). Los 20 nuevos
+     *     ejercicios pueden diferir de los previos por aleatoriedad del
+     *     sampler — comportamiento deseable.
+     *   - Resetea sub-estado de sesión idéntico a startSession (cursor,
+     *     sessionResults, sub-templates word-buttons/match) preservando
+     *     `sessionMode`, `pickerCheckedCategoryIds`, `currentScreen`, y el
+     *     `this.state` mismo (D-101 + SESSION-08 — abandono descarta sin
+     *     tocar localStorage; los aciertos no se persisten mid-sesión).
+     *
+     * Por qué NO se llama `saveState` ni se reasigna `this.state`:
+     *   - Los aciertos no-comprometidos se descartan por diseño (SESSION-08).
+     *   - Los fallos D-54 YA están persistidos por `applyImmediateFailure`
+     *     en `sessionSelectOption` / `matchPickRight` — no requiere acción.
+     *   - `exerciseStats` NO se bumpean en restart (D-09 monotonicidad
+     *     preservada — coherente con SESSION-08 abandono Repaso).
+     *
+     * Cancelaciones defensivas (Pattern S-2 — Phase 3):
+     *   - `cancelAutoAdvance()` antes del reset evita que un setTimeout
+     *     pendiente dispare `sessionAdvance()` sobre state ya reseteado.
+     *   - `cancelMatchFlash()` idem para el flash rojo de match.
+     *
+     * NO confirmación inline (D-102): reset directo en 1 clic. El dolor del
+     * UAT Phase 4 era "4 clicks vs 1 click"; añadir confirmación devolvería
+     * a 2 clicks + modal y contradiría el espíritu del feature.
+     *
+     * Pattern reuse: replica el bloque de reset de `startSession` líneas
+     * ~385-400 SIN tocar `sessionMode`/`currentScreen`/`pickerCheckedCategoryIds`
+     * y SIN llamar `persistInFlightTest` (Repaso nunca persiste in-flight).
+     * El refactor a helper común con `startSession` se difiere (CONTEXT D-104
+     * "duplicación aceptable v1; refactor solo si emerge 3er call-site").
+     */
+    restartRepaso() {
+      // D-100 / D-104: guard defensivo — solo aplica a Repaso 20.
+      if (this.sessionMode !== 'repaso') return;
+
+      // Pattern S-2: cancelar timeouts antes de cualquier reset.
+      this.cancelAutoAdvance();
+      this.cancelMatchFlash();
+
+      // Re-llamar buildSession con MISMAS categorías + state actual (post-D-54).
+      const allExercises = Object.values(this.content.exerciseById);
+      const result = buildSession(
+        this.pickerCheckedCategoryIds,
+        allExercises,
+        this.state,
+        20,
+        'repaso'
+      );
+
+      // Reset sub-estado de sesión (idéntico al patrón de startSession).
+      // NO tocamos sessionMode (preservado en 'repaso') ni
+      // pickerCheckedCategoryIds (preservado para futuros restarts) ni
+      // currentScreen (ya estamos en 'session'). NO se llama saveState ni
+      // se reasigna this.state — los aciertos no-comprometidos se descartan
+      // sin tocar localStorage (D-101 + SESSION-08); los fallos D-54 ya
+      // persistidos por sessionSelectOption/matchPickRight quedan intactos.
+      this.sessionExerciseIds = result.exerciseIds;
+      this.sessionCursor = 0;
+      this.sessionResults = [];
+      this.sessionSelectedIndex = null;
+      this.sessionFeedback = null;
+      // Sub-estados word-buttons (Phase 3).
+      this.wordButtonsBank = [];
+      this.wordButtonsAnswer = [];
+      // Sub-estados match (Phase 3).
+      this.matchLeft = [];
+      this.matchRight = [];
+      this.matchSelectedLeftIdx = null;
+      this.matchPairsConsumed = [];
+      this.matchHadFailure = false;
+      // NOTA: plan 06-02 (D-107) introducirá un sub-estado adicional de match
+      // (captura del primer pareo erróneo para la sección "Errores cometidos");
+      // ese prop se reseteará aquí también cuando aterrice — plan 06-01 no lo
+      // conoce todavía.
+
+      // Inicializar sub-estado del PRIMER ejercicio del nuevo sample.
+      // Si el pool quedó vacío (edge improbable post-cascada masiva),
+      // initSubStateForExercise no se invoca; el getter sessionCurrentExercise
+      // devuelve null y el <template x-if> de index.html evita render.
+      if (result.exerciseIds.length > 0) {
+        const firstEx = this.content.exerciseById[result.exerciseIds[0]];
+        this.initSubStateForExercise(firstEx);
+      }
+    },
+
     // ════════════════════════════════════════════════════════════════════════
     // Persistencia in-flight Test completo (D-41/D-42/D-43/D-44/D-45)
     // ════════════════════════════════════════════════════════════════════════
