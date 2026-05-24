@@ -1,1 +1,580 @@
-{"exercises":[]}
+{
+  "exercises": [
+    {
+      "id": "profesiones-001",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Il cuoco (masc) → la ___ (fem).",
+        "options": ["cuoca", "cuoche", "cuocia", "cuocessa"],
+        "correctIndex": 0
+      },
+      "notes": "PDF §1 Regular -o→-a. Distractoras: `cuoche` (plural fem, no singular), `cuocia` (mezcla con -cia palatal), `cuocessa` (calco con -essa de dottoressa, error A1 al sobre-aplicar)."
+    },
+    {
+      "id": "profesiones-002",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "L'impiegato (masc) → l'___ (fem).",
+        "options": ["impiegate", "impiegatessa", "impiegata", "impiegatrice"],
+        "correctIndex": 2
+      },
+      "notes": "PDF §1 Regular -o→-a. Distractoras: `impiegate` (plural fem, no singular), `impiegatessa` (-essa solo aplica a -e como dottore/dottoressa, no a -o), `impiegatrice` (-trice solo a -tore como attore/attrice — esta NO es -tore)."
+    },
+    {
+      "id": "profesiones-003",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "L'avvocato (masc) → l'___ (fem).",
+        "options": ["avvocatessa", "avvocatrice", "avvocata", "avvocate"],
+        "correctIndex": 2
+      },
+      "notes": "PDF §1 Regular -o→-a: avvocato→avvocata. Nota lingüística: ambas formas (`avvocata` y `avvocatessa`) son aceptables en italiano moderno — `avvocatessa` es la tradicional con sufijo prestigioso -essa (familia dottoressa/professoressa), `avvocata` es la del PDF y la del italiano contemporáneo neutro (paralelo a otras profesiones -o→-a como impiegata/segretaria). Para coherencia con el resto de ejercicios PDF §1 (todas -o→-a sin -essa), el ejercicio fija `avvocata` como respuesta correcta. Distractoras: `avvocatessa` (forma tradicional plausible — distractora pedagógica fuerte), `avvocatrice` (-trice aplicado mal, esta no es -tore), `avvocate` (plural fem, no singular)."
+    },
+    {
+      "id": "profesiones-004",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Il segretario (masc) → la ___ (fem).",
+        "options": ["segretari", "segretarie", "segretaressa", "segretaria"],
+        "correctIndex": 3
+      },
+      "notes": "PDF §1 Regular -o→-a. Distractoras: `segretari` (plural masc), `segretarie` (plural fem), `segretaressa` (-essa mal aplicada; segretario es -o, no -e). La forma `segretaria` es la del PDF — caso canónico -o→-a."
+    },
+    {
+      "id": "profesiones-005",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Il poliziotto (masc) → la ___ (fem).",
+        "options": ["poliziotta", "poliziotte", "poliziottrice", "poliziottessa"],
+        "correctIndex": 0
+      },
+      "notes": "PDF §1 Regular -o→-a. Distractoras: `poliziotte` (plural fem), `poliziottrice` (-trice mal aplicada — esta no es -tore), `poliziottessa` (-essa mal aplicada — esta no es -e)."
+    },
+    {
+      "id": "profesiones-006",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Il fotografo (masc) → la ___ (fem).",
+        "options": ["fotografessa", "fotografa", "fotografia", "fotografatrice"],
+        "correctIndex": 1
+      },
+      "notes": "PDF §1 Regular -o→-a. Distractoras: `fotografessa` (-essa mal aplicada), `fotografia` (palabra distinta: 'foto' → sustantivo, no profesión femenina), `fotografatrice` (mezcla con -trice y duplicación). Pitfall: 'fotografo' suena cercano a 'fotografia' que NO es la respuesta."
+    },
+    {
+      "id": "profesiones-007",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "L'architetto (masc) → l'___ (fem).",
+        "options": ["architette", "architetta", "architettessa", "architettrice"],
+        "correctIndex": 1
+      },
+      "notes": "PDF §1 Regular -o→-a. Distractoras: `architette` (plural fem), `architettessa` (-essa mal aplicada por analogía con dottoressa), `architettrice` (-trice mal aplicada por confusión con direttore/direttrice). Pitfall A1: tentación de aplicar suffijos prestigiosos a profesiones técnicas."
+    },
+    {
+      "id": "profesiones-008",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Il meccanico (masc) → la ___ (fem).",
+        "options": ["meccanica", "meccaniche", "meccanicessa", "meccanicia"],
+        "correctIndex": 0
+      },
+      "notes": "PDF §1 Regular -o→-a. Distractoras: `meccaniche` (plural fem), `meccanicessa` (-essa mal aplicada), `meccanicia` (mezcla con -cia palatal incorrecta — recuerda que `meccanica` también es la palabra para 'mecánica' como disciplina, ambigüedad léxica pedagógica)."
+    },
+    {
+      "id": "profesiones-009",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Il cameriere (masc) → la ___ (fem).",
+        "options": ["camerieressa", "cameriera", "camerieretta", "cameriere"],
+        "correctIndex": 1
+      },
+      "notes": "PDF §2 -iere → -iera. Distractoras: `camerieressa` (calco con -essa por confusión con familia dottoressa), `camerieretta` (diminutivo, no femenino), `cameriere` (invariable falso). Regla productiva: cameriere/a, infermiere/a, parrucchiere/a, portiere/a."
+    },
+    {
+      "id": "profesiones-010",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "L'infermiere (masc) → l'___ (fem).",
+        "options": ["infermiera", "infermieressa", "infermiere", "infermiritrice"],
+        "correctIndex": 0
+      },
+      "notes": "PDF §2 -iere → -iera. Distractoras: `infermieressa` (calco -essa), `infermiere` (invariable falso), `infermiritrice` (-trice mal aplicada con duplicación). Pitfall: las profesiones en -iere son TODAS -iera en fem, sin excepción en el PDF."
+    },
+    {
+      "id": "profesiones-011",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Il parrucchiere (masc) → la ___ (fem).",
+        "options": ["parrucchiere", "parrucchieressa", "parrucchiera", "parrucchierica"],
+        "correctIndex": 2
+      },
+      "notes": "PDF §2 -iere → -iera. Distractoras: `parrucchiere` (invariable falso), `parrucchieressa` (calco -essa), `parrucchierica` (mezcla con -ica). Misma regla productiva que cameriere/cameriera, infermiere/infermiera."
+    },
+    {
+      "id": "profesiones-012",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Il portiere (masc) → la ___ (fem).",
+        "options": ["portieressa", "portieretta", "portiera", "portiere"],
+        "correctIndex": 2
+      },
+      "notes": "PDF §2 -iere → -iera. Distractoras: `portieressa` (calco -essa), `portieretta` (diminutivo, no fem), `portiere` (invariable falso). Ojo: `portiera` también significa 'puerta de coche' (ambigüedad léxica) — el contexto profesional fija la lectura."
+    },
+    {
+      "id": "profesiones-013",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "L'attore (masc) → l'___ (fem).",
+        "options": ["attora", "attoressa", "attrice", "attorina"],
+        "correctIndex": 2
+      },
+      "notes": "PDF §3 Irregolari -tore → -trice. Distractoras: `attora` (regla regular -e→-a mal aplicada), `attoressa` (mezcla con familia -essa dottore/dottoressa — confusión productiva), `attorina` (diminutivo). Familia -tore/-trice: attore/attrice, direttore/direttrice, programmatore/programmatrice, traduttore/traduttrice."
+    },
+    {
+      "id": "profesiones-014",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Il direttore (masc) → la ___ (fem).",
+        "options": ["direttrice", "direttoressa", "direttora", "direttressa"],
+        "correctIndex": 0
+      },
+      "notes": "PDF §3 Irregolari -tore → -trice. Distractoras: `direttoressa` (mezcla con -essa por familia dottoressa, error A1 muy frecuente porque 'direttore' suena prestigioso como 'dottore'), `direttora` (regla regular mal aplicada), `direttressa` (mezcla). Pitfall central: distinguir -tore/-trice (attore, direttore) de -e/-essa (dottore, professore)."
+    },
+    {
+      "id": "profesiones-015",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Il dottore (masc) → la ___ (fem).",
+        "options": ["dottora", "dottrice", "dottoressa", "dottore"],
+        "correctIndex": 2
+      },
+      "notes": "PDF §3 Irregolari -e → -essa. Distractoras: `dottora` (regla regular mal aplicada, calco español 'doctora'), `dottrice` (-trice mal aplicada — pitfall: 'dottore' NO es -tore aunque suena similar; -tore va precedido de raíz consonántica como att-ore, diret-tore), `dottore` (invariable falso)."
+    },
+    {
+      "id": "profesiones-016",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Il professore (masc) → la ___ (fem).",
+        "options": ["professora", "professoressa", "professrice", "professoretta"],
+        "correctIndex": 1
+      },
+      "notes": "PDF §3 Irregolari -e → -essa. Distractoras: `professora` (calco español 'profesora', regla regular -a mal aplicada), `professrice` (-trice errónea — professore no es -tore), `professoretta` (diminutivo). Familia -essa: dottore/dottoressa, professore/professoressa, studente/studentessa."
+    },
+    {
+      "id": "profesiones-017",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Lo studente (masc) → la ___ (fem).",
+        "options": ["studenta", "studentrice", "studentessa", "studente"],
+        "correctIndex": 2
+      },
+      "notes": "PDF §3 Irregolari -e → -essa. Distractoras: `studenta` (regla regular calco español, error A1 muy común), `studentrice` (-trice errónea), `studente` (invariable falso — pitfall: muchas profesiones en -e SÍ son invariables como cantante/insegnante, pero studente NO). Refuerzo: -essa es el patrón canónico tras vocal+-e: dottoressa, professoressa, studentessa."
+    },
+    {
+      "id": "profesiones-018",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Il cantante (masc) → la ___ (fem).",
+        "options": ["cantantessa", "cantantrice", "cantante", "cantanta"],
+        "correctIndex": 2
+      },
+      "notes": "PDF §3 Irregolari — invariable. Distractoras: `cantantessa` (-essa mal aplicada por analogía con studentessa — pitfall central: NO todas las -e van a -essa), `cantantrice` (-trice mal aplicada), `cantanta` (regla regular -e→-a, error A1). Regla productiva: cantante/cantante, insegnante/insegnante (participios presentes en -nte → invariables)."
+    },
+    {
+      "id": "profesiones-019",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "L'insegnante (masc, coloquial) → l'___ (fem).",
+        "options": ["insegnantessa", "insegnanta", "insegnante", "insegnatrice"],
+        "correctIndex": 2
+      },
+      "notes": "PDF §4 Invariabili. Distractoras: `insegnantessa` (-essa mal aplicada — pitfall: profesor formal es 'professore/professoressa', pero coloquial 'insegnante' es invariable), `insegnanta` (regla -a mal aplicada), `insegnatrice` (-trice mal aplicada). Familia productiva -nte invariable: insegnante, cantante, dirigente."
+    },
+    {
+      "id": "profesiones-020",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Il collega (masc) → la ___ (fem).",
+        "options": ["colleghe", "collegua", "colleghessa", "collega"],
+        "correctIndex": 3
+      },
+      "notes": "PDF §4 Invariabili. Distractoras: `colleghe` (plural fem, no singular), `collegua` (mezcla con -gua de 'lingua'), `colleghessa` (-essa mal aplicada). Pitfall A1 central: 'collega' termina en -a pero NO viene de -o→-a regla (no es de profesiones-regular); es invariable. Sólo cambia el artículo: il collega / la collega."
+    },
+    {
+      "id": "profesiones-021",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Il cliente (masc) → la ___ (fem).",
+        "options": ["clienta", "clientessa", "cliente", "cliententrice"],
+        "correctIndex": 2
+      },
+      "notes": "PDF §4 Invariabili. Distractoras: `clienta` (regla regular -a mal aplicada, calco español), `clientessa` (-essa mal aplicada por analogía con studentessa — pitfall central: NO todas las -e van a -essa), `cliententrice` (-trice mal aplicada con duplicación). Solo cambia el artículo: il cliente / la cliente."
+    },
+    {
+      "id": "profesiones-022",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Il dentista (masc) → la ___ (fem).",
+        "options": ["dentistessa", "dentista", "dentiste", "dentistra"],
+        "correctIndex": 1
+      },
+      "notes": "PDF §4 Invariabili — familia productiva -ista. Distractoras: `dentistessa` (-essa mal aplicada), `dentiste` (plural fem, no singular), `dentistra` (mezcla con -istra inventada). Regla pedagógica: TODA profesión en -ista es invariable (dentista, pianista, giornalista, farmacista, tassista, artista). Solo cambia el artículo: il dentista / la dentista."
+    },
+    {
+      "id": "profesiones-023",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Il pianista (masc) → la ___ (fem).",
+        "options": ["pianiste", "pianista", "pianistessa", "pianistra"],
+        "correctIndex": 1
+      },
+      "notes": "PDF §4 Invariabili — familia -ista. Distractoras: `pianiste` (plural fem), `pianistessa` (-essa mal aplicada), `pianistra` (forma inventada). Refuerzo de la regla -ista: pianista, dentista, giornalista, artista — todas invariables singulares."
+    },
+    {
+      "id": "profesiones-024",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Il farmacista (masc) → la ___ (fem).",
+        "options": ["farmacistessa", "farmacistra", "farmaciste", "farmacista"],
+        "correctIndex": 3
+      },
+      "notes": "PDF §1 (en la tabla del PDF figura como -o→-a pero en italiano real es invariable -ista). Distractoras: `farmacistessa` (-essa errónea), `farmacistra` (inventada), `farmaciste` (plural fem). Pitfall A1: la tabla del PDF lista esta y giornalista en §1, pero la regla productiva -ista las hace invariables (igual que dentista, pianista). El artículo distingue: il farmacista / la farmacista."
+    },
+    {
+      "id": "profesiones-025",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Il giornalista (masc) → la ___ (fem).",
+        "options": ["giornalistessa", "giornalista", "giornaliste", "giornalistra"],
+        "correctIndex": 1
+      },
+      "notes": "PDF §1 (tabla) — invariable en italiano real por la regla -ista. Distractoras: `giornalistessa` (-essa errónea), `giornaliste` (plural fem), `giornalistra` (inventada). Misma regla que dentista, pianista, farmacista. Artículo distingue género."
+    },
+    {
+      "id": "profesiones-026",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Il tassista (masc) → la ___ (fem).",
+        "options": ["tassistessa", "tassiste", "tassista", "tassistra"],
+        "correctIndex": 2
+      },
+      "notes": "PDF §5 Altre — familia -ista invariable. Distractoras: `tassistessa` (-essa errónea), `tassiste` (plural fem), `tassistra` (inventada). Refuerzo definitivo: todas las profesiones en -ista son invariables."
+    },
+    {
+      "id": "profesiones-027",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Il pilota (masc) → la ___ (fem).",
+        "options": ["pilotessa", "piloto", "pilote", "pilota"],
+        "correctIndex": 3
+      },
+      "notes": "PDF §5 Altre — invariable. Distractoras: `pilotessa` (-essa errónea), `piloto` (forma masc inventada con -o), `pilote` (plural fem). Pitfall A1 central: 'pilota' termina en -a pero NO viene de -o→-a; el masculino YA es 'il pilota' (no 'il piloto'). Solo cambia artículo. Familia con poeta, atleta — invariables en -a."
+    },
+    {
+      "id": "profesiones-028",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Il manager (masc, préstamo inglés) → la ___ (fem).",
+        "options": ["manageressa", "managera", "managere", "manager"],
+        "correctIndex": 3
+      },
+      "notes": "PDF §5 Altre — préstamo del inglés, invariable. Distractoras: `manageressa` (-essa errónea italianizando), `managera` (regla -a italianizada calco), `managere` (plural italianizado). Regla productiva: los anglicismos profesionales son invariables (manager, designer, freelance). Solo cambia el artículo."
+    },
+    {
+      "id": "profesiones-029",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Il programmatore (masc) → la ___ (fem).",
+        "options": ["programmatora", "programmatressa", "programmatrice", "programmatoressa"],
+        "correctIndex": 2
+      },
+      "notes": "PDF §5 Altre — familia -tore/-trice. Distractoras: `programmatora` (regla regular mal aplicada, calco español), `programmatressa` (mezcla -essa), `programmatoressa` (mezcla -essa con conservación errónea de -ore). Familia productiva: programmatore/programmatrice, traduttore/traduttrice, muratore/muratrice, pittore/pittrice."
+    },
+    {
+      "id": "profesiones-030",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Il muratore (masc) → la ___ (fem).",
+        "options": ["muratoressa", "muratrice", "muratora", "muratoria"],
+        "correctIndex": 1
+      },
+      "notes": "PDF §5 Altre — -tore→-trice. Distractoras: `muratoressa` (-essa errónea), `muratora` (regla -a mal aplicada), `muratoria` (mezcla con -ria de 'muratura', falso amigo léxico)."
+    },
+    {
+      "id": "profesiones-031",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Il pittore (masc) → la ___ (fem).",
+        "options": ["pittrice", "pittoressa", "pittora", "pittoria"],
+        "correctIndex": 0
+      },
+      "notes": "PDF §5 Altre — -tore→-trice. Distractoras: `pittoressa` (-essa errónea por confusión con dottoressa), `pittora` (regla -a, calco español 'pintora'), `pittoria` (mezcla con -ria). El 'Mini esercizio' del PDF lo pide explícitamente — caso del solucionario."
+    },
+    {
+      "id": "profesiones-032",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Il traduttore (masc) → la ___ (fem).",
+        "options": ["traduttora", "traduttressa", "traduttoressa", "traduttrice"],
+        "correctIndex": 3
+      },
+      "notes": "PDF §5 Altre — -tore→-trice. Distractoras: `traduttora` (calco español), `traduttressa` (mezcla), `traduttoressa` (mezcla -essa). 'Mini esercizio' del PDF — caso del solucionario."
+    },
+    {
+      "id": "profesiones-033",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Il ricercatore (masc) → la ___ (fem).",
+        "options": ["ricercatressa", "ricercatora", "ricercatrice", "ricercatoria"],
+        "correctIndex": 2
+      },
+      "notes": "PDF §5 Altre — -tore→-trice. Distractoras: `ricercatressa` (mezcla), `ricercatora` (regla -a mal aplicada), `ricercatoria` (mezcla con -ria de 'ricercatorio' inventada). 'Mini esercizio' del PDF — caso del solucionario."
+    },
+    {
+      "id": "profesiones-034",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Il chirurgo (masc) → la ___ (fem).",
+        "options": ["chirurghessa", "chirurga", "chirurgia", "chirurgessa"],
+        "correctIndex": 1
+      },
+      "notes": "PDF §5 Altre — irregular: -o→-a sin H pese a -go (excepción documentada). Distractoras: `chirurghessa` (mezcla -essa con H), `chirurgia` (palabra distinta: 'la chirurgia' = cirugía/disciplina, NO la profesional — pitfall léxico), `chirurgessa` (-essa sin H). 'Mini esercizio' del PDF — caso del solucionario. Pitfall A1 central: 'chirurgia' significa la rama médica, no la cirujana."
+    },
+    {
+      "id": "profesiones-035",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Il commesso (masc) → la ___ (fem).",
+        "options": ["commesse", "commessa", "commessessa", "commessrice"],
+        "correctIndex": 1
+      },
+      "notes": "PDF §5 Altre — regular -o→-a. Distractoras: `commesse` (plural fem, no singular), `commessessa` (-essa redundante), `commessrice` (-trice mal aplicada). 'Mini esercizio' del PDF — caso del solucionario."
+    },
+    {
+      "id": "profesiones-036",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "___ avvocato — artículo definido ante vocal:",
+        "options": ["il", "lo", "l'", "la"],
+        "correctIndex": 2
+      },
+      "notes": "PDF §1 + nota final 'permettono di ripassare gli articoli'. Elisión ante vocal: l'avvocato (no 'il avvocato'). Distractoras: `il` (forma común con consonante), `lo` (s+cons/z), `la` (femenino — incorrecto por género). Apóstrofe ASCII U+0027."
+    },
+    {
+      "id": "profesiones-037",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "___ studente — artículo definido masculino ante s+consonante:",
+        "options": ["il", "l'", "la", "lo"],
+        "correctIndex": 3
+      },
+      "notes": "PDF §3 + nota final 'permettono di ripassare gli articoli'. Artículo masc sing para inicio fonético s+cons: lo studente (no 'il studente'). Distractoras: `il` (forma común — pitfall A1 muy frecuente porque 'studente' parece consonante normal), `l'` (elisión solo ante vocal), `la` (femenino). Familia: lo studente, lo zaino, lo psicologo, lo gnocco."
+    },
+    {
+      "id": "profesiones-038",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "___ infermiera — artículo definido femenino ante vocal:",
+        "options": ["la", "l'", "il", "lo"],
+        "correctIndex": 1
+      },
+      "notes": "PDF §2 + nota final articoli. Elisión femenina ante vocal: l'infermiera (no 'la infermiera'). Distractoras: `la` (forma con consonante — pitfall: la elisión femenina es opcional en algunos registros pero el PDF la aplica sistemáticamente como en l'impiegata, l'avvocata, l'attrice), `il` (masc), `lo` (masc s+cons). Apóstrofe ASCII U+0027."
+    },
+    {
+      "id": "profesiones-039",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Mio padre lavora con i bisturi negli ospedali. È un ___ .",
+        "options": ["cuoco", "avvocato", "chirurgo", "insegnante"],
+        "correctIndex": 2
+      },
+      "notes": "Contexto semántico — escena clínica (bisturi + ospedali) fija el lema. Distractoras: profesiones plausibles del mismo PDF que NO encajan con el contexto. Refuerzo de uso pragmático, no solo morfología."
+    },
+    {
+      "id": "profesiones-040",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Mia sorella prepara piatti italiani in un ristorante. È una ___ .",
+        "options": ["cameriera", "cuoca", "commessa", "segretaria"],
+        "correctIndex": 1
+      },
+      "notes": "Contexto semántico — 'prepara piatti' fija al cocinero, NO al camarero (que sirve, no prepara). Distractora pedagógica clave: `cameriera` está en el mismo lugar (ristorante) pero hace otra acción (servir). Pitfall A1 central: distinguir cuoco (prepara) de cameriere (sirve)."
+    },
+    {
+      "id": "profesiones-041",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Una persona che insegna a scuola è un ___ o una ___ .",
+        "options": ["studente / studentessa", "professore / professoressa", "direttore / direttrice", "cliente / cliente"],
+        "correctIndex": 1
+      },
+      "notes": "Contexto semántico — 'insegna a scuola' fija la pareja correcta. Distractoras pedagógicas: `studente/studentessa` (rol inverso — aprende, no enseña), `direttore/direttrice` (también está en escuela pero dirige, no enseña), `cliente/cliente` (fuera de escena). Refuerza la pareja masc/fem completa y el contraste -e/-essa."
+    },
+    {
+      "id": "profesiones-042",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Una persona che recita in un film o a teatro è un ___ o una ___ .",
+        "options": ["cantante / cantante", "pittore / pittrice", "attore / attrice", "regista / regista"],
+        "correctIndex": 2
+      },
+      "notes": "Contexto semántico — 'recita in film/teatro' fija attore/attrice. Distractoras: `cantante/cantante` (canta, no recita — invariable), `pittore/pittrice` (pinta), `regista/regista` (dirige el film — relacionado pero distinto rol). Refuerza familia -tore/-trice."
+    },
+    {
+      "id": "profesiones-200",
+      "type": "match",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Empareja cada profesión con su lugar de trabajo habitual.",
+        "pairs": [
+          ["cuoco", "ristorante"],
+          ["chirurgo", "ospedale"],
+          ["professore", "scuola"],
+          ["commesso", "negozio"],
+          ["cameriere", "bar"]
+        ]
+      },
+      "notes": "Match diseño-rule-válido: profesión↔lugar son semánticamente independientes (la raíz NO revela el lugar). Cada pareja exige conocer el campo léxico, no la morfología. Pitfall pedagógico: cameriere puede estar en ristorante O bar; este ejercicio usa bar para forzar al alumno a no asumir 1:1 trivial con cuoco. La asociación profesión↔lugar es la inferencia central."
+    },
+    {
+      "id": "profesiones-201",
+      "type": "match",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Empareja cada profesión con el objeto/herramienta más característica.",
+        "pairs": [
+          ["cuoco", "padella"],
+          ["chirurgo", "bisturi"],
+          ["infermiere", "siringa"],
+          ["pittore", "pennello"],
+          ["meccanico", "chiave"]
+        ]
+      },
+      "notes": "Match diseño-rule-válido: profesión↔herramienta son semánticamente independientes (las palabras `padella`, `bisturi`, `siringa`, `pennello`, `chiave` NO comparten raíz con la profesión). Cada pareja requiere conocer el campo léxico técnico. Pitfall pedagógico: `chiave` también significa 'llave de casa' — el contexto profesional fija la lectura mecánica."
+    },
+    {
+      "id": "profesiones-043",
+      "type": "multiple-choice",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "De estas cuatro profesiones, ___ es la única INVARIABLE en italiano (misma forma masc/fem).",
+        "options": ["dentista", "professore", "cuoco", "avvocato"],
+        "correctIndex": 0
+      },
+      "notes": "Meta-regla -ista invariable. Las profesiones terminadas en -ista NO flexionan: il dentista / la dentista (igual que pianista, giornalista, farmacista, tassista, artista). Distractoras: `professore` (familia -e→-essa: professoressa), `cuoco` (familia regular -o→-a: cuoca), `avvocato` (familia regular -o→-a: avvocata). El ejercicio refuerza el reconocimiento de la familia productiva -ista sin pedir construir el femenino — pide identificar la propiedad estructural (invariable vs flexionable). Schema-compliant: prompt incluye `___` como exige el validator (Phase 1 CONT-04)."
+    },
+    {
+      "id": "profesiones-100",
+      "type": "word-buttons",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Yo soy doctora.",
+        "answer": ["io", "sono", "dottoressa"],
+        "distractors": ["dottora", "sei"]
+      },
+      "notes": "Frase A1 esencial — practica essere 1ª singular + femenino prestigioso -essa (familia dottoressa/professoressa/studentessa, PDF §3). Distractora `dottora` es el calco español 'doctora' (regla regular -o→-a mal aplicada — pitfall A1 frecuente). Distractora `sei` fuerza el reflejo correcto de persona (yo→sono, no tú→sei). Sin punto final en tokens (W-6)."
+    },
+    {
+      "id": "profesiones-101",
+      "type": "word-buttons",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Ella es abogada.",
+        "answer": ["lei", "è", "avvocata"],
+        "distractors": ["avvocato", "ho"]
+      },
+      "notes": "Frase A1 — practica essere 3ª singular + femenino regular -o→-a (PDF §1 avvocato→avvocata). Distractora `avvocato` fuerza concordancia de género con sujeto femenino 'lei'. Distractora `ho` (avere 1ª) recuerda que profesión usa essere, no avere. Sin punto final en tokens (W-6)."
+    },
+    {
+      "id": "profesiones-102",
+      "type": "word-buttons",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Nosotros somos estudiantes.",
+        "answer": ["noi", "siamo", "studenti"],
+        "distractors": ["studentesse", "sono"]
+      },
+      "notes": "Frase A1 — practica essere 1ª plural + plural masculino mixto (regla A1: cualquier grupo con al menos un masculino → masc plural). Distractora `studentesse` (fem plural) fuerza la regla del género no marcado. Distractora `sono` (3ª plural) fuerza el reflejo persona correcto. Sin punto final en tokens (W-6)."
+    },
+    {
+      "id": "profesiones-103",
+      "type": "word-buttons",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Tú eres enfermero.",
+        "answer": ["tu", "sei", "infermiere"],
+        "distractors": ["infermiera", "è"]
+      },
+      "notes": "Frase A1 — practica essere 2ª singular + masc -iere (PDF §2 familia cameriere/infermiere/parrucchiere). Distractora `infermiera` fuerza concordancia masculina. Distractora `è` (3ª) fuerza persona correcta. Sin punto final en tokens (W-6)."
+    },
+    {
+      "id": "profesiones-104",
+      "type": "word-buttons",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Vosotros sois profesores.",
+        "answer": ["voi", "siete", "professori"],
+        "distractors": ["professoresse", "abbiamo"]
+      },
+      "notes": "Frase A1 — practica essere 2ª plural + plural masculino regular -e→-i de profesor/professore. Distractora `professoresse` fem plural. Distractora `abbiamo` (avere 1ª pl) refuerza essere-for-identity (no avere). Sin punto final en tokens (W-6)."
+    },
+    {
+      "id": "profesiones-202",
+      "type": "match",
+      "categoryIds": ["profesiones"],
+      "payload": {
+        "prompt": "Empareja cada profesión con la acción/verbo característico de su oficio.",
+        "pairs": [
+          ["insegnante", "insegnare"],
+          ["pittore", "dipingere"],
+          ["cantante", "cantare"],
+          ["traduttore", "tradurre"],
+          ["direttore", "dirigere"]
+        ]
+      },
+      "notes": "Match diseño-rule-válido: profesión↔acción son semánticamente independientes EN LA MAYORÍA — `pittore↔dipingere` y `direttore↔dirigere` requieren saber el verbo etimológico no derivable trivialmente de la raíz (pittore/dipingere comparten campo semántico pero no raíz; direttore/dirigere sí comparten raíz dir- pero el infinitivo no es predecible desde el sustantivo). Los pares `insegnante↔insegnare`, `cantante↔cantare`, `traduttore↔tradurre` son más transparentes (participio presente / -tore productivo) pero ejercitan el reconocimiento del infinitivo italiano de cada raíz — útil A1 porque requiere conocer la forma -are/-ere/-ire correcta. Cobertura: 5 profesiones del PDF (cantante §3, pittore §5, traduttore §5 mini-esercizio, direttore §3, insegnante §4)."
+    }
+  ]
+}
