@@ -76,7 +76,7 @@
   4. Los 6 PDFs están transcritos a `content/exercises/{avere,genero-numero,verbos-movimiento,profesiones,sustantivos-irregulares,preposiciones}.json` con al menos 10 ejercicios por categoría, todos validados por el schema y normalizados a NFC al cargar
   5. Al menos 1-2 ejercicios por PDF son multi-categoría (tocan categorías relacionadas), y al fallar uno en una sesión real se observa la cascada propagándose a varias categorías a la vez en el resumen
 **Plans**: 4 plans
-- [ ] 04-01-PLAN.md — Backup runtime (migrate2to3 + daysSinceISO + backup.js puro + pantalla Backup + banner home + 3er botón + firstUsedAt plumbing + ~21 tests). Vertical slice: el autor exporta/importa progreso desde el día 1 del plan.
+- [x] 04-01-PLAN.md — Backup runtime (migrate2to3 + daysSinceISO + backup.js puro + pantalla Backup + banner home + 3er botón + firstUsedAt plumbing + ~21 tests). Vertical slice: el autor exporta/importa progreso desde el día 1 del plan. **completado 2026-05-24** (128/128 tests verdes, 2 commits + mini-UAT humano 5/5 PASS, BACK-04/-05/-06 cerrados), ver [04-01-SUMMARY.md](./phases/04-backup-robusto-contenido-completo/04-01-SUMMARY.md)
 - [ ] 04-02-PLAN.md — Categories.json a 6 entradas + Preposiciones (multi-choice) + Verbos de movimiento (multi-choice + word-buttons). Cada categoría es un commit tras revisión humana D-85.
 - [ ] 04-03-PLAN.md — Sustantivos Irregulares (match) + Género y Número (match + multi-choice) + Profesiones (mezcla 3 tipos). Cada categoría es un commit tras revisión humana D-85.
 - [ ] 04-04-PLAN.md — avere.json multi-cat extension (≥6 cruces) + smoke test cascada multi-cat real + UAT integral de los 5 criterios ROADMAP.
@@ -89,7 +89,7 @@
 | 1. Loop mínimo end-to-end | 2/2 | Complete    | 2026-05-23 |
 | 2. Mecánica completa de re-verificación | 4/4 | Complete   | 2026-05-23 |
 | 3. Variedad de ejercicios + ergonomía | 3/3 | Complete    | 2026-05-24 |
-| 4. Backup robusto + contenido completo | 0/4 | Not started | - |
+| 4. Backup robusto + contenido completo | 1/4 | In progress | - |
 
 ## Coverage Summary
 
@@ -122,4 +122,4 @@ Cada fase entrega valor usable independientemente:
 
 ---
 *Roadmap created: 2026-05-23*
-*Last updated: 2026-05-23 after Phase 2 completion (verifier PASS — 6/6 success criteria, 13/13 reqs, 58 tests, UAT 13/13 humano aprobado)*
+*Last updated: 2026-05-24 after Plan 04-01 completion (128/128 tests verdes, 2 commits + mini-UAT humano 5/5 PASS, BACK-04/-05/-06 cerrados; Phase 4 1/4 in progress)*

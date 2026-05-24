@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-05-24T08:00:05.050Z"
+last_updated: "2026-05-24T10:32:00.000Z"
 progress:
   total_phases: 4
   completed_phases: 3
   total_plans: 13
-  completed_plans: 9
-  percent: 69
+  completed_plans: 10
+  percent: 77
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -18,27 +18,27 @@ progress:
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 4 — backup robusto + contenido completo
+**Current Focus:** Phase 4 — Backup robusto + contenido completo
 
 ## Current Position
 
-Phase: 3 (Variedad de ejercicios + ergonomía de teclado) — EXECUTING
-Plan: 2 of 3 — **COMPLETED** (2026-05-23, ver [03-02-SUMMARY.md](./phases/03-variedad-de-ejercicios-ergonom-a-de-teclado/03-02-SUMMARY.md))
-Next: Plan 03-03 (Checkpoint UAT exhaustivo)
+Phase: 4 (Backup robusto + contenido completo) — EXECUTING
+Plan: 2 of 4 — Plan 04-01 **COMPLETED** (2026-05-24, ver [04-01-SUMMARY.md](./phases/04-backup-robusto-contenido-completo/04-01-SUMMARY.md))
+Next: Plan 04-02 (Categories.json 6 entradas + Preposiciones + Verbos de movimiento)
 
 - **Phase:** 4
-- **Plan:** Not started
-- **Status:** Ready to execute
-- **Progress:** [█████████░] 89% (8/9 planes — 2 de 4 fases completadas + 2/3 planes de Phase 3)
+- **Plan:** 04-01 completed; 04-02 pending
+- **Status:** Executing Phase 4
+- **Progress:** [████████████░] 77% (10/13 planes — 3 de 4 fases completadas + 1/4 planes de Phase 4)
 
 ## Performance Metrics
 
 | Métrica | Valor |
 |---------|-------|
-| Fases completadas | 2/4 |
-| Requisitos v1 completos | 33/40 (83% — Phase 1: 19 + Phase 2: 13 + Phase 3 03-02: 1 EXTYPE-03) |
+| Fases completadas | 3/4 |
+| Requisitos v1 completos | 36/40 (90% — Phase 1: 19 + Phase 2: 13 + Phase 3: 1 EXTYPE-03 + Phase 4 04-01: 3 BACK-04/-05/-06) |
 | Requisitos v1 mapeados | 40/40 (100%) |
-| Tests dominio + UI smoke | 105 verdes |
+| Tests dominio + UI smoke | 128 verdes (105 baseline + 23 nuevos en Phase 4 Task 1) |
 | Granularidad | coarse |
 | Mode | MVP (vertical slices) |
 
@@ -73,6 +73,12 @@ Next: Plan 03-03 (Checkpoint UAT exhaustivo)
 | 2026-05-23 | Plan 03-02 — Retorno enriquecido `{correct, pairIdx?}` de `match.grade()` justificado funcionalmente | Asimetría con multi-choice/word-buttons (booleano) NO es inconsistencia del registry — es necesidad D-66 (caller necesita el `pairIdx` consumido para marcar el pair). El JSDoc en `match.js` lo explicita; `index.js` también referencia la asimetría |
 | 2026-05-23 | Plan 03-02 — `test.skip` condicional con detección runtime (matchPickRightExists) | Patrón reusable cuando un test añadido en Task N verifica código que llega en Task N+1. La función predicate desactiva el skip automáticamente al landed Task N+1 sin editar el archivo de tests. Auditable: el commit de Task N tiene exit 0 con skipped explicado; el commit de Task N+1 activa los tests sin cambiar tests |
 | 2026-05-23 | Plan 03-02 — Forced last pair: NO auto-completar (UI-SPEC normativo) | Coherencia mecánica: todas las parejas siguen el mismo flujo, incluso la última. Implementación verificada por inspección: `applyResultToSession` se invoca SOLO cuando `matchPairsConsumed.length === pairs.length` (el último click es manual) |
+| 2026-05-24 | Plan 04-01 — Schema v3 transparente con `lastBackupAt: null` + `firstUsedAt: null` añadidos via `migrate2to3` idempotente (D-77/D-78) | El motor de backup necesita dos timestamps separados: el del último export (banner trigger) y el del "primer state real" (fallback cuando nunca se exportó). `null` significa "aún no aplicable" en ambos; tipado defensivo permite re-runs sin destruir valores existentes |
+| 2026-05-24 | Plan 04-01 — `daysSinceISO` puro DST-safe via local-noon anchor (D-79) | Comparar días locales completos entre dos fechas resiste DST (transiciones 23h/25h) porque el anchor 12:00 local hace que la diferencia siempre quede dentro de ~22-26h, redondeable a entero exacto. Puede devolver negativo (fecha futura) — `shouldShowBackupBanner` lo trata como "no mostrar" (T-04-04 + Pitfall #5) |
+| 2026-05-24 | Plan 04-01 — Helper `setFirstUsedAtIfMissing` RECHAZADO; inline guard en 4 call-sites (B-5 checker fix) | Un helper requeriría que el caller invoque `this.setFirstUsedAtIfMissing()` ANTES de construir `newState`, cambiando el orden existente. Inline guard `?? new Date().toISOString()` con comentario `// Phase 4 D-78` en cada call-site mantiene auto-contención + rastreabilidad por grep + zero riesgo de regresión por olvido |
+| 2026-05-24 | Plan 04-01 — `requestConfirm` 5ª call-site sin tocar el helper; `onCancel` no soportado documentado inline | Pre-Phase-4 había 4 call-sites (D-27 + D-43 + 2 × D-44). El nuevo (D-76 onFileSelected) usa el mismo shape `{message, confirmLabel, cancelLabel, onConfirm}`. Limitación aceptada: `backupPendingImport` queda cargado pero inerte al cancelar; se sobreescribe en el próximo import. Extender el helper sería over-engineering para 1 nuevo caller |
+| 2026-05-24 | Plan 04-01 — Reactividad Alpine sobre spread immutable `this.state = { ...this.state, lastBackupAt: ... }` | Tras el export, el banner home desaparece sin recargar porque la referencia `this.state` cambió (Alpine NO observaría `this.state.lastBackupAt = ...` directo). Patrón consolidado desde Phase 2 D-54. Verificado en mini-UAT-2 |
+| 2026-05-24 | Plan 04-01 — Mini-UAT (Task 3 checkpoint:human-verify) ANTES de aterrizar contenido (B-3 protección MVP slice property) | Si hubiera un bug en banner, reactividad, orden DOM del 3er botón, o flujo confirm→commitImport, lo capturamos ANTES de transcribir 5 PDFs encima. UAT 5/5 PASS confirma que el size de Task 2 (W-1 ~292 líneas en app.js) no introdujo regresiones |
 
 ### Active Todos
 
@@ -81,7 +87,9 @@ Next: Plan 03-03 (Checkpoint UAT exhaustivo)
 - [x] Ejecutar Plan 01-02 — Pantalla de sesión Alpine + persistencia end-to-end — UAT 8/8 aprobado
 - [x] Ejecutar Plan 03-01 — word-buttons end-to-end + atajos teclado mínimos + helpers compartidos
 - [x] Ejecutar Plan 03-02 — match end-to-end (reemplaza stub validator, añade matchPickRight + flashMatchPair, rama match en handleSessionKey/initSubStateForExercise) — 105/105 tests verdes, 2 commits
-- [ ] Ejecutar Plan 03-03 — UAT checkpoint (4 criterios ROADMAP + 8 pitfalls + 2 exploit-proof + W2 regression smoke Phase 2)
+- [x] Ejecutar Plan 03-03 — UAT checkpoint (4 criterios ROADMAP + 8 pitfalls + 2 exploit-proof + W2 regression smoke Phase 2)
+- [x] Ejecutar Plan 04-01 — Backup runtime end-to-end (migrate2to3 + daysSinceISO + backup.js puro + pantalla Backup + banner home + 3er botón + firstUsedAt plumbing) — 128/128 tests verdes, 2 commits + mini-UAT humano 5/5 PASS
+- [ ] Ejecutar Plan 04-02 — Categories.json 6 entradas + Preposiciones (multi-choice) + Verbos de movimiento (multi-choice + word-buttons)
 
 ### Blockers
 
@@ -95,8 +103,9 @@ Next: Plan 03-03 (Checkpoint UAT exhaustivo)
 
 ### Last Session
 
-- **Fecha:** 2026-05-23 (Plan 03-02 completed)
-- **Trabajo actual (Plan 03-02):** ejecución end-to-end de 2 tasks en 2 commits (f9e400e, f4000b7) — match handler puro + validateMatchPayload impl real + registry final con 3 entradas + 2 call-sites EXACTOS de applyImmediateFailure (uno en applyResultToSession decisión final, otro en matchPickRight primer-fallo con guard matchHadFailure) + sub-template HTML match + 5 selectores CSS + 3 ejercicios match seed (incluyendo avere-202 con duplicados D-66) + W3 idempotencia tests (skipped en Task 1, activados automáticamente al landed Task 2 vía detección runtime de matchPickRight en source) + W5 smoke tests (presencia textual de handlers + ramas match en handleSessionKey + shuffle en initSubStateForExercise). 105/105 tests verdes (81 baseline + 24 nuevos). Comentarios placeholder '03-02' eliminados (grep `03-02` en src/screens/app.js retorna nada). Stub message `'aún no soportado'` completamente erradicado. EXTYPE-03 cierra; SESSION-06 contribuido por 03-01 + 03-02 pero closure formal en UAT 03-03.
+- **Fecha:** 2026-05-24 (Plan 04-01 completed + mini-UAT humano PASS)
+- **Trabajo actual (Plan 04-01):** ejecución end-to-end en 2 commits (180168d Task 1, 33b0945 Task 2) + Task 3 mini-UAT humano 5/5 PASS. Task 1: migración v2→v3 idempotente + módulo puro `src/data/backup.js` (parseBackupFile + buildBackupWrapper con mensajes literales del UI-SPEC en español) + `daysSinceISO` puro DST-safe en `src/domain/dates.js` + 21 tests nuevos backup.test.js + 2 tests extra en data-storage.test.js. Task 2: 5 handlers nuevos en app.js (exportBackup/onFileSelected/commitImport/buildImportConfirmMessage + 3 getters reactivos) + 4 inline guards firstUsedAt (D-78 NO helper) + W-2 fix backupLastMessage cleanup + banner home + 3er botón Backup en `.button-row-prominent` + template pantalla Backup en index.html + 5 reglas CSS Phase 4. Layer purity D-02 verificada por grep (0 matches localStorage/DOM en backup.js y dates.js). 128/128 tests verdes (105 baseline + 23 nuevos). Mini-UAT (Task 3): autor verificó en navegador con `npx serve` los 5 escenarios — UAT-1 render, UAT-2 export descarga JSON correcto, UAT-3 import error path (mensaje rojo del UI-SPEC), UAT-4 import OK round-trip (confirmación inline → Continuar → state reemplazado), UAT-5 banner reactividad con DevTools sim de `lastBackupAt = 8d atrás`, `lastBackupAt = null + firstUsedAt = 8d`, y `lastBackupAt = mañana` (fecha futura defensa T-04-04). Cero bugs detectados. BACK-04/BACK-05/BACK-06 cierran formalmente aquí.
+- **Trabajo previo (Plan 03-02):** ejecución end-to-end de 2 tasks en 2 commits (f9e400e, f4000b7) — match handler puro + validateMatchPayload impl real + registry final con 3 entradas + 2 call-sites EXACTOS de applyImmediateFailure (uno en applyResultToSession decisión final, otro en matchPickRight primer-fallo con guard matchHadFailure) + sub-template HTML match + 5 selectores CSS + 3 ejercicios match seed (incluyendo avere-202 con duplicados D-66) + W3 idempotencia tests (skipped en Task 1, activados automáticamente al landed Task 2 vía detección runtime de matchPickRight en source) + W5 smoke tests (presencia textual de handlers + ramas match en handleSessionKey + shuffle en initSubStateForExercise). 105/105 tests verdes (81 baseline + 24 nuevos). Comentarios placeholder '03-02' eliminados (grep `03-02` en src/screens/app.js retorna nada). Stub message `'aún no soportado'` completamente erradicado. EXTYPE-03 cierra; SESSION-06 contribuido por 03-01 + 03-02 pero closure formal en UAT 03-03.
 - **Trabajo previo (Plan 03-01):** ejecución end-to-end de 3 tasks en 6 commits (cb17a97, dd45a0a, 9b1beac, 14ec6d4, 3be17c0, f12838a) — word-buttons handler + dispatch-table validator + 23 tests, refactor fisherYates exportable, refactor sessionSelectOption→applyResultToSession single call-site D-54, sub-estados word-buttons + match placeholders + handlers + handleSessionKey + initSubStateForExercise, 2 ejercicios word-buttons en avere.json, sub-template HTML + CSS .wb-*. 81/81 tests verdes (58 baseline Phase 1+2 + 23 nuevos). Phase 2 regression smoke (5 pasos UAT humano) NO ejecutado en wave sequential — mitigado por equivalencia algebraica del refactor + single call-site verificado por grep + 58 tests baseline siguen verdes. Recomendación 03-03: ejecutar el smoke regression Phase 2 ANTES de los pasos word-buttons/match en el UAT.
 - **Trabajo previo (Phase 3 discuss):** `/gsd:discuss-phase 3` ejecutado. 4 áreas grises discutidas (UX word-buttons, UX match, ergonomía teclado, schema JSON + grading), 16 preguntas single-turn, 17 decisiones nuevas capturadas (D-56..D-72).
 - **Trabajo (Phase 3 UI-SPEC):** `/gsd:ui-phase 3` ejecutado. `gsd-ui-researcher` (opus) generó `03-UI-SPEC.md` (352 líneas, 28 KB) resolviendo 5 puntos de Claude's discretion: superíndice Unicode `¹²³ᵃᵇᶜ` con `.kbd-hint` (vs `<kbd>`), outline 2px Pico primary para item izq seleccionado en match, `@keyframes match-flash-red` 300ms única WCAG §2.3.1 safe, placeholder vía `::before` italic muted, forced-last-pair NO auto-completar. `gsd-ui-checker` (sonnet) aprobó 6/6 dimensiones (copywriting, visuals, color, typography, spacing, registry safety) sin issues bloqueantes. 3 notas de calidad no bloqueantes para el planner: documentar inline el selector `.wb-answer.incorrecta`, garantizar cleanup del `setTimeout` de match-flash, aceptar `aria-live="polite"` sobre `.wb-answer`. Commit `47f2995`. Resumen:
@@ -146,18 +155,19 @@ Next: Plan 03-03 (Checkpoint UAT exhaustivo)
 | 1 | 01-02 | ~22 min | 3 (2 auto + 1 checkpoint) | 4 |
 | 3 | 03-01 | ~38 min | 3 (Task 1 + Task 2a en 4 sub-commits + Task 2b) | 10 (3 created + 7 modified) |
 | 3 | 03-02 | ~10 min | 2 (Task 1 TDD + Task 2 sub-template/handlers/seed/W5) | 9 (2 created + 7 modified) |
+| 4 | 04-01 | ~16 min | 3 (Task 1 TDD data+domain + Task 2 UI vertical slice + Task 3 mini-UAT humano) | 10 (3 created + 7 modified) |
 
 ### Next Action
 
 ```
 
-# Plan 03-02 completado. Siguiente:
+# Plan 04-01 completado. Siguiente:
 
-/gsd:execute-phase 3   # continuar con 03-03 (UAT checkpoint)
+/gsd:execute-phase 4   # continuar con 04-02 (contenido — categories.json 6 entradas + Preposiciones + Verbos de movimiento)
 ```
 
-Plan 03-03 (UAT) verificará manualmente los 4 criterios ROADMAP + 11 pasos human-check + D-61 exploit-proof + D-66 duplicados visuales + W2 Phase 2 regression smoke. Los 3 tipos finales están operativos end-to-end (handler + render + grading + cascada D-54/D-61). 105 tests verdes como baseline de regresión.
+Plan 04-02 aterriza categorías nuevas (Preposiciones multi-choice + Verbos de movimiento multi-choice + word-buttons) sobre el backup runtime ya operativo en 04-01. Cada categoría es un commit tras revisión humana D-85. 128 tests verdes como baseline de regresión.
 
 ---
 *State initialized: 2026-05-23*
-*Last updated: 2026-05-23T21:32:30Z after Plan 03-01 completion (81/81 tests verdes, 6 commits, helpers compartidos listos para 03-02)*
+*Last updated: 2026-05-24T10:32:00Z after Plan 04-01 completion (128/128 tests verdes, 2 commits, mini-UAT humano 5/5 PASS, BACK-04/-05/-06 cerrados)*
