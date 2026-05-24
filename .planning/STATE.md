@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-05-24T22:22:28.134Z"
+last_updated: "2026-05-24T23:16:51.873Z"
 progress:
   total_phases: 8
-  completed_phases: 5
+  completed_phases: 6
   total_plans: 16
-  completed_plans: 14
-  percent: 63
+  completed_plans: 16
+  percent: 75
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -42,6 +42,7 @@ Next: `/gsd:discuss-phase 6` para clarificar semántica UX-01 (alcance reset, co
 | Granularidad | coarse |
 | Mode | MVP (vertical slices) |
 | Ejercicios totales en la app | 271 (23 avere + 39 essere — 33 base + 6 multi-cat essere-300..305 — + 50 preposiciones + 37 verbos-movimiento + 31 sustantivos-irregulares + 40 genero-numero + 51 profesiones) en 7 categorías |
+| Phase 06 P02 | ~45 min | 4 tasks | 7 files |
 
 ## Accumulated Context
 

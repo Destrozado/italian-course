@@ -12,7 +12,7 @@
 - [x] **Phase 3: Variedad de ejercicios + ergonomía de teclado** — word-buttons y match completan los tres tipos; atajos 1-4/Enter/Space hacen la práctica diaria fluida (completed 2026-05-24)
 - [x] **Phase 4: Backup robusto + contenido completo** — Export/import + recordatorio de backup + los 6 PDFs transcritos a JSON (incluyendo ejercicios multi-categoría para ejercitar la cascada en uso real) — 4/4 plans complete (pending verifier) (completed 2026-05-24)
 - [x] **Phase 5: Essere — categoría fundamental que faltaba** — Detectado durante UAT post-Phase 4: tenemos Avere como categoría dedicada pero NO Essere, pese a ser igualmente fundamental para A1 (identidad, profesión, nacionalidad, estado, copula). Essere está exercitado indirectamente vía verbos-movimiento (auxiliar passato prossimo) pero no como verbo independiente. Esta fase añade `content/exercises/essere.json` siguiendo el patrón D-85 (Claude propone desde conocimiento A1 genérico — no hay PDF — autor revisa pedagógicamente y commitea). (completed 2026-05-24)
-- [ ] **Phase 6: Polish UX post-sesión — reiniciar + review errores** — Detectado durante UAT Phase 4/5: dos puntos de fricción ergonómica que valen lo que cuesta resolver antes de cerrar el milestone v1.0. (a) Botón "Reiniciar ejercicios" en la pantalla de sesión que rearranca con las mismas categorías en 1 clic (vs los 4 actuales). (b) Sección "Errores cometidos" en la pantalla de resumen final que muestra, para cada ejercicio fallado, qué respondió el autor + qué era correcto + sobre qué frase. Ambos son polish UX sobre flujos existentes (sin lógica de dominio nueva — el motor de re-verificación no cambia). Absorbe Phase 999.1 + 999.2 del backlog. (completed 2026-05-24)
+- [x] **Phase 6: Polish UX post-sesión — reiniciar + review errores** — Detectado durante UAT Phase 4/5: dos puntos de fricción ergonómica que valen lo que cuesta resolver antes de cerrar el milestone v1.0. (a) Botón "Reiniciar ejercicios" en la pantalla de sesión que rearranca con las mismas categorías en 1 clic (vs los 4 actuales). (b) Sección "Errores cometidos" en la pantalla de resumen final que muestra, para cada ejercicio fallado, qué respondió el autor + qué era correcto + sobre qué frase. Ambos son polish UX sobre flujos existentes (sin lógica de dominio nueva — el motor de re-verificación no cambia). Absorbe Phase 999.1 + 999.2 del backlog. (completed 2026-05-24) (completed 2026-05-24)
 
 ## Phase Details
 
@@ -112,7 +112,7 @@
   5. UAT humano: el autor lanza un Repaso 20, falla algunos ejercicios deliberadamente (mezcla de tipos), llega al resumen, ve la sección "Errores cometidos" con captura correcta para los 3 tipos, y comprueba que el botón "Reiniciar ejercicios" rearranca con las mismas categorías en 1 clic.
 **Plans**: 2 plans
 - [x] 06-01-PLAN.md — Botón "Reiniciar ejercicios" en pantalla session (UX-01): handler restartRepaso() en factory appShell + .button-row con 2 botones bajo <hr> + smoke tests buildSession con state post-cascada + UAT humano 5/5 truths
-- [ ] 06-02-PLAN.md — Sección "Errores cometidos" en summary (UX-02): migración schemaVersion 3→4 + matchFirstWrongPair sub-estado + applyResultToSession firma extendida (ex, correct, userAnswer) + 3 call-sites actualizadas + <section class="summary-errors"> con dispatch por tipo + CSS Phase 6 + tests v4 migration + tests sessionResults shape + UAT humano 6/6 truths
+- [x] 06-02-PLAN.md — Sección "Errores cometidos" en summary (UX-02): migración schemaVersion 3→4 + matchFirstWrongPair sub-estado + applyResultToSession firma extendida (ex, correct, userAnswer) + 3 call-sites actualizadas + <section class="summary-errors"> con dispatch por tipo + CSS Phase 6 + tests v4 migration + tests sessionResults shape + UAT humano 6/6 truths
 
 ## Progress
 
@@ -123,7 +123,7 @@
 | 3. Variedad de ejercicios + ergonomía | 3/3 | Complete    | 2026-05-24 |
 | 4. Backup robusto + contenido completo | 4/4 | Complete    | 2026-05-24 |
 | 5. Essere — categoría fundamental que faltaba | 1/1 | Complete   | 2026-05-24 |
-| 6. Polish UX post-sesión (reiniciar + review errores) | 1/2 | In Progress|  |
+| 6. Polish UX post-sesión (reiniciar + review errores) | 2/2 | Complete   | 2026-05-24 |
 
 ## Coverage Summary
 
