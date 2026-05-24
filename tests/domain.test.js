@@ -433,3 +433,115 @@ describe('Phase 6 — restartRepaso smoke (UX-01)', () => {
     assert.equal(result.exerciseIds[0], 'a1');
   });
 });
+
+// ────────────────────────────────────────────────────────────────────────────
+// Phase 6 plan 02 (UX-02) — sessionResults shape extendido
+//
+// Estos tests validan el shape D-105 de cada item en `sessionResults` tras el
+// push extendido de `applyResultToSession(ex, correct, userAnswer)` (D-106).
+// El helper vive en el screen layer (acoplado a Alpine) y NO se importa aquí
+// — testeamos el CONTRATO del array (los plain objects que el screen pushea
+// son lo que el summary y el inFlightTest leen).
+//
+// Los 4 casos del shape uniforme (D-105):
+//   - userAnswer: string (multi-choice — texto literal de la opción clickada)
+//   - userAnswer: string[] (word-buttons — clon defensivo del array formado)
+//   - userAnswer: {left, right} (match — primer pareo erróneo)
+//   - userAnswer: null (match completado sin fallos, o backfill v4 pre-Phase 6)
+//
+// Y el filter que la sección "Errores cometidos" usa para renderizar:
+// `sessionResults.filter(r => !r.correct)` debe seleccionar sólo los items
+// con correct=false (independientemente del shape de userAnswer).
+// ────────────────────────────────────────────────────────────────────────────
+
+describe('Phase 6 — sessionResults shape extendido (UX-02)', () => {
+  test('sessionResults push acepta userAnswer string (multi-choice)', () => {
+    // Mock del push de applyResultToSession para multi-choice — el screen
+    // hace exactamente esto cuando el autor falla un multi-choice clickando
+    // la opción equivocada (texto literal).
+    const sessionResults = [];
+    sessionResults.push({ exerciseId: 'avere-001', correct: false, userAnswer: 'hai' });
+
+    assert.equal(sessionResults.length, 1);
+    assert.equal(sessionResults[0].exerciseId, 'avere-001');
+    assert.equal(sessionResults[0].correct, false);
+    assert.equal(typeof sessionResults[0].userAnswer, 'string');
+    assert.equal(sessionResults[0].userAnswer, 'hai');
+  });
+
+  test('sessionResults push acepta userAnswer array (word-buttons)', () => {
+    // Mock del push para word-buttons — el screen pasa [...this.wordButtonsAnswer]
+    // (clon defensivo). El summary renderiza con .join(' ').
+    const sessionResults = [];
+    sessionResults.push({
+      exerciseId: 'profesiones-100',
+      correct: false,
+      userAnswer: ['io', 'ha', 'un', 'libro']
+    });
+
+    assert.equal(sessionResults.length, 1);
+    assert.equal(sessionResults[0].correct, false);
+    assert.ok(Array.isArray(sessionResults[0].userAnswer),
+      'userAnswer en word-buttons debe ser un array');
+    assert.equal(sessionResults[0].userAnswer.join(' '), 'io ha un libro',
+      '.join(\' \') produce la frase original que el autor construyó');
+    assert.equal(sessionResults[0].userAnswer.length, 4);
+  });
+
+  test('sessionResults push acepta userAnswer object (match firstWrongPair)', () => {
+    // Mock del push para match con fallo — el screen pasa el matchFirstWrongPair
+    // capturado bajo guard `!matchHadFailure` (D-107).
+    const sessionResults = [];
+    sessionResults.push({
+      exerciseId: 'avere-200',
+      correct: false,
+      userAnswer: { left: 'casa', right: 'il' }
+    });
+
+    assert.equal(sessionResults.length, 1);
+    assert.equal(sessionResults[0].correct, false);
+    assert.equal(typeof sessionResults[0].userAnswer, 'object');
+    assert.ok(sessionResults[0].userAnswer !== null, 'userAnswer no es null en match con fallo');
+    assert.equal(sessionResults[0].userAnswer.left, 'casa');
+    assert.equal(sessionResults[0].userAnswer.right, 'il');
+  });
+
+  test('sessionResults push acepta userAnswer null (match completado sin fallos o backfill v4)', () => {
+    // Mock del push para 2 casos donde userAnswer es null:
+    //   1. Match correcto (matchFirstWrongPair sigue siendo null al completar).
+    //   2. Backfill de migrate3to4 — entries pre-Phase 6 sin userAnswer.
+    const sessionResults = [];
+    sessionResults.push({ exerciseId: 'avere-202', correct: true, userAnswer: null });
+    sessionResults.push({ exerciseId: 'old-failure', correct: false, userAnswer: null });
+
+    assert.equal(sessionResults.length, 2);
+    assert.equal(sessionResults[0].userAnswer, null,
+      'match correcto: userAnswer=null porque matchFirstWrongPair nunca se setteó');
+    assert.equal(sessionResults[1].userAnswer, null,
+      'pre-Phase 6 backfill: userAnswer=null para entries sin captura previa');
+    // El filter de la sección Errores aún debe respetar correct=false.
+    const failed = sessionResults.filter(r => !r.correct);
+    assert.equal(failed.length, 1);
+    assert.equal(failed[0].exerciseId, 'old-failure');
+  });
+
+  test('sessionResults.filter(!correct) filtra correctamente para renderizar la sección', () => {
+    // Mock de un mix realista post-sesión: 1 acierto multi-choice + 1 fallo
+    // word-buttons + 1 acierto match + 1 fallo match. El filter del template
+    // selecciona los 2 errores.
+    const sessionResults = [
+      { exerciseId: 'a1', correct: true,  userAnswer: 'ho' },
+      { exerciseId: 'a2', correct: false, userAnswer: ['io', 'ha', 'un'] },
+      { exerciseId: 'm1', correct: true,  userAnswer: null },
+      { exerciseId: 'm2', correct: false, userAnswer: { left: 'casa', right: 'il' } }
+    ];
+
+    const errors = sessionResults.filter(r => !r.correct);
+    assert.equal(errors.length, 2, 'filter !correct selecciona sólo los 2 errores');
+    assert.deepEqual(errors.map(e => e.exerciseId), ['a2', 'm2']);
+    // El shape de userAnswer se preserva tal cual en el filtrado.
+    assert.ok(Array.isArray(errors[0].userAnswer));
+    assert.equal(typeof errors[1].userAnswer, 'object');
+    assert.equal(errors[1].userAnswer.left, 'casa');
+  });
+});

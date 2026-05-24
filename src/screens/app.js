@@ -126,6 +126,25 @@ export function appShell(appDataReady) {
     /** True si el usuario falló al menos UNA pareja en este ejercicio (D-60). */
     matchHadFailure: false,
     /**
+     * Phase 6 plan 02 (UX-02) — D-107: captura del PRIMER pareo erróneo de un
+     * ejercicio match, bajo el guard `!this.matchHadFailure` en matchPickRight
+     * (simetría arquitectónica con la cascada D-61). Shape:
+     *   - `null` cuando el ejercicio aún no tuvo fallos (o se completó sin
+     *     ningún fallo — pareja correcta no afecta este prop).
+     *   - `{ left: string, right: string }` con los textos literales del par
+     *     erróneo (no índices — robusto frente a refactors de matchLeft/Right
+     *     y muestra exactamente lo que el autor clickó).
+     *
+     * Lectura: applyResultToSession en la rama de completado del match lo pasa
+     * como el 3er arg `userAnswer` (D-106). El summary post-sesión lo lee desde
+     * sessionResults para renderizar la fila "Errores cometidos" del match.
+     *
+     * Reset: idéntico patrón a matchHadFailure — en resetSession,
+     * initSubStateForExercise y restartRepaso (cierre del loop iniciado en
+     * plan 06-01: D-112).
+     */
+    matchFirstWrongPair: null,
+    /**
      * null | {left: number, right: number} — par de índices con animación
      * `.match-flash` activa durante 300ms tras un intento incorrecto (D-60).
      */
@@ -287,6 +306,9 @@ export function appShell(appDataReady) {
       this.matchSelectedLeftIdx = null;
       this.matchPairsConsumed = [];
       this.matchHadFailure = false;
+      // Phase 6 (D-107): el sub-estado de captura del primer pareo erróneo
+      // sigue el mismo lifecycle que matchHadFailure — se resetea por sesión.
+      this.matchFirstWrongPair = null;
     },
 
     // ════════════════════════════════════════════════════════════════════════
@@ -495,10 +517,11 @@ export function appShell(appDataReady) {
       this.matchSelectedLeftIdx = null;
       this.matchPairsConsumed = [];
       this.matchHadFailure = false;
-      // NOTA: plan 06-02 (D-107) introducirá un sub-estado adicional de match
-      // (captura del primer pareo erróneo para la sección "Errores cometidos");
-      // ese prop se reseteará aquí también cuando aterrice — plan 06-01 no lo
-      // conoce todavía.
+      // Phase 6 plan 02 (D-107 + D-112): cierre del loop iniciado en plan
+      // 06-01 — el prop matchFirstWrongPair se resetea aquí también para que
+      // el restart no arrastre la captura del pareo erróneo de una sesión
+      // previa que tuviera fallos match.
+      this.matchFirstWrongPair = null;
 
       // Inicializar sub-estado del PRIMER ejercicio del nuevo sample.
       // Si el pool quedó vacío (edge improbable post-cascada masiva),
@@ -885,15 +908,19 @@ export function appShell(appDataReady) {
 
       // Phase 3: la lógica común (feedback + push a sessionResults +
       // autoAdvance verde + cascada D-54 inmediata roja + persist inFlightTest
-      // para Test completo) se delega en `applyResultToSession(ex, correct)`.
-      // Esto centraliza el call-site de `applyImmediateFailure` para los 3
-      // tipos en su "decisión final" (multi-choice aquí, word-buttons en
-      // wordButtonsCheck, match en matchPickRight al completar todas las
-      // parejas). Pitfall #2 (decisión final duplicada) evitado
-      // arquitectónicamente. matchPickRight tiene ADEMÁS un segundo
+      // para Test completo) se delega en `applyResultToSession(ex, correct,
+      // userAnswer)`. Esto centraliza el call-site de `applyImmediateFailure`
+      // para los 3 tipos en su "decisión final" (multi-choice aquí,
+      // word-buttons en wordButtonsCheck, match en matchPickRight al
+      // completar todas las parejas). Pitfall #2 (decisión final duplicada)
+      // evitado arquitectónicamente. matchPickRight tiene ADEMÁS un segundo
       // call-site directo de applyImmediateFailure en el primer fallo,
       // protegido por `matchHadFailure` (D-61).
-      this.applyResultToSession(ex, correct);
+      //
+      // Phase 6 (D-105/D-106): pasamos el TEXTO LITERAL de la opción clickada
+      // como userAnswer (no el índice — robusto frente a futuros refactors de
+      // `options[]`). El summary post-sesión lo renderiza tal cual.
+      this.applyResultToSession(ex, correct, ex.payload.options[idx]);
     },
 
     /**
@@ -924,12 +951,27 @@ export function appShell(appDataReady) {
      * este helper se invocará al final con `correct: false` (idempotente
      * sobre la cascada ya aplicada).
      *
+     * Phase 6 plan 02 (UX-02 / D-105 / D-106): firma extendida con un 3er arg
+     * `userAnswer` que captura la respuesta literal del autor por tipo:
+     *   - multi-choice: string (texto literal de la opción clickada).
+     *   - word-buttons: string[] (clon defensivo del array formado).
+     *   - match: { left, right } del primer pareo erróneo, o `null` si correcto.
+     * El push extendido propaga `userAnswer` a `sessionResults`, que luego
+     * Test completo persiste vía spread en `persistInFlightTest` (D-110) y
+     * el summary lee para renderizar la sección "Errores cometidos" (D-108).
+     *
      * @param {object} ex - El ejercicio actual (sessionCurrentExercise).
      * @param {boolean} correct - Resultado del grading.
+     * @param {string|string[]|{left:string,right:string}|null} [userAnswer] -
+     *   Respuesta literal del autor según tipo (D-105). El campo se serializa
+     *   uniformemente para los 3 tipos; el dispatch por tipo lo decide cada
+     *   call-site. `undefined` (cuando se omite el arg) llega al push como
+     *   `undefined` — los call-sites Phase 6 SIEMPRE lo pasan; el default
+     *   `undefined` defiende contra invocaciones legacy.
      */
-    applyResultToSession(ex, correct) {
+    applyResultToSession(ex, correct, userAnswer) {
       this.sessionFeedback = correct ? 'correct' : 'incorrect';
-      this.sessionResults.push({ exerciseId: ex.id, correct });
+      this.sessionResults.push({ exerciseId: ex.id, correct, userAnswer });
 
       if (correct) {
         // SESSION-05 verde: auto-avance tras ~600ms. Guardar handle para
@@ -1060,7 +1102,13 @@ export function appShell(appDataReady) {
       const ex = this.sessionCurrentExercise;
       const handler = registry[ex.type];
       const correct = handler.grade(ex, { tokens: this.wordButtonsAnswer });
-      this.applyResultToSession(ex, correct);
+      // Phase 6 (D-105/D-106 + Pattern S-1 inmutabilidad reactivity):
+      // pasamos un CLON defensivo del array `wordButtonsAnswer` como userAnswer
+      // — Alpine podría mutarlo en el reset post-sesión si lo pasáramos por
+      // referencia. El spread garantiza que sessionResults guarda una snapshot
+      // estable de la frase formada por el autor para renderizar luego en
+      // summary "Errores cometidos".
+      this.applyResultToSession(ex, correct, [...this.wordButtonsAnswer]);
     },
 
     // ════════════════════════════════════════════════════════════════════════
@@ -1146,7 +1194,12 @@ export function appShell(appDataReady) {
           // idempotentemente (state ya reseteado por el primer fallo); el
           // bump de exerciseStats al final vía applySessionResult preserva
           // D-09 monotonicidad.
-          this.applyResultToSession(ex, !this.matchHadFailure);
+          //
+          // Phase 6 (D-105/D-106/D-107): el 3er arg `userAnswer` es
+          // `matchFirstWrongPair` — `null` si el ejercicio se completó sin
+          // ningún fallo (correct=true ahí), o `{left, right}` del primer
+          // pareo erróneo capturado bajo guard en el branch incorrecto.
+          this.applyResultToSession(ex, !this.matchHadFailure, this.matchFirstWrongPair);
         }
       } else {
         // Pareja incorrecta — D-61 cascada inmediata SOLO en el primer fallo.
@@ -1158,6 +1211,12 @@ export function appShell(appDataReady) {
           newState.firstUsedAt = newState.firstUsedAt ?? new Date().toISOString();
           saveState(newState);
           this.state = newState;
+          // Phase 6 (D-107): capturar el primer pareo erróneo ANTES de flip
+          // el guard `matchHadFailure`. Textos LITERALES (no índices) — robusto
+          // frente a refactors de matchLeft/Right y muestra exactamente lo
+          // que el autor clickó. Set UNA SOLA VEZ por ejercicio (mismo guard
+          // que la cascada D-61 — simetría arquitectónica).
+          this.matchFirstWrongPair = { left: leftWord, right: rightWord };
           this.matchHadFailure = true;
           if (this.sessionMode === 'test-completo') {
             // D-42: el inFlightTest no traquea sub-estado match, pero sí el
@@ -1262,6 +1321,10 @@ export function appShell(appDataReady) {
       this.matchSelectedLeftIdx = null;
       this.matchPairsConsumed = [];
       this.matchHadFailure = false;
+      // Phase 6 (D-107): el flag de captura del primer pareo erróneo es POR
+      // EJERCICIO (igual que matchHadFailure) — se resetea al cambiar de
+      // ejercicio dentro de la misma sesión.
+      this.matchFirstWrongPair = null;
       this.cancelMatchFlash();
 
       if (!exercise) return;
