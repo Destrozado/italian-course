@@ -2,15 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: milestone_complete
-last_updated: 2026-05-24T18:56:25.486Z
+status: completed
+last_updated: "2026-05-24T19:52:06.530Z"
 progress:
-  total_phases: 4
+  total_phases: 7
   completed_phases: 4
   total_plans: 13
   completed_plans: 13
-  percent: 100
-stopped_at: Milestone complete (Phase 4 was final phase)
+  percent: 57
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -225,7 +224,9 @@ Next: Verifier pass on Phase 4 (`phase.complete` tras VERIFICATION.md status:pas
 # Plan 04-04 completado. Phase 4 4/4 plans complete. Siguiente:
 
 # 1. Verifier pass de Phase 4 (genera VERIFICATION.md, phase.complete tras status:passed)
+
 # 2. /gsd:complete-milestone v1.0 (tras verifier pass de Phase 4)
+
 ```
 
 Phase 4 entrega valor end-to-end: backup robusto + 6 categorías con 232 ejercicios + cascada multi-cat real ejerciéndose en uso diario. UAT INTEGRAL 5/5 PASS confirma que los 5 criterios ROADMAP §Phase 4 están satisfechos. Milestone v1.0 listo para close tras verifier pass.
