@@ -4,16 +4,23 @@
 // NO tocamos `loadState`/`saveState` (esos llaman a `localStorage`, que no
 // existe en el runtime de `node --test`). Cubrimos:
 //
-//   - `blankState()` produce el shape v2 esperado.
+//   - `blankState()` produce el shape v4 esperado (Phase 6 bump nominal).
 //   - `migrate1to2(v1)` preserva `exerciseStats` íntegro y añade los campos
 //     nuevos (`categoryProgress`, `dailyLog`) vacíos.
 //   - `migrate1to2` es defensivo ante `exerciseStats` malformado.
 //   - `hydrateV2(parsed)` preserva los 4 sub-objetos de un estado v2 válido.
 //   - `hydrateV2` es defensivo ante sub-objetos malformados (null, no-object).
-//   - `blankState()` codifica `schemaVersion: 2`.
+//   - `migrate2to3` / `hydrateV3` (Phase 4) y `migrate3to4` / `hydrateV4`
+//     (Phase 6) preservan sub-objetos íntegros y aplican backfill defensivo
+//     en `inFlightTest.answers` (D-111 + WR-03).
+//   - `blankState()` codifica `schemaVersion: 4` (Phase 6 bump nominal — el
+//     shape root es idéntico a v3; sólo cambia el shape interno de
+//     `inFlightTest.answers[]` que añade `userAnswer`).
 //
-// Estos tests verifican la decisión D-46 (migración 1→2) y D-47
-// (inicialización lazy — `categoryProgress` arranca `{}`).
+// Estos tests verifican las decisiones D-46 (migración 1→2), D-47
+// (inicialización lazy — `categoryProgress` arranca `{}`), D-77/D-78
+// (Phase 4 lastBackupAt/firstUsedAt), y D-111 (Phase 6 v4 nominal bump
+// + backfill userAnswer).
 
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
