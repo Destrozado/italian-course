@@ -488,14 +488,16 @@ describe('Phase 6 — sessionResults shape extendido (UX-02)', () => {
     assert.equal(sessionResults[0].userAnswer.length, 4);
   });
 
-  test('sessionResults push acepta userAnswer object (match firstWrongPair)', () => {
+  test('sessionResults push acepta userAnswer object (match firstWrongPair) — WR-01: incluye leftIdx', () => {
     // Mock del push para match con fallo — el screen pasa el matchFirstWrongPair
-    // capturado bajo guard `!matchHadFailure` (D-107).
+    // capturado bajo guard `!matchHadFailure` (D-107). WR-01 fix: el shape ahora
+    // incluye `leftIdx` (índice canónico en `payload.pairs[]`) para resolver
+    // duplicados de `left` en el lookup "Respuesta correcta" del summary.
     const sessionResults = [];
     sessionResults.push({
       exerciseId: 'avere-200',
       correct: false,
-      userAnswer: { left: 'casa', right: 'il' }
+      userAnswer: { left: 'casa', right: 'il', leftIdx: 2 }
     });
 
     assert.equal(sessionResults.length, 1);
@@ -504,6 +506,63 @@ describe('Phase 6 — sessionResults shape extendido (UX-02)', () => {
     assert.ok(sessionResults[0].userAnswer !== null, 'userAnswer no es null en match con fallo');
     assert.equal(sessionResults[0].userAnswer.left, 'casa');
     assert.equal(sessionResults[0].userAnswer.right, 'il');
+    assert.equal(typeof sessionResults[0].userAnswer.leftIdx, 'number',
+      'WR-01: leftIdx debe ser número (canónico en payload.pairs[])');
+    assert.equal(sessionResults[0].userAnswer.leftIdx, 2);
+  });
+
+  test('WR-01: lookup por leftIdx resuelve correctamente duplicados de `left` en pairs', () => {
+    // Caso clave del fix WR-01: dos parejas con el mismo `left` ("banco" homónimo).
+    // El lookup viejo `pairs.find(p => p[0] === left)` devolvía SIEMPRE la
+    // primera, mostrando "banca (istituto)" como correcta aunque el grading
+    // hubiera consumido la segunda. El lookup por índice
+    // `pairs[leftIdx]` desambigua determinísticamente.
+    const pairs = [
+      ['banco', 'banca (istituto)'],   // idx 0
+      ['altro',  'otro'],              // idx 1
+      ['banco', 'panchina (parque)']   // idx 2 — homónimo de idx 0
+    ];
+
+    // Capturado al fallar el SEGUNDO "banco" (idx 2):
+    const wrongPair = { left: 'banco', right: 'banca (istituto)', leftIdx: 2 };
+
+    // El lookup por índice devuelve la respuesta correcta exacta.
+    assert.equal(pairs[wrongPair.leftIdx]?.[1], 'panchina (parque)',
+      'lookup por leftIdx=2 devuelve "panchina (parque)", NO "banca (istituto)" (primera find)');
+
+    // Verificación de regresión: el lookup viejo por texto SÍ erraba.
+    const oldLookup = pairs.find(p => p[0] === wrongPair.left)?.[1];
+    assert.equal(oldLookup, 'banca (istituto)',
+      'el lookup viejo por texto devolvía la PRIMERA pareja — bug que WR-01 corrige');
+  });
+
+  test('WR-01: leftIdx defensivo — fallback al placeholder cuando es undefined/-1 (compat backfill)', () => {
+    // Tres casos del fallback:
+    //   (a) `leftIdx` ausente (shape pre-WR-01 que pudiera haber persistido
+    //       en un test antiguo o en un inFlightTest cargado pre-fix).
+    //   (b) `leftIdx === -1` (el findIndex no encontró match — no debería
+    //       pasar en práctica, pero el código es defensivo).
+    //   (c) `leftIdx` fuera de rango.
+    const pairs = [
+      ['casa', 'la'],
+      ['libro', 'il']
+    ];
+
+    // (a) leftIdx ausente: pairs[undefined] === undefined; el optional chaining
+    // del template (`pairs[idx]?.[1]`) corta a undefined → fallback '(?)'.
+    const noIdx = { left: 'casa', right: 'il' };
+    assert.equal(pairs[noIdx.leftIdx], undefined,
+      'leftIdx ausente: pairs[undefined] es undefined (el template cae a "(?)")');
+
+    // (b) leftIdx === -1: pairs[-1] es undefined (no array negative-indexing).
+    const wrong = { left: 'casa', right: 'il', leftIdx: -1 };
+    assert.equal(pairs[wrong.leftIdx], undefined,
+      'leftIdx=-1: pairs[-1] es undefined (fallback "(?)")');
+
+    // (c) Fuera de rango: pairs[99] es undefined.
+    const oob = { left: 'casa', right: 'il', leftIdx: 99 };
+    assert.equal(pairs[oob.leftIdx], undefined,
+      'leftIdx fuera de rango: pairs[99] es undefined (fallback "(?)")');
   });
 
   test('sessionResults push acepta userAnswer null (match completado sin fallos o backfill v4)', () => {

@@ -547,7 +547,16 @@
                     <template x-if="content.exerciseById[result.exerciseId].type === 'match' && result.userAnswer">
                       <div>
                         <div>Tu respuesta: <span class="user-answer" x-text="result.userAnswer.left + ' ↔ ' + result.userAnswer.right"></span></div>
-                        <div>Respuesta correcta: <strong x-text="result.userAnswer.left + ' ↔ ' + (content.exerciseById[result.exerciseId].payload.pairs.find(p => p[0] === result.userAnswer.left)?.[1] || '(?)')"></strong></div>
+                        <!-- WR-01 fix: lookup por ÍNDICE canónico `leftIdx`
+                             (capturado en matchPickRight contra payload.pairs[]),
+                             NO por texto. Esto resuelve correctamente el caso
+                             de parejas duplicadas con el mismo `left` (D-66
+                             permite homónimos). Fallback `(?)` si por cualquier
+                             razón `leftIdx` no apunta a un par válido (incluye
+                             el caso pre-WR-01 donde el shape antiguo `{left,
+                             right}` no tenía leftIdx — `pairs[undefined]` es
+                             undefined y `?.[1]` lo cortocircuita). -->
+                        <div>Respuesta correcta: <strong x-text="result.userAnswer.left + ' ↔ ' + (content.exerciseById[result.exerciseId].payload.pairs[result.userAnswer.leftIdx]?.[1] || '(?)')"></strong></div>
                       </div>
                     </template>
                   </li>

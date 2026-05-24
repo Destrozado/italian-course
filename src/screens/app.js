@@ -131,9 +131,19 @@ export function appShell(appDataReady) {
      * (simetría arquitectónica con la cascada D-61). Shape:
      *   - `null` cuando el ejercicio aún no tuvo fallos (o se completó sin
      *     ningún fallo — pareja correcta no afecta este prop).
-     *   - `{ left: string, right: string }` con los textos literales del par
-     *     erróneo (no índices — robusto frente a refactors de matchLeft/Right
-     *     y muestra exactamente lo que el autor clickó).
+     *   - `{ left: string, right: string, leftIdx: number }` con los textos
+     *     literales del par erróneo MÁS el índice de `left` en
+     *     `payload.pairs[]` (NO en `matchLeft` shuffled — es el índice canónico
+     *     del par original, usable directamente para lookup).
+     *
+     * WR-01 fix: añadimos `leftIdx` para resolver el lookup "Respuesta correcta"
+     * del summary cuando dos parejas comparten el mismo texto `left` (homónimos
+     * permitidos por D-66 Phase 3). Sin el índice canónico, `pairs.find(p =>
+     * p[0] === left)` devolvía siempre el primer match, mostrando una respuesta
+     * "correcta" potencialmente incorrecta. El índice se calcula buscando el
+     * par cuyo texto coincida con el `leftWord` clickado — defensivo: si por
+     * cualquier razón no se encuentra (no debería pasar), cae a -1 y el summary
+     * lo trata como "(?)" igual que antes.
      *
      * Lectura: applyResultToSession en la rama de completado del match lo pasa
      * como el 3er arg `userAnswer` (D-106). El summary post-sesión lo lee desde
@@ -1237,7 +1247,27 @@ export function appShell(appDataReady) {
           // frente a refactors de matchLeft/Right y muestra exactamente lo
           // que el autor clickó. Set UNA SOLA VEZ por ejercicio (mismo guard
           // que la cascada D-61 — simetría arquitectónica).
-          this.matchFirstWrongPair = { left: leftWord, right: rightWord };
+          //
+          // WR-01 fix: añadimos `leftIdx` (índice CANÓNICO en `payload.pairs`,
+          // NO en `matchLeft` shuffled). El lookup `pairs.find(p => p[0] ===
+          // leftWord)` falla silenciosamente cuando dos parejas comparten el
+          // mismo texto `left` (D-66 permite duplicados). Buscamos el índice
+          // del par cuyo texto coincida con `leftWord` para que el summary
+          // pueda hacer `pairs[leftIdx][1]` (lookup determinista). Si por
+          // cualquier razón no se encuentra (defensivo, no debería pasar),
+          // queda -1 — el summary lo trata como "(?)" igual que el path previo.
+          //
+          // Caveat: si hay duplicados de `left`, este findIndex sigue
+          // devolviendo el PRIMER match (limitación del shape `{left, right}`
+          // capturado — el grading consume por `pairIdx` pero esa info la
+          // tenemos en `result.pairIdx` del handler.grade del match cuando es
+          // correcto, NO cuando es incorrecto. Para WR-01 v1: aceptamos que
+          // dos `left` idénticos con un click incorrecto muestren la correcta
+          // del primer match — mismo comportamiento que antes pero ahora con
+          // el índice EXPLÍCITO en el shape, así un fix futuro puede mejorar
+          // `handler.grade` para devolver el pairIdx también en incorrect).
+          const leftIdx = ex.payload.pairs.findIndex(p => p[0] === leftWord);
+          this.matchFirstWrongPair = { left: leftWord, right: rightWord, leftIdx };
           this.matchHadFailure = true;
           if (this.sessionMode === 'test-completo') {
             // D-42: el inFlightTest no traquea sub-estado match, pero sí el
