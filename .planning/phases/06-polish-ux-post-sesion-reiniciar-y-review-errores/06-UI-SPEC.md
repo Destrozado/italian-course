@@ -1,10 +1,11 @@
 ---
 phase: 6
 slug: polish-ux-post-sesion-reiniciar-y-review-errores
-status: draft
+status: approved
 shadcn_initialized: false
 preset: none
 created: 2026-05-24
+reviewed_at: 2026-05-24
 ---
 
 # Phase 6 — Contrato de Diseño UI: Polish UX post-sesión (Reiniciar + Errores cometidos)
