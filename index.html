@@ -481,6 +481,70 @@
             </template>
           </ul>
 
+          <!--
+            Phase 6 plan 02 (UX-02) — D-108/D-109/D-110.
+
+            Sección "Errores cometidos": lista plana cronológica de los
+            ejercicios fallados de esta sesión, cada fila multi-línea con
+            prompt + Tu respuesta (rojo) + Respuesta correcta (semibold sin
+            color verde — UI-SPEC §Color "<strong> sin clase verde").
+
+            Guard x-if `sessionResults.some(r => !r.correct)` (D-108): si la
+            sesión termina con 0 fallos, la sección no se renderiza en
+            absoluto (sin mensaje "sin errores", sin emoji — la ausencia es
+            la señal). Aplica a Repaso 20 + Test completo (D-110 hereda el
+            shape extendido vía spread en persistInFlightTest, sin cambios
+            al helper).
+
+            Dispatch por ex.type con tres sub-templates (multi-choice /
+            word-buttons / match), mismo patrón heredado de Phase 3 que el
+            sub-template de session (líneas 259/296/375).
+
+            T-02-01 invariante anti-XSS: TODO el contenido del JSON se
+            renderiza vía `x-text` exclusivamente. Las etiquetas "Tu
+            respuesta:" y "Respuesta correcta:" son strings HARDCODED en el
+            HTML; el separador `↔` viene del template, NO del JSON.
+
+            Match con userAnswer null (defensa adicional contra inFlightTest
+            pre-Phase 6 reanudado tras migrate3to4 backfill): el x-if del
+            sub-template match requiere `&& result.userAnswer` — si es null,
+            la fila renderiza sólo el prompt sin las dos líneas Tu/Correcta
+            (UI-SPEC §Copywriting "ausencia preferible al placeholder").
+          -->
+          <template x-if="sessionResults.some(r => !r.correct)">
+            <section class="summary-errors">
+              <h3>Errores cometidos</h3>
+              <ul>
+                <template x-for="result in sessionResults.filter(r => !r.correct)" :key="result.exerciseId">
+                  <li>
+                    <strong x-text="content.exerciseById[result.exerciseId].payload.prompt"></strong>
+
+                    <template x-if="content.exerciseById[result.exerciseId].type === 'multiple-choice'">
+                      <div>
+                        <div>Tu respuesta: <span class="user-answer" x-text="result.userAnswer"></span></div>
+                        <div>Respuesta correcta: <strong x-text="content.exerciseById[result.exerciseId].payload.options[content.exerciseById[result.exerciseId].payload.correctIndex]"></strong></div>
+                      </div>
+                    </template>
+
+                    <template x-if="content.exerciseById[result.exerciseId].type === 'word-buttons'">
+                      <div>
+                        <div>Tu respuesta: <span class="user-answer" x-text="(result.userAnswer || []).join(' ')"></span></div>
+                        <div>Respuesta correcta: <strong x-text="content.exerciseById[result.exerciseId].payload.answer.join(' ')"></strong></div>
+                      </div>
+                    </template>
+
+                    <template x-if="content.exerciseById[result.exerciseId].type === 'match' && result.userAnswer">
+                      <div>
+                        <div>Tu respuesta: <span class="user-answer" x-text="result.userAnswer.left + ' ↔ ' + result.userAnswer.right"></span></div>
+                        <div>Respuesta correcta: <strong x-text="result.userAnswer.left + ' ↔ ' + (content.exerciseById[result.exerciseId].payload.pairs.find(p => p[0] === result.userAnswer.left)?.[1] || '(?)')"></strong></div>
+                      </div>
+                    </template>
+                  </li>
+                </template>
+              </ul>
+            </section>
+          </template>
+
           <button type="button" @click="returnToHomeFromSummary">Volver al home</button>
         </article>
       </template>

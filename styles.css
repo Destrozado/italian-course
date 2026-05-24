@@ -355,3 +355,60 @@ button.incorrecta {
 .confirm-inline #confirm-message {
   white-space: pre-line;
 }
+
+/* ─── Phase 6 — Sección "Errores cometidos" en summary (D-108/D-109) ──────
+ *
+ * Sección post-sesión que lista cada ejercicio fallado con prompt + tu
+ * respuesta (rojo) + respuesta correcta (semibold sin color). Renderizada
+ * solo cuando sessionResults.some(r => !r.correct) (D-108 x-if guard).
+ *
+ * Spacing rhythm coherente con .summary-delta (líneas 147-152): lista sin
+ * viñetas, padding vertical 0.5rem por <li>, border-bottom muted salvo el
+ * último elemento. margin-top: 1.5rem separa la sección del <ul.summary-delta>
+ * de arriba sin requerir <hr>. Cero tokens nuevos.
+ *
+ * El header <h3> hereda Pico defaults (~1.25rem, weight 600) sin override.
+ */
+.summary-errors {
+  margin-top: 1.5rem;
+}
+.summary-errors h3 {
+  margin-bottom: 0.5rem;
+}
+.summary-errors ul {
+  list-style: none;
+  padding-left: 0;
+}
+.summary-errors li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--pico-muted-border-color, #e0e0e0);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.summary-errors li:last-child {
+  border-bottom: none;
+}
+
+/*
+ * .user-answer: span con la respuesta del usuario, rojo sólido + texto
+ * blanco. Reusa los tokens existentes de .incorrecta (button.incorrecta
+ * líneas 41-45) pero define una variante inline-friendly porque
+ * `button.incorrecta` aplica padding de button que NO encaja en un <span>
+ * inline dentro de prosa. Esta variante define padding cero vertical
+ * (la line-height 1.5 de Pico ya da respiración suficiente al span
+ * inline) y 0.25rem horizontal (4px — separación mínima entre el texto y
+ * el borde rojo del background).
+ *
+ * overflow-wrap: anywhere — defensa contra userAnswer largos: word-buttons
+ * join con 5+ palabras, o match pair con strings de 50+ chars. El span
+ * envuelve a la siguiente línea dentro de la celda del <li> en vez de
+ * desbordar horizontalmente.
+ */
+.summary-errors .user-answer {
+  background-color: var(--pico-color-red-500, #d32f2f);
+  color: white;
+  padding: 0 0.25rem;
+  border-radius: var(--pico-border-radius, 0.25rem);
+  overflow-wrap: anywhere;
+}
