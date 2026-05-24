@@ -1,10 +1,11 @@
 {
   "categories": [
     { "id": "avere",                   "name": "Avere (auxiliar)",        "order": 1 },
-    { "id": "preposiciones",           "name": "Preposiciones",           "order": 2 },
-    { "id": "verbos-movimiento",       "name": "Verbos de movimiento",    "order": 3 },
-    { "id": "sustantivos-irregulares", "name": "Sustantivos irregulares", "order": 4 },
-    { "id": "genero-numero",           "name": "Género y número",         "order": 5 },
-    { "id": "profesiones",             "name": "Profesiones",             "order": 6 }
+    { "id": "essere",                  "name": "Essere (cópula)",         "order": 2 },
+    { "id": "preposiciones",           "name": "Preposiciones",           "order": 3 },
+    { "id": "verbos-movimiento",       "name": "Verbos de movimiento",    "order": 4 },
+    { "id": "sustantivos-irregulares", "name": "Sustantivos irregulares", "order": 5 },
+    { "id": "genero-numero",           "name": "Género y número",         "order": 6 },
+    { "id": "profesiones",             "name": "Profesiones",             "order": 7 }
   ]
 }
