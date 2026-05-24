@@ -341,3 +341,95 @@ describe('multi-cat real cascade — SEED-02 (Phase 4) + SEED-03 (Phase 5) integ
     assert.deepEqual(result.errors, []);
   });
 });
+
+// ────────────────────────────────────────────────────────────────────────────
+// Phase 6 plan 01 (UX-01) — restartRepaso smoke
+//
+// Estos tests validan los invariantes dominio que sostienen el handler
+// `restartRepaso()` añadido en src/screens/app.js. El handler vive en el
+// screen layer (acoplado a Alpine/DOM) y NO se importa aquí — cubrimos los
+// helpers PUROS que llama (`buildSession`) con escenarios que reproducen las
+// condiciones del restart: state post-cascada D-54, determinismo del sampler
+// para re-llamadas con misma seed, edge cuando el pool queda reducido.
+//
+// Cobertura D-101: la preservación de los fallos D-54 ya persistidos se ejerce
+// indirectamente — restartRepaso() NO toca this.state ni saveState (ver Task 1
+// commit), por lo que la PRESERVACIÓN se garantiza por inspección del helper
+// (no por tests dominio). Lo que estos tests garantizan es que buildSession
+// OPERA CORRECTAMENTE sobre un state que ya tiene una cascada aplicada (el
+// sampler no crashea, sigue pickeando ejercicios del pool, devuelve un
+// resultado válido).
+// ────────────────────────────────────────────────────────────────────────────
+
+describe('Phase 6 — restartRepaso smoke (UX-01)', () => {
+  test('buildSession con state post-cascada D-54 preserva categoryIds y produce sample válido (restart escenario UX-01)', () => {
+    // Fixture: 4 ejercicios en 2 categorías ('avere', 'prep'), 2 por categoría.
+    const exercises = [
+      { id: 'a1', type: 'multiple-choice', categoryIds: ['avere'], payload: {} },
+      { id: 'a2', type: 'multiple-choice', categoryIds: ['avere'], payload: {} },
+      { id: 'p1', type: 'multiple-choice', categoryIds: ['prep'], payload: {} },
+      { id: 'p2', type: 'multiple-choice', categoryIds: ['prep'], payload: {} }
+    ];
+
+    // State simulado post-cascada D-54: el ejercicio p1 ya fue fallado (los
+    // contadores monotónicos reflejan timesFailed > 0) y la categoría 'prep'
+    // quedó reseteada a 'no-hecha' con racha 0 y clearedExerciseIds vacío.
+    const stateAfterCascade = {
+      exerciseStats: { p1: { timesShown: 1, timesCorrect: 0, timesFailed: 1 } },
+      categoryProgress: {
+        prep: { status: 'no-hecha', streakDays: 0, clearedExerciseIds: [] }
+      }
+    };
+
+    // Restart: re-llamar buildSession con MISMAS categoryIds del picker.
+    const result = buildSession(['avere', 'prep'], exercises, stateAfterCascade, 20, 'repaso', seededLcg(42));
+
+    assert.ok(result.exerciseIds.length > 0, 'el sampler devuelve ≥1 ejercicio tras restart');
+    assert.equal(
+      new Set(result.exerciseIds).size, result.exerciseIds.length,
+      'sin duplicados en el sample post-restart'
+    );
+    // Las 2 categorías presentes — buildSession con MISMAS categoryIds cubre
+    // ambas tras el restart (GUARANTEE phase D-49).
+    const sampledCats = new Set(
+      result.exerciseIds.map(id => exercises.find(e => e.id === id).categoryIds[0])
+    );
+    assert.ok(sampledCats.has('avere'), 'avere presente tras restart');
+    assert.ok(sampledCats.has('prep'), 'prep presente tras restart');
+  });
+
+  test('buildSession llamado dos veces con misma seed produce el mismo sample (smoke determinismo del re-sampling post-restart)', () => {
+    const exercises = [
+      { id: 'a1', type: 'multiple-choice', categoryIds: ['avere'], payload: {} },
+      { id: 'a2', type: 'multiple-choice', categoryIds: ['avere'], payload: {} },
+      { id: 'a3', type: 'multiple-choice', categoryIds: ['avere'], payload: {} },
+      { id: 'a4', type: 'multiple-choice', categoryIds: ['avere'], payload: {} }
+    ];
+    const state = { exerciseStats: {} };
+
+    const result1 = buildSession(['avere'], exercises, state, 20, 'repaso', seededLcg(1234));
+    const result2 = buildSession(['avere'], exercises, state, 20, 'repaso', seededLcg(1234));
+
+    assert.deepEqual(
+      result1.exerciseIds, result2.exerciseIds,
+      'mismo orden con misma seed (sampler determinista)'
+    );
+    assert.equal(
+      result1.actualSize, result2.actualSize,
+      'mismo actualSize con misma seed'
+    );
+  });
+
+  test('buildSession con pool reducido a 1 ejercicio devuelve actualSize 1 (edge restart cuando categoría tiene 1 sólo ejercicio)', () => {
+    const exercises = [
+      { id: 'a1', type: 'multiple-choice', categoryIds: ['avere'], payload: {} }
+    ];
+    const state = { exerciseStats: {} };
+
+    const result = buildSession(['avere'], exercises, state, 20, 'repaso', seededLcg(99));
+
+    assert.equal(result.exerciseIds.length, 1, 'pool de 1 → sample de 1');
+    assert.equal(result.actualSize, 1, 'actualSize refleja el pool reducido (D-13)');
+    assert.equal(result.exerciseIds[0], 'a1');
+  });
+});
