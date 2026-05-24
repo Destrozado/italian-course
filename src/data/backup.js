@@ -10,24 +10,26 @@
 //     de almacenamiento del navegador).
 //   - D-73: wrapper de export con kind/exportedAt/schemaVersion/state.
 //   - D-74: validación estricta + migración automática vía la cadena
-//     existente (migrate1to2 → migrate2to3 → hydrateV3).
+//     existente (migrate1to2 → migrate2to3 → migrate3to4 → hydrateV4).
 //   - FOUND-04: mensajes de error en español (literales de
 //     `04-UI-SPEC.md` "Message area copy").
 //
 // Patrón discriminado del retorno (espejo de `validateContent` en
 // `schema-validator.js` que retorna `{ok, errors}`):
-//   - `{ok: true, state, summary}` cuando todo va bien (state ya migrado a v3).
+//   - `{ok: true, state, summary}` cuando todo va bien (state ya migrado a v4).
 //   - `{ok: false, reason}` con un mensaje único en español si algo falla.
 //
 // El backup tiene UNA sola razón de fallo a la vez (no acumula como
 // schema-validator) — la primera guard que dispara aborta el parse y
 // devuelve el reason específico.
 
-import { migrate1to2, migrate2to3, hydrateV3 } from './storage.js';
+import { migrate1to2, migrate2to3, migrate3to4, hydrateV4 } from './storage.js';
 
 /** Espejo de la constante en storage.js — mantener inline para que el
- *  módulo sea testeable independiente sin importar storage.CURRENT_SCHEMA_VERSION. */
-const CURRENT_SCHEMA_VERSION = 3;
+ *  módulo sea testeable independiente sin importar storage.CURRENT_SCHEMA_VERSION.
+ *  Phase 6 (D-111): bump nominal 3 → 4 — el shape root no cambia, sólo el
+ *  shape interno de inFlightTest.answers (backfill `userAnswer`). */
+const CURRENT_SCHEMA_VERSION = 4;
 
 /**
  * Parse + valida + migra un string JSON proveniente de un archivo backup.
@@ -40,9 +42,9 @@ const CURRENT_SCHEMA_VERSION = 3;
  *      (Pitfall #6 RESEARCH — defensa contra wrapper editado a mano).
  *   4. Compatibilidad: `state.schemaVersion <= CURRENT_SCHEMA_VERSION`.
  *      Rechaza versiones futuras (D-74).
- *   5. Cadena de migración: migrate1to2 → migrate2to3 → hydrateV3. Sale
- *      siempre como v3 normalizada (hydrateV3 neutraliza prototype
- *      pollution per T-04-02).
+ *   5. Cadena de migración: migrate1to2 → migrate2to3 → migrate3to4 →
+ *      hydrateV4. Sale siempre como v4 normalizada (hydrateV4 neutraliza
+ *      prototype pollution per T-04-02).
  *   6. Summary derivado del state migrado: número de categorías con
  *      progreso, número de ejercicios con stats, fecha de export para
  *      el confirm inline (D-76).
@@ -108,7 +110,8 @@ export function parseBackupFile(rawStr) {
   let migrated = state;
   if (migrated.schemaVersion === 1) migrated = migrate1to2(migrated);
   if (migrated.schemaVersion === 2) migrated = migrate2to3(migrated);
-  migrated = hydrateV3(migrated);
+  if (migrated.schemaVersion === 3) migrated = migrate3to4(migrated);
+  migrated = hydrateV4(migrated);
 
   // 6. Summary para el confirm inline (D-76).
   const summary = {

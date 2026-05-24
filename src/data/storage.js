@@ -32,17 +32,25 @@
 //     desconocido (futuro) → warn + blankState.
 
 const KEY = 'italianCourse.v1';
-const CURRENT_SCHEMA_VERSION = 3;
+const CURRENT_SCHEMA_VERSION = 4;
 
 /**
  * Devuelve un estado "en blanco" (sin progreso) — el estado inicial canónico
- * con shape v3 (D-46/D-47 + D-77/D-78 Phase 4).
+ * con shape v4 (D-46/D-47 + D-77/D-78 Phase 4 + D-111 Phase 6).
+ *
+ * Phase 6 (D-111): el bump 3 → 4 es nominal a nivel del state principal — no
+ * añade campos nuevos al root. La diferencia v3 vs v4 sólo es relevante para
+ * el sub-objeto `inFlightTest.answers[]`, donde post-Phase 6 cada answer
+ * lleva `userAnswer` (string | string[] | {left,right} | null) para soportar
+ * la sección "Errores cometidos" en el summary (UX-02). `blankState()` ya
+ * omite `inFlightTest` (undefined), así que el shape root es idéntico a v3 —
+ * solo cambia el número de versión.
  *
  * Nota: `inFlightTest` se omite (undefined) deliberadamente; `JSON.stringify`
  * lo elide al persistir y el resto del código trata `state.inFlightTest`
  * como opcional.
  *
- * @returns {{schemaVersion: 3, exerciseStats: object, categoryProgress: object, dailyLog: object, lastBackupAt: null, firstUsedAt: null}}
+ * @returns {{schemaVersion: 4, exerciseStats: object, categoryProgress: object, dailyLog: object, lastBackupAt: null, firstUsedAt: null}}
  */
 export function blankState() {
   return {
@@ -62,10 +70,10 @@ export function blankState() {
  * backup defensivo bajo `italianCourse.v1.corrupt.<timestamp>` y arranca
  * limpio.
  *
- * El estado devuelto SIEMPRE está en el shape v3 (las migraciones 1→2→3
+ * El estado devuelto SIEMPRE está en el shape v4 (las migraciones 1→2→3→4
  * corren transparente vía el dispatcher).
  *
- * @returns {{schemaVersion: 3, exerciseStats: object, categoryProgress: object, dailyLog: object, lastBackupAt: ?string, firstUsedAt: ?string, inFlightTest?: object}}
+ * @returns {{schemaVersion: 4, exerciseStats: object, categoryProgress: object, dailyLog: object, lastBackupAt: ?string, firstUsedAt: ?string, inFlightTest?: object}}
  */
 export function loadState() {
   let raw;
@@ -114,21 +122,23 @@ export function saveState(state) {
  * Enruta el `parsed` por su `schemaVersion` a la migración o hidratación
  * apropiada. Patrón "schemaVersion-based migrate(parsed) en cadena".
  *
- * Phase 4: cadena 1 → 2 → 3 → hydrateV3 (migrate1to2, migrate2to3,
- * hydrateV3 encadenados con fall-through sobre `s.schemaVersion`).
- * `hydrateV2` se conserva como export por backward-compat de tests
- * existentes; el dispatcher actual NO la llama (encadena migrate1to2 →
- * migrate2to3 → hydrateV3 directo).
+ * Phase 6 (D-111): cadena 1 → 2 → 3 → 4 → hydrateV4 (migrate1to2,
+ * migrate2to3, migrate3to4, hydrateV4 encadenados con fall-through sobre
+ * `s.schemaVersion`). `hydrateV2` y `hydrateV3` se conservan como export
+ * por backward-compat de tests existentes; el dispatcher actual NO los
+ * llama (encadena migrate1to2 → migrate2to3 → migrate3to4 → hydrateV4
+ * directo).
  *
  * @param {*} parsed - Resultado de JSON.parse del raw blob persistido.
- * @returns {object} Estado normalizado en el shape v3.
+ * @returns {object} Estado normalizado en el shape v4.
  */
 function migrate(parsed) {
   if (!parsed || typeof parsed !== 'object') return blankState();
   let s = parsed;
   if (s.schemaVersion === 1) s = migrate1to2(s);
   if (s.schemaVersion === 2) s = migrate2to3(s);
-  if (s.schemaVersion === 3) return hydrateV3(s);
+  if (s.schemaVersion === 3) s = migrate3to4(s);
+  if (s.schemaVersion === 4) return hydrateV4(s);
 
   // Versión desconocida (probablemente futura) → no perdemos datos del autor:
   // logueamos warning y arrancamos limpio.
@@ -243,6 +253,104 @@ export function migrate2to3(v2) {
 export function hydrateV3(parsed) {
   return {
     schemaVersion: 3,
+    exerciseStats: (typeof parsed.exerciseStats === 'object' && parsed.exerciseStats !== null)
+      ? parsed.exerciseStats
+      : {},
+    categoryProgress: (typeof parsed.categoryProgress === 'object' && parsed.categoryProgress !== null)
+      ? parsed.categoryProgress
+      : {},
+    dailyLog: (typeof parsed.dailyLog === 'object' && parsed.dailyLog !== null)
+      ? parsed.dailyLog
+      : {},
+    lastBackupAt: typeof parsed.lastBackupAt === 'string' ? parsed.lastBackupAt : null,
+    firstUsedAt: typeof parsed.firstUsedAt === 'string' ? parsed.firstUsedAt : null,
+    inFlightTest: parsed.inFlightTest
+  };
+}
+
+/**
+ * Migra un estado v3 a v4 (D-110/D-111, Phase 6). El bump es NOMINAL a nivel
+ * del state principal — el shape root es idéntico a v3. La única diferencia
+ * es el shape de las entradas de `inFlightTest.answers[]`, que post-Phase 6
+ * llevan un campo `userAnswer` (string | string[] | {left,right} | null) para
+ * que el summary post-sesión pueda renderizar la sección "Errores cometidos"
+ * (UX-02). Sin este backfill, un Test completo pre-Phase 6 reanudado tras la
+ * migración tendría `answers[i].userAnswer === undefined`, que el template
+ * trataría como ausencia silenciosa (preferible al placeholder, pero
+ * `null` es el sentinel canónico — más explícito).
+ *
+ * Idempotencia:
+ *   - Si el campo `userAnswer` YA existe en una answer (porque el usuario
+ *     editó el localStorage a mano o porque la migración corre dos veces
+ *     sobre el mismo blob), su valor se preserva tal cual. Sólo entries que
+ *     NO tienen la clave `userAnswer` reciben el backfill a `null`.
+ *
+ * Pureza (T-06-02-03):
+ *   - NO muta el input. Devuelve un nuevo objeto raíz con literal
+ *     `{ schemaVersion: 4, ... }` (defensa estructural contra prototype
+ *     pollution, igual que `migrate2to3` y `hydrateV3`). El `inFlightTest`
+ *     también se reconstruye con spread + map de answers (cada answer es
+ *     un objeto nuevo).
+ *
+ * Preserva todos los sub-objetos v3 con guards defensivos idénticos a
+ * `migrate2to3` (typeof X === 'object' && X !== null para dicts; typeof X
+ * === 'string' para timestamps ISO).
+ *
+ * Exportada para testabilidad — el dispatcher la usa como eslabón v3 → v4.
+ *
+ * @param {object} v3 - Estado parseado con `schemaVersion: 3`.
+ * @returns {object} Estado normalizado v4.
+ */
+export function migrate3to4(v3) {
+  // Reconstruir inFlightTest con backfill defensivo de userAnswer en answers.
+  let newInFlightTest = v3.inFlightTest;
+  if (typeof v3.inFlightTest === 'object' && v3.inFlightTest !== null && Array.isArray(v3.inFlightTest.answers)) {
+    const backfilled = v3.inFlightTest.answers.map(a => {
+      if (a && typeof a === 'object' && !('userAnswer' in a)) {
+        return { ...a, userAnswer: null };
+      }
+      return a;
+    });
+    newInFlightTest = { ...v3.inFlightTest, answers: backfilled };
+  }
+
+  return {
+    schemaVersion: 4,
+    exerciseStats: (typeof v3.exerciseStats === 'object' && v3.exerciseStats !== null)
+      ? v3.exerciseStats
+      : {},
+    categoryProgress: (typeof v3.categoryProgress === 'object' && v3.categoryProgress !== null)
+      ? v3.categoryProgress
+      : {},
+    dailyLog: (typeof v3.dailyLog === 'object' && v3.dailyLog !== null)
+      ? v3.dailyLog
+      : {},
+    lastBackupAt: typeof v3.lastBackupAt === 'string' ? v3.lastBackupAt : null,
+    firstUsedAt: typeof v3.firstUsedAt === 'string' ? v3.firstUsedAt : null,
+    inFlightTest: newInFlightTest
+  };
+}
+
+/**
+ * Hidrata un estado v4 ya en disco con type-guards defensivos en cada
+ * sub-objeto. Útil cuando el usuario edita manualmente localStorage o cuando
+ * el backup importado viene de una shape v4 con campos malformados.
+ *
+ * Phase 6 (D-111): el shape v4 root es idéntico a v3 (el bump 3→4 es nominal
+ * a nivel del state principal). hydrateV4 reconstruye literal con
+ * `{ schemaVersion: 4, ... }` (defensa estructural contra prototype
+ * pollution, T-04-02). NO ejecuta el backfill de userAnswer en
+ * inFlightTest.answers — eso ya lo hizo `migrate3to4` durante la cadena, o
+ * el state v4 que llega aquí ya viene v4-shaped por construcción.
+ *
+ * Exportada para testabilidad — invocada al final de la cadena de migración.
+ *
+ * @param {object} parsed - Estado parseado con `schemaVersion: 4`.
+ * @returns {object} Estado v4 con campos garantizados.
+ */
+export function hydrateV4(parsed) {
+  return {
+    schemaVersion: 4,
     exerciseStats: (typeof parsed.exerciseStats === 'object' && parsed.exerciseStats !== null)
       ? parsed.exerciseStats
       : {},
