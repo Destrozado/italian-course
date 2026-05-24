@@ -9,7 +9,7 @@
 
 - [x] **Phase 1: Loop mínimo end-to-end** — La app arranca, carga JSON validado y permite hacer una sesión real de multiple-choice sobre Avere con persistencia básica (completed 2026-05-23)
 - [x] **Phase 2: Mecánica completa de re-verificación** — Estados, cascada de fallo, racha, dashboard y resumen — el motor que "te obliga a no olvidar" está operativo (completed 2026-05-23)
-- [ ] **Phase 3: Variedad de ejercicios + ergonomía de teclado** — word-buttons y match completan los tres tipos; atajos 1-4/Enter/Space hacen la práctica diaria fluida
+- [x] **Phase 3: Variedad de ejercicios + ergonomía de teclado** — word-buttons y match completan los tres tipos; atajos 1-4/Enter/Space hacen la práctica diaria fluida (completed 2026-05-24)
 - [ ] **Phase 4: Backup robusto + contenido completo** — Export/import + recordatorio de backup + los 6 PDFs transcritos a JSON (incluyendo ejercicios multi-categoría para ejercitar la cascada en uso real)
 
 ## Phase Details
@@ -61,7 +61,7 @@
 **Plans**: 3 plans
 - [x] 03-01-PLAN.md — Slice vertical word-buttons: schema validator a dispatch table + grade() puro + sub-template Alpine + sub-estados appShell + helpers compartidos (applyResultToSession, initSubStateForExercise, handleSessionKey) + ergonomía teclado 1-4 multi-choice + 1-9 word-buttons + Enter/Space/Backspace + seed avere.json (2 word-buttons) + tests — **completado 2026-05-23** (81/81 tests verdes, 6 commits, helpers compartidos instalados), ver [03-01-SUMMARY.md](./phases/03-variedad-de-ejercicios-ergonom-a-de-teclado/03-01-SUMMARY.md)
 - [x] 03-02-PLAN.md — Slice vertical match: schema validator (reemplaza stub) + grade() con consumo de índices D-66 + sub-template Alpine 2 columnas + sub-estados match + handlers matchSelectLeft/matchPickRight + flashMatchPair + cascada D-61 inmediata idempotente + ergonomía teclado 1-9 izq + a-i der + seed avere.json (3 match incluyendo duplicados D-66) + tests — **completado 2026-05-23** (105/105 tests verdes, 2 commits, EXTYPE-03 cierra), ver [03-02-SUMMARY.md](./phases/03-variedad-de-ejercicios-ergonom-a-de-teclado/03-02-SUMMARY.md)
-- [ ] 03-03-PLAN.md — Checkpoint UAT exhaustivo: 4 criterios ROADMAP + 8 pitfalls verificados + 2 exploit-proof checks (D-54 + D-61) + D-66 duplicados visuales + veredicto PASS/NEEDS-PATCH/FAIL
+- [x] 03-03-PLAN.md — Checkpoint UAT exhaustivo: 4 criterios ROADMAP + 8 pitfalls verificados + 2 exploit-proof checks (D-54 + D-61) + D-66 duplicados visuales + veredicto PASS/NEEDS-PATCH/FAIL
 **UI hint**: yes
 
 ### Phase 4: Backup robusto + contenido completo
@@ -84,7 +84,7 @@
 |-------|----------------|--------|-----------|
 | 1. Loop mínimo end-to-end | 2/2 | Complete    | 2026-05-23 |
 | 2. Mecánica completa de re-verificación | 4/4 | Complete   | 2026-05-23 |
-| 3. Variedad de ejercicios + ergonomía | 2/3 | In Progress|  |
+| 3. Variedad de ejercicios + ergonomía | 3/3 | Complete   | 2026-05-24 |
 | 4. Backup robusto + contenido completo | 0/? | Not started | - |
 
 ## Coverage Summary
