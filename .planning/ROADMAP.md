@@ -12,6 +12,7 @@
 - [x] **Phase 3: Variedad de ejercicios + ergonomía de teclado** — word-buttons y match completan los tres tipos; atajos 1-4/Enter/Space hacen la práctica diaria fluida (completed 2026-05-24)
 - [x] **Phase 4: Backup robusto + contenido completo** — Export/import + recordatorio de backup + los 6 PDFs transcritos a JSON (incluyendo ejercicios multi-categoría para ejercitar la cascada en uso real) — 4/4 plans complete (pending verifier) (completed 2026-05-24)
 - [x] **Phase 5: Essere — categoría fundamental que faltaba** — Detectado durante UAT post-Phase 4: tenemos Avere como categoría dedicada pero NO Essere, pese a ser igualmente fundamental para A1 (identidad, profesión, nacionalidad, estado, copula). Essere está exercitado indirectamente vía verbos-movimiento (auxiliar passato prossimo) pero no como verbo independiente. Esta fase añade `content/exercises/essere.json` siguiendo el patrón D-85 (Claude propone desde conocimiento A1 genérico — no hay PDF — autor revisa pedagógicamente y commitea). (completed 2026-05-24)
+- [ ] **Phase 6: Polish UX post-sesión — reiniciar + review errores** — Detectado durante UAT Phase 4/5: dos puntos de fricción ergonómica que valen lo que cuesta resolver antes de cerrar el milestone v1.0. (a) Botón "Reiniciar ejercicios" en la pantalla de sesión que rearranca con las mismas categorías en 1 clic (vs los 4 actuales). (b) Sección "Errores cometidos" en la pantalla de resumen final que muestra, para cada ejercicio fallado, qué respondió el autor + qué era correcto + sobre qué frase. Ambos son polish UX sobre flujos existentes (sin lógica de dominio nueva — el motor de re-verificación no cambia). Absorbe Phase 999.1 + 999.2 del backlog. (completed 2026-05-24)
 
 ## Phase Details
 
@@ -98,6 +99,19 @@
 **Plans**: 1 plan
 - [x] 05-01-PLAN.md — categories.json shift (essere order:2) + essere.json ~39 ejercicios (33 base D-92 + 6 multi-cat D-94) commits secuenciales por bloque revisado pedagógicamente + extensión smoke multi-cat tests/domain.test.js + UAT INTEGRAL 6/6 Phase 5
 
+### Phase 6: Polish UX post-sesión — reiniciar + review errores
+**Goal**: El autor puede (a) reiniciar los ejercicios de la sesión actual en 1 clic desde la pantalla de sesión (con las mismas categorías seleccionadas) sin tener que volver al home + descartar + reseleccionar + empezar, y (b) ver una pantalla de resumen al final de cada sesión con una sección "Errores cometidos" que liste, para cada ejercicio fallado, qué respondió + qué era correcto + sobre qué frase, para repasar los errores de manera agregada (no solo según van fallando).
+**Mode:** mvp
+**Depends on**: Phase 5
+**Requirements**: UX-01, UX-02 (definidos en plan-phase — botón reiniciar + review de errores en resumen final)
+**Success Criteria** (qué tiene que ser CIERTO):
+  1. La pantalla de sesión muestra un botón "Reiniciar ejercicios" (junto al "← Volver al home") que, al pulsar, rearranca la sesión actual con las MISMAS categorías seleccionadas — saltándose home/picker/empezar. El comportamiento de cascada D-54 ya persistida se mantiene (los fallos inmediatos no se deshacen al reiniciar — invariante "el sistema te obliga a no olvidar").
+  2. Decidir en discuss-phase: ¿reiniciar es solo Repaso 20 (Test completo abandonado vuelve al home como hoy)? ¿confirma con requestConfirm() inline (4ª-5ª call-site del helper) o reset directo? ¿descarta aciertos no-comprometidos de la sesión actual o los suma al Repaso siguiente?
+  3. La pantalla de resumen (existente, post-SESSION-07) incluye una sección "Errores cometidos" cuando hay ≥1 fallo en la sesión, con una fila por error: prompt original (frase con el hueco), `tu respuesta` (lo que clickó/escribió el autor), y `respuesta correcta`. Para los 3 tipos (multi-choice / word-buttons / match), la captura es distinta y deberá decidirse en discuss-phase.
+  4. La forma del `sessionResults` (estado en memoria de la sesión) se extiende para almacenar `userAnswer` por respuesta, no solo `correct: boolean`. Migración del schema si afecta a localStorage (probablemente NO, porque sessionResults es in-memory hasta el resumen; pero el `inFlightTest` reanudable SÍ persiste, requiere check en discuss-phase).
+  5. UAT humano: el autor lanza un Repaso 20, falla algunos ejercicios deliberadamente (mezcla de tipos), llega al resumen, ve la sección "Errores cometidos" con captura correcta para los 3 tipos, y comprueba que el botón "Reiniciar ejercicios" rearranca con las mismas categorías en 1 clic.
+**Plans**: TBD (probablemente 2 plans: 1 reiniciar + 1 review-errores, o 1 plan combinado en 2-3 tasks)
+
 ## Progress
 
 | Phase | Plans Complete | Status | Completed |
@@ -107,13 +121,14 @@
 | 3. Variedad de ejercicios + ergonomía | 3/3 | Complete    | 2026-05-24 |
 | 4. Backup robusto + contenido completo | 4/4 | Complete    | 2026-05-24 |
 | 5. Essere — categoría fundamental que faltaba | 1/1 | Complete   | 2026-05-24 |
+| 6. Polish UX post-sesión (reiniciar + review errores) | 0/? | Not started | - |
 
 ## Coverage Summary
 
-- **v1 requirements:** 40 total
-- **Mapped to phases:** 40 (100%)
+- **v1 requirements:** 43 total (40 originales + SEED-03 Phase 5 + UX-01/UX-02 Phase 6)
+- **Mapped to phases:** 43 (100%)
 - **Unmapped:** 0
-- **Granularity:** coarse (4 fases)
+- **Granularity:** coarse (6 fases — 5 core + 1 polish UX)
 - **Mode:** MVP (vertical slices)
 
 ## Dependency Graph
@@ -139,33 +154,14 @@ Cada fase entrega valor usable independientemente:
 
 ## Backlog
 
-### Phase 999.1: Botón "Reiniciar ejercicios" en pantalla de sesión (BACKLOG)
+### Phase 999.1: Botón "Reiniciar ejercicios" en pantalla de sesión (PROMOTED → Phase 6)
 
-**Goal:** [Captured for future planning] Añadir un botón "Reiniciar ejercicios" junto a "Volver al home" en la pantalla de sesión, que reinicie la sesión actual con las mismas categorías seleccionadas en 1 clic (vs los 4 actuales: Volver al home → Descartar → Repaso 20 → Empezar). Captura UAT Phase 4: el autor comenta "muchas veces, fallas a mitad y tienes que darle a 'Volver al home' luego a 'Descartar' luego a 'Repaso 20' luego seleccionar la sección y luego a 'Empezar', son 4 clicks con 2 pantallas, por 1 solo click que reinicie los ejercicios con los que estas."
+**Status:** Promoted to active roadmap as part of Phase 6 (Polish UX post-sesión). See §"Phase 6" above for active spec.
 
-**Requirements:** TBD — necesita `/gsd:discuss-phase` para clarificar semántica:
-- ¿Reset descarta aciertos acumulados de la sesión actual?
-- ¿Los fallos D-54 ya persistidos se mantienen (invariante "te obliga a no olvidar")?
-- ¿Afecta al `inFlightTest` (Test completo reanudable) o solo al Repaso 20?
-- ¿Confirma con `requestConfirm()` (inline) o reset directo?
+### Phase 999.2: Pantalla "Resultado" final con review de errores cometidos (PROMOTED → Phase 6)
 
-**Plans:** 0 plans
-- [ ] TBD (promote con /gsd:review-backlog cuando esté listo)
-
-### Phase 999.2: Pantalla "Resultado" final con review de errores cometidos (BACKLOG)
-
-**Goal:** [Captured for future planning] Extender la pantalla de resumen (SESSION-07) al final de cada sesión con una sección de "Errores cometidos" que muestre, para cada ejercicio fallado: qué respondió el autor, qué era correcto, y sobre qué frase. Captura UAT Phase 4: *"al terminar, estaria ver bien una pantalla de 'Resultado' donde veas sobretodo los errores que has cometido, que dijiste y que era sobre que frase, por si quieres al final del todo repasar todos los errores en vez de repasarlos segun vas fallando."*
-
-**Requirements:** TBD — necesita `/gsd:discuss-phase` para clarificar:
-- ¿Se almacena la respuesta dada del autor en el state de la sesión (no actualmente — solo `correct: boolean`)? Implica extender `sessionResults` con `userAnswer`.
-- ¿Muestra todos los errores o paginado/scroll si la sesión es larga (Test completo con 100+ ejercicios)?
-- ¿Layout: por ejercicio (frase + tu respuesta + correcta) o por categoría agrupado?
-- ¿Aplica a los 3 tipos (multi-choice / word-buttons / match) — captura es distinta en cada uno?
-- ¿Persiste el histórico en localStorage (consulta posterior) o es solo end-of-session?
-
-**Plans:** 0 plans
-- [ ] TBD (promote con /gsd:review-backlog cuando esté listo)
+**Status:** Promoted to active roadmap as part of Phase 6 (Polish UX post-sesión). See §"Phase 6" above for active spec.
 
 ---
 *Roadmap created: 2026-05-23*
-*Last updated: 2026-05-24 after Plan 04-04 completion (130/130 tests verdes, 3 task commits + plan docs commit, +6 ejercicios multi-cat avere-300..305 cierran SEED-02, 232 ejercicios totales en la app, UAT INTEGRAL 5/5 PASS por el autor sobre los 5 criterios ROADMAP §Phase 4. Phase 4 4/4 plans complete — pending verifier `phase.complete` tras VERIFICATION.md status:passed para marcar Phase 4 [x]. Milestone v1.0 listo para `/gsd:complete-milestone` tras verifier pass.)*
+*Last updated: 2026-05-24 after Phase 5 completion (145/145 tests verdes, 10 commits, +39 ejercicios essere = 271 totales en 7 categorías, UAT INTEGRAL 6/6 PASS sobre los 6 criterios ROADMAP §Phase 5, SEED-03 cerrado, milestone v1.0 funcionalmente completo). Phase 6 promoted del backlog (999.1+999.2 absorbidos) — UX polish reiniciar + review errores antes de close milestone.*

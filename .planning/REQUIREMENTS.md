@@ -69,6 +69,12 @@
 - [x] **SEED-02**: Algunos ejercicios semilla son multi-categoría (al menos 1-2 por PDF que toquen categorías relacionadas) para validar la cascada de fallo en uso real (completed Phase 4 — Plan 04-04 añadió 6 cruces multi-cat avere-300..305 cubriendo las 5 nuevas categorías + el avere base: avere-300/301 profesiones, avere-302 sustantivos-irregulares, avere-303 preposiciones, avere-304 genero-numero, avere-305 verbos-movimiento. Validado por UAT INTEGRAL UAT-E en Plan 04-04 — cascada D-54 propaga inmediata sobre las 2+ categorías al fallar un multi-cat, verificable en DevTools localStorage + visible en resumen final.)
 - [x] **SEED-03**: Añadir Essere como 7ª categoría dedicada con cobertura A1 mínima — conjugación presente (6 personas + 2 variantes interrogación/negación) + identidad + nacionalidad + profesión (contraste avere) + estado/condición + cópula clasificatoria + participio passato prossimo (`stato/stata/stati/state` con concordancia masc/fem × sing/pl). ≥30 ejercicios base + ≥1 cruce multi-categoría que ejercita la cascada D-54. Completed Phase 5 — Plan 05-01: 39 ejercicios essere (33 base + 6 multi-cat essere-300..305 espejo del patrón avere-300..305) + DESIGN RULE Phase 4 aplicada (35 mc + 4 wb + 0 match) + patrón D-91 distractoras (1 avere + 2 essere mal + 1 correcta) en los 35 multi-choice + smoke test paramétrico extendido a iterar TODOS los archivos de `content/exercises/`. UAT INTEGRAL 6/6 PASS por el autor (UAT-A categories.json shift / UAT-B essere.json validado / UAT-C cobertura 7 sub-áreas / UAT-D DESIGN RULE / UAT-E cascada D-54 fallando essere-302 propaga essere + verbos-movimiento / UAT-F Repaso 20 sin errores UX). 145/145 tests verdes.
 
+### Polish UX post-sesión (UX) — Phase 6
+
+- [ ] **UX-01**: Botón "Reiniciar ejercicios" en la pantalla de sesión que rearranca la sesión actual con las MISMAS categorías seleccionadas en 1 clic (vs los 4 actuales: Volver al home → Descartar → Repaso 20 → Empezar). Semántica concreta a clarificar en `/gsd:discuss-phase 6`: alcance (solo Repaso 20 o también Test completo abandonable), confirmación (requestConfirm inline o reset directo), tratamiento de aciertos no-comprometidos de la sesión actual. Invariante: los fallos D-54 ya persistidos NO se deshacen al reiniciar — "el sistema te obliga a no olvidar" se mantiene. Captura UAT Phase 4: el autor comenta "muchas veces, fallas a mitad y tienes que darle a 'Volver al home' luego a 'Descartar' luego a 'Repaso 20' luego seleccionar la sección y luego a 'Empezar', son 4 clicks con 2 pantallas, por 1 solo click que reinicie los ejercicios con los que estas."
+
+- [ ] **UX-02**: Sección "Errores cometidos" en la pantalla de resumen final (post-SESSION-07) que muestra, para cada ejercicio fallado durante la sesión, qué respondió el autor + qué era correcto + sobre qué frase (prompt original). Aplica a los 3 tipos (multi-choice / word-buttons / match) — la captura es distinta en cada uno y se decidirá en `/gsd:discuss-phase 6`. Implica extender `sessionResults` con `userAnswer` (hoy solo guarda `correct: boolean`). Layout (lista plana vs agrupada por categoría) y persistencia (in-memory vs localStorage para consulta posterior) a clarificar en discuss. Captura UAT Phase 4: *"al terminar, estaria ver bien una pantalla de 'Resultado' donde veas sobretodo los errores que has cometido, que dijiste y que era sobre que frase, por si quieres al final del todo repasar todos los errores en vez de repasarlos segun vas fallando."*
+
 ## v2 Requirements
 
 Deferred to future release. Tracked but not in current roadmap.
@@ -154,13 +160,16 @@ Explicitly excluded for v1. Documented to prevent scope creep.
 | BACK-06 | Fase 4 | Complete (Plan 04-01 runtime + Plan 04-04 UAT INTEGRAL UAT-C) |
 | SEED-01 | Fase 4 | Complete (6/6 categorías con contenido real — 232 ejercicios totales — validado por Plan 04-04 UAT INTEGRAL UAT-D) |
 | SEED-02 | Fase 4 | Complete (Plan 04-04 — 6 cruces avere-300..305 + UAT INTEGRAL UAT-E cascada multi-cat propaga inmediata) |
+| SEED-03 | Fase 5 | Complete (Plan 05-01 — 39 ejercicios essere = 33 base + 6 multi-cat essere-300..305 + UAT INTEGRAL 6/6 PASS) |
+| UX-01   | Fase 6 | Not started (botón reiniciar ejercicios) |
+| UX-02   | Fase 6 | Not started (pantalla "Resultado" con review de errores cometidos) |
 
 **Coverage:**
-- v1 requirements: 40 total
-- Mapped to phases: 40 (100%)
+- v1 requirements: 43 total (40 originales + SEED-03 Phase 5 + UX-01/UX-02 Phase 6)
+- Mapped to phases: 43 (100%)
 - Unmapped: 0
-- **Completed: 40/40 (100%)** tras Plan 04-04 cierre de BACK-04, BACK-05, BACK-06, SEED-01, SEED-02 vía UAT INTEGRAL 5/5 PASS
+- **Completed: 41/43 (95%)** tras Phase 5 cierre. Falta Phase 6 (UX-01 + UX-02 — polish UX post-sesión absorbiendo backlog 999.1+999.2).
 
 ---
 *Requirements defined: 2026-05-23*
-*Last updated: 2026-05-24 after Plan 04-04 completion — 40/40 v1 requirements complete. BACK-04/-05/-06 runtime entregadas en Plan 04-01 + REVALIDADAS en Plan 04-04 UAT INTEGRAL (UAT-A/-B/-C). SEED-01 cierra con 232 ejercicios prácticables en 6 categorías validado por UAT-D. SEED-02 cierra con 6 cruces multi-cat avere-300..305 + cascada D-54 propaga inmediata validada por UAT-E. Phase 4 4/4 plans complete — pending verifier antes de milestone v1.0 close.*
+*Last updated: 2026-05-24 after Phase 5 completion + Phase 6 promote (UX-01 + UX-02 absorbidos del backlog 999.1 + 999.2). 41/43 v1 requirements complete; 2 pendientes (UX-01 + UX-02) en Phase 6 para cerrar milestone v1.0 con polish UX completo.*

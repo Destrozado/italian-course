@@ -23,9 +23,9 @@ stopped_at: Phase 05 complete (1/1) — ready to discuss Phase 999.1
 
 ## Current Position
 
-Phase: 05 (essere-categoria-fundamental-que-faltaba) — COMPLETE (1/1 plans, VERIFICATION 5/6 auto-verified + UAT-F humano PASS)
-Plan: 1 of 1 done
-Next: backlog Phase 999.1 (botón reiniciar) o 999.2 (pantalla resultado errores) — promote con `/gsd:review-backlog` cuando estén listas. Milestone v1.0 listo para `/gsd:complete-milestone v1.0` (todos los requisitos v1+v1.5 cerrados, 41/41 cubiertos).
+Phase: 06 (polish-ux-post-sesion-reiniciar-y-review-errores) — Not started, promoted from backlog 999.1 + 999.2
+Plan: 0 of TBD
+Next: `/gsd:discuss-phase 6` para clarificar semántica UX-01 (alcance reset, confirmación, tratamiento aciertos) y UX-02 (captura por tipo, layout, persistencia). Tras Phase 6 completa: `/gsd:complete-milestone v1.0`.
 
 - **Phase:** 999.1
 - **Plan:** Not started
@@ -36,9 +36,9 @@ Next: backlog Phase 999.1 (botón reiniciar) o 999.2 (pantalla resultado errores
 
 | Métrica | Valor |
 |---------|-------|
-| Fases completadas | 5/5 (Phase 1-5 complete; backlog 999.x sin planificar) |
-| Requisitos v1 completos | 41/41 (100% — Phase 1: 19 + Phase 2: 13 + Phase 3: 1 EXTYPE-03 + Phase 4: 5 BACK-04/-05/-06 + SEED-01 + SEED-02 + Phase 5: SEED-03) tras Phase 5 cierre via UAT INTEGRAL 6/6 PASS |
-| Requisitos v1 mapeados | 41/41 (100%) |
+| Fases completadas | 5/6 (Phase 1-5 complete; Phase 6 UX polish promoted del backlog, sin planificar) |
+| Requisitos v1 completos | 41/43 (95% — Phase 1: 19 + Phase 2: 13 + Phase 3: 1 EXTYPE-03 + Phase 4: 5 BACK-04/-05/-06 + SEED-01 + SEED-02 + Phase 5: SEED-03). Faltan UX-01 + UX-02 (Phase 6) para cerrar milestone v1.0. |
+| Requisitos v1 mapeados | 43/43 (100%) |
 | Tests dominio + UI smoke | 145 verdes (130 baseline post-04-04 + 6 nuevos sub-tests smoke multi-cat paramétrico Phase 5 Task 6 + 1 nuevo bundle test) |
 | Granularidad | coarse |
 | Mode | MVP (vertical slices) |
