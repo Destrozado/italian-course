@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-05-24T13:30:00.000Z"
+last_updated: "2026-05-24T13:08:31.324Z"
 progress:
   total_phases: 4
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 13
-  completed_plans: 12
-  percent: 92
+  completed_plans: 13
+  percent: 100
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -18,30 +18,30 @@ progress:
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 4 — Backup robusto + contenido completo
+**Current Focus:** Phase 4 — Backup robusto + contenido completo (4/4 plans completed, awaiting verifier)
 
 ## Current Position
 
-Phase: 4 (Backup robusto + contenido completo) — EXECUTING
-Plan: 4 of 4 — Plan 04-03 **COMPLETED** (2026-05-24, ver [04-03-SUMMARY.md](./phases/04-backup-robusto-contenido-completo/04-03-SUMMARY.md))
-Next: Plan 04-04 (avere.json multi-cat extension SEED-02 + smoke test cascada multi-cat real + UAT integral 5 criterios ROADMAP)
+Phase: 4 (Backup robusto + contenido completo) — 4/4 PLANS COMPLETED, **PENDING VERIFIER**
+Plan: 4 of 4 — Plan 04-04 **COMPLETED** (2026-05-24, ver [04-04-SUMMARY.md](./phases/04-backup-robusto-contenido-completo/04-04-SUMMARY.md))
+Next: Verifier pass on Phase 4 (`phase.complete` tras VERIFICATION.md status:passed) → `/gsd:complete-milestone v1.0`
 
 - **Phase:** 4
-- **Plan:** 04-01 + 04-02 + 04-03 completed; 04-04 pending
-- **Status:** Executing Phase 4
-- **Progress:** [██████████████░] 92% (12/13 planes — 3 de 4 fases completadas + 3/4 planes de Phase 4)
+- **Plan:** 04-01 + 04-02 + 04-03 + 04-04 ALL completed
+- **Status:** Phase 4 4/4 plans complete — pending verifier
+- **Progress:** [██████████] 100%
 
 ## Performance Metrics
 
 | Métrica | Valor |
 |---------|-------|
-| Fases completadas | 3/4 |
-| Requisitos v1 completos | 36/40 (90% — Phase 1: 19 + Phase 2: 13 + Phase 3: 1 EXTYPE-03 + Phase 4 04-01: 3 BACK-04/-05/-06) — SEED-01 sigue In Progress 6/6 categorías con contenido real tras 04-03 (cierre formal pendiente UAT integral en 04-04); SEED-02 pending hasta 04-04 |
+| Fases completadas | 3/4 (Phase 4 pending verifier — 4/4 plans complete) |
+| Requisitos v1 completos | 40/40 (100% — Phase 1: 19 + Phase 2: 13 + Phase 3: 1 EXTYPE-03 + Phase 4: 5 BACK-04/-05/-06 + SEED-01 + SEED-02) tras Plan 04-04 cierre SEED-02 + UAT INTEGRAL 5/5 PASS revalidando BACK-04/05/06/SEED-01 |
 | Requisitos v1 mapeados | 40/40 (100%) |
-| Tests dominio + UI smoke | 128 verdes (105 baseline + 23 nuevos en Phase 4 Task 1; sin cambios de tests en 04-02 ni 04-03 — solo contenido) |
+| Tests dominio + UI smoke | 130 verdes (128 baseline post-04-03 + 2 nuevos del smoke test multi-cat en Plan 04-04 Task 1c) |
 | Granularidad | coarse |
 | Mode | MVP (vertical slices) |
-| Ejercicios totales en la app | ~221 (12 avere + 50 preposiciones + 37 verbos-movimiento + 31 sustantivos-irregulares + 40 genero-numero + 51 profesiones — tras 04-03 las 6 categorías tienen contenido real) |
+| Ejercicios totales en la app | 232 (23 avere — 17 originales + 6 multi-cat avere-300..305 — + 50 preposiciones + 37 verbos-movimiento + 31 sustantivos-irregulares + 40 genero-numero + 51 profesiones) |
 
 ## Accumulated Context
 
@@ -91,6 +91,10 @@ Next: Plan 04-04 (avere.json multi-cat extension SEED-02 + smoke test cascada mu
 | 2026-05-24 | Plan 04-03 — Schema-compliance escape hatch para meta-rule mc prompts | El validator exige `___` en multi-choice (Phase 1 CONT-04). Cuando el prompt natural no lo tiene (ej. '¿Cuál es invariable?'), reformular con hueco preservando pedagogía: 'De estas cuatro profesiones, ___ es la única INVARIABLE...'. Documentar en `notes` con referencia al schema validator. Patrón reusable para futuros ejercicios meta-pedagógicos sin pedir flexión morfológica |
 | 2026-05-24 | Plan 04-03 — Task 3 6 ediciones autor-aprobadas materializadas atómicamente en 1 commit | El autor respondió 6 preguntas pedagógicas durante checkpoint Task 3: (1) avvocata + nota, (2) farmacista/giornalista invariables + nota errata PDF, (3) elisión universal l'avvocato, (4) 5 word-buttons frases A1 essere×persona, (5) meta-rule -ista invariable, (6) 3rd match profesión↔acción. Todas DENTRO del scope del plan (D-86 tipo natural + cobertura PDF). Materializadas en commit 5436cfc atómico sin sub-commits — el checkpoint humano es el natural decision-point, no requiere multiple commits intermedios |
 | 2026-05-24 | Plan 04-03 — 3rd match profesión↔acción (profesiones-202) ejercita reconocimiento del infinitivo italiano | 5 pares: insegnante↔insegnare, pittore↔dipingere, cantante↔cantare, traduttore↔tradurre, direttore↔dirigere. Aunque algunos pares comparten raíz (insegnante/insegnare), el infinitivo italiano requiere conocer la familia verbal correcta (-are/-ere/-ire) — no derivable trivialmente desde el sustantivo. El par paradigmático `pittore↔dipingere` es design-rule-válido inequívoco (no comparten raíz). 5 profesiones del PDF cubiertas: cantante §3, pittore §5, traduttore §5 mini-esercizio, direttore §3, insegnante §4 |
+| 2026-05-24 | Plan 04-04 — D-88 APPEND-ONLY verificado estructuralmente via snapshot+assert (NO git diff, W-4 fix anclado) | Cuando se extiende un archivo de contenido con invariante de no-modificación (D-88: los 17 ejercicios originales de avere.json intocables), verificar via `git diff` requiere setup git previo (staging, sin cambios sin commitear) que no está siempre garantizado. Patrón robusto: scripts/snapshot-avere-prefix.mjs captura los primeros N ejercicios pre-edit en un archivo gitignored; scripts/assert-avere-prefix-unchanged.mjs post-edit compara via assert.deepStrictEqual. Exit 0 si idénticos, exit 1 + diff verbose si difieren. Reusable para CUALQUIER append-only invariant en el corpus. |
+| 2026-05-24 | Plan 04-04 — D-87 cruces multi-cat naturales semánticos (1 por categoría + 1 extra profesiones) | 6 cruces avere-300..305: avere-300/301 (profesiones masc/fem `fratello medico` / `sorella avvocata`), avere-302 (sustantivos-irregulares `due braccia` plural irregular), avere-303 (preposiciones `un amico a Roma`), avere-304 (genero-numero `due figli e una figlia` plural+género), avere-305 (verbos-movimiento `bicicletta per andare`). Cada cruce ejercita conjugación de avere por persona + pedagogía de la categoría cruzada. Verificado por scripts/assert-multi-cat-cross.mjs (5 cruces obligatorios + 1 extra) que reemplaza grep literal fragile por JSON parsing programático (W-7 fix). |
+| 2026-05-24 | Plan 04-04 — DESIGN RULE 'match-if-not-trivial-by-root' (codificada en 04-03) aplicada también a cruces multi-cat | Los 6 cruces multi-cat son TODOS multi-choice porque la respuesta correcta es la conjugación de avere por persona — un match `Lui ha ↔ medico` sería pedagógicamente vacío (el alumno solo arrastra). Confirma que la design rule aplica universalmente al contenido nuevo, incluyendo cruces. Patrón normativo desde 04-03 para todo contenido futuro. |
+| 2026-05-24 | Plan 04-04 — UAT INTEGRAL 5/5 PASS sobre criterios ROADMAP §Phase 4 (no solo del plan) | El último plan de una fase incluye un UAT integral de TODA la fase, no solo del plan, validando todos los criterios ROADMAP en uso real con contenido completo. UAT-A (BACK-04 export), UAT-B (BACK-05 import idempotente + confirmación), UAT-C (BACK-06 banner 7 días reactivo), UAT-D (SEED-01 6 PDFs + sesión mezcla limpia), UAT-E (SEED-02 cascada multi-cat propaga inmediata). Patrón reusable para milestone close de cualquier fase. |
 
 ### Active Todos
 
@@ -103,7 +107,9 @@ Next: Plan 04-04 (avere.json multi-cat extension SEED-02 + smoke test cascada mu
 - [x] Ejecutar Plan 04-01 — Backup runtime end-to-end (migrate2to3 + daysSinceISO + backup.js puro + pantalla Backup + banner home + 3er botón + firstUsedAt plumbing) — 128/128 tests verdes, 2 commits + mini-UAT humano 5/5 PASS
 - [x] Ejecutar Plan 04-02 — Categories.json 6 entradas + Preposiciones (50 multi-choice) + Verbos de movimiento (34 multi-choice + 3 word-buttons) + helper validate-content-fixture.mjs + 3 placeholders B-1 — 128/128 tests verdes, 4 commits (Task 1 cc7481a, B-1 patch aebae24, Task 2 74a5d42, Task 3 8094ef0)
 - [x] Ejecutar Plan 04-03 — Sustantivos Irregulares (31 mezcla post-design-rule) + Género y Número (40 mezcla) + Profesiones (51 mezcla rica 3 tipos) + DESIGN RULE 'match-if-not-trivial-by-root' anclada + retro-patch — 128/128 tests verdes, 4 commits (Task 1 11974e5, design-rule patch 9d21c88, Task 2 0f2fd8f, Task 3 5436cfc)
-- [ ] Ejecutar Plan 04-04 — avere.json multi-cat extension SEED-02 + smoke test cascada multi-cat real + UAT integral 5 criterios ROADMAP de Phase 4
+- [x] Ejecutar Plan 04-04 — avere.json multi-cat extension SEED-02 (6 cruces avere-300..305 APPEND-ONLY) + smoke test cascada multi-cat real + UAT INTEGRAL 5/5 PASS sobre 5 criterios ROADMAP §Phase 4 — 130/130 tests verdes, 3 commits + docs (8ba64e7 helpers + .gitignore, 2f5c267 multi-cat exercises, 840e628 smoke test), SEED-02 cerrado + revalidación cruzada BACK-04/05/06/SEED-01 vía UAT integral
+- [ ] **Verifier pass Phase 4** — `phase.complete` tras VERIFICATION.md status:passed
+- [ ] `/gsd:complete-milestone v1.0` — tras verifier pass Phase 4
 
 ### Blockers
 
@@ -117,8 +123,9 @@ Next: Plan 04-04 (avere.json multi-cat extension SEED-02 + smoke test cascada mu
 
 ### Last Session
 
-- **Fecha:** 2026-05-24 (Plan 04-03 completed — 122 ejercicios nuevos transcritos del PDF + DESIGN RULE 'match-if-not-trivial-by-root' anclada + retro-patch + 6 ediciones autor-aprobadas en Task 3)
-- **Trabajo actual (Plan 04-03):** ejecución en 4 commits — Task 1 inicial 11974e5 (sustantivos-irregulares.json 22 ejercicios — cobertura PDF completa familia/cuerpo/casos especiales + 5 invariables), Task 1 design-rule patch 9d21c88 (refactor: 5 match trivial-por-raíz `città↔città`/`caffè↔caffè`/etc. convertidos a multi-choice con distractoras plausibles tras UAT humano detectó el patrón pedagógicamente vacío — DESIGN RULE NEW capturada como normativa), Task 2 0f2fd8f (genero-numero.json 40 ejercicios — cobertura PDF completa artículos definidos il/lo/la/l'/i/gli/le + sustantivo↔artículo match + reglas excepción multi-choice + D-66 duplicados intencionales), Task 3 5436cfc (profesiones.json 51 ejercicios — PDF más diverso 5 tablas, mezcla rica 3 tipos: 43 multi-choice + 5 word-buttons frases A1 español→italiano + 3 match design-rule-válidos profesión↔lugar/herramienta/acción; 6 ediciones autor-aprobadas materializadas atómicamente: avvocata + nota lingüística, farmacista/giornalista invariables + nota errata PDF §1, elisión universal l'avvocato, 5 word-buttons 100-104, 1 meta-rule -ista invariable 043, 3rd match profesión↔acción 202). Patrón PDF→JSON→checkpoint humano→commit validado 3/3 sin issues bloqueantes (1 design-rule patch post-UAT NO bloqueante). 128/128 tests verdes (sin cambios de tests — solo contenido). Schema validation via helper único exit 0 en los 3 archivos. Apostrofes ASCII U+0027 estrictos. 122 ejercicios nuevos = ~221 totales en la app. SEED-01 6/6 categorías con contenido real (cierre formal pendiente UAT integral en 04-04). UAT-derived backlog (UX-1/UX-2/UX-3 heredados de 04-02) sin cambios — NO se incluyen en 04-04 (scope creep).
+- **Fecha:** 2026-05-24 (Plan 04-04 completed — Phase 4 4/4 plans completos, UAT INTEGRAL 5/5 PASS, SEED-02 cerrado, 130/130 tests verdes — Phase 4 pending verifier antes de milestone close)
+- **Trabajo actual (Plan 04-04):** ejecución en 3 task commits (8ba64e7 chore helpers + .gitignore + snapshot pre-edit, 2f5c267 feat 6 ejercicios multi-cat avere-300..305 autor approved en Task 1b checkpoint, 840e628 test smoke cascada multi-cat real + validateContent roundtrip) + 1 docs commit (este). Task 1a: 3 helper scripts node-puros (snapshot-avere-prefix.mjs W-4 fix captura, assert-avere-prefix-unchanged.mjs W-4 fix assert.deepStrictEqual, assert-multi-cat-cross.mjs W-7 fix JSON parsing programático) + snapshot pre-edit captura los 17 ejercicios originales en scripts/.avere-prefix-snapshot.json gitignored + propuesta de 6 ejercicios multi-cat avere-300..305 al final de avere.json. Task 1b checkpoint:human-verify: autor revisó pedagógicamente los 6 multi-cat (Lui ha fratello medico, sorella avvocata, due braccia, amico a Roma, due figli e una figlia, bicicletta per andare), approved sin ediciones → commit. Task 1c: 2 tests nuevos al final de tests/domain.test.js dentro de describe block "Phase 4 — multi-categoría cascade with real content": test 1 carga avere.json via readFileSync + encuentra primer multi-cat dinámicamente + simula fallo + assertea cascada D-54 sobre las 2+ categoryIds; test 2 smoke validateContent post-extensión. Task 2 UAT INTEGRAL 5/5 PASS por el autor: UAT-A export BACK-04, UAT-B import idempotente BACK-05, UAT-C banner 7d reactivo BACK-06, UAT-D 6 PDFs ≥10 cada SEED-01, UAT-E cascada multi-cat propaga inmediata SEED-02. D-88 invariante (los 17 originales intactos) verificado estructuralmente por scripts/assert-avere-prefix-unchanged.mjs exit 0 en todos los gates — robusto vs git diff que requiere staging previo. DESIGN RULE 'match-if-not-trivial-by-root' aplicada universalmente a cruces multi-cat (6/6 son multi-choice porque la respuesta correcta es conjugación de avere por persona, no derivable trivialmente). 130/130 tests verdes (128 baseline post-04-03 + 2 nuevos del smoke test). 232 ejercicios totales en la app (23 avere — 17 originales + 6 multi-cat — + 50 prep + 37 vm + 31 si + 40 gn + 51 prof). SEED-02 cerrado + revalidación cruzada de BACK-04/BACK-05/BACK-06/SEED-01 via UAT integral. Phase 4 lista para verifier pass. UAT-derived backlog (UX-1/UX-2/UX-3) consolidado en 04-04-SUMMARY.md "Captured for Future Phase" para futuro Phase 5 polish UX si el autor lo pide.
+- **Trabajo previo (Plan 04-03):** ejecución en 4 commits — Task 1 inicial 11974e5 (sustantivos-irregulares.json 22 ejercicios — cobertura PDF completa familia/cuerpo/casos especiales + 5 invariables), Task 1 design-rule patch 9d21c88 (refactor: 5 match trivial-por-raíz `città↔città`/`caffè↔caffè`/etc. convertidos a multi-choice con distractoras plausibles tras UAT humano detectó el patrón pedagógicamente vacío — DESIGN RULE NEW capturada como normativa), Task 2 0f2fd8f (genero-numero.json 40 ejercicios — cobertura PDF completa artículos definidos il/lo/la/l'/i/gli/le + sustantivo↔artículo match + reglas excepción multi-choice + D-66 duplicados intencionales), Task 3 5436cfc (profesiones.json 51 ejercicios — PDF más diverso 5 tablas, mezcla rica 3 tipos: 43 multi-choice + 5 word-buttons frases A1 español→italiano + 3 match design-rule-válidos profesión↔lugar/herramienta/acción; 6 ediciones autor-aprobadas materializadas atómicamente: avvocata + nota lingüística, farmacista/giornalista invariables + nota errata PDF §1, elisión universal l'avvocato, 5 word-buttons 100-104, 1 meta-rule -ista invariable 043, 3rd match profesión↔acción 202). Patrón PDF→JSON→checkpoint humano→commit validado 3/3 sin issues bloqueantes (1 design-rule patch post-UAT NO bloqueante). 128/128 tests verdes (sin cambios de tests — solo contenido). Schema validation via helper único exit 0 en los 3 archivos. Apostrofes ASCII U+0027 estrictos. 122 ejercicios nuevos = ~221 totales en la app. SEED-01 6/6 categorías con contenido real (cierre formal pendiente UAT integral en 04-04). UAT-derived backlog (UX-1/UX-2/UX-3 heredados de 04-02) sin cambios — NO se incluyen en 04-04 (scope creep).
 - **Trabajo previo (Plan 04-02):** ejecución en 4 commits — Task 1 cc7481a (categories.json 6 entradas + 3 placeholders + scripts/validate-content-fixture.mjs), B-1 patch aebae24 (placeholder verbos-movimiento olvidado en Task 1), Task 2 74a5d42 (preposiciones.json 50 ejercicios — directiva del autor "cobertura máxima" expandió de 15 a 50 cubriendo 8 simples + 30/30 articolate + 10 casos particulares + 2 excepciones fuera-de-PDF #049 fra eufónico y #050 con instrumental), Task 3 8094ef0 (verbos-movimiento.json 37 ejercicios — 34 multi-choice + 3 word-buttons del §5 cubriendo 11 verbos × 7 personas + concordancia género/número + excepciones §4; typo del PDF §5 nº4 `Io (uovo)` reinterpretado a `Io (donna)` con nota documentada). Patrón PDF→JSON→checkpoint humano→commit validado 2/2 sin issues. 128/128 tests verdes (sin cambios de tests — solo contenido). Schema validation via helper único exit 0 en ambos archivos. Apostrofes ASCII U+0027 estrictos en todos los ejercicios (RESEARCH §D landmine). 87 ejercicios nuevos = 104 totales en la app.
 - **Trabajo previo (Plan 04-01):** ejecución end-to-end en 2 commits (180168d Task 1, 33b0945 Task 2) + Task 3 mini-UAT humano 5/5 PASS. Task 1: migración v2→v3 idempotente + módulo puro `src/data/backup.js` (parseBackupFile + buildBackupWrapper con mensajes literales del UI-SPEC en español) + `daysSinceISO` puro DST-safe en `src/domain/dates.js` + 21 tests nuevos backup.test.js + 2 tests extra en data-storage.test.js. Task 2: 5 handlers nuevos en app.js (exportBackup/onFileSelected/commitImport/buildImportConfirmMessage + 3 getters reactivos) + 4 inline guards firstUsedAt (D-78 NO helper) + W-2 fix backupLastMessage cleanup + banner home + 3er botón Backup en `.button-row-prominent` + template pantalla Backup en index.html + 5 reglas CSS Phase 4. Layer purity D-02 verificada por grep (0 matches localStorage/DOM en backup.js y dates.js). 128/128 tests verdes (105 baseline + 23 nuevos). Mini-UAT (Task 3): autor verificó en navegador con `npx serve` los 5 escenarios — UAT-1 render, UAT-2 export descarga JSON correcto, UAT-3 import error path (mensaje rojo del UI-SPEC), UAT-4 import OK round-trip (confirmación inline → Continuar → state reemplazado), UAT-5 banner reactividad con DevTools sim de `lastBackupAt = 8d atrás`, `lastBackupAt = null + firstUsedAt = 8d`, y `lastBackupAt = mañana` (fecha futura defensa T-04-04). Cero bugs detectados. BACK-04/BACK-05/BACK-06 cierran formalmente aquí.
 - **Trabajo previo (Plan 03-02):** ejecución end-to-end de 2 tasks en 2 commits (f9e400e, f4000b7) — match handler puro + validateMatchPayload impl real + registry final con 3 entradas + 2 call-sites EXACTOS de applyImmediateFailure (uno en applyResultToSession decisión final, otro en matchPickRight primer-fallo con guard matchHadFailure) + sub-template HTML match + 5 selectores CSS + 3 ejercicios match seed (incluyendo avere-202 con duplicados D-66) + W3 idempotencia tests (skipped en Task 1, activados automáticamente al landed Task 2 vía detección runtime de matchPickRight en source) + W5 smoke tests (presencia textual de handlers + ramas match en handleSessionKey + shuffle en initSubStateForExercise). 105/105 tests verdes (81 baseline + 24 nuevos). Comentarios placeholder '03-02' eliminados (grep `03-02` en src/screens/app.js retorna nada). Stub message `'aún no soportado'` completamente erradicado. EXTYPE-03 cierra; SESSION-06 contribuido por 03-01 + 03-02 pero closure formal en UAT 03-03.
@@ -181,6 +188,16 @@ Next: Plan 04-04 (avere.json multi-cat extension SEED-02 + smoke test cascada mu
 - `content/exercises/profesiones.json` (modified — placeholder → 51 ejercicios mezcla rica 3 tipos: 43 multi-choice + 5 word-buttons frases A1 + 3 match design-rule-válidos)
 - `.planning/phases/04-backup-robusto-contenido-completo/04-03-SUMMARY.md` (new, captures DESIGN RULE NEW como sección destacada + UAT-derived backlog heredado de 04-02)
 
+**Plan 04-04 (avere multi-cat SEED-02 + smoke test cascada multi-cat real + UAT INTEGRAL 5/5):**
+
+- `scripts/snapshot-avere-prefix.mjs` (new, helper node-pure W-4 fix — captura primeros 17 ejercicios de avere.json pre-edit)
+- `scripts/assert-avere-prefix-unchanged.mjs` (new, helper node-pure W-4 fix — assert.deepStrictEqual post-edit, robusto vs git diff)
+- `scripts/assert-multi-cat-cross.mjs` (new, helper node-pure CLI <slug1> <slug2> W-7 fix — JSON parsing programático reemplaza grep literal)
+- `.gitignore` (new, entrada `scripts/.avere-prefix-snapshot.json` — snapshot temporal del proceso)
+- `content/exercises/avere.json` (modified — APPEND-ONLY 17 → 23 ejercicios, +6 multi-cat avere-300..305 cierran SEED-02; los 17 originales INTACTOS verificado por snapshot+assert)
+- `tests/domain.test.js` (modified — +2 tests al final dentro de describe block "Phase 4 — multi-categoría cascade with real content": cascada D-54 multi-cat real + validateContent post-extension)
+- `.planning/phases/04-backup-robusto-contenido-completo/04-04-SUMMARY.md` (new, UAT INTEGRAL 5/5 PASS documentado + Phase 4 lista para verifier + milestone v1.0 ready)
+
 ## Performance Metrics
 
 | Phase | Plan | Duration | Tasks | Files |
@@ -192,20 +209,26 @@ Next: Plan 04-04 (avere.json multi-cat extension SEED-02 + smoke test cascada mu
 | 4 | 04-01 | ~16 min | 3 (Task 1 TDD data+domain + Task 2 UI vertical slice + Task 3 mini-UAT humano) | 10 (3 created + 7 modified) |
 | 4 | 04-02 | ~75 min | 3 (Task 1 categories+placeholders+helper + B-1 patch + Task 2 preposiciones checkpoint + Task 3 verbos-movimiento checkpoint) | 7 (6 created + 1 modified) — 4 commits |
 | 4 | 04-03 | ~120 min | 3 (Task 1 sustantivos-irregulares checkpoint + design-rule patch + Task 2 genero-numero checkpoint + Task 3 profesiones checkpoint con 6 ediciones autor) | 4 (3 modified + 1 created) — 4 commits |
+| 4 | 04-04 | ~30 min | 4 sub-tasks (1a auto helpers + propuesta + 1b checkpoint:human-verify autor approved + 1c auto/TDD smoke test + 2 checkpoint:human-verify UAT INTEGRAL 5/5 PASS) | 7 (5 created + 2 modified) — 3 task commits + docs commit |
 
 ### Next Action
 
 ```
 
-# Plan 04-03 completado. Siguiente:
+# Plan 04-04 completado. Phase 4 4/4 plans complete. Siguiente:
 
-/gsd:execute-phase 4   # continuar con 04-04 (avere multi-cat extension SEED-02 + smoke test cascada multi-cat + UAT integral 5 criterios ROADMAP)
+# 1. Verifier pass de Phase 4 (genera VERIFICATION.md, phase.complete tras status:passed)
+# 2. /gsd:complete-milestone v1.0 (tras verifier pass de Phase 4)
 ```
 
-Plan 04-04 cierra Phase 4: extiende avere.json con ≥6 ejercicios multi-categoría (cruces avere × preposiciones / verbos-movimiento / profesiones / etc.) + smoke test simulando cascada multi-cat real + UAT integral de los 5 criterios ROADMAP de Phase 4. Patrón "PDF → JSON → checkpoint → commit" validado 5/5 (2/2 en 04-02 + 3/3 en 04-03). DESIGN RULE 'match-if-not-trivial-by-root' anclada — aplicar también a cruces multi-cat. Helper `scripts/validate-content-fixture.mjs` reusable. 128 tests verdes como baseline.
+Phase 4 entrega valor end-to-end: backup robusto + 6 categorías con 232 ejercicios + cascada multi-cat real ejerciéndose en uso diario. UAT INTEGRAL 5/5 PASS confirma que los 5 criterios ROADMAP §Phase 4 están satisfechos. Milestone v1.0 listo para close tras verifier pass.
 
-UAT-derived backlog (UX-1/UX-2/UX-3) sigue capturado en 04-02-SUMMARY.md + reforzado en 04-03-SUMMARY.md — NO incluir en 04-04 (scope creep). Considerar Phase 5 dedicado a polish UX si el autor lo pide tras finalizar Phase 4.
+Plan 04-04 cerró Phase 4: extendió avere.json con 6 ejercicios multi-categoría (cruces avere-300..305 cubriendo las 5 nuevas categorías) APPEND-ONLY verificado estructuralmente vía snapshot+assert (W-4 fix), smoke test cascada multi-cat real (2 tests nuevos en domain.test.js), 3 helper scripts node-puros reutilizables (W-4 + W-7 + B-2 fixes anclados), UAT INTEGRAL 5/5 PASS sobre los 5 criterios ROADMAP §Phase 4 (UAT-A export, UAT-B import idempotente, UAT-C banner 7d reactivo, UAT-D 6 PDFs ≥10 cada, UAT-E cascada multi-cat propaga inmediata). Patrón "PDF → JSON → checkpoint → commit" validado 6/6 (2/2 en 04-02 + 3/3 en 04-03 + 1/1 en 04-04). DESIGN RULE 'match-if-not-trivial-by-root' aplicada universalmente (todos los cruces multi-cat son multi-choice). 130/130 tests verdes (128 baseline + 2 nuevos smoke test multi-cat).
+
+UAT-derived backlog (UX-1/UX-2/UX-3) consolidado a lo largo de Phase 4 — capturado en 04-02-SUMMARY.md, reforzado en 04-03-SUMMARY.md, consolidado en 04-04-SUMMARY.md "Captured for Future Phase". Considerar Phase 5 dedicado a polish UX (CSS gap fix multi-choice + restart button en pantalla sesión + review de errores en resumen final) si el autor lo pide tras uso prolongado de v1.
+
+**Siguiente paso (orchestrator):** verifier pass de Phase 4 (`phase.complete` tras VERIFICATION.md status:passed) → `/gsd:complete-milestone v1.0`.
 
 ---
 *State initialized: 2026-05-23*
-*Last updated: 2026-05-24T13:30:00Z after Plan 04-03 completion (128/128 tests verdes, 4 commits, 122 ejercicios nuevos transcritos del PDF, DESIGN RULE 'match-if-not-trivial-by-root' anclada como normativa + retro-patch a sustantivos-irregulares, 6 ediciones autor-aprobadas en Task 3, SEED-01 6/6 categorías con contenido real pendiente UAT integral en 04-04)*
+*Last updated: 2026-05-24 after Plan 04-04 completion (130/130 tests verdes, 3 task commits + docs commit, +6 ejercicios multi-cat avere-300..305 cierran SEED-02, 232 ejercicios totales en la app, UAT INTEGRAL 5/5 PASS por el autor sobre los 5 criterios ROADMAP §Phase 4, D-88 invariante mantenido estructuralmente verificable, DESIGN RULE 'match-if-not-trivial-by-root' aplicada universalmente a cruces multi-cat. Phase 4 4/4 plans complete — pending verifier antes de milestone v1.0 close.)*

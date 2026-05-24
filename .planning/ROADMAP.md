@@ -10,7 +10,7 @@
 - [x] **Phase 1: Loop mínimo end-to-end** — La app arranca, carga JSON validado y permite hacer una sesión real de multiple-choice sobre Avere con persistencia básica (completed 2026-05-23)
 - [x] **Phase 2: Mecánica completa de re-verificación** — Estados, cascada de fallo, racha, dashboard y resumen — el motor que "te obliga a no olvidar" está operativo (completed 2026-05-23)
 - [x] **Phase 3: Variedad de ejercicios + ergonomía de teclado** — word-buttons y match completan los tres tipos; atajos 1-4/Enter/Space hacen la práctica diaria fluida (completed 2026-05-24)
-- [ ] **Phase 4: Backup robusto + contenido completo** — Export/import + recordatorio de backup + los 6 PDFs transcritos a JSON (incluyendo ejercicios multi-categoría para ejercitar la cascada en uso real)
+- [ ] **Phase 4: Backup robusto + contenido completo** — Export/import + recordatorio de backup + los 6 PDFs transcritos a JSON (incluyendo ejercicios multi-categoría para ejercitar la cascada en uso real) — 4/4 plans complete (pending verifier)
 
 ## Phase Details
 
@@ -79,7 +79,7 @@
 - [x] 04-01-PLAN.md — Backup runtime (migrate2to3 + daysSinceISO + backup.js puro + pantalla Backup + banner home + 3er botón + firstUsedAt plumbing + ~21 tests). Vertical slice: el autor exporta/importa progreso desde el día 1 del plan. **completado 2026-05-24** (128/128 tests verdes, 2 commits + mini-UAT humano 5/5 PASS, BACK-04/-05/-06 cerrados), ver [04-01-SUMMARY.md](./phases/04-backup-robusto-contenido-completo/04-01-SUMMARY.md)
 - [x] 04-02-PLAN.md — Categories.json a 6 entradas + Preposiciones (50 multi-choice cobertura PDF completa) + Verbos de movimiento (34 multi-choice + 3 word-buttons cobertura PDF completa) + 3 placeholders B-1 + helper validate-content-fixture.mjs B-4 fix. Cada categoría es un commit tras revisión humana D-85. **completado 2026-05-24** (128/128 tests verdes, 4 commits, 87 ejercicios nuevos = 104 totales en la app, SEED-01 parcial 2/5), ver [04-02-SUMMARY.md](./phases/04-backup-robusto-contenido-completo/04-02-SUMMARY.md)
 - [x] 04-03-PLAN.md — Sustantivos Irregulares (31 mezcla post-design-rule) + Género y Número (40 mezcla rica) + Profesiones (51 mezcla 3 tipos: 43 mc + 5 word-buttons + 3 match). DESIGN RULE 'match-if-not-trivial-by-root' anclada + retro-patch. **completado 2026-05-24** (128/128 tests verdes, 4 commits, 122 ejercicios nuevos = ~221 totales en la app, SEED-01 6/6 categorías con contenido real pendiente UAT integral en 04-04), ver [04-03-SUMMARY.md](./phases/04-backup-robusto-contenido-completo/04-03-SUMMARY.md)
-- [ ] 04-04-PLAN.md — avere.json multi-cat extension (≥6 cruces) + smoke test cascada multi-cat real + UAT integral de los 5 criterios ROADMAP.
+- [x] 04-04-PLAN.md — avere.json multi-cat extension (6 cruces avere-300..305) + smoke test cascada multi-cat real + UAT INTEGRAL 5/5 PASS de los 5 criterios ROADMAP §Phase 4. **completado 2026-05-24** (130/130 tests verdes, 3 commits + plan docs, +6 ejercicios multi-cat = 232 totales en la app, SEED-02 cerrado + revalidación cruzada BACK-04/05/06/SEED-01), ver [04-04-SUMMARY.md](./phases/04-backup-robusto-contenido-completo/04-04-SUMMARY.md)
 **UI hint**: yes
 
 ## Progress
@@ -89,7 +89,7 @@
 | 1. Loop mínimo end-to-end | 2/2 | Complete    | 2026-05-23 |
 | 2. Mecánica completa de re-verificación | 4/4 | Complete   | 2026-05-23 |
 | 3. Variedad de ejercicios + ergonomía | 3/3 | Complete    | 2026-05-24 |
-| 4. Backup robusto + contenido completo | 3/4 | In progress | - |
+| 4. Backup robusto + contenido completo | 4/4 | Pending verifier | - |
 
 ## Coverage Summary
 
@@ -122,4 +122,4 @@ Cada fase entrega valor usable independientemente:
 
 ---
 *Roadmap created: 2026-05-23*
-*Last updated: 2026-05-24 after Plan 04-03 completion (128/128 tests verdes, 4 commits, 122 ejercicios nuevos transcritos del PDF — 31 Sustantivos Irregulares + 40 Género y Número + 51 Profesiones, cobertura PDF completa, DESIGN RULE 'match-if-not-trivial-by-root' anclada como normativa + retro-patch a sustantivos-irregulares, 6 ediciones autor-aprobadas en Task 3 Profesiones, SEED-01 6/6 categorías con contenido real pendiente UAT integral en 04-04, ~221 ejercicios totales en la app; Phase 4 3/4 in progress)*
+*Last updated: 2026-05-24 after Plan 04-04 completion (130/130 tests verdes, 3 task commits + plan docs commit, +6 ejercicios multi-cat avere-300..305 cierran SEED-02, 232 ejercicios totales en la app, UAT INTEGRAL 5/5 PASS por el autor sobre los 5 criterios ROADMAP §Phase 4. Phase 4 4/4 plans complete — pending verifier `phase.complete` tras VERIFICATION.md status:passed para marcar Phase 4 [x]. Milestone v1.0 listo para `/gsd:complete-milestone` tras verifier pass.)*

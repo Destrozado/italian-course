@@ -59,15 +59,14 @@
 - [x] **BACK-01**: Todo el estado de usuario (estado de categorías, contadores de ejercicios, log de actividad diaria, rachas) se persiste en `localStorage` bajo una única clave `italianCourse.v1`
 - [x] **BACK-02**: El estado se escribe a localStorage solo al final de una sesión completada (no por respuesta individual)
 - [x] **BACK-03**: El estado incluye un campo `schemaVersion` para soportar migraciones futuras
-- [ ] **BACK-04**: Pantalla "Backup" con botón "Exportar progreso" que descarga el estado actual como archivo JSON
-- [ ] **BACK-05**: Pantalla "Backup" con botón "Importar progreso" que acepta un archivo JSON y reemplaza el estado actual (con confirmación)
-- [ ] **BACK-06**: La home muestra un banner discreto si han pasado más de 7 días desde el último export (recordatorio de backup)
+- [x] **BACK-04**: Pantalla "Backup" con botón "Exportar progreso" que descarga el estado actual como archivo JSON (completed Phase 4 — runtime entregado en Plan 04-01 mini-UAT 5/5 PASS + REVALIDADO en Plan 04-04 UAT INTEGRAL UAT-A sobre contenido completo)
+- [x] **BACK-05**: Pantalla "Backup" con botón "Importar progreso" que acepta un archivo JSON y reemplaza el estado actual (con confirmación) (completed Phase 4 — runtime entregado en Plan 04-01 mini-UAT 5/5 PASS + REVALIDADO en Plan 04-04 UAT INTEGRAL UAT-B sobre contenido completo)
+- [x] **BACK-06**: La home muestra un banner discreto si han pasado más de 7 días desde el último export (recordatorio de backup) (completed Phase 4 — runtime entregado en Plan 04-01 mini-UAT 5/5 PASS + REVALIDADO en Plan 04-04 UAT INTEGRAL UAT-C sobre contenido completo)
 
 ### Initial Content (SEED)
 
-- [ ] **SEED-01**: Transcribir los 6 PDFs (Avere, Género y Número, Verbos de Movimiento, Profesiones, Sustantivos Irregulares, Preposiciones) a JSONs de ejercicios — al menos 10 ejercicios por categoría como semilla mínima
-  > **Progreso tras Plan 04-03 (2026-05-24):** 6/6 categorías tienen contenido real — Avere (12 ejercicios, Phase 1), Preposiciones (50 ejercicios, 04-02 Task 2), Verbos de movimiento (37 ejercicios, 04-02 Task 3), Sustantivos Irregulares (31 ejercicios, 04-03 Task 1 + design-rule patch), Género y Número (40 ejercicios, 04-03 Task 2), Profesiones (51 ejercicios, 04-03 Task 3). Total ~221 ejercicios prácticables en la app. **Pendiente cierre formal:** UAT integral de los 5 criterios ROADMAP de Phase 4 en Plan 04-04 (cascada multi-cat real, banner backup, las 6 categorías visibles sin banner CONT-05, etc.). El SEED-01 transcripción literal del PDF está covered; el closure depende del UAT.
-- [ ] **SEED-02**: Algunos ejercicios semilla son multi-categoría (al menos 1-2 por PDF que toquen categorías relacionadas) para validar la cascada de fallo en uso real
+- [x] **SEED-01**: Transcribir los 6 PDFs (Avere, Género y Número, Verbos de Movimiento, Profesiones, Sustantivos Irregulares, Preposiciones) a JSONs de ejercicios — al menos 10 ejercicios por categoría como semilla mínima (completed Phase 4 — 6/6 categorías con contenido real: Avere 23 (17 originales Phase 1 + 6 multi-cat 04-04), Preposiciones 50 (04-02), Verbos de movimiento 37 (04-02), Sustantivos Irregulares 31 (04-03 + design-rule patch), Género y Número 40 (04-03), Profesiones 51 (04-03). Total 232 ejercicios. Validado por UAT INTEGRAL UAT-D en Plan 04-04 — las 6 categorías cargan sin error CONT-05, schema validado, NFC.)
+- [x] **SEED-02**: Algunos ejercicios semilla son multi-categoría (al menos 1-2 por PDF que toquen categorías relacionadas) para validar la cascada de fallo en uso real (completed Phase 4 — Plan 04-04 añadió 6 cruces multi-cat avere-300..305 cubriendo las 5 nuevas categorías + el avere base: avere-300/301 profesiones, avere-302 sustantivos-irregulares, avere-303 preposiciones, avere-304 genero-numero, avere-305 verbos-movimiento. Validado por UAT INTEGRAL UAT-E en Plan 04-04 — cascada D-54 propaga inmediata sobre las 2+ categorías al fallar un multi-cat, verificable en DevTools localStorage + visible en resumen final.)
 
 ## v2 Requirements
 
@@ -149,17 +148,18 @@ Explicitly excluded for v1. Documented to prevent scope creep.
 | BACK-01 | Fase 1 | In Progress (awaiting verifier) |
 | BACK-02 | Fase 1 | In Progress (awaiting verifier) |
 | BACK-03 | Fase 1 | In Progress (awaiting verifier) |
-| BACK-04 | Fase 4 | Pending |
-| BACK-05 | Fase 4 | Pending |
-| BACK-06 | Fase 4 | Pending |
-| SEED-01 | Fase 4 | In Progress (6/6 categorías con contenido real tras 04-03 — Avere 12 + Preposiciones 50 + Verbos de movimiento 37 + Sustantivos Irregulares 31 + Género y Número 40 + Profesiones 51 = ~221 ejercicios. Cierre formal pendiente UAT integral en 04-04) |
-| SEED-02 | Fase 4 | Pending |
+| BACK-04 | Fase 4 | Complete (Plan 04-01 runtime + Plan 04-04 UAT INTEGRAL UAT-A) |
+| BACK-05 | Fase 4 | Complete (Plan 04-01 runtime + Plan 04-04 UAT INTEGRAL UAT-B) |
+| BACK-06 | Fase 4 | Complete (Plan 04-01 runtime + Plan 04-04 UAT INTEGRAL UAT-C) |
+| SEED-01 | Fase 4 | Complete (6/6 categorías con contenido real — 232 ejercicios totales — validado por Plan 04-04 UAT INTEGRAL UAT-D) |
+| SEED-02 | Fase 4 | Complete (Plan 04-04 — 6 cruces avere-300..305 + UAT INTEGRAL UAT-E cascada multi-cat propaga inmediata) |
 
 **Coverage:**
 - v1 requirements: 40 total
 - Mapped to phases: 40 (100%)
 - Unmapped: 0
+- **Completed: 40/40 (100%)** tras Plan 04-04 cierre de BACK-04, BACK-05, BACK-06, SEED-01, SEED-02 vía UAT INTEGRAL 5/5 PASS
 
 ---
 *Requirements defined: 2026-05-23*
-*Last updated: 2026-05-24 after Plan 04-03 completion — SEED-01 sigue In Progress pero 6/6 categorías ya tienen contenido real (~221 ejercicios). Cierre formal del status pendiente UAT integral en 04-04 (smoke test cascada multi-cat real + verificación visual de los 5 criterios ROADMAP de Phase 4). SEED-02 sigue Pending hasta 04-04 entrega ≥6 cruces multi-cat.*
+*Last updated: 2026-05-24 after Plan 04-04 completion — 40/40 v1 requirements complete. BACK-04/-05/-06 runtime entregadas en Plan 04-01 + REVALIDADAS en Plan 04-04 UAT INTEGRAL (UAT-A/-B/-C). SEED-01 cierra con 232 ejercicios prácticables en 6 categorías validado por UAT-D. SEED-02 cierra con 6 cruces multi-cat avere-300..305 + cascada D-54 propaga inmediata validada por UAT-E. Phase 4 4/4 plans complete — pending verifier antes de milestone v1.0 close.*
