@@ -1,7 +1,7 @@
 ---
 phase: 4
 slug: backup-robusto-contenido-completo
-status: draft
+status: approved
 shadcn_initialized: false
 preset: none
 created: 2026-05-24
