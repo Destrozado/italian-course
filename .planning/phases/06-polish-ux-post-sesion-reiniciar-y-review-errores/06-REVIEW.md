@@ -17,7 +17,16 @@ findings:
   warning: 5
   info: 3
   total: 11
-status: issues_found
+status: clean
+fixes_applied: 2026-05-25T00:00:00Z
+fixes_iteration: 1
+fixes_scope: critical+warning
+fixes_summary:
+  fixed: 8           # CR-01, CR-02, CR-03, WR-01, WR-02, WR-03, WR-04, WR-05
+  skipped: 0
+  deferred: 3        # IN-01, IN-02, IN-03 — out of scope this pass
+tests_baseline_before: 158
+tests_baseline_after: 166
 ---
 
 # Phase 6: Code Review Report
@@ -288,6 +297,37 @@ This is a test coverage gap for a key Phase 6 invariant. The comment accurately 
 
 ---
 
+## Fixes Applied (2026-05-25, iteration 1)
+
+Critical + Warning findings resolved via the `/gsd:code-review --fix` workflow.
+Eight atomic commits on top of `039f0af` (the REVIEW.md commit) on branch
+`master`. Tests baseline 158/158 → 166/166 (+8 new defensive units).
+
+| ID | Status | Commit subject |
+|----|--------|----------------|
+| CR-01 | fixed | `fix(06): CR-01 — guard null exercise lookup in summary errors template` |
+| CR-02 | fixed | `fix(06): CR-02 — snapshot sessionResults at completeSession to avoid unmount race` |
+| CR-03 | fixed | `fix(06): CR-03 — deep-clone sub-dicts in migrate3to4 + hydrateV4` |
+| WR-01 | fixed | `fix(06): WR-01 — capture leftIdx in matchFirstWrongPair for duplicate-pair safety` |
+| WR-02 | fixed | `fix(06): WR-02 — make match flash reset explicit in restartRepaso` |
+| WR-03 | fixed | `fix(06): WR-03 — defensive normalization of inFlightTest.answers in migrate3to4` |
+| WR-04 | fixed | `fix(06): WR-04 — clarify match userAnswer null-guard comment` |
+| WR-05 | fixed | `fix(06): WR-05 — refresh stale file header in tests/data-storage.test.js` |
+
+All locked invariants preserved (D-09, D-54, D-66, D-88, D-100..D-112,
+CONT-06, T-02-01, UI-SPEC §Spacing).
+
+## Deferred (Info — out of scope this pass)
+
+These remain as documented follow-ups; no production impact.
+
+- **IN-01**: `tests/domain.test.js restartRepaso smoke tests are vacuous for the screen-layer handler` — requires Alpine test harness (happy-dom + Alpine) to test the handler integration. Coverage gap acknowledged in the existing comment; description rename pending.
+- **IN-02**: `computeSummaryDelta failureReason for multi-cat cascade includes ALL failed categories on EVERY failed category row` — cosmetic verbosity for 3+ category cascades. No correctness impact.
+- **IN-03**: `CSS .summary-errors li mixes inline <strong> with block <div> children under flex-column` — architectural inconsistency, renders fine in browsers. Wrap `<strong>` in `<div>` for semantic consistency.
+
+---
+
 _Reviewed: 2026-05-25_
 _Reviewer: Claude (gsd-code-reviewer)_
 _Depth: standard_
+_Fixes applied: 2026-05-25 (iteration 1) — Claude (gsd-code-fixer)_
