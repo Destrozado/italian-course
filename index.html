@@ -258,7 +258,7 @@
           -->
           <template x-if="sessionCurrentExercise.type === 'multiple-choice'">
             <div>
-              <div role="group">
+              <div class="button-row">
                 <template x-for="(opt, idx) in sessionCurrentExercise.payload.options" :key="idx">
                   <button type="button"
                           @click="sessionSelectOption(idx)"
