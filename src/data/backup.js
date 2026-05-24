@@ -75,6 +75,18 @@ export function parseBackupFile(rawStr) {
     return { ok: false, reason: 'El campo "state.schemaVersion" falta o no es número.' };
   }
 
+  // ME-02 fix: lower-bound + integer guard. Sin esto, schemaVersion=0,
+  // -1, NaN o 1.5 pasarían silenciosamente por el dispatcher de migración
+  // (que no matchea ninguna rama) y hydrateV3 normalizaría a v3 con
+  // defaults — equivalente a aceptar un backup malformado sin error.
+  // Rechazamos explícitamente: el rango soportado es [1..CURRENT].
+  if (!Number.isInteger(state.schemaVersion) || state.schemaVersion < 1) {
+    return {
+      ok: false,
+      reason: `schemaVersion inválido (esperado entero ≥1; recibido ${state.schemaVersion}).`
+    };
+  }
+
   // 3. Coherencia wrapper ↔ state (Pitfall #6 — defensa contra edición
   //    manual del archivo).
   if (wrapper.schemaVersion !== state.schemaVersion) {

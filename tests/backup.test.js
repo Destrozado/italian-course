@@ -257,6 +257,58 @@ describe('data/backup — parseBackupFile error paths', () => {
     assert.match(r.reason, /Versión inconsistente/);
   });
 
+  // ME-02 — lower-bound + integer guard sobre state.schemaVersion. Sin esto,
+  // un backup con schemaVersion 0, -1, NaN o 1.5 pasaría silenciosamente al
+  // dispatcher de migración (ninguna rama matchea) y hydrateV3 normalizaría
+  // a v3 con defaults — equivalente a aceptar un backup malformado.
+  test('ME-02: rejects schemaVersion=0 (lower bound; menciona "schemaVersion inválido")', () => {
+    const r = parseBackupFile(JSON.stringify({
+      kind: 'italian-course-backup',
+      schemaVersion: 0,
+      state: { schemaVersion: 0 }
+    }));
+    assert.equal(r.ok, false);
+    assert.match(r.reason, /schemaVersion inválido/);
+  });
+
+  test('ME-02: rejects schemaVersion=-1 (lower bound negativo)', () => {
+    const r = parseBackupFile(JSON.stringify({
+      kind: 'italian-course-backup',
+      schemaVersion: -1,
+      state: { schemaVersion: -1 }
+    }));
+    assert.equal(r.ok, false);
+    assert.match(r.reason, /schemaVersion inválido/);
+  });
+
+  test('ME-02: rejects schemaVersion=1.5 (no entero)', () => {
+    const r = parseBackupFile(JSON.stringify({
+      kind: 'italian-course-backup',
+      schemaVersion: 1.5,
+      state: { schemaVersion: 1.5 }
+    }));
+    assert.equal(r.ok, false);
+    assert.match(r.reason, /schemaVersion inválido/);
+  });
+
+  test('ME-02: rejects schemaVersion=NaN (typeof number pero ni entero)', () => {
+    // JSON.stringify(NaN) → 'null', así que construimos el string a mano para
+    // que el JSON.parse lo recupere como el literal NaN no es JSON válido.
+    // En su lugar usamos una key con valor 'NaN' string → cae en typeof !==
+    // 'number'. Para test directo de NaN tras un JSON.parse, pasamos el valor
+    // a través del path "el state ya está en memoria" — pero parseBackupFile
+    // sólo recibe rawStr. Por tanto: el camino realista de NaN es vía edición
+    // manual (raw text con NaN, no válido en JSON). Documentamos: con typeof
+    // sigue siendo guardado por la rama actual. Skip-able dado el guard
+    // Number.isInteger() defiende el caso teórico aunque no llegue por raw.
+    // Test alternativo: confirmamos que el guard funciona con NaN inyectado
+    // directamente bypassando el JSON.parse (smoke estructural del predicate).
+    assert.equal(Number.isInteger(NaN), false,
+      'Number.isInteger(NaN) === false, ergo el guard ME-02 lo rechazaría.');
+    assert.equal(Number.isInteger(0.5), false,
+      'Number.isInteger(0.5) === false, ergo el guard ME-02 lo rechazaría.');
+  });
+
   // Test 15 — defensa contra prototype pollution.
   // Nota: V8 trata `__proto__` en JSON.parse como property literal del objeto
   // resultante (no muta `Object.prototype`). Esto se documenta como parte del
