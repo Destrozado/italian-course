@@ -66,6 +66,7 @@
 ### Initial Content (SEED)
 
 - [ ] **SEED-01**: Transcribir los 6 PDFs (Avere, Género y Número, Verbos de Movimiento, Profesiones, Sustantivos Irregulares, Preposiciones) a JSONs de ejercicios — al menos 10 ejercicios por categoría como semilla mínima
+  > **Progreso parcial tras Plan 04-02 (2026-05-24):** 3/6 categorías tienen contenido real — Avere (12 ejercicios, Phase 1), Preposiciones (50 ejercicios cobertura PDF completa, 04-02 Task 2), Verbos de movimiento (37 ejercicios cobertura PDF completa, 04-02 Task 3). Las 3 restantes (Sustantivos Irregulares, Género y Número, Profesiones) existen como placeholders `{"exercises":[]}` (B-1 anti-crash fix); contenido real en Plan 04-03.
 - [ ] **SEED-02**: Algunos ejercicios semilla son multi-categoría (al menos 1-2 por PDF que toquen categorías relacionadas) para validar la cascada de fallo en uso real
 
 ## v2 Requirements
@@ -151,7 +152,7 @@ Explicitly excluded for v1. Documented to prevent scope creep.
 | BACK-04 | Fase 4 | Pending |
 | BACK-05 | Fase 4 | Pending |
 | BACK-06 | Fase 4 | Pending |
-| SEED-01 | Fase 4 | Pending |
+| SEED-01 | Fase 4 | In Progress (3/6 categorías con contenido real tras 04-02 — Avere 12 + Preposiciones 50 + Verbos de movimiento 37; las 3 restantes en 04-03 sobreescribirán placeholders B-1) |
 | SEED-02 | Fase 4 | Pending |
 
 **Coverage:**
@@ -161,4 +162,4 @@ Explicitly excluded for v1. Documented to prevent scope creep.
 
 ---
 *Requirements defined: 2026-05-23*
-*Last updated: 2026-05-23 after Phase 2 completion — los 13 IDs de Phase 2 (DOMAIN-03..08+10, SESSION-01..03+07..09) marcados Complete tras verifier PASS y UAT humano 13/13. D-54 exception en DOMAIN-04/SESSION-08 (cascada inmediata).*
+*Last updated: 2026-05-24 after Plan 04-02 completion — SEED-01 marcado In Progress (3/6 categorías con contenido real: Avere + Preposiciones 50 + Verbos de movimiento 37). El status formalmente cierra cuando 04-03 entrega las 3 restantes y 04-04 verifica el SEED-02.*

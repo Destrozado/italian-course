@@ -77,7 +77,7 @@
   5. Al menos 1-2 ejercicios por PDF son multi-categoría (tocan categorías relacionadas), y al fallar uno en una sesión real se observa la cascada propagándose a varias categorías a la vez en el resumen
 **Plans**: 4 plans
 - [x] 04-01-PLAN.md — Backup runtime (migrate2to3 + daysSinceISO + backup.js puro + pantalla Backup + banner home + 3er botón + firstUsedAt plumbing + ~21 tests). Vertical slice: el autor exporta/importa progreso desde el día 1 del plan. **completado 2026-05-24** (128/128 tests verdes, 2 commits + mini-UAT humano 5/5 PASS, BACK-04/-05/-06 cerrados), ver [04-01-SUMMARY.md](./phases/04-backup-robusto-contenido-completo/04-01-SUMMARY.md)
-- [ ] 04-02-PLAN.md — Categories.json a 6 entradas + Preposiciones (multi-choice) + Verbos de movimiento (multi-choice + word-buttons). Cada categoría es un commit tras revisión humana D-85.
+- [x] 04-02-PLAN.md — Categories.json a 6 entradas + Preposiciones (50 multi-choice cobertura PDF completa) + Verbos de movimiento (34 multi-choice + 3 word-buttons cobertura PDF completa) + 3 placeholders B-1 + helper validate-content-fixture.mjs B-4 fix. Cada categoría es un commit tras revisión humana D-85. **completado 2026-05-24** (128/128 tests verdes, 4 commits, 87 ejercicios nuevos = 104 totales en la app, SEED-01 parcial 2/5), ver [04-02-SUMMARY.md](./phases/04-backup-robusto-contenido-completo/04-02-SUMMARY.md)
 - [ ] 04-03-PLAN.md — Sustantivos Irregulares (match) + Género y Número (match + multi-choice) + Profesiones (mezcla 3 tipos). Cada categoría es un commit tras revisión humana D-85.
 - [ ] 04-04-PLAN.md — avere.json multi-cat extension (≥6 cruces) + smoke test cascada multi-cat real + UAT integral de los 5 criterios ROADMAP.
 **UI hint**: yes
@@ -89,7 +89,7 @@
 | 1. Loop mínimo end-to-end | 2/2 | Complete    | 2026-05-23 |
 | 2. Mecánica completa de re-verificación | 4/4 | Complete   | 2026-05-23 |
 | 3. Variedad de ejercicios + ergonomía | 3/3 | Complete    | 2026-05-24 |
-| 4. Backup robusto + contenido completo | 1/4 | In progress | - |
+| 4. Backup robusto + contenido completo | 2/4 | In progress | - |
 
 ## Coverage Summary
 
@@ -122,4 +122,4 @@ Cada fase entrega valor usable independientemente:
 
 ---
 *Roadmap created: 2026-05-23*
-*Last updated: 2026-05-24 after Plan 04-01 completion (128/128 tests verdes, 2 commits + mini-UAT humano 5/5 PASS, BACK-04/-05/-06 cerrados; Phase 4 1/4 in progress)*
+*Last updated: 2026-05-24 after Plan 04-02 completion (128/128 tests verdes, 4 commits, 87 ejercicios nuevos transcritos del PDF — 50 Preposiciones + 37 Verbos de movimiento, cobertura PDF completa, helper único de validación reusable 04-03/04-04, SEED-01 2/5 parcial; Phase 4 2/4 in progress)*
