@@ -505,11 +505,20 @@
             respuesta:" y "Respuesta correcta:" son strings HARDCODED en el
             HTML; el separador `↔` viene del template, NO del JSON.
 
-            Match con userAnswer null (defensa adicional contra inFlightTest
-            pre-Phase 6 reanudado tras migrate3to4 backfill): el x-if del
-            sub-template match requiere `&& result.userAnswer` — si es null,
-            la fila renderiza sólo el prompt sin las dos líneas Tu/Correcta
-            (UI-SPEC §Copywriting "ausencia preferible al placeholder").
+            Match con userAnswer null (WR-04: el guard `&& result.userAnswer`
+            del sub-template match cubre EXCLUSIVAMENTE entradas pre-Phase 6
+            backfilleadas por `migrate3to4` — un test completo abandonado
+            antes del bump 3→4 cuyas `inFlightTest.answers` recibieron
+            `userAnswer: null` por backfill defensivo, reanudado tras la
+            migración. Los matches CORRECTOS (que también tienen
+            `userAnswer: null` por D-107 — `matchFirstWrongPair` nunca se
+            seteó) NO llegan a este sub-template: el outer `filter(r =>
+            !r.correct ...)` los excluye antes. Sin esta clarificación, el
+            guard parecía defenderse de un caso imposible.
+
+            Cuando el guard cae a falsy, la fila renderiza sólo el prompt
+            sin las dos líneas Tu/Correcta (UI-SPEC §Copywriting "ausencia
+            preferible al placeholder").
           -->
           <!-- CR-02 fix: leer del snapshot `summarySessionResults` (set en
                `completeSession()`, limpiado en `returnToHomeFromSummary()`),
