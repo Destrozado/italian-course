@@ -297,19 +297,29 @@ export function appShell(appDataReady) {
      * Pone `this.confirmDialog` con el shape requerido. El template HTML
      * (index.html) renderiza un panel discreto con `x-show` y dos botones.
      *
-     * Patrón único para los tres puntos de descarte de trabajo:
+     * Patrón único para los puntos de descarte / confirmación de trabajo:
      *   - D-27 (Plan 02-03): abandono mid-Repaso.
      *   - D-43 (Plan 02-04): descarte de Test completo in-flight desde banner.
      *   - D-44 (Plan 02-04): lanzar Test completo nuevo con uno in-flight.
+     *   - D-76 (Phase 4): confirmar import de backup (5ª call-site).
      *
-     * @param {{message:string, confirmLabel:string, cancelLabel?:string, onConfirm:()=>void}} opts
+     * ME-01 fix: `onCancel` opcional. Cuando el usuario pulsa el botón
+     * Cancelar del dialog, el template HTML invoca `onCancel` (si está
+     * definido) tras nulear `confirmDialog`. Esto permite a la call-site
+     * limpiar estado scratch (e.g. `backupPendingImport`) sin que el helper
+     * conozca dominios específicos. Las 4 call-sites previas (D-27/D-43/D-44/
+     * conflict-Test-completo) NO suministran `onCancel` y siguen funcionando
+     * igual (opcional).
+     *
+     * @param {{message:string, confirmLabel:string, cancelLabel?:string, onConfirm:()=>void, onCancel?:()=>void}} opts
      */
     requestConfirm(opts) {
       this.confirmDialog = {
         message: opts.message,
         confirmLabel: opts.confirmLabel,
         cancelLabel: opts.cancelLabel ?? 'Cancelar',
-        onConfirm: opts.onConfirm
+        onConfirm: opts.onConfirm,
+        onCancel: opts.onCancel ?? null
       };
     },
 
@@ -612,15 +622,14 @@ export function appShell(appDataReady) {
      *      mismo archivo debe poder re-seleccionarse para re-intentar).
      *   4. Si ok=true → guarda en `backupPendingImport` + dispara
      *      `requestConfirm()` inline (4ª call-site D-76) con summary.
-     *   5. Confirmación → `commitImport()`. Cancelación → no-op (el helper
-     *      `requestConfirm` no admite `onCancel`; el `backupPendingImport`
-     *      queda cargado pero inerte hasta el próximo import).
+     *   5. Confirmación → `commitImport()`. Cancelación → onCancel limpia
+     *      `backupPendingImport` (ME-01 fix; antes quedaba inerte hasta el
+     *      siguiente import — defensa contra estado fantasma).
      *   6. `input.value = ''` SIEMPRE al final (Pitfall #2).
      *
-     * Nota sobre `requestConfirm`: la firma actual (líneas 289-296) sólo
-     * lee `message`, `confirmLabel`, `cancelLabel`, `onConfirm`. NO admite
-     * `onCancel`. Aceptamos que cancelar deja `backupPendingImport` cargado
-     * pero inerte — se sobreescribe en el siguiente import.
+     * Nota sobre `requestConfirm`: la firma admite `onCancel` opcional
+     * desde ME-01 fix. Sin `onCancel`, el comportamiento es no-op tras
+     * pulsar Cancelar (compatibilidad con las 4 call-sites previas).
      *
      * @param {Event} event - El change event del file input.
      */
@@ -650,13 +659,15 @@ export function appShell(appDataReady) {
 
       // Guardar payload validado, pendiente de confirmación inline (D-76).
       this.backupPendingImport = { state: result.state, summary: result.summary };
-      // requestConfirm no admite onCancel; cancelar deja backupPendingImport
-      // cargado pero inerte (se sobreescribe en el próximo import).
+      // ME-01 fix: `onCancel` limpia `backupPendingImport` para que no quede
+      // estado fantasma si el usuario pulsa Cancelar (antes lingueaba hasta
+      // el siguiente import o reload).
       this.requestConfirm({
         message: this.buildImportConfirmMessage(result.summary),
         confirmLabel: 'Continuar',
         cancelLabel: 'Cancelar',
-        onConfirm: () => this.commitImport()
+        onConfirm: () => this.commitImport(),
+        onCancel: () => { this.backupPendingImport = null; }
       });
       input.value = ''; // Pitfall #2 — siempre reset al final.
     },

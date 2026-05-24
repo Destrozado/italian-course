@@ -532,7 +532,7 @@
                   x-text="confirmDialog?.confirmLabel"></button>
           <button type="button"
                   class="secondary"
-                  @click="confirmDialog = null"
+                  @click="(() => { const cb = confirmDialog?.onCancel; confirmDialog = null; if (cb) cb(); })()"
                   x-text="confirmDialog?.cancelLabel"></button>
         </div>
       </div>
