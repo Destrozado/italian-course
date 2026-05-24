@@ -2,15 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: ready_to_plan
-last_updated: 2026-05-24T20:51:57.837Z
+status: planning
+last_updated: "2026-05-24T21:28:00.768Z"
 progress:
-  total_phases: 7
-  completed_phases: 4
+  total_phases: 8
+  completed_phases: 5
   total_plans: 14
   completed_plans: 14
-  percent: 57
-stopped_at: Phase 05 complete (1/1) — ready to discuss Phase 999.1
+  percent: 63
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
