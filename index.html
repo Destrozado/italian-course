@@ -112,18 +112,39 @@
           </template>
 
           <!--
-            Dos botones grandes lado a lado (D-32). Usamos `.button-row` (clase
-            genérica reusable en cualquier sitio con botones adyacentes) +
+            Banner backup (D-80, Phase 4). Mismo patrón visual que .inflight-banner:
+            <template x-if> con outer-gate getter null-safe (shouldShowBackupBanner
+            devuelve false si state aún no cargó), role="alert", border ámbar.
+            Aparece automáticamente cuando han pasado >7 días desde lastBackupAt
+            (o desde firstUsedAt si lastBackupAt es null per D-78); desaparece
+            al exportar (Alpine reactivity sobre state.lastBackupAt).
+            Sin snooze ni dismiss — el sistema te obliga (filosofía Phase 1).
+          -->
+          <template x-if="shouldShowBackupBanner">
+            <div role="alert" class="backup-banner">
+              ⚠ <span x-text="backupBannerText"></span>
+              <button type="button" class="secondary" @click="currentScreen = 'backup'">Ir a Backup</button>
+            </div>
+          </template>
+
+          <!--
+            Tres botones lado a lado (D-32 + D-81 Phase 4). Usamos `.button-row`
+            (clase genérica reusable en cualquier sitio con botones adyacentes) +
             `.button-row-prominent` (variante con font-size/padding extra para
             acciones primarias) en vez de `role="group"` porque Pico's button
             group une los bordes (parecen un solo control) y UAT 02-03 detectó
             que los dos botones se veían "pegados y casi como un título". El
             mismo patrón reapareció en el picker en UAT 02-04 round 2, motivo
             por el que `.home-actions` se generalizó a `.button-row`.
+
+            D-81: el tercer botón `Backup` usa `class="secondary"` (Pico muted
+            cyan) — no compite con los protagonistas Repaso/Test completo.
+            Visible siempre, descubrible sin depender del banner.
           -->
           <div class="button-row button-row-prominent">
             <button type="button" @click="openPicker('repaso')">Repaso 20</button>
             <button type="button" @click="openPicker('test-completo')">Test completo</button>
+            <button type="button" class="secondary" @click="currentScreen = 'backup'">Backup</button>
           </div>
 
           <!-- Tabla densa (D-29) con 5 columnas exactas. -->
@@ -441,7 +462,56 @@
       </template>
 
       <!-- ════════════════════════════════════════════════════════════════ -->
-      <!-- Confirmación inline reusable (D-27 ahora; D-43/D-44 en Plan 02-04) -->
+      <!-- Pantalla BACKUP (D-83, D-84 — Phase 4)                            -->
+      <!-- ════════════════════════════════════════════════════════════════ -->
+      <!--
+        Pantalla 5ª del appShell (D-84, currentScreen === 'backup'). Layout:
+          - Header "Backup".
+          - Línea de estado (status) reactiva sobre state.lastBackupAt.
+          - 2 botones: Exportar primario / Importar secundario (D-83).
+          - Input file oculto, disparado vía $refs.backupFileInput.click().
+          - Área de mensajes reactiva sobre backupLastMessage (clase verde/rojo).
+          - "← Volver al home" reusa requestReturnToHome (D-82); limpia el
+            mensaje al salir (W-2 fix en src/screens/app.js).
+
+        Double-defense Alpine: el outer `x-if="currentScreen === 'backup'"`
+        evita que los bindings internos (backupStatusLine, backupBannerText,
+        exportBackup binding) se evalúen pre-init o cuando el usuario salió de
+        la pantalla — los getters internos ya tienen `if (!this.state) return ''`
+        como segundo nivel de defensa (mismo patrón que summary líneas 412-441).
+
+        Mensaje area usa `x-show` (no x-if anidado) per UI-SPEC Implementation
+        Notes línea 553-556: contenido simple sin bindings nested. Optional
+        chaining `backupLastMessage?.X` porque x-show mantiene el DOM montado.
+      -->
+      <template x-if="currentScreen === 'backup'">
+        <article>
+          <header><h2>Backup</h2></header>
+
+          <p class="picker-warning" x-text="backupStatusLine"></p>
+
+          <div class="button-row">
+            <button type="button" @click="exportBackup">Exportar progreso</button>
+            <button type="button" class="secondary" @click="$refs.backupFileInput.click()">Importar progreso</button>
+          </div>
+
+          <input type="file"
+                 x-ref="backupFileInput"
+                 accept=".json,application/json"
+                 @change="onFileSelected($event)"
+                 style="display: none">
+
+          <p x-show="backupLastMessage"
+             :class="backupLastMessage?.kind === 'success' ? 'backup-message-success' : 'backup-message-error'"
+             x-text="backupLastMessage?.text"></p>
+
+          <hr>
+          <button type="button" class="secondary" @click="requestReturnToHome">← Volver al home</button>
+        </article>
+      </template>
+
+      <!-- ════════════════════════════════════════════════════════════════ -->
+      <!-- Confirmación inline reusable (D-27, D-43, D-44, D-76 Phase 4)    -->
       <!-- ════════════════════════════════════════════════════════════════ -->
       <div x-show="confirmDialog"
            x-cloak

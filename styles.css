@@ -307,3 +307,51 @@ button.incorrecta {
 .match-flash {
   animation: match-flash-red 300ms ease-out 1;
 }
+
+/* ─── Phase 4 — Backup banner persistente (D-80) ───────────────────────────
+ *
+ * Mismo tratamiento visual que `.inflight-banner` (líneas 131-137): amber
+ * tint sutil con border + background 8% opacidad. Clase separada (DRY mínima
+ * deliberada) para permitir ajustar la tonalidad si UAT pide diferenciación
+ * visual entre los dos banners sin afectar al banner in-flight. Sin
+ * transición/animación (D-80 + sobriedad Phase 2/3). El `⚠` glyph hereda
+ * el color de texto del documento (NO rojo — el aviso lo lleva el border
+ * ámbar, no el icono). El botón "Ir a Backup" se separa del texto con
+ * `margin-left: auto`.
+ */
+.backup-banner {
+  border: 1px solid var(--pico-color-amber-500, #f59e0b);
+  background: rgba(245, 158, 11, 0.08);
+  padding: 0.75rem 1rem;
+  border-radius: var(--pico-border-radius, 0.25rem);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.backup-banner button { margin-left: auto; flex-shrink: 0; }
+
+/* ─── Phase 4 — Área de mensajes en pantalla Backup (D-83) ─────────────────
+ *
+ * Texto verde o rojo según éxito/error de la última operación. Render
+ * condicional vía `<p x-show="backupLastMessage" :class="..." x-text="...">`
+ * en index.html — el elemento aparece pero permanece vacío (x-show oculta
+ * con display:none) cuando `backupLastMessage === null`. Mismos tokens de
+ * color que `.delta-promotion` / `.delta-regression` (líneas 154-155) para
+ * coherencia visual con el resumen post-sesión.
+ */
+.backup-message-success { color: var(--pico-color-green-500, #2e7d32); font-weight: 600; margin: 1rem 0; }
+.backup-message-error   { color: var(--pico-color-red-500,   #d32f2f); font-weight: 600; margin: 1rem 0; }
+
+/* ─── Phase 4 — Confirm panel multi-paragraph rendering (D-76) ─────────────
+ *
+ * `buildImportConfirmMessage()` (src/screens/app.js) retorna un string con
+ * `\n\n` entre párrafos (fecha, resumen, warning). `x-text` NO convierte
+ * newlines en `<br>` — `white-space: pre-line` hace que el navegador respete
+ * los `\n` como saltos visibles sin permitir `\n` colapsados en tabs/espacios.
+ * Aplicado al `#confirm-message` específicamente para NO afectar otros usos
+ * del panel `.confirm-inline` (D-27 single-line preserved).
+ */
+.confirm-inline #confirm-message {
+  white-space: pre-line;
+}

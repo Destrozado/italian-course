@@ -59,8 +59,9 @@
 
 import { buildSession, buildFullTest, fisherYates } from '../domain/session.js';
 import { applySessionResult, applyImmediateFailure } from '../domain/progress.js';
-import { todayLocal } from '../domain/dates.js';
+import { todayLocal, daysSinceISO } from '../domain/dates.js';
 import { saveState } from '../data/storage.js';
+import { parseBackupFile, buildBackupWrapper } from '../data/backup.js';
 import { registry } from '../exercise-types/index.js';
 
 /**
@@ -87,8 +88,8 @@ export function appShell(appDataReady) {
     // ─── Bootstrap ──────────────────────────────────────────────────────────
     ready: false,
 
-    // ─── Navegación (D-24) ──────────────────────────────────────────────────
-    /** 'home' | 'picker' | 'session' | 'summary'. */
+    // ─── Navegación (D-24, D-84 Phase 4) ────────────────────────────────────
+    /** 'home' | 'picker' | 'session' | 'summary' | 'backup'. */
     currentScreen: 'home',
 
     // ─── Sub-estado picker (D-33/D-34/D-35) ─────────────────────────────────
@@ -136,7 +137,17 @@ export function appShell(appDataReady) {
     summaryDelta: null,
     summaryHeaderLabel: '',
 
-    // ─── Helper compartido confirmación inline (D-27 / D-43 / D-44) ─────────
+    // ─── Sub-estado backup (Phase 4 D-84) ───────────────────────────────────
+    /** null | { kind: 'success' | 'error', text: string }. Limpiado al salir
+     *  de la pantalla backup vía requestReturnToHome (W-2 fix). */
+    backupLastMessage: null,
+    /** null | { state: object, summary: { exportedAt, categories, exercises } }.
+     *  Payload validado, pendiente de confirmación inline (D-76). El
+     *  `backupFileInputRef` de CONTEXT D-84 NO es propiedad — se accede vía
+     *  Alpine `$refs.backupFileInput` directamente. */
+    backupPendingImport: null,
+
+    // ─── Helper compartido confirmación inline (D-27 / D-43 / D-44 / D-76) ──
     /** null | {message, confirmLabel, cancelLabel, onConfirm}. */
     confirmDialog: null,
 
@@ -237,7 +248,14 @@ export function appShell(appDataReady) {
         });
         return;
       }
-      // Picker, summary, o session en modo 'test-completo': directo.
+      // Phase 4 D-76 / W-2 fix: salir de pantalla Backup limpia el último
+      // mensaje (verde/rojo) para que no aparezca stale al volver a entrar.
+      // UI-SPEC línea 206: "It is cleared automatically when the user leaves
+      // the backup screen".
+      if (this.currentScreen === 'backup') {
+        this.backupLastMessage = null;
+      }
+      // Picker, summary, backup o session en modo 'test-completo': directo.
       this.resetSession();
       this.currentScreen = 'home';
     },
@@ -417,8 +435,13 @@ export function appShell(appDataReady) {
       const categoryIds = this.pickerCheckedCategoryIds.length > 0
         ? [...this.pickerCheckedCategoryIds]
         : (prev?.categoryIds ?? []);
+      // Phase 4 D-78: marca firstUsedAt si null (inline guard, no helper).
+      // Combina el firstUsedAt-set con el inFlightTest-set en un único spread
+      // para que `this.state` cambie de una sola vez (Alpine reactivity +
+      // inmutabilidad consistente).
       this.state = {
         ...this.state,
+        firstUsedAt: this.state.firstUsedAt ?? new Date().toISOString(),
         inFlightTest: {
           categoryIds,
           exerciseIds: [...this.sessionExerciseIds],
@@ -509,6 +532,178 @@ export function appShell(appDataReady) {
     },
 
     // ════════════════════════════════════════════════════════════════════════
+    // Backup — handlers Phase 4 (D-73 ... D-84)
+    //
+    // Handlers expuestos al template:
+    //   - `exportBackup()`        — binding `@click` botón "Exportar progreso".
+    //   - `onFileSelected(event)` — binding `@change` del `<input type="file">`.
+    //   - `commitImport()`        — invocado en el onConfirm del requestConfirm
+    //                               de onFileSelected.
+    //   - `buildImportConfirmMessage(summary)` — helper interno usado por
+    //                               onFileSelected para construir el cuerpo
+    //                               del confirm inline (D-76).
+    // ════════════════════════════════════════════════════════════════════════
+
+    /**
+     * D-83: `exportBackup()` exporta el state actual como JSON descargado por
+     * el navegador.
+     *
+     * Pipeline (RESEARCH §1 + PATTERNS líneas 335-366):
+     *   1. Build wrapper vía `buildBackupWrapper` (D-73, módulo puro).
+     *   2. `JSON.stringify` + Blob + URL.createObjectURL.
+     *   3. `<a download>` programático con nombre `italian-course-backup-
+     *      ${todayLocal()}.json` (D-75).
+     *   4. `revokeObjectURL` diferido a tick siguiente (Pitfall #1 — evita
+     *      free memory leaks por blobs no revocados).
+     *   5. Actualiza `state.lastBackupAt` con ISO actual (D-77) vía spread
+     *      inmutable (Alpine reactivity sobre el banner getter).
+     *   6. Guard primer-export: si `firstUsedAt` aún era null, también se
+     *      setea ahora (defensa contra usuarios que importan/exportan antes
+     *      de completar una sesión).
+     *   7. `saveState` persiste a localStorage.
+     *   8. Mensaje verde en `backupLastMessage` (D-83).
+     *
+     * Error path: cualquier throw cae al catch → mensaje rojo en
+     * `backupLastMessage`. No bloquea la UI.
+     */
+    exportBackup() {
+      try {
+        const wrapper = buildBackupWrapper(this.state);
+        const jsonStr = JSON.stringify(wrapper, null, 2);
+        const blob = new Blob([jsonStr], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `italian-course-backup-${todayLocal()}.json`;
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(url), 0); // Pitfall #1 + #7
+
+        // Actualiza lastBackupAt (D-77) — spread inmutable, mismo patrón
+        // que persistInFlightTest (Alpine reactivity).
+        this.state = { ...this.state, lastBackupAt: new Date().toISOString() };
+        // Phase 4 D-78: primer-export-guard. Si nunca se había marcado
+        // firstUsedAt (porque el usuario nunca completó una sesión), el
+        // export también lo marca — el banner debería respetar este instant
+        // como "comencé a usar la app".
+        if (this.state.firstUsedAt === null) {
+          this.state = { ...this.state, firstUsedAt: new Date().toISOString() };
+        }
+        saveState(this.state);
+
+        this.backupLastMessage = {
+          kind: 'success',
+          text: 'Progreso exportado. Guarda el archivo en lugar seguro.'
+        };
+      } catch (err) {
+        this.backupLastMessage = {
+          kind: 'error',
+          text: `Error al exportar: ${String(err?.message ?? err)}`
+        };
+      }
+    },
+
+    /**
+     * D-76: handler async del `<input type="file" @change>` de import.
+     *
+     * Pipeline (PATTERNS líneas 377-405 + RESEARCH §2):
+     *   1. Lee el File via `Blob.text()` (Promise-based desde 2021).
+     *   2. Llama `parseBackupFile` (módulo puro src/data/backup.js).
+     *   3. Si ok=false → mensaje rojo + reset input.value (Pitfall #2: el
+     *      mismo archivo debe poder re-seleccionarse para re-intentar).
+     *   4. Si ok=true → guarda en `backupPendingImport` + dispara
+     *      `requestConfirm()` inline (4ª call-site D-76) con summary.
+     *   5. Confirmación → `commitImport()`. Cancelación → no-op (el helper
+     *      `requestConfirm` no admite `onCancel`; el `backupPendingImport`
+     *      queda cargado pero inerte hasta el próximo import).
+     *   6. `input.value = ''` SIEMPRE al final (Pitfall #2).
+     *
+     * Nota sobre `requestConfirm`: la firma actual (líneas 289-296) sólo
+     * lee `message`, `confirmLabel`, `cancelLabel`, `onConfirm`. NO admite
+     * `onCancel`. Aceptamos que cancelar deja `backupPendingImport` cargado
+     * pero inerte — se sobreescribe en el siguiente import.
+     *
+     * @param {Event} event - El change event del file input.
+     */
+    async onFileSelected(event) {
+      const input = event.target;
+      const file = input.files?.[0];
+      if (!file) return; // cancelar el file picker → no-op
+
+      let rawText;
+      try {
+        rawText = await file.text();
+      } catch (err) {
+        this.backupLastMessage = {
+          kind: 'error',
+          text: `No se pudo leer el archivo: ${String(err?.message ?? err)}`
+        };
+        input.value = '';
+        return;
+      }
+
+      const result = parseBackupFile(rawText);
+      if (!result.ok) {
+        this.backupLastMessage = { kind: 'error', text: result.reason };
+        input.value = '';
+        return;
+      }
+
+      // Guardar payload validado, pendiente de confirmación inline (D-76).
+      this.backupPendingImport = { state: result.state, summary: result.summary };
+      // requestConfirm no admite onCancel; cancelar deja backupPendingImport
+      // cargado pero inerte (se sobreescribe en el próximo import).
+      this.requestConfirm({
+        message: this.buildImportConfirmMessage(result.summary),
+        confirmLabel: 'Continuar',
+        cancelLabel: 'Cancelar',
+        onConfirm: () => this.commitImport()
+      });
+      input.value = ''; // Pitfall #2 — siempre reset al final.
+    },
+
+    /**
+     * D-76: aplica el import previamente confirmado por el usuario.
+     *
+     * Pitfall #10: `resetSession()` ANTES de reemplazar `this.state` — si
+     * había una sesión in-flight, se descarta limpiamente antes de que
+     * cualquier getter dependiente del state importado evalue. El listener
+     * `@keydown.window` del session sub-template se desmonta automáticamente
+     * al cambiar `currentScreen` (D-72).
+     */
+    commitImport() {
+      if (!this.backupPendingImport) return;
+      this.resetSession();
+      this.state = this.backupPendingImport.state;
+      saveState(this.state);
+      this.backupPendingImport = null;
+      this.backupLastMessage = {
+        kind: 'success',
+        text: 'Progreso importado correctamente.'
+      };
+      this.currentScreen = 'home';
+    },
+
+    /**
+     * D-76 + UI-SPEC líneas 211-224: construye el cuerpo multi-párrafo del
+     * confirm dialog inline. Newlines (`\n\n`) renderizan como gaps visuales
+     * gracias a `white-space: pre-line` en `#confirm-message` (styles.css).
+     *
+     * @param {{exportedAt: string, categories: number, exercises: number}} summary
+     * @returns {string}
+     */
+    buildImportConfirmMessage(summary) {
+      const exportedDate = summary.exportedAt === 'desconocido'
+        ? 'fecha desconocida'
+        : new Date(summary.exportedAt).toLocaleString('es-ES');
+      return (
+        `Vas a importar un backup del ${exportedDate}.\n\n` +
+        `Categorías con progreso: ${summary.categories}\n` +
+        `Ejercicios con stats: ${summary.exercises}\n\n` +
+        `Esto REEMPLAZARÁ tu progreso actual y no se puede deshacer.`
+      );
+    },
+
+    // ════════════════════════════════════════════════════════════════════════
     // Sesión — migrada íntegra de Phase 1 con prefijo `session*` (D-25)
     // ════════════════════════════════════════════════════════════════════════
 
@@ -596,6 +791,8 @@ export function appShell(appDataReady) {
         // los tipos). Plan 02-03 UAT round 2 confirmó que este es el
         // único patrón que cierra el exploit "fallo + cierra pestaña".
         const newState = applyImmediateFailure(this.state, ex, this.content, todayLocal());
+        // Phase 4 D-78: marca firstUsedAt si null (inline guard, no helper).
+        newState.firstUsedAt = newState.firstUsedAt ?? new Date().toISOString();
         saveState(newState);
         this.state = newState;
         // No schedule: el HTML expone "Siguiente" que llamará sessionAdvance()
@@ -808,6 +1005,8 @@ export function appShell(appDataReady) {
         // redundantes a localStorage en fallos consecutivos del MISMO ejercicio.
         if (!this.matchHadFailure) {
           const newState = applyImmediateFailure(this.state, ex, this.content, todayLocal());
+          // Phase 4 D-78: marca firstUsedAt si null (inline guard, no helper).
+          newState.firstUsedAt = newState.firstUsedAt ?? new Date().toISOString();
           saveState(newState);
           this.state = newState;
           this.matchHadFailure = true;
@@ -1110,6 +1309,8 @@ export function appShell(appDataReady) {
       const before = JSON.parse(JSON.stringify(this.state.categoryProgress ?? {}));
 
       const newState = applySessionResult(this.state, sessionResult, this.content, today);
+      // Phase 4 D-78: marca firstUsedAt si null (inline guard, no helper).
+      newState.firstUsedAt = newState.firstUsedAt ?? new Date().toISOString();
       saveState(newState);
       this.state = newState;
 
@@ -1265,6 +1466,87 @@ export function appShell(appDataReady) {
       if (!this.inFlightTestActive) return null;
       const ift = this.state.inFlightTest;
       return { cursor: ift.cursor, total: ift.exerciseIds.length };
+    },
+
+    /**
+     * Banner de backup en la home (D-78 / D-80, Phase 4). Mismo patrón
+     * double-defense Alpine que `inFlightTestActive` (líneas 1244-1251): si
+     * `state` aún no cargó (boot pre-init), devolvemos `false`.
+     *
+     * Lógica D-78:
+     *   - Si `lastBackupAt` es string → ¿pasaron > 7 días desde entonces?
+     *   - Si `lastBackupAt` es null pero `firstUsedAt` es string → ¿pasaron
+     *     > 7 días desde el primer uso? (banner aparece pidiendo "haz tu
+     *     primer backup").
+     *   - Si ambos son null → app recién instalada sin sesión, no banner.
+     *
+     * Pitfall #5: si `lastBackupAt` es futuro (clock skew o edición manual),
+     * `daysSinceISO` devuelve negativo → `> 7` es false → no mostramos
+     * banner. Defensa cero-coste.
+     *
+     * @returns {boolean}
+     */
+    get shouldShowBackupBanner() {
+      if (!this.state) return false;
+      const today = todayLocal();
+      const last = this.state.lastBackupAt;
+      const first = this.state.firstUsedAt;
+      if (last !== null && typeof last === 'string') {
+        return daysSinceISO(last, today) > 7;
+      }
+      if (first !== null && typeof first === 'string') {
+        return daysSinceISO(first, today) > 7;
+      }
+      return false;
+    },
+
+    /**
+     * Texto del banner home (UI-SPEC líneas 129-132). Dos variantes según
+     * `lastBackupAt`:
+     *   - null → "Aún no has exportado tu progreso."
+     *   - string → "Han pasado N días desde tu último backup."
+     *
+     * Defensivo: pre-init state → '' (banner template no se monta porque
+     * shouldShowBackupBanner ya devolvió false, pero double-defense).
+     *
+     * @returns {string}
+     */
+    get backupBannerText() {
+      if (!this.state) return '';
+      const last = this.state.lastBackupAt;
+      if (last === null) {
+        return 'Aún no has exportado tu progreso.';
+      }
+      const days = daysSinceISO(last, todayLocal());
+      return `Han pasado ${days} días desde tu último backup.`;
+    },
+
+    /**
+     * Línea de estado de la pantalla Backup (UI-SPEC líneas 181-187).
+     * Casos especiales:
+     *   - `lastBackupAt === null` → "Aún no has exportado tu progreso."
+     *   - `days === 0` → "Último backup: 24 de mayo de 2026 (hoy)."
+     *   - `days < 0` (futuro / clock skew) → "Último backup: ... (fecha futura)."
+     *   - `days > 0` → "Último backup: 12 de mayo de 2026 (hace 12 días)."
+     *
+     * @returns {string}
+     */
+    get backupStatusLine() {
+      if (!this.state) return '';
+      const last = this.state.lastBackupAt;
+      if (last === null) {
+        return 'Aún no has exportado tu progreso.';
+      }
+      const today = todayLocal();
+      const days = daysSinceISO(last, today);
+      const date = new Date(last).toLocaleDateString('es-ES', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      });
+      if (days < 0) return `Último backup: ${date} (fecha futura).`;
+      if (days === 0) return `Último backup: ${date} (hoy).`;
+      return `Último backup: ${date} (hace ${days} días).`;
     },
 
     /** True cuando el cursor ha pasado del último ejercicio. */
