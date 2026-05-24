@@ -27,7 +27,9 @@ files_reviewed_list:
   - scripts/assert-avere-prefix-unchanged.mjs
   - scripts/assert-multi-cat-cross.mjs
   - .gitignore
-status: issues_found
+status: fixed
+fixed_at: 2026-05-24T19:01:30Z
+fixed_findings: [HI-01, ME-01, ME-02, ME-03, ME-04]
 commits_reviewed: 4 (Plans 04-01 .. 04-04)
 findings:
   blocker: 0
