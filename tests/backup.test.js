@@ -25,6 +25,7 @@ import assert from 'node:assert/strict';
 
 import { parseBackupFile, buildBackupWrapper } from '../src/data/backup.js';
 import { blankState, migrate2to3, hydrateV3 } from '../src/data/storage.js';
+import { applyNewExerciseRegression } from '../src/domain/progress.js';
 import { daysSinceISO } from '../src/domain/dates.js';
 
 // ────────────────────────────────────────────────────────────────────────────
@@ -296,6 +297,122 @@ describe('data/backup — buildBackupWrapper', () => {
       schemaVersion: 3,
       state
     });
+  });
+});
+
+// ────────────────────────────────────────────────────────────────────────────
+// HI-01 regression — commitImport debe re-correr applyNewExerciseRegression
+// para que un backup viejo (menos ejercicios por categoría) NO mantenga
+// status 'hecha'/'dominada' contra el content actual (más ejercicios).
+//
+// Esto cubre la composición `parseBackupFile(...) → applyNewExerciseRegression`
+// que `commitImport` (src/screens/app.js) ahora ejecuta antes de saveState.
+// commitImport en sí no es testeable bajo node --test (depende de Alpine/DOM),
+// pero la composición pura sí lo es y es la pieza clave de la garantía.
+// ────────────────────────────────────────────────────────────────────────────
+
+describe('data/backup HI-01 — commitImport re-corre applyNewExerciseRegression', () => {
+  // Test 22 — backup contiene una categoría 'hecha' que cubre solo a1+a2,
+  // pero el content actual tiene a1+a2+a3 (ejercicio nuevo añadido tras el
+  // export). Tras parse + regression, la categoría debe demote a 'no-hecha'
+  // con streakDays=0; clearedExerciseIds preservado (D-40).
+  test('hecha del backup con cleared parcial → no-hecha tras applyNewExerciseRegression', () => {
+    const wrapper = {
+      kind: 'italian-course-backup',
+      exportedAt: '2026-03-01T10:00:00.000Z',
+      schemaVersion: 3,
+      state: {
+        schemaVersion: 3,
+        exerciseStats: {
+          a1: { timesShown: 3, timesCorrect: 3, timesFailed: 0 },
+          a2: { timesShown: 3, timesCorrect: 3, timesFailed: 0 }
+        },
+        categoryProgress: {
+          avere: {
+            status: 'hecha',
+            clearedExerciseIds: ['a1', 'a2'],
+            streakDays: 5,
+            lastPracticedDate: '2026-02-28',
+            lastSuccessDate: '2026-02-28',
+            becameHechaAt: '2026-02-25',
+            becameDominadaAt: undefined
+          }
+        },
+        dailyLog: {},
+        lastBackupAt: '2026-03-01T10:00:00.000Z',
+        firstUsedAt: '2026-02-01T09:00:00.000Z'
+      }
+    };
+    // Content actual con un ejercicio nuevo `a3` que el backup no tenía.
+    const content = {
+      categories: [{ id: 'avere', name: 'avere', order: 1 }],
+      exerciseById: {
+        a1: { id: 'a1', categoryIds: ['avere'], type: 'multiple-choice', payload: {} },
+        a2: { id: 'a2', categoryIds: ['avere'], type: 'multiple-choice', payload: {} },
+        a3: { id: 'a3', categoryIds: ['avere'], type: 'multiple-choice', payload: {} }
+      }
+    };
+
+    const parsed = parseBackupFile(JSON.stringify(wrapper));
+    assert.equal(parsed.ok, true);
+    // Simula commitImport: parseBackupFile → applyNewExerciseRegression.
+    const finalState = applyNewExerciseRegression(parsed.state, content);
+    const cat = finalState.categoryProgress.avere;
+
+    assert.equal(cat.status, 'no-hecha', 'avere debe demote tras detectar a3 nuevo en content');
+    assert.equal(cat.streakDays, 0);
+    assert.equal(cat.becameHechaAt, undefined);
+    assert.equal(cat.becameDominadaAt, undefined);
+    // D-40: clearedExerciseIds preservado — el usuario no pierde su trabajo previo.
+    assert.deepEqual(cat.clearedExerciseIds, ['a1', 'a2']);
+    // lastPracticedDate / lastSuccessDate preservados (huella histórica).
+    assert.equal(cat.lastPracticedDate, '2026-02-28');
+    assert.equal(cat.lastSuccessDate, '2026-02-28');
+  });
+
+  // Test 23 — idempotencia: si el backup ya cubre todos los ejercicios del
+  // content actual, la regresión es no-op (status preservado).
+  test('hecha del backup con cleared completo → status preservado tras regression (idempotente)', () => {
+    const wrapper = {
+      kind: 'italian-course-backup',
+      exportedAt: '2026-05-20T10:00:00.000Z',
+      schemaVersion: 3,
+      state: {
+        schemaVersion: 3,
+        exerciseStats: {},
+        categoryProgress: {
+          avere: {
+            status: 'hecha',
+            clearedExerciseIds: ['a1', 'a2'],
+            streakDays: 7,
+            lastPracticedDate: '2026-05-19',
+            lastSuccessDate: '2026-05-19',
+            becameHechaAt: '2026-05-13',
+            becameDominadaAt: undefined
+          }
+        },
+        dailyLog: {},
+        lastBackupAt: '2026-05-20T10:00:00.000Z',
+        firstUsedAt: '2026-05-01T09:00:00.000Z'
+      }
+    };
+    const content = {
+      categories: [{ id: 'avere', name: 'avere', order: 1 }],
+      exerciseById: {
+        a1: { id: 'a1', categoryIds: ['avere'], type: 'multiple-choice', payload: {} },
+        a2: { id: 'a2', categoryIds: ['avere'], type: 'multiple-choice', payload: {} }
+      }
+    };
+
+    const parsed = parseBackupFile(JSON.stringify(wrapper));
+    assert.equal(parsed.ok, true);
+    const finalState = applyNewExerciseRegression(parsed.state, content);
+    const cat = finalState.categoryProgress.avere;
+
+    assert.equal(cat.status, 'hecha');
+    assert.equal(cat.streakDays, 7);
+    assert.equal(cat.becameHechaAt, '2026-05-13');
+    assert.deepEqual([...cat.clearedExerciseIds].sort(), ['a1', 'a2']);
   });
 });
 

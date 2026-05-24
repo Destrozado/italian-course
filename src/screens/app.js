@@ -58,7 +58,7 @@
 //     `exercise-types/`. NUNCA imports cross-screen (solo hay un screen).
 
 import { buildSession, buildFullTest, fisherYates } from '../domain/session.js';
-import { applySessionResult, applyImmediateFailure } from '../domain/progress.js';
+import { applySessionResult, applyImmediateFailure, applyNewExerciseRegression } from '../domain/progress.js';
 import { todayLocal, daysSinceISO } from '../domain/dates.js';
 import { saveState } from '../data/storage.js';
 import { parseBackupFile, buildBackupWrapper } from '../data/backup.js';
@@ -673,7 +673,15 @@ export function appShell(appDataReady) {
     commitImport() {
       if (!this.backupPendingImport) return;
       this.resetSession();
-      this.state = this.backupPendingImport.state;
+      // HI-01 fix (D-40 / DOMAIN-06): re-run boot regression sobre el state
+      // importado ANTES de que la tabla home renderice. Sin esto, un backup
+      // de una versión del content con menos ejercicios por categoría
+      // mantendría categorías marcadas 'hecha'/'dominada' aunque el
+      // clearedExerciseIds no cubra los ejercicios actuales — el home table
+      // mentiría sobre el progreso hasta que el usuario re-practicara la
+      // categoría. La regresión es idempotente cuando el backup ya cubre todo.
+      const imported = applyNewExerciseRegression(this.backupPendingImport.state, this.content);
+      this.state = imported;
       saveState(this.state);
       this.backupPendingImport = null;
       this.backupLastMessage = {
