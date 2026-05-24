@@ -75,7 +75,11 @@
   3. La home muestra un banner discreto recordando hacer backup cuando han pasado más de 7 días desde el último export (timestamp persistido junto al estado)
   4. Los 6 PDFs están transcritos a `content/exercises/{avere,genero-numero,verbos-movimiento,profesiones,sustantivos-irregulares,preposiciones}.json` con al menos 10 ejercicios por categoría, todos validados por el schema y normalizados a NFC al cargar
   5. Al menos 1-2 ejercicios por PDF son multi-categoría (tocan categorías relacionadas), y al fallar uno en una sesión real se observa la cascada propagándose a varias categorías a la vez en el resumen
-**Plans**: TBD
+**Plans**: 4 plans
+- [ ] 04-01-PLAN.md — Backup runtime (migrate2to3 + daysSinceISO + backup.js puro + pantalla Backup + banner home + 3er botón + firstUsedAt plumbing + ~21 tests). Vertical slice: el autor exporta/importa progreso desde el día 1 del plan.
+- [ ] 04-02-PLAN.md — Categories.json a 6 entradas + Preposiciones (multi-choice) + Verbos de movimiento (multi-choice + word-buttons). Cada categoría es un commit tras revisión humana D-85.
+- [ ] 04-03-PLAN.md — Sustantivos Irregulares (match) + Género y Número (match + multi-choice) + Profesiones (mezcla 3 tipos). Cada categoría es un commit tras revisión humana D-85.
+- [ ] 04-04-PLAN.md — avere.json multi-cat extension (≥6 cruces) + smoke test cascada multi-cat real + UAT integral de los 5 criterios ROADMAP.
 **UI hint**: yes
 
 ## Progress
@@ -85,7 +89,7 @@
 | 1. Loop mínimo end-to-end | 2/2 | Complete    | 2026-05-23 |
 | 2. Mecánica completa de re-verificación | 4/4 | Complete   | 2026-05-23 |
 | 3. Variedad de ejercicios + ergonomía | 3/3 | Complete    | 2026-05-24 |
-| 4. Backup robusto + contenido completo | 0/? | Not started | - |
+| 4. Backup robusto + contenido completo | 0/4 | Not started | - |
 
 ## Coverage Summary
 
