@@ -281,6 +281,86 @@ describe('data/storage v4 — migrate3to4 chain + hydrateV4 (Phase 6)', () => {
     assert.deepEqual(v4.dailyLog, {});
   });
 
+  // WR-03 fix — defensa contra inFlightTest.answers corrupto (no-array).
+  //
+  // Antes del fix: si `v3.inFlightTest.answers` era null/undefined/string/etc
+  // (corrupción por edición manual del localStorage), `migrate3to4` saltaba
+  // el branch del backfill y dejaba `newInFlightTest = v3.inFlightTest` con
+  // el shape corrupto. Luego `resumeInFlightTest()` hacía `[...ift.answers]`
+  // y lanzaba `TypeError: not iterable`.
+  //
+  // Tras el fix: si `inFlightTest` existe como objeto, `answers` se normaliza
+  // a `[]` cuando no es array antes del backfill. El state v4 post-migración
+  // siempre tiene `answers` array iterable.
+  test('WR-03: migrate3to4 normaliza inFlightTest.answers = null → []', () => {
+    const v3 = {
+      schemaVersion: 3,
+      exerciseStats: {},
+      categoryProgress: {},
+      dailyLog: {},
+      lastBackupAt: null,
+      firstUsedAt: null,
+      inFlightTest: {
+        categoryIds: ['avere'],
+        exerciseIds: ['a1', 'a2'],
+        cursor: 0,
+        answers: null,            // ← corrupción simulada
+        startedAt: 1716480000000
+      }
+    };
+    const v4 = migrate3to4(v3);
+    assert.equal(v4.schemaVersion, 4);
+    assert.ok(Array.isArray(v4.inFlightTest.answers),
+      'WR-03: answers normalizado a array iterable tras la migración (no era array en input)');
+    assert.equal(v4.inFlightTest.answers.length, 0);
+    // El resto del shape se preserva.
+    assert.deepEqual(v4.inFlightTest.exerciseIds, ['a1', 'a2']);
+    assert.equal(v4.inFlightTest.cursor, 0);
+  });
+
+  test('WR-03: migrate3to4 normaliza inFlightTest.answers = string → []', () => {
+    const v3 = {
+      schemaVersion: 3,
+      exerciseStats: {},
+      categoryProgress: {},
+      dailyLog: {},
+      lastBackupAt: null,
+      firstUsedAt: null,
+      inFlightTest: {
+        categoryIds: ['essere'],
+        exerciseIds: ['e1'],
+        cursor: 0,
+        answers: '[]',           // ← string, no array (edición manual mal-formada)
+        startedAt: 1716480000000
+      }
+    };
+    const v4 = migrate3to4(v3);
+    assert.ok(Array.isArray(v4.inFlightTest.answers),
+      'WR-03: answers string-JSON se normaliza a array vacío (no parsea — guard estricto)');
+    assert.equal(v4.inFlightTest.answers.length, 0);
+  });
+
+  test('WR-03: migrate3to4 normaliza inFlightTest.answers ausente → []', () => {
+    const v3 = {
+      schemaVersion: 3,
+      exerciseStats: {},
+      categoryProgress: {},
+      dailyLog: {},
+      lastBackupAt: null,
+      firstUsedAt: null,
+      inFlightTest: {
+        categoryIds: ['avere'],
+        exerciseIds: ['a1'],
+        cursor: 0
+        // answers ausente totalmente (edición manual incompleta)
+      }
+    };
+    const v4 = migrate3to4(v3);
+    assert.ok(Array.isArray(v4.inFlightTest.answers),
+      'WR-03: answers ausente se normaliza a array vacío');
+    assert.equal(v4.inFlightTest.answers.length, 0);
+  });
+
   test('hydrateV4 sobre v4 válido preserva todos los campos + reconstruye con literal anti-pollution', () => {
     const v4In = {
       schemaVersion: 4,

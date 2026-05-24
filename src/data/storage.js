@@ -303,9 +303,22 @@ export function hydrateV3(parsed) {
  */
 export function migrate3to4(v3) {
   // Reconstruir inFlightTest con backfill defensivo de userAnswer en answers.
+  //
+  // WR-03 fix: el guard previo era
+  //   `Array.isArray(v3.inFlightTest.answers)` — si la edición manual del
+  // localStorage había corrompido `answers` a null, undefined, string "[]",
+  // o cualquier no-array, el branch entero se saltaba y `newInFlightTest`
+  // quedaba con el shape malformado. Más tarde `resumeInFlightTest()` hacía
+  // `[...ift.answers]` y crasheaba con `TypeError: not iterable`.
+  //
+  // Fix: si `inFlightTest` existe como objeto, normalizamos `answers` a `[]`
+  // cuando no sea array antes del backfill. Combinado con CR-03 (deep-clone
+  // de sub-dicts), garantiza que el state v4 post-migración siempre tenga
+  // `answers` array iterable.
   let newInFlightTest = v3.inFlightTest;
-  if (typeof v3.inFlightTest === 'object' && v3.inFlightTest !== null && Array.isArray(v3.inFlightTest.answers)) {
-    const backfilled = v3.inFlightTest.answers.map(a => {
+  if (typeof v3.inFlightTest === 'object' && v3.inFlightTest !== null) {
+    const answers = Array.isArray(v3.inFlightTest.answers) ? v3.inFlightTest.answers : [];
+    const backfilled = answers.map(a => {
       if (a && typeof a === 'object' && !('userAnswer' in a)) {
         return { ...a, userAnswer: null };
       }
