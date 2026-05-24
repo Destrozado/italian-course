@@ -53,13 +53,23 @@ Web personal de ejercicios de italiano para preparar el A1 (y luego A2). Es una 
 - ✓ Schema validator refactorizado a dispatch table `PAYLOAD_VALIDATORS` por tipo
 - ✓ 105 tests verdes totales (58 baseline Phase 1+2 + 23 word-buttons + 24 match), UAT humano PASS (15 pasos cubriendo 4 criterios ROADMAP + 8 pitfalls + exploit-proof D-54/D-61 + D-66 duplicados visuales + Phase 2 regression smoke)
 
+**Phase 4 — Backup robusto + contenido completo (2026-05-24):**
+- ✓ Pantalla "Backup" (5º `currentScreen='backup'` en el factory plano) con botón "Exportar progreso" descarga `italian-course-backup-YYYY-MM-DD.json` (envoltura `{kind, exportedAt, schemaVersion:3, state}`)
+- ✓ Botón "Importar progreso" con confirmación inline (4ª call-site de `requestConfirm()` D-27) mostrando fecha + nº categorías + nº ejercicios + warning irreversible; validación estricta (kind + schemaVersion ≤3 con migración automática, >3 rechaza)
+- ✓ Banner home persistente >7 días sin export con texto "⚠ Han pasado N días desde tu último backup" (o "⚠ Aún no has exportado tu progreso" si nunca exportaste); desaparece reactivamente al exportar (Alpine sobre `state.lastBackupAt`)
+- ✓ Migración `migrate2to3` añade `lastBackupAt: null` + `firstUsedAt: null` al state; `firstUsedAt` se setea inline en 4 call-sites (completeSession + applyResultToSession ×2 + persistInFlightTest) — sin helper
+- ✓ Helper puro `daysSinceISO(iso, todayStr)` DST-safe vía local-noon anchor + ISO UTC almacenado, comparación por días locales completos
+- ✓ Módulo puro `src/data/backup.js` (`parseBackupFile` + `buildBackupWrapper`) — layer purity D-02 invariante
+- ✓ 6 PDFs reales transcritos: **232 ejercicios** totales (Avere 23 incl. 6 multi-cat + Preposiciones 50 + Verbos de movimiento 37 + Sustantivos Irregulares 31 + Género y Número 40 + Profesiones 51), cada categoría validada por schema, NFC normalize on boot
+- ✓ **DESIGN RULE codificada**: `match` solo válido si pareo requiere regla NO derivable por raíz (artículo↔sustantivo, profesión↔lugar, profesión↔herramienta, profesión↔acción); singular↔plural y masc↔fem con raíz compartida → multi-choice con distractoras plausibles
+- ✓ Multi-cat real avere-300..305: 1 cruce semántico por cada categoría nueva con Avere — fallar uno propaga cascada D-54 inmediata a las 2+ categorías visibles en el resumen
+- ✓ APPEND-ONLY invariante D-88 blindado estructuralmente: `scripts/snapshot-avere-prefix.mjs` + `scripts/assert-avere-prefix-unchanged.mjs` (los 17 ejercicios originales de avere.json no pueden modificarse silenciosamente)
+- ✓ 130 tests verdes totales (128 baseline Phase 1-3 + 2 nuevos: smoke multi-cat real cascade + schema validation roundtrip), UAT INTEGRAL 5/5 PASS (los 5 criterios ROADMAP §Phase 4 + mini-UAT 5/5 backup en Plan 04-01)
+
 ### Active
 
 <!-- Current scope. Building toward these. -->
 
-- [ ] Datos en `localStorage` con export/import a JSON (backup manual del progreso) (Phase 4)
-- [ ] Recordatorio de backup tras 7 días sin export (Phase 4)
-- [ ] Transcripción de los 6 PDFs reales a JSON (incluyendo ejercicios multi-categoría) (Phase 4)
 - [ ] Stack: web estática (HTML/CSS/JS), abrible con `npx serve`, sin build step — VALIDADO end-to-end
 
 ### Out of Scope
@@ -115,6 +125,11 @@ Web personal de ejercicios de italiano para preparar el A1 (y luego A2). Es una 
 | Grading case-insensitive para `word-buttons` y `match` (NO para multi-choice que va por índice) | Reduce fricción al autor transcribir PDFs (la profesora a veces empieza frases con mayúscula); trade-off aceptado vs "ocultar typos de mayúsculas" | ✓ Validado Phase 3 (D-67, `toLowerCase + NFC compare` en `grade()`) |
 | `@keydown.window` Alpine para listener global de sesión (vs `addEventListener` manual con cleanup) | Cleanup automático con el lifecycle del `<template x-if>` — elimina clase entera de bugs por listener huérfano | ✓ Validado Phase 3 (D-72, una sola línea sobre el `<article>` del session screen) |
 | Sufijos teclado visibles como superíndice Unicode `¹²³ᵃᵇᶜ` (vs `<kbd>` tags) | Mínimo ruido visual + sin doble borde de control en botones; el binding `tecla ↔ botón` es siempre obvio sin tabular | ✓ Validado Phase 3 (UI-SPEC resolution; `.kbd-hint` muted en styles.css) |
+| Backup como envoltura con metadata `{kind, exportedAt, schemaVersion, state}` (vs raw blob) | `kind` permite distinguir backups del proyecto de otros JSON; `exportedAt` se muestra en confirm dialog para no confundir versiones antiguas | ✓ Validado Phase 4 (D-73, parseBackupFile + buildBackupWrapper en `src/data/backup.js`) |
+| Banner backup persistente sin snooze, desaparece reactivamente al exportar | Coherente con Core Value "el sistema te obliga"; sin snooze evita procrastinación | ✓ Validado Phase 4 (D-80, getter `shouldShowBackupBanner` sobre `state.lastBackupAt`/`firstUsedAt`) |
+| `firstUsedAt` inline guard en 4 call-sites (NO helper `setFirstUsedAtIfMissing`) | Helper introducía indirección sin valor; el guard de 1 línea es trivial repetir; revisión architectural más simple por tipo de operación | ✓ Validado Phase 4 (D-78, B-5 fix; verificable por grep de `firstUsedAt ??.*toISOString`) |
+| D-88 APPEND-ONLY blindado por scripts/snapshot+assert (no por convención manual) | Convención "no toques avere.json" se rompe silenciosamente; snapshot+deepEqual estructural lo detecta automáticamente | ✓ Validado Phase 4 (`scripts/snapshot-avere-prefix.mjs` + `assert-avere-prefix-unchanged.mjs`) |
+| Match solo válido si pareo requiere regla NO derivable por raíz; convertir a multi-choice con distractoras plausibles si no | Ejercicio que cualquiera resuelve por similitud visual de raíz NO demuestra conocimiento; UAT 04-03 lo identificó con `bue↔buoi/dio↔dei/uovo↔uova/tempio↔templi` (todos resolubles por root match) | ✓ Validado Phase 4 (Design Rule UAT, refactor `9d21c88` de sustantivos-irregulares y aplicación inicial en genero-numero + profesiones) |
 
 ## Evolution
 
@@ -134,4 +149,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-05-24 after Phase 3 completion (los 3 tipos de ejercicio operativos + sesión sin ratón end-to-end; verifier PASS 15/15, UAT humano PASS 4/4 criterios ROADMAP + 8 pitfalls + exploit-proof D-54/D-61 + D-66 duplicados)*
+*Last updated: 2026-05-24 after Phase 4 completion (backup robusto end-to-end + 6 PDFs reales transcritos con 232 ejercicios + multi-cat cascada real + DESIGN RULE codificada; verifier PASS 5/5 must-haves, UAT INTEGRAL PASS 5/5 ROADMAP criteria + mini-UAT PASS 5/5 backup runtime; 130 tests verdes; 40/40 v1 requirements complete — milestone v1.0 ready to close)*
