@@ -1,3 +1,147 @@
 {
-  "exercises": []
+  "exercises": [
+    {
+      "id": "essere-001",
+      "type": "multiple-choice",
+      "categoryIds": ["essere"],
+      "payload": {
+        "prompt": "Io ___ Maria.",
+        "options": ["sei", "sono", "ho", "siamo"],
+        "correctIndex": 1
+      },
+      "notes": "Presente indicativo, 1ª persona singular (io). Identidad básica. Distractora `ho` = avere (trampa hispanohablante: 'yo tengo Maria')."
+    },
+    {
+      "id": "essere-002",
+      "type": "multiple-choice",
+      "categoryIds": ["essere"],
+      "payload": {
+        "prompt": "Tu ___ italiano?",
+        "options": ["sono", "hai", "sei", "è"],
+        "correctIndex": 2
+      },
+      "notes": "Presente indicativo, 2ª persona singular (tu) en interrogación — variante D-92. Distractora `hai` = avere."
+    },
+    {
+      "id": "essere-003",
+      "type": "multiple-choice",
+      "categoryIds": ["essere"],
+      "payload": {
+        "prompt": "Lui ___ il mio amico.",
+        "options": ["è", "sei", "ha", "sono"],
+        "correctIndex": 0
+      },
+      "notes": "Presente indicativo, 3ª persona singular (lui). Identidad / amistad. Distractora `ha` = avere."
+    },
+    {
+      "id": "essere-004",
+      "type": "multiple-choice",
+      "categoryIds": ["essere"],
+      "payload": {
+        "prompt": "Lei ___ molto simpatica.",
+        "options": ["ha", "sono", "è", "sei"],
+        "correctIndex": 2
+      },
+      "notes": "Presente indicativo, 3ª persona singular (lei) — misma forma que lui (refuerzo). Estado/atributo. Distractora `ha` = avere."
+    },
+    {
+      "id": "essere-005",
+      "type": "multiple-choice",
+      "categoryIds": ["essere"],
+      "payload": {
+        "prompt": "Noi ___ a casa.",
+        "options": ["siete", "abbiamo", "sono", "siamo"],
+        "correctIndex": 3
+      },
+      "notes": "Presente indicativo, 1ª persona plural (noi). Localización. Distractora `abbiamo` = avere."
+    },
+    {
+      "id": "essere-006",
+      "type": "multiple-choice",
+      "categoryIds": ["essere"],
+      "payload": {
+        "prompt": "Voi ___ pronti?",
+        "options": ["siete", "avete", "siamo", "sono"],
+        "correctIndex": 0
+      },
+      "notes": "Presente indicativo, 2ª persona plural (voi). Estado. Distractora `avete` = avere."
+    },
+    {
+      "id": "essere-007",
+      "type": "multiple-choice",
+      "categoryIds": ["essere"],
+      "payload": {
+        "prompt": "Loro ___ in vacanza.",
+        "options": ["siamo", "hanno", "sono", "siete"],
+        "correctIndex": 2
+      },
+      "notes": "Presente indicativo, 3ª persona plural (loro) — misma forma que io (`sono`); el contexto desambigua. Distractora `hanno` = avere."
+    },
+    {
+      "id": "essere-008",
+      "type": "multiple-choice",
+      "categoryIds": ["essere"],
+      "payload": {
+        "prompt": "Maria non ___ stanca oggi.",
+        "options": ["sei", "è", "ha", "sono"],
+        "correctIndex": 1
+      },
+      "notes": "Presente indicativo, 3ª persona singular en frase negativa (`non` antes del verbo) — variante D-92. Distractora `ha` = avere (trampa: 'Maria no tiene cansada')."
+    },
+    {
+      "id": "essere-009",
+      "type": "multiple-choice",
+      "categoryIds": ["essere"],
+      "payload": {
+        "prompt": "Mi chiamo Anna e ___ italiana.",
+        "options": ["è", "sono", "ho", "sei"],
+        "correctIndex": 1
+      },
+      "notes": "Identidad / presentación. Tras `mi chiamo Anna` la 1ª persona singular es coherente con `sono italiana`. Distractora `ho` = avere."
+    },
+    {
+      "id": "essere-010",
+      "type": "multiple-choice",
+      "categoryIds": ["essere"],
+      "payload": {
+        "prompt": "Lui ___ mio fratello.",
+        "options": ["ha", "è", "sono", "sei"],
+        "correctIndex": 1
+      },
+      "notes": "Identidad / parentesco. Distractora `ha` = avere (un hispanohablante puede decir 'él tiene mi hermano' por interferencia)."
+    },
+    {
+      "id": "essere-011",
+      "type": "multiple-choice",
+      "categoryIds": ["essere"],
+      "payload": {
+        "prompt": "Tu ___ l'amico di Luca?",
+        "options": ["è", "hai", "sei", "sono"],
+        "correctIndex": 2
+      },
+      "notes": "Identidad / pregunta. Apóstrofe ASCII `l'amico` (U+0027). Distractora `hai` = avere."
+    },
+    {
+      "id": "essere-012",
+      "type": "multiple-choice",
+      "categoryIds": ["essere"],
+      "payload": {
+        "prompt": "Voi ___ studenti universitari.",
+        "options": ["siamo", "siete", "avete", "sono"],
+        "correctIndex": 1
+      },
+      "notes": "Identidad / rol social plural. Distractora `avete` = avere."
+    },
+    {
+      "id": "essere-100",
+      "type": "word-buttons",
+      "categoryIds": ["essere"],
+      "payload": {
+        "prompt": "Yo soy María y él es Luca.",
+        "answer": ["io", "sono", "Maria", "e", "lui", "è", "Luca"],
+        "distractors": ["ho", "ha"]
+      },
+      "notes": "Identidad + presentación múltiple — D-90 word-buttons sub-área identidad/presentación. Frase con dos personas (io/sono y lui/è) para reforzar la conjugación. Distractoras `ho`/`ha` = formas de avere (trampa típica del hispanohablante)."
+    }
+  ]
 }
