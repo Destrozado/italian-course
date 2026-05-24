@@ -307,6 +307,61 @@
         "correctIndex": 0
       },
       "notes": "Cópula clasificatoria: X pertenece a la clase Y. Patrón A1 canónico de definición. Distractora `ha` = avere."
+    },
+    {
+      "id": "essere-026",
+      "type": "multiple-choice",
+      "categoryIds": ["essere"],
+      "payload": {
+        "prompt": "Io ___ stato a Roma per due giorni.",
+        "options": ["ho", "sei", "sono", "siamo"],
+        "correctIndex": 2
+      },
+      "notes": "Passato prossimo masc sing: auxiliar essere + participio `stato`. Trampa fortísima: hispanohablante diría `ho stato` (calco 'he estado'), pero los verbos intransitivos como essere usan auxiliar essere, no avere. Distractora `ho` = avere."
+    },
+    {
+      "id": "essere-027",
+      "type": "multiple-choice",
+      "categoryIds": ["essere"],
+      "payload": {
+        "prompt": "Maria ___ stata felice ieri sera.",
+        "options": ["ha", "sei", "è", "sono"],
+        "correctIndex": 2
+      },
+      "notes": "Passato prossimo fem sing: 3ª singular auxiliar `è` + concordancia con sujeto femenino → participio `stata` (no stato). Distractora `ha` = avere."
+    },
+    {
+      "id": "essere-028",
+      "type": "multiple-choice",
+      "categoryIds": ["essere"],
+      "payload": {
+        "prompt": "Noi ___ stati a Milano per il weekend.",
+        "options": ["siete", "siamo", "abbiamo", "sono"],
+        "correctIndex": 1
+      },
+      "notes": "Passato prossimo plural masc: 1ª plural auxiliar `siamo` + concordancia plural masc `stati`. Distractora `abbiamo` = avere."
+    },
+    {
+      "id": "essere-029",
+      "type": "multiple-choice",
+      "categoryIds": ["essere"],
+      "payload": {
+        "prompt": "Le ragazze ___ state qui ieri.",
+        "options": ["siete", "hanno", "siamo", "sono"],
+        "correctIndex": 3
+      },
+      "notes": "Passato prossimo plural fem: 3ª plural auxiliar `sono` + concordancia plural fem `state`. Las 4 formas stato/stata/stati/state cubiertas D-93. Distractora `hanno` = avere."
+    },
+    {
+      "id": "essere-103",
+      "type": "word-buttons",
+      "categoryIds": ["essere"],
+      "payload": {
+        "prompt": "Hemos estado en Roma una semana.",
+        "answer": ["siamo", "stati", "a", "Roma", "per", "una", "settimana"],
+        "distractors": ["abbiamo"]
+      },
+      "notes": "Passato prossimo plural masc + preposición `a` con ciudad + `per` con duración — D-90 word-buttons sub-área participio. Trampa clásica: hispanohablante diría 'abbiamo stato' (calco). Distractora `abbiamo` = avere."
     }
   ]
 }
