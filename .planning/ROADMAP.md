@@ -11,7 +11,7 @@
 - [x] **Phase 2: Mecánica completa de re-verificación** — Estados, cascada de fallo, racha, dashboard y resumen — el motor que "te obliga a no olvidar" está operativo (completed 2026-05-23)
 - [x] **Phase 3: Variedad de ejercicios + ergonomía de teclado** — word-buttons y match completan los tres tipos; atajos 1-4/Enter/Space hacen la práctica diaria fluida (completed 2026-05-24)
 - [x] **Phase 4: Backup robusto + contenido completo** — Export/import + recordatorio de backup + los 6 PDFs transcritos a JSON (incluyendo ejercicios multi-categoría para ejercitar la cascada en uso real) — 4/4 plans complete (pending verifier) (completed 2026-05-24)
-- [ ] **Phase 5: Essere — categoría fundamental que faltaba** — Detectado durante UAT post-Phase 4: tenemos Avere como categoría dedicada pero NO Essere, pese a ser igualmente fundamental para A1 (identidad, profesión, nacionalidad, estado, copula). Essere está exercitado indirectamente vía verbos-movimiento (auxiliar passato prossimo) pero no como verbo independiente. Esta fase añade `content/exercises/essere.json` siguiendo el patrón D-85 (Claude propone desde conocimiento A1 genérico — no hay PDF — autor revisa pedagógicamente y commitea).
+- [x] **Phase 5: Essere — categoría fundamental que faltaba** — Detectado durante UAT post-Phase 4: tenemos Avere como categoría dedicada pero NO Essere, pese a ser igualmente fundamental para A1 (identidad, profesión, nacionalidad, estado, copula). Essere está exercitado indirectamente vía verbos-movimiento (auxiliar passato prossimo) pero no como verbo independiente. Esta fase añade `content/exercises/essere.json` siguiendo el patrón D-85 (Claude propone desde conocimiento A1 genérico — no hay PDF — autor revisa pedagógicamente y commitea). (completed 2026-05-24)
 
 ## Phase Details
 
@@ -96,7 +96,7 @@
   5. Al menos 1 ejercicio multi-categoría `categoryIds: ["essere", <otra>]` (e.g., essere + profesiones tipo `Lei ___ avvocata` o essere + verbos-movimiento tipo `Maria ___ andata al cinema`) que dispara cascada D-54 al fallar.
   6. UAT humano: el autor lanza un Repaso 20 incluyendo essere y completa la sesión sin errores de UX/grading; falla deliberadamente el ejercicio multi-cat y observa la cascada en el resumen.
 **Plans**: 1 plan
-- [ ] 05-01-PLAN.md — categories.json shift (essere order:2) + essere.json ~39 ejercicios (33 base D-92 + 6 multi-cat D-94) commits secuenciales por bloque revisado pedagógicamente + extensión smoke multi-cat tests/domain.test.js + UAT INTEGRAL 6/6 Phase 5
+- [x] 05-01-PLAN.md — categories.json shift (essere order:2) + essere.json ~39 ejercicios (33 base D-92 + 6 multi-cat D-94) commits secuenciales por bloque revisado pedagógicamente + extensión smoke multi-cat tests/domain.test.js + UAT INTEGRAL 6/6 Phase 5
 
 ## Progress
 
@@ -106,7 +106,7 @@
 | 2. Mecánica completa de re-verificación | 4/4 | Complete   | 2026-05-23 |
 | 3. Variedad de ejercicios + ergonomía | 3/3 | Complete    | 2026-05-24 |
 | 4. Backup robusto + contenido completo | 4/4 | Complete    | 2026-05-24 |
-| 5. Essere — categoría fundamental que faltaba | 0/1 | Not started | - |
+| 5. Essere — categoría fundamental que faltaba | 1/1 | Complete   | 2026-05-24 |
 
 ## Coverage Summary
 
