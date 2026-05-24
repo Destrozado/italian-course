@@ -46,6 +46,12 @@ Next: Verifier pass on Phase 4 (`phase.complete` tras VERIFICATION.md status:pas
 
 ## Accumulated Context
 
+### Quick Tasks Completed
+
+| Quick ID | Slug | Description | Completed | Commits |
+|----------|------|-------------|-----------|---------|
+| 260524-tpn | fix-botones-multi-choice-pegados-visualm | Fix UX-1 botones multi-choice pegados (.button-row migración Phase 2/3 olvidada en sub-template multi-choice) | 2026-05-24 | `9e38af5` |
+
 ### Key Decisions
 
 | Fecha | Decisión | Razón |
