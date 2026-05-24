@@ -330,6 +330,51 @@ describe('data/backup — parseBackupFile error paths', () => {
     assert.equal(({}).polluted, undefined,
       'Object.prototype.polluted DEBE ser undefined tras parsear un payload con __proto__ malicioso');
   });
+
+  // CR-03 fix — defensa contra prototype pollution en sub-objetos anidados.
+  // El test anterior solo cubre `__proto__` en el ROOT del state. La review
+  // detectó que `migrate3to4` y `hydrateV4` copiaban los sub-dicts
+  // (`exerciseStats`, `categoryProgress`, `dailyLog`) por REFERENCIA, así que
+  // un sub-objeto malicioso con `__proto__` como own-property podía persistir
+  // intacto en el live state — el comment T-04-02 sobre "Object.prototype
+  // limpio" sólo era cierto para el root. El fix introdujo deep-clone vía
+  // JSON.parse(JSON.stringify(...)) en ambos.
+  test('CR-03: __proto__ en sub-objetos anidados (exerciseStats[id]) NO contamina Object.prototype tras import', () => {
+    // Sub-objeto malicioso bajo exerciseStats: el JSON literal lleva
+    // `__proto__` como own-property del item. Sin el deep-clone, ese sub-objeto
+    // se copiaba por referencia al state final del consumer.
+    const malicious = JSON.stringify({
+      kind: 'italian-course-backup',
+      schemaVersion: 3,
+      state: {
+        schemaVersion: 3,
+        exerciseStats: {
+          poisonedEx: {
+            timesShown: 1,
+            timesCorrect: 0,
+            timesFailed: 0,
+            __proto__: { polluted: 'sub-object-payload' }
+          }
+        },
+        categoryProgress: {},
+        dailyLog: {}
+      }
+    });
+    const r = parseBackupFile(malicious);
+    assert.equal(r.ok, true);
+    // Verificación CR-03: el sub-objeto malicioso NO contamina Object.prototype
+    // global. Sin el deep-clone, esto seguía siendo true (V8 ya neutraliza
+    // __proto__ en JSON.parse), pero ADEMÁS verificamos que el sub-objeto
+    // resultante NO tiene la property `polluted` por referencia directa.
+    assert.equal(({}).polluted, undefined,
+      'Object.prototype.polluted DEBE ser undefined tras importar un backup con __proto__ anidado');
+    // Verificación adicional: el sub-objeto deep-cloned NO debe llevar el
+    // payload malicioso como property propia.
+    assert.equal(r.state.exerciseStats.poisonedEx.polluted, undefined,
+      'tras el deep-clone, el sub-objeto poisonedEx no tiene la propiedad maliciosa');
+    // El resto del shape se preserva intacto.
+    assert.equal(r.state.exerciseStats.poisonedEx.timesShown, 1);
+  });
 });
 
 // ────────────────────────────────────────────────────────────────────────────

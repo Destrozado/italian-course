@@ -314,16 +314,25 @@ export function migrate3to4(v3) {
     newInFlightTest = { ...v3.inFlightTest, answers: backfilled };
   }
 
+  // CR-03 fix: deep-clone defensivo de los sub-dicts vía JSON round-trip.
+  // El comment de T-04-02 prometía "reconstrucción literal produce Object.prototype
+  // limpio" — true para el OBJETO ROOT, pero las entradas anidadas (e.g.
+  // `exerciseStats[id]`) compartían referencia con el input parseado. Un sub-objeto
+  // con `__proto__` como own-property o con un getter ejecutable podía colarse al
+  // live state. JSON.parse(JSON.stringify(...)) elimina funciones, getters y
+  // cadenas de prototipo no-Object.prototype porque la serialización JSON
+  // ignora todo eso (consistente con el patrón ya en uso en `completeSession()`
+  // línea 1521 para el snapshot de categoryProgress antes del delta).
   return {
     schemaVersion: 4,
     exerciseStats: (typeof v3.exerciseStats === 'object' && v3.exerciseStats !== null)
-      ? v3.exerciseStats
+      ? JSON.parse(JSON.stringify(v3.exerciseStats))
       : {},
     categoryProgress: (typeof v3.categoryProgress === 'object' && v3.categoryProgress !== null)
-      ? v3.categoryProgress
+      ? JSON.parse(JSON.stringify(v3.categoryProgress))
       : {},
     dailyLog: (typeof v3.dailyLog === 'object' && v3.dailyLog !== null)
-      ? v3.dailyLog
+      ? JSON.parse(JSON.stringify(v3.dailyLog))
       : {},
     lastBackupAt: typeof v3.lastBackupAt === 'string' ? v3.lastBackupAt : null,
     firstUsedAt: typeof v3.firstUsedAt === 'string' ? v3.firstUsedAt : null,
@@ -349,16 +358,21 @@ export function migrate3to4(v3) {
  * @returns {object} Estado v4 con campos garantizados.
  */
 export function hydrateV4(parsed) {
+  // CR-03 fix: deep-clone defensivo de los sub-dicts (consistente con
+  // migrate3to4 — ver comentario allí). T-04-02 prometía "Object.prototype
+  // limpio" para el root, pero entradas anidadas con getters / __proto__
+  // como own-property podían persistir si se copiaban por referencia.
+  // JSON round-trip las neutraliza.
   return {
     schemaVersion: 4,
     exerciseStats: (typeof parsed.exerciseStats === 'object' && parsed.exerciseStats !== null)
-      ? parsed.exerciseStats
+      ? JSON.parse(JSON.stringify(parsed.exerciseStats))
       : {},
     categoryProgress: (typeof parsed.categoryProgress === 'object' && parsed.categoryProgress !== null)
-      ? parsed.categoryProgress
+      ? JSON.parse(JSON.stringify(parsed.categoryProgress))
       : {},
     dailyLog: (typeof parsed.dailyLog === 'object' && parsed.dailyLog !== null)
-      ? parsed.dailyLog
+      ? JSON.parse(JSON.stringify(parsed.dailyLog))
       : {},
     lastBackupAt: typeof parsed.lastBackupAt === 'string' ? parsed.lastBackupAt : null,
     firstUsedAt: typeof parsed.firstUsedAt === 'string' ? parsed.firstUsedAt : null,
