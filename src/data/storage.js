@@ -25,29 +25,33 @@
 //   - D-47: `categoryProgress[id]` se inicializa lazy en `applySessionResult`.
 //     `migrate1to2` deja `categoryProgress: {}` sin hidratar retroactivamente
 //     (v1 no guardaba racha — no se puede inferir).
+//   - D-77 / D-78 (Phase 4): migración schemaVersion 2 → 3 transparente: añade
+//     `lastBackupAt: null` y `firstUsedAt: null`, preserva el resto.
 //   - Defensivo: localStorage indisponible → blankState; JSON corrupto →
 //     backup a `italianCourse.v1.corrupt.<ts>` + blankState; schemaVersion
 //     desconocido (futuro) → warn + blankState.
 
 const KEY = 'italianCourse.v1';
-const CURRENT_SCHEMA_VERSION = 2;
+const CURRENT_SCHEMA_VERSION = 3;
 
 /**
  * Devuelve un estado "en blanco" (sin progreso) — el estado inicial canónico
- * con shape v2 (D-46/D-47).
+ * con shape v3 (D-46/D-47 + D-77/D-78 Phase 4).
  *
  * Nota: `inFlightTest` se omite (undefined) deliberadamente; `JSON.stringify`
  * lo elide al persistir y el resto del código trata `state.inFlightTest`
  * como opcional.
  *
- * @returns {{schemaVersion: 2, exerciseStats: object, categoryProgress: object, dailyLog: object}}
+ * @returns {{schemaVersion: 3, exerciseStats: object, categoryProgress: object, dailyLog: object, lastBackupAt: null, firstUsedAt: null}}
  */
 export function blankState() {
   return {
     schemaVersion: CURRENT_SCHEMA_VERSION,
     exerciseStats: {},
     categoryProgress: {},
-    dailyLog: {}
+    dailyLog: {},
+    lastBackupAt: null,    // NEW (D-77 Phase 4)
+    firstUsedAt: null      // NEW (D-78 Phase 4)
     // inFlightTest omitido (undefined) — saveState/JSON.stringify lo elide.
   };
 }
@@ -58,10 +62,10 @@ export function blankState() {
  * backup defensivo bajo `italianCourse.v1.corrupt.<timestamp>` y arranca
  * limpio.
  *
- * El estado devuelto SIEMPRE está en el shape v2 (la migración 1→2 corre
- * transparente).
+ * El estado devuelto SIEMPRE está en el shape v3 (las migraciones 1→2→3
+ * corren transparente vía el dispatcher).
  *
- * @returns {{schemaVersion: 2, exerciseStats: object, categoryProgress: object, dailyLog: object, inFlightTest?: object}}
+ * @returns {{schemaVersion: 3, exerciseStats: object, categoryProgress: object, dailyLog: object, lastBackupAt: ?string, firstUsedAt: ?string, inFlightTest?: object}}
  */
 export function loadState() {
   let raw;
@@ -110,13 +114,21 @@ export function saveState(state) {
  * Enruta el `parsed` por su `schemaVersion` a la migración o hidratación
  * apropiada. Patrón "schemaVersion-based migrate(parsed) en cadena".
  *
- * @param {*} parsed - Resultado de JSON.parse del raw localStorage.
- * @returns {object} Estado normalizado en el shape v2.
+ * Phase 4: cadena 1 → 2 → 3 → hydrateV3 (migrate1to2, migrate2to3,
+ * hydrateV3 encadenados con fall-through sobre `s.schemaVersion`).
+ * `hydrateV2` se conserva como export por backward-compat de tests
+ * existentes; el dispatcher actual NO la llama (encadena migrate1to2 →
+ * migrate2to3 → hydrateV3 directo).
+ *
+ * @param {*} parsed - Resultado de JSON.parse del raw blob persistido.
+ * @returns {object} Estado normalizado en el shape v3.
  */
 function migrate(parsed) {
   if (!parsed || typeof parsed !== 'object') return blankState();
-  if (parsed.schemaVersion === 2) return hydrateV2(parsed);
-  if (parsed.schemaVersion === 1) return migrate1to2(parsed);
+  let s = parsed;
+  if (s.schemaVersion === 1) s = migrate1to2(s);
+  if (s.schemaVersion === 2) s = migrate2to3(s);
+  if (s.schemaVersion === 3) return hydrateV3(s);
 
   // Versión desconocida (probablemente futura) → no perdemos datos del autor:
   // logueamos warning y arrancamos limpio.
@@ -156,6 +168,9 @@ export function migrate1to2(v1) {
  * una migración futura se queda a medias.
  *
  * Exportada para testabilidad — NO se usa fuera de `storage.js` en producción.
+ * Phase 4: el dispatcher `migrate()` ya no llama `hydrateV2` directamente
+ * (encadena 1→2→3 a hydrateV3). Este export se conserva por backward-compat
+ * de tests existentes (`tests/data-storage.test.js`).
  *
  * @param {object} parsed - Estado parseado con `schemaVersion: 2`.
  * @returns {object} Estado v2 con campos garantizados.
@@ -173,5 +188,72 @@ export function hydrateV2(parsed) {
       ? parsed.dailyLog
       : {},
     inFlightTest: parsed.inFlightTest   // permitido undefined u objeto; validación profunda es del consumidor
+  };
+}
+
+/**
+ * Migra un estado v2 a v3 (D-77 / D-78, Phase 4). Añade `lastBackupAt: null`
+ * y `firstUsedAt: null`; preserva el resto (exerciseStats, categoryProgress,
+ * dailyLog, inFlightTest).
+ *
+ * Idempotencia sobre valores existentes: si el v2 ya tenía `lastBackupAt` o
+ * `firstUsedAt` (por ejemplo porque migra2to3 corre dos veces sobre el mismo
+ * blob, o porque `parseBackupFile` recibe un wrapper con state v2 que el
+ * autor editó a mano), preservamos los valores tipo string; cualquier otra
+ * cosa cae a `null` (defensivo).
+ *
+ * @param {object} v2 - Estado parseado con `schemaVersion: 2`.
+ * @returns {object} Estado normalizado v3.
+ */
+export function migrate2to3(v2) {
+  return {
+    schemaVersion: 3,
+    exerciseStats: (typeof v2.exerciseStats === 'object' && v2.exerciseStats !== null)
+      ? v2.exerciseStats
+      : {},
+    categoryProgress: (typeof v2.categoryProgress === 'object' && v2.categoryProgress !== null)
+      ? v2.categoryProgress
+      : {},
+    dailyLog: (typeof v2.dailyLog === 'object' && v2.dailyLog !== null)
+      ? v2.dailyLog
+      : {},
+    lastBackupAt: typeof v2.lastBackupAt === 'string' ? v2.lastBackupAt : null,
+    firstUsedAt: typeof v2.firstUsedAt === 'string' ? v2.firstUsedAt : null,
+    inFlightTest: v2.inFlightTest
+  };
+}
+
+/**
+ * Hidrata un estado v3 ya en disco con type-guards defensivos en cada
+ * sub-objeto. Útil cuando el usuario edita manualmente localStorage o cuando
+ * el backup importado viene de una shape v3 con campos malformados.
+ *
+ * Defensa contra prototype pollution (T-04-02): la reconstrucción literal
+ * del objeto `{schemaVersion: 3, exerciseStats: ..., ...}` produce un nuevo
+ * objeto con prototipo `Object.prototype` limpio. Cualquier `__proto__` que
+ * V8 ya hubiera materializado como property propia del input cae como
+ * property propia del output (no contamina el prototipo global; verificable
+ * con `({}).polluted === undefined` tras un parse con `"__proto__": {...}`).
+ *
+ * Exportada para testabilidad — invocada al final de la cadena de migración.
+ *
+ * @param {object} parsed - Estado parseado con `schemaVersion: 3`.
+ * @returns {object} Estado v3 con campos garantizados.
+ */
+export function hydrateV3(parsed) {
+  return {
+    schemaVersion: 3,
+    exerciseStats: (typeof parsed.exerciseStats === 'object' && parsed.exerciseStats !== null)
+      ? parsed.exerciseStats
+      : {},
+    categoryProgress: (typeof parsed.categoryProgress === 'object' && parsed.categoryProgress !== null)
+      ? parsed.categoryProgress
+      : {},
+    dailyLog: (typeof parsed.dailyLog === 'object' && parsed.dailyLog !== null)
+      ? parsed.dailyLog
+      : {},
+    lastBackupAt: typeof parsed.lastBackupAt === 'string' ? parsed.lastBackupAt : null,
+    firstUsedAt: typeof parsed.firstUsedAt === 'string' ? parsed.firstUsedAt : null,
+    inFlightTest: parsed.inFlightTest
   };
 }

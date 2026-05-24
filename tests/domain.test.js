@@ -196,3 +196,5 @@ describe('exercise-types/index', () => {
     assert.equal(registry['multiple-choice'], multipleChoice);
   });
 });
+
+// daysSinceISO tests live en tests/backup.test.js (co-located con los otros tests Phase 4).

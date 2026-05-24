@@ -18,23 +18,65 @@
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { blankState, migrate1to2, hydrateV2 } from '../src/data/storage.js';
+import { blankState, migrate1to2, hydrateV2, migrate2to3, hydrateV3 } from '../src/data/storage.js';
 
-describe('data/storage — blankState v2', () => {
-  test('blankState() devuelve shape v2 completo con campos esperados', () => {
+// Phase 4 (D-77/D-78): bumped schemaVersion from 2 → 3 con dos campos
+// nuevos (lastBackupAt, firstUsedAt). El "blankState v2" describe-name
+// se conserva por estabilidad histórica, pero los asserts apuntan a v3
+// (la realidad actual). Tests adicionales de la cadena v1→v2→v3 viven
+// en `tests/backup.test.js` (co-located con backup.js Phase 4).
+
+describe('data/storage — blankState v3 (Phase 4)', () => {
+  test('blankState() devuelve shape v3 completo con lastBackupAt/firstUsedAt null', () => {
     const s = blankState();
-    assert.equal(s.schemaVersion, 2);
+    assert.equal(s.schemaVersion, 3);
     assert.deepEqual(s.exerciseStats, {});
     assert.deepEqual(s.categoryProgress, {});
     assert.deepEqual(s.dailyLog, {});
+    assert.equal(s.lastBackupAt, null);
+    assert.equal(s.firstUsedAt, null);
     // `inFlightTest` debe estar omitido (undefined), no presente como key.
     assert.equal(s.inFlightTest, undefined);
     assert.equal(Object.prototype.hasOwnProperty.call(s, 'inFlightTest'), false,
       'blankState() no debería incluir la clave `inFlightTest` (debe ser omitida)');
   });
 
-  test('blankState() codifica schemaVersion: 2 (no v1)', () => {
-    assert.equal(blankState().schemaVersion, 2);
+  test('blankState() codifica schemaVersion: 3 (Phase 4 bump)', () => {
+    assert.equal(blankState().schemaVersion, 3);
+  });
+});
+
+describe('data/storage v3 — migrate2to3 chain + hydrateV3 (Phase 4)', () => {
+  test('migrate2to3 sobre v2 fresh produce v3 con campos nuevos null + sub-objetos preservados', () => {
+    const v2 = {
+      schemaVersion: 2,
+      exerciseStats: { a: { timesShown: 1, timesCorrect: 1, timesFailed: 0 } },
+      categoryProgress: {},
+      dailyLog: {}
+    };
+    const v3 = migrate2to3(v2);
+    assert.equal(v3.schemaVersion, 3);
+    assert.deepEqual(v3.exerciseStats, v2.exerciseStats);
+    assert.equal(v3.lastBackupAt, null);
+    assert.equal(v3.firstUsedAt, null);
+  });
+
+  test('hydrateV3 sobre v3 válido preserva todos los campos', () => {
+    const v3In = {
+      schemaVersion: 3,
+      exerciseStats: { x: { timesShown: 2, timesCorrect: 2, timesFailed: 0 } },
+      categoryProgress: { avere: { status: 'hecha', streakDays: 1, clearedExerciseIds: ['x'], lastSuccessDate: '2026-05-23' } },
+      dailyLog: { '2026-05-23': { date: '2026-05-23', categoriesPracticed: ['avere'], categoriesWithFailure: [] } },
+      lastBackupAt: '2026-05-22T10:00:00.000Z',
+      firstUsedAt: '2026-05-01T08:00:00.000Z'
+    };
+    const out = hydrateV3(v3In);
+    assert.equal(out.schemaVersion, 3);
+    assert.deepEqual(out.exerciseStats, v3In.exerciseStats);
+    assert.deepEqual(out.categoryProgress, v3In.categoryProgress);
+    assert.deepEqual(out.dailyLog, v3In.dailyLog);
+    assert.equal(out.lastBackupAt, v3In.lastBackupAt);
+    assert.equal(out.firstUsedAt, v3In.firstUsedAt);
   });
 });
 
