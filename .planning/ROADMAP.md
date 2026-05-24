@@ -78,7 +78,7 @@
 **Plans**: 4 plans
 - [x] 04-01-PLAN.md — Backup runtime (migrate2to3 + daysSinceISO + backup.js puro + pantalla Backup + banner home + 3er botón + firstUsedAt plumbing + ~21 tests). Vertical slice: el autor exporta/importa progreso desde el día 1 del plan. **completado 2026-05-24** (128/128 tests verdes, 2 commits + mini-UAT humano 5/5 PASS, BACK-04/-05/-06 cerrados), ver [04-01-SUMMARY.md](./phases/04-backup-robusto-contenido-completo/04-01-SUMMARY.md)
 - [x] 04-02-PLAN.md — Categories.json a 6 entradas + Preposiciones (50 multi-choice cobertura PDF completa) + Verbos de movimiento (34 multi-choice + 3 word-buttons cobertura PDF completa) + 3 placeholders B-1 + helper validate-content-fixture.mjs B-4 fix. Cada categoría es un commit tras revisión humana D-85. **completado 2026-05-24** (128/128 tests verdes, 4 commits, 87 ejercicios nuevos = 104 totales en la app, SEED-01 parcial 2/5), ver [04-02-SUMMARY.md](./phases/04-backup-robusto-contenido-completo/04-02-SUMMARY.md)
-- [ ] 04-03-PLAN.md — Sustantivos Irregulares (match) + Género y Número (match + multi-choice) + Profesiones (mezcla 3 tipos). Cada categoría es un commit tras revisión humana D-85.
+- [x] 04-03-PLAN.md — Sustantivos Irregulares (31 mezcla post-design-rule) + Género y Número (40 mezcla rica) + Profesiones (51 mezcla 3 tipos: 43 mc + 5 word-buttons + 3 match). DESIGN RULE 'match-if-not-trivial-by-root' anclada + retro-patch. **completado 2026-05-24** (128/128 tests verdes, 4 commits, 122 ejercicios nuevos = ~221 totales en la app, SEED-01 6/6 categorías con contenido real pendiente UAT integral en 04-04), ver [04-03-SUMMARY.md](./phases/04-backup-robusto-contenido-completo/04-03-SUMMARY.md)
 - [ ] 04-04-PLAN.md — avere.json multi-cat extension (≥6 cruces) + smoke test cascada multi-cat real + UAT integral de los 5 criterios ROADMAP.
 **UI hint**: yes
 
@@ -89,7 +89,7 @@
 | 1. Loop mínimo end-to-end | 2/2 | Complete    | 2026-05-23 |
 | 2. Mecánica completa de re-verificación | 4/4 | Complete   | 2026-05-23 |
 | 3. Variedad de ejercicios + ergonomía | 3/3 | Complete    | 2026-05-24 |
-| 4. Backup robusto + contenido completo | 2/4 | In progress | - |
+| 4. Backup robusto + contenido completo | 3/4 | In progress | - |
 
 ## Coverage Summary
 
@@ -122,4 +122,4 @@ Cada fase entrega valor usable independientemente:
 
 ---
 *Roadmap created: 2026-05-23*
-*Last updated: 2026-05-24 after Plan 04-02 completion (128/128 tests verdes, 4 commits, 87 ejercicios nuevos transcritos del PDF — 50 Preposiciones + 37 Verbos de movimiento, cobertura PDF completa, helper único de validación reusable 04-03/04-04, SEED-01 2/5 parcial; Phase 4 2/4 in progress)*
+*Last updated: 2026-05-24 after Plan 04-03 completion (128/128 tests verdes, 4 commits, 122 ejercicios nuevos transcritos del PDF — 31 Sustantivos Irregulares + 40 Género y Número + 51 Profesiones, cobertura PDF completa, DESIGN RULE 'match-if-not-trivial-by-root' anclada como normativa + retro-patch a sustantivos-irregulares, 6 ediciones autor-aprobadas en Task 3 Profesiones, SEED-01 6/6 categorías con contenido real pendiente UAT integral en 04-04, ~221 ejercicios totales en la app; Phase 4 3/4 in progress)*

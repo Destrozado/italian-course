@@ -66,7 +66,7 @@
 ### Initial Content (SEED)
 
 - [ ] **SEED-01**: Transcribir los 6 PDFs (Avere, Género y Número, Verbos de Movimiento, Profesiones, Sustantivos Irregulares, Preposiciones) a JSONs de ejercicios — al menos 10 ejercicios por categoría como semilla mínima
-  > **Progreso parcial tras Plan 04-02 (2026-05-24):** 3/6 categorías tienen contenido real — Avere (12 ejercicios, Phase 1), Preposiciones (50 ejercicios cobertura PDF completa, 04-02 Task 2), Verbos de movimiento (37 ejercicios cobertura PDF completa, 04-02 Task 3). Las 3 restantes (Sustantivos Irregulares, Género y Número, Profesiones) existen como placeholders `{"exercises":[]}` (B-1 anti-crash fix); contenido real en Plan 04-03.
+  > **Progreso tras Plan 04-03 (2026-05-24):** 6/6 categorías tienen contenido real — Avere (12 ejercicios, Phase 1), Preposiciones (50 ejercicios, 04-02 Task 2), Verbos de movimiento (37 ejercicios, 04-02 Task 3), Sustantivos Irregulares (31 ejercicios, 04-03 Task 1 + design-rule patch), Género y Número (40 ejercicios, 04-03 Task 2), Profesiones (51 ejercicios, 04-03 Task 3). Total ~221 ejercicios prácticables en la app. **Pendiente cierre formal:** UAT integral de los 5 criterios ROADMAP de Phase 4 en Plan 04-04 (cascada multi-cat real, banner backup, las 6 categorías visibles sin banner CONT-05, etc.). El SEED-01 transcripción literal del PDF está covered; el closure depende del UAT.
 - [ ] **SEED-02**: Algunos ejercicios semilla son multi-categoría (al menos 1-2 por PDF que toquen categorías relacionadas) para validar la cascada de fallo en uso real
 
 ## v2 Requirements
@@ -152,7 +152,7 @@ Explicitly excluded for v1. Documented to prevent scope creep.
 | BACK-04 | Fase 4 | Pending |
 | BACK-05 | Fase 4 | Pending |
 | BACK-06 | Fase 4 | Pending |
-| SEED-01 | Fase 4 | In Progress (3/6 categorías con contenido real tras 04-02 — Avere 12 + Preposiciones 50 + Verbos de movimiento 37; las 3 restantes en 04-03 sobreescribirán placeholders B-1) |
+| SEED-01 | Fase 4 | In Progress (6/6 categorías con contenido real tras 04-03 — Avere 12 + Preposiciones 50 + Verbos de movimiento 37 + Sustantivos Irregulares 31 + Género y Número 40 + Profesiones 51 = ~221 ejercicios. Cierre formal pendiente UAT integral en 04-04) |
 | SEED-02 | Fase 4 | Pending |
 
 **Coverage:**
@@ -162,4 +162,4 @@ Explicitly excluded for v1. Documented to prevent scope creep.
 
 ---
 *Requirements defined: 2026-05-23*
-*Last updated: 2026-05-24 after Plan 04-02 completion — SEED-01 marcado In Progress (3/6 categorías con contenido real: Avere + Preposiciones 50 + Verbos de movimiento 37). El status formalmente cierra cuando 04-03 entrega las 3 restantes y 04-04 verifica el SEED-02.*
+*Last updated: 2026-05-24 after Plan 04-03 completion — SEED-01 sigue In Progress pero 6/6 categorías ya tienen contenido real (~221 ejercicios). Cierre formal del status pendiente UAT integral en 04-04 (smoke test cascada multi-cat real + verificación visual de los 5 criterios ROADMAP de Phase 4). SEED-02 sigue Pending hasta 04-04 entrega ≥6 cruces multi-cat.*

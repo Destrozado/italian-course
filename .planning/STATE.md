@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-05-24T11:47:00.000Z"
+last_updated: "2026-05-24T13:30:00.000Z"
 progress:
   total_phases: 4
   completed_phases: 3
   total_plans: 13
-  completed_plans: 11
-  percent: 85
+  completed_plans: 12
+  percent: 92
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -23,25 +23,25 @@ progress:
 ## Current Position
 
 Phase: 4 (Backup robusto + contenido completo) — EXECUTING
-Plan: 3 of 4 — Plan 04-02 **COMPLETED** (2026-05-24, ver [04-02-SUMMARY.md](./phases/04-backup-robusto-contenido-completo/04-02-SUMMARY.md))
-Next: Plan 04-03 (Sustantivos Irregulares match + Género y Número match+multi-choice + Profesiones mezcla 3 tipos)
+Plan: 4 of 4 — Plan 04-03 **COMPLETED** (2026-05-24, ver [04-03-SUMMARY.md](./phases/04-backup-robusto-contenido-completo/04-03-SUMMARY.md))
+Next: Plan 04-04 (avere.json multi-cat extension SEED-02 + smoke test cascada multi-cat real + UAT integral 5 criterios ROADMAP)
 
 - **Phase:** 4
-- **Plan:** 04-01 + 04-02 completed; 04-03 pending
+- **Plan:** 04-01 + 04-02 + 04-03 completed; 04-04 pending
 - **Status:** Executing Phase 4
-- **Progress:** [█████████████░] 85% (11/13 planes — 3 de 4 fases completadas + 2/4 planes de Phase 4)
+- **Progress:** [██████████████░] 92% (12/13 planes — 3 de 4 fases completadas + 3/4 planes de Phase 4)
 
 ## Performance Metrics
 
 | Métrica | Valor |
 |---------|-------|
 | Fases completadas | 3/4 |
-| Requisitos v1 completos | 36/40 (90% — Phase 1: 19 + Phase 2: 13 + Phase 3: 1 EXTYPE-03 + Phase 4 04-01: 3 BACK-04/-05/-06) — SEED-01 sigue In Progress 2/5 (Preposiciones + Verbos de movimiento con contenido real tras 04-02) |
+| Requisitos v1 completos | 36/40 (90% — Phase 1: 19 + Phase 2: 13 + Phase 3: 1 EXTYPE-03 + Phase 4 04-01: 3 BACK-04/-05/-06) — SEED-01 sigue In Progress 6/6 categorías con contenido real tras 04-03 (cierre formal pendiente UAT integral en 04-04); SEED-02 pending hasta 04-04 |
 | Requisitos v1 mapeados | 40/40 (100%) |
-| Tests dominio + UI smoke | 128 verdes (105 baseline + 23 nuevos en Phase 4 Task 1; sin cambios de tests en 04-02 — solo contenido) |
+| Tests dominio + UI smoke | 128 verdes (105 baseline + 23 nuevos en Phase 4 Task 1; sin cambios de tests en 04-02 ni 04-03 — solo contenido) |
 | Granularidad | coarse |
 | Mode | MVP (vertical slices) |
-| Ejercicios totales en la app | 104 (12 avere + 50 preposiciones + 37 verbos-movimiento + 5 placeholders vacíos a sobreescribir 04-03) |
+| Ejercicios totales en la app | ~221 (12 avere + 50 preposiciones + 37 verbos-movimiento + 31 sustantivos-irregulares + 40 genero-numero + 51 profesiones — tras 04-03 las 6 categorías tienen contenido real) |
 
 ## Accumulated Context
 
@@ -85,6 +85,12 @@ Next: Plan 04-03 (Sustantivos Irregulares match + Género y Número match+multi-
 | 2026-05-24 | Plan 04-02 — Patch B-1 (aebae24) ocurrió post-Task-1 antes de Task 2 (Rule 3 blocking) | Task 1 commit cc7481a olvidó crear placeholder verbos-movimiento.json (4 de 5 archivos del bloque OBLIGATORIO B-1). Resuelto con commit dedicado fix(04-02) aebae24 en lugar de --amend (preserva audit trail del olvido). Plan original enumeraba los 5 placeholders, no scope creep |
 | 2026-05-24 | Plan 04-02 — IDs word-buttons range 035-037 (no 100-199) en verbos-movimiento.json | Plan línea 313 sugería range 100-199 para word-buttons (convención avere.json). Sin 3 word-buttons aislados rodeados de 34 multi-choice, mantener un gap 035 → 100 hace el archivo más difícil de leer manualmente. Layout aprobado por el autor en checkpoint Task 3. La convención avere.json era soft pattern, no schema requirement |
 | 2026-05-24 | Plan 04-02 — correctIndex skew aceptable cuando hay justificación pedagógica | En verbos-movimiento 24/34 multi-choice tienen correctIndex en posición 1 — justificado por refuerzo del patrón essere-with-movement (essere conjugado casi siempre en posición 1 cuando los distractoras son avere/altri verbi). El criterio RESEARCH §E `≥3 valores distintos` cumplido (4 valores: 0, 1, 2, 3) |
+| 2026-05-24 | Plan 04-03 — DESIGN RULE NEW 'match-if-not-trivial-by-root' anclada como patrón normativo desde este plan | Capturada durante UAT humano de Task 1 (Sustantivos Irregulares): los match para invariables (`città↔città`, `caffè↔caffè`) son pedagógicamente vacíos porque izq y der son idénticas — el alumno solo arrastra mecánicamente. Regla: match SOLO si el pareo izq-der requiere conocer una regla NO derivable trivialmente desde la raíz (singular↔plural irregular, profesión↔lugar/herramienta/acción). Si raíz revela la respuesta, convertir a multi-choice con distractoras plausibles. Aplicada retro a sustantivos-irregulares vía patch 9d21c88; aplicada por defecto a 04-03 Tasks 2 y 3. Normativa para 04-04+ contenido futuro |
+| 2026-05-24 | Plan 04-03 — Errata pedagógica del PDF documentada inline (farmacista/giornalista invariables) | El PDF Professioni §1 lista farmacista/giornalista en la tabla regular -o→-a, pero el italiano real las hace invariables por la regla productiva -ista (paralelo a dentista/pianista/tassista). Mantenidas como invariables con nota explícita en `notes` que documenta la 'errata pedagógica' del PDF. Audit trail preservado dentro del JSON. Mismo principio que 04-02 (typo `Io (uovo)` → `Io (donna)`) |
+| 2026-05-24 | Plan 04-03 — avvocata vs avvocatessa: avvocata respuesta correcta + nota lingüística | El PDF lista `avvocata` (PDF compliance + italiano contemporáneo neutro). En italiano moderno ambas formas son aceptables — `avvocatessa` es la tradicional con sufijo -essa (familia dottoressa/professoressa). Para coherencia con el resto de ejercicios PDF §1 (todas -o→-a sin -essa), el ejercicio fija `avvocata` como respuesta correcta y mantiene `avvocatessa` como distractora pedagógica fuerte. Documentado en notes del ejercicio profesiones-003 |
+| 2026-05-24 | Plan 04-03 — Schema-compliance escape hatch para meta-rule mc prompts | El validator exige `___` en multi-choice (Phase 1 CONT-04). Cuando el prompt natural no lo tiene (ej. '¿Cuál es invariable?'), reformular con hueco preservando pedagogía: 'De estas cuatro profesiones, ___ es la única INVARIABLE...'. Documentar en `notes` con referencia al schema validator. Patrón reusable para futuros ejercicios meta-pedagógicos sin pedir flexión morfológica |
+| 2026-05-24 | Plan 04-03 — Task 3 6 ediciones autor-aprobadas materializadas atómicamente en 1 commit | El autor respondió 6 preguntas pedagógicas durante checkpoint Task 3: (1) avvocata + nota, (2) farmacista/giornalista invariables + nota errata PDF, (3) elisión universal l'avvocato, (4) 5 word-buttons frases A1 essere×persona, (5) meta-rule -ista invariable, (6) 3rd match profesión↔acción. Todas DENTRO del scope del plan (D-86 tipo natural + cobertura PDF). Materializadas en commit 5436cfc atómico sin sub-commits — el checkpoint humano es el natural decision-point, no requiere multiple commits intermedios |
+| 2026-05-24 | Plan 04-03 — 3rd match profesión↔acción (profesiones-202) ejercita reconocimiento del infinitivo italiano | 5 pares: insegnante↔insegnare, pittore↔dipingere, cantante↔cantare, traduttore↔tradurre, direttore↔dirigere. Aunque algunos pares comparten raíz (insegnante/insegnare), el infinitivo italiano requiere conocer la familia verbal correcta (-are/-ere/-ire) — no derivable trivialmente desde el sustantivo. El par paradigmático `pittore↔dipingere` es design-rule-válido inequívoco (no comparten raíz). 5 profesiones del PDF cubiertas: cantante §3, pittore §5, traduttore §5 mini-esercizio, direttore §3, insegnante §4 |
 
 ### Active Todos
 
@@ -96,7 +102,8 @@ Next: Plan 04-03 (Sustantivos Irregulares match + Género y Número match+multi-
 - [x] Ejecutar Plan 03-03 — UAT checkpoint (4 criterios ROADMAP + 8 pitfalls + 2 exploit-proof + W2 regression smoke Phase 2)
 - [x] Ejecutar Plan 04-01 — Backup runtime end-to-end (migrate2to3 + daysSinceISO + backup.js puro + pantalla Backup + banner home + 3er botón + firstUsedAt plumbing) — 128/128 tests verdes, 2 commits + mini-UAT humano 5/5 PASS
 - [x] Ejecutar Plan 04-02 — Categories.json 6 entradas + Preposiciones (50 multi-choice) + Verbos de movimiento (34 multi-choice + 3 word-buttons) + helper validate-content-fixture.mjs + 3 placeholders B-1 — 128/128 tests verdes, 4 commits (Task 1 cc7481a, B-1 patch aebae24, Task 2 74a5d42, Task 3 8094ef0)
-- [ ] Ejecutar Plan 04-03 — Sustantivos Irregulares (match) + Género y Número (match + multi-choice) + Profesiones (mezcla 3 tipos)
+- [x] Ejecutar Plan 04-03 — Sustantivos Irregulares (31 mezcla post-design-rule) + Género y Número (40 mezcla) + Profesiones (51 mezcla rica 3 tipos) + DESIGN RULE 'match-if-not-trivial-by-root' anclada + retro-patch — 128/128 tests verdes, 4 commits (Task 1 11974e5, design-rule patch 9d21c88, Task 2 0f2fd8f, Task 3 5436cfc)
+- [ ] Ejecutar Plan 04-04 — avere.json multi-cat extension SEED-02 + smoke test cascada multi-cat real + UAT integral 5 criterios ROADMAP de Phase 4
 
 ### Blockers
 
@@ -110,8 +117,9 @@ Next: Plan 04-03 (Sustantivos Irregulares match + Género y Número match+multi-
 
 ### Last Session
 
-- **Fecha:** 2026-05-24 (Plan 04-02 completed — 87 ejercicios nuevos transcritos del PDF + helper único validation + placeholders B-1)
-- **Trabajo actual (Plan 04-02):** ejecución en 4 commits — Task 1 cc7481a (categories.json 6 entradas + 3 placeholders + scripts/validate-content-fixture.mjs), B-1 patch aebae24 (placeholder verbos-movimiento olvidado en Task 1), Task 2 74a5d42 (preposiciones.json 50 ejercicios — directiva del autor "cobertura máxima" expandió de 15 a 50 cubriendo 8 simples + 30/30 articolate + 10 casos particulares + 2 excepciones fuera-de-PDF #049 fra eufónico y #050 con instrumental), Task 3 8094ef0 (verbos-movimiento.json 37 ejercicios — 34 multi-choice + 3 word-buttons del §5 cubriendo 11 verbos × 7 personas + concordancia género/número + excepciones §4; typo del PDF §5 nº4 `Io (uovo)` reinterpretado a `Io (donna)` con nota documentada). Patrón PDF→JSON→checkpoint humano→commit validado 2/2 sin issues. 128/128 tests verdes (sin cambios de tests — solo contenido). Schema validation via helper único exit 0 en ambos archivos. Apostrofes ASCII U+0027 estrictos en todos los ejercicios (RESEARCH §D landmine). 87 ejercicios nuevos = 104 totales en la app. SEED-01 en 2/5 (Preposiciones + Verbos de movimiento con contenido real; las 3 restantes — sustantivos-irregulares, genero-numero, profesiones — siguen como placeholders vacíos a sobreescribir en 04-03). UAT-derived backlog capturado: UX-1 botones multi-choice pegados (miss-clicks), UX-2 botón "Reiniciar" en pantalla sesión, UX-3 review de errores en pantalla Resultado — NO se incluyen en 04-03/04-04 (scope creep).
+- **Fecha:** 2026-05-24 (Plan 04-03 completed — 122 ejercicios nuevos transcritos del PDF + DESIGN RULE 'match-if-not-trivial-by-root' anclada + retro-patch + 6 ediciones autor-aprobadas en Task 3)
+- **Trabajo actual (Plan 04-03):** ejecución en 4 commits — Task 1 inicial 11974e5 (sustantivos-irregulares.json 22 ejercicios — cobertura PDF completa familia/cuerpo/casos especiales + 5 invariables), Task 1 design-rule patch 9d21c88 (refactor: 5 match trivial-por-raíz `città↔città`/`caffè↔caffè`/etc. convertidos a multi-choice con distractoras plausibles tras UAT humano detectó el patrón pedagógicamente vacío — DESIGN RULE NEW capturada como normativa), Task 2 0f2fd8f (genero-numero.json 40 ejercicios — cobertura PDF completa artículos definidos il/lo/la/l'/i/gli/le + sustantivo↔artículo match + reglas excepción multi-choice + D-66 duplicados intencionales), Task 3 5436cfc (profesiones.json 51 ejercicios — PDF más diverso 5 tablas, mezcla rica 3 tipos: 43 multi-choice + 5 word-buttons frases A1 español→italiano + 3 match design-rule-válidos profesión↔lugar/herramienta/acción; 6 ediciones autor-aprobadas materializadas atómicamente: avvocata + nota lingüística, farmacista/giornalista invariables + nota errata PDF §1, elisión universal l'avvocato, 5 word-buttons 100-104, 1 meta-rule -ista invariable 043, 3rd match profesión↔acción 202). Patrón PDF→JSON→checkpoint humano→commit validado 3/3 sin issues bloqueantes (1 design-rule patch post-UAT NO bloqueante). 128/128 tests verdes (sin cambios de tests — solo contenido). Schema validation via helper único exit 0 en los 3 archivos. Apostrofes ASCII U+0027 estrictos. 122 ejercicios nuevos = ~221 totales en la app. SEED-01 6/6 categorías con contenido real (cierre formal pendiente UAT integral en 04-04). UAT-derived backlog (UX-1/UX-2/UX-3 heredados de 04-02) sin cambios — NO se incluyen en 04-04 (scope creep).
+- **Trabajo previo (Plan 04-02):** ejecución en 4 commits — Task 1 cc7481a (categories.json 6 entradas + 3 placeholders + scripts/validate-content-fixture.mjs), B-1 patch aebae24 (placeholder verbos-movimiento olvidado en Task 1), Task 2 74a5d42 (preposiciones.json 50 ejercicios — directiva del autor "cobertura máxima" expandió de 15 a 50 cubriendo 8 simples + 30/30 articolate + 10 casos particulares + 2 excepciones fuera-de-PDF #049 fra eufónico y #050 con instrumental), Task 3 8094ef0 (verbos-movimiento.json 37 ejercicios — 34 multi-choice + 3 word-buttons del §5 cubriendo 11 verbos × 7 personas + concordancia género/número + excepciones §4; typo del PDF §5 nº4 `Io (uovo)` reinterpretado a `Io (donna)` con nota documentada). Patrón PDF→JSON→checkpoint humano→commit validado 2/2 sin issues. 128/128 tests verdes (sin cambios de tests — solo contenido). Schema validation via helper único exit 0 en ambos archivos. Apostrofes ASCII U+0027 estrictos en todos los ejercicios (RESEARCH §D landmine). 87 ejercicios nuevos = 104 totales en la app.
 - **Trabajo previo (Plan 04-01):** ejecución end-to-end en 2 commits (180168d Task 1, 33b0945 Task 2) + Task 3 mini-UAT humano 5/5 PASS. Task 1: migración v2→v3 idempotente + módulo puro `src/data/backup.js` (parseBackupFile + buildBackupWrapper con mensajes literales del UI-SPEC en español) + `daysSinceISO` puro DST-safe en `src/domain/dates.js` + 21 tests nuevos backup.test.js + 2 tests extra en data-storage.test.js. Task 2: 5 handlers nuevos en app.js (exportBackup/onFileSelected/commitImport/buildImportConfirmMessage + 3 getters reactivos) + 4 inline guards firstUsedAt (D-78 NO helper) + W-2 fix backupLastMessage cleanup + banner home + 3er botón Backup en `.button-row-prominent` + template pantalla Backup en index.html + 5 reglas CSS Phase 4. Layer purity D-02 verificada por grep (0 matches localStorage/DOM en backup.js y dates.js). 128/128 tests verdes (105 baseline + 23 nuevos). Mini-UAT (Task 3): autor verificó en navegador con `npx serve` los 5 escenarios — UAT-1 render, UAT-2 export descarga JSON correcto, UAT-3 import error path (mensaje rojo del UI-SPEC), UAT-4 import OK round-trip (confirmación inline → Continuar → state reemplazado), UAT-5 banner reactividad con DevTools sim de `lastBackupAt = 8d atrás`, `lastBackupAt = null + firstUsedAt = 8d`, y `lastBackupAt = mañana` (fecha futura defensa T-04-04). Cero bugs detectados. BACK-04/BACK-05/BACK-06 cierran formalmente aquí.
 - **Trabajo previo (Plan 03-02):** ejecución end-to-end de 2 tasks en 2 commits (f9e400e, f4000b7) — match handler puro + validateMatchPayload impl real + registry final con 3 entradas + 2 call-sites EXACTOS de applyImmediateFailure (uno en applyResultToSession decisión final, otro en matchPickRight primer-fallo con guard matchHadFailure) + sub-template HTML match + 5 selectores CSS + 3 ejercicios match seed (incluyendo avere-202 con duplicados D-66) + W3 idempotencia tests (skipped en Task 1, activados automáticamente al landed Task 2 vía detección runtime de matchPickRight en source) + W5 smoke tests (presencia textual de handlers + ramas match en handleSessionKey + shuffle en initSubStateForExercise). 105/105 tests verdes (81 baseline + 24 nuevos). Comentarios placeholder '03-02' eliminados (grep `03-02` en src/screens/app.js retorna nada). Stub message `'aún no soportado'` completamente erradicado. EXTYPE-03 cierra; SESSION-06 contribuido por 03-01 + 03-02 pero closure formal en UAT 03-03.
 - **Trabajo previo (Plan 03-01):** ejecución end-to-end de 3 tasks en 6 commits (cb17a97, dd45a0a, 9b1beac, 14ec6d4, 3be17c0, f12838a) — word-buttons handler + dispatch-table validator + 23 tests, refactor fisherYates exportable, refactor sessionSelectOption→applyResultToSession single call-site D-54, sub-estados word-buttons + match placeholders + handlers + handleSessionKey + initSubStateForExercise, 2 ejercicios word-buttons en avere.json, sub-template HTML + CSS .wb-*. 81/81 tests verdes (58 baseline Phase 1+2 + 23 nuevos). Phase 2 regression smoke (5 pasos UAT humano) NO ejecutado en wave sequential — mitigado por equivalencia algebraica del refactor + single call-site verificado por grep + 58 tests baseline siguen verdes. Recomendación 03-03: ejecutar el smoke regression Phase 2 ANTES de los pasos word-buttons/match en el UAT.
@@ -166,6 +174,13 @@ Next: Plan 04-03 (Sustantivos Irregulares match + Género y Número match+multi-
 - `scripts/validate-content-fixture.mjs` (new, helper único B-4 fix reusable 04-03/04-04)
 - `.planning/phases/04-backup-robusto-contenido-completo/04-02-SUMMARY.md`
 
+**Plan 04-03 (Sustantivos Irregulares + Género y Número + Profesiones):**
+
+- `content/exercises/sustantivos-irregulares.json` (modified — placeholder → 31 ejercicios mezcla post-design-rule, 14 match singular↔plural irregular + 17 multi-choice incluyendo 5 invariables convertidas por design rule)
+- `content/exercises/genero-numero.json` (modified — placeholder → 40 ejercicios mezcla, 24 match sustantivo↔artículo/singular↔plural regular agrupados temáticamente + 16 multi-choice excepciones, D-66 duplicados textuales intencionales)
+- `content/exercises/profesiones.json` (modified — placeholder → 51 ejercicios mezcla rica 3 tipos: 43 multi-choice + 5 word-buttons frases A1 + 3 match design-rule-válidos)
+- `.planning/phases/04-backup-robusto-contenido-completo/04-03-SUMMARY.md` (new, captures DESIGN RULE NEW como sección destacada + UAT-derived backlog heredado de 04-02)
+
 ## Performance Metrics
 
 | Phase | Plan | Duration | Tasks | Files |
@@ -176,20 +191,21 @@ Next: Plan 04-03 (Sustantivos Irregulares match + Género y Número match+multi-
 | 3 | 03-02 | ~10 min | 2 (Task 1 TDD + Task 2 sub-template/handlers/seed/W5) | 9 (2 created + 7 modified) |
 | 4 | 04-01 | ~16 min | 3 (Task 1 TDD data+domain + Task 2 UI vertical slice + Task 3 mini-UAT humano) | 10 (3 created + 7 modified) |
 | 4 | 04-02 | ~75 min | 3 (Task 1 categories+placeholders+helper + B-1 patch + Task 2 preposiciones checkpoint + Task 3 verbos-movimiento checkpoint) | 7 (6 created + 1 modified) — 4 commits |
+| 4 | 04-03 | ~120 min | 3 (Task 1 sustantivos-irregulares checkpoint + design-rule patch + Task 2 genero-numero checkpoint + Task 3 profesiones checkpoint con 6 ediciones autor) | 4 (3 modified + 1 created) — 4 commits |
 
 ### Next Action
 
 ```
 
-# Plan 04-02 completado. Siguiente:
+# Plan 04-03 completado. Siguiente:
 
-/gsd:execute-phase 4   # continuar con 04-03 (3 categorías restantes — sustantivos-irregulares match + genero-numero match+multi-choice + profesiones mezcla 3 tipos)
+/gsd:execute-phase 4   # continuar con 04-04 (avere multi-cat extension SEED-02 + smoke test cascada multi-cat + UAT integral 5 criterios ROADMAP)
 ```
 
-Plan 04-03 sobrescribe los 3 placeholders creados en 04-02 con contenido real tras revisión humana D-85. Patrón "PDF → JSON → checkpoint → commit" validado 2/2 en 04-02; aplicable directamente. Helper `scripts/validate-content-fixture.mjs` reusable sin cambios. 128 tests verdes como baseline.
+Plan 04-04 cierra Phase 4: extiende avere.json con ≥6 ejercicios multi-categoría (cruces avere × preposiciones / verbos-movimiento / profesiones / etc.) + smoke test simulando cascada multi-cat real + UAT integral de los 5 criterios ROADMAP de Phase 4. Patrón "PDF → JSON → checkpoint → commit" validado 5/5 (2/2 en 04-02 + 3/3 en 04-03). DESIGN RULE 'match-if-not-trivial-by-root' anclada — aplicar también a cruces multi-cat. Helper `scripts/validate-content-fixture.mjs` reusable. 128 tests verdes como baseline.
 
-UAT-derived backlog (UX-1/UX-2/UX-3) capturado en 04-02-SUMMARY.md — NO incluir en 04-03/04-04 (scope creep). Considerar Phase 5 dedicado a polish UX si el autor lo pide.
+UAT-derived backlog (UX-1/UX-2/UX-3) sigue capturado en 04-02-SUMMARY.md + reforzado en 04-03-SUMMARY.md — NO incluir en 04-04 (scope creep). Considerar Phase 5 dedicado a polish UX si el autor lo pide tras finalizar Phase 4.
 
 ---
 *State initialized: 2026-05-23*
-*Last updated: 2026-05-24T11:47:00Z after Plan 04-02 completion (128/128 tests verdes, 4 commits, 87 ejercicios nuevos transcritos del PDF, B-1 + B-4 fixes anclados, SEED-01 2/5 parcial)*
+*Last updated: 2026-05-24T13:30:00Z after Plan 04-03 completion (128/128 tests verdes, 4 commits, 122 ejercicios nuevos transcritos del PDF, DESIGN RULE 'match-if-not-trivial-by-root' anclada como normativa + retro-patch a sustantivos-irregulares, 6 ediciones autor-aprobadas en Task 3, SEED-01 6/6 categorías con contenido real pendiente UAT integral en 04-04)*
