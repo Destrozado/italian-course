@@ -110,7 +110,9 @@
   3. La pantalla de resumen (existente, post-SESSION-07) incluye una sección "Errores cometidos" cuando hay ≥1 fallo en la sesión, con una fila por error: prompt original (frase con el hueco), `tu respuesta` (lo que clickó/escribió el autor), y `respuesta correcta`. Para los 3 tipos (multi-choice / word-buttons / match), la captura es distinta y deberá decidirse en discuss-phase.
   4. La forma del `sessionResults` (estado en memoria de la sesión) se extiende para almacenar `userAnswer` por respuesta, no solo `correct: boolean`. Migración del schema si afecta a localStorage (probablemente NO, porque sessionResults es in-memory hasta el resumen; pero el `inFlightTest` reanudable SÍ persiste, requiere check en discuss-phase).
   5. UAT humano: el autor lanza un Repaso 20, falla algunos ejercicios deliberadamente (mezcla de tipos), llega al resumen, ve la sección "Errores cometidos" con captura correcta para los 3 tipos, y comprueba que el botón "Reiniciar ejercicios" rearranca con las mismas categorías en 1 clic.
-**Plans**: TBD (probablemente 2 plans: 1 reiniciar + 1 review-errores, o 1 plan combinado en 2-3 tasks)
+**Plans**: 2 plans
+- [ ] 06-01-PLAN.md — Botón "Reiniciar ejercicios" en pantalla session (UX-01): handler restartRepaso() en factory appShell + .button-row con 2 botones bajo <hr> + smoke tests buildSession con state post-cascada + UAT humano 5/5 truths
+- [ ] 06-02-PLAN.md — Sección "Errores cometidos" en summary (UX-02): migración schemaVersion 3→4 + matchFirstWrongPair sub-estado + applyResultToSession firma extendida (ex, correct, userAnswer) + 3 call-sites actualizadas + <section class="summary-errors"> con dispatch por tipo + CSS Phase 6 + tests v4 migration + tests sessionResults shape + UAT humano 6/6 truths
 
 ## Progress
 
