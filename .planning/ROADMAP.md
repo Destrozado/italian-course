@@ -12,7 +12,8 @@
 - [x] **Phase 3: Variedad de ejercicios + ergonomía de teclado** — word-buttons y match completan los tres tipos; atajos 1-4/Enter/Space hacen la práctica diaria fluida (completed 2026-05-24)
 - [x] **Phase 4: Backup robusto + contenido completo** — Export/import + recordatorio de backup + los 6 PDFs transcritos a JSON (incluyendo ejercicios multi-categoría para ejercitar la cascada en uso real) — 4/4 plans complete (pending verifier) (completed 2026-05-24)
 - [x] **Phase 5: Essere — categoría fundamental que faltaba** — Detectado durante UAT post-Phase 4: tenemos Avere como categoría dedicada pero NO Essere, pese a ser igualmente fundamental para A1 (identidad, profesión, nacionalidad, estado, copula). Essere está exercitado indirectamente vía verbos-movimiento (auxiliar passato prossimo) pero no como verbo independiente. Esta fase añade `content/exercises/essere.json` siguiendo el patrón D-85 (Claude propone desde conocimiento A1 genérico — no hay PDF — autor revisa pedagógicamente y commitea). (completed 2026-05-24)
-- [x] **Phase 6: Polish UX post-sesión — reiniciar + review errores** — Detectado durante UAT Phase 4/5: dos puntos de fricción ergonómica que valen lo que cuesta resolver antes de cerrar el milestone v1.0. (a) Botón "Reiniciar ejercicios" en la pantalla de sesión que rearranca con las mismas categorías en 1 clic (vs los 4 actuales). (b) Sección "Errores cometidos" en la pantalla de resumen final que muestra, para cada ejercicio fallado, qué respondió el autor + qué era correcto + sobre qué frase. Ambos son polish UX sobre flujos existentes (sin lógica de dominio nueva — el motor de re-verificación no cambia). Absorbe Phase 999.1 + 999.2 del backlog. (completed 2026-05-24) (completed 2026-05-24)
+- [x] **Phase 6: Polish UX post-sesión — reiniciar + review errores** — Detectado durante UAT Phase 4/5: dos puntos de fricción ergonómica que valen lo que cuesta resolver antes de cerrar el milestone v1.0. (a) Botón "Reiniciar ejercicios" en la pantalla de sesión que rearranca con las mismas categorías en 1 clic (vs los 4 actuales). (b) Sección "Errores cometidos" en la pantalla de resumen final que muestra, para cada ejercicio fallado, qué respondió el autor + qué era correcto + sobre qué frase. Ambos son polish UX sobre flujos existentes (sin lógica de dominio nueva — el motor de re-verificación no cambia). Absorbe Phase 999.1 + 999.2 del backlog. (completed 2026-05-24)
+- [ ] **Phase 7: Explicaciones pedagógicas al fallar — campo explanation por ejercicio + render en Errores cometidos** — Pivote post-uso-real: tras 271 ejercicios funcionando, el autor consulta Gemini cada vez que falla en Preposiciones (4 ejemplos: sulle, da lui, dalle, sui). Esta fase reabre la decisión Phase 1 "solo bien/mal por velocidad; la teoría está en los PDFs" y añade un campo `payload.explanation: string` opcional + render inline durante feedback rojo + render en summary "Errores cometidos". Seed inicial: 50 explanations curadas para Preposiciones (patrón D-85). Las otras 6 categorías quedan opcionales para fases incrementales (7.1, 7.2, ...) si emerge dolor adicional.
 
 ## Phase Details
 
@@ -114,6 +115,22 @@
 - [x] 06-01-PLAN.md — Botón "Reiniciar ejercicios" en pantalla session (UX-01): handler restartRepaso() en factory appShell + .button-row con 2 botones bajo <hr> + smoke tests buildSession con state post-cascada + UAT humano 5/5 truths
 - [x] 06-02-PLAN.md — Sección "Errores cometidos" en summary (UX-02): migración schemaVersion 3→4 + matchFirstWrongPair sub-estado + applyResultToSession firma extendida (ex, correct, userAnswer) + 3 call-sites actualizadas + <section class="summary-errors"> con dispatch por tipo + CSS Phase 6 + tests v4 migration + tests sessionResults shape + UAT humano 6/6 truths
 
+### Phase 7: Explicaciones pedagógicas al fallar — campo explanation por ejercicio + render en Errores cometidos
+**Goal**: El autor ve, al fallar un ejercicio, una explicación pedagógica destilada (1 frase de regla + 1 frase de ejemplo paralelo) inline durante el feedback rojo y agregada en la sección "Errores cometidos" del summary. Las 50 entries de Preposiciones (la categoría que motivó la fase porque era donde el autor consultaba Gemini cada fallo) están cubiertas tras Plan 07-02; las otras 6 categorías quedan opcionales para fases incrementales si emerge necesidad.
+**Mode:** standard
+**Depends on**: Phase 6
+**Requirements**: EXPL-01, EXPL-02, EXPL-03, EXPL-04, EXPL-05
+**Success Criteria** (qué tiene que ser CIERTO):
+  1. `content/exercises/preposiciones.json` tiene 50/50 entries con `payload.explanation` no vacío, validado por schema + smoke test paramétrico.
+  2. Al fallar cualquiera de los 50 ejercicios de Preposiciones durante sesión real, el autor ve la explanation italic muted bajo "Respuesta correcta" inline + replicada en summary "Errores cometidos".
+  3. Los 221 ejercicios de las otras 6 categorías siguen funcionando sin cambios (graceful degradation — `<p class="session-explanation">` no se renderiza cuando explanation está ausente).
+  4. Cero migración schemaVersion (sigue 4 — explanation es contenido en `content/`, no state).
+  5. T-02-01 anti-XSS preservado: todas las explanations se renderizan via `x-text` exclusivo; markdown literal (asteriscos, doble subrayado) no se interpreta.
+  6. UAT humano: fallar deliberadamente 5+ ejercicios de Preposiciones en Repaso 20 + ver explanation curada en cada uno + repaso agregado en summary.
+**Plans**: 2 plans
+- [ ] 07-01-PLAN.md — Schema validator extension (3 reglas if-explanation-string-no-vacío) + 3 sub-templates session render inline + summary-errors extensión + 2 reglas CSS muted/italic + 2 seed explanations (preposiciones-001/006) + 12 tests parametrizados (EXPL-01/02/03)
+- [ ] 07-02-PLAN.md — Batch A 16 + batch B 16 + batch C 16 explanations Preposiciones (patrón D-85 Claude propone + autor revisa por bloque) + smoke test coverage 50/50 + reapertura PROJECT.md Out of Scope (D-134) + REQUIREMENTS.md EXPL-01..05 + ROADMAP.md finalización (EXPL-04/05)
+
 ## Progress
 
 | Phase | Plans Complete | Status | Completed |
@@ -124,14 +141,15 @@
 | 4. Backup robusto + contenido completo | 4/4 | Complete    | 2026-05-24 |
 | 5. Essere — categoría fundamental que faltaba | 1/1 | Complete   | 2026-05-24 |
 | 6. Polish UX post-sesión (reiniciar + review errores) | 2/2 | Complete    | 2026-05-25 |
+| 7. Explicaciones pedagógicas al fallar | 0/2 | Planning    | — |
 
 ## Coverage Summary
 
-- **v1 requirements:** 43 total (40 originales + SEED-03 Phase 5 + UX-01/UX-02 Phase 6)
-- **Mapped to phases:** 43 (100%)
+- **v1 requirements:** 48 total (43 originales + 5 EXPL Phase 7)
+- **Mapped to phases:** 48 (100%)
 - **Unmapped:** 0
-- **Granularity:** coarse (6 fases — 5 core + 1 polish UX)
-- **Mode:** MVP (vertical slices)
+- **Granularity:** coarse (7 fases — 5 core + 1 polish UX + 1 pivote post-uso-real)
+- **Mode:** MVP (vertical slices) hasta Phase 6; standard a partir de Phase 7
 
 ## Dependency Graph
 
@@ -146,6 +164,15 @@ Phase 3 (variedad: word-buttons + match + teclado)
    │
    ▼
 Phase 4 (backup UI + contenido real de los 6 PDFs)
+   │
+   ▼
+Phase 5 (essere como 7ª categoría — pivote post-UAT Phase 4)
+   │
+   ▼
+Phase 6 (polish UX: reiniciar sesión + review errores)
+   │
+   ▼
+Phase 7 (explicaciones pedagógicas al fallar — pivote post-uso-real)
 ```
 
 Cada fase entrega valor usable independientemente:
@@ -153,6 +180,9 @@ Cada fase entrega valor usable independientemente:
 - Después de Phase 2: el motor "te obliga a no olvidar" está completo y observable
 - Después de Phase 3: la app es funcionalmente completa para uso diario
 - Después de Phase 4: la app es daily-driver con los 6 PDFs reales y backup seguro
+- Después de Phase 5: Essere cubierta como 7ª categoría, milestone v1.0 funcionalmente completo
+- Después de Phase 6: UX puede pulida (reiniciar 1-clic + review agregado errores)
+- Después de Phase 7: explicaciones pedagógicas inline al fallar — Preposiciones cubierta (la cat que motivó la fase)
 
 ## Backlog
 
@@ -164,16 +194,10 @@ Cada fase entrega valor usable independientemente:
 
 **Status:** Promoted to active roadmap as part of Phase 6 (Polish UX post-sesión). See §"Phase 6" above for active spec.
 
-### Phase 7: Explicaciones pedagógicas al fallar — campo explanation por ejercicio + render en Errores cometidos
+### Phase 7.x (futuro, opcional): Explanations para las otras 6 categorías
 
-**Goal:** [To be planned]
-**Requirements**: TBD
-**Depends on:** Phase 6
-**Plans:** 0 plans
-
-Plans:
-- [ ] TBD (run /gsd-plan-phase 7 to break down)
+**Status:** Backlog. Si tras Phase 7 el autor echa de menos explanations en Avere/Essere/Verbos-movimiento/Profesiones/Sustantivos-irregulares/Género-número, abrir fases incrementales por categoría (Phase 7.1 Avere, Phase 7.2 Verbos-movimiento, ...). El shape `payload.explanation: string` ya está soportado en schema + render — solo es trabajo editorial puro (Claude propone + autor revisa por batch).
 
 ---
 *Roadmap created: 2026-05-23*
-*Last updated: 2026-05-24 after Phase 5 completion (145/145 tests verdes, 10 commits, +39 ejercicios essere = 271 totales en 7 categorías, UAT INTEGRAL 6/6 PASS sobre los 6 criterios ROADMAP §Phase 5, SEED-03 cerrado, milestone v1.0 funcionalmente completo). Phase 6 promoted del backlog (999.1+999.2 absorbidos) — UX polish reiniciar + review errores antes de close milestone.*
+*Last updated: 2026-05-25 after Phase 7 planning (2 plans creados: 07-01 infra + UI render + 2 seeds + 12 tests; 07-02 48 explanations en 3 batches + smoke coverage + reapertura PROJECT.md Out of Scope D-134 + REQUIREMENTS.md EXPL-01..05). EXPL-01..05 mapeados; pendiente ejecución de los 2 planes para cerrar Phase 7.*
