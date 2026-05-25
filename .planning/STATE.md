@@ -4,7 +4,7 @@ milestone: v1.0
 milestone_name: milestone
 status: Awaiting next milestone
 last_updated: "2026-05-25T19:10:53.442Z"
-last_activity: 2026-05-25 — Milestone v1.0 completed and archived
+last_activity: 2026-05-25 — Quick task 260525-vvj completed (botón Reiniciar examen Phase 8.y dual-mode)
 progress:
   total_phases: 12
   completed_phases: 10
@@ -26,7 +26,7 @@ progress:
 Phase: Milestone v1.0 complete
 Plan: —
 Status: Awaiting next milestone
-Last activity: 2026-05-25 — Milestone v1.0 completed and archived
+Last activity: 2026-05-25 — Quick task 260525-vvj completed (botón Reiniciar examen Phase 8.y dual-mode)
 
 ## Performance Metrics
 
@@ -54,6 +54,7 @@ Last activity: 2026-05-25 — Milestone v1.0 completed and archived
 |----------|------|-------------|-----------|---------|
 | 260524-tpn | fix-botones-multi-choice-pegados-visualm | Fix UX-1 botones multi-choice pegados (.button-row migración Phase 2/3 olvidada en sub-template multi-choice) | 2026-05-24 | `9e38af5` |
 | 260525-pwq | fix-shuffle-de-options-en-multiple-choic | Shuffle multi-choice options via sub-state `multiChoiceOrder` (D-181) — elimina sesgo posicional (avere-302..305 correctIndex=2 fijo); 199→202 tests | 2026-05-25 | `c74281a` |
+| 260525-vvj | boton-reiniciar-examen-phase-8-y | Phase 8.y backlog — extender `restartRepaso()` para dual-mode (`'repaso'` + `'test-completo'`): cuando sessionMode===test-completo el handler llama `buildFullTest([catId])` en vez de buildSession + persistInFlightTest(); `x-show` del botón en index.html extendido. 223→230 tests verdes (+7 presence-check). Cero refactor de naming `restartRepaso`→`restartCurrentSession` (D-104 duplicación aceptable). | 2026-05-25 | `7eaf5a2` |
 
 ### Key Decisions
 
