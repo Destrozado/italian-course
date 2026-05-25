@@ -403,7 +403,8 @@
       "payload": {
         "prompt": "Andiamo ___ stazione in taxi.",
         "options": ["al", "allo", "alla", "alle"],
-        "correctIndex": 2
+        "correctIndex": 2,
+        "explanation": "A + La = Alla. Andiamo alla stazione in taxi equivale a 'vamos a la estacion en taxi'. La fusion sigue el mismo patron que Al (#011) pero en femenino singular: alla casa, alla scuola, alla porta — siempre que el sustantivo femenino lleve articulo definido La."
       },
       "notes": "Preposición articolata 'alla' = a + la. PDF §Preposizioni articolate, fila 'a' columna 'la'."
     },
@@ -414,7 +415,8 @@
       "payload": {
         "prompt": "Do un regalo ___ bambini.",
         "options": ["ai", "agli", "alle", "dei"],
-        "correctIndex": 0
+        "correctIndex": 0,
+        "explanation": "Para sustantivos masculinos plurales regulares el articulo es I, y A se fusiona en Ai. Do un regalo ai bambini significa 'doy un regalo a los ninos'. Patron paralelo a Dei (#024) pero con A en vez de Di — la misma logica de articulo aplicada a otra preposicion base."
       },
       "notes": "Preposición articolata 'ai' = a + i (plural masculino regular, 'a los niños'). PDF §Preposizioni articolate, fila 'a' columna 'i'."
     },
@@ -425,7 +427,8 @@
       "payload": {
         "prompt": "Spiego la lezione ___ studenti.",
         "options": ["ai", "agli", "alle", "allo"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "Cuando el masculino plural empieza por vocal o s + consonante, z, gn, ps, x, el articulo es Gli y A se fusiona en Agli. Spiego la lezione agli studenti equivale a 'explico la leccion a los estudiantes'. Misma logica de articulo Gli (#025/#031) aplicada a A."
       },
       "notes": "Preposición articolata 'agli' = a + gli (plural masculino con 'gli' por s+consonante). PDF §Preposizioni articolate, fila 'a' columna 'gli'."
     },
@@ -436,7 +439,8 @@
       "payload": {
         "prompt": "Scrivo una lettera ___ mie amiche.",
         "options": ["ai", "agli", "alle", "delle"],
-        "correctIndex": 2
+        "correctIndex": 2,
+        "explanation": "Para sustantivos femeninos plurales el articulo es Le y A se fusiona en Alle. Scrivo una lettera alle mie amiche significa 'escribo una carta a mis amigas'. Cierra la familia A articolate: al/allo/alla/ai/agli/alle, simetrica a las series Di y In."
       },
       "notes": "Preposición articolata 'alle' = a + le (plural femenino). PDF §Preposizioni articolate, fila 'a' columna 'le'."
     },
@@ -447,7 +451,8 @@
       "payload": {
         "prompt": "Esco ___ lavoro alle sei.",
         "options": ["dal", "dallo", "dalla", "dai"],
-        "correctIndex": 0
+        "correctIndex": 0,
+        "explanation": "Da + Il = Dal. Esco dal lavoro alle sei equivale a 'salgo del trabajo a las seis'. Da indica el origen o punto de salida del movimiento (#003), y al unirse al articulo masculino singular Il forma Dal: dal lavoro, dal mercato, dal supermercato."
       },
       "notes": "Preposición articolata 'dal' = da + il (salgo del trabajo). PDF §Preposizioni articolate, fila 'da' columna 'il'."
     },
@@ -458,7 +463,8 @@
       "payload": {
         "prompt": "Esco ___ studio del dentista.",
         "options": ["dal", "dallo", "dalla", "dai"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "Cuando el masculino singular empieza por s + consonante, z, gn, ps o x, el articulo es Lo y Da se fusiona en Dallo. Esco dallo studio del dentista significa 'salgo del consultorio del dentista'. Misma regla de Lo (#022/#028) aplicada a Da."
       },
       "notes": "Preposición articolata 'dallo' = da + lo ('studio' lleva 'lo' por s+consonante). PDF §Preposizioni articolate, fila 'da' columna 'lo'."
     },
@@ -469,7 +475,8 @@
       "payload": {
         "prompt": "Torno ___ amici a casa.",
         "options": ["dai", "dagli", "dalle", "degli"],
-        "correctIndex": 0
+        "correctIndex": 0,
+        "explanation": "Da + I = Dai. Torno dai amici a casa significa 'vuelvo de [casa de] los amigos a casa'. Caracteristica del italiano: con personas Da implica 'desde el lugar donde estan' o 'desde la casa de'. La preposicion articolata se forma como cualquier otra: da + articulo masculino plural regular I."
       },
       "notes": "Preposición articolata 'dai' = da + i (plural masculino: vuelvo de [casa de] los amigos). PDF §Preposizioni articolate, fila 'da' columna 'i'."
     },
@@ -480,7 +487,8 @@
       "payload": {
         "prompt": "Esco ___ studenti dopo la lezione.",
         "options": ["dai", "dagli", "dalle", "degli"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "Cuando el masculino plural empieza por vocal o s + consonante, z, gn, ps, x, el articulo es Gli y Da se fusiona en Dagli. Esco dagli studenti dopo la lezione equivale a 'salgo de [con] los estudiantes despues de la leccion'. Mismo principio de articulacion que Degli (#025) y Agli (#036)."
       },
       "notes": "Preposición articolata 'dagli' = da + gli (plural masculino con 'gli' por s+consonante: 'studenti'). PDF §Preposizioni articolate, fila 'da' columna 'gli'."
     },
@@ -491,7 +499,8 @@
       "payload": {
         "prompt": "Vengo ___ mie zie.",
         "options": ["dai", "dagli", "dalle", "delle"],
-        "correctIndex": 2
+        "correctIndex": 2,
+        "explanation": "Da + Le = Dalle. Vengo dalle mie zie significa 'vengo de [casa de] mis tias'. Con personas femeninas plurales Da articulada implica salir del lugar donde estan. Cierra la familia Da articolate: dal/dallo/dalla/dai/dagli/dalle, simetrica a las series A, Di e In."
       },
       "notes": "Preposición articolata 'dalle' = da + le (plural femenino: vengo de [casa de] mis tías). PDF §Preposizioni articolate, fila 'da' columna 'le'."
     },
@@ -502,7 +511,8 @@
       "payload": {
         "prompt": "Il quaderno è ___ banco.",
         "options": ["sul", "sullo", "sulla", "nel"],
-        "correctIndex": 0
+        "correctIndex": 0,
+        "explanation": "Aplicando la regla de Sul (su + il) del #006: contacto fisico sobre superficie masculina singular. Il quaderno è sul banco equivale a 'el cuaderno esta sobre el pupitre'. Mismo patron de fusion ya visto en #013 (le chiavi sul tavolo) y #006 (il gatto sul tavolo) — la regla se repite en contextos distintos."
       },
       "notes": "Preposición articolata 'sul' = su + il ('sobre el pupitre'). PDF §Preposizioni articolate, fila 'su' columna 'il'. Refuerza preposiciones-006 con sustantivo escolar."
     },
@@ -513,7 +523,8 @@
       "payload": {
         "prompt": "Lo zucchero è ___ scaffale.",
         "options": ["sul", "sullo", "sulla", "sui"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "Cuando el masculino singular empieza por s + consonante, z, gn, ps o x, el articulo es Lo y Su se fusiona en Sullo. Lo zucchero è sullo scaffale significa 'el azucar esta en la estanteria'. Misma logica de Lo (#022/#028/#039) aplicada a Su."
       },
       "notes": "Preposición articolata 'sullo' = su + lo ('scaffale' lleva 'lo' por s+consonante). PDF §Preposizioni articolate, fila 'su' columna 'lo'."
     },
@@ -524,7 +535,8 @@
       "payload": {
         "prompt": "La penna è ___ sedia.",
         "options": ["sul", "sullo", "sulla", "alla"],
-        "correctIndex": 2
+        "correctIndex": 2,
+        "explanation": "Su + La = Sulla. La penna è sulla sedia equivale a 'el boligrafo esta sobre la silla'. Cuando la superficie de contacto es un sustantivo femenino singular con articulo definido, Su articulada produce Sulla. Patron paralelo a Della (#023) en femenino."
       },
       "notes": "Preposición articolata 'sulla' = su + la. PDF §Preposizioni articolate, fila 'su' columna 'la'."
     },
@@ -535,7 +547,8 @@
       "payload": {
         "prompt": "I quadri sono ___ muri.",
         "options": ["sui", "sugli", "sulle", "nei"],
-        "correctIndex": 0
+        "correctIndex": 0,
+        "explanation": "Su no solo significa estar encima en horizontal sino tambien pegado a superficies verticales. Los cuadros se cuelgan en los muros — contacto fisico con la pared. Su + I (los, masc plural) = Sui. I quadri sono sui muri equivale a 'los cuadros estan sobre los muros'."
       },
       "notes": "Preposición articolata 'sui' = su + i (plural masculino: sobre los muros). PDF §Preposizioni articolate, fila 'su' columna 'i'."
     },
@@ -546,7 +559,8 @@
       "payload": {
         "prompt": "Le foglie cadono ___ alberi.",
         "options": ["sui", "sugli", "sulle", "negli"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "Cuando el masculino plural empieza por vocal o s + consonante, z, gn, ps, x, el articulo es Gli y Su se fusiona en Sugli. Le foglie cadono sugli alberi significa 'las hojas caen sobre los arboles'. Misma logica que Degli (#025), Agli (#036), Dagli (#041) y Negli (#031) aplicada a Su."
       },
       "notes": "Preposición articolata 'sugli' = su + gli (plural masculino con 'gli' delante de vocal: 'alberi'). PDF §Preposizioni articolate, fila 'su' columna 'gli'."
     },
@@ -557,7 +571,8 @@
       "payload": {
         "prompt": "I libri sono ___ scrivanie.",
         "options": ["sui", "sugli", "sulle", "nelle"],
-        "correctIndex": 2
+        "correctIndex": 2,
+        "explanation": "Su + Le = Sulle. I libri sono sulle scrivanie equivale a 'los libros estan sobre los escritorios'. Cierra la familia Su articolate: sul/sullo/sulla/sui/sugli/sulle, simetrica a las series A, Di, In, Da. Tras Plan 07-02 has visto las 5 series completas."
       },
       "notes": "Preposición articolata 'sulle' = su + le (plural femenino). PDF §Preposizioni articolate, fila 'su' columna 'le'."
     },
@@ -568,7 +583,8 @@
       "payload": {
         "prompt": "___ tre giorni partiamo per Roma.",
         "options": ["tra", "fra", "da", "in"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "Fra y Tra son sinonimos perfectos para tempo futuro (dentro de cuanto tiempo, #008). Italiano prefiere Fra cuando la siguiente palabra empieza por 'tr-' o doble T, para evitar la cacofonia tra tre. Fra tre giorni partiamo per Roma equivale a 'dentro de tres dias salimos hacia Roma'. Regla eufonica, no semantica."
       },
       "notes": "'tra' y 'fra' son sinónimos para tempo futuro (dentro de). Regla eufónica EXTERNA al PDF (conocimiento añadido): se prefiere 'fra' delante de palabras que empiezan con 'tr-' para evitar la cacofonía 'tra tre' (repetición de 'tr'). Por eso 'fra tre giorni' es la forma natural en italiano cuidado. El PDF presenta tra/fra como intercambiables pero esta regla eufónica es estándar."
     },
@@ -579,7 +595,8 @@
       "payload": {
         "prompt": "Mangio la pasta ___ la forchetta.",
         "options": ["a", "con", "di", "per"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "Con tiene dos usos distintos: compagnia (#005, esco con amici) y mezzo o strumento. Mangio la pasta con la forchetta equivale a 'como la pasta con el tenedor'. En este caso Con introduce el instrumento usado para realizar la accion, no la persona que acompana. Mismo principio en italiano y espanol."
       },
       "notes": "Preposición 'con' = mezzo / strumento (instrumental, NO compagnia). PDF §Preposizioni semplici lista 'con → compagnia / mezzo' pero sólo ejemplifica compagnia (ver preposiciones-005). Este ejercicio cubre el segundo uso documentado: el instrumento con el que se realiza la acción ('como pasta con el tenedor')."
     }
