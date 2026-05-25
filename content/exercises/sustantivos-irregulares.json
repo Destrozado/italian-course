@@ -341,7 +341,7 @@
       "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Due braccia, un ___ (cuerpo, dirección inversa).",
+        "prompt": "Due braccia, un ___.",
         "options": ["braccia", "braccio", "braccie", "bracce"],
         "correctIndex": 1,
         "explanation": "El lema base del plural 'le braccia' (fem) es 'il braccio' (masc). ¡Atención a la trampa del cuerpo humano!: 'braccia' termina en -a y parece femenina, pero el singular es masculino 'braccio'. Esta asimetría de género entre singular y plural es la dificultad central de los sustantivos pareados del cuerpo (dito, osso, ginocchio, labbro siguen el mismo esquema)."
