@@ -14,6 +14,7 @@
 - [x] **Phase 5: Essere — categoría fundamental que faltaba** — Detectado durante UAT post-Phase 4: tenemos Avere como categoría dedicada pero NO Essere, pese a ser igualmente fundamental para A1 (identidad, profesión, nacionalidad, estado, copula). Essere está exercitado indirectamente vía verbos-movimiento (auxiliar passato prossimo) pero no como verbo independiente. Esta fase añade `content/exercises/essere.json` siguiendo el patrón D-85 (Claude propone desde conocimiento A1 genérico — no hay PDF — autor revisa pedagógicamente y commitea). (completed 2026-05-24)
 - [x] **Phase 6: Polish UX post-sesión — reiniciar + review errores** — Detectado durante UAT Phase 4/5: dos puntos de fricción ergonómica que valen lo que cuesta resolver antes de cerrar el milestone v1.0. (a) Botón "Reiniciar ejercicios" en la pantalla de sesión que rearranca con las mismas categorías en 1 clic (vs los 4 actuales). (b) Sección "Errores cometidos" en la pantalla de resumen final que muestra, para cada ejercicio fallado, qué respondió el autor + qué era correcto + sobre qué frase. Ambos son polish UX sobre flujos existentes (sin lógica de dominio nueva — el motor de re-verificación no cambia). Absorbe Phase 999.1 + 999.2 del backlog. (completed 2026-05-24)
 - [x] **Phase 7: Explicaciones pedagógicas al fallar — campo explanation por ejercicio + render en Errores cometidos** — Pivote post-uso-real: tras 271 ejercicios funcionando, el autor consultaba Gemini cada vez que fallaba en Preposiciones (4 ejemplos: sulle, da lui, dalle, sui). Esta fase reabrió la decisión Phase 1 "solo bien/mal por velocidad; la teoría está en los PDFs" y añadió un campo `payload.explanation: string` opcional + render inline durante feedback rojo + render en summary "Errores cometidos". Seed entregado: 50/50 explanations curadas para Preposiciones (patrón D-85, 3 batches de 15+16+17). Las otras 6 categorías quedan opcionales para fases incrementales (7.1, 7.2, ...) si emerge dolor adicional. (completed 2026-05-25 — 181/181 tests verdes, UAT 13/13 PASS)
+- [ ] **Phase 7.1: Explicaciones pedagógicas Género-Número + canonicalización ortográfica** — Extiende el patrón Phase 7 a la 2ª categoría (40 ejercicios genero-numero.json) con un draft de explanations ya redactado por el autor. Scope a clarificar en discuss: (a) ingesta del draft + review en batches D-85, (b) re-acentuación de las 50 explanations Preposiciones existentes para coherencia ortográfica universal (canon nuevo: español correcto con acentos y ñ), (c) actualización del smoke test paramétrico para extender a genero-numero.json. Justificación: tras Phase 7 cerrada, el autor draft-eó explanations para Género-Número antes de cualquier dolor real (proactivo) y pidió que el español esté correctamente acentuado en TODAS las explanations del proyecto.
 
 ## Phase Details
 
@@ -131,6 +132,16 @@
 - [x] 07-01-PLAN.md — Schema validator extension (3 reglas if-explanation-string-no-vacío) + 3 sub-templates session render inline + summary-errors extensión + 2 reglas CSS muted/italic + 2 seed explanations (preposiciones-001/006) + 12 tests parametrizados (EXPL-01/02/03) — **completado 2026-05-25**, ver [07-01-SUMMARY.md](./phases/07-explicaciones-pedag-gicas-al-fallar-campo-explanation-por-ej/07-01-SUMMARY.md)
 - [x] 07-02-PLAN.md — Batch A 15 + batch B 16 + batch C 17 explanations Preposiciones (patrón D-85 Claude propone + autor revisa por bloque, 50/50 coverage) + smoke test paramétrico (3 sub-tests: coverage + ASCII + no-markdown) + reapertura PROJECT.md Out of Scope (D-134) + REQUIREMENTS.md EXPL-01..05 + ROADMAP.md finalización (EXPL-04/05) — **completado 2026-05-25**
 
+### Phase 7.1: Explicaciones pedagógicas Género-Número + canonicalización ortográfica
+**Goal:** [To be planned — discuss-phase determinará scope final: ingesta draft 40 ejercicios + re-acentuación 50 Preposiciones + smoke test extension]
+**Mode:** standard
+**Depends on:** Phase 7
+**Requirements**: TBD (EXPL-06..N — añadir en plan-phase)
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd-plan-phase 7.1 to break down)
+
 ## Progress
 
 | Phase | Plans Complete | Status | Completed |
@@ -142,6 +153,7 @@
 | 5. Essere — categoría fundamental que faltaba | 1/1 | Complete   | 2026-05-24 |
 | 6. Polish UX post-sesión (reiniciar + review errores) | 2/2 | Complete    | 2026-05-25 |
 | 7. Explicaciones pedagógicas al fallar | 2/2 | Complete   | 2026-05-25 |
+| 7.1. Explicaciones Género-Número + canonicalización ortográfica | 0/0 | Pending |   |
 
 ## Coverage Summary
 
