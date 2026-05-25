@@ -66,6 +66,23 @@ Web personal de ejercicios de italiano para preparar el A1 (y luego A2). Es una 
 - ✓ APPEND-ONLY invariante D-88 blindado estructuralmente: `scripts/snapshot-avere-prefix.mjs` + `scripts/assert-avere-prefix-unchanged.mjs` (los 17 ejercicios originales de avere.json no pueden modificarse silenciosamente)
 - ✓ 130 tests verdes totales (128 baseline Phase 1-3 + 2 nuevos: smoke multi-cat real cascade + schema validation roundtrip), UAT INTEGRAL 5/5 PASS (los 5 criterios ROADMAP §Phase 4 + mini-UAT 5/5 backup en Plan 04-01)
 
+**Phase 5 — Essere como 7ª categoría dedicada (2026-05-24):**
+- ✓ `content/categories.json` extendido a 7 entradas (Essere insertado order:2 tras Avere; resto desplazado +1)
+- ✓ `content/exercises/essere.json` con 39 ejercicios (33 base — 29 multi-choice + 4 word-buttons cubriendo presente indicativo + identidad + nacionalidad + profesión + estado + cópula + participio `stato/stata/stati/state` — + 6 multi-cat essere-300..305 espejo del patrón avere-300..305)
+- ✓ Patrón distractoras pedagógico fijo en los 35 multi-choice: 1 forma de avere + 2 formas mal conjugadas de essere + 1 correcta (refuerza el contraste essere/avere que confunde al hispanohablante)
+- ✓ DESIGN RULE Phase 4 honrada: 0 match (conjugación essere derivable por raíz `io↔sono`, `tu↔sei`, etc.); regla aplica como condición arquitectónica
+- ✓ Smoke test multi-cat paramétrico extendido a iterar TODOS los archivos de `content/exercises/` (los 6 nuevos cruces essere-300..305 cubiertos sin retoque)
+- ✓ 145/145 tests verdes (130 baseline post-Phase 4 + 6 nuevos sub-tests smoke multi-cat paramétrico + 1 nuevo bundle test + 8 storage chain); UAT INTEGRAL 6/6 PASS (categories.json shift, essere.json validation, cobertura 7 sub-áreas, DESIGN RULE, cascada D-54 essere-302 propaga a essere + verbos-movimiento, Repaso 20 sin errores UX)
+
+**Phase 6 — Polish UX post-sesión: reiniciar + review errores (2026-05-25):**
+- ✓ Botón "Reiniciar ejercicios" en pantalla session (solo Repaso 20, `x-show sessionMode === 'repaso'`) en `.button-row` junto a `← Volver al home` — handler `restartRepaso()` en factory appShell descarta aciertos no-comprometidos, preserva fallos D-54 ya persistidos, re-llama `buildSession` con `pickerCheckedCategoryIds` intactas; resetea sub-estados de los 3 tipos incluyendo `matchFirstWrongPair`. Reset directo 1 clic, sin `requestConfirm()`.
+- ✓ Sección `<section class="summary-errors">` en pantalla summary tras `<ul.summary-delta>`, antes de "Volver al home"; renderiza una `<li>` multi-línea por error con prompt en `<strong>`, "Tu respuesta" con `.user-answer` (rojo sólido + texto blanco), "Respuesta correcta" con `<strong>`. Dispatch por `ex.type` para los 3 tipos. Guard `x-if sessionResults.some(!correct)` evita renderizar sección vacía.
+- ✓ Shape extendido `sessionResults.push({exerciseId, correct, userAnswer})` uniforme cross-3-types: multi-choice = texto literal, word-buttons = array de palabras, match = `{left, right, leftIdx}` del primer pareo erróneo bajo guard `!matchHadFailure` (simetría D-61). `applyResultToSession(ex, correct, userAnswer)` extendido como 3er argumento centralizado en 3 call-sites.
+- ✓ Snapshot `summarySessionResults` dedicado en `completeSession()` (espejo del patrón `summaryDelta`) — el summary lee del snapshot, no de la sesión live; race contra `resetSession()` durante unmount eliminada arquitectónicamente.
+- ✓ Migración `schemaVersion 3→4` con `migrate3to4` idempotente: backfillea `userAnswer: null` en `inFlightTest.answers` pre-Phase 6; deep-clones nested dicts (exerciseStats, categoryProgress, dailyLog) vía JSON round-trip para defensa-en-profundidad anti-prototype-pollution; normaliza `inFlightTest.answers = []` si la entrada es non-array (defensa contra corrupción). `hydrateV4` aplica el mismo deep-clone.
+- ✓ Code review estándar sobre los 8 archivos de Phase 6: 11 findings (3 critical + 5 warning + 3 info); 8 fixed (todos critical+warning), 3 deferred como Info no-blockers; status REVIEW.md: `clean`.
+- ✓ 166/166 tests verdes (145 baseline + 13 Phase 6 nuevos: 5 storage v4 chain + 5 sessionResults shape + 3 restartRepaso smoke); UAT INTEGRAL 11/11 PASS por el autor (5/5 UX-01 + 6/6 UX-02); milestone v1.0 funcionalmente completo con UX-01 + UX-02 cerrados.
+
 ### Active
 
 <!-- Current scope. Building toward these. -->
