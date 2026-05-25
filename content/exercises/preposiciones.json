@@ -557,12 +557,12 @@
       "type": "multiple-choice",
       "categoryIds": ["preposiciones"],
       "payload": {
-        "prompt": "Le foglie cadono ___ alberi.",
+        "prompt": "Gli uccelli si posano ___ alberi.",
         "options": ["sui", "sugli", "sulle", "negli"],
         "correctIndex": 1,
-        "explanation": "Cuando el masculino plural empieza por vocal o s + consonante, z, gn, ps, x, el artículo es Gli y Su se fusiona en Sugli. Le foglie cadono sugli alberi significa 'las hojas caen sobre los árboles'. Misma lógica que Degli, Agli, Dagli y Negli aplicada a Su."
+        "explanation": "Cuando el masculino plural empieza por vocal o s + consonante, z, gn, ps, x, el artículo es Gli y Su se fusiona en Sugli. Gli uccelli si posano sugli alberi significa 'los pájaros se posan sobre los árboles'. El verbo posarsi (posarse) implica una posición fija sobre una superficie, por eso Su (sobre) y no Da (origen del movimiento). Cuidado: con verbos de movimiento que indican caída o salida — como cadere o uscire — el italiano usa Da (Le foglie cadono dagli alberi), no Su."
       },
-      "notes": "Preposición articolata 'sugli' = su + gli (plural masculino con 'gli' delante de vocal: 'alberi'). PDF §Preposizioni articolate, fila 'su' columna 'gli'."
+      "notes": "Preposición articolata 'sugli' = su + gli (plural masculino con 'gli' delante de vocal: 'alberi'). PDF §Preposizioni articolate, fila 'su' columna 'gli'. Bug fix post-v1.0 reportado por el autor: el prompt anterior 'Le foglie cadono sugli alberi' era gramaticalmente válido pero semánticamente unnatural — un nativo dice 'Le foglie cadono dagli alberi' (verbo cadere implica origen del movimiento, no posición sobre). El predicado 'Gli uccelli si posano' fuerza la lectura natural de 'su = sobre' (posarsi = posición fija sobre superficie), preservando el intent de testear la celda 'su + gli' del PDF."
     },
     {
       "id": "preposiciones-048",
