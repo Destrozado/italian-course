@@ -5,7 +5,7 @@
       "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Un uomo, due ___ .",
+        "prompt": "Un uomo, due ___.",
         "options": ["uomi", "uomini", "uomos", "uomine"],
         "correctIndex": 1,
         "explanation": "El sustantivo 'uomo' (hombre) tiene un plural irregular con cambio de raíz: 'uomini'. No sigue la regla productiva -o → -i, por eso 'uomi' es incorrecto. Cuidado: el alumno hispanohablante tiende a regularizar el plural; en italiano hay que aprender el lema 'uomo / uomini' como par memorizable."
@@ -17,7 +17,7 @@
       "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Un uovo, due ___ .",
+        "prompt": "Un uovo, due ___.",
         "options": ["uovi", "uovos", "uova", "uove"],
         "correctIndex": 2,
         "explanation": "Algunos sustantivos masculinos cambian de género al pluralizar: 'l'uovo' (masc sing) → 'le uova' (fem plural en -a). La concordancia exige artículo y adjetivo femeninos en plural: 'le uova fresche', no 'i uovi freschi'. Mismo patrón que 'braccio → braccia' y 'dito → dita'."
@@ -29,7 +29,7 @@
       "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Un braccio, due ___ .",
+        "prompt": "Un braccio, due ___.",
         "options": ["bracci", "braccia", "braccios", "bracce"],
         "correctIndex": 1,
         "explanation": "Los sustantivos del cuerpo humano que designan partes pareadas suelen formar el plural en -a y cambian a género femenino: 'il braccio' (el brazo, masc) → 'le braccia' (los brazos, fem). Por eso se dice 'le braccia stanche' (los brazos cansados, con concordancia femenina). Misma familia: dito → dita, osso → ossa, labbro → labbra."
@@ -41,7 +41,7 @@
       "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Una moglie, due ___ .",
+        "prompt": "Una moglie, due ___.",
         "options": ["moglies", "moglie", "moglii", "mogli"],
         "correctIndex": 3,
         "explanation": "Los sustantivos italianos terminados en -e (masculinos o femeninos) forman el plural con -i: 'la moglie' (la esposa) → 'le mogli' (las esposas). Ojo: la 'e' final no se duplica al añadir la 'i'; se sustituye. Mismo patrón que 'madre → madri' y 'padre → padri'."
@@ -53,7 +53,7 @@
       "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Un dio, due ___ .",
+        "prompt": "Un dio, due ___.",
         "options": ["dii", "dei", "ddi", "dios"],
         "correctIndex": 1,
         "explanation": "El sustantivo 'dio' (dios) tiene un plural irregular con cambio de raíz: 'gli dei' (los dioses). No sigue la regla productiva -o → -i, por eso 'dii' suena mal y no se usa. ¡Atención!: el artículo plural es 'gli' (no 'i'), y el lema 'dio / dei' debe aprenderse como par excepcional, igual que 'uomo / uomini'."
@@ -65,7 +65,7 @@
       "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Le ___ lunghe — concordancia femenina plural con `braccia` (cuerpo §2).",
+        "prompt": "Le ___ lunghe.",
         "options": ["bracci", "braccia", "braccie", "bracce"],
         "correctIndex": 1,
         "explanation": "El artículo plural femenino 'le' obliga a usar la forma 'braccia' (fem plural en -a) y NO 'bracci' (que sería masculino plural). Por eso 'le braccia lunghe' (los brazos largos) lleva concordancia femenina entera. Importante: en italiano la pareja artículo+sustantivo siempre revela el género del plural irregular."
@@ -77,7 +77,7 @@
       "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Un orecchio, due ___ — atención: NO sigue el patrón braccio→braccia.",
+        "prompt": "Un orecchio, due ___.",
         "options": ["orecchi", "orecchia", "orecchie", "orecchios"],
         "correctIndex": 2,
         "explanation": "Cuidado: 'orecchio' (oreja, masc) es una excepción dentro del grupo de partes del cuerpo y NO sigue el patrón 'braccio → braccia'. Su plural es 'le orecchie' (femenino terminado en -ie). Como en 'braccia', el género cambia a femenino, pero la terminación es distinta. Hay que memorizar este lema aparte."
@@ -89,7 +89,7 @@
       "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Un tempio, due ___ — atención: hay inserción de consonante.",
+        "prompt": "Un tempio, due ___.",
         "options": ["tempi", "templi", "tempios", "tempie"],
         "correctIndex": 1,
         "explanation": "El sustantivo 'tempio' (templo) inserta una -l- en el plural: 'i templi' (los templos). ¡Atención! No es 'tempi', porque esa forma ya existe como plural de 'tempo' (los tiempos) — son dos lemas distintos que conviene no confundir. Este cambio de raíz con consonante añadida es una excepción que se memoriza."
@@ -101,7 +101,7 @@
       "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Una città, due ___ — sustantivo invariable.",
+        "prompt": "Una città, due ___.",
         "options": ["citte", "cittàe", "città", "cittadi"],
         "correctIndex": 2,
         "explanation": "Los sustantivos terminados en vocal acentuada son invariables: tienen la misma forma en singular y en plural. Así 'la città' (la ciudad) y 'le città' (las ciudades) se escriben igual; solo el artículo señala el número. Misma regla para 'caffè', 'virtù', 'università', 'tè'."
@@ -113,7 +113,7 @@
       "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Un caffè, due ___ — sustantivo invariable.",
+        "prompt": "Un caffè, due ___.",
         "options": ["caffi", "caffè", "caffès", "caffei"],
         "correctIndex": 1,
         "explanation": "La vocal final acentuada bloquea cualquier flexión de plural: 'il caffè' y 'i caffè' se escriben idénticos, y solo el artículo distingue número. Ojo: el acento grave sobre la 'è' no se altera ni se elimina al pluralizar. Misma regla que 'città', 'università', 'virtù'."
@@ -125,7 +125,7 @@
       "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Una università, due ___ — sustantivo invariable.",
+        "prompt": "Una università, due ___.",
         "options": ["universitàe", "universite", "universitadi", "università"],
         "correctIndex": 3,
         "explanation": "Toda la familia de sustantivos abstractos terminados en -tà (libertà, possibilità, qualità, università) es invariable. Por eso 'la università' y 'le università' se escriben igual, y solo el artículo cambia. Importante: en italiano nunca se pluralizan con -des estas palabras (calco español incorrecto: nada de 'universidades' adaptado)."
@@ -137,7 +137,7 @@
       "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Un film, due ___ — sustantivo invariable (préstamo del inglés).",
+        "prompt": "Un film, due ___.",
         "options": ["filmi", "films", "film", "filme"],
         "correctIndex": 2,
         "explanation": "Los anglicismos terminados en consonante son invariables en italiano: 'il film' y 'i film' tienen idéntica forma, igual que 'sport', 'bar', 'computer'. Cuidado: el italiano NO añade -s al pluralizar (eso es un calco del inglés o del español). El artículo es lo único que marca el número."
@@ -149,7 +149,7 @@
       "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Uno sport, due ___ — sustantivo invariable (préstamo del inglés).",
+        "prompt": "Uno sport, due ___.",
         "options": ["sport", "sports", "sporti", "sporte"],
         "correctIndex": 0,
         "explanation": "Los préstamos del inglés conservan su forma original también en plural: 'uno sport' (un deporte) y 'gli sport' (los deportes) tienen idéntica terminación. ¡Atención!: el artículo singular es 'uno' (no 'un') porque 'sport' empieza por s+consonante (igual que 'studente', 'sbaglio'). En plural el artículo es 'gli', nunca 'i'."
@@ -161,7 +161,7 @@
       "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Una donna, due ___ (familia §1).",
+        "prompt": "Una donna, due ___.",
         "options": ["donne", "donni", "donna", "donnas"],
         "correctIndex": 0,
         "explanation": "La regla productiva para los sustantivos femeninos terminados en -a es formar el plural con -e: 'la donna' (la mujer) → 'le donne' (las mujeres). Cuidado: a diferencia del español, el italiano no añade -s — usa cambio vocálico. Misma familia: casa → case, ragazza → ragazze."
@@ -173,7 +173,7 @@
       "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Un padre, due ___ (familia §1).",
+        "prompt": "Un padre, due ___.",
         "options": ["padre", "padres", "padri", "padrei"],
         "correctIndex": 2,
         "explanation": "Los sustantivos terminados en -e (sean masculinos o femeninos) forman el plural con -i: 'il padre' (el padre) → 'i padri' (los padres). Importante: el género NO se ve en la terminación -e, solo se descubre por el artículo ('il padre' masc, 'la madre' fem). Mismo patrón en 'madre → madri' y 'cane → cani'."
@@ -185,7 +185,7 @@
       "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Una madre, due ___ (familia §1).",
+        "prompt": "Una madre, due ___.",
         "options": ["madre", "madri", "madres", "madras"],
         "correctIndex": 1,
         "explanation": "Los sustantivos femeninos terminados en -e siguen la regla productiva -e → -i: 'la madre' (la madre) → 'le madri' (las madres). Cuidado: aunque el sustantivo sea femenino, el plural NO termina en -e como en 'donna → donne'; el final -e ya 'gastó su turno' en singular y exige -i en plural. Mismo patrón en 'notte → notti'."
@@ -197,7 +197,7 @@
       "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Un fratello, due ___ (familia §1).",
+        "prompt": "Un fratello, due ___.",
         "options": ["fratelli", "fratellos", "fratelle", "fratellas"],
         "correctIndex": 0,
         "explanation": "La regla productiva para los sustantivos masculinos terminados en -o es formar el plural con -i: 'il fratello' (el hermano) → 'i fratelli' (los hermanos). Importante: el plural 'fratelli' también designa el grupo mixto hermanos+hermanas, igual que 'figli' (hijos e hijas). Mismo patrón regular en 'ragazzo → ragazzi'."
@@ -209,7 +209,7 @@
       "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Una sorella, due ___ (familia §1).",
+        "prompt": "Una sorella, due ___.",
         "options": ["sorelli", "sorelle", "sorella", "sorellas"],
         "correctIndex": 1,
         "explanation": "Los sustantivos femeninos en -a forman el plural con -e: 'la sorella' (la hermana) → 'le sorelle' (las hermanas). Ojo al contraste con 'fratello → fratelli': mismo concepto familiar, pero el género dicta la regla — masculino -o → -i, femenino -a → -e. Hay que parar a comprobar el género antes de pluralizar."
@@ -221,7 +221,7 @@
       "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Un marito, due ___ (familia §1).",
+        "prompt": "Un marito, due ___.",
         "options": ["marite", "marita", "mariti", "maritos"],
         "correctIndex": 2,
         "explanation": "El sustantivo masculino 'marito' (marido) sigue la regla productiva -o → -i: 'il marito' → 'i mariti'. Cuidado: aunque 'marito' y 'moglie' (esposa) son pareja semántica, NO comparten regla — uno termina en -o → -i, la otra en -e → -i. La terminación del singular dicta el plural, no el significado."
@@ -233,7 +233,7 @@
       "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Un dito, due ___ (cuerpo §2).",
+        "prompt": "Un dito, due ___.",
         "options": ["diti", "dita", "ditos", "ditti"],
         "correctIndex": 1,
         "explanation": "El sustantivo masculino 'dito' (dedo) cambia a género femenino al pluralizar y termina en -a: 'il dito' → 'le dita'. La concordancia exige adjetivo y artículo femeninos: 'le dita lunghe' (los dedos largos). Misma familia que 'braccio → braccia', 'uovo → uova', 'osso → ossa'."
@@ -245,7 +245,7 @@
       "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Un ginocchio, due ___ (cuerpo §2) — forma fem más usada en italiano moderno.",
+        "prompt": "Un ginocchio, due ___.",
         "options": ["ginocchi", "ginocchia", "ginocchios", "ginocche"],
         "correctIndex": 1,
         "explanation": "Las partes pares del cuerpo humano prefieren el plural femenino en -a: 'il ginocchio' (la rodilla, masc) → 'le ginocchia' (las rodillas, fem). Importante: existe también 'i ginocchi' como variante minoritaria, pero en italiano moderno y a nivel A1 se enseña 'le ginocchia'. Misma familia: braccia, dita, labbra, ossa."
@@ -257,7 +257,7 @@
       "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Un osso, due ___ (cuerpo §2).",
+        "prompt": "Un osso, due ___.",
         "options": ["ossi", "ossa", "osses", "osso"],
         "correctIndex": 1,
         "explanation": "El sustantivo masculino 'osso' (hueso) cambia a fem plural en -a cuando se refiere al cuerpo humano: 'l'osso' → 'le ossa'. Cuidado: existe 'gli ossi' como plural masculino válido para huesos sueltos o de animales (ej. 'gli ossi del cane'), pero para el esqueleto humano se usa 'le ossa'. Misma familia: braccia, dita, labbra."
@@ -269,7 +269,7 @@
       "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Un labbro, due ___ (cuerpo §2).",
+        "prompt": "Un labbro, due ___.",
         "options": ["labbri", "labbra", "labbros", "labbre"],
         "correctIndex": 1,
         "explanation": "El sustantivo masculino 'labbro' (labio) sigue el patrón del cuerpo: plural fem en -a, 'le labbra'. ¡Atención!: 'i labbri' existe en italiano pero designa 'bordes' u 'orillas' (de una herida, de un vaso), NO los labios del rostro. Para el cuerpo humano siempre 'le labbra'. Familia con braccia, dita, ginocchia, ossa."
@@ -281,7 +281,7 @@
       "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Un bue, due ___ (animales §3).",
+        "prompt": "Un bue, due ___.",
         "options": ["bua", "bui", "buoi", "buei"],
         "correctIndex": 2,
         "explanation": "El sustantivo 'bue' (buey) tiene un plural irregular que inserta una -o- antes de la -i final: 'il bue' → 'i buoi'. Cuidado: no se sigue la regla -e → -i directa (que daría 'bui'), sino que se añade la vocal. Es un plural antiguo que conviene memorizar como par excepcional, igual que 'uomo / uomini' y 'dio / dei'."
@@ -293,7 +293,7 @@
       "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Un tempio, due ___ (lugares §3) — inserción de consonante.",
+        "prompt": "Un tempio, due ___.",
         "options": ["tempi", "templi", "tempios", "templios"],
         "correctIndex": 1,
         "explanation": "El sustantivo 'tempio' (templo) inserta una -l- al pluralizar: 'il tempio' → 'i templi'. ¡Atención a la trampa homófona!: 'i tempi' (sin -l-) existe pero es el plural de 'tempo' (los tiempos), no de 'tempio'. Son lemas distintos con plurales casi idénticos — el contexto y la consonante extra los separan."
@@ -305,7 +305,7 @@
       "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Un giovane uomo, due ___ (locución §3) — concordancia adjetivo+sustantivo.",
+        "prompt": "Un giovane uomo, due ___.",
         "options": ["giovani uomini", "giovane uomini", "giovani uomo", "giovanes uomos"],
         "correctIndex": 0,
         "explanation": "En italiano, adjetivo y sustantivo concuerdan SIEMPRE en número y género dentro de la locución. Por eso 'un giovane uomo' (singular) → 'due giovani uomini' (plural), con AMBAS palabras flexionadas. Cuidado: el adjetivo 'giovane' (-e singular) pluraliza con -i ('giovani'), regla idéntica a 'padre → padri', porque comparte la terminación -e."

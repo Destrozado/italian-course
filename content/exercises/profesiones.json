@@ -5,7 +5,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "Il cuoco (masc) → la ___ (fem).",
+        "prompt": "Il cuoco → la ___.",
         "options": ["cuoca", "cuoche", "cuocia", "cuocessa"],
         "correctIndex": 0,
         "explanation": "La regla productiva más frecuente del italiano para formar el femenino de profesiones es cambiar la -o final por -a. Así 'cuoco' (cocinero) pasa a 'cuoca' y 'impiegato' (empleado) pasa a 'impiegata'. Cuidado: no confundir con el plural femenino 'cuoche' (las cocineras), que añade -h- para preservar el sonido duro de la C."
@@ -41,7 +41,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "Il segretario (masc) → la ___ (fem).",
+        "prompt": "Il segretario → la ___.",
         "options": ["segretari", "segretarie", "segretaressa", "segretaria"],
         "correctIndex": 3,
         "explanation": "Caso canónico de la regla -o→-a productiva: 'segretario' (secretario) pasa a 'segretaria' (secretaria), sin sufijos especiales. Importante: el sufijo -essa solo aplica cuando el masculino termina en -e (dottore→dottoressa, professore→professoressa), y 'segretario' termina en -o, así que 'segretaressa' mezcla dos familias diferentes y no es aceptable."
@@ -53,7 +53,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "Il poliziotto (masc) → la ___ (fem).",
+        "prompt": "Il poliziotto → la ___.",
         "options": ["poliziotta", "poliziotte", "poliziottrice", "poliziottessa"],
         "correctIndex": 0,
         "explanation": "Regla regular -o→-a productiva: 'poliziotto' (policía masculino) pasa a 'poliziotta' (policía femenina). Cuidado: ni 'poliziottrice' ni 'poliziottessa' son válidos, porque -trice exige raíz en -tore (attore, direttore) y -essa exige raíz en -e (dottore, professore). 'Poliziotto' termina en -o, así que la regla aplicable es la de cambio simple -o→-a."
@@ -65,7 +65,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "Il fotografo (masc) → la ___ (fem).",
+        "prompt": "Il fotografo → la ___.",
         "options": ["fotografessa", "fotografa", "fotografia", "fotografatrice"],
         "correctIndex": 1,
         "explanation": "El femenino de 'fotografo' (fotógrafo) sigue la regla -o→-a y da 'fotografa' (fotógrafa). ¡Atención! Existe la palabra 'la fotografia' que significa 'la foto' o 'la fotografía como técnica', no a la profesional. El hispanohablante puede caer en la trampa por similitud léxica: la profesión femenina es 'fotografa', no 'fotografia'."
@@ -89,7 +89,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "Il meccanico (masc) → la ___ (fem).",
+        "prompt": "Il meccanico → la ___.",
         "options": ["meccanica", "meccaniche", "meccanicessa", "meccanicia"],
         "correctIndex": 0,
         "explanation": "El femenino de 'meccanico' (mecánico) sigue la regla -o→-a y da 'meccanica' (mecánica). Cuidado con la ambigüedad léxica: 'la meccanica' también significa 'la mecánica' como disciplina o rama de la física; el contexto (artículo más sustantivo aplicado a una persona) fija aquí la lectura profesional."
@@ -101,7 +101,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "Il cameriere (masc) → la ___ (fem).",
+        "prompt": "Il cameriere → la ___.",
         "options": ["camerieressa", "cameriera", "camerieretta", "cameriere"],
         "correctIndex": 1,
         "explanation": "La familia -iere/-iera es una regla productiva del italiano para profesiones de servicio. Así 'cameriere' (camarero) pasa a 'cameriera' (camarera). Importante: esta familia incluye también 'infermiere/infermiera' (enfermero/a), 'parrucchiere/parrucchiera' (peluquero/a) y 'portiere/portiera' (portero/a) — el patrón es estable y predecible."
@@ -125,7 +125,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "Il parrucchiere (masc) → la ___ (fem).",
+        "prompt": "Il parrucchiere → la ___.",
         "options": ["parrucchiere", "parrucchieressa", "parrucchiera", "parrucchierica"],
         "correctIndex": 2,
         "explanation": "Misma regla -iere→-iera aplicada a la profesión 'parrucchiere' (peluquero), que pasa a 'parrucchiera' (peluquera). La familia productiva incluye también 'cameriere/cameriera' e 'infermiere/infermiera', y mantiene siempre la doble erre y la H tras la C para preservar el sonido duro original."
@@ -137,7 +137,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "Il portiere (masc) → la ___ (fem).",
+        "prompt": "Il portiere → la ___.",
         "options": ["portieressa", "portieretta", "portiera", "portiere"],
         "correctIndex": 2,
         "explanation": "El femenino de 'portiere' (portero) es 'portiera' por la regla productiva -iere→-iera. Ojo a la ambigüedad léxica: 'la portiera' también significa 'la puerta del coche' como objeto; el contexto profesional o domiciliario fija la lectura como 'la portera'. Cuidado además con el calco español: en italiano no existe el invariable 'il portiere'/'la portiere'."
@@ -161,7 +161,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "Il direttore (masc) → la ___ (fem).",
+        "prompt": "Il direttore → la ___.",
         "options": ["direttrice", "direttoressa", "direttora", "direttressa"],
         "correctIndex": 0,
         "explanation": "Misma familia -tore/-trice productiva: 'direttore' (director) pasa a 'direttrice' (directora). ¡Atención al pitfall central de A1! El alumno hispanohablante confunde 'direttore' con 'dottore' (que también termina en -ore) y aplica el sufijo -essa por analogía con 'dottoressa'. La diferencia está en la raíz: -tore exige -trice (direttore, attore), -e simple exige -essa (dottore, professore)."
@@ -173,7 +173,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "Il dottore (masc) → la ___ (fem).",
+        "prompt": "Il dottore → la ___.",
         "options": ["dottora", "dottrice", "dottoressa", "dottore"],
         "correctIndex": 2,
         "explanation": "La familia -e/-essa es otra irregularidad productiva: el masculino -e añade el sufijo prestigioso -essa. Así 'dottore' (médico/doctor) pasa a 'dottoressa' (doctora). Cuidado: aunque 'dottore' termina en -ore, NO pertenece a la familia -tore/-trice porque su raíz no es de agente derivado (att-ore, diret-tore); por eso 'dottrice' es incorrecta. El calco español 'dottora' también falla."
@@ -185,7 +185,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "Il professore (masc) → la ___ (fem).",
+        "prompt": "Il professore → la ___.",
         "options": ["professora", "professoressa", "professrice", "professoretta"],
         "correctIndex": 1,
         "explanation": "Caso paralelo a 'dottore/dottoressa': el masculino 'professore' (profesor) añade el sufijo -essa y da 'professoressa' (profesora). Importante: el español calca como 'profesora' (regla -a simple), pero el italiano A1 exige el sufijo completo. La familia -e/-essa incluye también 'studente→studentessa' y 'dottore→dottoressa', todas con el mismo patrón."
@@ -197,7 +197,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "Lo studente (masc) → la ___ (fem).",
+        "prompt": "Lo studente → la ___.",
         "options": ["studenta", "studentrice", "studentessa", "studente"],
         "correctIndex": 2,
         "explanation": "El masculino 'studente' (estudiante) sigue la familia -e/-essa y da 'studentessa' (estudiante femenina). ¡Atención! No todas las profesiones en -e flexionan; algunas son invariables ('cantante', 'insegnante'). Pero 'studente' SÍ tiene femenino propio. El patrón canónico tras vocal más -e es -essa: dottoressa, professoressa, studentessa."
@@ -209,7 +209,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "Il cantante (masc) → la ___ (fem).",
+        "prompt": "Il cantante → la ___.",
         "options": ["cantantessa", "cantantrice", "cantante", "cantanta"],
         "correctIndex": 2,
         "explanation": "¡Atención al pitfall central! No todas las profesiones en -e flexionan: los participios presentes en -nte son INVARIABLES en género. Así 'cantante' (cantante) es la misma forma para masculino y femenino, y solo el artículo distingue: 'il cantante' (el cantante) frente a 'la cantante' (la cantante). Mismo patrón en 'insegnante' y 'dirigente'."
@@ -233,7 +233,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "Il collega (masc) → la ___ (fem).",
+        "prompt": "Il collega → la ___.",
         "options": ["colleghe", "collegua", "colleghessa", "collega"],
         "correctIndex": 3,
         "explanation": "¡Atención! 'Collega' (colega, compañero de trabajo) termina en -a pero no procede de la regla productiva -o→-a; es invariable en género y solo el artículo distingue: 'il collega' (el colega) frente a 'la collega' (la colega). Cuidado con el plural: pasa a 'i colleghi' en masculino y 'le colleghe' en femenino, manteniendo la H para preservar el sonido duro de la G."
@@ -245,7 +245,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "Il cliente (masc) → la ___ (fem).",
+        "prompt": "Il cliente → la ___.",
         "options": ["clienta", "clientessa", "cliente", "cliententrice"],
         "correctIndex": 2,
         "explanation": "'Cliente' es invariable en italiano contemporáneo: la misma forma 'cliente' sirve para masculino y femenino, y el artículo distingue ('il cliente' frente a 'la cliente'). Cuidado con el calco español 'clienta' (regla -a forzada) y con el calco prestigioso 'clientessa' (familia -essa de studentessa); ninguno de los dos pertenece al italiano A1 estándar."
@@ -257,7 +257,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "Il dentista (masc) → la ___ (fem).",
+        "prompt": "Il dentista → la ___.",
         "options": ["dentistessa", "dentista", "dentiste", "dentistra"],
         "correctIndex": 1,
         "explanation": "¡Atención a la familia -ista! Todas las profesiones italianas terminadas en -ista son INVARIABLES en género: 'dentista', 'pianista', 'giornalista', 'farmacista', 'tassista', 'artista'. El sustantivo no cambia y solo el artículo distingue: 'il dentista' (el dentista) frente a 'la dentista' (la dentista). Cuidado con la tentación hispanohablante de flexionar a 'dentistA/dentistO' o calcar el sufijo -essa."
@@ -269,7 +269,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "Il pianista (masc) → la ___ (fem).",
+        "prompt": "Il pianista → la ___.",
         "options": ["pianiste", "pianista", "pianistessa", "pianistra"],
         "correctIndex": 1,
         "explanation": "Refuerzo de la regla -ista invariable: 'pianista' (pianista) es la misma forma para masculino y femenino, solo cambia el artículo ('il pianista' frente a 'la pianista'). Importante: el patrón cubre todas las profesiones musicales y técnicas en -ista del italiano A1, en paralelo con 'dentista', 'giornalista', 'artista' y 'tassista'."
@@ -281,7 +281,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "Il farmacista (masc) → la ___ (fem).",
+        "prompt": "Il farmacista → la ___.",
         "options": ["farmacistessa", "farmacistra", "farmaciste", "farmacista"],
         "correctIndex": 3,
         "explanation": "¡Atención! 'Farmacista' pertenece a la familia -ista invariable como 'dentista' y 'pianista', aunque el PDF de la profesora lo clasifique con la regla -o→-a por motivos didácticos. En italiano A1 estándar y contemporáneo es invariable: 'il farmacista' (el farmacéutico) frente a 'la farmacista' (la farmacéutica). Solo el artículo distingue el género."
@@ -293,7 +293,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "Il giornalista (masc) → la ___ (fem).",
+        "prompt": "Il giornalista → la ___.",
         "options": ["giornalistessa", "giornalista", "giornaliste", "giornalistra"],
         "correctIndex": 1,
         "explanation": "Igual que 'farmacista', el sustantivo 'giornalista' (periodista) es invariable en italiano contemporáneo por la regla productiva -ista. La misma forma sirve para masculino y femenino: 'il giornalista' frente a 'la giornalista'. Cuidado: el PDF a veces lista profesiones -ista en la tabla -o→-a por motivos didácticos, pero la realidad lingüística del italiano A1 confirma su invariabilidad."
@@ -305,7 +305,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "Il tassista (masc) → la ___ (fem).",
+        "prompt": "Il tassista → la ___.",
         "options": ["tassistessa", "tassiste", "tassista", "tassistra"],
         "correctIndex": 2,
         "explanation": "Refuerzo definitivo de la familia -ista invariable aplicada a la profesión del transporte: 'tassista' (taxista) es la misma forma para masculino y femenino, y solo el artículo distingue ('il tassista' frente a 'la tassista'). Importante: el plural sí flexiona como en cualquier sustantivo en -ista ('i tassisti' masculino, 'le tassiste' femenino)."
@@ -317,7 +317,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "Il pilota (masc) → la ___ (fem).",
+        "prompt": "Il pilota → la ___.",
         "options": ["pilotessa", "piloto", "pilote", "pilota"],
         "correctIndex": 3,
         "explanation": "¡Atención! La profesión 'pilota' (piloto) ya termina en -a en masculino; el italiano nunca dice 'il piloto'. Es invariable en género y solo el artículo distingue ('il pilota' frente a 'la pilota'). Cuidado: comparte el patrón con otros sustantivos masculinos en -a como 'poeta' y 'atleta' — son terminaciones de origen griego que el alumno hispanohablante asocia erróneamente al femenino."
@@ -329,7 +329,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "Il manager (masc, préstamo inglés) → la ___ (fem).",
+        "prompt": "Il manager (masc, préstamo inglés) → la ___.",
         "options": ["manageressa", "managera", "managere", "manager"],
         "correctIndex": 3,
         "explanation": "Los préstamos del inglés en profesiones son INVARIABLES en italiano: 'manager', 'designer', 'freelance' nunca italianizan su terminación. Así 'il manager' (el ejecutivo) y 'la manager' (la ejecutiva) comparten forma, distinguidas solo por el artículo. Importante: el plural también se mantiene invariable como en el original inglés ('i manager', 'le manager')."
@@ -341,7 +341,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "Il programmatore (masc) → la ___ (fem).",
+        "prompt": "Il programmatore → la ___.",
         "options": ["programmatora", "programmatressa", "programmatrice", "programmatoressa"],
         "correctIndex": 2,
         "explanation": "La familia productiva -tore/-trice aplicada al léxico técnico moderno: 'programmatore' (programador) pasa a 'programmatrice' (programadora). Importante: el patrón es estable y predecible para todos los agentes derivados en -tore, en paralelo con 'traduttore/traduttrice' y 'pittore/pittrice'. Cuidado con el calco español 'programmatora', que el italiano A1 no acepta."
@@ -353,7 +353,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "Il muratore (masc) → la ___ (fem).",
+        "prompt": "Il muratore → la ___.",
         "options": ["muratoressa", "muratrice", "muratora", "muratoria"],
         "correctIndex": 1,
         "explanation": "Misma regla -tore/-trice productiva aplicada al oficio manual: 'muratore' (albañil) pasa a 'muratrice' (albañila). Cuidado con el falso amigo léxico 'muratura' (la fábrica de albañilería como obra concreta), que es un sustantivo distinto y no la profesional femenina. La regla productiva sigue siendo la misma que en 'pittore/pittrice'."
@@ -365,7 +365,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "Il pittore (masc) → la ___ (fem).",
+        "prompt": "Il pittore → la ___.",
         "options": ["pittrice", "pittoressa", "pittora", "pittoria"],
         "correctIndex": 0,
         "explanation": "Caso paradigmático de la familia -tore/-trice: 'pittore' (pintor) pasa a 'pittrice' (pintora). Importante: el patrón es el mismo que en 'attore/attrice' y 'scrittore/scrittrice' (cross-ref a Género y Número). El calco español 'pintora' lleva al alumno a inventar 'pittora', pero el italiano A1 exige el sufijo completo -trice para los agentes derivados en -tore."
@@ -377,7 +377,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "Il traduttore (masc) → la ___ (fem).",
+        "prompt": "Il traduttore → la ___.",
         "options": ["traduttora", "traduttressa", "traduttoressa", "traduttrice"],
         "correctIndex": 3,
         "explanation": "Otra aplicación canónica de la familia -tore/-trice: 'traduttore' (traductor) pasa a 'traduttrice' (traductora), manteniendo la doble erre original. Importante: el infinitivo del verbo asociado es 'tradurre' (traducir), una forma -re irregular que el alumno A1 debe reconocer en paralelo a la profesión. La regla productiva opera igual que en 'pittore/pittrice' y 'attore/attrice'."
@@ -389,7 +389,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "Il ricercatore (masc) → la ___ (fem).",
+        "prompt": "Il ricercatore → la ___.",
         "options": ["ricercatressa", "ricercatora", "ricercatrice", "ricercatoria"],
         "correctIndex": 2,
         "explanation": "Profesión académica con regla -tore/-trice estable: 'ricercatore' (investigador) pasa a 'ricercatrice' (investigadora). Importante: el patrón se mantiene incluso para sufijos compuestos como -atore (de 'ricerc-are' a 'ricercat-ore' y luego 'ricercat-rice'). Cuidado con el calco español 'ricercatora' o las mezclas con -essa, que no pertenecen al italiano A1."
@@ -401,7 +401,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "Il chirurgo (masc) → la ___ (fem).",
+        "prompt": "Il chirurgo → la ___.",
         "options": ["chirurghessa", "chirurga", "chirurgia", "chirurgessa"],
         "correctIndex": 1,
         "explanation": "El femenino de 'chirurgo' (cirujano) sigue la regla -o→-a pero SIN insertar la H que normalmente preserva el sonido duro de la G: la forma correcta es 'chirurga' (cirujana). ¡Atención al pitfall léxico! 'La chirurgia' significa 'la cirugía' como disciplina o rama médica, NO la cirujana persona. El contexto y el artículo aplicado a una mujer fijan la lectura profesional."
@@ -413,7 +413,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "Il commesso (masc) → la ___ (fem).",
+        "prompt": "Il commesso → la ___.",
         "options": ["commesse", "commessa", "commessessa", "commessrice"],
         "correctIndex": 1,
         "explanation": "Cierre de la familia -o→-a regular aplicada al léxico comercial: 'commesso' (dependiente) pasa a 'commessa' (dependienta). Importante: el patrón es estable como en 'cuoco/cuoca' o 'impiegato/impiegata' y no admite los sufijos -essa o -trice porque la raíz no pertenece a esas familias morfológicas."
@@ -425,7 +425,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "___ avvocato — artículo definido ante vocal:",
+        "prompt": "___ avvocato",
         "options": ["il", "lo", "l'", "la"],
         "correctIndex": 2,
         "explanation": "Importante: el italiano aplica la regla de elisión universal del artículo definido ante palabra que empieza por vocal. Así 'lo avvocato' y 'la avvocata' nunca aparecen así: se eliden a 'l'avvocato' y 'l'avvocata' con apóstrofe. Cuidado: la elisión es ortográfica y obligatoria en italiano A1, a diferencia del español que mantiene el artículo completo ('el abogado')."
@@ -437,7 +437,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "___ studente — artículo definido masculino ante s+consonante:",
+        "prompt": "___ studente",
         "options": ["il", "l'", "la", "lo"],
         "correctIndex": 3,
         "explanation": "¡Atención al artículo masculino especial! Ante palabras que empiezan por s+consonante, z, ps, gn o y, el italiano usa 'lo' en lugar de 'il'. Así se dice 'lo studente' (el estudiante), 'lo zaino' (la mochila), 'lo psicologo' (el psicólogo). Cuidado con el pitfall A1: el alumno hispanohablante calca 'il studente' porque la S inicial no le suena anómala, pero el italiano A1 exige 'lo'."
@@ -449,7 +449,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "___ infermiera — artículo definido femenino ante vocal:",
+        "prompt": "___ infermiera",
         "options": ["la", "l'", "il", "lo"],
         "correctIndex": 1,
         "explanation": "El artículo femenino 'la' también se elide ante vocal: 'la infermiera' pasa a 'l'infermiera' (la enfermera) con apóstrofe. Importante: en italiano A1 estándar la elisión femenina es sistemática, igual que la masculina ('l'avvocata', 'l'attrice', 'l'impiegata'). Cuidado: el español mantiene 'la enfermera' completo, pero el italiano nunca."
@@ -461,7 +461,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "Mio padre lavora con i bisturi negli ospedali. È un ___ .",
+        "prompt": "Mio padre lavora con i bisturi negli ospedali. È un ___.",
         "options": ["cuoco", "avvocato", "chirurgo", "insegnante"],
         "correctIndex": 2,
         "explanation": "Importante: el contexto semántico fija la profesión cuando el ejercicio no pregunta solo morfología. Si el sujeto trabaja 'con i bisturi negli ospedali' (con bisturíes en hospitales), el lema obligado es 'chirurgo' (cirujano), no 'cuoco' ni 'avvocato'. Cuidado al elegir entre profesiones plausibles del PDF: el campo léxico clínico (bisturí, hospital) es la pista que el alumno debe identificar."
@@ -473,7 +473,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "Mia sorella prepara piatti italiani in un ristorante. È una ___ .",
+        "prompt": "Mia sorella prepara piatti italiani in un ristorante. È una ___.",
         "options": ["cameriera", "cuoca", "commessa", "segretaria"],
         "correctIndex": 1,
         "explanation": "¡Atención al pitfall semántico! Quien 'prepara piatti italiani in un ristorante' (prepara platos italianos en un restaurante) es 'la cuoca' (la cocinera), no 'la cameriera' (la camarera). Cuidado: ambas trabajan en el mismo lugar (ristorante), pero la acción distingue. La cocinera prepara; la camarera sirve. Importante: el italiano A1 exige fijar la profesión por la acción del verbo, no solo por el lugar."
@@ -485,7 +485,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "Una persona che insegna a scuola è un ___ o una ___ .",
+        "prompt": "Una persona che insegna a scuola è un ___ o una ___.",
         "options": ["studente / studentessa", "professore / professoressa", "direttore / direttrice", "cliente / cliente"],
         "correctIndex": 1,
         "explanation": "Importante: quien 'insegna a scuola' (enseña en la escuela) es 'il professore' o 'la professoressa', no 'lo studente' (que aprende, no enseña) ni 'il direttore' (que dirige, no enseña). El ejercicio refuerza la pareja masculino-femenino completa y la familia -e/-essa: 'professore/professoressa' sigue el mismo patrón que 'dottore/dottoressa' y 'studente/studentessa'."
@@ -497,7 +497,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "Una persona che recita in un film o a teatro è un ___ o una ___ .",
+        "prompt": "Una persona che recita in un film o a teatro è un ___ o una ___.",
         "options": ["cantante / cantante", "pittore / pittrice", "attore / attrice", "regista / regista"],
         "correctIndex": 2,
         "explanation": "Quien 'recita in un film o a teatro' (actúa en una película o en el teatro) es 'l'attore' o 'l'attrice', no 'il cantante' (canta) ni 'il pittore' (pinta) ni 'il regista' (dirige el film). Importante: este ejercicio refuerza la familia productiva -tore/-trice, el mismo patrón que aparece en 'scrittore/scrittrice' y 'traduttore/traduttrice' del léxico A1."
