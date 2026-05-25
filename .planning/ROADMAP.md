@@ -128,7 +128,7 @@
   5. T-02-01 anti-XSS preservado: todas las explanations se renderizan via `x-text` exclusivo; markdown literal (asteriscos, doble subrayado) no se interpreta.
   6. UAT humano: fallar deliberadamente 5+ ejercicios de Preposiciones en Repaso 20 + ver explanation curada en cada uno + repaso agregado en summary.
 **Plans**: 2 plans
-- [ ] 07-01-PLAN.md — Schema validator extension (3 reglas if-explanation-string-no-vacío) + 3 sub-templates session render inline + summary-errors extensión + 2 reglas CSS muted/italic + 2 seed explanations (preposiciones-001/006) + 12 tests parametrizados (EXPL-01/02/03)
+- [x] 07-01-PLAN.md — Schema validator extension (3 reglas if-explanation-string-no-vacío) + 3 sub-templates session render inline + summary-errors extensión + 2 reglas CSS muted/italic + 2 seed explanations (preposiciones-001/006) + 12 tests parametrizados (EXPL-01/02/03)
 - [ ] 07-02-PLAN.md — Batch A 16 + batch B 16 + batch C 16 explanations Preposiciones (patrón D-85 Claude propone + autor revisa por bloque) + smoke test coverage 50/50 + reapertura PROJECT.md Out of Scope (D-134) + REQUIREMENTS.md EXPL-01..05 + ROADMAP.md finalización (EXPL-04/05)
 
 ## Progress
@@ -141,7 +141,7 @@
 | 4. Backup robusto + contenido completo | 4/4 | Complete    | 2026-05-24 |
 | 5. Essere — categoría fundamental que faltaba | 1/1 | Complete   | 2026-05-24 |
 | 6. Polish UX post-sesión (reiniciar + review errores) | 2/2 | Complete    | 2026-05-25 |
-| 7. Explicaciones pedagógicas al fallar | 0/2 | Planning    | — |
+| 7. Explicaciones pedagógicas al fallar | 1/2 | In Progress|  |
 
 ## Coverage Summary
 
