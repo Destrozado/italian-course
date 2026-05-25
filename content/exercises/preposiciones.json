@@ -377,12 +377,12 @@
       "type": "multiple-choice",
       "categoryIds": ["preposiciones"],
       "payload": {
-        "prompt": "Le foto sono ___ pareti.",
+        "prompt": "Le foto sono ___ cornici.",
         "options": ["nei", "negli", "nelle", "sulle"],
         "correctIndex": 2,
-        "explanation": "Nelle es la preposición articolata femenina plural de In + Le. Le foto sono nelle pareti significa 'las fotos están en las paredes'. Cierra la serie de articolate In: nel/nello/nella/nei/negli/nelle — seis combinaciones que cubren todas las variantes de género, número y artículo."
+        "explanation": "Nelle es la preposición articolata femenina plural de In + Le. Le foto sono nelle cornici significa 'las fotos están en los marcos' — el italiano ve la cornice (marco) como un contenedor que rodea la foto, por eso In y no Su. Cuidado: si quieres decir que las fotos están colgadas en la pared, no dentro de un marco, lo natural es Sulle pareti (sobre la superficie vertical) — Nelle pareti suena a fotos empotradas dentro del muro. Cierra la serie de articolate In: nel/nello/nella/nei/negli/nelle."
       },
-      "notes": "Preposición articolata 'nelle' = in + le (plural femenino). PDF §Preposizioni articolate, fila 'in' columna 'le'."
+      "notes": "Preposición articolata 'nelle' = in + le (plural femenino con 'cornici' como contenedor que rodea la foto). PDF §Preposizioni articolate, fila 'in' columna 'le'. Bug fix post-v1.0: prompt anterior 'Le foto sono nelle pareti' era gramaticalmente válido pero semánticamente raro (fotos empotradas en muros); cambiado a 'cornici' (marcos) que cuadra naturalmente con In + Le."
     },
     {
       "id": "preposiciones-033",
