@@ -164,6 +164,16 @@ Cada fase entrega valor usable independientemente:
 
 **Status:** Promoted to active roadmap as part of Phase 6 (Polish UX post-sesión). See §"Phase 6" above for active spec.
 
+### Phase 7: Explicaciones pedagógicas al fallar — campo explanation por ejercicio + render en Errores cometidos
+
+**Goal:** [To be planned]
+**Requirements**: TBD
+**Depends on:** Phase 6
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd-plan-phase 7 to break down)
+
 ---
 *Roadmap created: 2026-05-23*
 *Last updated: 2026-05-24 after Phase 5 completion (145/145 tests verdes, 10 commits, +39 ejercicios essere = 271 totales en 7 categorías, UAT INTEGRAL 6/6 PASS sobre los 6 criterios ROADMAP §Phase 5, SEED-03 cerrado, milestone v1.0 funcionalmente completo). Phase 6 promoted del backlog (999.1+999.2 absorbidos) — UX polish reiniciar + review errores antes de close milestone.*
