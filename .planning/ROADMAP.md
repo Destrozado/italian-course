@@ -160,7 +160,7 @@
 | 5. Essere — categoría fundamental que faltaba | 1/1 | Complete   | 2026-05-24 |
 | 6. Polish UX post-sesión (reiniciar + review errores) | 2/2 | Complete    | 2026-05-25 |
 | 7. Explicaciones pedagógicas al fallar | 2/2 | Complete   | 2026-05-25 |
-| 7.1. Explicaciones Género-Número + canonicalización ortográfica | 2/2 | Complete    | 2026-05-25 |
+| 7.1. Explicaciones Género-Número + canonicalización ortográfica | 2/2 | Complete   | 2026-05-25 |
 
 ## Coverage Summary
 
