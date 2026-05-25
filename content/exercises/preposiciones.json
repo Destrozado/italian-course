@@ -380,7 +380,7 @@
         "prompt": "Le foto sono ___ cornici.",
         "options": ["nei", "negli", "nelle", "sulle"],
         "correctIndex": 2,
-        "explanation": "Nelle es la preposición articolata femenina plural de In + Le. Le foto sono nelle cornici significa 'las fotos están en los marcos' — el italiano ve la cornice (marco) como un contenedor que rodea la foto, por eso In y no Su. Cuidado: si quieres decir que las fotos están colgadas en la pared, no dentro de un marco, lo natural es Sulle pareti (sobre la superficie vertical) — Nelle pareti suena a fotos empotradas dentro del muro. Cierra la serie de articolate In: nel/nello/nella/nei/negli/nelle."
+        "explanation": "Nelle es la preposición articolata femenina plural de In + Le. Le foto sono nelle cornici significa 'las fotos están en los marcos' — el italiano ve la cornice (marco) como un contenedor que rodea la foto, por eso In y no Su. Cuidado: si quieres decir que las fotos están colgadas en la pared, no dentro de un marco, lo natural es Sulle pareti (sobre la superficie vertical) — Nelle pareti suena a fotos empotradas dentro del muro."
       },
       "notes": "Preposición articolata 'nelle' = in + le (plural femenino con 'cornici' como contenedor que rodea la foto). PDF §Preposizioni articolate, fila 'in' columna 'le'. Bug fix post-v1.0: prompt anterior 'Le foto sono nelle pareti' era gramaticalmente válido pero semánticamente raro (fotos empotradas en muros); cambiado a 'cornici' (marcos) que cuadra naturalmente con In + Le."
     },
@@ -440,7 +440,7 @@
         "prompt": "Scrivo una lettera ___ mie amiche.",
         "options": ["ai", "agli", "alle", "delle"],
         "correctIndex": 2,
-        "explanation": "Para sustantivos femeninos plurales el artículo es Le y A se fusiona en Alle. Scrivo una lettera alle mie amiche significa 'escribo una carta a mis amigas'. Cierra la familia A articolate: al/allo/alla/ai/agli/alle, simétrica a las series Di y In."
+        "explanation": "Para sustantivos femeninos plurales el artículo es Le y A se fusiona en Alle. Scrivo una lettera alle mie amiche significa 'escribo una carta a mis amigas'."
       },
       "notes": "Preposición articolata 'alle' = a + le (plural femenino). PDF §Preposizioni articolate, fila 'a' columna 'le'."
     },
@@ -500,7 +500,7 @@
         "prompt": "Vengo ___ mie zie.",
         "options": ["dai", "dagli", "dalle", "delle"],
         "correctIndex": 2,
-        "explanation": "Da + Le = Dalle. Vengo dalle mie zie significa 'vengo de [casa de] mis tías'. Con personas femeninas plurales Da articulada implica salir del lugar donde están. Cierra la familia Da articolate: dal/dallo/dalla/dai/dagli/dalle, simétrica a las series A, Di e In."
+        "explanation": "Da + Le = Dalle. Vengo dalle mie zie significa 'vengo de [casa de] mis tías'. Con personas femeninas plurales Da articulada implica salir del lugar donde están."
       },
       "notes": "Preposición articolata 'dalle' = da + le (plural femenino: vengo de [casa de] mis tías). PDF §Preposizioni articolate, fila 'da' columna 'le'."
     },
@@ -572,7 +572,7 @@
         "prompt": "I libri sono ___ scrivanie.",
         "options": ["sui", "sugli", "sulle", "nelle"],
         "correctIndex": 2,
-        "explanation": "Su + Le = Sulle. I libri sono sulle scrivanie equivale a 'los libros están sobre los escritorios'. Cierra la familia Su articolate: sul/sullo/sulla/sui/sugli/sulle, simétrica a las series A, Di, In, Da. Tras Plan 07-02 has visto las 5 series completas."
+        "explanation": "Su + Le = Sulle. I libri sono sulle scrivanie equivale a 'los libros están sobre los escritorios'. Tras Plan 07-02 has visto las 5 series completas."
       },
       "notes": "Preposición articolata 'sulle' = su + le (plural femenino). PDF §Preposizioni articolate, fila 'su' columna 'le'."
     },
