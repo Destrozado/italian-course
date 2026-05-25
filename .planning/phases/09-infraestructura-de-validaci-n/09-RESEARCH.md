@@ -599,35 +599,38 @@ function stripAdditive(ex) {
 
 **Risk roll-up:** A1 + A2 son los más importantes — los gateemos en el piloto Phase 9 D-VAL-15. Si el piloto pasa los 4 must-haves, A1+A2 son OK para Phase 10. A3-A7 son operacionales con mitigación clara.
 
-## Open Questions
+## Open Questions (RESOLVED)
+
+> Las 5 preguntas se resolvieron en plan-time (Phase 9 plans 09-01/09-02/09-03). Las recomendaciones quedaron lockeadas en los plans con referencia file:line.
 
 1. **¿Spawnar los 2 pases en serie o en paralelo en el SKILL.md?**
    - What we know: Task() acepta múltiples invocations en un solo turn; concurrent execution es posible pero unordered `[VERIFIED]`.
    - What's unclear: la versión actual del CLI de Claude Code del autor — ¿soporta correctly la emisión de 2 Task() calls en el mismo turn? Issue #29181 reporta que "sometimes only 1 Task call is emitted with other results hallucinated".
-   - Recommendation: empezar en SERIE (más conservador, debug más simple, latencia ~2x). Si el piloto funciona limpio en serie, plan-time Phase 10 puede pivotar a paralelo para reducir wall-clock.
+   - RESOLVED: empezar en SERIE (más conservador, debug más simple, latencia ~2x). Si el piloto funciona limpio en serie, plan-time Phase 10 puede pivotar a paralelo para reducir wall-clock. **Lockeado en `09-02-PLAN.md` Task 2 (línea ~205, "SECUENCIAL")**.
 
 2. **¿Few-shot examples in-prompt o zero-shot?**
    - What we know: few-shot 2-ejemplos sube consistency +25-30% but introduces example-order bias `[CITED: eugeneyan.com/writing/llm-evaluators]`.
    - What's unclear: el bias específico de Opus/Sonnet 2026 sobre validation tasks — ningún paper publicado los ha medido.
-   - Recommendation: **2-shot (1 PASS sintético + 1 FAIL sintético)** en el VALIDATION-PROMPT.md. El FAIL example es literalmente el bug motivador `(refuerzo regla §1 fem -a→-e)` que el autor cazó — máxima signal para el subagent sobre qué buscar. Si el piloto detecta sobre-bias hacia "OK" en E2 baseline, plan-time pivota a zero-shot o cambia los ejemplos.
+   - RESOLVED: **2-shot (1 PASS sintético + 1 FAIL sintético)** en el VALIDATION-PROMPT.md. El FAIL example es literalmente el bug motivador `(refuerzo regla §1 fem -a→-e)` que el autor cazó — máxima signal para el subagent sobre qué buscar. Si el piloto detecta sobre-bias hacia "OK" en E2 baseline, plan-time pivota a zero-shot o cambia los ejemplos. **Lockeado en `09-02-PLAN.md` Task 1 Section 5**.
 
 3. **¿`SKILL.md` único con 2 Task() calls vs 2 archivos SKILL.md separados (uno por modelo)?**
    - What we know: ambos patrones son válidos en Claude Code.
    - What's unclear: cuál es más mantenible si el VALIDATION-PROMPT.md cambia.
-   - Recommendation: **1 SKILL.md único** + el VALIDATION-PROMPT.md vive en `.planning/phases/09-.../09-VALIDATION-PROMPT.md` y el skill lo lee con Read tool antes de spawnear. Esto da:
+   - RESOLVED: **1 SKILL.md único** + el VALIDATION-PROMPT.md vive en `.planning/phases/09-.../09-VALIDATION-PROMPT.md` y el skill lo lee con Read tool antes de spawnear. Esto da:
      - 1 archivo de prompt (cero risk de drift entre Opus/Sonnet versions)
      - El prompt está versioned junto al CONTEXT/PLAN de Phase 9 (audit trail)
      - El skill es la capa orquestadora pura
+   - **Lockeado en `09-02-PLAN.md` Task 2 (línea ~190)**.
 
 4. **Ubicación slash command: `.claude/skills/gsd-validate-exercise/` vs `scripts/validate-exercise/`?**
    - What we know: el proyecto NO tiene `.claude/` aún. Skills es el mecanismo soportado por Claude Code para auto-discovery y slash invocation `[VERIFIED]`.
    - What's unclear: si el autor quiere también poder invocar desde shell (no solo desde Claude Code).
-   - Recommendation: **solo `.claude/skills/gsd-validate-exercise/SKILL.md`**. La invocación desde shell requeriría un script Node con Anthropic SDK (prohibido — zero-deps + sin API key gestión). El autor SIEMPRE invoca via Claude Code en este workflow.
+   - RESOLVED: **solo `.claude/skills/gsd-validate-exercise/SKILL.md`**. La invocación desde shell requeriría un script Node con Anthropic SDK (prohibido — zero-deps + sin API key gestión). El autor SIEMPRE invoca via Claude Code en este workflow. **Lockeado en `09-02-PLAN.md` Task 2 (línea ~190)**.
 
 5. **¿Granularidad de commit del piloto Phase 9 (no Phase 10)?**
    - What we know: el piloto son 3 ejercicios × 2 pases = 3 ejercicios modificados.
    - What's unclear: ¿1 commit por los 3 o 3 commits separados?
-   - Recommendation: **1 commit por ejercicio** (3 commits) — replica el patrón que Phase 10 usará a escala (271 commits). El piloto ES el ensayo del workflow, debe usar la misma granularidad.
+   - RESOLVED: **1 commit por ejercicio** (3 commits) — replica el patrón que Phase 10 usará a escala (271 commits). El piloto ES el ensayo del workflow, debe usar la misma granularidad. **Lockeado en `09-02-PLAN.md` Task 2 (línea ~211) + `09-03-PLAN.md` Task 2 (3 subtasks 2.1/2.2/2.3 con `git commit` por ejercicio)**.
 
 ## Environment Availability
 
