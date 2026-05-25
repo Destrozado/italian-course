@@ -51,6 +51,7 @@ Next: `/gsd:discuss-phase 6` para clarificar semántica UX-01 (alcance reset, co
 | Quick ID | Slug | Description | Completed | Commits |
 |----------|------|-------------|-----------|---------|
 | 260524-tpn | fix-botones-multi-choice-pegados-visualm | Fix UX-1 botones multi-choice pegados (.button-row migración Phase 2/3 olvidada en sub-template multi-choice) | 2026-05-24 | `9e38af5` |
+| 260525-pwq | fix-shuffle-de-options-en-multiple-choic | Shuffle multi-choice options via sub-state `multiChoiceOrder` (D-181) — elimina sesgo posicional (avere-302..305 correctIndex=2 fijo); 199→202 tests | 2026-05-25 | `c74281a` |
 
 ### Key Decisions
 
