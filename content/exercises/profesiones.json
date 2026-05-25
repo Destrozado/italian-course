@@ -211,7 +211,8 @@
       "payload": {
         "prompt": "Il cantante (masc) → la ___ (fem).",
         "options": ["cantantessa", "cantantrice", "cantante", "cantanta"],
-        "correctIndex": 2
+        "correctIndex": 2,
+        "explanation": "¡Atención al pitfall central! No todas las profesiones en -e flexionan: los participios presentes en -nte son INVARIABLES en género. Así 'cantante' (cantante) es la misma forma para masculino y femenino, y solo el artículo distingue: 'il cantante' (el cantante) frente a 'la cantante' (la cantante). Mismo patrón en 'insegnante' y 'dirigente'."
       },
       "notes": "PDF §3 Irregolari — invariable. Distractoras: `cantantessa` (-essa mal aplicada por analogía con studentessa — pitfall central: NO todas las -e van a -essa), `cantantrice` (-trice mal aplicada), `cantanta` (regla regular -e→-a, error A1). Regla productiva: cantante/cantante, insegnante/insegnante (participios presentes en -nte → invariables)."
     },
@@ -222,7 +223,8 @@
       "payload": {
         "prompt": "L'insegnante (masc, coloquial) → l'___ (fem).",
         "options": ["insegnantessa", "insegnanta", "insegnante", "insegnatrice"],
-        "correctIndex": 2
+        "correctIndex": 2,
+        "explanation": "El término coloquial 'insegnante' (docente, maestro) es invariable como todas las profesiones italianas en -nte: 'l'insegnante' masculino y 'l'insegnante' femenino comparten forma. Importante: el equivalente formal y específico de aula sí flexiona como 'professore/professoressa', pero el genérico 'insegnante' nunca cambia su terminación. La elisión del artículo opera ante vocal en ambos géneros."
       },
       "notes": "PDF §4 Invariabili. Distractoras: `insegnantessa` (-essa mal aplicada — pitfall: profesor formal es 'professore/professoressa', pero coloquial 'insegnante' es invariable), `insegnanta` (regla -a mal aplicada), `insegnatrice` (-trice mal aplicada). Familia productiva -nte invariable: insegnante, cantante, dirigente."
     },
@@ -233,7 +235,8 @@
       "payload": {
         "prompt": "Il collega (masc) → la ___ (fem).",
         "options": ["colleghe", "collegua", "colleghessa", "collega"],
-        "correctIndex": 3
+        "correctIndex": 3,
+        "explanation": "¡Atención! 'Collega' (colega, compañero de trabajo) termina en -a pero no procede de la regla productiva -o→-a; es invariable en género y solo el artículo distingue: 'il collega' (el colega) frente a 'la collega' (la colega). Cuidado con el plural: pasa a 'i colleghi' en masculino y 'le colleghe' en femenino, manteniendo la H para preservar el sonido duro de la G."
       },
       "notes": "PDF §4 Invariabili. Distractoras: `colleghe` (plural fem, no singular), `collegua` (mezcla con -gua de 'lingua'), `colleghessa` (-essa mal aplicada). Pitfall A1 central: 'collega' termina en -a pero NO viene de -o→-a regla (no es de profesiones-regular); es invariable. Sólo cambia el artículo: il collega / la collega."
     },
@@ -244,7 +247,8 @@
       "payload": {
         "prompt": "Il cliente (masc) → la ___ (fem).",
         "options": ["clienta", "clientessa", "cliente", "cliententrice"],
-        "correctIndex": 2
+        "correctIndex": 2,
+        "explanation": "'Cliente' es invariable en italiano contemporáneo: la misma forma 'cliente' sirve para masculino y femenino, y el artículo distingue ('il cliente' frente a 'la cliente'). Cuidado con el calco español 'clienta' (regla -a forzada) y con el calco prestigioso 'clientessa' (familia -essa de studentessa); ninguno de los dos pertenece al italiano A1 estándar."
       },
       "notes": "PDF §4 Invariabili. Distractoras: `clienta` (regla regular -a mal aplicada, calco español), `clientessa` (-essa mal aplicada por analogía con studentessa — pitfall central: NO todas las -e van a -essa), `cliententrice` (-trice mal aplicada con duplicación). Solo cambia el artículo: il cliente / la cliente."
     },
@@ -255,7 +259,8 @@
       "payload": {
         "prompt": "Il dentista (masc) → la ___ (fem).",
         "options": ["dentistessa", "dentista", "dentiste", "dentistra"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "¡Atención a la familia -ista! Todas las profesiones italianas terminadas en -ista son INVARIABLES en género: 'dentista', 'pianista', 'giornalista', 'farmacista', 'tassista', 'artista'. El sustantivo no cambia y solo el artículo distingue: 'il dentista' (el dentista) frente a 'la dentista' (la dentista). Cuidado con la tentación hispanohablante de flexionar a 'dentistA/dentistO' o calcar el sufijo -essa."
       },
       "notes": "PDF §4 Invariabili — familia productiva -ista. Distractoras: `dentistessa` (-essa mal aplicada), `dentiste` (plural fem, no singular), `dentistra` (mezcla con -istra inventada). Regla pedagógica: TODA profesión en -ista es invariable (dentista, pianista, giornalista, farmacista, tassista, artista). Solo cambia el artículo: il dentista / la dentista."
     },
@@ -266,7 +271,8 @@
       "payload": {
         "prompt": "Il pianista (masc) → la ___ (fem).",
         "options": ["pianiste", "pianista", "pianistessa", "pianistra"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "Refuerzo de la regla -ista invariable: 'pianista' (pianista) es la misma forma para masculino y femenino, solo cambia el artículo ('il pianista' frente a 'la pianista'). Importante: el patrón cubre todas las profesiones musicales y técnicas en -ista del italiano A1, en paralelo con 'dentista', 'giornalista', 'artista' y 'tassista'."
       },
       "notes": "PDF §4 Invariabili — familia -ista. Distractoras: `pianiste` (plural fem), `pianistessa` (-essa mal aplicada), `pianistra` (forma inventada). Refuerzo de la regla -ista: pianista, dentista, giornalista, artista — todas invariables singulares."
     },
@@ -277,7 +283,8 @@
       "payload": {
         "prompt": "Il farmacista (masc) → la ___ (fem).",
         "options": ["farmacistessa", "farmacistra", "farmaciste", "farmacista"],
-        "correctIndex": 3
+        "correctIndex": 3,
+        "explanation": "¡Atención! 'Farmacista' pertenece a la familia -ista invariable como 'dentista' y 'pianista', aunque el PDF de la profesora lo clasifique con la regla -o→-a por motivos didácticos. En italiano A1 estándar y contemporáneo es invariable: 'il farmacista' (el farmacéutico) frente a 'la farmacista' (la farmacéutica). Solo el artículo distingue el género."
       },
       "notes": "PDF §1 (en la tabla del PDF figura como -o→-a pero en italiano real es invariable -ista). Distractoras: `farmacistessa` (-essa errónea), `farmacistra` (inventada), `farmaciste` (plural fem). Pitfall A1: la tabla del PDF lista esta y giornalista en §1, pero la regla productiva -ista las hace invariables (igual que dentista, pianista). El artículo distingue: il farmacista / la farmacista."
     },
@@ -288,7 +295,8 @@
       "payload": {
         "prompt": "Il giornalista (masc) → la ___ (fem).",
         "options": ["giornalistessa", "giornalista", "giornaliste", "giornalistra"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "Igual que 'farmacista', el sustantivo 'giornalista' (periodista) es invariable en italiano contemporáneo por la regla productiva -ista. La misma forma sirve para masculino y femenino: 'il giornalista' frente a 'la giornalista'. Cuidado: el PDF a veces lista profesiones -ista en la tabla -o→-a por motivos didácticos, pero la realidad lingüística del italiano A1 confirma su invariabilidad."
       },
       "notes": "PDF §1 (tabla) — invariable en italiano real por la regla -ista. Distractoras: `giornalistessa` (-essa errónea), `giornaliste` (plural fem), `giornalistra` (inventada). Misma regla que dentista, pianista, farmacista. Artículo distingue género."
     },
@@ -299,7 +307,8 @@
       "payload": {
         "prompt": "Il tassista (masc) → la ___ (fem).",
         "options": ["tassistessa", "tassiste", "tassista", "tassistra"],
-        "correctIndex": 2
+        "correctIndex": 2,
+        "explanation": "Refuerzo definitivo de la familia -ista invariable aplicada a la profesión del transporte: 'tassista' (taxista) es la misma forma para masculino y femenino, y solo el artículo distingue ('il tassista' frente a 'la tassista'). Importante: el plural sí flexiona como en cualquier sustantivo en -ista ('i tassisti' masculino, 'le tassiste' femenino)."
       },
       "notes": "PDF §5 Altre — familia -ista invariable. Distractoras: `tassistessa` (-essa errónea), `tassiste` (plural fem), `tassistra` (inventada). Refuerzo definitivo: todas las profesiones en -ista son invariables."
     },
@@ -310,7 +319,8 @@
       "payload": {
         "prompt": "Il pilota (masc) → la ___ (fem).",
         "options": ["pilotessa", "piloto", "pilote", "pilota"],
-        "correctIndex": 3
+        "correctIndex": 3,
+        "explanation": "¡Atención! La profesión 'pilota' (piloto) ya termina en -a en masculino; el italiano nunca dice 'il piloto'. Es invariable en género y solo el artículo distingue ('il pilota' frente a 'la pilota'). Cuidado: comparte el patrón con otros sustantivos masculinos en -a como 'poeta' y 'atleta' — son terminaciones de origen griego que el alumno hispanohablante asocia erróneamente al femenino."
       },
       "notes": "PDF §5 Altre — invariable. Distractoras: `pilotessa` (-essa errónea), `piloto` (forma masc inventada con -o), `pilote` (plural fem). Pitfall A1 central: 'pilota' termina en -a pero NO viene de -o→-a; el masculino YA es 'il pilota' (no 'il piloto'). Solo cambia artículo. Familia con poeta, atleta — invariables en -a."
     },
@@ -321,7 +331,8 @@
       "payload": {
         "prompt": "Il manager (masc, préstamo inglés) → la ___ (fem).",
         "options": ["manageressa", "managera", "managere", "manager"],
-        "correctIndex": 3
+        "correctIndex": 3,
+        "explanation": "Los préstamos del inglés en profesiones son INVARIABLES en italiano: 'manager', 'designer', 'freelance' nunca italianizan su terminación. Así 'il manager' (el ejecutivo) y 'la manager' (la ejecutiva) comparten forma, distinguidas solo por el artículo. Importante: el plural también se mantiene invariable como en el original inglés ('i manager', 'le manager')."
       },
       "notes": "PDF §5 Altre — préstamo del inglés, invariable. Distractoras: `manageressa` (-essa errónea italianizando), `managera` (regla -a italianizada calco), `managere` (plural italianizado). Regla productiva: los anglicismos profesionales son invariables (manager, designer, freelance). Solo cambia el artículo."
     },
@@ -332,7 +343,8 @@
       "payload": {
         "prompt": "Il programmatore (masc) → la ___ (fem).",
         "options": ["programmatora", "programmatressa", "programmatrice", "programmatoressa"],
-        "correctIndex": 2
+        "correctIndex": 2,
+        "explanation": "La familia productiva -tore/-trice aplicada al léxico técnico moderno: 'programmatore' (programador) pasa a 'programmatrice' (programadora). Importante: el patrón es estable y predecible para todos los agentes derivados en -tore, en paralelo con 'traduttore/traduttrice' y 'pittore/pittrice'. Cuidado con el calco español 'programmatora', que el italiano A1 no acepta."
       },
       "notes": "PDF §5 Altre — familia -tore/-trice. Distractoras: `programmatora` (regla regular mal aplicada, calco español), `programmatressa` (mezcla -essa), `programmatoressa` (mezcla -essa con conservación errónea de -ore). Familia productiva: programmatore/programmatrice, traduttore/traduttrice, muratore/muratrice, pittore/pittrice."
     },
@@ -343,7 +355,8 @@
       "payload": {
         "prompt": "Il muratore (masc) → la ___ (fem).",
         "options": ["muratoressa", "muratrice", "muratora", "muratoria"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "Misma regla -tore/-trice productiva aplicada al oficio manual: 'muratore' (albañil) pasa a 'muratrice' (albañila). Cuidado con el falso amigo léxico 'muratura' (la fábrica de albañilería como obra concreta), que es un sustantivo distinto y no la profesional femenina. La regla productiva sigue siendo la misma que en 'pittore/pittrice'."
       },
       "notes": "PDF §5 Altre — -tore→-trice. Distractoras: `muratoressa` (-essa errónea), `muratora` (regla -a mal aplicada), `muratoria` (mezcla con -ria de 'muratura', falso amigo léxico)."
     },
@@ -354,7 +367,8 @@
       "payload": {
         "prompt": "Il pittore (masc) → la ___ (fem).",
         "options": ["pittrice", "pittoressa", "pittora", "pittoria"],
-        "correctIndex": 0
+        "correctIndex": 0,
+        "explanation": "Caso paradigmático de la familia -tore/-trice: 'pittore' (pintor) pasa a 'pittrice' (pintora). Importante: el patrón es el mismo que en 'attore/attrice' y 'scrittore/scrittrice' (cross-ref a Género y Número). El calco español 'pintora' lleva al alumno a inventar 'pittora', pero el italiano A1 exige el sufijo completo -trice para los agentes derivados en -tore."
       },
       "notes": "PDF §5 Altre — -tore→-trice. Distractoras: `pittoressa` (-essa errónea por confusión con dottoressa), `pittora` (regla -a, calco español 'pintora'), `pittoria` (mezcla con -ria). El 'Mini esercizio' del PDF lo pide explícitamente — caso del solucionario."
     },
@@ -365,7 +379,8 @@
       "payload": {
         "prompt": "Il traduttore (masc) → la ___ (fem).",
         "options": ["traduttora", "traduttressa", "traduttoressa", "traduttrice"],
-        "correctIndex": 3
+        "correctIndex": 3,
+        "explanation": "Otra aplicación canónica de la familia -tore/-trice: 'traduttore' (traductor) pasa a 'traduttrice' (traductora), manteniendo la doble erre original. Importante: el infinitivo del verbo asociado es 'tradurre' (traducir), una forma -re irregular que el alumno A1 debe reconocer en paralelo a la profesión. La regla productiva opera igual que en 'pittore/pittrice' y 'attore/attrice'."
       },
       "notes": "PDF §5 Altre — -tore→-trice. Distractoras: `traduttora` (calco español), `traduttressa` (mezcla), `traduttoressa` (mezcla -essa). 'Mini esercizio' del PDF — caso del solucionario."
     },
@@ -376,7 +391,8 @@
       "payload": {
         "prompt": "Il ricercatore (masc) → la ___ (fem).",
         "options": ["ricercatressa", "ricercatora", "ricercatrice", "ricercatoria"],
-        "correctIndex": 2
+        "correctIndex": 2,
+        "explanation": "Profesión académica con regla -tore/-trice estable: 'ricercatore' (investigador) pasa a 'ricercatrice' (investigadora). Importante: el patrón se mantiene incluso para sufijos compuestos como -atore (de 'ricerc-are' a 'ricercat-ore' y luego 'ricercat-rice'). Cuidado con el calco español 'ricercatora' o las mezclas con -essa, que no pertenecen al italiano A1."
       },
       "notes": "PDF §5 Altre — -tore→-trice. Distractoras: `ricercatressa` (mezcla), `ricercatora` (regla -a mal aplicada), `ricercatoria` (mezcla con -ria de 'ricercatorio' inventada). 'Mini esercizio' del PDF — caso del solucionario."
     },
@@ -387,7 +403,8 @@
       "payload": {
         "prompt": "Il chirurgo (masc) → la ___ (fem).",
         "options": ["chirurghessa", "chirurga", "chirurgia", "chirurgessa"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "El femenino de 'chirurgo' (cirujano) sigue la regla -o→-a pero SIN insertar la H que normalmente preserva el sonido duro de la G: la forma correcta es 'chirurga' (cirujana). ¡Atención al pitfall léxico! 'La chirurgia' significa 'la cirugía' como disciplina o rama médica, NO la cirujana persona. El contexto y el artículo aplicado a una mujer fijan la lectura profesional."
       },
       "notes": "PDF §5 Altre — irregular: -o→-a sin H pese a -go (excepción documentada). Distractoras: `chirurghessa` (mezcla -essa con H), `chirurgia` (palabra distinta: 'la chirurgia' = cirugía/disciplina, NO la profesional — pitfall léxico), `chirurgessa` (-essa sin H). 'Mini esercizio' del PDF — caso del solucionario. Pitfall A1 central: 'chirurgia' significa la rama médica, no la cirujana."
     },
