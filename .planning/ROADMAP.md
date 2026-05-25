@@ -16,7 +16,7 @@
 - [x] **Phase 7: Explicaciones pedagógicas al fallar — campo explanation por ejercicio + render en Errores cometidos** — Pivote post-uso-real: tras 271 ejercicios funcionando, el autor consultaba Gemini cada vez que fallaba en Preposiciones (4 ejemplos: sulle, da lui, dalle, sui). Esta fase reabrió la decisión Phase 1 "solo bien/mal por velocidad; la teoría está en los PDFs" y añadió un campo `payload.explanation: string` opcional + render inline durante feedback rojo + render en summary "Errores cometidos". Seed entregado: 50/50 explanations curadas para Preposiciones (patrón D-85, 3 batches de 15+16+17). Las otras 6 categorías quedan opcionales para fases incrementales (7.1, 7.2, ...) si emerge dolor adicional. (completed 2026-05-25 — 181/181 tests verdes, UAT 13/13 PASS)
 - [x] **Phase 7.1: Explicaciones pedagógicas Género-Número + canonicalización ortográfica** — Canon ortográfico nuevo (español correctamente escrito con acentos y ñ) aplicado retroactivamente a las 50 Preposiciones + 40 explanations Género-Número ingestadas del draft pre-revisado del autor + smoke test paramétrico CATEGORIES_WITH_EXPLANATIONS instalado para fases incrementales futuras 7.2..7.6. (completed 2026-05-25 — 184/184 tests verdes, UAT 6/6 PASS)
 - [x] **Phase 7.2: Explicaciones pedagógicas — 5 categorías restantes (cierre cobertura editorial 100%)** — 181 explanations curadas en las 5 categorías pendientes (Avere 23, Sustantivos-irregulares 31, Verbos-movimiento 37, Essere 39, Profesiones 51) usando patrón D-85 batches D-85. 7 entries en CATEGORIES_WITH_EXPLANATIONS (las 7 categorías del proyecto), 271/271 ejercicios con explanation curada (cobertura editorial 100%). Milestone v1.0 ready to ship. (completed 2026-05-25)
-- [ ] **Phase 8: Modo Examen por categoría** — Botón `Examen` en cada fila de la tabla home (6ª columna nueva) que arranca un Test Completo de SOLO esa categoría con 1 click directo (D-181 — salta el picker). Reutiliza `buildFullTest([catId])` (D-50), slot único `inFlightTest` compartido (D-182), patrón D-44 6ª call-site `requestConfirm` (copy literal idéntica a `openPicker` — D-183). Botón disabled + tooltip "No hay ejercicios en esta categoría" cuando `totalCount === 0` (D-187); categorías `hecha`/`dominada` siguen enabled normal. Cero migración schemaVersion (D-192), cero CSS nuevo, cero módulos nuevos. Resuelve el dolor canónico "5-6 Repasos para validar dominio de una sola categoría" capturado tras Phase 7.2.
+- [x] **Phase 8: Modo Examen por categoría** — Botón `Examen` en cada fila de la tabla home (6ª columna nueva) que arranca un Test Completo de SOLO esa categoría con 1 click directo (D-181 — salta el picker). Reutiliza `buildFullTest([catId])` (D-50), slot único `inFlightTest` compartido (D-182), patrón D-44 6ª call-site `requestConfirm` (copy literal idéntica a `openPicker` — D-183). Botón disabled + tooltip "No hay ejercicios en esta categoría" cuando `totalCount === 0` (D-187); categorías `hecha`/`dominada` siguen enabled normal. Cero migración schemaVersion (D-192), cero CSS nuevo, cero módulos nuevos. Resuelve el dolor canónico "5-6 Repasos para validar dominio de una sola categoría" capturado tras Phase 7.2. (completed 2026-05-25)
 
 ## Phase Details
 
@@ -232,7 +232,7 @@
 
 **Plans**: 1 plan
 
-- [ ] 08-01-PLAN.md — Handler `startExamen(categoryId)` + helper `_launchExamen(catId)` + extensión computed `categoriesForDisplay` (`examenEnabled` + `examenTooltip`) + 6ª columna tabla home (`<th>` + `<td>` + `<button class="secondary outline">`) + 7 smoke tests presence-check en `tests/screen-examen.test.js` + audit trail consolidado (PROJECT.md + REQUIREMENTS.md EXAM-01..05 + ROADMAP.md Phase 8 finalizada + STATE.md baseline 199 → 206+).
+- [x] 08-01-PLAN.md — Handler `startExamen(categoryId)` + helper `_launchExamen(catId)` + extensión computed `categoriesForDisplay` (`examenEnabled` + `examenTooltip`) + 6ª columna tabla home (`<th>` + `<td>` + `<button class="secondary outline">`) + 7 smoke tests presence-check en `tests/screen-examen.test.js` + audit trail consolidado (PROJECT.md + REQUIREMENTS.md EXAM-01..05 + ROADMAP.md Phase 8 finalizada + STATE.md baseline 202 → 209). **completado 2026-05-25** (tests 202 → 209 verdes, EXAM-01..05 cerrados, milestone v1.0 ampliado con Modo Examen incremental).
 
 **Cross-cutting constraints:**
 
@@ -254,7 +254,7 @@
 | 7. Explicaciones pedagógicas al fallar | 2/2 | Complete   | 2026-05-25 |
 | 7.1. Explicaciones Género-Número + canonicalización ortográfica | 2/2 | Complete   | 2026-05-25 |
 | 7.2. Explicaciones 5 categorías restantes (Avere/Sust-irreg/V-mov/Essere/Profesiones) | 5/5 | Complete   | 2026-05-25 |
-| 8. Modo Examen por categoría | 0/1 | Planned    | — |
+| 8. Modo Examen por categoría | 1/1 | Complete   | 2026-05-25 |
 
 ## Coverage Summary
 
@@ -326,4 +326,4 @@ Cada fase entrega valor usable independientemente:
 
 ---
 *Roadmap created: 2026-05-23*
-*Last updated: 2026-05-25 after Phase 8 planning (1 plan: 08-01-PLAN.md). Phase 8 movida de Backlog a Phase Details con Goal + Success Criteria + Cross-cutting constraints definidos. EXAM-01..05 asignados al plan (cierre formal del audit trail en Plan 08-01 Task 4). Pre-Phase-8: 199/199 tests verdes. Target post-Phase-8: 206+ verdes (+7 smoke tests presence-check en `tests/screen-examen.test.js`).*
+*Last updated: 2026-05-25 after Phase 8 completion (1 plan ejecutado: 08-01 botón Examen por categoría). 209/209 tests verdes (202 baseline + 7 sub-tests presence-check del nuevo `tests/screen-examen.test.js`). EXAM-01..05 cerrados; milestone v1.0 ampliado con Modo Examen incremental. 62/62 v1 requirements complete.*

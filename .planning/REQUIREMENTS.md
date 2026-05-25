@@ -109,6 +109,14 @@
 
 - [x] **EXPL-14**: Smoke test paramétrico extendido a las 7 categorías del proyecto (CATEGORIES_WITH_EXPLANATIONS con 7 entries). Tests count subió de 184 → 199 verdes (delta +15 = 5 categorías × 3 sub-tests). Cobertura editorial 100% — milestone v1.0 ready to ship. Validado: Plan 7.2-05 Task 3 ATÓMICA.
 
+### Modo Examen por categoría (EXAM) — Phase 8
+
+- [x] **EXAM-01**: La tabla home muestra una 6ª columna `Examen` con `<th scope="col">Examen</th>` + un botón `<button class="secondary outline">Examen</button>` por fila. Etiqueta plana `Examen` (D-185), sin paréntesis con número de ejercicios, sin glifo direccional. Validado: Plan 08-01 Task 2 (index.html) + Task 3 (smoke test 7).
+- [x] **EXAM-02**: Click en `Examen` de una categoría con `examenEnabled === true` y `state.inFlightTest === null` → invoca `_launchExamen(catId)` que arranca `buildFullTest([catId], allExercises)` + `sessionMode='test-completo'` + `persistInFlightTest()` + `currentScreen='session'`. Sin pasar por picker (D-181). Validado: Plan 08-01 Task 1 (handler) + Task 3 (smoke tests 1, 5).
+- [x] **EXAM-03**: Click en `Examen` con `state.inFlightTest !== null` → invoca `requestConfirm` 6ª call-site con copy literal `Ya hay un Test completo en curso. ¿Descartarlo y empezar uno nuevo?` + confirmLabel `Descartar y empezar` + cancelLabel `Cancelar` (D-44 patrón clonado idéntico, coherencia textual con openPicker D-44 línea 275-276). `onConfirm` ejecuta `clearInFlightTest()` + `_launchExamen(catId)`. Validado: Plan 08-01 Task 1 + Task 3 (smoke tests 3, 4).
+- [x] **EXAM-04**: Persistencia `inFlightTest` funciona igual que Test completo regular — slot único compartido (D-182). El banner home reanudar mantiene copy genérica `Tienes un Test completo a medias` (D-183). Reanudar reconstruye con `buildFullTest` sobre las MISMAS `categoryIds` persistidas (`['avere']` en el ejemplo). Cero migración schemaVersion (sigue 4 — D-192). Validado: Plan 08-01 Task 1 (`pickerCheckedCategoryIds = [catId]` ANTES de `persistInFlightTest()` — pitfall PATTERNS.md §1 Analog 2 resuelto) + Task 3 (smoke test 6).
+- [x] **EXAM-05**: Botón disabled (Pico `:disabled` opacity ~0.5 + cursor not-allowed) + tooltip nativo `No hay ejercicios en esta categoría` cuando `cat.totalCount === 0` (D-187). Categorías en estado `hecha` o `dominada` siguen con el botón enabled normal (D-187 — el autor quiere poder re-examinar para reconfirmar dominio). Derivado del computed `categoriesForDisplay.examenEnabled = (exercisesByCat[cat.id] ?? []).length > 0`. Validado: Plan 08-01 Task 1 (computed extension) + Task 2 (bindings `:disabled` + `:title` en el botón) + Task 3 (smoke test 7).
+
 ## v2 Requirements
 
 Deferred to future release. Tracked but not in current roadmap.
@@ -211,13 +219,18 @@ Explicitly excluded for v1. Documented to prevent scope creep.
 | EXPL-12 | Fase 7.2 | Complete (Plan 7.2-04) |
 | EXPL-13 | Fase 7.2 | Complete (Plan 7.2-05) |
 | EXPL-14 | Fase 7.2 | Complete (Plan 7.2-05 Task 3 ATÓMICA) |
+| EXAM-01 | Fase 8 | Complete (Plan 08-01) |
+| EXAM-02 | Fase 8 | Complete (Plan 08-01) |
+| EXAM-03 | Fase 8 | Complete (Plan 08-01) |
+| EXAM-04 | Fase 8 | Complete (Plan 08-01) |
+| EXAM-05 | Fase 8 | Complete (Plan 08-01) |
 
 **Coverage:**
-- v1 requirements: **57** total (51 post-Phase 7.1 + 6 EXPL-09..14 Phase 7.2)
-- Mapped to phases: 57 (100%)
+- v1 requirements: **62** total (57 Phase 1..7.2 + 5 EXAM-01..05 Phase 8)
+- Mapped to phases: 62 (100%)
 - Unmapped: 0
-- **Completed: 57/57 (100%)** tras Phase 7.2 cierre. Milestone v1.0 pre-ship listo (cobertura editorial 100%: 271/271 ejercicios con explanation curada en las 7 categorías). Patrón paramétrico instalado, audit trail completo.
+- **Completed: 62/62 (100%)** tras Phase 8 cierre. Milestone v1.0 ampliado con feature Examen incremental (cobertura editorial 100% + Modo Examen 1-click desde home). Patrón paramétrico instalado, audit trail completo.
 
 ---
 *Requirements defined: 2026-05-23*
-*Last updated: 2026-05-25 after Phase 7.2 completion (EXPL-09..14 cerrados — 181 explanations en las 5 categorías restantes + smoke paramétrico 7 categorías). 57/57 v1 requirements complete; milestone v1.0 ampliado con cobertura 100% editorial — 271/271 ejercicios con explanation curada. Milestone v1.0 pre-ship listo.*
+*Last updated: 2026-05-25 after Phase 8 completion (EXAM-01..05 cerrados — botón Examen por categoría en home + handler startExamen + helper _launchExamen + 6ª columna tabla + 7 smoke tests presence-check). 62/62 v1 requirements complete; milestone v1.0 ampliado con feature Examen.*

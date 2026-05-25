@@ -3,7 +3,7 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-05-25T18:28:11.946Z"
+last_updated: "2026-05-25T18:29:59.912Z"
 progress:
   total_phases: 12
   completed_phases: 9
@@ -18,27 +18,27 @@ progress:
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 07.2 — explicaciones-pedag-gicas-5-categor-as-restantes-cobertura-100-pre-ship
+**Current Focus:** Phase 08 — modo-examen-por-categor-a-bot-n-examen-al-lado-de-cada-categ
 
 ## Current Position
 
-Phase: 07.2 (explicaciones-pedag-gicas-5-categor-as-restantes-cobertura-100-pre-ship) — EXECUTING
-Plan: 1 of 5
-Next: `/gsd:discuss-phase 6` para clarificar semántica UX-01 (alcance reset, confirmación, tratamiento aciertos) y UX-02 (captura por tipo, layout, persistencia). Tras Phase 6 completa: `/gsd:complete-milestone v1.0`.
+Phase: 08 (modo-examen-por-categor-a-bot-n-examen-al-lado-de-cada-categ) — COMPLETED (pending verifier)
+Plan: 1 of 1 complete
+Next: Phase 8 verifier pass → `/gsd:complete-milestone v1.0` con feature Examen ampliando v1.
 
-- **Phase:** 999.1
-- **Plan:** Not started
-- **Status:** Ready to execute
+- **Phase:** 08
+- **Plan:** 08-01 complete (2026-05-25)
+- **Status:** Phase 08 completed — pending verifier
 - **Progress:** [██████████] 100%
 
 ## Performance Metrics
 
 | Métrica | Valor |
 |---------|-------|
-| Fases completadas | 5/6 (Phase 1-5 complete; Phase 6 UX polish promoted del backlog, sin planificar) |
-| Requisitos v1 completos | 41/43 (95% — Phase 1: 19 + Phase 2: 13 + Phase 3: 1 EXTYPE-03 + Phase 4: 5 BACK-04/-05/-06 + SEED-01 + SEED-02 + Phase 5: SEED-03). Faltan UX-01 + UX-02 (Phase 6) para cerrar milestone v1.0. |
-| Requisitos v1 mapeados | 43/43 (100%) |
-| Tests dominio + UI smoke | 145 verdes (130 baseline post-04-04 + 6 nuevos sub-tests smoke multi-cat paramétrico Phase 5 Task 6 + 1 nuevo bundle test) |
+| Fases completadas | 10/10 (Phase 1-5 core + Phase 6 polish UX + Phase 7 explanations + Phase 7.1/7.2 cobertura 100% + Phase 8 Modo Examen) |
+| Requisitos v1 completos | 62/62 (100% — Phase 1: 19 + Phase 2: 13 + Phase 3: 1 EXTYPE-03 + Phase 4: 5 BACK-04/-05/-06 + SEED-01 + SEED-02 + Phase 5: SEED-03 + Phase 6: UX-01/-02 + Phase 7..7.2: EXPL-01..14 + Phase 8: EXAM-01..05). Milestone v1.0 ampliado con Modo Examen incremental. |
+| Requisitos v1 mapeados | 62/62 (100%) |
+| Tests dominio + UI smoke | 209 verdes (202 baseline post-Phase 7.2 + 7 nuevos sub-tests presence-check del nuevo `tests/screen-examen.test.js` Phase 8) |
 | Granularidad | coarse |
 | Mode | MVP (vertical slices) |
 | Ejercicios totales en la app | 271 (23 avere + 39 essere — 33 base + 6 multi-cat essere-300..305 — + 50 preposiciones + 37 verbos-movimiento + 31 sustantivos-irregulares + 40 genero-numero + 51 profesiones) en 7 categorías |
@@ -49,6 +49,7 @@ Next: `/gsd:discuss-phase 6` para clarificar semántica UX-01 (alcance reset, co
 ### Roadmap Evolution
 
 - Phase 8 added: Modo Examen por categoría — botón 'Examen' al lado de cada categoría en el picker que arranca un Test Completo single-category (reutiliza buildFullTest D-50). Resuelve dolor de jugar 5-6 Repasos para validar dominio. Conflict D-44 reutilizado (descartar Test Completo activo).
+- Phase 8 completed (2026-05-25): Modo Examen por categoría implementado. 1 plan ejecutado (08-01). Botón `Examen` en cada fila de la tabla home con `class="secondary outline"` que arranca Test completo de 1 cat directo (D-181 — salta picker). Handler `startExamen(categoryId)` + helper privado `_launchExamen(catId)` + 2 campos derivados en `categoriesForDisplay` (examenEnabled + examenTooltip). 6ª call-site del helper `requestConfirm` con copy literal D-44 + confirmLabel `Descartar y empezar` (D-183 hereda copy genérica del banner reanudar). Pitfall PATTERNS.md §1 Analog 2 resuelto (pickerCheckedCategoryIds = [catId] ANTES de persistInFlightTest). Tests 202 → 209 verdes (+7 smoke tests presence-check en `tests/screen-examen.test.js`). EXAM-01..05 cerrados. Cero migración schemaVersion (D-192), cero CSS nuevo, cero módulos nuevos.
 
 ### Quick Tasks Completed
 
@@ -245,4 +246,4 @@ UAT-derived backlog (UX-1/UX-2/UX-3) consolidado a lo largo de Phase 4 — captu
 
 ---
 *State initialized: 2026-05-23*
-*Last updated: 2026-05-24 after Plan 04-04 completion (130/130 tests verdes, 3 task commits + docs commit, +6 ejercicios multi-cat avere-300..305 cierran SEED-02, 232 ejercicios totales en la app, UAT INTEGRAL 5/5 PASS por el autor sobre los 5 criterios ROADMAP §Phase 4, D-88 invariante mantenido estructuralmente verificable, DESIGN RULE 'match-if-not-trivial-by-root' aplicada universalmente a cruces multi-cat. Phase 4 4/4 plans complete — pending verifier antes de milestone v1.0 close.)*
+*Last updated: 2026-05-25 after Plan 08-01 completion (Phase 8 — Modo Examen por categoría). 209/209 tests verdes (202 baseline post-Phase 7.2 + 7 smoke presence-check del nuevo `tests/screen-examen.test.js`). 4 commits atómicos: Task 1 (handler + helper + computed extension), Task 2 (6ª columna index.html), Task 3 (test file nuevo), Task 4 (audit trail consolidado). EXAM-01..05 cerrados; 62/62 v1 requirements complete. Milestone v1.0 ampliado con feature Examen. Phase 8 1/1 plans complete — pending verifier.*
