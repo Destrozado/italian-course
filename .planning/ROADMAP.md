@@ -15,6 +15,7 @@
 - [x] **Phase 6: Polish UX post-sesión — reiniciar + review errores** — Detectado durante UAT Phase 4/5: dos puntos de fricción ergonómica que valen lo que cuesta resolver antes de cerrar el milestone v1.0. (a) Botón "Reiniciar ejercicios" en la pantalla de sesión que rearranca con las mismas categorías en 1 clic (vs los 4 actuales). (b) Sección "Errores cometidos" en la pantalla de resumen final que muestra, para cada ejercicio fallado, qué respondió el autor + qué era correcto + sobre qué frase. Ambos son polish UX sobre flujos existentes (sin lógica de dominio nueva — el motor de re-verificación no cambia). Absorbe Phase 999.1 + 999.2 del backlog. (completed 2026-05-24)
 - [x] **Phase 7: Explicaciones pedagógicas al fallar — campo explanation por ejercicio + render en Errores cometidos** — Pivote post-uso-real: tras 271 ejercicios funcionando, el autor consultaba Gemini cada vez que fallaba en Preposiciones (4 ejemplos: sulle, da lui, dalle, sui). Esta fase reabrió la decisión Phase 1 "solo bien/mal por velocidad; la teoría está en los PDFs" y añadió un campo `payload.explanation: string` opcional + render inline durante feedback rojo + render en summary "Errores cometidos". Seed entregado: 50/50 explanations curadas para Preposiciones (patrón D-85, 3 batches de 15+16+17). Las otras 6 categorías quedan opcionales para fases incrementales (7.1, 7.2, ...) si emerge dolor adicional. (completed 2026-05-25 — 181/181 tests verdes, UAT 13/13 PASS)
 - [x] **Phase 7.1: Explicaciones pedagógicas Género-Número + canonicalización ortográfica** — Canon ortográfico nuevo (español correctamente escrito con acentos y ñ) aplicado retroactivamente a las 50 Preposiciones + 40 explanations Género-Número ingestadas del draft pre-revisado del autor + smoke test paramétrico CATEGORIES_WITH_EXPLANATIONS instalado para fases incrementales futuras 7.2..7.6. (completed 2026-05-25 — 184/184 tests verdes, UAT 6/6 PASS)
+- [ ] **Phase 7.2: Explicaciones pedagógicas — 5 categorías restantes (cierre cobertura editorial 100%)** — Decisión de scope: no ship el milestone v1.0 a medias (Preposiciones + Génnum solo). Phase 7.2 entrega las 181 explanations restantes en las 5 categorías pendientes (Avere 23, Sustantivos-irregulares 31, Verbos-movimiento 37, Essere 39, Profesiones 51) usando patrón D-85 (Claude propone + autor revisa por batches). 1 fase con 5 plans, orden de menor a mayor para iterar el patrón antes de Profesiones (la más grande). Tras 7.2 cerrada: 271/271 explanations + 5 entries en CATEGORIES_WITH_EXPLANATIONS + milestone v1.0 ready to ship.
 
 ## Phase Details
 
@@ -149,6 +150,16 @@
 - [x] 7.1-01-PLAN.md — Re-acentuación canónica 50 Preposiciones (1 pasada Claude + diff review autor + 1 commit) + refactor smoke test a paramétrico CATEGORIES_WITH_EXPLANATIONS (EXPL-06, EXPL-08).
 - [x] 7.1-02-PLAN.md — Ingest 40 explanations Género-Número del draft del autor (D-141 1 commit honesto) + 2ª entry al array paramétrico + audit trail PROJECT.md/REQUIREMENTS.md/ROADMAP.md + UAT humano 6/6 (EXPL-06, EXPL-07).
 
+### Phase 7.2: Explicaciones pedagógicas — 5 categorías restantes (cobertura 100% pre-ship)
+**Goal**: [To be planned — discuss-phase determina scope final]. Intención: 181 explanations en las 5 categorías pendientes (Avere 23, Sustantivos-irregulares 31, Verbos-movimiento 37, Essere 39, Profesiones 51), patrón D-85 Claude propone + autor revisa por batches. Orden: menor a mayor para iterar el patrón antes de la categoría más grande. Tras 7.2 cerrada: 271/271 explanations (100% coverage editorial), 5 entries en `CATEGORIES_WITH_EXPLANATIONS`, milestone v1.0 ready to ship.
+**Mode:** standard
+**Depends on:** Phase 7.1
+**Requirements**: TBD (EXPL-09..N — añadir en plan-phase)
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd-plan-phase 7.2 to break down — esperado 5 plans, 1 por categoría)
+
 ## Progress
 
 | Phase | Plans Complete | Status | Completed |
@@ -161,6 +172,7 @@
 | 6. Polish UX post-sesión (reiniciar + review errores) | 2/2 | Complete    | 2026-05-25 |
 | 7. Explicaciones pedagógicas al fallar | 2/2 | Complete   | 2026-05-25 |
 | 7.1. Explicaciones Género-Número + canonicalización ortográfica | 2/2 | Complete   | 2026-05-25 |
+| 7.2. Explicaciones 5 categorías restantes (Avere/Sust-irreg/V-mov/Essere/Profesiones) | 0/5 | Pending |   |
 
 ## Coverage Summary
 
