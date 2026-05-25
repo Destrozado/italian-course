@@ -474,10 +474,16 @@
             "Reiniciar" (acción en contexto) → "Volver al home" (salir del
             contexto), análogo al banner in-flight `[Reanudar] [Descartar]`.
 
-            Visibilidad: `x-show="sessionMode === 'repaso'"` (D-100) — oculto
-            en Test completo. Doble defensa con el guard de `restartRepaso()`
-            en src/screens/app.js: aunque el botón estuviera visible por bug,
-            el handler hace early-return.
+            Visibilidad: `x-show="sessionMode === 'repaso' || sessionMode ===
+            'test-completo'"` — Phase 6 D-100 (Repaso) extendido Phase 8.y
+            (quick 260525-vvj) para incluir también modo Examen (test-completo).
+            Doble defensa con el guard dual-mode de `restartRepaso()` en
+            src/screens/app.js: aunque el botón estuviera visible por bug,
+            el handler hace early-return en cualquier otro modo. El handler
+            dispatcha internamente: rama Repaso → buildSession sin tocar
+            localStorage (SESSION-08); rama Examen → buildFullTest([catId]) +
+            persistInFlightTest (D-182 slot único). Texto del botón
+            hardcoded — T-02-01 anti-XSS invariante (NO x-text dinámico).
 
             Sin confirmación inline (D-102), sin animación post-reset (UI-SPEC
             §Visual cue tras el reset), sin atajo de teclado (UI-SPEC
@@ -488,7 +494,7 @@
           <div class="button-row">
             <button type="button"
                     class="secondary"
-                    x-show="sessionMode === 'repaso'"
+                    x-show="sessionMode === 'repaso' || sessionMode === 'test-completo'"
                     @click="restartRepaso">Reiniciar ejercicios</button>
             <button type="button" class="secondary" @click="requestReturnToHome">← Volver al home</button>
           </div>

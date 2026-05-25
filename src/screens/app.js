@@ -619,70 +619,109 @@ export function appShell(appDataReady) {
 
     /**
      * Phase 6 plan 01 (UX-01) — D-100/D-101/D-102/D-103/D-104.
+     * Phase 8.y (quick 260525-vvj) — dual-mode extension: el handler ahora
+     * dispatcha INTERNAMENTE según `sessionMode`. El nombre se preserva
+     * (sigue siendo `restartRepaso`) para no romper el binding `@click` en
+     * index.html ni los presence-checks Phase 6; el JSDoc + comentarios
+     * inline cubren la semántica dual.
      *
-     * Reinicia un Repaso 20 en 1 clic desde la pantalla session, manteniendo
-     * MISMAS categorías seleccionadas y descartando los aciertos no
-     * comprometidos. Los fallos D-54 ya persistidos vía applyImmediateFailure
-     * NO se deshacen — el invariante "te obliga a no olvidar" prevalece.
+     * Reinicia la sesión actual en 1 clic desde la pantalla session,
+     * manteniendo las MISMAS categorías seleccionadas y descartando los
+     * aciertos no comprometidos (rama Repaso). Los fallos D-54 ya
+     * persistidos vía applyImmediateFailure NO se deshacen — el invariante
+     * "te obliga a no olvidar" prevalece.
      *
-     * Semántica (D-101):
-     *   - Pickeable solo cuando `sessionMode === 'repaso'` (D-100). Guard
-     *     defensivo de entrada — el botón ya está oculto en Test completo
-     *     vía `x-show` en index.html, pero el guard hace que un click
-     *     accidental por teclado/script sea no-op.
-     *   - Re-llama `buildSession` con `pickerCheckedCategoryIds` preservadas
-     *     y el state actual (post-D-54 cascada si aplica). Los 20 nuevos
-     *     ejercicios pueden diferir de los previos por aleatoriedad del
-     *     sampler — comportamiento deseable.
-     *   - Resetea sub-estado de sesión idéntico a startSession (cursor,
-     *     sessionResults, sub-templates word-buttons/match) preservando
-     *     `sessionMode`, `pickerCheckedCategoryIds`, `currentScreen`, y el
-     *     `this.state` mismo (D-101 + SESSION-08 — abandono descarta sin
-     *     tocar localStorage; los aciertos no se persisten mid-sesión).
+     * Semántica (D-101 + Phase 8.y):
+     *   - Pickeable cuando `sessionMode === 'repaso'` (D-100) O cuando
+     *     `sessionMode === 'test-completo'` (Phase 8.y backlog item ROADMAP
+     *     línea 327-329). Guard defensivo de entrada — el botón ya está
+     *     condicionado por `x-show` en index.html, pero el guard hace que
+     *     un click accidental por teclado/script sea no-op si el modo no
+     *     es uno de los dos.
+     *   - Rama Repaso: re-llama `buildSession` con `pickerCheckedCategoryIds`
+     *     preservadas y el state actual (post-D-54 cascada si aplica). Los
+     *     20 nuevos ejercicios pueden diferir de los previos por
+     *     aleatoriedad del sampler — comportamiento deseable. NO se invoca
+     *     `persistInFlightTest` (Repaso nunca persiste in-flight,
+     *     SESSION-08 intacto).
+     *   - Rama Examen (test-completo): re-llama `buildFullTest([catId])`
+     *     con la única categoría del Examen activo (pickerCheckedCategoryIds
+     *     contiene `[catId]` desde el `_launchExamen` original — Examen es
+     *     1-cat por D-181/D-189) + invoca `persistInFlightTest()` al final
+     *     (D-182 slot único, coherente con `_launchExamen` línea 420 — el
+     *     nuevo orden se re-persiste, sobreescribiendo el inFlightTest
+     *     anterior). Cero migración schemaVersion (D-192 — el shape es
+     *     idéntico).
+     *   - Resetea sub-estado de sesión idéntico a startSession/_launchExamen
+     *     (cursor, sessionResults, sub-templates word-buttons/match)
+     *     preservando `sessionMode`, `pickerCheckedCategoryIds`,
+     *     `currentScreen`, y el `this.state` mismo en rama Repaso.
      *
-     * Por qué NO se llama `saveState` ni se reasigna `this.state`:
+     * Por qué NO se llama `saveState` ni se reasigna `this.state` en
+     * NINGUNA rama:
      *   - Los aciertos no-comprometidos se descartan por diseño (SESSION-08).
      *   - Los fallos D-54 YA están persistidos por `applyImmediateFailure`
      *     en `sessionSelectOption` / `matchPickRight` — no requiere acción.
      *   - `exerciseStats` NO se bumpean en restart (D-09 monotonicidad
-     *     preservada — coherente con SESSION-08 abandono Repaso).
+     *     preservada — coherente con SESSION-08 abandono Repaso; en Examen
+     *     la cascada multi-cat se mantiene intacta).
      *
      * Cancelaciones defensivas (Pattern S-2 — Phase 3):
      *   - `cancelAutoAdvance()` antes del reset evita que un setTimeout
      *     pendiente dispare `sessionAdvance()` sobre state ya reseteado.
      *   - `cancelMatchFlash()` idem para el flash rojo de match.
      *
-     * NO confirmación inline (D-102): reset directo en 1 clic. El dolor del
-     * UAT Phase 4 era "4 clicks vs 1 click"; añadir confirmación devolvería
-     * a 2 clicks + modal y contradiría el espíritu del feature.
+     * NO confirmación inline (D-102 + Phase 8.y coherencia): reset directo
+     * en 1 clic en AMBAS ramas. El dolor del UAT Phase 4 era "4 clicks vs
+     * 1 click"; añadir confirmación devolvería a 2 clicks + modal y
+     * contradiría el espíritu del feature.
      *
-     * Pattern reuse: replica el bloque de reset de `startSession` líneas
-     * ~385-400 SIN tocar `sessionMode`/`currentScreen`/`pickerCheckedCategoryIds`
-     * y SIN llamar `persistInFlightTest` (Repaso nunca persiste in-flight).
-     * El refactor a helper común con `startSession` se difiere (CONTEXT D-104
-     * "duplicación aceptable v1; refactor solo si emerge 3er call-site").
+     * Pattern reuse: el bloque de reset replica el patrón de
+     * startSession/_launchExamen SIN tocar `sessionMode`/`currentScreen`/
+     * `pickerCheckedCategoryIds`. El refactor a helper común se difiere
+     * (CONTEXT D-104 "duplicación aceptable v1; refactor solo si emerge
+     * 3er call-site"; Phase 8.y sigue en 2 call-sites del patrón).
      */
     restartRepaso() {
-      // D-100 / D-104: guard defensivo — solo aplica a Repaso 20.
-      if (this.sessionMode !== 'repaso') return;
+      // D-100 / D-104 / Phase 8.y: guard defensivo — solo aplica a Repaso 20
+      // (rama buildSession) o a Examen (rama buildFullTest).
+      if (this.sessionMode !== 'repaso' && this.sessionMode !== 'test-completo') return;
 
       // Pattern S-2: cancelar timeouts antes de cualquier reset.
       this.cancelAutoAdvance();
       this.cancelMatchFlash();
 
-      // Re-llamar buildSession con MISMAS categorías + state actual (post-D-54).
+      // Pool completo del contenido — compartido por ambas ramas.
       const allExercises = Object.values(this.content.exerciseById);
-      const result = buildSession(
-        this.pickerCheckedCategoryIds,
-        allExercises,
-        this.state,
-        20,
-        'repaso'
-      );
 
-      // Reset sub-estado de sesión (idéntico al patrón de startSession).
-      // NO tocamos sessionMode (preservado en 'repaso') ni
-      // pickerCheckedCategoryIds (preservado para futuros restarts) ni
+      // Dispatch dual-mode: buildSession (Repaso 20) vs buildFullTest (Examen).
+      let result;
+      if (this.sessionMode === 'test-completo') {
+        // Phase 8.y rama Examen — coherente con _launchExamen línea 379.
+        // Defensa: pickerCheckedCategoryIds debe contener [catId] desde el
+        // _launchExamen original. Un array vacío indicaría state corrupto
+        // → no-op temprano (evita pasar [undefined] a buildFullTest).
+        if (this.pickerCheckedCategoryIds.length === 0) return;
+        const catId = this.pickerCheckedCategoryIds[0];
+        // Sin rng explícito — usa default Math.random (coherente con
+        // _launchExamen línea 379).
+        result = buildFullTest([catId], allExercises);
+      } else {
+        // Rama Repaso 20 — comportamiento Phase 6 D-100 intacto.
+        result = buildSession(
+          this.pickerCheckedCategoryIds,
+          allExercises,
+          this.state,
+          20,
+          'repaso'
+        );
+      }
+
+      // Reset sub-estado de sesión (idéntico al patrón de startSession y
+      // _launchExamen — superset completo reusable por ambas ramas dual-mode).
+      // NO tocamos sessionMode (preservado en 'repaso' o 'test-completo'
+      // según la rama tomada arriba) ni pickerCheckedCategoryIds (preservado
+      // para futuros restarts; en rama Examen ya contiene [catId]) ni
       // currentScreen (ya estamos en 'session'). NO se llama saveState ni
       // se reasigna this.state — los aciertos no-comprometidos se descartan
       // sin tocar localStorage (D-101 + SESSION-08); los fallos D-54 ya
@@ -724,6 +763,18 @@ export function appShell(appDataReady) {
       if (result.exerciseIds.length > 0) {
         const firstEx = this.content.exerciseById[result.exerciseIds[0]];
         this.initSubStateForExercise(firstEx);
+      }
+
+      // Phase 8.y — re-persistir inFlightTest SOLO en rama Examen (D-182
+      // slot único, coherente con _launchExamen línea 420). El nuevo orden
+      // de exerciseIds sobreescribe el inFlightTest anterior; sessionMode
+      // y pickerCheckedCategoryIds siguen siendo [catId] así el banner
+      // reanudar (D-183 copy genérica) lo recupera correctamente si el
+      // autor recarga la pestaña antes de terminar.
+      //
+      // Rama Repaso NO persiste (SESSION-08 intacto — Repaso es desechable).
+      if (this.sessionMode === 'test-completo') {
+        this.persistInFlightTest();
       }
     },
 
