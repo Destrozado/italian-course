@@ -16,6 +16,7 @@
 - [x] **Phase 7: Explicaciones pedagógicas al fallar — campo explanation por ejercicio + render en Errores cometidos** — Pivote post-uso-real: tras 271 ejercicios funcionando, el autor consultaba Gemini cada vez que fallaba en Preposiciones (4 ejemplos: sulle, da lui, dalle, sui). Esta fase reabrió la decisión Phase 1 "solo bien/mal por velocidad; la teoría está en los PDFs" y añadió un campo `payload.explanation: string` opcional + render inline durante feedback rojo + render en summary "Errores cometidos". Seed entregado: 50/50 explanations curadas para Preposiciones (patrón D-85, 3 batches de 15+16+17). Las otras 6 categorías quedan opcionales para fases incrementales (7.1, 7.2, ...) si emerge dolor adicional. (completed 2026-05-25 — 181/181 tests verdes, UAT 13/13 PASS)
 - [x] **Phase 7.1: Explicaciones pedagógicas Género-Número + canonicalización ortográfica** — Canon ortográfico nuevo (español correctamente escrito con acentos y ñ) aplicado retroactivamente a las 50 Preposiciones + 40 explanations Género-Número ingestadas del draft pre-revisado del autor + smoke test paramétrico CATEGORIES_WITH_EXPLANATIONS instalado para fases incrementales futuras 7.2..7.6. (completed 2026-05-25 — 184/184 tests verdes, UAT 6/6 PASS)
 - [x] **Phase 7.2: Explicaciones pedagógicas — 5 categorías restantes (cierre cobertura editorial 100%)** — 181 explanations curadas en las 5 categorías pendientes (Avere 23, Sustantivos-irregulares 31, Verbos-movimiento 37, Essere 39, Profesiones 51) usando patrón D-85 batches D-85. 7 entries en CATEGORIES_WITH_EXPLANATIONS (las 7 categorías del proyecto), 271/271 ejercicios con explanation curada (cobertura editorial 100%). Milestone v1.0 ready to ship. (completed 2026-05-25)
+- [ ] **Phase 8: Modo Examen por categoría** — Botón `Examen` en cada fila de la tabla home (6ª columna nueva) que arranca un Test Completo de SOLO esa categoría con 1 click directo (D-181 — salta el picker). Reutiliza `buildFullTest([catId])` (D-50), slot único `inFlightTest` compartido (D-182), patrón D-44 6ª call-site `requestConfirm` (copy literal idéntica a `openPicker` — D-183). Botón disabled + tooltip "No hay ejercicios en esta categoría" cuando `totalCount === 0` (D-187); categorías `hecha`/`dominada` siguen enabled normal. Cero migración schemaVersion (D-192), cero CSS nuevo, cero módulos nuevos. Resuelve el dolor canónico "5-6 Repasos para validar dominio de una sola categoría" capturado tras Phase 7.2.
 
 ## Phase Details
 
@@ -214,6 +215,32 @@
 - Canon ortográfico D-163 + tono D-127 + markers naturales D-165 + ASCII apóstrofes D-175 + plain text D-174 — heredados sin novedad.
 - Cero modificación a campos no-explanation (`id`, `type`, `categoryIds`, `prompt`, `options`, `correctIndex`, `answer`, `distractors`, `notes`).
 
+### Phase 8: Modo Examen por categoría
+
+**Goal**: El autor puede examinar una categoría individual con 1 click desde la tabla home (botón `Examen` por fila como 6ª columna nueva) que arranca un Test Completo de SOLO esa categoría — sin pasar por el picker. Reutiliza `buildFullTest([catId])` (D-50), slot único `inFlightTest` compartido (D-182), y el patrón D-44 6ª call-site del helper `requestConfirm` para conflict con Test Completo activo (copy literal idéntica al openPicker — D-183 hereda copy genérica del banner reanudar). Cero migración schemaVersion (sigue 4 — D-192). Resuelve el dolor canónico "5-6 Repasos para validar dominio de una sola categoría" capturado tras Phase 7.2.
+**Mode:** standard
+**Depends on**: Phase 7.2
+**Requirements**: EXAM-01, EXAM-02, EXAM-03, EXAM-04, EXAM-05
+**Success Criteria** (qué tiene que ser CIERTO):
+
+  1. La tabla home tiene una 6ª columna `Examen` al final de cada fila con un `<button class="secondary outline">Examen</button>` (D-184/D-185). Etiqueta plana sin glifos ni números.
+  2. Click `Examen` en categoría con ejercicios > 0 y sin Test completo activo → arranca directamente sesión Test completo de SOLO esa categoría (1 click, salta picker — D-181/D-189).
+  3. Click `Examen` con `state.inFlightTest !== null` → aparece confirmación inline 6ª call-site D-44 con copy literal `Ya hay un Test completo en curso. ¿Descartarlo y empezar uno nuevo?` (D-183 — copy genérica heredada del banner reanudar). Cancelar deja state intacto; Continuar descarta el inFlightTest previo y arranca el Examen.
+  4. Categoría con 0 ejercicios → botón disabled (Pico `:disabled` opacity ~0.5) + tooltip `No hay ejercicios en esta categoría` (D-187). Categoría `hecha`/`dominada` → botón enabled normal.
+  5. Persistencia `inFlightTest` funciona igual que Test completo regular — slot único compartido (D-182). El banner reanudar mantiene copy genérica. Reanudar usa las MISMAS `categoryIds` persistidas (1 cat para Examen).
+  6. Cero migración schemaVersion (sigue 4 — D-192). Cero CSS nuevo (UI-SPEC §CSS additions). Cero módulos nuevos.
+
+**Plans**: 1 plan
+
+- [ ] 08-01-PLAN.md — Handler `startExamen(categoryId)` + helper `_launchExamen(catId)` + extensión computed `categoriesForDisplay` (`examenEnabled` + `examenTooltip`) + 6ª columna tabla home (`<th>` + `<td>` + `<button class="secondary outline">`) + 7 smoke tests presence-check en `tests/screen-examen.test.js` + audit trail consolidado (PROJECT.md + REQUIREMENTS.md EXAM-01..05 + ROADMAP.md Phase 8 finalizada + STATE.md baseline 199 → 206+).
+
+**Cross-cutting constraints:**
+
+- Slot único `inFlightTest` compartido entre Test Completo regular y Examen (D-182). Cero migración schemaVersion (D-192).
+- Copy literal D-44 idéntica al openPicker para coherencia textual de las 6 call-sites del helper. `confirmLabel = 'Descartar y empezar'` lockeado (UI-SPEC sugería `'Continuar'` — homogeneización de las 6 call-sites diferida).
+- T-02-01 anti-XSS invariante reforzado: cero `x-html` añadidos, texto `Examen` LITERAL HTML, tooltip via `:title` nativo (escapado por defecto).
+- Cero modificación a schema validator, motor de re-verificación (cascada D-54, sampler, promociones, racha), render UI session/summary.
+
 ## Progress
 
 | Phase | Plans Complete | Status | Completed |
@@ -227,13 +254,14 @@
 | 7. Explicaciones pedagógicas al fallar | 2/2 | Complete   | 2026-05-25 |
 | 7.1. Explicaciones Género-Número + canonicalización ortográfica | 2/2 | Complete   | 2026-05-25 |
 | 7.2. Explicaciones 5 categorías restantes (Avere/Sust-irreg/V-mov/Essere/Profesiones) | 5/5 | Complete   | 2026-05-25 |
+| 8. Modo Examen por categoría | 0/1 | Planned    | — |
 
 ## Coverage Summary
 
-- **v1 requirements:** **57** total (51 Phase 1..7.1 + 6 EXPL-09..14 Phase 7.2)
-- **Mapped to phases:** 57 (100%)
+- **v1 requirements:** **62** total (57 Phase 1..7.2 + 5 EXAM-01..05 Phase 8)
+- **Mapped to phases:** 62 (100%)
 - **Unmapped:** 0
-- **Granularity:** coarse (9 fases — 5 core + 1 polish UX + 3 pivotes incrementales explanations)
+- **Granularity:** coarse (10 fases — 5 core + 1 polish UX + 3 pivotes incrementales explanations + 1 modo Examen)
 - **Mode:** MVP (vertical slices) hasta Phase 6; standard a partir de Phase 7
 
 ## Dependency Graph
@@ -258,6 +286,12 @@ Phase 6 (polish UX: reiniciar sesión + review errores)
    │
    ▼
 Phase 7 (explicaciones pedagógicas al fallar — pivote post-uso-real)
+   │
+   ▼
+Phase 7.1 / 7.2 (cobertura editorial 100% — explanations en las 7 categorías)
+   │
+   ▼
+Phase 8 (Modo Examen por categoría — botón Examen 1-click desde home, pivote post-Phase 7.2)
 ```
 
 Cada fase entrega valor usable independientemente:
@@ -269,6 +303,8 @@ Cada fase entrega valor usable independientemente:
 - Después de Phase 5: Essere cubierta como 7ª categoría, milestone v1.0 funcionalmente completo
 - Después de Phase 6: UX puede pulida (reiniciar 1-clic + review agregado errores)
 - Después de Phase 7: explicaciones pedagógicas inline al fallar — Preposiciones cubierta (la cat que motivó la fase)
+- Después de Phase 7.1/7.2: cobertura editorial 100% (271/271 ejercicios con explanation curada)
+- Después de Phase 8: Modo Examen por categoría — validación focalizada de dominio en 1 click
 
 ## Backlog
 
@@ -284,16 +320,10 @@ Cada fase entrega valor usable independientemente:
 
 **Status:** Backlog. Si tras Phase 7 el autor echa de menos explanations en Avere/Essere/Verbos-movimiento/Profesiones/Sustantivos-irregulares/Género-número, abrir fases incrementales por categoría (Phase 7.1 Avere, Phase 7.2 Verbos-movimiento, ...). El shape `payload.explanation: string` ya está soportado en schema + render — solo es trabajo editorial puro (Claude propone + autor revisa por batch).
 
-### Phase 8: Modo Examen por categoría — botón 'Examen' al lado de cada categoría en el picker que arranca un Test Completo de SOLO esa categoría (reutiliza buildFullTest D-50). Resuelve el dolor de jugar 5-6 Repasos para validar dominio. Conflict con Test Completo activo: reutiliza mecanismo D-44 (confirmar descartar)
+### Phase 8.x (futuro, opcional): Modo Examen multi-cat / atajos teclado / copy especializada banner reanudar (PROMOTED → Phase 8 deferred)
 
-**Goal:** [To be planned]
-**Requirements**: TBD
-**Depends on:** Phase 7
-**Plans:** 0 plans
-
-Plans:
-- [ ] TBD (run /gsd-plan-phase 8 to break down)
+**Status:** Backlog. Items deferred del CONTEXT.md §`<deferred>` de Phase 8 — capturados para no perderlos pero out-of-scope Phase 8: (a) Examen multi-cat (selección de 2-3 cats para examinar en bloque); (b) atajos de teclado (E + número de fila); (c) copy especializada en banner reanudar ("Examen de Avere a medias" vs "Test completo a medias"); (d) diferenciación visual en pantalla session entre Examen y Test completo regular; (e) homogeneización de las 6 call-sites del helper `requestConfirm` con confirmLabel unificado (`'Continuar'` vs `'Descartar y empezar'`).
 
 ---
 *Roadmap created: 2026-05-23*
-*Last updated: 2026-05-25 after Phase 7.2 completion (5 plans ejecutados: 7.2-01..05 cobertura 5 categorías restantes). 199/199 tests verdes (184 baseline + 15 sub-tests paramétricos sobre 5 nuevas categorías). EXPL-09..14 cerrados; cobertura editorial 100% (271/271 ejercicios curados en 7 categorías). Milestone v1.0 pre-ship listo.*
+*Last updated: 2026-05-25 after Phase 8 planning (1 plan: 08-01-PLAN.md). Phase 8 movida de Backlog a Phase Details con Goal + Success Criteria + Cross-cutting constraints definidos. EXAM-01..05 asignados al plan (cierre formal del audit trail en Plan 08-01 Task 4). Pre-Phase-8: 199/199 tests verdes. Target post-Phase-8: 206+ verdes (+7 smoke tests presence-check en `tests/screen-examen.test.js`).*
