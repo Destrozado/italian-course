@@ -123,7 +123,7 @@
 | 3. Variedad de ejercicios + ergonomía | 3/3 | Complete    | 2026-05-24 |
 | 4. Backup robusto + contenido completo | 4/4 | Complete    | 2026-05-24 |
 | 5. Essere — categoría fundamental que faltaba | 1/1 | Complete   | 2026-05-24 |
-| 6. Polish UX post-sesión (reiniciar + review errores) | 2/2 | Complete   | 2026-05-24 |
+| 6. Polish UX post-sesión (reiniciar + review errores) | 2/2 | Complete    | 2026-05-25 |
 
 ## Coverage Summary
 
