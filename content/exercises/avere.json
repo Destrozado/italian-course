@@ -7,7 +7,8 @@
       "payload": {
         "prompt": "Io ___ una macchina nuova.",
         "options": ["ho", "hai", "ha", "abbiamo"],
-        "correctIndex": 0
+        "correctIndex": 0,
+        "explanation": "La forma 'ho' es la primera persona singular del presente indicativo del verbo avere y se usa con el pronombre 'io' para expresar posesión. En italiano, 'Io ho una macchina' equivale al español 'Yo tengo un coche': el verbo avere cubre todo lo que en español hacemos con tener, sin necesidad de verbos auxiliares adicionales."
       },
       "notes": "Presente indicativo, 1ª persona singular (io). Posesión."
     },
@@ -18,7 +19,8 @@
       "payload": {
         "prompt": "Tu ___ una sorella più grande?",
         "options": ["ho", "hai", "ha", "avete"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "El presente indicativo de avere en la segunda persona singular es 'hai', que acompaña al pronombre 'tu'. La frase 'Tu hai una sorella' se traduce como '¿Tú tienes una hermana?'. Cuidado: la grafía italiana mantiene la 'h' inicial muda en toda la conjugación (ho, hai, ha, hanno), aunque no se pronuncie."
       },
       "notes": "Presente indicativo, 2ª persona singular (tu). Familia."
     },
@@ -29,7 +31,8 @@
       "payload": {
         "prompt": "Lui ___ ventidue anni.",
         "options": ["hai", "ha", "abbiamo", "hanno"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "Para expresar la edad, el italiano usa el verbo avere, no essere: la edad se 'tiene', no se 'es'. La tercera persona singular es 'ha', así que 'Lui ha ventidue anni' equivale al español 'Él tiene veintidós años'. ¡Atención!: el hispanohablante traduce literalmente y dice 'è ventidue anni', que es uno de los errores A1 más frecuentes."
       },
       "notes": "Presente indicativo, 3ª persona singular (lui). En italiano, la edad se expresa con avere (no con essere)."
     },
@@ -40,7 +43,8 @@
       "payload": {
         "prompt": "Noi ___ molti amici a Roma.",
         "options": ["abbiamo", "avete", "hanno", "ha"],
-        "correctIndex": 0
+        "correctIndex": 0,
+        "explanation": "La primera persona plural del presente indicativo de avere es 'abbiamo', una forma que rompe la raíz 'av-' y conviene memorizar aparte. 'Noi abbiamo molti amici' equivale al español 'Nosotros tenemos muchos amigos'. Ojo: el español dice 'tenemos' con raíz regular, pero el italiano cambia de raíz; conviene practicar 'abbiamo' por separado."
       },
       "notes": "Presente indicativo, 1ª persona plural (noi)."
     },
@@ -51,7 +55,8 @@
       "payload": {
         "prompt": "Voi ___ tempo per un caffè?",
         "options": ["abbiamo", "avete", "hanno", "hai"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "El presente indicativo de avere en la segunda persona plural es 'avete', que acompaña al pronombre 'voi'. La frase 'Voi avete tempo' se traduce como '¿Vosotros tenéis tiempo?'. La 'h' inicial del singular desaparece en 'avete' y 'abbiamo', pero reaparece en 'hanno' (3ª plural): es una particularidad ortográfica que conviene memorizar."
       },
       "notes": "Presente indicativo, 2ª persona plural (voi)."
     },
@@ -62,7 +67,8 @@
       "payload": {
         "prompt": "Loro ___ una casa al mare.",
         "options": ["abbiamo", "avete", "hanno", "ha"],
-        "correctIndex": 2
+        "correctIndex": 2,
+        "explanation": "La tercera persona plural del presente indicativo de avere es 'hanno', con doble 'n' y 'h' inicial muda. 'Loro hanno una casa' equivale al español 'Ellos tienen una casa'. Cuidado: no confundir con 'anno' (año, sin 'h'); la grafía 'hanno' del verbo es obligatoria aunque la pronunciación sea idéntica."
       },
       "notes": "Presente indicativo, 3ª persona plural (loro)."
     },
@@ -73,7 +79,8 @@
       "payload": {
         "prompt": "Non ho mangiato niente: ___ fame!",
         "options": ["ho", "sono", "hai", "è"],
-        "correctIndex": 0
+        "correctIndex": 0,
+        "explanation": "En italiano, las sensaciones físicas como el hambre, la sed o el frío se expresan con avere, no con essere: 'ho fame' significa 'tengo hambre', literalmente 'tengo hambre' en su sentido posesivo. ¡Atención!: el hispanohablante a veces traduce 'estoy hambriento' como 'sono affamato', pero la construcción A1 estándar es 'avere fame', siempre con avere."
       },
       "notes": "Expresión idiomática: 'avere fame' (tener hambre). En italiano se usa avere, no essere."
     },
@@ -84,7 +91,8 @@
       "payload": {
         "prompt": "Apri la finestra, per favore: ___ caldo.",
         "options": ["sono", "ho", "è", "siamo"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "La sensación de calor o frío en italiano se construye con avere siguiendo el mismo patrón que 'avere fame': 'ho caldo' equivale al español 'tengo calor'. Cuidado: 'sono caldo' existe en italiano pero significa 'estoy caliente' en otros sentidos (atractivo, encendido), no la sensación térmica neutra; para hablar del cuerpo en A1 se usa siempre 'avere caldo'."
       },
       "notes": "Expresión idiomática: 'avere caldo' (tener calor)."
     },
@@ -95,7 +103,8 @@
       "payload": {
         "prompt": "Stamattina io ___ mangiato una pizza enorme.",
         "options": ["ho", "sono", "abbiamo", "hanno"],
-        "correctIndex": 0
+        "correctIndex": 0,
+        "explanation": "En el passato prossimo, los verbos transitivos (los que admiten complemento directo, como mangiare) se conjugan siempre con el auxiliar avere. 'Io ho mangiato una pizza' equivale al español 'Yo he comido una pizza'. La regla pedagógica simple: si el verbo lleva 'qualcosa' detrás (lo comes, lo bebes, lo lees), el auxiliar es avere."
       },
       "notes": "Passato prossimo, 1ª singular. Verbo transitivo (mangiare) → auxiliar avere. PDF §3."
     },
@@ -106,7 +115,8 @@
       "payload": {
         "prompt": "Tu ___ parlato con Marco ieri sera?",
         "options": ["sei", "hai", "ha", "avete"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "Los verbos de comunicación como parlare, dire o rispondere también se conjugan con avere en el passato prossimo, aunque no lleven complemento directo evidente. 'Tu hai parlato con Marco' equivale al español '¿Tú has hablado con Marco?'. Importante: la presencia de la preposición 'con' no cambia la regla; el auxiliar sigue siendo avere."
       },
       "notes": "Passato prossimo, 2ª singular. Verbo de comunicación (parlare) → auxiliar avere. PDF §3."
     },
@@ -117,7 +127,8 @@
       "payload": {
         "prompt": "Noi ___ dormito bene questa notte.",
         "options": ["siamo", "avete", "abbiamo", "hanno"],
-        "correctIndex": 2
+        "correctIndex": 2,
+        "explanation": "Los verbos que describen una actividad física o corporal, como dormire, ridere o piangere, se conjugan con avere en el passato prossimo aunque no sean transitivos. 'Noi abbiamo dormito bene' equivale al español 'Nosotros hemos dormido bien'. Cuidado: el hispanohablante a veces opta por essere por intuición, pero dormire siempre pide avere."
       },
       "notes": "Passato prossimo, 1ª plural. Actividad física (dormire) → auxiliar avere. PDF §3."
     },
@@ -128,7 +139,8 @@
       "payload": {
         "prompt": "Loro ___ capito tutta la lezione.",
         "options": ["sono", "hanno", "abbiamo", "ha"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "Los verbos cognitivos como capire, sapere o pensare construyen el passato prossimo con avere, porque expresan una acción mental ejercida sobre un objeto (la lección, una idea, una respuesta). 'Loro hanno capito la lezione' equivale al español 'Ellos han entendido la lección'. El participio 'capito' es invariable cuando el auxiliar es avere."
       },
       "notes": "Passato prossimo, 3ª plural. Verbo cognitivo (capire) → auxiliar avere. PDF §3."
     },
