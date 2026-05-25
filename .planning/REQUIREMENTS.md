@@ -13,8 +13,8 @@
 - [ ] **VAL-03**: El workflow de validación procesa los ejercicios estrictamente 1-por-1 (NO batched). Cada ejercicio se valida en un agente fresco con SOLO ese ejercicio en contexto + el validation prompt. Está documentado por qué NO se batch (root cause del problema motivador).
 - [ ] **VAL-04**: Cada ejercicio recibe ≥2 pases de AIs distintos para alcanzar `status: validated`. La AI que valida se registra explícitamente en `passes[].by` (ej. `claude-opus-4-7@2026-05-25`, `gemini-pro@2026-05-25`). Un solo pase deja `status: pending`. Cualquier verdict `incorrecta` cambia `status: disputed`.
 - [ ] **VAL-05**: Cada entry en `passes[]` registra `{by: string, date: ISO, verdict: "correcta"|"incorrecta", concerns?: string[]}`. Concerns es array de strings con descripciones específicas (ej. "ambiguous between negli/sugli", "leak in prompt").
-- [ ] **VAL-06**: Cobertura final: 271/271 ejercicios con `validation.status === "validated"` antes de cerrar Phase 9 (o `disputed` resuelto manualmente por el autor → re-validado → validated).
-- [ ] **VAL-07**: Existe un smoke test paramétrico en `tests/exercise-types.test.js` que verifica todos los ejercicios tienen `validation.status === "validated"` (no `pending` ni `disputed`) — esto previene que un ejercicio nuevo o modificado se quede sin validar y se publique al alumno.
+- [ ] **VAL-06**: Cobertura final: 271/271 ejercicios con `validation.status === "validated"` antes de cerrar Phase 10 (o `disputed` resuelto manualmente por el autor → re-validado → validated).
+- [ ] **VAL-07**: Existe un smoke test paramétrico en `tests/exercise-types.test.js` que verifica todos los ejercicios tienen `validation.status === "validated"` (no `pending` ni `disputed`) — esto previene que un ejercicio nuevo o modificado se quede sin validar y se publique al alumno. Durante Phase 9 el test puede estar tras un feature flag (o assertion suave) para no bloquear desarrollo mientras los 271 siguen sin validar; al cierre de Phase 10 el test se activa con assertion estricta.
 - [ ] **VAL-08**: Cuando un pase devuelve `verdict: incorrecta`, el workflow surface el caso al autor inline con: prompt original + verdict + concerns + sugerencia de fix. El autor decide: acepta el fix propuesto, rechaza (mantiene original + override del status), o reescribe manualmente. La decisión queda registrada en el ejercicio (override del status si rechaza).
 
 ## Future Requirements (post-v1.1)
@@ -35,6 +35,13 @@
 
 | REQ-ID | Phase | Status |
 |--------|-------|--------|
-| VAL-01..08 | Phase 9 | Pending |
+| VAL-01 | Phase 9 | Pending |
+| VAL-02 | Phase 9 | Pending |
+| VAL-03 | Phase 9 | Pending |
+| VAL-04 | Phase 10 | Pending |
+| VAL-05 | Phase 9 | Pending |
+| VAL-06 | Phase 10 | Pending |
+| VAL-07 | Phase 9 | Pending |
+| VAL-08 | Phase 10 | Pending |
 
-(Esta tabla se completa cuando el roadmapper la fija.)
+**Coverage:** 8/8 v1.1 requirements mapped — 5 a Phase 9 (infraestructura) + 3 a Phase 10 (ejecución + escalada). 0 orphans, 0 duplicados.
