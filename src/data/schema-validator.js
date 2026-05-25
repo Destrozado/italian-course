@@ -131,6 +131,11 @@ export function validateContent({ categories, exercisesByFile }) {
       // errores adicionales y NO retorna early; D-08 invariante (acumular
       // todos los errores en un solo pase).
       validator(ex, file, push);
+
+      // Phase 9 (D-VAL-08, VAL-01): campo opcional top-level `validation`.
+      // NO entra en PAYLOAD_VALIDATORS (no es payload — es metadata del
+      // ejercicio como unidad). Backward-compat trivial: ausencia = aceptado.
+      validateValidationShape(ex, file, push);
     }
   }
 
@@ -279,4 +284,76 @@ function validateMatchPayload(ex, file, push) {
       push(file, ex.id, '"payload.explanation" debe ser string no vacío si está presente');
     }
   }
+}
+
+// ─── Top-level field validators ──────────────────────────────────────────────
+
+/**
+ * Phase 9 (VAL-01, D-VAL-06, D-VAL-08): valida el campo top-level opcional
+ * `validation` del ejercicio (no es payload — es metadata del ejercicio como
+ * unidad). Acumula errores estilo D-08; cero throws.
+ *
+ * Shape esperado (D-VAL-06):
+ *   {
+ *     "status": "pending" | "validated" | "disputed",
+ *     "passes": [
+ *       { "by": string, "date": "YYYY-MM-DD", "verdict": "correcta"|"incorrecta", "concerns"?: string[] }
+ *     ]
+ *   }
+ *
+ * Backward-compat (D-VAL-08): ausencia del campo = aceptado sin warning. Los
+ * 271 ejercicios actuales no lo tienen y NO se rompen (cero migración).
+ *
+ * Mensajes en español (FOUND-04).
+ *
+ * @param {object} ex
+ * @param {string} file
+ * @param {(file:string, exerciseId:string, reason:string) => void} push
+ */
+function validateValidationShape(ex, file, push) {
+  if (!('validation' in ex)) return; // back-compat: campo opcional
+
+  const v = ex.validation;
+  if (!v || typeof v !== 'object' || Array.isArray(v)) {
+    push(file, ex.id, '"validation" debe ser objeto si está presente');
+    return;
+  }
+
+  const VALID_STATUS = ['pending', 'validated', 'disputed'];
+  const VALID_VERDICT = ['correcta', 'incorrecta'];
+  const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
+
+  if (!VALID_STATUS.includes(v.status)) {
+    push(file, ex.id, `"validation.status" inválido: ${JSON.stringify(v.status)} (esperado: pending|validated|disputed)`);
+  }
+
+  if (!Array.isArray(v.passes)) {
+    push(file, ex.id, `"validation.passes" debe ser array (encontrado: ${typeof v.passes})`);
+    return; // sin array no podemos traversar
+  }
+
+  v.passes.forEach((p, idx) => {
+    if (!p || typeof p !== 'object' || Array.isArray(p)) {
+      push(file, ex.id, `"validation.passes[${idx}]" debe ser objeto`);
+      return; // skip esta iteración — no traversar campos de p
+    }
+
+    if (typeof p.by !== 'string' || !p.by.trim()) {
+      push(file, ex.id, `"validation.passes[${idx}].by" debe ser string no vacío`);
+    }
+
+    if (typeof p.date !== 'string' || !ISO_DATE.test(p.date)) {
+      push(file, ex.id, `"validation.passes[${idx}].date" debe ser string en formato ISO YYYY-MM-DD`);
+    }
+
+    if (!VALID_VERDICT.includes(p.verdict)) {
+      push(file, ex.id, `"validation.passes[${idx}].verdict" inválido (esperado: correcta|incorrecta)`);
+    }
+
+    if (p.concerns !== undefined) {
+      if (!Array.isArray(p.concerns) || p.concerns.some(c => typeof c !== 'string')) {
+        push(file, ex.id, `"validation.passes[${idx}].concerns" debe ser array de strings si está presente`);
+      }
+    }
+  });
 }
