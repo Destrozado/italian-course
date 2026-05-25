@@ -1028,6 +1028,45 @@ describe('Categorías con explanation coverage (Phase 7.1+)', () => {
           `Markdown markers encontradas en ${file}: ${violations.join(', ')}`
         );
       });
+
+      // Authoring rule R1 — prompt nunca contiene la regla ni la solución (memory/exercise_authoring_rules.md)
+      // Capturado post-v1.0 tras el bug "Una casa, due ___ (refuerzo regla §1 fem -a→-e)" — el alumno leía la respuesta.
+      test('prompt sin leak de regla/solución (R1)', () => {
+        // Patrones prohibidos en payload.prompt:
+        //   §N        — refs a secciones del PDF
+        //   (refuerzo / (regla / (combina / (grupo / (familia / (cuerpo / (animales / (lugares / (locución
+        //   (D-NN     — refs a decisiones internas
+        //   — regla / — atención / — sustantivo invariable / — artículo definido / — forma fem / — forma masc / — inserción / — concordancia / — patrón / — excepción
+        const leakPattern = /§\d+|\((refuerzo|regla|combina|grupo|familia|cuerpo|animales|lugares|locución|D-\d+)\b|—\s*(regla|atención|sustantivo\s+invariable|artículo\s+definido|forma\s+(fem|masc)|inserción|concordancia|patrón|excepción)/i;
+        const violations = data.exercises
+          .filter(ex => leakPattern.test(ex.payload?.prompt || ''))
+          .map(ex => `${ex.id}: "${ex.payload.prompt}"`);
+
+        assert.equal(
+          violations.length,
+          0,
+          `Prompts con leak de regla/solución en ${file}:\n  ${violations.join('\n  ')}\n\nVer memory/exercise_authoring_rules.md §R1.`
+        );
+      });
+
+      // Authoring rule R2 — explanations nunca referencian otros ejercicios por ID interno (memory/exercise_authoring_rules.md)
+      // Capturado post-v1.0 tras 19 explanations con "(#022/#028)" — jerga interna sin utilidad pedagógica.
+      test('explanation sin cross-refs técnicos (R2)', () => {
+        // Patrones prohibidos en payload.explanation:
+        //   #NNN, (#NNN), (#NNN/#MMM)   — refs a ejercicios por ID interno
+        //   mc-NNN, preposiciones-NNN   — IDs literales
+        //   — ver #NNN, del #NNN        — frases con ref
+        const xrefPattern = /#\d{3}\b|#[a-z]+-\d+|\bmc-\d+\b/i;
+        const violations = data.exercises
+          .filter(ex => xrefPattern.test(ex.payload?.explanation || ''))
+          .map(ex => `${ex.id}: ...${(ex.payload.explanation.match(/[^.]*#\S*[^.]*/) || [''])[0].trim()}...`);
+
+        assert.equal(
+          violations.length,
+          0,
+          `Explanations con cross-refs técnicos en ${file}:\n  ${violations.join('\n  ')}\n\nVer memory/exercise_authoring_rules.md §R2.`
+        );
+      });
     });
   }
 });
