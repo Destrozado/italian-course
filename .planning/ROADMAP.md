@@ -226,7 +226,7 @@
 | 6. Polish UX post-sesión (reiniciar + review errores) | 2/2 | Complete    | 2026-05-25 |
 | 7. Explicaciones pedagógicas al fallar | 2/2 | Complete   | 2026-05-25 |
 | 7.1. Explicaciones Género-Número + canonicalización ortográfica | 2/2 | Complete   | 2026-05-25 |
-| 7.2. Explicaciones 5 categorías restantes (Avere/Sust-irreg/V-mov/Essere/Profesiones) | 5/5 | Complete    | 2026-05-25 |
+| 7.2. Explicaciones 5 categorías restantes (Avere/Sust-irreg/V-mov/Essere/Profesiones) | 5/5 | Complete   | 2026-05-25 |
 
 ## Coverage Summary
 
