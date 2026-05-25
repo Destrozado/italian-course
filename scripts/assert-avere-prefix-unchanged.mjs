@@ -11,12 +11,38 @@
 // comparación estructural via `assert.deepStrictEqual`. Exit 0 si idénticos,
 // exit 1 + diff verbose si difieren.
 //
+// D-178 (Phase 7.2-01): relax mínimo — la comparación deepStrictEqual se hace
+// sobre los CAMPOS CORE de cada ejercicio (id, type, categoryIds, prompt,
+// options, correctIndex, pairs, answer, distractors). Se EXCLUYEN del compare:
+//   - `payload.explanation` — campo aditivo introducido en Phase 7.2 para
+//     mostrar explicación pedagógica al alumno cuando falla. No modifica la
+//     semántica del ejercicio (mismo prompt, mismas opciones, misma respuesta
+//     correcta), solo añade material educativo. El relax permite la adición
+//     sin tener que re-snapshotear (preserva el snapshot original como
+//     ground truth de los campos core).
+//   - `notes` — campo autor-internal (anotaciones del autor sobre el PDF de
+//     origen, distractoras pedagógicas, etc.). No se lee en runtime; ya era
+//     conceptualmente aditivo, ahora se documenta como tal.
+//
+// El invariante D-88 sigue vigente sobre los campos core: si alguien modifica
+// un prompt, cambia el correctIndex, reordena options, o inserta un ejercicio
+// nuevo en posiciones 1..17, el assert FALLA (exit 1) como antes.
+//
 // Uso:
 //   node scripts/assert-avere-prefix-unchanged.mjs
+//   node scripts/assert-avere-prefix-unchanged.mjs --path /tmp/avere-copia.json
+//   AVERE_PATH=/tmp/avere-copia.json node scripts/assert-avere-prefix-unchanged.mjs
+//
+// El flag `--path <file>` (CLI) o la env var `AVERE_PATH` permiten ejecutar
+// el assert sobre una copia alternativa del JSON (útil para tests de roundtrip
+// y verificación dry-run del relax). Si ambos están presentes, `--path` gana.
+// Si ninguno, fallback al path canónico content/exercises/avere.json.
 //
 // Exit codes:
-//   0 — los 17 ejercicios originales están intactos (D-88 OK).
-//   1 — snapshot no encontrado, o los primeros 17 han cambiado (D-88 violado).
+//   0 — los 17 ejercicios originales están intactos en sus campos core
+//       (D-88 APPEND-ONLY preserved + D-178 explanation/notes son aditivos).
+//   1 — snapshot no encontrado, o los primeros 17 han cambiado en sus campos
+//       core (D-88 violado).
 
 import { readFileSync } from 'node:fs';
 import assert from 'node:assert/strict';
@@ -27,8 +53,33 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const projectRoot = resolve(__dirname, '..');
 
+// CLI flag o env var para roundtrip dry-run (Warning 9 + D-178 testing).
+const argPathIdx = process.argv.indexOf('--path');
+const overridePath = argPathIdx > -1 ? process.argv[argPathIdx + 1] : process.env.AVERE_PATH;
+const avereSource = overridePath
+  ? resolve(overridePath)
+  : resolve(projectRoot, 'content/exercises/avere.json');
+
 const snapshotPath = resolve(projectRoot, 'scripts/.avere-prefix-snapshot.json');
-const avereSource = resolve(projectRoot, 'content/exercises/avere.json');
+
+/**
+ * Devuelve una copia del ejercicio sin los campos puramente aditivos
+ * (`payload.explanation` introducido en Phase 7.2 y `notes` autor-internal).
+ * D-178 opción A: permite adiciones aditivas como explanation sin romper
+ * el invariante D-88 sobre los campos semánticos.
+ *
+ * Symmetric: se aplica al snapshot (before) y al estado actual (after) para
+ * que el deepStrictEqual ignore esos campos en ambos lados (un snapshot que
+ * incluía `notes` sigue funcionando idéntico tras añadir `explanation`).
+ */
+function stripAdditive(ex) {
+  const { payload, notes, ...rest } = ex;
+  if (!payload || typeof payload !== 'object') {
+    return { ...rest, payload };
+  }
+  const { explanation, ...payloadCore } = payload;
+  return { ...rest, payload: payloadCore };
+}
 
 let before;
 try {
@@ -48,31 +99,35 @@ let avere;
 try {
   avere = JSON.parse(readFileSync(avereSource, 'utf8'));
 } catch (err) {
-  console.error(`Error al leer content/exercises/avere.json: ${err.message}`);
+  console.error(`Error al leer ${avereSource}: ${err.message}`);
   process.exit(1);
 }
 
 if (!avere || !Array.isArray(avere.exercises)) {
-  console.error('avere.json: falta el campo "exercises" o no es un array');
+  console.error(`${avereSource}: falta el campo "exercises" o no es un array`);
   process.exit(1);
 }
 
 if (avere.exercises.length < 17) {
-  console.error(`D-88 violado: avere.json tiene ${avere.exercises.length} ejercicios, menos de los 17 originales. Se han borrado ejercicios.`);
+  console.error(`D-88 violado: ${avereSource} tiene ${avere.exercises.length} ejercicios, menos de los 17 originales. Se han borrado ejercicios.`);
   process.exit(1);
 }
 
-const after = avere.exercises.slice(0, 17);
+const afterCore = avere.exercises.slice(0, 17).map(stripAdditive);
+const beforeCore = before.map(stripAdditive);
 
 try {
-  assert.deepStrictEqual(after, before);
+  assert.deepStrictEqual(afterCore, beforeCore);
 } catch (err) {
-  console.error('Los primeros 17 ejercicios de avere.json HAN CAMBIADO. D-88 invariante violado (APPEND-ONLY).');
-  console.error('Diff structural:');
+  console.error('Los primeros 17 ejercicios de avere.json HAN CAMBIADO en sus campos CORE. D-88 invariante violado (APPEND-ONLY de campos semánticos).');
+  console.error('Diff structural (excluyendo payload.explanation y notes que son aditivos D-178):');
   console.error(err.message);
   process.exit(1);
 }
 
-console.log('OK: los 17 ejercicios originales de avere.json están intactos (D-88 APPEND-ONLY).');
-console.log(`IDs verificados: ${after.map(e => e.id).join(', ')}`);
+console.log('OK: los 17 ejercicios originales de avere.json están intactos en sus campos CORE (D-88 APPEND-ONLY preserved + D-178 explanation/notes son aditivos).');
+console.log(`IDs verificados: ${afterCore.map(e => e.id).join(', ')}`);
+if (overridePath) {
+  console.log(`(Ejecutado contra path alternativo: ${avereSource})`);
+}
 process.exit(0);
