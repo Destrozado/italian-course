@@ -219,18 +219,20 @@ Reusa el panel `.confirm-inline` heredado de Phase 2 sin tocar la clase. Cuando 
 | Element | Copy |
 |---------|------|
 | `confirmDialog.message` | `Ya hay un Test completo en curso. ¿Descartarlo y empezar uno nuevo?` |
-| Botón Confirm | `Continuar` (Pico primary cyan default — coherente con las 5 call-sites previas) |
-| Botón Cancel | `Cancelar` (`class="secondary"` — coherente con las 5 call-sites previas) |
+| Botón Confirm | `Descartar y empezar` (`class="secondary"` — coherente con openPicker D-44 línea 276, el análogo directo de la 6ª call-site) |
+| Botón Cancel | `Cancelar` (`class="secondary"` — coherente con todas las call-sites previas) |
 | `confirmDialog.onConfirm` | `() => { this.clearInFlightTest(); this._launchExamen(catId); }` (decisión del planner sobre la firma exacta) |
 
 **Razones de la copy literal:**
 - **`Ya hay un Test completo en curso.`** — D-183 hereda la decisión Phase 2: el banner reanudar dice "Test completo a medias", no "Examen a medias". Coherencia textual: si decimos "Test completo" en el banner, decimos "Test completo" en la confirmación. El usuario sabe que un Examen ES semánticamente un Test completo de 1 cat (D-189).
-- **`¿Descartarlo y empezar uno nuevo?`** — pregunta directa, segunda persona implícita ("¿Descartarlo [tú]?"). Coherente con las 5 call-sites previas:
-  - D-27 (volver al home en picker): "Vas a salir del Test completo en curso. ¿Descartarlo?" (Phase 2)
-  - D-43 (descartar in-flight banner): "Vas a descartar tu Test completo a medias. ¿Continuar?"
-  - D-44 (lanzar nuevo Test desde picker con uno activo): "Ya hay un Test completo en curso. ¿Descartarlo y empezar uno nuevo?"
-  - D-76 (import backup): texto multi-paragraph del Phase 4 UI-SPEC.
-- **`Continuar` / `Cancelar` (NO `Descartar` / `Cancelar`):** coherencia 100% con las 5 call-sites previas. El verbo "Continuar" en el botón confirm es semánticamente "Continuar con la acción que dispara la confirmación" (descartar el actual + arrancar el nuevo). Cambiar a "Descartar" rompería el patrón unificado del helper.
+- **`¿Descartarlo y empezar uno nuevo?`** — pregunta directa, segunda persona implícita ("¿Descartarlo [tú]?"). Idéntica al mensaje de openPicker D-44 línea 275 (el análogo más directo: ambos disparan Test completo nuevo).
+- **`Descartar y empezar` / `Cancelar`** — **revisado post-plan-check (2026-05-25)** tras verificación empírica de los 5 call-sites previas del helper en `src/screens/app.js`:
+  - Línea 276 (openPicker D-44, Test completo conflict): `'Descartar y empezar'` ← **análogo directo**
+  - Línea 311 (D-27 volver-home en repaso): `'Descartar'`
+  - Línea 669 (D-43 banner discard): `'Descartar'`
+  - Línea 720 (otra call-site): `'Descartar'`
+  - Línea 856 (D-76 backup import): `'Continuar'`
+  - Distribución real: `Descartar*` 4/5, `Continuar` 1/5. La afirmación previa de este UI-SPEC ("100% coherencia con `Continuar`") era empíricamente incorrecta. El plan 08-01 Task 1 lockea `'Descartar y empezar'` por proximidad semántica EXACTA con openPicker D-44 (mismo message + mismo intent: descartar Test completo activo + arrancar nuevo). Homogeneización general de las 6 call-sites a un único confirmLabel queda como backlog (capturado en 08-01-PLAN.md `## Captured for Future Phase`).
 
 ### Lanzamiento directo sin confirmación (D-186)
 
