@@ -133,14 +133,15 @@
 - [x] 07-02-PLAN.md — Batch A 15 + batch B 16 + batch C 17 explanations Preposiciones (patrón D-85 Claude propone + autor revisa por bloque, 50/50 coverage) + smoke test paramétrico (3 sub-tests: coverage + ASCII + no-markdown) + reapertura PROJECT.md Out of Scope (D-134) + REQUIREMENTS.md EXPL-01..05 + ROADMAP.md finalización (EXPL-04/05) — **completado 2026-05-25**
 
 ### Phase 7.1: Explicaciones pedagógicas Género-Número + canonicalización ortográfica
-**Goal:** [To be planned — discuss-phase determinará scope final: ingesta draft 40 ejercicios + re-acentuación 50 Preposiciones + smoke test extension]
+**Goal**: TODAS las explanations del proyecto siguen el canon español correctamente escrito con acentos (á/é/í/ó/ú) y ñ donde la RAE lo exige (canon nuevo, reemplaza el canon Phase 7 incidental sin acentos). Las 50 Preposiciones existentes se re-acentúan retroactivamente sin alterar contenido pedagógico; los italianismos citados (`città`, `caffè`, `dalla`, `Sono di Roma`, etc.) preservan ortografía italiana. La 2ª categoría Género-Número gana 40/40 explanations ingestadas del draft pre-revisado del autor. Smoke test paramétrico CATEGORIES_WITH_EXPLANATIONS instalado para fases incrementales futuras 7.2..7.6 (1 línea por categoría).
 **Mode:** standard
 **Depends on:** Phase 7
-**Requirements**: TBD (EXPL-06..N — añadir en plan-phase)
-**Plans:** 0 plans
+**Requirements**: EXPL-06, EXPL-07, EXPL-08
+**Plans:** 2 plans
 
 Plans:
-- [ ] TBD (run /gsd-plan-phase 7.1 to break down)
+- [ ] 7.1-01-PLAN.md — Re-acentuación canónica 50 Preposiciones (1 pasada Claude + diff review autor) + refactor smoke test a paramétrico CATEGORIES_WITH_EXPLANATIONS (EXPL-06, EXPL-08)
+- [ ] 7.1-02-PLAN.md — Ingest 40 explanations Género-Número del draft del autor (1 commit honesto, D-141) + 2ª entry array paramétrico + audit trail PROJECT.md/REQUIREMENTS.md/ROADMAP.md + UAT humano 6/6 (EXPL-06, EXPL-07)
 
 ## Progress
 
@@ -153,7 +154,7 @@ Plans:
 | 5. Essere — categoría fundamental que faltaba | 1/1 | Complete   | 2026-05-24 |
 | 6. Polish UX post-sesión (reiniciar + review errores) | 2/2 | Complete    | 2026-05-25 |
 | 7. Explicaciones pedagógicas al fallar | 2/2 | Complete   | 2026-05-25 |
-| 7.1. Explicaciones Género-Número + canonicalización ortográfica | 0/0 | Pending |   |
+| 7.1. Explicaciones Género-Número + canonicalización ortográfica | 0/2 | Planning |   |
 
 ## Coverage Summary
 
