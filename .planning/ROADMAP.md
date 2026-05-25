@@ -14,7 +14,7 @@
 - [x] **Phase 5: Essere — categoría fundamental que faltaba** — Detectado durante UAT post-Phase 4: tenemos Avere como categoría dedicada pero NO Essere, pese a ser igualmente fundamental para A1 (identidad, profesión, nacionalidad, estado, copula). Essere está exercitado indirectamente vía verbos-movimiento (auxiliar passato prossimo) pero no como verbo independiente. Esta fase añade `content/exercises/essere.json` siguiendo el patrón D-85 (Claude propone desde conocimiento A1 genérico — no hay PDF — autor revisa pedagógicamente y commitea). (completed 2026-05-24)
 - [x] **Phase 6: Polish UX post-sesión — reiniciar + review errores** — Detectado durante UAT Phase 4/5: dos puntos de fricción ergonómica que valen lo que cuesta resolver antes de cerrar el milestone v1.0. (a) Botón "Reiniciar ejercicios" en la pantalla de sesión que rearranca con las mismas categorías en 1 clic (vs los 4 actuales). (b) Sección "Errores cometidos" en la pantalla de resumen final que muestra, para cada ejercicio fallado, qué respondió el autor + qué era correcto + sobre qué frase. Ambos son polish UX sobre flujos existentes (sin lógica de dominio nueva — el motor de re-verificación no cambia). Absorbe Phase 999.1 + 999.2 del backlog. (completed 2026-05-24)
 - [x] **Phase 7: Explicaciones pedagógicas al fallar — campo explanation por ejercicio + render en Errores cometidos** — Pivote post-uso-real: tras 271 ejercicios funcionando, el autor consultaba Gemini cada vez que fallaba en Preposiciones (4 ejemplos: sulle, da lui, dalle, sui). Esta fase reabrió la decisión Phase 1 "solo bien/mal por velocidad; la teoría está en los PDFs" y añadió un campo `payload.explanation: string` opcional + render inline durante feedback rojo + render en summary "Errores cometidos". Seed entregado: 50/50 explanations curadas para Preposiciones (patrón D-85, 3 batches de 15+16+17). Las otras 6 categorías quedan opcionales para fases incrementales (7.1, 7.2, ...) si emerge dolor adicional. (completed 2026-05-25 — 181/181 tests verdes, UAT 13/13 PASS)
-- [ ] **Phase 7.1: Explicaciones pedagógicas Género-Número + canonicalización ortográfica** — Extiende el patrón Phase 7 a la 2ª categoría (40 ejercicios genero-numero.json) con un draft de explanations ya redactado por el autor. Scope a clarificar en discuss: (a) ingesta del draft + review en batches D-85, (b) re-acentuación de las 50 explanations Preposiciones existentes para coherencia ortográfica universal (canon nuevo: español correcto con acentos y ñ), (c) actualización del smoke test paramétrico para extender a genero-numero.json. Justificación: tras Phase 7 cerrada, el autor draft-eó explanations para Género-Número antes de cualquier dolor real (proactivo) y pidió que el español esté correctamente acentuado en TODAS las explanations del proyecto.
+- [x] **Phase 7.1: Explicaciones pedagógicas Género-Número + canonicalización ortográfica** — Canon ortográfico nuevo (español correctamente escrito con acentos y ñ) aplicado retroactivamente a las 50 Preposiciones + 40 explanations Género-Número ingestadas del draft pre-revisado del autor + smoke test paramétrico CATEGORIES_WITH_EXPLANATIONS instalado para fases incrementales futuras 7.2..7.6. (completed 2026-05-25 — 184/184 tests verdes, UAT 6/6 PASS)
 
 ## Phase Details
 
@@ -133,15 +133,21 @@
 - [x] 07-02-PLAN.md — Batch A 15 + batch B 16 + batch C 17 explanations Preposiciones (patrón D-85 Claude propone + autor revisa por bloque, 50/50 coverage) + smoke test paramétrico (3 sub-tests: coverage + ASCII + no-markdown) + reapertura PROJECT.md Out of Scope (D-134) + REQUIREMENTS.md EXPL-01..05 + ROADMAP.md finalización (EXPL-04/05) — **completado 2026-05-25**
 
 ### Phase 7.1: Explicaciones pedagógicas Género-Número + canonicalización ortográfica
-**Goal**: TODAS las explanations del proyecto siguen el canon español correctamente escrito con acentos (á/é/í/ó/ú) y ñ donde la RAE lo exige (canon nuevo, reemplaza el canon Phase 7 incidental sin acentos). Las 50 Preposiciones existentes se re-acentúan retroactivamente sin alterar contenido pedagógico; los italianismos citados (`città`, `caffè`, `dalla`, `Sono di Roma`, etc.) preservan ortografía italiana. La 2ª categoría Género-Número gana 40/40 explanations ingestadas del draft pre-revisado del autor. Smoke test paramétrico CATEGORIES_WITH_EXPLANATIONS instalado para fases incrementales futuras 7.2..7.6 (1 línea por categoría).
+**Goal**: TODAS las explanations del proyecto están en español correctamente escrito con acentos (á/é/í/ó/ú) y ñ donde la RAE lo exige (canon nuevo, reemplaza el canon Phase 7 incidental). Italianismos preservan ortografía italiana. Las 40 entries de Género-Número tienen explanation curada (ingestadas del draft pre-revisado del autor). Smoke test paramétrico CATEGORIES_WITH_EXPLANATIONS extensible a fases incrementales futuras 7.2..7.6 (1 línea por categoría).
 **Mode:** standard
-**Depends on:** Phase 7
+**Depends on**: Phase 7
 **Requirements**: EXPL-06, EXPL-07, EXPL-08
-**Plans:** 1/2 plans executed
-
-Plans:
-- [x] 7.1-01-PLAN.md — Re-acentuación canónica 50 Preposiciones (1 pasada Claude + diff review autor) + refactor smoke test a paramétrico CATEGORIES_WITH_EXPLANATIONS (EXPL-06, EXPL-08)
-- [ ] 7.1-02-PLAN.md — Ingest 40 explanations Género-Número del draft del autor (1 commit honesto, D-141) + 2ª entry array paramétrico + audit trail PROJECT.md/REQUIREMENTS.md/ROADMAP.md + UAT humano 6/6 (EXPL-06, EXPL-07)
+**Success Criteria** (qué tiene que ser CIERTO):
+  1. `content/exercises/preposiciones.json` 50/50 explanations re-acentuadas al canon español; italianismos preservados; cero smart quotes / markdown markers introducidos.
+  2. `content/exercises/genero-numero.json` 40/40 explanations ingestadas del draft del autor sin modificación (37 mc + 3 match); cero smart quotes / markdown markers.
+  3. Bloque `CATEGORIES_WITH_EXPLANATIONS` operativo en `tests/exercise-types.test.js` con 2 entries (preposiciones + génnum), 3 sub-tests por entry, 6 tests paramétricos verdes.
+  4. Tests count subió de 181 (post-Phase 7) → 184 (post-Phase 7.1) — delta +3 (3 sub-tests adicionales sobre génnum vía paramétrico).
+  5. Cero migración schemaVersion (sigue 4) — explanation es contenido, no state.
+  6. PROJECT.md `### Validated` extendido con Phase 7.1 entry; Key Decisions tabla extendida con fila del canon ortográfico. REQUIREMENTS.md subsección EXPL-06..08 + traceability tabla extendida. ROADMAP.md Phase 7.1 finalizada.
+  7. UAT humano: fallar deliberadamente 5+ ejercicios de Género-Número en Repaso 20 + ver explanation curada inline + repaso agregado en summary + sanity check Preposiciones re-acentuadas funcionan idéntico + audit trail PROJECT/REQ/ROADMAP visible.
+**Plans**: 2 plans
+- [x] 7.1-01-PLAN.md — Re-acentuación canónica 50 Preposiciones (1 pasada Claude + diff review autor + 1 commit) + refactor smoke test a paramétrico CATEGORIES_WITH_EXPLANATIONS (EXPL-06, EXPL-08).
+- [x] 7.1-02-PLAN.md — Ingest 40 explanations Género-Número del draft del autor (D-141 1 commit honesto) + 2ª entry al array paramétrico + audit trail PROJECT.md/REQUIREMENTS.md/ROADMAP.md + UAT humano 6/6 (EXPL-06, EXPL-07).
 
 ## Progress
 
@@ -154,14 +160,14 @@ Plans:
 | 5. Essere — categoría fundamental que faltaba | 1/1 | Complete   | 2026-05-24 |
 | 6. Polish UX post-sesión (reiniciar + review errores) | 2/2 | Complete    | 2026-05-25 |
 | 7. Explicaciones pedagógicas al fallar | 2/2 | Complete   | 2026-05-25 |
-| 7.1. Explicaciones Género-Número + canonicalización ortográfica | 1/2 | In Progress|  |
+| 7.1. Explicaciones Género-Número + canonicalización ortográfica | 2/2 | Complete    | 2026-05-25 |
 
 ## Coverage Summary
 
-- **v1 requirements:** 48 total (43 originales + 5 EXPL Phase 7)
-- **Mapped to phases:** 48 (100%)
+- **v1 requirements:** **51** total (48 originales/Phase 1..7 + 3 EXPL-06..08 Phase 7.1)
+- **Mapped to phases:** 51 (100%)
 - **Unmapped:** 0
-- **Granularity:** coarse (7 fases — 5 core + 1 polish UX + 1 pivote post-uso-real)
+- **Granularity:** coarse (8 fases — 5 core + 1 polish UX + 2 pivotes incrementales explanations)
 - **Mode:** MVP (vertical slices) hasta Phase 6; standard a partir de Phase 7
 
 ## Dependency Graph
@@ -213,4 +219,4 @@ Cada fase entrega valor usable independientemente:
 
 ---
 *Roadmap created: 2026-05-23*
-*Last updated: 2026-05-25 after Phase 7 completion (2 plans ejecutados: 07-01 infra + UI render + 2 seeds + 12 tests + UAT vertical slice 6/6 PASS; 07-02 48 explanations en 3 batches D-85 = 15+16+17 con review autor frase por frase + 3 smoke tests paramétricos + reapertura PROJECT.md Out of Scope D-134 + REQUIREMENTS.md EXPL-01..05 + ROADMAP finalizado). 181/181 tests verdes (166 baseline + 12 schema D-116 + 3 coverage Preposiciones). EXPL-01..05 cerrados; milestone v1.0 ampliado con explicaciones pedagógicas opcionales — Preposiciones 50/50 cubierta como seed; otras 6 categorías opcionales para fases incrementales 7.x si emerge dolor.*
+*Last updated: 2026-05-25 after Phase 7.1 completion (2 plans ejecutados: 7.1-01 re-accent 50 Preposiciones + refactor smoke paramétrico + 7.1-02 ingest 40 Génnum + audit trail PROJECT/REQ/ROADMAP). 184/184 tests verdes (181 baseline + 3 sub-tests paramétricos sobre génnum). EXPL-06..08 cerrados; canon ortográfico canónico instalado universalmente; patrón paramétrico habilita fases incrementales 7.2..7.6.*

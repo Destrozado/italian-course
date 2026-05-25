@@ -87,6 +87,14 @@
 
 - [x] **EXPL-05**: PROJECT.md `## Out of Scope` reabrió la entrada "Explicaciones pedagógicas / mostrar la regla al fallar o acertar — solo bien/mal por velocidad; la teoría está en los PDFs" — movida a `### Validated` con audit trail del pivote post-uso-real (271 ejercicios funcionando + autor consultaba Gemini cada fallo de Preposiciones). Key Decisions tabla extendida con fila nueva (fecha 2026-05-25) documentando la razón del pivote. El loop pedagógico cierra sin romper la velocidad del flow porque explanation solo se muestra al fallar. Completed Phase 7 — Plan 07-02 Task 4.
 
+### Explicaciones Género-Número + canonicalización ortográfica (EXPL-06..08) — Phase 7.1
+
+- [x] **EXPL-06**: Canon ortográfico nuevo: TODAS las explanations del proyecto siguen el español correctamente escrito con acentos (á/é/í/ó/ú) y ñ donde la RAE lo exige. Reemplaza el canon Phase 7 incidental ("español sin acentos") aplicándose retroactivamente a las 50 explanations de Preposiciones (re-acentuadas en Plan 7.1-01 sin alterar contenido pedagógico) y prospectivamente a TODAS las futuras (Phase 7.1+ del proyecto). Italianismos citados literalmente (`città`, `caffè`, `dalla`, `Sono di Roma`, etc.) preservan ortografía italiana — solo el texto explicativo en español sigue el canon RAE. Apóstrofes ASCII U+0027 preservados (CONT-06 / D-129). Validado: Plan 7.1-01 (re-accent 50 Preposiciones diff-reviewed + commit + 3 fixes bonus aprobados — `e`→`è`, `citta`→`città`, `el`→`él`) + Plan 7.1-02 (40 Génnum acentuadas correctamente del draft del autor).
+
+- [x] **EXPL-07**: Las 40 entries de `content/exercises/genero-numero.json` tienen `payload.explanation` ingestada desde un draft pre-redactado y revisado conceptualmente por el autor antes del ingest (D-141 — patrón "1 commit grande honesto" en vez de patrón D-85 Claude-propone-batch porque el draft ya era el resultado del trabajo del autor; re-proponer sería negar ese trabajo). 37 multi-choice + 3 match. Distractoras duras mantained (D-142 — el autor quiere que el alumno demuestre saber TODO, no solo lo fácil). mc-037 (psicologi/psicologhi) honra realidad lingüística moderna además de regla A1 estricta (D-143). Plain text + apóstrofes ASCII verificados por smoke test paramétrico. Completed Phase 7.1 — Plan 7.1-02 Task 1.
+
+- [x] **EXPL-08**: El smoke test que verificaba "Preposiciones 50/50 explanations" hardcoded (Phase 7 EXPL-04) se generalizó a un loop paramétrico sobre `CATEGORIES_WITH_EXPLANATIONS = [{file, expected}]` (D-144). Tras Phase 7.1 el array tiene 2 entries (preposiciones + génnum) — 6 tests paramétricos en total (2 archivos × 3 sub-tests: coverage, ASCII apóstrofes, no markdown markers). Añadir una futura categoría en Phase 7.2..7.6 es 1 línea en el array — cero código nuevo. Patrón reusable para todas las fases incrementales de explanations. Validado: Plan 7.1-01 (instaló bloque paramétrico con 1 entry) + Plan 7.1-02 (añadió 2ª entry y verificó 184/184 tests verdes).
+
 ## v2 Requirements
 
 Deferred to future release. Tracked but not in current roadmap.
@@ -180,13 +188,16 @@ Explicitly excluded for v1. Documented to prevent scope creep.
 | EXPL-03 | Fase 7 | Complete (Plan 07-01 — 3 sub-templates summary-errors render `<p class="summary-error-explanation">`) |
 | EXPL-04 | Fase 7 | Complete (Plan 07-01 + Plan 07-02 — 50/50 explanations curadas Preposiciones via patrón D-85 + smoke test paramétrico coverage/ASCII/no-markdown) |
 | EXPL-05 | Fase 7 | Complete (Plan 07-02 — reapertura PROJECT.md Out of Scope a Validated + Key Decision audit trail del pivote post-uso-real) |
+| EXPL-06 | Fase 7.1 | Complete (Plan 7.1-01 — 50 Preposiciones re-acentuadas + 3 fixes bonus aprobados + Plan 7.1-02 — 40 Génnum ingestadas con acentos correctos) |
+| EXPL-07 | Fase 7.1 | Complete (Plan 7.1-02 — ingest 40 explanations Género-Número del draft del autor, 1 commit honesto, D-141) |
+| EXPL-08 | Fase 7.1 | Complete (Plan 7.1-01 — bloque paramétrico CATEGORIES_WITH_EXPLANATIONS + Plan 7.1-02 — 2ª entry añadida, tests 184/184 verdes) |
 
 **Coverage:**
-- v1 requirements: 48 total (40 originales + SEED-03 Phase 5 + UX-01/UX-02 Phase 6 + EXPL-01..05 Phase 7)
-- Mapped to phases: 48 (100%)
+- v1 requirements: **51** total (48 Phase 1..7 + 3 EXPL-06..08 Phase 7.1)
+- Mapped to phases: 51 (100%)
 - Unmapped: 0
-- **Completed: 48/48 (100%)** tras Phase 7 cierre. Milestone v1.0 funcionalmente completo + extendido con explicaciones pedagógicas opcionales (Preposiciones cubierta como seed; 6 categorías restantes opcionales para fases incrementales 7.1, 7.2, ... si emerge dolor).
+- **Completed: 51/51 (100%)** tras Phase 7.1 cierre. Milestone v1.0 ampliado con canon ortográfico canónico + 2ª categoría con explanations. Patrón paramétrico instalado para fases incrementales futuras.
 
 ---
 *Requirements defined: 2026-05-23*
-*Last updated: 2026-05-25 after Phase 7 completion (EXPL-01..05 cerrados — 50/50 explanations Preposiciones curadas + render inline + render summary + reapertura PROJECT.md Out of Scope con audit trail). 48/48 v1 requirements complete; milestone v1.0 ampliado con explicaciones pedagógicas opcionales — pivote post-uso-real documentado.*
+*Last updated: 2026-05-25 after Phase 7.1 completion (EXPL-06..08 cerrados — 50 Preposiciones re-acentuadas + 40 Génnum ingestadas + smoke test paramétrico CATEGORIES_WITH_EXPLANATIONS extensible). 51/51 v1 requirements complete; milestone v1.0 ampliado con canon ortográfico canónico universal + patrón paramétrico instalado para fases incrementales 7.2..7.6.*
