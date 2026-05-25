@@ -965,7 +965,8 @@ describe('data/schema-validator — payload.explanation (Phase 7 D-116)', () => 
 
 const CATEGORIES_WITH_EXPLANATIONS = [
   { file: 'content/exercises/preposiciones.json', expected: 50 },
-  // Plan 7.1-02 añadirá: { file: 'content/exercises/genero-numero.json', expected: 40 }
+  { file: 'content/exercises/genero-numero.json', expected: 40 },
+  // Fases 7.2+ añadirán: avere, essere, verbos-movimiento, profesiones, sustantivos-irregulares
 ];
 
 describe('Categorías con explanation coverage (Phase 7.1+)', () => {
