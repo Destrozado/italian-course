@@ -168,6 +168,16 @@ function validateMultipleChoicePayload(ex, file, push) {
   if (!Number.isInteger(correctIndex) || correctIndex < 0 || correctIndex >= optsLen) {
     push(file, ex.id, `"payload.correctIndex" inválido: ${correctIndex} (debe ser entero en rango [0, ${optsLen}))`);
   }
+
+  // Phase 7 plan 01 (D-116, EXPL-01): regla opcional `payload.explanation`.
+  // Si está presente, debe ser string no vacío (rechaza `null`, number, array,
+  // object, `""`, `"   "`). Si está ausente, back-compat con los 271 ejercicios
+  // pre-Phase-7. Sin enforce de longitud (D-128 es recomendación editorial).
+  if (ex.payload.explanation !== undefined) {
+    if (typeof ex.payload.explanation !== 'string' || !ex.payload.explanation.trim()) {
+      push(file, ex.id, '"payload.explanation" debe ser string no vacío si está presente');
+    }
+  }
 }
 
 /**
@@ -203,6 +213,14 @@ function validateWordButtonsPayload(ex, file, push) {
       push(file, ex.id, `"payload.distractors" debe ser array si está presente (encontrado: ${typeof distractors})`);
     } else if (distractors.some(t => typeof t !== 'string' || !t.trim())) {
       push(file, ex.id, '"payload.distractors" contiene tokens vacíos o no-string');
+    }
+  }
+
+  // Phase 7 plan 01 (D-116, EXPL-01): regla opcional `payload.explanation`.
+  // Misma semántica que en multi-choice — uniforme cross-types (D-113).
+  if (ex.payload.explanation !== undefined) {
+    if (typeof ex.payload.explanation !== 'string' || !ex.payload.explanation.trim()) {
+      push(file, ex.id, '"payload.explanation" debe ser string no vacío si está presente');
     }
   }
 }
@@ -251,4 +269,14 @@ function validateMatchPayload(ex, file, push) {
       push(file, ex.id, `"payload.pairs[${idx}][1]" debe ser string no vacío`);
     }
   });
+
+  // Phase 7 plan 01 (D-116, EXPL-01): regla opcional `payload.explanation`.
+  // Misma semántica que en multi-choice y word-buttons — uniforme cross-types
+  // (D-113). En match, la explicación se renderiza tras el grid antes de
+  // "Siguiente" porque no existe línea "Respuesta correcta:" en este tipo.
+  if (ex.payload.explanation !== undefined) {
+    if (typeof ex.payload.explanation !== 'string' || !ex.payload.explanation.trim()) {
+      push(file, ex.id, '"payload.explanation" debe ser string no vacío si está presente');
+    }
+  }
 }

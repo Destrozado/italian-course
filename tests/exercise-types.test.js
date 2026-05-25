@@ -854,3 +854,96 @@ describe('appShell match handlers — smoke (W5)', () => {
       'initSubStateForExercise debe barajar matchRight con fisherYates (D-62)');
   });
 });
+
+// ────────────────────────────────────────────────────────────────────────────
+// data/schema-validator — payload.explanation (Phase 7 plan 01, D-116 / EXPL-01)
+//
+// Regla uniforme cross-3-types: `payload.explanation` es opcional; si está
+// presente, debe ser string no vacío. Si está ausente, back-compat con los 271
+// ejercicios pre-Phase-7.
+//
+// Cubre 4 sub-cases × 3 tipos = 12 tests:
+//   - accepts sin explanation (back-compat)
+//   - accepts string válido
+//   - rejects no-string (number)
+//   - rejects string vacío (whitespace puro)
+// ────────────────────────────────────────────────────────────────────────────
+
+describe('data/schema-validator — payload.explanation (Phase 7 D-116)', () => {
+  const validCategories = [{ id: 'avere', name: 'Avere', order: 1 }];
+  const validPayloadByType = {
+    'multiple-choice': { prompt: 'Hello ___ world', options: ['a', 'b', 'c'], correctIndex: 0 },
+    'word-buttons':    { prompt: 'Hello world', answer: ['a', 'b'] },
+    'match':           { prompt: 'Match', pairs: [['a', 'x'], ['b', 'y']] }
+  };
+
+  for (const type of ['multiple-choice', 'word-buttons', 'match']) {
+    test(`${type}: accepts exercise WITHOUT explanation (back-compat)`, () => {
+      const result = validateContent({
+        categories: validCategories,
+        exercisesByFile: {
+          'avere.json': [{
+            id: `expl-${type}-omitted`,
+            type,
+            categoryIds: ['avere'],
+            payload: validPayloadByType[type]
+          }]
+        }
+      });
+      assert.equal(result.ok, true, JSON.stringify(result.errors));
+    });
+
+    test(`${type}: accepts exercise WITH explanation string`, () => {
+      const result = validateContent({
+        categories: validCategories,
+        exercisesByFile: {
+          'avere.json': [{
+            id: `expl-${type}-string`,
+            type,
+            categoryIds: ['avere'],
+            payload: { ...validPayloadByType[type], explanation: 'Esta es una regla didactica.' }
+          }]
+        }
+      });
+      assert.equal(result.ok, true, JSON.stringify(result.errors));
+    });
+
+    test(`${type}: rejects explanation non-string (number)`, () => {
+      const result = validateContent({
+        categories: validCategories,
+        exercisesByFile: {
+          'avere.json': [{
+            id: `expl-${type}-num`,
+            type,
+            categoryIds: ['avere'],
+            payload: { ...validPayloadByType[type], explanation: 42 }
+          }]
+        }
+      });
+      assert.equal(result.ok, false);
+      assert.ok(
+        result.errors.some(e => /explanation/.test(e.reason) && e.exerciseId === `expl-${type}-num`),
+        `Esperaba error sobre explanation; errores: ${JSON.stringify(result.errors)}`
+      );
+    });
+
+    test(`${type}: rejects explanation empty string`, () => {
+      const result = validateContent({
+        categories: validCategories,
+        exercisesByFile: {
+          'avere.json': [{
+            id: `expl-${type}-empty`,
+            type,
+            categoryIds: ['avere'],
+            payload: { ...validPayloadByType[type], explanation: '   ' }
+          }]
+        }
+      });
+      assert.equal(result.ok, false);
+      assert.ok(
+        result.errors.some(e => /explanation/.test(e.reason) && e.exerciseId === `expl-${type}-empty`),
+        `Esperaba error sobre explanation vacío; errores: ${JSON.stringify(result.errors)}`
+      );
+    });
+  }
+});
