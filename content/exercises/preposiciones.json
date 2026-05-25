@@ -19,7 +19,8 @@
       "payload": {
         "prompt": "Vado ___ casa.",
         "options": ["in", "a", "da", "per"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "Con la palabra casa el italiano usa la preposicion A como excepcion idiomatica, no In como dicta la regla general de paesi y regioni. Vado a casa equivale a 'voy a mi casa' como locucion fija. Cuidado: el hispanohablante piensa en 'en casa' y se inclina por In, pero con casa el italiano siempre usa A."
       },
       "notes": "Preposición 'a' = dirección con 'casa' (excepción A1 idiomática). PDF §Preposizioni semplici, ejemplo 'Vado a casa'."
     },
@@ -30,7 +31,8 @@
       "payload": {
         "prompt": "Vengo ___ Milano.",
         "options": ["di", "a", "da", "in"],
-        "correctIndex": 2
+        "correctIndex": 2,
+        "explanation": "La preposicion Da marca el punto de partida o procedencia de un movimiento concreto: de donde sales o de donde acabas de venir. Vengo da Milano se traduce como 'vengo desde Milan'. Se distingue de Di, que indica origen estable (Sono di Milano = soy de Milan, identidad permanente)."
       },
       "notes": "Preposición 'da' = provenienza (vengo desde Milán). PDF §Preposizioni semplici, ejemplo 'Vengo da Milano'."
     },
@@ -41,7 +43,8 @@
       "payload": {
         "prompt": "Vivo ___ Italia.",
         "options": ["a", "in", "da", "su"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "Con paesi y regioni el italiano usa la preposicion In para indicar el lugar donde se vive o se esta. Vivo in Italia significa 'vivo en Italia'. La regla contrasta con las ciudades, que llevan A (Vivo a Milano). ¡Atencion!: el hispanohablante tiende a usar 'a' para ambos, pero el italiano distingue paese (In) vs citta (A)."
       },
       "notes": "Preposición 'in' = luogo (paesi/regioni). PDF §Preposizioni semplici, ejemplo canónico 'Vivo in Italia'. Pitfall A1 frecuente: 'in' con países, 'a' con ciudades."
     },
@@ -52,7 +55,8 @@
       "payload": {
         "prompt": "Esco ___ amici stasera.",
         "options": ["di", "per", "con", "tra"],
-        "correctIndex": 2
+        "correctIndex": 2,
+        "explanation": "La preposicion Con indica compagnia: con quien se realiza la accion. Esco con amici stasera equivale a 'salgo con amigos esta noche'. Es el uso mas directo de Con y suele resultar transparente para el hispanohablante porque coincide con la preposicion espanola 'con' en este contexto."
       },
       "notes": "Preposición 'con' = compagnia. PDF §Preposizioni semplici, ejemplo 'Esco con amici'."
     },
@@ -75,7 +79,8 @@
       "payload": {
         "prompt": "Studio ___ imparare l'italiano.",
         "options": ["di", "a", "per", "con"],
-        "correctIndex": 2
+        "correctIndex": 2,
+        "explanation": "La preposicion Per expresa scopo o finalidad: para que se hace la accion. Studio per imparare l'italiano se traduce como 'estudio para aprender italiano'. Per se construye siempre con infinitivo cuando introduce un objetivo, igual que el espanol 'para + infinitivo'."
       },
       "notes": "Preposición 'per' = scopo/finalidad. PDF §Preposizioni semplici, ejemplo 'Studio per imparare'."
     },
@@ -86,7 +91,8 @@
       "payload": {
         "prompt": "___ due giorni parto.",
         "options": ["Per", "In", "Tra", "Da"],
-        "correctIndex": 2
+        "correctIndex": 2,
+        "explanation": "La preposicion Tra indica tempo futuro: dentro de cuanto tiempo ocurrira algo. Tra due giorni parto equivale a 'dentro de dos dias salgo'. Tra y Fra son sinonimos intercambiables segun el PDF de la profesora; ambos miden distancia temporal hacia el futuro desde el momento presente."
       },
       "notes": "Preposición 'tra' = tempo futuro (dentro de). PDF §Preposizioni semplici, ejemplo 'Tra due giorni parto'. Mayúscula inicial por estar al inicio de frase. Nota: PDF presenta 'tra/fra' como sinónimos sin distinción eufónica, por lo que sólo cubrimos 'tra' explícito."
     },
@@ -97,7 +103,8 @@
       "payload": {
         "prompt": "Ho studiato ___ due ore.",
         "options": ["a", "per", "in", "da"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "Per ademas de finalidad expresa durata: cuanto tiempo dura una accion. Ho studiato per due ore se traduce como 'he estudiado durante dos horas'. El hispanohablante puede confundirla con 'por' o 'durante', pero el italiano fija Per para todo periodo de tiempo cuantificado."
       },
       "notes": "Preposición 'per' = durata (durante). PDF §Preposizioni semplici, ejemplo 'per due ore'."
     },
@@ -108,7 +115,8 @@
       "payload": {
         "prompt": "Il libro ___ Marco è interessante.",
         "options": ["di", "da", "per", "a"],
-        "correctIndex": 0
+        "correctIndex": 0,
+        "explanation": "Di indica posesso o pertenencia: a quien pertenece algo. Il libro di Marco se traduce como 'el libro de Marco'. Delante de nombres propios Di nunca se contrae con articulo (no se dice 'del Marco'), igual que en espanol no se dice 'el libro del Marco'."
       },
       "notes": "Preposición 'di' = posesso. PDF §Preposizioni semplici, 'di → possesso'. 'Il libro di Marco' = el libro de Marco."
     },
@@ -119,7 +127,8 @@
       "payload": {
         "prompt": "Andiamo ___ cinema.",
         "options": ["a", "al", "nel", "in"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "Cuando A precede a un sustantivo con articulo definido se fusiona en una preposicion articolata. A + Il (masc sing) = Al. Andiamo al cinema equivale a 'vamos al cine'. El error tipico A1 es usar la preposicion simple A sola, olvidando que el articulo Il debe contraerse con ella."
       },
       "notes": "Preposición articolata 'al' = a + il. PDF §Preposizioni articolate, fila 'a' columna 'il'. 'Andiamo al cinema' = vamos al cine. Distractora 'a' = preposición simple (incorrecta — falta el artículo); 'nel' = en el (luogo cerrado distinto)."
     },
@@ -130,7 +139,8 @@
       "payload": {
         "prompt": "La macchina ___ Maria è rossa.",
         "options": ["di", "della", "dalla", "alla"],
-        "correctIndex": 0
+        "correctIndex": 0,
+        "explanation": "Delante de nombres propios Di permanece simple y no se contrae con articulo: en italiano no se dice 'della Maria' como tampoco en espanol se dice 'la Maria'. La macchina di Maria significa 'el coche de Maria'. La regla aplica a cualquier nombre propio de persona."
       },
       "notes": "Preposición simple 'di' con nombre propio (posesión). Antes de nombre propio NO se contrae con artículo (no 'della Maria'). Distractoras = articolate del mismo grupo."
     },
@@ -141,7 +151,8 @@
       "payload": {
         "prompt": "Le chiavi sono ___ tavolo.",
         "options": ["nel", "sul", "al", "dal"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "Su con contacto fisico horizontal se fusiona con el articulo definido masculino singular Il dando Sul. Le chiavi sono sul tavolo se traduce como 'las llaves estan sobre la mesa'. La distractora Nel implicaria 'dentro de' (cajon, caja), mientras que Sul exige superficie expuesta."
       },
       "notes": "Preposición articolata 'sul' = su + il (sobre). PDF §Preposizioni articolate. Refuerza preposiciones-006 con otra escena. Distractora 'nel' = dentro de (semánticamente plausible pero incorrecta para 'sobre')."
     },
@@ -152,7 +163,8 @@
       "payload": {
         "prompt": "Vengo ___ stazione.",
         "options": ["dalla", "alla", "nella", "sulla"],
-        "correctIndex": 0
+        "correctIndex": 0,
+        "explanation": "Da combinada con el articulo femenino singular La produce la preposicion articolata Dalla. Vengo dalla stazione significa 'vengo desde la estacion'. La regla generaliza el movimiento de origen del ejercicio 003 (Vengo da Milano) al caso donde el sustantivo lleva articulo definido."
       },
       "notes": "Preposición articolata 'dalla' = da + la (vengo desde la estación). PDF §Preposizioni articolate, fila 'da' columna 'la'. Distractoras = otras articolate +la del mismo cuadro."
     },
@@ -163,7 +175,8 @@
       "payload": {
         "prompt": "Parlo ___ telefono.",
         "options": ["a", "al", "per", "con"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "En italiano la locucion fija para hablar por telefono es parlare al telefono, con A contraida en Al (a + il). Parlo al telefono se traduce literalmente como 'hablo al telefono', no como 'hablo por telefono' del espanol. Ojo: el hispanohablante elige 'a' simple olvidando que el articulo Il debe contraerse."
       },
       "notes": "Preposición articolata 'al' = a + il (al teléfono, idiomático). PDF §Preposizioni articolate. Distractora 'a' = sin artículo (incorrecta — 'parlare al telefono' es la forma fija)."
     },
@@ -174,7 +187,8 @@
       "payload": {
         "prompt": "Vado ___ Roma quest'estate.",
         "options": ["in", "a", "da", "per"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "Con nombres de ciudad el italiano usa la preposicion A para direzione, no In. Vado a Roma quest'estate equivale a 'voy a Roma este verano'. La regla contrasta con paesi y regioni, que llevan In (Vado in Italia). Importante: distinguir ciudad (A) vs pais (In) es uno de los errores mas tipicos del A1."
       },
       "notes": "Preposición 'a' = direzione con ciudad (caso particular A1). PDF §Preposizioni semplici, 'a → direzione'. Pitfall A1 frecuente: 'a' con ciudades vs 'in' con países (ver preposiciones-004). Distractora 'in' = país (incorrecta — Roma es ciudad)."
     },
@@ -185,7 +199,8 @@
       "payload": {
         "prompt": "Pranziamo ___ mezzogiorno.",
         "options": ["in", "per", "a", "tra"],
-        "correctIndex": 2
+        "correctIndex": 2,
+        "explanation": "La preposicion A indica tempo cuando se senala una hora concreta del dia. Pranziamo a mezzogiorno se traduce como 'almorzamos al mediodia'. Misma regla con las horas: alle otto, a mezzanotte. Equivale al espanol 'a las ocho' que tambien usa A para fijar la hora."
       },
       "notes": "Preposición 'a' = tempo (la hora). PDF §Preposizioni semplici, ejemplo 'a mezzogiorno'."
     },
