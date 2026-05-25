@@ -951,6 +951,209 @@ describe('data/schema-validator — payload.explanation (Phase 7 D-116)', () => 
 });
 
 // ────────────────────────────────────────────────────────────────────────────
+// Phase 9 D-VAL-08 — Validation field (top-level opcional)
+// ────────────────────────────────────────────────────────────────────────────
+//
+// Cobertura del nuevo validator `validateValidationShape` (top-level del
+// ejercicio, NO payload). Reglas:
+//   - Campo ausente = aceptado (back-compat con los 271 ejercicios actuales)
+//   - status whitelist: pending | validated | disputed
+//   - passes[] array con entries {by, date, verdict, concerns?}
+//   - by string no vacío; date ISO YYYY-MM-DD; verdict whitelist correcta|incorrecta;
+//     concerns (si presente) array de strings
+//
+// Mensajes en español (FOUND-04).
+
+describe('data/schema-validator — validation field (Phase 9 D-VAL-08)', () => {
+  const validCategories = [{ id: 'avere', name: 'Avere', order: 1 }];
+  const baseExercise = {
+    id: 'val-test-001',
+    type: 'multiple-choice',
+    categoryIds: ['avere'],
+    payload: { prompt: 'Io ___ una macchina.', options: ['ho', 'hai', 'ha', 'abbiamo'], correctIndex: 0 }
+  };
+  const validatePayload = (ex) => validateContent({
+    categories: validCategories,
+    exercisesByFile: { 'avere.json': [ex] }
+  });
+
+  test('1. ejercicio SIN campo validation → ok (back-compat 271 actuales)', () => {
+    const result = validatePayload({ ...baseExercise });
+    assert.equal(result.ok, true, JSON.stringify(result.errors));
+  });
+
+  test('2. validation no-objeto (string / array / null) → error', () => {
+    for (const bad of ['not-an-object', ['array'], null]) {
+      const result = validatePayload({ ...baseExercise, validation: bad });
+      assert.equal(result.ok, false, `Esperaba fail con validation=${JSON.stringify(bad)}`);
+      assert.ok(
+        result.errors.some(e => /validation/.test(e.reason) && /objeto/.test(e.reason)),
+        `Esperaba error sobre validation no-objeto; errores: ${JSON.stringify(result.errors)}`
+      );
+    }
+  });
+
+  test('3. validation.status fuera de whitelist → error', () => {
+    const result = validatePayload({
+      ...baseExercise,
+      validation: { status: 'invalid-status', passes: [] }
+    });
+    assert.equal(result.ok, false);
+    assert.ok(
+      result.errors.some(e => /validation\.status/.test(e.reason) && /pending|validated|disputed/.test(e.reason)),
+      `Esperaba error sobre validation.status con whitelist; errores: ${JSON.stringify(result.errors)}`
+    );
+  });
+
+  test('4. validation.status faltante → error', () => {
+    const result = validatePayload({
+      ...baseExercise,
+      validation: { passes: [] }
+    });
+    assert.equal(result.ok, false);
+    assert.ok(
+      result.errors.some(e => /validation\.status/.test(e.reason)),
+      `Esperaba error sobre validation.status faltante; errores: ${JSON.stringify(result.errors)}`
+    );
+  });
+
+  test('5. validation.passes no-array → error', () => {
+    const result = validatePayload({
+      ...baseExercise,
+      validation: { status: 'pending', passes: 'not-an-array' }
+    });
+    assert.equal(result.ok, false);
+    assert.ok(
+      result.errors.some(e => /validation\.passes/.test(e.reason) && /array/.test(e.reason)),
+      `Esperaba error sobre validation.passes no-array; errores: ${JSON.stringify(result.errors)}`
+    );
+  });
+
+  test('6. passes[0].by no-string o vacío → error', () => {
+    for (const badBy of [42, '', '   ', null, undefined]) {
+      const result = validatePayload({
+        ...baseExercise,
+        validation: {
+          status: 'pending',
+          passes: [{ by: badBy, date: '2026-05-26', verdict: 'correcta' }]
+        }
+      });
+      assert.equal(result.ok, false, `Esperaba fail con by=${JSON.stringify(badBy)}`);
+      assert.ok(
+        result.errors.some(e => /passes\[0\]\.by/.test(e.reason)),
+        `Esperaba error sobre passes[0].by; errores: ${JSON.stringify(result.errors)}`
+      );
+    }
+  });
+
+  test('7. passes[0].date sin formato ISO YYYY-MM-DD → error', () => {
+    const result = validatePayload({
+      ...baseExercise,
+      validation: {
+        status: 'pending',
+        passes: [{ by: 'claude-opus-4-7', date: '26/05/2026', verdict: 'correcta' }]
+      }
+    });
+    assert.equal(result.ok, false);
+    assert.ok(
+      result.errors.some(e => /passes\[0\]\.date/.test(e.reason) && /ISO|YYYY-MM-DD/.test(e.reason)),
+      `Esperaba error sobre passes[0].date formato ISO; errores: ${JSON.stringify(result.errors)}`
+    );
+  });
+
+  test('8. passes[0].verdict fuera de whitelist → error', () => {
+    const result = validatePayload({
+      ...baseExercise,
+      validation: {
+        status: 'pending',
+        passes: [{ by: 'claude-opus-4-7', date: '2026-05-26', verdict: 'tal-vez' }]
+      }
+    });
+    assert.equal(result.ok, false);
+    assert.ok(
+      result.errors.some(e => /passes\[0\]\.verdict/.test(e.reason) && /correcta|incorrecta/.test(e.reason)),
+      `Esperaba error sobre passes[0].verdict con whitelist; errores: ${JSON.stringify(result.errors)}`
+    );
+  });
+
+  test('9. passes[0].concerns no-array o con non-string → error', () => {
+    // No-array
+    let result = validatePayload({
+      ...baseExercise,
+      validation: {
+        status: 'pending',
+        passes: [{ by: 'claude-opus-4-7', date: '2026-05-26', verdict: 'correcta', concerns: 'not-array' }]
+      }
+    });
+    assert.equal(result.ok, false);
+    assert.ok(
+      result.errors.some(e => /passes\[0\]\.concerns/.test(e.reason)),
+      `Esperaba error sobre passes[0].concerns no-array; errores: ${JSON.stringify(result.errors)}`
+    );
+    // Array con elemento non-string
+    result = validatePayload({
+      ...baseExercise,
+      validation: {
+        status: 'pending',
+        passes: [{ by: 'claude-opus-4-7', date: '2026-05-26', verdict: 'correcta', concerns: ['ok', 42] }]
+      }
+    });
+    assert.equal(result.ok, false);
+    assert.ok(
+      result.errors.some(e => /passes\[0\]\.concerns/.test(e.reason)),
+      `Esperaba error sobre passes[0].concerns con non-string; errores: ${JSON.stringify(result.errors)}`
+    );
+  });
+
+  test('10. happy-path: status validated + 2 passes correctas distintas → ok', () => {
+    const result = validatePayload({
+      ...baseExercise,
+      validation: {
+        status: 'validated',
+        passes: [
+          { by: 'claude-opus-4-7', date: '2026-05-26', verdict: 'correcta' },
+          { by: 'claude-sonnet-4-6', date: '2026-05-26', verdict: 'correcta' }
+        ]
+      }
+    });
+    assert.equal(result.ok, true, JSON.stringify(result.errors));
+  });
+
+  test('11. passes[] vacío con status pending → ok (estado inicial legítimo)', () => {
+    const result = validatePayload({
+      ...baseExercise,
+      validation: { status: 'pending', passes: [] }
+    });
+    assert.equal(result.ok, true, JSON.stringify(result.errors));
+  });
+
+  test('12. passes[0] no-objeto → error', () => {
+    const result = validatePayload({
+      ...baseExercise,
+      validation: { status: 'pending', passes: ['not-an-object'] }
+    });
+    assert.equal(result.ok, false);
+    assert.ok(
+      result.errors.some(e => /passes\[0\]/.test(e.reason) && /objeto/.test(e.reason)),
+      `Esperaba error sobre passes[0] no-objeto; errores: ${JSON.stringify(result.errors)}`
+    );
+  });
+
+  test('13. concerns con array de strings válidos (happy-path opcional) → ok', () => {
+    const result = validatePayload({
+      ...baseExercise,
+      validation: {
+        status: 'disputed',
+        passes: [
+          { by: 'claude-opus-4-7', date: '2026-05-26', verdict: 'incorrecta', concerns: ['[C5-leak] el prompt filtra la regla'] }
+        ]
+      }
+    });
+    assert.equal(result.ok, true, JSON.stringify(result.errors));
+  });
+});
+
+// ────────────────────────────────────────────────────────────────────────────
 // Phase 7.1 EXPL-08 — Smoke test parametrizado para coverage por categoría
 // ────────────────────────────────────────────────────────────────────────────
 // Array extensible: añadir 1 entry por categoría que tenga explanations
