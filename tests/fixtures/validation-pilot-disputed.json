@@ -1,0 +1,16 @@
+{
+  "exercises": [
+    {
+      "id": "pilot-disputed-c5-leak-001",
+      "type": "multiple-choice",
+      "categoryIds": ["genero-numero"],
+      "payload": {
+        "prompt": "Una casa, due ___ (refuerzo regla §1 fem -a→-e).",
+        "options": ["casi", "case", "casa", "cases"],
+        "correctIndex": 1,
+        "explanation": "Plural femenino -a→-e."
+      },
+      "notes": "FIXTURE DE PILOTO Phase 9 — viola R1/C5 deliberadamente. NO usar en producción. NO cargar via content-loader."
+    }
+  ]
+}

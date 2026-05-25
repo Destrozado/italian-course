@@ -23,6 +23,12 @@
 //   - `notes` — campo autor-internal (anotaciones del autor sobre el PDF de
 //     origen, distractoras pedagógicas, etc.). No se lee en runtime; ya era
 //     conceptualmente aditivo, ahora se documenta como tal.
+//   - `validation` — metadata de quórum AI introducido en Phase 9 D-VAL-08
+//     (campo top-level con `{status, passes[]}`). No altera prompt/options/
+//     correctIndex/explanation/notes de los 17 originales, solo añade
+//     trazabilidad editorial (verdicts Opus + Sonnet + concerns tagged).
+//     El relax permite que Plan 09-03 añada `validation` a `avere-001` (E2
+//     baseline del piloto) sin re-snapshotear.
 //
 // El invariante D-88 sigue vigente sobre los campos core: si alguien modifica
 // un prompt, cambia el correctIndex, reordena options, o inserta un ejercicio
@@ -64,16 +70,22 @@ const snapshotPath = resolve(projectRoot, 'scripts/.avere-prefix-snapshot.json')
 
 /**
  * Devuelve una copia del ejercicio sin los campos puramente aditivos
- * (`payload.explanation` introducido en Phase 7.2 y `notes` autor-internal).
- * D-178 opción A: permite adiciones aditivas como explanation sin romper
- * el invariante D-88 sobre los campos semánticos.
+ * (`payload.explanation` introducido en Phase 7.2, `notes` autor-internal, y
+ * `validation` introducido en Phase 9 D-VAL-08 — metadata de quórum AI).
+ * D-178 opción A + Phase 9 D-VAL-08: permite adiciones aditivas como
+ * explanation/validation sin romper el invariante D-88 sobre los campos
+ * semánticos (prompt/options/correctIndex/pairs/answer/distractors).
  *
  * Symmetric: se aplica al snapshot (before) y al estado actual (after) para
  * que el deepStrictEqual ignore esos campos en ambos lados (un snapshot que
- * incluía `notes` sigue funcionando idéntico tras añadir `explanation`).
+ * incluía `notes` sigue funcionando idéntico tras añadir `explanation` y
+ * después `validation`).
  */
 function stripAdditive(ex) {
-  const { payload, notes, ...rest } = ex;
+  // D-178 opción A + Phase 9 D-VAL-08: campos puramente aditivos que no
+  // alteran la semántica del ejercicio. `payload.explanation` (Phase 7.2),
+  // `notes` (autor-internal), `validation` (Phase 9 — metadata de quórum AI).
+  const { payload, notes, validation, ...rest } = ex;
   if (!payload || typeof payload !== 'object') {
     return { ...rest, payload };
   }
@@ -120,12 +132,12 @@ try {
   assert.deepStrictEqual(afterCore, beforeCore);
 } catch (err) {
   console.error('Los primeros 17 ejercicios de avere.json HAN CAMBIADO en sus campos CORE. D-88 invariante violado (APPEND-ONLY de campos semánticos).');
-  console.error('Diff structural (excluyendo payload.explanation y notes que son aditivos D-178):');
+  console.error('Diff structural (excluyendo payload.explanation, notes y validation que son aditivos D-178 + D-VAL-08):');
   console.error(err.message);
   process.exit(1);
 }
 
-console.log('OK: los 17 ejercicios originales de avere.json están intactos en sus campos CORE (D-88 APPEND-ONLY preserved + D-178 explanation/notes son aditivos).');
+console.log('OK: los 17 ejercicios originales de avere.json están intactos en sus campos CORE (D-88 APPEND-ONLY preserved + D-178 explanation/notes + D-VAL-08 validation son aditivos).');
 console.log(`IDs verificados: ${afterCore.map(e => e.id).join(', ')}`);
 if (overridePath) {
   console.log(`(Ejecutado contra path alternativo: ${avereSource})`);
