@@ -967,7 +967,8 @@ const CATEGORIES_WITH_EXPLANATIONS = [
   { file: 'content/exercises/preposiciones.json', expected: 50 },
   { file: 'content/exercises/genero-numero.json', expected: 40 },
   { file: 'content/exercises/avere.json', expected: 23 },
-  // Plans 7.2-02..05 añadirán: sustantivos-irregulares, verbos-movimiento, essere, profesiones
+  { file: 'content/exercises/sustantivos-irregulares.json', expected: 31 },
+  // Plans 7.2-03..05 añadirán: verbos-movimiento, essere, profesiones
 ];
 
 describe('Categorías con explanation coverage (Phase 7.1+)', () => {
