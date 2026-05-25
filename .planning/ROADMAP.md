@@ -324,6 +324,10 @@ Cada fase entrega valor usable independientemente:
 
 **Status:** Backlog. Items deferred del CONTEXT.md §`<deferred>` de Phase 8 — capturados para no perderlos pero out-of-scope Phase 8: (a) Examen multi-cat (selección de 2-3 cats para examinar en bloque); (b) atajos de teclado (E + número de fila); (c) copy especializada en banner reanudar ("Examen de Avere a medias" vs "Test completo a medias"); (d) diferenciación visual en pantalla session entre Examen y Test completo regular; (e) homogeneización de las 6 call-sites del helper `requestConfirm` con confirmLabel unificado (`'Continuar'` vs `'Descartar y empezar'`).
 
+### Phase 8.y (post-v1.0, opcional): Botón "Reiniciar examen" en pantalla session
+
+**Status:** Backlog. Capturado durante cierre milestone v1.0 (2026-05-25, sign-off informal del autor). Hoy `restartRepaso()` solo dispara cuando `sessionMode === 'repaso'` (guard defensivo D-100). Para Examen (sessionMode='test-completo' D-189) el botón "Reiniciar ejercicios" no aparece — coherente con el comportamiento de Test Completo regular, pero el autor lo echaría en falta dentro de un Examen para empezar de cero la misma cat sin volver al home + click Examen otra vez. Implementación esperada: extender el guard a `sessionMode === 'repaso' || sessionMode === 'test-completo'` + re-llamar `buildFullTest([catId])` cuando es test-completo (en vez de `buildSession`) + condicional x-show del botón actualizado. Trivial via `/gsd-quick` cuando emerja dolor en uso real.
+
 ---
 *Roadmap created: 2026-05-23*
 *Last updated: 2026-05-25 after Phase 8 completion (1 plan ejecutado: 08-01 botón Examen por categoría). 209/209 tests verdes (202 baseline + 7 sub-tests presence-check del nuevo `tests/screen-examen.test.js`). EXAM-01..05 cerrados; milestone v1.0 ampliado con Modo Examen incremental. 62/62 v1 requirements complete.*

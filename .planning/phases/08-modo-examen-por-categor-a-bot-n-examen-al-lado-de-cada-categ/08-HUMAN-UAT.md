@@ -1,13 +1,16 @@
 ---
-status: partial
+status: passed
 phase: 08-modo-examen-por-categoria
 source: [08-VERIFICATION.md]
 started: 2026-05-25T21:00:00Z
-updated: 2026-05-25T21:00:00Z
+updated: 2026-05-25T21:30:00Z
+sign_off: informal-author-2026-05-25 ("lo veo bastante bien" — durante cierre milestone v1.0)
 ---
 
 # Phase 8: Modo Examen por categoría — Human UAT
 
+> **Status: PASSED (sign-off informal del autor durante cierre milestone v1.0).** El autor declaró "lo veo bastante bien" tras revisar manualmente la feature antes de archivar v1.0. Los 5 UAT formales quedan documentados como referencia futura — si emerge bug específico en uso real, abrir `/gsd-debug` con referencia al UAT correspondiente.
+>
 > Verificación automática completa (9/9 truths). Estas 5 pruebas requieren browser + Alpine runtime + localStorage activo para validar el comportamiento end-to-end de la UI reactiva.
 
 **Cómo correr:** `npx serve` en `/home/vcompanyb/italian-course`, abrir `http://localhost:3000`, ejecutar cada prueba marcando el resultado. Para reset entre pruebas: DevTools → Application → Local Storage → `localStorage.clear()` + recarga.

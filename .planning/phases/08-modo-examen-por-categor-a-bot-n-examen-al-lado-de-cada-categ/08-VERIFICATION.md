@@ -1,9 +1,10 @@
 ---
 phase: 08-modo-examen-por-categoria
-verified: 2026-05-25T21:00:00Z
-status: human_needed
-score: 9/9 must-haves verified
-overrides_applied: 0
+verified: 2026-05-25T21:30:00Z
+status: passed
+score: 9/9 must-haves verified + informal sign-off del autor sobre los 5 UAT humanos (durante cierre milestone v1.0)
+overrides_applied: 1
+override_notes: "HUMAN-UAT 5 items soft-accepted via informal author sign-off ('lo veo bastante bien') durante cierre milestone v1.0 el 2026-05-25. Items quedan documentados en 08-HUMAN-UAT.md como referencia futura para /gsd-debug si emerge bug en uso real."
 human_verification:
   - test: "Click Examen en una categoría con ejercicios (ej. Avere) sin Test completo activo"
     expected: "Arranca directamente sesión Test completo — Ejercicio 1 / 23, sessionMode='test-completo', sin pasar por picker ni confirmación previa"
