@@ -2,14 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-last_updated: "2026-05-25T18:29:59.912Z"
+status: Awaiting next milestone
+last_updated: "2026-05-25T19:10:53.442Z"
+last_activity: 2026-05-25 — Milestone v1.0 completed and archived
 progress:
   total_phases: 12
-  completed_phases: 9
+  completed_phases: 10
   total_plans: 26
-  completed_plans: 25
-  percent: 75
+  completed_plans: 26
+  percent: 83
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -22,14 +23,10 @@ progress:
 
 ## Current Position
 
-Phase: 08 (modo-examen-por-categor-a-bot-n-examen-al-lado-de-cada-categ) — COMPLETED (pending verifier)
-Plan: 1 of 1 complete
-Next: Phase 8 verifier pass → `/gsd:complete-milestone v1.0` con feature Examen ampliando v1.
-
-- **Phase:** 08
-- **Plan:** 08-01 complete (2026-05-25)
-- **Status:** Phase 08 completed — pending verifier
-- **Progress:** [██████████] 100%
+Phase: Milestone v1.0 complete
+Plan: —
+Status: Awaiting next milestone
+Last activity: 2026-05-25 — Milestone v1.0 completed and archived
 
 ## Performance Metrics
 
@@ -247,3 +244,7 @@ UAT-derived backlog (UX-1/UX-2/UX-3) consolidado a lo largo de Phase 4 — captu
 ---
 *State initialized: 2026-05-23*
 *Last updated: 2026-05-25 after Plan 08-01 completion (Phase 8 — Modo Examen por categoría). 209/209 tests verdes (202 baseline post-Phase 7.2 + 7 smoke presence-check del nuevo `tests/screen-examen.test.js`). 4 commits atómicos: Task 1 (handler + helper + computed extension), Task 2 (6ª columna index.html), Task 3 (test file nuevo), Task 4 (audit trail consolidado). EXAM-01..05 cerrados; 62/62 v1 requirements complete. Milestone v1.0 ampliado con feature Examen. Phase 8 1/1 plans complete — pending verifier.*
+
+## Operator Next Steps
+
+- Start the next milestone with /gsd-new-milestone

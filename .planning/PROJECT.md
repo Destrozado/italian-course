@@ -137,12 +137,31 @@ Web personal de ejercicios de italiano para preparar el A1 (y luego A2). Es una 
 - SRS sofisticado (Anki-style, ratio fallos/aciertos ponderado) — priorización simple por "veces hechas" es suficiente al principio
 - Frecuencia reducida o eliminación de categorías "dominadas" en sesiones — el autor quiere que sigan apareciendo igual para no perder forma
 
+## Current State
+
+**v1.0 shipped 2026-05-25** — 10 fases activas (Phases 1-8 incluyendo decimales 7.1/7.2), 26 plans, 271/271 ejercicios curados con explanations pedagógicas en 7 categorías (Avere, Essere, Génnum, Sustantivos-irregulares, Verbos-movimiento, Profesiones, Preposiciones), Modo Examen por categoría operativo. 62/62 v1 requirements complete, 209/209 tests verdes. App lista para uso diario desde `npx serve` con localStorage + backup JSON manual.
+
+**Stack actual:** Alpine.js 3.15.12 + Pico CSS 2.1.1 (CDN+SRI pinned), ES modules vanilla, schemaVersion 4, ~2200 LOC en `src/screens/app.js` + ~220 LOC dominio puro + ~125 LOC tests dominio + 7 archivos JSON contenido.
+
+**Last activity:** 2026-05-25 — Milestone v1.0 archivado, git tag `v1.0` pendiente.
+
+## Next Milestone Goals
+
+> Por definir con `/gsd-new-milestone`. Candidatos naturales del backlog Phase 8.x / 8.y:
+>
+> - Botón "Reiniciar examen" dentro de la sesión de Examen (Phase 8.y trivial)
+> - Atajos de teclado para Examen (E + número fila)
+> - Examen multi-cat (2-3 cats a la vez)
+> - Refactor cosmético confirmLabel unificado en las 6 call-sites
+> - Modo móvil responsive si el autor lo echa en falta tras uso real
+> - Categorías nuevas conforme la profesora entrega material (Pretérito imperfetto, Futuro, Condicionale, Subjuntivo, etc.)
+
 ## Context
 
 - **Material base disponible:** 7 archivos en `material-profesora/` (6 PDFs + 1 ODT grande). Son los temas trabajados en clase y definen las categorías iniciales.
 - **Nivel objetivo:** A1 a corto plazo, A2 a medio plazo. Las categorías irán creciendo a medida que la profesora vaya entregando material.
 - **Filosofía del autor:** "Nada muy sofisticado, es pura repetición y una gestión de los repasos automatizada." Prioriza simplicidad y la mecánica de re-verificación constante sobre features pedagógicas elegantes.
-- **Patrón de uso esperado:** Sesiones diarias cortas de ~20 ejercicios + sesiones largas de "test completo" cuando quiera validar un bloque. La racha de 21 días incentiva la práctica diaria.
+- **Patrón de uso esperado:** Sesiones diarias cortas de ~20 ejercicios + sesiones largas de "test completo" cuando quiera validar un bloque. La racha de 21 días incentiva la práctica diaria. Modo Examen (Phase 8) añade un atajo 1-click para validar dominio de 1 categoría sin hacer 5-6 Repasos seguidos.
 
 ## Constraints
 

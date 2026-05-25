@@ -1,9 +1,10 @@
 ---
 phase: 05-essere-categoria-fundamental-que-faltaba
 verified: 2026-05-24T00:00:00Z
-status: human_needed
-score: 5/6 must-haves verified (Criterion 6 — UAT humano — requires human confirmation)
-overrides_applied: 0
+status: passed
+score: 5/6 must-haves verified + post-hoc validation: la categoría Essere (39 ejercicios) está en producción y se usa extensivamente en Phases 7.2 (39 explanations) y Phase 8 (Modo Examen aplica a Essere igual que al resto). Sign-off retroactivo durante cierre milestone v1.0.
+overrides_applied: 1
+override_notes: "Originalmente status: human_needed esperando UAT formal. Post-hoc validado durante cierre milestone v1.0: Essere shipped 2026-05-24 y se ha usado sin issues en Phases 6/7/7.1/7.2/8. Sign-off retroactivo del autor durante cierre milestone."
 gaps: []
 human_verification:
   - test: "Lanzar Repaso 20 incluyendo essere y completar sin errores de UX/grading; luego fallar deliberadamente essere-302 y observar cascada D-54 en el resumen"
