@@ -289,6 +289,140 @@ export function appShell(appDataReady) {
       this.currentScreen = 'picker';
     },
 
+    // ════════════════════════════════════════════════════════════════════════
+    // Modo Examen por categoría (Phase 8 — D-181..D-192)
+    // ════════════════════════════════════════════════════════════════════════
+
+    /**
+     * Phase 8 (D-181..D-192) — Lanza un Test completo de SOLO la categoría
+     * pasada como parámetro, con 1 click directo desde la tabla home (salta
+     * el picker). Resuelve el dolor canónico "5-6 Repasos para validar dominio
+     * de una sola categoría".
+     *
+     * Semánticas (D-181 / D-186 / D-189):
+     *   - D-181: lanzamiento directo a session sin pasar por picker ni
+     *     "Empezar". Examen es semánticamente Test completo de 1 cat.
+     *   - D-186: sin confirmación previa cuando no hay conflict (el autor
+     *     sabe lo que clickea — el botón está justo en la fila de su cat).
+     *   - D-189: sessionMode = 'test-completo' literal (NO modo nuevo).
+     *
+     * D-44 conflict (6ª call-site del helper requestConfirm):
+     *   - Si state.inFlightTest !== null → requestConfirm con copy literal
+     *     IDÉNTICA al openPicker D-44 línea 275 (D-183 hereda copy genérica
+     *     del banner reanudar — el usuario no necesita saber si el inFlightTest
+     *     activo era Examen o Test regular; semánticamente son lo mismo).
+     *   - confirmLabel: 'Descartar y empezar' (coherente con openPicker — el
+     *     análogo más directo: mismo message + mismo intent).
+     *   - onConfirm: clearInFlightTest() + _launchExamen(categoryId).
+     *   - Cancelar → confirmDialog se cierra sin tocar state (helper estándar).
+     *
+     * El cuerpo del lanzamiento está extraído al helper privado
+     * `_launchExamen(catId)` para evitar duplicación entre el path directo
+     * (sin conflict) y el path post-confirm (tras clearInFlightTest).
+     *
+     * @param {string} categoryId
+     */
+    startExamen(categoryId) {
+      // D-44 conflict (6ª call-site): chequeo ANTES de cualquier mutación.
+      if (this.state.inFlightTest) {
+        this.requestConfirm({
+          message: 'Ya hay un Test completo en curso. ¿Descartarlo y empezar uno nuevo?',
+          confirmLabel: 'Descartar y empezar',
+          cancelLabel: 'Cancelar',
+          onConfirm: () => {
+            this.clearInFlightTest();
+            this._launchExamen(categoryId);
+          }
+        });
+        return;
+      }
+      // Path normal sin conflict: lanzamiento directo (D-181 + D-186).
+      this._launchExamen(categoryId);
+    },
+
+    /**
+     * Phase 8 — helper privado del lanzamiento de Examen. Invocado por
+     * `startExamen` (path directo) y por `requestConfirm.onConfirm` tras
+     * `clearInFlightTest` (path post-conflict D-44).
+     *
+     * Cuerpo del lanzamiento puro: buildFullTest + reset de sub-estados +
+     * persistInFlightTest (D-182 slot único, SIEMPRE persiste) + transición
+     * a `currentScreen='session'`.
+     *
+     * Pattern S-2 cancelaciones defensivas (Phase 3 + Phase 6 D-104):
+     *   - Examen puede venir de mid-match si el path conflict D-44 cancela
+     *     un Test previo a medias. Reset SUPERSET completo de restartRepaso
+     *     (NO el subset corto de startSession) para garantizar que ningún
+     *     setTimeout pendiente ni sub-estado match residual sobreviva.
+     *
+     * Pitfall sutil (PATTERNS.md §1 Analog 2):
+     *   - `persistInFlightTest()` lee `this.pickerCheckedCategoryIds` con
+     *     fallback a `prev?.categoryIds`. DEBE setearse `[catId]` ANTES de
+     *     invocarlo; de lo contrario, el reanudar usaría las cats del Test
+     *     anterior (regresión silenciosa).
+     *
+     * Cero migración schemaVersion (D-192): el shape de inFlightTest es
+     * IDÉNTICO al de un Test completo regular. El banner reanudar no
+     * distingue (D-183 copy genérica).
+     *
+     * @param {string} catId
+     */
+    _launchExamen(catId) {
+      // Pattern S-2: cancelaciones defensivas antes de cualquier reset.
+      // Set completo de restartRepaso (Phase 6 D-104) — Examen puede venir
+      // de mid-match si el path conflict canceló un Test previo a medias.
+      this.cancelAutoAdvance();
+      this.cancelMatchFlash();
+
+      // Construir el pool completo de la categoría (Examen es 1-cat — D-181).
+      const allExercises = Object.values(this.content.exerciseById);
+      const result = buildFullTest([catId], allExercises);
+
+      // D-189: sessionMode literal 'test-completo' (NO this.pickerMode —
+      // Examen salta el picker).
+      this.sessionMode = 'test-completo';
+
+      // CRÍTICO — setear pickerCheckedCategoryIds ANTES de persistInFlightTest
+      // (pitfall PATTERNS.md §1 Analog 2). Si no se setea, el fallback
+      // prev?.categoryIds capturaría las cats del Test previo.
+      this.pickerCheckedCategoryIds = [catId];
+
+      // Reset sub-estado de sesión (idéntico al patrón de startSession +
+      // restartRepaso — superset completo).
+      this.sessionExerciseIds = result.exerciseIds;
+      this.sessionCursor = 0;
+      this.sessionResults = [];
+      this.sessionSelectedIndex = null;
+      this.sessionFeedback = null;
+      // Sub-estados word-buttons (Phase 3).
+      this.wordButtonsBank = [];
+      this.wordButtonsAnswer = [];
+      // Sub-estados match (Phase 3 + Phase 6 D-107/D-112).
+      this.matchLeft = [];
+      this.matchRight = [];
+      this.matchSelectedLeftIdx = null;
+      this.matchPairsConsumed = [];
+      this.matchHadFailure = false;
+      this.matchFirstWrongPair = null;
+      // WR-02 defensa explícita (heredada de restartRepaso) — los reset
+      // inline mantienen la garantía aunque cancelMatchFlash cambie.
+      this.matchFlashIdx = null;
+      this.matchFlashHandle = null;
+
+      // Inicializar sub-estado del PRIMER ejercicio si hay pool.
+      if (result.exerciseIds.length > 0) {
+        const firstEx = this.content.exerciseById[result.exerciseIds[0]];
+        this.initSubStateForExercise(firstEx);
+      }
+
+      // D-182 slot único — Examen SIEMPRE persiste (no condicional como
+      // startSession que solo persiste cuando pickerMode === 'test-completo').
+      this.persistInFlightTest();
+
+      // Transición final a session.
+      this.currentScreen = 'session';
+    },
+
     /**
      * Handler unificado del botón "← Volver al home" presente en picker y
      * session.
@@ -1941,8 +2075,15 @@ export function appShell(appDataReady) {
      * Genera la lista derivada que la tabla de home renderiza (D-29).
      *
      * Cada fila: `{id, name, status, badgeGlyph, statusLabel, streakLabel,
-     * totalCount, lastPracticedLabel}`. `status` se deriva del
-     * `categoryProgress[id]` con default `'no-hecha'` (D-47 lazy init).
+     * totalCount, lastPracticedLabel, examenEnabled, examenTooltip}`. `status`
+     * se deriva del `categoryProgress[id]` con default `'no-hecha'` (D-47
+     * lazy init).
+     *
+     * Phase 8 (D-184 / D-187): los campos `examenEnabled` y `examenTooltip`
+     * alimentan los bindings `:disabled` y `:title` del botón Examen en la
+     * 6ª columna nueva. `examenEnabled` se deriva de `totalCount > 0` (NO de
+     * `cat.status` — cats `hecha`/`dominada` siguen enabled normal). El
+     * tooltip solo se renderiza cuando disabled (string vacío en idle).
      *
      * @returns {Array<object>}
      */
@@ -1961,6 +2102,10 @@ export function appShell(appDataReady) {
         const status = progress?.status ?? 'no-hecha';
         const streak = progress?.streakDays ?? 0;
         const lastPracticedDate = progress?.lastPracticedDate;
+        // Phase 8 D-184/D-187: examenEnabled binding para botón Examen
+        // disabled state. Reusa exercisesByCat ya construido — no recomputar.
+        const totalCount = (exercisesByCat[cat.id] ?? []).length;
+        const examenEnabled = totalCount > 0;
         return {
           id: cat.id,
           name: cat.name,
@@ -1970,8 +2115,11 @@ export function appShell(appDataReady) {
           // D-55 (UAT round 2): formato `N / 21 d` para no-dominada (visualiza
           // el objetivo 21 días), `N d` para dominada (ya superó el objetivo).
           streakLabel: formatStreak(streak, status),
-          totalCount: (exercisesByCat[cat.id] ?? []).length,
-          lastPracticedLabel: formatRelativeDate(lastPracticedDate, today)
+          totalCount,
+          lastPracticedLabel: formatRelativeDate(lastPracticedDate, today),
+          // Phase 8 (D-184/D-187): tooltip nativo solo cuando disabled.
+          examenEnabled,
+          examenTooltip: examenEnabled ? '' : 'No hay ejercicios en esta categoría'
         };
       });
     }
