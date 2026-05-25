@@ -2,11 +2,11 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Validación editorial
-status: planning
-last_updated: "2026-05-25T23:45:00.000Z"
-last_activity: 2026-05-25
+status: "Phase 9 CONTEXT.md generado, ready para `/gsd:plan-phase 9`"
+last_updated: "2026-05-26T00:30:00.000Z"
+last_activity: 2026-05-26 — Phase 9 discuss-phase completo, 18 decisiones D-VAL-01..18 capturadas, 9 ítems diferidos a plan-time
 progress:
-  total_phases: 2
+  total_phases: 4
   completed_phases: 0
   total_plans: 0
   completed_plans: 0
@@ -95,18 +95,24 @@ Last activity: 2026-05-25 — Milestone v1.1 roadmap creado, 2 fases (Phase 9 + 
 
 ### Last Session
 
-- **Fecha:** 2026-05-25 (Milestone v1.1 roadmap fijado tras `/gsd-new-milestone`)
-- **Trabajo actual:** El orquestador `/gsd-new-milestone` corrió la cadena research → requirements → roadmap. El roadmapper produjo este ROADMAP.md con 2 phases (9 + 10), 8/8 requirements VAL-01..08 mapped, 0 orphans. La separación infra/ejecución se justifica porque Phase 9 actúa como piloto de bajo riesgo antes del compromiso 1.5-2M tokens de Phase 10. Success criteria de Phase 9 incluye explicitamente "piloto end-to-end sobre ≥1 ejercicio real" como gate antes de avanzar a Phase 10. Success criteria de Phase 10 incluye "los 4 bugs motivadores documentados resueltos o overrideados con audit trail" como demostración concreta de que el workflow detecta lo que originalmente lo motivó.
-- **Trabajo previo (v1.0 SHIPPED):** 10 fases entregadas end-to-end. App funcionalmente completa con motor re-verificación + 7 categorías + 271 ejercicios curados con explanations + Modo Examen. El autor lleva usando la app diariamente desde Phase 2 (2026-05-23) — uso real expuso los 4 bugs de Preposiciones que motivan v1.1.
-- **Siguiente paso:** `/clear` luego `/gsd:plan-phase 9` para descomponer Phase 9 en planes ejecutables. Plan-time decisiones: pool de AIs concreto para el quórum, formato exacto de `passes[].by` (¿incluir version del modelo?), script automatización vs slash command manual.
+- **Fecha:** 2026-05-26 (Phase 9 CONTEXT.md generado tras `/gsd-discuss-phase 9`)
+- **Trabajo actual:** Discusión interactiva sobre las 4 gray areas de Phase 9 (Mecanismo workflow, Schema location + tipos, Output del AI validator, Diseño del piloto). 18 decisiones D-VAL-01..D-VAL-18 capturadas en `.planning/phases/09-infraestructura-de-validaci-n/09-CONTEXT.md` + audit trail completo en `09-DISCUSSION-LOG.md`. Resoluciones clave: (a) workflow = slash command Claude Code con Task() spawn, (b) quórum = Opus + Sonnet pragmático (riesgo mismo-vendor capturado explícito), (c) schema `validation` top-level con transiciones sticky-disputed, (d) output = JSON fenced estructurado con concerns[] tagged `[Cn-criterio]`, (e) piloto = 3 ejercicios × 2 pases (preposiciones-040 + baseline + fixture sintético C5-leak en `tests/fixtures/`) con gate = 3 estados terminales + parsing limpio. Hallazgo discusión: los 4 bugs motivadores YA están fixed → fixture sintético es la única forma determinística de probar disputed path en Phase 9.
+- **Trabajo previo (Milestone init):** El orquestador `/gsd-new-milestone` (2026-05-25) corrió research → requirements → roadmap produciendo el ROADMAP.md v1.1 con 2 phases + 8/8 requirements VAL-01..08 mapped, 0 orphans.
+- **Trabajo previo (v1.0 SHIPPED):** 10 fases entregadas. App funcionalmente completa con motor re-verificación + 7 categorías + 271 ejercicios curados + Modo Examen. El autor lleva usando la app diariamente desde Phase 2 — uso real expuso los 4 bugs de Preposiciones que motivan v1.1.
+- **Siguiente paso:** `/clear` luego `/gsd:plan-phase 9` para descomponer Phase 9 en planes ejecutables. El planner lee `09-CONTEXT.md` y resuelve los 9 ítems "Claude's Discretion" diferidos a plan-time (paralelo vs secuencial pases, granularidad commit, ubicación slash command, retry budget, idioma del prompt, few-shot examples, implementación feature flag VAL-07, E2 baseline exacto, relax del avere-prefix-assert).
 
 ### Files Generated
 
-**Milestone v1.1 init (este ciclo):**
+**Phase 9 discuss-phase (este ciclo, 2026-05-26):**
+
+- `.planning/phases/09-infraestructura-de-validaci-n/09-CONTEXT.md` (18 decisiones D-VAL-01..D-VAL-18 + canonical_refs + code_context + specifics + deferred)
+- `.planning/phases/09-infraestructura-de-validaci-n/09-DISCUSSION-LOG.md` (audit trail completo de las 4 áreas + Claude's discretion + deferred ideas)
+- `.planning/STATE.md` (este archivo — Last Session actualizado a Phase 9 context gathered)
+
+**Milestone v1.1 init (ciclo anterior, 2026-05-25):**
 
 - `.planning/REQUIREMENTS.md` (8 requirements VAL-01..08 + traceability table populada)
 - `.planning/ROADMAP.md` (modified — añadidas Phase 9 + Phase 10 a Phases checklist + Phase Details + Progress table)
-- `.planning/STATE.md` (este archivo — reinicializado para v1.1 planning)
 
 **Heredado de v1.0 SHIPPED:**
 
@@ -123,13 +129,17 @@ Last activity: 2026-05-25 — Milestone v1.1 roadmap creado, 2 fases (Phase 9 + 
 ### Next Action
 
 ```
+
 # Milestone v1.1 roadmap fijado. Siguiente:
 
 # 1. /clear  → libera contexto del roadmapper
+
 # 2. /gsd:plan-phase 9  → descomponer Phase 9 en planes ejecutables
 
 # Phase 9 entrega la infraestructura (schema, prompt, workflow, smoke test) + piloto small-scale.
+
 # Phase 10 ejecuta validación de los 271 ejercicios hasta 271/271 validated.
+
 ```
 
 Phase 9 será el piloto técnico antes del compromiso 1.5-2M tokens de Phase 10. Si el piloto detecta bugs del workflow (formato de prompt, falsos positivos, falsos negativos, AIs en desacuerdo sistemáticamente), se itera en Phase 9 sin haber gastado tokens en Phase 10. Solo cuando el piloto PASS limpio se procede a Phase 10.
