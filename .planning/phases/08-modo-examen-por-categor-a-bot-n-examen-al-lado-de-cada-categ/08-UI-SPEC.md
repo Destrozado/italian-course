@@ -1,10 +1,11 @@
 ---
 phase: 8
 slug: modo-examen-por-categor-a-bot-n-examen-al-lado-de-cada-categ
-status: draft
+status: approved
 shadcn_initialized: false
 preset: none
 created: 2026-05-25
+reviewed_at: 2026-05-25
 ---
 
 # Phase 8 — Contrato de Diseño UI: Modo Examen por categoría
