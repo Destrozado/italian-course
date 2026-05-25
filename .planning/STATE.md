@@ -2,9 +2,9 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Validación editorial
-status: "Phase 9 CONTEXT.md generado, ready para `/gsd:plan-phase 9`"
-last_updated: "2026-05-26T00:30:00.000Z"
-last_activity: 2026-05-26 — Phase 9 discuss-phase completo, 18 decisiones D-VAL-01..18 capturadas, 9 ítems diferidos a plan-time
+status: "Phase 9 planned (3 plans, 2 waves), ready para `/gsd:execute-phase 9`"
+last_updated: "2026-05-26T01:15:00.000Z"
+last_activity: 2026-05-26 — Phase 9 plan-phase completo: 3 plans (09-01/09-02/09-03), 2 waves, plan-checker PASS 0 blockers, requirements coverage 5/5
 progress:
   total_phases: 4
   completed_phases: 0
@@ -95,19 +95,28 @@ Last activity: 2026-05-25 — Milestone v1.1 roadmap creado, 2 fases (Phase 9 + 
 
 ### Last Session
 
-- **Fecha:** 2026-05-26 (Phase 9 CONTEXT.md generado tras `/gsd-discuss-phase 9`)
-- **Trabajo actual:** Discusión interactiva sobre las 4 gray areas de Phase 9 (Mecanismo workflow, Schema location + tipos, Output del AI validator, Diseño del piloto). 18 decisiones D-VAL-01..D-VAL-18 capturadas en `.planning/phases/09-infraestructura-de-validaci-n/09-CONTEXT.md` + audit trail completo en `09-DISCUSSION-LOG.md`. Resoluciones clave: (a) workflow = slash command Claude Code con Task() spawn, (b) quórum = Opus + Sonnet pragmático (riesgo mismo-vendor capturado explícito), (c) schema `validation` top-level con transiciones sticky-disputed, (d) output = JSON fenced estructurado con concerns[] tagged `[Cn-criterio]`, (e) piloto = 3 ejercicios × 2 pases (preposiciones-040 + baseline + fixture sintético C5-leak en `tests/fixtures/`) con gate = 3 estados terminales + parsing limpio. Hallazgo discusión: los 4 bugs motivadores YA están fixed → fixture sintético es la única forma determinística de probar disputed path en Phase 9.
-- **Trabajo previo (Milestone init):** El orquestador `/gsd-new-milestone` (2026-05-25) corrió research → requirements → roadmap produciendo el ROADMAP.md v1.1 con 2 phases + 8/8 requirements VAL-01..08 mapped, 0 orphans.
-- **Trabajo previo (v1.0 SHIPPED):** 10 fases entregadas. App funcionalmente completa con motor re-verificación + 7 categorías + 271 ejercicios curados + Modo Examen. El autor lleva usando la app diariamente desde Phase 2 — uso real expuso los 4 bugs de Preposiciones que motivan v1.1.
-- **Siguiente paso:** `/clear` luego `/gsd:plan-phase 9` para descomponer Phase 9 en planes ejecutables. El planner lee `09-CONTEXT.md` y resuelve los 9 ítems "Claude's Discretion" diferidos a plan-time (paralelo vs secuencial pases, granularidad commit, ubicación slash command, retry budget, idioma del prompt, few-shot examples, implementación feature flag VAL-07, E2 baseline exacto, relax del avere-prefix-assert).
+- **Fecha:** 2026-05-26 (Phase 9 plan-phase completo tras `/gsd-plan-phase 9`)
+- **Trabajo actual:** Plan-phase produjo 4 artefactos consolidados en `.planning/phases/09-infraestructura-de-validaci-n/`: `09-RESEARCH.md` (gsd-phase-researcher, 779 líneas — Standard Stack verificado, Architecture Responsibility Map, Code Examples 1-6, Open Questions RESOLVED), `09-PATTERNS.md` (gsd-pattern-mapper, 9 archivos clasificados con analogs concretos + BLOCKING order constraint stripAdditive→avere-001), 3 PLAN.md (`09-01`/`09-02`/`09-03`, 343+385+380 líneas, 2 waves). Plan-checker PASS 0 blockers + 1 warning cosmético (Open Questions RESOLVED tag faltante, resuelto inline). Wave 1 = 09-01 (schema-validator extensión + deriveStatus + smoke test paramétrico VAL-07 OFF) + 09-02 (VALIDATION-PROMPT.md self-contained + SKILL.md orquestador + fixture E3 + stripAdditive relax) en paralelo (zero files_modified overlap). Wave 2 = 09-03 (piloto end-to-end 3 ejercicios + run-validation-pilot.mjs + gate D-VAL-15 checkpoint:human-verify). Los 9 ítems Claude's Discretion lockeados: serial pases / 1 commit/ejercicio / `.claude/skills/` único / retry budget 1× / prompt español + R1-R7 inline / 2-shot (FAIL = bug literal motivador) / env var VAL_07_STRICT + skip option / avere-001 baseline / stripAdditive 1-line relax. Requirements coverage 5/5 verificado (VAL-01/02/03/05/07).
+- **Trabajo previo (discuss-phase, 2026-05-26):** 18 decisiones D-VAL-01..18 capturadas en `09-CONTEXT.md` + audit trail completo en `09-DISCUSSION-LOG.md` cubriendo Mecanismo workflow, Schema location + tipos, Output del AI validator, Diseño del piloto.
+- **Trabajo previo (Milestone init, 2026-05-25):** ROADMAP.md v1.1 con 2 phases + 8/8 requirements VAL-01..08 mapped, 0 orphans.
+- **Trabajo previo (v1.0 SHIPPED):** 10 fases entregadas, 271 ejercicios curados + Modo Examen. Uso real expuso los 4 bugs de Preposiciones que motivan v1.1.
+- **Siguiente paso:** `/clear` luego `/gsd:execute-phase 9` para ejecutar los 3 plans. execute-phase corre Wave 1 (09-01 + 09-02 paralelo, autonomous=true) → Wave 2 (09-03 secuencial, autonomous=false con checkpoint:human-verify al final donde el autor inspecciona la tabla del piloto y decide approved → `/gsd:plan-phase 10` o iterate prompt|skill → vuelve a 09-02).
 
 ### Files Generated
 
-**Phase 9 discuss-phase (este ciclo, 2026-05-26):**
+**Phase 9 plan-phase (este ciclo, 2026-05-26):**
+
+- `.planning/phases/09-infraestructura-de-validaci-n/09-RESEARCH.md` (gsd-phase-researcher — Standard Stack verificado, Architecture Responsibility Map, Code Examples 1-6, 5 Open Questions RESOLVED)
+- `.planning/phases/09-infraestructura-de-validaci-n/09-PATTERNS.md` (gsd-pattern-mapper — 9 archivos clasificados con analogs concretos + BLOCKING order constraint stripAdditive→avere-001)
+- `.planning/phases/09-infraestructura-de-validaci-n/09-01-PLAN.md` (Wave 1, autonomous: schema validator + deriveStatus + smoke test VAL-07 OFF; covers VAL-01/05/07)
+- `.planning/phases/09-infraestructura-de-validaci-n/09-02-PLAN.md` (Wave 1, autonomous: VALIDATION-PROMPT.md + SKILL.md + fixture E3 + stripAdditive relax; covers VAL-02/03)
+- `.planning/phases/09-infraestructura-de-validaci-n/09-03-PLAN.md` (Wave 2, autonomous=false con checkpoint:human-verify: piloto 3 ejercicios + run-validation-pilot.mjs + gate D-VAL-15; covers VAL-01/02/03/05)
+- `.planning/ROADMAP.md` (Phase 9 `**Plans:**` actualizado de "TBD" a "3 plans" con lista; Progress table 0/3 Plans created)
+
+**Phase 9 discuss-phase (ciclo anterior, 2026-05-26):**
 
 - `.planning/phases/09-infraestructura-de-validaci-n/09-CONTEXT.md` (18 decisiones D-VAL-01..D-VAL-18 + canonical_refs + code_context + specifics + deferred)
 - `.planning/phases/09-infraestructura-de-validaci-n/09-DISCUSSION-LOG.md` (audit trail completo de las 4 áreas + Claude's discretion + deferred ideas)
-- `.planning/STATE.md` (este archivo — Last Session actualizado a Phase 9 context gathered)
 
 **Milestone v1.1 init (ciclo anterior, 2026-05-25):**
 
