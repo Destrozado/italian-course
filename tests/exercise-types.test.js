@@ -22,6 +22,7 @@ import { wordButtons } from '../src/exercise-types/word-buttons.js';
 import { match } from '../src/exercise-types/match.js';
 import { registry } from '../src/exercise-types/index.js';
 import { validateContent } from '../src/data/schema-validator.js';
+import { deriveStatus } from '../src/data/validation-state.js';
 
 // ────────────────────────────────────────────────────────────────────────────
 // exercise-types/word-buttons — grade() (D-64 payload, D-67 case-insensitive)
@@ -1150,6 +1151,101 @@ describe('data/schema-validator — validation field (Phase 9 D-VAL-08)', () => 
       }
     });
     assert.equal(result.ok, true, JSON.stringify(result.errors));
+  });
+});
+
+// ────────────────────────────────────────────────────────────────────────────
+// Phase 9 D-VAL-07 — deriveStatus(passes[]) sticky disputed
+// ────────────────────────────────────────────────────────────────────────────
+//
+// Reglas estrictas D-VAL-07:
+//   - CUALQUIER verdict === 'incorrecta' → 'disputed' (sticky, no self-heal)
+//   - ≥2 correctas con `by` distintos (Set size ≥2) → 'validated'
+//   - Otro caso (defensive null, array vacío, 1 pase, mismo by) → 'pending'
+
+describe('validation-state — deriveStatus (Phase 9 D-VAL-07)', () => {
+  test('1. undefined → pending (defensive — passes ausente)', () => {
+    assert.equal(deriveStatus(undefined), 'pending');
+  });
+
+  test('2. null → pending (defensive)', () => {
+    assert.equal(deriveStatus(null), 'pending');
+  });
+
+  test('3. [] → pending (estado inicial legítimo)', () => {
+    assert.equal(deriveStatus([]), 'pending');
+  });
+
+  test('4. 1 pase correcta → pending (1 < 2 quórum)', () => {
+    assert.equal(
+      deriveStatus([{ by: 'claude-opus-4-7', date: '2026-05-26', verdict: 'correcta' }]),
+      'pending'
+    );
+  });
+
+  test('5. 2 pases correctas con MISMO by → pending (Set size 1 < 2)', () => {
+    assert.equal(
+      deriveStatus([
+        { by: 'claude-opus-4-7', date: '2026-05-26', verdict: 'correcta' },
+        { by: 'claude-opus-4-7', date: '2026-05-26', verdict: 'correcta' }
+      ]),
+      'pending'
+    );
+  });
+
+  test('6. happy-path: 2 pases correctas con by DISTINTOS → validated', () => {
+    assert.equal(
+      deriveStatus([
+        { by: 'claude-opus-4-7', date: '2026-05-26', verdict: 'correcta' },
+        { by: 'claude-sonnet-4-6', date: '2026-05-26', verdict: 'correcta' }
+      ]),
+      'validated'
+    );
+  });
+
+  test('7. 1 pase incorrecta → disputed (cualquier incorrecta gana)', () => {
+    assert.equal(
+      deriveStatus([{ by: 'claude-opus-4-7', date: '2026-05-26', verdict: 'incorrecta' }]),
+      'disputed'
+    );
+  });
+
+  test('8. sticky disputed: 2 correctas + 1 incorrecta → disputed (no self-heal)', () => {
+    assert.equal(
+      deriveStatus([
+        { by: 'claude-opus-4-7', date: '2026-05-26', verdict: 'correcta' },
+        { by: 'claude-sonnet-4-6', date: '2026-05-26', verdict: 'correcta' },
+        { by: 'gemini-2.5-pro', date: '2026-05-26', verdict: 'incorrecta' }
+      ]),
+      'disputed'
+    );
+  });
+
+  test('9. defensive: entry sin by con verdict incorrecta → disputed (verdict gana)', () => {
+    assert.equal(
+      deriveStatus([
+        { by: 'claude-opus-4-7', date: '2026-05-26', verdict: 'correcta' },
+        { verdict: 'incorrecta' } // sin by, pero verdict dispara disputed
+      ]),
+      'disputed'
+    );
+  });
+
+  test('10. input no-array (string, number, object) → pending', () => {
+    assert.equal(deriveStatus('not-an-array'), 'pending');
+    assert.equal(deriveStatus(42), 'pending');
+    assert.equal(deriveStatus({ passes: [] }), 'pending');
+  });
+
+  test('11. 3 correctas con by distintos → validated (≥2 suficiente)', () => {
+    assert.equal(
+      deriveStatus([
+        { by: 'claude-opus-4-7', date: '2026-05-26', verdict: 'correcta' },
+        { by: 'claude-sonnet-4-6', date: '2026-05-26', verdict: 'correcta' },
+        { by: 'autor', date: '2026-05-26', verdict: 'correcta' }
+      ]),
+      'validated'
+    );
   });
 });
 
