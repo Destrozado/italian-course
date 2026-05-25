@@ -258,16 +258,27 @@
           -->
           <template x-if="sessionCurrentExercise.type === 'multiple-choice'">
             <div>
+              <!--
+                Phase quick-260525-pwq (D-181) — shuffle visual via indirección.
+                Iteramos `multiChoiceOrder` (permutación de índices ORIGINALES);
+                cada `perm` apunta al índice canónico del JSON. El texto, el
+                click y las clases usan `perm` para resolver desde el JSON
+                inmutable (D-132). `sessionSelectOption(perm)` recibe el índice
+                ORIGINAL → `multipleChoice.grade` opera sobre `correctIndex`
+                canónico sin cambios (cero diff en multiple-choice.js).
+                `:key="perm"` es estable entre re-renders del mismo ejercicio
+                (perm es el índice del JSON, no la posición visual).
+              -->
               <div class="button-row">
-                <template x-for="(opt, idx) in sessionCurrentExercise.payload.options" :key="idx">
+                <template x-for="(perm, idx) in multiChoiceOrder" :key="perm">
                   <button type="button"
-                          @click="sessionSelectOption(idx)"
+                          @click="sessionSelectOption(perm)"
                           :disabled="sessionFeedback !== null"
                           :class="{
-                            'correcta': sessionFeedback !== null && idx === sessionCurrentExercise.payload.correctIndex,
-                            'incorrecta': sessionFeedback === 'incorrect' && idx === sessionSelectedIndex
+                            'correcta': sessionFeedback !== null && perm === sessionCurrentExercise.payload.correctIndex,
+                            'incorrecta': sessionFeedback === 'incorrect' && perm === sessionSelectedIndex
                           }"
-                          x-text="opt"></button>
+                          x-text="sessionCurrentExercise.payload.options[perm]"></button>
                 </template>
               </div>
 

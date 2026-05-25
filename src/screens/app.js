@@ -110,6 +110,25 @@ export function appShell(appDataReady) {
     sessionFeedback: null,
     sessionAutoAdvanceHandle: null,
 
+    // ─── Sub-estado multi-choice (Phase quick-260525-pwq — D-181) ───────────
+    /**
+     * Permutación de índices `[0..N-1]` aplicada al `payload.options` del
+     * multi-choice actual. El JSON sigue inmutable (D-132); el template HTML
+     * itera `multiChoiceOrder` y resuelve cada posición visual con
+     * `payload.options[perm]` para texto/click/clases. El click pasa el
+     * índice ORIGINAL (perm) a `sessionSelectOption`, así `multipleChoice.grade`
+     * sigue operando sobre el `correctIndex` canónico del JSON sin cambios.
+     *
+     * Math.random intencional (no seedable) — paralelo arquitectónico con
+     * `wordButtonsBank` (D-57) y `matchLeft/matchRight` (D-62): el orden
+     * visual non-deterministic por carga es lo que fuerza al alumno a
+     * re-leer cada opción cada vez, en línea con el core value del proyecto
+     * "que el sistema te obligue a no olvidar". Caso flagrante resuelto:
+     * avere-302..305 (4 ejercicios con MISMAS options + correctIndex=2) ya
+     * no entrena "tercera columna".
+     */
+    multiChoiceOrder: [],
+
     // ─── Sub-estado word-buttons (Phase 3 plan 01; D-56, D-57, D-64) ────────
     /** Palabras VISIBLES del banco en orden actual (se vacía al colocar). */
     wordButtonsBank: [],
@@ -1386,6 +1405,12 @@ export function appShell(appDataReady) {
       // EJERCICIO (igual que matchHadFailure) — se resetea al cambiar de
       // ejercicio dentro de la misma sesión.
       this.matchFirstWrongPair = null;
+      // Phase quick-260525-pwq (D-181): la permutación visual de las options
+      // multi-choice también se resetea por ejercicio. Default `[]` para que
+      // el template HTML no rompa durante el tick de unmount o cuando el
+      // tipo actual NO es multi-choice (el `<template x-if>` ya cubre el
+      // render, pero el array vacío es la garantía más defensiva).
+      this.multiChoiceOrder = [];
       this.cancelMatchFlash();
 
       if (!exercise) return;
@@ -1413,6 +1438,21 @@ export function appShell(appDataReady) {
         this.matchRight = fisherYates(exercise.payload.pairs.map(p => p[1]));
         // matchSelectedLeftIdx, matchPairsConsumed, matchHadFailure ya están
         // a default por la limpieza universal arriba.
+      } else if (exercise.type === 'multiple-choice') {
+        // Phase quick-260525-pwq (D-181): shuffle visual de las opciones via
+        // permutación de índices. El JSON sigue inmutable (D-132); el template
+        // HTML iterará `multiChoiceOrder` con indirección `payload.options[perm]`
+        // y el click pasará `perm` (índice ORIGINAL) a `sessionSelectOption`
+        // — `multipleChoice.grade` opera sobre el `correctIndex` canónico del
+        // JSON, cero diff en src/exercise-types/multiple-choice.js.
+        //
+        // Math.random intencional (no seedable): mismo patrón que el banco
+        // word-buttons (D-57) y las columnas match (D-62). El orden visual
+        // non-deterministic por carga es lo que fuerza al alumno a re-leer
+        // cada opción y neutraliza el sesgo de correctIndex (pos 1 = 41%,
+        // pos 3 = 9% en el corpus actual) + el caso flagrante avere-302..305.
+        const n = exercise.payload.options.length;
+        this.multiChoiceOrder = fisherYates(Array.from({ length: n }, (_, i) => i));
       }
     },
 
@@ -1513,8 +1553,19 @@ export function appShell(appDataReady) {
         const idx = parseInt(key, 10) - 1;
         if (ex.type === 'multiple-choice') {
           // D-68: 1..4 selecciona opción N-1; teclas que excedan se ignoran.
-          if (idx < (ex.payload.options?.length ?? 0)) {
-            this.sessionSelectOption(idx);
+          // Phase quick-260525-pwq (D-181): la tecla N selecciona la opción
+          // VISUAL en posición N-1; `multiChoiceOrder[idx]` traduce a índice
+          // ORIGINAL del JSON para que `sessionSelectOption` + `multipleChoice.grade`
+          // sigan operando sobre el `correctIndex` canónico. Sin esta traducción,
+          // tras shuffle la tecla 3 dispararía el `correctIndex=2` literal del
+          // JSON aunque la 3ª opción visual fuera otra — convirtiendo el atajo
+          // de teclado en un cheat code para los 4 ejercicios avere-302..305
+          // donde correctIndex siempre es 2. La longitud-guard usa
+          // `multiChoiceOrder.length` (en lugar de `payload.options.length`)
+          // por simetría con el shuffled state — son iguales por construcción,
+          // pero leer de la fuente que el click usa hace el invariante explícito.
+          if (idx < this.multiChoiceOrder.length) {
+            this.sessionSelectOption(this.multiChoiceOrder[idx]);
           }
           return;
         }
