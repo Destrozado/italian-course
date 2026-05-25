@@ -46,6 +46,10 @@ Next: `/gsd:discuss-phase 6` para clarificar semántica UX-01 (alcance reset, co
 
 ## Accumulated Context
 
+### Roadmap Evolution
+
+- Phase 8 added: Modo Examen por categoría — botón 'Examen' al lado de cada categoría en el picker que arranca un Test Completo single-category (reutiliza buildFullTest D-50). Resuelve dolor de jugar 5-6 Repasos para validar dominio. Conflict D-44 reutilizado (descartar Test Completo activo).
+
 ### Quick Tasks Completed
 
 | Quick ID | Slug | Description | Completed | Commits |

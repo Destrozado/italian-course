@@ -284,6 +284,16 @@ Cada fase entrega valor usable independientemente:
 
 **Status:** Backlog. Si tras Phase 7 el autor echa de menos explanations en Avere/Essere/Verbos-movimiento/Profesiones/Sustantivos-irregulares/Género-número, abrir fases incrementales por categoría (Phase 7.1 Avere, Phase 7.2 Verbos-movimiento, ...). El shape `payload.explanation: string` ya está soportado en schema + render — solo es trabajo editorial puro (Claude propone + autor revisa por batch).
 
+### Phase 8: Modo Examen por categoría — botón 'Examen' al lado de cada categoría en el picker que arranca un Test Completo de SOLO esa categoría (reutiliza buildFullTest D-50). Resuelve el dolor de jugar 5-6 Repasos para validar dominio. Conflict con Test Completo activo: reutiliza mecanismo D-44 (confirmar descartar)
+
+**Goal:** [To be planned]
+**Requirements**: TBD
+**Depends on:** Phase 7
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd-plan-phase 8 to break down)
+
 ---
 *Roadmap created: 2026-05-23*
 *Last updated: 2026-05-25 after Phase 7.2 completion (5 plans ejecutados: 7.2-01..05 cobertura 5 categorías restantes). 199/199 tests verdes (184 baseline + 15 sub-tests paramétricos sobre 5 nuevas categorías). EXPL-09..14 cerrados; cobertura editorial 100% (271/271 ejercicios curados en 7 categorías). Milestone v1.0 pre-ship listo.*
