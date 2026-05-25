@@ -211,7 +211,8 @@
       "payload": {
         "prompt": "Il libro è scritto ___ lui.",
         "options": ["da", "di", "per", "con"],
-        "correctIndex": 0
+        "correctIndex": 0,
+        "explanation": "En italiano, cuando una accion la realiza un agente en una frase pasiva, la preposicion obligatoria es Da. Il libro è scritto da lui se traduce como 'el libro esta escrito por el'. Da expresa autoria o ejecucion, distinto del espanol 'por' que cubre ambos usos (causa y agente)."
       },
       "notes": "Preposición 'da' = agente (complemento agente en pasiva). PDF §Preposizioni semplici, ejemplo 'libro scritto da lui'."
     },
@@ -222,7 +223,8 @@
       "payload": {
         "prompt": "Vado al lavoro ___ macchina.",
         "options": ["con", "a", "in", "per"],
-        "correctIndex": 2
+        "correctIndex": 2,
+        "explanation": "Con medios de transporte cerrados el italiano usa In sin articulo: in macchina, in treno, in autobus. Vado al lavoro in macchina equivale a 'voy al trabajo en coche'. Excepcion idiomatica vs paesi (Vivo in Italia) — aqui In no significa 'dentro de', sino 'mediante'. A pie usa A (a piedi)."
       },
       "notes": "Preposición 'in' = mezzo di trasporto. PDF §Preposizioni semplici, ejemplo 'in macchina'. Distractora 'con' es la trampa A1 típica (en español 'voy con coche' suena válido, pero italiano usa 'in')."
     },
@@ -233,7 +235,8 @@
       "payload": {
         "prompt": "Ho letto un libro ___ Roma antica.",
         "options": ["di", "su", "per", "in"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "Su tambien indica argomento o tema: sobre que trata algo. Ho letto un libro su Roma antica equivale a 'he leido un libro sobre la Roma antigua'. Aqui Su no implica contacto fisico (#006 sul tavolo) ni superficie vertical, sino tema de un texto, conversacion o reflexion."
       },
       "notes": "Preposición 'su' = argomento (sobre/acerca de). PDF §Preposizioni semplici, ejemplo 'un libro su Roma'. Distractora 'di' es la trampa (en español 'libro de Roma' funciona, en italiano 'su' marca el tema)."
     },
@@ -244,7 +247,8 @@
       "payload": {
         "prompt": "Il colore ___ cielo è azzurro.",
         "options": ["del", "al", "dal", "nel"],
-        "correctIndex": 0
+        "correctIndex": 0,
+        "explanation": "Di + Il se fusiona en la preposicion articolata Del cuando el sustantivo es masculino singular regular. Il colore del cielo significa 'el color del cielo'. El patron paralelo al espanol 'del' (de + el) es uno de los pocos casos donde italiano y espanol coinciden palabra por palabra."
       },
       "notes": "Preposición articolata 'del' = di + il (posesión / pertenencia). PDF §Preposizioni articolate, fila 'di' columna 'il'."
     },
@@ -255,7 +259,8 @@
       "payload": {
         "prompt": "Il libro ___ studente è sul banco.",
         "options": ["del", "dello", "della", "dei"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "Cuando el sustantivo masculino singular empieza por s + consonante, z, gn, ps o x, el articulo es Lo (no Il), y Di se fusiona en Dello. Il libro dello studente se traduce como 'el libro del estudiante'. Misma regla: lo zaino, lo gnomo, lo psicologo, lo xilofono — todos exigen Lo y por tanto Dello."
       },
       "notes": "Preposición articolata 'dello' = di + lo (artículo 'lo' delante de s+consonante: 'studente'). PDF §Preposizioni articolate, fila 'di' columna 'lo'."
     },
@@ -266,7 +271,8 @@
       "payload": {
         "prompt": "La porta ___ casa è aperta.",
         "options": ["del", "dello", "della", "dalla"],
-        "correctIndex": 2
+        "correctIndex": 2,
+        "explanation": "La preposicion articolata Della resulta de Di + La cuando el sustantivo es femenino singular. La porta della casa equivale a 'la puerta de la casa'. Es la combinacion mas directa para hispanohablantes porque coincide estructuralmente con 'de la' del espanol."
       },
       "notes": "Preposición articolata 'della' = di + la. PDF §Preposizioni articolate, fila 'di' columna 'la'."
     },
@@ -277,7 +283,8 @@
       "payload": {
         "prompt": "Il rumore ___ bambini è forte.",
         "options": ["dei", "degli", "delle", "del"],
-        "correctIndex": 0
+        "correctIndex": 0,
+        "explanation": "Para sustantivos masculinos plurales regulares el articulo es I, y Di se fusiona en Dei. Il rumore dei bambini significa 'el ruido de los ninos'. La distractora Delle implicaria femenino plural (delle bambine = de las ninas)."
       },
       "notes": "Preposición articolata 'dei' = di + i (plural masculino regular). PDF §Preposizioni articolate, fila 'di' columna 'i'."
     },
@@ -288,7 +295,8 @@
       "payload": {
         "prompt": "Le lezioni ___ studenti sono finite.",
         "options": ["dei", "degli", "delle", "dello"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "Cuando el sustantivo masculino plural empieza por vocal o por s + consonante, z, gn, ps, x, el articulo es Gli y Di se fusiona en Degli. Le lezioni degli studenti equivale a 'las lecciones de los estudiantes'. Misma logica que Dello pero en plural: degli amici, degli zaini, degli gnomi."
       },
       "notes": "Preposición articolata 'degli' = di + gli (plural masculino con 'gli' delante de s+consonante / vocal). PDF §Preposizioni articolate, fila 'di' columna 'gli'."
     },
@@ -299,7 +307,8 @@
       "payload": {
         "prompt": "I libri ___ ragazze sono nuovi.",
         "options": ["dei", "degli", "delle", "della"],
-        "correctIndex": 2
+        "correctIndex": 2,
+        "explanation": "Para sustantivos femeninos plurales el articulo es Le y Di se fusiona en Delle. I libri delle ragazze significa 'los libros de las chicas'. Patron simetrico al masculino Dei pero en femenino: ragazze, amiche, sorelle, donne — todas piden Delle."
       },
       "notes": "Preposición articolata 'delle' = di + le (plural femenino). PDF §Preposizioni articolate, fila 'di' columna 'le'."
     },
@@ -310,7 +319,8 @@
       "payload": {
         "prompt": "Le chiavi sono ___ cassetto.",
         "options": ["sul", "nel", "al", "dal"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "In + Il = Nel. Cuando el sustantivo masculino singular regular indica el interior de algo, In se fusiona con su articulo. Le chiavi sono nel cassetto se traduce como 'las llaves estan en el cajon'. Nel implica dentro, distinto de Sul que implicaria encima (#013)."
       },
       "notes": "Preposición articolata 'nel' = in + il (dentro). PDF §Preposizioni articolate, fila 'in' columna 'il'. Distractora 'sul' = sobre (semánticamente plausible pero incorrecta para 'dentro de un cajón')."
     },
@@ -321,7 +331,8 @@
       "payload": {
         "prompt": "I libri sono ___ zaino.",
         "options": ["nel", "nello", "nella", "negli"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "Cuando el sustantivo masculino singular empieza por s + consonante, z, gn, ps o x, el articulo es Lo y In se fusiona en Nello. I libri sono nello zaino significa 'los libros estan en la mochila'. Misma regla de articulo que Dello (#022) aplicada a In."
       },
       "notes": "Preposición articolata 'nello' = in + lo ('zaino' lleva 'lo' por z- inicial). PDF §Preposizioni articolate, fila 'in' columna 'lo'."
     },
@@ -332,7 +343,8 @@
       "payload": {
         "prompt": "Vivo ___ città di Milano.",
         "options": ["nel", "nella", "alla", "dalla"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "Nella es la preposicion articolata femenina singular de In + La. Vivo nella citta di Milano equivale a 'vivo en la ciudad de Milan'. Distinto del uso In sin articulo para paesi/regioni (#004 Vivo in Italia): aqui citta lleva articulo definido, por eso la fusion."
       },
       "notes": "Preposición articolata 'nella' = in + la ('vivo en la ciudad de Milán'). PDF §Preposizioni articolate, fila 'in' columna 'la'."
     },
@@ -343,7 +355,8 @@
       "payload": {
         "prompt": "I bambini giocano ___ giardini pubblici.",
         "options": ["nei", "negli", "nelle", "dei"],
-        "correctIndex": 0
+        "correctIndex": 0,
+        "explanation": "In + I = Nei. Para sustantivos masculinos plurales regulares dentro de los cuales se hace algo. I bambini giocano nei giardini pubblici significa 'los ninos juegan en los jardines publicos'. Marca interior + plural masculino simultaneamente en una sola preposicion."
       },
       "notes": "Preposición articolata 'nei' = in + i (plural masculino). PDF §Preposizioni articolate, fila 'in' columna 'i'."
     },
@@ -354,7 +367,8 @@
       "payload": {
         "prompt": "I libri sono ___ scaffali alti.",
         "options": ["nei", "negli", "nelle", "sugli"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "Cuando el masculino plural empieza por vocal o s + consonante, z, gn, ps, x, el articulo es Gli y In se fusiona en Negli. I libri sono negli scaffali alti se traduce como 'los libros estan en las estanterias altas'. Misma logica que Degli (#025) aplicada a In: negli amici, negli zaini."
       },
       "notes": "Preposición articolata 'negli' = in + gli ('scaffali' plural masculino con 'gli' por s+consonante). PDF §Preposizioni articolate, fila 'in' columna 'gli'."
     },
@@ -365,7 +379,8 @@
       "payload": {
         "prompt": "Le foto sono ___ pareti.",
         "options": ["nei", "negli", "nelle", "sulle"],
-        "correctIndex": 2
+        "correctIndex": 2,
+        "explanation": "Nelle es la preposicion articolata femenina plural de In + Le. Le foto sono nelle pareti significa 'las fotos estan en las paredes'. Cierra la serie de articolate In: nel/nello/nella/nei/negli/nelle — seis combinaciones que cubren todas las variantes de genero, numero y articulo."
       },
       "notes": "Preposición articolata 'nelle' = in + le (plural femenino). PDF §Preposizioni articolate, fila 'in' columna 'le'."
     },
@@ -376,7 +391,8 @@
       "payload": {
         "prompt": "Vado ___ stadio domenica.",
         "options": ["al", "allo", "alla", "agli"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "A + Lo = Allo cuando el sustantivo masculino singular empieza por s + consonante, z, gn, ps o x. Vado allo stadio domenica equivale a 'voy al estadio el domingo'. Misma logica de articulo Lo (#022/#028) aplicada a la preposicion A: allo zoo, allo gnomo, allo psicologo."
       },
       "notes": "Preposición articolata 'allo' = a + lo ('stadio' lleva 'lo' por s+consonante). PDF §Preposizioni articolate, fila 'a' columna 'lo'."
     },
