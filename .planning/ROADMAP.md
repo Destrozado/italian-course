@@ -195,7 +195,7 @@
 
 Plans:
 
-- [ ] 7.2-01-PLAN.md — Avere (23 explanations 2 batches D-85) + relax assert-avere-prefix-unchanged.mjs (D-178 opción A — campos core sin explanation/notes)
+- [x] 7.2-01-PLAN.md — Avere (23 explanations 2 batches D-85) + relax assert-avere-prefix-unchanged.mjs (D-178 opción A — campos core sin explanation/notes) — see 7.2-01-SUMMARY.md (2026-05-25, 187/187 tests, UAT humano pendiente)
 - [ ] 7.2-02-PLAN.md — Sustantivos-irregulares (31 explanations 2 batches D-85, todos multi-choice — patrones uovo/uova, dito/dita, braccio/braccia, invariables vocal acentuada, familia)
 - [ ] 7.2-03-PLAN.md — Verbos-movimiento (37 explanations 2 batches D-85) — D-159 cross-ref preserved (cero referencias a IDs essere-NNN porque V-mov antes que Essere)
 - [ ] 7.2-04-PLAN.md — Essere (39 explanations 2 batches D-85) — beneficiado de Avere + V-mov ya curados para contraste essere/avere D-91 y participio essere V-mov
@@ -220,7 +220,7 @@ Plans:
 | 6. Polish UX post-sesión (reiniciar + review errores) | 2/2 | Complete    | 2026-05-25 |
 | 7. Explicaciones pedagógicas al fallar | 2/2 | Complete   | 2026-05-25 |
 | 7.1. Explicaciones Género-Número + canonicalización ortográfica | 2/2 | Complete   | 2026-05-25 |
-| 7.2. Explicaciones 5 categorías restantes (Avere/Sust-irreg/V-mov/Essere/Profesiones) | 0/5 | Pending |   |
+| 7.2. Explicaciones 5 categorías restantes (Avere/Sust-irreg/V-mov/Essere/Profesiones) | 1/5 | In Progress |   |
 
 ## Coverage Summary
 
