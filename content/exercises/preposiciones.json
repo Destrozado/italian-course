@@ -365,12 +365,12 @@
       "type": "multiple-choice",
       "categoryIds": ["preposiciones"],
       "payload": {
-        "prompt": "I libri sono ___ scaffali alti.",
+        "prompt": "Le penne sono ___ astucci.",
         "options": ["nei", "negli", "nelle", "sugli"],
         "correctIndex": 1,
-        "explanation": "Cuando el masculino plural empieza por vocal o s + consonante, z, gn, ps, x, el artículo es Gli y In se fusiona en Negli. I libri sono negli scaffali alti se traduce como 'los libros están en las estanterías altas'. Misma lógica que Degli aplicada a In: negli amici, negli zaini."
+        "explanation": "Cuando el masculino plural empieza por vocal o s + consonante, z, gn, ps, x, el artículo es Gli y In se fusiona en Negli. Le penne sono negli astucci significa 'los bolígrafos están en los estuches'. El astuccio (estuche) es un contenedor que envuelve las penne, por eso In y no Su. Misma lógica que Degli aplicada a In: negli amici, negli zaini."
       },
-      "notes": "Preposición articolata 'negli' = in + gli ('scaffali' plural masculino con 'gli' por s+consonante). PDF §Preposizioni articolate, fila 'in' columna 'gli'."
+      "notes": "Preposición articolata 'negli' = in + gli ('astucci' plural masculino con 'gli' por vocal inicial: l'astuccio singular / gli astucci plural). PDF §Preposizioni articolate, fila 'in' columna 'gli'. Bug fix post-v1.0 reportado por el autor: el prompt anterior 'I libri sono negli scaffali alti' admitía tanto 'negli' (libros dentro de los huecos de la estantería) como 'sugli' (libros encima del mueble apilados) — ambos italiano natural. Sustituido por 'penne in astucci' que solo admite 'in' (un bolígrafo no se pone ENCIMA de un estuche, va dentro)."
     },
     {
       "id": "preposiciones-032",
