@@ -276,6 +276,21 @@
                 Respuesta correcta:
                 <strong x-text="sessionCurrentExercise.payload.options[sessionCurrentExercise.payload.correctIndex]"></strong>
               </p>
+              <!--
+                Phase 7 plan 01 (D-118, EXPL-02) — Explicación pedagógica
+                inline durante feedback rojo. Doble guard `sessionFeedback ===
+                'incorrect' && sessionCurrentExercise.payload.explanation`:
+                  - Solo aparece al fallar (no en aciertos — preserva la
+                    velocidad bien/mal del flow).
+                  - Solo aparece si el ejercicio tiene explanation (D-121
+                    graceful degradation: sin placeholder, sin "sin
+                    explicación").
+                `x-text` exclusivo (T-02-01 invariante anti-XSS). Tono visual
+                muted/italic via `.session-explanation` en styles.css (D-120).
+              -->
+              <p x-show="sessionFeedback === 'incorrect' && sessionCurrentExercise.payload.explanation"
+                 class="session-explanation"
+                 x-text="sessionCurrentExercise.payload.explanation"></p>
               <button x-show="sessionFeedback === 'incorrect'" @click="sessionAdvance">Siguiente</button>
             </div>
           </template>
@@ -327,6 +342,16 @@
                 Respuesta correcta:
                 <strong x-text="sessionCurrentExercise.payload.answer.join(' ')"></strong>
               </p>
+
+              <!--
+                Phase 7 plan 01 (D-118, EXPL-02) — Explicación pedagógica
+                inline (ver comentario homólogo en sub-template multi-choice).
+                Doble guard + `x-text` exclusivo + clase compartida con
+                multi-choice/match para coherencia visual cross-types.
+              -->
+              <p x-show="sessionFeedback === 'incorrect' && sessionCurrentExercise.payload.explanation"
+                 class="session-explanation"
+                 x-text="sessionCurrentExercise.payload.explanation"></p>
 
               <!-- D-58 botón Comprobar + Siguiente (mismo button-row pattern). -->
               <div class="button-row">
@@ -405,6 +430,17 @@
                   </template>
                 </div>
               </div>
+              <!--
+                Phase 7 plan 01 (D-118, EXPL-02) — Explicación pedagógica
+                inline durante feedback rojo. En match NO hay línea "Respuesta
+                correcta:" (la captura visual del fallo es el match-flash rojo
+                + el grid quedó incompleto), así que la explanation va entre
+                el `</div>` que cierra `.match-grid` y el botón "Siguiente".
+                Doble guard + `x-text` exclusivo + clase compartida.
+              -->
+              <p x-show="sessionFeedback === 'incorrect' && sessionCurrentExercise.payload.explanation"
+                 class="session-explanation"
+                 x-text="sessionCurrentExercise.payload.explanation"></p>
               <button type="button"
                       x-show="sessionFeedback === 'incorrect'"
                       @click="sessionAdvance">Siguiente</button>
@@ -543,6 +579,20 @@
                       <div>
                         <div>Tu respuesta: <span class="user-answer" x-text="result.userAnswer"></span></div>
                         <div>Respuesta correcta: <strong x-text="content.exerciseById[result.exerciseId].payload.options[content.exerciseById[result.exerciseId].payload.correctIndex]"></strong></div>
+                        <!--
+                          Phase 7 plan 01 (D-119, EXPL-03) — Explicación
+                          pedagógica en summary "Errores cometidos". Optional
+                          chaining `?.payload?.explanation` defensivo (CR-01
+                          fix Phase 6 ya garantiza que el filter exterior
+                          excluye exerciseIds stale; el chaining añade
+                          defensa-en-profundidad). `x-text` exclusivo
+                          (T-02-01). Misma clase visual `.summary-error-
+                          explanation` para coherencia cross-context con la
+                          sesión (D-120).
+                        -->
+                        <p x-show="content.exerciseById[result.exerciseId]?.payload?.explanation"
+                           class="summary-error-explanation"
+                           x-text="content.exerciseById[result.exerciseId].payload.explanation"></p>
                       </div>
                     </template>
 
@@ -550,6 +600,10 @@
                       <div>
                         <div>Tu respuesta: <span class="user-answer" x-text="(result.userAnswer || []).join(' ')"></span></div>
                         <div>Respuesta correcta: <strong x-text="content.exerciseById[result.exerciseId].payload.answer.join(' ')"></strong></div>
+                        <!-- Phase 7 plan 01 (D-119, EXPL-03) — ver comentario en multi-choice. -->
+                        <p x-show="content.exerciseById[result.exerciseId]?.payload?.explanation"
+                           class="summary-error-explanation"
+                           x-text="content.exerciseById[result.exerciseId].payload.explanation"></p>
                       </div>
                     </template>
 
@@ -566,6 +620,10 @@
                              right}` no tenía leftIdx — `pairs[undefined]` es
                              undefined y `?.[1]` lo cortocircuita). -->
                         <div>Respuesta correcta: <strong x-text="result.userAnswer.left + ' ↔ ' + (content.exerciseById[result.exerciseId].payload.pairs[result.userAnswer.leftIdx]?.[1] || '(?)')"></strong></div>
+                        <!-- Phase 7 plan 01 (D-119, EXPL-03) — ver comentario en multi-choice. -->
+                        <p x-show="content.exerciseById[result.exerciseId]?.payload?.explanation"
+                           class="summary-error-explanation"
+                           x-text="content.exerciseById[result.exerciseId].payload.explanation"></p>
                       </div>
                     </template>
                   </li>

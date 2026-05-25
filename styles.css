@@ -412,3 +412,27 @@ button.incorrecta {
   border-radius: var(--pico-border-radius, 0.25rem);
   overflow-wrap: anywhere;
 }
+
+/*
+ * Phase 7 plan 01 — D-120: Explicaciones pedagógicas (.session-explanation +
+ * .summary-error-explanation).
+ *
+ * Tono didactico: muted gris (--pico-muted-color), italic, font-size 0.9em.
+ * NO rojo .incorrecta — la explicación es enseñanza, no error.
+ *
+ * Spacing: multiples 4px (UI-SPEC Phase 6 §Spacing): margin-top 0.5rem (8px)
+ * separa del bloque "Respuesta correcta" anterior; margin-bottom 0.5rem (8px)
+ * separa del boton Siguiente. Sin tokens nuevos, sin overrides de fuente.
+ *
+ * Reglas compartidas en un único selector porque ambas son visualmente
+ * idénticas (D-120: coherencia cross-context). El diferenciador es solo
+ * nombre de clase para permitir customización independiente futura.
+ */
+.session-explanation,
+.summary-error-explanation {
+  color: var(--pico-muted-color);
+  font-style: italic;
+  font-size: 0.9em;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}

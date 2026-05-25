@@ -7,7 +7,8 @@
       "payload": {
         "prompt": "Sono ___ Roma.",
         "options": ["di", "a", "da", "in"],
-        "correctIndex": 0
+        "correctIndex": 0,
+        "explanation": "La preposicion Di indica origen o procedencia: de donde viene alguien o algo de forma estable. Con nombres de ciudad va sin articulo: Sono di Roma significa 'soy de Roma'. Distinta de Da, que marca el punto de partida de un movimiento (Vengo da Roma = vengo desde Roma)."
       },
       "notes": "Preposición simple 'di' = origen/procedencia ('soy de Roma'). PDF preposizioni_italiano §Preposizioni semplici, ejemplo canónico 'Sono di Roma'."
     },
@@ -62,7 +63,8 @@
       "payload": {
         "prompt": "Il gatto è ___ tavolo.",
         "options": ["sul", "nel", "al", "dal"],
-        "correctIndex": 0
+        "correctIndex": 0,
+        "explanation": "Su significa 'sobre' o 'encima de' con contacto fisico. Cuando va seguida del articulo definido se fusiona en una preposicion articolata: Su + Il (masc sing) = Sul. Il gatto e sul tavolo = el gato esta sobre la mesa. Mismo patron: Su + La = Sulla, Su + Le = Sulle."
       },
       "notes": "Preposición articolata 'sul' = su + il (sobre la mesa). PDF §Preposizioni articolate, ejemplo canónico 'Il gatto è sul tavolo'. Distractoras = otras articolate +il del mismo cuadro."
     },
