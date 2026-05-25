@@ -951,54 +951,77 @@ describe('data/schema-validator — payload.explanation (Phase 7 D-116)', () => 
 });
 
 // ────────────────────────────────────────────────────────────────────────────
-// Phase 7 Plan 07-02 — Preposiciones explanation coverage smoke test (EXPL-04)
+// Phase 7.1 EXPL-08 — Smoke test parametrizado para coverage por categoría
 // ────────────────────────────────────────────────────────────────────────────
-// Verifica que las 50 entries de content/exercises/preposiciones.json tienen
-// payload.explanation: string no vacío. Defensa contra eliminaciones accidentales
-// futuras + sanity check de que Plan 07-02 entregó el seed completo.
+// Array extensible: añadir 1 entry por categoría que tenga explanations
+// completas. Plan 7.1-02 añadirá genero-numero. Phases 7.2..7.6 añadirán
+// las restantes 5 categorías (Avere, Essere, Verbos-movimiento, Profesiones,
+// Sustantivos-irregulares) si emerge dolor adicional.
 //
-// Si el autor añade un 51er ejercicio sin explanation, este test FALLA y le
-// recuerda completar el seed editorial. Si el autor mueve un ejercicio a otra
-// categoría, el test sigue válido (cuenta solo las entries de este archivo).
+// Cada categoría se verifica contra 3 invariantes editoriales (D-135/D-136/D-126):
+//   1. coverage exacto (todos los ejercicios del archivo tienen explanation no vacía)
+//   2. apóstrofes ASCII U+0027 (CONT-06 — anti smart-quote contamination)
+//   3. plain text sin markdown markers (T-02-01 anti-XSS — los tokens **/__/##/` no se interpretan)
 
-describe('content/preposiciones.json — explanation coverage (Phase 7 EXPL-04)', () => {
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = dirname(__filename);
-  const path = resolve(__dirname, '../content/exercises/preposiciones.json');
-  const data = JSON.parse(readFileSync(path, 'utf-8'));
+const CATEGORIES_WITH_EXPLANATIONS = [
+  { file: 'content/exercises/preposiciones.json', expected: 50 },
+  // Plan 7.1-02 añadirá: { file: 'content/exercises/genero-numero.json', expected: 40 }
+];
 
-  test('all 50 exercises have payload.explanation: string no vacío', () => {
-    assert.equal(data.exercises.length, 50, `Esperaba 50 ejercicios, encontré ${data.exercises.length}`);
+describe('Categorías con explanation coverage (Phase 7.1+)', () => {
+  for (const { file, expected } of CATEGORIES_WITH_EXPLANATIONS) {
+    describe(file, () => {
+      const __filename = fileURLToPath(import.meta.url);
+      const __dirname = dirname(__filename);
+      const path = resolve(__dirname, '..', file);
+      const data = JSON.parse(readFileSync(path, 'utf-8'));
 
-    const missing = data.exercises.filter(ex =>
-      typeof ex.payload?.explanation !== 'string' || !ex.payload.explanation.trim()
-    );
+      test(`${expected}/${expected} ejercicios con explanation válida`, () => {
+        assert.equal(
+          data.exercises.length,
+          expected,
+          `Esperaba ${expected} ejercicios en ${file}, encontré ${data.exercises.length}`
+        );
 
-    assert.equal(
-      missing.length,
-      0,
-      `Ejercicios sin explanation válida: ${missing.map(ex => ex.id).join(', ')}`
-    );
-  });
+        const missing = data.exercises.filter(ex =>
+          typeof ex.payload?.explanation !== 'string' || !ex.payload.explanation.trim()
+        );
 
-  test('explanations use ASCII apostrophes only (CONT-06 / D-129)', () => {
-    const smartQuotePattern = /[‘’“”]/;
-    const violations = data.exercises
-      .filter(ex => smartQuotePattern.test(ex.payload?.explanation || ''))
-      .map(ex => ex.id);
+        assert.equal(
+          missing.length,
+          0,
+          `Ejercicios sin explanation válida en ${file}: ${missing.map(ex => ex.id).join(', ')}`
+        );
+      });
 
-    assert.equal(violations.length, 0, `Smart quotes encontradas en: ${violations.join(', ')}`);
-  });
+      test('apóstrofes ASCII (CONT-06 / D-129)', () => {
+        const smartQuotePattern = /[‘’“”]/;
+        const violations = data.exercises
+          .filter(ex => smartQuotePattern.test(ex.payload?.explanation || ''))
+          .map(ex => ex.id);
 
-  test('explanations are plain text (no markdown markers — D-126)', () => {
-    // Tokens de markdown que romperían el render plain-text: ** (bold), __ (bold),
-    // ## (header), backticks (inline code). Asteriscos sueltos en prosa son OK
-    // (pueden aparecer como puntuación). Solo doblados o headers prefijo.
-    const mdPattern = /(\*\*|__|##|`)/;
-    const violations = data.exercises
-      .filter(ex => mdPattern.test(ex.payload?.explanation || ''))
-      .map(ex => ex.id);
+        assert.equal(
+          violations.length,
+          0,
+          `Smart quotes encontradas en ${file}: ${violations.join(', ')}`
+        );
+      });
 
-    assert.equal(violations.length, 0, `Markdown markers encontradas en: ${violations.join(', ')}`);
-  });
+      test('plain text (no markdown markers — D-126)', () => {
+        // Tokens de markdown que romperían el render plain-text: ** (bold), __ (bold),
+        // ## (header), backticks (inline code). Asteriscos sueltos en prosa son OK
+        // (pueden aparecer como puntuación). Solo doblados o headers prefijo.
+        const mdPattern = /(\*\*|__|##|`)/;
+        const violations = data.exercises
+          .filter(ex => mdPattern.test(ex.payload?.explanation || ''))
+          .map(ex => ex.id);
+
+        assert.equal(
+          violations.length,
+          0,
+          `Markdown markers encontradas en ${file}: ${violations.join(', ')}`
+        );
+      });
+    });
+  }
 });
