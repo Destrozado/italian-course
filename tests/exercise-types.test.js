@@ -1369,3 +1369,45 @@ describe('Categorías con explanation coverage (Phase 7.1+)', () => {
     });
   }
 });
+
+// ────────────────────────────────────────────────────────────────────────────
+// Phase 9 VAL-07 — Smoke test paramétrico tras feature flag (Phase 10 close gate)
+// ────────────────────────────────────────────────────────────────────────────
+//
+// D-VAL-17: durante Phase 9 el flag está OFF — los 271 ejercicios actuales NO
+// tienen el campo `validation` aún, así que activar el test estricto los
+// rompería y bloquearía el desarrollo de Phase 10.
+//
+// Al cierre de Phase 10 (los 271 validados 1-por-1 con quórum Opus+Sonnet) el
+// autor invoca:
+//
+//   VAL_07_STRICT=1 node --test tests/*.test.js
+//
+// y este bloque pasa con 271/271 `validation.status === "validated"`.
+//
+// Patrón idiomático node:test 2026: lectura top-level de env var + describe
+// con `{skip: condition}` option (NO `t.skip()` runtime — más imperativo,
+// peor DX).
+//
+// D-VAL-18: reutiliza el array `CATEGORIES_WITH_EXPLANATIONS` (patrón D-144)
+// — cero infra paralela.
+
+const VAL_07_STRICT = process.env.VAL_07_STRICT === '1';
+
+describe('VAL-07 — todos los ejercicios validated (Phase 10 close gate)', {
+  skip: VAL_07_STRICT ? false : 'feature flag VAL_07_STRICT=1 no activado (esperado durante Phase 9)'
+}, () => {
+  for (const { file, expected } of CATEGORIES_WITH_EXPLANATIONS) {
+    test(`${file} — todos los ejercicios con validation.status === "validated"`, () => {
+      const __filename = fileURLToPath(import.meta.url);
+      const __dirname = dirname(__filename);
+      const data = JSON.parse(readFileSync(resolve(__dirname, '..', file), 'utf-8'));
+      const notValidated = data.exercises.filter(ex => ex.validation?.status !== 'validated');
+      assert.equal(
+        notValidated.length,
+        0,
+        `${notValidated.length} ejercicios sin status "validated" en ${file}: ${notValidated.map(ex => `${ex.id}(${ex.validation?.status ?? 'absent'})`).join(', ')}`
+      );
+    });
+  }
+});
