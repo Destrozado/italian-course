@@ -147,7 +147,7 @@
             <button type="button" class="secondary" @click="currentScreen = 'backup'">Backup</button>
           </div>
 
-          <!-- Tabla densa (D-29) con 5 columnas exactas. -->
+          <!-- Tabla densa (D-29) con 6 columnas exactas — 6ª columna Examen añadida en Phase 8 (D-184). -->
           <figure>
             <table>
               <thead>
@@ -157,6 +157,7 @@
                   <th scope="col">Racha</th>
                   <th scope="col">Ejercicios</th>
                   <th scope="col">Última vez</th>
+                  <th scope="col">Examen</th>
                 </tr>
               </thead>
               <tbody>
@@ -171,6 +172,13 @@
                     <td x-text="cat.streakLabel"></td>
                     <td x-text="cat.totalCount"></td>
                     <td x-text="cat.lastPracticedLabel"></td>
+                    <td>
+                      <button type="button"
+                              class="secondary outline"
+                              :disabled="!cat.examenEnabled"
+                              :title="cat.examenTooltip"
+                              @click="startExamen(cat.id)">Examen</button>
+                    </td>
                   </tr>
                 </template>
               </tbody>
