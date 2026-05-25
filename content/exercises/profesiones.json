@@ -7,7 +7,8 @@
       "payload": {
         "prompt": "Il cuoco (masc) → la ___ (fem).",
         "options": ["cuoca", "cuoche", "cuocia", "cuocessa"],
-        "correctIndex": 0
+        "correctIndex": 0,
+        "explanation": "La regla productiva más frecuente del italiano para formar el femenino de profesiones es cambiar la -o final por -a. Así 'cuoco' (cocinero) pasa a 'cuoca' y 'impiegato' (empleado) pasa a 'impiegata'. Cuidado: no confundir con el plural femenino 'cuoche' (las cocineras), que añade -h- para preservar el sonido duro de la C."
       },
       "notes": "PDF §1 Regular -o→-a. Distractoras: `cuoche` (plural fem, no singular), `cuocia` (mezcla con -cia palatal), `cuocessa` (calco con -essa de dottoressa, error A1 al sobre-aplicar)."
     },
@@ -18,7 +19,8 @@
       "payload": {
         "prompt": "L'impiegato (masc) → l'___ (fem).",
         "options": ["impiegate", "impiegatessa", "impiegata", "impiegatrice"],
-        "correctIndex": 2
+        "correctIndex": 2,
+        "explanation": "El femenino regular -o→-a aplica también con elisión del artículo ante vocal: 'l'impiegato' (el empleado) pasa a 'l'impiegata' (la empleada). Importante: los sufijos -essa y -trice NO son comodines; -essa pertenece a la familia -e/-essa (dottore/dottoressa) y -trice a la familia -tore/-trice (attore/attrice). 'Impiegato' no encaja en ninguna de las dos."
       },
       "notes": "PDF §1 Regular -o→-a. Distractoras: `impiegate` (plural fem, no singular), `impiegatessa` (-essa solo aplica a -e como dottore/dottoressa, no a -o), `impiegatrice` (-trice solo a -tore como attore/attrice — esta NO es -tore)."
     },
@@ -29,7 +31,8 @@
       "payload": {
         "prompt": "L'avvocato (masc) → l'___ (fem).",
         "options": ["avvocatessa", "avvocatrice", "avvocata", "avvocate"],
-        "correctIndex": 2
+        "correctIndex": 2,
+        "explanation": "El italiano contemporáneo acepta dos femeninos para 'avvocato': la forma tradicional 'avvocatessa' con sufijo prestigioso -essa (familia dottoressa/professoressa) y la forma neutra 'avvocata' con la regla regular -o→-a. ¡Atención! El material del PDF y el uso moderno favorecen 'avvocata', en paralelo con 'impiegata' y 'segretaria'. Ojo a la elisión universal del artículo ante vocal: 'l'avvocato' y 'l'avvocata'."
       },
       "notes": "PDF §1 Regular -o→-a: avvocato→avvocata. Nota lingüística: ambas formas (`avvocata` y `avvocatessa`) son aceptables en italiano moderno — `avvocatessa` es la tradicional con sufijo prestigioso -essa (familia dottoressa/professoressa), `avvocata` es la del PDF y la del italiano contemporáneo neutro (paralelo a otras profesiones -o→-a como impiegata/segretaria). Para coherencia con el resto de ejercicios PDF §1 (todas -o→-a sin -essa), el ejercicio fija `avvocata` como respuesta correcta. Distractoras: `avvocatessa` (forma tradicional plausible — distractora pedagógica fuerte), `avvocatrice` (-trice aplicado mal, esta no es -tore), `avvocate` (plural fem, no singular)."
     },
@@ -40,7 +43,8 @@
       "payload": {
         "prompt": "Il segretario (masc) → la ___ (fem).",
         "options": ["segretari", "segretarie", "segretaressa", "segretaria"],
-        "correctIndex": 3
+        "correctIndex": 3,
+        "explanation": "Caso canónico de la regla -o→-a productiva: 'segretario' (secretario) pasa a 'segretaria' (secretaria), sin sufijos especiales. Importante: el sufijo -essa solo aplica cuando el masculino termina en -e (dottore→dottoressa, professore→professoressa), y 'segretario' termina en -o, así que 'segretaressa' mezcla dos familias diferentes y no es aceptable."
       },
       "notes": "PDF §1 Regular -o→-a. Distractoras: `segretari` (plural masc), `segretarie` (plural fem), `segretaressa` (-essa mal aplicada; segretario es -o, no -e). La forma `segretaria` es la del PDF — caso canónico -o→-a."
     },
@@ -51,7 +55,8 @@
       "payload": {
         "prompt": "Il poliziotto (masc) → la ___ (fem).",
         "options": ["poliziotta", "poliziotte", "poliziottrice", "poliziottessa"],
-        "correctIndex": 0
+        "correctIndex": 0,
+        "explanation": "Regla regular -o→-a productiva: 'poliziotto' (policía masculino) pasa a 'poliziotta' (policía femenina). Cuidado: ni 'poliziottrice' ni 'poliziottessa' son válidos, porque -trice exige raíz en -tore (attore, direttore) y -essa exige raíz en -e (dottore, professore). 'Poliziotto' termina en -o, así que la regla aplicable es la de cambio simple -o→-a."
       },
       "notes": "PDF §1 Regular -o→-a. Distractoras: `poliziotte` (plural fem), `poliziottrice` (-trice mal aplicada — esta no es -tore), `poliziottessa` (-essa mal aplicada — esta no es -e)."
     },
@@ -62,7 +67,8 @@
       "payload": {
         "prompt": "Il fotografo (masc) → la ___ (fem).",
         "options": ["fotografessa", "fotografa", "fotografia", "fotografatrice"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "El femenino de 'fotografo' (fotógrafo) sigue la regla -o→-a y da 'fotografa' (fotógrafa). ¡Atención! Existe la palabra 'la fotografia' que significa 'la foto' o 'la fotografía como técnica', no a la profesional. El hispanohablante puede caer en la trampa por similitud léxica: la profesión femenina es 'fotografa', no 'fotografia'."
       },
       "notes": "PDF §1 Regular -o→-a. Distractoras: `fotografessa` (-essa mal aplicada), `fotografia` (palabra distinta: 'foto' → sustantivo, no profesión femenina), `fotografatrice` (mezcla con -trice y duplicación). Pitfall: 'fotografo' suena cercano a 'fotografia' que NO es la respuesta."
     },
@@ -73,7 +79,8 @@
       "payload": {
         "prompt": "L'architetto (masc) → l'___ (fem).",
         "options": ["architette", "architetta", "architettessa", "architettrice"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "La profesión técnica 'architetto' (arquitecto) forma el femenino con la regla regular -o→-a: 'l'architetto' pasa a 'l'architetta', con elisión del artículo ante vocal. Ojo: hay tentación A1 de añadir un sufijo prestigioso (-essa, -trice) por analogía con 'dottoressa' o 'direttrice', pero esas familias exigen raíz en -e o -tore respectivamente, no en -o."
       },
       "notes": "PDF §1 Regular -o→-a. Distractoras: `architette` (plural fem), `architettessa` (-essa mal aplicada por analogía con dottoressa), `architettrice` (-trice mal aplicada por confusión con direttore/direttrice). Pitfall A1: tentación de aplicar suffijos prestigiosos a profesiones técnicas."
     },
@@ -84,7 +91,8 @@
       "payload": {
         "prompt": "Il meccanico (masc) → la ___ (fem).",
         "options": ["meccanica", "meccaniche", "meccanicessa", "meccanicia"],
-        "correctIndex": 0
+        "correctIndex": 0,
+        "explanation": "El femenino de 'meccanico' (mecánico) sigue la regla -o→-a y da 'meccanica' (mecánica). Cuidado con la ambigüedad léxica: 'la meccanica' también significa 'la mecánica' como disciplina o rama de la física; el contexto (artículo más sustantivo aplicado a una persona) fija aquí la lectura profesional."
       },
       "notes": "PDF §1 Regular -o→-a. Distractoras: `meccaniche` (plural fem), `meccanicessa` (-essa mal aplicada), `meccanicia` (mezcla con -cia palatal incorrecta — recuerda que `meccanica` también es la palabra para 'mecánica' como disciplina, ambigüedad léxica pedagógica)."
     },
@@ -95,7 +103,8 @@
       "payload": {
         "prompt": "Il cameriere (masc) → la ___ (fem).",
         "options": ["camerieressa", "cameriera", "camerieretta", "cameriere"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "La familia -iere/-iera es una regla productiva del italiano para profesiones de servicio. Así 'cameriere' (camarero) pasa a 'cameriera' (camarera). Importante: esta familia incluye también 'infermiere/infermiera' (enfermero/a), 'parrucchiere/parrucchiera' (peluquero/a) y 'portiere/portiera' (portero/a) — el patrón es estable y predecible."
       },
       "notes": "PDF §2 -iere → -iera. Distractoras: `camerieressa` (calco con -essa por confusión con familia dottoressa), `camerieretta` (diminutivo, no femenino), `cameriere` (invariable falso). Regla productiva: cameriere/a, infermiere/a, parrucchiere/a, portiere/a."
     },
@@ -106,7 +115,8 @@
       "payload": {
         "prompt": "L'infermiere (masc) → l'___ (fem).",
         "options": ["infermiera", "infermieressa", "infermiere", "infermiritrice"],
-        "correctIndex": 0
+        "correctIndex": 0,
+        "explanation": "Caso paralelo a 'cameriere/cameriera': 'infermiere' (enfermero) pasa a 'infermiera' (enfermera) por la regla productiva -iere→-iera, con elisión del artículo ante vocal ('l'infermiere'/'l'infermiera'). Cuidado: la profesión no es invariable como 'cantante' o 'insegnante'; la terminación -iere SÍ flexiona en italiano A1 sin excepciones en el material."
       },
       "notes": "PDF §2 -iere → -iera. Distractoras: `infermieressa` (calco -essa), `infermiere` (invariable falso), `infermiritrice` (-trice mal aplicada con duplicación). Pitfall: las profesiones en -iere son TODAS -iera en fem, sin excepción en el PDF."
     },
@@ -117,7 +127,8 @@
       "payload": {
         "prompt": "Il parrucchiere (masc) → la ___ (fem).",
         "options": ["parrucchiere", "parrucchieressa", "parrucchiera", "parrucchierica"],
-        "correctIndex": 2
+        "correctIndex": 2,
+        "explanation": "Misma regla -iere→-iera aplicada a la profesión 'parrucchiere' (peluquero), que pasa a 'parrucchiera' (peluquera). La familia productiva incluye también 'cameriere/cameriera' e 'infermiere/infermiera', y mantiene siempre la doble erre y la H tras la C para preservar el sonido duro original."
       },
       "notes": "PDF §2 -iere → -iera. Distractoras: `parrucchiere` (invariable falso), `parrucchieressa` (calco -essa), `parrucchierica` (mezcla con -ica). Misma regla productiva que cameriere/cameriera, infermiere/infermiera."
     },
@@ -128,7 +139,8 @@
       "payload": {
         "prompt": "Il portiere (masc) → la ___ (fem).",
         "options": ["portieressa", "portieretta", "portiera", "portiere"],
-        "correctIndex": 2
+        "correctIndex": 2,
+        "explanation": "El femenino de 'portiere' (portero) es 'portiera' por la regla productiva -iere→-iera. Ojo a la ambigüedad léxica: 'la portiera' también significa 'la puerta del coche' como objeto; el contexto profesional o domiciliario fija la lectura como 'la portera'. Cuidado además con el calco español: en italiano no existe el invariable 'il portiere'/'la portiere'."
       },
       "notes": "PDF §2 -iere → -iera. Distractoras: `portieressa` (calco -essa), `portieretta` (diminutivo, no fem), `portiere` (invariable falso). Ojo: `portiera` también significa 'puerta de coche' (ambigüedad léxica) — el contexto profesional fija la lectura."
     },
@@ -139,7 +151,8 @@
       "payload": {
         "prompt": "L'attore (masc) → l'___ (fem).",
         "options": ["attora", "attoressa", "attrice", "attorina"],
-        "correctIndex": 2
+        "correctIndex": 2,
+        "explanation": "La familia -tore/-trice es una de las irregularidades productivas del italiano: el masculino -tore pierde la O y añade -ice. Así 'attore' (actor) pasa a 'attrice' (actriz). Importante: el mismo patrón aparece en Género y Número con 'scrittore→scrittrice' (escritor/a) y 'lavoratore→lavoratrice' (trabajador/a). No confundir con -e/-essa (dottore→dottoressa)."
       },
       "notes": "PDF §3 Irregolari -tore → -trice. Distractoras: `attora` (regla regular -e→-a mal aplicada), `attoressa` (mezcla con familia -essa dottore/dottoressa — confusión productiva), `attorina` (diminutivo). Familia -tore/-trice: attore/attrice, direttore/direttrice, programmatore/programmatrice, traduttore/traduttrice."
     },
@@ -150,7 +163,8 @@
       "payload": {
         "prompt": "Il direttore (masc) → la ___ (fem).",
         "options": ["direttrice", "direttoressa", "direttora", "direttressa"],
-        "correctIndex": 0
+        "correctIndex": 0,
+        "explanation": "Misma familia -tore/-trice productiva: 'direttore' (director) pasa a 'direttrice' (directora). ¡Atención al pitfall central de A1! El alumno hispanohablante confunde 'direttore' con 'dottore' (que también termina en -ore) y aplica el sufijo -essa por analogía con 'dottoressa'. La diferencia está en la raíz: -tore exige -trice (direttore, attore), -e simple exige -essa (dottore, professore)."
       },
       "notes": "PDF §3 Irregolari -tore → -trice. Distractoras: `direttoressa` (mezcla con -essa por familia dottoressa, error A1 muy frecuente porque 'direttore' suena prestigioso como 'dottore'), `direttora` (regla regular mal aplicada), `direttressa` (mezcla). Pitfall central: distinguir -tore/-trice (attore, direttore) de -e/-essa (dottore, professore)."
     },
@@ -161,7 +175,8 @@
       "payload": {
         "prompt": "Il dottore (masc) → la ___ (fem).",
         "options": ["dottora", "dottrice", "dottoressa", "dottore"],
-        "correctIndex": 2
+        "correctIndex": 2,
+        "explanation": "La familia -e/-essa es otra irregularidad productiva: el masculino -e añade el sufijo prestigioso -essa. Así 'dottore' (médico/doctor) pasa a 'dottoressa' (doctora). Cuidado: aunque 'dottore' termina en -ore, NO pertenece a la familia -tore/-trice porque su raíz no es de agente derivado (att-ore, diret-tore); por eso 'dottrice' es incorrecta. El calco español 'dottora' también falla."
       },
       "notes": "PDF §3 Irregolari -e → -essa. Distractoras: `dottora` (regla regular mal aplicada, calco español 'doctora'), `dottrice` (-trice mal aplicada — pitfall: 'dottore' NO es -tore aunque suena similar; -tore va precedido de raíz consonántica como att-ore, diret-tore), `dottore` (invariable falso)."
     },
@@ -172,7 +187,8 @@
       "payload": {
         "prompt": "Il professore (masc) → la ___ (fem).",
         "options": ["professora", "professoressa", "professrice", "professoretta"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "Caso paralelo a 'dottore/dottoressa': el masculino 'professore' (profesor) añade el sufijo -essa y da 'professoressa' (profesora). Importante: el español calca como 'profesora' (regla -a simple), pero el italiano A1 exige el sufijo completo. La familia -e/-essa incluye también 'studente→studentessa' y 'dottore→dottoressa', todas con el mismo patrón."
       },
       "notes": "PDF §3 Irregolari -e → -essa. Distractoras: `professora` (calco español 'profesora', regla regular -a mal aplicada), `professrice` (-trice errónea — professore no es -tore), `professoretta` (diminutivo). Familia -essa: dottore/dottoressa, professore/professoressa, studente/studentessa."
     },
@@ -183,7 +199,8 @@
       "payload": {
         "prompt": "Lo studente (masc) → la ___ (fem).",
         "options": ["studenta", "studentrice", "studentessa", "studente"],
-        "correctIndex": 2
+        "correctIndex": 2,
+        "explanation": "El masculino 'studente' (estudiante) sigue la familia -e/-essa y da 'studentessa' (estudiante femenina). ¡Atención! No todas las profesiones en -e flexionan; algunas son invariables ('cantante', 'insegnante'). Pero 'studente' SÍ tiene femenino propio. El patrón canónico tras vocal más -e es -essa: dottoressa, professoressa, studentessa."
       },
       "notes": "PDF §3 Irregolari -e → -essa. Distractoras: `studenta` (regla regular calco español, error A1 muy común), `studentrice` (-trice errónea), `studente` (invariable falso — pitfall: muchas profesiones en -e SÍ son invariables como cantante/insegnante, pero studente NO). Refuerzo: -essa es el patrón canónico tras vocal+-e: dottoressa, professoressa, studentessa."
     },
