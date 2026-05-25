@@ -2,15 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: ready_to_plan
-last_updated: 2026-05-25T07:22:42.602Z
+status: executing
+last_updated: "2026-05-25T08:33:49.615Z"
 progress:
-  total_phases: 8
+  total_phases: 9
   completed_phases: 6
-  total_plans: 16
+  total_plans: 18
   completed_plans: 16
-  percent: 75
-stopped_at: Phase 6 complete (2/2) — ready to discuss Phase 999.1
+  percent: 67
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -19,17 +18,17 @@ stopped_at: Phase 6 complete (2/2) — ready to discuss Phase 999.1
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 999.1 — bot n reiniciar ejercicios en pantalla de sesi n
+**Current Focus:** Phase 07 — explicaciones-pedag-gicas-al-fallar-campo-explanation-por-ej
 
 ## Current Position
 
-Phase: 6 (polish-ux-post-sesion-reiniciar-y-review-errores) — EXECUTING
+Phase: 07 (explicaciones-pedag-gicas-al-fallar-campo-explanation-por-ej) — EXECUTING
 Plan: 1 of 2
 Next: `/gsd:discuss-phase 6` para clarificar semántica UX-01 (alcance reset, confirmación, tratamiento aciertos) y UX-02 (captura por tipo, layout, persistencia). Tras Phase 6 completa: `/gsd:complete-milestone v1.0`.
 
 - **Phase:** 999.1
 - **Plan:** Not started
-- **Status:** Ready to plan
+- **Status:** Executing Phase 07
 - **Progress:** [██████████] 100%
 
 ## Performance Metrics
