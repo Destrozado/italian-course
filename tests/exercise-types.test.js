@@ -15,6 +15,8 @@ import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
 
 import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { dirname, resolve } from 'node:path';
 
 import { wordButtons } from '../src/exercise-types/word-buttons.js';
 import { match } from '../src/exercise-types/match.js';
@@ -946,4 +948,57 @@ describe('data/schema-validator — payload.explanation (Phase 7 D-116)', () => 
       );
     });
   }
+});
+
+// ────────────────────────────────────────────────────────────────────────────
+// Phase 7 Plan 07-02 — Preposiciones explanation coverage smoke test (EXPL-04)
+// ────────────────────────────────────────────────────────────────────────────
+// Verifica que las 50 entries de content/exercises/preposiciones.json tienen
+// payload.explanation: string no vacío. Defensa contra eliminaciones accidentales
+// futuras + sanity check de que Plan 07-02 entregó el seed completo.
+//
+// Si el autor añade un 51er ejercicio sin explanation, este test FALLA y le
+// recuerda completar el seed editorial. Si el autor mueve un ejercicio a otra
+// categoría, el test sigue válido (cuenta solo las entries de este archivo).
+
+describe('content/preposiciones.json — explanation coverage (Phase 7 EXPL-04)', () => {
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = dirname(__filename);
+  const path = resolve(__dirname, '../content/exercises/preposiciones.json');
+  const data = JSON.parse(readFileSync(path, 'utf-8'));
+
+  test('all 50 exercises have payload.explanation: string no vacío', () => {
+    assert.equal(data.exercises.length, 50, `Esperaba 50 ejercicios, encontré ${data.exercises.length}`);
+
+    const missing = data.exercises.filter(ex =>
+      typeof ex.payload?.explanation !== 'string' || !ex.payload.explanation.trim()
+    );
+
+    assert.equal(
+      missing.length,
+      0,
+      `Ejercicios sin explanation válida: ${missing.map(ex => ex.id).join(', ')}`
+    );
+  });
+
+  test('explanations use ASCII apostrophes only (CONT-06 / D-129)', () => {
+    const smartQuotePattern = /[‘’“”]/;
+    const violations = data.exercises
+      .filter(ex => smartQuotePattern.test(ex.payload?.explanation || ''))
+      .map(ex => ex.id);
+
+    assert.equal(violations.length, 0, `Smart quotes encontradas en: ${violations.join(', ')}`);
+  });
+
+  test('explanations are plain text (no markdown markers — D-126)', () => {
+    // Tokens de markdown que romperían el render plain-text: ** (bold), __ (bold),
+    // ## (header), backticks (inline code). Asteriscos sueltos en prosa son OK
+    // (pueden aparecer como puntuación). Solo doblados o headers prefijo.
+    const mdPattern = /(\*\*|__|##|`)/;
+    const violations = data.exercises
+      .filter(ex => mdPattern.test(ex.payload?.explanation || ''))
+      .map(ex => ex.id);
+
+    assert.equal(violations.length, 0, `Markdown markers encontradas en: ${violations.join(', ')}`);
+  });
 });

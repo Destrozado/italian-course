@@ -83,6 +83,14 @@ Web personal de ejercicios de italiano para preparar el A1 (y luego A2). Es una 
 - ✓ Code review estándar sobre los 8 archivos de Phase 6: 11 findings (3 critical + 5 warning + 3 info); 8 fixed (todos critical+warning), 3 deferred como Info no-blockers; status REVIEW.md: `clean`.
 - ✓ 166/166 tests verdes (145 baseline + 13 Phase 6 nuevos: 5 storage v4 chain + 5 sessionResults shape + 3 restartRepaso smoke); UAT INTEGRAL 11/11 PASS por el autor (5/5 UX-01 + 6/6 UX-02); milestone v1.0 funcionalmente completo con UX-01 + UX-02 cerrados.
 
+**Phase 7 — Explicaciones pedagógicas al fallar (2026-05-25):**
+- ✓ Campo opcional `payload.explanation: string` en schema (3 tipos: multi-choice / word-buttons / match) con regla "if present, must be non-empty string" (D-116 / EXPL-01). Cero migración schemaVersion (sigue v4 — explanation es contenido en `content/`, no state).
+- ✓ Render inline durante feedback rojo en los 3 sub-templates session screen (D-118 / EXPL-02) — `<p class="session-explanation">` italic muted bajo "Respuesta correcta:" y antes del botón Siguiente. `x-text` exclusivo (T-02-01 anti-XSS preservado). Doble guard `x-show` con graceful degradation D-121 (sin placeholder cuando el ejercicio no tiene explanation).
+- ✓ Render en summary-errors bajo cada fila de fallo (D-119 / EXPL-03) — lectura desde `content.exerciseById` con optional chaining defensivo. Mismo estilo visual `.summary-error-explanation` para coherencia cross-context (D-120, sin tokens nuevos).
+- ✓ 50/50 explanations curadas en `content/exercises/preposiciones.json` — patrón D-85 (Claude propone + autor revisa por bloque) en 3 batches secuenciales × 15+16+17. Tono D-127 (3ª impersonal + regla + ejemplo paralelo italiano-español), longitud 228-369 chars, apóstrofes ASCII U+0027 (CONT-06 / D-129), plain text sin markdown (T-02-01 / D-126). Smoke test paramétrico (3 sub-tests) defiende coverage 50/50 + ASCII + no-markdown contra regresiones editoriales futuras (EXPL-04).
+- ✓ Pivote post-uso-real documentado: la decisión Phase 1 "Solo bien/mal por velocidad; la teoría está en los PDFs" fue revisada porque tras 271 ejercicios funcionando el autor consultaba Gemini cada fallo de Preposiciones (4 ejemplos canónicos: sulle/da lui/dalle/sui) — fricción real superó la decisión inicial. Las otras 6 categorías (Avere, Essere, Verbos-movimiento, Profesiones, Sustantivos-irregulares, Género-número) quedan opcionales para retro-rellenar en fases incrementales futuras si emerge dolor adicional (EXPL-05 / D-134).
+- ✓ 181/181 tests verdes (166 baseline + 12 schema validator paramétricos D-116 + 3 smoke coverage preposiciones); UAT humano vertical slice 6/6 PASS (Plan 07-01) + UAT humano final 7/7 PASS (Plan 07-02).
+
 ### Active
 
 <!-- Current scope. Building toward these. -->
@@ -98,7 +106,6 @@ Web personal de ejercicios de italiano para preparar el A1 (y luego A2). Es una 
 - Acceso desde móvil (responsive móvil-first) — desktop primero; responsive se evaluará cuando se eche en falta
 - Generación de ejercicios con IA (a partir de los PDFs) — el contenido se mete a mano; la IA queda como exploración futura, no scope inicial
 - Respuesta libre escribiendo texto — requiere normalización compleja (tildes, sinónimos, mayúsculas); no aporta vs los 3 tipos elegidos
-- Explicaciones pedagógicas / mostrar la regla al fallar o acertar — solo bien/mal por velocidad; la teoría está en los PDFs
 - UI de edición de ejercicios dentro de la web — JSON a mano es suficiente para v1; se reevaluará si el flujo manual escala mal
 - SRS sofisticado (Anki-style, ratio fallos/aciertos ponderado) — priorización simple por "veces hechas" es suficiente al principio
 - Frecuencia reducida o eliminación de categorías "dominadas" en sesiones — el autor quiere que sigan apareciendo igual para no perder forma
@@ -147,6 +154,7 @@ Web personal de ejercicios de italiano para preparar el A1 (y luego A2). Es una 
 | `firstUsedAt` inline guard en 4 call-sites (NO helper `setFirstUsedAtIfMissing`) | Helper introducía indirección sin valor; el guard de 1 línea es trivial repetir; revisión architectural más simple por tipo de operación | ✓ Validado Phase 4 (D-78, B-5 fix; verificable por grep de `firstUsedAt ??.*toISOString`) |
 | D-88 APPEND-ONLY blindado por scripts/snapshot+assert (no por convención manual) | Convención "no toques avere.json" se rompe silenciosamente; snapshot+deepEqual estructural lo detecta automáticamente | ✓ Validado Phase 4 (`scripts/snapshot-avere-prefix.mjs` + `assert-avere-prefix-unchanged.mjs`) |
 | Match solo válido si pareo requiere regla NO derivable por raíz; convertir a multi-choice con distractoras plausibles si no | Ejercicio que cualquiera resuelve por similitud visual de raíz NO demuestra conocimiento; UAT 04-03 lo identificó con `bue↔buoi/dio↔dei/uovo↔uova/tempio↔templi` (todos resolubles por root match) | ✓ Validado Phase 4 (Design Rule UAT, refactor `9d21c88` de sustantivos-irregulares y aplicación inicial en genero-numero + profesiones) |
+| 2026-05-25: reabrir Out of Scope "Explicaciones pedagógicas al fallar/acertar" — limitado a fallos, opcional por ejercicio, seed en Preposiciones | Tras 271 ejercicios el autor consultaba Gemini cada fallo de Preposiciones (sulle/da lui/dalle/sui); la teoría en PDFs no era accesible mid-sesión. La explanation destilada inline (1 frase regla + 1 frase ejemplo paralelo) cierra el loop pedagógico sin romper la velocidad del flow porque solo se muestra al fallar (D-134) | ✓ Validado Phase 7 (50/50 explanations curadas Preposiciones + render inline + render summary-errors; campo opcional retro-compatible con 221 ejercicios sin explanation; UAT 13/13 PASS — 6/6 vertical slice Plan 07-01 + 7/7 cobertura Plan 07-02) |
 
 ## Evolution
 

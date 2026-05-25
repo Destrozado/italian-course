@@ -75,6 +75,18 @@
 
 - [x] **UX-02**: Sección "Errores cometidos" en la pantalla de resumen final (post-SESSION-07) que muestra, para cada ejercicio fallado durante la sesión, qué respondió el autor + qué era correcto + sobre qué frase (prompt original). Aplica a los 3 tipos (multi-choice / word-buttons / match) — la captura es distinta en cada uno y se decidirá en `/gsd:discuss-phase 6`. Implica extender `sessionResults` con `userAnswer` (hoy solo guarda `correct: boolean`). Layout (lista plana vs agrupada por categoría) y persistencia (in-memory vs localStorage para consulta posterior) a clarificar en discuss. Captura UAT Phase 4: *"al terminar, estaria ver bien una pantalla de 'Resultado' donde veas sobretodo los errores que has cometido, que dijiste y que era sobre que frase, por si quieres al final del todo repasar todos los errores en vez de repasarlos segun vas fallando."*
 
+### Explicaciones pedagógicas (EXPL) — Phase 7
+
+- [x] **EXPL-01**: El schema validator acepta `payload.explanation: string` como campo opcional uniforme en los 3 tipos de ejercicio (multi-choice / word-buttons / match). Si presente, debe ser string no vacío (whitespace puro rechazado). Si ausente, el ejercicio sigue siendo válido (back-compat con 221 ejercicios pre-Phase 7). Cero migración schemaVersion (sigue 4 — explanation es contenido, no state). Completed Phase 7 — Plan 07-01 Task 1: 3 bloques `if (ex.payload.explanation !== undefined)` añadidos a validateMultipleChoicePayload + validateWordButtonsPayload + validateMatchPayload + 12 tests paramétricos (4 sub-cases × 3 tipos).
+
+- [x] **EXPL-02**: Durante una sesión, si un ejercicio fallado tiene `payload.explanation`, el feedback rojo muestra un párrafo italic muted (`<p class="session-explanation">`) bajo la línea "Respuesta correcta:" y antes del botón Siguiente, en los 3 sub-templates (multi-choice / word-buttons / match). Render vía `x-text` exclusivo (T-02-01 anti-XSS preservado). Si el ejercicio no tiene explanation, no se renderiza placeholder (D-121 graceful degradation con doble guard `x-show`). Completed Phase 7 — Plan 07-01 Task 2: 3 bloques `<p>` añadidos en index.html con 2 reglas CSS muted/italic (sin tokens nuevos, reuso `--pico-muted-color`).
+
+- [x] **EXPL-03**: Al final de sesión, la sección "Errores cometidos" del summary muestra la `explanation` (cuando existe) bajo la línea "Respuesta correcta" de cada `<li>` con la misma clase visual `.summary-error-explanation` (italic muted, coherencia cross-context). Lectura desde `content.exerciseById[result.exerciseId]?.payload?.explanation` con optional chaining defensivo (CR-01 Phase 6 ya garantiza el filter de exerciseIds stale, defensa-en-profundidad). Completed Phase 7 — Plan 07-01 Task 2: 3 bloques `<p>` añadidos en los 3 sub-templates de summary-errors (multi-choice / word-buttons / match).
+
+- [x] **EXPL-04**: Las 50 entries de `content/exercises/preposiciones.json` tienen `payload.explanation` curada por Claude + revisada por el autor en 3 batches secuenciales (patrón D-85). Tono D-127 (3ª impersonal + regla + ejemplo paralelo italiano-español), longitud 228-369 chars, apóstrofes ASCII U+0027 (CONT-06 / D-129), plain text sin markdown (T-02-01 / D-126). Smoke test paramétrico (3 sub-tests: coverage 50/50, ASCII apóstrofes, no markdown markers) defiende contra regresiones editoriales futuras. Las otras 6 categorías (Avere, Essere, Verbos-movimiento, Profesiones, Sustantivos-irregulares, Género-número) quedan opcionales para retro-rellenar en fases incrementales futuras si emerge dolor adicional (Phase 7.1, 7.2, ...). Completed Phase 7 — Plan 07-01 (2 seed) + Plan 07-02 batches A/B/C (15+16+17).
+
+- [x] **EXPL-05**: PROJECT.md `## Out of Scope` reabrió la entrada "Explicaciones pedagógicas / mostrar la regla al fallar o acertar — solo bien/mal por velocidad; la teoría está en los PDFs" — movida a `### Validated` con audit trail del pivote post-uso-real (271 ejercicios funcionando + autor consultaba Gemini cada fallo de Preposiciones). Key Decisions tabla extendida con fila nueva (fecha 2026-05-25) documentando la razón del pivote. El loop pedagógico cierra sin romper la velocidad del flow porque explanation solo se muestra al fallar. Completed Phase 7 — Plan 07-02 Task 4.
+
 ## v2 Requirements
 
 Deferred to future release. Tracked but not in current roadmap.
@@ -161,15 +173,20 @@ Explicitly excluded for v1. Documented to prevent scope creep.
 | SEED-01 | Fase 4 | Complete (6/6 categorías con contenido real — 232 ejercicios totales — validado por Plan 04-04 UAT INTEGRAL UAT-D) |
 | SEED-02 | Fase 4 | Complete (Plan 04-04 — 6 cruces avere-300..305 + UAT INTEGRAL UAT-E cascada multi-cat propaga inmediata) |
 | SEED-03 | Fase 5 | Complete (Plan 05-01 — 39 ejercicios essere = 33 base + 6 multi-cat essere-300..305 + UAT INTEGRAL 6/6 PASS) |
-| UX-01   | Fase 6 | Not started (botón reiniciar ejercicios) |
-| UX-02   | Fase 6 | Not started (pantalla "Resultado" con review de errores cometidos) |
+| UX-01   | Fase 6 | Complete (Plan 06-01 runtime + Plan 06-02 UAT INTEGRAL 5/5 PASS — botón reiniciar ejercicios) |
+| UX-02   | Fase 6 | Complete (Plan 06-01 runtime + Plan 06-02 UAT INTEGRAL 6/6 PASS — sección "Errores cometidos" en summary) |
+| EXPL-01 | Fase 7 | Complete (Plan 07-01 — schema validator extension, 3 reglas if-explanation-string-no-vacío + 12 tests paramétricos) |
+| EXPL-02 | Fase 7 | Complete (Plan 07-01 — 3 sub-templates session render inline `<p class="session-explanation">` durante feedback rojo) |
+| EXPL-03 | Fase 7 | Complete (Plan 07-01 — 3 sub-templates summary-errors render `<p class="summary-error-explanation">`) |
+| EXPL-04 | Fase 7 | Complete (Plan 07-01 + Plan 07-02 — 50/50 explanations curadas Preposiciones via patrón D-85 + smoke test paramétrico coverage/ASCII/no-markdown) |
+| EXPL-05 | Fase 7 | Complete (Plan 07-02 — reapertura PROJECT.md Out of Scope a Validated + Key Decision audit trail del pivote post-uso-real) |
 
 **Coverage:**
-- v1 requirements: 43 total (40 originales + SEED-03 Phase 5 + UX-01/UX-02 Phase 6)
-- Mapped to phases: 43 (100%)
+- v1 requirements: 48 total (40 originales + SEED-03 Phase 5 + UX-01/UX-02 Phase 6 + EXPL-01..05 Phase 7)
+- Mapped to phases: 48 (100%)
 - Unmapped: 0
-- **Completed: 41/43 (95%)** tras Phase 5 cierre. Falta Phase 6 (UX-01 + UX-02 — polish UX post-sesión absorbiendo backlog 999.1+999.2).
+- **Completed: 48/48 (100%)** tras Phase 7 cierre. Milestone v1.0 funcionalmente completo + extendido con explicaciones pedagógicas opcionales (Preposiciones cubierta como seed; 6 categorías restantes opcionales para fases incrementales 7.1, 7.2, ... si emerge dolor).
 
 ---
 *Requirements defined: 2026-05-23*
-*Last updated: 2026-05-24 after Phase 5 completion + Phase 6 promote (UX-01 + UX-02 absorbidos del backlog 999.1 + 999.2). 41/43 v1 requirements complete; 2 pendientes (UX-01 + UX-02) en Phase 6 para cerrar milestone v1.0 con polish UX completo.*
+*Last updated: 2026-05-25 after Phase 7 completion (EXPL-01..05 cerrados — 50/50 explanations Preposiciones curadas + render inline + render summary + reapertura PROJECT.md Out of Scope con audit trail). 48/48 v1 requirements complete; milestone v1.0 ampliado con explicaciones pedagógicas opcionales — pivote post-uso-real documentado.*
