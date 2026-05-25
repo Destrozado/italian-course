@@ -145,13 +145,30 @@ Web personal de ejercicios de italiano para preparar el A1 (y luego A2). Es una 
 
 **Last activity:** 2026-05-25 — Milestone v1.0 archivado, git tag `v1.0` pendiente.
 
-## Next Milestone Goals
+## Current Milestone: v1.1 Validación editorial
 
-> Por definir con `/gsd-new-milestone`. Candidatos naturales del backlog Phase 8.x / 8.y:
+**Goal:** Garantizar que cada uno de los 271 ejercicios curados en v1.0 está validado individualmente por múltiples AIs contra criterios estrictos (R1-R7), de manera que el autor pueda confiar en que aprende italiano correctamente y no contaminado por bugs de batched-curation. Bug class motivador: 4 ambigüedades semánticas (preposiciones-040 amici/dai, -032 nelle pareti, -047 cadere sugli alberi, -031 libri/scaffali) cazadas por el autor por casualidad en uso real durante post-ship v1.0; el riesgo crítico es que el resto de bugs no detectados contaminen el aprendizaje.
+
+**Target features:**
+- Schema extension: campo `validation` opcional en cada ejercicio (`status`, `passes[]`)
+- Validation prompt estricto con 5 criterios binarios (frase natural italiana, una única opción válida, distractoras plausibles, explanation coherente, cero leak)
+- Workflow 1-por-1 (NUNCA batched — root cause del problema)
+- Multi-AI quorum: ≥2 AIs distintos en "correcta" → `status: validated`; cualquier "incorrecta" → escalada al autor
+- Cobertura objetivo: 271/271 ejercicios `status: validated`
+- Audit trail registrable: cada `passes[]` entry con `{by, date, verdict, concerns}`
+
+**Key context:**
+- Aprovechar la memoria R1-R7 ya escrita en `~/.claude/projects/.../memory/exercise_authoring_rules.md` — el validation prompt es la operacionalización de esas reglas
+- Tradeoff aceptado: ~1-3h wall-clock + ~1.5-2M tokens vs garantía de calidad editorial sostenida
+- Phase 9 puede empezar por Preposiciones (la categoría con más bugs cazados) como piloto y luego extender
+
+## Next Milestone Goals (post-v1.1)
+
+> Backlog v1.2+ (preservado en `.planning/milestones/v1.0-ROADMAP.md` §Backlog):
 >
-> - Botón "Reiniciar examen" dentro de la sesión de Examen (Phase 8.y trivial)
-> - Atajos de teclado para Examen (E + número fila)
-> - Examen multi-cat (2-3 cats a la vez)
+> - Phase 8.x deferred items (Examen multi-cat, atajos teclado, copy refactor confirmLabel)
+> - Categorías nuevas (Pretérito imperfetto, Futuro semplice, Condicionale, Subjuntivo) conforme la profesora entregue material
+> - Modo móvil responsive si el autor lo echa en falta tras uso real
 > - Refactor cosmético confirmLabel unificado en las 6 call-sites
 > - Modo móvil responsive si el autor lo echa en falta tras uso real
 > - Categorías nuevas conforme la profesora entrega material (Pretérito imperfetto, Futuro, Condicionale, Subjuntivo, etc.)
