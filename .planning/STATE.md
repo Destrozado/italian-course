@@ -2,13 +2,13 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Validación editorial
-status: "Phase 9 planned (3 plans, 2 waves), ready para `/gsd:execute-phase 9`"
-last_updated: "2026-05-26T01:15:00.000Z"
-last_activity: 2026-05-26 — Phase 9 plan-phase completo: 3 plans (09-01/09-02/09-03), 2 waves, plan-checker PASS 0 blockers, requirements coverage 5/5
+status: executing
+last_updated: "2026-05-25T23:31:22.913Z"
+last_activity: 2026-05-25 -- Phase 9 execution started
 progress:
   total_phases: 4
   completed_phases: 0
-  total_plans: 0
+  total_plans: 3
   completed_plans: 0
   percent: 0
 ---
@@ -19,16 +19,16 @@ progress:
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 9 — Infraestructura de validación (schema `validation` + validation prompt + workflow 1-por-1 + smoke test + piloto)
+**Current Focus:** Phase 9 — Infraestructura de validación
 
 **Milestone v1.1 Goal:** Validar 271/271 ejercicios curados en v1.0 con criterios R1-R7 + quórum ≥2 AIs, eliminando bugs de batched-curation. Bug class motivador: 4 ambigüedades semánticas cazadas por casualidad en uso real post-v1.0 (preposiciones-040 amici/dai, -032 nelle pareti, -047 cadere sugli alberi, -031 libri/scaffali).
 
 ## Current Position
 
-Phase: Phase 9 — Not started (roadmap acabado de fijar)
-Plan: —
-Status: Roadmap v1.1 fijado, ready para `/gsd:plan-phase 9`
-Last activity: 2026-05-25 — Milestone v1.1 roadmap creado, 2 fases (Phase 9 + Phase 10), 8/8 requirements VAL-01..08 mapeados, 0 orphans
+Phase: 9 (Infraestructura de validación) — EXECUTING
+Plan: 1 of 3
+Status: Executing Phase 9
+Last activity: 2026-05-25 -- Phase 9 execution started
 
 ## Performance Metrics
 
