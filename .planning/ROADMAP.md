@@ -137,10 +137,10 @@
 **Mode:** standard
 **Depends on:** Phase 7
 **Requirements**: EXPL-06, EXPL-07, EXPL-08
-**Plans:** 2 plans
+**Plans:** 1/2 plans executed
 
 Plans:
-- [ ] 7.1-01-PLAN.md — Re-acentuación canónica 50 Preposiciones (1 pasada Claude + diff review autor) + refactor smoke test a paramétrico CATEGORIES_WITH_EXPLANATIONS (EXPL-06, EXPL-08)
+- [x] 7.1-01-PLAN.md — Re-acentuación canónica 50 Preposiciones (1 pasada Claude + diff review autor) + refactor smoke test a paramétrico CATEGORIES_WITH_EXPLANATIONS (EXPL-06, EXPL-08)
 - [ ] 7.1-02-PLAN.md — Ingest 40 explanations Género-Número del draft del autor (1 commit honesto, D-141) + 2ª entry array paramétrico + audit trail PROJECT.md/REQUIREMENTS.md/ROADMAP.md + UAT humano 6/6 (EXPL-06, EXPL-07)
 
 ## Progress
@@ -154,7 +154,7 @@ Plans:
 | 5. Essere — categoría fundamental que faltaba | 1/1 | Complete   | 2026-05-24 |
 | 6. Polish UX post-sesión (reiniciar + review errores) | 2/2 | Complete    | 2026-05-25 |
 | 7. Explicaciones pedagógicas al fallar | 2/2 | Complete   | 2026-05-25 |
-| 7.1. Explicaciones Género-Número + canonicalización ortográfica | 0/2 | Planning |   |
+| 7.1. Explicaciones Género-Número + canonicalización ortográfica | 1/2 | In Progress|  |
 
 ## Coverage Summary
 
