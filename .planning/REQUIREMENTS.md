@@ -9,8 +9,8 @@
 ### VAL — Validación editorial
 
 - [x] **VAL-01**: El schema de ejercicios soporta un campo opcional `validation` con estructura `{status: "pending"|"validated"|"disputed", passes: [{by, date, verdict, concerns?}]}`. Schema validator acepta ejercicios SIN el campo (backward-compat con los 271 actuales).
-- [ ] **VAL-02**: Existe un validation prompt documentado y aplicado de forma idéntica a cada ejercicio, con 5 criterios binarios verificables: (1) frase italiana natural a oídos de un nativo, (2) una y solo UNA opción válida entre las distractoras, (3) distractoras plausibles (errores típicos de hispanohablante), (4) explanation **enfocada al alumno** — coherente con prompt + respuesta correcta + sin contradicciones, sin notas de curador (e.g., "Cierra la serie de articolate...", "Completa el patrón...", "Cierra la familia X"), sin meta-staging de la categoría, sin referencias indexadas a otros ejercicios (#NNN — ya cubierto por R2), (5) cero leak de regla en el prompt (R1).
-- [ ] **VAL-03**: El workflow de validación procesa los ejercicios estrictamente 1-por-1 (NO batched). Cada ejercicio se valida en un agente fresco con SOLO ese ejercicio en contexto + el validation prompt. Está documentado por qué NO se batch (root cause del problema motivador).
+- [x] **VAL-02**: Existe un validation prompt documentado y aplicado de forma idéntica a cada ejercicio, con 5 criterios binarios verificables: (1) frase italiana natural a oídos de un nativo, (2) una y solo UNA opción válida entre las distractoras, (3) distractoras plausibles (errores típicos de hispanohablante), (4) explanation **enfocada al alumno** — coherente con prompt + respuesta correcta + sin contradicciones, sin notas de curador (e.g., "Cierra la serie de articolate...", "Completa el patrón...", "Cierra la familia X"), sin meta-staging de la categoría, sin referencias indexadas a otros ejercicios (#NNN — ya cubierto por R2), (5) cero leak de regla en el prompt (R1).
+- [x] **VAL-03**: El workflow de validación procesa los ejercicios estrictamente 1-por-1 (NO batched). Cada ejercicio se valida en un agente fresco con SOLO ese ejercicio en contexto + el validation prompt. Está documentado por qué NO se batch (root cause del problema motivador).
 - [ ] **VAL-04**: Cada ejercicio recibe ≥2 pases de AIs distintos para alcanzar `status: validated`. La AI que valida se registra explícitamente en `passes[].by` (ej. `claude-opus-4-7@2026-05-25`, `gemini-pro@2026-05-25`). Un solo pase deja `status: pending`. Cualquier verdict `incorrecta` cambia `status: disputed`.
 - [x] **VAL-05**: Cada entry en `passes[]` registra `{by: string, date: ISO, verdict: "correcta"|"incorrecta", concerns?: string[]}`. Concerns es array de strings con descripciones específicas (ej. "ambiguous between negli/sugli", "leak in prompt").
 - [ ] **VAL-06**: Cobertura final: 271/271 ejercicios con `validation.status === "validated"` antes de cerrar Phase 10 (o `disputed` resuelto manualmente por el autor → re-validado → validated).
@@ -36,8 +36,8 @@
 | REQ-ID | Phase | Status |
 |--------|-------|--------|
 | VAL-01 | Phase 9 | Complete |
-| VAL-02 | Phase 9 | Pending |
-| VAL-03 | Phase 9 | Pending |
+| VAL-02 | Phase 9 | Complete |
+| VAL-03 | Phase 9 | Complete |
 | VAL-04 | Phase 10 | Pending |
 | VAL-05 | Phase 9 | Complete |
 | VAL-06 | Phase 10 | Pending |
