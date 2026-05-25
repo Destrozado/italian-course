@@ -415,7 +415,8 @@
       "payload": {
         "prompt": "Il commesso (masc) → la ___ (fem).",
         "options": ["commesse", "commessa", "commessessa", "commessrice"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "Cierre de la familia -o→-a regular aplicada al léxico comercial: 'commesso' (dependiente) pasa a 'commessa' (dependienta). Importante: el patrón es estable como en 'cuoco/cuoca' o 'impiegato/impiegata' y no admite los sufijos -essa o -trice porque la raíz no pertenece a esas familias morfológicas."
       },
       "notes": "PDF §5 Altre — regular -o→-a. Distractoras: `commesse` (plural fem, no singular), `commessessa` (-essa redundante), `commessrice` (-trice mal aplicada). 'Mini esercizio' del PDF — caso del solucionario."
     },
@@ -426,7 +427,8 @@
       "payload": {
         "prompt": "___ avvocato — artículo definido ante vocal:",
         "options": ["il", "lo", "l'", "la"],
-        "correctIndex": 2
+        "correctIndex": 2,
+        "explanation": "Importante: el italiano aplica la regla de elisión universal del artículo definido ante palabra que empieza por vocal. Así 'lo avvocato' y 'la avvocata' nunca aparecen así: se eliden a 'l'avvocato' y 'l'avvocata' con apóstrofe. Cuidado: la elisión es ortográfica y obligatoria en italiano A1, a diferencia del español que mantiene el artículo completo ('el abogado')."
       },
       "notes": "PDF §1 + nota final 'permettono di ripassare gli articoli'. Elisión ante vocal: l'avvocato (no 'il avvocato'). Distractoras: `il` (forma común con consonante), `lo` (s+cons/z), `la` (femenino — incorrecto por género). Apóstrofe ASCII U+0027."
     },
@@ -437,7 +439,8 @@
       "payload": {
         "prompt": "___ studente — artículo definido masculino ante s+consonante:",
         "options": ["il", "l'", "la", "lo"],
-        "correctIndex": 3
+        "correctIndex": 3,
+        "explanation": "¡Atención al artículo masculino especial! Ante palabras que empiezan por s+consonante, z, ps, gn o y, el italiano usa 'lo' en lugar de 'il'. Así se dice 'lo studente' (el estudiante), 'lo zaino' (la mochila), 'lo psicologo' (el psicólogo). Cuidado con el pitfall A1: el alumno hispanohablante calca 'il studente' porque la S inicial no le suena anómala, pero el italiano A1 exige 'lo'."
       },
       "notes": "PDF §3 + nota final 'permettono di ripassare gli articoli'. Artículo masc sing para inicio fonético s+cons: lo studente (no 'il studente'). Distractoras: `il` (forma común — pitfall A1 muy frecuente porque 'studente' parece consonante normal), `l'` (elisión solo ante vocal), `la` (femenino). Familia: lo studente, lo zaino, lo psicologo, lo gnocco."
     },
@@ -448,7 +451,8 @@
       "payload": {
         "prompt": "___ infermiera — artículo definido femenino ante vocal:",
         "options": ["la", "l'", "il", "lo"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "El artículo femenino 'la' también se elide ante vocal: 'la infermiera' pasa a 'l'infermiera' (la enfermera) con apóstrofe. Importante: en italiano A1 estándar la elisión femenina es sistemática, igual que la masculina ('l'avvocata', 'l'attrice', 'l'impiegata'). Cuidado: el español mantiene 'la enfermera' completo, pero el italiano nunca."
       },
       "notes": "PDF §2 + nota final articoli. Elisión femenina ante vocal: l'infermiera (no 'la infermiera'). Distractoras: `la` (forma con consonante — pitfall: la elisión femenina es opcional en algunos registros pero el PDF la aplica sistemáticamente como en l'impiegata, l'avvocata, l'attrice), `il` (masc), `lo` (masc s+cons). Apóstrofe ASCII U+0027."
     },
@@ -459,7 +463,8 @@
       "payload": {
         "prompt": "Mio padre lavora con i bisturi negli ospedali. È un ___ .",
         "options": ["cuoco", "avvocato", "chirurgo", "insegnante"],
-        "correctIndex": 2
+        "correctIndex": 2,
+        "explanation": "Importante: el contexto semántico fija la profesión cuando el ejercicio no pregunta solo morfología. Si el sujeto trabaja 'con i bisturi negli ospedali' (con bisturíes en hospitales), el lema obligado es 'chirurgo' (cirujano), no 'cuoco' ni 'avvocato'. Cuidado al elegir entre profesiones plausibles del PDF: el campo léxico clínico (bisturí, hospital) es la pista que el alumno debe identificar."
       },
       "notes": "Contexto semántico — escena clínica (bisturi + ospedali) fija el lema. Distractoras: profesiones plausibles del mismo PDF que NO encajan con el contexto. Refuerzo de uso pragmático, no solo morfología."
     },
@@ -470,7 +475,8 @@
       "payload": {
         "prompt": "Mia sorella prepara piatti italiani in un ristorante. È una ___ .",
         "options": ["cameriera", "cuoca", "commessa", "segretaria"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "¡Atención al pitfall semántico! Quien 'prepara piatti italiani in un ristorante' (prepara platos italianos en un restaurante) es 'la cuoca' (la cocinera), no 'la cameriera' (la camarera). Cuidado: ambas trabajan en el mismo lugar (ristorante), pero la acción distingue. La cocinera prepara; la camarera sirve. Importante: el italiano A1 exige fijar la profesión por la acción del verbo, no solo por el lugar."
       },
       "notes": "Contexto semántico — 'prepara piatti' fija al cocinero, NO al camarero (que sirve, no prepara). Distractora pedagógica clave: `cameriera` está en el mismo lugar (ristorante) pero hace otra acción (servir). Pitfall A1 central: distinguir cuoco (prepara) de cameriere (sirve)."
     },
@@ -481,7 +487,8 @@
       "payload": {
         "prompt": "Una persona che insegna a scuola è un ___ o una ___ .",
         "options": ["studente / studentessa", "professore / professoressa", "direttore / direttrice", "cliente / cliente"],
-        "correctIndex": 1
+        "correctIndex": 1,
+        "explanation": "Importante: quien 'insegna a scuola' (enseña en la escuela) es 'il professore' o 'la professoressa', no 'lo studente' (que aprende, no enseña) ni 'il direttore' (que dirige, no enseña). El ejercicio refuerza la pareja masculino-femenino completa y la familia -e/-essa: 'professore/professoressa' sigue el mismo patrón que 'dottore/dottoressa' y 'studente/studentessa'."
       },
       "notes": "Contexto semántico — 'insegna a scuola' fija la pareja correcta. Distractoras pedagógicas: `studente/studentessa` (rol inverso — aprende, no enseña), `direttore/direttrice` (también está en escuela pero dirige, no enseña), `cliente/cliente` (fuera de escena). Refuerza la pareja masc/fem completa y el contraste -e/-essa."
     },
@@ -492,7 +499,8 @@
       "payload": {
         "prompt": "Una persona che recita in un film o a teatro è un ___ o una ___ .",
         "options": ["cantante / cantante", "pittore / pittrice", "attore / attrice", "regista / regista"],
-        "correctIndex": 2
+        "correctIndex": 2,
+        "explanation": "Quien 'recita in un film o a teatro' (actúa en una película o en el teatro) es 'l'attore' o 'l'attrice', no 'il cantante' (canta) ni 'il pittore' (pinta) ni 'il regista' (dirige el film). Importante: este ejercicio refuerza la familia productiva -tore/-trice, el mismo patrón que aparece en 'scrittore/scrittrice' y 'traduttore/traduttrice' del léxico A1."
       },
       "notes": "Contexto semántico — 'recita in film/teatro' fija attore/attrice. Distractoras: `cantante/cantante` (canta, no recita — invariable), `pittore/pittrice` (pinta), `regista/regista` (dirige el film — relacionado pero distinto rol). Refuerza familia -tore/-trice."
     },
@@ -508,7 +516,8 @@
           ["professore", "scuola"],
           ["commesso", "negozio"],
           ["cameriere", "bar"]
-        ]
+        ],
+        "explanation": "Importante: cada profesión se asocia a un lugar de trabajo característico que el alumno debe reconocer por campo léxico, no por morfología. Así 'cuoco' va con 'ristorante' (cocinero-restaurante), 'chirurgo' con 'ospedale' (cirujano-hospital), 'professore' con 'scuola' (profesor-escuela). Cuidado: 'cameriere' aparece aquí con 'bar' (no con ristorante) para forzar al alumno a no asumir un pareo trivial."
       },
       "notes": "Match diseño-rule-válido: profesión↔lugar son semánticamente independientes (la raíz NO revela el lugar). Cada pareja exige conocer el campo léxico, no la morfología. Pitfall pedagógico: cameriere puede estar en ristorante O bar; este ejercicio usa bar para forzar al alumno a no asumir 1:1 trivial con cuoco. La asociación profesión↔lugar es la inferencia central."
     },
@@ -524,7 +533,8 @@
           ["infermiere", "siringa"],
           ["pittore", "pennello"],
           ["meccanico", "chiave"]
-        ]
+        ],
+        "explanation": "Importante: cada profesión se asocia a una herramienta característica que el italiano A1 expresa con sustantivo específico. Así 'cuoco' va con 'padella' (sartén), 'chirurgo' con 'bisturi' (bisturí), 'infermiere' con 'siringa' (jeringa), 'pittore' con 'pennello' (pincel) y 'meccanico' con 'chiave' (llave inglesa). Ojo a la ambigüedad: 'chiave' también significa 'llave de casa', pero aquí el contexto del mecánico fija el sentido."
       },
       "notes": "Match diseño-rule-válido: profesión↔herramienta son semánticamente independientes (las palabras `padella`, `bisturi`, `siringa`, `pennello`, `chiave` NO comparten raíz con la profesión). Cada pareja requiere conocer el campo léxico técnico. Pitfall pedagógico: `chiave` también significa 'llave de casa' — el contexto profesional fija la lectura mecánica."
     },
@@ -535,7 +545,8 @@
       "payload": {
         "prompt": "De estas cuatro profesiones, ___ es la única INVARIABLE en italiano (misma forma masc/fem).",
         "options": ["dentista", "professore", "cuoco", "avvocato"],
-        "correctIndex": 0
+        "correctIndex": 0,
+        "explanation": "Meta-regla central del PDF: las profesiones italianas terminadas en -ista son INVARIABLES en género. Así 'dentista' es la misma forma para masculino y femenino, mientras que 'professore' flexiona a 'professoressa', 'cuoco' a 'cuoca' y 'avvocato' a 'avvocata'. Importante: el ejercicio pide identificar la propiedad estructural (invariable frente a flexionable), no construir el femenino concreto."
       },
       "notes": "Meta-regla -ista invariable. Las profesiones terminadas en -ista NO flexionan: il dentista / la dentista (igual que pianista, giornalista, farmacista, tassista, artista). Distractoras: `professore` (familia -e→-essa: professoressa), `cuoco` (familia regular -o→-a: cuoca), `avvocato` (familia regular -o→-a: avvocata). El ejercicio refuerza el reconocimiento de la familia productiva -ista sin pedir construir el femenino — pide identificar la propiedad estructural (invariable vs flexionable). Schema-compliant: prompt incluye `___` como exige el validator (Phase 1 CONT-04)."
     },
@@ -546,7 +557,8 @@
       "payload": {
         "prompt": "Yo soy doctora.",
         "answer": ["io", "sono", "dottoressa"],
-        "distractors": ["dottora", "sei"]
+        "distractors": ["dottora", "sei"],
+        "explanation": "Frase A1 esencial que combina dos reglas: la primera persona singular del verbo essere ('io sono') y el femenino prestigioso -essa de la familia 'dottore/dottoressa'. ¡Atención al calco español! 'Dottora' aplica la regla -o→-a por analogía con el español 'doctora', pero el italiano A1 exige el sufijo -essa para esta raíz. Cuidado también con la persona: yo va con 'sono', no con 'sei'."
       },
       "notes": "Frase A1 esencial — practica essere 1ª singular + femenino prestigioso -essa (familia dottoressa/professoressa/studentessa, PDF §3). Distractora `dottora` es el calco español 'doctora' (regla regular -o→-a mal aplicada — pitfall A1 frecuente). Distractora `sei` fuerza el reflejo correcto de persona (yo→sono, no tú→sei). Sin punto final en tokens (W-6)."
     },
@@ -557,7 +569,8 @@
       "payload": {
         "prompt": "Ella es abogada.",
         "answer": ["lei", "è", "avvocata"],
-        "distractors": ["avvocato", "ho"]
+        "distractors": ["avvocato", "ho"],
+        "explanation": "Frase A1 que combina essere en tercera persona singular ('lei è') con el femenino regular -o→-a ('avvocato' pasa a 'avvocata'). Importante: el sujeto femenino exige concordancia, así que 'avvocato' masculino sería incongruente. Cuidado: la profesión predicativa exige essere, no avere; el calco español 'ella ha de abogada' no existe, y la distractora 'ho' refuerza esta diferencia."
       },
       "notes": "Frase A1 — practica essere 3ª singular + femenino regular -o→-a (PDF §1 avvocato→avvocata). Distractora `avvocato` fuerza concordancia de género con sujeto femenino 'lei'. Distractora `ho` (avere 1ª) recuerda que profesión usa essere, no avere. Sin punto final en tokens (W-6)."
     },
@@ -568,7 +581,8 @@
       "payload": {
         "prompt": "Nosotros somos estudiantes.",
         "answer": ["noi", "siamo", "studenti"],
-        "distractors": ["studentesse", "sono"]
+        "distractors": ["studentesse", "sono"],
+        "explanation": "Frase A1 que combina essere primera persona plural ('noi siamo') con el plural masculino genérico 'studenti'. Importante: en italiano A1, un grupo mixto se concuerda en masculino plural, así que 'studenti' cubre hombres y mujeres juntos. Cuidado con la persona: 'noi' va con 'siamo', no con 'sono' que pertenece a 'io' o 'loro'."
       },
       "notes": "Frase A1 — practica essere 1ª plural + plural masculino mixto (regla A1: cualquier grupo con al menos un masculino → masc plural). Distractora `studentesse` (fem plural) fuerza la regla del género no marcado. Distractora `sono` (3ª plural) fuerza el reflejo persona correcto. Sin punto final en tokens (W-6)."
     },
@@ -579,7 +593,8 @@
       "payload": {
         "prompt": "Tú eres enfermero.",
         "answer": ["tu", "sei", "infermiere"],
-        "distractors": ["infermiera", "è"]
+        "distractors": ["infermiera", "è"],
+        "explanation": "Frase A1 que combina essere segunda persona singular ('tu sei') con el masculino 'infermiere' de la familia productiva -iere/-iera. Importante: el sujeto masculino 'tu' (referido a un hombre) exige concordancia con 'infermiere', no con 'infermiera'. Cuidado con la persona: 'tu' va con 'sei', mientras que 'è' pertenece a 'lui', 'lei' o 'Lei' de cortesía."
       },
       "notes": "Frase A1 — practica essere 2ª singular + masc -iere (PDF §2 familia cameriere/infermiere/parrucchiere). Distractora `infermiera` fuerza concordancia masculina. Distractora `è` (3ª) fuerza persona correcta. Sin punto final en tokens (W-6)."
     },
@@ -590,7 +605,8 @@
       "payload": {
         "prompt": "Vosotros sois profesores.",
         "answer": ["voi", "siete", "professori"],
-        "distractors": ["professoresse", "abbiamo"]
+        "distractors": ["professoresse", "abbiamo"],
+        "explanation": "Frase A1 que combina essere segunda persona plural ('voi siete') con el plural masculino regular 'professori' (de 'professore', familia -e/-i). Importante: la profesión predicativa va con essere, no con avere; la distractora 'abbiamo' refuerza este contraste pedagógico fundamental. Cuidado con el género: 'professoresse' sería el plural femenino, no aplicable a un grupo masculino o mixto."
       },
       "notes": "Frase A1 — practica essere 2ª plural + plural masculino regular -e→-i de profesor/professore. Distractora `professoresse` fem plural. Distractora `abbiamo` (avere 1ª pl) refuerza essere-for-identity (no avere). Sin punto final en tokens (W-6)."
     },
@@ -606,7 +622,8 @@
           ["cantante", "cantare"],
           ["traduttore", "tradurre"],
           ["direttore", "dirigere"]
-        ]
+        ],
+        "explanation": "Importante: cada profesión italiana se asocia a un infinitivo verbal específico que el alumno debe reconocer. Algunas asociaciones son transparentes ('cantante' con 'cantare', 'insegnante' con 'insegnare'), pero otras exigen saber el verbo etimológico: 'pittore' va con 'dipingere' (pintar) y 'direttore' va con 'dirigere' (dirigir), formas que no se derivan trivialmente de la raíz del sustantivo. Cuidado: 'traduttore' va con 'tradurre', un infinitivo -re irregular del italiano A1."
       },
       "notes": "Match diseño-rule-válido: profesión↔acción son semánticamente independientes EN LA MAYORÍA — `pittore↔dipingere` y `direttore↔dirigere` requieren saber el verbo etimológico no derivable trivialmente de la raíz (pittore/dipingere comparten campo semántico pero no raíz; direttore/dirigere sí comparten raíz dir- pero el infinitivo no es predecible desde el sustantivo). Los pares `insegnante↔insegnare`, `cantante↔cantare`, `traduttore↔tradurre` son más transparentes (participio presente / -tore productivo) pero ejercitan el reconocimiento del infinitivo italiano de cada raíz — útil A1 porque requiere conocer la forma -are/-ere/-ire correcta. Cobertura: 5 profesiones del PDF (cantante §3, pittore §5, traduttore §5 mini-esercizio, direttore §3, insegnante §4)."
     }

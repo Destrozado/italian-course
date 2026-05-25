@@ -95,6 +95,20 @@
 
 - [x] **EXPL-08**: El smoke test que verificaba "Preposiciones 50/50 explanations" hardcoded (Phase 7 EXPL-04) se generalizó a un loop paramétrico sobre `CATEGORIES_WITH_EXPLANATIONS = [{file, expected}]` (D-144). Tras Phase 7.1 el array tiene 2 entries (preposiciones + génnum) — 6 tests paramétricos en total (2 archivos × 3 sub-tests: coverage, ASCII apóstrofes, no markdown markers). Añadir una futura categoría en Phase 7.2..7.6 es 1 línea en el array — cero código nuevo. Patrón reusable para todas las fases incrementales de explanations. Validado: Plan 7.1-01 (instaló bloque paramétrico con 1 entry) + Plan 7.1-02 (añadió 2ª entry y verificó 184/184 tests verdes).
 
+### Explicaciones 5 categorías restantes (EXPL-09..14) — Phase 7.2
+
+- [x] **EXPL-09**: Las 23 entries de `content/exercises/avere.json` tienen `payload.explanation` curada (patrón D-85 Claude propone + autor revisa por batches 2×~12+11; D-177/D-178 APPEND-ONLY preservado via relax assert-avere-prefix-unchanged.mjs). Validado: Plan 7.2-01.
+
+- [x] **EXPL-10**: Las 31 entries de `content/exercises/sustantivos-irregulares.json` tienen `payload.explanation` curada (patrón D-85, 2 batches ~16+15). Patrones excepcionales (uovo/uova, dito/dita, braccio/braccia) explicados con sus reglas concretas. Validado: Plan 7.2-02.
+
+- [x] **EXPL-11**: Las 37 entries de `content/exercises/verbos-movimiento.json` tienen `payload.explanation` curada (patrón D-85, 2 batches ~19+18). Cross-ref D-159 preserved (cero referencias a IDs essere-NNN porque V-mov se planifica antes que Essere). Validado: Plan 7.2-03.
+
+- [x] **EXPL-12**: Las 39 entries de `content/exercises/essere.json` tienen `payload.explanation` curada (patrón D-85, 2 batches ~20+19). Beneficiado de Avere y V-mov ya curados para contraste pedagógico (Essere vs Avere D-91; participio essere como auxiliar V-mov). ≥3 cross-refs útiles materializadas. Validado: Plan 7.2-04.
+
+- [x] **EXPL-13**: Las 51 entries de `content/exercises/profesiones.json` tienen `payload.explanation` curada (patrón D-85, 3 batches ~17+17+17). Cross-refs útiles a Génnum #006/#023..#028 (familias -tore/-trice y -e/-essa). Erratas pedagógicas del PDF documentadas en notes preservadas (farmacista/giornalista invariables, avvocata vs avvocatessa, elisión universal l'avvocato). Validado: Plan 7.2-05 (Task 3 ATÓMICA).
+
+- [x] **EXPL-14**: Smoke test paramétrico extendido a las 7 categorías del proyecto (CATEGORIES_WITH_EXPLANATIONS con 7 entries). Tests count subió de 184 → 199 verdes (delta +15 = 5 categorías × 3 sub-tests). Cobertura editorial 100% — milestone v1.0 ready to ship. Validado: Plan 7.2-05 Task 3 ATÓMICA.
+
 ## v2 Requirements
 
 Deferred to future release. Tracked but not in current roadmap.
@@ -191,13 +205,19 @@ Explicitly excluded for v1. Documented to prevent scope creep.
 | EXPL-06 | Fase 7.1 | Complete (Plan 7.1-01 — 50 Preposiciones re-acentuadas + 3 fixes bonus aprobados + Plan 7.1-02 — 40 Génnum ingestadas con acentos correctos) |
 | EXPL-07 | Fase 7.1 | Complete (Plan 7.1-02 — ingest 40 explanations Género-Número del draft del autor, 1 commit honesto, D-141) |
 | EXPL-08 | Fase 7.1 | Complete (Plan 7.1-01 — bloque paramétrico CATEGORIES_WITH_EXPLANATIONS + Plan 7.1-02 — 2ª entry añadida, tests 184/184 verdes) |
+| EXPL-09 | Fase 7.2 | Complete (Plan 7.2-01) |
+| EXPL-10 | Fase 7.2 | Complete (Plan 7.2-02) |
+| EXPL-11 | Fase 7.2 | Complete (Plan 7.2-03) |
+| EXPL-12 | Fase 7.2 | Complete (Plan 7.2-04) |
+| EXPL-13 | Fase 7.2 | Complete (Plan 7.2-05) |
+| EXPL-14 | Fase 7.2 | Complete (Plan 7.2-05 Task 3 ATÓMICA) |
 
 **Coverage:**
-- v1 requirements: **51** total (48 Phase 1..7 + 3 EXPL-06..08 Phase 7.1)
-- Mapped to phases: 51 (100%)
+- v1 requirements: **57** total (51 post-Phase 7.1 + 6 EXPL-09..14 Phase 7.2)
+- Mapped to phases: 57 (100%)
 - Unmapped: 0
-- **Completed: 51/51 (100%)** tras Phase 7.1 cierre. Milestone v1.0 ampliado con canon ortográfico canónico + 2ª categoría con explanations. Patrón paramétrico instalado para fases incrementales futuras.
+- **Completed: 57/57 (100%)** tras Phase 7.2 cierre. Milestone v1.0 pre-ship listo (cobertura editorial 100%: 271/271 ejercicios con explanation curada en las 7 categorías). Patrón paramétrico instalado, audit trail completo.
 
 ---
 *Requirements defined: 2026-05-23*
-*Last updated: 2026-05-25 after Phase 7.1 completion (EXPL-06..08 cerrados — 50 Preposiciones re-acentuadas + 40 Génnum ingestadas + smoke test paramétrico CATEGORIES_WITH_EXPLANATIONS extensible). 51/51 v1 requirements complete; milestone v1.0 ampliado con canon ortográfico canónico universal + patrón paramétrico instalado para fases incrementales 7.2..7.6.*
+*Last updated: 2026-05-25 after Phase 7.2 completion (EXPL-09..14 cerrados — 181 explanations en las 5 categorías restantes + smoke paramétrico 7 categorías). 57/57 v1 requirements complete; milestone v1.0 ampliado con cobertura 100% editorial — 271/271 ejercicios con explanation curada. Milestone v1.0 pre-ship listo.*

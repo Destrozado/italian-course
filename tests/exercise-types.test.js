@@ -970,7 +970,8 @@ const CATEGORIES_WITH_EXPLANATIONS = [
   { file: 'content/exercises/sustantivos-irregulares.json', expected: 31 },
   { file: 'content/exercises/verbos-movimiento.json', expected: 37 },
   { file: 'content/exercises/essere.json', expected: 39 },
-  // Plan 7.2-05 añadirá: profesiones (cierre cobertura 100%)
+  { file: 'content/exercises/profesiones.json', expected: 51 },
+  // Cobertura 100% editorial: 271/271 ejercicios con explanation curada. Milestone v1.0 ready to ship.
 ];
 
 describe('Categorías con explanation coverage (Phase 7.1+)', () => {

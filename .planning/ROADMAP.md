@@ -15,7 +15,7 @@
 - [x] **Phase 6: Polish UX post-sesión — reiniciar + review errores** — Detectado durante UAT Phase 4/5: dos puntos de fricción ergonómica que valen lo que cuesta resolver antes de cerrar el milestone v1.0. (a) Botón "Reiniciar ejercicios" en la pantalla de sesión que rearranca con las mismas categorías en 1 clic (vs los 4 actuales). (b) Sección "Errores cometidos" en la pantalla de resumen final que muestra, para cada ejercicio fallado, qué respondió el autor + qué era correcto + sobre qué frase. Ambos son polish UX sobre flujos existentes (sin lógica de dominio nueva — el motor de re-verificación no cambia). Absorbe Phase 999.1 + 999.2 del backlog. (completed 2026-05-24)
 - [x] **Phase 7: Explicaciones pedagógicas al fallar — campo explanation por ejercicio + render en Errores cometidos** — Pivote post-uso-real: tras 271 ejercicios funcionando, el autor consultaba Gemini cada vez que fallaba en Preposiciones (4 ejemplos: sulle, da lui, dalle, sui). Esta fase reabrió la decisión Phase 1 "solo bien/mal por velocidad; la teoría está en los PDFs" y añadió un campo `payload.explanation: string` opcional + render inline durante feedback rojo + render en summary "Errores cometidos". Seed entregado: 50/50 explanations curadas para Preposiciones (patrón D-85, 3 batches de 15+16+17). Las otras 6 categorías quedan opcionales para fases incrementales (7.1, 7.2, ...) si emerge dolor adicional. (completed 2026-05-25 — 181/181 tests verdes, UAT 13/13 PASS)
 - [x] **Phase 7.1: Explicaciones pedagógicas Género-Número + canonicalización ortográfica** — Canon ortográfico nuevo (español correctamente escrito con acentos y ñ) aplicado retroactivamente a las 50 Preposiciones + 40 explanations Género-Número ingestadas del draft pre-revisado del autor + smoke test paramétrico CATEGORIES_WITH_EXPLANATIONS instalado para fases incrementales futuras 7.2..7.6. (completed 2026-05-25 — 184/184 tests verdes, UAT 6/6 PASS)
-- [ ] **Phase 7.2: Explicaciones pedagógicas — 5 categorías restantes (cierre cobertura editorial 100%)** — Decisión de scope: no ship el milestone v1.0 a medias (Preposiciones + Génnum solo). Phase 7.2 entrega las 181 explanations restantes en las 5 categorías pendientes (Avere 23, Sustantivos-irregulares 31, Verbos-movimiento 37, Essere 39, Profesiones 51) usando patrón D-85 (Claude propone + autor revisa por batches). 1 fase con 5 plans, orden de menor a mayor para iterar el patrón antes de Profesiones (la más grande). Tras 7.2 cerrada: 271/271 explanations + 5 entries en CATEGORIES_WITH_EXPLANATIONS + milestone v1.0 ready to ship.
+- [x] **Phase 7.2: Explicaciones pedagógicas — 5 categorías restantes (cierre cobertura editorial 100%)** — 181 explanations curadas en las 5 categorías pendientes (Avere 23, Sustantivos-irregulares 31, Verbos-movimiento 37, Essere 39, Profesiones 51) usando patrón D-85 batches D-85. 7 entries en CATEGORIES_WITH_EXPLANATIONS (las 7 categorías del proyecto), 271/271 ejercicios con explanation curada (cobertura editorial 100%). Milestone v1.0 ready to ship. (completed 2026-05-25)
 
 ## Phase Details
 
@@ -187,19 +187,25 @@
 
 ### Phase 7.2: Explicaciones pedagógicas — 5 categorías restantes (cobertura 100% pre-ship)
 
-**Goal**: [To be planned — discuss-phase determina scope final]. Intención: 181 explanations en las 5 categorías pendientes (Avere 23, Sustantivos-irregulares 31, Verbos-movimiento 37, Essere 39, Profesiones 51), patrón D-85 Claude propone + autor revisa por batches. Orden: menor a mayor para iterar el patrón antes de la categoría más grande. Tras 7.2 cerrada: 271/271 explanations (100% coverage editorial), 5 entries en `CATEGORIES_WITH_EXPLANATIONS`, milestone v1.0 ready to ship.
+**Goal**: 181 explanations curadas en las 5 categorías pendientes (Avere 23, Sustantivos-irregulares 31, Verbos-movimiento 37, Essere 39, Profesiones 51) usando patrón D-85 Claude propone + autor revisa por batches. Orden de menor a mayor para iterar el patrón antes de Profesiones (la más grande). Tras 7.2 cerrada: 271/271 explanations (100% coverage editorial), 7 entries en CATEGORIES_WITH_EXPLANATIONS, milestone v1.0 ready to ship.
 **Mode:** standard
-**Depends on:** Phase 7.1
+**Depends on**: Phase 7.1
 **Requirements**: EXPL-09, EXPL-10, EXPL-11, EXPL-12, EXPL-13, EXPL-14
-**Plans:** 5 plans
+**Success Criteria** (qué tiene que ser CIERTO):
+  1. `content/exercises/avere.json` 23/23 explanations curadas; D-88 APPEND-ONLY preservado vía relax mínimo en assert-avere-prefix-unchanged.mjs (D-178 opción A).
+  2. `content/exercises/sustantivos-irregulares.json` 31/31 + `content/exercises/verbos-movimiento.json` 37/37 + `content/exercises/essere.json` 39/39 + `content/exercises/profesiones.json` 51/51 — todos con explanations curadas patrón D-85.
+  3. Bloque `CATEGORIES_WITH_EXPLANATIONS` con 7 entries (las 7 categorías del proyecto); 21 sub-tests paramétricos verdes (3 invariantes editoriales × 7 archivos).
+  4. Tests count subió de 184 (post-Phase 7.1) → 199 (post-Phase 7.2) — delta +15 = 5 categorías × 3 sub-tests.
+  5. Cero migración schemaVersion (sigue 4 — D-176). Cero modificación al schema validator (D-171), render UI (D-172), motor re-verificación.
+  6. PROJECT.md `### Validated` extendido con Phase 7.2 entry; Key Decisions tabla extendida con fila cobertura 100% editorial. REQUIREMENTS.md subsección EXPL-09..14 + Traceability + Coverage 57/57 100%. ROADMAP.md Phase 7.2 finalizada.
+  7. UAT humano integral: 7 categorías × Repaso 20 con fallos deliberados → explanation curada visible inline + summary; cobertura 100% pre-ship verificada.
+**Plans**: 5 plans
 
-Plans:
-
-- [x] 7.2-01-PLAN.md — Avere (23 explanations 2 batches D-85) + relax assert-avere-prefix-unchanged.mjs (D-178 opción A — campos core sin explanation/notes) — see 7.2-01-SUMMARY.md (2026-05-25, 187/187 tests, UAT humano pendiente)
-- [x] 7.2-02-PLAN.md — Sustantivos-irregulares (31 explanations 2 batches D-85, todos multi-choice — patrones uovo/uova, dito/dita, braccio/braccia, invariables vocal acentuada, familia) — see 7.2-02-SUMMARY.md (2026-05-25, 190/190 tests, UAT humano pendiente)
-- [x] 7.2-03-PLAN.md — Verbos-movimiento (37 explanations 2 batches D-85) — D-159 cross-ref preserved (cero referencias a IDs essere-NNN porque V-mov antes que Essere) — see 7.2-03-SUMMARY.md (2026-05-25, 193/193 tests, UAT humano pendiente)
-- [x] 7.2-04-PLAN.md — Essere (39 explanations 2 batches D-85, 21+18) — beneficiado de Avere + V-mov ya curados para contraste essere/avere D-91 y participio essere V-mov; cross-refs útiles a avere/V-mov = 24 (≥3 obligatorio, holgura 8x) — see 7.2-04-SUMMARY.md (2026-05-25, 196/196 tests, UAT humano pendiente)
-- [ ] 7.2-05-PLAN.md — Profesiones (51 explanations 3 batches D-85 ~17+17+17) + audit trail consolidado PROJECT/REQUIREMENTS/ROADMAP + Milestone v1.0 Pre-Ship Checklist (D-179 — EXPL-13 + EXPL-14)
+- [x] 7.2-01-PLAN.md — Avere (23 explanations 2 batches) + relax assert-avere-prefix-unchanged.mjs (D-178 opción A).
+- [x] 7.2-02-PLAN.md — Sustantivos-irregulares (31 explanations 2 batches).
+- [x] 7.2-03-PLAN.md — Verbos-movimiento (37 explanations 2 batches) — D-159 cross-ref preserved.
+- [x] 7.2-04-PLAN.md — Essere (39 explanations 2 batches) — beneficiado de Avere + V-mov ya curados.
+- [x] 7.2-05-PLAN.md — Profesiones (51 explanations 3 batches) + audit trail consolidado PROJECT/REQ/ROADMAP + Milestone v1.0 Pre-Ship Checklist (EXPL-13 + EXPL-14) — Task 3 ATÓMICA.
 
 **Cross-cutting constraints:**
 
@@ -220,14 +226,14 @@ Plans:
 | 6. Polish UX post-sesión (reiniciar + review errores) | 2/2 | Complete    | 2026-05-25 |
 | 7. Explicaciones pedagógicas al fallar | 2/2 | Complete   | 2026-05-25 |
 | 7.1. Explicaciones Género-Número + canonicalización ortográfica | 2/2 | Complete   | 2026-05-25 |
-| 7.2. Explicaciones 5 categorías restantes (Avere/Sust-irreg/V-mov/Essere/Profesiones) | 4/5 | In Progress |   |
+| 7.2. Explicaciones 5 categorías restantes (Avere/Sust-irreg/V-mov/Essere/Profesiones) | 5/5 | Complete    | 2026-05-25 |
 
 ## Coverage Summary
 
-- **v1 requirements:** **51** total (48 originales/Phase 1..7 + 3 EXPL-06..08 Phase 7.1)
-- **Mapped to phases:** 51 (100%)
+- **v1 requirements:** **57** total (51 Phase 1..7.1 + 6 EXPL-09..14 Phase 7.2)
+- **Mapped to phases:** 57 (100%)
 - **Unmapped:** 0
-- **Granularity:** coarse (8 fases — 5 core + 1 polish UX + 2 pivotes incrementales explanations)
+- **Granularity:** coarse (9 fases — 5 core + 1 polish UX + 3 pivotes incrementales explanations)
 - **Mode:** MVP (vertical slices) hasta Phase 6; standard a partir de Phase 7
 
 ## Dependency Graph
@@ -280,4 +286,4 @@ Cada fase entrega valor usable independientemente:
 
 ---
 *Roadmap created: 2026-05-23*
-*Last updated: 2026-05-25 after Phase 7.1 completion (2 plans ejecutados: 7.1-01 re-accent 50 Preposiciones + refactor smoke paramétrico + 7.1-02 ingest 40 Génnum + audit trail PROJECT/REQ/ROADMAP). 184/184 tests verdes (181 baseline + 3 sub-tests paramétricos sobre génnum). EXPL-06..08 cerrados; canon ortográfico canónico instalado universalmente; patrón paramétrico habilita fases incrementales 7.2..7.6.*
+*Last updated: 2026-05-25 after Phase 7.2 completion (5 plans ejecutados: 7.2-01..05 cobertura 5 categorías restantes). 199/199 tests verdes (184 baseline + 15 sub-tests paramétricos sobre 5 nuevas categorías). EXPL-09..14 cerrados; cobertura editorial 100% (271/271 ejercicios curados en 7 categorías). Milestone v1.0 pre-ship listo.*

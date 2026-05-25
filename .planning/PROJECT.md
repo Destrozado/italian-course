@@ -100,6 +100,14 @@ Web personal de ejercicios de italiano para preparar el A1 (y luego A2). Es una 
 - ✓ Patrón establecido para fases incrementales 7.2..7.6: si emerge dolor en otra categoría (Avere / Essere / Verbos-movimiento / Profesiones / Sustantivos-irregulares), 1 plan = ingest + 1 línea array + audit trail mínimo.
 - ✓ 184/184 tests verdes (181 baseline post-Phase 7 + 3 sub-tests paramétricos sobre génnum); UAT humano final 6/6 PASS Plan 7.1-02 (5+ Génnum fallados con explanation inline + summary "Errores cometidos" replica + sanity check Preposiciones re-acentuadas + otras 5 categorías sin cambio + tests + boot limpios + audit trail PROJECT/REQ/ROADMAP visible).
 
+**Phase 7.2 — Explicaciones pedagógicas 5 categorías restantes (cobertura 100% pre-ship) (2026-05-25):**
+- ✓ 181 explanations curadas en las 5 categorías restantes: Avere 23/23 + Sustantivos-irregulares 31/31 + Verbos-movimiento 37/37 + Essere 39/39 + Profesiones 51/51 (EXPL-09..13).
+- ✓ Patrón D-85 batches replicado en 5 plans (11 batches D-85 con checkpoint:human-verify) heredando canon Phase 7.1 (español acentuado + italianismos preservados + ASCII apóstrofes + plain text).
+- ✓ 7 entries en `CATEGORIES_WITH_EXPLANATIONS` (las 7 categorías del proyecto) — smoke paramétrico ejerce ahora 7 archivos × 3 sub-tests = 21 tests.
+- ✓ D-88 APPEND-ONLY de avere preservado vía relax mínimo en assert-avere-prefix-unchanged.mjs (D-178 opción A — campos core sin `explanation`/`notes`).
+- ✓ Cobertura 100% editorial: 271/271 ejercicios con explanation curada. Milestone v1.0 ready to ship.
+- ✓ Cero migración schemaVersion (sigue 4 — D-176). Cero modificación schema validator (D-171), render UI (D-172), motor re-verificación.
+
 ### Active
 
 <!-- Current scope. Building toward these. -->
@@ -165,6 +173,7 @@ Web personal de ejercicios de italiano para preparar el A1 (y luego A2). Es una 
 | Match solo válido si pareo requiere regla NO derivable por raíz; convertir a multi-choice con distractoras plausibles si no | Ejercicio que cualquiera resuelve por similitud visual de raíz NO demuestra conocimiento; UAT 04-03 lo identificó con `bue↔buoi/dio↔dei/uovo↔uova/tempio↔templi` (todos resolubles por root match) | ✓ Validado Phase 4 (Design Rule UAT, refactor `9d21c88` de sustantivos-irregulares y aplicación inicial en genero-numero + profesiones) |
 | 2026-05-25: reabrir Out of Scope "Explicaciones pedagógicas al fallar/acertar" — limitado a fallos, opcional por ejercicio, seed en Preposiciones | Tras 271 ejercicios el autor consultaba Gemini cada fallo de Preposiciones (sulle/da lui/dalle/sui); la teoría en PDFs no era accesible mid-sesión. La explanation destilada inline (1 frase regla + 1 frase ejemplo paralelo) cierra el loop pedagógico sin romper la velocidad del flow porque solo se muestra al fallar (D-134) | ✓ Validado Phase 7 (50/50 explanations curadas Preposiciones + render inline + render summary-errors; campo opcional retro-compatible con 221 ejercicios sin explanation; UAT 13/13 PASS — 6/6 vertical slice Plan 07-01 + 7/7 cobertura Plan 07-02) |
 | 2026-05-25: canon ortográfico español correcto (acentos + ñ) en TODAS las explanations del proyecto (D-135 / EXPL-06) | Si está escrito en español, debe estar bien escrito. El canon Phase 7 ("sin acentos") fue incidental del executor inicial, no decisión consciente. Italianismos citados preservan ortografía italiana (D-137) — solo el texto explicativo en español sigue el canon RAE | ✓ Validado Phase 7.1 (50 Preposiciones re-acentuadas Plan 7.1-01 + 40 Género-Número ingestadas con acentos correctos Plan 7.1-02 + smoke test paramétrico verifica ASCII apóstrofes preservados). Patrón heredado por fases incrementales 7.2..7.6 |
+| 2026-05-25: Cobertura 100% editorial pre-ship — todas las 7 categorías con explanations curadas (EXPL-09..14) | No shipear a medias con solo Preposiciones + Génnum cubiertas; uso real demanda explanation en cualquier categoría que se falle. 11 batches D-85 secuenciales aceptables a cambio de cobertura completa pre-milestone v1.0 | ✓ Validado Phase 7.2 (181 explanations curadas + 7 entries en CATEGORIES_WITH_EXPLANATIONS + tests 199/199 verdes + UAT integral 7 categorías × Repaso 20 mixto post-Task-4) |
 
 ## Evolution
 
