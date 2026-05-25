@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Validación editorial
 status: executing
-last_updated: "2026-05-25T23:31:22.913Z"
-last_activity: 2026-05-25 -- Phase 9 execution started
+last_updated: "2026-05-25T23:39:14.044Z"
+last_activity: 2026-05-26 -- Plan 09-01 executed (validateValidationShape + deriveStatus + VAL-07 paramétrico)
 progress:
   total_phases: 4
   completed_phases: 0
   total_plans: 3
-  completed_plans: 0
+  completed_plans: 1
   percent: 0
 ---
 
@@ -26,9 +26,9 @@ progress:
 ## Current Position
 
 Phase: 9 (Infraestructura de validación) — EXECUTING
-Plan: 1 of 3
-Status: Executing Phase 9
-Last activity: 2026-05-25 -- Phase 9 execution started
+Plan: 2 of 3 (09-01 SHIPPED; Wave 1 lado A done — 09-02 puede correr en paralelo)
+Status: Plan 09-01 complete, ready to ejecutar 09-02 (Wave 1 lado B)
+Last activity: 2026-05-26 -- Plan 09-01 done: 254/254 tests verdes (+24 nuevos)
 
 ## Performance Metrics
 
@@ -37,12 +37,13 @@ Last activity: 2026-05-25 -- Phase 9 execution started
 | Fases v1.0 | 10/10 completas (Phase 1-8 incluyendo decimales 7.1/7.2) — SHIPPED 2026-05-25 |
 | Fases v1.1 | 0/2 (Phase 9 infra + Phase 10 ejecución) |
 | Requisitos v1.0 completos | 62/62 (100%) |
-| Requisitos v1.1 completos | 0/8 (VAL-01..08 pending) |
+| Requisitos v1.1 completos | 3/8 (VAL-01/05/07 done en Plan 09-01; VAL-02/03/04/06/08 pending) |
 | Requisitos v1.1 mapeados | 8/8 (100% — VAL-01/02/03/05/07 → Phase 9; VAL-04/06/08 → Phase 10) |
-| Tests dominio + UI smoke | 209/209 verdes (baseline v1.0) |
+| Tests dominio + UI smoke | 254/254 verdes (baseline v1.0 + Plan 09-01: +24 nuevos) |
 | Granularidad | coarse |
 | Mode | standard (NO MVP — esto es editorial, no slice vertical) |
 | Ejercicios totales en la app | 271 distribuidos en 7 categorías (todos con explanations curadas Phase 7..7.2) |
+| Phase 9 P01 | 4min | 3 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -72,10 +73,16 @@ Last activity: 2026-05-25 -- Phase 9 execution started
 | 2026-05-25 | Mode = standard, NOT MVP | Trabajo editorial, no vertical slice. No hay "slice mínima funcional" para validación — la validación es completa o no es. |
 | 2026-05-25 | Smoke test VAL-07 activated solo al CIERRE de Phase 10 (feature flag o equivalente) | Si el test se activa en Phase 9, los 271 sin validar lo rompen y bloquean el desarrollo. Activación final = gate de cierre milestone. |
 | 2026-05-25 | El validation prompt opera sobre los 5 criterios binarios derivados de R1-R7, NO sobre los 7 puntos textuales de la memoria | El validation prompt es la operacionalización de R1-R7 — los 5 criterios binarios de VAL-02 los condensan en checks objetivos (frase natural, una opción válida, distractoras plausibles, explanation coherente, cero leak). R3/R6 quedan implícitos en "una opción válida" + "explanation coherente". |
+| 2026-05-26 | Plan 09-01: `validateValidationShape` NO entra al `PAYLOAD_VALIDATORS` dispatch — es metadata top-level del ejercicio, no payload. Se invoca directamente en el loop tras `validator(ex, file, push)` | D-VAL-05 dice `validation` vive top-level (junto a id/type/categoryIds/payload/notes). El dispatch table es solo para validators de payload por tipo. Esta convención queda abierta para futuros campos top-level opcionales (tags, dificultad, etc.) — patrón reutilizable. |
+| 2026-05-26 | Plan 09-01: feature flag VAL-07 implementado con env var `VAL_07_STRICT=1` + `{skip: condition}` option en `describe()` | D-VAL-17 dejó libertad al planner; la elección sobre constante module-level es que activar/desactivar es zero-code-change (solo cambiar el env var al cierre Phase 10). Patrón idiomático `node:test` 2026 verificado en nodejs.org/api/test. |
+| 2026-05-26 | Plan 09-01: baseline real reportado por `node --test` ya estaba en 230 tests (no 209 como decía STATE.md tras Phase 8) | Probablemente smoke tests añadidos durante Phase 7.2/8 sin actualizar el contador. El plan deja el baseline en 254/254 verdes (suma neta +24); STATE.md actualizado para reflejar el número real. |
 
 ### Active Todos
 
-- [ ] `/gsd:plan-phase 9` — descomponer Phase 9 en planes ejecutables (probable structure: 09-01 schema extension + smoke test paramétrico; 09-02 validation prompt + workflow doc; 09-03 piloto end-to-end sobre 1 ejercicio real)
+- [x] `/gsd:plan-phase 9` — descomponer Phase 9 en planes ejecutables (DONE 2026-05-26 — 09-RESEARCH + 09-PATTERNS + 3 PLAN.md)
+- [x] Plan 09-01 (Wave 1 lado A: schema + deriveStatus + VAL-07 paramétrico) — DONE 2026-05-26 (5 commits, 254/254 tests verdes, VAL-01/05/07 completados)
+- [ ] Plan 09-02 (Wave 1 lado B: VALIDATION-PROMPT.md + SKILL.md + fixture E3 + stripAdditive relax) — puede correr en paralelo con 09-01 (ya hecho); cubre VAL-02/03
+- [ ] Plan 09-03 (Wave 2: piloto end-to-end 3 ejercicios + checkpoint:human-verify) — bloqueado en 09-02
 - [ ] Ejecutar Phase 9 plans hasta verifier PASS
 - [ ] `/gsd:plan-phase 10` — descomponer Phase 10 (probable structure: 10-01 escalada UX VAL-08 + UAT piloto disputed; 10-02..10-08 batches de validación 1 por categoría — Preposiciones primero por mayor concentración de bugs)
 - [ ] Ejecutar Phase 10 plans hasta 271/271 `validated`
@@ -95,12 +102,12 @@ Last activity: 2026-05-25 -- Phase 9 execution started
 
 ### Last Session
 
-- **Fecha:** 2026-05-26 (Phase 9 plan-phase completo tras `/gsd-plan-phase 9`)
-- **Trabajo actual:** Plan-phase produjo 4 artefactos consolidados en `.planning/phases/09-infraestructura-de-validaci-n/`: `09-RESEARCH.md` (gsd-phase-researcher, 779 líneas — Standard Stack verificado, Architecture Responsibility Map, Code Examples 1-6, Open Questions RESOLVED), `09-PATTERNS.md` (gsd-pattern-mapper, 9 archivos clasificados con analogs concretos + BLOCKING order constraint stripAdditive→avere-001), 3 PLAN.md (`09-01`/`09-02`/`09-03`, 343+385+380 líneas, 2 waves). Plan-checker PASS 0 blockers + 1 warning cosmético (Open Questions RESOLVED tag faltante, resuelto inline). Wave 1 = 09-01 (schema-validator extensión + deriveStatus + smoke test paramétrico VAL-07 OFF) + 09-02 (VALIDATION-PROMPT.md self-contained + SKILL.md orquestador + fixture E3 + stripAdditive relax) en paralelo (zero files_modified overlap). Wave 2 = 09-03 (piloto end-to-end 3 ejercicios + run-validation-pilot.mjs + gate D-VAL-15 checkpoint:human-verify). Los 9 ítems Claude's Discretion lockeados: serial pases / 1 commit/ejercicio / `.claude/skills/` único / retry budget 1× / prompt español + R1-R7 inline / 2-shot (FAIL = bug literal motivador) / env var VAL_07_STRICT + skip option / avere-001 baseline / stripAdditive 1-line relax. Requirements coverage 5/5 verificado (VAL-01/02/03/05/07).
-- **Trabajo previo (discuss-phase, 2026-05-26):** 18 decisiones D-VAL-01..18 capturadas en `09-CONTEXT.md` + audit trail completo en `09-DISCUSSION-LOG.md` cubriendo Mecanismo workflow, Schema location + tipos, Output del AI validator, Diseño del piloto.
-- **Trabajo previo (Milestone init, 2026-05-25):** ROADMAP.md v1.1 con 2 phases + 8/8 requirements VAL-01..08 mapped, 0 orphans.
-- **Trabajo previo (v1.0 SHIPPED):** 10 fases entregadas, 271 ejercicios curados + Modo Examen. Uso real expuso los 4 bugs de Preposiciones que motivan v1.1.
-- **Siguiente paso:** `/clear` luego `/gsd:execute-phase 9` para ejecutar los 3 plans. execute-phase corre Wave 1 (09-01 + 09-02 paralelo, autonomous=true) → Wave 2 (09-03 secuencial, autonomous=false con checkpoint:human-verify al final donde el autor inspecciona la tabla del piloto y decide approved → `/gsd:plan-phase 10` o iterate prompt|skill → vuelve a 09-02).
+- **Fecha:** 2026-05-26 (Plan 09-01 ejecutado dentro de Phase 9 Wave 1 lado A — `/gsd:execute-phase 9`)
+- **Trabajo actual:** Plan 09-01 completado en 4 minutos con ciclo TDD RED→GREEN por tarea (5 commits atomicos en `master`). Entregables: (1) `validateValidationShape(ex, file, push)` añadido a `src/data/schema-validator.js` con back-compat trivial (`if (!('validation' in ex)) return`) — los 271 ejercicios sin el campo pasan limpio; whitelist `status: pending|validated|disputed` + `verdict: correcta|incorrecta` + ISO date regex; mensajes en español (FOUND-04). (2) `src/data/validation-state.js` creado con `deriveStatus(passes)` puro D-08 estilo (42 líneas, importable Node+browser); implementa sticky disputed D-VAL-07 con `new Set()` para distinct-by enforcement. (3) Bloque paramétrico `VAL-07 — todos los ejercicios validated (Phase 10 close gate)` añadido al final de `tests/exercise-types.test.js`; reutiliza `CATEGORIES_WITH_EXPLANATIONS` (D-VAL-18); SKIP por defecto con mensaje `feature flag VAL_07_STRICT=1 no activado (esperado durante Phase 9)`; activable con `VAL_07_STRICT=1 node --test tests/*.test.js` (7 fails esperados durante Phase 9, 0 fails al cierre Phase 10). Cero deviations, cero blockers, cero auto-fixes Rule 1/2/3. Cero deps añadidas (zero-deps invariant respetado). Requirements completados: VAL-01 (schema acepta + back-compat) + VAL-05 (passes[] shape enforced) + VAL-07 (smoke test paramétrico tras feature flag). 254/254 tests verdes (baseline 230 + 24 nuevos: 13 schema + 11 deriveStatus).
+- **Trabajo previo (plan-phase, 2026-05-26):** Plan-phase produjo 4 artefactos consolidados en `.planning/phases/09-infraestructura-de-validaci-n/`: `09-RESEARCH.md` (779 líneas), `09-PATTERNS.md`, 3 PLAN.md (`09-01`/`09-02`/`09-03`, 343+385+380 líneas, 2 waves). Wave 1 = 09-01 (lado A: schema/state — JUST FINISHED) + 09-02 (lado B: VALIDATION-PROMPT + SKILL.md + fixture E3 + stripAdditive relax) en paralelo. Wave 2 = 09-03 (piloto + checkpoint:human-verify).
+- **Trabajo previo (discuss-phase, 2026-05-26):** 18 decisiones D-VAL-01..18 capturadas en `09-CONTEXT.md` + audit trail completo en `09-DISCUSSION-LOG.md`.
+- **Trabajo previo (v1.0 SHIPPED):** 10 fases entregadas, 271 ejercicios curados + Modo Examen.
+- **Siguiente paso:** Ejecutar Plan 09-02 (Wave 1 lado B). Tras ello, Plan 09-03 (Wave 2 secuencial con checkpoint:human-verify al final).
 
 ### Files Generated
 
