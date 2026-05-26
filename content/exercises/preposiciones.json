@@ -846,7 +846,14 @@
         "correctIndex": 2,
         "explanation": "Su + La = Sulla. La penna è sulla sedia equivale a 'el bolígrafo está sobre la silla'. Cuando la superficie de contacto es un sustantivo femenino singular con artículo definido, Su articulada produce Sulla. Patrón paralelo a Della en femenino."
       },
-      "notes": "Preposición articolata 'sulla' = su + la. PDF §Preposizioni articolate, fila 'su' columna 'la'."
+      "notes": "Preposición articolata 'sulla' = su + la. PDF §Preposizioni articolate, fila 'su' columna 'la'.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-046",
@@ -858,7 +865,14 @@
         "correctIndex": 0,
         "explanation": "Su no solo significa estar encima en horizontal sino también pegado a superficies verticales. Los cuadros se cuelgan en los muros — contacto físico con la pared. Su + I (los, masc plural) = Sui. I quadri sono sui muri equivale a 'los cuadros están sobre los muros'."
       },
-      "notes": "Preposición articolata 'sui' = su + i (plural masculino: sobre los muros). PDF §Preposizioni articolate, fila 'su' columna 'i'."
+      "notes": "Preposición articolata 'sui' = su + i (plural masculino: sobre los muros). PDF §Preposizioni articolate, fila 'su' columna 'i'.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-047",
@@ -870,7 +884,14 @@
         "correctIndex": 1,
         "explanation": "Cuando el masculino plural empieza por vocal o s + consonante, z, gn, ps, x, el artículo es Gli y Su se fusiona en Sugli. Gli uccelli si posano sugli alberi significa 'los pájaros se posan sobre los árboles'. El verbo posarsi (posarse) implica una posición fija sobre una superficie, por eso Su (sobre) y no Da (origen del movimiento). Cuidado: con verbos de movimiento que indican caída o salida — como cadere o uscire — el italiano usa Da (Le foglie cadono dagli alberi), no Su."
       },
-      "notes": "Preposición articolata 'sugli' = su + gli (plural masculino con 'gli' delante de vocal: 'alberi'). PDF §Preposizioni articolate, fila 'su' columna 'gli'. Bug fix post-v1.0 reportado por el autor: el prompt anterior 'Le foglie cadono sugli alberi' era gramaticalmente válido pero semánticamente unnatural — un nativo dice 'Le foglie cadono dagli alberi' (verbo cadere implica origen del movimiento, no posición sobre). El predicado 'Gli uccelli si posano' fuerza la lectura natural de 'su = sobre' (posarsi = posición fija sobre superficie), preservando el intent de testear la celda 'su + gli' del PDF."
+      "notes": "Preposición articolata 'sugli' = su + gli (plural masculino con 'gli' delante de vocal: 'alberi'). PDF §Preposizioni articolate, fila 'su' columna 'gli'. Bug fix post-v1.0 reportado por el autor: el prompt anterior 'Le foglie cadono sugli alberi' era gramaticalmente válido pero semánticamente unnatural — un nativo dice 'Le foglie cadono dagli alberi' (verbo cadere implica origen del movimiento, no posición sobre). El predicado 'Gli uccelli si posano' fuerza la lectura natural de 'su = sobre' (posarsi = posición fija sobre superficie), preservando el intent de testear la celda 'su + gli' del PDF.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-048",
@@ -882,7 +903,14 @@
         "correctIndex": 2,
         "explanation": "Su + Le = Sulle. I libri sono sulle scrivanie equivale a 'los libros están sobre los escritorios'. Tras Plan 07-02 has visto las 5 series completas."
       },
-      "notes": "Preposición articolata 'sulle' = su + le (plural femenino). PDF §Preposizioni articolate, fila 'su' columna 'le'."
+      "notes": "Preposición articolata 'sulle' = su + le (plural femenino). PDF §Preposizioni articolate, fila 'su' columna 'le'.",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "incorrecta", "concerns": ["[C4-explanation] la explanation incluye referencia meta al proceso de planning ('Tras Plan 07-02 has visto las 5 series completas') que no pertenece al contenido didáctico mostrado al estudiante — debe eliminarse y dejar solo la justificación gramatical (su+le=sulle, concordancia plural femenino con scrivanie)."] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "incorrecta", "concerns": ["[C4-explanation] la frase 'Tras Plan 07-02 has visto las 5 series completas.' es meta-staging editorial del curador (referencia a un plan de curaduría y a un recuento de series), no contenido pedagógico para el alumno. Viola R4: las notas de progreso editorial van en 'notes', no en 'payload.explanation'. Fix: eliminar esa frase."] }
+        ]
+      }
     },
     {
       "id": "preposiciones-049",
