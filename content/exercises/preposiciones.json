@@ -81,18 +81,15 @@
       "type": "multiple-choice",
       "categoryIds": ["preposiciones"],
       "payload": {
-        "prompt": "Esco ___ amici stasera.",
+        "prompt": "Esco ___ gli amici stasera.",
         "options": ["di", "per", "con", "tra"],
         "correctIndex": 2,
-        "explanation": "La preposición Con indica compagnia: con quién se realiza la acción. Esco con amici stasera equivale a 'salgo con amigos esta noche'. Es el uso más directo de Con y suele resultar transparente para el hispanohablante porque coincide con la preposición española 'con' en este contexto."
+        "explanation": "La preposición Con indica compagnia: con quién se realiza la acción. Esco con gli amici stasera equivale a 'salgo con los amigos esta noche'. Es el uso más directo de Con y suele resultar transparente para el hispanohablante porque coincide con la preposición española 'con' en este contexto."
       },
-      "notes": "Preposición 'con' = compagnia. PDF §Preposizioni semplici, ejemplo 'Esco con amici'.",
+      "notes": "Preposición 'con' = compagnia. PDF §Preposizioni semplici, ejemplo 'Esco con amici'. Fix post-disputed: añadido artículo 'gli' ('con gli amici') — Opus marcó 'con amici' sin artículo como truncado (paralelo bug -040 dai amici), Sonnet marcó 'tra amici' como alternativa válida; el artículo resuelve ambos (con gli amici es natural; tra gli amici = entre los amigos, lectura espacial que no compite con compañía).",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "incorrecta", "concerns": ["[C1-natural] 'Esco con amici stasera' suena truncado en italiano natural: lo idiomático es 'Esco con gli amici stasera' (artículo determinado para 'los amigos / mis amigos') o 'con degli amici' (partitivo, 'unos amigos'). 'Con amici' a secas sin artículo no es lo que diría un nativo en registro A1/A2 estándar — es el mismo patrón que el bug reportado por el autor en R5 ('Torno dai amici a casa' / 'nelle pareti'): gramática parseable pero semántica/uso no natural. Fix: cambiar a 'Esco con gli amici stasera.' preservando el intent de la celda 'con = compagnia'."] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "incorrecta", "concerns": ["[C2-una_opcion] la opción 'tra' también completa válidamente el prompt: 'Esco tra amici stasera' es italiano correcto con el significado 'salgo entre amigos esta noche' (tra + grupo de personas = compañía/entorno grupal). Viola R7: dos opciones válidas con significado distinto pero ambas gramaticalmente aceptables. Fix pattern: añadir contexto que elimine la lectura con tra, p.ej. 'Esco ___ i miei amici stasera' (con artículo determinado hace que tra suene más forzado y refuerza que con es la respuesta natural) o reformular con verbo diferente donde tra no compita."] }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -157,18 +154,15 @@
       "type": "multiple-choice",
       "categoryIds": ["preposiciones"],
       "payload": {
-        "prompt": "Ho studiato ___ due ore.",
+        "prompt": "Ieri ho studiato ___ due ore.",
         "options": ["a", "per", "in", "da"],
         "correctIndex": 1,
-        "explanation": "Per además de finalidad expresa durata: cuánto tiempo dura una acción. Ho studiato per due ore se traduce como 'he estudiado durante dos horas'. El hispanohablante puede confundirla con 'por' o 'durante', pero el italiano fija Per para todo periodo de tiempo cuantificado."
+        "explanation": "Per además de finalidad expresa durata: cuánto tiempo dura una acción. Ieri ho studiato per due ore se traduce como 'ayer estudié durante dos horas'. El adverbio 'ieri' ancla la acción en el pasado cerrado, lo que descarta 'da due ore' (desde hace dos horas, duración hasta el presente) y deja Per como única opción para el periodo cuantificado."
       },
-      "notes": "Preposición 'per' = durata (durante). PDF §Preposizioni semplici, ejemplo 'per due ore'.",
+      "notes": "Preposición 'per' = durata (durante). PDF §Preposizioni semplici, ejemplo 'per due ore'. Fix post-disputed: añadido 'Ieri' al inicio — Opus marcó que 'Ho studiato da due ore' (desde hace dos horas) también era válido; el adverbio 'ieri' cierra la duración en el pasado y bloquea la lectura continuativa de 'da', dejando solo 'per'.",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "incorrecta", "concerns": ["[C2-una_opcion] el prompt 'Ho studiato ___ due ore.' admite también 'da' como opción válida: 'Ho studiato da due ore' es italiano correcto ('he estudiado desde hace dos horas', durata continua hasta el presente). Patrón canónico de doble-validez análogo R7: verbo+tiempo admite per/da. Fix: añadir contexto que cierre la durata, ej. 'Ieri ho studiato ___ due ore.' (con 'ieri' la lectura 'desde hace' queda bloqueada y solo 'per' cuadra)."] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -252,18 +246,15 @@
       "type": "multiple-choice",
       "categoryIds": ["preposiciones"],
       "payload": {
-        "prompt": "Vengo ___ stazione.",
+        "prompt": "Vengo ___ stazione adesso. (en español: 'Vengo desde la estación ahora')",
         "options": ["dalla", "alla", "nella", "sulla"],
         "correctIndex": 0,
-        "explanation": "Da combinada con el artículo femenino singular La produce la preposición articolata Dalla. Vengo dalla stazione significa 'vengo desde la estación'. La regla generaliza el movimiento de origen del ejercicio 003 (Vengo da Milano) al caso donde el sustantivo lleva artículo definido."
+        "explanation": "Da combinada con el artículo femenino singular La produce la preposición articolata Dalla. Vengo dalla stazione adesso significa 'vengo desde la estación ahora'. La traducción 'desde' fija la lectura de origen (da = procedencia) y descarta 'alla' (a la estación, destino); para sustantivos femeninos con artículo definido la fusión es da + la = dalla."
       },
-      "notes": "Preposición articolata 'dalla' = da + la (vengo desde la estación). PDF §Preposizioni articolate, fila 'da' columna 'la'. Distractoras = otras articolate +la del mismo cuadro.",
+      "notes": "Preposición articolata 'dalla' = da + la (vengo desde la estación). PDF §Preposizioni articolate, fila 'da' columna 'la'. Distractoras = otras articolate +la del mismo cuadro. Fix post-disputed: (1) añadido 'adesso' + traducción española objetivo 'Vengo desde la estación ahora' para romper la doble-validez R7 venire+lugar (dalla origen vs alla destino); (2) eliminada la referencia 'del ejercicio 003' de la explanation (violaba R2 — no refs internas por ID).",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "incorrecta", "concerns": ["[C2-una_opcion] 'Vengo ___ stazione' admite tanto 'dalla' (origen) como 'alla' (destino). Patrón canónico R7 documentado: venire + lugar → da/a ambas válidas. Falta contexto desambiguador (ej. 'Vengo dalla stazione adesso').", "[C4-explanation] la explanation contiene 'del ejercicio 003' — referencia a otro ejercicio por número/ID, viola R2. Reemplazar por cross-ref pedagógica sin ID."] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -272,17 +263,14 @@
       "categoryIds": ["preposiciones"],
       "payload": {
         "prompt": "Parlo ___ telefono.",
-        "options": ["a", "al", "per", "con"],
+        "options": ["a", "al", "nel", "con"],
         "correctIndex": 1,
         "explanation": "En italiano la locución fija para hablar por teléfono es parlare al telefono, con A contraída en Al (a + il). Parlo al telefono se traduce literalmente como 'hablo al teléfono', no como 'hablo por teléfono' del español. Ojo: el hispanohablante elige 'a' simple olvidando que el artículo Il debe contraerse."
       },
-      "notes": "Preposición articolata 'al' = a + il (al teléfono, idiomático). PDF §Preposizioni articolate. Distractora 'a' = sin artículo (incorrecta — 'parlare al telefono' es la forma fija).",
+      "notes": "Preposición articolata 'al' = a + il (al teléfono, idiomático). PDF §Preposizioni articolate. Distractora 'a' = sin artículo (incorrecta — 'parlare al telefono' es la forma fija). Fix post-disputed: eliminada la opción 'per' (Sonnet marcó 'parlare per telefono' como igualmente válido para 'hablar por teléfono', creando doble-validez); sustituida por 'nel' (in+il, 'dentro del teléfono', distractor inequívocamente incorrecto).",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "incorrecta", "concerns": ["[C2-una_opcion] 'per telefono' (parlare per telefono) es forma igualmente válida y frecuente en italiano para 'hablar por teléfono'. Tanto 'al' como 'per' completan válidamente el prompt. Fix: añadir contexto que fije la construcción (ej. 'Parlo al telefono con mia madre') o cambiar opciones para que 'per' no compita."] }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -328,18 +316,15 @@
       "type": "multiple-choice",
       "categoryIds": ["preposiciones"],
       "payload": {
-        "prompt": "Il libro è scritto ___ lui.",
+        "prompt": "Il libro è scritto ___ lui. (en español: 'El libro está escrito por él')",
         "options": ["da", "di", "per", "con"],
         "correctIndex": 0,
-        "explanation": "En italiano, cuando una acción la realiza un agente en una frase pasiva, la preposición obligatoria es Da. Il libro è scritto da lui se traduce como 'el libro está escrito por él'. Da expresa autoría o ejecución, distinto del español 'por' que cubre ambos usos (causa y agente)."
+        "explanation": "En italiano, cuando una acción la realiza un agente en una frase pasiva, la preposición obligatoria es Da. Il libro è scritto da lui se traduce como 'el libro está escrito por él'. La traducción 'por él' (agente que ejecuta la acción) fija Da y descarta 'per' (que daría 'per lui' = 'para él', destinatario). Da expresa autoría o ejecución, distinto del español 'por' que cubre causa y agente."
       },
-      "notes": "Preposición 'da' = agente (complemento agente en pasiva). PDF §Preposizioni semplici, ejemplo 'libro scritto da lui'.",
+      "notes": "Preposición 'da' = agente (complemento agente en pasiva). PDF §Preposizioni semplici, ejemplo 'libro scritto da lui'. Fix post-disputed: añadida traducción española objetivo 'El libro está escrito por él' al prompt — Sonnet marcó que 'per lui' ('para él', destinatario) también era válido; la traducción 'por él' (agente) fuerza Da y elimina la ambigüedad da/per. Técnica de desambiguación vía significado (el alumno ejercita el sentido de la frase, no solo el hueco gramatical).",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "incorrecta", "concerns": ["[C2-una_opcion] 'per' es segunda opción gramaticalmente válida: 'Il libro è scritto per lui' = 'el libro está escrito para él' (destinatario) es italiano correcto. El prompt no añade contexto que fuerce la lectura de complemento agente pasivo vs destinatario. Fix: añadir contexto como 'Il libro è scritto ___ lui, non da lei' o anclar a contexto de autoría explícita."] }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -366,18 +351,15 @@
       "type": "multiple-choice",
       "categoryIds": ["preposiciones"],
       "payload": {
-        "prompt": "Ho letto un libro ___ Roma antica.",
+        "prompt": "Ho letto un libro ___ Roma antica. (en español: 'He leído un libro sobre la Roma antigua')",
         "options": ["di", "su", "per", "in"],
         "correctIndex": 1,
-        "explanation": "Su también indica argomento o tema: sobre qué trata algo. Ho letto un libro su Roma antica equivale a 'he leído un libro sobre la Roma antigua'. Aquí Su no implica contacto físico (sul tavolo, ejemplo de contacto físico) ni superficie vertical, sino tema de un texto, conversación o reflexión."
+        "explanation": "Su también indica argomento o tema: sobre qué trata algo. Ho letto un libro su Roma antica equivale a 'he leído un libro sobre la Roma antigua'. La traducción 'sobre' fija Su y descarta 'di' (que daría 'libro di Roma', lectura de tema/materia también posible en italiano). Aquí Su no implica contacto físico (sul tavolo) ni superficie vertical, sino tema de un texto, conversación o reflexión."
       },
-      "notes": "Preposición 'su' = argomento (sobre/acerca de). PDF §Preposizioni semplici, ejemplo 'un libro su Roma'. Distractora 'di' es la trampa (en español 'libro de Roma' funciona, en italiano 'su' marca el tema).",
+      "notes": "Preposición 'su' = argomento (sobre/acerca de). PDF §Preposizioni semplici, ejemplo 'un libro su Roma'. Distractora 'di' es la trampa (en español 'libro de Roma' funciona, en italiano 'su' marca el tema). Fix post-disputed: añadida traducción española objetivo 'He leído un libro sobre la Roma antigua' — Sonnet marcó que 'libro di Roma antica' (tema/materia) también era válido; la traducción 'sobre' fuerza Su. Idea del autor: habilitar ejercicio paralelo que fuerce 'di' vía traducción 'libro de matemáticas'.",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "incorrecta", "concerns": ["[C2-una_opcion] 'di' también completa válidamente el prompt: 'Ho letto un libro di Roma antica' es italiano correcto con sentido de tema/materia (paralelo a 'un libro di storia', 'un libro di matematica'). R7 identifica explícitamente 'libro + tema → di vs su' como patrón canónico de doble-validez. Para corregir: añadir contexto que elimine la lectura con 'di', por ejemplo un complemento que ancle inequívocamente argomento."] }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
