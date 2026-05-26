@@ -48,10 +48,13 @@
         "correctIndex": 2,
         "explanation": "La preposición Da marca el punto de partida o procedencia de un movimiento concreto: de dónde sales. Vengo a Roma da Milano stamattina equivale a 'vengo a Roma desde Milán esta mañana' — el destino (a Roma) ya está marcado explícitamente con 'a', por lo que la otra preposición tiene que indicar el origen del viaje, y para ciudades el italiano usa Da. Se distingue de Di, que indica origen estable (Sono di Milano = soy de Milán, identidad permanente)."
       },
-      "notes": "Preposición 'da' = provenienza del movimiento (origen del viaje). PDF §Preposizioni semplici, ejemplo canónico 'Vengo da Milano'. Fix R7 doble-validez post-Phase 10 disputed (3 iteraciones, la última con éxito esperado): el patrón canónico R7 'venire/tornare + ciudad → da/a ambas válidas' impide cualquier fix puramente temporal. La construcción doble-marcador 'Vengo a Roma da Milano' resuelve estructuralmente: el destino 'a Roma' explícito impide la lectura de 'a' en el blank (italiano no admite doble destino).",
+      "notes": "Preposición 'da' = provenienza del movimiento (origen del viaje). PDF §Preposizioni semplici, ejemplo canónico 'Vengo da Milano'. Fix R7 doble-validez post-Phase 10 disputed (3 iteraciones, la 3ª con éxito): el patrón canónico R7 'venire/tornare + ciudad → da/a ambas válidas' impide cualquier fix puramente temporal. La construcción doble-marcador 'Vengo a Roma da Milano' resuelve estructuralmente: el destino 'a Roma' explícito impide la lectura de 'a' en el blank (italiano no admite doble destino).",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
       }
     },
     {
