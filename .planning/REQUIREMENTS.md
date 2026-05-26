@@ -15,7 +15,7 @@
 - [x] **VAL-05**: Cada entry en `passes[]` registra `{by: string, date: ISO, verdict: "correcta"|"incorrecta", concerns?: string[]}`. Concerns es array de strings con descripciones específicas (ej. "ambiguous between negli/sugli", "leak in prompt").
 - [ ] **VAL-06**: Cobertura final: 271/271 ejercicios con `validation.status === "validated"` antes de cerrar Phase 10 (o `disputed` resuelto manualmente por el autor → re-validado → validated).
 - [x] **VAL-07**: Existe un smoke test paramétrico en `tests/exercise-types.test.js` que verifica todos los ejercicios tienen `validation.status === "validated"` (no `pending` ni `disputed`) — esto previene que un ejercicio nuevo o modificado se quede sin validar y se publique al alumno. Durante Phase 9 el test puede estar tras un feature flag (o assertion suave) para no bloquear desarrollo mientras los 271 siguen sin validar; al cierre de Phase 10 el test se activa con assertion estricta.
-- [ ] **VAL-08**: Cuando un pase devuelve `verdict: incorrecta`, el workflow surface el caso al autor inline con: prompt original + verdict + concerns + sugerencia de fix. El autor decide: acepta el fix propuesto, rechaza (mantiene original + override del status), o reescribe manualmente. La decisión queda registrada en el ejercicio (override del status si rechaza).
+- [x] **VAL-08**: Cuando un pase devuelve `verdict: incorrecta`, el workflow surface el caso al autor inline con: prompt original + verdict + concerns + sugerencia de fix. El autor decide: acepta el fix propuesto, rechaza (mantiene original + override del status), o reescribe manualmente. La decisión queda registrada en el ejercicio (override del status si rechaza).
 
 ## Future Requirements (post-v1.1)
 
@@ -42,6 +42,6 @@
 | VAL-05 | Phase 9 | Complete |
 | VAL-06 | Phase 10 | Pending |
 | VAL-07 | Phase 9 | Complete |
-| VAL-08 | Phase 10 | Pending |
+| VAL-08 | Phase 10 | Complete |
 
 **Coverage:** 8/8 v1.1 requirements mapped — 5 a Phase 9 (infraestructura) + 3 a Phase 10 (ejecución + escalada). 0 orphans, 0 duplicados.

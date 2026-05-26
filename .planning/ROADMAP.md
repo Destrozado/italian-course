@@ -60,9 +60,9 @@ Plans:
   3. Cuando una AI emite `verdict: incorrecta`, el flujo surface el caso al autor con prompt original + verdict + concerns + sugerencia de fix; el autor decide (accept fix / reject mantener original / reescribir) y la decisión queda registrada — verificable abriendo al menos 1 ejercicio cuyo `passes[]` muestre el ciclo disputed→resolved (puede ser uno de los 4 motivadores o cualquier otro encontrado durante la ejecución).
   4. El smoke test paramétrico VAL-07 (activado al final de la fase) corre verde con assertion estricta "cero ejercicios con `status !== 'validated'`" — la ejecución diaria de `node --test tests/*.test.js` previene regresión editorial: cualquier ejercicio nuevo o modificado sin re-validar rompe los tests inmediatamente.
   5. Audit trail completo en `passes[]` para los 271 ejercicios: `{by, date ISO, verdict, concerns?}` poblados — el autor puede auditar a posteriori qué AI validó qué ejercicio y cuándo, sin abrir logs externos.
-**Plans:** 5 plans
+**Plans:** 1/5 plans executed
 Plans:
-- [ ] 10-01-PLAN.md — Sub-skill `gsd-validate-batch` SKILL.md (Wave 1, autonomous): orquestador inline en main session que itera `gsd-validate-exercise` por cada ID pendiente, cubre 4 caminos D-VAL-25 (Accept fix / Reject + override / Rewrite manualmente / Skip), reconsider trigger D-VAL-21 tras Preposiciones, pre-flight + cierre AVERE asserts.
+- [x] 10-01-PLAN.md — Sub-skill `gsd-validate-batch` SKILL.md (Wave 1, autonomous): orquestador inline en main session que itera `gsd-validate-exercise` por cada ID pendiente, cubre 4 caminos D-VAL-25 (Accept fix / Reject + override / Rewrite manualmente / Skip), reconsider trigger D-VAL-21 tras Preposiciones, pre-flight + cierre AVERE asserts.
 - [ ] 10-02-PLAN.md — Reporter `scripts/run-validation-271.mjs` (Wave 1, autonomous): post-processing puro sobre los 7 archivos de categoría, 3 sub-gates VAL-04 + VAL-06 + VAL-08, helper `effectiveStatus()` con relax path-B, ANSI colorizado zero-deps.
 - [ ] 10-03-PLAN.md — Documentación + scaffolding (Wave 1, autonomous): README.md sección `## Validación editorial (milestone v1.1)` con comando `VAL_07_STRICT=1 node --test tests/*.test.js` literal, STATE.md secciones `## Phase 10 Progress` + `## Deferred-disputed`.
 - [ ] 10-04-PLAN.md — Ejecución batch + cola disputed (Wave 2, autonomous=false): aplicar `gsd-validate-batch` a las 7 categorías en orden D-VAL-22 con checkpoint AskUserQuestion por categoría + cola disputed por categoría, dispara reconsider trigger D-VAL-21 tras Preposiciones.
@@ -83,7 +83,7 @@ Plans:
 | 7.2. Explicaciones 5 cats restantes (100%) | v1.0 | 5/5 | Complete | 2026-05-25 |
 | 8. Modo Examen por categoría | v1.0 | 1/1 | Complete | 2026-05-25 |
 | 9. Infraestructura de validación | v1.1 | 3/3 | Complete   | 2026-05-26 |
-| 10. Ejecución validación 271 ejercicios + escalada | v1.1 | 0/5 | Not started | — |
+| 10. Ejecución validación 271 ejercicios + escalada | v1.1 | 1/5 | In Progress|  |
 
 ## Backlog
 
