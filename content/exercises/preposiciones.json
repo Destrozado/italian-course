@@ -162,10 +162,13 @@
         "correctIndex": 1,
         "explanation": "Per además de finalidad expresa durata: cuánto tiempo dura una acción. Ieri ho studiato per due ore se traduce como 'ayer estudié durante dos horas'. El adverbio 'ieri' ancla la acción en el pasado cerrado, lo que descarta 'da due ore' (desde hace dos horas, duración hasta el presente) y deja Per como única opción para el periodo cuantificado."
       },
-      "notes": "Preposición 'per' = durata (durante). PDF §Preposizioni semplici, ejemplo 'per due ore'. Fix post-disputed: añadido 'Ieri' al inicio — Opus marcó que 'Ho studiato da due ore' (desde hace dos horas) también era válido; el adverbio 'ieri' cierra la duración en el pasado y bloquea la lectura continuativa de 'da', dejando solo 'per'.",
+      "notes": "Preposición 'per' = durata (durante). PDF §Preposizioni semplici, ejemplo 'per due ore'. Fix post-disputed: 'Ieri' + traducción ES 'durante dos horas' — Opus marcó 'da due ore' (desde hace) y luego 'in due ore' (en/dentro de) como competidores; la traducción 'durante' fija per inequívocamente.",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
       }
     },
     {
@@ -368,10 +371,13 @@
         "correctIndex": 0,
         "explanation": "Su también indica argomento o tema: sobre qué trata algo. Ho letto un libro su Roma antica equivale a 'he leído un libro sobre la Roma antigua'. Su aquí no implica contacto físico (sul tavolo) ni superficie vertical, sino el tema de un texto, conversación o reflexión. (Nota: la preposición 'di' también puede marcar tema en italiano — 'libro di storia' — por eso se reserva para un ejercicio aparte donde la traducción fuerce 'di'; aquí 'di' se omite de las opciones para que 'sobre' tenga una sola respuesta limpia)."
       },
-      "notes": "Preposición 'su' = argomento (sobre/acerca de). PDF §Preposizioni semplici, ejemplo 'un libro su Roma'. Distractora 'di' es la trampa (en español 'libro de Roma' funciona, en italiano 'su' marca el tema). Fix post-disputed: añadida traducción española objetivo 'He leído un libro sobre la Roma antigua' — Sonnet marcó que 'libro di Roma antica' (tema/materia) también era válido; la traducción 'sobre' fuerza Su. Idea del autor: habilitar ejercicio paralelo que fuerce 'di' vía traducción 'libro de matemáticas'.",
+      "notes": "Preposición 'su' = argomento (sobre/acerca de). PDF §Preposizioni semplici, ejemplo 'un libro su Roma'. Fix post-disputed: traducción ES 'sobre' + eliminada opción 'di' (casi intercambiable con su para tema, doble-validez R7 insalvable con 'libro'). Par con preposiciones-051 (fuerza 'di' vía 'esame di matematica').",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
       }
     },
     {
@@ -949,12 +955,12 @@
       "type": "multiple-choice",
       "categoryIds": ["preposiciones"],
       "payload": {
-        "prompt": "Hanno scritto un libro ___ matematica. (en español: 'Han escrito un libro de matemáticas')",
+        "prompt": "Domani ho un esame ___ matematica. (en español: 'Mañana tengo un examen de matemáticas')",
         "options": ["di", "su", "per", "a"],
         "correctIndex": 0,
-        "explanation": "Di marca la materia o disciplina de la que trata un texto, como un género o categoría: un libro di matematica, un libro di storia, un libro di cucina. La traducción 'de matemáticas' (materia/asignatura) fija Di. Se distingue de Su, que introduce el tema concreto sobre el que versa algo puntual ('un libro su Roma antica' = sobre la Roma antigua); por eso 'libro di matematica' (la disciplina) y no 'libro su matematica'."
+        "explanation": "Di marca la materia o disciplina en colocaciones fijas como esame di matematica, professore di matematica, lezione di storia, corso di cucina. La traducción 'de matemáticas' fija Di. A diferencia de 'libro' (que admite tanto 'libro di' como 'libro su'), la palabra 'esame' solo se combina con Di: 'esame su matematica' no existe en italiano. Por eso aquí Di es la única opción natural."
       },
-      "notes": "Preposición 'di' = materia/disciplina de un texto ('libro di matematica'). Ejercicio paralelo a preposiciones-020 (que fuerza 'su' vía traducción 'sobre'). Par diseñado con la técnica de traducción española objetivo: -020 fuerza su, -051 fuerza di, cada uno con la otra preposición como distractor. La distinción di (disciplina/género) vs su (tema puntual) es real en italiano. Ambas IAs deben dar correcta.",
+      "notes": "Preposición 'di' = materia/disciplina en colocación fija ('esame di matematica'). Ejercicio paralelo a preposiciones-020 (que fuerza 'su'). Reencuadrado de 'libro di matematica' a 'esame di matematica' porque 'libro' admite di/su ambas (doble-validez R7) pero 'esame' solo admite 'di' ('esame su matematica' no existe). Técnica de traducción española objetivo + colocación fija.",
       "validation": {
         "status": "pending",
         "passes": []
