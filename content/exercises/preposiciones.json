@@ -675,7 +675,14 @@
         "correctIndex": 1,
         "explanation": "Cuando el masculino plural empieza por vocal o s + consonante, z, gn, ps, x, el artículo es Gli y A se fusiona en Agli. Spiego la lezione agli studenti equivale a 'explico la lección a los estudiantes'. Misma lógica de artículo Gli aplicada a A."
       },
-      "notes": "Preposición articolata 'agli' = a + gli (plural masculino con 'gli' por s+consonante). PDF §Preposizioni articolate, fila 'a' columna 'gli'."
+      "notes": "Preposición articolata 'agli' = a + gli (plural masculino con 'gli' por s+consonante). PDF §Preposizioni articolate, fila 'a' columna 'gli'.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-037",
@@ -687,7 +694,14 @@
         "correctIndex": 2,
         "explanation": "Para sustantivos femeninos plurales el artículo es Le y A se fusiona en Alle. Scrivo una lettera alle mie amiche significa 'escribo una carta a mis amigas'."
       },
-      "notes": "Preposición articolata 'alle' = a + le (plural femenino). PDF §Preposizioni articolate, fila 'a' columna 'le'."
+      "notes": "Preposición articolata 'alle' = a + le (plural femenino). PDF §Preposizioni articolate, fila 'a' columna 'le'.",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "incorrecta", "concerns": ["[C2-una_opcion] el prompt 'Scrivo una lettera ___ mie amiche' admite tanto 'alle' (destinatario: carta A mis amigas) como 'delle' (posesivo/autoría: carta DE mis amigas). Ambas completan italiano gramaticalmente válido aunque con significado distinto — patrón canónico R7 análogo a 'libro di/su X'. Fix: añadir contexto que fuerce lectura destinatario, ej. 'Scrivo una lettera ___ mie amiche per il loro compleanno.' o reformular con verbo que solo admita destinatario."] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-038",
@@ -699,7 +713,14 @@
         "correctIndex": 0,
         "explanation": "Da + Il = Dal. Esco dal lavoro alle sei equivale a 'salgo del trabajo a las seis'. Da indica el origen o punto de salida del movimiento, y al unirse al artículo masculino singular Il forma Dal: dal lavoro, dal mercato, dal supermercato."
       },
-      "notes": "Preposición articolata 'dal' = da + il (salgo del trabajo). PDF §Preposizioni articolate, fila 'da' columna 'il'."
+      "notes": "Preposición articolata 'dal' = da + il (salgo del trabajo). PDF §Preposizioni articolate, fila 'da' columna 'il'.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-039",
