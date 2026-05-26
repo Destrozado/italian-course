@@ -43,18 +43,15 @@
       "type": "multiple-choice",
       "categoryIds": ["preposiciones"],
       "payload": {
-        "prompt": "Torno ___ Milano stamattina.",
+        "prompt": "Vengo a Roma ___ Milano stamattina.",
         "options": ["di", "a", "da", "in"],
         "correctIndex": 2,
-        "explanation": "La preposición Da marca el punto de partida o procedencia de un movimiento concreto: de dónde sales o de dónde vuelves. Torno da Milano stamattina se traduce como 'vuelvo desde Milán esta mañana'. El verbo Tornare (volver, regresar) implica un origen inequívoco — algo que se deja atrás — por eso Da es la única preposición natural. Se distingue de Di, que indica origen estable (Sono di Milano = soy de Milán, identidad permanente)."
+        "explanation": "La preposición Da marca el punto de partida o procedencia de un movimiento concreto: de dónde sales. Vengo a Roma da Milano stamattina equivale a 'vengo a Roma desde Milán esta mañana' — el destino (a Roma) ya está marcado explícitamente con 'a', por lo que la otra preposición tiene que indicar el origen del viaje, y para ciudades el italiano usa Da. Se distingue de Di, que indica origen estable (Sono di Milano = soy de Milán, identidad permanente)."
       },
-      "notes": "Preposición 'da' = provenienza con verbo de regreso ('vuelvo desde Milán'). PDF §Preposizioni semplici, ejemplo canónico 'Vengo da Milano'. Fix R7 doble-validez post-Phase 10 disputed (2 iteraciones fallidas): (1) prompt original 'Vengo ___ Milano' admitía 'da'/'a' ambas válidas (patrón canónico R7 venire+ciudad); (2) 'Vengo ___ Milano stamattina' (fix R7 oficial) seguía permitiendo 'a'; (3) 'Torno ___ Milano stamattina' tampoco resuelve porque tornare+ciudad admite tanto da (origen) como a (destino) ambas igual de naturales. La doble-validez está en el predicado mismo, no en el contexto temporal.",
+      "notes": "Preposición 'da' = provenienza del movimiento (origen del viaje). PDF §Preposizioni semplici, ejemplo canónico 'Vengo da Milano'. Fix R7 doble-validez post-Phase 10 disputed (3 iteraciones, la última con éxito esperado): el patrón canónico R7 'venire/tornare + ciudad → da/a ambas válidas' impide cualquier fix puramente temporal. La construcción doble-marcador 'Vengo a Roma da Milano' resuelve estructuralmente: el destino 'a Roma' explícito impide la lectura de 'a' en el blank (italiano no admite doble destino).",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "incorrecta", "concerns": ["[C2-una_opcion] el verbo 'tornare' admite tanto 'da + origen' como 'a + destino' con significados distintos pero ambos correctos. El contexto 'stamattina' (fix R7 declarado en notes) NO elimina la lectura de destino — solo enmarca temporalmente. Patrón canónico de doble-validez R7 listado verbos venire/andare/tornare + ciudad: da/a ambas válidas. Fix sugerido: 'Torno da Milano, ho appena preso il treno' o reformular con verbo menos ambiguo."] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "incorrecta", "concerns": ["[C2-una_opcion] 'Torno a Milano stamattina' es italiano perfectamente válido (tornare a + ciudad = regresar a Milán). Patrón doble-validez R7: tornare + ciudad admite da/a con significados distintos pero ambos correctos. Fix: 'Arrivo ___ Milano stamattina' (solo 'da' cabe con llegar)."] }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
