@@ -599,7 +599,14 @@
         "correctIndex": 2,
         "explanation": "Nelle es la preposición articolata femenina plural de In + Le. Le foto sono nelle cornici significa 'las fotos están en los marcos' — el italiano ve la cornice (marco) como un contenedor que rodea la foto, por eso In y no Su. Cuidado: si quieres decir que las fotos están colgadas en la pared, no dentro de un marco, lo natural es Sulle pareti (sobre la superficie vertical) — Nelle pareti suena a fotos empotradas dentro del muro."
       },
-      "notes": "Preposición articolata 'nelle' = in + le (plural femenino con 'cornici' como contenedor que rodea la foto). PDF §Preposizioni articolate, fila 'in' columna 'le'. Bug fix post-v1.0: prompt anterior 'Le foto sono nelle pareti' era gramaticalmente válido pero semánticamente raro (fotos empotradas en muros); cambiado a 'cornici' (marcos) que cuadra naturalmente con In + Le."
+      "notes": "Preposición articolata 'nelle' = in + le (plural femenino con 'cornici' como contenedor que rodea la foto). PDF §Preposizioni articolate, fila 'in' columna 'le'. Bug fix post-v1.0: prompt anterior 'Le foto sono nelle pareti' era gramaticalmente válido pero semánticamente raro (fotos empotradas en muros); cambiado a 'cornici' (marcos) que cuadra naturalmente con In + Le.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-033",
@@ -611,7 +618,14 @@
         "correctIndex": 1,
         "explanation": "A + Lo = Allo cuando el sustantivo masculino singular empieza por s + consonante, z, gn, ps o x. Vado allo stadio domenica equivale a 'voy al estadio el domingo'. Misma lógica de artículo Lo aplicada a la preposición A: allo zoo, allo gnomo, allo psicologo."
       },
-      "notes": "Preposición articolata 'allo' = a + lo ('stadio' lleva 'lo' por s+consonante). PDF §Preposizioni articolate, fila 'a' columna 'lo'."
+      "notes": "Preposición articolata 'allo' = a + lo ('stadio' lleva 'lo' por s+consonante). PDF §Preposizioni articolate, fila 'a' columna 'lo'.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-034",
@@ -623,7 +637,14 @@
         "correctIndex": 2,
         "explanation": "A + La = Alla. Andiamo alla stazione in taxi equivale a 'vamos a la estación en taxi'. La fusión sigue el mismo patrón que Al pero en femenino singular: alla casa, alla scuola, alla porta — siempre que el sustantivo femenino lleve artículo definido La."
       },
-      "notes": "Preposición articolata 'alla' = a + la. PDF §Preposizioni articolate, fila 'a' columna 'la'."
+      "notes": "Preposición articolata 'alla' = a + la. PDF §Preposizioni articolate, fila 'a' columna 'la'.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-035",
@@ -635,7 +656,14 @@
         "correctIndex": 0,
         "explanation": "Para sustantivos masculinos plurales regulares el artículo es I, y A se fusiona en Ai. Do un regalo ai bambini significa 'doy un regalo a los niños'. Patrón paralelo a Dei pero con A en vez de Di — la misma lógica de artículo aplicada a otra preposición base."
       },
-      "notes": "Preposición articolata 'ai' = a + i (plural masculino regular, 'a los niños'). PDF §Preposizioni articolate, fila 'a' columna 'i'."
+      "notes": "Preposición articolata 'ai' = a + i (plural masculino regular, 'a los niños'). PDF §Preposizioni articolate, fila 'a' columna 'i'.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-036",
