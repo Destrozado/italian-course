@@ -264,7 +264,7 @@ Wave 1 cerrado (10-01 + 10-02 + 10-03 closed). Quedan: Plan 09-03 (piloto Phase 
 
 ### Categorías (orden lockeado D-VAL-22):
 
-- [ ] preposiciones — 49 pendientes (50 total, -040 ya validated piloto)
+- [x] preposiciones — CERRADA 2026-05-26: 51/51 validated (50 originales + 1 nuevo -051), 0 disputed. 11 disputed resueltos vía fixes editoriales (técnica: traducción española objetivo en prompt). +1 ejercicio nuevo -051 (par di/su con -020).
 - [ ] avere — 22 pendientes (23 total, -001 ya validated piloto)
 - [ ] essere — 39 pendientes (39 total)
 - [ ] genero-numero — 40 pendientes (40 total)
@@ -274,7 +274,7 @@ Wave 1 cerrado (10-01 + 10-02 + 10-03 closed). Quedan: Plan 09-03 (piloto Phase 
 
 ### Categorías cerradas:
 
-<!-- el batch appendea aquí -->
+- Phase 10 — Categoría preposiciones cerrada (2026-05-26): 51/51 validated, 11 disputed resueltos, 0 deferred, 0 pending. Nota: +1 ejercicio nuevo (-051) creado durante la resolución de disputed. Dispute rate inicial ~22% (muy por encima del 5-15% hipotético) — el sistema cazó bugs editoriales reales: R7 doble-validez verbo+ciudad/libro+tema, R2 ref a ejercicio por ID, R4 meta-staging, C1 falta artículo. Técnica de resolución validada: incluir la traducción española objetivo en el prompt desambigua doble-validez Y hace que el alumno ejercite el significado.
 
 ## Deferred-disputed
 
