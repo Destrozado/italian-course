@@ -43,18 +43,15 @@
       "type": "multiple-choice",
       "categoryIds": ["preposiciones"],
       "payload": {
-        "prompt": "Vengo ___ Milano.",
+        "prompt": "Vengo ___ Milano stamattina.",
         "options": ["di", "a", "da", "in"],
         "correctIndex": 2,
-        "explanation": "La preposición Da marca el punto de partida o procedencia de un movimiento concreto: de dónde sales o de dónde acabas de venir. Vengo da Milano se traduce como 'vengo desde Milán'. Se distingue de Di, que indica origen estable (Sono di Milano = soy de Milán, identidad permanente)."
+        "explanation": "La preposición Da marca el punto de partida o procedencia de un movimiento concreto: de dónde sales o de dónde acabas de venir. Vengo da Milano stamattina se traduce como 'vengo desde Milán esta mañana'. Se distingue de Di, que indica origen estable (Sono di Milano = soy de Milán, identidad permanente)."
       },
-      "notes": "Preposición 'da' = provenienza (vengo desde Milán). PDF §Preposizioni semplici, ejemplo 'Vengo da Milano'.",
+      "notes": "Preposición 'da' = provenienza (vengo desde Milán). PDF §Preposizioni semplici, ejemplo 'Vengo da Milano'. Fix R7 doble-validez post-Phase 10 disputed: prompt original 'Vengo ___ Milano' admitía 'da' (origen del viaje) y 'a' (destino) ambas válidas (patrón canónico R7 venire+ciudad citado en validation prompt §Fix pattern); añadir 'stamattina' ancla origen y bloquea la lectura de destino.",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "incorrecta", "concerns": ["[C2-una_opcion] el prompt 'Vengo ___ Milano.' admite al menos dos opciones italianas válidas: 'da' (origen del viaje, marcada como correcta) y 'a' (destino: 'Vengo a Milano' = 'vengo a Milán'). Es el patrón canónico de doble-validez 'venire + ciudad' explícitamente listado en R7, y de hecho el ejemplo literal citado en la sección 'Fix pattern' de R7. Para corregir: añadir contexto que elimine la lectura de destino (p.ej. 'Vengo ___ Milano, sono nato lì.' o 'Vengo ___ Milano stamattina.')."] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "incorrecta", "concerns": ["[C2-una_opcion] el prompt 'Vengo ___ Milano.' admite tanto 'da' (Vengo da Milano = vengo desde Milán, procedencia) como 'a' (Vengo a Milano = vengo a Milán, destino del movimiento), ambas construcciones gramaticalmente correctas en italiano con 'venire'. Sin contexto adicional que ancle la lectura al origen, marcar 'a' como fallo sería injusto. Fix canónico sugerido por R7: añadir contexto temporal u otro disambiguador, p. ej. 'Vengo da Milano stamattina.'"] }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
