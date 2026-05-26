@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Validación editorial
-status: "Phase 9 COMPLETE — verifier PASSED 5/5 SCs, ready para /gsd:plan-phase 10"
-last_updated: "2026-05-26T02:50:00.000Z"
-last_activity: 2026-05-26 — Phase 9 verifier PASSED 5/5: SC1 schema + SC2 prompt + SC3 skill + SC4 smoke test + SC5 piloto, todos los invariants críticos verificados
+status: "Phase 10 CONTEXT capturado (D-VAL-19..26 — sub-skill batch + cola disputed estricta + stick Opus+Sonnet). Ready `/gsd-plan-phase 10`"
+last_updated: "2026-05-26T15:00:00.000Z"
+last_activity: "2026-05-26 — discuss-phase 10 ejecutado. 4 áreas exploradas (Orquestación bulk / Orden / Flujo VAL-08 disputed / Quórum). 8 decisiones D-VAL-19..26 lockeadas. 5 micro-decisiones en Claude's Discretion. CONTEXT.md + DISCUSSION-LOG.md committed (`6afab57`)."
 progress:
   total_phases: 4
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 3
   completed_plans: 3
-  percent: 0
+  percent: 25
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -173,9 +173,13 @@ Last activity: 2026-05-26 — Verifier PASSED 5/5: SC1 (schema acepta 271 con va
 # /gsd:execute-phase 9  (sigue ejecutando — Plan 09-03 Wave 2 piloto end-to-end)
 
 # Plan 09-03 incluye checkpoint:human-verify al final del piloto:
+
 #   - El autor inspecciona los 3 ejercicios validados (E1 + E2 + E3)
+
 #   - Verifica las 4 must-haves del gate D-VAL-15
+
 #   - Si PASS: autoriza /gsd:plan-phase 10 (ejecución 271/271)
+
 #   - Si FAIL: itera VALIDATION-PROMPT.md o SKILL.md según el bug detectado
 
 ```
