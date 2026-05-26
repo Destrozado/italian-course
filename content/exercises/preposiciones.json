@@ -88,8 +88,11 @@
       },
       "notes": "Preposición 'con' = compagnia. PDF §Preposizioni semplici, ejemplo 'Esco con amici'. Fix post-disputed: añadido artículo 'gli' ('con gli amici') — Opus marcó 'con amici' sin artículo como truncado (paralelo bug -040 dai amici), Sonnet marcó 'tra amici' como alternativa válida; el artículo resuelve ambos (con gli amici es natural; tra gli amici = entre los amigos, lectura espacial que no compite con compañía).",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
       }
     },
     {
@@ -253,8 +256,11 @@
       },
       "notes": "Preposición articolata 'dalla' = da + la (vengo desde la estación). PDF §Preposizioni articolate, fila 'da' columna 'la'. Distractoras = otras articolate +la del mismo cuadro. Fix post-disputed: (1) añadido 'adesso' + traducción española objetivo 'Vengo desde la estación ahora' para romper la doble-validez R7 venire+lugar (dalla origen vs alla destino); (2) eliminada la referencia 'del ejercicio 003' de la explanation (violaba R2 — no refs internas por ID).",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
       }
     },
     {
@@ -269,8 +275,11 @@
       },
       "notes": "Preposición articolata 'al' = a + il (al teléfono, idiomático). PDF §Preposizioni articolate. Distractora 'a' = sin artículo (incorrecta — 'parlare al telefono' es la forma fija). Fix post-disputed: eliminada la opción 'per' (Sonnet marcó 'parlare per telefono' como igualmente válido para 'hablar por teléfono', creando doble-validez); sustituida por 'nel' (in+il, 'dentro del teléfono', distractor inequívocamente incorrecto).",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
       }
     },
     {
@@ -323,8 +332,11 @@
       },
       "notes": "Preposición 'da' = agente (complemento agente en pasiva). PDF §Preposizioni semplici, ejemplo 'libro scritto da lui'. Fix post-disputed: añadida traducción española objetivo 'El libro está escrito por él' al prompt — Sonnet marcó que 'per lui' ('para él', destinatario) también era válido; la traducción 'por él' (agente) fuerza Da y elimina la ambigüedad da/per. Técnica de desambiguación vía significado (el alumno ejercita el sentido de la frase, no solo el hueco gramatical).",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
       }
     },
     {
