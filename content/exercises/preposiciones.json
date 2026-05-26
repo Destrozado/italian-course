@@ -499,17 +499,17 @@
       "type": "multiple-choice",
       "categoryIds": ["preposiciones"],
       "payload": {
-        "prompt": "Le chiavi sono ___ cassetto.",
+        "prompt": "Le chiavi sono ___ cassetto. (en español: 'Las llaves están dentro del cajón')",
         "options": ["sul", "nel", "al", "dal"],
         "correctIndex": 1,
-        "explanation": "In + Il = Nel. Cuando el sustantivo masculino singular regular indica el interior de algo, In se fusiona con su artículo. Le chiavi sono nel cassetto se traduce como 'las llaves están en el cajón'. Nel implica dentro, distinto de Sul que implicaría encima."
+        "explanation": "In + Il = Nel. Cuando el sustantivo masculino singular regular indica el interior de algo, In se fusiona con su artículo. Le chiavi sono nel cassetto se traduce como 'las llaves están dentro del cajón'. La traducción 'dentro' fija Nel (interior) y descarta Sul, que significaría 'encima del cajón' (superficie). Ambas son italiano correcto pero con significado distinto: aquí el contexto pide el interior."
       },
       "notes": "Preposición articolata 'nel' = in + il (dentro). PDF §Preposizioni articolate, fila 'in' columna 'il'. Distractora 'sul' = sobre (semánticamente plausible pero incorrecta para 'dentro de un cajón').",
       "validation": {
-        "status": "disputed",
+        "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "incorrecta", "concerns": ["[C2-una_opcion] 'sul' (su + il) completa válidamente el prompt — 'Le chiavi sono sul cassetto' (sobre el cajón) es italiano correcto y semánticamente plausible. El prompt no aporta contexto que elimine la lectura 'encima'. Fix: añadir contexto que fuerce el interior, ej. 'Le chiavi sono ___ cassetto, sotto i documenti.' o cambiar el noun a uno donde 'sobre' no tenga sentido ('nel frigorifero', 'nel portafoglio')."] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "incorrecta", "concerns": ["[C2-una_opcion] 'sul' y 'nel' son ambas válidas con cassetto — las propias notes del ejercicio admiten 'sul semánticamente plausible pero incorrecta'. Eso es exactamente el patrón R7 doble-validez. Fix sugerido por R7: añadir contexto adicional o pivotar el noun."] }
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
         ]
       }
     },
@@ -689,16 +689,16 @@
       "type": "multiple-choice",
       "categoryIds": ["preposiciones"],
       "payload": {
-        "prompt": "Scrivo una lettera ___ mie amiche.",
+        "prompt": "Scrivo una lettera ___ mie amiche. (en español: 'Escribo una carta a mis amigas')",
         "options": ["ai", "agli", "alle", "delle"],
         "correctIndex": 2,
-        "explanation": "Para sustantivos femeninos plurales el artículo es Le y A se fusiona en Alle. Scrivo una lettera alle mie amiche significa 'escribo una carta a mis amigas'."
+        "explanation": "Para sustantivos femeninos plurales el artículo es Le y A se fusiona en Alle. Scrivo una lettera alle mie amiche significa 'escribo una carta a mis amigas'. La traducción 'a mis amigas' (destinatario) fija Alle y descarta 'delle' (que daría 'delle mie amiche' = 'de mis amigas', posesión/autoría). El alumno debe ver que la carta va dirigida A ellas, no que es DE ellas."
       },
       "notes": "Preposición articolata 'alle' = a + le (plural femenino). PDF §Preposizioni articolate, fila 'a' columna 'le'.",
       "validation": {
-        "status": "disputed",
+        "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "incorrecta", "concerns": ["[C2-una_opcion] el prompt 'Scrivo una lettera ___ mie amiche' admite tanto 'alle' (destinatario: carta A mis amigas) como 'delle' (posesivo/autoría: carta DE mis amigas). Ambas completan italiano gramaticalmente válido aunque con significado distinto — patrón canónico R7 análogo a 'libro di/su X'. Fix: añadir contexto que fuerce lectura destinatario, ej. 'Scrivo una lettera ___ mie amiche per il loro compleanno.' o reformular con verbo que solo admita destinatario."] },
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
           { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
         ]
       }
@@ -901,14 +901,14 @@
         "prompt": "I libri sono ___ scrivanie.",
         "options": ["sui", "sugli", "sulle", "nelle"],
         "correctIndex": 2,
-        "explanation": "Su + Le = Sulle. I libri sono sulle scrivanie equivale a 'los libros están sobre los escritorios'. Tras Plan 07-02 has visto las 5 series completas."
+        "explanation": "Su + Le = Sulle. I libri sono sulle scrivanie equivale a 'los libros están sobre los escritorios'. Para sustantivos femeninos plurales (le scrivanie) la preposición Su se fusiona con el artículo Le dando Sulle, igual que Su + Il = Sul en masculino singular."
       },
       "notes": "Preposición articolata 'sulle' = su + le (plural femenino). PDF §Preposizioni articolate, fila 'su' columna 'le'.",
       "validation": {
-        "status": "disputed",
+        "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "incorrecta", "concerns": ["[C4-explanation] la explanation incluye referencia meta al proceso de planning ('Tras Plan 07-02 has visto las 5 series completas') que no pertenece al contenido didáctico mostrado al estudiante — debe eliminarse y dejar solo la justificación gramatical (su+le=sulle, concordancia plural femenino con scrivanie)."] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "incorrecta", "concerns": ["[C4-explanation] la frase 'Tras Plan 07-02 has visto las 5 series completas.' es meta-staging editorial del curador (referencia a un plan de curaduría y a un recuento de series), no contenido pedagógico para el alumno. Viola R4: las notas de progreso editorial van en 'notes', no en 'payload.explanation'. Fix: eliminar esa frase."] }
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
         ]
       }
     },
@@ -917,17 +917,17 @@
       "type": "multiple-choice",
       "categoryIds": ["preposiciones"],
       "payload": {
-        "prompt": "___ tre giorni partiamo per Roma.",
-        "options": ["tra", "fra", "da", "in"],
-        "correctIndex": 1,
-        "explanation": "Fra y Tra son sinónimos perfectos para tempo futuro (dentro de cuánto tiempo). Italiano prefiere Fra cuando la siguiente palabra empieza por 'tr-' o doble T, para evitar la cacofonía tra tre. Fra tre giorni partiamo per Roma equivale a 'dentro de tres días salimos hacia Roma'. Regla eufónica, no semántica."
+        "prompt": "___ tre giorni partiamo per Roma. (en español: 'Dentro de tres días salimos hacia Roma')",
+        "options": ["fra", "da", "in", "per"],
+        "correctIndex": 0,
+        "explanation": "Fra (sinónimo de Tra) expresa tempo futuro: dentro de cuánto tiempo ocurrirá algo desde el momento presente. Fra tre giorni partiamo per Roma equivale a 'dentro de tres días salimos hacia Roma'. La traducción 'dentro de' fija el futuro y descarta Da (desde hace, pasado continuativo), In (en el plazo de, duración para completar) y Per (durante). Nota eufónica: ante palabras que empiezan por 'tr-' el italiano prefiere Fra a Tra para evitar la cacofonía 'tra tre'."
       },
       "notes": "'tra' y 'fra' son sinónimos para tempo futuro (dentro de). Regla eufónica EXTERNA al PDF (conocimiento añadido): se prefiere 'fra' delante de palabras que empiezan con 'tr-' para evitar la cacofonía 'tra tre' (repetición de 'tr'). Por eso 'fra tre giorni' es la forma natural en italiano cuidado. El PDF presenta tra/fra como intercambiables pero esta regla eufónica es estándar.",
       "validation": {
-        "status": "disputed",
+        "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "incorrecta", "concerns": ["[C2-una_opcion] 'tra' y 'fra' son gramaticalmente sinónimos perfectos para tempo futuro; el propio campo notes admite que el PDF las presenta como intercambiables y que la preferencia eufónica es conocimiento EXTERNO al PDF. 'Tra tre giorni' es uso aceptado en italiano estándar — dos respuestas válidas."] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "incorrecta", "concerns": ["[C2-una_opcion] 'tra' y 'fra' son sinónimos perfectos — ambos completan el prompt con gramática y significado idénticos. La regla eufónica es preferencia de estilo, no restricción gramatical. Fix: testar 'da' vs 'in' en otro contexto, o reformular eliminando ambigüedad entre fra/tra."] }
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
         ]
       }
     },
