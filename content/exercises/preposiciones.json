@@ -732,7 +732,14 @@
         "correctIndex": 1,
         "explanation": "Cuando el masculino singular empieza por s + consonante, z, gn, ps o x, el artículo es Lo y Da se fusiona en Dallo. Esco dallo studio del dentista significa 'salgo del consultorio del dentista'. Misma regla de Lo aplicada a Da."
       },
-      "notes": "Preposición articolata 'dallo' = da + lo ('studio' lleva 'lo' por s+consonante). PDF §Preposizioni articolate, fila 'da' columna 'lo'."
+      "notes": "Preposición articolata 'dallo' = da + lo ('studio' lleva 'lo' por s+consonante). PDF §Preposizioni articolate, fila 'da' columna 'lo'.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-040",
