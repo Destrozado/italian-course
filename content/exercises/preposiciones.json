@@ -29,7 +29,14 @@
         "correctIndex": 1,
         "explanation": "Con la palabra casa el italiano usa la preposición A como excepción idiomática, no In como dicta la regla general de paesi y regioni. Vado a casa equivale a 'voy a mi casa' como locución fija. Cuidado: el hispanohablante piensa en 'en casa' y se inclina por In, pero con casa el italiano siempre usa A."
       },
-      "notes": "Preposición 'a' = dirección con 'casa' (excepción A1 idiomática). PDF §Preposizioni semplici, ejemplo 'Vado a casa'."
+      "notes": "Preposición 'a' = dirección con 'casa' (excepción A1 idiomática). PDF §Preposizioni semplici, ejemplo 'Vado a casa'.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-003",
