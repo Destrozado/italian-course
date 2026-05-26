@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Validación editorial
 status: executing
-last_updated: "2026-05-26T15:38:51.255Z"
+last_updated: "2026-05-26T16:15:00.000Z"
 last_activity: 2026-05-26
 progress:
   total_phases: 4
   completed_phases: 1
   total_plans: 8
-  completed_plans: 4
-  percent: 25
+  completed_plans: 5
+  percent: 30
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -26,9 +26,20 @@ progress:
 ## Current Position
 
 Phase: 10 (ejecuci-n-validaci-n-271-ejercicios-escalada-disputed) — EXECUTING
-Plan: 2 of 5 (Plan 10-01 closed)
-Status: Ready to execute Plan 10-02
-Last activity: 2026-05-26 -- Plan 10-01 completed (sub-skill gsd-validate-batch)
+Plan: 3 of 5 (Plan 10-01 + Plan 10-02 closed)
+Status: Ready to execute Plan 10-03 (docs README) en paralelo a Plan 09-03 (piloto Phase 9) o Plan 10-04 (batch run real)
+Last activity: 2026-05-26 -- Plan 10-02 completed (reporter scripts/run-validation-271.mjs)
+
+**Plan 10-02 closure (2026-05-26):**
+- Reporter milestone gate: `scripts/run-validation-271.mjs` (NUEVO, 357 líneas, supera el `min_lines: 120` del plan must-haves por 3×)
+- Zero-deps invariant preservado: solo `node:fs` + `node:url` + `node:path` + import del módulo puro `validation-state.js`. NO `child_process`, NO `writeFileSync`, NO shell-out a `node --test`
+- 3 sub-gates verificados: VAL-04 (≥2 distinct `by` por validated), VAL-06 (271/271 validated), VAL-08 (cero disputed)
+- Helper `effectiveStatus(passes)` implementa relax path-B D-VAL-25 cb (RESEARCH Open Q #1 opción c): `deriveStatus==='disputed'` + entry `{by:'autor', verdict:'correcta'}` → trata como `validated`
+- Mensaje literal `VAL_07_STRICT=1 node --test tests/*.test.js` impreso al PASS como siguiente paso manual (gesto consciente del autor; Phase 10 NO auto-flippea)
+- Tabla colorizada ANSI con 6 columnas (Categoría/Total/Validated/Disputed/Pending/Missing) + warnings inline en amarillo (disputed IDs, missing N, inconsistencia status escrito vs derivado)
+- Defensive load (no throws): JSON corrupto reporta error y sigue con el resto (mitiga T-10-02-02)
+- Estado del run pre-batch verificado: exit 1 con 2/271 validated (los del piloto Phase 9: preposiciones-040 + avere-001), 269 en missing — la rama defensive funciona como diseñada
+- VAL-04 + VAL-06 completados (criterios verificables; el milestone cierra cuando el reporter sale exit 0 tras Plan 10-04 + colaresolución)
 
 **Plan 10-01 closure (2026-05-26):**
 - Categoría sub-skill: `.claude/skills/gsd-validate-batch/SKILL.md` (NUEVO, 630 líneas, frontmatter YAML válido con 9 herramientas incluyendo AskUserQuestion + Skill, sin modo fork del contexto)
@@ -47,7 +58,7 @@ Last activity: 2026-05-26 -- Plan 10-01 completed (sub-skill gsd-validate-batch)
 | Fases v1.0 | 10/10 completas (Phase 1-8 incluyendo decimales 7.1/7.2) — SHIPPED 2026-05-25 |
 | Fases v1.1 | 0/2 (Phase 9 infra + Phase 10 ejecución) |
 | Requisitos v1.0 completos | 62/62 (100%) |
-| Requisitos v1.1 completos | 6/8 (VAL-01/05/07 done en Plan 09-01; VAL-02/03 done en Plan 09-02; VAL-08 done en Plan 10-01; VAL-04/06 pending — cierran en Plan 10-02 reporter) |
+| Requisitos v1.1 completos | 8/8 (VAL-01/05/07 done en Plan 09-01; VAL-02/03 done en Plan 09-02; VAL-08 done en Plan 10-01; VAL-04/06 done en Plan 10-02 reporter — milestone cierra cuando reporter exit 0 tras Plan 10-04 batch run) |
 | Requisitos v1.1 mapeados | 8/8 (100% — VAL-01/02/03/05/07 → Phase 9; VAL-04/06/08 → Phase 10) |
 | Tests dominio + UI smoke | 254/254 verdes (baseline v1.0 + Plan 09-01: +24 nuevos) |
 | Granularidad | coarse |
@@ -56,6 +67,7 @@ Last activity: 2026-05-26 -- Plan 10-01 completed (sub-skill gsd-validate-batch)
 | Phase 9 P01 | 4min | 3 tasks | 3 files |
 | Phase 9 P09-02 | 9min | 3 tasks | 3 files |
 | Phase 10 P01 | 6min | 1 tasks | 1 files |
+| Phase 10 P02 | ~12min | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -94,6 +106,8 @@ Last activity: 2026-05-26 -- Plan 10-01 completed (sub-skill gsd-validate-batch)
 | 2026-05-26 | Plan 10-01: sub-skill `gsd-validate-batch` corre INLINE en main session, NO en modo fork del contexto | RESEARCH Q1/Q2: (a) AskUserQuestion no disponible en subagents spawneados vía Task (anthropics/claude-code#18721) — sin él, banner D-VAL-26 + checkpoint D-VAL-23 fallan; (b) subagents no pueden spawnear otros subagents (Claude Code docs /en/sub-agents) — un sub-skill forkeado no podría invocar `gsd-validate-exercise` que internamente usa 2 Task(). La D-VAL-19 "su propio subagent" se entiende en sentido conceptual (body del SKILL.md autocontenido), NO técnico. |
 | 2026-05-26 | Plan 10-01: BYPASS sticky D-VAL-07 vive en el batch (Edit tool resetea `passes:[]` antes de invocar al skill hijo), NO en `gsd-validate-exercise` | Skill base Phase 9 intocable per critical_constraint #8 del plan. Phase 9 SKILL.md Paso 8 ya documenta APPEND como default y deja al CALLER la responsabilidad del reset. Audit trail completo preservado vía git log (los passes[] originales viven en commits anteriores `validate(...) → disputed`). |
 | 2026-05-26 | Plan 10-01: reformulación táctica `context: fork` -> `modo fork del contexto` en body del SKILL.md por tensión menor action/verify | El plan action exige documentar invariante "NUNCA `context: fork`" en critical_constraints (necesita la frase); el verify automated exige `! grep -q "context: fork"` sobre TODO el archivo. Patrón análogo al Plan 09-02 D-VAL-09 ("cero gestores de paquetes" vs literal "npm install"). Meaning preservado; el lector humano entiende perfectamente. |
+| 2026-05-26 | Plan 10-02: `effectiveStatus(passes)` vive en `scripts/run-validation-271.mjs` (NO en `validation-state.js`) | Semánticamente es regla del reporter, no del motor de derivación. El módulo puro `validation-state.js::deriveStatus` mantiene su contrato sticky D-VAL-07 (testeado en bloque paramétrico VAL-07 con 7 sub-tests Phase 9) — añadir parámetro `allowAuthorOverride` contaminaría el contrato, requeriría actualizar call-sites Phase 9, y violaría "Phase 10 NO modifica archivos Phase 9". El relax path-B vive donde se consume. Pattern reutilizable para futuros reporters/validators que necesiten distinguir disputed-real vs override-validado. |
+| 2026-05-26 | Plan 10-02: reporter NO shellea `node --test` — el smoke test estricto VAL-07 es paso MANUAL separado al cierre | RESEARCH Q5 #2 + TL;DR #4: auto-correr tests desde el reporter (a) confunde exit-code semantics (test failure ≠ gate failure), (b) acopla 2 responsabilidades (estado JSONs vs comportamiento código), (c) añade ~5-15s latencia. El autor flippea `VAL_07_STRICT=1` conscientemente al cierre del milestone como gesto consciente — debe ser acción separada y explícita, no efecto secundario del reporter. El reporter imprime el comando literal en PASS para zero ambigüedad. |
 
 ### Active Todos
 
@@ -104,7 +118,7 @@ Last activity: 2026-05-26 -- Plan 10-01 completed (sub-skill gsd-validate-batch)
 - [ ] Ejecutar Phase 9 plans hasta verifier PASS
 - [x] `/gsd:plan-phase 10` — descomponer Phase 10 (DONE 2026-05-26 — 5 PLAN.md + RESEARCH + PATTERNS + CONTEXT)
 - [x] Plan 10-01 (Wave 1 lado A: sub-skill `gsd-validate-batch` para VAL-08 escalada UX inline) — DONE 2026-05-26 (1 commit `db99070`, 630 líneas SKILL.md, VAL-08 completado)
-- [ ] Plan 10-02 (Wave 1 lado B paralelo: reporter `scripts/run-validation-271.mjs` para VAL-04 + VAL-06 gate)
+- [x] Plan 10-02 (Wave 1 lado B paralelo: reporter `scripts/run-validation-271.mjs` para VAL-04 + VAL-06 gate) — DONE 2026-05-26 (1 commit `8372d10`, 357 líneas reporter zero-deps, VAL-04 + VAL-06 completados)
 - [ ] Plan 10-03 (docs: README sección `VAL_07_STRICT=1` activación manual)
 - [ ] Plan 10-04 (Wave 2: ejecución real del batch sobre 269 pendientes — invocar `/gsd-validate-batch --all-pending`)
 - [ ] Plan 10-05 (Close gate: reporter exit 0 + flip `VAL_07_STRICT=1`)
@@ -124,21 +138,27 @@ Last activity: 2026-05-26 -- Plan 10-01 completed (sub-skill gsd-validate-batch)
 
 ### Last Session
 
-- **Fecha:** 2026-05-26 (Plan 10-01 ejecutado dentro de Phase 10 Wave 1 lado A — `/gsd:execute-phase 10`)
-- **Trabajo actual:** Plan 10-01 completado en ~6 minutos con 1 commit atómico en `master` (`db99070`). Entregable: `.claude/skills/gsd-validate-batch/SKILL.md` (NUEVO, 630 líneas, supera el mínimo de 250 por 2.5×). Frontmatter YAML válido con `name: gsd-validate-batch`, `argument-hint: "<category> | --all-pending | <id1,id2,...>"`, `disable-model-invocation: true`, y `allowed-tools` con los 9 valores Read/Write/Edit/Bash/Glob/Grep/Task/AskUserQuestion/Skill. NO contiene la cadena literal `context: fork` (invariante arquitectónico RESEARCH Q1/Q2). Body con secciones canónicas GSD del skill Phase 9: `<objective>` + `<critical_constraints>` (8 invariantes incluido NUNCA modo fork del contexto + ITERA pero no compone N en mismo Task + resume idempotente D-VAL-19 + 1 categoría por invocación D-VAL-22/23 + español FOUND-04 + zero-deps + commit granularity + skill base intocable) + `<execution>` (Paso 1 resolver scope + Paso 2 con sub-pasos 2.1 pre-flight AVERE + 2.2 leer JSON + 2.3 filtrar pendientes idempotencia D-VAL-19 + 2.4 inicializar contadores + 2.5 iterar invocando skill hijo + 2.6 cierre AVERE assert + 2.7 schema-validation defensive + 2.8 tabla resumen español + 2.9 reconsider trigger D-VAL-21 + 2.10 cola disputed + 2.11 checkpoint fin-categoría D-VAL-23 + Paso 3 cola disputed con 4 caminos D-VAL-25 banner D-VAL-26 + Paso 4 tabla agregada + sugerencia VAL_07_STRICT + STATE.md update) + `<error_handling>` (12 casos) + `<workflow_justification_no_batched>` adaptada al batch + `<read_first_per_invocation>` + `<example_invocations>` (4 ejemplos). Verify automated PASS limpio (24 grep checks + line count ≥250 + frontmatter check). Skill base Phase 9 `gsd-validate-exercise/SKILL.md` intocable (git diff vacío). Cero deps añadidas. Cero deviations Rules 1-4 (1 ajuste táctico `context: fork` → `modo fork del contexto` es conformancia simultánea action/verify, no auto-fix). Requirement completado: VAL-08 (escalada UX inline 4 caminos accept/reject/rewrite/skip).
+- **Fecha:** 2026-05-26 (Plan 10-02 ejecutado dentro de Phase 10 Wave 1 lado B — `/gsd:execute-phase 10`)
+- **Trabajo actual:** Plan 10-02 completado en ~12 minutos con 1 commit atómico en `master` (`8372d10`). Entregable: `scripts/run-validation-271.mjs` (NUEVO, 357 líneas, supera `min_lines: 120` del plan must-haves por 3×). Reporter milestone gate v1.1 zero-deps: solo `node:fs` + `node:url` + `node:path` + import de `deriveStatus` desde `validation-state.js`. NO `child_process`, NO `writeFileSync`, NO shell-out a `node --test`. Estructura clonada de `scripts/run-validation-pilot.mjs` (template Phase 9 designado en RESEARCH Q5 + PATTERNS.md) adaptada para 7 categorías vs 3 IDs hardcoded y 3 sub-gates vs 4. Header comment con justificación arquitectónica completa (POST-processing puro, justificación de NO shellear `node --test`, exit codes). ANSI helpers literal-clonados (GREEN/RED/YELLOW/BOLD/RESET + ok/fail/warn). Constante `CATEGORIES` con 7 entries en orden lockeado D-VAL-22 (preposiciones/avere/essere/genero-numero/profesiones/sustantivos-irregulares/verbos-movimiento) con campos `slug/file/expected` y suma 271 verificada. Constante `TOTAL_EXPECTED = 271`. Helper `effectiveStatus(passes)` implementa relax path-B D-VAL-25 cb (RESEARCH Open Q #1 opción c): si `deriveStatus === 'disputed'` PERO existe entry `{by:'autor', verdict:'correcta'}` → retorna `'validated'`. Helper `loadCategory(file)` defensive sin throws (mitiga T-10-02-02). Loop por categoría acumulando 5 contadores (validated/disputed/pending/missing/total) + 3 listas (disputedIds/missingMultiPassIds/inconsistencyIds). Tabla padded con 6 columnas en español (Categoría/Total/Validated/Disputed/Pending/Missing) + 4 warnings inline en amarillo (disputed IDs / missing N / inconsistencia status escrito vs derivado / total ≠ expected). Sub-gates VAL-06 → VAL-08 → VAL-04 con mensajes acción-orientados. Exit gate con mensaje literal `VAL_07_STRICT=1 node --test tests/*.test.js` en PASS / acciones sugeridas en FAIL según qué sub-gate falle. Verify automated PASS limpio (16 grep checks + node --check + node execute con exit code aceptable). Ejecución verificada: exit 1 con 2/271 validated (preposiciones-040 + avere-001 del piloto Phase 9), 269 missing, sin crash — rama defensive funciona como diseñada. Cero deps añadidas. Cero deviations Rules 1-4. Requirements completados: VAL-04 + VAL-06 (criterios verificables — el milestone cierra cuando el reporter sale exit 0 tras Plan 10-04 batch run real).
+- **Trabajo previo (Plan 10-01, 2026-05-26):** Plan 10-01 completado en ~6 minutos con 1 commit atómico (`db99070`). Entregable: `.claude/skills/gsd-validate-batch/SKILL.md` (NUEVO, 630 líneas). Frontmatter YAML válido con 9 herramientas incluyendo AskUserQuestion + Skill, sin modo fork del contexto. 8 decisiones D-VAL-19..D-VAL-26 documentadas verbatim. 4 caminos disputed con texto literal español. Reconsider trigger D-VAL-21 + pre-flight + cierre AVERE assert + schema-validation defensive. Skill base Phase 9 intocable. VAL-08 completed.
 - **Trabajo previo (Plan 09-02, 2026-05-26):** Plan 09-02 completado en 9 minutos con 3 commits atómicos. Entregables: `09-VALIDATION-PROMPT.md` (270 líneas, R1-R7 inline + C1-C5 mapping + 2 few-shot) + `.claude/skills/gsd-validate-exercise/SKILL.md` (281 líneas, orquestador Opus+Sonnet) + fixture E3 + stripAdditive() relax. Requirements: VAL-02 + VAL-03.
 - **Trabajo previo (Plan 09-01, 2026-05-26):** Plan 09-01 completado en 4 minutos (5 commits TDD RED→GREEN). Entregables: `validateValidationShape` (schema validator branch) + `validation-state.js` con `deriveStatus(passes)` (sticky disputed D-VAL-07) + bloque paramétrico VAL-07 con feature flag env var `VAL_07_STRICT=1`. Requirements: VAL-01 + VAL-05 + VAL-07.
 - **Trabajo previo (plan-phase, 2026-05-26):** 4 artefactos consolidados en `.planning/phases/09-infraestructura-de-validaci-n/`: `09-RESEARCH.md` (779 líneas), `09-PATTERNS.md`, 3 PLAN.md (`09-01`/`09-02`/`09-03`, 343+385+380 líneas, 2 waves).
 - **Trabajo previo (discuss-phase, 2026-05-26):** 18 decisiones D-VAL-01..18 capturadas en `09-CONTEXT.md` + audit trail completo en `09-DISCUSSION-LOG.md`.
 - **Trabajo previo (v1.0 SHIPPED):** 10 fases entregadas, 271 ejercicios curados + Modo Examen.
-- **Siguiente paso:** Ejecutar Plan 10-02 (Wave 1 lado B paralelo a 10-01 ya cerrado) — reporter `scripts/run-validation-271.mjs` para milestone gate VAL-04 + VAL-06. NOTA: queda pendiente Plan 09-03 (piloto Phase 9 + checkpoint:human-verify) — aunque el batch se construyó sin esperar al piloto porque las decisiones D-VAL-19..26 ya están lockeadas y el skill base Phase 9 está intocable.
+- **Siguiente paso:** Ejecutar Plan 10-03 (docs README sección `## Validación editorial (milestone v1.1)` con comando `VAL_07_STRICT=1 node --test tests/*.test.js` literal + STATE.md secciones `## Phase 10 Progress` + `## Deferred-disputed`). Plan 10-03 es paralelo y sin dependencias críticas — puede ejecutarse antes/durante/después de Plan 09-03 (piloto Phase 9 checkpoint) y de Plan 10-04 (batch run real). El milestone v1.1 cierra cuando `node scripts/run-validation-271.mjs` sale exit 0 tras Plan 10-04 + cola disputed resuelta (Plan 10-05).
 
 ### Files Generated
 
-**Phase 10 Plan 10-01 (este ciclo, 2026-05-26):**
+**Phase 10 Plan 10-02 (este ciclo, 2026-05-26):**
+
+- `scripts/run-validation-271.mjs` (NUEVO, 357 líneas — reporter milestone gate v1.1 zero-deps, 3 sub-gates VAL-04 + VAL-06 + VAL-08, helper `effectiveStatus(passes)` relax path-B, tabla ANSI colorizada con 6 columnas en español, exit 0/1 según gate, mensaje literal `VAL_07_STRICT=1 node --test tests/*.test.js` impreso al PASS como siguiente paso manual)
+- `.planning/phases/10-ejecuci-n-validaci-n-271-ejercicios-escalada-disputed/10-02-SUMMARY.md` (este SUMMARY)
+
+**Phase 10 Plan 10-01 (ciclo previo, 2026-05-26):**
 
 - `.claude/skills/gsd-validate-batch/SKILL.md` (NUEVO, 630 líneas — sub-skill orquestador batch inline en main session, frontmatter YAML válido con 9 herramientas, las 8 decisiones D-VAL-19..D-VAL-26 documentadas verbatim, 4 caminos disputed con texto literal en español, banner pretty-print con suggested-fix derivado del tag [Cn-criterio], pre-flight + cierre AVERE asserts, schema-validation defensive, reconsider trigger D-VAL-21)
-- `.planning/phases/10-ejecuci-n-validaci-n-271-ejercicios-escalada-disputed/10-01-SUMMARY.md` (este SUMMARY)
+- `.planning/phases/10-ejecuci-n-validaci-n-271-ejercicios-escalada-disputed/10-01-SUMMARY.md`
 
 **Phase 9 Plan 09-02 (ciclo previo, 2026-05-26):**
 
@@ -188,30 +208,35 @@ Last activity: 2026-05-26 -- Plan 10-01 completed (sub-skill gsd-validate-batch)
 | 9 | 09-01 | 4min | 3 | 3 |
 | 9 | 09-02 | 9min | 3 | 4 |
 | 10 | 10-01 | 6min | 1 | 1 |
+| 10 | 10-02 | ~12min | 1 | 1 |
 
 ### Next Action
 
 ```
 
-# Plan 10-01 SHIPPED. Sub-skill gsd-validate-batch en master (commit db99070). Siguiente:
+# Plan 10-02 SHIPPED. Reporter scripts/run-validation-271.mjs en master (commit 8372d10).
+# Estado: exit 1 con 2/271 validated (los del piloto Phase 9) — la rama defensive funciona.
+# Siguiente:
 
-# /gsd:execute-phase 10  (sigue ejecutando — Plan 10-02 Wave 1 lado B paralelo)
+# /gsd:execute-phase 10  (sigue ejecutando — Plan 10-03 Wave 1 lado C docs)
 
-# Plan 10-02: reporter scripts/run-validation-271.mjs
+# Plan 10-03: docs README + STATE.md sections
 
-#   - Post-processing puro sobre los 271 JSONs (RESEARCH Q5)
+#   - README.md sección `## Validación editorial (milestone v1.1)` con comando literal
 
-#   - 3 sub-gates: VAL-04 (≥2 distinct by per validated) + VAL-06 (271 validated) + VAL-08 (cero disputed)
+#     VAL_07_STRICT=1 node --test tests/*.test.js (RESEARCH Q6 — el autor flippea manual al cierre)
 
-#   - Helper effectiveStatus() relaja sticky cuando hay override del autor (path-B)
+#   - STATE.md sections `## Phase 10 Progress` + `## Deferred-disputed` para audit trail entre sesiones
 
-#   - Imprime al PASS el comando manual VAL_07_STRICT=1 node --test (RESEARCH Q6)
+# Luego Plan 09-03 (piloto Phase 9 checkpoint) antes de Plan 10-04 (batch real sobre 269 pendientes).
+
+# Cierre milestone v1.1 (Plan 10-05): reporter exit 0 + flip VAL_07_STRICT=1 manual + /gsd:complete-milestone v1.1.
 
 ```
 
-Wave 1 lado A (Plan 10-01) cerrado. Wave 1 lado B (Plan 10-02) y Plan 10-03 (docs README) son paralelos. Wave 2 (Plan 10-04) ejecuta el batch real sobre los 269 pendientes — depende del piloto Phase 9 Plan 09-03 (aún pendiente) que valida la maquinaria end-to-end con checkpoint:human-verify.
+Wave 1 lado A (Plan 10-01) + Wave 1 lado B (Plan 10-02) cerrados. Quedan: Plan 10-03 (docs, autonomous, paralelo), Plan 09-03 (piloto Phase 9 checkpoint:human-verify, recomendado antes de Plan 10-04), Plan 10-04 (batch real, autonomous=false con checkpoints AskUserQuestion), Plan 10-05 (cierre milestone).
 
-**Siguiente paso (operador):** ejecutar Plan 10-02 (reporter) en paralelo a Plan 10-03 (docs). Luego Plan 09-03 (piloto) antes de Plan 10-04 (batch real).
+**Siguiente paso (operador):** ejecutar Plan 10-03 (docs) en cualquier momento. Luego Plan 09-03 (piloto) → Plan 10-04 (batch real) → Plan 10-05 (cierre).
 
 ---
 *State initialized: 2026-05-23 (v1.0)*
