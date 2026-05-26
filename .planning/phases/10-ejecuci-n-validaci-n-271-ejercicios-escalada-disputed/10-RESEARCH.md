@@ -691,7 +691,9 @@ function suggestFix(concerns, exerciseId, payload) {
 
 ---
 
-## Open Questions
+## Open Questions (RESOLVED)
+
+> **Resolución 2026-05-26:** las 5 preguntas fueron resueltas por el planner siguiendo las recomendaciones implícitas. Implementación verbatim en los 5 PLAN.md files de Phase 10.
 
 1. **Consistency check del reporter ante override del autor (path-B):** el JSON tras path-B tiene `status:"validated"` escrito pero `deriveStatus(passes)` retorna `"disputed"` (sticky). ¿El reporter:
    - (a) Lista la divergencia como "warning de override" (no FAIL),
@@ -700,13 +702,23 @@ function suggestFix(concerns, exerciseId, payload) {
 
    **Recomendación implícita:** (c) — semánticamente más limpio, no requiere whitelist externa. Plan-time confirma.
 
+   **RESOLVED:** (c) — helper `effectiveStatus(validation)` en `scripts/run-validation-271.mjs` retorna `"validated"` cuando `deriveStatus === "disputed"` AND existe entry `by:"autor", verdict:"correcta"`. Implementado en Plan 10-02.
+
 2. **Sufijo POST-fix vía `git commit --amend`:** ¿el plan-time es comfortable con amend post-hoc al commit del skill hijo? Alternativa: añadir un argumento opcional `--context-suffix <text>` al `gsd-validate-exercise` (violaría "Phase 10 NO modifica gsd-validate-exercise" — pero el cambio sería puramente cosmético al commit message, no a la lógica). **Sugerencia:** mantener Phase 9 intocable + usar `--amend` (cf. Q8).
+
+   **RESOLVED:** mantener Phase 9 intocable + usar `git commit --amend` post-hoc para añadir sufijos `POST-fix` / `POST-rewrite`. Implementado en Plan 10-01 SKILL.md Paso 3.3 (caminos a + c).
 
 3. **¿El sub-skill llama también a `scripts/validate-content-fixture.mjs` post-mutación por categoría?** Para garantizar que el JSON sigue válido contra schema tras cada `Edit` del validation field. CONTEXT.md §Reusable Assets lo menciona como helper invocable. Recomendación implícita: SÍ, al final de cada categoría — defensa en profundidad contra Edits que corrompan el JSON formatting (raras pero no imposibles).
 
+   **RESOLVED:** SÍ — el sub-skill invoca `node scripts/validate-content-fixture.mjs` al final de cada categoría como defensa en profundidad. Implementado en Plan 10-01 SKILL.md Paso 2.7.
+
 4. **Inactividad del autor durante checkpoint:** si el autor responde a un AskUserQuestion 6 horas después, ¿el contexto del batch sigue válido? Claude Code session timeouts no están claros — el plan-time podría documentar "el batch tolera pausas de hasta 24h gracias al resume idempotente; tras una pausa larga, recomendado re-invocar `/gsd-validate-batch <category>` para refrescar contexto en lugar de continuar el AskUserQuestion stale".
 
+   **RESOLVED:** documentar tolerancia de 24h vía resume idempotente; tras pausa larga, recomendado re-invocar `/gsd-validate-batch <category>` para refrescar contexto. Implementado en Plan 10-04 (sección de notas operacionales).
+
 5. **Banner con >10 disputed:** CONTEXT.md (D-VAL-26 + deferred) deja al plan-time decidir entre secuencial 1-por-1 vs agrupado expand. Recomendación implícita: secuencial sin agrupar — la decisión editorial por ejercicio es trabajo aislado, agruparlas tienta a procesar superficialmente. Plan-time confirma o pivota.
+
+   **RESOLVED:** secuencial 1-por-1 sin agrupar. Implementado en Plan 10-01 SKILL.md Paso 3 (cola disputed itera AskUserQuestion separado por cada disputed, sin importar el conteo total de la cola).
 
 ---
 
