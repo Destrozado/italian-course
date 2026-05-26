@@ -10,7 +10,28 @@
         "correctIndex": 1,
         "explanation": "Plural femenino -a→-e."
       },
-      "notes": "FIXTURE DE PILOTO Phase 9 — viola R1/C5 deliberadamente. NO usar en producción. NO cargar via content-loader."
+      "notes": "FIXTURE DE PILOTO Phase 9 — viola R1/C5 deliberadamente. NO usar en producción. NO cargar via content-loader.",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C5-leak] el prompt contiene '(refuerzo regla §1 fem -a→-e)' — incluye referencia a regla numerada (§1), la transformación literal (-a→-e) y el patrón prohibido 'refuerzo regla'; la solución y la regla están explícitas en el enunciado, viola R1."
+            ]
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C5-leak] el prompt contiene '(refuerzo regla §1 fem -a→-e)': incluye la referencia explícita '§1' (patrón §\\d+ prohibido), el label meta 'refuerzo regla', y la transformación literal '-a→-e' que es exactamente la solución — viola R1 de forma completa y directa."
+            ]
+          }
+        ]
+      }
     }
   ]
 }
