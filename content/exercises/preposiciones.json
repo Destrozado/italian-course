@@ -922,7 +922,14 @@
         "correctIndex": 1,
         "explanation": "Fra y Tra son sinónimos perfectos para tempo futuro (dentro de cuánto tiempo). Italiano prefiere Fra cuando la siguiente palabra empieza por 'tr-' o doble T, para evitar la cacofonía tra tre. Fra tre giorni partiamo per Roma equivale a 'dentro de tres días salimos hacia Roma'. Regla eufónica, no semántica."
       },
-      "notes": "'tra' y 'fra' son sinónimos para tempo futuro (dentro de). Regla eufónica EXTERNA al PDF (conocimiento añadido): se prefiere 'fra' delante de palabras que empiezan con 'tr-' para evitar la cacofonía 'tra tre' (repetición de 'tr'). Por eso 'fra tre giorni' es la forma natural en italiano cuidado. El PDF presenta tra/fra como intercambiables pero esta regla eufónica es estándar."
+      "notes": "'tra' y 'fra' son sinónimos para tempo futuro (dentro de). Regla eufónica EXTERNA al PDF (conocimiento añadido): se prefiere 'fra' delante de palabras que empiezan con 'tr-' para evitar la cacofonía 'tra tre' (repetición de 'tr'). Por eso 'fra tre giorni' es la forma natural en italiano cuidado. El PDF presenta tra/fra como intercambiables pero esta regla eufónica es estándar.",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "incorrecta", "concerns": ["[C2-una_opcion] 'tra' y 'fra' son gramaticalmente sinónimos perfectos para tempo futuro; el propio campo notes admite que el PDF las presenta como intercambiables y que la preferencia eufónica es conocimiento EXTERNO al PDF. 'Tra tre giorni' es uso aceptado en italiano estándar — dos respuestas válidas."] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "incorrecta", "concerns": ["[C2-una_opcion] 'tra' y 'fra' son sinónimos perfectos — ambos completan el prompt con gramática y significado idénticos. La regla eufónica es preferencia de estilo, no restricción gramatical. Fix: testar 'da' vs 'in' en otro contexto, o reformular eliminando ambigüedad entre fra/tra."] }
+        ]
+      }
     },
     {
       "id": "preposiciones-050",
@@ -934,7 +941,14 @@
         "correctIndex": 1,
         "explanation": "Con tiene dos usos distintos: compagnia (esco con amici) y mezzo o strumento. Mangio la pasta con la forchetta equivale a 'como la pasta con el tenedor'. En este caso Con introduce el instrumento usado para realizar la acción, no la persona que acompaña. Mismo principio en italiano y español."
       },
-      "notes": "Preposición 'con' = mezzo / strumento (instrumental, NO compagnia). PDF §Preposizioni semplici lista 'con → compagnia / mezzo' pero sólo ejemplifica compagnia (ver preposiciones-005). Este ejercicio cubre el segundo uso documentado: el instrumento con el que se realiza la acción ('como pasta con el tenedor')."
+      "notes": "Preposición 'con' = mezzo / strumento (instrumental, NO compagnia). PDF §Preposizioni semplici lista 'con → compagnia / mezzo' pero sólo ejemplifica compagnia (ver preposiciones-005). Este ejercicio cubre el segundo uso documentado: el instrumento con el que se realiza la acción ('como pasta con el tenedor').",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     }
   ]
 }
