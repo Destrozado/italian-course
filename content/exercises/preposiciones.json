@@ -295,7 +295,14 @@
         "correctIndex": 1,
         "explanation": "Con nombres de ciudad el italiano usa la preposición A para direzione, no In. Vado a Roma quest'estate equivale a 'voy a Roma este verano'. La regla contrasta con paesi y regioni, que llevan In (Vado in Italia). Importante: distinguir ciudad (A) vs país (In) es uno de los errores más típicos del A1."
       },
-      "notes": "Preposición 'a' = direzione con ciudad (caso particular A1). PDF §Preposizioni semplici, 'a → direzione'. Pitfall A1 frecuente: 'a' con ciudades vs 'in' con países (ver preposiciones-004). Distractora 'in' = país (incorrecta — Roma es ciudad)."
+      "notes": "Preposición 'a' = direzione con ciudad (caso particular A1). PDF §Preposizioni semplici, 'a → direzione'. Pitfall A1 frecuente: 'a' con ciudades vs 'in' con países (ver preposiciones-004). Distractora 'in' = país (incorrecta — Roma es ciudad).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-017",
@@ -307,7 +314,14 @@
         "correctIndex": 2,
         "explanation": "La preposición A indica tempo cuando se señala una hora concreta del día. Pranziamo a mezzogiorno se traduce como 'almorzamos al mediodía'. Misma regla con las horas: alle otto, a mezzanotte. Equivale al español 'a las ocho' que también usa A para fijar la hora."
       },
-      "notes": "Preposición 'a' = tempo (la hora). PDF §Preposizioni semplici, ejemplo 'a mezzogiorno'."
+      "notes": "Preposición 'a' = tempo (la hora). PDF §Preposizioni semplici, ejemplo 'a mezzogiorno'.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-018",
@@ -319,7 +333,14 @@
         "correctIndex": 0,
         "explanation": "En italiano, cuando una acción la realiza un agente en una frase pasiva, la preposición obligatoria es Da. Il libro è scritto da lui se traduce como 'el libro está escrito por él'. Da expresa autoría o ejecución, distinto del español 'por' que cubre ambos usos (causa y agente)."
       },
-      "notes": "Preposición 'da' = agente (complemento agente en pasiva). PDF §Preposizioni semplici, ejemplo 'libro scritto da lui'."
+      "notes": "Preposición 'da' = agente (complemento agente en pasiva). PDF §Preposizioni semplici, ejemplo 'libro scritto da lui'.",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "incorrecta", "concerns": ["[C2-una_opcion] 'per' es segunda opción gramaticalmente válida: 'Il libro è scritto per lui' = 'el libro está escrito para él' (destinatario) es italiano correcto. El prompt no añade contexto que fuerce la lectura de complemento agente pasivo vs destinatario. Fix: añadir contexto como 'Il libro è scritto ___ lui, non da lei' o anclar a contexto de autoría explícita."] }
+        ]
+      }
     },
     {
       "id": "preposiciones-019",
@@ -331,7 +352,14 @@
         "correctIndex": 2,
         "explanation": "Con medios de transporte cerrados el italiano usa In sin artículo: in macchina, in treno, in autobus. Vado al lavoro in macchina equivale a 'voy al trabajo en coche'. Excepción idiomática vs paesi (Vivo in Italia) — aquí In no significa 'dentro de', sino 'mediante'. A pie usa A (a piedi)."
       },
-      "notes": "Preposición 'in' = mezzo di trasporto. PDF §Preposizioni semplici, ejemplo 'in macchina'. Distractora 'con' es la trampa A1 típica (en español 'voy con coche' suena válido, pero italiano usa 'in')."
+      "notes": "Preposición 'in' = mezzo di trasporto. PDF §Preposizioni semplici, ejemplo 'in macchina'. Distractora 'con' es la trampa A1 típica (en español 'voy con coche' suena válido, pero italiano usa 'in').",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-020",
