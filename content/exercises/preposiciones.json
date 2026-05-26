@@ -770,7 +770,14 @@
         "correctIndex": 1,
         "explanation": "Cuando el masculino plural empieza por vocal o s + consonante, z, gn, ps, x, el artículo es Gli y Da se fusiona en Dagli. Esco dagli studenti dopo la lezione equivale a 'salgo de [con] los estudiantes después de la lección'. Mismo principio de articulación que Degli y Agli."
       },
-      "notes": "Preposición articolata 'dagli' = da + gli (plural masculino con 'gli' por s+consonante: 'studenti'). PDF §Preposizioni articolate, fila 'da' columna 'gli'."
+      "notes": "Preposición articolata 'dagli' = da + gli (plural masculino con 'gli' por s+consonante: 'studenti'). PDF §Preposizioni articolate, fila 'da' columna 'gli'.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-042",
@@ -782,7 +789,14 @@
         "correctIndex": 2,
         "explanation": "Da + Le = Dalle. Vengo dalle mie zie significa 'vengo de [casa de] mis tías'. Con personas femeninas plurales Da articulada implica salir del lugar donde están."
       },
-      "notes": "Preposición articolata 'dalle' = da + le (plural femenino: vengo de [casa de] mis tías). PDF §Preposizioni articolate, fila 'da' columna 'le'."
+      "notes": "Preposición articolata 'dalle' = da + le (plural femenino: vengo de [casa de] mis tías). PDF §Preposizioni articolate, fila 'da' columna 'le'.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-043",
@@ -794,7 +808,14 @@
         "correctIndex": 0,
         "explanation": "Aplicando la regla de Sul (su + il): contacto físico sobre superficie masculina singular. Il quaderno è sul banco equivale a 'el cuaderno está sobre el pupitre'. Mismo patrón de fusión que aparece en otros contextos con superficies horizontales (le chiavi sul tavolo, il gatto sul tavolo) — la regla se repite en contextos distintos."
       },
-      "notes": "Preposición articolata 'sul' = su + il ('sobre el pupitre'). PDF §Preposizioni articolate, fila 'su' columna 'il'. Refuerza preposiciones-006 con sustantivo escolar."
+      "notes": "Preposición articolata 'sul' = su + il ('sobre el pupitre'). PDF §Preposizioni articolate, fila 'su' columna 'il'. Refuerza preposiciones-006 con sustantivo escolar.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-044",
@@ -806,7 +827,14 @@
         "correctIndex": 1,
         "explanation": "Cuando el masculino singular empieza por s + consonante, z, gn, ps o x, el artículo es Lo y Su se fusiona en Sullo. Lo zucchero è sullo scaffale significa 'el azúcar está en la estantería'. Misma lógica de Lo aplicada a Su."
       },
-      "notes": "Preposición articolata 'sullo' = su + lo ('scaffale' lleva 'lo' por s+consonante). PDF §Preposizioni articolate, fila 'su' columna 'lo'."
+      "notes": "Preposición articolata 'sullo' = su + lo ('scaffale' lleva 'lo' por s+consonante). PDF §Preposizioni articolate, fila 'su' columna 'lo'.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-045",
