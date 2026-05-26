@@ -2,9 +2,9 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Validación editorial
-status: "Phase 9 plans 3/3 complete (gate D-VAL-15 PASS), ready para verifier"
-last_updated: "2026-05-26T02:30:00.000Z"
-last_activity: 2026-05-26 — Plan 09-03 complete, piloto end-to-end PASS, autor aprobó gate D-VAL-15
+status: "Phase 9 COMPLETE — verifier PASSED 5/5 SCs, ready para /gsd:plan-phase 10"
+last_updated: "2026-05-26T02:50:00.000Z"
+last_activity: 2026-05-26 — Phase 9 verifier PASSED 5/5: SC1 schema + SC2 prompt + SC3 skill + SC4 smoke test + SC5 piloto, todos los invariants críticos verificados
 progress:
   total_phases: 4
   completed_phases: 0
@@ -25,10 +25,10 @@ progress:
 
 ## Current Position
 
-Phase: 9 (Infraestructura de validación) — Plans 3/3 complete, awaiting verifier
-Plan: 09-01 SHIPPED + 09-02 SHIPPED + 09-03 SHIPPED (gate D-VAL-15 PASS, autor `approved`)
-Status: Phase 9 plans complete, listo `/gsd:verify-phase 9` (o spawn directo del verifier)
-Last activity: 2026-05-26 — Plan 09-03 piloto end-to-end: 3 ejercicios × 2 pases Opus+Sonnet secuenciales = 6 invocaciones Task() limpias (0 retries). Gate D-VAL-15: 4/4 must-haves PASS (E1 validated + E2 validated + E3 disputed + parsing limpio). 5/8 VAL-* requirements complete (VAL-01/02/03/05/07).
+Phase: 9 (Infraestructura de validación) — COMPLETE (verifier PASSED 5/5 SCs, 2026-05-26)
+Plan: 09-01 SHIPPED + 09-02 SHIPPED + 09-03 SHIPPED + 09-VERIFICATION PASSED
+Status: Phase 9 cerrada, ready `/gsd:plan-phase 10` para descomponer ejecución validación 271 ejercicios + escalada UX disputed
+Last activity: 2026-05-26 — Verifier PASSED 5/5: SC1 (schema acepta 271 con validation opcional, 254/254 tests verdes), SC2 (VALIDATION-PROMPT.md self-contained con R1-R7 + 5 criterios), SC3 (SKILL.md con "NUNCA batched" + justificación root cause), SC4 (smoke test VAL_07_STRICT env var con skip option), SC5 (3 commits validate atómicos + gate D-VAL-15 PASS). Invariants OK: zero-deps, D-08 hand-written, D-88 APPEND-ONLY (stripAdditive relax funciona), FOUND-04 español, schemaVersion 4 unchanged.
 
 ## Performance Metrics
 
