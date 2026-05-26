@@ -67,7 +67,14 @@
         "correctIndex": 1,
         "explanation": "Con paesi y regioni el italiano usa la preposición In para indicar el lugar donde se vive o se está. Vivo in Italia significa 'vivo en Italia'. La regla contrasta con las ciudades, que llevan A (Vivo a Milano). ¡Atención!: el hispanohablante tiende a usar 'a' para ambos, pero el italiano distingue paese (In) vs città (A)."
       },
-      "notes": "Preposición 'in' = luogo (paesi/regioni). PDF §Preposizioni semplici, ejemplo canónico 'Vivo in Italia'. Pitfall A1 frecuente: 'in' con países, 'a' con ciudades."
+      "notes": "Preposición 'in' = luogo (paesi/regioni). PDF §Preposizioni semplici, ejemplo canónico 'Vivo in Italia'. Pitfall A1 frecuente: 'in' con países, 'a' con ciudades.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-005",
@@ -79,7 +86,14 @@
         "correctIndex": 2,
         "explanation": "La preposición Con indica compagnia: con quién se realiza la acción. Esco con amici stasera equivale a 'salgo con amigos esta noche'. Es el uso más directo de Con y suele resultar transparente para el hispanohablante porque coincide con la preposición española 'con' en este contexto."
       },
-      "notes": "Preposición 'con' = compagnia. PDF §Preposizioni semplici, ejemplo 'Esco con amici'."
+      "notes": "Preposición 'con' = compagnia. PDF §Preposizioni semplici, ejemplo 'Esco con amici'.",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "incorrecta", "concerns": ["[C1-natural] 'Esco con amici stasera' suena truncado en italiano natural: lo idiomático es 'Esco con gli amici stasera' (artículo determinado para 'los amigos / mis amigos') o 'con degli amici' (partitivo, 'unos amigos'). 'Con amici' a secas sin artículo no es lo que diría un nativo en registro A1/A2 estándar — es el mismo patrón que el bug reportado por el autor en R5 ('Torno dai amici a casa' / 'nelle pareti'): gramática parseable pero semántica/uso no natural. Fix: cambiar a 'Esco con gli amici stasera.' preservando el intent de la celda 'con = compagnia'."] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "incorrecta", "concerns": ["[C2-una_opcion] la opción 'tra' también completa válidamente el prompt: 'Esco tra amici stasera' es italiano correcto con el significado 'salgo entre amigos esta noche' (tra + grupo de personas = compañía/entorno grupal). Viola R7: dos opciones válidas con significado distinto pero ambas gramaticalmente aceptables. Fix pattern: añadir contexto que elimine la lectura con tra, p.ej. 'Esco ___ i miei amici stasera' (con artículo determinado hace que tra suene más forzado y refuerza que con es la respuesta natural) o reformular con verbo diferente donde tra no compita."] }
+        ]
+      }
     },
     {
       "id": "preposiciones-006",
@@ -91,7 +105,14 @@
         "correctIndex": 0,
         "explanation": "Su significa 'sobre' o 'encima de' con contacto físico. Cuando va seguida del artículo definido se fusiona en una preposición articolata: Su + Il (masc sing) = Sul. Il gatto è sul tavolo = el gato está sobre la mesa. Mismo patrón: Su + La = Sulla, Su + Le = Sulle."
       },
-      "notes": "Preposición articolata 'sul' = su + il (sobre la mesa). PDF §Preposizioni articolate, ejemplo canónico 'Il gatto è sul tavolo'. Distractoras = otras articolate +il del mismo cuadro."
+      "notes": "Preposición articolata 'sul' = su + il (sobre la mesa). PDF §Preposizioni articolate, ejemplo canónico 'Il gatto è sul tavolo'. Distractoras = otras articolate +il del mismo cuadro.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-007",
@@ -103,7 +124,14 @@
         "correctIndex": 2,
         "explanation": "La preposición Per expresa scopo o finalidad: para qué se hace la acción. Studio per imparare l'italiano se traduce como 'estudio para aprender italiano'. Per se construye siempre con infinitivo cuando introduce un objetivo, igual que el español 'para + infinitivo'."
       },
-      "notes": "Preposición 'per' = scopo/finalidad. PDF §Preposizioni semplici, ejemplo 'Studio per imparare'."
+      "notes": "Preposición 'per' = scopo/finalidad. PDF §Preposizioni semplici, ejemplo 'Studio per imparare'.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-008",
