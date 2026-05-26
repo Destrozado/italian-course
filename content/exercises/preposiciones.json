@@ -43,18 +43,15 @@
       "type": "multiple-choice",
       "categoryIds": ["preposiciones"],
       "payload": {
-        "prompt": "Vengo ___ Milano stamattina.",
+        "prompt": "Torno ___ Milano stamattina.",
         "options": ["di", "a", "da", "in"],
         "correctIndex": 2,
-        "explanation": "La preposición Da marca el punto de partida o procedencia de un movimiento concreto: de dónde sales o de dónde acabas de venir. Vengo da Milano stamattina se traduce como 'vengo desde Milán esta mañana'. Se distingue de Di, que indica origen estable (Sono di Milano = soy de Milán, identidad permanente)."
+        "explanation": "La preposición Da marca el punto de partida o procedencia de un movimiento concreto: de dónde sales o de dónde vuelves. Torno da Milano stamattina se traduce como 'vuelvo desde Milán esta mañana'. El verbo Tornare (volver, regresar) implica un origen inequívoco — algo que se deja atrás — por eso Da es la única preposición natural. Se distingue de Di, que indica origen estable (Sono di Milano = soy de Milán, identidad permanente)."
       },
-      "notes": "Preposición 'da' = provenienza (vengo desde Milán). PDF §Preposizioni semplici, ejemplo 'Vengo da Milano'. Fix R7 doble-validez post-Phase 10 disputed: prompt original 'Vengo ___ Milano' admitía 'da' (origen del viaje) y 'a' (destino) ambas válidas (patrón canónico R7 venire+ciudad citado en validation prompt §Fix pattern); añadir 'stamattina' ancla origen y bloquea la lectura de destino.",
+      "notes": "Preposición 'da' = provenienza con verbo de regreso ('vuelvo desde Milán'). PDF §Preposizioni semplici, ejemplo canónico 'Vengo da Milano'. Fix R7 doble-validez post-Phase 10 disputed (2 iteraciones): (1) prompt original 'Vengo ___ Milano' admitía 'da'/'a' ambas válidas (patrón canónico R7 venire+ciudad); (2) 'Vengo ___ Milano stamattina' (fix R7 oficial) seguía permitiendo lectura de 'a' como llegada inminente según Sonnet pedante; (3) cambiar verbo a 'Torno' (regreso) elimina la lectura de destino: 'torno a Milano' significaría 'vuelvo otra vez a Milán' (uso raro reanudativo, no italiano A1 natural) — la lectura inequívoca es 'torno da Milano' = vuelvo desde Milán.",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "incorrecta", "concerns": ["[C2-una_opcion] 'Vengo a Milano stamattina' sigue siendo italiano correcto (anuncio de llegada inminente); 'stamattina' ubica temporalmente pero no discrimina dirección vs origen. Lectura más estricta que el propio R7 fix-pattern del validation prompt (que cita literalmente 'Vengo ___ Milano stamattina.' como ejemplo de fix). Sugerencia alternativa más fuerte: 'Torno ___ Milano stamattina' (verbo de regreso implica origen inequívoco)."] }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
