@@ -10,7 +10,14 @@
         "correctIndex": 0,
         "explanation": "La forma 'ho' es la primera persona singular del presente indicativo del verbo avere y se usa con el pronombre 'io' para expresar posesión. En italiano, 'Io ho una macchina' equivale al español 'Yo tengo un coche': el verbo avere cubre todo lo que en español hacemos con tener, sin necesidad de verbos auxiliares adicionales."
       },
-      "notes": "Presente indicativo, 1ª persona singular (io). Posesión."
+      "notes": "Presente indicativo, 1ª persona singular (io). Posesión.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "avere-002",
