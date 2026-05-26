@@ -143,7 +143,14 @@
         "correctIndex": 2,
         "explanation": "La preposición Tra indica tempo futuro: dentro de cuánto tiempo ocurrirá algo. Tra due giorni parto equivale a 'dentro de dos días salgo'. Tra y Fra son sinónimos intercambiables según el PDF de la profesora; ambos miden distancia temporal hacia el futuro desde el momento presente."
       },
-      "notes": "Preposición 'tra' = tempo futuro (dentro de). PDF §Preposizioni semplici, ejemplo 'Tra due giorni parto'. Mayúscula inicial por estar al inicio de frase. Nota: PDF presenta 'tra/fra' como sinónimos sin distinción eufónica, por lo que sólo cubrimos 'tra' explícito."
+      "notes": "Preposición 'tra' = tempo futuro (dentro de). PDF §Preposizioni semplici, ejemplo 'Tra due giorni parto'. Mayúscula inicial por estar al inicio de frase. Nota: PDF presenta 'tra/fra' como sinónimos sin distinción eufónica, por lo que sólo cubrimos 'tra' explícito.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-009",
@@ -155,7 +162,14 @@
         "correctIndex": 1,
         "explanation": "Per además de finalidad expresa durata: cuánto tiempo dura una acción. Ho studiato per due ore se traduce como 'he estudiado durante dos horas'. El hispanohablante puede confundirla con 'por' o 'durante', pero el italiano fija Per para todo periodo de tiempo cuantificado."
       },
-      "notes": "Preposición 'per' = durata (durante). PDF §Preposizioni semplici, ejemplo 'per due ore'."
+      "notes": "Preposición 'per' = durata (durante). PDF §Preposizioni semplici, ejemplo 'per due ore'.",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "incorrecta", "concerns": ["[C2-una_opcion] el prompt 'Ho studiato ___ due ore.' admite también 'da' como opción válida: 'Ho studiato da due ore' es italiano correcto ('he estudiado desde hace dos horas', durata continua hasta el presente). Patrón canónico de doble-validez análogo R7: verbo+tiempo admite per/da. Fix: añadir contexto que cierre la durata, ej. 'Ieri ho studiato ___ due ore.' (con 'ieri' la lectura 'desde hace' queda bloqueada y solo 'per' cuadra)."] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-010",
@@ -167,7 +181,14 @@
         "correctIndex": 0,
         "explanation": "Di indica posesso o pertenencia: a quién pertenece algo. Il libro di Marco se traduce como 'el libro de Marco'. Delante de nombres propios Di nunca se contrae con artículo (no se dice 'del Marco'), igual que en español no se dice 'el libro del Marco'."
       },
-      "notes": "Preposición 'di' = posesso. PDF §Preposizioni semplici, 'di → possesso'. 'Il libro di Marco' = el libro de Marco."
+      "notes": "Preposición 'di' = posesso. PDF §Preposizioni semplici, 'di → possesso'. 'Il libro di Marco' = el libro de Marco.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-011",
@@ -179,7 +200,14 @@
         "correctIndex": 1,
         "explanation": "Cuando A precede a un sustantivo con artículo definido se fusiona en una preposición articolata. A + Il (masc sing) = Al. Andiamo al cinema equivale a 'vamos al cine'. El error típico A1 es usar la preposición simple A sola, olvidando que el artículo Il debe contraerse con ella."
       },
-      "notes": "Preposición articolata 'al' = a + il. PDF §Preposizioni articolate, fila 'a' columna 'il'. 'Andiamo al cinema' = vamos al cine. Distractora 'a' = preposición simple (incorrecta — falta el artículo); 'nel' = en el (luogo cerrado distinto)."
+      "notes": "Preposición articolata 'al' = a + il. PDF §Preposizioni articolate, fila 'a' columna 'il'. 'Andiamo al cinema' = vamos al cine. Distractora 'a' = preposición simple (incorrecta — falta el artículo); 'nel' = en el (luogo cerrado distinto).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-012",
