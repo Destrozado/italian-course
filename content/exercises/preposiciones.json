@@ -447,7 +447,14 @@
         "correctIndex": 0,
         "explanation": "Para sustantivos masculinos plurales regulares el artículo es I, y Di se fusiona en Dei. Il rumore dei bambini significa 'el ruido de los niños'. La distractora Delle implicaría femenino plural (delle bambine = de las niñas)."
       },
-      "notes": "Preposición articolata 'dei' = di + i (plural masculino regular). PDF §Preposizioni articolate, fila 'di' columna 'i'."
+      "notes": "Preposición articolata 'dei' = di + i (plural masculino regular). PDF §Preposizioni articolate, fila 'di' columna 'i'.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-025",
@@ -459,7 +466,14 @@
         "correctIndex": 1,
         "explanation": "Cuando el sustantivo masculino plural empieza por vocal o por s + consonante, z, gn, ps, x, el artículo es Gli y Di se fusiona en Degli. Le lezioni degli studenti equivale a 'las lecciones de los estudiantes'. Misma lógica que Dello pero en plural: degli amici, degli zaini, degli gnomi."
       },
-      "notes": "Preposición articolata 'degli' = di + gli (plural masculino con 'gli' delante de s+consonante / vocal). PDF §Preposizioni articolate, fila 'di' columna 'gli'."
+      "notes": "Preposición articolata 'degli' = di + gli (plural masculino con 'gli' delante de s+consonante / vocal). PDF §Preposizioni articolate, fila 'di' columna 'gli'.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-026",
@@ -471,7 +485,14 @@
         "correctIndex": 2,
         "explanation": "Para sustantivos femeninos plurales el artículo es Le y Di se fusiona en Delle. I libri delle ragazze significa 'los libros de las chicas'. Patrón simétrico al masculino Dei pero en femenino: ragazze, amiche, sorelle, donne — todas piden Delle."
       },
-      "notes": "Preposición articolata 'delle' = di + le (plural femenino). PDF §Preposizioni articolate, fila 'di' columna 'le'."
+      "notes": "Preposición articolata 'delle' = di + le (plural femenino). PDF §Preposizioni articolate, fila 'di' columna 'le'.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-027",
@@ -483,7 +504,14 @@
         "correctIndex": 1,
         "explanation": "In + Il = Nel. Cuando el sustantivo masculino singular regular indica el interior de algo, In se fusiona con su artículo. Le chiavi sono nel cassetto se traduce como 'las llaves están en el cajón'. Nel implica dentro, distinto de Sul que implicaría encima."
       },
-      "notes": "Preposición articolata 'nel' = in + il (dentro). PDF §Preposizioni articolate, fila 'in' columna 'il'. Distractora 'sul' = sobre (semánticamente plausible pero incorrecta para 'dentro de un cajón')."
+      "notes": "Preposición articolata 'nel' = in + il (dentro). PDF §Preposizioni articolate, fila 'in' columna 'il'. Distractora 'sul' = sobre (semánticamente plausible pero incorrecta para 'dentro de un cajón').",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "incorrecta", "concerns": ["[C2-una_opcion] 'sul' (su + il) completa válidamente el prompt — 'Le chiavi sono sul cassetto' (sobre el cajón) es italiano correcto y semánticamente plausible. El prompt no aporta contexto que elimine la lectura 'encima'. Fix: añadir contexto que fuerce el interior, ej. 'Le chiavi sono ___ cassetto, sotto i documenti.' o cambiar el noun a uno donde 'sobre' no tenga sentido ('nel frigorifero', 'nel portafoglio')."] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "incorrecta", "concerns": ["[C2-una_opcion] 'sul' y 'nel' son ambas válidas con cassetto — las propias notes del ejercicio admiten 'sul semánticamente plausible pero incorrecta'. Eso es exactamente el patrón R7 doble-validez. Fix sugerido por R7: añadir contexto adicional o pivotar el noun."] }
+        ]
+      }
     },
     {
       "id": "preposiciones-028",
