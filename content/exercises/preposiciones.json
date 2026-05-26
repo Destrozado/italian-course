@@ -10,7 +10,14 @@
         "correctIndex": 0,
         "explanation": "La preposición Di indica origen estable: de dónde es alguien por nacimiento o identidad permanente. Maria è di Roma di nascita significa 'Maria es de Roma de nacimiento'. La locución fija 'di nascita' (de nacimiento) refuerza que se trata del origen y no de la ubicación actual. Distinta de Da, que marca el punto de partida de un movimiento concreto (viene da Pisa = vino desde Pisa hoy), y de A, que indicaría ubicación actual (è a Roma = está en Roma ahora mismo)."
       },
-      "notes": "Preposición simple 'di' = origen/identidad estable ('è di Roma di nascita'). PDF preposizioni_italiano §Preposizioni semplici, ejemplo canónico 'Sono di Roma' adaptado para evitar ambigüedad: el original 'Sono ___ Roma' admitía 'di' (origen) y 'a' (ubicación) ambas como completaciones válidas; añadir el contexto 'viene da Pisa, ma è ... di nascita' fuerza la lectura de origen estable. Bug fix post-v1.0 reportado por el autor."
+      "notes": "Preposición simple 'di' = origen/identidad estable ('è di Roma di nascita'). PDF preposizioni_italiano §Preposizioni semplici, ejemplo canónico 'Sono di Roma' adaptado para evitar ambigüedad: el original 'Sono ___ Roma' admitía 'di' (origen) y 'a' (ubicación) ambas como completaciones válidas; añadir el contexto 'viene da Pisa, ma è ... di nascita' fuerza la lectura de origen estable. Bug fix post-v1.0 reportado por el autor.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-002",
