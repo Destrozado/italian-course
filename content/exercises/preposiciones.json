@@ -478,7 +478,14 @@
         "correctIndex": 0,
         "explanation": "Da + I = Dai. Torno dai cugini domani significa 'vuelvo a [casa de] los primos mañana'. Característica del italiano: con personas Da implica 'a la casa de' (si la dirección es hacia) o 'desde la casa de' (si la dirección es desde). La preposición articolata se forma como cualquier otra: da + artículo masculino plural regular I. Cuidado: solo aplica a sustantivos masculinos plurales que empiezan por consonante normal (cugini, ragazzi, nonni). Si empieza por vocal (amici) o s+consonante (studenti), el artículo es Gli y se forma Dagli."
       },
-      "notes": "Preposición articolata 'dai' = da + i (plural masculino con artículo i delante de consonante normal: 'cugini'). PDF §Preposizioni articolate, fila 'da' columna 'i'. Bug fix post-v1.0: prompt anterior usaba 'amici' que toma 'gli' (no 'i'), respuesta correcta hubiera sido 'dagli' — fix preserva intent celda 'i' del PDF cambiando el noun a 'cugini'."
+      "notes": "Preposición articolata 'dai' = da + i (plural masculino con artículo i delante de consonante normal: 'cugini'). PDF §Preposizioni articolate, fila 'da' columna 'i'. Bug fix post-v1.0: prompt anterior usaba 'amici' que toma 'gli' (no 'i'), respuesta correcta hubiera sido 'dagli' — fix preserva intent celda 'i' del PDF cambiando el noun a 'cugini'.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-041",
