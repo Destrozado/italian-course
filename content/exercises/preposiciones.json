@@ -962,8 +962,11 @@
       },
       "notes": "Preposición 'di' = materia/disciplina en colocación fija ('esame di matematica'). Ejercicio paralelo a preposiciones-020 (que fuerza 'su'). Reencuadrado de 'libro di matematica' a 'esame di matematica' porque 'libro' admite di/su ambas (doble-validez R7) pero 'esame' solo admite 'di' ('esame su matematica' no existe). Técnica de traducción española objetivo + colocación fija.",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
       }
     }
   ]
