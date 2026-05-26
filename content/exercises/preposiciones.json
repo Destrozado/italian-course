@@ -523,7 +523,14 @@
         "correctIndex": 1,
         "explanation": "Cuando el sustantivo masculino singular empieza por s + consonante, z, gn, ps o x, el artículo es Lo y In se fusiona en Nello. I libri sono nello zaino significa 'los libros están en la mochila'. Misma regla de artículo que Dello aplicada a In."
       },
-      "notes": "Preposición articolata 'nello' = in + lo ('zaino' lleva 'lo' por z- inicial). PDF §Preposizioni articolate, fila 'in' columna 'lo'."
+      "notes": "Preposición articolata 'nello' = in + lo ('zaino' lleva 'lo' por z- inicial). PDF §Preposizioni articolate, fila 'in' columna 'lo'.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-029",
@@ -535,7 +542,14 @@
         "correctIndex": 1,
         "explanation": "Nella es la preposición articolata femenina singular de In + La. Vivo nella città di Milano equivale a 'vivo en la ciudad de Milán'. Distinto del uso In sin artículo para paesi/regioni (Vivo in Italia): aquí città lleva artículo definido, por eso la fusión."
       },
-      "notes": "Preposición articolata 'nella' = in + la ('vivo en la ciudad de Milán'). PDF §Preposizioni articolate, fila 'in' columna 'la'."
+      "notes": "Preposición articolata 'nella' = in + la ('vivo en la ciudad de Milán'). PDF §Preposizioni articolate, fila 'in' columna 'la'.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-030",
@@ -547,7 +561,14 @@
         "correctIndex": 0,
         "explanation": "In + I = Nei. Para sustantivos masculinos plurales regulares dentro de los cuales se hace algo. I bambini giocano nei giardini pubblici significa 'los niños juegan en los jardines públicos'. Marca interior + plural masculino simultáneamente en una sola preposición."
       },
-      "notes": "Preposición articolata 'nei' = in + i (plural masculino). PDF §Preposizioni articolate, fila 'in' columna 'i'."
+      "notes": "Preposición articolata 'nei' = in + i (plural masculino). PDF §Preposizioni articolate, fila 'in' columna 'i'.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-031",
@@ -559,7 +580,14 @@
         "correctIndex": 1,
         "explanation": "Cuando el masculino plural empieza por vocal o s + consonante, z, gn, ps, x, el artículo es Gli y In se fusiona en Negli. Le penne sono negli astucci significa 'los bolígrafos están en los estuches'. El astuccio (estuche) es un contenedor que envuelve las penne, por eso In y no Su. Misma lógica que Degli aplicada a In: negli amici, negli zaini."
       },
-      "notes": "Preposición articolata 'negli' = in + gli ('astucci' plural masculino con 'gli' por vocal inicial: l'astuccio singular / gli astucci plural). PDF §Preposizioni articolate, fila 'in' columna 'gli'. Bug fix post-v1.0 reportado por el autor: el prompt anterior 'I libri sono negli scaffali alti' admitía tanto 'negli' (libros dentro de los huecos de la estantería) como 'sugli' (libros encima del mueble apilados) — ambos italiano natural. Sustituido por 'penne in astucci' que solo admite 'in' (un bolígrafo no se pone ENCIMA de un estuche, va dentro)."
+      "notes": "Preposición articolata 'negli' = in + gli ('astucci' plural masculino con 'gli' por vocal inicial: l'astuccio singular / gli astucci plural). PDF §Preposizioni articolate, fila 'in' columna 'gli'. Bug fix post-v1.0 reportado por el autor: el prompt anterior 'I libri sono negli scaffali alti' admitía tanto 'negli' (libros dentro de los huecos de la estantería) como 'sugli' (libros encima del mueble apilados) — ambos italiano natural. Sustituido por 'penne in astucci' que solo admite 'in' (un bolígrafo no se pone ENCIMA de un estuche, va dentro).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-032",
