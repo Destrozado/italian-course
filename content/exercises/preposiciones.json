@@ -371,7 +371,14 @@
         "correctIndex": 1,
         "explanation": "Su también indica argomento o tema: sobre qué trata algo. Ho letto un libro su Roma antica equivale a 'he leído un libro sobre la Roma antigua'. Aquí Su no implica contacto físico (sul tavolo, ejemplo de contacto físico) ni superficie vertical, sino tema de un texto, conversación o reflexión."
       },
-      "notes": "Preposición 'su' = argomento (sobre/acerca de). PDF §Preposizioni semplici, ejemplo 'un libro su Roma'. Distractora 'di' es la trampa (en español 'libro de Roma' funciona, en italiano 'su' marca el tema)."
+      "notes": "Preposición 'su' = argomento (sobre/acerca de). PDF §Preposizioni semplici, ejemplo 'un libro su Roma'. Distractora 'di' es la trampa (en español 'libro de Roma' funciona, en italiano 'su' marca el tema).",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "incorrecta", "concerns": ["[C2-una_opcion] 'di' también completa válidamente el prompt: 'Ho letto un libro di Roma antica' es italiano correcto con sentido de tema/materia (paralelo a 'un libro di storia', 'un libro di matematica'). R7 identifica explícitamente 'libro + tema → di vs su' como patrón canónico de doble-validez. Para corregir: añadir contexto que elimine la lectura con 'di', por ejemplo un complemento que ancle inequívocamente argomento."] }
+        ]
+      }
     },
     {
       "id": "preposiciones-021",
@@ -383,7 +390,14 @@
         "correctIndex": 0,
         "explanation": "Di + Il se fusiona en la preposición articolata Del cuando el sustantivo es masculino singular regular. Il colore del cielo significa 'el color del cielo'. El patrón paralelo al español 'del' (de + el) es uno de los pocos casos donde italiano y español coinciden palabra por palabra."
       },
-      "notes": "Preposición articolata 'del' = di + il (posesión / pertenencia). PDF §Preposizioni articolate, fila 'di' columna 'il'."
+      "notes": "Preposición articolata 'del' = di + il (posesión / pertenencia). PDF §Preposizioni articolate, fila 'di' columna 'il'.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-022",
@@ -395,7 +409,14 @@
         "correctIndex": 1,
         "explanation": "Cuando el sustantivo masculino singular empieza por s + consonante, z, gn, ps o x, el artículo es Lo (no Il), y Di se fusiona en Dello. Il libro dello studente se traduce como 'el libro del estudiante'. Misma regla: lo zaino, lo gnomo, lo psicologo, lo xilofono — todos exigen Lo y por tanto Dello."
       },
-      "notes": "Preposición articolata 'dello' = di + lo (artículo 'lo' delante de s+consonante: 'studente'). PDF §Preposizioni articolate, fila 'di' columna 'lo'."
+      "notes": "Preposición articolata 'dello' = di + lo (artículo 'lo' delante de s+consonante: 'studente'). PDF §Preposizioni articolate, fila 'di' columna 'lo'.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-023",
@@ -407,7 +428,14 @@
         "correctIndex": 2,
         "explanation": "La preposición articolata Della resulta de Di + La cuando el sustantivo es femenino singular. La porta della casa equivale a 'la puerta de la casa'. Es la combinación más directa para hispanohablantes porque coincide estructuralmente con 'de la' del español."
       },
-      "notes": "Preposición articolata 'della' = di + la. PDF §Preposizioni articolate, fila 'di' columna 'la'."
+      "notes": "Preposición articolata 'della' = di + la. PDF §Preposizioni articolate, fila 'di' columna 'la'.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-024",
