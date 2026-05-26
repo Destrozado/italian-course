@@ -29,7 +29,7 @@
 
 ### 📋 v1.1 (Planning — Validación editorial)
 
-- [ ] **Phase 9: Infraestructura de validación** — Schema `validation` opcional + validation prompt operacionalizando R1-R7 + workflow 1-por-1 documentado + smoke test paramétrico + piloto sobre 1 categoría
+- [x] **Phase 9: Infraestructura de validación** — Schema `validation` opcional + validation prompt operacionalizando R1-R7 + workflow 1-por-1 documentado + smoke test paramétrico + piloto sobre 1 categoría (completed 2026-05-26)
 - [ ] **Phase 10: Ejecución validación 271 ejercicios + escalada disputed** — Aplicar workflow multi-AI a las 7 categorías hasta `validated:271/271` + UX inline de escalada para verdicts `incorrecta`
 
 ## Phase Details
@@ -44,11 +44,11 @@
   3. Existe un script o flujo documentado (`scripts/validate-exercise.mjs` o equivalente) que demuestra el patrón "1 ejercicio = 1 agente fresco = SOLO ese ejercicio en contexto" y justifica explícitamente por qué NO se batch (root cause de los 4 bugs cazados post-v1.0).
   4. Un smoke test paramétrico nuevo en `tests/exercise-types.test.js` falla si CUALQUIER ejercicio tiene `validation.status` ≠ `validated` (o el campo ausente cuando el feature flag está activado) — durante Phase 9 el flag está desactivado para que los 271 sigan en `pending`/sin campo y los tests sigan verdes; el flag se activa al final de Phase 10.
   5. Piloto end-to-end completado: ≥1 ejercicio real (sugerido: `preposiciones-040` u otro de los 4 bugs motivadores) ha pasado el workflow completo con ≥2 pases registrados en `passes[]`, con `by`/`date`/`verdict`/`concerns?` poblados según VAL-05, y el resultado (validated o disputed) consistent con el schema VAL-01.
-**Plans:** 2/3 plans executed
+**Plans:** 3/3 plans complete
 Plans:
 - [x] 09-01-PLAN.md — Schema validator extension (validateValidationShape) + pure helper deriveStatus + smoke test paramétrico VAL-07 tras feature flag
 - [x] 09-02-PLAN.md — VALIDATION-PROMPT.md self-contained (R1-R7 inline) + .claude/skills/gsd-validate-exercise/SKILL.md orquestador + fixture E3 (C5-leak) + relax stripAdditive
-- [ ] 09-03-PLAN.md — Piloto end-to-end 3 ejercicios (preposiciones-040 + avere-001 + pilot-disputed-c5-leak-001) + scripts/run-validation-pilot.mjs reporter + gate D-VAL-15 checkpoint
+- [x] 09-03-PLAN.md — Piloto end-to-end 3 ejercicios (preposiciones-040 + avere-001 + pilot-disputed-c5-leak-001) + scripts/run-validation-pilot.mjs reporter + gate D-VAL-15 checkpoint
 
 ### Phase 10: Ejecución validación 271 ejercicios + escalada disputed
 **Goal**: Aplicar el workflow Phase 9 a los 271 ejercicios de las 7 categorías hasta que el smoke test paramétrico vea `validation.status === "validated"` en todos. Construir el flujo de escalada inline para los verdicts `incorrecta` (autor revisa, decide accept/reject/rewrite, queda audit trail). El milestone v1.1 NO cierra hasta 271/271.
@@ -76,7 +76,7 @@ Plans:
 | 7.1. Explicaciones Génnum + canon ortográfico | v1.0 | 2/2 | Complete | 2026-05-25 |
 | 7.2. Explicaciones 5 cats restantes (100%) | v1.0 | 5/5 | Complete | 2026-05-25 |
 | 8. Modo Examen por categoría | v1.0 | 1/1 | Complete | 2026-05-25 |
-| 9. Infraestructura de validación | v1.1 | 2/3 | In Progress|  |
+| 9. Infraestructura de validación | v1.1 | 3/3 | Complete   | 2026-05-26 |
 | 10. Ejecución validación 271 ejercicios + escalada | v1.1 | 0/? | Not started | — |
 
 ## Backlog
