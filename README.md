@@ -86,3 +86,30 @@ Doble click sobre `index.html` no funciona, y no es por capricho:
 Fase actual: **Phase 1 — Loop mínimo end-to-end (Avere + multiple-choice)**.
 
 Phase 1 entrega el esqueleto + 12 ejercicios seed de Avere derivados del PDF `material-profesora/Clase_Italiano_Auxiliar_Avere.pdf`. La UI interactiva (sesión, feedback verde/rojo, indicador X/N) la conecta Plan 02 sobre este esqueleto.
+
+## Validación editorial (milestone v1.1)
+
+El milestone v1.1 garantiza que cada uno de los 271 ejercicios curados en v1.0 está validado individualmente contra los criterios R1-R7 (frase italiana natural, una única opción válida, distractoras plausibles, explanation coherente sin meta-staging y cero leak de la regla en el prompt) mediante un quórum multi-modelo (≥2 AIs distintos). El outcome esperado es que los 271 ejercicios queden con `validation.status === "validated"` en sus archivos JSON. La validación importa porque cierra el bug class de batched-curation que motivó el milestone tras descubrir 4 ambigüedades semánticas reales en uso (preposiciones-040, -032, -047, -031).
+
+### Smoke test estricto al cierre del milestone
+
+Durante Phase 9 y Phase 10 el smoke test paramétrico VAL-07 vive tras un feature flag `VAL_07_STRICT=1` para no bloquear el desarrollo mientras los 269 ejercicios pendientes aún no están validados. Una vez el reporter `scripts/run-validation-271.mjs` sale exit 0 (271/271 validated, cero disputed), el autor activa MANUALMENTE el smoke test estricto:
+
+```bash
+# Linux/macOS — gate del milestone v1.1
+VAL_07_STRICT=1 node --test tests/*.test.js
+```
+
+Una vez activo, cualquier ejercicio nuevo o modificado sin `validation.status === "validated"` rompe el test inmediatamente → previene regresión editorial.
+
+El flip es MANUAL por diseño — no hay auto-flip al cerrar la 7ª categoría para que el gesto del autor sea consciente y deliberado (per RESEARCH Q6 + D-VAL-17). Si quieres persistirlo permanentemente, añade `export VAL_07_STRICT=1` a tu shell rc.
+
+### Workflow editorial — comandos
+
+Los comandos del autor para Phase 10 son:
+
+- `/gsd-validate-exercise <id>` — valida 1 ejercicio (Phase 9 skill).
+- `/gsd-validate-batch <category> | --all-pending | <id1,id2,...>` — valida en bucle (Phase 10 sub-skill).
+- `node scripts/run-validation-271.mjs` — reporter del milestone gate (Phase 10 reporter).
+
+El sub-skill batch ofrece cola disputed VAL-08 con 4 caminos terminales (Accept fix / Reject + override / Rewrite manualmente / Skip defer) y un checkpoint AskUserQuestion por cada categoría procesada.
