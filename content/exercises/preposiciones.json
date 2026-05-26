@@ -157,7 +157,7 @@
       "type": "multiple-choice",
       "categoryIds": ["preposiciones"],
       "payload": {
-        "prompt": "Ieri ho studiato ___ due ore.",
+        "prompt": "Ieri ho studiato ___ due ore. (en español: 'Ayer estudié durante dos horas')",
         "options": ["a", "per", "in", "da"],
         "correctIndex": 1,
         "explanation": "Per además de finalidad expresa durata: cuánto tiempo dura una acción. Ieri ho studiato per due ore se traduce como 'ayer estudié durante dos horas'. El adverbio 'ieri' ancla la acción en el pasado cerrado, lo que descarta 'da due ore' (desde hace dos horas, duración hasta el presente) y deja Per como única opción para el periodo cuantificado."
@@ -364,9 +364,9 @@
       "categoryIds": ["preposiciones"],
       "payload": {
         "prompt": "Ho letto un libro ___ Roma antica. (en español: 'He leído un libro sobre la Roma antigua')",
-        "options": ["di", "su", "per", "in"],
-        "correctIndex": 1,
-        "explanation": "Su también indica argomento o tema: sobre qué trata algo. Ho letto un libro su Roma antica equivale a 'he leído un libro sobre la Roma antigua'. La traducción 'sobre' fija Su y descarta 'di' (que daría 'libro di Roma', lectura de tema/materia también posible en italiano). Aquí Su no implica contacto físico (sul tavolo) ni superficie vertical, sino tema de un texto, conversación o reflexión."
+        "options": ["su", "per", "in", "con"],
+        "correctIndex": 0,
+        "explanation": "Su también indica argomento o tema: sobre qué trata algo. Ho letto un libro su Roma antica equivale a 'he leído un libro sobre la Roma antigua'. Su aquí no implica contacto físico (sul tavolo) ni superficie vertical, sino el tema de un texto, conversación o reflexión. (Nota: la preposición 'di' también puede marcar tema en italiano — 'libro di storia' — por eso se reserva para un ejercicio aparte donde la traducción fuerce 'di'; aquí 'di' se omite de las opciones para que 'sobre' tenga una sola respuesta limpia)."
       },
       "notes": "Preposición 'su' = argomento (sobre/acerca de). PDF §Preposizioni semplici, ejemplo 'un libro su Roma'. Distractora 'di' es la trampa (en español 'libro de Roma' funciona, en italiano 'su' marca el tema). Fix post-disputed: añadida traducción española objetivo 'He leído un libro sobre la Roma antigua' — Sonnet marcó que 'libro di Roma antica' (tema/materia) también era válido; la traducción 'sobre' fuerza Su. Idea del autor: habilitar ejercicio paralelo que fuerce 'di' vía traducción 'libro de matemáticas'.",
       "validation": {
@@ -942,6 +942,22 @@
           { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
           { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
         ]
+      }
+    },
+    {
+      "id": "preposiciones-051",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Hanno scritto un libro ___ matematica. (en español: 'Han escrito un libro de matemáticas')",
+        "options": ["di", "su", "per", "a"],
+        "correctIndex": 0,
+        "explanation": "Di marca la materia o disciplina de la que trata un texto, como un género o categoría: un libro di matematica, un libro di storia, un libro di cucina. La traducción 'de matemáticas' (materia/asignatura) fija Di. Se distingue de Su, que introduce el tema concreto sobre el que versa algo puntual ('un libro su Roma antica' = sobre la Roma antigua); por eso 'libro di matematica' (la disciplina) y no 'libro su matematica'."
+      },
+      "notes": "Preposición 'di' = materia/disciplina de un texto ('libro di matematica'). Ejercicio paralelo a preposiciones-020 (que fuerza 'su' vía traducción 'sobre'). Par diseñado con la técnica de traducción española objetivo: -020 fuerza su, -051 fuerza di, cada uno con la otra preposición como distractor. La distinción di (disciplina/género) vs su (tema puntual) es real en italiano. Ambas IAs deben dar correcta.",
+      "validation": {
+        "status": "pending",
+        "passes": []
       }
     }
   ]
