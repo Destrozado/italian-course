@@ -219,7 +219,14 @@
         "correctIndex": 0,
         "explanation": "Delante de nombres propios Di permanece simple y no se contrae con artículo: en italiano no se dice 'della Maria' como tampoco en español se dice 'la Maria'. La macchina di Maria significa 'el coche de María'. La regla aplica a cualquier nombre propio de persona."
       },
-      "notes": "Preposición simple 'di' con nombre propio (posesión). Antes de nombre propio NO se contrae con artículo (no 'della Maria'). Distractoras = articolate del mismo grupo."
+      "notes": "Preposición simple 'di' con nombre propio (posesión). Antes de nombre propio NO se contrae con artículo (no 'della Maria'). Distractoras = articolate del mismo grupo.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-013",
@@ -231,7 +238,14 @@
         "correctIndex": 1,
         "explanation": "Su con contacto físico horizontal se fusiona con el artículo definido masculino singular Il dando Sul. Le chiavi sono sul tavolo se traduce como 'las llaves están sobre la mesa'. La distractora Nel implicaría 'dentro de' (cajón, caja), mientras que Sul exige superficie expuesta."
       },
-      "notes": "Preposición articolata 'sul' = su + il (sobre). PDF §Preposizioni articolate. Refuerza preposiciones-006 con otra escena. Distractora 'nel' = dentro de (semánticamente plausible pero incorrecta para 'sobre')."
+      "notes": "Preposición articolata 'sul' = su + il (sobre). PDF §Preposizioni articolate. Refuerza preposiciones-006 con otra escena. Distractora 'nel' = dentro de (semánticamente plausible pero incorrecta para 'sobre').",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-014",
@@ -243,7 +257,14 @@
         "correctIndex": 0,
         "explanation": "Da combinada con el artículo femenino singular La produce la preposición articolata Dalla. Vengo dalla stazione significa 'vengo desde la estación'. La regla generaliza el movimiento de origen del ejercicio 003 (Vengo da Milano) al caso donde el sustantivo lleva artículo definido."
       },
-      "notes": "Preposición articolata 'dalla' = da + la (vengo desde la estación). PDF §Preposizioni articolate, fila 'da' columna 'la'. Distractoras = otras articolate +la del mismo cuadro."
+      "notes": "Preposición articolata 'dalla' = da + la (vengo desde la estación). PDF §Preposizioni articolate, fila 'da' columna 'la'. Distractoras = otras articolate +la del mismo cuadro.",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "incorrecta", "concerns": ["[C2-una_opcion] 'Vengo ___ stazione' admite tanto 'dalla' (origen) como 'alla' (destino). Patrón canónico R7 documentado: venire + lugar → da/a ambas válidas. Falta contexto desambiguador (ej. 'Vengo dalla stazione adesso').", "[C4-explanation] la explanation contiene 'del ejercicio 003' — referencia a otro ejercicio por número/ID, viola R2. Reemplazar por cross-ref pedagógica sin ID."] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "preposiciones-015",
@@ -255,7 +276,14 @@
         "correctIndex": 1,
         "explanation": "En italiano la locución fija para hablar por teléfono es parlare al telefono, con A contraída en Al (a + il). Parlo al telefono se traduce literalmente como 'hablo al teléfono', no como 'hablo por teléfono' del español. Ojo: el hispanohablante elige 'a' simple olvidando que el artículo Il debe contraerse."
       },
-      "notes": "Preposición articolata 'al' = a + il (al teléfono, idiomático). PDF §Preposizioni articolate. Distractora 'a' = sin artículo (incorrecta — 'parlare al telefono' es la forma fija)."
+      "notes": "Preposición articolata 'al' = a + il (al teléfono, idiomático). PDF §Preposizioni articolate. Distractora 'a' = sin artículo (incorrecta — 'parlare al telefono' es la forma fija).",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "incorrecta", "concerns": ["[C2-una_opcion] 'per telefono' (parlare per telefono) es forma igualmente válida y frecuente en italiano para 'hablar por teléfono'. Tanto 'al' como 'per' completan válidamente el prompt. Fix: añadir contexto que fije la construcción (ej. 'Parlo al telefono con mia madre') o cambiar opciones para que 'per' no compita."] }
+        ]
+      }
     },
     {
       "id": "preposiciones-016",
