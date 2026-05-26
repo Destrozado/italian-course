@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Validación editorial
-status: executing
-last_updated: "2026-05-26T16:15:00.000Z"
-last_activity: 2026-05-26
+status: "Phase 10 planeada — 5 PLAN.md committed, esperando execute-phase para infra (Wave 1) + ejecución batch (Wave 2)."
+last_updated: "2026-05-26T15:50:44.000Z"
+last_activity: "Phase 10 PLAN.md set creado (10-01 sub-skill + 10-02 reporter + 10-03 README/STATE scaffolding + 10-04 ejecución batch + 10-05 milestone close). Ready `/gsd:execute-phase 10` Wave 1 paralelo."
 progress:
   total_phases: 4
   completed_phases: 1
   total_plans: 8
-  completed_plans: 5
-  percent: 30
+  completed_plans: 6
+  percent: 38
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -241,6 +241,30 @@ Wave 1 lado A (Plan 10-01) + Wave 1 lado B (Plan 10-02) cerrados. Quedan: Plan 1
 ---
 *State initialized: 2026-05-23 (v1.0)*
 *State re-initialized: 2026-05-25 — Milestone v1.1 planning. v1.0 archivado, Phase 9 + Phase 10 planificadas con 8/8 VAL requirements mapped, 0 orphans. Ready para `/gsd:plan-phase 9`.*
+
+## Phase 10 Progress
+
+<!-- El sub-skill gsd-validate-batch appendea aquí una línea por cada categoría cerrada, formato literal: "Phase 10 — Categoría <slug> cerrada (<ISO-fecha>): X/Y validated, Z disputed resueltos, W deferred" -->
+
+### Categorías (orden lockeado D-VAL-22):
+
+- [ ] preposiciones — 49 pendientes (50 total, -040 ya validated piloto)
+- [ ] avere — 22 pendientes (23 total, -001 ya validated piloto)
+- [ ] essere — 39 pendientes (39 total)
+- [ ] genero-numero — 40 pendientes (40 total)
+- [ ] profesiones — 51 pendientes (51 total)
+- [ ] sustantivos-irregulares — 31 pendientes (31 total)
+- [ ] verbos-movimiento — 37 pendientes (37 total)
+
+### Categorías cerradas:
+
+<!-- el batch appendea aquí -->
+
+## Deferred-disputed
+
+<!-- Cuando el autor responde "Skip (defer al final del milestone)" en la cola disputed D-VAL-25 path-d, el sub-skill appendea aquí una línea: "- <exercise-id> (<ISO-fecha>): deferred por autor — razón: \"<razón opcional>\"". VAL-06 impide cerrar el milestone con deferred no resueltos. El reporter scripts/run-validation-271.mjs los detectará como FAIL en VAL-08. -->
+
+(vacío hasta que el autor difiera algún disputed en path-d)
 
 ## Operator Next Steps
 
