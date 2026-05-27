@@ -217,7 +217,24 @@
         "correctIndex": 2,
         "explanation": "Cuando un sustantivo masculino singular empieza por vocal, el artículo se elide, perdiendo su última letra y sustituyéndola por un apóstrofo. Por eso, en lugar de decir 'lo amico', la forma obligatoria y fluida es 'l'amico'."
       },
-      "notes": "Artículo definido masculino singular con elisión ante vocal: `l'amico` (no `il amico`). Distractoras: `il` (forma con consonante, correcta para `il ragazzo`), `lo` (forma para s+cons/z/ps/gn, e.g., `lo zaino`), `la` (femenino, incorrecto por género). Apóstrofe ASCII U+0027 obligatorio (RESEARCH §D)."
+      "notes": "Artículo definido masculino singular con elisión ante vocal: `l'amico` (no `il amico`). Distractoras: `il` (forma con consonante, correcta para `il ragazzo`), `lo` (forma para s+cons/z/ps/gn, e.g., `lo zaino`), `la` (femenino, incorrecto por género). Apóstrofe ASCII U+0027 obligatorio (RESEARCH §D).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "genero-numero-010",
