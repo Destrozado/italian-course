@@ -716,7 +716,26 @@
         "correctIndex": 2,
         "explanation": "El rol académico plural se construye con essere + sustantivo plural + 'di' + área de estudio: 'Voi siete studenti di lingue' equivale al español 'Vosotros sois estudiantes de idiomas'. Importante: 'studenti' es el plural masculino genérico, que en italiano cubre también grupos mixtos hombre-mujer; si el grupo fuera exclusivamente femenino, se diría 'studentesse'. La preposición 'di' marca la especialización académica."
       },
-      "notes": "Rol/profesión plural masc. `studenti` es masculino plural genérico (incluye fem si grupo mixto). Distractora `avete` = avere."
+      "notes": "Rol/profesión plural masc. `studenti` es masculino plural genérico (incluye fem si grupo mixto). Distractora `avete` = avere.",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C2-una_opcion] El distractor avete (avere) produce frase plausible: Voi avete studenti di lingue = tenéis estudiantes de idiomas (dicho por profesores). El prompt no desambigua identidad (siete) vs posesión (avete). Sugerencia: rol que solo encaje con essere o contexto que fuerce identidad."
+            ]
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "essere-019",
