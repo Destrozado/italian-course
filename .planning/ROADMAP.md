@@ -5,7 +5,7 @@
 ## Milestones
 
 - ✅ **v1.0 — Motor re-verificación + 7 categorías + Modo Examen** — Phases 1-8 (shipped 2026-05-25). Ver [milestones/v1.0-ROADMAP.md](./milestones/v1.0-ROADMAP.md) para detalles completos.
-- 📋 **v1.1 — Validación editorial** — Phases 9-10 (planning 2026-05-25). 271/271 ejercicios validados por quórum multi-AI contra R1-R7 antes de seguir confiando en el material para aprender.
+- ✅ **v1.1 — Validación editorial** — Phases 9-10 (shipped 2026-05-27). 272/272 ejercicios validados por quórum multi-AI (Opus + Sonnet) contra R1-R7, 55 disputed resueltos. Ver [milestones/v1.1-ROADMAP.md](./milestones/v1.1-ROADMAP.md) para detalles completos.
 
 ## Phases
 
@@ -27,46 +27,15 @@
 
 </details>
 
-### 📋 v1.1 (Planning — Validación editorial)
+<details>
+<summary>✅ v1.1 (Phases 9-10) — SHIPPED 2026-05-27</summary>
 
-- [x] **Phase 9: Infraestructura de validación** — Schema `validation` opcional + validation prompt operacionalizando R1-R7 + workflow 1-por-1 documentado + smoke test paramétrico + piloto sobre 1 categoría (completed 2026-05-26)
-- [ ] **Phase 10: Ejecución validación 271 ejercicios + escalada disputed** — Aplicar workflow multi-AI a las 7 categorías hasta `validated:271/271` + UX inline de escalada para verdicts `incorrecta`
+- [x] Phase 9: Infraestructura de validación (3/3 plans) — completed 2026-05-26
+- [x] Phase 10: Ejecución validación 271 ejercicios + escalada disputed (5/5 plans) — completed 2026-05-27
 
-## Phase Details
+**Total:** 2 fases, 8 plans, 272/272 ejercicios validados por quórum Opus 4.7 + Sonnet 4.6, 55 disputed resueltos, 0 deferred, 8/8 requirements VAL-01..08. Detalles completos en `.planning/milestones/v1.1-ROADMAP.md`.
 
-### Phase 9: Infraestructura de validación
-**Goal**: Crear la maquinaria (schema + prompt + workflow + gate de tests) que hará posible validar los 271 ejercicios 1-por-1 con quórum multi-AI sin re-inventar el proceso cada vez. Cerrar la fase con un piloto small-scale sobre una categoría real para probar que el pipeline funciona antes de invertir 1.5-2M tokens en Phase 10.
-**Depends on**: Milestone v1.0 cerrado (las 7 categorías ya curadas y con explanations)
-**Requirements**: VAL-01, VAL-02, VAL-03, VAL-05, VAL-07
-**Success Criteria** (what must be TRUE):
-  1. El schema validator acepta los 271 ejercicios actuales sin tocar el JSON (campo `validation` opcional, backward-compat verificada vía `node --test`).
-  2. Existe un documento `.planning/phases/.../VALIDATION-PROMPT.md` con los 5 criterios binarios verbatim listos para copy-paste a un agente fresco; cualquiera (incluido el autor) puede ejecutarlo manualmente sobre 1 ejercicio sin contexto adicional. R1-R7 están operacionalizados en los 5 criterios.
-  3. Existe un script o flujo documentado (`scripts/validate-exercise.mjs` o equivalente) que demuestra el patrón "1 ejercicio = 1 agente fresco = SOLO ese ejercicio en contexto" y justifica explícitamente por qué NO se batch (root cause de los 4 bugs cazados post-v1.0).
-  4. Un smoke test paramétrico nuevo en `tests/exercise-types.test.js` falla si CUALQUIER ejercicio tiene `validation.status` ≠ `validated` (o el campo ausente cuando el feature flag está activado) — durante Phase 9 el flag está desactivado para que los 271 sigan en `pending`/sin campo y los tests sigan verdes; el flag se activa al final de Phase 10.
-  5. Piloto end-to-end completado: ≥1 ejercicio real (sugerido: `preposiciones-040` u otro de los 4 bugs motivadores) ha pasado el workflow completo con ≥2 pases registrados en `passes[]`, con `by`/`date`/`verdict`/`concerns?` poblados según VAL-05, y el resultado (validated o disputed) consistent con el schema VAL-01.
-**Plans:** 3/3 plans complete
-Plans:
-- [x] 09-01-PLAN.md — Schema validator extension (validateValidationShape) + pure helper deriveStatus + smoke test paramétrico VAL-07 tras feature flag
-- [x] 09-02-PLAN.md — VALIDATION-PROMPT.md self-contained (R1-R7 inline) + .claude/skills/gsd-validate-exercise/SKILL.md orquestador + fixture E3 (C5-leak) + relax stripAdditive
-- [x] 09-03-PLAN.md — Piloto end-to-end 3 ejercicios (preposiciones-040 + avere-001 + pilot-disputed-c5-leak-001) + scripts/run-validation-pilot.mjs reporter + gate D-VAL-15 checkpoint
-
-### Phase 10: Ejecución validación 271 ejercicios + escalada disputed
-**Goal**: Aplicar el workflow Phase 9 a los 271 ejercicios de las 7 categorías hasta que el smoke test paramétrico vea `validation.status === "validated"` en todos. Construir el flujo de escalada inline para los verdicts `incorrecta` (autor revisa, decide accept/reject/rewrite, queda audit trail). El milestone v1.1 NO cierra hasta 271/271.
-**Depends on**: Phase 9 (infraestructura completa + piloto PASS)
-**Requirements**: VAL-04, VAL-06, VAL-08
-**Success Criteria** (what must be TRUE):
-  1. Los 271 ejercicios tienen `validation.passes[]` con ≥2 entries de AIs distintos (`passes[].by` diferentes), y `validation.status === "validated"` — verificable abriendo cualquier JSON o ejecutando el smoke test paramétrico (que estará activado al cierre).
-  2. Los 4 bugs motivadores documentados en PROJECT.md (preposiciones-040 amici/dai, preposiciones-032 nelle pareti, preposiciones-047 cadere sugli alberi, preposiciones-031 libri/scaffali) están en estado `validated` con `concerns` previos que justifican o el fix aplicado al prompt/answer/distractors, o la decisión consciente del autor de mantenerlo + override del status (VAL-08 audit trail).
-  3. Cuando una AI emite `verdict: incorrecta`, el flujo surface el caso al autor con prompt original + verdict + concerns + sugerencia de fix; el autor decide (accept fix / reject mantener original / reescribir) y la decisión queda registrada — verificable abriendo al menos 1 ejercicio cuyo `passes[]` muestre el ciclo disputed→resolved (puede ser uno de los 4 motivadores o cualquier otro encontrado durante la ejecución).
-  4. El smoke test paramétrico VAL-07 (activado al final de la fase) corre verde con assertion estricta "cero ejercicios con `status !== 'validated'`" — la ejecución diaria de `node --test tests/*.test.js` previene regresión editorial: cualquier ejercicio nuevo o modificado sin re-validar rompe los tests inmediatamente.
-  5. Audit trail completo en `passes[]` para los 271 ejercicios: `{by, date ISO, verdict, concerns?}` poblados — el autor puede auditar a posteriori qué AI validó qué ejercicio y cuándo, sin abrir logs externos.
-**Plans:** 3/5 plans executed
-Plans:
-- [x] 10-01-PLAN.md — Sub-skill `gsd-validate-batch` SKILL.md (Wave 1, autonomous): orquestador inline en main session que itera `gsd-validate-exercise` por cada ID pendiente, cubre 4 caminos D-VAL-25 (Accept fix / Reject + override / Rewrite manualmente / Skip), reconsider trigger D-VAL-21 tras Preposiciones, pre-flight + cierre AVERE asserts.
-- [x] 10-02-PLAN.md — Reporter `scripts/run-validation-271.mjs` (Wave 1, autonomous): post-processing puro sobre los 7 archivos de categoría, 3 sub-gates VAL-04 + VAL-06 + VAL-08, helper `effectiveStatus()` con relax path-B, ANSI colorizado zero-deps.
-- [x] 10-03-PLAN.md — Documentación + scaffolding (Wave 1, autonomous): README.md sección `## Validación editorial (milestone v1.1)` con comando `VAL_07_STRICT=1 node --test tests/*.test.js` literal, STATE.md secciones `## Phase 10 Progress` + `## Deferred-disputed`. **DONE 2026-05-26** (2 commits `a26cbc7` + `5a5b1f0`, README 88→115 líneas, STATE.md +24 líneas, VAL-06 partial-supported).
-- [ ] 10-04-PLAN.md — Ejecución batch + cola disputed (Wave 2, autonomous=false): aplicar `gsd-validate-batch` a las 7 categorías en orden D-VAL-22 con checkpoint AskUserQuestion por categoría + cola disputed por categoría, dispara reconsider trigger D-VAL-21 tras Preposiciones.
-- [ ] 10-05-PLAN.md — Cierre milestone (Wave 3, autonomous=false): ejecutar reporter `run-validation-271.mjs` (exit 0 esperado) + smoke test estricto `VAL_07_STRICT=1 node --test tests/*.test.js` (exit 0 esperado) + actualizar STATE.md con Phase 10 SHIPPED + milestone v1.1 close-ready.
+</details>
 
 ## Progress
 
@@ -83,7 +52,7 @@ Plans:
 | 7.2. Explicaciones 5 cats restantes (100%) | v1.0 | 5/5 | Complete | 2026-05-25 |
 | 8. Modo Examen por categoría | v1.0 | 1/1 | Complete | 2026-05-25 |
 | 9. Infraestructura de validación | v1.1 | 3/3 | Complete   | 2026-05-26 |
-| 10. Ejecución validación 271 ejercicios + escalada | v1.1 | 3/5 | In Progress|  |
+| 10. Ejecución validación 271 ejercicios + escalada | v1.1 | 5/5 | Complete | 2026-05-27 |
 
 ## Backlog
 

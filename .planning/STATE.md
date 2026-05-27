@@ -2,7 +2,7 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Validación editorial
-status: executing
+status: shipped
 last_updated: "2026-05-26T15:54:35.806Z"
 last_activity: 2026-05-26 -- Plan 10-03 completed (docs README + STATE.md scaffolding `## Phase 10 Progress` + `## Deferred-disputed`)
 progress:

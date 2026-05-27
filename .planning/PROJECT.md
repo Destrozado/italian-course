@@ -139,28 +139,13 @@ Web personal de ejercicios de italiano para preparar el A1 (y luego A2). Es una 
 
 ## Current State
 
-**v1.0 shipped 2026-05-25** — 10 fases activas (Phases 1-8 incluyendo decimales 7.1/7.2), 26 plans, 271/271 ejercicios curados con explanations pedagógicas en 7 categorías (Avere, Essere, Génnum, Sustantivos-irregulares, Verbos-movimiento, Profesiones, Preposiciones), Modo Examen por categoría operativo. 62/62 v1 requirements complete, 209/209 tests verdes. App lista para uso diario desde `npx serve` con localStorage + backup JSON manual.
+**v1.1 shipped 2026-05-27** — Validación editorial completa. Los 272 ejercicios (271 originales + `preposiciones-051` creado durante la validación) están validados por quórum de 2 IAs distintas (Opus 4.7 + Sonnet 4.6) contra los criterios R1-R7→C1-C5, con audit trail completo en `passes[]`. 55 disputed resueltos por el autor (accept-fix / override / rewrite), 0 deferred. Gate del milestone verde: reporter `run-validation-271.mjs` exit 0 (VAL-04+06+08) + smoke test estricto `VAL_07_STRICT=1` 261/261 PASS. El autor puede confiar en que cada ejercicio del que aprende es correcto; cualquier ejercicio nuevo/modificado sin re-validar rompe los tests inmediatamente.
 
-**Stack actual:** Alpine.js 3.15.12 + Pico CSS 2.1.1 (CDN+SRI pinned), ES modules vanilla, schemaVersion 4, ~2200 LOC en `src/screens/app.js` + ~220 LOC dominio puro + ~125 LOC tests dominio + 7 archivos JSON contenido.
+**v1.0 shipped 2026-05-25** — 10 fases activas (Phases 1-8 incluyendo decimales 7.1/7.2), 26 plans, 271/271 ejercicios curados con explanations pedagógicas en 7 categorías, Modo Examen por categoría operativo. 62/62 v1 requirements complete. App lista para uso diario desde `npx serve` con localStorage + backup JSON manual.
 
-**Last activity:** 2026-05-25 — Milestone v1.0 archivado, git tag `v1.0` pendiente.
+**Stack actual:** Alpine.js 3.15.12 + Pico CSS 2.1.1 (CDN+SRI pinned), ES modules vanilla, schemaVersion 4, ~2200 LOC en `src/screens/app.js` + ~220 LOC dominio puro + tests dominio + 7 archivos JSON contenido con campo `validation` poblado en los 272 ejercicios. Infraestructura editorial: skills `gsd-validate-exercise` + `gsd-validate-batch`, `09-VALIDATION-PROMPT.md`, `scripts/run-validation-271.mjs`.
 
-## Current Milestone: v1.1 Validación editorial
-
-**Goal:** Garantizar que cada uno de los 271 ejercicios curados en v1.0 está validado individualmente por múltiples AIs contra criterios estrictos (R1-R7), de manera que el autor pueda confiar en que aprende italiano correctamente y no contaminado por bugs de batched-curation. Bug class motivador: 4 ambigüedades semánticas (preposiciones-040 amici/dai, -032 nelle pareti, -047 cadere sugli alberi, -031 libri/scaffali) cazadas por el autor por casualidad en uso real durante post-ship v1.0; el riesgo crítico es que el resto de bugs no detectados contaminen el aprendizaje.
-
-**Target features:**
-- Schema extension: campo `validation` opcional en cada ejercicio (`status`, `passes[]`)
-- Validation prompt estricto con 5 criterios binarios (frase natural italiana, una única opción válida, distractoras plausibles, explanation coherente, cero leak)
-- Workflow 1-por-1 (NUNCA batched — root cause del problema)
-- Multi-AI quorum: ≥2 AIs distintos en "correcta" → `status: validated`; cualquier "incorrecta" → escalada al autor
-- Cobertura objetivo: 271/271 ejercicios `status: validated`
-- Audit trail registrable: cada `passes[]` entry con `{by, date, verdict, concerns}`
-
-**Key context:**
-- Aprovechar la memoria R1-R7 ya escrita en `~/.claude/projects/.../memory/exercise_authoring_rules.md` — el validation prompt es la operacionalización de esas reglas
-- Tradeoff aceptado: ~1-3h wall-clock + ~1.5-2M tokens vs garantía de calidad editorial sostenida
-- Phase 9 puede empezar por Preposiciones (la categoría con más bugs cazados) como piloto y luego extender
+**Last activity:** 2026-05-27 — Milestone v1.1 archivado, git tag `v1.1` pendiente.
 
 ## Next Milestone Goals (post-v1.1)
 

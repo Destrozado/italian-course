@@ -1,5 +1,20 @@
 # Milestones
 
+## v1.1 — Validación editorial (Shipped: 2026-05-27)
+
+**Phases completed:** 2 phases (9-10), 8 plans
+
+**Key accomplishments:**
+
+- Infraestructura de validación (Phase 9): campo `validation` opcional en el schema con `deriveStatus()` sticky-disputed, `VALIDATION-PROMPT.md` self-contained que operacionaliza R1-R7 en 5 criterios binarios C1-C5, skill `gsd-validate-exercise` (quórum Opus 4.7 + Sonnet 4.6, 1-por-1 con context aislado), smoke test paramétrico VAL-07 tras feature flag, y piloto end-to-end de 3 ejercicios.
+- Sub-skill `gsd-validate-batch` (Phase 10): orquestador inline que itera la validación por categoría con resume idempotente (estado de verdad en los JSON), checkpoints AskUserQuestion, y cola disputed con 4 caminos (accept-fix / reject+override / rewrite / skip) + reporter `run-validation-271.mjs` zero-deps con 3 sub-gates.
+- 272/272 ejercicios validados por ≥2 IAs distintas en las 7 categorías (preposiciones 51, avere 23, essere 39, genero-numero 40, profesiones 51, sustantivos-irregulares 31, verbos-movimiento 37). 55 disputed resueltos, 0 deferred.
+- Clases de bug editorial cazadas y corregidas: meta-staging del curador en explanations, doble-validez (formas con dos plurales/femeninos aceptados + género no fijado), errores factuales en explanations, y leak de regla en el prompt vía etiquetas. El autor como oráculo final en cada disputed (overrides registrados con `by:autor`).
+- +1 ejercicio al corpus (`preposiciones-051`, par di/su) creado durante la resolución de disputed. Constantes 271→272 actualizadas en reporter y test. Gates de cierre verdes: reporter exit 0 (VAL-04+06+08) + smoke test estricto `VAL_07_STRICT=1 node --test tests/*.test.js` 261/261 PASS.
+- Audit trail completo en git: 1 commit por ejercicio validado + commits fix/override POST-fix por cada disputed resuelto + STATE.md por categoría (~370 commits desde v1.0).
+
+---
+
 ## v1.0 v1.0 — Italian Course A1/A2 (motor re-verificación + 7 categorías + Modo Examen) (Shipped: 2026-05-25)
 
 **Phases completed:** 12 phases, 26 plans, 71 tasks
