@@ -269,7 +269,26 @@
         "correctIndex": 1,
         "explanation": "En italiano la negación 'non' se coloca siempre delante del verbo conjugado, sin verbo auxiliar añadido. 'Maria non è stanca' equivale al español 'Maria no está cansada'. Cuidado: el estado físico se predica con essere, no con avere; un calco del español 'no tiene cansada' (con ha) es uno de los errores hispanohablantes A1 más típicos. Las sensaciones físicas como hambre o sed sí piden avere (ho fame), pero los estados se quedan con essere."
       },
-      "notes": "Presente indicativo, 3ª persona singular en frase negativa (`non` antes del verbo) — variante D-92. Distractora `ha` = avere (trampa: 'Maria no tiene cansada')."
+      "notes": "Presente indicativo, 3ª persona singular en frase negativa (`non` antes del verbo) — variante D-92. Distractora `ha` = avere (trampa: 'Maria no tiene cansada').",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": [
+              "[C4-explanation] La explanation cubre 4 sub-puntos (negación, essere vs avere, calco hispanohablante, estados vs sensaciones). R6 recomienda 1 punto pedagógico; añadido sobre ho fame no evaluado por el blank. No invalida; podría recortarse para mantener foco."
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "essere-009",
