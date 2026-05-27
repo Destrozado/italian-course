@@ -126,7 +126,24 @@
         "correctIndex": 1,
         "explanation": "El sustantivo 'dio' (dios) tiene un plural irregular con cambio de raíz: 'gli dei' (los dioses). No sigue la regla productiva -o → -i, por eso 'dii' suena mal y no se usa. ¡Atención!: el artículo plural es 'gli' (no 'i'), y el lema 'dio / dei' debe aprenderse como par excepcional, igual que 'uomo / uomini'."
       },
-      "notes": "PDF §4 ¡A practicar! nº5 + §3. Caso especial: cambio de raíz dio→dei. Distractora dii (regla ingenua)."
+      "notes": "PDF §4 ¡A practicar! nº5 + §3. Caso especial: cambio de raíz dio→dei. Distractora dii (regla ingenua).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "sustantivos-irregulares-006",
