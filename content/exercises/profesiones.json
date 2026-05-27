@@ -1071,7 +1071,24 @@
         "correctIndex": 3,
         "explanation": "¡Atención al artículo masculino especial! Ante palabras que empiezan por s+consonante, z, ps, gn o y, el italiano usa 'lo' en lugar de 'il'. Así se dice 'lo studente' (el estudiante), 'lo zaino' (la mochila), 'lo psicologo' (el psicólogo). Cuidado con el pitfall A1: el alumno hispanohablante calca 'il studente' porque la S inicial no le suena anómala, pero el italiano A1 exige 'lo'."
       },
-      "notes": "PDF §3 + nota final 'permettono di ripassare gli articoli'. Artículo masc sing para inicio fonético s+cons: lo studente (no 'il studente'). Distractoras: `il` (forma común — pitfall A1 muy frecuente porque 'studente' parece consonante normal), `l'` (elisión solo ante vocal), `la` (femenino). Familia: lo studente, lo zaino, lo psicologo, lo gnocco."
+      "notes": "PDF §3 + nota final 'permettono di ripassare gli articoli'. Artículo masc sing para inicio fonético s+cons: lo studente (no 'il studente'). Distractoras: `il` (forma común — pitfall A1 muy frecuente porque 'studente' parece consonante normal), `l'` (elisión solo ante vocal), `la` (femenino). Familia: lo studente, lo zaino, lo psicologo, lo gnocco.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-038",
