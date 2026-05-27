@@ -766,8 +766,21 @@
       },
       "notes": "Convertido de ex-match-206 — refuerzo bidireccional (plural→singular). El reconocimiento inverso es crítico para lectura/comprensión. Distractoras: `uomine` (singular regularizado, calco con donna/donne), `uome` (forma inventada plausible para alguien que piensa en fem), `uomini` (invariable falso). Pitfall A1: ver `uomini` y recuperar el lema base `uomo`.",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
