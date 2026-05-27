@@ -353,7 +353,24 @@
         "correctIndex": 2,
         "explanation": "Con el auxiliar 'sono' (3ª plural de essere) ya dado, el participio se elige por el género y número del sujeto: 'I ragazzi' es masculino plural, así que el participio de uscire es 'usciti'. La frase completa, 'I ragazzi sono usciti alle otto', equivale al español 'Los chicos salieron a las ocho'. Importante: la terminación -i del participio replica la terminación de 'ragazzi', un patrón visual útil para fijar la concordancia."
       },
-      "notes": "PDF §5 nº3 — par complementario al -013: con aux dado, el hueco es el participio. 'I ragazzi' = plural masculino → 'usciti'."
+      "notes": "PDF §5 nº3 — par complementario al -013: con aux dado, el hueco es el participio. 'I ragazzi' = plural masculino → 'usciti'.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "verbos-movimiento-015",
