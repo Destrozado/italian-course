@@ -126,7 +126,24 @@
         "correctIndex": 1,
         "explanation": "Entrare es otro verbo de movimiento de la lista canónica del A1 y forma el passato prossimo con essere. La 2ª persona plural del auxiliar es 'siete', así que 'voi siete entrati' equivale al español 'vosotros habéis entrado'. Cuidado con la trampa hispana 'voi avete entrati' (calco de 'habéis entrado'): el español usa haber para todo, pero el italiano reserva avere para los transitivos y exige essere con los verbos de movimiento."
       },
-      "notes": "Essere presente 2ª plural ('siete') como auxiliar de entrare + concordancia plural masculino ('entrati'). PDF §3 ejemplo 'Siete entrati'."
+      "notes": "Essere presente 2ª plural ('siete') como auxiliar de entrare + concordancia plural masculino ('entrati'). PDF §3 ejemplo 'Siete entrati'.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "verbos-movimiento-006",
