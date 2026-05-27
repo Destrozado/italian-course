@@ -633,31 +633,18 @@
           [
             "noi",
             "abbiamo"
+          ],
+          [
+            "voi",
+            "avete"
           ]
         ],
         "explanation": "La tercera persona singular del verbo avere es 'ha' tanto para 'lui' como para 'lei', porque el italiano no marca el género en la conjugación verbal. Por eso aparecen dos 'ha' en la columna derecha y ambos son correctos: el sistema acepta indistintamente que el usuario empareje 'lui' con el primero o con el segundo. ¡Atención!: esto NO es un fallo del ejercicio sino la realidad del idioma."
       },
       "notes": "Match con DUPLICADOS textuales en columna derecha (D-66): dos 'ha' válidos — el grading los consume por índice; el usuario puede emparejar 'lui'→primer 'ha' o 'lui'→segundo 'ha' indistintamente.",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C3-distractoras] Solo 3 pares con 2 valores idénticos (ha/ha) y un solo abbiamo: la columna derecha tiene solo 2 valores distintos, trivializa el ejercicio (imposible fallar). D-66 ampara UN duplicado en match de 4 con >=3 distintos; aquí la mayoría es el duplicado."
-            ]
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C3-distractoras] 3 pares con 2 ha idénticos: D-66 requiere >=4 pares para que el duplicado no trivialice. Añadir un 4º par (voi->avete) restauraría la distribución mínima."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
