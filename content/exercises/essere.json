@@ -754,7 +754,24 @@
         "correctIndex": 2,
         "explanation": "La pregunta disyuntiva sobre rol o profesión también pide essere: '¿Tu sei professore o studente?' equivale al español '¿Tú eres profesor o estudiante?'. Ojo: ambas opciones (professore, studente) van sin artículo porque son sustantivos predicativos de identidad profesional. Importante: el contraste pedagógico con avere es el mismo de siempre — avere (hai) se reserva para posesión, mientras la identidad profesional siempre se queda con essere."
       },
-      "notes": "Profesión + disyuntiva interrogativa. Confirma que essere se usa para identificación de rol/profesión. Distractora `hai` = avere."
+      "notes": "Profesión + disyuntiva interrogativa. Confirma que essere se usa para identificación de rol/profesión. Distractora `hai` = avere.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "essere-102",
