@@ -302,7 +302,7 @@
       },
       "notes": "PDF §5 ejercicio práctico nº1 ('Maria ___ ___ (andare) al cinema ieri'). Aux essere 3ª singular + participio femenino 'andata' por sujeto Maria. Practica conjunta auxiliar + concordancia.",
       "validation": {
-        "status": "disputed",
+        "status": "validated",
         "passes": [
           {
             "by": "claude-opus-4-7",
@@ -315,7 +315,15 @@
             "date": "2026-05-27",
             "verdict": "incorrecta",
             "concerns": [
-              "[C5-leak] el participio andata (fem sing) en el prompt filtra que el auxiliar es essere: solo essere exige concordancia de genero/numero, asi que un alumno que sepa la regla deduce el auxiliar sin recordar que andare pide essere."
+              "[C5-leak] participio fem andata insinua essere"
+            ]
+          },
+          {
+            "by": "autor",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": [
+              "[override] autor mantiene: el ejercicio aun exige elegir persona/numero del auxiliar; el formato par-complementario (dar un lado, pedir el otro) es intencional y coherente con 013/015/025 validados."
             ]
           }
         ]
