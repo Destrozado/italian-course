@@ -121,7 +121,24 @@
         "correctIndex": 1,
         "explanation": "El femenino de 'fotografo' (fotógrafo) sigue la regla -o→-a y da 'fotografa' (fotógrafa). ¡Atención! Existe la palabra 'la fotografia' que significa 'la foto' o 'la fotografía como técnica', no a la profesional. El hispanohablante puede caer en la trampa por similitud léxica: la profesión femenina es 'fotografa', no 'fotografia'."
       },
-      "notes": "PDF §1 Regular -o→-a. Distractoras: `fotografessa` (-essa mal aplicada), `fotografia` (palabra distinta: 'foto' → sustantivo, no profesión femenina), `fotografatrice` (mezcla con -trice y duplicación). Pitfall: 'fotografo' suena cercano a 'fotografia' que NO es la respuesta."
+      "notes": "PDF §1 Regular -o→-a. Distractoras: `fotografessa` (-essa mal aplicada), `fotografia` (palabra distinta: 'foto' → sustantivo, no profesión femenina), `fotografatrice` (mezcla con -trice y duplicación). Pitfall: 'fotografo' suena cercano a 'fotografia' que NO es la respuesta.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-007",
