@@ -213,7 +213,24 @@
         "correctIndex": 0,
         "explanation": "Para el sujeto 'Lui' (masculino singular) el participio del verbo andare termina en -o: 'Lui è andato in Italia' equivale al español 'Él fue a Italia'. La matriz de concordancia con essere es de cuatro celdas: -o para masc singular, -a para fem singular, -i para masc plural y -e para fem plural. Ojo: la preposición 'in' con países contrasta con 'a' para ciudades ('è andato in Italia' vs 'è andato a Roma')."
       },
-      "notes": "Concordancia género participio: sujeto masculino singular 'Lui' → 'andato'. PDF §3 ejemplo canónico."
+      "notes": "Concordancia género participio: sujeto masculino singular 'Lui' → 'andato'. PDF §3 ejemplo canónico.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "verbos-movimiento-009",
