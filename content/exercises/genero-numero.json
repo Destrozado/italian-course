@@ -246,7 +246,24 @@
         "correctIndex": 1,
         "explanation": "El artículo 'lo' se usa específicamente delante de sustantivos masculinos singulares que inician con sonidos especiales: 'z', 's + consonante', 'ps', 'gn', 'pn', y 'x'. Como 'zaino' (mochila) empieza con 'z', es incorrecto usar 'il'; se debe usar 'lo zaino'."
       },
-      "notes": "Artículo definido masculino singular para inicios fonéticos s+cons/z/x/ps/gn: `lo zaino` (no `il zaino`). Distractoras: `il` (forma común con consonante, error por desconocer la regla fonética), `l'` (elisión ante vocal, incorrecta porque z no es vocal), `la` (femenino). Familia: lo zucchero, lo studente, lo psicologo, lo gnocco, lo xilofono."
+      "notes": "Artículo definido masculino singular para inicios fonéticos s+cons/z/x/ps/gn: `lo zaino` (no `il zaino`). Distractoras: `il` (forma común con consonante, error por desconocer la regla fonética), `l'` (elisión ante vocal, incorrecta porque z no es vocal), `la` (femenino). Familia: lo zucchero, lo studente, lo psicologo, lo gnocco, lo xilofono.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "genero-numero-011",
