@@ -116,7 +116,24 @@
         "correctIndex": 2,
         "explanation": "En el caso de los femeninos que terminan en -ca o -ga, siempre es obligatorio añadir una 'h' en el plural (-che, -ghe) para que no se pierda el sonido fuerte. 'Amica' (amiga) cambia a 'amiche'. A diferencia del masculino ('amico' pasa a 'amici' sin h), el femenino siempre requiere esta inserción ortográfica."
       },
-      "notes": "PDF §3 Palabras en -CO/-GO (femeninas en -ca/-ga siguen patrón análogo). Inserción de H para mantener el sonido fuerte /k/: amica→amiche (no `amice` que sonaría /tʃ/). Distractoras: `amici` (plural masculino confundido con femenino), `amicas` (calco español), `amicae` (mezcla -a+-e sin H). Contraste pedagógico: `amico→amici` (masc, sin H) vs `amica→amiche` (fem, con H)."
+      "notes": "PDF §3 Palabras en -CO/-GO (femeninas en -ca/-ga siguen patrón análogo). Inserción de H para mantener el sonido fuerte /k/: amica→amiche (no `amice` que sonaría /tʃ/). Distractoras: `amici` (plural masculino confundido con femenino), `amicas` (calco español), `amicae` (mezcla -a+-e sin H). Contraste pedagógico: `amico→amici` (masc, sin H) vs `amica→amiche` (fem, con H).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "genero-numero-006",
