@@ -309,7 +309,26 @@
         "correctIndex": 2,
         "explanation": "Misma regla -iere→-iera aplicada a la profesión 'parrucchiere' (peluquero), que pasa a 'parrucchiera' (peluquera). La familia productiva incluye también 'cameriere/cameriera' e 'infermiere/infermiera', y mantiene siempre la doble erre y la H tras la C para preservar el sonido duro original."
       },
-      "notes": "PDF §2 -iere → -iera. Distractoras: `parrucchiere` (invariable falso), `parrucchieressa` (calco -essa), `parrucchierica` (mezcla con -ica). Misma regla productiva que cameriere/cameriera, infermiere/infermiera."
+      "notes": "PDF §2 -iere → -iera. Distractoras: `parrucchiere` (invariable falso), `parrucchieressa` (calco -essa), `parrucchierica` (mezcla con -ica). Misma regla productiva que cameriere/cameriera, infermiere/infermiera.",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] La frase mantiene siempre la doble erre y la H tras la C sugiere falsamente que la H se anade en la transformacion -iere->-iera; la cch ya esta en el masculino parrucchiere. Engañoso."
+            ]
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-012",
