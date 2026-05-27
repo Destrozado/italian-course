@@ -649,7 +649,24 @@
         "correctIndex": 2,
         "explanation": "El sustantivo 'bue' (buey) tiene un plural irregular que inserta una -o- antes de la -i final: 'il bue' → 'i buoi'. Cuidado: no se sigue la regla -e → -i directa (que daría 'bui'), sino que se añade la vocal. Es un plural antiguo que conviene memorizar como par excepcional, igual que 'uomo / uomini' y 'dio / dei'."
       },
-      "notes": "Convertido de ex-match-204. Caso especial radical bue→buoi (inserción de -o-). Distractoras: `bua` (regla fem -a mal aplicada), `bui` (regla ingenua -e→-i sin la inserción de -o-), `buei` (mezcla -e+-i). Pitfall A1: el plural irregular añade -o- antes de la -i (raíz bu- + suffix -oi)."
+      "notes": "Convertido de ex-match-204. Caso especial radical bue→buoi (inserción de -o-). Distractoras: `bua` (regla fem -a mal aplicada), `bui` (regla ingenua -e→-i sin la inserción de -o-), `buei` (mezcla -e+-i). Pitfall A1: el plural irregular añade -o- antes de la -i (raíz bu- + suffix -oi).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "sustantivos-irregulares-025",
