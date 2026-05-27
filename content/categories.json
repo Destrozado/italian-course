@@ -6,6 +6,7 @@
     { "id": "verbos-movimiento",       "name": "Verbos de movimiento",    "order": 4 },
     { "id": "sustantivos-irregulares", "name": "Sustantivos irregulares", "order": 5 },
     { "id": "genero-numero",           "name": "Género y número",         "order": 6 },
-    { "id": "profesiones",             "name": "Profesiones",             "order": 7 }
+    { "id": "profesiones",             "name": "Profesiones",             "order": 7 },
+    { "id": "articoli",                "name": "Articoli (artículos)",    "order": 8 }
   ]
 }
