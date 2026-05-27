@@ -39,7 +39,24 @@
         "correctIndex": 2,
         "explanation": "El femenino regular -o→-a aplica también con elisión del artículo ante vocal: 'l'impiegato' (el empleado) pasa a 'l'impiegata' (la empleada). Importante: los sufijos -essa y -trice NO son comodines; -essa pertenece a la familia -e/-essa (dottore/dottoressa) y -trice a la familia -tore/-trice (attore/attrice). 'Impiegato' no encaja en ninguna de las dos."
       },
-      "notes": "PDF §1 Regular -o→-a. Distractoras: `impiegate` (plural fem, no singular), `impiegatessa` (-essa solo aplica a -e como dottore/dottoressa, no a -o), `impiegatrice` (-trice solo a -tore como attore/attrice — esta NO es -tore)."
+      "notes": "PDF §1 Regular -o→-a. Distractoras: `impiegate` (plural fem, no singular), `impiegatessa` (-essa solo aplica a -e como dottore/dottoressa, no a -o), `impiegatrice` (-trice solo a -tore como attore/attrice — esta NO es -tore).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-003",
