@@ -492,7 +492,24 @@
         ],
         "explanation": "La expresión 'avere fame' (tener hambre) sigue el patrón idiomático italiano de las sensaciones físicas, donde la posesión sustituye al estado: 'noi abbiamo fame' equivale al español 'nosotros tenemos hambre'. La forma 'abbiamo' es la 1ª plural de avere. Ojo con las distractoras: 'sete' significa 'sed' (otra sensación) y 'ho' es la 1ª singular, no la plural."
       },
-      "notes": "Idiomático avere fame — sin distractoras correctas."
+      "notes": "Idiomático avere fame — sin distractoras correctas.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "avere-200",
