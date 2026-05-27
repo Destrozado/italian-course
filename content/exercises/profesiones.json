@@ -179,7 +179,24 @@
         "correctIndex": 0,
         "explanation": "El femenino de 'meccanico' (mecánico) sigue la regla -o→-a y da 'meccanica' (mecánica). Cuidado con la ambigüedad léxica: 'la meccanica' también significa 'la mecánica' como disciplina o rama de la física; el contexto (artículo más sustantivo aplicado a una persona) fija aquí la lectura profesional."
       },
-      "notes": "PDF §1 Regular -o→-a. Distractoras: `meccaniche` (plural fem), `meccanicessa` (-essa mal aplicada), `meccanicia` (mezcla con -cia palatal incorrecta — recuerda que `meccanica` también es la palabra para 'mecánica' como disciplina, ambigüedad léxica pedagógica)."
+      "notes": "PDF §1 Regular -o→-a. Distractoras: `meccaniche` (plural fem), `meccanicessa` (-essa mal aplicada), `meccanicia` (mezcla con -cia palatal incorrecta — recuerda que `meccanica` también es la palabra para 'mecánica' como disciplina, ambigüedad léxica pedagógica).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-009",
