@@ -1063,7 +1063,24 @@
         ],
         "explanation": "El artículo definido en singular se rige por el género y, lo más importante, por cómo suena la primera letra de la palabra. 'Il' y 'La' acompañan a masculinos y femeninos que inician con consonante simple. Pero cuando una palabra empieza por vocal, sin importar de qué género sea, el artículo se elide, formando las contracciones con apóstrofo como 'l'amico' (el amigo) y 'l'aula' (el aula)."
       },
-      "notes": "MANTENIDO post-UAT design rule: la pairing exige aplicar regla fonética (artículo definido por género + sonido inicial) que NO es visible por similitud de raíz. Apareo correcto sólo si el alumno conoce las 4 formas singulares (il/lo/l'/la) y cuándo aplicar cada una. D-66 duplicados textuales en columna derecha intencionales: 2× `il` (masc + cons), 2× `la` (fem + cons), 2× `l'` (cualquier género + vocal). Grading por índice. Apóstrofes ASCII U+0027."
+      "notes": "MANTENIDO post-UAT design rule: la pairing exige aplicar regla fonética (artículo definido por género + sonido inicial) que NO es visible por similitud de raíz. Apareo correcto sólo si el alumno conoce las 4 formas singulares (il/lo/l'/la) y cuándo aplicar cada una. D-66 duplicados textuales en columna derecha intencionales: 2× `il` (masc + cons), 2× `la` (fem + cons), 2× `l'` (cualquier género + vocal). Grading por índice. Apóstrofes ASCII U+0027.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "genero-numero-208",
