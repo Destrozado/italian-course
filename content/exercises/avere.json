@@ -539,7 +539,24 @@
         ],
         "explanation": "Cada pronombre personal italiano tiene una forma propia y única del presente indicativo de avere: io ho, tu hai, lui ha, noi abbiamo. La memorización persona por persona es el primer paso A1 antes de pasar al passato prossimo. Importante: las cuatro formas tienen raíces visualmente distintas (h-, h-, h-, abb-), así que conviene practicarlas en bloque y no derivar unas de otras."
       },
-      "notes": "Match de conjugaciones avere — 4 parejas, sin duplicados."
+      "notes": "Match de conjugaciones avere — 4 parejas, sin duplicados.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "avere-201",
