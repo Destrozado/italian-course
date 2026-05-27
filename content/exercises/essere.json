@@ -457,7 +457,24 @@
         ],
         "explanation": "La frase coordina dos identidades distintas con el conector 'e' (y), aplicando essere a cada sujeto por separado: 'Io sono Maria' (1ª singular) y 'Lui è Luca' (3ª singular). Cuidado con las distractoras 'ho' y 'ha': pertenecen al verbo avere, que en italiano no se usa para identidad. Importante: el conector italiano 'e' (sin acento) significa 'y'; no debe confundirse con 'è' (con acento grave), que es la 3ª persona del verbo essere."
       },
-      "notes": "Identidad + presentación múltiple — D-90 word-buttons sub-área identidad/presentación. Frase con dos personas (io/sono y lui/è) para reforzar la conjugación. Distractoras `ho`/`ha` = formas de avere (trampa típica del hispanohablante)."
+      "notes": "Identidad + presentación múltiple — D-90 word-buttons sub-área identidad/presentación. Frase con dos personas (io/sono y lui/è) para reforzar la conjugación. Distractoras `ho`/`ha` = formas de avere (trampa típica del hispanohablante).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "essere-013",
