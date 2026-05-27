@@ -350,7 +350,24 @@
         "correctIndex": 2,
         "explanation": "La familia -tore/-trice es una de las irregularidades productivas del italiano: el masculino -tore pierde la O y añade -ice. Así 'attore' (actor) pasa a 'attrice' (actriz). Importante: el mismo patrón aparece en Género y Número con 'scrittore→scrittrice' (escritor/a) y 'lavoratore→lavoratrice' (trabajador/a). No confundir con -e/-essa (dottore→dottoressa)."
       },
-      "notes": "PDF §3 Irregolari -tore → -trice. Distractoras: `attora` (regla regular -e→-a mal aplicada), `attoressa` (mezcla con familia -essa dottore/dottoressa — confusión productiva), `attorina` (diminutivo). Familia -tore/-trice: attore/attrice, direttore/direttrice, programmatore/programmatrice, traduttore/traduttrice."
+      "notes": "PDF §3 Irregolari -tore → -trice. Distractoras: `attora` (regla regular -e→-a mal aplicada), `attoressa` (mezcla con familia -essa dottore/dottoressa — confusión productiva), `attorina` (diminutivo). Familia -tore/-trice: attore/attrice, direttore/direttrice, programmatore/programmatrice, traduttore/traduttrice.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-014",
