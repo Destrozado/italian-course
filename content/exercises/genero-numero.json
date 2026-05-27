@@ -731,7 +731,24 @@
         "correctIndex": 1,
         "explanation": "Muchas ocupaciones y títulos que terminan en '-sore' o simplemente '-e' utilizan el sufijo específico '-essa' para indicar el género femenino. Es el caso de 'professore', que se convierte en 'professoressa' (profesora). Esta palabra no usa la regla del '-trice'."
       },
-      "notes": "Convertido de ex-match-204 (professore↔professoressa). PDF §2B familia -e/-essa — ejemplo del PDF. Distractoras: `professora` (regla ingenua -e→-a), `professrice` (calco con familia -trice de attore, error de pertenencia), `professore` (invariable falso). Pitfall A1: profesores van con -essa, NO con -trice."
+      "notes": "Convertido de ex-match-204 (professore↔professoressa). PDF §2B familia -e/-essa — ejemplo del PDF. Distractoras: `professora` (regla ingenua -e→-a), `professrice` (calco con familia -trice de attore, error de pertenencia), `professore` (invariable falso). Pitfall A1: profesores van con -essa, NO con -trice.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "genero-numero-027",
