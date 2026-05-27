@@ -1056,8 +1056,21 @@
       },
       "notes": "Combina dos reglas: artículo `lo` ante ps- (mc-010 anchor) + plural -co con H (psicologo→psicologhi para mantener /g/). Distractoras: `psicologi` (regla -co→-ci ingenua sin H, sonaría /tʃ/ — PERO atención: en psicologi muchos italianos no insertan H; es la excepción reciente — fuera del A1 estricto, pero plausible para confusión), `psicologos` (calco español), `psicologe` (calco fem). Pitfall A1: para A1 priorizar la regla regular con H; las excepciones modernas (`psicologi` aceptado) son avanzadas.",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
