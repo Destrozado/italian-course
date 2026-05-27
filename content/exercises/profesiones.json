@@ -740,7 +740,24 @@
         "correctIndex": 2,
         "explanation": "Refuerzo definitivo de la familia -ista invariable aplicada a la profesión del transporte: 'tassista' (taxista) es la misma forma para masculino y femenino, y solo el artículo distingue ('il tassista' frente a 'la tassista'). Importante: el plural sí flexiona como en cualquier sustantivo en -ista ('i tassisti' masculino, 'le tassiste' femenino)."
       },
-      "notes": "PDF §5 Altre — familia -ista invariable. Distractoras: `tassistessa` (-essa errónea), `tassiste` (plural fem), `tassistra` (inventada). Refuerzo definitivo: todas las profesiones en -ista son invariables."
+      "notes": "PDF §5 Altre — familia -ista invariable. Distractoras: `tassistessa` (-essa errónea), `tassiste` (plural fem), `tassistra` (inventada). Refuerzo definitivo: todas las profesiones en -ista son invariables.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-027",
