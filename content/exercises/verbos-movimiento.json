@@ -271,7 +271,24 @@
         "correctIndex": 3,
         "explanation": "Cuando el sujeto plural es exclusivamente femenino, el participio termina en -e: 'Noi (donne) siamo andate in vacanza' equivale al español 'Nosotras hemos ido de vacaciones'. Cuidado: la forma 'andate' coincide visualmente con la 2ª persona plural del presente de andare ('voi andate' = vosotros vais), pero aquí funciona como participio plural femenino tras el auxiliar 'siamo'. El sujeto y el auxiliar son las claves para distinguir ambos usos."
       },
-      "notes": "Concordancia plural femenino: 'Noi (donne)' → 'andate' (PDF §3 ¡Atención! ejemplo explícito 'Noi (donne) siamo andate'). Pitfall A1: confundir 'andate' con 2ª plural del presente."
+      "notes": "Concordancia plural femenino: 'Noi (donne)' → 'andate' (PDF §3 ¡Atención! ejemplo explícito 'Noi (donne) siamo andate'). Pitfall A1: confundir 'andate' con 2ª plural del presente.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "verbos-movimiento-011",
