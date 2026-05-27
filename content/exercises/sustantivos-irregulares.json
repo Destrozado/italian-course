@@ -225,7 +225,24 @@
         "correctIndex": 2,
         "explanation": "Los sustantivos terminados en vocal acentuada son invariables: tienen la misma forma en singular y en plural. Así 'la città' (la ciudad) y 'le città' (las ciudades) se escriben igual; solo el artículo señala el número. Misma regla para 'caffè', 'virtù', 'università', 'tè'."
       },
-      "notes": "Sustantivo invariable — termina en vocal acentuada (-à) → no flexiona en plural. Distractoras: `citte` (regla -a→-e ingenua que aplicaría al patrón regular), `cittàe` (mezcla acento+e), `cittadi` (calco de cittadino). Pitfall A1: resistir la tentación de aplicar -a→-e automáticamente cuando hay vocal acentuada final."
+      "notes": "Sustantivo invariable — termina en vocal acentuada (-à) → no flexiona en plural. Distractoras: `citte` (regla -a→-e ingenua que aplicaría al patrón regular), `cittàe` (mezcla acento+e), `cittadi` (calco de cittadino). Pitfall A1: resistir la tentación de aplicar -a→-e automáticamente cuando hay vocal acentuada final.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "sustantivos-irregulares-010",
