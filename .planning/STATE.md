@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Más contenido A1 (Articoli + Partitivos)
 status: executing
-last_updated: "2026-05-27T20:58:35.938Z"
-last_activity: 2026-05-27 -- Phase 11 planning complete
+last_updated: "2026-05-27T21:15:11.370Z"
+last_activity: 2026-05-27
 progress:
   total_phases: 4
   completed_phases: 0
   total_plans: 5
-  completed_plans: 0
+  completed_plans: 1
   percent: 0
 ---
 
@@ -21,18 +21,18 @@ See: `.planning/PROJECT.md` (updated 2026-05-27)
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 11 — Articoli (8ª categoría de contenido A1)
+**Current Focus:** Phase 11 — articoli
 
 **Milestone v1.2 Goal:** Añadir 2 categorías nuevas de gramática A1 (Articoli y Partitivos), diseñadas desde cero sin PDF de referencia. Cada categoría sigue el mismo flujo dentro de su propia fase: (a) temario exhaustivo ANTES de redactar ejercicios → (b) ejercicios que cubren cada celda del temario → (c) explanations pedagógicas curadas → (d) validación por quórum ≥2 IAs distintas reutilizando la infraestructura editorial de v1.1 (skill `gsd-validate-batch` + reporter `scripts/run-validation-271.mjs` + reglas R1-R7). NO se modifica el engine: motor de re-verificación, sampler, cascada D-54, schema validator y 3 tipos de ejercicio están DONE.
 
 ## Current Position
 
-Phase: 11 of 12 (Articoli)
-Plan: — (sin descomponer todavía)
+Phase: 11 (articoli) — EXECUTING
+Plan: 2 of 5
 Status: Ready to execute
-Last activity: 2026-05-27 -- Phase 11 planning complete
+Last activity: 2026-05-27 -- Plan 11-01 completado (temario Articoli aprobado por el autor)
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [██░░░░░░░░] 20%
 
 ## Performance Metrics
 
@@ -56,6 +56,7 @@ Progress: [░░░░░░░░░░] 0%
 |-------|-------|-------|----------|
 | 11. Articoli | 0 | — | — |
 | 12. Partitivos | 0 | — | — |
+| Phase 11 P01 | 5min | 2 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -77,6 +78,7 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - **Distinción partitivo vs preposizione articolata** (PART-05) — `del/della` comparten forma con la preposizione articolata, pero la función prepositiva YA vive en Preposiciones; Partitivos cubre SOLO "algo de".
 - **Canon editorial heredado de v1.1/v1.0** — explanations en español acentuado (á/é/í/ó/ú + ñ RAE) + italianismos citados con ortografía italiana, plain text sin markdown, apóstrofes ASCII U+0027 (D-129/D-135/D-137).
 - **Validación reutiliza infra v1.1 sin tocarla** — skill `gsd-validate-batch` + reporter + R1-R7. Añadir una categoría al reporter y al smoke test es bump de constantes: `TOTAL_EXPECTED` (272 → +N) + nueva entry en el array `CATEGORIES` del reporter + 1 línea en `CATEGORIES_WITH_EXPLANATIONS` (D-144) con la cuenta exacta de la categoría.
+- [Phase ?]: Temario Articoli aprobado por el autor sin cambios (checkpoint 11-01); casos A2 (lo pneumatico/lo yogurt) fuera por D-03
 
 ### Pending Todos
 
@@ -108,8 +110,9 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future):
 
 ### Last Session
 
-- **Fecha:** 2026-05-27 — Roadmap del milestone v1.2 creado por el roadmapper.
-- **Trabajo actual:** Creados/actualizados `.planning/ROADMAP.md` (Phase 11 Articoli + Phase 12 Partitivos añadidas a la sección v1.2 ACTIVE con summary checklist + Phase Details con goal/depends-on/requirements/5 success criteria cada una + UI hint:yes en ambas + Progress table extendida), `.planning/REQUIREMENTS.md` (traceability confirmada 15/15 mapped, 0 orphans, 0 duplicados), `.planning/STATE.md` (este — re-inicializado para v1.2 planning). v1.0 y v1.1 preservados archivados en la sección Milestones y en `.planning/milestones/`.
+- **Fecha:** 2026-05-27 — Plan 11-01 completado: temario exhaustivo de Articoli redactado (commit `74cd086`) y APROBADO por el autor en el checkpoint human-verify sin cambios. ART-02 satisfecho; orden temario-antes-de-ejercicios verificable en git (no existe `content/exercises/articoli.json`). Stopped at: Completed 11-01-PLAN.md. Resume file: None. Siguiente: Plan 11-02 (ejercicios base multiple-choice).
+- **Trabajo previo (v1.2 roadmap, 2026-05-27):** Roadmap del milestone v1.2 creado por el roadmapper.
+- **Trabajo actual (roadmap):** Creados/actualizados `.planning/ROADMAP.md` (Phase 11 Articoli + Phase 12 Partitivos añadidas a la sección v1.2 ACTIVE con summary checklist + Phase Details con goal/depends-on/requirements/5 success criteria cada una + UI hint:yes en ambas + Progress table extendida), `.planning/REQUIREMENTS.md` (traceability confirmada 15/15 mapped, 0 orphans, 0 duplicados), `.planning/STATE.md` (este — re-inicializado para v1.2 planning). v1.0 y v1.1 preservados archivados en la sección Milestones y en `.planning/milestones/`.
 - **Cobertura:** 15/15 requirements mapped (ART-01..08 → Phase 11; PART-01..07 → Phase 12). 0 orphans. 0 gaps en success criteria (cada criterio observable tiene ≥1 requisito que lo soporta).
 - **Trabajo previo (v1.1 SHIPPED 2026-05-27):** 2 fases, 8 plans, 272/272 ejercicios validados por quórum, 55 disputed resueltos. Archivado en `.planning/milestones/v1.1-ROADMAP.md`.
 - **Trabajo previo (v1.0 SHIPPED 2026-05-25):** 10 fases, 26 plans, motor + 7 categorías + Modo Examen. Archivado en `.planning/milestones/v1.0-ROADMAP.md`.
