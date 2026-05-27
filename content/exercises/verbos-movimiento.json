@@ -337,27 +337,12 @@
         "prompt": "Maria è ___ al cinema ieri.",
         "options": ["andato", "andata", "andati", "andate"],
         "correctIndex": 1,
-        "explanation": "Una vez fijado el auxiliar 'è' (3ª singular de essere), el participio se elige por el género y número del sujeto: 'Maria' es femenino singular, así que el participio de andare es 'andata'. 'Maria è andata al cinema' equivale al español 'Maria fue al cine'. Ojo: este ejercicio es la cara complementaria al anterior; entre ambos se fija la doble pieza auxiliar essere + participio concordado del passato prossimo."
+        "explanation": "Una vez fijado el auxiliar 'è' (3ª singular de essere), el participio se elige por el género y número del sujeto: 'Maria' es femenino singular, así que el participio de andare es 'andata'. 'Maria è andata al cinema' equivale al español 'Maria fue al cine'. El passato prossimo combina dos piezas: el auxiliar essere y el participio concordado en género y número."
       },
       "notes": "PDF §5 ejercicio nº1 — par complementario al -011: ahora con auxiliar dado, el hueco es el participio. Maria = femenino singular → 'andata'.",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C4-explanation] meta-staging: la explanation dice que este ejercicio es la cara complementaria al anterior (entre ambos se fija la doble pieza) — referencia al diseno del conjunto, no contenido linguistico para el alumno."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -629,27 +614,12 @@
         "prompt": "Vedendo il pericolo, Marco ___ corso a casa.",
         "options": ["ha", "è", "hanno", "avete"],
         "correctIndex": 1,
-        "explanation": "Cuando correre lleva un destino explícito (aquí 'a casa'), el verbo se comporta como un verbo de movimiento direccional y pide essere, no avere. La 3ª persona singular es 'è', así que 'Marco è corso a casa' equivale al español 'Marco corrió a casa'. Ojo: este ejercicio es la cara opuesta del anterior, con el mismo participio 'corso' pero auxiliar distinto; la pregunta clave para elegir es siempre '¿hay un destino?'."
+        "explanation": "Cuando correre lleva un destino explícito (aquí 'a casa'), el verbo se comporta como un verbo de movimiento direccional y pide essere, no avere. La 3ª persona singular es 'è', así que 'Marco è corso a casa' equivale al español 'Marco corrió a casa'. La pregunta clave para elegir el auxiliar de correre es siempre: ¿hay un destino? Con destino, essere; sin destino, avere."
       },
       "notes": "Correre con destino explícito ('a casa') → ESSERE per PDF §4 nota correre*. Aux essere 3ª singular ('è'). Cara opuesta a -021: misma forma 'corso' pero auxiliar cambia según haya destino o no.",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C4-explanation] meta-staging: la explanation dice que este ejercicio es la cara opuesta del anterior, referencia a la secuencia de ejercicios, no contenido linguistico para el alumno."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -822,30 +792,15 @@
       "type": "multiple-choice",
       "categoryIds": ["verbos-movimiento"],
       "payload": {
-        "prompt": "Tu sei ___ ieri sera?",
+        "prompt": "Marco, tu sei ___ ieri sera?",
         "options": ["uscito", "uscita", "usciti", "uscite"],
         "correctIndex": 0,
-        "explanation": "Con 'tu' como sujeto singular y el auxiliar 'sei' ya dado, el participio se elige por el género del destinatario: si es masculino, termina en -o ('uscito'); si es femenino, en -a ('uscita'). La frase 'tu sei uscito ieri sera?' equivale al español '¿saliste ayer por la noche?'. Cuidado: la versión escrita exige que el hablante conozca el género de su interlocutor, algo invisible en la conjugación verbal misma pero obligatorio en el participio."
+        "explanation": "Con 'Marco' como destinatario masculino y el auxiliar 'sei' ya dado, el participio de uscire es masculino singular: 'uscito'. 'Marco, tu sei uscito ieri sera?' equivale al español 'Marco, ¿saliste ayer por la noche?'. Importante: el participio con essere concuerda con el género del sujeto; si el destinatario fuera una mujer, sería 'uscita'."
       },
       "notes": "Concordancia masculino singular con tu (asumiendo destinatario masculino): 'uscito'. Variante de género típica A1 — si la pregunta se dirige a una mujer sería 'uscita'.",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C2-una_opcion] el genero del tu no esta fijado: uscito (masc) y uscita (fem) son ambas correctas; un alumno mujer que responda uscita estaria en lo correcto pero el ejercicio marca solo uscito. Fijar el genero en el enunciado."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
