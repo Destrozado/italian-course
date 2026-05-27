@@ -300,7 +300,26 @@
         "correctIndex": 1,
         "explanation": "El sujeto 'Maria' es 3ª persona singular femenina, así que el auxiliar de essere es 'è' y el participio concuerda en -a: 'Maria è andata al cinema' equivale al español 'Maria fue al cine'. La distractora 'ha' tienta porque calca el español 'ha ido', pero en italiano el verbo andare pide essere; el participio 'andata' del enunciado ya da la pista, porque solo concuerda tras un auxiliar essere."
       },
-      "notes": "PDF §5 ejercicio práctico nº1 ('Maria ___ ___ (andare) al cinema ieri'). Aux essere 3ª singular + participio femenino 'andata' por sujeto Maria. Practica conjunta auxiliar + concordancia."
+      "notes": "PDF §5 ejercicio práctico nº1 ('Maria ___ ___ (andare) al cinema ieri'). Aux essere 3ª singular + participio femenino 'andata' por sujeto Maria. Practica conjunta auxiliar + concordancia.",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C5-leak] el participio andata (fem sing) en el prompt filtra que el auxiliar es essere: solo essere exige concordancia de genero/numero, asi que un alumno que sepa la regla deduce el auxiliar sin recordar que andare pide essere."
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "verbos-movimiento-012",
