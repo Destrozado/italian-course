@@ -280,7 +280,24 @@
         "correctIndex": 0,
         "explanation": "Caso paralelo a 'cameriere/cameriera': 'infermiere' (enfermero) pasa a 'infermiera' (enfermera) por la regla productiva -iere→-iera, con elisión del artículo ante vocal ('l'infermiere'/'l'infermiera'). Cuidado: la profesión no es invariable como 'cantante' o 'insegnante'; la terminación -iere SÍ flexiona en italiano A1 sin excepciones en el material."
       },
-      "notes": "PDF §2 -iere → -iera. Distractoras: `infermieressa` (calco -essa), `infermiere` (invariable falso), `infermiritrice` (-trice mal aplicada con duplicación). Pitfall: las profesiones en -iere son TODAS -iera en fem, sin excepción en el PDF."
+      "notes": "PDF §2 -iere → -iera. Distractoras: `infermieressa` (calco -essa), `infermiere` (invariable falso), `infermiritrice` (-trice mal aplicada con duplicación). Pitfall: las profesiones en -iere son TODAS -iera en fem, sin excepción en el PDF.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-011",
