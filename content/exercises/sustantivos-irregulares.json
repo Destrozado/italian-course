@@ -567,7 +567,24 @@
         "correctIndex": 1,
         "explanation": "El sustantivo masculino 'dito' (dedo) cambia a género femenino al pluralizar y termina en -a: 'il dito' → 'le dita'. La concordancia exige adjetivo y artículo femeninos: 'le dita lunghe' (los dedos largos). Misma familia que 'braccio → braccia', 'uovo → uova', 'osso → ossa'."
       },
-      "notes": "Convertido de ex-match-202. Caso especial cuerpo masc -o → fem plural -a. Distractoras: `diti` (regla ingenua -o→-i), `ditos` (calco español), `ditti` (duplicación consonante errónea, además homófono cercano a `detti`). Familia con braccio/osso/ginocchio."
+      "notes": "Convertido de ex-match-202. Caso especial cuerpo masc -o → fem plural -a. Distractoras: `diti` (regla ingenua -o→-i), `ditos` (calco español), `ditti` (duplicación consonante errónea, además homófono cercano a `detti`). Familia con braccio/osso/ginocchio.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "sustantivos-irregulares-021",
