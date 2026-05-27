@@ -938,7 +938,28 @@
         "correctIndex": 2,
         "explanation": "Cualquier palabra que ostente un acento ortográfico en su última vocal pertenece a la categoría de palabras invariables. Dicho de otro modo, la forma singular y la plural se escriben exactamente igual: 'città' (ciudad) es 'due città' (dos ciudades)."
       },
-      "notes": "Convertido de ex-match-206 (città↔città). Sustantivo invariable §3 — termina en vocal acentuada -à → NO flexiona. Distractoras: `cittàe` (mezcla acento+e), `citte` (regla -a→-e ingenua), `cittadi` (calco con plural latino-romance). Pitfall A1: NO aplicar -a→-e automáticamente cuando hay vocal acentuada."
+      "notes": "Convertido de ex-match-206 (città↔città). Sustantivo invariable §3 — termina en vocal acentuada -à → NO flexiona. Distractoras: `cittàe` (mezcla acento+e), `citte` (regla -a→-e ingenua), `cittadi` (calco con plural latino-romance). Pitfall A1: NO aplicar -a→-e automáticamente cuando hay vocal acentuada.",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C5-leak] El prompt incluye (sustantivo invariable, vocal acentuada), etiqueta que nombra la regla aplicable (invariabilidad) y el criterio (vocal acentuada) que el alumno deberia deducir; debe limitarse a la frase con el blank."
+            ]
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C5-leak] El prompt incluye (sustantivo invariable, vocal acentuada), etiqueta que nombra la regla aplicable (invariabilidad) y el criterio (vocal acentuada) que el alumno deberia deducir; debe limitarse a la frase con el blank."
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "genero-numero-034",
