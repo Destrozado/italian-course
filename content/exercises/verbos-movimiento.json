@@ -825,7 +825,24 @@
         "correctIndex": 1,
         "explanation": "Nuotare reaparece aquí en 2ª persona plural para fijar la regla del PDF §4: como describe una actividad física sin destino, exige avere. La 2ª persona plural es 'avete', así que 'voi avete nuotato in mare quest'estate?' equivale al español '¿vosotros habéis nadado en el mar este verano?'. Cuidado: la trampa típica es elegir 'siete' por contagio con los verbos de movimiento; el filtro mental siempre debe ser '¿hay destino?', no '¿hay movimiento?'."
       },
-      "notes": "Nuotare excepción §4 (actividad física) → AVERE. Aux 2ª plural ('avete'). Refuerza con persona distinta al -018."
+      "notes": "Nuotare excepción §4 (actividad física) → AVERE. Aux 2ª plural ('avete'). Refuerza con persona distinta al -018.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "verbos-movimiento-031",
