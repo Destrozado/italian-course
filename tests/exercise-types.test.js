@@ -1270,7 +1270,8 @@ const CATEGORIES_WITH_EXPLANATIONS = [
   { file: 'content/exercises/verbos-movimiento.json', expected: 37 },
   { file: 'content/exercises/essere.json', expected: 39 },
   { file: 'content/exercises/profesiones.json', expected: 51 },
-  // Cobertura 100% editorial: 271/271 ejercicios con explanation curada. Milestone v1.0 ready to ship.
+  { file: 'content/exercises/articoli.json', expected: 56 },
+  // Cobertura editorial: 272/272 v1.0/v1.1 + 56 articoli (8ª categoría, v1.2 Phase 11) = 328 con explanation curada.
 ];
 
 describe('Categorías con explanation coverage (Phase 7.1+)', () => {
