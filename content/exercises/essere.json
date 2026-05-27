@@ -53,7 +53,24 @@
         "correctIndex": 2,
         "explanation": "El presente indicativo de essere en la segunda persona singular es 'sei', que acompaña al pronombre 'tu'. La frase '¿Tu sei italiano?' equivale al español '¿Tú eres italiano?': el verbo essere se usa para identidad y nacionalidad por igual. ¡Atención!: la distractora 'hai' pertenece a avere y no encaja con nacionalidad; en italiano la nacionalidad siempre se predica con essere, nunca con avere."
       },
-      "notes": "Presente indicativo, 2ª persona singular (tu) en interrogación — variante D-92. Distractora `hai` = avere."
+      "notes": "Presente indicativo, 2ª persona singular (tu) en interrogación — variante D-92. Distractora `hai` = avere.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "essere-003",
