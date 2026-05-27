@@ -68,7 +68,24 @@
         "correctIndex": 1,
         "explanation": "Los sustantivos del cuerpo humano que designan partes pareadas suelen formar el plural en -a y cambian a género femenino: 'il braccio' (el brazo, masc) → 'le braccia' (los brazos, fem). Por eso se dice 'le braccia stanche' (los brazos cansados, con concordancia femenina). Misma familia: dito → dita, osso → ossa, labbro → labbra."
       },
-      "notes": "PDF §4 ¡A practicar! nº3 + §2 cuerpo. Cambio masc sing → fem plural -a. Distractora bracci tipica regla -o→-i."
+      "notes": "PDF §4 ¡A practicar! nº3 + §2 cuerpo. Cambio masc sing → fem plural -a. Distractora bracci tipica regla -o→-i.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "sustantivos-irregulares-004",
