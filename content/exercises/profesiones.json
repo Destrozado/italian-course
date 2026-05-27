@@ -1290,7 +1290,24 @@
         "distractors": ["avvocato", "ho"],
         "explanation": "Frase A1 que combina essere en tercera persona singular ('lei è') con el femenino regular -o→-a ('avvocato' pasa a 'avvocata'). Importante: el sujeto femenino exige concordancia, así que 'avvocato' masculino sería incongruente. Cuidado: la profesión predicativa exige essere, no avere; el calco español 'ella ha de abogada' no existe, y la distractora 'ho' refuerza esta diferencia."
       },
-      "notes": "Frase A1 — practica essere 3ª singular + femenino regular -o→-a (PDF §1 avvocato→avvocata). Distractora `avvocato` fuerza concordancia de género con sujeto femenino 'lei'. Distractora `ho` (avere 1ª) recuerda que profesión usa essere, no avere. Sin punto final en tokens (W-6)."
+      "notes": "Frase A1 — practica essere 3ª singular + femenino regular -o→-a (PDF §1 avvocato→avvocata). Distractora `avvocato` fuerza concordancia de género con sujeto femenino 'lei'. Distractora `ho` (avere 1ª) recuerda que profesión usa essere, no avere. Sin punto final en tokens (W-6).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-102",
