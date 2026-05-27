@@ -810,7 +810,24 @@
         "correctIndex": 2,
         "explanation": "La familia productiva -tore/-trice aplicada al léxico técnico moderno: 'programmatore' (programador) pasa a 'programmatrice' (programadora). Importante: el patrón es estable y predecible para todos los agentes derivados en -tore, en paralelo con 'traduttore/traduttrice' y 'pittore/pittrice'. Cuidado con el calco español 'programmatora', que el italiano A1 no acepta."
       },
-      "notes": "PDF §5 Altre — familia -tore/-trice. Distractoras: `programmatora` (regla regular mal aplicada, calco español), `programmatressa` (mezcla -essa), `programmatoressa` (mezcla -essa con conservación errónea de -ore). Familia productiva: programmatore/programmatrice, traduttore/traduttrice, muratore/muratrice, pittore/pittrice."
+      "notes": "PDF §5 Altre — familia -tore/-trice. Distractoras: `programmatora` (regla regular mal aplicada, calco español), `programmatressa` (mezcla -essa), `programmatoressa` (mezcla -essa con conservación errónea de -ore). Familia productiva: programmatore/programmatrice, traduttore/traduttrice, muratore/muratrice, pittore/pittrice.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-030",
