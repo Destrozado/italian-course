@@ -97,7 +97,24 @@
         "correctIndex": 1,
         "explanation": "Tornare (volver, regresar) es un verbo de movimiento clásico que pide essere en passato prossimo. La 1ª persona plural de essere es 'siamo', así que 'noi siamo tornati' equivale al español 'nosotros hemos vuelto'. Además, el participio concuerda en género y número con el sujeto: aquí 'tornati' es plural masculino, asumiendo un grupo de hombres o un grupo mixto; un grupo solo de mujeres exigiría 'tornate'."
       },
-      "notes": "Essere presente 1ª plural ('siamo') como auxiliar de tornare + concordancia plural masculino ('tornati'). PDF §3 ejemplo canónico 'Siamo tornati'."
+      "notes": "Essere presente 1ª plural ('siamo') como auxiliar de tornare + concordancia plural masculino ('tornati'). PDF §3 ejemplo canónico 'Siamo tornati'.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "verbos-movimiento-005",
