@@ -941,7 +941,24 @@
         "correctIndex": 2,
         "explanation": "El sujeto compuesto 'Marco e Luigi' suma dos masculinos, así que el participio plural es masculino y termina en -i: 'Marco e Luigi sono entrati in ufficio presto' equivale al español 'Marco y Luigi entraron pronto a la oficina'. Importante: el italiano hace concordancia plural sobre el grupo entero, no sobre el último miembro; la regla es agregar y luego decidir género del grupo resultante, que por defecto es masculino salvo que sea todo femenino."
       },
-      "notes": "Concordancia plural masculino con sujeto compuesto ('Marco e Luigi'): 'entrati'. Refuerza regla A1: cualquier grupo con al menos un masculino → plural masculino."
+      "notes": "Concordancia plural masculino con sujeto compuesto ('Marco e Luigi'): 'entrati'. Refuerza regla A1: cualquier grupo con al menos un masculino → plural masculino.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "verbos-movimiento-100",
