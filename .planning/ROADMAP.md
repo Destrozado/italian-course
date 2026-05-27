@@ -73,7 +73,12 @@
   3. Hay ejercicios que obligan al autor a distinguir la función partitiva ("algo de") de la preposizione articolata ("de el") cuando comparten la misma forma `del/della` — la explanation deja claro que la función prepositiva vive en la categoría Preposiciones, no aquí.
   4. Cada ejercicio de Partitivos muestra una explanation pedagógica al fallar (mismo canon que Articoli), y el smoke test paramétrico `CATEGORIES_WITH_EXPLANATIONS` cubre el archivo nuevo con su cuenta exacta.
   5. El reporter `node scripts/run-validation-271.mjs` sale exit 0 incluyendo todos los ejercicios nuevos de Partitivos (cada uno `status: validated` con ≥2 `by` distintos en `passes[]`), y el smoke test estricto `VAL_07_STRICT=1 node --test tests/*.test.js` sigue verde con las constantes de cuenta actualizadas.
-**Plans**: TBD
+**Plans**: 5 plans en 5 waves (cadena secuencial — el archivo de contenido compartido partitivos.json fuerza serializacion; validacion interactiva al final). Sin bridges (D-14).
+- [ ] 12-01-PLAN.md — Temario exhaustivo del partitivo (PRIMER entregable, checkpoint human-verify, PART-02)
+- [ ] 12-02-PLAN.md — Bloque base multiple-choice: del-formas incontable/contable + alternativas por restriccion + mini-bloque omision + explanations (PART-03/04/06)
+- [ ] 12-03-PLAN.md — Bloque match sustantivo↔forma partitiva + clasificacion partitivo/preposicion PART-05 + explanations; fija conteo final N (PART-05/06)
+- [ ] 12-04-PLAN.md — Integracion 3-count lockstep: categories.json order 9 + reporter TOTAL_EXPECTED 328+N + test (PART-01)
+- [ ] 12-05-PLAN.md — Validacion por quorum cross-vendor DeepSeek Flash + Sonnet 4.6 (interactivo) + gate verde (PART-07)
 **UI hint**: yes
 
 ## Progress
@@ -93,7 +98,7 @@
 | 9. Infraestructura de validación | v1.1 | 3/3 | Complete | 2026-05-26 |
 | 10. Ejecución validación 271 ejercicios + escalada | v1.1 | 5/5 | Complete | 2026-05-27 |
 | 11. Articoli | v1.2 | 5/5 | Complete    | 2026-05-27 |
-| 12. Partitivos | v1.2 | 0/? | Not started | - |
+| 12. Partitivos | v1.2 | 0/5 | Planned | - |
 
 ## Backlog
 
