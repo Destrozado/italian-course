@@ -635,7 +635,24 @@
         "correctIndex": 3,
         "explanation": "El sujeto 'Loro (donne)' es plural femenino, así que el participio de andare termina en -e: 'Loro sono andate in centro' equivale al español 'Ellas han ido al centro'. Este ejercicio cierra la matriz de concordancia con essere: -o (masc sg), -a (fem sg), -i (masc pl), -e (fem pl). Importante: las cuatro terminaciones se aplican a TODOS los participios de los verbos de movimiento, no solo a andare."
       },
-      "notes": "Concordancia plural femenino con essere: 'Loro (donne)' → 'andate'. Cubre el cuarto valor de la matriz andato/andata/andati/andate (PDF §3 ¡Atención!)."
+      "notes": "Concordancia plural femenino con essere: 'Loro (donne)' → 'andate'. Cubre el cuarto valor de la matriz andato/andata/andati/andate (PDF §3 ¡Atención!).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "verbos-movimiento-024",
