@@ -1042,8 +1042,23 @@
       },
       "notes": "Passato prossimo masc sing: auxiliar essere + participio `stato`. Trampa fortísima: hispanohablante diría `ho stato` (calco 'he estado'), pero los verbos intransitivos como essere usan auxiliar essere, no avere. Distractora `ho` = avere.",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] La frase el auxiliar es siempre è, no stato es confusa: è es solo 3ª persona singular; en 1ª persona el auxiliar es sono. Un alumno A1 puede inferir Io è andato. Reformular: el auxiliar es essere conjugado en la persona correspondiente (sono/sei/è/siamo...), no avere."
+            ]
+          }
+        ]
       }
     },
     {
