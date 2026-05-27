@@ -97,7 +97,24 @@
         "correctIndex": 3,
         "explanation": "Los sustantivos italianos terminados en -e (masculinos o femeninos) forman el plural con -i: 'la moglie' (la esposa) → 'le mogli' (las esposas). Ojo: la 'e' final no se duplica al añadir la 'i'; se sustituye. Mismo patrón que 'madre → madri' y 'padre → padri'."
       },
-      "notes": "PDF §4 ¡A practicar! nº4 + §1 familia. Regla -e→-i (grupo mixto). Distractora `moglie` (invariable, falso amigo) y `moglii` (doble-i común error)."
+      "notes": "PDF §4 ¡A practicar! nº4 + §1 familia. Regla -e→-i (grupo mixto). Distractora `moglie` (invariable, falso amigo) y `moglii` (doble-i común error).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "sustantivos-irregulares-005",
