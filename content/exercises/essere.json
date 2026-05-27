@@ -565,7 +565,24 @@
         "correctIndex": 3,
         "explanation": "La nacionalidad en plural masculino concuerda con el sujeto colectivo loro, conjugado con essere: 'Loro sono tedeschi' equivale al español 'Ellos son alemanes'. Ojo con la grafía del plural: 'tedesco' (singular) cambia a 'tedeschi' añadiendo la 'h' para preservar el sonido duro de la consonante; sin la 'h', 'tedesci' sonaría suave (como 'sh'). Es el mismo patrón -co → -chi que aparece en muchos sustantivos masculinos italianos."
       },
-      "notes": "Nacionalidad plural masc (tedesco → tedeschi). Distractora `hanno` = avere."
+      "notes": "Nacionalidad plural masc (tedesco → tedeschi). Distractora `hanno` = avere.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "essere-101",
