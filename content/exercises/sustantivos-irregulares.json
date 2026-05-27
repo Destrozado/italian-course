@@ -393,7 +393,24 @@
         "correctIndex": 0,
         "explanation": "La regla productiva para los sustantivos femeninos terminados en -a es formar el plural con -e: 'la donna' (la mujer) → 'le donne' (las mujeres). Cuidado: a diferencia del español, el italiano no añade -s — usa cambio vocálico. Misma familia: casa → case, ragazza → ragazze."
       },
-      "notes": "Convertido de ex-match-200. Regla regular fem -a→-e. Distractoras: `donni` (calco masc -i), `donna` (invariable falso), `donnas` (calco español -s). Pitfall A1: familia fem siempre -a→-e."
+      "notes": "Convertido de ex-match-200. Regla regular fem -a→-e. Distractoras: `donni` (calco masc -i), `donna` (invariable falso), `donnas` (calco español -s). Pitfall A1: familia fem siempre -a→-e.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "sustantivos-irregulares-015",
