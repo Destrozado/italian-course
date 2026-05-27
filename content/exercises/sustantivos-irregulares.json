@@ -792,7 +792,24 @@
         "correctIndex": 1,
         "explanation": "El singular del plural regular 'donne' es 'donna' (mujer). La regla productiva femenina hace -a (singular) ↔ -e (plural), con simetría perfecta. Ojo: el lema 'donno' no existe en italiano; intentar derivarlo desde la regla masculina sería un error. El reconocimiento bidireccional (singular ↔ plural) refuerza el patrón fem productivo."
       },
-      "notes": "Convertido de ex-match-206. Dirección inversa fem plural→singular. Distractoras: `donno` (masc regular inexistente), `donne` (invariable falso), `donni` (plural masc inexistente). Refuerzo: -e plural → -a singular en regla regular fem."
+      "notes": "Convertido de ex-match-206. Dirección inversa fem plural→singular. Distractoras: `donno` (masc regular inexistente), `donne` (invariable falso), `donni` (plural masc inexistente). Refuerzo: -e plural → -a singular en regla regular fem.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "sustantivos-irregulares-029",
