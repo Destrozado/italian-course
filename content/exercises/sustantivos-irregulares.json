@@ -766,8 +766,25 @@
       },
       "notes": "Convertido de ex-match-206 — refuerzo bidireccional (plural→singular). El reconocimiento inverso es crítico para lectura/comprensión. Distractoras: `uomine` (singular regularizado, calco con donna/donne), `uome` (forma inventada plausible para alguien que piensa en fem), `uomini` (invariable falso). Pitfall A1: ver `uomini` y recuperar el lema base `uomo`.",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C1-natural] Due uomini, un ___ (direccion inversa) no es frase natural; la etiqueta (direccion inversa) es andamiaje meta, no lenguaje real."
+            ]
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C1-natural] prompt artificioso; (direccion inversa) es jerga de ejercicio que el alumno A1 no reconoce; la frase carece de naturalidad como oracion real."
+            ]
+          }
+        ]
       }
     },
     {
