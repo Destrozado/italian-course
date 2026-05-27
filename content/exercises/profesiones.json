@@ -1042,7 +1042,24 @@
         "correctIndex": 2,
         "explanation": "Importante: el italiano aplica la regla de elisión universal del artículo definido ante palabra que empieza por vocal. Así 'lo avvocato' y 'la avvocata' nunca aparecen así: se eliden a 'l'avvocato' y 'l'avvocata' con apóstrofe. Cuidado: la elisión es ortográfica y obligatoria en italiano A1, a diferencia del español que mantiene el artículo completo ('el abogado')."
       },
-      "notes": "PDF §1 + nota final 'permettono di ripassare gli articoli'. Elisión ante vocal: l'avvocato (no 'il avvocato'). Distractoras: `il` (forma común con consonante), `lo` (s+cons/z), `la` (femenino — incorrecto por género). Apóstrofe ASCII U+0027."
+      "notes": "PDF §1 + nota final 'permettono di ripassare gli articoli'. Elisión ante vocal: l'avvocato (no 'il avvocato'). Distractoras: `il` (forma común con consonante), `lo` (s+cons/z), `la` (femenino — incorrecto por género). Apóstrofe ASCII U+0027.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-037",
