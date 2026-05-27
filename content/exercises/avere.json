@@ -233,7 +233,24 @@
         "correctIndex": 0,
         "explanation": "En italiano, las sensaciones físicas como el hambre, la sed o el frío se expresan con avere, no con essere: 'ho fame' significa 'tengo hambre', literalmente 'tengo hambre' en su sentido posesivo. ¡Atención!: el hispanohablante a veces traduce 'estoy hambriento' como 'sono affamato', pero la construcción A1 estándar es 'avere fame', siempre con avere."
       },
-      "notes": "Expresión idiomática: 'avere fame' (tener hambre). En italiano se usa avere, no essere."
+      "notes": "Expresión idiomática: 'avere fame' (tener hambre). En italiano se usa avere, no essere.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "avere-008",
