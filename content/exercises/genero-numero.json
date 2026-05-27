@@ -760,7 +760,24 @@
         "correctIndex": 2,
         "explanation": "Siguiendo la misma regla productiva de la familia con sufijo '-essa', la palabra 'studente' requiere añadir esta terminación, resultando en 'studentessa'. Hay que evitar calcos como 'studenta', que resultan completamente antinaturales en la lengua italiana."
       },
-      "notes": "Convertido de ex-match-204 (studente↔studentessa). Familia -e/-essa — ejemplo del PDF. Distractoras: `studenta` (regla ingenua -e→-a), `studentrice` (calco con familia -trice de attore), `studente` (invariable falso). Pitfall A1: estudiante usa -essa (no -trice ni -a)."
+      "notes": "Convertido de ex-match-204 (studente↔studentessa). Familia -e/-essa — ejemplo del PDF. Distractoras: `studenta` (regla ingenua -e→-a), `studentrice` (calco con familia -trice de attore), `studente` (invariable falso). Pitfall A1: estudiante usa -essa (no -trice ni -a).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "genero-numero-028",
