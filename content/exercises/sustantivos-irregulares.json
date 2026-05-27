@@ -751,7 +751,24 @@
         "correctIndex": 0,
         "explanation": "En italiano, adjetivo y sustantivo concuerdan SIEMPRE en número y género dentro de la locución. Por eso 'un giovane uomo' (singular) → 'due giovani uomini' (plural), con AMBAS palabras flexionadas. Cuidado: el adjetivo 'giovane' (-e singular) pluraliza con -i ('giovani'), regla idéntica a 'padre → padri', porque comparte la terminación -e."
       },
-      "notes": "Convertido de ex-match-205. La locución refuerza la concordancia plural en compuestos: ambos elementos pluralizan. Distractoras: `giovane uomini` (solo el sustantivo pluraliza, adjetivo queda en singular — error A1 frecuente), `giovani uomo` (solo el adjetivo pluraliza, sustantivo queda singular — más raro pero pedagógicamente útil), `giovanes uomos` (calco español duplicado). Pitfall A1: en italiano, adjetivo y sustantivo concuerdan SIEMPRE en número y género."
+      "notes": "Convertido de ex-match-205. La locución refuerza la concordancia plural en compuestos: ambos elementos pluralizan. Distractoras: `giovane uomini` (solo el sustantivo pluraliza, adjetivo queda en singular — error A1 frecuente), `giovani uomo` (solo el adjetivo pluraliza, sustantivo queda singular — más raro pero pedagógicamente útil), `giovanes uomos` (calco español duplicado). Pitfall A1: en italiano, adjetivo y sustantivo concuerdan SIEMPRE en número y género.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "sustantivos-irregulares-027",
