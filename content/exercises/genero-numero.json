@@ -182,27 +182,12 @@
         "prompt": "Il dottore → la ___.",
         "options": ["dottora", "dottoressa", "dottrice", "dottore"],
         "correctIndex": 1,
-        "explanation": "Muchas profesiones que terminan en '-e' construyen su femenino añadiendo el sufijo '-essa'. 'Dottore' (doctor) se transforma en 'dottoressa' (doctora). No debe confundirse con la terminación '-trice', reservada exclusivamente para palabras terminadas en '-tore'."
+        "explanation": "Muchas profesiones que terminan en '-e' construyen su femenino añadiendo el sufijo '-essa'. 'Dottore' (doctor) se transforma en 'dottoressa' (doctora)."
       },
       "notes": "PDF §2B + §4 ¡A practicar! nº2. Patrón -e → -essa: dottore→dottoressa. Distractoras: `dottora` (regla ingenua -e→-a), `dottrice` (confusión con familia -tore→-trice), `dottore` (no cambio, falso amigo invariable). Familia productiva con -essa: studente→studentessa, professore→professoressa.",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C4-explanation] La explanation es internamente contradictoria: afirma que -trice es exclusivo de palabras terminadas en -tore, pero dottore SI termina en -tore, con lo que el alumno no entiende por que no aplica -trice aqui. Reformular para coherencia pedagogica o limitarse a enunciar la regla -essa."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -329,27 +314,12 @@
         "prompt": "Una casa, due ___.",
         "options": ["case", "casas", "casi", "cases"],
         "correctIndex": 0,
-        "explanation": "Refuerzo directo de la regla general femenina: si un sustantivo es femenino y termina en -a, su plural invariablemente se formará cambiando esa vocal a -e. El plural de 'casa' siempre es 'case'. Las alternativas terminadas en -s son errores directos del español."
+        "explanation": "Si un sustantivo es femenino y termina en -a, su plural se forma cambiando esa vocal a -e. El plural de 'casa' siempre es 'case'. Las alternativas terminadas en -s son errores directos del español."
       },
       "notes": "Convertido de ex-match-200 (casa↔case). Duplica mc-002 con orden de distractoras distinto. Distractoras: `casas` (calco español), `casi` (regla masc mal aplicada), `cases` (mezcla -e+-s). Pitfall A1 critical: el plural fem es -e, NO -as.",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C4-explanation] La explanation abre con Refuerzo directo de la regla general femenina, etiqueta meta-staging orientada al curador/sistema en lugar del alumno; debe empezar directamente con la regla o el contraste."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -795,29 +765,12 @@
         "prompt": "Il dottore → la ___.",
         "options": ["dottoressa", "dottrice", "dottora", "dottore"],
         "correctIndex": 0,
-        "explanation": "Un refuerzo sobre el uso de la familia '-essa'. 'Dottore' (doctor) termina en '-e', pero nota que no termina en '-tore' (la raíz es dott-). Por ello es correcto aplicar el sufijo y obtener 'dottoressa' en lugar de equivocarnos usando '-trice'."
+        "explanation": "El femenino de muchos títulos terminados en '-e' se forma con el sufijo '-essa'. Por eso 'dottore' (doctor) se convierte en 'dottoressa' (doctora)."
       },
       "notes": "Convertido de ex-match-204 (dottore↔dottoressa). Duplica mc-007 con orden de distractoras invertido (correct en index 0). Repaso espaciado de la familia -essa más común. Distractoras: `dottrice` (calco -trice), `dottora` (regla ingenua), `dottore` (invariable falso).",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C4-explanation] Afirmacion linguisticamente falsa: dice que dottore NO termina en -tore cuando si termina en -tore; justificacion basada en premisa erronea, contradictoria/confusa. Abre con meta-staging Un refuerzo sobre."
-            ]
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C4-explanation] La explicacion afirma que dottore no termina en -tore, factualmente incorrecto e internamente contradictorio (invoca -trice como distractor precisamente por la analogia con -tore). El alumno recibiria una regla falsa."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -941,32 +894,15 @@
       "type": "multiple-choice",
       "categoryIds": ["genero-numero"],
       "payload": {
-        "prompt": "Una città, due ___ (sustantivo invariable, vocal acentuada).",
+        "prompt": "Una città, due ___.",
         "options": ["cittàe", "citte", "città", "cittadi"],
         "correctIndex": 2,
         "explanation": "Cualquier palabra que ostente un acento ortográfico en su última vocal pertenece a la categoría de palabras invariables. Dicho de otro modo, la forma singular y la plural se escriben exactamente igual: 'città' (ciudad) es 'due città' (dos ciudades)."
       },
       "notes": "Convertido de ex-match-206 (città↔città). Sustantivo invariable §3 — termina en vocal acentuada -à → NO flexiona. Distractoras: `cittàe` (mezcla acento+e), `citte` (regla -a→-e ingenua), `cittadi` (calco con plural latino-romance). Pitfall A1: NO aplicar -a→-e automáticamente cuando hay vocal acentuada.",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C5-leak] El prompt incluye (sustantivo invariable, vocal acentuada), etiqueta que nombra la regla aplicable (invariabilidad) y el criterio (vocal acentuada) que el alumno deberia deducir; debe limitarse a la frase con el blank."
-            ]
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C5-leak] El prompt incluye (sustantivo invariable, vocal acentuada), etiqueta que nombra la regla aplicable (invariabilidad) y el criterio (vocal acentuada) que el alumno deberia deducir; debe limitarse a la frase con el blank."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -974,32 +910,15 @@
       "type": "multiple-choice",
       "categoryIds": ["genero-numero"],
       "payload": {
-        "prompt": "Una università, due ___ (sustantivo invariable, vocal acentuada).",
+        "prompt": "Una università, due ___.",
         "options": ["universite", "università", "universitàe", "universitadi"],
         "correctIndex": 1,
         "explanation": "Reafirmando la regla de las palabras agudas, 'università' finaliza en vocal acentuada. En consecuencia, el sustantivo es invariable. Aquí es el artículo de la oración (una università, le università) el único responsable de comunicarnos si estamos hablando en plural o singular."
       },
       "notes": "Convertido de ex-match-206 (università↔università). Mismo patrón -tà invariable. Distractoras: `universite` (regla ingenua -a→-e), `universitàe` (mezcla acento+e), `universitadi` (calco con plural latino-romance). Familia -tà invariable: città, libertà, possibilità, qualità.",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C5-leak] El prompt incluye (sustantivo invariable, vocal acentuada), etiqueta que nombra la regla aplicable (invariabilidad) y el criterio (vocal acentuada) que el alumno deberia deducir; debe limitarse a la frase con el blank."
-            ]
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C5-leak] El prompt incluye (sustantivo invariable, vocal acentuada), etiqueta que nombra la regla aplicable (invariabilidad) y el criterio (vocal acentuada) que el alumno deberia deducir; debe limitarse a la frase con el blank."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -1036,32 +955,15 @@
       "type": "multiple-choice",
       "categoryIds": ["genero-numero"],
       "payload": {
-        "prompt": "Un film, due ___ (sustantivo invariable, préstamo inglés).",
+        "prompt": "Un film, due ___.",
         "options": ["filmi", "films", "filme", "film"],
         "correctIndex": 3,
         "explanation": "Cuando el italiano pide prestadas palabras de origen extranjero que acaban en consonante (como film, sport, bar o computer), se designan como invariables. A diferencia del inglés original, en italiano estas palabras no adoptan una 's' al pluralizarse."
       },
       "notes": "Convertido de ex-match-206 (film↔film). Préstamo del inglés terminado en consonante → invariable. Distractoras: `filmi` (regla -o→-i ingenua aplicada erróneamente — film no acaba en -o), `films` (calco inglés con -s), `filme` (calco alemán/fem). Familia anglicisms invariables: film, sport, bar, computer.",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C5-leak] El prompt incluye (sustantivo invariable, prestamo ingles), que nombra la regla evaluada (invariabilidad de prestamos) y revela la solucion. Eliminar la anotacion."
-            ]
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C5-leak] El prompt incluye (sustantivo invariable, prestamo ingles) que nombra la regla y orienta a la respuesta (invariable => plural=film). Dejar solo Un film, due ___."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
