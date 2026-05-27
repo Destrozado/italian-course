@@ -536,7 +536,24 @@
         "correctIndex": 0,
         "explanation": "Camminare (caminar) entra en la lista de excepciones por describir una actividad física sin destino, así que pide avere en passato prossimo. Con el auxiliar avere, el participio queda invariable: siempre 'camminato', terminado en -o, sin marcar género ni número. 'Ho camminato tutta la mattina nel parco' equivale al español 'He caminado toda la mañana en el parque'. Cuidado: las terminaciones en -a, -i, -e solo aparecen tras essere; tras avere son trampas."
       },
-      "notes": "Camminare = excepción §4 (actividad física sin destino) → AVERE. Con avere el participio NO concorda con el sujeto (PDF §4 'no cambia, siempre termina en -o'): 'camminato' invariable. Aux 1ª singular ('ho') ya dado."
+      "notes": "Camminare = excepción §4 (actividad física sin destino) → AVERE. Con avere el participio NO concorda con el sujeto (PDF §4 'no cambia, siempre termina en -o'): 'camminato' invariable. Aux 1ª singular ('ho') ya dado.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "verbos-movimiento-020",
