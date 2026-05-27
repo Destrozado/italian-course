@@ -10,7 +10,24 @@
         "correctIndex": 1,
         "explanation": "El sustantivo 'uomo' (hombre) tiene un plural irregular con cambio de raíz: 'uomini'. No sigue la regla productiva -o → -i, por eso 'uomi' es incorrecto. Cuidado: el alumno hispanohablante tiende a regularizar el plural; en italiano hay que aprender el lema 'uomo / uomini' como par memorizable."
       },
-      "notes": "PDF §4 ¡A practicar! nº1. Caso especial: cambio de raíz uomo→uomini. Distractoras: uomi (regla -o→-i ingenua), uomos (calco español), uomine (confusión con donna→donne)."
+      "notes": "PDF §4 ¡A practicar! nº1. Caso especial: cambio de raíz uomo→uomini. Distractoras: uomi (regla -o→-i ingenua), uomos (calco español), uomine (confusión con donna→donne).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "sustantivos-irregulares-002",
