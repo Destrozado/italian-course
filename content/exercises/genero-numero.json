@@ -969,8 +969,21 @@
       },
       "notes": "Convertido de ex-match-206 (università↔università). Mismo patrón -tà invariable. Distractoras: `universite` (regla ingenua -a→-e), `universitàe` (mezcla acento+e), `universitadi` (calco con plural latino-romance). Familia -tà invariable: città, libertà, possibilità, qualità.",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
