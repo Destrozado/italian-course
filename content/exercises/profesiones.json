@@ -769,7 +769,24 @@
         "correctIndex": 3,
         "explanation": "¡Atención! La profesión 'pilota' (piloto) ya termina en -a en masculino; el italiano nunca dice 'il piloto'. Es invariable en género y solo el artículo distingue ('il pilota' frente a 'la pilota'). Cuidado: comparte el patrón con otros sustantivos masculinos en -a como 'poeta' y 'atleta' — son terminaciones de origen griego que el alumno hispanohablante asocia erróneamente al femenino."
       },
-      "notes": "PDF §5 Altre — invariable. Distractoras: `pilotessa` (-essa errónea), `piloto` (forma masc inventada con -o), `pilote` (plural fem). Pitfall A1 central: 'pilota' termina en -a pero NO viene de -o→-a; el masculino YA es 'il pilota' (no 'il piloto'). Solo cambia artículo. Familia con poeta, atleta — invariables en -a."
+      "notes": "PDF §5 Altre — invariable. Distractoras: `pilotessa` (-essa errónea), `piloto` (forma masc inventada con -o), `pilote` (plural fem). Pitfall A1 central: 'pilota' termina en -a pero NO viene de -o→-a; el masculino YA es 'il pilota' (no 'il piloto'). Solo cambia artículo. Familia con poeta, atleta — invariables en -a.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-028",
