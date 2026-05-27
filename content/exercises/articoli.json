@@ -31,7 +31,7 @@
       "type": "multiple-choice",
       "categoryIds": ["articoli"],
       "payload": {
-        "prompt": "Dov'e ___ cane di Marco?",
+        "prompt": "Dov'è ___ cane di Marco?",
         "options": ["il", "lo", "l'", "la"],
         "correctIndex": 0,
         "explanation": "Cane empieza por c- (consonante simple), por tanto il cane. El italiano usa lo solo ante grupos consonanticos dificiles de pronunciar tras un sonido cerrado; una c- normal no lo es, asi que se mantiene il."
@@ -226,7 +226,7 @@
       "type": "multiple-choice",
       "categoryIds": ["articoli"],
       "payload": {
-        "prompt": "___ casa di mia nonna e grande.",
+        "prompt": "___ casa di mia nonna è grande.",
         "options": ["il", "lo", "la", "l'"],
         "correctIndex": 2,
         "explanation": "Casa es femenino y empieza por consonante, asi que lleva la: la casa. En femenino el sonido inicial casi no cambia la forma: se usa la ante cualquier consonante (incluida la s impura) y solo l' ante vocal."
@@ -265,7 +265,7 @@
       "type": "multiple-choice",
       "categoryIds": ["articoli"],
       "payload": {
-        "prompt": "Ho una nuova ___ amica spagnola.",
+        "prompt": "___ amica di Sofia è spagnola.",
         "options": ["il", "lo", "la", "l'"],
         "correctIndex": 3,
         "explanation": "Amica empieza por vocal (a-), asi que el femenino singular se elide a l': l'amica. La elision ante vocal funciona igual en femenino que en masculino (l'amico / l'amica): es la unica situacion en que el femenino cambia de la a l'."
@@ -291,7 +291,7 @@
       "type": "multiple-choice",
       "categoryIds": ["articoli"],
       "payload": {
-        "prompt": "___ isola di Capri e bellissima.",
+        "prompt": "___ isola di Capri è bellissima.",
         "options": ["il", "lo", "la", "l'"],
         "correctIndex": 3,
         "explanation": "Isola empieza por vocal (i-), asi que el femenino se elide a l': l'isola. Recuerda que esta elision solo ocurre en singular: en plural el femenino vuelve a le isole, sin apostrofo."
