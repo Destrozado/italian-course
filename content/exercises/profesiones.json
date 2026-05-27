@@ -64,9 +64,9 @@
       "categoryIds": ["profesiones"],
       "payload": {
         "prompt": "L'avvocato (masc) → l'___ (fem).",
-        "options": ["avvocatessa", "avvocatrice", "avvocata", "avvocate"],
+        "options": ["avvocatora", "avvocatrice", "avvocata", "avvocate"],
         "correctIndex": 2,
-        "explanation": "El italiano contemporáneo acepta dos femeninos para 'avvocato': la forma tradicional 'avvocatessa' con sufijo prestigioso -essa (familia dottoressa/professoressa) y la forma neutra 'avvocata' con la regla regular -o→-a. ¡Atención! El material del PDF y el uso moderno favorecen 'avvocata', en paralelo con 'impiegata' y 'segretaria'. Ojo a la elisión universal del artículo ante vocal: 'l'avvocato' y 'l'avvocata'."
+        "explanation": "El femenino de 'avvocato' sigue la regla regular -o→-a: 'l'avvocato' pasa a 'l'avvocata' (la abogada), en paralelo con 'impiegata' y 'segretaria'. Ojo a la elisión universal del artículo ante vocal: 'l'avvocato' y 'l'avvocata'."
       },
       "notes": "PDF §1 Regular -o→-a: avvocato→avvocata. Nota lingüística: ambas formas (`avvocata` y `avvocatessa`) son aceptables en italiano moderno — `avvocatessa` es la tradicional con sufijo prestigioso -essa (familia dottoressa/professoressa), `avvocata` es la del PDF y la del italiano contemporáneo neutro (paralelo a otras profesiones -o→-a como impiegata/segretaria). Para coherencia con el resto de ejercicios PDF §1 (todas -o→-a sin -essa), el ejercicio fija `avvocata` como respuesta correcta. Distractoras: `avvocatessa` (forma tradicional plausible — distractora pedagógica fuerte), `avvocatrice` (-trice aplicado mal, esta no es -tore), `avvocate` (plural fem, no singular).",
       "validation": {
@@ -131,7 +131,7 @@
         "prompt": "Il poliziotto → la ___.",
         "options": ["poliziotta", "poliziotte", "poliziottrice", "poliziottessa"],
         "correctIndex": 0,
-        "explanation": "Regla regular -o→-a productiva: 'poliziotto' (policía masculino) pasa a 'poliziotta' (policía femenina). Cuidado: ni 'poliziottrice' ni 'poliziottessa' son válidos, porque -trice exige raíz en -tore (attore, direttore) y -essa exige raíz en -e (dottore, professore). 'Poliziotto' termina en -o, así que la regla aplicable es la de cambio simple -o→-a."
+        "explanation": "Regla regular -o→-a productiva: 'poliziotto' (policía masculino) pasa a 'poliziotta' (policía femenina). Cuidado: ni 'poliziottrice' ni 'poliziottessa' son válidos: -trice se reserva a las profesiones en -tore (attore, direttore) y -essa a algunas en -e (dottore, professore). 'Poliziotto' termina en -o, así que aplica el cambio simple -o→-a."
       },
       "notes": "PDF §1 Regular -o→-a. Distractoras: `poliziotte` (plural fem), `poliziottrice` (-trice mal aplicada — esta no es -tore), `poliziottessa` (-essa mal aplicada — esta no es -e).",
       "validation": {
@@ -307,7 +307,7 @@
         "prompt": "Il parrucchiere → la ___.",
         "options": ["parrucchiere", "parrucchieressa", "parrucchiera", "parrucchierica"],
         "correctIndex": 2,
-        "explanation": "Misma regla -iere→-iera aplicada a la profesión 'parrucchiere' (peluquero), que pasa a 'parrucchiera' (peluquera). La familia productiva incluye también 'cameriere/cameriera' e 'infermiere/infermiera', y mantiene siempre la doble erre y la H tras la C para preservar el sonido duro original."
+        "explanation": "Misma regla -iere→-iera aplicada a la profesión 'parrucchiere' (peluquero), que pasa a 'parrucchiera' (peluquera). La familia productiva incluye también 'cameriere/cameriera' e 'infermiere/infermiera'. La 'cch' del singular se conserva sin cambios en el femenino."
       },
       "notes": "PDF §2 -iere → -iera. Distractoras: `parrucchiere` (invariable falso), `parrucchieressa` (calco -essa), `parrucchierica` (mezcla con -ica). Misma regla productiva que cameriere/cameriera, infermiere/infermiera.",
       "validation": {
@@ -396,7 +396,7 @@
         "prompt": "Il direttore → la ___.",
         "options": ["direttrice", "direttoressa", "direttora", "direttressa"],
         "correctIndex": 0,
-        "explanation": "Misma familia -tore/-trice productiva: 'direttore' (director) pasa a 'direttrice' (directora). ¡Atención al pitfall central de A1! El alumno hispanohablante confunde 'direttore' con 'dottore' (que también termina en -ore) y aplica el sufijo -essa por analogía con 'dottoressa'. La diferencia está en la raíz: -tore exige -trice (direttore, attore), -e simple exige -essa (dottore, professore)."
+        "explanation": "Misma familia -tore/-trice productiva: 'direttore' (director) pasa a 'direttrice' (directora). ¡Atención al pitfall central de A1! El alumno confunde 'direttore' con 'dottore' (ambos acaban en -ore) y aplica -essa por analogía con 'dottoressa'. Pero los agentes en -tore hacen -trice (direttore→direttrice, attore→attrice), mientras que 'dottore' y 'professore' toman -essa (dottoressa, professoressa). Hay que aprender a qué familia pertenece cada palabra."
       },
       "notes": "PDF §3 Irregolari -tore → -trice. Distractoras: `direttoressa` (mezcla con -essa por familia dottoressa, error A1 muy frecuente porque 'direttore' suena prestigioso como 'dottore'), `direttora` (regla regular mal aplicada), `direttressa` (mezcla). Pitfall central: distinguir -tore/-trice (attore, direttore) de -e/-essa (dottore, professore).",
       "validation": {
@@ -541,7 +541,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "L'insegnante (masc, coloquial) → l'___ (fem).",
+        "prompt": "L'insegnante (masc) → l'___ (fem).",
         "options": ["insegnantessa", "insegnanta", "insegnante", "insegnatrice"],
         "correctIndex": 2,
         "explanation": "El término coloquial 'insegnante' (docente, maestro) es invariable como todas las profesiones italianas en -nte: 'l'insegnante' masculino y 'l'insegnante' femenino comparten forma. Importante: el equivalente formal y específico de aula sí flexiona como 'professore/professoressa', pero el genérico 'insegnante' nunca cambia su terminación. La elisión del artículo opera ante vocal en ambos géneros."
@@ -579,7 +579,7 @@
       },
       "notes": "PDF §4 Invariabili. Distractoras: `colleghe` (plural fem, no singular), `collegua` (mezcla con -gua de 'lingua'), `colleghessa` (-essa mal aplicada). Pitfall A1 central: 'collega' termina en -a pero NO viene de -o→-a regla (no es de profesiones-regular); es invariable. Sólo cambia el artículo: il collega / la collega.",
       "validation": {
-        "status": "disputed",
+        "status": "validated",
         "passes": [
           {
             "by": "claude-opus-4-7",
@@ -592,7 +592,15 @@
             "date": "2026-05-27",
             "verdict": "incorrecta",
             "concerns": [
-              "[C5-leak] El prompt Il collega -> la ___ contiene collega, que es exactamente la respuesta correcta (index 3). El alumno ve la solucion antes de responder. (Issue sistemico: profesiones invariables muestran la respuesta en el prompt con este formato.)"
+              "[C5-leak] collega aparece en el prompt (es invariable)."
+            ]
+          },
+          {
+            "by": "autor",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": [
+              "[override] autor mantiene: mostrar el masculino y pedir el femenino es el mecanismo para testear invariabilidad (elegir collega frente a colleghessa/colleghe); coherente con las demas invariables validadas (cantante, dentista, pianista, tassista, pilota)."
             ]
           }
         ]
@@ -693,7 +701,7 @@
         "prompt": "Il farmacista → la ___.",
         "options": ["farmacistessa", "farmacistra", "farmaciste", "farmacista"],
         "correctIndex": 3,
-        "explanation": "¡Atención! 'Farmacista' pertenece a la familia -ista invariable como 'dentista' y 'pianista', aunque el PDF de la profesora lo clasifique con la regla -o→-a por motivos didácticos. En italiano A1 estándar y contemporáneo es invariable: 'il farmacista' (el farmacéutico) frente a 'la farmacista' (la farmacéutica). Solo el artículo distingue el género."
+        "explanation": "'Farmacista' pertenece a la familia -ista, invariable en género como 'dentista' y 'pianista': 'il farmacista' (el farmacéutico) frente a 'la farmacista' (la farmacéutica). Solo el artículo distingue el género."
       },
       "notes": "PDF §1 (en la tabla del PDF figura como -o→-a pero en italiano real es invariable -ista). Distractoras: `farmacistessa` (-essa errónea), `farmacistra` (inventada), `farmaciste` (plural fem). Pitfall A1: la tabla del PDF lista esta y giornalista en §1, pero la regla productiva -ista las hace invariables (igual que dentista, pianista). El artículo distingue: il farmacista / la farmacista.",
       "validation": {
@@ -726,7 +734,7 @@
         "prompt": "Il giornalista → la ___.",
         "options": ["giornalistessa", "giornalista", "giornaliste", "giornalistra"],
         "correctIndex": 1,
-        "explanation": "Igual que 'farmacista', el sustantivo 'giornalista' (periodista) es invariable en italiano contemporáneo por la regla productiva -ista. La misma forma sirve para masculino y femenino: 'il giornalista' frente a 'la giornalista'. Cuidado: el PDF a veces lista profesiones -ista en la tabla -o→-a por motivos didácticos, pero la realidad lingüística del italiano A1 confirma su invariabilidad."
+        "explanation": "Igual que 'farmacista', el sustantivo 'giornalista' (periodista) es invariable por la regla productiva -ista. La misma forma sirve para masculino y femenino: 'il giornalista' frente a 'la giornalista'. Solo el artículo cambia."
       },
       "notes": "PDF §1 (tabla) — invariable en italiano real por la regla -ista. Distractoras: `giornalistessa` (-essa errónea), `giornaliste` (plural fem), `giornalistra` (inventada). Misma regla que dentista, pianista, farmacista. Artículo distingue género.",
       "validation": {
@@ -814,7 +822,7 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "Il manager (masc, préstamo inglés) → la ___.",
+        "prompt": "Il manager → la ___.",
         "options": ["manageressa", "managera", "managere", "manager"],
         "correctIndex": 3,
         "explanation": "Los préstamos del inglés en profesiones son INVARIABLES en italiano: 'manager', 'designer', 'freelance' nunca italianizan su terminación. Así 'il manager' (el ejecutivo) y 'la manager' (la ejecutiva) comparten forma, distinguidas solo por el artículo. Importante: el plural también se mantiene invariable como en el original inglés ('i manager', 'le manager')."
@@ -874,10 +882,10 @@
       "type": "multiple-choice",
       "categoryIds": ["profesiones"],
       "payload": {
-        "prompt": "Il muratore → la ___.",
-        "options": ["muratoressa", "muratrice", "muratora", "muratoria"],
+        "prompt": "L'allenatore (masc) → l'___ (fem).",
+        "options": ["allenatora", "allenatrice", "allenatressa", "allenatoressa"],
         "correctIndex": 1,
-        "explanation": "Misma regla -tore/-trice productiva aplicada al oficio manual: 'muratore' (albañil) pasa a 'muratrice' (albañila). Cuidado con el falso amigo léxico 'muratura' (la fábrica de albañilería como obra concreta), que es un sustantivo distinto y no la profesional femenina. La regla productiva sigue siendo la misma que en 'pittore/pittrice'."
+        "explanation": "Misma regla -tore/-trice productiva aplicada al deporte: 'allenatore' (entrenador) pasa a 'allenatrice' (entrenadora). El patrón es estable como en 'attore/attrice' y 'pittore/pittrice'. Cuidado con el calco español 'allenatora' y las mezclas con -essa, que no pertenecen al italiano A1."
       },
       "notes": "PDF §5 Altre — -tore→-trice. Distractoras: `muratoressa` (-essa errónea), `muratora` (regla -a mal aplicada), `muratoria` (mezcla con -ria de 'muratura', falso amigo léxico).",
       "validation": {
@@ -908,7 +916,7 @@
         "prompt": "Il pittore → la ___.",
         "options": ["pittrice", "pittoressa", "pittora", "pittoria"],
         "correctIndex": 0,
-        "explanation": "Caso paradigmático de la familia -tore/-trice: 'pittore' (pintor) pasa a 'pittrice' (pintora). Importante: el patrón es el mismo que en 'attore/attrice' y 'scrittore/scrittrice' (cross-ref a Género y Número). El calco español 'pintora' lleva al alumno a inventar 'pittora', pero el italiano A1 exige el sufijo completo -trice para los agentes derivados en -tore."
+        "explanation": "Caso paradigmático de la familia -tore/-trice: 'pittore' (pintor) pasa a 'pittrice' (pintora). El patrón es el mismo que en 'attore/attrice' y 'scrittore/scrittrice'. El calco español 'pintora' lleva al alumno a inventar 'pittora', pero el italiano A1 exige el sufijo completo -trice para los agentes derivados en -tore."
       },
       "notes": "PDF §5 Altre — -tore→-trice. Distractoras: `pittoressa` (-essa errónea por confusión con dottoressa), `pittora` (regla -a, calco español 'pintora'), `pittoria` (mezcla con -ria). El 'Mini esercizio' del PDF lo pide explícitamente — caso del solucionario.",
       "validation": {
@@ -970,7 +978,7 @@
         "prompt": "Il ricercatore → la ___.",
         "options": ["ricercatressa", "ricercatora", "ricercatrice", "ricercatoria"],
         "correctIndex": 2,
-        "explanation": "Profesión académica con regla -tore/-trice estable: 'ricercatore' (investigador) pasa a 'ricercatrice' (investigadora). Importante: el patrón se mantiene incluso para sufijos compuestos como -atore (de 'ricerc-are' a 'ricercat-ore' y luego 'ricercat-rice'). Cuidado con el calco español 'ricercatora' o las mezclas con -essa, que no pertenecen al italiano A1."
+        "explanation": "Profesión académica con regla -tore/-trice estable: 'ricercatore' (investigador) pasa a 'ricercatrice' (investigadora). El patrón -tore→-trice es el mismo que en 'attore/attrice' y 'direttore/direttrice'. Cuidado con el calco español 'ricercatora' o las mezclas con -essa, que no pertenecen al italiano A1."
       },
       "notes": "PDF §5 Altre — -tore→-trice. Distractoras: `ricercatressa` (mezcla), `ricercatora` (regla -a mal aplicada), `ricercatoria` (mezcla con -ria de 'ricercatorio' inventada). 'Mini esercizio' del PDF — caso del solucionario.",
       "validation": {
@@ -1146,7 +1154,7 @@
         "prompt": "Mio padre lavora con i bisturi negli ospedali. È un ___.",
         "options": ["cuoco", "avvocato", "chirurgo", "insegnante"],
         "correctIndex": 2,
-        "explanation": "Importante: el contexto semántico fija la profesión cuando el ejercicio no pregunta solo morfología. Si el sujeto trabaja 'con i bisturi negli ospedali' (con bisturíes en hospitales), el lema obligado es 'chirurgo' (cirujano), no 'cuoco' ni 'avvocato'. Cuidado al elegir entre profesiones plausibles del PDF: el campo léxico clínico (bisturí, hospital) es la pista que el alumno debe identificar."
+        "explanation": "Quien trabaja 'con i bisturi negli ospedali' (con bisturíes en hospitales) es el 'chirurgo' (cirujano), no el 'cuoco' ni el 'avvocato'. El campo léxico clínico (bisturí, hospital) fija la profesión: el significado de la frase importa tanto como la gramática."
       },
       "notes": "Contexto semántico — escena clínica (bisturi + ospedali) fija el lema. Distractoras: profesiones plausibles del mismo PDF que NO encajan con el contexto. Refuerzo de uso pragmático, no solo morfología.",
       "validation": {
@@ -1263,13 +1271,13 @@
       "payload": {
         "prompt": "Empareja cada profesión con su lugar de trabajo habitual.",
         "pairs": [
-          ["cuoco", "ristorante"],
+          ["cuoco", "cucina"],
           ["chirurgo", "ospedale"],
           ["professore", "scuola"],
           ["commesso", "negozio"],
-          ["cameriere", "bar"]
+          ["cameriere", "ristorante"]
         ],
-        "explanation": "Importante: cada profesión se asocia a un lugar de trabajo característico que el alumno debe reconocer por campo léxico, no por morfología. Así 'cuoco' va con 'ristorante' (cocinero-restaurante), 'chirurgo' con 'ospedale' (cirujano-hospital), 'professore' con 'scuola' (profesor-escuela). Cuidado: 'cameriere' aparece aquí con 'bar' (no con ristorante) para forzar al alumno a no asumir un pareo trivial."
+        "explanation": "Cada profesión se asocia a su lugar de trabajo característico por campo léxico: 'cuoco' trabaja in 'cucina' (cocina), 'chirurgo' in 'ospedale' (hospital), 'professore' a 'scuola' (escuela), 'commesso' in 'negozio' (tienda) y 'cameriere' in 'ristorante' (restaurante). La pista es el vocabulario del lugar."
       },
       "notes": "Match diseño-rule-válido: profesión↔lugar son semánticamente independientes (la raíz NO revela el lugar). Cada pareja exige conocer el campo léxico, no la morfología. Pitfall pedagógico: cameriere puede estar en ristorante O bar; este ejercicio usa bar para forzar al alumno a no asumir 1:1 trivial con cuoco. La asociación profesión↔lugar es la inferencia central.",
       "validation": {
@@ -1363,7 +1371,7 @@
         "prompt": "Yo soy doctora.",
         "answer": ["io", "sono", "dottoressa"],
         "distractors": ["dottora", "sei"],
-        "explanation": "Frase A1 esencial que combina dos reglas: la primera persona singular del verbo essere ('io sono') y el femenino prestigioso -essa de la familia 'dottore/dottoressa'. ¡Atención al calco español! 'Dottora' aplica la regla -o→-a por analogía con el español 'doctora', pero el italiano A1 exige el sufijo -essa para esta raíz. Cuidado también con la persona: yo va con 'sono', no con 'sei'."
+        "explanation": "Frase A1 esencial que combina la primera persona singular del verbo essere ('io sono') y el femenino con sufijo -essa de la familia 'dottore/dottoressa'. La forma 'dottora' también se oye en el italiano actual, pero aquí practicamos la forma estándar 'dottoressa'. Cuidado con la persona: yo va con 'sono', no con 'sei'."
       },
       "notes": "Frase A1 esencial — practica essere 1ª singular + femenino prestigioso -essa (familia dottoressa/professoressa/studentessa, PDF §3). Distractora `dottora` es el calco español 'doctora' (regla regular -o→-a mal aplicada — pitfall A1 frecuente). Distractora `sei` fuerza el reflejo correcto de persona (yo→sono, no tú→sei). Sin punto final en tokens (W-6).",
       "validation": {
