@@ -254,7 +254,24 @@
         "correctIndex": 1,
         "explanation": "La vocal final acentuada bloquea cualquier flexión de plural: 'il caffè' y 'i caffè' se escriben idénticos, y solo el artículo distingue número. Ojo: el acento grave sobre la 'è' no se altera ni se elimina al pluralizar. Misma regla que 'città', 'università', 'virtù'."
       },
-      "notes": "Sustantivo invariable — termina en vocal acentuada (-è) → no flexiona en plural. Distractoras: `caffi` (regla -e→-i ingenua aplicada al patrón mixto), `caffès` (calco del francés/español pluralizando con -s), `caffei` (mezcla acento+i). Pitfall A1: la vocal acentuada bloquea cualquier flexión."
+      "notes": "Sustantivo invariable — termina en vocal acentuada (-è) → no flexiona en plural. Distractoras: `caffi` (regla -e→-i ingenua aplicada al patrón mixto), `caffès` (calco del francés/español pluralizando con -s), `caffei` (mezcla acento+i). Pitfall A1: la vocal acentuada bloquea cualquier flexión.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "sustantivos-irregulares-011",
