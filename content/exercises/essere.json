@@ -794,7 +794,24 @@
         ],
         "explanation": "La frase combina profesión (lei è medico) con lugar de trabajo (in un ospedale): essere para la identidad profesional + preposición 'in' para el espacio físico. 'Lei è medico in un ospedale' equivale al español 'Ella es médica en un hospital'. Importante: el italiano contemporáneo permite usar 'medico' también para mujeres en contextos neutros, aunque también existe 'dottoressa'. Cuidado con la distractora 'ha' (avere): la profesión siempre se predica con essere, nunca con avere."
       },
-      "notes": "Profesión fem + preposición `in` con lugar de trabajo — D-90 word-buttons sub-área profesión. En italiano contemporáneo `medico` suele usarse también para mujeres (alternativa: `dottoressa`). Distractora `ha` = avere."
+      "notes": "Profesión fem + preposición `in` con lugar de trabajo — D-90 word-buttons sub-área profesión. En italiano contemporáneo `medico` suele usarse también para mujeres (alternativa: `dottoressa`). Distractora `ha` = avere.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "essere-020",
