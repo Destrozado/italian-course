@@ -283,7 +283,24 @@
         "correctIndex": 3,
         "explanation": "Toda la familia de sustantivos abstractos terminados en -tà (libertà, possibilità, qualità, università) es invariable. Por eso 'la università' y 'le università' se escriben igual, y solo el artículo cambia. Importante: en italiano nunca se pluralizan con -des estas palabras (calco español incorrecto: nada de 'universidades' adaptado)."
       },
-      "notes": "Sustantivo invariable — termina en vocal acentuada (-à) → no flexiona en plural. Distractoras: `universitàe` (mezcla acento+e), `universite` (regla -a→-e ingenua), `universitadi` (calco con plural latino-romance). La regla cubre toda la familia de palabras en -tà (libertà, città, università, possibilità)."
+      "notes": "Sustantivo invariable — termina en vocal acentuada (-à) → no flexiona en plural. Distractoras: `universitàe` (mezcla acento+e), `universite` (regla -a→-e ingenua), `universitadi` (calco con plural latino-romance). La regla cubre toda la familia de palabras en -tà (libertà, città, università, possibilità).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "sustantivos-irregulares-012",
