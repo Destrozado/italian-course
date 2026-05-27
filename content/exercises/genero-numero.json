@@ -528,7 +528,24 @@
         "correctIndex": 0,
         "explanation": "El cambio de género en los sustantivos básicos suele consistir en una simple modificación de la última vocal. 'Amico' (amigo), que es masculino en -o, se convierte en 'amica' (amiga), femenino en -a. Es importante no confundir este cambio de género con las reglas de pluralización."
       },
-      "notes": "Convertido de ex-match-202 (amico↔amica). Patrón §2A -o/-a. Distractoras: `amice` (regla fem -e mal aplicada como si fuera plural), `amico` (invariable falso, mismo masc), `amici` (plural masc, error de número y género simultáneo). Pitfall A1: cambio simple de vocal final por género — NO confundir con la inserción de H del plural (amico→amici sin H, amica→amiche con H)."
+      "notes": "Convertido de ex-match-202 (amico↔amica). Patrón §2A -o/-a. Distractoras: `amice` (regla fem -e mal aplicada como si fuera plural), `amico` (invariable falso, mismo masc), `amici` (plural masc, error de número y género simultáneo). Pitfall A1: cambio simple de vocal final por género — NO confundir con la inserción de H del plural (amico→amici sin H, amica→amiche con H).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "genero-numero-020",
