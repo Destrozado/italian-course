@@ -176,7 +176,26 @@
         "correctIndex": 1,
         "explanation": "Muchas profesiones que terminan en '-e' construyen su femenino añadiendo el sufijo '-essa'. 'Dottore' (doctor) se transforma en 'dottoressa' (doctora). No debe confundirse con la terminación '-trice', reservada exclusivamente para palabras terminadas en '-tore'."
       },
-      "notes": "PDF §2B + §4 ¡A practicar! nº2. Patrón -e → -essa: dottore→dottoressa. Distractoras: `dottora` (regla ingenua -e→-a), `dottrice` (confusión con familia -tore→-trice), `dottore` (no cambio, falso amigo invariable). Familia productiva con -essa: studente→studentessa, professore→professoressa."
+      "notes": "PDF §2B + §4 ¡A practicar! nº2. Patrón -e → -essa: dottore→dottoressa. Distractoras: `dottora` (regla ingenua -e→-a), `dottrice` (confusión con familia -tore→-trice), `dottore` (no cambio, falso amigo invariable). Familia productiva con -essa: studente→studentessa, professore→professoressa.",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] La explanation es internamente contradictoria: afirma que -trice es exclusivo de palabras terminadas en -tore, pero dottore SI termina en -tore, con lo que el alumno no entiende por que no aplica -trice aqui. Reformular para coherencia pedagogica o limitarse a enunciar la regla -essa."
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "genero-numero-008",
