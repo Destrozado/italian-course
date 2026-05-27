@@ -620,7 +620,24 @@
         "correctIndex": 1,
         "explanation": "El sustantivo masculino 'labbro' (labio) sigue el patrón del cuerpo: plural fem en -a, 'le labbra'. ¡Atención!: 'i labbri' existe en italiano pero designa 'bordes' u 'orillas' (de una herida, de un vaso), NO los labios del rostro. Para el cuerpo humano siempre 'le labbra'. Familia con braccia, dita, ginocchia, ossa."
       },
-      "notes": "Convertido de ex-match-203. Caso especial cuerpo masc -o → fem plural -a. Distractoras: `labbri` (regla ingenua -o→-i; existe en italiano para `bordes/orillas` pero NO para labios), `labbros` (calco español), `labbre` (mezcla -e). Sigue el patrón de braccio/dito/osso del PDF."
+      "notes": "Convertido de ex-match-203. Caso especial cuerpo masc -o → fem plural -a. Distractoras: `labbri` (regla ingenua -o→-i; existe en italiano para `bordes/orillas` pero NO para labios), `labbros` (calco español), `labbre` (mezcla -e). Sigue el patrón de braccio/dito/osso del PDF.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "sustantivos-irregulares-024",
