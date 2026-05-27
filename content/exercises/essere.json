@@ -1010,7 +1010,24 @@
         "correctIndex": 0,
         "explanation": "Las definiciones canónicas tipo diccionario usan essere para conectar sujeto y categoría: 'Il gatto è un animale domestico' equivale al español 'El gato es un animal doméstico'. Cuidado con el contraste essere/avere: 'Il gatto ha un animale domestico' sería un calco sin sentido (el gato no posee un animal). Importante: el artículo definido 'il' delante de un sustantivo genérico expresa la clase entera, no un ejemplar concreto — patrón A1 también heredado del español."
       },
-      "notes": "Cópula clasificatoria: X pertenece a la clase Y. Patrón A1 canónico de definición. Distractora `ha` = avere."
+      "notes": "Cópula clasificatoria: X pertenece a la clase Y. Patrón A1 canónico de definición. Distractora `ha` = avere.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "essere-026",
