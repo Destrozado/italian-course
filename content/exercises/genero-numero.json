@@ -39,7 +39,14 @@
         "correctIndex": 1,
         "explanation": "Para los sustantivos femeninos singulares que terminan en -a, el plural se forma cambiando la -a por una -e. Así, 'casa' se convierte en 'case'. Es un error crítico muy común entre hispanohablantes intentar añadir una -s para formar el plural."
       },
-      "notes": "PDF §4 ¡A practicar! nº3. Femenino singular -a → plural -e (regla §1). Distractoras: `casi` (regla masculina -o→-i aplicada por error al femenino), `casas` (calco español con -s), `casae` (mezcla -a+-e). Pitfall A1 critical: el plural femenino es -e, NO -as."
+      "notes": "PDF §4 ¡A practicar! nº3. Femenino singular -a → plural -e (regla §1). Distractoras: `casi` (regla masculina -o→-i aplicada por error al femenino), `casas` (calco español con -s), `casae` (mezcla -a+-e). Pitfall A1 critical: el plural femenino es -e, NO -as.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-7", "date": "2026-05-27", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-27", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     },
     {
       "id": "genero-numero-003",
