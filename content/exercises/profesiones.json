@@ -577,7 +577,26 @@
         "correctIndex": 3,
         "explanation": "¡Atención! 'Collega' (colega, compañero de trabajo) termina en -a pero no procede de la regla productiva -o→-a; es invariable en género y solo el artículo distingue: 'il collega' (el colega) frente a 'la collega' (la colega). Cuidado con el plural: pasa a 'i colleghi' en masculino y 'le colleghe' en femenino, manteniendo la H para preservar el sonido duro de la G."
       },
-      "notes": "PDF §4 Invariabili. Distractoras: `colleghe` (plural fem, no singular), `collegua` (mezcla con -gua de 'lingua'), `colleghessa` (-essa mal aplicada). Pitfall A1 central: 'collega' termina en -a pero NO viene de -o→-a regla (no es de profesiones-regular); es invariable. Sólo cambia el artículo: il collega / la collega."
+      "notes": "PDF §4 Invariabili. Distractoras: `colleghe` (plural fem, no singular), `collegua` (mezcla con -gua de 'lingua'), `colleghessa` (-essa mal aplicada). Pitfall A1 central: 'collega' termina en -a pero NO viene de -o→-a regla (no es de profesiones-regular); es invariable. Sólo cambia el artículo: il collega / la collega.",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C5-leak] El prompt Il collega -> la ___ contiene collega, que es exactamente la respuesta correcta (index 3). El alumno ve la solucion antes de responder. (Issue sistemico: profesiones invariables muestran la respuesta en el prompt con este formato.)"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-021",
