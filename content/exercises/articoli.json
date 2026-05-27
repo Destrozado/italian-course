@@ -441,6 +441,188 @@
       },
       "notes": "Determinativo fem plural le ante s+consonante (le studentesse).",
       "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "articoli-035",
+      "type": "multiple-choice",
+      "categoryIds": ["articoli"],
+      "payload": {
+        "prompt": "Vorrei comprare ___ libro nuovo.",
+        "options": ["un", "uno", "una", "un'"],
+        "correctIndex": 0,
+        "explanation": "Libro empieza por consonante simple (l-), por eso el indeterminativo masculino es un: un libro. La forma un cubre tanto las consonantes simples como las vocales en masculino; uno se reserva a la s impura, z, gn, ps y x."
+      },
+      "notes": "Indeterminativo masc un ante consonante simple (un libro). Espejo de il libro.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "articoli-036",
+      "type": "multiple-choice",
+      "categoryIds": ["articoli"],
+      "payload": {
+        "prompt": "C'e ___ ragazzo che ti cerca.",
+        "options": ["un", "uno", "una", "un'"],
+        "correctIndex": 0,
+        "explanation": "Ragazzo empieza por r- (consonante simple), asi que el indeterminativo es un: un ragazzo. En masculino, un es la forma por defecto y solo se convierte en uno ante los sonidos dificiles (s+consonante, z, gn, ps, x)."
+      },
+      "notes": "Indeterminativo masc un ante consonante simple (un ragazzo).",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "articoli-037",
+      "type": "multiple-choice",
+      "categoryIds": ["articoli"],
+      "payload": {
+        "prompt": "Ho incontrato ___ amico per strada.",
+        "options": ["un", "uno", "una", "un'"],
+        "correctIndex": 0,
+        "explanation": "Amico empieza por vocal (a-), y en masculino el indeterminativo ante vocal es un, SIN apostrofo: un amico. Esta es la trampa central del bloque: el apostrofo del indeterminativo (un') es marca exclusiva del femenino, nunca del masculino. Escribir un'amico es incorrecto."
+      },
+      "notes": "Indeterminativo masc un ante vocal SIN apostrofo (un amico). Trampa D-04 #7 (parte masc). Distractora un' = error de apostrofo masc.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "articoli-038",
+      "type": "multiple-choice",
+      "categoryIds": ["articoli"],
+      "payload": {
+        "prompt": "Marco ha ___ occhio piu chiaro dell'altro.",
+        "options": ["un", "uno", "una", "un'"],
+        "correctIndex": 0,
+        "explanation": "Occhio empieza por vocal (o-) y es masculino, por eso un occhio, sin apostrofo. A diferencia del determinativo (l'occhio, que si se elide), el indeterminativo masculino ante vocal mantiene un entero: ni se elide ni se apostrofa."
+      },
+      "notes": "Indeterminativo masc un ante vocal sin apostrofo (un occhio). Contraste con l'occhio (det elide, indet no).",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "articoli-039",
+      "type": "multiple-choice",
+      "categoryIds": ["articoli"],
+      "payload": {
+        "prompt": "Per cena invito ___ studente straniero.",
+        "options": ["un", "uno", "una", "un'"],
+        "correctIndex": 1,
+        "explanation": "Studente empieza por s impura (st-), y ante ese sonido el indeterminativo masculino es uno: uno studente. Es el espejo del determinativo lo studente: el mismo disparador fonetico que pide lo en el determinativo pide uno en el indeterminativo. El calco un studente es el error a evitar."
+      },
+      "notes": "Indeterminativo masc uno ante s+consonante (uno studente). Trampa D-04 #2 (parte indet). Espejo de lo studente. Distractora un = calco.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "articoli-040",
+      "type": "multiple-choice",
+      "categoryIds": ["articoli"],
+      "payload": {
+        "prompt": "Mi serve ___ zaino per la gita.",
+        "options": ["un", "uno", "una", "un'"],
+        "correctIndex": 1,
+        "explanation": "Zaino empieza por z-, sonido que en masculino pide uno: uno zaino. Igual que lo zaino en el determinativo, la z- inicial obliga a la forma larga uno en el indeterminativo. Decir un zaino es el error tipico del hispanohablante."
+      },
+      "notes": "Indeterminativo masc uno ante z (uno zaino). Trampa D-04 #4 (parte indet). Espejo de lo zaino.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "articoli-041",
+      "type": "multiple-choice",
+      "categoryIds": ["articoli"],
+      "payload": {
+        "prompt": "Vorrei diventare ___ psicologo.",
+        "options": ["un", "uno", "una", "un'"],
+        "correctIndex": 1,
+        "explanation": "Psicologo empieza por ps-, grupo que en masculino exige uno: uno psicologo. Espejo del determinativo lo psicologo. El ps- entra en la familia de la s impura, asi que la forma corta un es incorrecta aqui."
+      },
+      "notes": "Indeterminativo masc uno ante ps (uno psicologo). Espejo de lo psicologo.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "articoli-042",
+      "type": "multiple-choice",
+      "categoryIds": ["articoli"],
+      "payload": {
+        "prompt": "Nel disegno c'e ___ gnomo con il cappello.",
+        "options": ["un", "uno", "una", "un'"],
+        "correctIndex": 1,
+        "explanation": "Gnomo empieza por gn-, sonido que en masculino pide uno: uno gnomo. El grupo gn- pertenece a la familia que exige la forma larga uno, igual que en el determinativo lo gnomo."
+      },
+      "notes": "Indeterminativo masc uno ante gn (uno gnomo). Espejo de lo gnomo.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "articoli-043",
+      "type": "multiple-choice",
+      "categoryIds": ["articoli"],
+      "payload": {
+        "prompt": "In soggiorno c'e ___ casa delle bambole.",
+        "options": ["un", "uno", "una", "un'"],
+        "correctIndex": 2,
+        "explanation": "Casa es femenino y empieza por consonante, por eso el indeterminativo es una: una casa. En femenino la forma una se usa ante cualquier consonante (incluida la s impura) y solo cambia a un' ante vocal."
+      },
+      "notes": "Indeterminativo fem una ante consonante (una casa).",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "articoli-044",
+      "type": "multiple-choice",
+      "categoryIds": ["articoli"],
+      "payload": {
+        "prompt": "Ho ___ zia che vive a Torino.",
+        "options": ["un", "uno", "una", "un'"],
+        "correctIndex": 2,
+        "explanation": "Zia es femenino: aunque empieza por z-, el femenino no usa la forma larga, sino una zia. A diferencia del masculino (uno zio), la z- no cambia el indeterminativo femenino, que se mantiene una ante consonantes y solo se apostrofa (un') ante vocal."
+      },
+      "notes": "Indeterminativo fem una ante z (una zia). Contraste con uno zio (masc).",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "articoli-045",
+      "type": "multiple-choice",
+      "categoryIds": ["articoli"],
+      "payload": {
+        "prompt": "E ___ studentessa molto brava.",
+        "options": ["un", "uno", "una", "un'"],
+        "correctIndex": 2,
+        "explanation": "Studentessa es femenino y empieza por s impura, pero en femenino eso no importa: una studentessa. Es el contraste claro con el masculino uno studente, donde la s+consonante si fuerza la forma larga uno."
+      },
+      "notes": "Indeterminativo fem una ante s+consonante (una studentessa). Contraste con uno studente.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "articoli-046",
+      "type": "multiple-choice",
+      "categoryIds": ["articoli"],
+      "payload": {
+        "prompt": "Ho ___ amica che parla cinque lingue.",
+        "options": ["un", "uno", "una", "un'"],
+        "correctIndex": 3,
+        "explanation": "Amica es femenino y empieza por vocal (a-), por eso el indeterminativo se elide a un' con apostrofo: un'amica. Aqui esta el corazon de la trampa: en masculino un amico va SIN apostrofo, pero en femenino un'amica lleva apostrofo. Misma vocal inicial, distinto genero, distinta marca ortografica."
+      },
+      "notes": "Indeterminativo fem un' ante vocal CON apostrofo (un'amica). Trampa D-04 #7 (parte fem). Espejo de un amico. ASCII U+0027.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "articoli-047",
+      "type": "multiple-choice",
+      "categoryIds": ["articoli"],
+      "payload": {
+        "prompt": "Stasera danno ___ opera di Verdi.",
+        "options": ["un", "uno", "una", "un'"],
+        "correctIndex": 3,
+        "explanation": "Opera es femenino y empieza por vocal (o-), asi que el indeterminativo se apostrofa a un': un'opera. La elision a un' solo ocurre en femenino ante vocal; el masculino ante vocal nunca se apostrofa (un amico, no un'amico)."
+      },
+      "notes": "Indeterminativo fem un' ante vocal (un'opera). Refuerza apostrofo solo femenino.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "articoli-048",
+      "type": "multiple-choice",
+      "categoryIds": ["articoli"],
+      "payload": {
+        "prompt": "Ti aspetto da ___ ora in piazza.",
+        "options": ["un", "uno", "una", "un'"],
+        "correctIndex": 3,
+        "explanation": "Ora es femenino y empieza por vocal (o-), por eso un'ora con apostrofo. Es un caso muy frecuente (un'ora = una hora) donde el apostrofo es obligatorio porque el sustantivo es femenino y empieza por vocal."
+      },
+      "notes": "Indeterminativo fem un' ante vocal (un'ora). Caso frecuente del femenino elidido.",
+      "validation": { "status": "pending", "passes": [] }
     }
   ]
 }
