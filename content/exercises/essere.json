@@ -902,7 +902,24 @@
         "correctIndex": 0,
         "explanation": "El estado emocional plural se predica con essere y admite causa con la preposición articulada 'della' (di + la): 'Noi siamo contenti della scuola' equivale al español 'Nosotros estamos contentos con la escuela'. Importante: 'della' funde la preposición 'di' con el artículo femenino singular 'la' — el italiano fusiona preposiciones simples con artículos definidos para producir las articolate (della/dello/dei/degli...). El adjetivo 'contenti' concuerda en plural masculino con noi."
       },
-      "notes": "Estado plural masc + preposición articulada `della` (= `di + la`) con causa. Distractora `abbiamo` = avere."
+      "notes": "Estado plural masc + preposición articulada `della` (= `di + la`) con causa. Distractora `abbiamo` = avere.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "essere-023",
