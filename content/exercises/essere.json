@@ -17,7 +17,24 @@
         "correctIndex": 1,
         "explanation": "La forma 'sono' es la primera persona singular del presente indicativo del verbo essere y se usa con el pronombre 'io' para expresar identidad. En italiano, 'Io sono Maria' equivale al español 'Yo soy Maria': el verbo essere cubre la identidad personal de forma directa, sin verbo auxiliar adicional. Cuidado con la distractora 'ho': pertenece al verbo avere, que en italiano se reserva para posesión (Io ho una macchina), no para identidad."
       },
-      "notes": "Presente indicativo, 1ª persona singular (io). Identidad básica. Distractora `ho` = avere (trampa hispanohablante: 'yo tengo Maria')."
+      "notes": "Presente indicativo, 1ª persona singular (io). Identidad básica. Distractora `ho` = avere (trampa hispanohablante: 'yo tengo Maria').",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "essere-002",
