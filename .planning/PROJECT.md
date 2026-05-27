@@ -8,6 +8,16 @@ Web personal de ejercicios de italiano para preparar el A1 (y luego A2). Es una 
 
 **Que el sistema te obligue a no olvidar.** El motor de repetición tiene que garantizar que cada categoría se re-verifica constantemente, y que un solo fallo en cualquier ejercicio te devuelve a repetir esa categoría entera. Sin ese loop, el resto no importa.
 
+## Current Milestone: v1.2 — Más contenido A1 (Articoli + Partitivos)
+
+**Goal:** Añadir 2 categorías nuevas de gramática A1 (Articoli y Partitivos), diseñadas desde cero sin PDF de referencia: primero el temario exhaustivo de cada tema, luego ejercicios que cubran cada regla y excepción, curados con explanations pedagógicas y validados por quórum Opus+Sonnet reutilizando la infraestructura editorial de v1.1.
+
+**Target features:**
+- **Articoli** (1 categoría, determinativi + indeterminativi juntos): temario exhaustivo de `il/lo/la/l'/i/gli/le` + `un/uno/una/un'` con todos los disparadores fonéticos (s+cons, z, gn, ps, pn, x, y, vocal) y trampas canónicas (`lo zio`, `gli gnocchi`, `lo psicologo`, `l'amica`, `uno studente`, `un'amica`); ejercicios que cubren cada celda del temario.
+- **Bridges multi-categoría** Articoli ↔ género/número y ↔ sustantivos irregulares (patrón avere-300../essere-300..): fallar un cruce resetea ambas categorías, reforzando el core value.
+- **Partitivos** (1 categoría): `del/dello/della/dei/degli/delle` como partitivo ("algo de") + `alcuni/qualche/un po' di`; distinción explícita función partitiva vs preposizione articolata (misma forma, distinto uso — la forma preposicional ya vive en Preposiciones).
+- Cada categoría diseña el **temario antes** de redactar ejercicios, y se valida dentro de su propia fase (skill `gsd-validate-batch` + reporter `run-validation-271.mjs` + reglas R1-R7).
+
 ## Requirements
 
 ### Validated
@@ -123,6 +133,9 @@ Web personal de ejercicios de italiano para preparar el A1 (y luego A2). Es una 
 <!-- Current scope. Building toward these. -->
 
 - [ ] Stack: web estática (HTML/CSS/JS), abrible con `npx serve`, sin build step — VALIDADO end-to-end
+- [ ] **Articoli** como 8ª categoría (v1.2 Phase 11): temario exhaustivo det + indet + ejercicios cubriendo cada forma/disparador/trampa + bridges multi-cat con género-número y sustantivos-irregulares
+- [ ] **Partitivos** como 9ª categoría (v1.2 Phase 12): temario + ejercicios + distinción partitivo vs preposizione articolata
+- [ ] Ejercicios nuevos de v1.2 curados con explanations pedagógicas y validados por quórum ≥2 IAs distintas (R1-R7 → C1-C5)
 
 ### Out of Scope
 
@@ -225,4 +238,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-05-24 after Phase 4 completion (backup robusto end-to-end + 6 PDFs reales transcritos con 232 ejercicios + multi-cat cascada real + DESIGN RULE codificada; verifier PASS 5/5 must-haves, UAT INTEGRAL PASS 5/5 ROADMAP criteria + mini-UAT PASS 5/5 backup runtime; 130 tests verdes; 40/40 v1 requirements complete — milestone v1.0 ready to close)*
+*Last updated: 2026-05-27 after v1.2 milestone start (Articoli + Partitivos — 2 categorías nuevas de contenido A1; numeración de fases continúa en Phase 11-12; validación por categoría dentro de cada fase reutilizando infra v1.1)*

@@ -1,16 +1,16 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.1
-milestone_name: Validación editorial
-status: shipped
-last_updated: "2026-05-26T15:54:35.806Z"
-last_activity: 2026-05-26 -- Plan 10-03 completed (docs README + STATE.md scaffolding `## Phase 10 Progress` + `## Deferred-disputed`)
+milestone: v1.2
+milestone_name: Más contenido A1 (Articoli + Partitivos)
+status: planning
+last_updated: "2026-05-27T19:52:50.248Z"
+last_activity: 2026-05-27
 progress:
-  total_phases: 4
-  completed_phases: 1
-  total_plans: 8
-  completed_plans: 6
-  percent: 38
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -25,54 +25,10 @@ progress:
 
 ## Current Position
 
-Phase: 10 (ejecuci-n-validaci-n-271-ejercicios-escalada-disputed) — EXECUTING
-Plan: 4 of 5 (Plan 10-01 + Plan 10-02 + Plan 10-03 closed)
-Status: Ready to execute Plan 09-03 (piloto Phase 9 checkpoint:human-verify) → Plan 10-04 (batch run real sobre 269 pendientes) → Plan 10-05 (milestone close gate)
-Last activity: 2026-05-27 -- Categoría verbos-movimiento cerrada vía /gsd-validate-batch (37/37 validated, 6 disputed resueltos) — 272/272 TOTAL VALIDATED
-
-Phase 10 — Categoría verbos-movimiento cerrada (2026-05-27): 37/37 validated, 6 disputed resueltos, 0 deferred, 0 pending. ¡272/272 ejercicios validated en las 7 categorías!
-
-Phase 10 — Categoría profesiones cerrada (2026-05-27): 51/51 validated, 15 disputed resueltos, 0 deferred, 0 pending.
-
-Phase 10 — Categoría sustantivos-irregulares cerrada (2026-05-27): 31/31 validated, 6 disputed resueltos, 0 deferred, 0 pending.
-
-Phase 10 — Categoría genero-numero cerrada (2026-05-27): 40/40 validated, 8 disputed resueltos, 0 deferred, 0 pending.
-
-Phase 10 — Categoría essere cerrada (2026-05-27): 39/39 validated, 6 disputed resueltos, 0 deferred, 0 pending.
-
-Phase 10 — Categoría avere cerrada (2026-05-27): 23/23 validated, 3 disputed resueltos (avere-009 override autor; avere-202 accept-fix 2 ciclos; avere-300 accept-fix), 0 deferred, 0 pending. Snapshot D-88 regenerado tras fix aprobado de avere-202.
-
-**Plan 10-03 closure (2026-05-26):**
-
-- Docs README: sección `## Validación editorial (milestone v1.1)` añadida (115 líneas vs baseline 88; +27 append) con bloque copy-paste literal `VAL_07_STRICT=1 node --test tests/*.test.js` + explicación del flip manual (RESEARCH Q6 + D-VAL-17) + 3 comandos del workflow editorial + mención de los 4 caminos terminales VAL-08
-- STATE.md scaffolding: secciones `## Phase 10 Progress` (checklist 7 categorías D-VAL-22 + comentario HTML formato literal) + `## Deferred-disputed` (placeholder D-VAL-25 path-d) insertadas ANTES de `## Operator Next Steps` que preserva el cierre del archivo
-- Las 88 líneas pre-existentes del README preservadas intactas; resto del STATE.md (Project Reference, Current Position previo, Performance Metrics, Accumulated Context, Session Continuity) preservado
-- Deviation Rule 3 - Blocking documentada: regex verify `! grep -q "npm install" README.md` falla por contenido pre-existente línea 25 ("Sin `npm install`" — pre-existente niega el uso, NO lo introduce); acceptance criterion "preservar 88 líneas previas intactas" tiene prioridad. Análogo a Plan 09-02 D-VAL-09
-- Zero deps añadidas, cero scripts/skills modificados, cero deviations Rule 4 (architectural)
-- VAL-06 partially-supported (docs ready for milestone-close use)
-
-**Plan 10-02 closure (2026-05-26):**
-
-- Reporter milestone gate: `scripts/run-validation-271.mjs` (NUEVO, 357 líneas, supera el `min_lines: 120` del plan must-haves por 3×)
-- Zero-deps invariant preservado: solo `node:fs` + `node:url` + `node:path` + import del módulo puro `validation-state.js`. NO `child_process`, NO `writeFileSync`, NO shell-out a `node --test`
-- 3 sub-gates verificados: VAL-04 (≥2 distinct `by` por validated), VAL-06 (271/271 validated), VAL-08 (cero disputed)
-- Helper `effectiveStatus(passes)` implementa relax path-B D-VAL-25 cb (RESEARCH Open Q #1 opción c): `deriveStatus==='disputed'` + entry `{by:'autor', verdict:'correcta'}` → trata como `validated`
-- Mensaje literal `VAL_07_STRICT=1 node --test tests/*.test.js` impreso al PASS como siguiente paso manual (gesto consciente del autor; Phase 10 NO auto-flippea)
-- Tabla colorizada ANSI con 6 columnas (Categoría/Total/Validated/Disputed/Pending/Missing) + warnings inline en amarillo (disputed IDs, missing N, inconsistencia status escrito vs derivado)
-- Defensive load (no throws): JSON corrupto reporta error y sigue con el resto (mitiga T-10-02-02)
-- Estado del run pre-batch verificado: exit 1 con 2/271 validated (los del piloto Phase 9: preposiciones-040 + avere-001), 269 en missing — la rama defensive funciona como diseñada
-- VAL-04 + VAL-06 completados (criterios verificables; el milestone cierra cuando el reporter sale exit 0 tras Plan 10-04 + colaresolución)
-
-**Plan 10-01 closure (2026-05-26):**
-
-- Categoría sub-skill: `.claude/skills/gsd-validate-batch/SKILL.md` (NUEVO, 630 líneas, frontmatter YAML válido con 9 herramientas incluyendo AskUserQuestion + Skill, sin modo fork del contexto)
-- Las 8 decisiones D-VAL-19..D-VAL-26 documentadas verbatim
-- Los 4 caminos disputed con texto literal en español + suggested-fix derivado del tag [Cn-criterio]
-- Reconsider trigger D-VAL-21 (preposiciones-031/-032/-047 + threshold 5%)
-- Pre-flight + cierre AVERE assert con AskUserQuestion 3 opciones
-- Schema-validation defensive POST-categoría
-- Skill base Phase 9 intocable (`git diff --stat .claude/skills/gsd-validate-exercise/SKILL.md` vacío)
-- VAL-08 completed
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-05-27 — Milestone v1.2 started
 
 ## Performance Metrics
 
