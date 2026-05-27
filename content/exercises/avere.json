@@ -643,8 +643,21 @@
       },
       "notes": "Match con DUPLICADOS textuales en columna derecha (D-66): dos 'ha' válidos — el grading los consume por índice; el usuario puede emparejar 'lui'→primer 'ha' o 'lui'→segundo 'ha' indistintamente.",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
