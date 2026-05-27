@@ -89,7 +89,24 @@
         "correctIndex": 0,
         "explanation": "La tercera persona singular del presente indicativo de essere es 'è' con acento grave, forma que cubre lui, lei y la cortesía Lei. 'Lui è il mio amico' equivale al español 'Él es mi amigo'. Importante: el acento grave sobre la 'è' es obligatorio porque distingue el verbo (è = es) de la conjunción 'e' (e = y); confundir las dos grafías es uno de los errores ortográficos A1 más frecuentes."
       },
-      "notes": "Presente indicativo, 3ª persona singular (lui). Identidad / amistad. Distractora `ha` = avere."
+      "notes": "Presente indicativo, 3ª persona singular (lui). Identidad / amistad. Distractora `ha` = avere.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "essere-004",
