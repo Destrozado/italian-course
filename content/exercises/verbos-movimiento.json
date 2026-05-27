@@ -184,7 +184,24 @@
         "correctIndex": 1,
         "explanation": "Cuando el auxiliar es essere, el participio del verbo de movimiento concuerda en género y número con el sujeto. Para 'Lei' (ella, femenino singular) el participio de andare es 'andata', así que 'Lei è andata al mercato' equivale al español 'Ella ha ido al mercado'. ¡Atención!: a diferencia del español, donde el participio con haber es invariable ('él ha ido / ella ha ido'), el italiano marca el género del sujeto en la propia terminación del participio."
       },
-      "notes": "Concordancia género participio: sujeto femenino singular 'Lei' → 'andata' (PDF §3 ¡Atención! 'Lui è andato | Lei è andata'). Pitfall A1 critical: el participio con essere DEBE concordar."
+      "notes": "Concordancia género participio: sujeto femenino singular 'Lei' → 'andata' (PDF §3 ¡Atención! 'Lui è andato | Lei è andata'). Pitfall A1 critical: el participio con essere DEBE concordar.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "verbos-movimiento-008",
