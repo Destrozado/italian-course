@@ -422,7 +422,24 @@
         "correctIndex": 2,
         "explanation": "Los sustantivos terminados en -e (sean masculinos o femeninos) forman el plural con -i: 'il padre' (el padre) → 'i padri' (los padres). Importante: el género NO se ve en la terminación -e, solo se descubre por el artículo ('il padre' masc, 'la madre' fem). Mismo patrón en 'madre → madri' y 'cane → cani'."
       },
-      "notes": "Convertido de ex-match-200. Grupo mixto -e→-i. Distractoras: `padre` (invariable falso), `padres` (calco español), `padrei` (doble vocal final, error A1). Pitfall: padre/madre comparten regla -e→-i — opuesto a casa/donna que es -a→-e."
+      "notes": "Convertido de ex-match-200. Grupo mixto -e→-i. Distractoras: `padre` (invariable falso), `padres` (calco español), `padrei` (doble vocal final, error A1). Pitfall: padre/madre comparten regla -e→-i — opuesto a casa/donna que es -a→-e.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "sustantivos-irregulares-016",
