@@ -789,7 +789,28 @@
         "correctIndex": 0,
         "explanation": "Un refuerzo sobre el uso de la familia '-essa'. 'Dottore' (doctor) termina en '-e', pero nota que no termina en '-tore' (la raíz es dott-). Por ello es correcto aplicar el sufijo y obtener 'dottoressa' en lugar de equivocarnos usando '-trice'."
       },
-      "notes": "Convertido de ex-match-204 (dottore↔dottoressa). Duplica mc-007 con orden de distractoras invertido (correct en index 0). Repaso espaciado de la familia -essa más común. Distractoras: `dottrice` (calco -trice), `dottora` (regla ingenua), `dottore` (invariable falso)."
+      "notes": "Convertido de ex-match-204 (dottore↔dottoressa). Duplica mc-007 con orden de distractoras invertido (correct en index 0). Repaso espaciado de la familia -essa más común. Distractoras: `dottrice` (calco -trice), `dottora` (regla ingenua), `dottore` (invariable falso).",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] Afirmacion linguisticamente falsa: dice que dottore NO termina en -tore cuando si termina en -tore; justificacion basada en premisa erronea, contradictoria/confusa. Abre con meta-staging Un refuerzo sobre."
+            ]
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] La explicacion afirma que dottore no termina en -tore, factualmente incorrecto e internamente contradictorio (invoca -trice como distractor precisamente por la analogia con -tore). El alumno recibiria una regla falsa."
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "genero-numero-029",
