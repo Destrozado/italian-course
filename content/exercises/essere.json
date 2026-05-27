@@ -1199,7 +1199,24 @@
         ],
         "explanation": "La frase ejercita la doble pista del passato prossimo de essere: el auxiliar 'siamo' (essere, no avere) y el participio 'stati' (plural masculino, concordancia con el grupo). 'Siamo stati a Roma per una settimana' equivale al español 'Hemos estado en Roma una semana'. ¡Atención! la distractora 'abbiamo' es el calco mental hispano (he/has/hemos estado → ho/hai/abbiamo stato) — error A1 fortísimo. La preposición 'a' marca ciudad y 'per' marca duración."
       },
-      "notes": "Passato prossimo plural masc + preposición `a` con ciudad + `per` con duración — D-90 word-buttons sub-área participio. Trampa clásica: hispanohablante diría 'abbiamo stato' (calco). Distractora `abbiamo` = avere."
+      "notes": "Passato prossimo plural masc + preposición `a` con ciudad + `per` con duración — D-90 word-buttons sub-área participio. Trampa clásica: hispanohablante diría 'abbiamo stato' (calco). Distractora `abbiamo` = avere.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "essere-300",
