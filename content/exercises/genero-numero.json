@@ -702,7 +702,24 @@
         "correctIndex": 2,
         "explanation": "La familia de palabras derivadas en '-tore' es muy productiva en italiano. Mecanizar este patrón te será de gran utilidad: todo el que finaliza en '-tore', finaliza en '-trice' en su contraparte femenina. 'Lavoratore' pasa a 'lavoratrice' (trabajadora)."
       },
-      "notes": "Convertido de ex-match-203 (lavoratore↔lavoratrice). Extiende la familia productiva -tore/-trice. Distractoras: `lavoratora` (regla ingenua -e→-a), `lavoratressa` (mezcla con -essa), `lavoratoressa` (forma híbrida triple-mezcla). Refuerzo: cualquier profesión en -tore va a -trice (mecanizado)."
+      "notes": "Convertido de ex-match-203 (lavoratore↔lavoratrice). Extiende la familia productiva -tore/-trice. Distractoras: `lavoratora` (regla ingenua -e→-a), `lavoratressa` (mezcla con -essa), `lavoratoressa` (forma híbrida triple-mezcla). Refuerzo: cualquier profesión en -tore va a -trice (mecanizado).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "genero-numero-026",
