@@ -323,7 +323,26 @@
         "correctIndex": 0,
         "explanation": "Refuerzo directo de la regla general femenina: si un sustantivo es femenino y termina en -a, su plural invariablemente se formará cambiando esa vocal a -e. El plural de 'casa' siempre es 'case'. Las alternativas terminadas en -s son errores directos del español."
       },
-      "notes": "Convertido de ex-match-200 (casa↔case). Duplica mc-002 con orden de distractoras distinto. Distractoras: `casas` (calco español), `casi` (regla masc mal aplicada), `cases` (mezcla -e+-s). Pitfall A1 critical: el plural fem es -e, NO -as."
+      "notes": "Convertido de ex-match-200 (casa↔case). Duplica mc-002 con orden de distractoras distinto. Distractoras: `casas` (calco español), `casi` (regla masc mal aplicada), `cases` (mezcla -e+-s). Pitfall A1 critical: el plural fem es -e, NO -as.",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] La explanation abre con Refuerzo directo de la regla general femenina, etiqueta meta-staging orientada al curador/sistema en lugar del alumno; debe empezar directamente con la regla o el contraste."
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "genero-numero-013",
