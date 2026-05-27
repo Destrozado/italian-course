@@ -615,7 +615,24 @@
         "correctIndex": 0,
         "explanation": "La gran mayoría de los nombres de animales siguen el patrón gramatical estricto del -o para el masculino y -a para el femenino. Aplicándolo a 'gatto', el resultado es 'gatta'."
       },
-      "notes": "Convertido de ex-match-202 (gatto↔gatta). Patrón §2A -o/-a aplicado a animales. Distractoras: `gatte` (plural fem confundido con singular), `gattessa` (calco -essa que aplica solo a familia -e profesional), `gattica` (forma inventada plausible con -ica). Familia: gatto/gatta, cavallo/cavalla, leone/leonessa (excepción)."
+      "notes": "Convertido de ex-match-202 (gatto↔gatta). Patrón §2A -o/-a aplicado a animales. Distractoras: `gatte` (plural fem confundido con singular), `gattessa` (calco -essa que aplica solo a familia -e profesional), `gattica` (forma inventada plausible con -ica). Familia: gatto/gatta, cavallo/cavalla, leone/leonessa (excepción).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "genero-numero-023",
