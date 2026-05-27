@@ -1158,7 +1158,24 @@
         "correctIndex": 3,
         "explanation": "La tercera plural del passato prossimo de essere para sujeto femenino plural combina auxiliar 'sono' + participio 'state' (concordancia plural femenino): 'Le ragazze sono state qui' equivale al español 'Las chicas estuvieron aquí'. Importante: las cuatro formas del participio (stato/stata/stati/state) cubren las cuatro celdas de la matriz de concordancia masc/fem × sg/pl; misma lógica que opera con verbos de movimiento como andare (andato/andata/andati/andate) cuando el auxiliar es essere."
       },
-      "notes": "Passato prossimo plural fem: 3ª plural auxiliar `sono` + concordancia plural fem `state`. Las 4 formas stato/stata/stati/state cubiertas D-93. Distractora `hanno` = avere."
+      "notes": "Passato prossimo plural fem: 3ª plural auxiliar `sono` + concordancia plural fem `state`. Las 4 formas stato/stata/stati/state cubiertas D-93. Distractora `hanno` = avere.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "essere-103",
