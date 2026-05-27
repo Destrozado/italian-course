@@ -604,7 +604,24 @@
         ],
         "explanation": "La estructura completa para nacionalidad plural con origen es essere + adjetivo plural + 'di' + ciudad: 'Noi siamo italiani di Milano' equivale al español 'Nosotros somos italianos de Milán'. Importante: el plural masculino 'italiani' termina en -i (no en -os como el calco español 'italianos'); el italiano nunca cierra el plural con -s. Cuidado con la distractora 'abbiamo': es la primera plural de avere, que no se usa para nacionalidad."
       },
-      "notes": "Nacionalidad plural masc + preposición `di` con origen — D-90 word-buttons sub-área nacionalidad. Distractora `abbiamo` = avere."
+      "notes": "Nacionalidad plural masc + preposición `di` con origen — D-90 word-buttons sub-área nacionalidad. Distractora `abbiamo` = avere.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "essere-016",
