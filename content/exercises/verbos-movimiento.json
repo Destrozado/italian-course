@@ -242,7 +242,24 @@
         "correctIndex": 2,
         "explanation": "Cuando el sujeto plural es masculino (o un grupo mixto, que en italiano se trata como masculino por defecto), el participio termina en -i: 'Noi siamo andati a Roma' equivale al español 'Nosotros hemos ido a Roma'. El paréntesis '(uomini)' del enunciado aclara que el sujeto es masculino plural y evita ambigüedad. Importante: en italiano, basta con que haya un hombre en el grupo para que la concordancia plural sea masculina."
       },
-      "notes": "Concordancia plural masculino: 'Noi (uomini)' → 'andati' (PDF §3 'Noi siamo andati'). El paréntesis aclara género para hacer la concordancia inequívoca."
+      "notes": "Concordancia plural masculino: 'Noi (uomini)' → 'andati' (PDF §3 'Noi siamo andati'). El paréntesis aclara género para hacer la concordancia inequívoca.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "verbos-movimiento-010",
