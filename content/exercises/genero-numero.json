@@ -1096,7 +1096,24 @@
         ],
         "explanation": "El artículo definido masculino singular depende del sonido inicial del sustantivo: Lo ante s+consonante, z, ps, gn, pn y x (lo zaino, lo studente, lo psicologo); L' ante vocal por elisión (l'amico, l'occhio); Il ante el resto de consonantes (il ragazzo, il libro). La distractora más frecuente del hispanohablante es usar Il delante de z- o s+cons- como en español; el italiano requiere Lo en esos casos por motivos fonéticos."
       },
-      "notes": "Match con 3 artículos distintos en columna derecha (lo×2, l'×1, il×1) por regla R3 — al menos 3 valores únicos. zaino y studente comparten 'lo' intencionalmente (D-66): testea que el alumno reconoce que tanto z- como s+cons- disparan la misma regla. amico activa elisión l'; ragazzo cae en la regla regular il. El alumno NO puede derivar la respuesta por similitud de raíz — tiene que aplicar la regla fonética italiana A1 más distintiva."
+      "notes": "Match con 3 artículos distintos en columna derecha (lo×2, l'×1, il×1) por regla R3 — al menos 3 valores únicos. zaino y studente comparten 'lo' intencionalmente (D-66): testea que el alumno reconoce que tanto z- como s+cons- disparan la misma regla. amico activa elisión l'; ragazzo cae en la regla regular il. El alumno NO puede derivar la respuesta por similitud de raíz — tiene que aplicar la regla fonética italiana A1 más distintiva.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "genero-numero-209",
