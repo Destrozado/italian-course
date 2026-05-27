@@ -70,28 +70,8 @@
       },
       "notes": "PDF §1 Regular -o→-a: avvocato→avvocata. Nota lingüística: ambas formas (`avvocata` y `avvocatessa`) son aceptables en italiano moderno — `avvocatessa` es la tradicional con sufijo prestigioso -essa (familia dottoressa/professoressa), `avvocata` es la del PDF y la del italiano contemporáneo neutro (paralelo a otras profesiones -o→-a como impiegata/segretaria). Para coherencia con el resto de ejercicios PDF §1 (todas -o→-a sin -essa), el ejercicio fija `avvocata` como respuesta correcta. Distractoras: `avvocatessa` (forma tradicional plausible — distractora pedagógica fuerte), `avvocatrice` (-trice aplicado mal, esta no es -tore), `avvocate` (plural fem, no singular).",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C2-una_opcion] La explanation admite que avvocatessa (option 0) tambien es femenino aceptado en italiano contemporaneo => doble-validez con avvocata (option 2).",
-              "[C4-explanation] dice que el PDF solo favorece avvocata (preferencia, no exclusividad), no fundamenta una unica solucion.",
-              "[C5-leak] la explanation menciona l avvocata revelando la respuesta."
-            ]
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C2-una_opcion] la explanation admite avvocatessa como aceptada => doble-validez entre option 0 y 2.",
-              "[C4-explanation] declarar valida avvocatessa contradice la premisa de una sola correcta."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -135,23 +115,8 @@
       },
       "notes": "PDF §1 Regular -o→-a. Distractoras: `poliziotte` (plural fem), `poliziottrice` (-trice mal aplicada — esta no es -tore), `poliziottessa` (-essa mal aplicada — esta no es -e).",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C4-explanation] la descripcion exige raiz en -e (dottore, professore) para -essa es imprecisa; el patron real es terminacion en -ore (o masc en -ore/-e), no simplemente raiz en -e."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -311,23 +276,8 @@
       },
       "notes": "PDF §2 -iere → -iera. Distractoras: `parrucchiere` (invariable falso), `parrucchieressa` (calco -essa), `parrucchierica` (mezcla con -ica). Misma regla productiva que cameriere/cameriera, infermiere/infermiera.",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C4-explanation] La frase mantiene siempre la doble erre y la H tras la C sugiere falsamente que la H se anade en la transformacion -iere->-iera; la cch ya esta en el masculino parrucchiere. Engañoso."
-            ]
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -400,24 +350,8 @@
       },
       "notes": "PDF §3 Irregolari -tore → -trice. Distractoras: `direttoressa` (mezcla con -essa por familia dottoressa, error A1 muy frecuente porque 'direttore' suena prestigioso como 'dottore'), `direttora` (regla regular mal aplicada), `direttressa` (mezcla). Pitfall central: distinguir -tore/-trice (attore, direttore) de -e/-essa (dottore, professore).",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C4-explanation] -e simple exige -essa (dottore, professore) es impreciso: dottore/professore SI terminan en -ore. La distincion real no es -tore vs -e simple sino morfologica/lexical (raiz latina -tor/-trix vs -or sin -trix). Puede confundir.",
-              "[C5-leak] direttrice preserva la raiz direttr- de direttore, leak morfologico leve por transparencia."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -548,23 +482,8 @@
       },
       "notes": "PDF §4 Invariabili. Distractoras: `insegnantessa` (-essa mal aplicada — pitfall: profesor formal es 'professore/professoressa', pero coloquial 'insegnante' es invariable), `insegnanta` (regla -a mal aplicada), `insegnatrice` (-trice mal aplicada). Familia productiva -nte invariable: insegnante, cantante, dirigente.",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C5-leak] la etiqueta (masc, coloquial) telegrafia la respuesta: revela genero de partida y el matiz coloquial anticipa que la forma correcta es la invariable, dirigiendo sin razonamiento."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -705,25 +624,8 @@
       },
       "notes": "PDF §1 (en la tabla del PDF figura como -o→-a pero en italiano real es invariable -ista). Distractoras: `farmacistessa` (-essa errónea), `farmacistra` (inventada), `farmaciste` (plural fem). Pitfall A1: la tabla del PDF lista esta y giornalista en §1, pero la regla productiva -ista las hace invariables (igual que dentista, pianista). El artículo distingue: il farmacista / la farmacista.",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C4-explanation] referencia meta al PDF de la profesora (aunque el PDF de la profesora lo clasifique...), meta-staging del curador, no contenido para el alumno."
-            ]
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C4-explanation] referencia meta-editorial explicita al PDF de la profesora, staging interno del curador."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -738,25 +640,8 @@
       },
       "notes": "PDF §1 (tabla) — invariable en italiano real por la regla -ista. Distractoras: `giornalistessa` (-essa errónea), `giornaliste` (plural fem), `giornalistra` (inventada). Misma regla que dentista, pianista, farmacista. Artículo distingue género.",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C4-explanation] referencias meta al PDF (el PDF a veces lista profesiones -ista en la tabla -o->-a). Eliminar la mencion del material fuente."
-            ]
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C4-explanation] menciona el PDF y la tabla del PDF, refs meta-editoriales prohibidas."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -829,23 +714,8 @@
       },
       "notes": "PDF §5 Altre — préstamo del inglés, invariable. Distractoras: `manageressa` (-essa errónea italianizando), `managera` (regla -a italianizada calco), `managere` (plural italianizado). Regla productiva: los anglicismos profesionales son invariables (manager, designer, freelance). Solo cambia el artículo.",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C5-leak] la etiqueta (masc, prestamo ingles) filtra la regla a aplicar (invariabilidad del prestamo) antes de responder."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -889,23 +759,8 @@
       },
       "notes": "PDF §5 Altre — -tore→-trice. Distractoras: `muratoressa` (-essa errónea), `muratora` (regla -a mal aplicada), `muratoria` (mezcla con -ria de 'muratura', falso amigo léxico).",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C4-explanation] muratrice como profesional femenina (albanila) es dudoso/no estandar; muratrice designa mas bien una maquina. Extrapolar -tore/-trice a muratore puede ser factualmente incorrecto."
-            ]
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -920,25 +775,8 @@
       },
       "notes": "PDF §5 Altre — -tore→-trice. Distractoras: `pittoressa` (-essa errónea por confusión con dottoressa), `pittora` (regla -a, calco español 'pintora'), `pittoria` (mezcla con -ria). El 'Mini esercizio' del PDF lo pide explícitamente — caso del solucionario.",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C4-explanation] nota meta de curador (cross-ref a Genero y Numero) que no debe aparecer en texto al alumno."
-            ]
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C4-explanation] nota meta de staging (cross-ref a Genero y Numero), referencia interna no pedagogica."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -982,23 +820,8 @@
       },
       "notes": "PDF §5 Altre — -tore→-trice. Distractoras: `ricercatressa` (mezcla), `ricercatora` (regla -a mal aplicada), `ricercatoria` (mezcla con -ria de 'ricercatorio' inventada). 'Mini esercizio' del PDF — caso del solucionario.",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C4-explanation] la derivacion -are -> -atore -> -atrice (sufijos compuestos como -atore) es imprecisa y confusa para A1; -atore no es sufijo compuesto sino alomorfo de -tore. Simplificar a la regla -tore->-trice."
-            ]
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -1158,23 +981,8 @@
       },
       "notes": "Contexto semántico — escena clínica (bisturi + ospedali) fija el lema. Distractoras: profesiones plausibles del mismo PDF que NO encajan con el contexto. Refuerzo de uso pragmático, no solo morfología.",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C4-explanation] meta-staging dirigido al disenador (cuando el ejercicio no pregunta solo morfologia, la pista que el alumno debe identificar, Cuidado al elegir entre profesiones plausibles) en vez de explicar al alumno por que es chirurgo. Reescribir en tono didactico."
-            ]
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -1281,23 +1089,8 @@
       },
       "notes": "Match diseño-rule-válido: profesión↔lugar son semánticamente independientes (la raíz NO revela el lugar). Cada pareja exige conocer el campo léxico, no la morfología. Pitfall pedagógico: cameriere puede estar en ristorante O bar; este ejercicio usa bar para forzar al alumno a no asumir 1:1 trivial con cuoco. La asociación profesión↔lugar es la inferencia central.",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C2-una_opcion] el pareo cuoco->ristorante / cameriere->bar no es univoco: cuoco y cameriere caben ambos en ristorante Y bar; el alumno puede defender cuoco->bar y cameriere->ristorante. La explanation reconoce el problema pero no lo resuelve."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -1375,25 +1168,8 @@
       },
       "notes": "Frase A1 esencial — practica essere 1ª singular + femenino prestigioso -essa (familia dottoressa/professoressa/studentessa, PDF §3). Distractora `dottora` es el calco español 'doctora' (regla regular -o→-a mal aplicada — pitfall A1 frecuente). Distractora `sei` fuerza el reflejo correcto de persona (yo→sono, no tú→sei). Sin punto final en tokens (W-6).",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C2-una_opcion] dottora existe en italiano contemporaneo como forma valida documentada (Treccani), no solo dottoressa; la explanation la descarta como error.",
-              "[C4-explanation] afirmar que dottora es calco espanol incorrecto es inexacto.",
-              "[C5-leak] el prompt espanol doctora es cognado casi identico que senala el lexema."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
