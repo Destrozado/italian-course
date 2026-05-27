@@ -530,7 +530,7 @@
         "prompt": "L'insegnante (masc) → l'___ (fem).",
         "options": ["insegnantessa", "insegnanta", "insegnante", "insegnatrice"],
         "correctIndex": 2,
-        "explanation": "El término coloquial 'insegnante' (docente, maestro) es invariable como todas las profesiones italianas en -nte: 'l'insegnante' masculino y 'l'insegnante' femenino comparten forma. Importante: el equivalente formal y específico de aula sí flexiona como 'professore/professoressa', pero el genérico 'insegnante' nunca cambia su terminación. La elisión del artículo opera ante vocal en ambos géneros."
+        "explanation": "'Insegnante' (docente) es invariable en género: 'l'insegnante' vale para masculino y femenino, y solo el artículo distingue. Pertenece al grupo de sustantivos en -nte que no cambian de forma (como 'cantante' o 'dirigente'). La elisión del artículo (l con apóstrofe) opera ante vocal en ambos géneros."
       },
       "notes": "PDF §4 Invariabili. Distractoras: `insegnantessa` (-essa mal aplicada — pitfall: profesor formal es 'professore/professoressa', pero coloquial 'insegnante' es invariable), `insegnanta` (regla -a mal aplicada), `insegnatrice` (-trice mal aplicada). Familia productiva -nte invariable: insegnante, cantante, dirigente.",
       "validation": {
