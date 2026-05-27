@@ -678,7 +678,24 @@
         "correctIndex": 1,
         "explanation": "El sustantivo 'tempio' (templo) inserta una -l- al pluralizar: 'il tempio' → 'i templi'. ¡Atención a la trampa homófona!: 'i tempi' (sin -l-) existe pero es el plural de 'tempo' (los tiempos), no de 'tempio'. Son lemas distintos con plurales casi idénticos — el contexto y la consonante extra los separan."
       },
-      "notes": "Convertido de ex-match-204 (refuerzo de mc-008). Cambio de raíz con inserción de -l-: tempio→templi. Distractoras: `tempi` (regla ingenua -io→-i; además homófono con `tempi` plural de `tempo` — trampa de doble sentido), `tempios` (calco español), `templios` (calco con -s sobre la forma correcta). Pitfall A1: hay que aprender que esta familia inserta -l- en plural."
+      "notes": "Convertido de ex-match-204 (refuerzo de mc-008). Cambio de raíz con inserción de -l-: tempio→templi. Distractoras: `tempi` (regla ingenua -io→-i; además homófono con `tempi` plural de `tempo` — trampa de doble sentido), `tempios` (calco español), `templios` (calco con -s sobre la forma correcta). Pitfall A1: hay que aprender que esta familia inserta -l- en plural.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "sustantivos-irregulares-026",
