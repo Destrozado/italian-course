@@ -128,8 +128,21 @@
       },
       "notes": "PDF §1 Regular -o→-a. Distractoras: `poliziotte` (plural fem), `poliziottrice` (-trice mal aplicada — esta no es -tore), `poliziottessa` (-essa mal aplicada — esta no es -e).",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
