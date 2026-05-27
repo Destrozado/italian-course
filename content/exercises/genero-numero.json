@@ -909,7 +909,24 @@
         "correctIndex": 1,
         "explanation": "Las palabras femeninas acabadas en -ca son muy estrictas. Siempre incorporan una 'h' en el plural (-che). Un buen truco para hispanohablantes es contrastarlo con el masculino: el chico es 'amico -> amici' (sin h), pero la chica es inquebrantablemente 'amica -> amiche' (con h)."
       },
-      "notes": "Convertido de ex-match-205 (amica↔amiche). Duplica mc-005 con orden de distractoras invertido y correct en index 1. Contraste pedagógico crítico: `amico→amici` (masc, sin H) vs `amica→amiche` (fem, con H). Distractoras: `amici` (plural masc confundido), `amicas` (calco español), `amice` (regla ingenua sin H, sonaría /tʃ/)."
+      "notes": "Convertido de ex-match-205 (amica↔amiche). Duplica mc-005 con orden de distractoras invertido y correct en index 1. Contraste pedagógico crítico: `amico→amici` (masc, sin H) vs `amica→amiche` (fem, con H). Distractoras: `amici` (plural masc confundido), `amicas` (calco español), `amice` (regla ingenua sin H, sonaría /tʃ/).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "genero-numero-033",
