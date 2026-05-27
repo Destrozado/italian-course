@@ -1028,7 +1028,24 @@
         "distractors": ["hanno", "uscito"],
         "explanation": "Para reconstruir la frase hacen falta dos decisiones: elegir el auxiliar correcto y elegir el participio que concuerda. Uscire es verbo de movimiento, así que pide essere ('sono', no 'hanno' del calco hispano); 'loro' es plural masculino, así que el participio termina en -i ('usciti', no 'uscito'). 'Loro sono usciti alle otto' equivale al español 'Ellos han salido a las ocho'. Importante: la preposición articulada 'alle' (a + le) acompaña las horas plurales en italiano."
       },
-      "notes": "PDF §5 nº3 ('I ragazzi ___ ___ (uscire) alle otto') reformulado con sujeto pronombre. 5 tokens. Distractora 'hanno' trampa hispana; 'uscito' fuerza concordancia plural masculino → 'usciti'."
+      "notes": "PDF §5 nº3 ('I ragazzi ___ ___ (uscire) alle otto') reformulado con sujeto pronombre. 5 tokens. Distractora 'hanno' trampa hispana; 'uscito' fuerza concordancia plural masculino → 'usciti'.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     }
   ]
 }
