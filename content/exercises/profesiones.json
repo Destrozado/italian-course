@@ -937,8 +937,21 @@
       },
       "notes": "PDF §5 Altre — -tore→-trice. Distractoras: `ricercatressa` (mezcla), `ricercatora` (regla -a mal aplicada), `ricercatoria` (mezcla con -ria de 'ricercatorio' inventada). 'Mini esercizio' del PDF — caso del solucionario.",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
