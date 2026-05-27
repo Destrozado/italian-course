@@ -364,7 +364,24 @@
         "correctIndex": 0,
         "explanation": "Los préstamos del inglés conservan su forma original también en plural: 'uno sport' (un deporte) y 'gli sport' (los deportes) tienen idéntica terminación. ¡Atención!: el artículo singular es 'uno' (no 'un') porque 'sport' empieza por s+consonante (igual que 'studente', 'sbaglio'). En plural el artículo es 'gli', nunca 'i'."
       },
-      "notes": "Sustantivo invariable — préstamo del inglés terminado en consonante → no flexiona en plural. Distractoras: `sports` (plural inglés con -s, error de calco frecuente), `sporti` (regla -o→-i ingenua), `sporte` (calco -e fem). Mismo principio que `film`/`bar`/`computer`: los anglicismos conservan su forma. Nota artículo: `uno sport` (no `un sport`) por la s+cons inicial."
+      "notes": "Sustantivo invariable — préstamo del inglés terminado en consonante → no flexiona en plural. Distractoras: `sports` (plural inglés con -s, error de calco frecuente), `sporti` (regla -o→-i ingenua), `sporte` (calco -e fem). Mismo principio que `film`/`bar`/`computer`: los anglicismos conservan su forma. Nota artículo: `uno sport` (no `un sport`) por la s+cons inicial.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "sustantivos-irregulares-014",
