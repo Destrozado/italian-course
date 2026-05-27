@@ -269,7 +269,24 @@
         "correctIndex": 1,
         "explanation": "La sensación de calor o frío en italiano se construye con avere siguiendo el mismo patrón que 'avere fame': 'ho caldo' equivale al español 'tengo calor'. Cuidado: 'sono caldo' existe en italiano pero significa 'estoy caliente' en otros sentidos (atractivo, encendido), no la sensación térmica neutra; para hablar del cuerpo en A1 se usa siempre 'avere caldo'."
       },
-      "notes": "Expresión idiomática: 'avere caldo' (tener calor)."
+      "notes": "Expresión idiomática: 'avere caldo' (tener calor).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "avere-009",
