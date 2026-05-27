@@ -912,7 +912,24 @@
         "correctIndex": 1,
         "explanation": "Uscire (salir) pertenece al grupo canónico de verbos de movimiento del A1 y exige essere en passato prossimo. La 3ª persona plural del auxiliar es 'sono', así que 'loro sono usciti dalla scuola' equivale al español 'ellos han salido de la escuela'. Cuidado: la distractora 'hanno' calca el español 'han salido', pero en italiano el reflejo correcto es essere; el participio plural 'usciti' del enunciado confirma que el auxiliar debe concordar con el grupo masculino."
       },
-      "notes": "Refuerzo Loro + uscire + essere (PDF §3 'Sono usciti'). Distractora 'hanno' es la trampa hispana de pensar en 'haber salido'."
+      "notes": "Refuerzo Loro + uscire + essere (PDF §3 'Sono usciti'). Distractora 'hanno' es la trampa hispana de pensar en 'haber salido'.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "verbos-movimiento-034",
