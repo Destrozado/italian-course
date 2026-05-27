@@ -28,7 +28,9 @@ progress:
 Phase: 10 (ejecuci-n-validaci-n-271-ejercicios-escalada-disputed) — EXECUTING
 Plan: 4 of 5 (Plan 10-01 + Plan 10-02 + Plan 10-03 closed)
 Status: Ready to execute Plan 09-03 (piloto Phase 9 checkpoint:human-verify) → Plan 10-04 (batch run real sobre 269 pendientes) → Plan 10-05 (milestone close gate)
-Last activity: 2026-05-27 -- Categoría essere cerrada vía /gsd-validate-batch (39/39 validated, 6 disputed resueltos)
+Last activity: 2026-05-27 -- Categoría genero-numero cerrada vía /gsd-validate-batch (40/40 validated, 8 disputed resueltos)
+
+Phase 10 — Categoría genero-numero cerrada (2026-05-27): 40/40 validated, 8 disputed resueltos, 0 deferred, 0 pending.
 
 Phase 10 — Categoría essere cerrada (2026-05-27): 39/39 validated, 6 disputed resueltos, 0 deferred, 0 pending.
 
@@ -271,13 +273,14 @@ Wave 1 cerrado (10-01 + 10-02 + 10-03 closed). Quedan: Plan 09-03 (piloto Phase 
 - [x] preposiciones — CERRADA 2026-05-26: 51/51 validated (50 originales + 1 nuevo -051), 0 disputed. 11 disputed resueltos vía fixes editoriales (técnica: traducción española objetivo en prompt). +1 ejercicio nuevo -051 (par di/su con -020).
 - [x] avere — CERRADA 2026-05-27: 23/23 validated, 3 disputed resueltos.
 - [x] essere — CERRADA 2026-05-27: 39/39 validated, 6 disputed resueltos.
-- [ ] genero-numero — 40 pendientes (40 total)
+- [x] genero-numero — CERRADA 2026-05-27: 40/40 validated, 8 disputed resueltos.
 - [ ] profesiones — 51 pendientes (51 total)
 - [ ] sustantivos-irregulares — 31 pendientes (31 total)
 - [ ] verbos-movimiento — 37 pendientes (37 total)
 
 ### Categorías cerradas:
 
+- Phase 10 — Categoría genero-numero cerrada (2026-05-27): 40/40 validated, 8 disputed resueltos, 0 deferred, 0 pending. Dispute rate ~20% (8/40). Disputed: 006 (Reject+override — falso positivo de Sonnet [C5-leak] sobre el formato flecha "X → la ___"; Opus OK y el mismo formato validó en 019-027; la flecha es la TAREA del ejercicio, no leak de la regla morfológica); 007/028 ([C4] explanations sobre dottore→dottoressa con afirmaciones contradictorias/falsas sobre "-tore/-trice" — 028 cazado por AMBOS modelos; accept-fix reescribiendo la explanation a la regla -essa limpia); 012 ([C4] meta-staging "Refuerzo directo de la regla general femenina:" como prefijo del curador — accept-fix quitando el prefijo); 033/034/036 ([C5-leak] AMBOS modelos — etiqueta "(sustantivo invariable, vocal acentuada/préstamo inglés)" en el prompt que nombra la regla; accept-fix borrando el paréntesis); 037 ([C1/C2/C4] doble-validez psicologi/psicologhi — psicologo es la EXCEPCIÓN a la regla -go→-ghi: profesiones en -logo de persona hacen plural en -gi; el multiple-choice de respuesta única no admite dos correctas → accept-fix: correcta=psicologi, se retira psicologhi de opciones, explanation reescrita). Patrón dominante: leak de etiquetas meta en el prompt (R1/C5) + explanations con errores factuales/contradicciones en la familia profesiones -tore/-essa (R5/C4). Nota proceso: el formato flecha de cambio de género validó limpio en 019-027; el único disputed por ese formato (006) fue falso positivo aislado de Sonnet.
 - Phase 10 — Categoría preposiciones cerrada (2026-05-26): 51/51 validated, 11 disputed resueltos, 0 deferred, 0 pending. Nota: +1 ejercicio nuevo (-051) creado durante la resolución de disputed. Dispute rate inicial ~22% (muy por encima del 5-15% hipotético) — el sistema cazó bugs editoriales reales: R7 doble-validez verbo+ciudad/libro+tema, R2 ref a ejercicio por ID, R4 meta-staging, C1 falta artículo. Técnica de resolución validada: incluir la traducción española objetivo en el prompt desambigua doble-validez Y hace que el alumno ejercite el significado.
 - Phase 10 — Categoría essere cerrada (2026-05-27): 39/39 validated, 6 disputed resueltos, 0 deferred, 0 pending. Dispute rate ~15% (6/39). Disputed: 016/300/301 → meta-staging C4 ("en estos ejercicios" / "dispara cascada" / "motor de re-verificación") resueltos accept-fix; 026 → error factual ("stato como auxiliar en è andato") accept-fix 2 ciclos (Sonnet cazó imprecisión "el auxiliar es siempre è" en el 1º); 300 también accept-fix 2 ciclos (Opus cazó framing residual "los dos pilares del eje essere/avere" en el 1º); 018 → doble validez C2 (avete=tenéis studenti) resuelto añadiendo contraste "non professori" al prompt; 305 → error factual ("vengo di Madrid" debía ser "vengo da Madrid") accept-fix. Patrón dominante: meta-staging + errores factuales en explanations de los cruces D-94 (300/301/305). Commit de normalización previo (essere.json a formato 2-espacios expandido).
 - Phase 10 — Categoría avere cerrada (2026-05-27): 23/23 validated, 3 disputed resueltos, 0 deferred, 0 pending. Dispute rate ~14% (3/22). Disputed: avere-009 → Reject+override (falso positivo C5-leak de Sonnet: confundía explanation/notes con el prompt; R1 limita C5-leak al prompt). avere-202 (match D-66) → Accept-fix en 2 ciclos: 1º añadir 4º par voi→avete (C3 distribución), 2º limpiar prompt «(con duplicados)» (C5) + referencia al sistema en explanation (C4 meta-staging). avere-300 → Accept-fix: explanation con error de idioma (palabras españolas «mecánico, oficinista» como si fueran italianas) reescrita. Snapshot D-88 regenerado tras la mutación aprobada de avere-202 (blindado entre los 17 originales).
