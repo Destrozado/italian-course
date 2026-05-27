@@ -1277,7 +1277,28 @@
         "correctIndex": 2,
         "explanation": "La profesión femenina sigue la regla productiva -o → -a (avvocato → avvocata) y se predica con essere: 'Lei è avvocata' equivale al español 'Ella es abogada'. Cuidado con la trampa 'ha avvocata': es un calco vacío en italiano porque la profesión exige essere, nunca avere. Importante: este ejercicio cruza essere con profesiones — un fallo aquí marca como no-hechas las dos categorías en el motor de re-verificación, así que conviene tener firme el contraste essere/avere para profesiones predicativas."
       },
-      "notes": "Cruce essere + profesiones (D-94). Profesión fem (regla -o→-a profesiones.json) introducida con essere. Trampa `ha avvocata` = calco erróneo. Fallar cascadea D-54 a essere + profesiones."
+      "notes": "Cruce essere + profesiones (D-94). Profesión fem (regla -o→-a profesiones.json) introducida con essere. Trampa `ha avvocata` = calco erróneo. Fallar cascadea D-54 a essere + profesiones.",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] Meta-staging prohibido por R4: un fallo aquí marca como no-hechas las dos categorías en el motor de re-verificación. Reescribir enfocada al alumno (regla -o→-a + contraste essere/avere), sin mención al motor/sistema."
+            ]
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] Meta-staging: marca como no-hechas las dos categorías en el motor de re-verificación referencia el sistema interno, no al alumno."
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "essere-302",
