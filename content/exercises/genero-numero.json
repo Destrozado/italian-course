@@ -364,7 +364,24 @@
         "correctIndex": 1,
         "explanation": "Al ser 'mela' (manzana) un sustantivo regular femenino que termina en -a, su plural sigue la transformación canónica hacia la vocal -e. 'Mele' es la única respuesta correcta."
       },
-      "notes": "Convertido de ex-match-200 (mela↔mele). Distractoras: `meli` (regla masc -i mal aplicada al fem), `melas` (calco español), `melae` (mezcla -a+-e). Regla regular pura fem -a→-e — sin excepción aquí (la c es seguida de vocal palatal pero al ir antes de la c con e suena suave naturalmente)."
+      "notes": "Convertido de ex-match-200 (mela↔mele). Distractoras: `meli` (regla masc -i mal aplicada al fem), `melas` (calco español), `melae` (mezcla -a+-e). Regla regular pura fem -a→-e — sin excepción aquí (la c es seguida de vocal palatal pero al ir antes de la c con e suena suave naturalmente).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "genero-numero-015",
