@@ -161,7 +161,24 @@
         "correctIndex": 1,
         "explanation": "El presente indicativo de avere en la segunda persona plural es 'avete', que acompaña al pronombre 'voi'. La frase 'Voi avete tempo' se traduce como '¿Vosotros tenéis tiempo?'. La 'h' inicial del singular desaparece en 'avete' y 'abbiamo', pero reaparece en 'hanno' (3ª plural): es una particularidad ortográfica que conviene memorizar."
       },
-      "notes": "Presente indicativo, 2ª persona plural (voi)."
+      "notes": "Presente indicativo, 2ª persona plural (voi).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "avere-006",
