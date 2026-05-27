@@ -71,8 +71,16 @@ None - plan ejecutado tal como esta escrito. El conteo final 56 quedo ligerament
 
 None. Todos los ejercicios tienen prompt, options/pairs, correctIndex y explanation curada reales. El unico estado pendiente es `validation.status:"pending"`, que es el flujo previsto (flip a validated lo hace el quorum en 11-05, D-15).
 
-## Checkpoint pendiente
+## Checkpoint Task 3 — APROBADO
 
-Task 3 es un `checkpoint:human-verify` (gate blocking, auto_advance OFF). El autor debe revisar match + bridges y CONFIRMAR el conteo final 56 (lo necesita 11-04 para los 3 puntos de integracion). Estado: awaiting author verification.
+Task 3 era un `checkpoint:human-verify` (gate blocking, auto_advance OFF). El autor reviso match + bridges y respondio **"aprobado"** el 2026-05-27, CONFIRMANDO el conteo total final = **56 ejercicios** sin solicitar cambios. Estado: **APPROVED / COMPLETE**.
+
+El conteo canonico confirmado (56) es el que el plan 11-04 debe propagar identico a los 3 puntos de integracion (categories.json, run-validation-271.mjs CATEGORIES+TOTAL_EXPECTED, tests/exercise-types.test.js CATEGORIES_WITH_EXPLANATIONS).
 
 ## Self-Check: PASSED
+
+- `content/exercises/articoli.json` -> FOUND (56 ejercicios, verificado en disco).
+- Commit a68e89a (match) -> FOUND.
+- Commit d6daf4c (bridges) -> FOUND.
+- Commit 3335c7b (SUMMARY) -> FOUND.
+- Checkpoint Task 3 aprobado por el autor, conteo 56 confirmado y registrado.

@@ -9,8 +9,8 @@ progress:
   total_phases: 4
   completed_phases: 0
   total_plans: 5
-  completed_plans: 2
-  percent: 40
+  completed_plans: 3
+  percent: 60
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -28,11 +28,11 @@ See: `.planning/PROJECT.md` (updated 2026-05-27)
 ## Current Position
 
 Phase: 11 (articoli) — EXECUTING
-Plan: 3 of 5
+Plan: 4 of 5
 Status: Ready to execute
-Last activity: 2026-05-27 -- Plan 11-02 completado (bloque base multiple-choice de Articoli, 48 ejercicios det+indet, aprobado por el autor en checkpoint D-85 sin cambios)
+Last activity: 2026-05-27 -- Plan 11-03 completado (bloque match articolo<->sustantivo + 6 bridges multi-cat articoli-300..305; checkpoint Task 3 aprobado por el autor, conteo final articoli.json CONFIRMADO = 56 ejercicios)
 
-Progress: [████░░░░░░] 40%
+Progress: [██████░░░░] 60%
 
 ## Performance Metrics
 
@@ -81,6 +81,7 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - **Validación reutiliza infra v1.1 sin tocarla** — skill `gsd-validate-batch` + reporter + R1-R7. Añadir una categoría al reporter y al smoke test es bump de constantes: `TOTAL_EXPECTED` (272 → +N) + nueva entry en el array `CATEGORIES` del reporter + 1 línea en `CATEGORIES_WITH_EXPLANATIONS` (D-144) con la cuenta exacta de la categoría.
 - [Phase ?]: Temario Articoli aprobado por el autor sin cambios (checkpoint 11-01); casos A2 (lo pneumatico/lo yogurt) fuera por D-03
 - [Phase ?]: Bloque base multiple-choice de Articoli (48 ejercicios det+indet) aprobado por el autor sin cambios (checkpoint 11-02 D-85); articoli registrado en categories.json order 8 como deviation Rule 3
+- [Phase 11]: Match articolo<->sustantivo (049/050) + 6 bridges multi-cat (300..305) aprobados por el autor sin cambios (checkpoint 11-03). Conteo final CANONICO de content/exercises/articoli.json = 56 ejercicios (48 base + 2 match + 6 bridges); 11-04 debe propagarlo identico a categories.json, run-validation-271.mjs (TOTAL_EXPECTED 272->328) y tests/exercise-types.test.js
 
 ### Pending Todos
 
