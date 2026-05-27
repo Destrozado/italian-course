@@ -1413,8 +1413,21 @@
       },
       "notes": "Cruce essere + preposiciones (D-94). Preposición `di` con origen (regla canónica PDF Preposizioni) + identidad con essere. Caso canónico A1 'soy de X'. Fallar cascadea D-54 a essere + preposiciones.",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     }
   ]
