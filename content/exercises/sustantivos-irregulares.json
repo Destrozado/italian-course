@@ -899,7 +899,28 @@
         "correctIndex": 3,
         "explanation": "El singular del plural irregular 'dei' es 'dio' (dios), no la forma regularizada 'deo' que sugeriría una derivación regular. Importante: el plural 'dei' nace de un cambio de raíz histórico (latín deus → dei) que no se puede deducir aplicando reglas modernas. Hay que aprender el par 'dio / dei' como léxico cerrado, como 'uomo / uomini'."
       },
-      "notes": "Convertido de ex-match-206. Dirección inversa: dei→dio (cambio radical). Distractoras: `dei` (invariable falso), `dee` (singular fem inexistente), `deo` (forma regularizada plausible pero incorrecta — esta es la trampa: parece que `dei` viniera de `deo`, pero NO). Pitfall A1: ver `dei` y recuperar `dio` requiere conocer el lema, no derivarlo."
+      "notes": "Convertido de ex-match-206. Dirección inversa: dei→dio (cambio radical). Distractoras: `dei` (invariable falso), `dee` (singular fem inexistente), `deo` (forma regularizada plausible pero incorrecta — esta es la trampa: parece que `dei` viniera de `deo`, pero NO). Pitfall A1: ver `dei` y recuperar `dio` requiere conocer el lema, no derivarlo.",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C5-leak] La etiqueta (casos especiales, direccion inversa) insinua que es un plural irregular especial, orientando al alumno hacia la respuesta lexica cerrada."
+            ]
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C5-leak] casos especiales nombra la categoria de la regla que se practica, leak de categoria."
+            ]
+          }
+        ]
+      }
     }
   ]
 }
