@@ -1179,7 +1179,24 @@
         "correctIndex": 1,
         "explanation": "¡Atención al pitfall semántico! Quien 'prepara piatti italiani in un ristorante' (prepara platos italianos en un restaurante) es 'la cuoca' (la cocinera), no 'la cameriera' (la camarera). Cuidado: ambas trabajan en el mismo lugar (ristorante), pero la acción distingue. La cocinera prepara; la camarera sirve. Importante: el italiano A1 exige fijar la profesión por la acción del verbo, no solo por el lugar."
       },
-      "notes": "Contexto semántico — 'prepara piatti' fija al cocinero, NO al camarero (que sirve, no prepara). Distractora pedagógica clave: `cameriera` está en el mismo lugar (ristorante) pero hace otra acción (servir). Pitfall A1 central: distinguir cuoco (prepara) de cameriere (sirve)."
+      "notes": "Contexto semántico — 'prepara piatti' fija al cocinero, NO al camarero (que sirve, no prepara). Distractora pedagógica clave: `cameriera` está en el mismo lugar (ristorante) pero hace otra acción (servir). Pitfall A1 central: distinguir cuoco (prepara) de cameriere (sirve).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-041",
