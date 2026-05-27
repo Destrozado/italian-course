@@ -972,7 +972,26 @@
         "correctIndex": 2,
         "explanation": "Profesión académica con regla -tore/-trice estable: 'ricercatore' (investigador) pasa a 'ricercatrice' (investigadora). Importante: el patrón se mantiene incluso para sufijos compuestos como -atore (de 'ricerc-are' a 'ricercat-ore' y luego 'ricercat-rice'). Cuidado con el calco español 'ricercatora' o las mezclas con -essa, que no pertenecen al italiano A1."
       },
-      "notes": "PDF §5 Altre — -tore→-trice. Distractoras: `ricercatressa` (mezcla), `ricercatora` (regla -a mal aplicada), `ricercatoria` (mezcla con -ria de 'ricercatorio' inventada). 'Mini esercizio' del PDF — caso del solucionario."
+      "notes": "PDF §5 Altre — -tore→-trice. Distractoras: `ricercatressa` (mezcla), `ricercatora` (regla -a mal aplicada), `ricercatoria` (mezcla con -ria de 'ricercatorio' inventada). 'Mini esercizio' del PDF — caso del solucionario.",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] la derivacion -are -> -atore -> -atrice (sufijos compuestos como -atore) es imprecisa y confusa para A1; -atore no es sufijo compuesto sino alomorfo de -tore. Simplificar a la regla -tore->-trice."
+            ]
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-034",
