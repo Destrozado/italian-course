@@ -974,7 +974,24 @@
         "correctIndex": 1,
         "explanation": "La cópula clasificatoria 'X es de la clase Y' usa essere para establecer pertenencia a un tipo o categoría: 'Roma è una città italiana' equivale al español 'Roma es una ciudad italiana'. Importante: el italianismo 'città' mantiene la grafía con acento grave final y es invariable en número (una città / due città); este patrón -tà es típico de sustantivos abstractos femeninos italianos como difficoltà o università."
       },
-      "notes": "Cópula clasificatoria: X es de la clase Y. Uso puramente esencial de essere (no estado ni acción). Distractora `ha` = avere."
+      "notes": "Cópula clasificatoria: X es de la clase Y. Uso puramente esencial de essere (no estado ni acción). Distractora `ha` = avere.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "essere-025",
