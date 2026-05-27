@@ -803,7 +803,26 @@
         "correctIndex": 0,
         "explanation": "Con 'tu' como sujeto singular y el auxiliar 'sei' ya dado, el participio se elige por el género del destinatario: si es masculino, termina en -o ('uscito'); si es femenino, en -a ('uscita'). La frase 'tu sei uscito ieri sera?' equivale al español '¿saliste ayer por la noche?'. Cuidado: la versión escrita exige que el hablante conozca el género de su interlocutor, algo invisible en la conjugación verbal misma pero obligatorio en el participio."
       },
-      "notes": "Concordancia masculino singular con tu (asumiendo destinatario masculino): 'uscito'. Variante de género típica A1 — si la pregunta se dirige a una mujer sería 'uscita'."
+      "notes": "Concordancia masculino singular con tu (asumiendo destinatario masculino): 'uscito'. Variante de género típica A1 — si la pregunta se dirige a una mujer sería 'uscita'.",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C2-una_opcion] el genero del tu no esta fijado: uscito (masc) y uscita (fem) son ambas correctas; un alumno mujer que responda uscita estaria en lo correcto pero el ejercicio marca solo uscito. Fijar el genero en el enunciado."
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "verbos-movimiento-029",
