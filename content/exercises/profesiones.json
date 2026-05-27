@@ -1148,7 +1148,26 @@
         "correctIndex": 2,
         "explanation": "Importante: el contexto semántico fija la profesión cuando el ejercicio no pregunta solo morfología. Si el sujeto trabaja 'con i bisturi negli ospedali' (con bisturíes en hospitales), el lema obligado es 'chirurgo' (cirujano), no 'cuoco' ni 'avvocato'. Cuidado al elegir entre profesiones plausibles del PDF: el campo léxico clínico (bisturí, hospital) es la pista que el alumno debe identificar."
       },
-      "notes": "Contexto semántico — escena clínica (bisturi + ospedali) fija el lema. Distractoras: profesiones plausibles del mismo PDF que NO encajan con el contexto. Refuerzo de uso pragmático, no solo morfología."
+      "notes": "Contexto semántico — escena clínica (bisturi + ospedali) fija el lema. Distractoras: profesiones plausibles del mismo PDF que NO encajan con el contexto. Refuerzo de uso pragmático, no solo morfología.",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] meta-staging dirigido al disenador (cuando el ejercicio no pregunta solo morfologia, la pista que el alumno debe identificar, Cuidado al elegir entre profesiones plausibles) en vez de explicar al alumno por que es chirurgo. Reescribir en tono didactico."
+            ]
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-040",
