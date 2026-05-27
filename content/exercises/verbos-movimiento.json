@@ -39,7 +39,24 @@
         "correctIndex": 1,
         "explanation": "El verbo venire pertenece a la lista canónica de verbos de movimiento que exigen el auxiliar essere en passato prossimo. La 2ª persona singular de essere es 'sei', así que 'tu sei venuto' equivale al español 'tú has venido'. Importante: la conjugación completa del auxiliar (sono, sei, è, siamo, siete, sono) debe memorizarse en bloque, porque el participio del verbo de movimiento no cambia sin un auxiliar correcto."
       },
-      "notes": "Essere presente 2ª singular ('sei') como auxiliar de venire. PDF §2 tabla essere + §3 Verbi di Movimento. Concordancia masculina ('venuto' presupone sujeto masculino)."
+      "notes": "Essere presente 2ª singular ('sei') como auxiliar de venire. PDF §2 tabla essere + §3 Verbi di Movimento. Concordancia masculina ('venuto' presupone sujeto masculino).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "verbos-movimiento-003",
