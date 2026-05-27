@@ -883,7 +883,24 @@
         "correctIndex": 1,
         "explanation": "Con el auxiliar 'è' ya fijado, el participio debe pertenecer a un verbo de movimiento con destino, y aquí 'a casa di Maria' es claramente un destino. Solo 'andato' (de andare) encaja: 'lui è andato a casa di Maria' equivale al español 'él fue a casa de Maria'. Importante: 'camminato', 'ballato' y 'nuotato' describen actividades del PDF §4 que se conjugan con avere, no con essere; el auxiliar dado descarta automáticamente las tres distractoras."
       },
-      "notes": "Discrimina verbo + auxiliar: con essere ('è') el verbo DEBE ser de movimiento con destino (PDF §3). Distractoras camminato/ballato/nuotato son verbos §4 que van con avere, no encajan con 'è'. Solo 'andato' (essere + destino) es correcto."
+      "notes": "Discrimina verbo + auxiliar: con essere ('è') el verbo DEBE ser de movimiento con destino (PDF §3). Distractoras camminato/ballato/nuotato son verbos §4 que van con avere, no encajan con 'è'. Solo 'andato' (essere + destino) es correcto.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "verbos-movimiento-033",
