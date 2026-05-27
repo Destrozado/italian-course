@@ -819,7 +819,26 @@
         "correctIndex": 3,
         "explanation": "Los préstamos del inglés en profesiones son INVARIABLES en italiano: 'manager', 'designer', 'freelance' nunca italianizan su terminación. Así 'il manager' (el ejecutivo) y 'la manager' (la ejecutiva) comparten forma, distinguidas solo por el artículo. Importante: el plural también se mantiene invariable como en el original inglés ('i manager', 'le manager')."
       },
-      "notes": "PDF §5 Altre — préstamo del inglés, invariable. Distractoras: `manageressa` (-essa errónea italianizando), `managera` (regla -a italianizada calco), `managere` (plural italianizado). Regla productiva: los anglicismos profesionales son invariables (manager, designer, freelance). Solo cambia el artículo."
+      "notes": "PDF §5 Altre — préstamo del inglés, invariable. Distractoras: `manageressa` (-essa errónea italianizando), `managera` (regla -a italianizada calco), `managere` (plural italianizado). Regla productiva: los anglicismos profesionales son invariables (manager, designer, freelance). Solo cambia el artículo.",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C5-leak] la etiqueta (masc, prestamo ingles) filtra la regla a aplicar (invariabilidad del prestamo) antes de responder."
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-029",
