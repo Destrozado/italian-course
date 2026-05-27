@@ -61,12 +61,15 @@ const fail = (txt) => `${RED}${txt}${RESET}`;
 const warn = (txt) => `${YELLOW}${txt}${RESET}`;
 
 // D-VAL-22 orden lockeado: riesgo-first (preposiciones) + alfabético resto.
-// La suma de `expected` es 272 (271 originales + 1 ejercicio preposiciones-051
-// creado durante la validación editorial de Phase 10, cf. STATE.md §Phase 10
-// Progress). El reporter falla si la suma encontrada en disco no coincide con
-// el expected — protege contra archivos JSON con ejercicios borrados/duplicados.
+// La suma de `expected` es 328 = 272 (271 originales v1.0 + 1 ejercicio
+// preposiciones-051 creado durante la validación editorial de Phase 10) + 56
+// de la 8ª categoría `articoli` (v1.2 Phase 11: 48 base + 2 match + 6 bridges).
+// `articoli` es alfabéticamente primero del resto, así que va justo tras
+// preposiciones. El reporter falla si la suma encontrada en disco no coincide
+// con el expected — protege contra archivos JSON con ejercicios borrados/duplicados.
 const CATEGORIES = [
   { slug: 'preposiciones',            file: 'content/exercises/preposiciones.json',            expected: 51 },
+  { slug: 'articoli',                 file: 'content/exercises/articoli.json',                 expected: 56 },
   { slug: 'avere',                    file: 'content/exercises/avere.json',                    expected: 23 },
   { slug: 'essere',                   file: 'content/exercises/essere.json',                   expected: 39 },
   { slug: 'genero-numero',            file: 'content/exercises/genero-numero.json',            expected: 40 },
@@ -75,7 +78,7 @@ const CATEGORIES = [
   { slug: 'verbos-movimiento',        file: 'content/exercises/verbos-movimiento.json',        expected: 37 },
 ];
 
-const TOTAL_EXPECTED = 272;
+const TOTAL_EXPECTED = 328;
 
 /**
  * Relax path-B (RESEARCH Open Q #1 opción c): si `deriveStatus` da `disputed`
