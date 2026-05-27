@@ -863,7 +863,24 @@
         "correctIndex": 3,
         "explanation": "Otra aplicación canónica de la familia -tore/-trice: 'traduttore' (traductor) pasa a 'traduttrice' (traductora), manteniendo la doble erre original. Importante: el infinitivo del verbo asociado es 'tradurre' (traducir), una forma -re irregular que el alumno A1 debe reconocer en paralelo a la profesión. La regla productiva opera igual que en 'pittore/pittrice' y 'attore/attrice'."
       },
-      "notes": "PDF §5 Altre — -tore→-trice. Distractoras: `traduttora` (calco español), `traduttressa` (mezcla), `traduttoressa` (mezcla -essa). 'Mini esercizio' del PDF — caso del solucionario."
+      "notes": "PDF §5 Altre — -tore→-trice. Distractoras: `traduttora` (calco español), `traduttressa` (mezcla), `traduttoressa` (mezcla -essa). 'Mini esercizio' del PDF — caso del solucionario.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-033",
