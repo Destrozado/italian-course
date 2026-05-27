@@ -796,7 +796,24 @@
         "correctIndex": 2,
         "explanation": "El sujeto 'I miei genitori' (mis padres) es plural masculino por defecto, porque incluye al padre y a la madre y el italiano usa el masculino para grupos mixtos. Con el auxiliar 'sono' ya dado, el participio de tornare termina en -i: 'I miei genitori sono tornati dal viaggio' equivale al español 'Mis padres han vuelto del viaje'. Importante: la regla del masculino por defecto en grupos mixtos es general en italiano, no solo en participios."
       },
-      "notes": "Concordancia plural masculino con tornare (essere por movimiento): 'tornati'. Refuerza concordancia pl. masc. con sujeto explícito."
+      "notes": "Concordancia plural masculino con tornare (essere por movimiento): 'tornati'. Refuerza concordancia pl. masc. con sujeto explícito.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "verbos-movimiento-030",
