@@ -197,7 +197,24 @@
         "correctIndex": 2,
         "explanation": "La tercera persona plural del presente indicativo de avere es 'hanno', con doble 'n' y 'h' inicial muda. 'Loro hanno una casa' equivale al español 'Ellos tienen una casa'. Cuidado: no confundir con 'anno' (año, sin 'h'); la grafía 'hanno' del verbo es obligatoria aunque la pronunciación sea idéntica."
       },
-      "notes": "Presente indicativo, 3ª persona plural (loro)."
+      "notes": "Presente indicativo, 3ª persona plural (loro).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "avere-007",
