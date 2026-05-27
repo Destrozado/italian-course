@@ -623,6 +623,45 @@
       },
       "notes": "Indeterminativo fem un' ante vocal (un'ora). Caso frecuente del femenino elidido.",
       "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "articoli-049",
+      "type": "match",
+      "categoryIds": ["articoli"],
+      "payload": {
+        "prompt": "Empareja cada sustantivo con su artículo determinativo. Atención a los disparadores fonéticos (s+consonante, z, ps, gn) y a los plurales.",
+        "pairs": [
+          ["studente", "lo"],
+          ["zio", "lo"],
+          ["psicologo", "lo"],
+          ["gnocchi", "gli"],
+          ["amici", "gli"],
+          ["zii", "gli"],
+          ["libri", "i"]
+        ],
+        "explanation": "Este empareje va mas alla del il/la/l' basico: agrupa los disparadores que obligan a lo en singular y a gli en plural. La serie lo aparece ante s+consonante (lo studente), z (lo zio), ps (lo psicologo), gn, x: todos comparten la misma regla fonetica aunque sean sonidos distintos. En plural, gli absorbe todo lo que en singular era lo o l': gli studenti, gli zii, gli psicologi, gli gnocchi, gli amici (de l'amico). El plural i queda reservado a lo que en singular llevaba il (i libri, de il libro). La trampa del hispanohablante es usar il ante z- o s+cons- como en espanol; el italiano exige lo por motivos foneticos, y su plural es gli, no i."
+      },
+      "notes": "Match determinativo avanzado (D-06): agrupa lo (studente/zio/psicologo) + gli (gnocchi/amici/zii, plural de lo y l') + i (libri, plural de il). 3 valores distintos en columna derecha (lo, gli, i) cumple R3. Duplicados textuales intencionales (D-66): lo x3, gli x3 — el grading consume por indice. DESIGN RULE: articolo<->sustantivo no es derivable por raiz (depende de la fonetica inicial). status pending para quorum (D-15).",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "articoli-050",
+      "type": "match",
+      "categoryIds": ["articoli"],
+      "payload": {
+        "prompt": "Empareja cada sustantivo con su artículo indeterminativo. Fíjate en el género y en la vocal o consonante inicial.",
+        "pairs": [
+          ["studente", "uno"],
+          ["zaino", "uno"],
+          ["amico", "un"],
+          ["libro", "un"],
+          ["amica", "un'"],
+          ["casa", "una"]
+        ],
+        "explanation": "El indeterminativo masculino refleja la misma fonetica que el determinativo: uno ante s+consonante (uno studente), z (uno zaino), ps, gn, x — exactamente donde el determinativo usa lo. Ante el resto de consonantes y tambien ante vocal el masculino usa un sin apostrofo (un libro, un amico): cuidado, un amico NO lleva apostrofo. El femenino usa una ante consonante (una casa) y se apostrofa a un' solo ante vocal (un'amica). El unico apostrofo del indeterminativo es por tanto femenino: contrasta un amico (masculino, sin apostrofo) con un'amica (femenino, con apostrofo), misma vocal inicial y distinta marca ortografica."
+      },
+      "notes": "Match indeterminativo (D-06): uno (studente/zaino, s+cons y z) + un (amico vocal sin apostrofo / libro consonante) + un' (amica fem+vocal) + una (casa fem+cons). 4 valores distintos en columna derecha (uno, un, un', una) cumple R3. Duplicados intencionales (D-66): uno x2, un x2. Cubre la trampa #7 del temario (un'amica vs un amico). status pending para quorum (D-15).",
+      "validation": { "status": "pending", "passes": [] }
     }
   ]
 }
