@@ -683,7 +683,26 @@
         "correctIndex": 1,
         "explanation": "El sujeto 'Anna' es 3ª persona singular femenina, así que el auxiliar essere es 'è' y el participio de venire concuerda como 'venuta'. La frase 'Anna è venuta a trovarmi domenica' equivale al español 'Anna vino a visitarme el domingo'. Cuidado: la distractora 'ha' es la trampa hispana del calco 'ha venido'; el verbo venire pertenece a la lista canónica de movimiento y exige siempre essere."
       },
-      "notes": "Aux essere 3ª singular para sujeto femenino + venire (movimiento → essere, PDF §3 'Sei venuto'). Participio femenino 'venuta' por concordancia."
+      "notes": "Aux essere 3ª singular para sujeto femenino + venire (movimiento → essere, PDF §3 'Sei venuto'). Participio femenino 'venuta' por concordancia.",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C5-leak] el participio venuta (fem) en el prompt revela que el auxiliar es essere (solo essere concuerda genero); el alumno deduce la respuesta sin saber que venire pide essere."
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "verbos-movimiento-025",
