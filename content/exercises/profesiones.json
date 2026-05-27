@@ -705,8 +705,21 @@
       },
       "notes": "PDF §1 (tabla) — invariable en italiano real por la regla -ista. Distractoras: `giornalistessa` (-essa errónea), `giornaliste` (plural fem), `giornalistra` (inventada). Misma regla que dentista, pianista, farmacista. Artículo distingue género.",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
