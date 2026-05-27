@@ -780,7 +780,27 @@
         "correctIndex": 1,
         "explanation": "El lema base del plural irregular 'uomini' es 'uomo' (hombre), no una forma regularizada. Importante: el reconocimiento inverso (plural → singular) es clave para leer italiano sin tropezar. Cuidado con la tentación de inventar un singular falso tipo 'uomine' por analogía con 'donna / donne' — los plurales con cambio de raíz no son simétricos."
       },
-      "notes": "Convertido de ex-match-206 — refuerzo bidireccional (plural→singular). El reconocimiento inverso es crítico para lectura/comprensión. Distractoras: `uomine` (singular regularizado, calco con donna/donne), `uome` (forma inventada plausible para alguien que piensa en fem), `uomini` (invariable falso). Pitfall A1: ver `uomini` y recuperar el lema base `uomo`."
+      "notes": "Convertido de ex-match-206 — refuerzo bidireccional (plural→singular). El reconocimiento inverso es crítico para lectura/comprensión. Distractoras: `uomine` (singular regularizado, calco con donna/donne), `uome` (forma inventada plausible para alguien que piensa en fem), `uomini` (invariable falso). Pitfall A1: ver `uomini` y recuperar el lema base `uomo`.",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] meta-staging: la explanation describe la mecanica del ejercicio (el reconocimiento inverso plural->singular es clave para leer italiano) en lugar de la regla gramatical.",
+              "[C5-leak] la explanation nombra la operacion plural->singular, redundante con la etiqueta (direccion inversa) del prompt."
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "sustantivos-irregulares-028",
