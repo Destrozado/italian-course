@@ -509,7 +509,24 @@
         "correctIndex": 1,
         "explanation": "Los sustantivos femeninos en -a forman el plural con -e: 'la sorella' (la hermana) → 'le sorelle' (las hermanas). Ojo al contraste con 'fratello → fratelli': mismo concepto familiar, pero el género dicta la regla — masculino -o → -i, femenino -a → -e. Hay que parar a comprobar el género antes de pluralizar."
       },
-      "notes": "Convertido de ex-match-201. Regla regular fem -a→-e. Distractoras: `sorelli` (calco masc -i, error de género), `sorella` (invariable falso), `sorellas` (calco español). Contraste pedagógico con fratello (masc) — mismo concepto familiar, regla opuesta por género."
+      "notes": "Convertido de ex-match-201. Regla regular fem -a→-e. Distractoras: `sorelli` (calco masc -i, error de género), `sorella` (invariable falso), `sorellas` (calco español). Contraste pedagógico con fratello (masc) — mismo concepto familiar, regla opuesta por género.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "sustantivos-irregulares-019",
