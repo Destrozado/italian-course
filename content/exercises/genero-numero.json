@@ -557,7 +557,24 @@
         "correctIndex": 2,
         "explanation": "La palabra 'maestro' sigue el patrón natural del género: basta con cambiar su terminación -o por la -a correspondiente para obtener 'maestra'. Aquí no aplican sufijos profesionales como '-essa' o '-trice'."
       },
-      "notes": "Convertido de ex-match-202 (maestro↔maestra). Patrón §2A -o/-a — ejemplo del PDF. Distractoras: `maestre` (regla plural fem mal aplicada al singular), `maestressa` (calco -essa que aplica solo a familia -e como dottore→dottoressa), `maestrice` (calco -trice que aplica solo a familia -tore como attore→attrice). Pitfall A1: -tre/-tor son patrones distintos; maestro va a maestra simple."
+      "notes": "Convertido de ex-match-202 (maestro↔maestra). Patrón §2A -o/-a — ejemplo del PDF. Distractoras: `maestre` (regla plural fem mal aplicada al singular), `maestressa` (calco -essa que aplica solo a familia -e como dottore→dottoressa), `maestrice` (calco -trice que aplica solo a familia -tore como attore→attrice). Pitfall A1: -tre/-tor son patrones distintos; maestro va a maestra simple.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "genero-numero-021",
