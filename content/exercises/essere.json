@@ -1038,27 +1038,12 @@
           "siamo"
         ],
         "correctIndex": 2,
-        "explanation": "El passato prossimo de essere usa el propio verbo essere como auxiliar más el participio 'stato': 'Io sono stato a Roma' equivale al español 'Yo he estado en Roma'. ¡Atención! trampa fortísima del hispanohablante: el calco 'ho stato' (con avere) es uno de los errores A1 más frecuentes, pero los verbos intransitivos como essere exigen essere de auxiliar. Los verbos de movimiento (andare, venire) también forman el passato prossimo con auxiliar essere, pero cada uno con su propio participio (è andato, è venuto): el auxiliar es siempre 'è', no 'stato'."
+        "explanation": "El passato prossimo de essere usa el propio verbo essere como auxiliar más el participio 'stato': 'Io sono stato a Roma' equivale al español 'Yo he estado en Roma'. ¡Atención! trampa fortísima del hispanohablante: el calco 'ho stato' (con avere) es uno de los errores A1 más frecuentes, pero los verbos intransitivos como essere exigen essere de auxiliar, no avere. Los verbos de movimiento (andare, venire) también forman el passato prossimo con essere conjugado en la persona del sujeto más su propio participio: 'io sono andato', 'lui è venuto'."
       },
       "notes": "Passato prossimo masc sing: auxiliar essere + participio `stato`. Trampa fortísima: hispanohablante diría `ho stato` (calco 'he estado'), pero los verbos intransitivos como essere usan auxiliar essere, no avere. Distractora `ho` = avere.",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C4-explanation] La frase el auxiliar es siempre è, no stato es confusa: è es solo 3ª persona singular; en 1ª persona el auxiliar es sono. Un alumno A1 puede inferir Io è andato. Reformular: el auxiliar es essere conjugado en la persona correspondiente (sono/sei/è/siamo...), no avere."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
