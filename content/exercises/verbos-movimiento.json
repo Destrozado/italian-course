@@ -631,8 +631,21 @@
       },
       "notes": "Correre con destino explícito ('a casa') → ESSERE per PDF §4 nota correre*. Aux essere 3ª singular ('è'). Cara opuesta a -021: misma forma 'corso' pero auxiliar cambia según haya destino o no.",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
