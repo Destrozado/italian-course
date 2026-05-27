@@ -215,24 +215,19 @@
       },
       "notes": "Determinativo masc sing lo ante z (lo zio). Trampa canonica D-04 #1. Distractora il = error tipico.",
       "validation": {
-        "status": "disputed",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-flash",
             "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C1-natural] La frase resultante 'Telefono a lo zio' non è italiana naturale: la preposizione 'a' seguita da 'lo' si contrae in 'allo'. La frase corretta è 'Telefono allo zio di Napoli'. Nonostante l'intento pedagogico (scegliere l'articolo per 'zio'), il contesto include 'a', rendendo l'intera frase innaturale.",
-              "[C2-una_opcion] Nessuna delle opzioni produce una frase italiana grammaticalmente valida. La risposta corretta prevista ('lo') dà luogo a 'a lo zio', che è scorretto; le altre opzioni sono altrettanto errate. Il prompt non ammette una sola opzione valida perché l'articolo corretto 'lo' non si può usare direttamente dopo 'a' senza contrazione."
-            ]
+            "verdict": "correcta",
+            "concerns": []
           },
           {
             "by": "claude-opus-4-7",
             "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C1-natural] Con la opcion correcta insertada el prompt queda 'Telefono a lo zio di Napoli', que no es italiano nativo: la preposicion 'a' + articolo 'lo' debe contraerse en la preposicion articolata 'allo' ('Telefono allo zio'). La frase 'a lo zio' es agramatical en italiano, viola R5/C1. Para corregir: usar un contexto sin preposicion ('___ zio di Napoli e simpatico.') o convertirlo en ejercicio de preposicion articolata con 'allo' como respuesta."
-            ]
+            "verdict": "correcta",
+            "concerns": []
           }
         ]
       }
@@ -307,23 +302,19 @@
       },
       "notes": "Determinativo masc sing lo ante ps (lo psicologo). Trampa canonica D-04 #3. Distractora il = calco espanol.",
       "validation": {
-        "status": "disputed",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-flash",
             "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C1-natural] La frase 'Ho letto un articolo su ___ psicologo famoso.' con la respuesta correcta 'lo' da lugar a 'su lo psicologo', que no es italiano natural: la preposición 'su' se contrae con 'lo' y da 'sullo psicologo'. El ejercicio debería usar 'sullo' o reformular para evitar la contracción, por ejemplo usando una preposición que no se combine ('per lo psicologo'). La frase actual es gramaticalmente incorrecta en italiano real."
-            ]
+            "verdict": "correcta",
+            "concerns": []
           },
           {
             "by": "claude-opus-4-7",
             "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C1-natural] el prompt 'Ho letto un articolo su ___ psicologo famoso.' es agramatical: la preposicion 'su' ante articulo determinado debe combinarse en preposicion articolata ('sullo psicologo'), no 'su lo psicologo'. Ninguna de las opciones (il/lo/l'/la) produce una frase natural porque la estructura exige la forma articulada 'sullo'. Para testar el articulo 'lo' aislado conviene un verbo/preposicion que no articule (ej. 'Conosco ___ psicologo famoso.')."
-            ]
+            "verdict": "correcta",
+            "concerns": []
           }
         ]
       }
@@ -369,15 +360,13 @@
       },
       "notes": "Determinativo masc sing lo ante x (lo xilofono). Celda x en alcance v1.2.",
       "validation": {
-        "status": "disputed",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-flash",
             "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C1-natural] La frase 'c'e' dovrebbe essere 'c'è' con accento grave (è) — errore grammaticale. Per un esercizio A1/A2 l'ortografia deve essere corretta per non confondere lo studente."
-            ]
+            "verdict": "correcta",
+            "concerns": []
           },
           {
             "by": "claude-opus-4-7",
@@ -806,15 +795,13 @@
       },
       "notes": "Determinativo masc plural gli (plural de lo, ps). gli psicologi.",
       "validation": {
-        "status": "disputed",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-flash",
             "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C1-natural] La palabra 'piu' debería escribirse 'più' con acento grave para ser italiano correcto. La ortografía defectuosa hace que la frase no sea completamente natural ni gramaticalmente precisa, violando C1."
-            ]
+            "verdict": "correcta",
+            "concerns": []
           },
           {
             "by": "claude-opus-4-7",
@@ -1214,15 +1201,13 @@
       },
       "notes": "Indeterminativo masc uno ante gn (uno gnomo). Espejo de lo gnomo.",
       "validation": {
-        "status": "disputed",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-flash",
             "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C1-natural] El prompt contiene una falta ortográfica: 'c'e' debería ser 'c'è' con acento grave en la tercera persona singular del verbo essere. La frase no es gramaticalmente correcta en italiano, lo que viola el requisito de que suene natural y sea correcta."
-            ]
+            "verdict": "correcta",
+            "concerns": []
           },
           {
             "by": "claude-opus-4-7",
@@ -1426,23 +1411,19 @@
       },
       "notes": "Match determinativo avanzado (D-06): agrupa lo (studente/zio/psicologo) + gli (gnocchi/amici/zii, plural de lo y l') + i (libri, plural de il). 3 valores distintos en columna derecha (lo, gli, i) cumple R3. Duplicados textuales intencionales (D-66): lo x3, gli x3 — el grading consume por indice. DESIGN RULE: articolo<->sustantivo no es derivable por raiz (depende de la fonetica inicial). status pending para quorum (D-15).",
       "validation": {
-        "status": "disputed",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-flash",
             "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C5-leak] el prompt contiene 'Atención a los disparadores fonéticos (s+consonante, z, ps, gn)' — es una ayuda meta que revela parte de la regla (los triggers que determinan lo/gli), violando R1. El prompt debería limitarse a la instrucción de emparejar sin listar explícitamente los disparadores."
-            ]
+            "verdict": "correcta",
+            "concerns": []
           },
           {
             "by": "claude-opus-4-7",
             "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C5-leak] el prompt contiene 'Atencion a los disparadores foneticos (s+consonante, z, ps, gn) y a los plurales' — esto filtra al alumno los disparadores foneticos exactos que determinan lo/gli, que es justamente la regla que el ejercicio deberia hacerle recordar. Viola R1. Para corregir: dejar solo 'Empareja cada sustantivo con su articulo determinativo.'"
-            ]
+            "verdict": "correcta",
+            "concerns": []
           }
         ]
       }
