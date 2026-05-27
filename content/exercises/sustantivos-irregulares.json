@@ -882,8 +882,21 @@
       },
       "notes": "Convertido de ex-match-206. Dirección inversa: dei→dio (cambio radical). Distractoras: `dei` (invariable falso), `dee` (singular fem inexistente), `deo` (forma regularizada plausible pero incorrecta — esta es la trampa: parece que `dei` viniera de `deo`, pero NO). Pitfall A1: ver `dei` y recuperar `dio` requiere conocer el lema, no derivarlo.",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     }
   ]
