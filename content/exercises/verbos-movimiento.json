@@ -478,7 +478,24 @@
         "correctIndex": 1,
         "explanation": "¡Atención!: viaggiare es una excepción dentro del grupo de verbos de movimiento. Aunque viajar implique movimiento, no apunta a un destino concreto, por lo que pide auxiliar avere, no essere. La 1ª persona plural es 'abbiamo', así que 'noi abbiamo viaggiato molto' equivale al español 'nosotros hemos viajado mucho'. Importante: con avere el participio queda invariable ('viaggiato' siempre), a diferencia de los verbos del grupo essere que sí concuerdan."
       },
-      "notes": "PDF §5 ejercicio nº2 ('Noi ___ ___ (viaggiare) molto quest'anno'). Viaggiare = excepción §4 (actividad sin destino específico) → auxiliar AVERE, no essere. Aux 1ª plural ('abbiamo'). Participio invariable 'viaggiato' (PDF §4 'el participio en este caso no cambia')."
+      "notes": "PDF §5 ejercicio nº2 ('Noi ___ ___ (viaggiare) molto quest'anno'). Viaggiare = excepción §4 (actividad sin destino específico) → auxiliar AVERE, no essere. Aux 1ª plural ('abbiamo'). Participio invariable 'viaggiato' (PDF §4 'el participio en este caso no cambia').",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "verbos-movimiento-018",
