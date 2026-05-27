@@ -1220,7 +1220,26 @@
         ],
         "explanation": "Importante: cada profesión se asocia a un lugar de trabajo característico que el alumno debe reconocer por campo léxico, no por morfología. Así 'cuoco' va con 'ristorante' (cocinero-restaurante), 'chirurgo' con 'ospedale' (cirujano-hospital), 'professore' con 'scuola' (profesor-escuela). Cuidado: 'cameriere' aparece aquí con 'bar' (no con ristorante) para forzar al alumno a no asumir un pareo trivial."
       },
-      "notes": "Match diseño-rule-válido: profesión↔lugar son semánticamente independientes (la raíz NO revela el lugar). Cada pareja exige conocer el campo léxico, no la morfología. Pitfall pedagógico: cameriere puede estar en ristorante O bar; este ejercicio usa bar para forzar al alumno a no asumir 1:1 trivial con cuoco. La asociación profesión↔lugar es la inferencia central."
+      "notes": "Match diseño-rule-válido: profesión↔lugar son semánticamente independientes (la raíz NO revela el lugar). Cada pareja exige conocer el campo léxico, no la morfología. Pitfall pedagógico: cameriere puede estar en ristorante O bar; este ejercicio usa bar para forzar al alumno a no asumir 1:1 trivial con cuoco. La asociación profesión↔lugar es la inferencia central.",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C2-una_opcion] el pareo cuoco->ristorante / cameriere->bar no es univoco: cuoco y cameriere caben ambos en ristorante Y bar; el alumno puede defender cuoco->bar y cameriere->ristorante. La explanation reconoce el problema pero no lo resuelve."
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-201",
