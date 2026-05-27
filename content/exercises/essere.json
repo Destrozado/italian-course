@@ -233,7 +233,24 @@
         "correctIndex": 2,
         "explanation": "La tercera persona plural del presente indicativo de essere es 'sono', forma que coincide con la primera persona singular: solo el contexto y el pronombre desambiguan. 'Loro sono in vacanza' equivale al español 'Ellos están de vacaciones'. Importante: la conjugación completa es sono, sei, è, siamo, siete, sono — patrón mental que conviene memorizar en bloque para no titubear en la elección."
       },
-      "notes": "Presente indicativo, 3ª persona plural (loro) — misma forma que io (`sono`); el contexto desambigua. Distractora `hanno` = avere."
+      "notes": "Presente indicativo, 3ª persona plural (loro) — misma forma que io (`sono`); el contexto desambigua. Distractora `hanno` = avere.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "essere-008",
