@@ -184,7 +184,30 @@
         "correctIndex": 2,
         "explanation": "Cuidado: 'orecchio' (oreja, masc) es una excepción dentro del grupo de partes del cuerpo y NO sigue el patrón 'braccio → braccia'. Su plural es 'le orecchie' (femenino terminado en -ie). Como en 'braccia', el género cambia a femenino, pero la terminación es distinta. Hay que memorizar este lema aparte."
       },
-      "notes": "PDF §2 cuerpo. Excepción dentro de la excepción: orecchio NO va a -a sino a -ie. Distractora orecchia (siguiendo el patrón braccio/braccia incorrectamente)."
+      "notes": "PDF §2 cuerpo. Excepción dentro de la excepción: orecchio NO va a -a sino a -ie. Distractora orecchia (siguiendo el patrón braccio/braccia incorrectamente).",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C2-una_opcion] orecchi (index 0) es plural masculino valido y aceptado de orecchio (gli orecchi, registrado en Treccani) junto a le orecchie. Doble-validez: dos opciones listadas son correctas.",
+              "[C4-explanation] presenta le orecchie como unico plural y omite la forma masculina valida gli orecchi (factualmente incompleta)."
+            ]
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C2-una_opcion] gli orecchi coexiste con le orecchie en italiano estandar => doble-validez con la opcion marcada correcta.",
+              "[C4-explanation] afirma que orecchie es la unica forma; omite gli orecchi, incompleto."
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "sustantivos-irregulares-008",
