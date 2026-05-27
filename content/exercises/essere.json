@@ -1409,29 +1409,12 @@
           "sei"
         ],
         "correctIndex": 2,
-        "explanation": "Para indicar la ciudad de origen, el italiano combina essere + preposición 'di' sin artículo + nombre de ciudad: 'Io sono di Milano' equivale al español 'Yo soy de Milán'. Importante: 'di' es la preposición canónica con verbos de identidad y origen (sono di Roma, vengo di Madrid), mientras 'da' se reserva para procedencia con verbos de movimiento (vengo dalla Spagna con artículo, parto da Roma sin artículo). Cuidado con la distractora 'ho' (avere): el origen siempre exige essere."
+        "explanation": "Para indicar la ciudad de origen, el italiano combina essere + preposición 'di' sin artículo + nombre de ciudad: 'Io sono di Milano' equivale al español 'Yo soy de Milán'. Importante: 'di' es la preposición canónica con verbos de identidad y origen (sono di Roma, è di Napoli), mientras 'da' se reserva para procedencia con verbos de movimiento (vengo da Madrid, parto da Roma). Cuidado con la distractora 'ho' (avere): el origen siempre exige essere."
       },
       "notes": "Cruce essere + preposiciones (D-94). Preposición `di` con origen (regla canónica PDF Preposizioni) + identidad con essere. Caso canónico A1 'soy de X'. Fallar cascadea D-54 a essere + preposiciones.",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C4-explanation] Error factual: el ejemplo vengo di Madrid es incorrecto; venire rige da (vengo DA Madrid), nunca di. Contradice el propio vengo dalla Spagna de la misma frase. Corregir a vengo da Madrid o eliminar."
-            ]
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C4-explanation] vengo di Madrid es gramaticalmente incorrecto: venire rige da, no di. Forma correcta vengo da Madrid; contradice vengo dalla Spagna citado en la misma oración."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     }
   ]
