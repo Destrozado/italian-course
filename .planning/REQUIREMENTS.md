@@ -10,7 +10,7 @@ Requisitos de este milestone. Cada uno mapea a una fase del roadmap.
 
 ### Articoli (ART) — Phase 11
 
-- [ ] **ART-01**: La categoría "Articoli" existe en `content/categories.json` y carga en la app como 8ª categoría
+- [x] **ART-01**: La categoría "Articoli" existe en `content/categories.json` y carga en la app como 8ª categoría
 - [x] **ART-02**: Temario exhaustivo de Articoli documentado ANTES de redactar ejercicios — todas las formas determinativas (`il/lo/l'/la/i/gli/le`) e indeterminativas (`un/uno/una/un'`) × disparadores fonéticos (s+cons, z, gn, ps, pn, x, y, vocal) × trampas canónicas
 - [x] **ART-03**: Ejercicios cubren cada forma del artículo determinativo en su contexto fonético disparador (incl. plurales `i/gli/le`)
 - [x] **ART-04**: Ejercicios cubren cada forma del artículo indeterminativo (`un/uno/una/un'`) con su disparador
@@ -59,7 +59,7 @@ Excluido explícitamente para prevenir scope creep.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| ART-01 | Phase 11 | Pending |
+| ART-01 | Phase 11 | Complete |
 | ART-02 | Phase 11 | Complete |
 | ART-03 | Phase 11 | Complete |
 | ART-04 | Phase 11 | Complete |

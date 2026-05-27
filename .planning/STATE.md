@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Más contenido A1 (Articoli + Partitivos)
 status: executing
-last_updated: "2026-05-27T21:22:01.868Z"
+last_updated: "2026-05-27T21:29:52.392Z"
 last_activity: 2026-05-27
 progress:
   total_phases: 4
   completed_phases: 0
   total_plans: 5
-  completed_plans: 3
-  percent: 60
+  completed_plans: 4
+  percent: 0
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -28,11 +28,11 @@ See: `.planning/PROJECT.md` (updated 2026-05-27)
 ## Current Position
 
 Phase: 11 (articoli) — EXECUTING
-Plan: 4 of 5
+Plan: 5 of 5
 Status: Ready to execute
-Last activity: 2026-05-27 -- Plan 11-03 completado (bloque match articolo<->sustantivo + 6 bridges multi-cat articoli-300..305; checkpoint Task 3 aprobado por el autor, conteo final articoli.json CONFIRMADO = 56 ejercicios)
+Last activity: 2026-05-27 -- Plan 11-04 completado (integracion BLOCKING: articoli cableado en los 3 puntos con conteos en LOCKSTEP N=56; TOTAL_EXPECTED 272->328; smoke 123/0 PASS; ART-01 cubierto). Reporter exit 1 SOLO por status pending de los 56; lo cierra 11-05 via quorum.
 
-Progress: [██████░░░░] 60%
+Progress: [████████░░] 80%
 
 ## Performance Metrics
 
@@ -58,6 +58,7 @@ Progress: [██████░░░░] 60%
 | 12. Partitivos | 0 | — | — |
 | Phase 11 P01 | 5min | 2 tasks | 1 files |
 | Phase 11 P02 | 15min | 3 tasks | 2 files |
+| Phase 11 P04 | ~8min | 3 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -82,6 +83,7 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - [Phase ?]: Temario Articoli aprobado por el autor sin cambios (checkpoint 11-01); casos A2 (lo pneumatico/lo yogurt) fuera por D-03
 - [Phase ?]: Bloque base multiple-choice de Articoli (48 ejercicios det+indet) aprobado por el autor sin cambios (checkpoint 11-02 D-85); articoli registrado en categories.json order 8 como deviation Rule 3
 - [Phase 11]: Match articolo<->sustantivo (049/050) + 6 bridges multi-cat (300..305) aprobados por el autor sin cambios (checkpoint 11-03). Conteo final CANONICO de content/exercises/articoli.json = 56 ejercicios (48 base + 2 match + 6 bridges); 11-04 debe propagarlo identico a categories.json, run-validation-271.mjs (TOTAL_EXPECTED 272->328) y tests/exercise-types.test.js
+- [Phase 11]: Plan 11-04 cableo articoli en los 3 puntos de integracion con conteos en LOCKSTEP N=56 (categories.json order 8 ya por 11-02, no duplicado; reporter CATEGORIES+TOTAL_EXPECTED 272->328; CATEGORIES_WITH_EXPLANATIONS expected:56). Smoke test 123/0 PASS. ART-01 cubierto. Reporter exit 1 SOLO por status pending de los 56 articoli (lo cierra 11-05 via quorum).
 
 ### Pending Todos
 
