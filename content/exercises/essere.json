@@ -938,7 +938,24 @@
         "correctIndex": 2,
         "explanation": "La negación 'non' precede directamente al verbo essere conjugado, sin estructura compuesta: 'Voi non siete tristi' equivale al español 'Vosotros no estáis tristes'. Ojo: el italiano nunca duplica la negación como hacen otras lenguas romances en frases coloquiales; basta con 'non' delante del verbo. El adjetivo 'tristi' es invariable en género (singular triste, plural tristi para ambos), pero sí varía en número, igual que felice/felici."
       },
-      "notes": "Estado plural masc + negación. `non` antes del verbo. Distractora `avete` = avere."
+      "notes": "Estado plural masc + negación. `non` antes del verbo. Distractora `avete` = avere.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "essere-024",
