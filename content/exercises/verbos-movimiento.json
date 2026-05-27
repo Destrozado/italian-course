@@ -970,7 +970,24 @@
         "distractors": ["ha", "andato"],
         "explanation": "La construcción italiana exige dos piezas correctas a la vez: el auxiliar essere ('è', no 'ha') por ser andare un verbo de movimiento, y el participio femenino singular ('andata', no 'andato') por concordar con el sujeto 'Lei'. La frase 'Lei è andata al cinema' equivale al español 'Ella ha ido al cine'. Cuidado con las distractoras: 'ha' es la trampa hispana del calco 'haber + participio', y 'andato' rompe la concordancia femenina obligatoria con essere."
       },
-      "notes": "Frase canónica del PDF §5 nº1 traducida desde español. 5 tokens. Distractora 'ha' fuerza el reflejo essere-con-movimiento (el español usa 'haber' pero italiano exige 'essere' con andare); distractora 'andato' fuerza concordancia femenina ('andata' por sujeto Lei). PDF §3 ejemplo canónico 'Lei è andata'. Sin punto final en answer tokens (W-6)."
+      "notes": "Frase canónica del PDF §5 nº1 traducida desde español. 5 tokens. Distractora 'ha' fuerza el reflejo essere-con-movimiento (el español usa 'haber' pero italiano exige 'essere' con andare); distractora 'andato' fuerza concordancia femenina ('andata' por sujeto Lei). PDF §3 ejemplo canónico 'Lei è andata'. Sin punto final en answer tokens (W-6).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "verbos-movimiento-101",
