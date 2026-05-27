@@ -507,7 +507,24 @@
         "correctIndex": 1,
         "explanation": "Nuotare (nadar) es otra excepción del grupo de movimiento: describe una actividad física sin destino, no un desplazamiento dirigido, así que en passato prossimo se conjuga con avere. La 2ª persona singular es 'hai', así que 'tu hai nuotato in piscina?' equivale al español '¿tú has nadado en la piscina?'. Ojo: aquí la intuición hispana ('has nadado' con haber) acierta por casualidad; la regla italiana sigue siendo la distinción transitivo/intransitivo, no la pura traducción literal."
       },
-      "notes": "PDF §5 ejercicio nº5 ('Tu ___ ___ (nuotare) in piscina?'). Nuotare = excepción §4 (actividad física, no destino) → auxiliar AVERE. Aux 2ª singular ('hai'). Pitfall: en español 'has nadado' usa haber; aquí esa intuición acierta por excepción."
+      "notes": "PDF §5 ejercicio nº5 ('Tu ___ ___ (nuotare) in piscina?'). Nuotare = excepción §4 (actividad física, no destino) → auxiliar AVERE. Aux 2ª singular ('hai'). Pitfall: en español 'has nadado' usa haber; aquí esa intuición acierta por excepción.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "verbos-movimiento-019",
