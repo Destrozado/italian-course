@@ -743,7 +743,26 @@
         "correctIndex": 1,
         "explanation": "El sujeto 'Le mie amiche' es plural femenino, así que el auxiliar essere es 'sono' (3ª plural) y el participio de partire concuerda como 'partite'. La frase equivale al español 'Mis amigas partieron hacia Nápoles'. Ojo con la doble pista que ofrece el enunciado: el artículo 'Le' y el participio 'partite' ya marcan femenino plural; cualquier otra opción rompería la concordancia ya visible en la propia oración."
       },
-      "notes": "Aux essere 3ª plural + concordancia plural femenino ('partite' por sujeto 'Le mie amiche'). Partire con essere por movimiento (PDF §3)."
+      "notes": "Aux essere 3ª plural + concordancia plural femenino ('partite' por sujeto 'Le mie amiche'). Partire con essere por movimiento (PDF §3).",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C5-leak] el participio partite (fem pl) en el prompt delata essere; el alumno resuelve por concordancia visible sin conocer la regla del auxiliar. Mismo patron que 011/024."
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "verbos-movimiento-027",
