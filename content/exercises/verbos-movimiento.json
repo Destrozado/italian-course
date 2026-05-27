@@ -324,7 +324,24 @@
         "correctIndex": 1,
         "explanation": "El sujeto 'I ragazzi' (los chicos) es 3ª persona plural masculina, por lo que el auxiliar de essere es 'sono': 'I ragazzi sono usciti alle otto' equivale al español 'Los chicos salieron a las ocho'. Cuidado: 'sono' funciona aquí como 3ª plural, no como 1ª singular; el sujeto explícito 'I ragazzi' y el participio plural 'usciti' confirman la persona. Uscire pide essere por pertenecer a la lista canónica de movimiento."
       },
-      "notes": "PDF §5 ejercicio nº3 ('I ragazzi ___ ___ (uscire) alle otto'). Aux essere 3ª plural ('sono') + concordancia plural masculino ('usciti'). Ejemplo idéntico al PDF §3 'Sono usciti'."
+      "notes": "PDF §5 ejercicio nº3 ('I ragazzi ___ ___ (uscire) alle otto'). Aux essere 3ª plural ('sono') + concordancia plural masculino ('usciti'). Ejemplo idéntico al PDF §3 'Sono usciti'.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "verbos-movimiento-014",
