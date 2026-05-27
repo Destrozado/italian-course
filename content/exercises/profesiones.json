@@ -850,8 +850,21 @@
       },
       "notes": "PDF §5 Altre — -tore→-trice. Distractoras: `muratoressa` (-essa errónea), `muratora` (regla -a mal aplicada), `muratoria` (mezcla con -ria de 'muratura', falso amigo léxico).",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
