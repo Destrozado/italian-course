@@ -1086,7 +1086,24 @@
         "correctIndex": 2,
         "explanation": "El participio passato de essere concuerda en género y número con el sujeto cuando el auxiliar es essere: para Maria (femenino singular) se escribe 'stata', no 'stato'. 'Maria è stata felice' equivale al español 'Maria estuvo feliz'. Importante: las cuatro formas del participio essere son stato/stata/stati/state — misma matriz de concordancia que aparece en verbos de movimiento (è andato/andata/andati/andate), patrón fundamental del passato prossimo italiano con auxiliar essere."
       },
-      "notes": "Passato prossimo fem sing: 3ª singular auxiliar `è` + concordancia con sujeto femenino → participio `stata` (no stato). Distractora `ha` = avere."
+      "notes": "Passato prossimo fem sing: 3ª singular auxiliar `è` + concordancia con sujeto femenino → participio `stata` (no stato). Distractora `ha` = avere.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "essere-028",
