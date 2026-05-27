@@ -662,6 +662,84 @@
       },
       "notes": "Match indeterminativo (D-06): uno (studente/zaino, s+cons y z) + un (amico vocal sin apostrofo / libro consonante) + un' (amica fem+vocal) + una (casa fem+cons). 4 valores distintos en columna derecha (uno, un, un', una) cumple R3. Duplicados intencionales (D-66): uno x2, un x2. Cubre la trampa #7 del temario (un'amica vs un amico). status pending para quorum (D-15).",
       "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "articoli-300",
+      "type": "multiple-choice",
+      "categoryIds": ["articoli", "genero-numero"],
+      "payload": {
+        "prompt": "___ ragazze italiane studiano molto.",
+        "options": ["le", "i", "gli", "la"],
+        "correctIndex": 0,
+        "explanation": "Ragazze es el plural femenino de ragazza, y el articulo determinativo del plural femenino es siempre le: le ragazze. La trampa cruza dos dimensiones: hay que reconocer el numero y genero (plural femenino) y aplicar la regla del articulo (le es invariable, nunca se elide). Las distractoras i y gli son plurales masculinos, y la es singular femenino: ninguna concuerda con ragazze."
+      },
+      "notes": "Cruce Articoli + Genero-Numero (D-08/D-09). Plural femenino ragazze -> le. Cruza la regla del articulo (le invariable) con la concordancia de numero/genero. status pending (D-15).",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "articoli-301",
+      "type": "multiple-choice",
+      "categoryIds": ["articoli", "genero-numero"],
+      "payload": {
+        "prompt": "___ studenti arrivano in ritardo ogni giorno.",
+        "options": ["gli", "i", "le", "lo"],
+        "correctIndex": 0,
+        "explanation": "Studenti es el plural masculino de studente, que en singular lleva lo por la s+consonante (lo studente). En plural, todo lo que llevaba lo o l' pasa a gli: gli studenti. La trampa cruza el numero (plural masculino) con el disparador fonetico (s impura): no vale i (ese es el plural de los que en singular llevaban il), ni le (femenino), ni lo (singular)."
+      },
+      "notes": "Cruce Articoli + Genero-Numero (D-08/D-09). Plural masculino de lo studente -> gli studenti. Cruza disparador fonetico (s impura) con concordancia de numero. status pending (D-15).",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "articoli-302",
+      "type": "multiple-choice",
+      "categoryIds": ["articoli", "genero-numero"],
+      "payload": {
+        "prompt": "___ libri sono sul tavolo.",
+        "options": ["i", "gli", "le", "il"],
+        "correctIndex": 0,
+        "explanation": "Libri es el plural masculino de libro, que en singular lleva il por empezar por consonante simple (il libro). El plural de il es i: i libri. La trampa cruza el numero (plural masculino) con la regla del articulo: gli se reserva para los plurales de lo y l', no para los de il; le es femenino e il es singular. Solo i concuerda."
+      },
+      "notes": "Cruce Articoli + Genero-Numero (D-08/D-09). Plural masculino de il libro -> i libri. Contrasta i (plural de il) frente a gli (plural de lo/l'). status pending (D-15).",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "articoli-303",
+      "type": "multiple-choice",
+      "categoryIds": ["articoli", "sustantivos-irregulares"],
+      "payload": {
+        "prompt": "___ braccia sono stanche dopo il lavoro.",
+        "options": ["le", "i", "gli", "la"],
+        "correctIndex": 0,
+        "explanation": "Braccia es un plural irregular: el singular masculino braccio (il braccio) hace plural femenino braccia, por eso el articulo es le y el adjetivo concuerda como stanche. La trampa cruza la regla del articulo con la irregularidad del sustantivo: aunque en singular era masculino (il braccio), en plural cambia de genero y exige le, no i ni gli. La es singular femenino y no concuerda con el plural."
+      },
+      "notes": "Cruce Articoli + Sustantivos Irregulares (D-09). Plural irregular braccia (sing masc braccio -> plural fem braccia) -> articulo le. Modelo espejo de avere-302. status pending (D-15).",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "articoli-304",
+      "type": "multiple-choice",
+      "categoryIds": ["articoli", "sustantivos-irregulares"],
+      "payload": {
+        "prompt": "___ uova sono nel frigorifero.",
+        "options": ["le", "gli", "i", "l'"],
+        "correctIndex": 0,
+        "explanation": "Uova es un plural irregular: el singular masculino uovo (l'uovo, con elision ante vocal) hace plural femenino uova, que toma el articulo le: le uova. La trampa cruza la regla del articulo con la irregularidad: en singular era masculino y se elidia (l'uovo), pero en plural cambia a femenino y usa le. No vale gli (plural masculino) ni i; l' es singular y no concuerda con el plural."
+      },
+      "notes": "Cruce Articoli + Sustantivos Irregulares (D-09). Plural irregular uova (sing masc l'uovo -> plural fem uova) -> articulo le. Cruza elision singular con cambio de genero en plural. status pending (D-15).",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "articoli-305",
+      "type": "multiple-choice",
+      "categoryIds": ["articoli", "sustantivos-irregulares"],
+      "payload": {
+        "prompt": "___ zii vengono a cena domenica.",
+        "options": ["gli", "i", "le", "lo"],
+        "correctIndex": 0,
+        "explanation": "Zii es el plural de zio, que en singular lleva lo por empezar por z- (lo zio). En plural, todo lo que llevaba lo o l' pasa a gli: gli zii. La trampa cruza la regla del articulo (z- dispara lo, y su plural es gli) con el plural del sustantivo: no vale i (plural de il) ni le (femenino), y lo es singular. El hispanohablante tiende a usar i, pero el disparador z- exige la serie lo/gli."
+      },
+      "notes": "Cruce Articoli + Sustantivos Irregulares (D-09). Plural de lo zio -> gli zii (la z- dispara la serie lo/gli). Cruza disparador fonetico con el plural del sustantivo. status pending (D-15).",
+      "validation": { "status": "pending", "passes": [] }
     }
   ]
 }
