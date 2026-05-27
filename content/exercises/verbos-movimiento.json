@@ -761,7 +761,7 @@
       },
       "notes": "Aux essere 3ª plural + concordancia plural femenino ('partite' por sujeto 'Le mie amiche'). Partire con essere por movimiento (PDF §3).",
       "validation": {
-        "status": "disputed",
+        "status": "validated",
         "passes": [
           {
             "by": "claude-opus-4-7",
@@ -774,7 +774,15 @@
             "date": "2026-05-27",
             "verdict": "incorrecta",
             "concerns": [
-              "[C5-leak] el participio partite (fem pl) en el prompt delata essere; el alumno resuelve por concordancia visible sin conocer la regla del auxiliar. Mismo patron que 011/024."
+              "[C5-leak] participio fem pl partite insinua essere"
+            ]
+          },
+          {
+            "by": "autor",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": [
+              "[override] autor mantiene: el ejercicio exige elegir persona/numero del auxiliar; formato par-complementario intencional, coherente con 013/015/025."
             ]
           }
         ]
