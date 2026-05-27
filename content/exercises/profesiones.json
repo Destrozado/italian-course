@@ -398,7 +398,27 @@
         "correctIndex": 0,
         "explanation": "Misma familia -tore/-trice productiva: 'direttore' (director) pasa a 'direttrice' (directora). ¡Atención al pitfall central de A1! El alumno hispanohablante confunde 'direttore' con 'dottore' (que también termina en -ore) y aplica el sufijo -essa por analogía con 'dottoressa'. La diferencia está en la raíz: -tore exige -trice (direttore, attore), -e simple exige -essa (dottore, professore)."
       },
-      "notes": "PDF §3 Irregolari -tore → -trice. Distractoras: `direttoressa` (mezcla con -essa por familia dottoressa, error A1 muy frecuente porque 'direttore' suena prestigioso como 'dottore'), `direttora` (regla regular mal aplicada), `direttressa` (mezcla). Pitfall central: distinguir -tore/-trice (attore, direttore) de -e/-essa (dottore, professore)."
+      "notes": "PDF §3 Irregolari -tore → -trice. Distractoras: `direttoressa` (mezcla con -essa por familia dottoressa, error A1 muy frecuente porque 'direttore' suena prestigioso como 'dottore'), `direttora` (regla regular mal aplicada), `direttressa` (mezcla). Pitfall central: distinguir -tore/-trice (attore, direttore) de -e/-essa (dottore, professore).",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] -e simple exige -essa (dottore, professore) es impreciso: dottore/professore SI terminan en -ore. La distincion real no es -tore vs -e simple sino morfologica/lexical (raiz latina -tor/-trix vs -or sin -trix). Puede confundir.",
+              "[C5-leak] direttrice preserva la raiz direttr- de direttore, leak morfologico leve por transparencia."
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-015",
