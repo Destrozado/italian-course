@@ -830,7 +830,24 @@
         "correctIndex": 2,
         "explanation": "El estado físico transitorio se predica con essere en italiano, donde el español usa estar: 'Maria è stanca' equivale al español 'Maria está cansada'. ¡Atención! falso amigo crítico para el hispanohablante: el español distingue ser (identidad) y estar (estado), pero el italiano usa essere para ambos. Las sensaciones físicas momentáneas como hambre o calor sí piden avere (ho fame, ho caldo), pero el cansancio como estado predicativo se queda con essere."
       },
-      "notes": "Estado fem sing + falso amigo crítico: español 'estar cansada' → italiano `essere` (NO `avere` ni `stare`). Distractora `ha` = avere (trampa máxima: calco 'Maria tiene cansada')."
+      "notes": "Estado fem sing + falso amigo crítico: español 'estar cansada' → italiano `essere` (NO `avere` ni `stare`). Distractora `ha` = avere (trampa máxima: calco 'Maria tiene cansada').",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "essere-021",
