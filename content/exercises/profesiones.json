@@ -389,8 +389,21 @@
       },
       "notes": "PDF §3 Irregolari -tore → -trice. Distractoras: `direttoressa` (mezcla con -essa por familia dottoressa, error A1 muy frecuente porque 'direttore' suena prestigioso como 'dottore'), `direttora` (regla regular mal aplicada), `direttressa` (mezcla). Pitfall central: distinguir -tore/-trice (attore, direttore) de -e/-essa (dottore, professore).",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
