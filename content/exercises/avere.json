@@ -680,8 +680,21 @@
       },
       "notes": "Cruce Avere + Profesiones (D-87 / SEED-02). Posesión 3ª singular + profesión masculina (medico). Fallarlo cascadeará D-54 sobre ambas categorías.",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
