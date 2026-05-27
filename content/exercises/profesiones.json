@@ -1100,7 +1100,24 @@
         "correctIndex": 1,
         "explanation": "El artículo femenino 'la' también se elide ante vocal: 'la infermiera' pasa a 'l'infermiera' (la enfermera) con apóstrofe. Importante: en italiano A1 estándar la elisión femenina es sistemática, igual que la masculina ('l'avvocata', 'l'attrice', 'l'impiegata'). Cuidado: el español mantiene 'la enfermera' completo, pero el italiano nunca."
       },
-      "notes": "PDF §2 + nota final articoli. Elisión femenina ante vocal: l'infermiera (no 'la infermiera'). Distractoras: `la` (forma con consonante — pitfall: la elisión femenina es opcional en algunos registros pero el PDF la aplica sistemáticamente como en l'impiegata, l'avvocata, l'attrice), `il` (masc), `lo` (masc s+cons). Apóstrofe ASCII U+0027."
+      "notes": "PDF §2 + nota final articoli. Elisión femenina ante vocal: l'infermiera (no 'la infermiera'). Distractoras: `la` (forma con consonante — pitfall: la elisión femenina es opcional en algunos registros pero el PDF la aplica sistemáticamente como en l'impiegata, l'avvocata, l'attrice), `il` (masc), `lo` (masc s+cons). Apóstrofe ASCII U+0027.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-039",
