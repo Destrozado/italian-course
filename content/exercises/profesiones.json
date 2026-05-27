@@ -1237,7 +1237,24 @@
         "correctIndex": 2,
         "explanation": "Quien 'recita in un film o a teatro' (actúa en una película o en el teatro) es 'l'attore' o 'l'attrice', no 'il cantante' (canta) ni 'il pittore' (pinta) ni 'il regista' (dirige el film). Importante: este ejercicio refuerza la familia productiva -tore/-trice, el mismo patrón que aparece en 'scrittore/scrittrice' y 'traduttore/traduttrice' del léxico A1."
       },
-      "notes": "Contexto semántico — 'recita in film/teatro' fija attore/attrice. Distractoras: `cantante/cantante` (canta, no recita — invariable), `pittore/pittrice` (pinta), `regista/regista` (dirige el film — relacionado pero distinto rol). Refuerza familia -tore/-trice."
+      "notes": "Contexto semántico — 'recita in film/teatro' fija attore/attrice. Distractoras: `cantante/cantante` (canta, no recita — invariable), `pittore/pittrice` (pinta), `regista/regista` (dirige el film — relacionado pero distinto rol). Refuerza familia -tore/-trice.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-200",
