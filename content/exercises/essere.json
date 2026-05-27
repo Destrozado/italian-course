@@ -493,7 +493,24 @@
         "correctIndex": 2,
         "explanation": "La nacionalidad se predica siempre con essere: 'Io sono spagnolo' equivale al español 'Yo soy español'. Cuidado con dos detalles ortográficos italianos: las nacionalidades NO se capitalizan (spagnolo, no Spagnolo, a diferencia del inglés), y el adjetivo concuerda en género con el hablante (spagnolo si es hombre, spagnola si es mujer). En italiano la nacionalidad funciona como adjetivo regular, no como sustantivo propio."
       },
-      "notes": "Nacionalidad masc sing. En italiano las nacionalidades NO se capitalizan (spagnolo, no Spagnolo). Distractora `ho` = avere."
+      "notes": "Nacionalidad masc sing. En italiano las nacionalidades NO se capitalizan (spagnolo, no Spagnolo). Distractora `ho` = avere.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "essere-014",
