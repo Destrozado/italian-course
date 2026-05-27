@@ -866,7 +866,24 @@
         "correctIndex": 2,
         "explanation": "La emoción o estado anímico se predica con essere igual que el cansancio físico: 'Io sono felice oggi' equivale al español 'Yo estoy feliz hoy'. Importante: el adjetivo 'felice' es invariable en singular y sirve tanto para masculino como para femenino (a diferencia de adjetivos en -o/-a como stanco/stanca); el plural sí cambia a 'felici'. Cuidado: la trampa avere (ho) responde al calco mental 'tengo felicidad', pero la felicidad como estado se predica con essere."
       },
-      "notes": "Estado / emoción 1ª singular. `felice` es invariable singular (vale masc y fem). Distractora `ho` = avere."
+      "notes": "Estado / emoción 1ª singular. `felice` es invariable singular (vale masc y fem). Distractora `ho` = avere.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "essere-022",
