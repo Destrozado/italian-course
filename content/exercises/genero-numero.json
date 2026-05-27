@@ -822,7 +822,24 @@
         "correctIndex": 0,
         "explanation": "Como regla para conservar la pronunciación inicial (sonido velar o fuerte /k/), las palabras masculinas que acaban en -co suelen necesitar que añadamos una 'h' antes de la 'i' del plural. De esta forma, 'parco' se pluraliza como 'parchi'."
       },
-      "notes": "Convertido de ex-match-205 (parco↔parchi). Inserción de H para mantener el sonido fuerte /k/. Distractoras: `parci` (regla ingenua -o→-i sin H, sonaría /tʃ/), `parcos` (calco español), `parche` (calco fem). Familia: parco/parchi, banco/banchi, fuoco/fuochi, lago/laghi."
+      "notes": "Convertido de ex-match-205 (parco↔parchi). Inserción de H para mantener el sonido fuerte /k/. Distractoras: `parci` (regla ingenua -o→-i sin H, sonaría /tʃ/), `parcos` (calco español), `parche` (calco fem). Familia: parco/parchi, banco/banchi, fuoco/fuochi, lago/laghi.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "genero-numero-030",
