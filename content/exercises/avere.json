@@ -586,7 +586,24 @@
         ],
         "explanation": "El presente indicativo de avere distingue seis personas con formas específicas, y este ejercicio refuerza voi avete, loro hanno y la 3ª singular ha (compartida por lui, lei e Lei formal). 'Voi avete' equivale al español 'vosotros tenéis' y 'loro hanno' a 'ellos tienen'. Cuidado: 'avete' y 'abbiamo' pierden la h inicial; 'hanno' la recupera con doble n."
       },
-      "notes": "Match con 'ha' en derecha — verifica que duplicados textuales serían posibles si existieran; aquí cada izq es distinta."
+      "notes": "Match con 'ha' en derecha — verifica que duplicados textuales serían posibles si existieran; aquí cada izq es distinta.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "avere-202",
