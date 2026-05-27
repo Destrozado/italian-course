@@ -331,7 +331,26 @@
         "correctIndex": 1,
         "explanation": "Una vez fijado el auxiliar 'è' (3ª singular de essere), el participio se elige por el género y número del sujeto: 'Maria' es femenino singular, así que el participio de andare es 'andata'. 'Maria è andata al cinema' equivale al español 'Maria fue al cine'. Ojo: este ejercicio es la cara complementaria al anterior; entre ambos se fija la doble pieza auxiliar essere + participio concordado del passato prossimo."
       },
-      "notes": "PDF §5 ejercicio nº1 — par complementario al -011: ahora con auxiliar dado, el hueco es el participio. Maria = femenino singular → 'andata'."
+      "notes": "PDF §5 ejercicio nº1 — par complementario al -011: ahora con auxiliar dado, el hueco es el participio. Maria = femenino singular → 'andata'.",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] meta-staging: la explanation dice que este ejercicio es la cara complementaria al anterior (entre ambos se fija la doble pieza) — referencia al diseno del conjunto, no contenido linguistico para el alumno."
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "verbos-movimiento-013",
