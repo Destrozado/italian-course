@@ -39,7 +39,24 @@
         "correctIndex": 2,
         "explanation": "Algunos sustantivos masculinos cambian de género al pluralizar: 'l'uovo' (masc sing) → 'le uova' (fem plural en -a). La concordancia exige artículo y adjetivo femeninos en plural: 'le uova fresche', no 'i uovi freschi'. Mismo patrón que 'braccio → braccia' y 'dito → dita'."
       },
-      "notes": "PDF §4 ¡A practicar! nº2 + §3. Caso especial: masc sing → fem plural en -a. Distractoras: uovi (regla -o→-i ingenua), uovos (calco español), uove (confusión -e plural fem)."
+      "notes": "PDF §4 ¡A practicar! nº2 + §3. Caso especial: masc sing → fem plural en -a. Distractoras: uovi (regla -o→-i ingenua), uovos (calco español), uove (confusión -e plural fem).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "sustantivos-irregulares-003",
