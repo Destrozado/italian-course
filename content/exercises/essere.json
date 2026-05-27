@@ -680,7 +680,24 @@
         "correctIndex": 0,
         "explanation": "La profesión en femenino sigue la regla productiva -o → -a: 'avvocato' (masculino) se convierte en 'avvocata' (femenino), y se predica con essere: 'Mia sorella è avvocata' equivale al español 'Mi hermana es abogada'. Importante: el italiano contemporáneo prefiere las formas femeninas plenas para profesiones (avvocata, no la avvocato), reflejando un giro reciente del uso real frente a la tradición que solo conjugaba el masculino genérico."
       },
-      "notes": "Profesión fem (regla -o→-a de profesiones.json: avvocato → avvocata). Distractora `ha` = avere."
+      "notes": "Profesión fem (regla -o→-a de profesiones.json: avvocato → avvocata). Distractora `ha` = avere.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "essere-018",
