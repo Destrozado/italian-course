@@ -621,8 +621,21 @@
       },
       "notes": "Convertido de ex-match-202. Caso especial cuerpo masc -o → fem plural -a. Distractoras: `ossi` (regla ingenua -o→-i; existe como variante para `huesos sueltos/no humanos` pero `ossa` es el plural humano del PDF), `osses` (calco español), `osso` (invariable falso). Familia con braccio/dito/ginocchio.",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
