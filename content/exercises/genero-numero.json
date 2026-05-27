@@ -851,7 +851,24 @@
         "correctIndex": 3,
         "explanation": "Refuerzo ortográfico: Si no introdujéramos la letra 'h', leeríamos 'cuoci', perdiendo de inmediato la dureza del sonido (sonando como 'ch'). Para mantener la coherencia fonética del singular ('cuoco'), debemos usar siempre la forma con 'h': 'cuochi'."
       },
-      "notes": "Convertido de ex-match-205 (cuoco↔cuochi). Duplica mc-003 con orden de distractoras distinto y correct en index 3. Repaso espaciado. Distractoras: `cuoci` (regla ingenua sin H, sonaría /tʃ/), `cuoche` (calco fem plural), `cuocos` (calco español)."
+      "notes": "Convertido de ex-match-205 (cuoco↔cuochi). Duplica mc-003 con orden de distractoras distinto y correct en index 3. Repaso espaciado. Distractoras: `cuoci` (regla ingenua sin H, sonaría /tʃ/), `cuoche` (calco fem plural), `cuocos` (calco español).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "genero-numero-031",
