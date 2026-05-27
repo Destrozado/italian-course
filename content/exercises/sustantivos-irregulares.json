@@ -312,7 +312,24 @@
         "correctIndex": 2,
         "explanation": "Los anglicismos terminados en consonante son invariables en italiano: 'il film' y 'i film' tienen idéntica forma, igual que 'sport', 'bar', 'computer'. Cuidado: el italiano NO añade -s al pluralizar (eso es un calco del inglés o del español). El artículo es lo único que marca el número."
       },
-      "notes": "Sustantivo invariable — préstamo del inglés terminado en consonante → no flexiona en plural. Distractoras: `filmi` (regla -o→-i ingenua, además film no termina en -o), `films` (plural inglés con -s, error de calco), `filme` (plural alemán/calco). Pitfall A1: las palabras extranjeras prestadas conservan su forma original — el italiano no añade -s ni adapta la terminación."
+      "notes": "Sustantivo invariable — préstamo del inglés terminado en consonante → no flexiona en plural. Distractoras: `filmi` (regla -o→-i ingenua, además film no termina en -o), `films` (plural inglés con -s, error de calco), `filme` (plural alemán/calco). Pitfall A1: las palabras extranjeras prestadas conservan su forma original — el italiano no añade -s ni adapta la terminación.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "sustantivos-irregulares-013",
