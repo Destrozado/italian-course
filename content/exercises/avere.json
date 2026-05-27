@@ -670,7 +670,28 @@
         "correctIndex": 2,
         "explanation": "La tercera persona singular del presente indicativo de avere es 'ha', usada con 'lui' para expresar relaciones familiares: 'Lui ha un fratello medico' equivale al español 'Él tiene un hermano médico'. La palabra 'medico' es un sustantivo masculino terminado en -o, que se mantiene invariable en singular y forma su femenino con la familia productiva profesional del italiano (medico, mecánico, oficinista)."
       },
-      "notes": "Cruce Avere + Profesiones (D-87 / SEED-02). Posesión 3ª singular + profesión masculina (medico). Fallarlo cascadeará D-54 sobre ambas categorías."
+      "notes": "Cruce Avere + Profesiones (D-87 / SEED-02). Posesión 3ª singular + profesión masculina (medico). Fallarlo cascadeará D-54 sobre ambas categorías.",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] La explanation dice que medico forma su femenino con la familia productiva profesional ejemplificada con mecánico, oficinista — palabras españolas (no italianas: meccanico, impiegato), gramaticalmente incorrecto e irrelevante al punto testeado (3ª sing de avere); mezcla idiomas y añade un 2º punto no evaluado."
+            ]
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] El párrafo final sobre medico es confuso e irrelevante al punto pedagógico (conjugación de avere 3ª sing); añade ruido. Viola R4/R6."
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "avere-301",
