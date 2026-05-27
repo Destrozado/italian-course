@@ -1013,7 +1013,24 @@
         "correctIndex": 1,
         "explanation": "Cierre de la familia -o→-a regular aplicada al léxico comercial: 'commesso' (dependiente) pasa a 'commessa' (dependienta). Importante: el patrón es estable como en 'cuoco/cuoca' o 'impiegato/impiegata' y no admite los sufijos -essa o -trice porque la raíz no pertenece a esas familias morfológicas."
       },
-      "notes": "PDF §5 Altre — regular -o→-a. Distractoras: `commesse` (plural fem, no singular), `commessessa` (-essa redundante), `commessrice` (-trice mal aplicada). 'Mini esercizio' del PDF — caso del solucionario."
+      "notes": "PDF §5 Altre — regular -o→-a. Distractoras: `commesse` (plural fem, no singular), `commessessa` (-essa redundante), `commessrice` (-trice mal aplicada). 'Mini esercizio' del PDF — caso del solucionario.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-036",
