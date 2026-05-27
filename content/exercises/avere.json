@@ -711,7 +711,24 @@
         "correctIndex": 0,
         "explanation": "La primera persona singular del verbo avere es 'ho', usada con 'io': 'Io ho una sorella avvocata' equivale al español 'Yo tengo una hermana abogada'. La forma femenina 'avvocata' se obtiene cambiando la -o final del masculino 'avvocato' por -a, siguiendo la familia productiva -o → -a común a muchas profesiones italianas (avvocato/avvocata, maestro/maestra, segretario/segretaria)."
       },
-      "notes": "Cruce Avere + Profesiones (D-87 / SEED-02). Posesión 1ª singular + profesión femenina (avvocata, regla -o→-a del PDF Profesiones)."
+      "notes": "Cruce Avere + Profesiones (D-87 / SEED-02). Posesión 1ª singular + profesión femenina (avvocata, regla -o→-a del PDF Profesiones).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "avere-302",
