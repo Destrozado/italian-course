@@ -879,7 +879,26 @@
         "correctIndex": 1,
         "explanation": "Misma regla -tore/-trice productiva aplicada al oficio manual: 'muratore' (albañil) pasa a 'muratrice' (albañila). Cuidado con el falso amigo léxico 'muratura' (la fábrica de albañilería como obra concreta), que es un sustantivo distinto y no la profesional femenina. La regla productiva sigue siendo la misma que en 'pittore/pittrice'."
       },
-      "notes": "PDF §5 Altre — -tore→-trice. Distractoras: `muratoressa` (-essa errónea), `muratora` (regla -a mal aplicada), `muratoria` (mezcla con -ria de 'muratura', falso amigo léxico)."
+      "notes": "PDF §5 Altre — -tore→-trice. Distractoras: `muratoressa` (-essa errónea), `muratora` (regla -a mal aplicada), `muratoria` (mezcla con -ria de 'muratura', falso amigo léxico).",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] muratrice como profesional femenina (albanila) es dudoso/no estandar; muratrice designa mas bien una maquina. Extrapolar -tore/-trice a muratore puede ser factualmente incorrecto."
+            ]
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-031",
