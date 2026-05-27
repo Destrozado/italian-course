@@ -693,7 +693,7 @@
       },
       "notes": "Aux essere 3ª singular para sujeto femenino + venire (movimiento → essere, PDF §3 'Sei venuto'). Participio femenino 'venuta' por concordancia.",
       "validation": {
-        "status": "disputed",
+        "status": "validated",
         "passes": [
           {
             "by": "claude-opus-4-7",
@@ -706,7 +706,15 @@
             "date": "2026-05-27",
             "verdict": "incorrecta",
             "concerns": [
-              "[C5-leak] el participio venuta (fem) en el prompt revela que el auxiliar es essere (solo essere concuerda genero); el alumno deduce la respuesta sin saber que venire pide essere."
+              "[C5-leak] participio fem venuta insinua essere"
+            ]
+          },
+          {
+            "by": "autor",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": [
+              "[override] autor mantiene: el ejercicio exige elegir persona/numero del auxiliar; formato par-complementario intencional, coherente con 013/015/025."
             ]
           }
         ]
