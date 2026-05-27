@@ -480,7 +480,24 @@
         "correctIndex": 0,
         "explanation": "La regla productiva para los sustantivos masculinos terminados en -o es formar el plural con -i: 'il fratello' (el hermano) → 'i fratelli' (los hermanos). Importante: el plural 'fratelli' también designa el grupo mixto hermanos+hermanas, igual que 'figli' (hijos e hijas). Mismo patrón regular en 'ragazzo → ragazzi'."
       },
-      "notes": "Convertido de ex-match-201. Regla regular masc -o→-i. Distractoras: `fratellos` (calco español), `fratelle` (regla fem -e mal aplicada al masc), `fratellas` (mezcla -a+-s). Pitfall: hermano es masc en -o → plural -i estándar."
+      "notes": "Convertido de ex-match-201. Regla regular masc -o→-i. Distractoras: `fratellos` (calco español), `fratelle` (regla fem -e mal aplicada al masc), `fratellas` (mezcla -a+-s). Pitfall: hermano es masc en -o → plural -i estándar.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "sustantivos-irregulares-018",
