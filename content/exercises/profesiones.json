@@ -984,7 +984,24 @@
         "correctIndex": 1,
         "explanation": "El femenino de 'chirurgo' (cirujano) sigue la regla -o→-a pero SIN insertar la H que normalmente preserva el sonido duro de la G: la forma correcta es 'chirurga' (cirujana). ¡Atención al pitfall léxico! 'La chirurgia' significa 'la cirugía' como disciplina o rama médica, NO la cirujana persona. El contexto y el artículo aplicado a una mujer fijan la lectura profesional."
       },
-      "notes": "PDF §5 Altre — irregular: -o→-a sin H pese a -go (excepción documentada). Distractoras: `chirurghessa` (mezcla -essa con H), `chirurgia` (palabra distinta: 'la chirurgia' = cirugía/disciplina, NO la profesional — pitfall léxico), `chirurgessa` (-essa sin H). 'Mini esercizio' del PDF — caso del solucionario. Pitfall A1 central: 'chirurgia' significa la rama médica, no la cirujana."
+      "notes": "PDF §5 Altre — irregular: -o→-a sin H pese a -go (excepción documentada). Distractoras: `chirurghessa` (mezcla -essa con H), `chirurgia` (palabra distinta: 'la chirurgia' = cirugía/disciplina, NO la profesional — pitfall léxico), `chirurgessa` (-essa sin H). 'Mini esercizio' del PDF — caso del solucionario. Pitfall A1 central: 'chirurgia' significa la rama médica, no la cirujana.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-035",
