@@ -755,7 +755,24 @@
         "correctIndex": 1,
         "explanation": "Venire sigue exactamente el mismo patrón que andare: ambos son verbos de movimiento canónicos y exigen essere. La 1ª persona singular es 'sono', así que 'io sono venuto in macchina' equivale al español 'yo he venido en coche'. Importante: la preposición 'in' con medios de transporte ('in macchina', 'in treno', 'in autobus') es la forma estándar; no se traduce literalmente como 'en el coche' sino sin artículo, igual que en español 'en coche'."
       },
-      "notes": "Aux essere 1ª singular + venire (movimiento) → 'sono venuto'. Mismo patrón que andare; refuerza el reflejo essere-with-movement A1."
+      "notes": "Aux essere 1ª singular + venire (movimiento) → 'sono venuto'. Mismo patrón que andare; refuerza el reflejo essere-with-movement A1.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "verbos-movimiento-028",
