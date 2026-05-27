@@ -971,7 +971,28 @@
         "correctIndex": 1,
         "explanation": "Reafirmando la regla de las palabras agudas, 'università' finaliza en vocal acentuada. En consecuencia, el sustantivo es invariable. Aquí es el artículo de la oración (una università, le università) el único responsable de comunicarnos si estamos hablando en plural o singular."
       },
-      "notes": "Convertido de ex-match-206 (università↔università). Mismo patrón -tà invariable. Distractoras: `universite` (regla ingenua -a→-e), `universitàe` (mezcla acento+e), `universitadi` (calco con plural latino-romance). Familia -tà invariable: città, libertà, possibilità, qualità."
+      "notes": "Convertido de ex-match-206 (università↔università). Mismo patrón -tà invariable. Distractoras: `universite` (regla ingenua -a→-e), `universitàe` (mezcla acento+e), `universitadi` (calco con plural latino-romance). Familia -tà invariable: città, libertà, possibilità, qualità.",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C5-leak] El prompt incluye (sustantivo invariable, vocal acentuada), etiqueta que nombra la regla aplicable (invariabilidad) y el criterio (vocal acentuada) que el alumno deberia deducir; debe limitarse a la frase con el blank."
+            ]
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C5-leak] El prompt incluye (sustantivo invariable, vocal acentuada), etiqueta que nombra la regla aplicable (invariabilidad) y el criterio (vocal acentuada) que el alumno deberia deducir; debe limitarse a la frase con el blank."
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "genero-numero-035",
