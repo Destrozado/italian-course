@@ -499,7 +499,24 @@
         "correctIndex": 3,
         "explanation": "'Cane' (perro) es otra palabra fundamental que pertenece al grupo de los singulares acabados en -e. Su plural, consecuentemente, es 'cani'. Aplicar correctamente esta norma evita calcos como 'canes'."
       },
-      "notes": "Convertido de ex-match-201 (cane↔cani). Grupo mixto -e→-i — palabra de uso A1 muy frecuente. Distractoras: `cana` (singular fem inexistente/calco), `cane` (invariable falso), `canes` (calco español/inglés). Pitfall: NO confundir con `cani` ni con `canne` (cañas, otra palabra)."
+      "notes": "Convertido de ex-match-201 (cane↔cani). Grupo mixto -e→-i — palabra de uso A1 muy frecuente. Distractoras: `cana` (singular fem inexistente/calco), `cane` (invariable falso), `canes` (calco español/inglés). Pitfall: NO confundir con `cani` ni con `canne` (cañas, otra palabra).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "genero-numero-019",
