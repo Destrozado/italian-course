@@ -80,7 +80,24 @@
         "correctIndex": 3,
         "explanation": "Caso canónico de la regla -o→-a productiva: 'segretario' (secretario) pasa a 'segretaria' (secretaria), sin sufijos especiales. Importante: el sufijo -essa solo aplica cuando el masculino termina en -e (dottore→dottoressa, professore→professoressa), y 'segretario' termina en -o, así que 'segretaressa' mezcla dos familias diferentes y no es aceptable."
       },
-      "notes": "PDF §1 Regular -o→-a. Distractoras: `segretari` (plural masc), `segretarie` (plural fem), `segretaressa` (-essa mal aplicada; segretario es -o, no -e). La forma `segretaria` es la del PDF — caso canónico -o→-a."
+      "notes": "PDF §1 Regular -o→-a. Distractoras: `segretari` (plural masc), `segretarie` (plural fem), `segretaressa` (-essa mal aplicada; segretario es -o, no -e). La forma `segretaria` es la del PDF — caso canónico -o→-a.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-005",
