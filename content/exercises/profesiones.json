@@ -1377,7 +1377,24 @@
         "distractors": ["professoresse", "abbiamo"],
         "explanation": "Frase A1 que combina essere segunda persona plural ('voi siete') con el plural masculino regular 'professori' (de 'professore', familia -e/-i). Importante: la profesión predicativa va con essere, no con avere; la distractora 'abbiamo' refuerza este contraste pedagógico fundamental. Cuidado con el género: 'professoresse' sería el plural femenino, no aplicable a un grupo masculino o mixto."
       },
-      "notes": "Frase A1 — practica essere 2ª plural + plural masculino regular -e→-i de profesor/professore. Distractora `professoresse` fem plural. Distractora `abbiamo` (avere 1ª pl) refuerza essere-for-identity (no avere). Sin punto final en tokens (W-6)."
+      "notes": "Frase A1 — practica essere 2ª plural + plural masculino regular -e→-i de profesor/professore. Distractora `professoresse` fem plural. Distractora `abbiamo` (avere 1ª pl) refuerza essere-for-identity (no avere). Sin punto final en tokens (W-6).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-202",
