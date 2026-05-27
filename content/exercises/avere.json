@@ -379,7 +379,24 @@
         "correctIndex": 2,
         "explanation": "Los verbos que describen una actividad física o corporal, como dormire, ridere o piangere, se conjugan con avere en el passato prossimo aunque no sean transitivos. 'Noi abbiamo dormito bene' equivale al español 'Nosotros hemos dormido bien'. Cuidado: el hispanohablante a veces opta por essere por intuición, pero dormire siempre pide avere."
       },
-      "notes": "Passato prossimo, 1ª plural. Actividad física (dormire) → auxiliar avere. PDF §3."
+      "notes": "Passato prossimo, 1ª plural. Actividad física (dormire) → auxiliar avere. PDF §3.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "avere-012",
