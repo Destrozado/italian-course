@@ -599,7 +599,24 @@
         "correctIndex": 1,
         "explanation": "¡Atención a la familia -ista! Todas las profesiones italianas terminadas en -ista son INVARIABLES en género: 'dentista', 'pianista', 'giornalista', 'farmacista', 'tassista', 'artista'. El sustantivo no cambia y solo el artículo distingue: 'il dentista' (el dentista) frente a 'la dentista' (la dentista). Cuidado con la tentación hispanohablante de flexionar a 'dentistA/dentistO' o calcar el sufijo -essa."
       },
-      "notes": "PDF §4 Invariabili — familia productiva -ista. Distractoras: `dentistessa` (-essa mal aplicada), `dentiste` (plural fem, no singular), `dentistra` (mezcla con -istra inventada). Regla pedagógica: TODA profesión en -ista es invariable (dentista, pianista, giornalista, farmacista, tassista, artista). Solo cambia el artículo: il dentista / la dentista."
+      "notes": "PDF §4 Invariabili — familia productiva -ista. Distractoras: `dentistessa` (-essa mal aplicada), `dentiste` (plural fem, no singular), `dentistra` (mezcla con -istra inventada). Regla pedagógica: TODA profesión en -ista es invariable (dentista, pianista, giornalista, farmacista, tassista, artista). Solo cambia el artículo: il dentista / la dentista.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-023",
