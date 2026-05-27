@@ -197,7 +197,24 @@
         "correctIndex": 0,
         "explanation": "La segunda persona plural del presente indicativo de essere es 'siete' y acompaña al pronombre 'voi'. '¿Voi siete pronti?' equivale al español '¿Vosotros estáis listos?'. Ojo: el adjetivo 'pronti' concuerda en plural masculino con el sujeto colectivo voi; si el grupo fuera solo femenino, se escribiría 'pronte'. El italiano siempre exige concordancia adjetival con essere."
       },
-      "notes": "Presente indicativo, 2ª persona plural (voi). Estado. Distractora `avete` = avere."
+      "notes": "Presente indicativo, 2ª persona plural (voi). Estado. Distractora `avete` = avere.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "essere-007",
