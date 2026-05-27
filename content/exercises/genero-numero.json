@@ -1050,34 +1050,14 @@
       "categoryIds": ["genero-numero"],
       "payload": {
         "prompt": "Lo psicologo, due ___.",
-        "options": ["psicologi", "psicologhi", "psicologos", "psicologe"],
-        "correctIndex": 1,
-        "explanation": "Como regla principal de nivel A1, las palabras terminadas en -go insertan una 'h' en el plural para mantener el sonido fuerte: 'psicologhi'. Además, requiere el artículo 'lo' (y su plural 'gli') por empezar con 'ps-'. (Nota: en el uso avanzado de hoy en día, muchos italianos aceptan la excepción 'psicologi' sin h, pero la regla general nos dicta conservar la h para asimilar la norma general del A1)."
+        "options": ["psicologi", "psicologa", "psicologos", "psicologe"],
+        "correctIndex": 0,
+        "explanation": "Las profesiones terminadas en -logo forman el plural en -gi (sin h): psicologo → psicologi. La h se añade en otros sustantivos en -go (lago → laghi) pero NO en los -logo de persona. Requiere el artículo lo/gli por empezar por ps-."
       },
       "notes": "Combina dos reglas: artículo `lo` ante ps- (mc-010 anchor) + plural -co con H (psicologo→psicologhi para mantener /g/). Distractoras: `psicologi` (regla -co→-ci ingenua sin H, sonaría /tʃ/ — PERO atención: en psicologi muchos italianos no insertan H; es la excepción reciente — fuera del A1 estricto, pero plausible para confusión), `psicologos` (calco español), `psicologe` (calco fem). Pitfall A1: para A1 priorizar la regla regular con H; las excepciones modernas (`psicologi` aceptado) son avanzadas.",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C1-natural] La respuesta marcada psicologhi es dudosa: el plural estandar de psicologo (profesion en -logo) es psicologi sin h.",
-              "[C2-una_opcion] La explanation reconoce que psicologi tambien es aceptado, generando doble-validez declarada (psicologi esta en las opciones, index 0).",
-              "[C4-explanation] La explanation justifica una respuesta linguisticamente discutible y admite la excepcion, confundiendo al alumno."
-            ]
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C2-una_opcion] La explanation admite que psicologi (index 0) es aceptado por muchos italianos => doble validez declarada.",
-              "[C4-explanation] La nota sobre la excepcion moderna genera incoherencia: el ejercicio marca psicologi como incorrecto pero la explanation lo valida."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
