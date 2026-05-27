@@ -422,7 +422,24 @@
         "correctIndex": 1,
         "explanation": "Aunque 'madre' es indudablemente una palabra femenina, termina en -e, lo que la sitúa en el grupo mixto. Su plural, por lo tanto, no se forma con -e, sino siempre con -i. El resultado correcto es 'madri', lo que supone una trampa común para los principiantes que intentan seguir la regla del -a/-e ciegamente."
       },
-      "notes": "Convertido de ex-match-201 (madre↔madri). Madre es fem pero sigue la regla del grupo mixto -e→-i (no -a→-e porque NO termina en -a). Distractoras: `madre` (invariable falso), `madras` (mezcla calco), `madres` (calco español). Pitfall A1: no asumir que todos los femeninos van -a→-e; los que terminan en -e usan -i."
+      "notes": "Convertido de ex-match-201 (madre↔madri). Madre es fem pero sigue la regla del grupo mixto -e→-i (no -a→-e porque NO termina en -a). Distractoras: `madre` (invariable falso), `madras` (mezcla calco), `madres` (calco español). Pitfall A1: no asumir que todos los femeninos van -a→-e; los que terminan en -e usan -i.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "genero-numero-017",
