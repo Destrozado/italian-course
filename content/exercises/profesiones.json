@@ -251,7 +251,24 @@
         "correctIndex": 1,
         "explanation": "La familia -iere/-iera es una regla productiva del italiano para profesiones de servicio. Así 'cameriere' (camarero) pasa a 'cameriera' (camarera). Importante: esta familia incluye también 'infermiere/infermiera' (enfermero/a), 'parrucchiere/parrucchiera' (peluquero/a) y 'portiere/portiera' (portero/a) — el patrón es estable y predecible."
       },
-      "notes": "PDF §2 -iere → -iera. Distractoras: `camerieressa` (calco con -essa por confusión con familia dottoressa), `camerieretta` (diminutivo, no femenino), `cameriere` (invariable falso). Regla productiva: cameriere/a, infermiere/a, parrucchiere/a, portiere/a."
+      "notes": "PDF §2 -iere → -iera. Distractoras: `camerieressa` (calco con -essa por confusión con familia dottoressa), `camerieretta` (diminutivo, no femenino), `cameriere` (invariable falso). Regla productiva: cameriere/a, infermiere/a, parrucchiere/a, portiere/a.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-010",
