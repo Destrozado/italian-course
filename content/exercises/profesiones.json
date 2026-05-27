@@ -628,7 +628,24 @@
         "correctIndex": 1,
         "explanation": "Refuerzo de la regla -ista invariable: 'pianista' (pianista) es la misma forma para masculino y femenino, solo cambia el artículo ('il pianista' frente a 'la pianista'). Importante: el patrón cubre todas las profesiones musicales y técnicas en -ista del italiano A1, en paralelo con 'dentista', 'giornalista', 'artista' y 'tassista'."
       },
-      "notes": "PDF §4 Invariabili — familia -ista. Distractoras: `pianiste` (plural fem), `pianistessa` (-essa mal aplicada), `pianistra` (forma inventada). Refuerzo de la regla -ista: pianista, dentista, giornalista, artista — todas invariables singulares."
+      "notes": "PDF §4 Invariabili — familia -ista. Distractoras: `pianiste` (plural fem), `pianistessa` (-essa mal aplicada), `pianistra` (forma inventada). Refuerzo de la regla -ista: pianista, dentista, giornalista, artista — todas invariables singulares.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-024",
