@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Más contenido A1 (Articoli + Partitivos)
 status: planning
-last_updated: "2026-05-27T23:24:39.699Z"
-last_activity: 2026-05-27
+last_updated: "2026-05-27T23:28:39.200Z"
+last_activity: 2026-05-28
 progress:
   total_phases: 4
   completed_phases: 1
@@ -21,16 +21,16 @@ See: `.planning/PROJECT.md` (updated 2026-05-27)
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 999.1 — bot n reiniciar ejercicios en pantalla de sesi n
+**Current Focus:** Phase 12 — Partitivos (contexto capturado, listo para planificar)
 
 **Milestone v1.2 Goal:** Añadir 2 categorías nuevas de gramática A1 (Articoli y Partitivos), diseñadas desde cero sin PDF de referencia. Cada categoría sigue el mismo flujo dentro de su propia fase: (a) temario exhaustivo ANTES de redactar ejercicios → (b) ejercicios que cubren cada celda del temario → (c) explanations pedagógicas curadas → (d) validación por quórum ≥2 IAs distintas reutilizando la infraestructura editorial de v1.1 (skill `gsd-validate-batch` + reporter `scripts/run-validation-271.mjs` + reglas R1-R7). NO se modifica el engine: motor de re-verificación, sampler, cascada D-54, schema validator y 3 tipos de ejercicio están DONE.
 
 ## Current Position
 
-Phase: 999.1
+Phase: 12
 Plan: Not started
 Status: Ready to plan
-Last activity: 2026-05-27
+Last activity: 2026-05-28
 
 Progress: [██████████] 100%
 
