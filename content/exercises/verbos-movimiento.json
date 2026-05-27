@@ -565,7 +565,24 @@
         "correctIndex": 1,
         "explanation": "Ballare (bailar) es otra de las actividades físicas sin destino del PDF §4 y pide avere en passato prossimo. La 3ª persona plural es 'hanno', con doble n y h muda, así que 'loro hanno ballato fino a mezzanotte' equivale al español 'ellos bailaron hasta medianoche'. Importante: el grupo avere para actividades (ballare, nuotare, camminare, viaggiare) se memoriza en bloque, porque la intuición de movimiento engaña al principiante."
       },
-      "notes": "Ballare = excepción §4 (actividad sin destino) → AVERE. Aux 3ª plural ('hanno'). Participio 'ballato' invariable."
+      "notes": "Ballare = excepción §4 (actividad sin destino) → AVERE. Aux 3ª plural ('hanno'). Participio 'ballato' invariable.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "verbos-movimiento-021",
