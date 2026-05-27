@@ -10,7 +10,24 @@
         "correctIndex": 1,
         "explanation": "El passato prossimo de los verbos de movimiento en italiano se forma con el auxiliar essere, no avere. Para la 1ª persona singular el auxiliar es 'sono', así que 'io sono andato' equivale al español 'yo he ido'. Cuidado: el hispanohablante traduce literalmente con haber y dice 'io ho andato', uno de los errores A1 más persistentes; el reflejo correcto es essere con todos los verbos de movimiento."
       },
-      "notes": "Essere presente 1ª singular ('sono') como auxiliar del passato prossimo de andare (verbo de movimiento → essere, PDF §3 Regla de Oro). Distractora 'ho' es la trampa A1 típica (en español 'he ido' usa haber, pero italiano exige essere)."
+      "notes": "Essere presente 1ª singular ('sono') como auxiliar del passato prossimo de andare (verbo de movimiento → essere, PDF §3 Regla de Oro). Distractora 'ho' es la trampa A1 típica (en español 'he ido' usa haber, pero italiano exige essere).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "verbos-movimiento-002",
