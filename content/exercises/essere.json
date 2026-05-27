@@ -1265,8 +1265,21 @@
       },
       "notes": "Cruce essere + profesiones (D-94). Profesión fem (regla -o→-a profesiones.json) introducida con essere. Trampa `ha avvocata` = calco erróneo. Fallar cascadea D-54 a essere + profesiones.",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
