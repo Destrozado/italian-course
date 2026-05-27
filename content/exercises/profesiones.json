@@ -570,7 +570,24 @@
         "correctIndex": 2,
         "explanation": "'Cliente' es invariable en italiano contemporáneo: la misma forma 'cliente' sirve para masculino y femenino, y el artículo distingue ('il cliente' frente a 'la cliente'). Cuidado con el calco español 'clienta' (regla -a forzada) y con el calco prestigioso 'clientessa' (familia -essa de studentessa); ninguno de los dos pertenece al italiano A1 estándar."
       },
-      "notes": "PDF §4 Invariabili. Distractoras: `clienta` (regla regular -a mal aplicada, calco español), `clientessa` (-essa mal aplicada por analogía con studentessa — pitfall central: NO todas las -e van a -essa), `cliententrice` (-trice mal aplicada con duplicación). Solo cambia el artículo: il cliente / la cliente."
+      "notes": "PDF §4 Invariabili. Distractoras: `clienta` (regla regular -a mal aplicada, calco español), `clientessa` (-essa mal aplicada por analogía con studentessa — pitfall central: NO todas las -e van a -essa), `cliententrice` (-trice mal aplicada con duplicación). Solo cambia el artículo: il cliente / la cliente.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-022",
