@@ -620,7 +620,7 @@
         "avere"
       ],
       "payload": {
-        "prompt": "Empareja sujeto con forma de avere (con duplicados).",
+        "prompt": "Empareja cada sujeto con su forma de avere.",
         "pairs": [
           [
             "lui",
@@ -639,29 +639,12 @@
             "avete"
           ]
         ],
-        "explanation": "La tercera persona singular del verbo avere es 'ha' tanto para 'lui' como para 'lei', porque el italiano no marca el género en la conjugación verbal. Por eso aparecen dos 'ha' en la columna derecha y ambos son correctos: el sistema acepta indistintamente que el usuario empareje 'lui' con el primero o con el segundo. ¡Atención!: esto NO es un fallo del ejercicio sino la realidad del idioma."
+        "explanation": "La tercera persona singular del verbo avere es 'ha' tanto para 'lui' como para 'lei': el italiano no marca el género en la conjugación verbal, así que ambos pronombres comparten la misma forma. Las demás personas tienen formas propias: noi abbiamo, voi avete. Por eso 'ha' aparece dos veces y ambos emparejamientos son igual de correctos."
       },
       "notes": "Match con DUPLICADOS textuales en columna derecha (D-66): dos 'ha' válidos — el grading los consume por índice; el usuario puede emparejar 'lui'→primer 'ha' o 'lui'→segundo 'ha' indistintamente.",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C4-explanation] La explanation menciona el comportamiento del sistema/UI (el sistema acepta indistintamente que el usuario empareje lui con el primero o el segundo) — meta-staging, viola R4.",
-              "[C5-leak] El prompt dice (con duplicados), adelantando al alumno que habrá valores repetidos; elimina el descubrimiento de que lui/lei comparten forma.",
-              "[C3-distractoras] Con 4 pares y 3 distintos cumple el mínimo pero Sonnet lo considera trivial."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
