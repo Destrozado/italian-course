@@ -379,7 +379,24 @@
         "correctIndex": 2,
         "explanation": "La identidad por relación (ser amigo, hermano, compañero de alguien) usa essere + preposición 'di' para indicar el vínculo. '¿Tu sei l'amico di Luca?' equivale al español '¿Tú eres el amigo de Luca?'. Ojo: el artículo 'lo' se elide a 'l'' delante de palabra que empieza por vocal (l'amico, no lo amico); este apóstrofe es obligatorio en italiano escrito y debe escribirse con la comilla simple recta."
       },
-      "notes": "Identidad / pregunta. Apóstrofe ASCII `l'amico` (U+0027). Distractora `hai` = avere."
+      "notes": "Identidad / pregunta. Apóstrofe ASCII `l'amico` (U+0027). Distractora `hai` = avere.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "essere-012",
