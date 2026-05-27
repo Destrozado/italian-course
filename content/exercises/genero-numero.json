@@ -644,7 +644,24 @@
         "correctIndex": 3,
         "explanation": "La regla invariable para los nombres de profesiones que terminan en '-tore' exige que la versión femenina finalice en '-trice'. Por este motivo, 'scrittore' (escritor) debe decirse siempre 'scrittrice' (escritora)."
       },
-      "notes": "Convertido de ex-match-203 (scrittore↔scrittrice). Patrón §2B -tore→-trice — ejemplo del PDF. Distractoras: `scrittora` (regla ingenua -e→-a), `scrittressa` (mezcla con familia -essa de dottoressa), `scrittoressa` (forma híbrida errónea). Pitfall A1: NO confundir familia -tore (mecanizado: -trice) con familia -e general (-essa)."
+      "notes": "Convertido de ex-match-203 (scrittore↔scrittrice). Patrón §2B -tore→-trice — ejemplo del PDF. Distractoras: `scrittora` (regla ingenua -e→-a), `scrittressa` (mezcla con familia -essa de dottoressa), `scrittoressa` (forma híbrida errónea). Pitfall A1: NO confundir familia -tore (mecanizado: -trice) con familia -e general (-essa).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "genero-numero-024",
