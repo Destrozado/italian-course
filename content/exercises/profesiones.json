@@ -1319,7 +1319,24 @@
         "distractors": ["studentesse", "sono"],
         "explanation": "Frase A1 que combina essere primera persona plural ('noi siamo') con el plural masculino genérico 'studenti'. Importante: en italiano A1, un grupo mixto se concuerda en masculino plural, así que 'studenti' cubre hombres y mujeres juntos. Cuidado con la persona: 'noi' va con 'siamo', no con 'sono' que pertenece a 'io' o 'loro'."
       },
-      "notes": "Frase A1 — practica essere 1ª plural + plural masculino mixto (regla A1: cualquier grupo con al menos un masculino → masc plural). Distractora `studentesse` (fem plural) fuerza la regla del género no marcado. Distractora `sono` (3ª plural) fuerza el reflejo persona correcto. Sin punto final en tokens (W-6)."
+      "notes": "Frase A1 — practica essere 1ª plural + plural masculino mixto (regla A1: cualquier grupo con al menos un masculino → masc plural). Distractora `studentesse` (fem plural) fuerza la regla del género no marcado. Distractora `sono` (3ª plural) fuerza el reflejo persona correcto. Sin punto final en tokens (W-6).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-103",
