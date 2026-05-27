@@ -586,7 +586,24 @@
         "correctIndex": 1,
         "explanation": "La flexión de género en palabras terminadas en -o es directa: 'ragazzo' (chico) se sustituye por 'ragazza' (chica). Ojo con elegir 'ragazze', que sería el plural femenino y supondría cometer un error de número gramatical."
       },
-      "notes": "Convertido de ex-match-202 (ragazzo↔ragazza). Ejemplo canónico del PDF §2A. Distractoras: `ragazze` (plural fem confundido con singular), `ragazzas` (calco español), `ragazzina` (diminutivo, palabra distinta — significa `chiquilla`). Pitfall: confundir flexión de género con flexión de número."
+      "notes": "Convertido de ex-match-202 (ragazzo↔ragazza). Ejemplo canónico del PDF §2A. Distractoras: `ragazze` (plural fem confundido con singular), `ragazzas` (calco español), `ragazzina` (diminutivo, palabra distinta — significa `chiquilla`). Pitfall: confundir flexión de género con flexión de número.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "genero-numero-022",
