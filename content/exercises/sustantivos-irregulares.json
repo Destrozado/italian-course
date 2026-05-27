@@ -451,7 +451,24 @@
         "correctIndex": 1,
         "explanation": "Los sustantivos femeninos terminados en -e siguen la regla productiva -e → -i: 'la madre' (la madre) → 'le madri' (las madres). Cuidado: aunque el sustantivo sea femenino, el plural NO termina en -e como en 'donna → donne'; el final -e ya 'gastó su turno' en singular y exige -i en plural. Mismo patrón en 'notte → notti'."
       },
-      "notes": "Convertido de ex-match-200. Grupo mixto -e→-i (idéntica regla a padre). Distractoras: `madre` (invariable falso), `madres` (calco español), `madras` (mezcla -a+-s calco; también nombre de ciudad, posible despiste). Refuerzo: madre/padre/sorella/fratello — ojo a la mezcla de reglas."
+      "notes": "Convertido de ex-match-200. Grupo mixto -e→-i (idéntica regla a padre). Distractoras: `madre` (invariable falso), `madres` (calco español), `madras` (mezcla -a+-s calco; también nombre de ciudad, posible despiste). Refuerzo: madre/padre/sorella/fratello — ojo a la mezcla de reglas.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "sustantivos-irregulares-017",
