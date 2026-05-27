@@ -854,7 +854,24 @@
         "correctIndex": 1,
         "explanation": "Camminare parece un verbo de movimiento típico, pero el PDF §4 lo cataloga como actividad física sin destino, por lo que pide avere en passato prossimo. La 3ª persona singular es 'ha', así que 'lui ha camminato per due ore' equivale al español 'él caminó durante dos horas'. ¡Atención!: 'per due ore' indica duración, no destino; ese tipo de complemento es la clave para identificar las excepciones del grupo essere."
       },
-      "notes": "Camminare excepción §4 → AVERE. Aux 3ª singular ('ha'). Pitfall A1: 'camminare' parece movimiento (lo es físicamente) pero sin destino → AVERE (PDF §4 'actividad física sin destino')."
+      "notes": "Camminare excepción §4 → AVERE. Aux 3ª singular ('ha'). Pitfall A1: 'camminare' parece movimiento (lo es físicamente) pero sin destino → AVERE (PDF §4 'actividad física sin destino').",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "verbos-movimiento-032",
