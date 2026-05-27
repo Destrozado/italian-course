@@ -999,7 +999,24 @@
         "distractors": ["siamo", "viaggiati"],
         "explanation": "Viaggiare es una excepción del PDF §4: aunque implica movimiento, no apunta a un destino concreto, así que pide avere y no essere. La 1ª persona plural es 'abbiamo', y con avere el participio queda invariable ('viaggiato', no 'viaggiati'). La frase 'Noi abbiamo viaggiato molto quest'anno' equivale al español 'Nosotros hemos viajado mucho este año'. ¡Atención! a las dos distractoras: 'siamo' fuerza recordar la excepción, y 'viaggiati' fuerza recordar que el participio con avere no concuerda."
       },
-      "notes": "PDF §5 nº2 ('Noi ___ ___ (viaggiare) molto quest'anno') como word-buttons. 5 tokens. Distractora 'siamo' refuerza la trampa viaggiare→avere (excepción §4). Distractora 'viaggiati' fuerza recordar que con AVERE el participio NO concorda. Token quest'anno usa apóstrofe ASCII U+0027 (no curly)."
+      "notes": "PDF §5 nº2 ('Noi ___ ___ (viaggiare) molto quest'anno') como word-buttons. 5 tokens. Distractora 'siamo' refuerza la trampa viaggiare→avere (excepción §4). Distractora 'viaggiati' fuerza recordar que con AVERE el participio NO concorda. Token quest'anno usa apóstrofe ASCII U+0027 (no curly).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "verbos-movimiento-102",
