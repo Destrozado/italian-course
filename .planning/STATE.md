@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Más contenido A1 (Articoli + Partitivos)
-status: executing
-last_updated: "2026-05-27T21:29:52.392Z"
+status: verifying
+last_updated: "2026-05-27T22:36:59.546Z"
 last_activity: 2026-05-27
 progress:
   total_phases: 4
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 5
-  completed_plans: 4
-  percent: 0
+  completed_plans: 5
+  percent: 25
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -29,10 +29,10 @@ See: `.planning/PROJECT.md` (updated 2026-05-27)
 
 Phase: 11 (articoli) — EXECUTING
 Plan: 5 of 5
-Status: Ready to execute
-Last activity: 2026-05-27 -- Plan 11-04 completado (integracion BLOCKING: articoli cableado en los 3 puntos con conteos en LOCKSTEP N=56; TOTAL_EXPECTED 272->328; smoke 123/0 PASS; ART-01 cubierto). Reporter exit 1 SOLO por status pending de los 56; lo cierra 11-05 via quorum.
+Status: Phase complete — ready for verification
+Last activity: 2026-05-28 — Plan 11-05 completado: 56/56 articoli validados por quórum cross-vendor (DeepSeek Flash + Opus 4.7); 8 bugs de autoría capturados y corregidos; gate verde (reporter exit 0 328/328, smoke estricto 268/0). ART-08 cubierto. Stopped at: Completed 11-05-PLAN.md. Resume file: None. Siguiente: /gsd:verify-phase 11.
 
-Progress: [████████░░] 80%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
@@ -44,9 +44,9 @@ Progress: [████████░░] 80%
 | Requisitos v1.0 completos | 62/62 (100%) |
 | Requisitos v1.1 completos | 8/8 (100% — VAL-01..08) |
 | Requisitos v1.2 mapeados | 15/15 (100% — ART-01..08 → Phase 11; PART-01..07 → Phase 12; 0 orphans) |
-| Requisitos v1.2 completos | 0/15 |
-| Ejercicios totales en la app | 272 distribuidos en 7 categorías (todos validated por ≥2 IAs) |
-| Categorías | 7 (Articoli será la 8ª, Partitivos la 9ª) |
+| Requisitos v1.2 completos | 8/15 (ART-01..08 → Phase 11 cubiertos) |
+| Ejercicios totales en la app | 328 distribuidos en 8 categorías (todos validated por ≥2 IAs) |
+| Categorías | 8 (Articoli es la 8ª; Partitivos será la 9ª) |
 | Granularidad | coarse |
 | Mode | standard (NO MVP — esto es contenido editorial, no slice vertical de software) |
 
@@ -59,6 +59,7 @@ Progress: [████████░░] 80%
 | Phase 11 P01 | 5min | 2 tasks | 1 files |
 | Phase 11 P02 | 15min | 3 tasks | 2 files |
 | Phase 11 P04 | ~8min | 3 tasks | 2 files |
+| Phase 11 P05 | ~40min | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -84,6 +85,7 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - [Phase ?]: Bloque base multiple-choice de Articoli (48 ejercicios det+indet) aprobado por el autor sin cambios (checkpoint 11-02 D-85); articoli registrado en categories.json order 8 como deviation Rule 3
 - [Phase 11]: Match articolo<->sustantivo (049/050) + 6 bridges multi-cat (300..305) aprobados por el autor sin cambios (checkpoint 11-03). Conteo final CANONICO de content/exercises/articoli.json = 56 ejercicios (48 base + 2 match + 6 bridges); 11-04 debe propagarlo identico a categories.json, run-validation-271.mjs (TOTAL_EXPECTED 272->328) y tests/exercise-types.test.js
 - [Phase 11]: Plan 11-04 cableo articoli en los 3 puntos de integracion con conteos en LOCKSTEP N=56 (categories.json order 8 ya por 11-02, no duplicado; reporter CATEGORIES+TOTAL_EXPECTED 272->328; CATEGORIES_WITH_EXPLANATIONS expected:56). Smoke test 123/0 PASS. ART-01 cubierto. Reporter exit 1 SOLO por status pending de los 56 articoli (lo cierra 11-05 via quorum).
+- [Phase 11]: Plan 11-05 validó articoli por quórum cross-vendor (DeepSeek Flash + Opus 4.7) en vez del canon v1.1 (Opus+Sonnet), a petición del autor para probar multi-vendor. Invariante >=2 by distintos preservado. El cross-vendor capturó 8 bugs reales que los human-verify de 11-02/11-03 dejaron pasar (2 contracciones prep+art: 008 allo/011 sullo, 1 leak de triggers fonéticos en match 049, 5 acentos graves c'è/più: 013/028/038/042/043). Gate verde: reporter exit 0 328/328, smoke estricto VAL_07_STRICT=1 268/0. ART-08 cubierto. Infra nueva reutilizable: scripts/validate-ai-pass.mjs (multi-provider, auto-fallback 429) + docs/VALIDACION-QUORUM.md. Phase 11 lista para verifier.
 
 ### Pending Todos
 

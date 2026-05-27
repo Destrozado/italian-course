@@ -17,7 +17,7 @@ Requisitos de este milestone. Cada uno mapea a una fase del roadmap.
 - [x] **ART-05**: Ejercicios cubren las trampas canónicas (`lo zio`, `gli gnocchi`, `lo psicologo`, `uno studente`, `l'amico`/`l'amica`, `un'amica` vs `un amico`)
 - [ ] **ART-06**: Ejercicios multi-categoría cruzan Articoli con género-número y con sustantivos-irregulares (bridges patrón avere-300..; fallar un cruce resetea ambas categorías vía cascada D-54)
 - [x] **ART-07**: Cada ejercicio de Articoli tiene explanation pedagógica curada (canon español acentuado + italianismos preservados, plain text, apóstrofes ASCII U+0027)
-- [ ] **ART-08**: Todos los ejercicios de Articoli validados por quórum ≥2 IAs distintas (`status: validated` con ≥2 `by` distintos en `passes[]`)
+- [x] **ART-08**: Todos los ejercicios de Articoli validados por quórum ≥2 IAs distintas (`status: validated` con ≥2 `by` distintos en `passes[]`)
 
 ### Partitivos (PART) — Phase 12
 
@@ -66,7 +66,7 @@ Excluido explícitamente para prevenir scope creep.
 | ART-05 | Phase 11 | Complete |
 | ART-06 | Phase 11 | Pending |
 | ART-07 | Phase 11 | Complete |
-| ART-08 | Phase 11 | Pending |
+| ART-08 | Phase 11 | Complete |
 | PART-01 | Phase 12 | Pending |
 | PART-02 | Phase 12 | Pending |
 | PART-03 | Phase 12 | Pending |
