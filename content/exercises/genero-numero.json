@@ -782,8 +782,21 @@
       },
       "notes": "Convertido de ex-match-204 (dottore↔dottoressa). Duplica mc-007 con orden de distractoras invertido (correct en index 0). Repaso espaciado de la familia -essa más común. Distractoras: `dottrice` (calco -trice), `dottora` (regla ingenua), `dottore` (invariable falso).",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
