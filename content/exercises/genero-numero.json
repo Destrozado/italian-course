@@ -470,7 +470,24 @@
         "correctIndex": 1,
         "explanation": "La palabra 'studente' (estudiante) termina en -e en su forma singular, obedeciendo así a la regla del grupo mixto. Al cambiar la -e final por una -i, el plural se forma como 'studenti'. Nada de terminaciones en -s."
       },
-      "notes": "Convertido de ex-match-201 (studente↔studenti). Mismo grupo mixto -e→-i. Distractoras: `studente` (invariable falso), `studentes` (calco español), `studentis` (mezcla -is). Nota artículo: `uno studente` por s+cons inicial (cubierto en mc-010 con `lo zaino`)."
+      "notes": "Convertido de ex-match-201 (studente↔studenti). Mismo grupo mixto -e→-i. Distractoras: `studente` (invariable falso), `studentes` (calco español), `studentis` (mezcla -is). Nota artículo: `uno studente` por s+cons inicial (cubierto en mc-010 con `lo zaino`).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "genero-numero-018",
