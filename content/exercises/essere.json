@@ -1046,7 +1046,28 @@
         "correctIndex": 2,
         "explanation": "El passato prossimo de essere usa el propio verbo essere como auxiliar más el participio 'stato': 'Io sono stato a Roma' equivale al español 'Yo he estado en Roma'. ¡Atención! trampa fortísima del hispanohablante: el calco 'ho stato' (con avere) es uno de los errores A1 más frecuentes, pero los verbos intransitivos como essere exigen essere de auxiliar. El mismo participio 'stato' aparece como auxiliar en verbos de movimiento (è andato, è venuto), no confundir uso predicativo con auxiliar."
       },
-      "notes": "Passato prossimo masc sing: auxiliar essere + participio `stato`. Trampa fortísima: hispanohablante diría `ho stato` (calco 'he estado'), pero los verbos intransitivos como essere usan auxiliar essere, no avere. Distractora `ho` = avere."
+      "notes": "Passato prossimo masc sing: auxiliar essere + participio `stato`. Trampa fortísima: hispanohablante diría `ho stato` (calco 'he estado'), pero los verbos intransitivos como essere usan auxiliar essere, no avere. Distractora `ho` = avere.",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] Error factual: afirma que el participio stato aparece como auxiliar en è andato/è venuto — falso. En esos casos el auxiliar es è (essere) y los participios son andato/venuto; stato no interviene. Eliminar o reescribir la última frase."
+            ]
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] Error factual en la última frase: stato no es el auxiliar en è andato/è venuto; el auxiliar es è y los participios andato/venuto. Confunde al alumno sobre qué elemento es el auxiliar."
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "essere-027",
