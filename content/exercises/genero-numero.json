@@ -275,7 +275,24 @@
         "correctIndex": 0,
         "explanation": "Aplicando la norma general de género y número: los sustantivos masculinos terminados en -o en singular cambian siempre a -i en su forma plural. 'Ragazzo' pasa a ser 'ragazzi'. Recuerda que el italiano jamás marca los plurales con 's'."
       },
-      "notes": "Convertido de ex-match-200 (ragazzo↔ragazzi). Duplica intencionalmente mc-001 con distractoras distintas para repaso espaciado. Distractoras: `ragazzas` (calco fem español), `ragazze` (regla fem -e mal aplicada al masc — error frecuente), `ragazzos` (calco masc español). Pitfall: confundir el género del sustantivo."
+      "notes": "Convertido de ex-match-200 (ragazzo↔ragazzi). Duplica intencionalmente mc-001 con distractoras distintas para repaso espaciado. Distractoras: `ragazzas` (calco fem español), `ragazze` (regla fem -e mal aplicada al masc — error frecuente), `ragazzos` (calco masc español). Pitfall: confundir el género del sustantivo.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "genero-numero-012",
