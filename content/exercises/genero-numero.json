@@ -1004,7 +1004,24 @@
         "correctIndex": 3,
         "explanation": "La norma de la invariabilidad es absoluta para todas las vocales acentuadas (-à, -è, -ì, -ò, -ù). La palabra 'caffè' entra de lleno en esta norma y, bajo ninguna circunstancia, se escribirá con 's' al final ni cambiará su terminación."
       },
-      "notes": "Convertido de ex-match-206 (caffè↔caffè). Duplica mc-008 con orden de distractoras invertido y correct en index 3. Refuerzo: vocal acentuada -è bloquea flexión. Distractoras: `caffi` (regla -e→-i ingenua), `caffès` (calco francés/inglés con -s), `caffei` (mezcla acento+vocal)."
+      "notes": "Convertido de ex-match-206 (caffè↔caffè). Duplica mc-008 con orden de distractoras invertido y correct en index 3. Refuerzo: vocal acentuada -è bloquea flexión. Distractoras: `caffi` (regla -e→-i ingenua), `caffès` (calco francés/inglés con -s), `caffei` (mezcla acento+vocal).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "genero-numero-036",
