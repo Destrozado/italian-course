@@ -850,7 +850,24 @@
         "correctIndex": 0,
         "explanation": "El singular del plural 'le uova' (fem) es 'l'uovo' (masc). Cuidado: igual que con 'braccio / braccia', la asimetría de género desorienta — 'uova' parece fem pero el lema base es masc. Sin recuperar el singular correcto, el alumno no puede usar el sustantivo en frases A1 tipo 'compro un uovo' (compro un huevo)."
       },
-      "notes": "Convertido de ex-match-206. Mismo patrón que braccia→braccio: fem plural -a → masc singular -o. Distractoras: `uova` (invariable falso), `uove` (calco regular fem), `uovas` (calco español). Refuerzo bidireccional crítico — sin esto el alumno reconoce el plural pero no recupera el lema."
+      "notes": "Convertido de ex-match-206. Mismo patrón que braccia→braccio: fem plural -a → masc singular -o. Distractoras: `uova` (invariable falso), `uove` (calco regular fem), `uovas` (calco español). Refuerzo bidireccional crítico — sin esto el alumno reconoce el plural pero no recupera el lema.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "sustantivos-irregulares-031",
