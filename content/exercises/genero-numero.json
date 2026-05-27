@@ -331,8 +331,21 @@
       },
       "notes": "Convertido de ex-match-200 (casa↔case). Duplica mc-002 con orden de distractoras distinto. Distractoras: `casas` (calco español), `casi` (regla masc mal aplicada), `cases` (mezcla -e+-s). Pitfall A1 critical: el plural fem es -e, NO -as.",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
