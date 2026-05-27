@@ -415,7 +415,24 @@
         "correctIndex": 1,
         "explanation": "Los verbos cognitivos como capire, sapere o pensare construyen el passato prossimo con avere, porque expresan una acción mental ejercida sobre un objeto (la lección, una idea, una respuesta). 'Loro hanno capito la lezione' equivale al español 'Ellos han entendido la lección'. El participio 'capito' es invariable cuando el auxiliar es avere."
       },
-      "notes": "Passato prossimo, 3ª plural. Verbo cognitivo (capire) → auxiliar avere. PDF §3."
+      "notes": "Passato prossimo, 3ª plural. Verbo cognitivo (capire) → auxiliar avere. PDF §3.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "avere-100",
