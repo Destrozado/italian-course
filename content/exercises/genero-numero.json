@@ -87,7 +87,24 @@
         "correctIndex": 0,
         "explanation": "Al igual que con la terminación -co, los sustantivos terminados en -go añaden una 'h' en el plural (-ghi) para conservar su sonido velar fuerte (/g/). De este modo, 'albergo' (hotel) cambia su terminación para convertirse en 'alberghi'."
       },
-      "notes": "PDF §3 Palabras en -CO/-GO. Inserción de H para mantener el sonido fuerte /g/: albergo→alberghi (no `albergi` que sonaría /dʒ/). Distractoras: `albergi` (regla -o→-i ingenua sin H), `alberghis` (calco español), `alberge` (calco femenino -e). Misma regla que cuoco→cuochi pero con -g- en lugar de -c-."
+      "notes": "PDF §3 Palabras en -CO/-GO. Inserción de H para mantener el sonido fuerte /g/: albergo→alberghi (no `albergi` que sonaría /dʒ/). Distractoras: `albergi` (regla -o→-i ingenua sin H), `alberghis` (calco español), `alberge` (calco femenino -e). Misma regla que cuoco→cuochi pero con -g- en lugar de -c-.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "genero-numero-005",
