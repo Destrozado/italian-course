@@ -10,7 +10,24 @@
         "correctIndex": 0,
         "explanation": "La regla productiva más frecuente del italiano para formar el femenino de profesiones es cambiar la -o final por -a. Así 'cuoco' (cocinero) pasa a 'cuoca' y 'impiegato' (empleado) pasa a 'impiegata'. Cuidado: no confundir con el plural femenino 'cuoche' (las cocineras), que añade -h- para preservar el sonido duro de la C."
       },
-      "notes": "PDF §1 Regular -o→-a. Distractoras: `cuoche` (plural fem, no singular), `cuocia` (mezcla con -cia palatal), `cuocessa` (calco con -essa de dottoressa, error A1 al sobre-aplicar)."
+      "notes": "PDF §1 Regular -o→-a. Distractoras: `cuoche` (plural fem, no singular), `cuocia` (mezcla con -cia palatal), `cuocessa` (calco con -essa de dottoressa, error A1 al sobre-aplicar).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-002",
