@@ -155,7 +155,24 @@
         "correctIndex": 1,
         "explanation": "La 3ª persona plural de essere coincide en grafía con la 1ª singular: ambas son 'sono'. Por eso 'loro sono usciti' equivale al español 'ellos han salido', con el mismo 'sono' que 'io sono'. Importante: el contexto y el sujeto explícito ('loro' vs 'io') desambiguan la persona; el participio plural masculino 'usciti' confirma aquí que el sujeto es 'loro', no 'io' (que pediría singular 'uscito')."
       },
-      "notes": "Essere presente 3ª plural ('sono') como auxiliar de uscire + concordancia plural masculino ('usciti'). PDF §3 ejemplo 'Sono usciti'. Sutil: 'sono' coincide forma con 1ª singular pero aquí es 3ª plural por el sujeto 'Loro'."
+      "notes": "Essere presente 3ª plural ('sono') como auxiliar de uscire + concordancia plural masculino ('usciti'). PDF §3 ejemplo 'Sono usciti'. Sutil: 'sono' coincide forma con 1ª singular pero aquí es 3ª plural por el sujeto 'Loro'.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "verbos-movimiento-007",
