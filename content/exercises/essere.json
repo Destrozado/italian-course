@@ -125,7 +125,24 @@
         "correctIndex": 2,
         "explanation": "La forma 'è' sirve tanto para lui como para lei en presente indicativo: la tercera persona singular comparte conjugación para los dos géneros. 'Lei è molto simpatica' equivale al español 'Ella es muy simpática', con concordancia femenina del adjetivo (simpatica, no simpatico). Cuidado: el adjetivo predicativo concuerda en género con el sujeto en italiano, igual que en español."
       },
-      "notes": "Presente indicativo, 3ª persona singular (lei) — misma forma que lui (refuerzo). Estado/atributo. Distractora `ha` = avere."
+      "notes": "Presente indicativo, 3ª persona singular (lei) — misma forma que lui (refuerzo). Estado/atributo. Distractora `ha` = avere.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "essere-005",
