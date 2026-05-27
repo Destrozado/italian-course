@@ -714,7 +714,24 @@
         "correctIndex": 2,
         "explanation": "Con 'voi' como sujeto plural y el auxiliar 'siete' ya dado, el participio se elige por el género del grupo: si es masculino o mixto, termina en -i ('entrati'); si es exclusivamente femenino, en -e ('entrate'). 'Voi siete entrati in classe in ritardo' equivale al español 'Vosotros entrasteis en clase con retraso'. Importante: el masculino plural es la opción por defecto en italiano cuando no se especifica que el grupo sea solo de mujeres."
       },
-      "notes": "Concordancia plural masculino con voi (asumiendo grupo masc/mixto): 'entrati' (PDF §3 'Siete entrati'). Si 'Voi' fuera grupo de mujeres explícito sería 'entrate'."
+      "notes": "Concordancia plural masculino con voi (asumiendo grupo masc/mixto): 'entrati' (PDF §3 'Siete entrati'). Si 'Voi' fuera grupo de mujeres explícito sería 'entrate'.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "verbos-movimiento-026",
