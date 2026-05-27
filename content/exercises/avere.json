@@ -307,7 +307,7 @@
       },
       "notes": "Passato prossimo, 1ª singular. Verbo transitivo (mangiare) → auxiliar avere. PDF §3.",
       "validation": {
-        "status": "disputed",
+        "status": "validated",
         "passes": [
           {
             "by": "claude-opus-4-7",
@@ -321,6 +321,14 @@
             "verdict": "incorrecta",
             "concerns": [
               "[C5-leak] La explanation menciona la regla de selección de auxiliar directamente; además notes contiene PDF §3 (§N), violando R1."
+            ]
+          },
+          {
+            "by": "autor",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": [
+              "[override] autor mantiene original tras revisión: falso positivo C5-leak — el concern confunde explanation/notes con el prompt; R1 limita C5-leak al prompt, que está limpio. Opus confirma correcta."
             ]
           }
         ]
