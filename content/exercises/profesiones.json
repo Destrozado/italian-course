@@ -695,7 +695,28 @@
         "correctIndex": 3,
         "explanation": "¡Atención! 'Farmacista' pertenece a la familia -ista invariable como 'dentista' y 'pianista', aunque el PDF de la profesora lo clasifique con la regla -o→-a por motivos didácticos. En italiano A1 estándar y contemporáneo es invariable: 'il farmacista' (el farmacéutico) frente a 'la farmacista' (la farmacéutica). Solo el artículo distingue el género."
       },
-      "notes": "PDF §1 (en la tabla del PDF figura como -o→-a pero en italiano real es invariable -ista). Distractoras: `farmacistessa` (-essa errónea), `farmacistra` (inventada), `farmaciste` (plural fem). Pitfall A1: la tabla del PDF lista esta y giornalista en §1, pero la regla productiva -ista las hace invariables (igual que dentista, pianista). El artículo distingue: il farmacista / la farmacista."
+      "notes": "PDF §1 (en la tabla del PDF figura como -o→-a pero en italiano real es invariable -ista). Distractoras: `farmacistessa` (-essa errónea), `farmacistra` (inventada), `farmaciste` (plural fem). Pitfall A1: la tabla del PDF lista esta y giornalista en §1, pero la regla productiva -ista las hace invariables (igual que dentista, pianista). El artículo distingue: il farmacista / la farmacista.",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] referencia meta al PDF de la profesora (aunque el PDF de la profesora lo clasifique...), meta-staging del curador, no contenido para el alumno."
+            ]
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] referencia meta-editorial explicita al PDF de la profesora, staging interno del curador."
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-025",
