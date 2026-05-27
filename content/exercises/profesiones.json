@@ -488,7 +488,24 @@
         "correctIndex": 2,
         "explanation": "El masculino 'studente' (estudiante) sigue la familia -e/-essa y da 'studentessa' (estudiante femenina). ¡Atención! No todas las profesiones en -e flexionan; algunas son invariables ('cantante', 'insegnante'). Pero 'studente' SÍ tiene femenino propio. El patrón canónico tras vocal más -e es -essa: dottoressa, professoressa, studentessa."
       },
-      "notes": "PDF §3 Irregolari -e → -essa. Distractoras: `studenta` (regla regular calco español, error A1 muy común), `studentrice` (-trice errónea), `studente` (invariable falso — pitfall: muchas profesiones en -e SÍ son invariables como cantante/insegnante, pero studente NO). Refuerzo: -essa es el patrón canónico tras vocal+-e: dottoressa, professoressa, studentessa."
+      "notes": "PDF §3 Irregolari -e → -essa. Distractoras: `studenta` (regla regular calco español, error A1 muy común), `studentrice` (-trice errónea), `studente` (invariable falso — pitfall: muchas profesiones en -e SÍ son invariables como cantante/insegnante, pero studente NO). Refuerzo: -essa es el patrón canónico tras vocal+-e: dottoressa, professoressa, studentessa.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-018",
