@@ -1392,7 +1392,24 @@
         "correctIndex": 3,
         "explanation": "El sustantivo 'braccio' es masculino en singular pero cambia a femenino plural irregular 'braccia', con concordancia adjetival femenina: 'Le mie braccia sono stanche' equivale al español 'Mis brazos están cansados'. Importante: el grupo italiano de sustantivos que cambian de género en plural (braccio/braccia, dito/dita, uovo/uova) es excepcional y debe memorizarse en bloque. El estado físico se predica con essere; la distractora 'hanno' (avere) es el calco mental hispano."
       },
-      "notes": "Cruce essere + sustantivos-irregulares (D-94). Plural irregular `braccia` (singular masc `braccio` → plural fem `braccia`) + concordancia adjetival `stanche` (fem plural) + 3ª plural essere `sono`. Reverso pedagógico de avere-302 (mismo plural irregular visto desde essere). Fallar cascadea D-54 a essere + sustantivos-irregulares."
+      "notes": "Cruce essere + sustantivos-irregulares (D-94). Plural irregular `braccia` (singular masc `braccio` → plural fem `braccia`) + concordancia adjetival `stanche` (fem plural) + 3ª plural essere `sono`. Reverso pedagógico de avere-302 (mismo plural irregular visto desde essere). Fallar cascadea D-54 a essere + sustantivos-irregulares.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "essere-305",
