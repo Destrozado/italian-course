@@ -640,7 +640,28 @@
         "correctIndex": 1,
         "explanation": "La profesión predicativa se expresa siempre con essere en italiano, sin artículo indeterminado: 'Lui è medico' equivale al español 'Él es médico'. Cuidado con el contraste essere/avere: 'Lui ha un fratello medico' (Él tiene un hermano médico) usa avere porque expresa posesión familiar, mientras 'Lui è medico' usa essere porque expresa identidad profesional. Las distractoras avere (ho/hai/ha/hanno) son trampas típicas del hispanohablante en estos ejercicios."
       },
-      "notes": "Profesión masc + contraste essere/avere. Trampa fuerte: hispanohablante puede traducir 'él es médico' como `ha medico` (calco erróneo). En italiano la profesión va con essere."
+      "notes": "Profesión masc + contraste essere/avere. Trampa fuerte: hispanohablante puede traducir 'él es médico' como `ha medico` (calco erróneo). En italiano la profesión va con essere.",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] La explanation cierra con meta-staging: \"...trampas típicas del hispanohablante en estos ejercicios\" — referencia al artefacto/set, viola R4. Además menciona ho/hai/hanno que no aparecen como distractoras (solo ha). Sugerencia: eliminar la coletilla meta."
+            ]
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] meta-staging: en estos ejercicios referencia el artefacto/set en lugar de la lengua. Reformular como regla general (p.ej. avere es trampa frecuente porque en español usamos ser/estar para identidad)."
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "essere-017",
