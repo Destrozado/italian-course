@@ -155,7 +155,24 @@
         "correctIndex": 1,
         "explanation": "El artículo plural femenino 'le' obliga a usar la forma 'braccia' (fem plural en -a) y NO 'bracci' (que sería masculino plural). Por eso 'le braccia lunghe' (los brazos largos) lleva concordancia femenina entera. Importante: en italiano la pareja artículo+sustantivo siempre revela el género del plural irregular."
       },
-      "notes": "PDF §2 ¡Cuidado!: en cuerpo humano muchos sustantivos son masc en sing pero fem en plural. Refuerza acuerdo femenino del artículo (`le`) con el plural irregular. Distractora `bracci` (regla -o→-i ingenua), `braccie` (calco con -ie de orecchie)."
+      "notes": "PDF §2 ¡Cuidado!: en cuerpo humano muchos sustantivos son masc en sing pero fem en plural. Refuerza acuerdo femenino del artículo (`le`) con el plural irregular. Distractora `bracci` (regla -o→-i ingenua), `braccie` (calco con -ie de orecchie).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "sustantivos-irregulares-007",
