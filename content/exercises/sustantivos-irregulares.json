@@ -179,34 +179,15 @@
       "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Un orecchio, due ___.",
+        "prompt": "Le ___ grandi.",
         "options": ["orecchi", "orecchia", "orecchie", "orecchios"],
         "correctIndex": 2,
-        "explanation": "Cuidado: 'orecchio' (oreja, masc) es una excepción dentro del grupo de partes del cuerpo y NO sigue el patrón 'braccio → braccia'. Su plural es 'le orecchie' (femenino terminado en -ie). Como en 'braccia', el género cambia a femenino, pero la terminación es distinta. Hay que memorizar este lema aparte."
+        "explanation": "El sustantivo 'orecchio' admite dos plurales: masculino 'gli orecchi' y femenino 'le orecchie'. Aquí el artículo femenino plural 'le' y el adjetivo 'grandi' exigen la forma femenina 'le orecchie'. La concordancia del contexto decide cuál de las dos formas usar."
       },
       "notes": "PDF §2 cuerpo. Excepción dentro de la excepción: orecchio NO va a -a sino a -ie. Distractora orecchia (siguiendo el patrón braccio/braccia incorrectamente).",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C2-una_opcion] orecchi (index 0) es plural masculino valido y aceptado de orecchio (gli orecchi, registrado en Treccani) junto a le orecchie. Doble-validez: dos opciones listadas son correctas.",
-              "[C4-explanation] presenta le orecchie como unico plural y omite la forma masculina valida gli orecchi (factualmente incompleta)."
-            ]
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C2-una_opcion] gli orecchi coexiste con le orecchie en italiano estandar => doble-validez con la opcion marcada correcta.",
-              "[C4-explanation] afirma que orecchie es la unica forma; omite gli orecchi, incompleto."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -591,34 +572,15 @@
       "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Un ginocchio, due ___.",
+        "prompt": "Dopo la corsa, le ___ fanno male.",
         "options": ["ginocchi", "ginocchia", "ginocchios", "ginocche"],
         "correctIndex": 1,
-        "explanation": "Las partes pares del cuerpo humano prefieren el plural femenino en -a: 'il ginocchio' (la rodilla, masc) → 'le ginocchia' (las rodillas, fem). Importante: existe también 'i ginocchi' como variante minoritaria, pero en italiano moderno y a nivel A1 se enseña 'le ginocchia'. Misma familia: braccia, dita, labbra, ossa."
+        "explanation": "Para las dos rodillas del cuerpo, el plural de 'ginocchio' es femenino: 'le ginocchia'. El artículo 'le' del contexto exige esta forma femenina; 'i ginocchi' (masculino) no concuerda con 'le'. Misma familia: le braccia, le dita, le labbra, le ossa."
       },
       "notes": "Convertido de ex-match-202. Caso especial cuerpo masc -o → fem plural -a. Nota: `ginocchi` (masc plural regular) existe como variante pero `ginocchia` (fem -a) es la más común en italiano moderno y la que recoge el PDF §2. Distractoras: `ginocchi` (variante minoritaria, plausible pero no es la respuesta esperada por el PDF), `ginocchios` (calco español), `ginocche` (mezcla -e). Pitfall: las partes pares del cuerpo prefieren plural fem -a.",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C2-una_opcion] La explanation admite que i ginocchi (option index 0) tambien es valida como variante; doble-validez: ginocchia y ginocchi ambas correctas y listadas.",
-              "[C4-explanation] reconoce explicitamente la otra opcion listada como correcta, incoherente con opcion unica."
-            ]
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C2-una_opcion] la explanation admite i ginocchi como variante valida y ginocchi es option[0] => doble-validez directa.",
-              "[C4-explanation] reconoce la variante alternativa, contradice la premisa de respuesta unica."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -626,32 +588,15 @@
       "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Un osso, due ___.",
+        "prompt": "Lo scheletro umano ha molte ___.",
         "options": ["ossi", "ossa", "osses", "osso"],
         "correctIndex": 1,
-        "explanation": "El sustantivo masculino 'osso' (hueso) cambia a fem plural en -a cuando se refiere al cuerpo humano: 'l'osso' → 'le ossa'. Cuidado: existe 'gli ossi' como plural masculino válido para huesos sueltos o de animales (ej. 'gli ossi del cane'), pero para el esqueleto humano se usa 'le ossa'. Misma familia: braccia, dita, labbra."
+        "explanation": "Para el conjunto del esqueleto humano, el plural de 'osso' es femenino: 'le ossa'. La forma masculina 'gli ossi' se reserva para huesos sueltos o de animales (ej. 'gli ossi del cane'). El contexto 'scheletro umano' exige aquí 'ossa'."
       },
       "notes": "Convertido de ex-match-202. Caso especial cuerpo masc -o → fem plural -a. Distractoras: `ossi` (regla ingenua -o→-i; existe como variante para `huesos sueltos/no humanos` pero `ossa` es el plural humano del PDF), `osses` (calco español), `osso` (invariable falso). Familia con braccio/dito/ginocchio.",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C2-una_opcion] El prompt Un osso, due ___ no fija contexto (cuerpo humano vs huesos sueltos). La explanation admite que gli ossi es plural valido; con due ossi la opcion ossi (index 0) tambien es correcta => doble-validez."
-            ]
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C2-una_opcion] la explanation admite ossi (option 0) como plural valido (gli ossi, huesos sueltos/animales); el prompt no establece contexto humano => ossi defendible => doble-validez."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -778,28 +723,12 @@
         "prompt": "Due uomini, un ___ (dirección inversa).",
         "options": ["uomine", "uomo", "uome", "uomini"],
         "correctIndex": 1,
-        "explanation": "El lema base del plural irregular 'uomini' es 'uomo' (hombre), no una forma regularizada. Importante: el reconocimiento inverso (plural → singular) es clave para leer italiano sin tropezar. Cuidado con la tentación de inventar un singular falso tipo 'uomine' por analogía con 'donna / donne' — los plurales con cambio de raíz no son simétricos."
+        "explanation": "El lema base del plural irregular 'uomini' es 'uomo' (hombre), no una forma regularizada. Cuidado con la tentación de inventar un singular falso tipo 'uomine' por analogía con 'donna / donne': los plurales con cambio de raíz no son simétricos."
       },
       "notes": "Convertido de ex-match-206 — refuerzo bidireccional (plural→singular). El reconocimiento inverso es crítico para lectura/comprensión. Distractoras: `uomine` (singular regularizado, calco con donna/donne), `uome` (forma inventada plausible para alguien que piensa en fem), `uomini` (invariable falso). Pitfall A1: ver `uomini` y recuperar el lema base `uomo`.",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C4-explanation] meta-staging: la explanation describe la mecanica del ejercicio (el reconocimiento inverso plural->singular es clave para leer italiano) en lugar de la regla gramatical.",
-              "[C5-leak] la explanation nombra la operacion plural->singular, redundante con la etiqueta (direccion inversa) del prompt."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -865,28 +794,15 @@
       "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Due uova, un ___ (casos especiales, dirección inversa).",
+        "prompt": "Due uova, un ___ (dirección inversa).",
         "options": ["uovo", "uova", "uove", "uovas"],
         "correctIndex": 0,
         "explanation": "El singular del plural 'le uova' (fem) es 'l'uovo' (masc). Cuidado: igual que con 'braccio / braccia', la asimetría de género desorienta — 'uova' parece fem pero el lema base es masc. Sin recuperar el singular correcto, el alumno no puede usar el sustantivo en frases A1 tipo 'compro un uovo' (compro un huevo)."
       },
       "notes": "Convertido de ex-match-206. Mismo patrón que braccia→braccio: fem plural -a → masc singular -o. Distractoras: `uova` (invariable falso), `uove` (calco regular fem), `uovas` (calco español). Refuerzo bidireccional crítico — sin esto el alumno reconoce el plural pero no recupera el lema.",
       "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -894,32 +810,15 @@
       "type": "multiple-choice",
       "categoryIds": ["sustantivos-irregulares"],
       "payload": {
-        "prompt": "Due dei, un ___ (casos especiales, dirección inversa).",
+        "prompt": "Due dei, un ___ (dirección inversa).",
         "options": ["dei", "dee", "deo", "dio"],
         "correctIndex": 3,
         "explanation": "El singular del plural irregular 'dei' es 'dio' (dios), no la forma regularizada 'deo' que sugeriría una derivación regular. Importante: el plural 'dei' nace de un cambio de raíz histórico (latín deus → dei) que no se puede deducir aplicando reglas modernas. Hay que aprender el par 'dio / dei' como léxico cerrado, como 'uomo / uomini'."
       },
       "notes": "Convertido de ex-match-206. Dirección inversa: dei→dio (cambio radical). Distractoras: `dei` (invariable falso), `dee` (singular fem inexistente), `deo` (forma regularizada plausible pero incorrecta — esta es la trampa: parece que `dei` viniera de `deo`, pero NO). Pitfall A1: ver `dei` y recuperar `dio` requiere conocer el lema, no derivarlo.",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C5-leak] La etiqueta (casos especiales, direccion inversa) insinua que es un plural irregular especial, orientando al alumno hacia la respuesta lexica cerrada."
-            ]
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C5-leak] casos especiales nombra la categoria de la regla que se practica, leak de categoria."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     }
   ]
