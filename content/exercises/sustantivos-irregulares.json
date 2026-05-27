@@ -853,8 +853,21 @@
       },
       "notes": "Convertido de ex-match-206. Mismo patrón que braccia→braccio: fem plural -a → masc singular -o. Distractoras: `uova` (invariable falso), `uove` (calco regular fem), `uovas` (calco español). Refuerzo bidireccional crítico — sin esto el alumno reconoce el plural pero no recupera el lema.",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
