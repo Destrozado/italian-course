@@ -92,7 +92,7 @@
 | 8. Modo Examen por categoría | v1.0 | 1/1 | Complete | 2026-05-25 |
 | 9. Infraestructura de validación | v1.1 | 3/3 | Complete | 2026-05-26 |
 | 10. Ejecución validación 271 ejercicios + escalada | v1.1 | 5/5 | Complete | 2026-05-27 |
-| 11. Articoli | v1.2 | 5/5 | Complete   | 2026-05-27 |
+| 11. Articoli | v1.2 | 5/5 | Complete    | 2026-05-27 |
 | 12. Partitivos | v1.2 | 0/? | Not started | - |
 
 ## Backlog

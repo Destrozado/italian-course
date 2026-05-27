@@ -2,8 +2,8 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Más contenido A1 (Articoli + Partitivos)
-status: verifying
-last_updated: "2026-05-27T22:36:59.546Z"
+status: ready_to_plan
+last_updated: 2026-05-27T22:48:54.689Z
 last_activity: 2026-05-27
 progress:
   total_phases: 4
@@ -11,6 +11,7 @@ progress:
   total_plans: 5
   completed_plans: 5
   percent: 25
+stopped_at: Phase 11 complete (5/5) — ready to discuss Phase 999.1
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -21,16 +22,16 @@ See: `.planning/PROJECT.md` (updated 2026-05-27)
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 11 — articoli
+**Current Focus:** Phase 999.1 — bot n reiniciar ejercicios en pantalla de sesi n
 
 **Milestone v1.2 Goal:** Añadir 2 categorías nuevas de gramática A1 (Articoli y Partitivos), diseñadas desde cero sin PDF de referencia. Cada categoría sigue el mismo flujo dentro de su propia fase: (a) temario exhaustivo ANTES de redactar ejercicios → (b) ejercicios que cubren cada celda del temario → (c) explanations pedagógicas curadas → (d) validación por quórum ≥2 IAs distintas reutilizando la infraestructura editorial de v1.1 (skill `gsd-validate-batch` + reporter `scripts/run-validation-271.mjs` + reglas R1-R7). NO se modifica el engine: motor de re-verificación, sampler, cascada D-54, schema validator y 3 tipos de ejercicio están DONE.
 
 ## Current Position
 
-Phase: 11 (articoli) — EXECUTING
-Plan: 5 of 5
-Status: Phase complete — ready for verification
-Last activity: 2026-05-28 — Plan 11-05 completado: 56/56 articoli validados por quórum cross-vendor (DeepSeek Flash + Opus 4.7); 8 bugs de autoría capturados y corregidos; gate verde (reporter exit 0 328/328, smoke estricto 268/0). ART-08 cubierto. Stopped at: Completed 11-05-PLAN.md. Resume file: None. Siguiente: /gsd:verify-phase 11.
+Phase: 999.1
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-05-27
 
 Progress: [██████████] 100%
 
@@ -60,6 +61,7 @@ Progress: [██████████] 100%
 | Phase 11 P02 | 15min | 3 tasks | 2 files |
 | Phase 11 P04 | ~8min | 3 tasks | 2 files |
 | Phase 11 P05 | ~40min | 2 tasks | 4 files |
+| 11 | 5 | - | - |
 
 ## Accumulated Context
 
