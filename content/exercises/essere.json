@@ -3,10 +3,17 @@
     {
       "id": "essere-001",
       "type": "multiple-choice",
-      "categoryIds": ["essere"],
+      "categoryIds": [
+        "essere"
+      ],
       "payload": {
         "prompt": "Io ___ Maria.",
-        "options": ["sei", "sono", "ho", "siamo"],
+        "options": [
+          "sei",
+          "sono",
+          "ho",
+          "siamo"
+        ],
         "correctIndex": 1,
         "explanation": "La forma 'sono' es la primera persona singular del presente indicativo del verbo essere y se usa con el pronombre 'io' para expresar identidad. En italiano, 'Io sono Maria' equivale al español 'Yo soy Maria': el verbo essere cubre la identidad personal de forma directa, sin verbo auxiliar adicional. Cuidado con la distractora 'ho': pertenece al verbo avere, que en italiano se reserva para posesión (Io ho una macchina), no para identidad."
       },
@@ -15,10 +22,17 @@
     {
       "id": "essere-002",
       "type": "multiple-choice",
-      "categoryIds": ["essere"],
+      "categoryIds": [
+        "essere"
+      ],
       "payload": {
         "prompt": "Tu ___ italiano?",
-        "options": ["sono", "hai", "sei", "è"],
+        "options": [
+          "sono",
+          "hai",
+          "sei",
+          "è"
+        ],
         "correctIndex": 2,
         "explanation": "El presente indicativo de essere en la segunda persona singular es 'sei', que acompaña al pronombre 'tu'. La frase '¿Tu sei italiano?' equivale al español '¿Tú eres italiano?': el verbo essere se usa para identidad y nacionalidad por igual. ¡Atención!: la distractora 'hai' pertenece a avere y no encaja con nacionalidad; en italiano la nacionalidad siempre se predica con essere, nunca con avere."
       },
@@ -27,10 +41,17 @@
     {
       "id": "essere-003",
       "type": "multiple-choice",
-      "categoryIds": ["essere"],
+      "categoryIds": [
+        "essere"
+      ],
       "payload": {
         "prompt": "Lui ___ il mio amico.",
-        "options": ["è", "sei", "ha", "sono"],
+        "options": [
+          "è",
+          "sei",
+          "ha",
+          "sono"
+        ],
         "correctIndex": 0,
         "explanation": "La tercera persona singular del presente indicativo de essere es 'è' con acento grave, forma que cubre lui, lei y la cortesía Lei. 'Lui è il mio amico' equivale al español 'Él es mi amigo'. Importante: el acento grave sobre la 'è' es obligatorio porque distingue el verbo (è = es) de la conjunción 'e' (e = y); confundir las dos grafías es uno de los errores ortográficos A1 más frecuentes."
       },
@@ -39,10 +60,17 @@
     {
       "id": "essere-004",
       "type": "multiple-choice",
-      "categoryIds": ["essere"],
+      "categoryIds": [
+        "essere"
+      ],
       "payload": {
         "prompt": "Lei ___ molto simpatica.",
-        "options": ["ha", "sono", "è", "sei"],
+        "options": [
+          "ha",
+          "sono",
+          "è",
+          "sei"
+        ],
         "correctIndex": 2,
         "explanation": "La forma 'è' sirve tanto para lui como para lei en presente indicativo: la tercera persona singular comparte conjugación para los dos géneros. 'Lei è molto simpatica' equivale al español 'Ella es muy simpática', con concordancia femenina del adjetivo (simpatica, no simpatico). Cuidado: el adjetivo predicativo concuerda en género con el sujeto en italiano, igual que en español."
       },
@@ -51,10 +79,17 @@
     {
       "id": "essere-005",
       "type": "multiple-choice",
-      "categoryIds": ["essere"],
+      "categoryIds": [
+        "essere"
+      ],
       "payload": {
         "prompt": "Noi ___ a casa.",
-        "options": ["siete", "abbiamo", "sono", "siamo"],
+        "options": [
+          "siete",
+          "abbiamo",
+          "sono",
+          "siamo"
+        ],
         "correctIndex": 3,
         "explanation": "La primera persona plural del presente indicativo de essere es 'siamo' y se usa para localizar al grupo en un espacio. 'Noi siamo a casa' equivale al español 'Nosotros estamos en casa'. ¡Atención! falso amigo crítico: el español distingue ser y estar (somos vs estamos), pero el italiano usa essere para ambos. Tras 'a casa', el italiano siempre pide essere, no un equivalente de 'estar'."
       },
@@ -63,10 +98,17 @@
     {
       "id": "essere-006",
       "type": "multiple-choice",
-      "categoryIds": ["essere"],
+      "categoryIds": [
+        "essere"
+      ],
       "payload": {
         "prompt": "Voi ___ pronti?",
-        "options": ["siete", "avete", "siamo", "sono"],
+        "options": [
+          "siete",
+          "avete",
+          "siamo",
+          "sono"
+        ],
         "correctIndex": 0,
         "explanation": "La segunda persona plural del presente indicativo de essere es 'siete' y acompaña al pronombre 'voi'. '¿Voi siete pronti?' equivale al español '¿Vosotros estáis listos?'. Ojo: el adjetivo 'pronti' concuerda en plural masculino con el sujeto colectivo voi; si el grupo fuera solo femenino, se escribiría 'pronte'. El italiano siempre exige concordancia adjetival con essere."
       },
@@ -75,10 +117,17 @@
     {
       "id": "essere-007",
       "type": "multiple-choice",
-      "categoryIds": ["essere"],
+      "categoryIds": [
+        "essere"
+      ],
       "payload": {
         "prompt": "Loro ___ in vacanza.",
-        "options": ["siamo", "hanno", "sono", "siete"],
+        "options": [
+          "siamo",
+          "hanno",
+          "sono",
+          "siete"
+        ],
         "correctIndex": 2,
         "explanation": "La tercera persona plural del presente indicativo de essere es 'sono', forma que coincide con la primera persona singular: solo el contexto y el pronombre desambiguan. 'Loro sono in vacanza' equivale al español 'Ellos están de vacaciones'. Importante: la conjugación completa es sono, sei, è, siamo, siete, sono — patrón mental que conviene memorizar en bloque para no titubear en la elección."
       },
@@ -87,10 +136,17 @@
     {
       "id": "essere-008",
       "type": "multiple-choice",
-      "categoryIds": ["essere"],
+      "categoryIds": [
+        "essere"
+      ],
       "payload": {
         "prompt": "Maria non ___ stanca oggi.",
-        "options": ["sei", "è", "ha", "sono"],
+        "options": [
+          "sei",
+          "è",
+          "ha",
+          "sono"
+        ],
         "correctIndex": 1,
         "explanation": "En italiano la negación 'non' se coloca siempre delante del verbo conjugado, sin verbo auxiliar añadido. 'Maria non è stanca' equivale al español 'Maria no está cansada'. Cuidado: el estado físico se predica con essere, no con avere; un calco del español 'no tiene cansada' (con ha) es uno de los errores hispanohablantes A1 más típicos. Las sensaciones físicas como hambre o sed sí piden avere (ho fame), pero los estados se quedan con essere."
       },
@@ -99,10 +155,17 @@
     {
       "id": "essere-009",
       "type": "multiple-choice",
-      "categoryIds": ["essere"],
+      "categoryIds": [
+        "essere"
+      ],
       "payload": {
         "prompt": "Mi chiamo Anna e ___ italiana.",
-        "options": ["è", "sono", "ho", "sei"],
+        "options": [
+          "è",
+          "sono",
+          "ho",
+          "sei"
+        ],
         "correctIndex": 1,
         "explanation": "En italiano la presentación encadenada arranca con 'mi chiamo' (me llamo) y continúa con essere para nacionalidad o profesión. 'Mi chiamo Anna e sono italiana' equivale al español 'Me llamo Anna y soy italiana'. Importante: la nacionalidad concuerda en género con el hablante; Anna usa 'italiana' (femenino), mientras un hombre diría 'italiano'. La 'a' final marca el género femenino del adjetivo."
       },
@@ -111,10 +174,17 @@
     {
       "id": "essere-010",
       "type": "multiple-choice",
-      "categoryIds": ["essere"],
+      "categoryIds": [
+        "essere"
+      ],
       "payload": {
         "prompt": "Lui ___ mio fratello.",
-        "options": ["ha", "è", "sono", "sei"],
+        "options": [
+          "ha",
+          "è",
+          "sono",
+          "sei"
+        ],
         "correctIndex": 1,
         "explanation": "El parentesco directo se predica con essere cuando se identifica al familiar: 'Lui è mio fratello' equivale al español 'Él es mi hermano'. Cuidado con el contraste essere/avere: 'Lui ha un fratello' (Él tiene un hermano) usa avere para posesión familiar, mientras 'Lui è mio fratello' usa essere para identidad. La diferencia entre ser un familiar y tener un familiar es exactamente el mismo eje pedagógico que distingue ambos verbos en italiano."
       },
@@ -123,10 +193,17 @@
     {
       "id": "essere-011",
       "type": "multiple-choice",
-      "categoryIds": ["essere"],
+      "categoryIds": [
+        "essere"
+      ],
       "payload": {
         "prompt": "Tu ___ l'amico di Luca?",
-        "options": ["è", "hai", "sei", "sono"],
+        "options": [
+          "è",
+          "hai",
+          "sei",
+          "sono"
+        ],
         "correctIndex": 2,
         "explanation": "La identidad por relación (ser amigo, hermano, compañero de alguien) usa essere + preposición 'di' para indicar el vínculo. '¿Tu sei l'amico di Luca?' equivale al español '¿Tú eres el amigo de Luca?'. Ojo: el artículo 'lo' se elide a 'l'' delante de palabra que empieza por vocal (l'amico, no lo amico); este apóstrofe es obligatorio en italiano escrito y debe escribirse con la comilla simple recta."
       },
@@ -135,10 +212,17 @@
     {
       "id": "essere-012",
       "type": "multiple-choice",
-      "categoryIds": ["essere"],
+      "categoryIds": [
+        "essere"
+      ],
       "payload": {
         "prompt": "Voi ___ studenti universitari.",
-        "options": ["siamo", "siete", "avete", "sono"],
+        "options": [
+          "siamo",
+          "siete",
+          "avete",
+          "sono"
+        ],
         "correctIndex": 1,
         "explanation": "El rol social o académico se expresa con essere y sustantivo predicativo sin artículo: 'Voi siete studenti universitari' equivale al español 'Vosotros sois estudiantes universitarios'. Importante: a diferencia del español, el italiano omite el artículo indeterminado delante del rol predicativo plural (no se dice 'siete degli studenti' en este contexto). El adjetivo 'universitari' concuerda en plural masculino con el sustantivo."
       },
@@ -147,11 +231,24 @@
     {
       "id": "essere-100",
       "type": "word-buttons",
-      "categoryIds": ["essere"],
+      "categoryIds": [
+        "essere"
+      ],
       "payload": {
         "prompt": "Yo soy María y él es Luca.",
-        "answer": ["io", "sono", "Maria", "e", "lui", "è", "Luca"],
-        "distractors": ["ho", "ha"],
+        "answer": [
+          "io",
+          "sono",
+          "Maria",
+          "e",
+          "lui",
+          "è",
+          "Luca"
+        ],
+        "distractors": [
+          "ho",
+          "ha"
+        ],
         "explanation": "La frase coordina dos identidades distintas con el conector 'e' (y), aplicando essere a cada sujeto por separado: 'Io sono Maria' (1ª singular) y 'Lui è Luca' (3ª singular). Cuidado con las distractoras 'ho' y 'ha': pertenecen al verbo avere, que en italiano no se usa para identidad. Importante: el conector italiano 'e' (sin acento) significa 'y'; no debe confundirse con 'è' (con acento grave), que es la 3ª persona del verbo essere."
       },
       "notes": "Identidad + presentación múltiple — D-90 word-buttons sub-área identidad/presentación. Frase con dos personas (io/sono y lui/è) para reforzar la conjugación. Distractoras `ho`/`ha` = formas de avere (trampa típica del hispanohablante)."
@@ -159,10 +256,17 @@
     {
       "id": "essere-013",
       "type": "multiple-choice",
-      "categoryIds": ["essere"],
+      "categoryIds": [
+        "essere"
+      ],
       "payload": {
         "prompt": "Io ___ spagnolo.",
-        "options": ["sei", "ho", "sono", "siamo"],
+        "options": [
+          "sei",
+          "ho",
+          "sono",
+          "siamo"
+        ],
         "correctIndex": 2,
         "explanation": "La nacionalidad se predica siempre con essere: 'Io sono spagnolo' equivale al español 'Yo soy español'. Cuidado con dos detalles ortográficos italianos: las nacionalidades NO se capitalizan (spagnolo, no Spagnolo, a diferencia del inglés), y el adjetivo concuerda en género con el hablante (spagnolo si es hombre, spagnola si es mujer). En italiano la nacionalidad funciona como adjetivo regular, no como sustantivo propio."
       },
@@ -171,10 +275,17 @@
     {
       "id": "essere-014",
       "type": "multiple-choice",
-      "categoryIds": ["essere"],
+      "categoryIds": [
+        "essere"
+      ],
       "payload": {
         "prompt": "Lei ___ italiana di Milano.",
-        "options": ["è", "ha", "sono", "siamo"],
+        "options": [
+          "è",
+          "ha",
+          "sono",
+          "siamo"
+        ],
         "correctIndex": 0,
         "explanation": "Para indicar el origen ciudadano, el italiano usa essere + nacionalidad + preposición 'di' + ciudad: 'Lei è italiana di Milano' equivale al español 'Ella es italiana de Milán'. Importante: 'italiana' es la forma femenina singular (italiano para hombre, italiana para mujer); la preposición 'di' sin artículo es la canónica con nombres propios de ciudad, frente a 'da' que se reserva para procedencia con verbos de movimiento."
       },
@@ -183,10 +294,17 @@
     {
       "id": "essere-015",
       "type": "multiple-choice",
-      "categoryIds": ["essere"],
+      "categoryIds": [
+        "essere"
+      ],
       "payload": {
         "prompt": "Loro ___ tedeschi.",
-        "options": ["siamo", "hanno", "siete", "sono"],
+        "options": [
+          "siamo",
+          "hanno",
+          "siete",
+          "sono"
+        ],
         "correctIndex": 3,
         "explanation": "La nacionalidad en plural masculino concuerda con el sujeto colectivo loro, conjugado con essere: 'Loro sono tedeschi' equivale al español 'Ellos son alemanes'. Ojo con la grafía del plural: 'tedesco' (singular) cambia a 'tedeschi' añadiendo la 'h' para preservar el sonido duro de la consonante; sin la 'h', 'tedesci' sonaría suave (como 'sh'). Es el mismo patrón -co → -chi que aparece en muchos sustantivos masculinos italianos."
       },
@@ -195,11 +313,21 @@
     {
       "id": "essere-101",
       "type": "word-buttons",
-      "categoryIds": ["essere"],
+      "categoryIds": [
+        "essere"
+      ],
       "payload": {
         "prompt": "Nosotros somos italianos de Milán.",
-        "answer": ["noi", "siamo", "italiani", "di", "Milano"],
-        "distractors": ["abbiamo"],
+        "answer": [
+          "noi",
+          "siamo",
+          "italiani",
+          "di",
+          "Milano"
+        ],
+        "distractors": [
+          "abbiamo"
+        ],
         "explanation": "La estructura completa para nacionalidad plural con origen es essere + adjetivo plural + 'di' + ciudad: 'Noi siamo italiani di Milano' equivale al español 'Nosotros somos italianos de Milán'. Importante: el plural masculino 'italiani' termina en -i (no en -os como el calco español 'italianos'); el italiano nunca cierra el plural con -s. Cuidado con la distractora 'abbiamo': es la primera plural de avere, que no se usa para nacionalidad."
       },
       "notes": "Nacionalidad plural masc + preposición `di` con origen — D-90 word-buttons sub-área nacionalidad. Distractora `abbiamo` = avere."
@@ -207,10 +335,17 @@
     {
       "id": "essere-016",
       "type": "multiple-choice",
-      "categoryIds": ["essere"],
+      "categoryIds": [
+        "essere"
+      ],
       "payload": {
         "prompt": "Lui ___ medico.",
-        "options": ["ha", "è", "sei", "sono"],
+        "options": [
+          "ha",
+          "è",
+          "sei",
+          "sono"
+        ],
         "correctIndex": 1,
         "explanation": "La profesión predicativa se expresa siempre con essere en italiano, sin artículo indeterminado: 'Lui è medico' equivale al español 'Él es médico'. Cuidado con el contraste essere/avere: 'Lui ha un fratello medico' (Él tiene un hermano médico) usa avere porque expresa posesión familiar, mientras 'Lui è medico' usa essere porque expresa identidad profesional. Las distractoras avere (ho/hai/ha/hanno) son trampas típicas del hispanohablante en estos ejercicios."
       },
@@ -219,10 +354,17 @@
     {
       "id": "essere-017",
       "type": "multiple-choice",
-      "categoryIds": ["essere"],
+      "categoryIds": [
+        "essere"
+      ],
       "payload": {
         "prompt": "Mia sorella ___ avvocata.",
-        "options": ["è", "ha", "sei", "sono"],
+        "options": [
+          "è",
+          "ha",
+          "sei",
+          "sono"
+        ],
         "correctIndex": 0,
         "explanation": "La profesión en femenino sigue la regla productiva -o → -a: 'avvocato' (masculino) se convierte en 'avvocata' (femenino), y se predica con essere: 'Mia sorella è avvocata' equivale al español 'Mi hermana es abogada'. Importante: el italiano contemporáneo prefiere las formas femeninas plenas para profesiones (avvocata, no la avvocato), reflejando un giro reciente del uso real frente a la tradición que solo conjugaba el masculino genérico."
       },
@@ -231,10 +373,17 @@
     {
       "id": "essere-018",
       "type": "multiple-choice",
-      "categoryIds": ["essere"],
+      "categoryIds": [
+        "essere"
+      ],
       "payload": {
         "prompt": "Voi ___ studenti di lingue.",
-        "options": ["siamo", "avete", "siete", "sono"],
+        "options": [
+          "siamo",
+          "avete",
+          "siete",
+          "sono"
+        ],
         "correctIndex": 2,
         "explanation": "El rol académico plural se construye con essere + sustantivo plural + 'di' + área de estudio: 'Voi siete studenti di lingue' equivale al español 'Vosotros sois estudiantes de idiomas'. Importante: 'studenti' es el plural masculino genérico, que en italiano cubre también grupos mixtos hombre-mujer; si el grupo fuera exclusivamente femenino, se diría 'studentesse'. La preposición 'di' marca la especialización académica."
       },
@@ -243,10 +392,17 @@
     {
       "id": "essere-019",
       "type": "multiple-choice",
-      "categoryIds": ["essere"],
+      "categoryIds": [
+        "essere"
+      ],
       "payload": {
         "prompt": "Tu ___ professore o studente?",
-        "options": ["hai", "è", "sei", "sono"],
+        "options": [
+          "hai",
+          "è",
+          "sei",
+          "sono"
+        ],
         "correctIndex": 2,
         "explanation": "La pregunta disyuntiva sobre rol o profesión también pide essere: '¿Tu sei professore o studente?' equivale al español '¿Tú eres profesor o estudiante?'. Ojo: ambas opciones (professore, studente) van sin artículo porque son sustantivos predicativos de identidad profesional. Importante: el contraste pedagógico con avere es el mismo de siempre — avere (hai) se reserva para posesión, mientras la identidad profesional siempre se queda con essere."
       },
@@ -255,11 +411,22 @@
     {
       "id": "essere-102",
       "type": "word-buttons",
-      "categoryIds": ["essere"],
+      "categoryIds": [
+        "essere"
+      ],
       "payload": {
         "prompt": "Ella es médica en un hospital.",
-        "answer": ["lei", "è", "medico", "in", "un", "ospedale"],
-        "distractors": ["ha"],
+        "answer": [
+          "lei",
+          "è",
+          "medico",
+          "in",
+          "un",
+          "ospedale"
+        ],
+        "distractors": [
+          "ha"
+        ],
         "explanation": "La frase combina profesión (lei è medico) con lugar de trabajo (in un ospedale): essere para la identidad profesional + preposición 'in' para el espacio físico. 'Lei è medico in un ospedale' equivale al español 'Ella es médica en un hospital'. Importante: el italiano contemporáneo permite usar 'medico' también para mujeres en contextos neutros, aunque también existe 'dottoressa'. Cuidado con la distractora 'ha' (avere): la profesión siempre se predica con essere, nunca con avere."
       },
       "notes": "Profesión fem + preposición `in` con lugar de trabajo — D-90 word-buttons sub-área profesión. En italiano contemporáneo `medico` suele usarse también para mujeres (alternativa: `dottoressa`). Distractora `ha` = avere."
@@ -267,10 +434,17 @@
     {
       "id": "essere-020",
       "type": "multiple-choice",
-      "categoryIds": ["essere"],
+      "categoryIds": [
+        "essere"
+      ],
       "payload": {
         "prompt": "Maria ___ stanca.",
-        "options": ["sei", "ha", "è", "sono"],
+        "options": [
+          "sei",
+          "ha",
+          "è",
+          "sono"
+        ],
         "correctIndex": 2,
         "explanation": "El estado físico transitorio se predica con essere en italiano, donde el español usa estar: 'Maria è stanca' equivale al español 'Maria está cansada'. ¡Atención! falso amigo crítico para el hispanohablante: el español distingue ser (identidad) y estar (estado), pero el italiano usa essere para ambos. Las sensaciones físicas momentáneas como hambre o calor sí piden avere (ho fame, ho caldo), pero el cansancio como estado predicativo se queda con essere."
       },
@@ -279,10 +453,17 @@
     {
       "id": "essere-021",
       "type": "multiple-choice",
-      "categoryIds": ["essere"],
+      "categoryIds": [
+        "essere"
+      ],
       "payload": {
         "prompt": "Io ___ felice oggi.",
-        "options": ["ho", "sei", "sono", "è"],
+        "options": [
+          "ho",
+          "sei",
+          "sono",
+          "è"
+        ],
         "correctIndex": 2,
         "explanation": "La emoción o estado anímico se predica con essere igual que el cansancio físico: 'Io sono felice oggi' equivale al español 'Yo estoy feliz hoy'. Importante: el adjetivo 'felice' es invariable en singular y sirve tanto para masculino como para femenino (a diferencia de adjetivos en -o/-a como stanco/stanca); el plural sí cambia a 'felici'. Cuidado: la trampa avere (ho) responde al calco mental 'tengo felicidad', pero la felicidad como estado se predica con essere."
       },
@@ -291,10 +472,17 @@
     {
       "id": "essere-022",
       "type": "multiple-choice",
-      "categoryIds": ["essere"],
+      "categoryIds": [
+        "essere"
+      ],
       "payload": {
         "prompt": "Noi ___ contenti della scuola.",
-        "options": ["siamo", "siete", "abbiamo", "sono"],
+        "options": [
+          "siamo",
+          "siete",
+          "abbiamo",
+          "sono"
+        ],
         "correctIndex": 0,
         "explanation": "El estado emocional plural se predica con essere y admite causa con la preposición articulada 'della' (di + la): 'Noi siamo contenti della scuola' equivale al español 'Nosotros estamos contentos con la escuela'. Importante: 'della' funde la preposición 'di' con el artículo femenino singular 'la' — el italiano fusiona preposiciones simples con artículos definidos para producir las articolate (della/dello/dei/degli...). El adjetivo 'contenti' concuerda en plural masculino con noi."
       },
@@ -303,10 +491,17 @@
     {
       "id": "essere-023",
       "type": "multiple-choice",
-      "categoryIds": ["essere"],
+      "categoryIds": [
+        "essere"
+      ],
       "payload": {
         "prompt": "Voi non ___ tristi.",
-        "options": ["avete", "siamo", "siete", "sono"],
+        "options": [
+          "avete",
+          "siamo",
+          "siete",
+          "sono"
+        ],
         "correctIndex": 2,
         "explanation": "La negación 'non' precede directamente al verbo essere conjugado, sin estructura compuesta: 'Voi non siete tristi' equivale al español 'Vosotros no estáis tristes'. Ojo: el italiano nunca duplica la negación como hacen otras lenguas romances en frases coloquiales; basta con 'non' delante del verbo. El adjetivo 'tristi' es invariable en género (singular triste, plural tristi para ambos), pero sí varía en número, igual que felice/felici."
       },
@@ -315,10 +510,17 @@
     {
       "id": "essere-024",
       "type": "multiple-choice",
-      "categoryIds": ["essere"],
+      "categoryIds": [
+        "essere"
+      ],
       "payload": {
         "prompt": "Roma ___ una città italiana.",
-        "options": ["ha", "è", "sei", "sono"],
+        "options": [
+          "ha",
+          "è",
+          "sei",
+          "sono"
+        ],
         "correctIndex": 1,
         "explanation": "La cópula clasificatoria 'X es de la clase Y' usa essere para establecer pertenencia a un tipo o categoría: 'Roma è una città italiana' equivale al español 'Roma es una ciudad italiana'. Importante: el italianismo 'città' mantiene la grafía con acento grave final y es invariable en número (una città / due città); este patrón -tà es típico de sustantivos abstractos femeninos italianos como difficoltà o università."
       },
@@ -327,10 +529,17 @@
     {
       "id": "essere-025",
       "type": "multiple-choice",
-      "categoryIds": ["essere"],
+      "categoryIds": [
+        "essere"
+      ],
       "payload": {
         "prompt": "Il gatto ___ un animale domestico.",
-        "options": ["è", "ha", "sono", "sei"],
+        "options": [
+          "è",
+          "ha",
+          "sono",
+          "sei"
+        ],
         "correctIndex": 0,
         "explanation": "Las definiciones canónicas tipo diccionario usan essere para conectar sujeto y categoría: 'Il gatto è un animale domestico' equivale al español 'El gato es un animal doméstico'. Cuidado con el contraste essere/avere: 'Il gatto ha un animale domestico' sería un calco sin sentido (el gato no posee un animal). Importante: el artículo definido 'il' delante de un sustantivo genérico expresa la clase entera, no un ejemplar concreto — patrón A1 también heredado del español."
       },
@@ -339,10 +548,17 @@
     {
       "id": "essere-026",
       "type": "multiple-choice",
-      "categoryIds": ["essere"],
+      "categoryIds": [
+        "essere"
+      ],
       "payload": {
         "prompt": "Io ___ stato a Roma per due giorni.",
-        "options": ["ho", "sei", "sono", "siamo"],
+        "options": [
+          "ho",
+          "sei",
+          "sono",
+          "siamo"
+        ],
         "correctIndex": 2,
         "explanation": "El passato prossimo de essere usa el propio verbo essere como auxiliar más el participio 'stato': 'Io sono stato a Roma' equivale al español 'Yo he estado en Roma'. ¡Atención! trampa fortísima del hispanohablante: el calco 'ho stato' (con avere) es uno de los errores A1 más frecuentes, pero los verbos intransitivos como essere exigen essere de auxiliar. El mismo participio 'stato' aparece como auxiliar en verbos de movimiento (è andato, è venuto), no confundir uso predicativo con auxiliar."
       },
@@ -351,10 +567,17 @@
     {
       "id": "essere-027",
       "type": "multiple-choice",
-      "categoryIds": ["essere"],
+      "categoryIds": [
+        "essere"
+      ],
       "payload": {
         "prompt": "Maria ___ stata felice ieri sera.",
-        "options": ["ha", "sei", "è", "sono"],
+        "options": [
+          "ha",
+          "sei",
+          "è",
+          "sono"
+        ],
         "correctIndex": 2,
         "explanation": "El participio passato de essere concuerda en género y número con el sujeto cuando el auxiliar es essere: para Maria (femenino singular) se escribe 'stata', no 'stato'. 'Maria è stata felice' equivale al español 'Maria estuvo feliz'. Importante: las cuatro formas del participio essere son stato/stata/stati/state — misma matriz de concordancia que aparece en verbos de movimiento (è andato/andata/andati/andate), patrón fundamental del passato prossimo italiano con auxiliar essere."
       },
@@ -363,10 +586,17 @@
     {
       "id": "essere-028",
       "type": "multiple-choice",
-      "categoryIds": ["essere"],
+      "categoryIds": [
+        "essere"
+      ],
       "payload": {
         "prompt": "Noi ___ stati a Milano per il weekend.",
-        "options": ["siete", "siamo", "abbiamo", "sono"],
+        "options": [
+          "siete",
+          "siamo",
+          "abbiamo",
+          "sono"
+        ],
         "correctIndex": 1,
         "explanation": "La primera plural del passato prossimo de essere combina auxiliar 'siamo' + participio 'stati' (concordancia plural masculino): 'Noi siamo stati a Milano' equivale al español 'Nosotros hemos estado en Milán'. Ojo con el contraste essere/avere: la trampa 'abbiamo stato' (con avere) repite el calco hispano 'hemos estado'; los verbos intransitivos como essere exigen essere de auxiliar. La preposición 'per' marca duración temporal de la estancia."
       },
@@ -375,10 +605,17 @@
     {
       "id": "essere-029",
       "type": "multiple-choice",
-      "categoryIds": ["essere"],
+      "categoryIds": [
+        "essere"
+      ],
       "payload": {
         "prompt": "Le ragazze ___ state qui ieri.",
-        "options": ["siete", "hanno", "siamo", "sono"],
+        "options": [
+          "siete",
+          "hanno",
+          "siamo",
+          "sono"
+        ],
         "correctIndex": 3,
         "explanation": "La tercera plural del passato prossimo de essere para sujeto femenino plural combina auxiliar 'sono' + participio 'state' (concordancia plural femenino): 'Le ragazze sono state qui' equivale al español 'Las chicas estuvieron aquí'. Importante: las cuatro formas del participio (stato/stata/stati/state) cubren las cuatro celdas de la matriz de concordancia masc/fem × sg/pl; misma lógica que opera con verbos de movimiento como andare (andato/andata/andati/andate) cuando el auxiliar es essere."
       },
@@ -387,11 +624,23 @@
     {
       "id": "essere-103",
       "type": "word-buttons",
-      "categoryIds": ["essere"],
+      "categoryIds": [
+        "essere"
+      ],
       "payload": {
         "prompt": "Hemos estado en Roma una semana.",
-        "answer": ["siamo", "stati", "a", "Roma", "per", "una", "settimana"],
-        "distractors": ["abbiamo"],
+        "answer": [
+          "siamo",
+          "stati",
+          "a",
+          "Roma",
+          "per",
+          "una",
+          "settimana"
+        ],
+        "distractors": [
+          "abbiamo"
+        ],
         "explanation": "La frase ejercita la doble pista del passato prossimo de essere: el auxiliar 'siamo' (essere, no avere) y el participio 'stati' (plural masculino, concordancia con el grupo). 'Siamo stati a Roma per una settimana' equivale al español 'Hemos estado en Roma una semana'. ¡Atención! la distractora 'abbiamo' es el calco mental hispano (he/has/hemos estado → ho/hai/abbiamo stato) — error A1 fortísimo. La preposición 'a' marca ciudad y 'per' marca duración."
       },
       "notes": "Passato prossimo plural masc + preposición `a` con ciudad + `per` con duración — D-90 word-buttons sub-área participio. Trampa clásica: hispanohablante diría 'abbiamo stato' (calco). Distractora `abbiamo` = avere."
@@ -399,10 +648,18 @@
     {
       "id": "essere-300",
       "type": "multiple-choice",
-      "categoryIds": ["essere", "avere"],
+      "categoryIds": [
+        "essere",
+        "avere"
+      ],
       "payload": {
         "prompt": "Mio fratello ___ medico e ha trent'anni.",
-        "options": ["sei", "è", "ha", "sono"],
+        "options": [
+          "sei",
+          "è",
+          "ha",
+          "sono"
+        ],
         "correctIndex": 1,
         "explanation": "La frase reúne los dos pilares del eje essere/avere en una sola línea: la profesión predicativa pide essere ('è medico') mientras la edad pide avere ('ha trent'anni'). 'Mio fratello è medico e ha trent'anni' equivale al español 'Mi hermano es médico y tiene treinta años'. Cuidado: la distractora 'ha' es correcta para el segundo hueco (edad), pero incorrecta para el primero (profesión); fallar este ejercicio dispara cascada en las dos categorías. El apóstrofe ASCII en 'trent'anni' es obligatorio por elisión."
       },
@@ -411,10 +668,18 @@
     {
       "id": "essere-301",
       "type": "multiple-choice",
-      "categoryIds": ["essere", "profesiones"],
+      "categoryIds": [
+        "essere",
+        "profesiones"
+      ],
       "payload": {
         "prompt": "Lei ___ avvocata.",
-        "options": ["ha", "sei", "è", "sono"],
+        "options": [
+          "ha",
+          "sei",
+          "è",
+          "sono"
+        ],
         "correctIndex": 2,
         "explanation": "La profesión femenina sigue la regla productiva -o → -a (avvocato → avvocata) y se predica con essere: 'Lei è avvocata' equivale al español 'Ella es abogada'. Cuidado con la trampa 'ha avvocata': es un calco vacío en italiano porque la profesión exige essere, nunca avere. Importante: este ejercicio cruza essere con profesiones — un fallo aquí marca como no-hechas las dos categorías en el motor de re-verificación, así que conviene tener firme el contraste essere/avere para profesiones predicativas."
       },
@@ -423,10 +688,18 @@
     {
       "id": "essere-302",
       "type": "multiple-choice",
-      "categoryIds": ["essere", "verbos-movimiento"],
+      "categoryIds": [
+        "essere",
+        "verbos-movimiento"
+      ],
       "payload": {
         "prompt": "Maria ___ andata al cinema.",
-        "options": ["ha", "siamo", "è", "sono"],
+        "options": [
+          "ha",
+          "siamo",
+          "è",
+          "sono"
+        ],
         "correctIndex": 2,
         "explanation": "El passato prossimo de los verbos de movimiento como andare pide essere como auxiliar, con concordancia género/número en el participio: 'Maria è andata al cinema' equivale al español 'Maria fue al cine'. ¡Atención! trampa clásica del hispanohablante: 'ha andata' es un calco directo de 'ha ido' que en italiano resulta incorrecto. Los verbos de movimiento están en la lista canónica que exige essere; el participio 'andata' concuerda en femenino singular con Maria."
       },
@@ -435,10 +708,18 @@
     {
       "id": "essere-303",
       "type": "multiple-choice",
-      "categoryIds": ["essere", "genero-numero"],
+      "categoryIds": [
+        "essere",
+        "genero-numero"
+      ],
       "payload": {
         "prompt": "Noi ___ italiani di Milano.",
-        "options": ["abbiamo", "siamo", "siete", "sono"],
+        "options": [
+          "abbiamo",
+          "siamo",
+          "siete",
+          "sono"
+        ],
         "correctIndex": 1,
         "explanation": "La frase cruza essere con género-número: 'siamo' (1ª plural de essere) + 'italiani' (plural masculino, no italianos como en español) + 'di' con ciudad de origen. 'Noi siamo italiani di Milano' equivale al español 'Nosotros somos italianos de Milán'. Importante: el plural italiano nunca termina en -s; el cambio del adjetivo es -o → -i (italiano → italiani). Cuidado con la distractora 'abbiamo' (avere): la nacionalidad y el origen siempre piden essere, nunca avere."
       },
@@ -447,10 +728,18 @@
     {
       "id": "essere-304",
       "type": "multiple-choice",
-      "categoryIds": ["essere", "sustantivos-irregulares"],
+      "categoryIds": [
+        "essere",
+        "sustantivos-irregulares"
+      ],
       "payload": {
         "prompt": "Le mie braccia ___ stanche.",
-        "options": ["hanno", "siamo", "siete", "sono"],
+        "options": [
+          "hanno",
+          "siamo",
+          "siete",
+          "sono"
+        ],
         "correctIndex": 3,
         "explanation": "El sustantivo 'braccio' es masculino en singular pero cambia a femenino plural irregular 'braccia', con concordancia adjetival femenina: 'Le mie braccia sono stanche' equivale al español 'Mis brazos están cansados'. Importante: el grupo italiano de sustantivos que cambian de género en plural (braccio/braccia, dito/dita, uovo/uova) es excepcional y debe memorizarse en bloque. El estado físico se predica con essere; la distractora 'hanno' (avere) es el calco mental hispano."
       },
@@ -459,10 +748,18 @@
     {
       "id": "essere-305",
       "type": "multiple-choice",
-      "categoryIds": ["essere", "preposiciones"],
+      "categoryIds": [
+        "essere",
+        "preposiciones"
+      ],
       "payload": {
         "prompt": "Io ___ di Milano e parlo italiano.",
-        "options": ["ho", "è", "sono", "sei"],
+        "options": [
+          "ho",
+          "è",
+          "sono",
+          "sei"
+        ],
         "correctIndex": 2,
         "explanation": "Para indicar la ciudad de origen, el italiano combina essere + preposición 'di' sin artículo + nombre de ciudad: 'Io sono di Milano' equivale al español 'Yo soy de Milán'. Importante: 'di' es la preposición canónica con verbos de identidad y origen (sono di Roma, vengo di Madrid), mientras 'da' se reserva para procedencia con verbos de movimiento (vengo dalla Spagna con artículo, parto da Roma sin artículo). Cuidado con la distractora 'ho' (avere): el origen siempre exige essere."
       },
