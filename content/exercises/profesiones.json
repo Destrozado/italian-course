@@ -1237,7 +1237,24 @@
         ],
         "explanation": "Importante: cada profesión se asocia a una herramienta característica que el italiano A1 expresa con sustantivo específico. Así 'cuoco' va con 'padella' (sartén), 'chirurgo' con 'bisturi' (bisturí), 'infermiere' con 'siringa' (jeringa), 'pittore' con 'pennello' (pincel) y 'meccanico' con 'chiave' (llave inglesa). Ojo a la ambigüedad: 'chiave' también significa 'llave de casa', pero aquí el contexto del mecánico fija el sentido."
       },
-      "notes": "Match diseño-rule-válido: profesión↔herramienta son semánticamente independientes (las palabras `padella`, `bisturi`, `siringa`, `pennello`, `chiave` NO comparten raíz con la profesión). Cada pareja requiere conocer el campo léxico técnico. Pitfall pedagógico: `chiave` también significa 'llave de casa' — el contexto profesional fija la lectura mecánica."
+      "notes": "Match diseño-rule-válido: profesión↔herramienta son semánticamente independientes (las palabras `padella`, `bisturi`, `siringa`, `pennello`, `chiave` NO comparten raíz con la profesión). Cada pareja requiere conocer el campo léxico técnico. Pitfall pedagógico: `chiave` también significa 'llave de casa' — el contexto profesional fija la lectura mecánica.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-043",
