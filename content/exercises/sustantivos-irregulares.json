@@ -821,7 +821,24 @@
         "correctIndex": 1,
         "explanation": "El lema base del plural 'le braccia' (fem) es 'il braccio' (masc). ¡Atención a la trampa del cuerpo humano!: 'braccia' termina en -a y parece femenina, pero el singular es masculino 'braccio'. Esta asimetría de género entre singular y plural es la dificultad central de los sustantivos pareados del cuerpo (dito, osso, ginocchio, labbro siguen el mismo esquema)."
       },
-      "notes": "Convertido de ex-match-206. Dirección inversa cuerpo §2: fem plural -a → masc singular -o. Distractoras: `braccia` (invariable falso, trampa para quien duda), `braccie` (calco con orecchie), `bracce` (calco regular fem -e). Pitfall A1: ver `braccia` y recuperar el masculino `braccio` es contraintuitivo porque parece femenino — la trampa central del cuerpo humano italiano."
+      "notes": "Convertido de ex-match-206. Dirección inversa cuerpo §2: fem plural -a → masc singular -o. Distractoras: `braccia` (invariable falso, trampa para quien duda), `braccie` (calco con orecchie), `bracce` (calco regular fem -e). Pitfall A1: ver `braccia` y recuperar el masculino `braccio` es contraintuitivo porque parece femenino — la trampa central del cuerpo humano italiano.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "sustantivos-irregulares-030",
