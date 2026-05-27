@@ -411,7 +411,24 @@
         "correctIndex": 1,
         "explanation": "Con el auxiliar 'sono' (1ª singular de essere) ya dado y la aclaración '(donna)' del sujeto, el participio de tornare debe ser femenino singular: 'tornata'. La frase completa 'Io (donna) sono tornata a casa tardi' equivale al español 'Yo (mujer) he vuelto a casa tarde'. Importante: el italiano marca el género del hablante en el propio participio, algo que el español solo hace con adjetivos atributivos ('estoy cansada' vs 'he venido' invariable)."
       },
-      "notes": "PDF §5 nº4 — par complementario al -015: con aux dado, el hueco es el participio. 'Io (donna)' = femenino singular → 'tornata'."
+      "notes": "PDF §5 nº4 — par complementario al -015: con aux dado, el hueco es el participio. 'Io (donna)' = femenino singular → 'tornata'.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "verbos-movimiento-017",
