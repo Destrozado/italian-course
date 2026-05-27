@@ -1428,7 +1428,24 @@
         ],
         "explanation": "Importante: cada profesión italiana se asocia a un infinitivo verbal específico que el alumno debe reconocer. Algunas asociaciones son transparentes ('cantante' con 'cantare', 'insegnante' con 'insegnare'), pero otras exigen saber el verbo etimológico: 'pittore' va con 'dipingere' (pintar) y 'direttore' va con 'dirigere' (dirigir), formas que no se derivan trivialmente de la raíz del sustantivo. Cuidado: 'traduttore' va con 'tradurre', un infinitivo -re irregular del italiano A1."
       },
-      "notes": "Match diseño-rule-válido: profesión↔acción son semánticamente independientes EN LA MAYORÍA — `pittore↔dipingere` y `direttore↔dirigere` requieren saber el verbo etimológico no derivable trivialmente de la raíz (pittore/dipingere comparten campo semántico pero no raíz; direttore/dirigere sí comparten raíz dir- pero el infinitivo no es predecible desde el sustantivo). Los pares `insegnante↔insegnare`, `cantante↔cantare`, `traduttore↔tradurre` son más transparentes (participio presente / -tore productivo) pero ejercitan el reconocimiento del infinitivo italiano de cada raíz — útil A1 porque requiere conocer la forma -are/-ere/-ire correcta. Cobertura: 5 profesiones del PDF (cantante §3, pittore §5, traduttore §5 mini-esercizio, direttore §3, insegnante §4)."
+      "notes": "Match diseño-rule-válido: profesión↔acción son semánticamente independientes EN LA MAYORÍA — `pittore↔dipingere` y `direttore↔dirigere` requieren saber el verbo etimológico no derivable trivialmente de la raíz (pittore/dipingere comparten campo semántico pero no raíz; direttore/dirigere sí comparten raíz dir- pero el infinitivo no es predecible desde el sustantivo). Los pares `insegnante↔insegnare`, `cantante↔cantare`, `traduttore↔tradurre` son más transparentes (participio presente / -tore productivo) pero ejercitan el reconocimiento del infinitivo italiano de cada raíz — útil A1 porque requiere conocer la forma -are/-ere/-ire correcta. Cobertura: 5 profesiones del PDF (cantante §3, pittore §5, traduttore §5 mini-esercizio, direttore §3, insegnante §4).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     }
   ]
 }
