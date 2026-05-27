@@ -393,7 +393,24 @@
         "correctIndex": 2,
         "explanation": "Existe un grupo mixto de sustantivos (con palabras tanto masculinas como femeninas) que terminan en -e en singular. La regla de oro para este grupo es que todos pluralizan cambiando esa -e por una -i. Por lo tanto, 'padre' pasa a ser 'padri'."
       },
-      "notes": "Convertido de ex-match-201 (padre↔padri). Grupo mixto §1 — sustantivos en -e (ambos géneros) pluralizan en -i. Distractoras: `padre` (invariable falso), `padres` (calco español), `padrei` (doble vocal final, error A1 frecuente)."
+      "notes": "Convertido de ex-match-201 (padre↔padri). Grupo mixto §1 — sustantivos en -e (ambos géneros) pluralizan en -i. Distractoras: `padre` (invariable falso), `padres` (calco español), `padrei` (doble vocal final, error A1 frecuente).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "genero-numero-016",
