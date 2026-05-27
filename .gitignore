@@ -3,3 +3,6 @@
 # lo compara post-edit. NO debe commitearse — se regenera deliberadamente cuando
 # el autor decide aceptar nueva baseline.
 scripts/.avere-prefix-snapshot.json
+
+# Claves de API locales (Gemini quorum validator) — NUNCA commitear
+.env
