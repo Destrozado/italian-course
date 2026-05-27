@@ -1295,7 +1295,28 @@
         "distractors": ["dottora", "sei"],
         "explanation": "Frase A1 esencial que combina dos reglas: la primera persona singular del verbo essere ('io sono') y el femenino prestigioso -essa de la familia 'dottore/dottoressa'. ¡Atención al calco español! 'Dottora' aplica la regla -o→-a por analogía con el español 'doctora', pero el italiano A1 exige el sufijo -essa para esta raíz. Cuidado también con la persona: yo va con 'sono', no con 'sei'."
       },
-      "notes": "Frase A1 esencial — practica essere 1ª singular + femenino prestigioso -essa (familia dottoressa/professoressa/studentessa, PDF §3). Distractora `dottora` es el calco español 'doctora' (regla regular -o→-a mal aplicada — pitfall A1 frecuente). Distractora `sei` fuerza el reflejo correcto de persona (yo→sono, no tú→sei). Sin punto final en tokens (W-6)."
+      "notes": "Frase A1 esencial — practica essere 1ª singular + femenino prestigioso -essa (familia dottoressa/professoressa/studentessa, PDF §3). Distractora `dottora` es el calco español 'doctora' (regla regular -o→-a mal aplicada — pitfall A1 frecuente). Distractora `sei` fuerza el reflejo correcto de persona (yo→sono, no tú→sei). Sin punto final en tokens (W-6).",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C2-una_opcion] dottora existe en italiano contemporaneo como forma valida documentada (Treccani), no solo dottoressa; la explanation la descarta como error.",
+              "[C4-explanation] afirmar que dottora es calco espanol incorrecto es inexacto.",
+              "[C5-leak] el prompt espanol doctora es cognado casi identico que senala el lexema."
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-101",
