@@ -188,7 +188,24 @@
         "correctIndex": 2,
         "explanation": "En italiano, cualquier sustantivo que termine en una vocal acentuada es invariable. Su forma plural se escribe y pronuncia exactamente igual que el singular. Por lo tanto, 'un caffè' y 'due caffè' (dos cafés) mantienen la misma palabra base."
       },
-      "notes": "PDF §3 Casos Particulares — palabras invariables (vocal acentuada): caffè→caffè (NO cambia). Distractoras: `caffi` (regla -e→-i ingenua), `caffès` (plural inglés/francés con -s, calco frecuente), `caffei` (mezcla acento+vocal). Misma regla cubre toda la familia con vocal acentuada (città, università, possibilità) y préstamos del inglés (film, sport, bar)."
+      "notes": "PDF §3 Casos Particulares — palabras invariables (vocal acentuada): caffè→caffè (NO cambia). Distractoras: `caffi` (regla -e→-i ingenua), `caffès` (plural inglés/francés con -s, calco frecuente), `caffei` (mezcla acento+vocal). Misma regla cubre toda la familia con vocal acentuada (città, università, possibilità) y préstamos del inglés (film, sport, bar).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "genero-numero-009",
