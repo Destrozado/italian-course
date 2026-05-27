@@ -341,8 +341,21 @@
       },
       "notes": "PDF §5 ejercicio nº1 — par complementario al -011: ahora con auxiliar dado, el hueco es el participio. Maria = femenino singular → 'andata'.",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
