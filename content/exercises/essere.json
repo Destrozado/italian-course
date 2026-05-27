@@ -1318,7 +1318,24 @@
         "correctIndex": 2,
         "explanation": "El passato prossimo de los verbos de movimiento como andare pide essere como auxiliar, con concordancia género/número en el participio: 'Maria è andata al cinema' equivale al español 'Maria fue al cine'. ¡Atención! trampa clásica del hispanohablante: 'ha andata' es un calco directo de 'ha ido' que en italiano resulta incorrecto. Los verbos de movimiento están en la lista canónica que exige essere; el participio 'andata' concuerda en femenino singular con Maria."
       },
-      "notes": "Cruce essere + verbos-movimiento (D-94). Auxiliar essere + participio fem sing `andata` — patrón A1 clásico de passato prossimo intransitivo. Trampa `ha andata` = calco 'ha ido' del español (en italiano `andare` requiere essere como auxiliar). D-95 sugiere fallar este ejercicio en UAT para verificar cascada D-54."
+      "notes": "Cruce essere + verbos-movimiento (D-94). Auxiliar essere + participio fem sing `andata` — patrón A1 clásico de passato prossimo intransitivo. Trampa `ha andata` = calco 'ha ido' del español (en italiano `andare` requiere essere como auxiliar). D-95 sugiere fallar este ejercicio en UAT para verificar cascada D-54.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "essere-303",
