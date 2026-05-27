@@ -77,9 +77,11 @@ Excluido explícitamente para prevenir scope creep.
 
 **Coverage:**
 - v1.2 requirements: 15 total (8 ART + 7 PART)
-- Mapped to phases: 15 (provisional — el roadmapper confirma el mapping)
+- Mapped to phases: 15 (CONFIRMADO por el roadmapper — ART-01..08 → Phase 11; PART-01..07 → Phase 12)
 - Unmapped: 0
+- Orphans: 0
+- Duplicados (un requisito en 2 fases): 0
 
 ---
 *Requirements defined: 2026-05-27*
-*Last updated: 2026-05-27 after milestone v1.2 init*
+*Last updated: 2026-05-27 after roadmap v1.2 — traceability confirmada (15/15 mapped, 0 orphans), Phase 11 = Articoli, Phase 12 = Partitivos*
