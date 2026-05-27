@@ -822,7 +822,24 @@
         "correctIndex": 2,
         "explanation": "Con 'lui' el verbo avere es 'ha' (3ª persona singular), aunque el complemento sea plural: lo que se conjuga es el sujeto, no el objeto. La frase 'Lui ha due figli e una figlia' equivale al español 'Él tiene dos hijos y una hija', e ilustra la concordancia de género y número del italiano: 'figli' es plural masculino (-o → -i) y 'figlia' es singular femenino terminado en -a."
       },
-      "notes": "Cruce Avere + Genero/Numero (D-87 / SEED-02). Posesión 3ª singular + plural masc (figli) + singular fem (figlia) en la misma frase — concordancia género/número del PDF Genero y Número."
+      "notes": "Cruce Avere + Genero/Numero (D-87 / SEED-02). Posesión 3ª singular + plural masc (figli) + singular fem (figlia) en la misma frase — concordancia género/número del PDF Genero y Número.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "avere-305",
