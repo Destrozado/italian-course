@@ -305,7 +305,26 @@
         "correctIndex": 0,
         "explanation": "En el passato prossimo, los verbos transitivos (los que admiten complemento directo, como mangiare) se conjugan siempre con el auxiliar avere. 'Io ho mangiato una pizza' equivale al español 'Yo he comido una pizza'. La regla pedagógica simple: si el verbo lleva 'qualcosa' detrás (lo comes, lo bebes, lo lees), el auxiliar es avere."
       },
-      "notes": "Passato prossimo, 1ª singular. Verbo transitivo (mangiare) → auxiliar avere. PDF §3."
+      "notes": "Passato prossimo, 1ª singular. Verbo transitivo (mangiare) → auxiliar avere. PDF §3.",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C5-leak] La explanation menciona la regla de selección de auxiliar directamente; además notes contiene PDF §3 (§N), violando R1."
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "avere-010",
