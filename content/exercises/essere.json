@@ -529,7 +529,24 @@
         "correctIndex": 0,
         "explanation": "Para indicar el origen ciudadano, el italiano usa essere + nacionalidad + preposición 'di' + ciudad: 'Lei è italiana di Milano' equivale al español 'Ella es italiana de Milán'. Importante: 'italiana' es la forma femenina singular (italiano para hombre, italiana para mujer); la preposición 'di' sin artículo es la canónica con nombres propios de ciudad, frente a 'da' que se reserva para procedencia con verbos de movimiento."
       },
-      "notes": "Nacionalidad fem sing + preposición `di` con origen. Concordancia italiana (no italiano). Distractora `ha` = avere."
+      "notes": "Nacionalidad fem sing + preposición `di` con origen. Concordancia italiana (no italiano). Distractora `ha` = avere.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "essere-015",
