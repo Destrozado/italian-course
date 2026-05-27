@@ -592,8 +592,21 @@
       },
       "notes": "Convertido de ex-match-202. Caso especial cuerpo masc -o → fem plural -a. Nota: `ginocchi` (masc plural regular) existe como variante pero `ginocchia` (fem -a) es la más común en italiano moderno y la que recoge el PDF §2. Distractoras: `ginocchi` (variante minoritaria, plausible pero no es la respuesta esperada por el PDF), `ginocchios` (calco español), `ginocche` (mezcla -e). Pitfall: las partes pares del cuerpo prefieren plural fem -a.",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
