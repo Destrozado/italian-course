@@ -335,7 +335,24 @@
         "correctIndex": 3,
         "explanation": "La palabra 'libro' es un sustantivo masculino completamente regular. Al terminar en -o, se rige por la regla pura y simple: la vocal final cambia a -i, resultando en 'libri'. Presta atención, ya que 'libra' es una palabra real en italiano, pero significa otra cosa (unidad de peso o signo del zodíaco)."
       },
-      "notes": "Convertido de ex-match-200 (libro↔libri). Distractoras: `libre` (calco fem o francés/español), `libra` (singular fem que es palabra distinta — unidad de peso/zodíaco), `libros` (calco español). PDF §4 ¡A practicar! nº4. Regla regular pura masc -o→-i."
+      "notes": "Convertido de ex-match-200 (libro↔libri). Distractoras: `libre` (calco fem o francés/español), `libra` (singular fem que es palabra distinta — unidad de peso/zodíaco), `libros` (calco español). PDF §4 ¡A practicar! nº4. Regla regular pura masc -o→-i.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "genero-numero-014",
