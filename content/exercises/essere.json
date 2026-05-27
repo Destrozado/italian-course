@@ -1042,8 +1042,21 @@
       },
       "notes": "Passato prossimo masc sing: auxiliar essere + participio `stato`. Trampa fortísima: hispanohablante diría `ho stato` (calco 'he estado'), pero los verbos intransitivos como essere usan auxiliar essere, no avere. Distractora `ho` = avere.",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
