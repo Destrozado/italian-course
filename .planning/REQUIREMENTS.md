@@ -12,11 +12,11 @@ Requisitos de este milestone. Cada uno mapea a una fase del roadmap.
 
 - [ ] **ART-01**: La categoría "Articoli" existe en `content/categories.json` y carga en la app como 8ª categoría
 - [x] **ART-02**: Temario exhaustivo de Articoli documentado ANTES de redactar ejercicios — todas las formas determinativas (`il/lo/l'/la/i/gli/le`) e indeterminativas (`un/uno/una/un'`) × disparadores fonéticos (s+cons, z, gn, ps, pn, x, y, vocal) × trampas canónicas
-- [ ] **ART-03**: Ejercicios cubren cada forma del artículo determinativo en su contexto fonético disparador (incl. plurales `i/gli/le`)
-- [ ] **ART-04**: Ejercicios cubren cada forma del artículo indeterminativo (`un/uno/una/un'`) con su disparador
-- [ ] **ART-05**: Ejercicios cubren las trampas canónicas (`lo zio`, `gli gnocchi`, `lo psicologo`, `uno studente`, `l'amico`/`l'amica`, `un'amica` vs `un amico`)
+- [x] **ART-03**: Ejercicios cubren cada forma del artículo determinativo en su contexto fonético disparador (incl. plurales `i/gli/le`)
+- [x] **ART-04**: Ejercicios cubren cada forma del artículo indeterminativo (`un/uno/una/un'`) con su disparador
+- [x] **ART-05**: Ejercicios cubren las trampas canónicas (`lo zio`, `gli gnocchi`, `lo psicologo`, `uno studente`, `l'amico`/`l'amica`, `un'amica` vs `un amico`)
 - [ ] **ART-06**: Ejercicios multi-categoría cruzan Articoli con género-número y con sustantivos-irregulares (bridges patrón avere-300..; fallar un cruce resetea ambas categorías vía cascada D-54)
-- [ ] **ART-07**: Cada ejercicio de Articoli tiene explanation pedagógica curada (canon español acentuado + italianismos preservados, plain text, apóstrofes ASCII U+0027)
+- [x] **ART-07**: Cada ejercicio de Articoli tiene explanation pedagógica curada (canon español acentuado + italianismos preservados, plain text, apóstrofes ASCII U+0027)
 - [ ] **ART-08**: Todos los ejercicios de Articoli validados por quórum ≥2 IAs distintas (`status: validated` con ≥2 `by` distintos en `passes[]`)
 
 ### Partitivos (PART) — Phase 12
@@ -61,11 +61,11 @@ Excluido explícitamente para prevenir scope creep.
 |-------------|-------|--------|
 | ART-01 | Phase 11 | Pending |
 | ART-02 | Phase 11 | Complete |
-| ART-03 | Phase 11 | Pending |
-| ART-04 | Phase 11 | Pending |
-| ART-05 | Phase 11 | Pending |
+| ART-03 | Phase 11 | Complete |
+| ART-04 | Phase 11 | Complete |
+| ART-05 | Phase 11 | Complete |
 | ART-06 | Phase 11 | Pending |
-| ART-07 | Phase 11 | Pending |
+| ART-07 | Phase 11 | Complete |
 | ART-08 | Phase 11 | Pending |
 | PART-01 | Phase 12 | Pending |
 | PART-02 | Phase 12 | Pending |

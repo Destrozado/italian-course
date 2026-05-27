@@ -57,7 +57,7 @@
   5. El reporter `node scripts/run-validation-271.mjs` sale exit 0 incluyendo todos los ejercicios nuevos de Articoli (cada uno `status: validated` con ≥2 `by` distintos en `passes[]`), y el smoke test estricto `VAL_07_STRICT=1 node --test tests/*.test.js` sigue verde con las constantes de cuenta actualizadas.
 **Plans**: 5 plans en 5 waves (cadena secuencial — el archivo de contenido compartido fuerza serializacion; validacion interactiva al final)
 - [x] 11-01-PLAN.md — Temario exhaustivo de Articoli (PRIMER entregable, checkpoint human-verify, ART-02)
-- [ ] 11-02-PLAN.md — Bloque base multiple-choice det+indet + explanations curadas (ART-03/04/05/07)
+- [x] 11-02-PLAN.md — Bloque base multiple-choice det+indet + explanations curadas (ART-03/04/05/07)
 - [ ] 11-03-PLAN.md — Bloque match articolo↔sustantivo + ~6 bridges multi-cat + explanations (ART-05/06/07)
 - [ ] 11-04-PLAN.md — Integracion 3-count lockstep: categories.json + reporter + test (ART-01)
 - [ ] 11-05-PLAN.md — Validacion por quorum gsd-validate-batch (interactivo) + gate verde (ART-08)
@@ -92,7 +92,7 @@
 | 8. Modo Examen por categoría | v1.0 | 1/1 | Complete | 2026-05-25 |
 | 9. Infraestructura de validación | v1.1 | 3/3 | Complete | 2026-05-26 |
 | 10. Ejecución validación 271 ejercicios + escalada | v1.1 | 5/5 | Complete | 2026-05-27 |
-| 11. Articoli | v1.2 | 1/5 | In Progress|  |
+| 11. Articoli | v1.2 | 2/5 | In Progress|  |
 | 12. Partitivos | v1.2 | 0/? | Not started | - |
 
 ## Backlog

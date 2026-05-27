@@ -3,7 +3,7 @@ phase: 11-articoli
 plan: 02
 subsystem: content
 tags: [articoli, multiple-choice, contenido-editorial, a1]
-status: paused-at-checkpoint
+status: complete
 requires:
   - "11-01 (temario aprobado: 11-TEMARIO-ARTICOLI.md)"
 provides:
@@ -25,10 +25,11 @@ key-files:
     - content/categories.json
 decisions:
   - "Registrar articoli en categories.json en este plan (no en 11-04) porque el fixture validator cruza categoryIds contra el registro — sin la entrada, la acceptance gate del propio plan falla"
+requirements-completed: [ART-03, ART-04, ART-05, ART-07]
 metrics:
   duration: ~15min
   completed: 2026-05-27
-  tasks_completed: 2
+  tasks_completed: 3
   tasks_total: 3
   exercises: 48
 ---
@@ -73,9 +74,13 @@ metrics:
 - **Files modified:** content/categories.json
 - **Commit:** d8fcad8
 
-## Estado del checkpoint (Task 3 — human-verify, gate blocking)
+## Task 3 — Checkpoint human-verify (gate blocking): APROBADO
 
-Tarea 3 es un checkpoint `human-verify` con gate bloqueante: el autor debe revisar por bloques las explanations del bloque base (patron D-85). Auto-advance esta desactivado en config, asi que la ejecucion se DETIENE aqui. El bloque match + bridges (11-03) y la validacion por quorum (11-05) son planes posteriores.
+Tarea 3 era un checkpoint `human-verify` con gate bloqueante (patron D-85): el autor revisa por bloques las explanations del bloque base. El autor respondio **"aprobado"** SIN solicitar cambios: las 48 explanations det+indet, las trampas D-04 y el contraste de apostrofo `un'amica`/`un amico` quedan fijados tal cual. No se reescribio ninguna explanation ni se reformulo ningun ejercicio; `content/exercises/articoli.json` permanece intacto respecto a las tareas 1-2.
+
+El plan queda COMPLETO. El bloque match + bridges (11-03) y la validacion por quorum (11-05) son planes posteriores que operaran sobre este archivo.
+
+**Nota para 11-04:** la categoria `articoli` YA esta registrada en `content/categories.json` (order 8) — registrada en este plan como deviation Rule 3 (ver arriba). El plan 11-04 NO debe volver a anadirla; solo le quedan `scripts/run-validation-271.mjs` y `tests/exercise-types.test.js`, que permanecen sin tocar.
 
 ## Self-Check: PASSED
 - FOUND: content/exercises/articoli.json (48 ejercicios)

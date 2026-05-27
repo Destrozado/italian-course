@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Más contenido A1 (Articoli + Partitivos)
 status: executing
-last_updated: "2026-05-27T21:15:11.370Z"
+last_updated: "2026-05-27T21:22:01.868Z"
 last_activity: 2026-05-27
 progress:
   total_phases: 4
   completed_phases: 0
   total_plans: 5
-  completed_plans: 1
-  percent: 0
+  completed_plans: 2
+  percent: 40
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -28,11 +28,11 @@ See: `.planning/PROJECT.md` (updated 2026-05-27)
 ## Current Position
 
 Phase: 11 (articoli) — EXECUTING
-Plan: 2 of 5
+Plan: 3 of 5
 Status: Ready to execute
-Last activity: 2026-05-27 -- Plan 11-01 completado (temario Articoli aprobado por el autor)
+Last activity: 2026-05-27 -- Plan 11-02 completado (bloque base multiple-choice de Articoli, 48 ejercicios det+indet, aprobado por el autor en checkpoint D-85 sin cambios)
 
-Progress: [██░░░░░░░░] 20%
+Progress: [████░░░░░░] 40%
 
 ## Performance Metrics
 
@@ -57,6 +57,7 @@ Progress: [██░░░░░░░░] 20%
 | 11. Articoli | 0 | — | — |
 | 12. Partitivos | 0 | — | — |
 | Phase 11 P01 | 5min | 2 tasks | 1 files |
+| Phase 11 P02 | 15min | 3 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -79,6 +80,7 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - **Canon editorial heredado de v1.1/v1.0** — explanations en español acentuado (á/é/í/ó/ú + ñ RAE) + italianismos citados con ortografía italiana, plain text sin markdown, apóstrofes ASCII U+0027 (D-129/D-135/D-137).
 - **Validación reutiliza infra v1.1 sin tocarla** — skill `gsd-validate-batch` + reporter + R1-R7. Añadir una categoría al reporter y al smoke test es bump de constantes: `TOTAL_EXPECTED` (272 → +N) + nueva entry en el array `CATEGORIES` del reporter + 1 línea en `CATEGORIES_WITH_EXPLANATIONS` (D-144) con la cuenta exacta de la categoría.
 - [Phase ?]: Temario Articoli aprobado por el autor sin cambios (checkpoint 11-01); casos A2 (lo pneumatico/lo yogurt) fuera por D-03
+- [Phase ?]: Bloque base multiple-choice de Articoli (48 ejercicios det+indet) aprobado por el autor sin cambios (checkpoint 11-02 D-85); articoli registrado en categories.json order 8 como deviation Rule 3
 
 ### Pending Todos
 
