@@ -89,7 +89,24 @@
         "correctIndex": 1,
         "explanation": "Para expresar la edad, el italiano usa el verbo avere, no essere: la edad se 'tiene', no se 'es'. La tercera persona singular es 'ha', así que 'Lui ha ventidue anni' equivale al español 'Él tiene veintidós años'. ¡Atención!: el hispanohablante traduce literalmente y dice 'è ventidue anni', que es uno de los errores A1 más frecuentes."
       },
-      "notes": "Presente indicativo, 3ª persona singular (lui). En italiano, la edad se expresa con avere (no con essere)."
+      "notes": "Presente indicativo, 3ª persona singular (lui). En italiano, la edad se expresa con avere (no con essere).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "avere-004",
