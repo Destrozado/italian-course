@@ -68,7 +68,24 @@
         "correctIndex": 1,
         "explanation": "Partire es uno de los 11 verbos de movimiento del A1 y forma el passato prossimo con essere. La 3ª persona singular del auxiliar es 'è' (con acento grave italiano), así que 'lui è partito' equivale al español 'él ha partido' o 'él se ha marchado'. Ojo: la grafía 'è' (con acento) distingue al verbo de la conjunción 'e' (y); confundir ambas formas en la escritura es un error A1 muy habitual."
       },
-      "notes": "Essere presente 3ª singular ('è') como auxiliar de partire. PDF §3 lista canónica + ejemplo del PDF 'È partito'."
+      "notes": "Essere presente 3ª singular ('è') como auxiliar de partire. PDF §3 lista canónica + ejemplo del PDF 'È partito'.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "verbos-movimiento-004",
