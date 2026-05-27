@@ -538,7 +538,24 @@
         "correctIndex": 2,
         "explanation": "El sustantivo masculino 'marito' (marido) sigue la regla productiva -o → -i: 'il marito' → 'i mariti'. Cuidado: aunque 'marito' y 'moglie' (esposa) son pareja semántica, NO comparten regla — uno termina en -o → -i, la otra en -e → -i. La terminación del singular dicta el plural, no el significado."
       },
-      "notes": "Convertido de ex-match-201. Regla regular masc -o→-i. Distractoras: `marite` (calco fem -e mal aplicado al masc), `marita` (singular fem que es palabra distinta), `maritos` (calco español -s). Pitfall: marito (masc -o) → plural regular -i, NO confundir con moglie (fem -e) → plural -i también pero por otra regla."
+      "notes": "Convertido de ex-match-201. Regla regular masc -o→-i. Distractoras: `marite` (calco fem -e mal aplicado al masc), `marita` (singular fem que es palabra distinta), `maritos` (calco español -s). Pitfall: marito (masc -o) → plural regular -i, NO confundir con moglie (fem -e) → plural -i también pero por otra regla.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "sustantivos-irregulares-020",
