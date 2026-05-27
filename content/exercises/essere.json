@@ -1228,8 +1228,21 @@
       },
       "notes": "Cruce essere + avere (D-94). Misma frase obliga a usar essere (profesión) Y avere (edad `ha trent'anni`). Trampa máxima: hispanohablante puede equivocar las dos. Distractora `ha` también es la conjugación correcta de avere para el 2º hueco (`ha trent'anni`) — refuerza que avere se usa para edad pero NO aquí para 'es médico'. Apóstrofe ASCII en `trent'anni`. Fallar cascadea D-54 a essere + avere.",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
