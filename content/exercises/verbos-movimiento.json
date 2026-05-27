@@ -623,7 +623,26 @@
         "correctIndex": 1,
         "explanation": "Cuando correre lleva un destino explícito (aquí 'a casa'), el verbo se comporta como un verbo de movimiento direccional y pide essere, no avere. La 3ª persona singular es 'è', así que 'Marco è corso a casa' equivale al español 'Marco corrió a casa'. Ojo: este ejercicio es la cara opuesta del anterior, con el mismo participio 'corso' pero auxiliar distinto; la pregunta clave para elegir es siempre '¿hay un destino?'."
       },
-      "notes": "Correre con destino explícito ('a casa') → ESSERE per PDF §4 nota correre*. Aux essere 3ª singular ('è'). Cara opuesta a -021: misma forma 'corso' pero auxiliar cambia según haya destino o no."
+      "notes": "Correre con destino explícito ('a casa') → ESSERE per PDF §4 nota correre*. Aux essere 3ª singular ('è'). Cara opuesta a -021: misma forma 'corso' pero auxiliar cambia según haya destino o no.",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] meta-staging: la explanation dice que este ejercicio es la cara opuesta del anterior, referencia a la secuencia de ejercicios, no contenido linguistico para el alumno."
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "verbos-movimiento-023",
