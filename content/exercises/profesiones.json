@@ -728,7 +728,28 @@
         "correctIndex": 1,
         "explanation": "Igual que 'farmacista', el sustantivo 'giornalista' (periodista) es invariable en italiano contemporáneo por la regla productiva -ista. La misma forma sirve para masculino y femenino: 'il giornalista' frente a 'la giornalista'. Cuidado: el PDF a veces lista profesiones -ista en la tabla -o→-a por motivos didácticos, pero la realidad lingüística del italiano A1 confirma su invariabilidad."
       },
-      "notes": "PDF §1 (tabla) — invariable en italiano real por la regla -ista. Distractoras: `giornalistessa` (-essa errónea), `giornaliste` (plural fem), `giornalistra` (inventada). Misma regla que dentista, pianista, farmacista. Artículo distingue género."
+      "notes": "PDF §1 (tabla) — invariable en italiano real por la regla -ista. Distractoras: `giornalistessa` (-essa errónea), `giornaliste` (plural fem), `giornalistra` (inventada). Misma regla que dentista, pianista, farmacista. Artículo distingue género.",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] referencias meta al PDF (el PDF a veces lista profesiones -ista en la tabla -o->-a). Eliminar la mencion del material fuente."
+            ]
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] menciona el PDF y la tabla del PDF, refs meta-editoriales prohibidas."
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-026",
