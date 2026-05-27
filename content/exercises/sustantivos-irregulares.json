@@ -196,7 +196,24 @@
         "correctIndex": 1,
         "explanation": "El sustantivo 'tempio' (templo) inserta una -l- en el plural: 'i templi' (los templos). ¡Atención! No es 'tempi', porque esa forma ya existe como plural de 'tempo' (los tiempos) — son dos lemas distintos que conviene no confundir. Este cambio de raíz con consonante añadida es una excepción que se memoriza."
       },
-      "notes": "PDF §3 casos especiales. Cambio de raíz con inserción de -l-: tempio→templi (no `tempi`). Distractora tempi (regla -io→-i ingenua que confunde con plural regular de tempo)."
+      "notes": "PDF §3 casos especiales. Cambio de raíz con inserción de -l-: tempio→templi (no `tempi`). Distractora tempi (regla -io→-i ingenua que confunde con plural regular de tempo).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "sustantivos-irregulares-009",
