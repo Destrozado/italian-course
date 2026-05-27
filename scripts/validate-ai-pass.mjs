@@ -32,6 +32,7 @@
 import https from 'node:https';
 import fs from 'node:fs';
 import path from 'node:path';
+import { deriveStatus } from '../src/data/validation-state.js'; // fuente única (WR-01)
 
 const PROMPT_PATH =
   '.planning/milestones/v1.1-phases/09-infraestructura-de-validaci-n/09-VALIDATION-PROMPT.md';
@@ -112,13 +113,16 @@ const composed =
 if (DRY) { console.log(composed); process.exit(0); }
 
 // ── llamadas HTTP por proveedor ─────────────────────────────────────────────
+const REQUEST_TIMEOUT_MS = 120000; // WR-04: ningún socket cuelga la cola para siempre
 function httpPost({ hostname, pathName, headers, body }) {
   return new Promise((resolve, reject) => {
     const req = https.request(
       { hostname, path: pathName, method: 'POST', headers: { ...headers, 'Content-Length': Buffer.byteLength(body) } },
-      (res) => { let d = ''; res.on('data', (c) => (d += c)); res.on('end', () => resolve({ status: res.statusCode, body: d })); }
+      (res) => { let d = ''; res.on('data', (c) => (d += c)); res.on('end', () => resolve({ status: res.statusCode, headers: res.headers, body: d })); }
     );
-    req.on('error', reject); req.write(body); req.end();
+    req.on('error', reject);
+    req.setTimeout(REQUEST_TIMEOUT_MS, () => req.destroy(new Error(`timeout tras ${REQUEST_TIMEOUT_MS}ms`)));
+    req.write(body); req.end();
   });
 }
 
@@ -131,8 +135,8 @@ async function callModel(model) {
   if (provider === 'gemini') {
     res = await httpPost({
       hostname: 'generativelanguage.googleapis.com',
-      pathName: `/v1beta/models/${model}:generateContent?key=${key}`,
-      headers: { 'Content-Type': 'application/json' },
+      pathName: `/v1beta/models/${model}:generateContent`,
+      headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key }, // WR-02: clave en header, no en query
       body: JSON.stringify({ contents: [{ parts: [{ text: composed }] }], generationConfig: { temperature: TEMP } }),
     });
   } else {
@@ -145,9 +149,14 @@ async function callModel(model) {
   }
 
   if (res.status === 429) {
+    // WR-05: honra Retry-After (header, DeepSeek) o "retry in Ns" (body, Gemini)
+    const hdr = parseInt(res.headers?.['retry-after'], 10);
     const m = res.body.match(/retry in ([\d.]+)s/i);
-    return { rateLimited: true, retryAfter: m ? Math.ceil(parseFloat(m[1])) + 1 : null, body: res.body };
+    const retryAfter = Number.isFinite(hdr) ? hdr + 1 : m ? Math.ceil(parseFloat(m[1])) + 1 : null;
+    return { rateLimited: true, retryAfter, body: res.body };
   }
+  // WR-03: 5xx transitorios son recuperables con reintento; otros no.
+  if (res.status >= 500) return { rateLimited: false, retriable: true, error: `HTTP ${res.status}: ${res.body.slice(0, 200)}` };
   if (res.status !== 200) return { rateLimited: false, error: `HTTP ${res.status}: ${res.body.slice(0, 300)}` };
 
   let text;
@@ -210,6 +219,11 @@ async function run() {
         continue;
       }
 
+      if (r.retriable && attempt < maxRetries) { // WR-03: 5xx transitorio
+        console.error(`[${model}] ${r.error} — reintento (${attempt}/${maxRetries})`);
+        await sleep(Math.min(20, 3 * attempt) * 1000);
+        continue;
+      }
       console.error(`[${model}] error: ${r.error}`);
       break; // error no recuperable con este modelo → probar fallback
     }
@@ -219,26 +233,36 @@ async function run() {
 }
 
 // ── escritura quirúrgica del bloque validation (preserva formato compacto) ──
-function deriveStatus(passes) {
-  if (passes.some((p) => p?.verdict === 'incorrecta')) return 'disputed';
-  const correctas = passes.filter((p) => p?.verdict === 'correcta');
-  const distinct = new Set(correctas.map((p) => p?.by).filter(Boolean));
-  return correctas.length >= 2 && distinct.size >= 2 ? 'validated' : 'pending';
+// deriveStatus se importa de src/data/validation-state.js (fuente única, WR-01).
+
+// CR-01: recorre el bloque { ... } con conciencia de strings/escapes, para que
+// llaves dentro de strings (concerns, prompt) no descuadren el contador.
+function matchBraceEnd(text, braceStart) {
+  let depth = 0, inStr = false, esc = false;
+  for (let i = braceStart; i < text.length; i++) {
+    const c = text[i];
+    if (inStr) {
+      if (esc) esc = false;
+      else if (c === '\\') esc = true;
+      else if (c === '"') inStr = false;
+      continue;
+    }
+    if (c === '"') inStr = true;
+    else if (c === '{') depth++;
+    else if (c === '}') { depth--; if (depth === 0) return i; }
+  }
+  throw new Error('bloque { } sin cierre balanceado');
 }
 
 function writePass(file, id, pass) {
   const text = fs.readFileSync(file, 'utf8');
+  // anchor con quote de cierre → "articoli-1" no colisiona con "articoli-10"
   const idIdx = text.indexOf(`"id": "${id}"`);
   if (idIdx === -1) throw new Error(`anchor de id no encontrado: ${id}`);
   const vIdx = text.indexOf('"validation":', idIdx);
   if (vIdx === -1) throw new Error(`bloque validation no encontrado para ${id}`);
   const braceStart = text.indexOf('{', vIdx);
-  let depth = 0, i = braceStart;
-  for (; i < text.length; i++) {
-    if (text[i] === '{') depth++;
-    else if (text[i] === '}') { depth--; if (depth === 0) break; }
-  }
-  const braceEnd = i;
+  const braceEnd = matchBraceEnd(text, braceStart);
   const cur = JSON.parse(text.slice(braceStart, braceEnd + 1));
   const passes = (Array.isArray(cur.passes) ? cur.passes : []).filter((p) => p.by !== pass.by);
   passes.push(pass);
