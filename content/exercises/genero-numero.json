@@ -1131,7 +1131,24 @@
         ],
         "explanation": "La lógica de los artículos en plural es directa y se basa en las mismas reglas de sonido que el singular. El plural femenino es fácil: siempre es 'Le'. Para el plural masculino, se utiliza la 'I' ante sustantivos que arrancan con consonante simple, y usamos 'Gli' en palabras que empiecen por vocal, 'z' o 's + consonante', actuando en paralelo a los casos en los que usábamos el artículo 'lo' en su forma singular."
       },
-      "notes": "MANTENIDO post-UAT design rule: requiere conocer las 3 formas plurales del artículo definido (i/gli/le) y la regla fonética que selecciona entre `i` y `gli` (igual que `il`/`lo` en singular). La forma del artículo NO es visible por la raíz del sustantivo. D-66 duplicados intencionales (2× i, 2× le, 2× gli). Cierra la tabla de artículos plurales — complemento simétrico al singular del 207 y 208."
+      "notes": "MANTENIDO post-UAT design rule: requiere conocer las 3 formas plurales del artículo definido (i/gli/le) y la regla fonética que selecciona entre `i` y `gli` (igual que `il`/`lo` en singular). La forma del artículo NO es visible por la raíz del sustantivo. D-66 duplicados intencionales (2× i, 2× le, 2× gli). Cierra la tabla de artículos plurales — complemento simétrico al singular del 207 y 208.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     }
   ]
 }
