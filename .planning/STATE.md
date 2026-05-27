@@ -3,10 +3,10 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Más contenido A1 (Articoli + Partitivos)
 status: planning
-last_updated: "2026-05-27T22:10:00.000Z"
-last_activity: 2026-05-27
+last_updated: "2026-05-27T20:24:38.195Z"
+last_activity: 2026-05-27 — Roadmap v1.2 creado (Phase 11 + Phase 12), 15/15 requirements mapped, 0 orphans
 progress:
-  total_phases: 2
+  total_phases: 4
   completed_phases: 0
   total_plans: 0
   completed_plans: 0
