@@ -68,7 +68,31 @@
         "correctIndex": 2,
         "explanation": "El italiano contemporáneo acepta dos femeninos para 'avvocato': la forma tradicional 'avvocatessa' con sufijo prestigioso -essa (familia dottoressa/professoressa) y la forma neutra 'avvocata' con la regla regular -o→-a. ¡Atención! El material del PDF y el uso moderno favorecen 'avvocata', en paralelo con 'impiegata' y 'segretaria'. Ojo a la elisión universal del artículo ante vocal: 'l'avvocato' y 'l'avvocata'."
       },
-      "notes": "PDF §1 Regular -o→-a: avvocato→avvocata. Nota lingüística: ambas formas (`avvocata` y `avvocatessa`) son aceptables en italiano moderno — `avvocatessa` es la tradicional con sufijo prestigioso -essa (familia dottoressa/professoressa), `avvocata` es la del PDF y la del italiano contemporáneo neutro (paralelo a otras profesiones -o→-a como impiegata/segretaria). Para coherencia con el resto de ejercicios PDF §1 (todas -o→-a sin -essa), el ejercicio fija `avvocata` como respuesta correcta. Distractoras: `avvocatessa` (forma tradicional plausible — distractora pedagógica fuerte), `avvocatrice` (-trice aplicado mal, esta no es -tore), `avvocate` (plural fem, no singular)."
+      "notes": "PDF §1 Regular -o→-a: avvocato→avvocata. Nota lingüística: ambas formas (`avvocata` y `avvocatessa`) son aceptables en italiano moderno — `avvocatessa` es la tradicional con sufijo prestigioso -essa (familia dottoressa/professoressa), `avvocata` es la del PDF y la del italiano contemporáneo neutro (paralelo a otras profesiones -o→-a como impiegata/segretaria). Para coherencia con el resto de ejercicios PDF §1 (todas -o→-a sin -essa), el ejercicio fija `avvocata` como respuesta correcta. Distractoras: `avvocatessa` (forma tradicional plausible — distractora pedagógica fuerte), `avvocatrice` (-trice aplicado mal, esta no es -tore), `avvocate` (plural fem, no singular).",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C2-una_opcion] La explanation admite que avvocatessa (option 0) tambien es femenino aceptado en italiano contemporaneo => doble-validez con avvocata (option 2).",
+              "[C4-explanation] dice que el PDF solo favorece avvocata (preferencia, no exclusividad), no fundamenta una unica solucion.",
+              "[C5-leak] la explanation menciona l avvocata revelando la respuesta."
+            ]
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C2-una_opcion] la explanation admite avvocatessa como aceptada => doble-validez entre option 0 y 2.",
+              "[C4-explanation] declarar valida avvocatessa contradice la premisa de una sola correcta."
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-004",
