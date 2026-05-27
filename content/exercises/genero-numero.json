@@ -10,7 +10,24 @@
         "correctIndex": 2,
         "explanation": "La regla general para los sustantivos masculinos en singular que terminan en -o es formar el plural cambiando la -o por una -i. Por lo tanto, 'ragazzo' (chico) se convierte en 'ragazzi' (chicos). Los plurales terminados en -s son calcos del español que no existen en italiano."
       },
-      "notes": "PDF §1 Regla General. Masculino singular -o → plural -i (Ragazzo→Ragazzi, ejemplo canónico del PDF). Distractoras: `ragazze` (regla femenina -a→-e aplicada por error al masculino), `ragazzos` (calco español con -s), `ragazzoi` (doble vocal final, error A1 frecuente)."
+      "notes": "PDF §1 Regla General. Masculino singular -o → plural -i (Ragazzo→Ragazzi, ejemplo canónico del PDF). Distractoras: `ragazze` (regla femenina -a→-e aplicada por error al masculino), `ragazzos` (calco español con -s), `ragazzoi` (doble vocal final, error A1 frecuente).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "genero-numero-002",
