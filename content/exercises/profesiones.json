@@ -302,8 +302,21 @@
       },
       "notes": "PDF §2 -iere → -iera. Distractoras: `parrucchiere` (invariable falso), `parrucchieressa` (calco -essa), `parrucchierica` (mezcla con -ica). Misma regla productiva que cameriere/cameriera, infermiere/infermiera.",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
