@@ -596,7 +596,30 @@
         "correctIndex": 1,
         "explanation": "Las partes pares del cuerpo humano prefieren el plural femenino en -a: 'il ginocchio' (la rodilla, masc) → 'le ginocchia' (las rodillas, fem). Importante: existe también 'i ginocchi' como variante minoritaria, pero en italiano moderno y a nivel A1 se enseña 'le ginocchia'. Misma familia: braccia, dita, labbra, ossa."
       },
-      "notes": "Convertido de ex-match-202. Caso especial cuerpo masc -o → fem plural -a. Nota: `ginocchi` (masc plural regular) existe como variante pero `ginocchia` (fem -a) es la más común en italiano moderno y la que recoge el PDF §2. Distractoras: `ginocchi` (variante minoritaria, plausible pero no es la respuesta esperada por el PDF), `ginocchios` (calco español), `ginocche` (mezcla -e). Pitfall: las partes pares del cuerpo prefieren plural fem -a."
+      "notes": "Convertido de ex-match-202. Caso especial cuerpo masc -o → fem plural -a. Nota: `ginocchi` (masc plural regular) existe como variante pero `ginocchia` (fem -a) es la más común en italiano moderno y la que recoge el PDF §2. Distractoras: `ginocchi` (variante minoritaria, plausible pero no es la respuesta esperada por el PDF), `ginocchios` (calco español), `ginocche` (mezcla -e). Pitfall: las partes pares del cuerpo prefieren plural fem -a.",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C2-una_opcion] La explanation admite que i ginocchi (option index 0) tambien es valida como variante; doble-validez: ginocchia y ginocchi ambas correctas y listadas.",
+              "[C4-explanation] reconoce explicitamente la otra opcion listada como correcta, incoherente con opcion unica."
+            ]
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C2-una_opcion] la explanation admite i ginocchi como variante valida y ginocchi es option[0] => doble-validez directa.",
+              "[C4-explanation] reconoce la variante alternativa, contradice la premisa de respuesta unica."
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "sustantivos-irregulares-022",
