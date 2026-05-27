@@ -343,7 +343,24 @@
         "correctIndex": 1,
         "explanation": "Los verbos de comunicación como parlare, dire o rispondere también se conjugan con avere en el passato prossimo, aunque no lleven complemento directo evidente. 'Tu hai parlato con Marco' equivale al español '¿Tú has hablado con Marco?'. Importante: la presencia de la preposición 'con' no cambia la regla; el auxiliar sigue siendo avere."
       },
-      "notes": "Passato prossimo, 2ª singular. Verbo de comunicación (parlare) → auxiliar avere. PDF §3."
+      "notes": "Passato prossimo, 2ª singular. Verbo de comunicación (parlare) → auxiliar avere. PDF §3.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "avere-011",
