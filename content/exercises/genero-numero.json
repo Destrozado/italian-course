@@ -673,7 +673,24 @@
         "correctIndex": 2,
         "explanation": "Tal y como ocurre con 'attore' y 'scrittore', la terminación '-tore' se cambia rígidamente por '-trice'. Así obtenemos el femenino 'pittrice' (pintora) partiendo de 'pittore'."
       },
-      "notes": "Convertido de ex-match-203 (pittore↔pittrice). PDF §4 ¡A practicar! nº1. Patrón -tore→-trice. Distractoras: `pittora` (regla ingenua -e→-a), `pittoressa` (mezcla con familia -essa de dottore/professore), `pittore` (invariable falso — mismo masc). Familia: pittore/pittrice, attore/attrice, scrittore/scrittrice."
+      "notes": "Convertido de ex-match-203 (pittore↔pittrice). PDF §4 ¡A practicar! nº1. Patrón -tore→-trice. Distractoras: `pittora` (regla ingenua -e→-a), `pittoressa` (mezcla con familia -essa de dottore/professore), `pittore` (invariable falso — mismo masc). Familia: pittore/pittrice, attore/attrice, scrittore/scrittrice.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "genero-numero-025",
