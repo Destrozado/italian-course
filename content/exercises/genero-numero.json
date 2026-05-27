@@ -880,7 +880,24 @@
         "correctIndex": 2,
         "explanation": "Para los sustantivos masculinos finalizados en -go se aplica la misma precaución que con la terminación -co. Al pasar al plural hay que salvaguardar el sonido duro insertando la 'h', convirtiendo a 'albergo' en 'alberghi'."
       },
-      "notes": "Convertido de ex-match-205 (albergo↔alberghi). Duplica mc-004 con orden de distractoras invertido y correct en index 2. Refuerzo: H mantiene el sonido fuerte /g/ ante vocal palatal -i. Distractoras: `alberge` (calco fem -e), `albergi` (regla ingenua sin H, sonaría /dʒ/), `albergos` (calco español)."
+      "notes": "Convertido de ex-match-205 (albergo↔alberghi). Duplica mc-004 con orden de distractoras invertido y correct en index 2. Refuerzo: H mantiene el sonido fuerte /g/ ante vocal palatal -i. Distractoras: `alberge` (calco fem -e), `albergi` (regla ingenua sin H, sonaría /dʒ/), `albergos` (calco español).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "genero-numero-032",
