@@ -517,7 +517,24 @@
         "correctIndex": 2,
         "explanation": "¡Atención al pitfall central! No todas las profesiones en -e flexionan: los participios presentes en -nte son INVARIABLES en género. Así 'cantante' (cantante) es la misma forma para masculino y femenino, y solo el artículo distingue: 'il cantante' (el cantante) frente a 'la cantante' (la cantante). Mismo patrón en 'insegnante' y 'dirigente'."
       },
-      "notes": "PDF §3 Irregolari — invariable. Distractoras: `cantantessa` (-essa mal aplicada por analogía con studentessa — pitfall central: NO todas las -e van a -essa), `cantantrice` (-trice mal aplicada), `cantanta` (regla regular -e→-a, error A1). Regla productiva: cantante/cantante, insegnante/insegnante (participios presentes en -nte → invariables)."
+      "notes": "PDF §3 Irregolari — invariable. Distractoras: `cantantessa` (-essa mal aplicada por analogía con studentessa — pitfall central: NO todas las -e van a -essa), `cantantrice` (-trice mal aplicada), `cantanta` (regla regular -e→-a, error A1). Regla productiva: cantante/cantante, insegnante/insegnante (participios presentes en -nte → invariables).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-019",
