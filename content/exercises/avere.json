@@ -859,7 +859,24 @@
         "correctIndex": 2,
         "explanation": "La frase contrasta los dos auxiliares del passato prossimo en italiano: 'è andata' usa essere (verbo de movimiento andare, con participio que concuerda en género con el sujeto femenino) y 'ha visto' usa avere (verbo transitivo vedere, con participio invariable). 'Maria è andata al cinema e ha visto un bel film' equivale al español 'Maria fue al cine y vio una buena película'. Regla pedagógica clave: movimiento = essere, transitivo = avere."
       },
-      "notes": "Cruce Avere + Verbos de movimiento (D-87 / SEED-02). Contrasta los dos auxiliares del passato prossimo: `è andata` (essere para verbo de movimiento, regla PDF Verbos Movimiento) vs `ha visto` (avere para verbo transitivo `vedere`). Fallarlo cascadeará sobre Avere y Verbos de movimiento."
+      "notes": "Cruce Avere + Verbos de movimiento (D-87 / SEED-02). Contrasta los dos auxiliares del passato prossimo: `è andata` (essere para verbo de movimiento, regla PDF Verbos Movimiento) vs `ha visto` (avere para verbo transitivo `vedere`). Fallarlo cascadeará sobre Avere y Verbos de movimiento.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     }
   ]
 }
