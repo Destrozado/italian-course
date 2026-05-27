@@ -785,7 +785,24 @@
         "correctIndex": 2,
         "explanation": "El sujeto 'Maria' es 3ª persona singular y pide la forma 'ha' de avere. La frase combina la posesión (avere una zia, tener una tía) con la preposición 'a' que indica la ciudad donde está la tía: 'Maria ha una zia a Milano' equivale al español 'Maria tiene una tía en Milán'. Importante: con nombres de ciudad el italiano usa siempre 'a', mientras que con países y regiones usa 'in'."
       },
-      "notes": "Cruce Avere + Preposiciones (D-87 / SEED-02). Posesión 3ª singular + `a` de ciudad (preposición simple, regla canónica PDF Preposizioni). Fallarlo cascadeará sobre Avere y Preposiciones."
+      "notes": "Cruce Avere + Preposiciones (D-87 / SEED-02). Posesión 3ª singular + `a` de ciudad (preposición simple, regla canónica PDF Preposizioni). Fallarlo cascadeará sobre Avere y Preposiciones.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "avere-304",
