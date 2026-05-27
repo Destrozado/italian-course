@@ -58,7 +58,24 @@
         "correctIndex": 3,
         "explanation": "Las palabras masculinas terminadas en -co suelen necesitar una 'h' en el plural (-chi) para mantener el sonido fuerte original de la consonante (/k/). Sin la 'h', 'cuoci' sonaría suave (como 'ch' en español). Por eso, 'cuoco' (cocinero) pasa a ser 'cuochi'."
       },
-      "notes": "PDF §3 Palabras en -CO/-GO. Inserción de H para mantener el sonido fuerte /k/: cuoco→cuochi (no `cuoci` que sonaría /tʃ/). Distractoras: `cuoci` (regla -o→-i ingenua sin H, suena /tʃ/), `cuocos` (calco español), `cuoque` (mezcla con qu/c). Regla pedagógica: si el masculino -co da plural con vocal palatal (i/e) tras c, se inserta H."
+      "notes": "PDF §3 Palabras en -CO/-GO. Inserción de H para mantener el sonido fuerte /k/: cuoco→cuochi (no `cuoci` que sonaría /tʃ/). Distractoras: `cuoci` (regla -o→-i ingenua sin H, suena /tʃ/), `cuocos` (calco español), `cuoque` (mezcla con qu/c). Regla pedagógica: si el masculino -co da plural con vocal palatal (i/e) tras c, se inserta H.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "genero-numero-004",
