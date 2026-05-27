@@ -321,7 +321,24 @@
         "correctIndex": 2,
         "explanation": "El femenino de 'portiere' (portero) es 'portiera' por la regla productiva -iere→-iera. Ojo a la ambigüedad léxica: 'la portiera' también significa 'la puerta del coche' como objeto; el contexto profesional o domiciliario fija la lectura como 'la portera'. Cuidado además con el calco español: en italiano no existe el invariable 'il portiere'/'la portiere'."
       },
-      "notes": "PDF §2 -iere → -iera. Distractoras: `portieressa` (calco -essa), `portieretta` (diminutivo, no fem), `portiere` (invariable falso). Ojo: `portiera` también significa 'puerta de coche' (ambigüedad léxica) — el contexto profesional fija la lectura."
+      "notes": "PDF §2 -iere → -iera. Distractoras: `portieressa` (calco -essa), `portieretta` (diminutivo, no fem), `portiere` (invariable falso). Ojo: `portiera` también significa 'puerta de coche' (ambigüedad léxica) — el contexto profesional fija la lectura.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-013",
