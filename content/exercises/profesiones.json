@@ -792,8 +792,21 @@
       },
       "notes": "PDF §5 Altre — préstamo del inglés, invariable. Distractoras: `manageressa` (-essa errónea italianizando), `managera` (regla -a italianizada calco), `managere` (plural italianizado). Regla productiva: los anglicismos profesionales son invariables (manager, designer, freelance). Solo cambia el artículo.",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
