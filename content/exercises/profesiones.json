@@ -150,7 +150,24 @@
         "correctIndex": 1,
         "explanation": "La profesión técnica 'architetto' (arquitecto) forma el femenino con la regla regular -o→-a: 'l'architetto' pasa a 'l'architetta', con elisión del artículo ante vocal. Ojo: hay tentación A1 de añadir un sufijo prestigioso (-essa, -trice) por analogía con 'dottoressa' o 'direttrice', pero esas familias exigen raíz en -e o -tore respectivamente, no en -o."
       },
-      "notes": "PDF §1 Regular -o→-a. Distractoras: `architette` (plural fem), `architettessa` (-essa mal aplicada por analogía con dottoressa), `architettrice` (-trice mal aplicada por confusión con direttore/direttrice). Pitfall A1: tentación de aplicar suffijos prestigiosos a profesiones técnicas."
+      "notes": "PDF §1 Regular -o→-a. Distractoras: `architette` (plural fem), `architettessa` (-essa mal aplicada por analogía con dottoressa), `architettrice` (-trice mal aplicada por confusión con direttore/direttrice). Pitfall A1: tentación de aplicar suffijos prestigiosos a profesiones técnicas.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-008",
