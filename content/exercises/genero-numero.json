@@ -186,8 +186,21 @@
       },
       "notes": "PDF §2B + §4 ¡A practicar! nº2. Patrón -e → -essa: dottore→dottoressa. Distractoras: `dottora` (regla ingenua -e→-a), `dottrice` (confusión con familia -tore→-trice), `dottore` (no cambio, falso amigo invariable). Familia productiva con -essa: studente→studentessa, professore→professoressa.",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
