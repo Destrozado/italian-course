@@ -1208,7 +1208,24 @@
         "correctIndex": 1,
         "explanation": "Importante: quien 'insegna a scuola' (enseña en la escuela) es 'il professore' o 'la professoressa', no 'lo studente' (que aprende, no enseña) ni 'il direttore' (que dirige, no enseña). El ejercicio refuerza la pareja masculino-femenino completa y la familia -e/-essa: 'professore/professoressa' sigue el mismo patrón que 'dottore/dottoressa' y 'studente/studentessa'."
       },
-      "notes": "Contexto semántico — 'insegna a scuola' fija la pareja correcta. Distractoras pedagógicas: `studente/studentessa` (rol inverso — aprende, no enseña), `direttore/direttrice` (también está en escuela pero dirige, no enseña), `cliente/cliente` (fuera de escena). Refuerza la pareja masc/fem completa y el contraste -e/-essa."
+      "notes": "Contexto semántico — 'insegna a scuola' fija la pareja correcta. Distractoras pedagógicas: `studente/studentessa` (rol inverso — aprende, no enseña), `direttore/direttrice` (también está en escuela pero dirige, no enseña), `cliente/cliente` (fuera de escena). Refuerza la pareja masc/fem completa y el contraste -e/-essa.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-042",
