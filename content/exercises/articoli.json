@@ -208,7 +208,7 @@
       "type": "multiple-choice",
       "categoryIds": ["articoli"],
       "payload": {
-        "prompt": "Telefono a ___ zio di Napoli.",
+        "prompt": "Conosco bene ___ zio di Marco.",
         "options": ["il", "lo", "l'", "la"],
         "correctIndex": 1,
         "explanation": "Zio empieza por z-, sonido que en italiano exige lo en el masculino singular: lo zio. El hispanohablante suele decir il zio por analogia, pero la z- entra en el mismo grupo que la s impura y pide lo."
@@ -300,7 +300,7 @@
       "type": "multiple-choice",
       "categoryIds": ["articoli"],
       "payload": {
-        "prompt": "Ho letto un articolo su ___ psicologo famoso.",
+        "prompt": "Conosco ___ psicologo famoso.",
         "options": ["il", "lo", "l'", "la"],
         "correctIndex": 1,
         "explanation": "Psicologo empieza por ps-, un grupo consonantico que en italiano pide lo: lo psicologo. Es una de las trampas mas faciles de fallar, porque en espanol decimos el psicologo; el italiano trata ps- como s impura y exige lo."
@@ -362,7 +362,7 @@
       "type": "multiple-choice",
       "categoryIds": ["articoli"],
       "payload": {
-        "prompt": "In aula c'e ___ xilofono per i bambini.",
+        "prompt": "In aula c'è ___ xilofono per i bambini.",
         "options": ["il", "lo", "l'", "la"],
         "correctIndex": 1,
         "explanation": "Xilofono empieza por x-, otro sonido que pide lo: lo xilofono. La x- inicial es poco frecuente pero entra en el mismo grupo de la s impura y la z, asi que el articulo es lo."
@@ -799,7 +799,7 @@
       "type": "multiple-choice",
       "categoryIds": ["articoli"],
       "payload": {
-        "prompt": "Al convegno parlano ___ psicologi piu noti.",
+        "prompt": "Al convegno parlano ___ psicologi più noti.",
         "options": ["i", "gli", "le", "l'"],
         "correctIndex": 1,
         "explanation": "Psicologi es plural de psicologo, masculino con lo en singular (ps-). Su plural es gli: gli psicologi. El grupo ps- pertenece a la familia lo/gli tanto en singular como en plural."
@@ -1091,7 +1091,7 @@
       "type": "multiple-choice",
       "categoryIds": ["articoli"],
       "payload": {
-        "prompt": "Marco ha ___ occhio piu chiaro dell'altro.",
+        "prompt": "Marco ha ___ occhio più chiaro dell'altro.",
         "options": ["un", "uno", "una", "un'"],
         "correctIndex": 0,
         "explanation": "Occhio empieza por vocal (o-) y es masculino, por eso un occhio, sin apostrofo. A diferencia del determinativo (l'occhio, que si se elide), el indeterminativo masculino ante vocal mantiene un entero: ni se elide ni se apostrofa."
@@ -1207,7 +1207,7 @@
       "type": "multiple-choice",
       "categoryIds": ["articoli"],
       "payload": {
-        "prompt": "Nel disegno c'e ___ gnomo con il cappello.",
+        "prompt": "Nel disegno c'è ___ gnomo con il cappello.",
         "options": ["un", "uno", "una", "un'"],
         "correctIndex": 1,
         "explanation": "Gnomo empieza por gn-, sonido que en masculino pide uno: uno gnomo. El grupo gn- pertenece a la familia que exige la forma larga uno, igual que en el determinativo lo gnomo."
@@ -1238,7 +1238,7 @@
       "type": "multiple-choice",
       "categoryIds": ["articoli"],
       "payload": {
-        "prompt": "In soggiorno c'e ___ casa delle bambole.",
+        "prompt": "In soggiorno c'è ___ casa delle bambole.",
         "options": ["un", "uno", "una", "un'"],
         "correctIndex": 2,
         "explanation": "Casa es femenino y empieza por consonante, por eso el indeterminativo es una: una casa. En femenino la forma una se usa ante cualquier consonante (incluida la s impura) y solo cambia a un' ante vocal."
@@ -1412,7 +1412,7 @@
       "type": "match",
       "categoryIds": ["articoli"],
       "payload": {
-        "prompt": "Empareja cada sustantivo con su artículo determinativo. Atención a los disparadores fonéticos (s+consonante, z, ps, gn) y a los plurales.",
+        "prompt": "Empareja cada sustantivo con su artículo determinativo.",
         "pairs": [
           ["studente", "lo"],
           ["zio", "lo"],
