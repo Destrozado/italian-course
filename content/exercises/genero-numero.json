@@ -145,7 +145,26 @@
         "correctIndex": 2,
         "explanation": "Las profesiones y sustantivos masculinos que terminan en '-tore' forman sistemáticamente su femenino cambiando esa terminación por '-trice'. Así, 'attore' (actor) se convierte en 'attrice' (actriz). Es un patrón fijo de la lengua."
       },
-      "notes": "PDF §2B + §4 ¡A practicar! nº5. Patrón -tore → -trice: attore→attrice. Distractoras: `attora` (regla ingenua -e→-a), `attressa` (mezcla con -essa de dottoressa), `attoressa` (forma híbrida errónea). Familia productiva: scrittore→scrittrice, lavoratore→lavoratrice, pittore→pittrice."
+      "notes": "PDF §2B + §4 ¡A practicar! nº5. Patrón -tore → -trice: attore→attrice. Distractoras: `attora` (regla ingenua -e→-a), `attressa` (mezcla con -essa de dottoressa), `attoressa` (forma híbrida errónea). Familia productiva: scrittore→scrittrice, lavoratore→lavoratrice, pittore→pittrice.",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C5-leak] El prompt L attore -> la ___ expone la transformacion morfologica como operacion visible (flecha + articulo femenino), revelando la mecanica de la regla -tore/-trice antes de responder. Sustituir por frase contextual elimina el leak."
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "genero-numero-007",
