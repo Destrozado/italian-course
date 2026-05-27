@@ -631,7 +631,28 @@
         "correctIndex": 1,
         "explanation": "El sustantivo masculino 'osso' (hueso) cambia a fem plural en -a cuando se refiere al cuerpo humano: 'l'osso' → 'le ossa'. Cuidado: existe 'gli ossi' como plural masculino válido para huesos sueltos o de animales (ej. 'gli ossi del cane'), pero para el esqueleto humano se usa 'le ossa'. Misma familia: braccia, dita, labbra."
       },
-      "notes": "Convertido de ex-match-202. Caso especial cuerpo masc -o → fem plural -a. Distractoras: `ossi` (regla ingenua -o→-i; existe como variante para `huesos sueltos/no humanos` pero `ossa` es el plural humano del PDF), `osses` (calco español), `osso` (invariable falso). Familia con braccio/dito/ginocchio."
+      "notes": "Convertido de ex-match-202. Caso especial cuerpo masc -o → fem plural -a. Distractoras: `ossi` (regla ingenua -o→-i; existe como variante para `huesos sueltos/no humanos` pero `ossa` es el plural humano del PDF), `osses` (calco español), `osso` (invariable falso). Familia con braccio/dito/ginocchio.",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C2-una_opcion] El prompt Un osso, due ___ no fija contexto (cuerpo humano vs huesos sueltos). La explanation admite que gli ossi es plural valido; con due ossi la opcion ossi (index 0) tambien es correcta => doble-validez."
+            ]
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C2-una_opcion] la explanation admite ossi (option 0) como plural valido (gli ossi, huesos sueltos/animales); el prompt no establece contexto humano => ossi defendible => doble-validez."
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "sustantivos-irregulares-023",
