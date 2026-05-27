@@ -1122,7 +1122,24 @@
         "correctIndex": 1,
         "explanation": "La primera plural del passato prossimo de essere combina auxiliar 'siamo' + participio 'stati' (concordancia plural masculino): 'Noi siamo stati a Milano' equivale al español 'Nosotros hemos estado en Milán'. Ojo con el contraste essere/avere: la trampa 'abbiamo stato' (con avere) repite el calco hispano 'hemos estado'; los verbos intransitivos como essere exigen essere de auxiliar. La preposición 'per' marca duración temporal de la estancia."
       },
-      "notes": "Passato prossimo plural masc: 1ª plural auxiliar `siamo` + concordancia plural masc `stati`. Distractora `abbiamo` = avere."
+      "notes": "Passato prossimo plural masc: 1ª plural auxiliar `siamo` + concordancia plural masc `stati`. Distractora `abbiamo` = avere.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "essere-029",
