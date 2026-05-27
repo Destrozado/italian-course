@@ -391,7 +391,24 @@
         "correctIndex": 2,
         "explanation": "La familia -e/-essa es otra irregularidad productiva: el masculino -e añade el sufijo prestigioso -essa. Así 'dottore' (médico/doctor) pasa a 'dottoressa' (doctora). Cuidado: aunque 'dottore' termina en -ore, NO pertenece a la familia -tore/-trice porque su raíz no es de agente derivado (att-ore, diret-tore); por eso 'dottrice' es incorrecta. El calco español 'dottora' también falla."
       },
-      "notes": "PDF §3 Irregolari -e → -essa. Distractoras: `dottora` (regla regular mal aplicada, calco español 'doctora'), `dottrice` (-trice mal aplicada — pitfall: 'dottore' NO es -tore aunque suena similar; -tore va precedido de raíz consonántica como att-ore, diret-tore), `dottore` (invariable falso)."
+      "notes": "PDF §3 Irregolari -e → -essa. Distractoras: `dottora` (regla regular mal aplicada, calco español 'doctora'), `dottrice` (-trice mal aplicada — pitfall: 'dottore' NO es -tore aunque suena similar; -tore va precedido de raíz consonántica como att-ore, diret-tore), `dottore` (invariable falso).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-016",
