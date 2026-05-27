@@ -420,7 +420,24 @@
         "correctIndex": 1,
         "explanation": "Caso paralelo a 'dottore/dottoressa': el masculino 'professore' (profesor) añade el sufijo -essa y da 'professoressa' (profesora). Importante: el español calca como 'profesora' (regla -a simple), pero el italiano A1 exige el sufijo completo. La familia -e/-essa incluye también 'studente→studentessa' y 'dottore→dottoressa', todas con el mismo patrón."
       },
-      "notes": "PDF §3 Irregolari -e → -essa. Distractoras: `professora` (calco español 'profesora', regla regular -a mal aplicada), `professrice` (-trice errónea — professore no es -tore), `professoretta` (diminutivo). Familia -essa: dottore/dottoressa, professore/professoressa, studente/studentessa."
+      "notes": "PDF §3 Irregolari -e → -essa. Distractoras: `professora` (calco español 'profesora', regla regular -a mal aplicada), `professrice` (-trice errónea — professore no es -tore), `professoretta` (diminutivo). Familia -essa: dottore/dottoressa, professore/professoressa, studente/studentessa.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-017",
