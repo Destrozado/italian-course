@@ -415,7 +415,24 @@
         "correctIndex": 1,
         "explanation": "El rol social o académico se expresa con essere y sustantivo predicativo sin artículo: 'Voi siete studenti universitari' equivale al español 'Vosotros sois estudiantes universitarios'. Importante: a diferencia del español, el italiano omite el artículo indeterminado delante del rol predicativo plural (no se dice 'siete degli studenti' en este contexto). El adjetivo 'universitari' concuerda en plural masculino con el sustantivo."
       },
-      "notes": "Identidad / rol social plural. Distractora `avete` = avere."
+      "notes": "Identidad / rol social plural. Distractora `avete` = avere.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "essere-100",
