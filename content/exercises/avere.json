@@ -454,7 +454,24 @@
         ],
         "explanation": "La construcción italiana de la frase es paralela a la española: sujeto + verbo + objeto. 'Io ho una macchina' equivale al español 'Yo tengo un coche', con 'macchina' como traducción de 'coche' (también puede decirse 'auto'). Cuidado con las distractoras: 'hai' es la 2ª persona singular (no coincide con 'io') y 'sono' pertenece al verbo essere, que no se usa para expresar posesión."
       },
-      "notes": "Posesión simple — D-64 ejemplo canónico."
+      "notes": "Posesión simple — D-64 ejemplo canónico.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "avere-101",
