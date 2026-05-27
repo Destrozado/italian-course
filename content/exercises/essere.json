@@ -343,7 +343,24 @@
         "correctIndex": 1,
         "explanation": "El parentesco directo se predica con essere cuando se identifica al familiar: 'Lui è mio fratello' equivale al español 'Él es mi hermano'. Cuidado con el contraste essere/avere: 'Lui ha un fratello' (Él tiene un hermano) usa avere para posesión familiar, mientras 'Lui è mio fratello' usa essere para identidad. La diferencia entre ser un familiar y tener un familiar es exactamente el mismo eje pedagógico que distingue ambos verbos en italiano."
       },
-      "notes": "Identidad / parentesco. Distractora `ha` = avere (un hispanohablante puede decir 'él tiene mi hermano' por interferencia)."
+      "notes": "Identidad / parentesco. Distractora `ha` = avere (un hispanohablante puede decir 'él tiene mi hermano' por interferencia).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "essere-011",
