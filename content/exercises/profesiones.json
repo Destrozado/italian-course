@@ -1211,7 +1211,24 @@
         "correctIndex": 0,
         "explanation": "Meta-regla central del PDF: las profesiones italianas terminadas en -ista son INVARIABLES en género. Así 'dentista' es la misma forma para masculino y femenino, mientras que 'professore' flexiona a 'professoressa', 'cuoco' a 'cuoca' y 'avvocato' a 'avvocata'. Importante: el ejercicio pide identificar la propiedad estructural (invariable frente a flexionable), no construir el femenino concreto."
       },
-      "notes": "Meta-regla -ista invariable. Las profesiones terminadas en -ista NO flexionan: il dentista / la dentista (igual que pianista, giornalista, farmacista, tassista, artista). Distractoras: `professore` (familia -e→-essa: professoressa), `cuoco` (familia regular -o→-a: cuoca), `avvocato` (familia regular -o→-a: avvocata). El ejercicio refuerza el reconocimiento de la familia productiva -ista sin pedir construir el femenino — pide identificar la propiedad estructural (invariable vs flexionable). Schema-compliant: prompt incluye `___` como exige el validator (Phase 1 CONT-04)."
+      "notes": "Meta-regla -ista invariable. Las profesiones terminadas en -ista NO flexionan: il dentista / la dentista (igual que pianista, giornalista, farmacista, tassista, artista). Distractoras: `professore` (familia -e→-essa: professoressa), `cuoco` (familia regular -o→-a: cuoca), `avvocato` (familia regular -o→-a: avvocata). El ejercicio refuerza el reconocimiento de la familia productiva -ista sin pedir construir el femenino — pide identificar la propiedad estructural (invariable vs flexionable). Schema-compliant: prompt incluye `___` como exige el validator (Phase 1 CONT-04).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-100",
