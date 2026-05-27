@@ -1348,7 +1348,24 @@
         "distractors": ["infermiera", "è"],
         "explanation": "Frase A1 que combina essere segunda persona singular ('tu sei') con el masculino 'infermiere' de la familia productiva -iere/-iera. Importante: el sujeto masculino 'tu' (referido a un hombre) exige concordancia con 'infermiere', no con 'infermiera'. Cuidado con la persona: 'tu' va con 'sei', mientras que 'è' pertenece a 'lui', 'lei' o 'Lei' de cortesía."
       },
-      "notes": "Frase A1 — practica essere 2ª singular + masc -iere (PDF §2 familia cameriere/infermiere/parrucchiere). Distractora `infermiera` fuerza concordancia masculina. Distractora `è` (3ª) fuerza persona correcta. Sin punto final en tokens (W-6)."
+      "notes": "Frase A1 — practica essere 2ª singular + masc -iere (PDF §2 familia cameriere/infermiere/parrucchiere). Distractora `infermiera` fuerza concordancia masculina. Distractora `è` (3ª) fuerza persona correcta. Sin punto final en tokens (W-6).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "profesiones-104",
