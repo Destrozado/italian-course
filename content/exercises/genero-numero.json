@@ -1033,7 +1033,28 @@
         "correctIndex": 3,
         "explanation": "Cuando el italiano pide prestadas palabras de origen extranjero que acaban en consonante (como film, sport, bar o computer), se designan como invariables. A diferencia del inglés original, en italiano estas palabras no adoptan una 's' al pluralizarse."
       },
-      "notes": "Convertido de ex-match-206 (film↔film). Préstamo del inglés terminado en consonante → invariable. Distractoras: `filmi` (regla -o→-i ingenua aplicada erróneamente — film no acaba en -o), `films` (calco inglés con -s), `filme` (calco alemán/fem). Familia anglicisms invariables: film, sport, bar, computer."
+      "notes": "Convertido de ex-match-206 (film↔film). Préstamo del inglés terminado en consonante → invariable. Distractoras: `filmi` (regla -o→-i ingenua aplicada erróneamente — film no acaba en -o), `films` (calco inglés con -s), `filme` (calco alemán/fem). Familia anglicisms invariables: film, sport, bar, computer.",
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C5-leak] El prompt incluye (sustantivo invariable, prestamo ingles), que nombra la regla evaluada (invariabilidad de prestamos) y revela la solucion. Eliminar la anotacion."
+            ]
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C5-leak] El prompt incluye (sustantivo invariable, prestamo ingles) que nombra la regla y orienta a la respuesta (invariable => plural=film). Dejar solo Un film, due ___."
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "genero-numero-037",
