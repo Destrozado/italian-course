@@ -125,7 +125,24 @@
         "correctIndex": 0,
         "explanation": "La primera persona plural del presente indicativo de avere es 'abbiamo', una forma que rompe la raíz 'av-' y conviene memorizar aparte. 'Noi abbiamo molti amici' equivale al español 'Nosotros tenemos muchos amigos'. Ojo: el español dice 'tenemos' con raíz regular, pero el italiano cambia de raíz; conviene practicar 'abbiamo' por separado."
       },
-      "notes": "Presente indicativo, 1ª persona plural (noi)."
+      "notes": "Presente indicativo, 1ª persona plural (noi).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "avere-005",
