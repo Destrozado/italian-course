@@ -748,7 +748,24 @@
         "correctIndex": 2,
         "explanation": "El verbo avere conjugado con 'lui' es 'ha' (3ª singular), y aquí acompaña a un plural irregular del cuerpo: 'braccia' (brazos) viene del singular masculino 'braccio' pero hace plural femenino, por eso el adjetivo concuerda como 'stanche'. 'Lui ha due braccia stanche' equivale al español 'Él tiene dos brazos cansados'. Cuidado: muchos sustantivos del cuerpo italiano cambian de género al pasar al plural."
       },
-      "notes": "Cruce Avere + Sustantivos Irregulares (D-87 / SEED-02). Posesión 3ª singular + plural irregular `braccia` (singular masc `braccio` → plural fem `braccia`, concordancia `stanche`)."
+      "notes": "Cruce Avere + Sustantivos Irregulares (D-87 / SEED-02). Posesión 3ª singular + plural irregular `braccia` (singular masc `braccio` → plural fem `braccia`, concordancia `stanche`).",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "avere-303",
