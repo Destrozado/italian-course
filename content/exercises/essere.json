@@ -1355,7 +1355,24 @@
         "correctIndex": 1,
         "explanation": "La frase cruza essere con género-número: 'siamo' (1ª plural de essere) + 'italiani' (plural masculino, no italianos como en español) + 'di' con ciudad de origen. 'Noi siamo italiani di Milano' equivale al español 'Nosotros somos italianos de Milán'. Importante: el plural italiano nunca termina en -s; el cambio del adjetivo es -o → -i (italiano → italiani). Cuidado con la distractora 'abbiamo' (avere): la nacionalidad y el origen siempre piden essere, nunca avere."
       },
-      "notes": "Cruce essere + genero-numero (D-94). Plural masc + concordancia adjetival (italiani, no italianos) + preposición `di` origen. Fallar cascadea D-54 a essere + genero-numero."
+      "notes": "Cruce essere + genero-numero (D-94). Plural masc + concordancia adjetival (italiani, no italianos) + preposición `di` origen. Fallar cascadea D-54 a essere + genero-numero.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "essere-304",
