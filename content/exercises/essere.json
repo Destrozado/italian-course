@@ -1224,27 +1224,12 @@
           "sono"
         ],
         "correctIndex": 1,
-        "explanation": "La frase reúne los dos pilares del eje essere/avere en una sola línea: la profesión predicativa pide essere ('è medico') mientras la edad pide avere ('ha trent'anni'). 'Mio fratello è medico e ha trent'anni' equivale al español 'Mi hermano es médico y tiene treinta años'. Cuidado: la distractora 'ha' es correcta para la edad (segundo hueco), pero incorrecta para la profesión (primer hueco), que exige essere. El apóstrofe ASCII en 'trent'anni' es obligatorio por elisión."
+        "explanation": "En esta frase conviven dos verbos: la profesión se expresa con essere ('è medico') y la edad con avere ('ha trent'anni'). 'Mio fratello è medico e ha trent'anni' equivale al español 'Mi hermano es médico y tiene treinta años'. Cuidado: la distractora 'ha' es correcta para la edad (segundo hueco), pero incorrecta para la profesión (primer hueco), que exige essere. El apóstrofe ASCII en 'trent'anni' es obligatorio por elisión."
       },
       "notes": "Cruce essere + avere (D-94). Misma frase obliga a usar essere (profesión) Y avere (edad `ha trent'anni`). Trampa máxima: hispanohablante puede equivocar las dos. Distractora `ha` también es la conjugación correcta de avere para el 2º hueco (`ha trent'anni`) — refuerza que avere se usa para edad pero NO aquí para 'es médico'. Apóstrofe ASCII en `trent'anni`. Fallar cascadea D-54 a essere + avere.",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C4-explanation] Apertura con framing del temario: La frase reúne los dos pilares del eje essere/avere en una sola línea. Reformular en términos puramente gramaticales para el alumno."
-            ]
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
