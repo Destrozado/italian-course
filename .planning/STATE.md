@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Más contenido A1 (Articoli + Partitivos)
 status: executing
-last_updated: "2026-05-28T00:23:05.262Z"
-last_activity: 2026-05-28 -- Phase 12 planning complete
+last_updated: "2026-05-28T00:38:31.574Z"
+last_activity: 2026-05-28
 progress:
   total_phases: 4
   completed_phases: 1
   total_plans: 10
-  completed_plans: 5
+  completed_plans: 6
   percent: 25
 ---
 
@@ -21,18 +21,18 @@ See: `.planning/PROJECT.md` (updated 2026-05-27)
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 12 — Partitivos (contexto capturado, listo para planificar)
+**Current Focus:** Phase 12 — partitivos
 
 **Milestone v1.2 Goal:** Añadir 2 categorías nuevas de gramática A1 (Articoli y Partitivos), diseñadas desde cero sin PDF de referencia. Cada categoría sigue el mismo flujo dentro de su propia fase: (a) temario exhaustivo ANTES de redactar ejercicios → (b) ejercicios que cubren cada celda del temario → (c) explanations pedagógicas curadas → (d) validación por quórum ≥2 IAs distintas reutilizando la infraestructura editorial de v1.1 (skill `gsd-validate-batch` + reporter `scripts/run-validation-271.mjs` + reglas R1-R7). NO se modifica el engine: motor de re-verificación, sampler, cascada D-54, schema validator y 3 tipos de ejercicio están DONE.
 
 ## Current Position
 
-Phase: 12
-Plan: Not started
+Phase: 12 (partitivos) — EXECUTING
+Plan: 2 of 5
 Status: Ready to execute
-Last activity: 2026-05-28 -- Phase 12 planning complete
+Last activity: 2026-05-28
 
-Progress: [██████████] 100%
+Progress: [██████░░░░] 60%
 
 ## Performance Metrics
 
@@ -44,7 +44,7 @@ Progress: [██████████] 100%
 | Requisitos v1.0 completos | 62/62 (100%) |
 | Requisitos v1.1 completos | 8/8 (100% — VAL-01..08) |
 | Requisitos v1.2 mapeados | 15/15 (100% — ART-01..08 → Phase 11; PART-01..07 → Phase 12; 0 orphans) |
-| Requisitos v1.2 completos | 8/15 (ART-01..08 → Phase 11 cubiertos) |
+| Requisitos v1.2 completos | 9/15 (ART-01..08 → Phase 11 + PART-02 → Phase 12 temario cubiertos) |
 | Ejercicios totales en la app | 328 distribuidos en 8 categorías (todos validated por ≥2 IAs) |
 | Categorías | 8 (Articoli es la 8ª; Partitivos será la 9ª) |
 | Granularidad | coarse |
@@ -61,6 +61,7 @@ Progress: [██████████] 100%
 | Phase 11 P04 | ~8min | 3 tasks | 2 files |
 | Phase 11 P05 | ~40min | 2 tasks | 4 files |
 | 11 | 5 | - | - |
+| Phase 12 P01 | 4min | 2 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -87,6 +88,8 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - [Phase 11]: Match articolo<->sustantivo (049/050) + 6 bridges multi-cat (300..305) aprobados por el autor sin cambios (checkpoint 11-03). Conteo final CANONICO de content/exercises/articoli.json = 56 ejercicios (48 base + 2 match + 6 bridges); 11-04 debe propagarlo identico a categories.json, run-validation-271.mjs (TOTAL_EXPECTED 272->328) y tests/exercise-types.test.js
 - [Phase 11]: Plan 11-04 cableo articoli en los 3 puntos de integracion con conteos en LOCKSTEP N=56 (categories.json order 8 ya por 11-02, no duplicado; reporter CATEGORIES+TOTAL_EXPECTED 272->328; CATEGORIES_WITH_EXPLANATIONS expected:56). Smoke test 123/0 PASS. ART-01 cubierto. Reporter exit 1 SOLO por status pending de los 56 articoli (lo cierra 11-05 via quorum).
 - [Phase 11]: Plan 11-05 validó articoli por quórum cross-vendor (DeepSeek Flash + Opus 4.7) en vez del canon v1.1 (Opus+Sonnet), a petición del autor para probar multi-vendor. Invariante >=2 by distintos preservado. El cross-vendor capturó 8 bugs reales que los human-verify de 11-02/11-03 dejaron pasar (2 contracciones prep+art: 008 allo/011 sullo, 1 leak de triggers fonéticos en match 049, 5 acentos graves c'è/più: 013/028/038/042/043). Gate verde: reporter exit 0 328/328, smoke estricto VAL_07_STRICT=1 268/0. ART-08 cubierto. Infra nueva reutilizable: scripts/validate-ai-pass.mjs (multi-provider, auto-fallback 429) + docs/VALIDACION-QUORUM.md. Phase 11 lista para verifier.
+- [Phase 12]: Temario exhaustivo del partitivo (12-TEMARIO-PARTITIVOS.md, commit 04db148) APROBADO por el autor en checkpoint 12-01 human-verify. Estructurado sobre el eje incontable-contable (D-01); 7 formas del/dello/della/dell'/dei/degli/delle + 3 alternativas por restriccion + omision + distincion PART-05; conteo orientativo ~30-40 sin bridges (D-14). D-13 verificable en git: precede a partitivos.json (que no existe aun).
+- [Phase 12]: CARRY-FORWARD para 12-02/12-03 — los ejercicios de contable PLURAL deben usar un verbo que concuerde en plural (Ci sono / Ho comprato / Ho preso / Vedo...), NUNCA 'C'e ___ [plural]' (c'e es singular; 'C'e dei libri' es agramatical). Mantener el MISMO verbo a ambos lados de un par de contraste incontable-contable (Ho preso del pane / Ho preso dei libri). Surgio al corregir el espejo del temario (commit 9b5a15a, C'e->Ho preso). Preferencia menor: 'un po' d'acqua' elidido > 'un po' di acqua' donde lea natural (ambas validas A1).
 
 ### Pending Todos
 
@@ -118,6 +121,7 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future):
 
 ### Last Session
 
+- **Fecha:** 2026-05-28 — Plan 12-01 completado: temario exhaustivo del partitivo redactado (commit `04db148`) y APROBADO por el autor en el checkpoint human-verify. El autor aplicó UNA corrección gramatical antes de aprobar (commit `9b5a15a`): el frame del §Espejo `"C'è ___"` → `"Ho preso ___"` (c'è es singular y produciría el agramatical "C'è dei libri"; "Ho preso dello zucchero / Ho preso dei libri" mantiene el verbo constante y es gramatical). PART-02 satisfecho; orden temario-antes-de-ejercicios verificable en git (no existe `content/exercises/partitivos.json`, D-13). **Carry-forward para 12-02/12-03:** contable plural usa verbo plural (Ci sono / Ho preso / Vedo...), NUNCA "C'è ___ [plural]"; mismo verbo a ambos lados del contraste incontable↔contable. Stopped at: Completed 12-01-PLAN.md. Resume file: None. Siguiente: Plan 12-02 (bloque base multiple-choice: del-formas + alternativas + omisión + explanations).
 - **Fecha:** 2026-05-27 — Plan 11-01 completado: temario exhaustivo de Articoli redactado (commit `74cd086`) y APROBADO por el autor en el checkpoint human-verify sin cambios. ART-02 satisfecho; orden temario-antes-de-ejercicios verificable en git (no existe `content/exercises/articoli.json`). Stopped at: Completed 11-01-PLAN.md. Resume file: None. Siguiente: Plan 11-02 (ejercicios base multiple-choice).
 - **Trabajo previo (v1.2 roadmap, 2026-05-27):** Roadmap del milestone v1.2 creado por el roadmapper.
 - **Trabajo actual (roadmap):** Creados/actualizados `.planning/ROADMAP.md` (Phase 11 Articoli + Phase 12 Partitivos añadidas a la sección v1.2 ACTIVE con summary checklist + Phase Details con goal/depends-on/requirements/5 success criteria cada una + UI hint:yes en ambas + Progress table extendida), `.planning/REQUIREMENTS.md` (traceability confirmada 15/15 mapped, 0 orphans, 0 duplicados), `.planning/STATE.md` (este — re-inicializado para v1.2 planning). v1.0 y v1.1 preservados archivados en la sección Milestones y en `.planning/milestones/`.
