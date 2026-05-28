@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Más contenido A1 (Articoli + Partitivos)
-status: executing
-last_updated: "2026-05-28T01:18:56.965Z"
+status: ready_to_complete
+last_updated: "2026-05-28T12:00:00.000Z"
 last_activity: 2026-05-28
 progress:
-  total_phases: 4
-  completed_phases: 1
+  total_phases: 2
+  completed_phases: 2
   total_plans: 10
-  completed_plans: 9
-  percent: 25
+  completed_plans: 10
+  percent: 100
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2

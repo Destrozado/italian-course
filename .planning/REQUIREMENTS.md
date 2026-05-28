@@ -73,7 +73,7 @@ Excluido explícitamente para prevenir scope creep.
 | PART-04 | Phase 12 | Complete |
 | PART-05 | Phase 12 | Complete |
 | PART-06 | Phase 12 | Complete |
-| PART-07 | Phase 12 | Pending |
+| PART-07 | Phase 12 | Complete |
 
 **Coverage:**
 - v1.2 requirements: 15 total (8 ART + 7 PART)
@@ -84,4 +84,4 @@ Excluido explícitamente para prevenir scope creep.
 
 ---
 *Requirements defined: 2026-05-27*
-*Last updated: 2026-05-27 after roadmap v1.2 — traceability confirmada (15/15 mapped, 0 orphans), Phase 11 = Articoli, Phase 12 = Partitivos*
+*Last updated: 2026-05-28 — milestone v1.2 cerrado: 15/15 requirements complete (PART-07 cerrado en 12-05 con gate verde).*
