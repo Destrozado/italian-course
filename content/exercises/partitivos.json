@@ -480,6 +480,42 @@
       },
       "notes": "Omisión D-02 (cara negativa, contexto contable plural). Correcta '∅ / sin partitivo'; distractora degli = poner el partitivo en negativa. Par con partitivos-036. Cierra la asimetría afirmativa/negativa.",
       "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-038",
+      "type": "match",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "Empareja cada sustantivo incontable con su forma partitiva singular. Fíjate en el género y en el sonido inicial.",
+        "pairs": [
+          ["pane", "del"],
+          ["zucchero", "dello"],
+          ["acqua", "dell'"],
+          ["vino", "del"],
+          ["carne", "della"]
+        ],
+        "explanation": "La forma partitiva de un sustantivo no se memoriza suelta: es di mas el artículo determinativo, así que hereda el mismo disparador fonético. Pane y vino son masculinos y empiezan por consonante simple, que pide il, por eso del (di + il): del pane, del vino. Zucchero es masculino y empieza por z, que pide lo, así que dello (di + lo). Acqua empieza por vocal y se elide a dell' (di + l'), igual en masculino que en femenino. Carne es femenino ante consonante y pide la, de ahí della (di + la). El género decide entre del/dello y della; el sonido inicial decide la elisión dell'. La trampa del hispanohablante es decir del acqua o della acqua en vez de dell'."
+      },
+      "notes": "Match incontable D-08 (sustantivo<->forma partitiva singular). Columna derecha: del, dello, dell', del, della -> 4 valores DISTINTOS (del/dello/dell'/della) cumple R3 (>=3). UN duplicado textual intencional (D-66): del aparece en pane y vino; el grading consume por índice. DESIGN RULE: el pareo depende de género + disparador fonético + número, NO de raíz compartida (pane/vino comparten del por fonética, no por raíz) -> no derivable por root match. status pending para quórum (D-15).",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-039",
+      "type": "match",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "Empareja cada sustantivo contable en plural con su forma partitiva. Fíjate en el género y en el sonido inicial.",
+        "pairs": [
+          ["libri", "dei"],
+          ["studenti", "degli"],
+          ["mele", "delle"],
+          ["amici", "degli"],
+          ["case", "delle"]
+        ],
+        "explanation": "En plural el partitivo es di mas el artículo determinativo plural, con los mismos disparadores. Libri es masculino plural ante consonante simple y pide i, así que dei (di + i): dei libri. Studenti (s impura) y amici (vocal) son masculinos plurales que piden gli, de ahí degli (di + gli): degli studenti, degli amici. En plural masculino degli absorbe todo lo que en singular era dello o dell', igual que gli absorbe a lo y l'. Mele y case son femeninos plurales y siempre piden le, por eso delle (di + le): delle mele, delle case, sin variación fonética. La trampa es decir dei studenti o dei amici en vez de degli."
+      },
+      "notes": "Match contable plural D-08 (sustantivo<->forma partitiva plural). Columna derecha: dei, degli, delle, degli, delle -> 3 valores DISTINTOS (dei/degli/delle) cumple R3 (>=3). Duplicados textuales intencionales (D-66): degli x2 (studenti vocal-s impura), delle x2 (mele/case fem); el grading consume por índice. DESIGN RULE: el pareo depende de género + disparador fonético + número, NO de raíz (studenti/amici comparten degli por fonética, mele/case comparten delle por género) -> no derivable por root match. Cubre las trampas canónicas #5 (degli ante vocal/s impura) y refuerza el plural. status pending para quórum (D-15).",
+      "validation": { "status": "pending", "passes": [] }
     }
   ]
 }
