@@ -1127,33 +1127,16 @@
         "options": [
           "alcune",
           "qualche",
-          "un po' di",
+          "alcuni",
           "alcuna"
         ],
         "correctIndex": 0,
-        "explanation": "Mele es plural y femenino, y alcune es la alternativa que rige plural contable concordando en género: alcune mele, algunas manzanas. Qualche exigiría el singular (qualche mela), un po' di pide un incontable, y alcuna en singular no concuerda con un plural. La restricción alcuni/alcune solo con plurales contables, más la concordancia de género, dejan una sola respuesta."
+        "explanation": "Mele es plural y femenino, y alcune es la alternativa que rige plural contable concordando en género: alcune mele, algunas manzanas. Qualche exigiría el singular (qualche mela). Alcuni es masculino, no concuerda con mele femenino. Alcuna es singular y femenino, no concuerda con un plural. La restricción es doble: alcuni/alcune solo con plurales, y debe concordar en género — eso selecciona alcune."
       },
-      "notes": "Alternativa alcune + SOLO plural contable (D-03, trampa por restricción) + concordancia de género (fem -> alcune). Distractoras: qualche exige singular, un po' di incontable, alcuna es singular. Una sola correcta (C2).",
+      "notes": "Alternativa alcune + SOLO plural contable (D-03, trampa por restricción) + concordancia de género (fem -> alcune). Distractoras: qualche exige singular, alcuni es masculino, alcuna es singular fem. Una sola correcta (C2). Distractor 'un po' di' reemplazado tras quórum 2026-05-28 — doble-validez con plural contable en italiano coloquial (Opus+DeepSeek joint flag).",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "deepseek-v4-pro",
-            "date": "2026-05-28",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C2-una_opcion] El prompt 'Ho comprato ___ mele al mercato' admite tanto 'alcune' como 'un po' di' como opciones gramaticalmente válidas. Aunque la nota editorial clasifica 'un po' di' como exclusivo para incontables, en el italiano moderno 'un po' di mele' es una construcción natural y frecuente — el alumno podría elegir la opción 2 y recibir un fallo injusto, violando R7."
-            ]
-          },
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-28",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C2-una_opcion] 'un po' di mele' es italiano gramaticalmente válido y de uso natural en registro coloquial/estandar — significa 'unas pocas manzanas'. Aunque los textos A1/A2 enseñan 'un po' di' como restringido a incontables, en la práctica del italiano real 'un po' di + plural contable' es aceptado (cf. Treccani, Serianni). 'Ho comprato un po' di mele al mercato' es una frase que un nativo diría sin reservas. Sin contexto desambiguador que fuerce 'alcune' frente a 'un po' di', el prompt admite dos opciones válidas, violando R7. Fix sugerido: cambiar el sustantivo a un incontable claramente plural-only o añadir contexto numérico (ej. 'Ho comprato ___ mele, almeno una decina' que sugiere conteo) que descarte el matiz de 'un po' di'."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -1167,31 +1150,16 @@
         "options": [
           "alcuni",
           "qualche",
-          "un po' di",
-          "alcune"
+          "alcune",
+          "alcuna"
         ],
         "correctIndex": 0,
-        "explanation": "Libri es plural y masculino, y alcuni es la alternativa que rige plural contable concordando en masculino: alcuni libri, algunos libros. Qualche pediría el singular (qualche libro), un po' di pide un incontable y alcune es femenino, que no concuerda con libri. La regla de que alcuni/alcune solo van con plurales y deben concordar en género selecciona alcuni."
+        "explanation": "Libri es plural y masculino, y alcuni es la alternativa que rige plural contable concordando en masculino: alcuni libri, algunos libros. Qualche exigiría el singular (qualche libro). Alcune es femenino, no concuerda con libri masculino. Alcuna es singular y femenino. La restricción es doble: alcuni/alcune solo con plurales, y debe concordar en género — eso selecciona alcuni."
       },
-      "notes": "Alternativa alcuni + SOLO plural contable (D-03), concordancia masculina (masc -> alcuni). Distractoras: qualche exige singular, un po' di incontable, alcune es femenino. Una sola correcta.",
+      "notes": "Alternativa alcuni + SOLO plural contable (D-03), concordancia masculina (masc -> alcuni). Distractoras: qualche exige singular, alcune es femenino, alcuna es singular fem. Una sola correcta. Distractor 'un po' di' reemplazado tras quórum 2026-05-28 — coherente con fix de 032.",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "deepseek-v4-pro",
-            "date": "2026-05-28",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C2-una_opcion] 'un po' di libri' es una construcción italiana perfectamente válida y natural para expresar 'algunos libros', por lo que el prompt admite al menos dos opciones correctas: 'alcuni' y 'un po' di'. Esto viola R7 (una sola opción válida). Para corregir, se debe añadir contexto que descarte una de las lecturas o eliminar 'un po' di' como distractor (p.ej., cambiar la frase a algo como 'Ho letto ___ libri che mi hai consigliato' donde 'alcuni' es más natural, o usar 'un po' di' como opción incorrecta en otro contexto)."
-            ]
-          },
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-28",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -1285,7 +1253,7 @@
       },
       "notes": "Omisión D-02 (cara afirmativa, contexto contable plural). Correcta degli (di+gli ante vocal); distractora '∅ / sin partitivo' = error del hispanohablante. Par con partitivos-037. Refuerza el matiz: difícil es USAR en afirmativa.",
       "validation": {
-        "status": "disputed",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
@@ -1300,6 +1268,14 @@
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
+          },
+          {
+            "by": "autor",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": [
+              "[override] D-02: el ejercicio entrena deliberadamente el USO del partitivo en afirmativa (matiz pedagógico clave del bloque omisión: lo realmente ajeno al hispanohablante es USAR el partitivo donde el español no pone artículo). La opción ∅ es gramaticalmente válida en italiano, pero NO es la opción idiomática que D-02 enseña; mantener degli como correcta refuerza la regla pedagógica del bloque."
+            ]
           }
         ]
       }
@@ -1491,27 +1467,12 @@
           "artículo determinativo"
         ],
         "correctIndex": 0,
-        "explanation": "Aquí del NO es partitivo: del caffè significa del café, es la preposición di fundida con il (de el) que une dos sustantivos, el sabor de el café. No puedes parafrasearlo como algo de café sin romper el sentido. Esta es la preposizione articolata, y su uso pertenece a la categoría Preposiciones, donde lo practicas a fondo; en Partitivos solo lo identificamos para distinguirlo del partitivo, que comparte exactamente la misma forma del."
+        "explanation": "Aquí del NO es partitivo: del caffè significa del café — la preposición di fundida con il (de el), que une dos sustantivos: el sabor de el café. No equivale a algo de café. Esta función prepositiva (preposizione articolata) corresponde a la categoría Preposiciones; aquí solo se contrasta con el partitivo, porque ambos usos comparten la forma del."
       },
       "notes": "Clasificación PART-05 (D-05). Función PREPOSITIVA: 'il sapore del caffè' = el sabor de el café (complemento del nombre, relación). Forma di-based (D-06). correctIndex 0 = 'preposición'. La función prepositiva vive en Preposiciones (categoryIds solo partitivos, sin bridge, D-06/D-14); aquí solo se clasifica/contrasta, no se re-enseña ni se duplica preposiciones.json. status pending para quórum.",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "deepseek-v4-pro",
-            "date": "2026-05-28",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C4-explanation] La explanation contiene meta-staging editorial del curador: 'y su uso pertenece a la categoría Preposiciones, donde lo practicas a fondo; en Partitivos solo lo identificamos para distinguirlo del partitivo'. Esto explica al alumno la organización interna de la herramienta (categorías, qué se hace en cada una), usando voz de primera persona plural ('identificamos') propia del curador. Viola R4: la explanation debe centrarse en la regla gramatical y el contraste pedagógico, no en comentar la estructura de categorías de la app. La primera mitad de la explanation ('Aquí del NO es partitivo...') es correcta; bastaría con eliminar las dos frases finales de meta-staging para cumplir C4."
-            ]
-          },
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-28",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -1528,27 +1489,12 @@
           "artículo determinativo"
         ],
         "correctIndex": 0,
-        "explanation": "Aquí delle es partitivo: delle mele significa unas manzanas, una cantidad indeterminada de un contable en plural. La prueba es que equivale a algunas manzanas (alcune mele). La misma forma delle puede aparecer con función prepositiva (di + le = de las), pero ese uso se trabaja en la categoría Preposiciones; en Partitivos solo lo contrastamos para que reconozcas cuándo delle es algo de y cuándo es de las."
+        "explanation": "Aquí delle es partitivo: delle mele significa unas manzanas, una cantidad indeterminada de un contable en plural. La prueba es que equivale a algunas manzanas (alcune mele). La misma forma delle puede aparecer con función prepositiva (di + le = de las); ese uso corresponde a la categoría Preposiciones, y aquí solo se contrasta para distinguir cuándo delle es algo de y cuándo es de las."
       },
       "notes": "Clasificación PART-05 (D-05). Función PARTITIVA: 'delle mele' = unas manzanas (contable fem plural -> delle). Forma di-based (D-06). correctIndex 0 = 'partitivo'. Refuerza la cara contable del eje D-01 dentro de la clasificación. La explanation remite la función prepositiva a Preposiciones sin re-enseñarla. status pending para quórum.",
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "deepseek-v4-pro",
-            "date": "2026-05-28",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C4-explanation] La explanation contiene meta-staging editorial del curador: 'ese uso se trabaja en la categoría Preposiciones; en Partitivos solo lo contrastamos para que reconozcas cuándo delle es algo de y cuándo es de las'. Esto explica la organización interna del currículum (R4), no aporta valor pedagógico al alumno. La explanation debería centrarse en la regla del partitivo y el contraste con la función prepositiva sin referirse a cómo está organizado el contenido en categorías."
-            ]
-          },
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-28",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
