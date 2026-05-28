@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Más contenido A1 (Articoli + Partitivos)
-status: ready_to_complete
-last_updated: "2026-05-28T12:00:00.000Z"
-last_activity: 2026-05-28
+status: Awaiting next milestone
+last_updated: "2026-05-28T07:20:43.690Z"
+last_activity: 2026-05-28 — Milestone v1.2 completed and archived
 progress:
-  total_phases: 2
+  total_phases: 4
   completed_phases: 2
   total_plans: 10
   completed_plans: 10
-  percent: 100
+  percent: 50
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -27,12 +27,10 @@ See: `.planning/PROJECT.md` (updated 2026-05-27)
 
 ## Current Position
 
-Phase: 12 (partitivos) — EXECUTING
-Plan: 5 of 5
-Status: 12-04 completo (integración 3-count lockstep N=44) — siguiente 12-05 (validación por quórum)
-Last activity: 2026-05-28
-
-Progress: [█████████░] 90%
+Phase: Milestone v1.2 complete
+Plan: —
+Status: Awaiting next milestone
+Last activity: 2026-05-28 — Milestone v1.2 completed and archived
 
 ## Performance Metrics
 
@@ -156,9 +154,4 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future):
 
 ## Operator Next Steps
 
-- `/clear` para liberar contexto del roadmapper
-- `/gsd:plan-phase 11` para descomponer Phase 11 (Articoli) en planes ejecutables
-
----
-*State initialized: 2026-05-23 (v1.0)*
-*State re-initialized: 2026-05-27 — Milestone v1.2 planning. v1.0 + v1.1 archivados; Phase 11 (Articoli) + Phase 12 (Partitivos) planificadas con 15/15 requirements mapped, 0 orphans. Ready para `/gsd:plan-phase 11`.*
+- Start the next milestone with /gsd-new-milestone

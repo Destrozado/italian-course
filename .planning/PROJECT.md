@@ -8,15 +8,9 @@ Web personal de ejercicios de italiano para preparar el A1 (y luego A2). Es una 
 
 **Que el sistema te obligue a no olvidar.** El motor de repetición tiene que garantizar que cada categoría se re-verifica constantemente, y que un solo fallo en cualquier ejercicio te devuelve a repetir esa categoría entera. Sin ese loop, el resto no importa.
 
-## Current Milestone: v1.2 — Más contenido A1 (Articoli + Partitivos)
+## Current Milestone: — (v1.2 shipped 2026-05-28; v1.3 por definir vía `/gsd-new-milestone`)
 
-**Goal:** Añadir 2 categorías nuevas de gramática A1 (Articoli y Partitivos), diseñadas desde cero sin PDF de referencia: primero el temario exhaustivo de cada tema, luego ejercicios que cubran cada regla y excepción, curados con explanations pedagógicas y validados por quórum Opus+Sonnet reutilizando la infraestructura editorial de v1.1.
-
-**Target features:**
-- **Articoli** (1 categoría, determinativi + indeterminativi juntos): temario exhaustivo de `il/lo/la/l'/i/gli/le` + `un/uno/una/un'` con todos los disparadores fonéticos (s+cons, z, gn, ps, pn, x, y, vocal) y trampas canónicas (`lo zio`, `gli gnocchi`, `lo psicologo`, `l'amica`, `uno studente`, `un'amica`); ejercicios que cubren cada celda del temario.
-- **Bridges multi-categoría** Articoli ↔ género/número y ↔ sustantivos irregulares (patrón avere-300../essere-300..): fallar un cruce resetea ambas categorías, reforzando el core value.
-- **Partitivos** (1 categoría): `del/dello/della/dei/degli/delle` como partitivo ("algo de") + `alcuni/qualche/un po' di`; distinción explícita función partitiva vs preposizione articolata (misma forma, distinto uso — la forma preposicional ya vive en Preposiciones).
-- Cada categoría diseña el **temario antes** de redactar ejercicios, y se valida dentro de su propia fase (skill `gsd-validate-batch` + reporter `run-validation-271.mjs` + reglas R1-R7).
+**Last shipped:** v1.2 — Articoli + Partitivos, 100 ejercicios nuevos validados por quórum cross-vendor (DeepSeek + Opus 4.7). 9 categorías totales, 372/372 ejercicios validated.
 
 ## Requirements
 
@@ -130,12 +124,15 @@ Web personal de ejercicios de italiano para preparar el A1 (y luego A2). Es una 
 
 ### Active
 
-<!-- Current scope. Building toward these. -->
+<!-- Current scope. Building toward these. v1.2 shipped — see Validated. v1.3 TBD via /gsd-new-milestone. -->
 
-- [ ] Stack: web estática (HTML/CSS/JS), abrible con `npx serve`, sin build step — VALIDADO end-to-end
-- [ ] **Articoli** como 8ª categoría (v1.2 Phase 11): temario exhaustivo det + indet + ejercicios cubriendo cada forma/disparador/trampa + bridges multi-cat con género-número y sustantivos-irregulares
-- [ ] **Partitivos** como 9ª categoría (v1.2 Phase 12): temario + ejercicios + distinción partitivo vs preposizione articolata
-- [ ] Ejercicios nuevos de v1.2 curados con explanations pedagógicas y validados por quórum ≥2 IAs distintas (R1-R7 → C1-C5)
+(Vacío — siguiente milestone por definir.)
+
+### Recently Validated (v1.2 — shipped 2026-05-28)
+
+- ✓ **Articoli** como 8ª categoría (Phase 11): temario exhaustivo det+indet + 56 ejercicios cubriendo cada forma/disparador/trampa + 6 bridges multi-cat con género-número y sustantivos-irregulares — validado por quórum cross-vendor (DeepSeek Flash + Opus 4.7); 8 bugs de autoría capturados por el cross-vendor que human-verify dejó pasar.
+- ✓ **Partitivos** como 9ª categoría (Phase 12): temario exhaustivo + 44 ejercicios (37 base MC + 2 match + 5 PART-05 partitivo-vs-preposizione) — validado por quórum cross-vendor (DeepSeek Pro + Opus 4.7) con 5 disputed resueltos por el autor (4 ACCEPT-FIX, 1 OVERRIDE D-02 en `partitivos-036`).
+- ✓ Patrón de categoría nueva consolidado: temario ANTES de ejercicios (verificable en git) → ejercicios curados con explanations → integración 3-count lockstep → validación por quórum. Reutiliza infra v1.1 sin tocar engine.
 
 ### Out of Scope
 
@@ -152,24 +149,24 @@ Web personal de ejercicios de italiano para preparar el A1 (y luego A2). Es una 
 
 ## Current State
 
-**v1.1 shipped 2026-05-27** — Validación editorial completa. Los 272 ejercicios (271 originales + `preposiciones-051` creado durante la validación) están validados por quórum de 2 IAs distintas (Opus 4.7 + Sonnet 4.6) contra los criterios R1-R7→C1-C5, con audit trail completo en `passes[]`. 55 disputed resueltos por el autor (accept-fix / override / rewrite), 0 deferred. Gate del milestone verde: reporter `run-validation-271.mjs` exit 0 (VAL-04+06+08) + smoke test estricto `VAL_07_STRICT=1` 261/261 PASS. El autor puede confiar en que cada ejercicio del que aprende es correcto; cualquier ejercicio nuevo/modificado sin re-validar rompe los tests inmediatamente.
+**v1.2 shipped 2026-05-28** — 2 categorías nuevas de gramática A1 diseñadas desde cero sin PDF: Articoli (56 ejercicios, 8ª categoría) + Partitivos (44 ejercicios, 9ª categoría). 100 ejercicios nuevos, todos validados por quórum cross-vendor (DeepSeek + Opus 4.7); el cross-vendor capturó 8 bugs en Articoli que el human-verify dejó pasar (contracciones prep+art, leak de triggers fonéticos, acentos graves c'è/più). 1 override autor en `partitivos-036` (D-02: el ejercicio entrena USO del partitivo afirmativo, ∅ válido pero no idiomático). Gate verde: reporter exit 0 (372/372 validated), smoke `VAL_07_STRICT=1` 137/137 PASS. Patrón "categoría nueva" consolidado: temario→ejercicios→integración lockstep→quórum.
 
-**v1.0 shipped 2026-05-25** — 10 fases activas (Phases 1-8 incluyendo decimales 7.1/7.2), 26 plans, 271/271 ejercicios curados con explanations pedagógicas en 7 categorías, Modo Examen por categoría operativo. 62/62 v1 requirements complete. App lista para uso diario desde `npx serve` con localStorage + backup JSON manual.
+**v1.1 shipped 2026-05-27** — Validación editorial. 272/272 ejercicios validados por quórum Opus 4.7 + Sonnet 4.6 contra R1-R7→C1-C5. 55 disputed resueltos. Infra editorial reutilizable: skills `gsd-validate-exercise` + `gsd-validate-batch`, reporter, smoke paramétrico.
 
-**Stack actual:** Alpine.js 3.15.12 + Pico CSS 2.1.1 (CDN+SRI pinned), ES modules vanilla, schemaVersion 4, ~2200 LOC en `src/screens/app.js` + ~220 LOC dominio puro + tests dominio + 7 archivos JSON contenido con campo `validation` poblado en los 272 ejercicios. Infraestructura editorial: skills `gsd-validate-exercise` + `gsd-validate-batch`, `09-VALIDATION-PROMPT.md`, `scripts/run-validation-271.mjs`.
+**v1.0 shipped 2026-05-25** — Motor de re-verificación + 7 categorías + Modo Examen. 26 plans, 271 ejercicios curados, 62/62 requirements.
 
-**Last activity:** 2026-05-27 — Milestone v1.1 archivado, git tag `v1.1` pendiente.
+**Stack actual:** Alpine.js 3.15.12 + Pico CSS 2.1.1 (CDN+SRI pinned), ES modules vanilla, schemaVersion 4. 9 archivos JSON de contenido (372 ejercicios validated). Infraestructura editorial: skills `gsd-validate-exercise` + `gsd-validate-batch`, `scripts/run-validation-271.mjs`, `scripts/validate-ai-pass.mjs` (multi-provider con auto-fallback 429, añadido en v1.2).
 
-## Next Milestone Goals (post-v1.1)
+**Last activity:** 2026-05-28 — Milestone v1.2 archivado.
 
-> Backlog v1.2+ (preservado en `.planning/milestones/v1.0-ROADMAP.md` §Backlog):
+## Next Milestone Goals (post-v1.2)
+
+> Backlog v1.3+ (capturado para que `/gsd-new-milestone` lo reactive):
 >
-> - Phase 8.x deferred items (Examen multi-cat, atajos teclado, copy refactor confirmLabel)
-> - Categorías nuevas (Pretérito imperfetto, Futuro semplice, Condicionale, Subjuntivo) conforme la profesora entregue material
-> - Modo móvil responsive si el autor lo echa en falta tras uso real
-> - Refactor cosmético confirmLabel unificado en las 6 call-sites
-> - Modo móvil responsive si el autor lo echa en falta tras uso real
-> - Categorías nuevas conforme la profesora entrega material (Pretérito imperfetto, Futuro, Condicionale, Subjuntivo, etc.)
+> - **Categorías nuevas de tiempos verbales** (TENSE-X1..X4): Pretérito imperfetto, Futuro semplice, Condizionale, Congiuntivo — conforme la profesora entrega material
+> - **Bridges multi-cat Partitivos** (PART-X1): cruces Partitivos↔género-número/sustantivos, diferidos en v1.2 para acotar
+> - **Modo móvil responsive** si el autor lo echa en falta tras uso real
+> - **Phase 8.x deferred**: Examen multi-cat (selección 2-3 cats), atajos de teclado (E + número de fila), copy especializada banner reanudar, refactor cosmético confirmLabel unificado en las 6 call-sites de `requestConfirm`
 
 ## Context
 
@@ -238,4 +235,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-05-27 after v1.2 milestone start (Articoli + Partitivos — 2 categorías nuevas de contenido A1; numeración de fases continúa en Phase 11-12; validación por categoría dentro de cada fase reutilizando infra v1.1)*
+*Last updated: 2026-05-28 after v1.2 milestone shipped — Articoli + Partitivos archived; 9 categorías totales (372 ejercicios validated). Awaiting `/gsd-new-milestone` para v1.3.*

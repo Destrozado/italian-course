@@ -1,5 +1,24 @@
 # Milestones
 
+## v1.2 Más contenido A1 (Articoli + Partitivos) (Shipped: 2026-05-28)
+
+**Phases completed:** 4 phases, 10 plans, 21 tasks
+
+**Key accomplishments:**
+
+- Temario exhaustivo de Articoli (determinativi il/lo/l'/la/i/gli/le + indeterminativi un/uno/una/un') cruzado con cada disparador fonetico y las 6 trampas canonicas D-04, aprobado por el autor como checklist de cobertura previo a cualquier ejercicio.
+- 1. [Rule 3 - Blocking] Registrar `articoli` en categories.json
+- `content/exercises/articoli.json` = 56 ejercicios.
+- N = 56
+- 56/56 ejercicios de articoli validados por quórum cross-vendor (DeepSeek Flash + Opus 4.7); 8 bugs de autoría capturados y corregidos; gate verde cerrado (reporter exit 0 328/328, smoke estricto 268/0).
+- Temario de cobertura del partitivo italiano estructurado sobre el eje incontable↔contable — 7 formas del/dello/della/dell'/dei/degli/delle × disparador fonético heredado de Articoli + 3 alternativas por restricción gramatical + omisión en negativa + distinción partitivo/preposizione (PART-05), commiteado ANTES de cualquier ejercicio (D-13).
+- 37 ejercicios multiple-choice de Partitivos (del-formas incontable/contable 001-026 + alternativas por restricción gramatical 027-033 + mini-bloque omisión ∅ 034-037), todos pending para quórum, validando contra el schema.
+- Cierra el contenido de Partitivos en N=44: bloque match sustantivo↔forma partitiva (D-08) + 5 ejercicios de clasificación partitivo-vs-preposizione articolata (PART-05), todos `status: pending` para el quórum de 12-05.
+- Cablea la categoría partitivos en los 3 puntos de integración con los conteos en LOCKSTEP a N=44 (longitud real de partitivos.json): categories.json order 9 (verificada, ya presente), reporter CATEGORIES { slug, file, expected:44 } + TOTAL_EXPECTED 328->372, y test CATEGORIES_WITH_EXPLANATIONS expected:44 (sin slug). Cubre PART-01 sin tocar engine ni UI.
+- Plan:
+
+---
+
 ## v1.1 — Validación editorial (Shipped: 2026-05-27)
 
 **Phases completed:** 2 phases (9-10), 8 plans
