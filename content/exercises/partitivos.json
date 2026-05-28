@@ -1,0 +1,342 @@
+{
+  "exercises": [
+    {
+      "id": "partitivos-001",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "Compro ___ pane per la cena.",
+        "options": ["del", "dello", "della", "dell'"],
+        "correctIndex": 0,
+        "explanation": "El partitivo no es una forma nueva: es di + el artículo determinativo. Pane es masculino y empieza por consonante simple (p-), que pide il, así que el partitivo es del (di + il): del pane, algo de pan. La cantidad es indeterminada (no cuentas el pan, lo mides). Las otras formas valdrían ante otros disparadores: dello ante s impura o z, della en femenino, dell' ante vocal."
+      },
+      "notes": "Incontable masc + consonante simple -> del (di + il), disparador heredado de Articoli (celda del/consonante). Distractoras dello/della/dell' = errores ante otros disparadores. Espejo D-01 con partitivos-014.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-002",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "Al bar bevo sempre ___ vino rosso.",
+        "options": ["del", "dello", "dell'", "dei"],
+        "correctIndex": 0,
+        "explanation": "Vino es masculino y empieza por consonante simple (v-), de modo que su artículo es il y el partitivo del (di + il): del vino, una cantidad indeterminada de vino. Es un incontable en singular, por eso no usamos la forma plural dei. La elección de del frente a dello o dell' depende solo del sonido inicial del sustantivo."
+      },
+      "notes": "Incontable masc + consonante simple -> del (di + il), celda del/consonante con segundo contexto léxico (densidad D-09). Distractora dei tienta el salto a plural sin que el sustantivo sea contable.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-003",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "Vuoi ___ latte nel caffè?",
+        "options": ["del", "della", "dell'", "dello"],
+        "correctIndex": 0,
+        "explanation": "Latte es masculino y empieza por consonante simple (l-): su artículo es il y el partitivo del (di + il). Del latte significa algo de leche, una cantidad sin precisar. Aunque latte termine en -e, no es femenino; el género manda sobre la terminación. Della sería el error de tratarlo como femenino."
+      },
+      "notes": "Incontable masc + consonante simple -> del. Trampa de género: latte termina en -e pero es masculino. Distractora della = error de género.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-004",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "Sul tagliere c'è ancora ___ formaggio.",
+        "options": ["del", "dello", "della", "dei"],
+        "correctIndex": 0,
+        "explanation": "Formaggio es masculino y empieza por consonante simple (f-), así que el artículo es il y el partitivo del (di + il): del formaggio, algo de queso. Es un incontable en singular; por eso descartamos el plural dei. La forma del es la opción por defecto del masculino, y solo cambia ante s impura, z o vocal."
+      },
+      "notes": "Incontable masc + consonante simple -> del. Cuarto contexto de la celda del (densidad D-09). Distractora dei = error de número.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-005",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "Aggiungi ___ zucchero all'impasto.",
+        "options": ["dello", "del", "della", "dell'"],
+        "correctIndex": 0,
+        "explanation": "Zucchero empieza por z-, uno de los sonidos que en italiano exigen lo en lugar de il (s impura, z, gn, ps, x). Como el partitivo es di + el artículo, di + lo da dello: dello zucchero. El error típico del hispanohablante es decir del zucchero, calcando la forma por defecto sin atender al sonido inicial."
+      },
+      "notes": "Incontable masc + z -> dello (di + lo), disparador heredado de Articoli. Trampa canónica del temario (#6). Distractora del = error por ignorar la s impura/z.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-006",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "La ricetta chiede ___ zenzero fresco.",
+        "options": ["dello", "del", "dell'", "dei"],
+        "correctIndex": 0,
+        "explanation": "Zenzero empieza por z-, así que pide lo y el partitivo es dello (di + lo): dello zenzero. Es el mismo disparador que zucchero: la z obliga a lo, igual que en lo zaino o lo zucchero. Del sería el error de aplicar la forma por defecto sin mirar el sonido inicial."
+      },
+      "notes": "Incontable masc + z -> dello (di + lo). Segundo contexto de la celda dello (densidad D-09). Distractora del = error ante z.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-007",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "Per fare lo sport serve anche ___ spirito di squadra.",
+        "options": ["dello", "del", "della", "dell'"],
+        "correctIndex": 0,
+        "explanation": "Spirito empieza por s+consonante (s impura), uno de los sonidos que piden lo: lo spirito. Por eso el partitivo es dello (di + lo): dello spirito. La regla es la misma que para lo studente o lo sport: la s seguida de consonante obliga a lo, no a il. Del sería el calco erróneo de la forma por defecto."
+      },
+      "notes": "Incontable masc + s impura -> dello (di + lo). Tercer contexto de la celda dello (s+consonante, densidad D-09). Distractora del = error ante s impura.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-008",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "A pranzo mangio ___ carne con le verdure.",
+        "options": ["della", "del", "dello", "dell'"],
+        "correctIndex": 0,
+        "explanation": "Carne es femenino y empieza por consonante, así que su artículo es la y el partitivo della (di + la): della carne, algo de carne. En femenino singular ante consonante la forma es siempre della, sin las variaciones que tiene el masculino. Del sería el error de tratar el sustantivo como masculino."
+      },
+      "notes": "Incontable fem + consonante -> della (di + la). Celda della. Distractora del = error de género.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-009",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "Al mercato compro ___ frutta di stagione.",
+        "options": ["della", "del", "dell'", "delle"],
+        "correctIndex": 0,
+        "explanation": "Frutta es femenino y empieza por consonante (f-): su artículo es la y el partitivo della (di + la): della frutta, algo de fruta. Aquí frutta funciona como incontable (la fruta en general, en masa), por eso va en singular y no usamos el plural delle. Della es la forma fija del femenino singular ante consonante."
+      },
+      "notes": "Incontable fem + consonante -> della. Frutta tratada como masa (incontable singular). Distractora delle = error de número/contabilidad.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-010",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "Ho voglia di ___ pasta al pomodoro.",
+        "options": ["della", "del", "dello", "dei"],
+        "correctIndex": 0,
+        "explanation": "Pasta es femenino y empieza por consonante (p-), así que el artículo es la y el partitivo della (di + la): della pasta, algo de pasta. El femenino singular ante consonante siempre da della; no le afecta la s impura ni la z, que solo alteran el masculino. Del sería el error de género."
+      },
+      "notes": "Incontable fem + consonante -> della. Tercer contexto de la celda della (densidad D-09). Distractora del = error de género.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-011",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "Vorrei ___ acqua naturale, per favore.",
+        "options": ["dell'", "della", "del", "delle"],
+        "correctIndex": 0,
+        "explanation": "Acqua empieza por vocal, y ante vocal el artículo se elide en l' tanto en masculino como en femenino. El partitivo es entonces dell' (di + l'): dell'acqua, algo de agua. El error frecuente es decir della acqua sin elidir; en italiano la vocal obliga al apóstrofo. Acqua es femenina, pero la elisión la comparten ambos géneros."
+      },
+      "notes": "Incontable + vocal -> dell' (di + l'), elisión obligatoria. Trampa canónica del temario (#4). Distractora della = error por no elidir ante vocal.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-012",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "In cucina manca ___ olio d'oliva.",
+        "options": ["dell'", "del", "dello", "della"],
+        "correctIndex": 0,
+        "explanation": "Olio empieza por vocal (o-), así que el artículo se elide y el partitivo es dell' (di + l'): dell'olio, algo de aceite. Olio es masculino, pero ante vocal el masculino y el femenino comparten la elisión en l'. Decir del olio sería el error de aplicar la forma por defecto sin elidir ante la vocal."
+      },
+      "notes": "Incontable masc + vocal -> dell' (di + l'), elisión. Segundo contexto de la celda dell' con sustantivo masculino (densidad D-09). Distractora del = error por no elidir.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-013",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "Metti ___ aceto nell'insalata.",
+        "options": ["dell'", "del", "della", "dello"],
+        "correctIndex": 0,
+        "explanation": "Aceto empieza por vocal (a-): el artículo se elide y el partitivo es dell' (di + l'): dell'aceto, algo de vinagre. La regla de la elisión ante vocal es la misma para olio, acqua o aceto. Del aceto sin apóstrofo es el error de no contraer ante la vocal inicial."
+      },
+      "notes": "Incontable + vocal -> dell' (di + l'), elisión. Tercer contexto de la celda dell' (densidad D-09). Distractora del = error por no elidir.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-014",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "Ho comprato ___ libri in libreria.",
+        "options": ["dei", "del", "degli", "delle"],
+        "correctIndex": 0,
+        "explanation": "Libri es el plural masculino de libro, que empieza por consonante simple, así que su artículo plural es i y el partitivo dei (di + i): dei libri, unos libros. Aquí contamos unidades (libros) en cantidad indeterminada, por eso usamos el plural. Del es el singular y no concuerda con libri."
+      },
+      "notes": "Contable masc plural + consonante -> dei (di + i). Celda dei. Distractora del = error de número (singular).",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-015",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "Nel cortile giocano ___ ragazzi.",
+        "options": ["dei", "degli", "del", "delle"],
+        "correctIndex": 0,
+        "explanation": "Ragazzi es el plural masculino de ragazzo, que empieza por consonante simple (r-), así que el artículo plural es i y el partitivo dei (di + i): dei ragazzi, unos chicos. La forma degli se reserva para los plurales masculinos ante vocal o s impura, que no es el caso de ragazzi."
+      },
+      "notes": "Contable masc plural + consonante -> dei (di + i). Segundo contexto de la celda dei (densidad D-09). Distractora degli = error ante consonante simple.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-016",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "Per la festa ho preparato ___ panini.",
+        "options": ["dei", "degli", "delle", "del"],
+        "correctIndex": 0,
+        "explanation": "Panini es el plural masculino de panino, que empieza por consonante simple (p-): el artículo plural es i y el partitivo dei (di + i): dei panini, unos bocadillos. Aquí cuentas unidades, por eso el plural. Degli sería el error de aplicar la forma para vocal o s impura a un sustantivo que empieza por consonante simple."
+      },
+      "notes": "Contable masc plural + consonante -> dei (di + i). Tercer contexto de la celda dei (densidad D-09). Distractora degli = error de disparador.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-017",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "Nell'aula ci sono ___ studenti stranieri.",
+        "options": ["degli", "dei", "delle", "del"],
+        "correctIndex": 0,
+        "explanation": "Studenti es plural masculino y empieza por s+consonante (s impura), que en plural pide gli, así que el partitivo es degli (di + gli): degli studenti, unos estudiantes. En plural, degli absorbe lo que en singular era dello (lo studente). El error frecuente es dei studenti, calcando el plural normal sin atender a la s impura."
+      },
+      "notes": "Contable masc plural + s impura -> degli (di + gli). Trampa canónica del temario (#5). Distractora dei = error ante s impura. Verbo plural ci sono (carry-forward 12-01).",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-018",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "Stasera vedo ___ amici al ristorante.",
+        "options": ["degli", "dei", "delle", "dell'"],
+        "correctIndex": 0,
+        "explanation": "Amici es plural masculino y empieza por vocal (a-), y en plural los masculinos ante vocal piden gli, así que el partitivo es degli (di + gli): degli amici, unos amigos. En plural no hay elisión con apóstrofo como en el singular dell'; la vocal se resuelve con degli. El error típico es dei amici, calcando el plural ante consonante."
+      },
+      "notes": "Contable masc plural + vocal -> degli (di + gli). Trampa canónica del temario (#5). Distractora dei = error ante vocal. Verbo concordado vedo (carry-forward 12-01).",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-019",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "A Natale vengono ___ zii dalla Sicilia.",
+        "options": ["degli", "dei", "delle", "dello"],
+        "correctIndex": 0,
+        "explanation": "Zii es el plural masculino de zio, que empieza por z-, y los masculinos con z piden gli en plural, así que el partitivo es degli (di + gli): degli zii, unos tíos. Es el plural de lo zio: la z que en singular daba dello, en plural da degli. Dei zii sería el error de ignorar la z."
+      },
+      "notes": "Contable masc plural + z -> degli (di + gli). Tercer contexto de la celda degli (densidad D-09). Distractora dei = error ante z. Verbo plural vengono.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-020",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "Ho mangiato ___ mele a merenda.",
+        "options": ["delle", "dei", "degli", "della"],
+        "correctIndex": 0,
+        "explanation": "Mele es el plural femenino de mela, así que el partitivo es delle (di + le): delle mele, unas manzanas. En femenino plural la forma es siempre delle, sin variación fonética y sin elisión: vale ante consonante, vocal o s impura por igual. Della sería el error de quedarse en singular."
+      },
+      "notes": "Contable fem plural -> delle (di + le), forma invariable. Celda delle. Distractora della = error de número (singular).",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-021",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "In quel quartiere ci sono ___ case antiche.",
+        "options": ["delle", "dei", "degli", "della"],
+        "correctIndex": 0,
+        "explanation": "Case es el plural femenino de casa, de modo que el partitivo es delle (di + le): delle case, unas casas. El femenino plural usa siempre delle, sin las variaciones del masculino. Aquí cuentas unidades (casas), por eso el plural y no el singular della."
+      },
+      "notes": "Contable fem plural -> delle. Segundo contexto de la celda delle (densidad D-09). Distractora della = error de número. Verbo plural ci sono.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-022",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "Ho invitato ___ amiche alla mia festa.",
+        "options": ["delle", "degli", "dei", "dell'"],
+        "correctIndex": 0,
+        "explanation": "Amiche es el plural femenino de amica, así que el partitivo es delle (di + le): delle amiche, unas amigas. Aunque amiche empiece por vocal, el femenino plural no cambia ni elide: siempre delle. La forma degli es del masculino plural ante vocal, no del femenino; ese cruce de género es el error que tienta aquí."
+      },
+      "notes": "Contable fem plural + vocal -> delle (invariable, sin elisión). Tercer contexto de la celda delle (densidad D-09). Distractora degli = error de género (degli es masculino).",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-023",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "Ho comprato ___ pane.",
+        "options": ["del", "dei", "delle", "dello"],
+        "correctIndex": 0,
+        "explanation": "Pane es un incontable masculino (se mide, no se cuenta) y empieza por consonante simple, así que en singular pide del (di + il): del pane, algo de pan. Como no contamos unidades, no usamos el plural dei. Esta frase es el lado incontable de un par de contraste: con un sustantivo contable como mele, el mismo verbo pediría el plural delle."
+      },
+      "notes": "Par de contraste D-01 (lado incontable) con partitivos-024: mismo verbo Ho comprato. Incontable masc -> del singular. Distractora dei = el salto a contable que el espejo enseña a NO dar aquí.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-024",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "Ho comprato ___ mele.",
+        "options": ["delle", "del", "della", "dei"],
+        "correctIndex": 0,
+        "explanation": "Mele es contable y plural (cuentas manzanas), así que el partitivo es delle (di + le): delle mele, unas manzanas. Es el lado contable del par: con el mismo verbo, pane (incontable) pedía el singular del y mele (contable) pide el plural delle. La primera decisión es siempre si el sustantivo se cuenta o no; eso fija singular o plural antes que el disparador fonético."
+      },
+      "notes": "Par de contraste D-01 (lado contable) con partitivos-023: mismo verbo Ho comprato. Contable fem plural -> delle. La explanation enseña que contable/incontable decide singular vs plural. Distractora del = el error de quedarse en singular.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-025",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "Ho preso ___ zucchero.",
+        "options": ["dello", "dei", "degli", "del"],
+        "correctIndex": 0,
+        "explanation": "Zucchero es un incontable masculino que empieza por z-, así que en singular pide dello (di + lo): dello zucchero, algo de azúcar. Es el lado incontable de un par: con el mismo verbo, un sustantivo contable masculino como libri pediría el plural dei. No cuentas el azúcar, lo mides, por eso el singular."
+      },
+      "notes": "Par de contraste D-01 (lado incontable) con partitivos-026: mismo verbo Ho preso (carry-forward 12-01, verbo constante). Incontable masc + z -> dello singular.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-026",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "Ho preso ___ libri.",
+        "options": ["dei", "dello", "del", "degli"],
+        "correctIndex": 0,
+        "explanation": "Libri es contable y plural masculino ante consonante simple, así que el partitivo es dei (di + i): dei libri, unos libros. Es el lado contable del par: con el mismo verbo, zucchero (incontable) pedía el singular dello y libri (contable) pide el plural dei. Decide primero si cuentas o mides; eso fija el número antes que la fonética."
+      },
+      "notes": "Par de contraste D-01 (lado contable) con partitivos-025: mismo verbo Ho preso (carry-forward 12-01). Contable masc plural -> dei. La explanation cierra el espejo incontable/contable.",
+      "validation": { "status": "pending", "passes": [] }
+    }
+  ]
+}

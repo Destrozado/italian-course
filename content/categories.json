@@ -7,6 +7,7 @@
     { "id": "sustantivos-irregulares", "name": "Sustantivos irregulares", "order": 5 },
     { "id": "genero-numero",           "name": "Género y número",         "order": 6 },
     { "id": "profesiones",             "name": "Profesiones",             "order": 7 },
-    { "id": "articoli",                "name": "Articoli (artículos)",    "order": 8 }
+    { "id": "articoli",                "name": "Articoli (artículos)",    "order": 8 },
+    { "id": "partitivos",              "name": "Partitivos",              "order": 9 }
   ]
 }
