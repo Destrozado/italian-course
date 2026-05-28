@@ -122,7 +122,7 @@
       "type": "multiple-choice",
       "categoryIds": ["partitivos"],
       "payload": {
-        "prompt": "Ho voglia di ___ pasta al pomodoro.",
+        "prompt": "A pranzo cucino ___ pasta al pomodoro.",
         "options": ["della", "del", "dello", "dei"],
         "correctIndex": 0,
         "explanation": "Pasta es femenino y empieza por consonante (p-), así que el artículo es la y el partitivo della (di + la): della pasta, algo de pasta. El femenino singular ante consonante siempre da della; no le afecta la s impura ni la z, que solo alteran el masculino. Del sería el error de género."
