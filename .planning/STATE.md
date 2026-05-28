@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Más contenido A1 (Articoli + Partitivos)
 status: executing
-last_updated: "2026-05-28T00:54:09.960Z"
+last_updated: "2026-05-28T01:09:23.906Z"
 last_activity: 2026-05-28
 progress:
   total_phases: 4
   completed_phases: 1
   total_plans: 10
-  completed_plans: 7
-  percent: 25
+  completed_plans: 8
+  percent: 80
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -28,11 +28,11 @@ See: `.planning/PROJECT.md` (updated 2026-05-27)
 ## Current Position
 
 Phase: 12 (partitivos) — EXECUTING
-Plan: 3 of 5
+Plan: 4 of 5
 Status: Ready to execute
 Last activity: 2026-05-28
 
-Progress: [███████░░░] 70%
+Progress: [████████░░] 80%
 
 ## Performance Metrics
 
@@ -44,7 +44,7 @@ Progress: [███████░░░] 70%
 | Requisitos v1.0 completos | 62/62 (100%) |
 | Requisitos v1.1 completos | 8/8 (100% — VAL-01..08) |
 | Requisitos v1.2 mapeados | 15/15 (100% — ART-01..08 → Phase 11; PART-01..07 → Phase 12; 0 orphans) |
-| Requisitos v1.2 completos | 9/15 (ART-01..08 → Phase 11 + PART-02 → Phase 12 temario cubiertos) |
+| Requisitos v1.2 completos | 13/15 (ART-01..08 → Phase 11 + PART-02..06 → Phase 12; faltan PART-01 integración→12-04 y PART-07 quórum→12-05) |
 | Ejercicios totales en la app | 328 distribuidos en 8 categorías (todos validated por ≥2 IAs) |
 | Categorías | 8 (Articoli es la 8ª; Partitivos será la 9ª) |
 | Granularidad | coarse |
@@ -63,6 +63,7 @@ Progress: [███████░░░] 70%
 | 11 | 5 | - | - |
 | Phase 12 P01 | 4min | 2 tasks | 1 files |
 | Phase 12 P12-02 | 7min | 3 tasks | 2 files |
+| Phase 12 P12-03 | 2min | 3 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -93,6 +94,7 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - [Phase 12]: CARRY-FORWARD para 12-02/12-03 — los ejercicios de contable PLURAL deben usar un verbo que concuerde en plural (Ci sono / Ho comprato / Ho preso / Vedo...), NUNCA 'C'e ___ [plural]' (c'e es singular; 'C'e dei libri' es agramatical). Mantener el MISMO verbo a ambos lados de un par de contraste incontable-contable (Ho preso del pane / Ho preso dei libri). Surgio al corregir el espejo del temario (commit 9b5a15a, C'e->Ho preso). Preferencia menor: 'un po' d'acqua' elidido > 'un po' di acqua' donde lea natural (ambas validas A1).
 - [Phase 12]: Bloque base multiple-choice de Partitivos (37 ejercicios: del-formas 001-026 incontable/contable + alternativas por restriccion 027-033 + omision 034-037) APROBADO por el autor en checkpoint 12-02 human-verify. El autor-proxy aplico UNA correccion: partitivos-010 reframeado (bug double-di voglia di+della) -> 'A pranzo cucino ___ pasta al pomodoro'. categories.json entry partitivos order 9 anadido en c415487 como deviation Rule-3 (12-04 verifica, NO re-anade).
 - [Phase 12]: CARRY-FORWARD para 12-03 — conteo tras 12-02 = 37; target FINAL N <= 44 (techo verify), asi que 12-03 anade modesto (~1-2 match + ~4-5 PART-05) y FIJA el N. FLAG doble-validez para quorum 12-05: partitivos-034 y 036 (afirmativa omision) marcan ∅ como wrong aunque el partitivo afirmativo es OPCIONAL (Compro pane / Ho amici tambien validos) — implementan D-02 by design, el autor es oraculo (override pedagogia o reformular); negativas 035/037 inequivocas.
+- [Phase 12]: Plan 12-03 FIJA el conteo FINAL N=44 de content/exercises/partitivos.json (37 base + 2 match 038/039 + 5 clasificación PART-05 040-044) — exactamente el techo ≤44 del verify. Match D-08 (pareo por género+disparador+número, NO por raíz; R3 ≥3 distintas; D-66 dups textuales). Clasificación PART-05 con 3 opciones `["partitivo","preposición","artículo determinativo"]` + slot `___` (DEVIATION ACEPTADA: el schema validator `validateMultipleChoicePayload` exige 3-4 opciones + `___`; las 2 opciones literales de D-05 fallarían; modificar el validador sería Rule 4 out-of-scope por ser fase content-only; la 3ª opción es meta-distractor que nombra el `il` dentro de `del`; author proxy ACEPTÓ). NOTA (no defecto): correctIndex=0 en las 42 MC es irrelevante por D-181 (engine permuta opciones con Math.random no-seedable al render; quórum valida en aislamiento). APROBADO checkpoint 12-03 sin cambios de contenido. **12-04 lockstep N=44:** categories.json order 9 YA presente (verificar NO re-añadir, c415487); reporter `run-validation-271.mjs` TOTAL_EXPECTED 328→372 + entry CATEGORIES `{slug:'partitivos',file:'content/exercises/partitivos.json',expected:44}`; test CATEGORIES_WITH_EXPLANATIONS `{file:'content/exercises/partitivos.json',expected:44}`. Commits Task 1 `2cfb6f3`, Task 2 `4c37490`.
 
 ### Pending Todos
 
@@ -124,6 +126,7 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future):
 
 ### Last Session
 
+- **Fecha:** 2026-05-28 — Plan 12-03 completado (continuación tras checkpoint Task 3 human-verify APROBADO sin cambios de contenido): bloque match sustantivo↔forma partitiva (partitivos-038/039, D-08 — pareo por género+disparador+número; 038 5 pares/4 distintos, 039 5 pares/3 distintos; R3 ≥3 distintas + D-66 dups) + bloque clasificación PART-05 partitivo-vs-preposizione articolata (partitivos-040..044, solo formas di-based, sin bridge, explanation remite la función prepositiva a Preposiciones). **FINAL N=44** fijado en `content/exercises/partitivos.json` (42 multiple-choice + 2 match), todos `status: pending`, `categoryIds:["partitivos"]`, ids únicos, fixture validator exit 0. **DEVIATION ACEPTADA (3 opciones en PART-05):** el schema validator `validateMultipleChoicePayload` exige 3-4 opciones + slot `___`; las 2 opciones literales de D-05 fallarían → PART-05 usa 3 opciones `["partitivo","preposición","artículo determinativo"]` (3ª = meta-distractor del `il` dentro de `del`) + arrow convention `___`; modificar el validador sería Rule 4 out-of-scope (fase content-only); author proxy ACEPTÓ. **NOTA (no defecto):** correctIndex=0 en las 42 MC es irrelevante por D-181 (engine permuta opciones con Math.random no-seedable al render; el quórum valida en aislamiento). Commits: Task 1 `2cfb6f3`, Task 2 `4c37490`. PART-05/06 cubiertos. **HANDOFF 12-04 lockstep N=44:** categories.json order 9 YA presente (verificar NO re-añadir, c415487); reporter `run-validation-271.mjs` TOTAL_EXPECTED 328→**372** + entry CATEGORIES `{slug:'partitivos',file:'content/exercises/partitivos.json',expected:44}`; test CATEGORIES_WITH_EXPLANATIONS `{file:'content/exercises/partitivos.json',expected:44}`. **12-05:** los 44 entran al quórum; FLAG doble-validez heredado de 12-02 (034/036 afirmativa-omisión marcan ∅ como wrong, D-02 by design, autor es oráculo; negativas 035/037 inequívocas); match + PART-05 sin flags conocidos. Stopped at: Completed 12-03-PLAN.md. Resume file: None. Siguiente: Plan 12-04 (integración 3-count lockstep N=44).
 - **Fecha:** 2026-05-28 — Plan 12-02 completado (continuación tras checkpoint Task 3 human-verify APROBADO): bloque base multiple-choice de Partitivos en `content/exercises/partitivos.json` — 37 ejercicios (partitivos-001..037), todos `validation.status: "pending"`, `categoryIds:["partitivos"]`, ids únicos, JSON parsea, fixture validator exit 0. Reparto: del-formas 001-026 (incontable del/dello/della/dell' + contable dei/degli/delle, cada forma respuesta correcta en >=1 ejercicio + pares de contraste verbo-constante), alternativas por restricción gramatical 027-033 (qualche+singular / un po' di+incontable / alcuni-alcune+plural), mini-bloque omisión 034-037 (opción literal `∅ / sin partitivo`). Commits: Task 1 `c415487` (+ categories.json entry partitivos order 9, deviation Rule-3), Task 2 `780bf64`, corrección del revisor `e30e225` (partitivos-010 reframeado: bug double-di `voglia di`+`della` → "A pranzo cucino ___ pasta al pomodoro"). PART-03/04/06 cubiertos. **Carry-forward 12-03:** conteo ya en 37 → target FINAL N <= 44 (techo verify), añadir modesto (~1-2 match + ~4-5 PART-05) y FIJAR el N. **FLAG doble-validez para quórum 12-05:** partitivos-034 y 036 (afirmativa omisión) marcan ∅ como wrong aunque el partitivo afirmativo es OPCIONAL (D-02 by design); el autor es oráculo al resolver disputas (negativas 035/037 inequívocas). **12-04:** categories.json entry YA presente (verificar, NO re-añadir) + bump reporter TOTAL_EXPECTED 328+N + línea CATEGORIES_WITH_EXPLANATIONS cuando 12-03 fije N. Stopped at: Completed 12-02-PLAN.md. Resume file: None. Siguiente: Plan 12-03 (match sustantivo↔forma partitiva + clasificación PART-05; fija N final).
 - **Fecha:** 2026-05-28 — Plan 12-01 completado: temario exhaustivo del partitivo redactado (commit `04db148`) y APROBADO por el autor en el checkpoint human-verify. El autor aplicó UNA corrección gramatical antes de aprobar (commit `9b5a15a`): el frame del §Espejo `"C'è ___"` → `"Ho preso ___"` (c'è es singular y produciría el agramatical "C'è dei libri"; "Ho preso dello zucchero / Ho preso dei libri" mantiene el verbo constante y es gramatical). PART-02 satisfecho; orden temario-antes-de-ejercicios verificable en git (no existe `content/exercises/partitivos.json`, D-13). **Carry-forward para 12-02/12-03:** contable plural usa verbo plural (Ci sono / Ho preso / Vedo...), NUNCA "C'è ___ [plural]"; mismo verbo a ambos lados del contraste incontable↔contable. Stopped at: Completed 12-01-PLAN.md. Resume file: None. Siguiente: Plan 12-02 (bloque base multiple-choice: del-formas + alternativas + omisión + explanations).
 - **Fecha:** 2026-05-27 — Plan 11-01 completado: temario exhaustivo de Articoli redactado (commit `74cd086`) y APROBADO por el autor en el checkpoint human-verify sin cambios. ART-02 satisfecho; orden temario-antes-de-ejercicios verificable en git (no existe `content/exercises/articoli.json`). Stopped at: Completed 11-01-PLAN.md. Resume file: None. Siguiente: Plan 11-02 (ejercicios base multiple-choice).
