@@ -1,10 +1,16 @@
 # 12-05 SUMMARY — Validación por quórum cross-vendor (DeepSeek Pro + Opus 4.7)
 
 **Plan:** 12-05
-**Estado:** ⚠ **EJECUTADO con disputed PENDIENTES de resolución del autor.** Plan NO marcado complete hasta que resuelvas los 5.
+**Estado:** ✅ **COMPLETO** — 5 disputed resueltos por el autor (autorizó "aplica los fix necesarios"), gate verde tras re-validate.
 **Pool aplicado (override autorizado de D-10, 2026-05-28):** `deepseek-v4-pro` + `claude-opus-4-7` (verificados en `/models` de DeepSeek; tier completo per D-12).
-**Resultado quórum:** **39 validated / 5 disputed / 0 pending**, todos con ≥2 `by` DISTINTOS cross-vendor (DeepSeek + Anthropic).
-**Gate del milestone:** ROJO — sub-gate VAL-04 PASS, VAL-06 367/372 FAIL, VAL-08 5 disputed FAIL. Esperado hasta resolver los 5.
+**Resultado quórum final:** **43 validated + 1 override autor (036) = 44/44 cerrados, 0 disputed, 0 pending.**
+**Resoluciones aplicadas:**
+- 032/033 → ACCEPT-FIX: distractor `un po' di` reemplazado por `alcuni`/`alcuna` (mantiene patrón de restricción gramatical sin la doble-validez documentada por ambas IAs en italiano coloquial). Re-validate: ambos pases correcta.
+- 036 → OVERRIDE camino-b (D-02 prevalece): entry `by:"autor" verdict:"correcta"` + `status="validated"` literal (bypass deriveStatus per workflow). Razón: el ejercicio entrena a propósito el USO del partitivo en afirmativa (matiz pedagógico clave del bloque omisión); ∅ es gramaticalmente válido pero no es la opción idiomática que D-02 enseña.
+- 041/042 → ACCEPT-FIX SUAVIZADO: explanation reescrita sin voz de curador 1ª persona ("identificamos") ni meta-referencias didácticas ("donde lo practicas a fondo"); se preserva la remisión obligatoria por D-06 a la categoría Preposiciones. Re-validate: ambos pases correcta.
+**Gate del milestone:** ✅ VERDE.
+- Reporter `node scripts/run-validation-271.mjs`: **exit 0** (VAL-04/06/08 todos PASS, 372/372 validated).
+- Smoke `VAL_07_STRICT=1 node --test tests/exercise-types.test.js`: **137/137 pass**, exit 0.
 
 ## Cola de disputed (5 ejercicios — para tu decisión)
 
