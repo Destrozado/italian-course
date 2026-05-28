@@ -337,6 +337,149 @@
       },
       "notes": "Par de contraste D-01 (lado contable) con partitivos-025: mismo verbo Ho preso (carry-forward 12-01). Contable masc plural -> dei. La explanation cierra el espejo incontable/contable.",
       "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-027",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "Ho ancora ___ libro da leggere.",
+        "options": ["qualche", "alcuni", "un po' di", "alcune"],
+        "correctIndex": 0,
+        "explanation": "Qualche significa algunos pero en italiano rige siempre singular: qualche libro, no qualche libri. Como libro está en singular, la única opción válida es qualche. Alcuni exige un plural (alcuni libri), alcune es femenino plural, y un po' di pide un incontable (un po' di pane), no un sustantivo que se cuenta. La restricción gramatical es lo que decide: solo qualche encaja con un contable en singular."
+      },
+      "notes": "Alternativa qualche + SIEMPRE singular (D-03, trampa por restricción). Sustantivo singular contable -> solo qualche válido (alcuni/alcune exigen plural, un po' di exige incontable). Una sola correcta (C2).",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-028",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "C'è ___ problema con la connessione.",
+        "options": ["qualche", "alcuni", "alcune", "un po' di"],
+        "correctIndex": 0,
+        "explanation": "Aunque en español dirías algunos problemas en plural, el italiano usa qualche con el sustantivo en singular: qualche problema. Por eso aquí la forma correcta es qualche, no alcuni (que pediría problemi en plural) ni un po' di (que pide un incontable). El error natural del hispanohablante es calcar el plural; qualche lo bloquea exigiendo siempre el singular."
+      },
+      "notes": "Alternativa qualche + SIEMPRE singular (D-03). Ataca el calco del plural español. Distractora alcuni invalidada por exigir plural; un po' di por exigir incontable. Verbo c'è correcto aquí (problema es singular). Una sola correcta.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-029",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "Conosco ___ ragazza simpatica in classe.",
+        "options": ["qualche", "alcune", "alcuni", "un po' di"],
+        "correctIndex": 0,
+        "explanation": "Ragazza está en singular, y qualche es la única alternativa que rige singular: qualche ragazza. Alcune obligaría al plural (alcune ragazze), alcuni es masculino plural y un po' di pide un incontable. La regla a recordar es que qualche concuerda siempre en singular aunque su significado sea de varios; ese es el rasgo que selecciona la respuesta."
+      },
+      "notes": "Alternativa qualche + SIEMPRE singular (D-03), tercer contexto. Sustantivo femenino singular -> solo qualche (invariable en género, rige singular). Distractoras alcune/alcuni exigen plural, un po' di incontable. Una sola correcta.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-030",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "Vorrei ___ acqua, ho sete.",
+        "options": ["un po' di", "alcuni", "alcune", "qualche"],
+        "correctIndex": 0,
+        "explanation": "Acqua es un incontable (se mide, no se cuenta), y un po' di es la alternativa reservada a los incontables: un po' di acqua, un poco de agua. Alcuni y alcune exigen un plural contable (cosas que se cuentan), y qualche pide un singular contable; ninguno encaja con una masa como el agua. La restricción un po' di solo con incontables es lo que deja una única respuesta válida."
+      },
+      "notes": "Alternativa un po' di + SOLO incontable (D-03, trampa por restricción). Sustantivo incontable -> solo un po' di (alcuni/alcune exigen plural contable, qualche singular contable). Una sola correcta (C2).",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-031",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "Metto ___ zucchero nel tè.",
+        "options": ["un po' di", "alcuni", "alcune", "qualche"],
+        "correctIndex": 0,
+        "explanation": "Zucchero es un incontable, así que la alternativa correcta es un po' di: un po' di zucchero, un poco de azúcar. No diríamos un po' di libri, porque los libros se cuentan; un po' di vale solo para masas. Alcuni y alcune piden plural contable y qualche singular contable, de modo que ninguno sirve con el azúcar. La restricción gramatical selecciona la única opción."
+      },
+      "notes": "Alternativa un po' di + SOLO incontable (D-03), segundo contexto. La explanation marca explícitamente la restricción (no un po' di libri). Distractoras invalidadas por contabilidad. Una sola correcta.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-032",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "Ho comprato ___ mele al mercato.",
+        "options": ["alcune", "qualche", "un po' di", "alcuna"],
+        "correctIndex": 0,
+        "explanation": "Mele es plural y femenino, y alcune es la alternativa que rige plural contable concordando en género: alcune mele, algunas manzanas. Qualche exigiría el singular (qualche mela), un po' di pide un incontable, y alcuna en singular no concuerda con un plural. La restricción alcuni/alcune solo con plurales contables, más la concordancia de género, dejan una sola respuesta."
+      },
+      "notes": "Alternativa alcune + SOLO plural contable (D-03, trampa por restricción) + concordancia de género (fem -> alcune). Distractoras: qualche exige singular, un po' di incontable, alcuna es singular. Una sola correcta (C2).",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-033",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "Ho letto ___ libri molto interessanti.",
+        "options": ["alcuni", "qualche", "un po' di", "alcune"],
+        "correctIndex": 0,
+        "explanation": "Libri es plural y masculino, y alcuni es la alternativa que rige plural contable concordando en masculino: alcuni libri, algunos libros. Qualche pediría el singular (qualche libro), un po' di pide un incontable y alcune es femenino, que no concuerda con libri. La regla de que alcuni/alcune solo van con plurales y deben concordar en género selecciona alcuni."
+      },
+      "notes": "Alternativa alcuni + SOLO plural contable (D-03), concordancia masculina (masc -> alcuni). Distractoras: qualche exige singular, un po' di incontable, alcune es femenino. Una sola correcta.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-034",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "Compro ___ pane.",
+        "options": ["del", "∅ / sin partitivo", "dei", "dello"],
+        "correctIndex": 0,
+        "explanation": "En una frase afirmativa el italiano sí usa el partitivo: compro del pane, compro algo de pan. Aquí está la dificultad real para un hispanohablante, porque en español dirías compro pan, sin nada delante, y la tentación es no poner el partitivo (la opción sin partitivo). El italiano afirmativo, en cambio, pide del: pane es incontable masculino ante consonante, así que del (di + il). Lo difícil no es la negativa, es recordar poner el partitivo en la afirmativa."
+      },
+      "notes": "Omisión D-02 (cara afirmativa: USAR el partitivo). Correcta del; distractora '∅ / sin partitivo' = el error del hispanohablante. Par con partitivos-035 (misma frase en negativa). La explanation insiste en el matiz clave: lo difícil es USAR en afirmativa.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-035",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "Non compro ___ pane.",
+        "options": ["∅ / sin partitivo", "del", "dei", "dello"],
+        "correctIndex": 0,
+        "explanation": "En la frase negativa el italiano omite el partitivo: non compro pane, no compro pan, sin del delante. Por eso la respuesta correcta es sin partitivo. Para un hispanohablante esto sale solo, porque en español también dirías no compro pan. Compáralo con la afirmativa, donde sí hay que poner del (compro del pane): la negativa omite, la afirmativa usa. La parte fácil es esta; la difícil es acordarse de del en la afirmativa."
+      },
+      "notes": "Omisión D-02 (cara negativa: OMITIR el partitivo). Correcta '∅ / sin partitivo'; distractora del = poner el partitivo en negativa (agramatical: nunca 'non compro del pane'). Par con partitivos-034. Trampa canónica #7.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-036",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "Ho ___ amici a Roma.",
+        "options": ["degli", "∅ / sin partitivo", "dei", "delle"],
+        "correctIndex": 0,
+        "explanation": "Afirmativa: el italiano usa el partitivo, ho degli amici, tengo unos amigos. Amici es plural masculino y empieza por vocal, así que el partitivo es degli (di + gli). La tentación del hispanohablante es no poner nada (sin partitivo), porque en español dices tengo amigos a secas. Ahí está la dificultad: la afirmativa pide el partitivo aunque el español no ponga nada."
+      },
+      "notes": "Omisión D-02 (cara afirmativa, contexto contable plural). Correcta degli (di+gli ante vocal); distractora '∅ / sin partitivo' = error del hispanohablante. Par con partitivos-037. Refuerza el matiz: difícil es USAR en afirmativa.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-037",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "Non ho ___ amici a Roma.",
+        "options": ["∅ / sin partitivo", "degli", "dei", "delle"],
+        "correctIndex": 0,
+        "explanation": "Negativa: el partitivo desaparece, non ho amici a Roma, no tengo amigos en Roma, sin degli delante. La respuesta correcta es sin partitivo. Esto coincide con el español (no tengo amigos), así que te resultará natural. La asimetría es la clave: en negativa se omite, en afirmativa se usa (ho degli amici). Reservar la atención para la afirmativa, que es donde el español te traiciona."
+      },
+      "notes": "Omisión D-02 (cara negativa, contexto contable plural). Correcta '∅ / sin partitivo'; distractora degli = poner el partitivo en negativa. Par con partitivos-036. Cierra la asimetría afirmativa/negativa.",
+      "validation": { "status": "pending", "passes": [] }
     }
   ]
 }
