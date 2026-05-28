@@ -6,3 +6,6 @@ scripts/.avere-prefix-snapshot.json
 
 # Claves de API locales (Gemini quorum validator) — NUNCA commitear
 .env
+
+# Material PDF de la profesora — referencia local, no entra al repo
+material-profesora/
