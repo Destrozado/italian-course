@@ -110,7 +110,7 @@ El eje semántico del partitivo (D-01): el MISMO verbo y construcción, distinto
 |------------|-------------------------------|------------------------------|
 | "Ho comprato ___ ___" | pane → del / un po' di | mele → delle / alcune |
 | "Vorrei ___ ___" | acqua → dell' / un po' di | mele → delle / alcune |
-| "C'è ___ ___" | zucchero → dello / un po' di | libri → dei / alcuni |
+| "Ho preso ___ ___" | zucchero → dello / un po' di | libri → dei / alcuni |
 | "Mangio ___ ___" | carne → della / un po' di | amici → (no aplica: amici no se "comen") |
 | "Bevo ___ ___" | vino → del / un po' di | (incontable típico) |
 
