@@ -78,7 +78,7 @@
 - [ ] 12-02-PLAN.md — Bloque base multiple-choice: del-formas incontable/contable + alternativas por restriccion + mini-bloque omision + explanations (PART-03/04/06)
 - [ ] 12-03-PLAN.md — Bloque match sustantivo↔forma partitiva + clasificacion partitivo/preposicion PART-05 + explanations; fija conteo final N (PART-05/06)
 - [ ] 12-04-PLAN.md — Integracion 3-count lockstep: categories.json order 9 + reporter TOTAL_EXPECTED 328+N + test (PART-01)
-- [ ] 12-05-PLAN.md — Validacion por quorum cross-vendor DeepSeek Flash + Sonnet 4.6 (interactivo) + gate verde (PART-07)
+- [ ] 12-05-PLAN.md — Regla de acentos D-135 al prompt C4 (D-11) + validacion por quorum cross-vendor DeepSeek Pro + Opus 4.7 (override autorizado de D-10, 2026-05-28; fallback Flash + Opus; interactivo) + gate verde (PART-07)
 **UI hint**: yes
 
 ## Progress
