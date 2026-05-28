@@ -516,6 +516,71 @@
       },
       "notes": "Match contable plural D-08 (sustantivo<->forma partitiva plural). Columna derecha: dei, degli, delle, degli, delle -> 3 valores DISTINTOS (dei/degli/delle) cumple R3 (>=3). Duplicados textuales intencionales (D-66): degli x2 (studenti vocal-s impura), delle x2 (mele/case fem); el grading consume por índice. DESIGN RULE: el pareo depende de género + disparador fonético + número, NO de raíz (studenti/amici comparten degli por fonética, mele/case comparten delle por género) -> no derivable por root match. Cubre las trampas canónicas #5 (degli ante vocal/s impura) y refuerza el plural. status pending para quórum (D-15).",
       "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-040",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "Ho mangiato del pane. -> Aquí 'del' funciona como ___",
+        "options": ["partitivo", "preposición", "artículo determinativo"],
+        "correctIndex": 0,
+        "explanation": "Aquí del es partitivo: del pane significa algo de pan, una cantidad indeterminada de un incontable. La prueba es que puedes parafrasearlo como un poco de pan sin cambiar el sentido. La misma forma del existe también con función prepositiva (di + il = de el), pero ese uso se estudia y practica en la categoría Preposiciones, no aquí; en Partitivos solo lo contrastamos para que no confundas las dos funciones de una forma idéntica."
+      },
+      "notes": "Clasificación PART-05 (D-05). Función PARTITIVA: 'del pane' = algo de pan (incontable masc consonante -> del). Forma di-based (D-06). correctIndex 0 = 'partitivo'. Distractora 'artículo determinativo' = error de ver solo el il dentro de del e ignorar el di. Grading por índice, una sola correcta. La explanation remite la función prepositiva a Preposiciones sin re-enseñarla (criterio 3 ROADMAP). status pending para quórum.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-041",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "Il sapore del caffè è intenso. -> Aquí 'del' funciona como ___",
+        "options": ["preposición", "partitivo", "artículo determinativo"],
+        "correctIndex": 0,
+        "explanation": "Aquí del NO es partitivo: del caffè significa del café, es la preposición di fundida con il (de el) que une dos sustantivos, el sabor de el café. No puedes parafrasearlo como algo de café sin romper el sentido. Esta es la preposizione articolata, y su uso pertenece a la categoría Preposiciones, donde lo practicas a fondo; en Partitivos solo lo identificamos para distinguirlo del partitivo, que comparte exactamente la misma forma del."
+      },
+      "notes": "Clasificación PART-05 (D-05). Función PREPOSITIVA: 'il sapore del caffè' = el sabor de el café (complemento del nombre, relación). Forma di-based (D-06). correctIndex 0 = 'preposición'. La función prepositiva vive en Preposiciones (categoryIds solo partitivos, sin bridge, D-06/D-14); aquí solo se clasifica/contrasta, no se re-enseña ni se duplica preposiciones.json. status pending para quórum.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-042",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "Stamattina ho comprato delle mele. -> Aquí 'delle' funciona como ___",
+        "options": ["partitivo", "preposición", "artículo determinativo"],
+        "correctIndex": 0,
+        "explanation": "Aquí delle es partitivo: delle mele significa unas manzanas, una cantidad indeterminada de un contable en plural. La prueba es que equivale a algunas manzanas (alcune mele). La misma forma delle puede aparecer con función prepositiva (di + le = de las), pero ese uso se trabaja en la categoría Preposiciones; en Partitivos solo lo contrastamos para que reconozcas cuándo delle es algo de y cuándo es de las."
+      },
+      "notes": "Clasificación PART-05 (D-05). Función PARTITIVA: 'delle mele' = unas manzanas (contable fem plural -> delle). Forma di-based (D-06). correctIndex 0 = 'partitivo'. Refuerza la cara contable del eje D-01 dentro de la clasificación. La explanation remite la función prepositiva a Preposiciones sin re-enseñarla. status pending para quórum.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-043",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "La casa del nonno è in campagna. -> Aquí 'del' funciona como ___",
+        "options": ["preposición", "partitivo", "artículo determinativo"],
+        "correctIndex": 0,
+        "explanation": "Aquí del es preposición: del nonno significa del abuelo, la preposición di + il (de el) que expresa pertenencia, la casa de el abuelo. No significa algo de abuelo, así que no es partitivo. Es la preposizione articolata, cuyo uso pleno se estudia en la categoría Preposiciones; en Partitivos solo la identificamos para separarla del partitivo, que tiene idéntica forma del pero significa una cantidad indeterminada."
+      },
+      "notes": "Clasificación PART-05 (D-05). Función PREPOSITIVA: 'la casa del nonno' = la casa de el abuelo (pertenencia). Forma di-based (D-06). correctIndex 0 = 'preposición'. Par de contraste con partitivos-040 (misma forma del, distinta función). La función prepositiva vive en Preposiciones (sin bridge, D-06/D-14); aquí solo se contrasta. status pending para quórum.",
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "partitivos-044",
+      "type": "multiple-choice",
+      "categoryIds": ["partitivos"],
+      "payload": {
+        "prompt": "A cena bevo sempre dell'acqua. -> Aquí 'dell'' funciona como ___",
+        "options": ["partitivo", "preposición", "artículo determinativo"],
+        "correctIndex": 0,
+        "explanation": "Aquí dell' es partitivo: dell'acqua significa algo de agua, una cantidad indeterminada de un incontable, equivalente a un po' d'acqua. La elisión dell' (di + l') aparece ante vocal. La misma forma puede tener uso prepositivo (el color de el agua, il colore dell'acqua), pero esa función pertenece a la categoría Preposiciones; en Partitivos solo la contrastamos para que distingas algo de agua (partitivo) de de el agua (preposición)."
+      },
+      "notes": "Clasificación PART-05 (D-05). Función PARTITIVA: 'dell'acqua' = algo de agua (incontable + elisión ante vocal -> dell'). Forma di-based con elisión (D-06). correctIndex 0 = 'partitivo'. Apóstrofe ASCII U+0027 en dell'. La explanation remite la función prepositiva a Preposiciones sin re-enseñarla. status pending para quórum.",
+      "validation": { "status": "pending", "passes": [] }
     }
   ]
 }
