@@ -162,16 +162,19 @@ For Partitivos match (D-08): pairs = sustantivo↔forma partitiva, e.g.
 "validation": {
   "status": "validated",
   "passes": [
-    { "by": "deepseek-v4-flash",  "date": "<YYYY-MM-DD>", "verdict": "correcta", "concerns": [] },
-    { "by": "claude-sonnet-4-6",  "date": "<YYYY-MM-DD>", "verdict": "correcta", "concerns": [] }
+    { "by": "deepseek-v4-pro",  "date": "<YYYY-MM-DD>", "verdict": "correcta", "concerns": [] },
+    { "by": "claude-opus-4-7",  "date": "<YYYY-MM-DD>", "verdict": "correcta", "concerns": [] }
   ]
 }
 ```
 
 > DIFF vs analog `by[]`: Articoli used `deepseek-v4-flash` + `claude-opus-4-7`. Phase 12
-> quorum pool is **`deepseek-v4-flash` + `claude-sonnet-4-6`** (D-10). The `by` field MUST
-> carry the model tier, never a bare vendor key like `"deepseek"` (D-12 invariant). Two
-> distinct `by` values → `deriveStatus` returns `validated` (CONTEXT.md §Established Patterns).
+> quorum pool is **`deepseek-v4-pro` + `claude-opus-4-7`** — author-authorized override of
+> D-10 (2026-05-28; D-10 originally specified Flash + Sonnet 4.6). Exact DeepSeek Pro
+> model-id resolved at execution (`by` records the model that actually answered); fallback
+> = Flash + Opus. The `by` field MUST carry the model tier, never a bare vendor key like
+> `"deepseek"` (D-12 invariant). Two distinct `by` values → `deriveStatus` returns
+> `validated` (CONTEXT.md §Established Patterns).
 > Author-written exercises start `status: "pending"` (or omit passes) until the quorum runs (D-15);
 > only commit `validated` after >=2 distinct `by` pass.
 
@@ -313,7 +316,7 @@ apostrophe/plain-text invariant block (line 1393, comment "reutiliza el array
 **Apply to:** every exercise object in `partitivos.json`.
 - `status` ∈ `pending` | `validated` | `disputed`; written value, but `deriveStatus(passes)` is the source of truth (`src/data/validation-state.js`).
 - `validated` requires **>=2 distinct `by`** (CONTEXT.md §Established Patterns).
-- Phase 12 `by` pool = `deepseek-v4-flash` + `claude-sonnet-4-6` (D-10), each WITH tier (D-12).
+- Phase 12 `by` pool = `deepseek-v4-pro` + `claude-opus-4-7` (author-authorized override of D-10, 2026-05-28; was Flash + Sonnet 4.6), each WITH tier (D-12). Exact Pro id resolved at execution; fallback Flash + Opus.
 - `concerns: []` when clean.
 
 ### S2. Explanation canon (español acentuado + italianismos + ASCII `'` + plain text + no internal refs)
