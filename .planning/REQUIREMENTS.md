@@ -23,10 +23,10 @@ Requisitos de este milestone. Cada uno mapea a una fase del roadmap.
 
 - [ ] **PART-01**: La categoría "Partitivos" existe en `content/categories.json` y carga en la app como 9ª categoría
 - [x] **PART-02**: Temario exhaustivo del partitivo documentado ANTES de redactar ejercicios — formas `del/dello/della/dell'/dei/degli/delle` + alternativas `alcuni/qualche/un po' di` + omisión en negativas
-- [ ] **PART-03**: Ejercicios cubren cada forma del partitivo (singular `del/dello/della/dell'` y plural `dei/degli/delle`)
-- [ ] **PART-04**: Ejercicios cubren las alternativas partitivas (`alcuni/alcune`, `qualche` + singular, `un po' di` con incontables)
+- [x] **PART-03**: Ejercicios cubren cada forma del partitivo (singular `del/dello/della/dell'` y plural `dei/degli/delle`)
+- [x] **PART-04**: Ejercicios cubren las alternativas partitivas (`alcuni/alcune`, `qualche` + singular, `un po' di` con incontables)
 - [ ] **PART-05**: Ejercicios ejercitan la distinción función partitiva ("algo de") vs preposizione articolata ("de el") — comparten forma `del/della`, distinto uso
-- [ ] **PART-06**: Cada ejercicio de Partitivos tiene explanation pedagógica curada (mismo canon que ART-07)
+- [x] **PART-06**: Cada ejercicio de Partitivos tiene explanation pedagógica curada (mismo canon que ART-07)
 - [ ] **PART-07**: Todos los ejercicios de Partitivos validados por quórum ≥2 IAs distintas (`status: validated` con ≥2 `by` distintos en `passes[]`)
 
 ## Future Requirements (deferred)
@@ -69,10 +69,10 @@ Excluido explícitamente para prevenir scope creep.
 | ART-08 | Phase 11 | Complete |
 | PART-01 | Phase 12 | Pending |
 | PART-02 | Phase 12 | Complete |
-| PART-03 | Phase 12 | Pending |
-| PART-04 | Phase 12 | Pending |
+| PART-03 | Phase 12 | Complete |
+| PART-04 | Phase 12 | Complete |
 | PART-05 | Phase 12 | Pending |
-| PART-06 | Phase 12 | Pending |
+| PART-06 | Phase 12 | Complete |
 | PART-07 | Phase 12 | Pending |
 
 **Coverage:**
