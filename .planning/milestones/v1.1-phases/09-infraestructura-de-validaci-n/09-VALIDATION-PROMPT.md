@@ -135,6 +135,8 @@ Distractoras plausibles (errores típicos hispanohablante) y, en match exercises
 
 La `payload.explanation` (si existe) está enfocada al alumno, no al curador. Sin `#NNN` / `mc-NNN` / `(#NNN)` (R2: NO refs internas por ID). Sin meta-staging tipo `"Cierra la serie X"`, `"Completa el patrón"`, `"Cierra la familia"` (R4: NO notas de curador). Empieza con regla o contraste; gotcha/contraste opcionales pero recomendados. Cross-refs sin ID (ej. `"mismo patrón que cuoco→cuochi"`) son válidas.
 
+**Canon ortográfico de acentos (D-135 — verificación OBLIGATORIA de C4):** la `explanation` debe usar español correctamente acentuado según la RAE (tildes en á/é/í/ó/ú y la ñ donde corresponda). Marca C4 violado SOLO si encuentras una tilde GENUINAMENTE ausente o mal puesta — cita la palabra mal escrita EXACTAMENTE como aparece en el texto. IMPORTANTE para evitar falsos positivos: verifica carácter a carácter ANTES de objetar; NO reportes como error una palabra que YA lleva su tilde correcta (si el texto dice `artículo`, `sería`, `elisión` con su tilde, están BIEN — no los marques). Los italianismos citados PRESERVAN su ortografía italiana (`caffè`, `perché`, `città`) — no se castellanizan. Apóstrofes siempre ASCII U+0027 (`dell'`, `un po' di`), nunca tipográficos. Esta comprobación forma parte SIEMPRE de C4 para AMBAS IAs del quórum.
+
 ### C5 leak
 
 **Cero leak** de regla o solución en `payload.prompt`. Si encuentras `(refuerzo regla §N)`, `(combina §N)`, `(grupo -X→-Y)`, `(familia §N)`, `(D-NN ...)`, `§\d+`, transformaciones `-x→-y`, anotaciones tipo `— atención: NO sigue el patrón`, marcas etiquetas neutras genero-redundantes (`(masc)` cuando el artículo ya lo desambigua) → C5 false. Si el prompt es solo la frase italiana + el blank → C5 true.
