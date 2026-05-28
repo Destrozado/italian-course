@@ -1271,7 +1271,8 @@ const CATEGORIES_WITH_EXPLANATIONS = [
   { file: 'content/exercises/essere.json', expected: 39 },
   { file: 'content/exercises/profesiones.json', expected: 51 },
   { file: 'content/exercises/articoli.json', expected: 56 },
-  // Cobertura editorial: 272/272 v1.0/v1.1 + 56 articoli (8ª categoría, v1.2 Phase 11) = 328 con explanation curada.
+  { file: 'content/exercises/partitivos.json', expected: 44 },
+  // Cobertura editorial: 272/272 v1.0/v1.1 + 56 articoli (8ª categoría, v1.2 Phase 11) + 44 partitivos (9ª categoría, v1.2 Phase 12) = 372 con explanation curada.
 ];
 
 describe('Categorías con explanation coverage (Phase 7.1+)', () => {
