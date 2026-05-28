@@ -19,10 +19,16 @@
       },
       "notes": "Incontable masc + consonante simple -> del (di + il), disparador heredado de Articoli (celda del/consonante). Distractoras dello/della/dell' = errores ante otros disparadores. Espejo D-01 con partitivos-014.",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -49,10 +55,16 @@
       },
       "notes": "Incontable masc + consonante simple -> del (di + il), celda del/consonante con segundo contexto léxico (densidad D-09). Distractora dei tienta el salto a plural sin que el sustantivo sea contable.",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -79,10 +91,16 @@
       },
       "notes": "Incontable masc + consonante simple -> del. Trampa de género: latte termina en -e pero es masculino. Distractora della = error de género.",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -109,10 +127,16 @@
       },
       "notes": "Incontable masc + consonante simple -> del. Cuarto contexto de la celda del (densidad D-09). Distractora dei = error de número.",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -139,10 +163,16 @@
       },
       "notes": "Incontable masc + z -> dello (di + lo), disparador heredado de Articoli. Trampa canónica del temario (#6). Distractora del = error por ignorar la s impura/z.",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -169,10 +199,16 @@
       },
       "notes": "Incontable masc + z -> dello (di + lo). Segundo contexto de la celda dello (densidad D-09). Distractora del = error ante z.",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -199,10 +235,16 @@
       },
       "notes": "Incontable masc + s impura -> dello (di + lo). Tercer contexto de la celda dello (s+consonante, densidad D-09). Distractora del = error ante s impura.",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -229,10 +271,16 @@
       },
       "notes": "Incontable fem + consonante -> della (di + la). Celda della. Distractora del = error de género.",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -259,10 +307,16 @@
       },
       "notes": "Incontable fem + consonante -> della. Frutta tratada como masa (incontable singular). Distractora delle = error de número/contabilidad.",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -289,10 +343,16 @@
       },
       "notes": "Incontable fem + consonante -> della. Tercer contexto de la celda della (densidad D-09). Distractora del = error de género.",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -319,10 +379,16 @@
       },
       "notes": "Incontable + vocal -> dell' (di + l'), elisión obligatoria. Trampa canónica del temario (#4). Distractora della = error por no elidir ante vocal.",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -349,10 +415,16 @@
       },
       "notes": "Incontable masc + vocal -> dell' (di + l'), elisión. Segundo contexto de la celda dell' con sustantivo masculino (densidad D-09). Distractora del = error por no elidir.",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -379,10 +451,16 @@
       },
       "notes": "Incontable + vocal -> dell' (di + l'), elisión. Tercer contexto de la celda dell' (densidad D-09). Distractora del = error por no elidir.",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -409,10 +487,16 @@
       },
       "notes": "Contable masc plural + consonante -> dei (di + i). Celda dei. Distractora del = error de número (singular).",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -439,10 +523,16 @@
       },
       "notes": "Contable masc plural + consonante -> dei (di + i). Segundo contexto de la celda dei (densidad D-09). Distractora degli = error ante consonante simple.",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -469,10 +559,16 @@
       },
       "notes": "Contable masc plural + consonante -> dei (di + i). Tercer contexto de la celda dei (densidad D-09). Distractora degli = error de disparador.",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -499,10 +595,16 @@
       },
       "notes": "Contable masc plural + s impura -> degli (di + gli). Trampa canónica del temario (#5). Distractora dei = error ante s impura. Verbo plural ci sono (carry-forward 12-01).",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -529,10 +631,16 @@
       },
       "notes": "Contable masc plural + vocal -> degli (di + gli). Trampa canónica del temario (#5). Distractora dei = error ante vocal. Verbo concordado vedo (carry-forward 12-01).",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -559,10 +667,16 @@
       },
       "notes": "Contable masc plural + z -> degli (di + gli). Tercer contexto de la celda degli (densidad D-09). Distractora dei = error ante z. Verbo plural vengono.",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -589,10 +703,16 @@
       },
       "notes": "Contable fem plural -> delle (di + le), forma invariable. Celda delle. Distractora della = error de número (singular).",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -619,10 +739,16 @@
       },
       "notes": "Contable fem plural -> delle. Segundo contexto de la celda delle (densidad D-09). Distractora della = error de número. Verbo plural ci sono.",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -649,10 +775,16 @@
       },
       "notes": "Contable fem plural + vocal -> delle (invariable, sin elisión). Tercer contexto de la celda delle (densidad D-09). Distractora degli = error de género (degli es masculino).",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -679,10 +811,16 @@
       },
       "notes": "Par de contraste D-01 (lado incontable) con partitivos-024: mismo verbo Ho comprato. Incontable masc -> del singular. Distractora dei = el salto a contable que el espejo enseña a NO dar aquí.",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -709,10 +847,16 @@
       },
       "notes": "Par de contraste D-01 (lado contable) con partitivos-023: mismo verbo Ho comprato. Contable fem plural -> delle. La explanation enseña que contable/incontable decide singular vs plural. Distractora del = el error de quedarse en singular.",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -739,10 +883,16 @@
       },
       "notes": "Par de contraste D-01 (lado incontable) con partitivos-026: mismo verbo Ho preso (carry-forward 12-01, verbo constante). Incontable masc + z -> dello singular.",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -769,10 +919,16 @@
       },
       "notes": "Par de contraste D-01 (lado contable) con partitivos-025: mismo verbo Ho preso (carry-forward 12-01). Contable masc plural -> dei. La explanation cierra el espejo incontable/contable.",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -799,10 +955,16 @@
       },
       "notes": "Alternativa qualche + SIEMPRE singular (D-03, trampa por restricción). Sustantivo singular contable -> solo qualche válido (alcuni/alcune exigen plural, un po' di exige incontable). Una sola correcta (C2).",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -829,10 +991,16 @@
       },
       "notes": "Alternativa qualche + SIEMPRE singular (D-03). Ataca el calco del plural español. Distractora alcuni invalidada por exigir plural; un po' di por exigir incontable. Verbo c'è correcto aquí (problema es singular). Una sola correcta.",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -859,10 +1027,16 @@
       },
       "notes": "Alternativa qualche + SIEMPRE singular (D-03), tercer contexto. Sustantivo femenino singular -> solo qualche (invariable en género, rige singular). Distractoras alcune/alcuni exigen plural, un po' di incontable. Una sola correcta.",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -889,10 +1063,16 @@
       },
       "notes": "Alternativa un po' di + SOLO incontable (D-03, trampa por restricción). Sustantivo incontable -> solo un po' di (alcuni/alcune exigen plural contable, qualche singular contable). Una sola correcta (C2).",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -919,10 +1099,16 @@
       },
       "notes": "Alternativa un po' di + SOLO incontable (D-03), segundo contexto. La explanation marca explícitamente la restricción (no un po' di libri). Distractoras invalidadas por contabilidad. Una sola correcta.",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -958,6 +1144,14 @@
             "concerns": [
               "[C2-una_opcion] El prompt 'Ho comprato ___ mele al mercato' admite tanto 'alcune' como 'un po' di' como opciones gramaticalmente válidas. Aunque la nota editorial clasifica 'un po' di' como exclusivo para incontables, en el italiano moderno 'un po' di mele' es una construcción natural y frecuente — el alumno podría elegir la opción 2 y recibir un fallo injusto, violando R7."
             ]
+          },
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-28",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C2-una_opcion] 'un po' di mele' es italiano gramaticalmente válido y de uso natural en registro coloquial/estandar — significa 'unas pocas manzanas'. Aunque los textos A1/A2 enseñan 'un po' di' como restringido a incontables, en la práctica del italiano real 'un po' di + plural contable' es aceptado (cf. Treccani, Serianni). 'Ho comprato un po' di mele al mercato' es una frase que un nativo diría sin reservas. Sin contexto desambiguador que fuerce 'alcune' frente a 'un po' di', el prompt admite dos opciones válidas, violando R7. Fix sugerido: cambiar el sustantivo a un incontable claramente plural-only o añadir contexto numérico (ej. 'Ho comprato ___ mele, almeno una decina' que sugiere conteo) que descarte el matiz de 'un po' di'."
+            ]
           }
         ]
       }
@@ -990,6 +1184,12 @@
             "concerns": [
               "[C2-una_opcion] 'un po' di libri' es una construcción italiana perfectamente válida y natural para expresar 'algunos libros', por lo que el prompt admite al menos dos opciones correctas: 'alcuni' y 'un po' di'. Esto viola R7 (una sola opción válida). Para corregir, se debe añadir contexto que descarte una de las lecturas o eliminar 'un po' di' como distractor (p.ej., cambiar la frase a algo como 'Ho letto ___ libri che mi hai consigliato' donde 'alcuni' es más natural, o usar 'un po' di' como opción incorrecta en otro contexto)."
             ]
+          },
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
           }
         ]
       }
@@ -1013,10 +1213,16 @@
       },
       "notes": "Omisión D-02 (cara afirmativa: USAR el partitivo). Correcta del; distractora '∅ / sin partitivo' = el error del hispanohablante. Par con partitivos-035 (misma frase en negativa). La explanation insiste en el matiz clave: lo difícil es USAR en afirmativa.",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -1043,10 +1249,16 @@
       },
       "notes": "Omisión D-02 (cara negativa: OMITIR el partitivo). Correcta '∅ / sin partitivo'; distractora del = poner el partitivo en negativa (agramatical: nunca 'non compro del pane'). Par con partitivos-034. Trampa canónica #7.",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -1082,6 +1294,12 @@
             "concerns": [
               "[C2-una_opcion] La opción '∅ / sin partitivo' completa el prompt como 'Ho amici a Roma', oración gramaticalmente válida en italiano. El partitivo afirmativo con nombres contables plurales es a menudo omisible sin producir agramaticalidad. Esto introduce ambigüedad, ya que existe más de una opción que genera italiano correcto, violando R7. Para corregir: añadir contexto que fuerce la lectura partitiva, por ejemplo: 'Ho ___ amici a Roma, quasi dieci' (donde la cantidad 'casi diez' exige el partitivo/unos) o reformular a 'Ho ___ amici a Roma che mi vogliono bene' donde el partitivo es más esperable."
             ]
+          },
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
           }
         ]
       }
@@ -1105,10 +1323,16 @@
       },
       "notes": "Omisión D-02 (cara negativa, contexto contable plural). Correcta '∅ / sin partitivo'; distractora degli = poner el partitivo en negativa. Par con partitivos-036. Cierra la asimetría afirmativa/negativa.",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -1150,10 +1374,16 @@
       },
       "notes": "Match incontable D-08 (sustantivo<->forma partitiva singular). Columna derecha: del, dello, dell', del, della -> 4 valores DISTINTOS (del/dello/dell'/della) cumple R3 (>=3). UN duplicado textual intencional (D-66): del aparece en pane y vino; el grading consume por índice. DESIGN RULE: el pareo depende de género + disparador fonético + número, NO de raíz compartida (pane/vino comparten del por fonética, no por raíz) -> no derivable por root match. status pending para quórum (D-15).",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -1195,10 +1425,16 @@
       },
       "notes": "Match contable plural D-08 (sustantivo<->forma partitiva plural). Columna derecha: dei, degli, delle, degli, delle -> 3 valores DISTINTOS (dei/degli/delle) cumple R3 (>=3). Duplicados textuales intencionales (D-66): degli x2 (studenti vocal-s impura), delle x2 (mele/case fem); el grading consume por índice. DESIGN RULE: el pareo depende de género + disparador fonético + número, NO de raíz (studenti/amici comparten degli por fonética, mele/case comparten delle por género) -> no derivable por root match. Cubre las trampas canónicas #5 (degli ante vocal/s impura) y refuerza el plural. status pending para quórum (D-15).",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -1224,10 +1460,16 @@
       },
       "notes": "Clasificación PART-05 (D-05). Función PARTITIVA: 'del pane' = algo de pan (incontable masc consonante -> del). Forma di-based (D-06). correctIndex 0 = 'partitivo'. Distractora 'artículo determinativo' = error de ver solo el il dentro de del e ignorar el di. Grading por índice, una sola correcta. La explanation remite la función prepositiva a Preposiciones sin re-enseñarla (criterio 3 ROADMAP). status pending para quórum.",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -1262,6 +1504,12 @@
             "concerns": [
               "[C4-explanation] La explanation contiene meta-staging editorial del curador: 'y su uso pertenece a la categoría Preposiciones, donde lo practicas a fondo; en Partitivos solo lo identificamos para distinguirlo del partitivo'. Esto explica al alumno la organización interna de la herramienta (categorías, qué se hace en cada una), usando voz de primera persona plural ('identificamos') propia del curador. Viola R4: la explanation debe centrarse en la regla gramatical y el contraste pedagógico, no en comentar la estructura de categorías de la app. La primera mitad de la explanation ('Aquí del NO es partitivo...') es correcta; bastaría con eliminar las dos frases finales de meta-staging para cumplir C4."
             ]
+          },
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
           }
         ]
       }
@@ -1293,6 +1541,12 @@
             "concerns": [
               "[C4-explanation] La explanation contiene meta-staging editorial del curador: 'ese uso se trabaja en la categoría Preposiciones; en Partitivos solo lo contrastamos para que reconozcas cuándo delle es algo de y cuándo es de las'. Esto explica la organización interna del currículum (R4), no aporta valor pedagógico al alumno. La explanation debería centrarse en la regla del partitivo y el contraste con la función prepositiva sin referirse a cómo está organizado el contenido en categorías."
             ]
+          },
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
           }
         ]
       }
@@ -1315,10 +1569,16 @@
       },
       "notes": "Clasificación PART-05 (D-05). Función PREPOSITIVA: 'la casa del nonno' = la casa de el abuelo (pertenencia). Forma di-based (D-06). correctIndex 0 = 'preposición'. Par de contraste con partitivos-040 (misma forma del, distinta función). La función prepositiva vive en Preposiciones (sin bridge, D-06/D-14); aquí solo se contrasta. status pending para quórum.",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
@@ -1344,10 +1604,16 @@
       },
       "notes": "Clasificación PART-05 (D-05). Función PARTITIVA: 'dell'acqua' = algo de agua (incontable + elisión ante vocal -> dell'). Forma di-based con elisión (D-06). correctIndex 0 = 'partitivo'. Apóstrofe ASCII U+0027 en dell'. La explanation remite la función prepositiva a Preposiciones sin re-enseñarla. status pending para quórum.",
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
             "date": "2026-05-28",
             "verdict": "correcta",
             "concerns": []
