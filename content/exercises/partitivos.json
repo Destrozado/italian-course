@@ -1135,8 +1135,21 @@
       },
       "notes": "Alternativa alcune + SOLO plural contable (D-03, trampa por restricción) + concordancia de género (fem -> alcune). Distractoras: qualche exige singular, alcuni es masculino, alcuna es singular fem. Una sola correcta (C2). Distractor 'un po' di' reemplazado tras quórum 2026-05-28 — doble-validez con plural contable en italiano coloquial (Opus+DeepSeek joint flag).",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
@@ -1158,8 +1171,21 @@
       },
       "notes": "Alternativa alcuni + SOLO plural contable (D-03), concordancia masculina (masc -> alcuni). Distractoras: qualche exige singular, alcune es femenino, alcuna es singular fem. Una sola correcta. Distractor 'un po' di' reemplazado tras quórum 2026-05-28 — coherente con fix de 032.",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
@@ -1471,8 +1497,21 @@
       },
       "notes": "Clasificación PART-05 (D-05). Función PREPOSITIVA: 'il sapore del caffè' = el sabor de el café (complemento del nombre, relación). Forma di-based (D-06). correctIndex 0 = 'preposición'. La función prepositiva vive en Preposiciones (categoryIds solo partitivos, sin bridge, D-06/D-14); aquí solo se clasifica/contrasta, no se re-enseña ni se duplica preposiciones.json. status pending para quórum.",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
@@ -1493,8 +1532,21 @@
       },
       "notes": "Clasificación PART-05 (D-05). Función PARTITIVA: 'delle mele' = unas manzanas (contable fem plural -> delle). Forma di-based (D-06). correctIndex 0 = 'partitivo'. Refuerza la cara contable del eje D-01 dentro de la clasificación. La explanation remite la función prepositiva a Preposiciones sin re-enseñarla. status pending para quórum.",
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-v4-pro",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
