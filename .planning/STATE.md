@@ -32,6 +32,12 @@ Plan: —
 Status: Awaiting next milestone
 Last activity: 2026-05-28 — Milestone v1.2 completed and archived
 
+## Quick Tasks Completed
+
+| Fecha | Quick ID | Tarea | Resultado |
+|-------|----------|-------|-----------|
+| 2026-05-29 | 260529-c35 | Añadir y validar `preposiciones-052` ("Passo da te alle otto") — `da` simple = "en casa de", excepción idiomática A1 | `validated` (quórum Opus 4.8 + Sonnet 4.6, ambas `correcta`); 275 tests PASS; reporter gate PASS (373/373) |
+
 ## Performance Metrics
 
 | Métrica | Valor |

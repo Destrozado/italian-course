@@ -968,6 +968,25 @@
           { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
         ]
       }
+    },
+    {
+      "id": "preposiciones-052",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "payload": {
+        "prompt": "Passo ___ te alle otto. (en español: 'Paso por tu casa a las ocho')",
+        "options": ["a", "per", "da", "in"],
+        "correctIndex": 2,
+        "explanation": "Con personas la preposición Da significa 'a casa de' o 'en casa de': Passo da te equivale a 'paso por tu casa'. El mismo patrón vale para da Maria (en casa de María) o dal medico (en la consulta del médico). Es una excepción idiomática del italiano que se aprende de memoria. Cuidado: el hispanohablante calca 'por tu casa' y se inclina por Per, pero para ir o estar adonde está alguien el italiano usa siempre Da, nunca Per ni A."
+      },
+      "notes": "Preposición simple 'da' = 'a/en casa de' con personas (da te / da Maria / dal medico). Excepción idiomática A1 que la profesora indicó aprender de memoria. Complementa preposiciones-040 (dai cugini) y preposiciones-042 (dalle zie), que cubren da+articolata; este cubre da+pronombre tónico simple. Prompt con gloss español objetivo ('paso por tu casa') = técnica estrella anti-doble-validez R7 (da vs per): el hispanohablante calca 'por'->per; el gloss fija el significado 'en casa de', que solo 'da' expresa, sin filtrar la regla (no viola R1/C5). Mismo patrón de gloss validado en preposiciones-051.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          { "by": "claude-opus-4-8", "date": "2026-05-29", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-29", "verdict": "correcta", "concerns": [] }
+        ]
+      }
     }
   ]
 }

@@ -1263,7 +1263,7 @@ describe('validation-state — deriveStatus (Phase 9 D-VAL-07)', () => {
 //   3. plain text sin markdown markers (T-02-01 anti-XSS — los tokens **/__/##/` no se interpretan)
 
 const CATEGORIES_WITH_EXPLANATIONS = [
-  { file: 'content/exercises/preposiciones.json', expected: 51 },
+  { file: 'content/exercises/preposiciones.json', expected: 52 },
   { file: 'content/exercises/genero-numero.json', expected: 40 },
   { file: 'content/exercises/avere.json', expected: 23 },
   { file: 'content/exercises/sustantivos-irregulares.json', expected: 31 },
