@@ -81,7 +81,7 @@ Numeración CONTINÚA desde Phase 14 → Phases 15-17 (NO reset — mismo criter
   4. Tras la migración `5→6` (`migrate5to6` + `hydrateV6`, idempotente + deep-clone defensivo) el state arranca limpio y `backup.js` exporta/importa round-trip en v6.
   5. Las 8 categorías no-piloto siguen cargando y funcionando sin re-autoría — cada ejercicio actual se interpreta como 1 slot de 1 variante (backward-compat verificable: la app arranca con las 9 categorías visibles como hoy).
 **Plans**: 3 plans
-  - [ ] 15-01-PLAN.md — Validator slot+variantes (payload XOR variants[]) + loader slotById (SLOT-01/02/03/04/06)
+  - [x] 15-01-PLAN.md — Validator slot+variantes (payload XOR variants[]) + loader slotById (SLOT-01/02/03/04/06)
   - [ ] 15-02-PLAN.md — Migración schemaVersion 5→6 (migrate5to6/hydrateV6) + backup.js round-trip v6 (SLOT-05)
   - [ ] 15-03-PLAN.md — Integración end-to-end + back-compat de las 9 categorías + checkpoint booteo (SLOT-01/03/06)
 
@@ -119,7 +119,7 @@ Numeración CONTINÚA desde Phase 14 → Phases 15-17 (NO reset — mismo criter
 | 9-10 | v1.1 | 8/8 | Complete | 2026-05-27 |
 | 11-12 | v1.2 | 10/10 | Complete | 2026-05-28 |
 | 13-14 | v1.3 | 3/3 | Complete | 2026-06-02 |
-| 15. Modelo de datos slot+variantes | v1.4 | 0/3 | Not started | - |
+| 15. Modelo de datos slot+variantes | v1.4 | 1/3 | In Progress|  |
 | 16. Motor de examen por slots | v1.4 | 0/? | Not started | - |
 | 17. Piloto Preposiciones (contenido) | v1.4 | 0/? | Not started | - |
 

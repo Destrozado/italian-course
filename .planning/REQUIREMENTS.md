@@ -9,12 +9,12 @@
 
 ### Modelo de datos slot+variantes (SLOT)
 
-- [ ] **SLOT-01**: El contenido define *slots*, donde cada slot representa una regla y contiene 1..N *variantes* intercambiables (cada variante = un payload jugable completo según el tipo: multiple-choice / word-buttons / match).
-- [ ] **SLOT-02**: La explicación pedagógica vive a nivel de slot (compartida por todas sus variantes), no por variante.
-- [ ] **SLOT-03**: Un slot puede tener exactamente 1 variante (excepciones concretas sin variante posible, p. ej. `in spiaggia`), y el sistema lo trata con normalidad.
-- [ ] **SLOT-04**: El schema validator valida la estructura slot+variantes y rechaza con banner visible el JSON malformado (slot sin variantes, variante sin payload válido, explicación ausente), coherente con el validator existente.
+- [x] **SLOT-01**: El contenido define *slots*, donde cada slot representa una regla y contiene 1..N *variantes* intercambiables (cada variante = un payload jugable completo según el tipo: multiple-choice / word-buttons / match).
+- [x] **SLOT-02**: La explicación pedagógica vive a nivel de slot (compartida por todas sus variantes), no por variante.
+- [x] **SLOT-03**: Un slot puede tener exactamente 1 variante (excepciones concretas sin variante posible, p. ej. `in spiaggia`), y el sistema lo trata con normalidad.
+- [x] **SLOT-04**: El schema validator valida la estructura slot+variantes y rechaza con banner visible el JSON malformado (slot sin variantes, variante sin payload válido, explicación ausente), coherente con el validator existente.
 - [ ] **SLOT-05**: Migración `schemaVersion 5→6` (`migrate5to6` + `hydrateV6`) idempotente con deep-clone defensivo; `backup.js` extendido a v6 para round-trip export/import.
-- [ ] **SLOT-06**: Las 8 categorías no-piloto siguen cargando y funcionando como slots de 1 variante sin re-autoría (backward-compat: cada ejercicio actual = 1 slot / 1 variante).
+- [x] **SLOT-06**: Las 8 categorías no-piloto siguen cargando y funcionando como slots de 1 variante sin re-autoría (backward-compat: cada ejercicio actual = 1 slot / 1 variante).
 
 ### Motor de examen por slots (EXAM)
 
@@ -61,12 +61,12 @@ Qué fases cubren qué requirements.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SLOT-01 | Phase 15 | Pending |
-| SLOT-02 | Phase 15 | Pending |
-| SLOT-03 | Phase 15 | Pending |
-| SLOT-04 | Phase 15 | Pending |
+| SLOT-01 | Phase 15 | Complete |
+| SLOT-02 | Phase 15 | Complete |
+| SLOT-03 | Phase 15 | Complete |
+| SLOT-04 | Phase 15 | Complete |
 | SLOT-05 | Phase 15 | Pending |
-| SLOT-06 | Phase 15 | Pending |
+| SLOT-06 | Phase 15 | Complete |
 | EXAM-01 | Phase 16 | Pending |
 | EXAM-02 | Phase 16 | Pending |
 | EXAM-03 | Phase 16 | Pending |

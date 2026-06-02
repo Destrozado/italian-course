@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.4
 milestone_name: Variantes de ejercicio (slots por regla)
 status: executing
-last_updated: "2026-06-02T22:31:53.822Z"
-last_activity: 2026-06-02 -- Phase 15 planning complete
+last_updated: "2026-06-02T22:40:16.384Z"
+last_activity: 2026-06-02
 progress:
   total_phases: 5
   completed_phases: 0
   total_plans: 3
-  completed_plans: 0
+  completed_plans: 1
   percent: 0
 ---
 
@@ -21,16 +21,16 @@ See: `.planning/PROJECT.md` (updated 2026-06-02)
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Milestone v1.4 — Variantes de ejercicio (slots por regla). Roadmap fijado (Phases 15-17). Motor slot+variantes + piloto Preposiciones.
+**Current Focus:** Phase 15 — modelo-de-datos-slot-variantes-schema-migraci-n
 
 **Milestone v1.4 Goal:** Matar la memorización por palabras introduciendo *slots* (1 por regla) con variantes intercambiables; un examen recorre N slots eligiendo 1 variante al azar en cada uno, manteniendo intacta la re-verificación D-54. MOTOR + 1 PILOTO: construir el modelo de datos y el motor de examen por slots, luego convertir SOLO Preposiciones como piloto real. Las otras 8 categorías siguen funcionando como slots de 1 variante (backward-compat) — su conversión es out-of-scope (CONV-01 futuro). Brownfield: REUTILIZA la cascada D-54, el sampler, el schema-validator, el patrón Test-completo y `applyResultToSession` — NO reconstruye el motor.
 
 ## Current Position
 
-Phase: Not started (roadmap fijado, pendiente de planificar Phase 15)
-Plan: —
-Status: Ready to execute
-Last activity: 2026-06-02 -- Phase 15 planning complete
+Phase: 15 (modelo-de-datos-slot-variantes-schema-migraci-n) — EXECUTING
+Plan: 2 of 3
+Status: Plan 15-01 completo (validator slot+variantes + loader slotById, 332/332 tests verdes); siguiente Plan 15-02
+Last activity: 2026-06-02 -- Plan 15-01 ejecutado (SLOT-01/02/03/04/06)
 
 ## Quick Tasks Completed
 
