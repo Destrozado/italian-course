@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Canciones (bloque de traducción)
-status: "v1.3 roadmap creado; pendiente `/gsd:plan-phase 13`"
-last_updated: "2026-06-02T09:35:43.849Z"
-last_activity: 2026-06-02 — Milestone v1.3 roadmap creado (Phases 13-14)
+status: executing
+last_updated: "2026-06-02T11:07:30.483Z"
+last_activity: 2026-06-02
 progress:
   total_phases: 4
   completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
+  total_plans: 2
+  completed_plans: 1
   percent: 0
 ---
 
@@ -21,16 +21,16 @@ See: `.planning/PROJECT.md` (updated 2026-06-02)
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** v1.3 planning — Phase 13 (Bloque Canciones + playthrough) por descomponer
+**Current Focus:** Phase 13 — bloque-canciones-modelo-de-datos-playthrough-end-to-end
 
 **Milestone v1.3 Goal:** Añadir un bloque "Canciones" separado del home: traducir canciones italianas frase a frase como ejercicio (word-buttons en dirección inversa italiano→español), con las frases enganchadas al motor de re-verificación existente vía cascada D-54. Reproducción secuencial tipo Test completo (sin reinicio a mitad) + resumen de errores. Frases catalogables (cascada al fallar) o sin categoría (guardadas, sin cascada). Canciones standalone: NO entran en Repaso 20 / Test ni en la tabla de categorías. Estado simple pasada/fallada por canción (NO dominada/streak/21-day). Primer contenido: "Equilibrio mentale — Ultimo". Brownfield: REUTILIZA engine (cascada D-54, schema-validator `PAYLOAD_VALIDATORS`, word-buttons `grade()`, patrón Test-completo/summary-errors) — NO reconstruye el motor.
 
 ## Current Position
 
-Phase: Not started (roadmap fijado, fases por descomponer)
-Plan: —
-Status: v1.3 roadmap creado; pendiente `/gsd:plan-phase 13`
-Last activity: 2026-06-02 — Milestone v1.3 roadmap creado (Phases 13-14)
+Phase: 13 (bloque-canciones-modelo-de-datos-playthrough-end-to-end) — EXECUTING
+Plan: 2 of 2
+Status: Ready to execute
+Last activity: 2026-06-02
 
 ## Quick Tasks Completed
 
@@ -62,6 +62,7 @@ Last activity: 2026-06-02 — Milestone v1.3 roadmap creado (Phases 13-14)
 |-------|-------|-------|----------|
 | 13. Bloque Canciones + playthrough | 0 | — | — |
 | 14. Contenido "Equilibrio mentale" | 0 | — | — |
+| Phase 13 P01 | 5 min | 2 tasks | 9 files |
 
 ## Accumulated Context
 
@@ -86,6 +87,9 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - **Validación de contenido LIGERA autor-oráculo (CONT-03)** — NO el quórum gramatical estricto R1-R7 que usan las categorías. Una IA verifica que la traducción española sea defendible y que el enganche de categorías por frase sea correcto; el autor es oráculo final sobre el fraseo artístico (las traducciones de canciones son "particulares" por diseño).
 - **Schema de canción + migración coherentes con lo existente (DATA-01/02/03)** — el JSON de canción se valida con el mismo patrón hand-written + banner visible; si el state requiere campos nuevos, migración `migrateNtoM` desde schemaVersion 4 (mismo patrón que `migrate3to4`).
 - **Canon editorial heredado** — donde el contenido lleve texto explicativo en español: acentos correctos (á/é/í/ó/ú + ñ RAE) + italianismos citados con ortografía italiana, plain text sin markdown, apóstrofes ASCII U+0027 (D-129/D-135/D-137). El italiano de las frases preserva su ortografía.
+- [Phase ?]: Plan 13-01: validateSongs export separado (no extiende PAYLOAD_VALIDATORS) — coherente con LINK-04 standalone
+- [Phase ?]: Plan 13-01: songProgress plano {status,lastPlayedAt} sin streak/dominada (D-03); migrate4to5/hydrateV5 deep-clone defensivo (CR-03/T-13-01)
+- [Phase ?]: Plan 13-01 [Rule 2]: backup.js extendido a v5 para preservar round-trip export/import del estado actual
 
 ### Pending Todos
 

@@ -10,7 +10,7 @@ Requisitos del milestone v1.3. Cada uno mapea a una fase del roadmap.
 
 ### Bloque Canciones (SONG)
 
-- [ ] **SONG-01**: El usuario puede abrir un bloque "Canciones" desde el home con un listado de las canciones disponibles
+- [x] **SONG-01**: El usuario puede abrir un bloque "Canciones" desde el home con un listado de las canciones disponibles
 - [ ] **SONG-02**: Cada canción del listado muestra su estado (no hecha / pasada / fallada) y el número de frases
 - [ ] **SONG-03**: El usuario puede iniciar una canción con 1 clic desde el listado
 - [ ] **SONG-04**: El estado pasada/fallada de cada canción persiste en localStorage entre sesiones
@@ -25,16 +25,16 @@ Requisitos del milestone v1.3. Cada uno mapea a una fase del roadmap.
 
 ### Enganche con categorías (LINK)
 
-- [ ] **LINK-01**: Cada frase de una canción puede declarar las categorías gramaticales que toca (`categoryIds[]`)
+- [x] **LINK-01**: Cada frase de una canción puede declarar las categorías gramaticales que toca (`categoryIds[]`)
 - [ ] **LINK-02**: Fallar una frase enganchada dispara la cascada D-54 inmediata sobre sus categorías gramaticales (reset de estado + racha)
-- [ ] **LINK-03**: El modelo de datos soporta frases sin categoría (etiquetadas y guardadas, sin cascada) — preparado para el proceso de propuesta futuro
-- [ ] **LINK-04**: Las frases de canciones NO entran en el sampler de Repaso 20 / Test completo ni en la tabla de categorías del home (canciones standalone)
+- [x] **LINK-03**: El modelo de datos soporta frases sin categoría (etiquetadas y guardadas, sin cascada) — preparado para el proceso de propuesta futuro
+- [x] **LINK-04**: Las frases de canciones NO entran en el sampler de Repaso 20 / Test completo ni en la tabla de categorías del home (canciones standalone)
 
 ### Datos y persistencia (DATA)
 
-- [ ] **DATA-01**: El contenido de canciones vive en JSON editado a mano con un schema definido (canción → frases ordenadas con metadatos)
-- [ ] **DATA-02**: El schema-validator rechaza JSON de canción malformado con banner visible (coherente con el validator existente)
-- [ ] **DATA-03**: Migración de `schemaVersion` si el state de canciones requiere campos nuevos (coherente con el patrón `migrateNtoM` existente)
+- [x] **DATA-01**: El contenido de canciones vive en JSON editado a mano con un schema definido (canción → frases ordenadas con metadatos)
+- [x] **DATA-02**: El schema-validator rechaza JSON de canción malformado con banner visible (coherente con el validator existente)
+- [x] **DATA-03**: Migración de `schemaVersion` si el state de canciones requiere campos nuevos (coherente con el patrón `migrateNtoM` existente)
 
 ### Contenido inicial (CONT)
 
@@ -75,7 +75,7 @@ Mapeo requisito → fase. Phase 13 = Bloque Canciones + modelo de datos + playth
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SONG-01 | Phase 13 | Pending |
+| SONG-01 | Phase 13 | Complete |
 | SONG-02 | Phase 13 | Pending |
 | SONG-03 | Phase 13 | Pending |
 | SONG-04 | Phase 13 | Pending |
@@ -84,13 +84,13 @@ Mapeo requisito → fase. Phase 13 = Bloque Canciones + modelo de datos + playth
 | PLAY-03 | Phase 13 | Pending |
 | PLAY-04 | Phase 13 | Pending |
 | PLAY-05 | Phase 13 | Pending |
-| LINK-01 | Phase 13 | Pending |
+| LINK-01 | Phase 13 | Complete |
 | LINK-02 | Phase 13 | Pending |
-| LINK-03 | Phase 13 | Pending |
-| LINK-04 | Phase 13 | Pending |
-| DATA-01 | Phase 13 | Pending |
-| DATA-02 | Phase 13 | Pending |
-| DATA-03 | Phase 13 | Pending |
+| LINK-03 | Phase 13 | Complete |
+| LINK-04 | Phase 13 | Complete |
+| DATA-01 | Phase 13 | Complete |
+| DATA-02 | Phase 13 | Complete |
+| DATA-03 | Phase 13 | Complete |
 | CONT-01 | Phase 14 | Pending |
 | CONT-02 | Phase 14 | Pending |
 | CONT-03 | Phase 14 | Pending |
