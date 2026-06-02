@@ -23,15 +23,17 @@
 // schema-validator) — la primera guard que dispara aborta el parse y
 // devuelve el reason específico.
 
-import { migrate1to2, migrate2to3, migrate3to4, migrate4to5, hydrateV5 } from './storage.js';
+import { migrate1to2, migrate2to3, migrate3to4, migrate4to5, hydrateV5, migrate5to6, hydrateV6 } from './storage.js';
 
 /** Espejo de la constante en storage.js — mantener inline para que el
  *  módulo sea testeable independiente sin importar storage.CURRENT_SCHEMA_VERSION.
  *  Phase 6 (D-111): bump nominal 3 → 4. Phase 13: bump 4 → 5 — añade el
- *  sub-árbol `songProgress` (estado por canción). El backup debe migrar hasta
- *  v5 para que un export del estado actual se reimporte sin "versión más
- *  nueva". */
-const CURRENT_SCHEMA_VERSION = 5;
+ *  sub-árbol `songProgress` (estado por canción). Phase 15 (D-15-09): bump
+ *  NOMINAL 5 → 6 — el modelo slot+variantes del milestone v1.4 vive en
+ *  `content/` (validator + loader), NO en el state; el set de sub-dicts no
+ *  cambia. El backup debe migrar hasta v6 para que un export del estado actual
+ *  se reimporte sin "versión más nueva". */
+const CURRENT_SCHEMA_VERSION = 6;
 
 /**
  * Parse + valida + migra un string JSON proveniente de un archivo backup.
@@ -114,7 +116,8 @@ export function parseBackupFile(rawStr) {
   if (migrated.schemaVersion === 2) migrated = migrate2to3(migrated);
   if (migrated.schemaVersion === 3) migrated = migrate3to4(migrated);
   if (migrated.schemaVersion === 4) migrated = migrate4to5(migrated);
-  migrated = hydrateV5(migrated);
+  if (migrated.schemaVersion === 5) migrated = migrate5to6(migrated);
+  migrated = hydrateV6(migrated);
 
   // 6. Summary para el confirm inline (D-76).
   const summary = {
