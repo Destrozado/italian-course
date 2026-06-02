@@ -251,4 +251,29 @@ describe('data/schema-validator — validateSongs', () => {
     const result = validateSongs({ songs, knownCategoryIds: known });
     assert.equal(result.ok, true, `mini-canción debería validar. Errores: ${JSON.stringify(result.errors, null, 2)}`);
   });
+
+  test('content/songs.json está en lockstep: phraseCount === phrases.length para cada canción', () => {
+    const songsIndex = JSON.parse(readFileSync(new URL('../content/songs.json', import.meta.url), 'utf8'));
+    for (const entry of songsIndex.songs) {
+      const doc = JSON.parse(readFileSync(new URL(`../content/songs/${entry.id}.json`, import.meta.url), 'utf8'));
+      assert.equal(
+        entry.phraseCount,
+        doc.phrases.length,
+        `${entry.id}: phraseCount del índice (${entry.phraseCount}) debe igualar phrases.length del documento (${doc.phrases.length})`
+      );
+      assert.equal(
+        entry.title,
+        doc.title,
+        `${entry.id}: title del índice debe coincidir con title del documento`
+      );
+    }
+  });
+
+  test('equilibrio-mentale está en el índice con phraseCount en lockstep', () => {
+    const songsIndex = JSON.parse(readFileSync(new URL('../content/songs.json', import.meta.url), 'utf8'));
+    const entry = songsIndex.songs.find(s => s.id === 'equilibrio-mentale');
+    assert.ok(entry, 'equilibrio-mentale debe estar en content/songs.json');
+    const doc = JSON.parse(readFileSync(new URL('../content/songs/equilibrio-mentale.json', import.meta.url), 'utf8'));
+    assert.equal(entry.phraseCount, doc.phrases.length, 'phraseCount === phrases.length');
+  });
 });

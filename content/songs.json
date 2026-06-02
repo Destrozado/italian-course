@@ -1,5 +1,6 @@
 {
   "songs": [
-    { "id": "mini-prueba", "title": "Mini-cancion de prueba", "phraseCount": 3 }
+    { "id": "mini-prueba", "title": "Mini-cancion de prueba", "phraseCount": 3 },
+    { "id": "equilibrio-mentale", "title": "Equilibrio mentale (Home piano session) — Ultimo", "phraseCount": 17 }
   ]
 }
