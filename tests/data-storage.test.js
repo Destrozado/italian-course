@@ -25,7 +25,7 @@
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { blankState, migrate1to2, hydrateV2, migrate2to3, hydrateV3, migrate3to4, hydrateV4, migrate4to5, hydrateV5 } from '../src/data/storage.js';
+import { blankState, migrate1to2, hydrateV2, migrate2to3, hydrateV3, migrate3to4, hydrateV4, migrate4to5, hydrateV5, migrate5to6, hydrateV6 } from '../src/data/storage.js';
 
 // Phase 4 (D-77/D-78): bumped schemaVersion from 2 → 3 con dos campos
 // nuevos (lastBackupAt, firstUsedAt). El "blankState v2" describe-name
@@ -33,14 +33,14 @@ import { blankState, migrate1to2, hydrateV2, migrate2to3, hydrateV3, migrate3to4
 // (la realidad actual). Tests adicionales de la cadena v1→v2→v3 viven
 // en `tests/backup.test.js` (co-located con backup.js Phase 4).
 
-describe('data/storage — blankState v5 (Phase 13 bump)', () => {
-  test('blankState() devuelve shape v5 completo con songProgress {} + lastBackupAt/firstUsedAt null', () => {
+describe('data/storage — blankState v6 (Phase 15 nominal bump)', () => {
+  test('blankState() devuelve shape v6 completo con el mismo set de sub-dicts + lastBackupAt/firstUsedAt null', () => {
     const s = blankState();
-    assert.equal(s.schemaVersion, 5);
+    assert.equal(s.schemaVersion, 6);
     assert.deepEqual(s.exerciseStats, {});
     assert.deepEqual(s.categoryProgress, {});
     assert.deepEqual(s.dailyLog, {});
-    assert.deepEqual(s.songProgress, {});   // NEW Phase 13
+    assert.deepEqual(s.songProgress, {});   // mismo set de sub-dicts que v5 (D-15-09)
     assert.equal(s.lastBackupAt, null);
     assert.equal(s.firstUsedAt, null);
     // `inFlightTest` debe estar omitido (undefined), no presente como key.
@@ -49,8 +49,8 @@ describe('data/storage — blankState v5 (Phase 13 bump)', () => {
       'blankState() no debería incluir la clave `inFlightTest` (debe ser omitida)');
   });
 
-  test('blankState() codifica schemaVersion: 5 (Phase 13 bump)', () => {
-    assert.equal(blankState().schemaVersion, 5);
+  test('blankState() codifica schemaVersion: 6 (Phase 15 bump nominal)', () => {
+    assert.equal(blankState().schemaVersion, 6);
   });
 });
 
@@ -512,5 +512,159 @@ describe('data/storage v5 — migrate4to5 chain + hydrateV5 (Phase 13)', () => {
       'categoryProgress preservado a través de la migración v4 → v5');
     assert.deepEqual(v5.exerciseStats, v4.exerciseStats);
     assert.equal(v5.firstUsedAt, v4.firstUsedAt);
+  });
+});
+
+// ────────────────────────────────────────────────────────────────────────────
+// Phase 15 (D-15-08/D-15-09 / SLOT-05) — migrate5to6 + hydrateV6 chain
+//
+// Bump v5 → v6 NOMINAL a nivel del state root (D-15-09): el modelo
+// slot+variantes vive en content/, NO en el state. exerciseStats sigue keyed
+// por id de ejercicio-slot; el set de sub-dicts NO cambia (mismo que v5, sin
+// sub-árbol nuevo). Espejo literal de migrate4to5/hydrateV5 (Phase 13) con la
+// versión a 6 y SIN la línea "NEW sub-árbol" (songProgress ya no es nuevo).
+// Deep-clone defensivo por sub-dict (CR-03 / T-04-02 anti-prototype-pollution),
+// precedente de bump nominal 3→4 (D-110/D-111). Sin reset de progreso
+// (Preposiciones reset es Phase 17).
+// ────────────────────────────────────────────────────────────────────────────
+
+describe('data/storage v6 — migrate5to6 chain + hydrateV6 (Phase 15)', () => {
+  test('migrate5to6 sobre v5 fresh produce v6 con el mismo set de sub-dicts íntegros', () => {
+    const v5 = {
+      schemaVersion: 5,
+      exerciseStats: { a1: { timesShown: 2, timesCorrect: 1, timesFailed: 1 } },
+      categoryProgress: { avere: { status: 'hecha', streakDays: 3, clearedExerciseIds: ['a1'], lastSuccessDate: '2026-05-20' } },
+      dailyLog: { '2026-05-20': { date: '2026-05-20', categoriesPracticed: ['avere'], categoriesWithFailure: [] } },
+      songProgress: { 'mini-prueba': { status: 'pasada', lastPlayedAt: '2026-06-02' } },
+      lastBackupAt: '2026-05-22T10:00:00.000Z',
+      firstUsedAt: '2026-04-01T08:00:00.000Z'
+    };
+    const v6 = migrate5to6(v5);
+    assert.equal(v6.schemaVersion, 6);
+    assert.deepEqual(v6.exerciseStats, v5.exerciseStats);
+    assert.deepEqual(v6.categoryProgress, v5.categoryProgress);
+    assert.deepEqual(v6.dailyLog, v5.dailyLog);
+    assert.deepEqual(v6.songProgress, v5.songProgress);
+    assert.equal(v6.lastBackupAt, v5.lastBackupAt);
+    assert.equal(v6.firstUsedAt, v5.firstUsedAt);
+    assert.equal(v6.inFlightTest, undefined,
+      'inFlightTest undefined del v5 se preserva como undefined en v6');
+  });
+
+  test('migrate5to6 preserva un sub-dict existente con deep-clone (no comparte referencia)', () => {
+    const v5 = {
+      schemaVersion: 5,
+      exerciseStats: { a1: { timesShown: 5, timesCorrect: 4, timesFailed: 1 } },
+      categoryProgress: {},
+      dailyLog: {},
+      songProgress: {},
+      lastBackupAt: null,
+      firstUsedAt: null
+    };
+    const v6 = migrate5to6(v5);
+    assert.deepEqual(v6.exerciseStats, { a1: { timesShown: 5, timesCorrect: 4, timesFailed: 1 } });
+    assert.notEqual(v6.exerciseStats, v5.exerciseStats, 'deep-clone: no comparte la referencia del sub-dict (CR-03)');
+    assert.notEqual(v6.exerciseStats['a1'], v5.exerciseStats['a1'],
+      'deep-clone: las entradas anidadas tampoco comparten referencia (CR-03)');
+  });
+
+  test('migrate5to6 con sub-dict no-objeto (corrupto) cae a {}', () => {
+    for (const bad of [null, 'x', 42]) {
+      const v5 = { schemaVersion: 5, exerciseStats: bad, categoryProgress: bad, dailyLog: bad, songProgress: bad, lastBackupAt: null, firstUsedAt: null };
+      const v6 = migrate5to6(v5);
+      // null/string/number → {}; el contrato es: cada sub-dict siempre es un objeto navegable.
+      for (const key of ['exerciseStats', 'categoryProgress', 'dailyLog', 'songProgress']) {
+        assert.equal(typeof v6[key], 'object');
+        assert.notEqual(v6[key], null);
+      }
+    }
+  });
+
+  test('migrate5to6 anti-prototype-pollution: __proto__ como own-property no contamina el global', () => {
+    const malicious = JSON.parse('{"schemaVersion":5,"exerciseStats":{"__proto__":{"polluted":true}},"categoryProgress":{},"dailyLog":{},"songProgress":{},"lastBackupAt":null,"firstUsedAt":null}');
+    const v6 = migrate5to6(malicious);
+    assert.equal(({}).polluted, undefined, 'el prototipo global Object no debe quedar contaminado');
+    assert.equal(v6.schemaVersion, 6);
+  });
+
+  test('migrate5to6 es idempotente (re-ejecutar produce shape idéntica)', () => {
+    const v5 = {
+      schemaVersion: 5,
+      exerciseStats: { a1: { timesShown: 2, timesCorrect: 1, timesFailed: 1 } },
+      categoryProgress: { avere: { status: 'hecha', streakDays: 3, clearedExerciseIds: ['a1'] } },
+      dailyLog: {},
+      songProgress: { 'mini-prueba': { status: 'pasada' } },
+      lastBackupAt: null,
+      firstUsedAt: null
+    };
+    const once = migrate5to6(v5);
+    const twice = migrate5to6(once);
+    assert.deepEqual(twice, once, 'migrate5to6(migrate5to6(x)) === migrate5to6(x) en shape');
+  });
+
+  test('hydrateV6 sobre v6 válido preserva todos los campos con deep-clone defensivo', () => {
+    const v6In = {
+      schemaVersion: 6,
+      exerciseStats: { x: { timesShown: 2, timesCorrect: 2, timesFailed: 0 } },
+      categoryProgress: { avere: { status: 'hecha', streakDays: 1, clearedExerciseIds: ['x'], lastSuccessDate: '2026-05-23' } },
+      dailyLog: { '2026-05-23': { date: '2026-05-23', categoriesPracticed: ['avere'], categoriesWithFailure: [] } },
+      songProgress: { 'mini-prueba': { status: 'pasada', lastPlayedAt: '2026-06-02' } },
+      lastBackupAt: '2026-05-22T10:00:00.000Z',
+      firstUsedAt: '2026-05-01T08:00:00.000Z',
+      inFlightTest: { categoryIds: ['avere'], exerciseIds: ['x'], cursor: 0, answers: [], startedAt: 1716480000000 }
+    };
+    const out = hydrateV6(v6In);
+    assert.equal(out.schemaVersion, 6);
+    assert.deepEqual(out.exerciseStats, v6In.exerciseStats);
+    assert.notEqual(out.exerciseStats, v6In.exerciseStats, 'deep-clone defensivo');
+    assert.deepEqual(out.categoryProgress, v6In.categoryProgress);
+    assert.deepEqual(out.dailyLog, v6In.dailyLog);
+    assert.deepEqual(out.songProgress, v6In.songProgress);
+    assert.notEqual(out.songProgress, v6In.songProgress, 'deep-clone defensivo');
+    assert.equal(out.lastBackupAt, v6In.lastBackupAt);
+    assert.equal(out.firstUsedAt, v6In.firstUsedAt);
+    assert.deepEqual(out.inFlightTest, v6In.inFlightTest);
+  });
+
+  test('hydrateV6 sobre v6 con sub-dicts ausentes los normaliza a {}', () => {
+    const out = hydrateV6({ schemaVersion: 6, lastBackupAt: null, firstUsedAt: null });
+    assert.deepEqual(out.exerciseStats, {});
+    assert.deepEqual(out.categoryProgress, {});
+    assert.deepEqual(out.dailyLog, {});
+    assert.deepEqual(out.songProgress, {});
+  });
+
+  test('blankState() ahora schemaVersion 6 con el mismo set de sub-dicts', () => {
+    const s = blankState();
+    assert.equal(s.schemaVersion, 6);
+    assert.deepEqual(s.exerciseStats, {});
+    assert.deepEqual(s.categoryProgress, {});
+    assert.deepEqual(s.dailyLog, {});
+    assert.deepEqual(s.songProgress, {});
+    assert.equal(s.lastBackupAt, null);
+    assert.equal(s.firstUsedAt, null);
+    assert.equal(s.inFlightTest, undefined);
+    assert.equal(Object.prototype.hasOwnProperty.call(s, 'inFlightTest'), false);
+  });
+
+  // Cadena completa: un blob v5 antiguo pasado por migrate5to6 + hydrateV6 sale
+  // v6, mismo set de sub-dicts, y categoryProgress/exerciseStats preservados.
+  test('cadena v5 → v6: un blob v5 con datos preserva categoryProgress/exerciseStats y bumpea a 6', () => {
+    const v5 = {
+      schemaVersion: 5,
+      exerciseStats: { a1: { timesShown: 5, timesCorrect: 4, timesFailed: 1 } },
+      categoryProgress: { avere: { status: 'hecha', streakDays: 7, clearedExerciseIds: ['a1'] } },
+      dailyLog: { '2026-05-30': { date: '2026-05-30', categoriesPracticed: ['avere'], categoriesWithFailure: [] } },
+      songProgress: { 'mini-prueba': { status: 'pasada' } },
+      lastBackupAt: null,
+      firstUsedAt: '2026-04-01T08:00:00.000Z'
+    };
+    const v6 = hydrateV6(migrate5to6(v5));
+    assert.equal(v6.schemaVersion, 6);
+    assert.deepEqual(v6.categoryProgress.avere, v5.categoryProgress.avere,
+      'categoryProgress preservado a través de la migración v5 → v6');
+    assert.deepEqual(v6.exerciseStats, v5.exerciseStats);
+    assert.deepEqual(v6.songProgress, v5.songProgress);
+    assert.equal(v6.firstUsedAt, v5.firstUsedAt);
   });
 });

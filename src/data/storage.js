@@ -32,25 +32,26 @@
 //     desconocido (futuro) → warn + blankState.
 
 const KEY = 'italianCourse.v1';
-const CURRENT_SCHEMA_VERSION = 5;
+const CURRENT_SCHEMA_VERSION = 6;
 
 /**
  * Devuelve un estado "en blanco" (sin progreso) — el estado inicial canónico
- * con shape v4 (D-46/D-47 + D-77/D-78 Phase 4 + D-111 Phase 6).
+ * con shape v6 (D-46/D-47 + D-77/D-78 Phase 4 + D-111 Phase 6 + D-02/D-03
+ * Phase 13 + D-15-08/D-15-09 Phase 15).
  *
- * Phase 6 (D-111): el bump 3 → 4 es nominal a nivel del state principal — no
- * añade campos nuevos al root. La diferencia v3 vs v4 sólo es relevante para
- * el sub-objeto `inFlightTest.answers[]`, donde post-Phase 6 cada answer
- * lleva `userAnswer` (string | string[] | {left,right} | null) para soportar
- * la sección "Errores cometidos" en el summary (UX-02). `blankState()` ya
- * omite `inFlightTest` (undefined), así que el shape root es idéntico a v3 —
- * solo cambia el número de versión.
+ * Phase 15 (D-15-09): el bump 5 → 6 es NOMINAL a nivel del state root — no
+ * añade campos nuevos ni sub-árboles. El modelo slot+variantes vive en
+ * `content/` (validator + loader), NO en el state; `exerciseStats` sigue
+ * keyed por id de ejercicio-slot. El set de sub-dicts es IDÉNTICO a v5
+ * (exerciseStats, categoryProgress, dailyLog, songProgress), igual que el
+ * precedente de bump nominal 3 → 4 (D-110/D-111). Sin reset de progreso
+ * (Preposiciones reset es Phase 17).
  *
  * Nota: `inFlightTest` se omite (undefined) deliberadamente; `JSON.stringify`
  * lo elide al persistir y el resto del código trata `state.inFlightTest`
  * como opcional.
  *
- * @returns {{schemaVersion: 4, exerciseStats: object, categoryProgress: object, dailyLog: object, lastBackupAt: null, firstUsedAt: null}}
+ * @returns {{schemaVersion: 6, exerciseStats: object, categoryProgress: object, dailyLog: object, songProgress: object, lastBackupAt: null, firstUsedAt: null}}
  */
 export function blankState() {
   return {
@@ -140,7 +141,8 @@ function migrate(parsed) {
   if (s.schemaVersion === 2) s = migrate2to3(s);
   if (s.schemaVersion === 3) s = migrate3to4(s);
   if (s.schemaVersion === 4) s = migrate4to5(s);
-  if (s.schemaVersion === 5) return hydrateV5(s);
+  if (s.schemaVersion === 5) s = migrate5to6(s);
+  if (s.schemaVersion === 6) return hydrateV6(s);
 
   // Versión desconocida (probablemente futura) → no perdemos datos del autor:
   // logueamos warning y arrancamos limpio.
@@ -452,6 +454,90 @@ export function migrate4to5(v4) {
 export function hydrateV5(parsed) {
   return {
     schemaVersion: 5,
+    exerciseStats: (typeof parsed.exerciseStats === 'object' && parsed.exerciseStats !== null)
+      ? JSON.parse(JSON.stringify(parsed.exerciseStats))
+      : {},
+    categoryProgress: (typeof parsed.categoryProgress === 'object' && parsed.categoryProgress !== null)
+      ? JSON.parse(JSON.stringify(parsed.categoryProgress))
+      : {},
+    dailyLog: (typeof parsed.dailyLog === 'object' && parsed.dailyLog !== null)
+      ? JSON.parse(JSON.stringify(parsed.dailyLog))
+      : {},
+    songProgress: (typeof parsed.songProgress === 'object' && parsed.songProgress !== null)
+      ? JSON.parse(JSON.stringify(parsed.songProgress))
+      : {},
+    lastBackupAt: typeof parsed.lastBackupAt === 'string' ? parsed.lastBackupAt : null,
+    firstUsedAt: typeof parsed.firstUsedAt === 'string' ? parsed.firstUsedAt : null,
+    inFlightTest: parsed.inFlightTest
+  };
+}
+
+/**
+ * Migra un estado v5 a v6 (D-15-08/D-15-09, Phase 15). El bump es NOMINAL a
+ * nivel del state root — el shape es IDÉNTICO a v5 (mismo set de sub-dicts:
+ * exerciseStats, categoryProgress, dailyLog, songProgress; sin sub-árbol
+ * nuevo). El modelo slot+variantes del milestone v1.4 vive en `content/`
+ * (schema-validator + content-loader), NO en el state; `exerciseStats` sigue
+ * keyed por id de ejercicio-slot. Precedente de bump nominal: 3 → 4
+ * (D-110/D-111). Sin reset de progreso (Preposiciones reset es Phase 17).
+ *
+ * Espejo LITERAL de `migrate4to5` (Phase 13) con la versión a 6 y SIN la línea
+ * "NEW sub-árbol" — `songProgress` ya no es nuevo, se mantiene como sub-dict
+ * normal.
+ *
+ * Deep-clone defensivo (CR-03 / T-04-02 / T-15-PP): el
+ * `JSON.parse(JSON.stringify(...))` por sub-dict neutraliza getters /
+ * `__proto__` como own-property — reconstruye un root literal fresco, nunca
+ * asigna `__proto__` como prototipo (verificable con `({}).polluted ===
+ * undefined` tras un parse con `"__proto__": {...}`). Si `v5.X` existe como
+ * objeto se clona; si no, arranca `{}`.
+ *
+ * Pureza + idempotencia (T-15-INT): NO muta el input; re-ejecutar sobre el
+ * resultado produce la misma shape.
+ *
+ * Exportada para testabilidad — el dispatcher la usa como eslabón v5 → v6.
+ *
+ * @param {object} v5 - Estado parseado con `schemaVersion: 5`.
+ * @returns {object} Estado normalizado v6.
+ */
+export function migrate5to6(v5) {
+  return {
+    schemaVersion: 6,
+    exerciseStats: (typeof v5.exerciseStats === 'object' && v5.exerciseStats !== null)
+      ? JSON.parse(JSON.stringify(v5.exerciseStats))
+      : {},
+    categoryProgress: (typeof v5.categoryProgress === 'object' && v5.categoryProgress !== null)
+      ? JSON.parse(JSON.stringify(v5.categoryProgress))
+      : {},
+    dailyLog: (typeof v5.dailyLog === 'object' && v5.dailyLog !== null)
+      ? JSON.parse(JSON.stringify(v5.dailyLog))
+      : {},
+    songProgress: (typeof v5.songProgress === 'object' && v5.songProgress !== null)
+      ? JSON.parse(JSON.stringify(v5.songProgress))
+      : {},
+    lastBackupAt: typeof v5.lastBackupAt === 'string' ? v5.lastBackupAt : null,
+    firstUsedAt: typeof v5.firstUsedAt === 'string' ? v5.firstUsedAt : null,
+    inFlightTest: v5.inFlightTest
+  };
+}
+
+/**
+ * Hidrata un estado v6 ya en disco con type-guards defensivos en cada
+ * sub-objeto. Espejo LITERAL de `hydrateV5` (Phase 13) con la versión a 6 —
+ * el shape v6 root es idéntico a v5 (el bump 5 → 6 es nominal, D-15-09).
+ *
+ * Deep-clone defensivo (CR-03 / T-15-PP): igual que `migrate5to6` y
+ * `hydrateV5`. Útil cuando el usuario edita manualmente localStorage o cuando
+ * el backup importado viene de una shape v6 con sub-objetos malformados.
+ *
+ * Exportada para testabilidad — invocada al final de la cadena de migración.
+ *
+ * @param {object} parsed - Estado parseado con `schemaVersion: 6`.
+ * @returns {object} Estado v6 con campos garantizados.
+ */
+export function hydrateV6(parsed) {
+  return {
+    schemaVersion: 6,
     exerciseStats: (typeof parsed.exerciseStats === 'object' && parsed.exerciseStats !== null)
       ? JSON.parse(JSON.stringify(parsed.exerciseStats))
       : {},
