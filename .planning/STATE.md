@@ -3,10 +3,10 @@ gsd_state_version: 1.0
 milestone: v1.4
 milestone_name: Variantes de ejercicio (slots por regla)
 status: planning
-last_updated: "2026-06-02T20:15:00.000Z"
-last_activity: 2026-06-02
+last_updated: "2026-06-02T20:41:12.855Z"
+last_activity: 2026-06-02 — Milestone v1.4 roadmap creado (Phases 15-17)
 progress:
-  total_phases: 3
+  total_phases: 5
   completed_phases: 0
   total_plans: 0
   completed_plans: 0
