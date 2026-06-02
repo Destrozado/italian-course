@@ -8,11 +8,19 @@ Web personal de ejercicios de italiano para preparar el A1 (y luego A2). Es una 
 
 **Que el sistema te obligue a no olvidar.** El motor de repetición tiene que garantizar que cada categoría se re-verifica constantemente, y que un solo fallo en cualquier ejercicio te devuelve a repetir esa categoría entera. Sin ese loop, el resto no importa.
 
-## Current Milestone: ninguno (v1.3 shipped — planificando el próximo)
+## Current Milestone: v1.4 — Variantes de ejercicio (slots por regla)
+
+**Goal:** Matar la memorización por palabras introduciendo "slots" (1 por regla) con variantes intercambiables; un examen recorre N slots eligiendo 1 variante al azar en cada uno, manteniendo intacta la re-verificación D-54.
+
+**Target features:**
+- **Modelo de datos slot+variantes** — cada slot tiene 1..N variantes intercambiables (misma regla, MISMA explicación a nivel de slot, distinta superficie: nombres/sustantivos/frase); slots de 1 variante para excepciones concretas sin variante posible (`in spiaggia`).
+- **Motor de examen por slots** — el sampler/examen elige 1 variante aleatoria por slot; "hecha" = pasar los N slots de la categoría sin fallar; fallar uno = cascada D-54 (resetea la categoría a no-hecha); al re-hacer tras fallo tocan variantes distintas → muere la memorización por palabras.
+- **Schema validator + migración** — esquema slot+variantes con validator extendido; migración `schemaVersion 5→6`; las 8 categorías no-piloto siguen funcionando como slots de 1 variante (backward-compat); reset del progreso de Preposiciones al migrar (coherente con Core Value).
+- **Piloto Preposiciones** — reagrupar los 57 ejercicios validados en slots por regla; autorar variantes nuevas (patrón D-85: Claude propone → autor revisa → quórum R1-R7) hasta varias por slot donde tenga sentido; añadir el slot `in spiaggia / in montagna` (preposición locativa fija, hueco detectado: no estaba en ninguna categoría).
 
 **Last shipped:** v1.3 — Canciones (bloque de traducción) (2026-06-02). Bloque nuevo "Canciones" separado del home: traducir canciones italianas frase a frase con word-buttons inverso (italiano→español), frases enganchadas al motor de re-verificación vía cascada D-54, recorrido secuencial tipo Test completo + resumen, estado simple pasada/fallada por canción. Primera canción real: "Equilibrio mentale (Home piano session) — Ultimo" (17 frases). Brownfield: reutiliza el engine v1.0 sin reconstruirlo. 19/19 requirements, 306/306 tests verdes.
 
-Próximo paso: `/gsd-new-milestone` para definir v1.4 (ver §Next Milestone Goals).
+Próximo paso: definir requirements (REQUIREMENTS.md) y roadmap (este flujo).
 
 ## Requirements
 
@@ -141,9 +149,15 @@ Próximo paso: `/gsd-new-milestone` para definir v1.4 (ver §Next Milestone Goal
 
 ### Active
 
-<!-- Current scope. Vacío: v1.3 shipped, sin milestone activo. Definir v1.4 con `/gsd-new-milestone`. -->
+<!-- Current scope: milestone v1.4 — Variantes de ejercicio (slots por regla). REQ-IDs en REQUIREMENTS.md. -->
 
-_(Ninguno — milestone v1.3 cerrado. Próximo scope se define en `/gsd-new-milestone`; candidatos en §Next Milestone Goals.)_
+**Milestone v1.4 — Variantes de ejercicio (slots por regla):**
+- Modelo de datos slot+variantes (1 slot = 1 regla; 1..N variantes intercambiables; explicación a nivel de slot)
+- Motor de examen por slots (1 variante aleatoria por slot; "hecha" = N slots; cascada D-54 intacta)
+- Schema validator + migración `schemaVersion 5→6` (8 categorías no-piloto = slots de 1 variante; reset progreso Preposiciones)
+- Piloto Preposiciones: reagrupar 57 ejercicios en slots + autorar variantes nuevas (quórum R1-R7) + slot `in spiaggia/in montagna`
+
+_(Requirements detallados y trazabilidad en `.planning/REQUIREMENTS.md`.)_
 
 ### Recently Validated (v1.3 — shipped 2026-06-02)
 
@@ -260,4 +274,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-06-02 — Milestone v1.3 (Canciones) shipped y archivado. Bloque Canciones sobre el engine v1.0 + 1ª canción real "Equilibrio mentale"; schemaVersion 5; 306/306 tests. Sin milestone activo — próximo scope vía `/gsd-new-milestone`.*
+*Last updated: 2026-06-02 — Milestone v1.4 (Variantes de ejercicio / slots por regla) iniciado. Motor + piloto Preposiciones: modelo slot+variantes, examen elige 1 variante aleatoria por slot, cascada D-54 intacta, migración schemaVersion 5→6. Requirements y roadmap en curso.*
