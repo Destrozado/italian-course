@@ -643,10 +643,12 @@ export function appShell(appDataReady) {
       }
 
       // Dígitos 1-9: colocar la palabra del banco (mismo que word-buttons).
+      // WR-04: paridad con handleSessionKey — el bound `idx < 9` mantiene
+      // explícito el invariante D-69 (bankWithKeys solo numera idx < 9).
       if (/^[1-9]$/.test(key)) {
         if (this.sessionFeedback !== null) return;
         const idx = Number(key) - 1;
-        if (idx < this.wordButtonsBank.length) this.wordButtonsAddWord(idx);
+        if (idx < this.wordButtonsBank.length && idx < 9) this.wordButtonsAddWord(idx);
       }
     },
 
