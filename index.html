@@ -808,6 +808,71 @@
       </template>
 
       <!-- ════════════════════════════════════════════════════════════════ -->
+      <!-- Pantalla CANCION-SUMMARY — resumen post-canción (Phase 13, PLAY-04) -->
+      <!-- ════════════════════════════════════════════════════════════════ -->
+      <!--
+        Resumen al terminar el recorrido (D-04, PLAY-04). Dos bloques:
+          - Block A: frases falladas (tu respuesta vs traducción correcta),
+            reusando el sub-template word-buttons de summary-errors PERO con el
+            lookup contra `songPhraseById` (NO content.exerciseById — LINK-04).
+            Las frases SIN categoría falladas TAMBIÉN aparecen aquí (D-04).
+          - Block B: categorías que bajaron de estado por esto, render factual
+            `antes → después` (flecha .delta-regression, SIN gamificación),
+            tomado de `songSummaryDelta` (computado en completeSong contra el
+            snapshot de inicio).
+
+        Guard `songSummaryDelta` en el outer x-if (paralelo al summary de sesión
+        con `summaryDelta`): evita que los bindings se evalúen sobre null durante
+        el tick de unmount al volver al listado.
+
+        T-02-01 anti-XSS: TODO el contenido de canción se renderiza con `x-text`
+        (NUNCA x-html). "Tu respuesta:" / "Respuesta correcta:" son strings
+        HARDCODED en el HTML.
+      -->
+      <template x-if="currentScreen === 'cancion-summary' && songSummaryDelta">
+        <article>
+          <header><h2>Canción terminada</h2></header>
+
+          <!-- Block A — frases falladas (lookup contra songPhraseById, D-04). -->
+          <template x-if="summarySessionResults.some(r => !r.correct && songPhraseById[r.exerciseId])">
+            <section class="summary-errors">
+              <h3>Frases falladas</h3>
+              <ul>
+                <template x-for="result in summarySessionResults.filter(r => !r.correct && songPhraseById[r.exerciseId])" :key="result.exerciseId">
+                  <li>
+                    <strong x-text="songPhraseById[result.exerciseId].payload.prompt"></strong>
+                    <div>
+                      <div>Tu respuesta: <span class="user-answer" x-text="(result.userAnswer || []).join(' ')"></span></div>
+                      <div>Respuesta correcta: <strong x-text="songPhraseById[result.exerciseId].payload.answer.join(' ')"></strong></div>
+                    </div>
+                  </li>
+                </template>
+              </ul>
+            </section>
+          </template>
+
+          <!-- Block B — categorías que bajaron de estado (factual, sin gamificación). -->
+          <template x-if="songSummaryDelta.length > 0">
+            <section>
+              <h3>Categorías que bajaron de estado por esto</h3>
+              <ul class="summary-delta">
+                <template x-for="entry in songSummaryDelta" :key="entry.categoryId">
+                  <li>
+                    <strong x-text="entry.categoryName"></strong>:
+                    <span x-text="entry.statusBefore"></span>
+                    <span class="delta-arrow delta-regression">→</span>
+                    <span x-text="entry.statusAfter"></span>
+                  </li>
+                </template>
+              </ul>
+            </section>
+          </template>
+
+          <button type="button" @click="returnToSongList">Volver a Canciones</button>
+        </article>
+      </template>
+
+      <!-- ════════════════════════════════════════════════════════════════ -->
       <!-- Pantalla BACKUP (D-83, D-84 — Phase 4)                            -->
       <!-- ════════════════════════════════════════════════════════════════ -->
       <!--

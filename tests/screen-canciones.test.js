@@ -193,3 +193,66 @@ describe('Canciones — Task 2: playthrough secuencial + cascada D-54', () => {
       'el playthrough debe enlazar songCheck (Comprobar) y songAdvance (Siguiente)');
   });
 });
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Task 3 — Resumen post-canción + songProgress write-once + retorno (PLAY-04, D-02/D-04)
+// ─────────────────────────────────────────────────────────────────────────────
+
+describe('Canciones — Task 3: resumen post-canción + write-once + retorno', () => {
+  // Ventana del cuerpo de completeSong (hasta el siguiente JSDoc).
+  const completeSongIdx = appSrc.search(/^\s+completeSong\(\)\s*\{/m);
+  let completeSongEnd = completeSongIdx + 3500;
+  if (completeSongIdx > -1) {
+    const nextDoc = appSrc.indexOf('\n    /**', completeSongIdx + 50);
+    if (nextDoc > -1) completeSongEnd = nextDoc;
+  }
+  const completeSongWindow = completeSongIdx > -1
+    ? appSrc.slice(completeSongIdx, completeSongEnd)
+    : '';
+
+  test('completeSong escribe songProgress write-once-at-end (D-02) y NO llama applySessionResult (standalone)', () => {
+    assert.ok(completeSongIdx > -1, 'completeSong debe estar definido');
+    assert.ok(/songProgress\[/.test(completeSongWindow),
+      'completeSong debe escribir en songProgress[songId] (write-once-at-end, D-02)');
+    assert.ok(completeSongWindow.includes("'pasada'") && completeSongWindow.includes("'fallada'"),
+      'completeSong debe derivar status pasada/fallada del recorrido');
+    // NO debe llamar applySessionResult (standalone — la cascada ya ocurrió per-frase).
+    assert.ok(!/applySessionResult\(/.test(completeSongWindow),
+      'completeSong NO debe llamar applySessionResult — standalone, la cascada D-54 ya ocurrió per-frase (LINK-04)');
+  });
+
+  test('completeSong computa el set failedCategoryIds contra songPhraseById (Block B, D-04)', () => {
+    assert.ok(completeSongWindow.includes('failedCategoryIds') && completeSongWindow.includes('songPhraseById'),
+      'completeSong debe computar failedCategoryIds resolviendo categoryIds contra songPhraseById');
+    assert.ok(completeSongWindow.includes('songBefore'),
+      'completeSong debe usar el snapshot songBefore (capturado al inicio) para el antes→después');
+    assert.ok(completeSongWindow.includes("this.currentScreen = 'cancion-summary'"),
+      "completeSong debe transicionar a currentScreen='cancion-summary'");
+  });
+
+  test('returnToSongList vuelve a currentScreen = canciones (SONG-02/04)', () => {
+    const idx = appSrc.search(/^\s+returnToSongList\(\)\s*\{/m);
+    assert.ok(idx > -1, 'returnToSongList debe estar definido');
+    const window = appSrc.slice(idx, idx + 600);
+    assert.ok(window.includes("this.currentScreen = 'canciones'"),
+      "returnToSongList debe setear currentScreen='canciones' (el listado refleja el nuevo estado)");
+    assert.ok(window.includes('resetSession'),
+      'returnToSongList debe llamar resetSession (limpia sub-estado)');
+  });
+
+  test('index.html: resumen de canción usa x-text (NO x-html) y lookup contra songPhraseById (T-02-01, D-04)', () => {
+    const idx = indexSrc.indexOf("currentScreen === 'cancion-summary' && songSummaryDelta");
+    assert.ok(idx > -1, 'debe existir el template del resumen cancion-summary');
+    const window = indexSrc.slice(idx, idx + 3000);
+    assert.ok(!window.includes('x-html'),
+      'el resumen de canción NO debe usar x-html (T-02-01 anti-XSS)');
+    assert.ok(window.includes('songPhraseById[result.exerciseId]'),
+      'Block A debe resolver las frases falladas contra songPhraseById (LINK-04 / D-04)');
+    assert.ok(window.includes('songSummaryDelta'),
+      'Block B debe iterar songSummaryDelta (categorías que bajaron de estado)');
+    assert.ok(window.includes('delta-regression'),
+      'Block B debe usar la flecha delta-regression (render factual antes→después, sin gamificación)');
+    assert.ok(window.includes('returnToSongList'),
+      'el resumen debe enlazar returnToSongList para volver al listado');
+  });
+});
