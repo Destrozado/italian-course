@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.4
 milestone_name: Variantes de ejercicio (slots por regla)
 status: executing
-last_updated: "2026-06-02T22:40:16.384Z"
+last_updated: "2026-06-02T22:47:14.268Z"
 last_activity: 2026-06-02
 progress:
   total_phases: 5
   completed_phases: 0
   total_plans: 3
-  completed_plans: 1
+  completed_plans: 2
   percent: 0
 ---
 
@@ -28,9 +28,9 @@ See: `.planning/PROJECT.md` (updated 2026-06-02)
 ## Current Position
 
 Phase: 15 (modelo-de-datos-slot-variantes-schema-migraci-n) — EXECUTING
-Plan: 2 of 3
-Status: Plan 15-01 completo (validator slot+variantes + loader slotById, 332/332 tests verdes); siguiente Plan 15-02
-Last activity: 2026-06-02 -- Plan 15-01 ejecutado (SLOT-01/02/03/04/06)
+Plan: 3 of 3
+Status: Plan 15-02 completo (migrate5to6 + hydrateV6 + backup round-trip v6, 341/341 tests verdes); siguiente Plan 15-03
+Last activity: 2026-06-03 -- Plan 15-02 ejecutado (SLOT-05)
 
 ## Quick Tasks Completed
 
@@ -55,7 +55,7 @@ Last activity: 2026-06-02 -- Plan 15-01 ejecutado (SLOT-01/02/03/04/06)
 | Requisitos v1.4 completos | 0/17 (planning) |
 | Ejercicios totales en la app | 373 validated (9 categorías gramaticales) + bloque Canciones standalone |
 | Categorías gramaticales | 9 (en v1.4: Preposiciones se convierte a slots-piloto; las otras 8 = slots de 1 variante) |
-| schemaVersion actual | 5 (v1.4 migra a 6) |
+| schemaVersion actual | 6 (Plan 15-02: migrate5to6 + hydrateV6 + backup v6, bump nominal D-15-09) |
 | Granularidad | coarse |
 | Mode | mixed — Phase 15/16 software (motor + migración), Phase 17 contenido editorial (quórum R1-R7) |
 
@@ -81,7 +81,7 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - **Contenido del piloto pasa el quórum estricto R1-R7** — las variantes nuevas de Preposiciones (PILOT-02) NO usan la validación ligera autor-oráculo de canciones; usan el quórum cross-vendor gramatical (skills `gsd-validate-exercise` / `gsd-validate-batch`), porque son ejercicios gramaticales reales.
 - **Explicación a nivel de slot, NO por variante (SLOT-02)** — variantes intercambiables comparten regla y explicación; más simple de autorar/validar. Explicación propia por variante está out-of-scope.
 - **Reset de progreso de Preposiciones al migrar (PILOT-04)** — coherente con el Core Value y mucho más simple que mapear estado ejercicio→slot; el resto de categorías conserva su progreso.
-- **Migración coherente con el patrón existente (SLOT-05)** — `migrate5to6` + `hydrateV6` idempotente + deep-clone defensivo (mismo patrón que `migrate4to5`); `backup.js` extendido a v6 para round-trip.
+- **Migración coherente con el patrón existente (SLOT-05)** — `migrate5to6` + `hydrateV6` idempotente + deep-clone defensivo (mismo patrón que `migrate4to5`); `backup.js` extendido a v6 para round-trip. ✓ **Implementado Plan 15-02** (D-15-09: bump NOMINAL a nivel del state root — el modelo slot+variantes vive en `content/`, no en el state; mismo set de sub-dicts que v5; sin reset de progreso, Preposiciones reset es Phase 17; 341/341 tests verdes, +9 nuevos v6).
 - **Canon editorial heredado** — explanations de slot en español acentuado correcto + italianismos preservados, plain text sin markdown, apóstrofes ASCII U+0027 (D-129/D-135/D-137).
 
 ### Pending Todos
