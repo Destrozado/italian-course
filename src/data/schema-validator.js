@@ -142,6 +142,155 @@ export function validateContent({ categories, exercisesByFile }) {
   return { ok: errors.length === 0, errors };
 }
 
+/**
+ * Valida una colección de documentos de canción (Phase 13, DATA-01/DATA-02).
+ *
+ * Export SEPARADO de `validateContent` y de `PAYLOAD_VALIDATORS` (patrón (a)
+ * del PATTERNS.md surface 3): las canciones NO entran en el pool de ejercicios
+ * (LINK-04), así que tienen su propio path de validación y de carga.
+ *
+ * Estrategia idéntica a `validateContent`: acumula TODOS los errores en un solo
+ * recorrido (D-08), nunca lanza mid-walk, devuelve `{ok, errors}`, mensajes en
+ * español (FOUND-04).
+ *
+ * Shape de un documento de canción:
+ *   {
+ *     id: slug,
+ *     title: string no vacío,
+ *     phrases: [
+ *       { id: string, prompt: string (línea italiana), answer: string[] (tokens es),
+ *         distractors?: string[], categoryIds?: string[] }
+ *     ]
+ *   }
+ *
+ * DIVERGENCIA CLAVE vs ejercicios (LINK-03): `categoryIds` de una frase es
+ * OPCIONAL y puede ser `[]`. NO se copia el check "categoryIds no vacío" de
+ * `validateContent` (línea 110). Si está presente, cada entrada debe ser string
+ * que referencia una categoría conocida; ausente/vacío es VÁLIDO.
+ *
+ * @param {object} input
+ * @param {Array<object>} input.songs - Documentos de canción (uno por archivo).
+ * @param {Set<string>} input.knownCategoryIds - Ids de categoría válidos.
+ * @returns {{ok: boolean, errors: Array<{file: string, exerciseId?: string, reason: string}>}}
+ */
+export function validateSongs({ songs, knownCategoryIds }) {
+  const errors = [];
+  const push = (file, id, reason) => errors.push({ file, exerciseId: id, reason });
+  const known = knownCategoryIds instanceof Set
+    ? knownCategoryIds
+    : new Set(Array.isArray(knownCategoryIds) ? knownCategoryIds : []);
+
+  if (!Array.isArray(songs)) {
+    push('songs.json', undefined, 'campo "songs" debe ser array');
+    return { ok: false, errors };
+  }
+
+  const seenSongIds = new Set();
+
+  for (const song of songs) {
+    // id de canción: slug ASCII, único entre archivos
+    const songId = song?.id;
+    const file = typeof songId === 'string' ? `content/songs/${songId}.json` : 'content/songs/?.json';
+
+    if (typeof songId !== 'string' || !ID_SLUG_RE.test(songId)) {
+      push(file, songId, `id de canción inválido: "${songId}" (debe ser slug ASCII en minúsculas)`);
+      // sin id válido no podemos seguir reportando con contexto, pero igual
+      // intentamos validar el resto del documento si phrases es array.
+    } else {
+      if (seenSongIds.has(songId)) {
+        push(file, songId, `id de canción duplicado: "${songId}"`);
+      }
+      seenSongIds.add(songId);
+    }
+
+    if (typeof song?.title !== 'string' || !song.title.trim()) {
+      push(file, songId, 'falta campo "title" o está vacío');
+    }
+
+    if (!Array.isArray(song?.phrases)) {
+      push(file, songId, '"phrases" debe ser array');
+      continue; // sin array no podemos traversar las frases
+    }
+
+    const seenPhraseIds = new Set();
+    for (const phrase of song.phrases) {
+      // id de frase presente y único dentro de la canción
+      if (typeof phrase?.id !== 'string' || !phrase.id.trim()) {
+        push(file, phrase?.id, 'frase sin "id" o id vacío');
+        continue; // sin id no podemos seguir reportando errores de esta frase
+      }
+      if (seenPhraseIds.has(phrase.id)) {
+        push(file, phrase.id, `id de frase duplicado: "${phrase.id}"`);
+      }
+      seenPhraseIds.add(phrase.id);
+
+      // payload de la frase (prompt / answer / distractors)
+      validateSongPhrasePayload(phrase, file, push);
+
+      // categoryIds: OPCIONAL (LINK-03). Ausente o [] es válido. Si está
+      // presente, cada entrada debe ser string que referencia categoría
+      // conocida — NO se exige que sea no vacío (divergencia vs ejercicios).
+      if (phrase.categoryIds !== undefined) {
+        if (!Array.isArray(phrase.categoryIds)) {
+          push(file, phrase.id, '"categoryIds" debe ser array si está presente');
+        } else {
+          for (const cid of phrase.categoryIds) {
+            if (typeof cid !== 'string') {
+              push(file, phrase.id, `"categoryIds" contiene una entrada no-string: ${JSON.stringify(cid)}`);
+              continue;
+            }
+            if (!known.has(cid)) {
+              push(file, phrase.id, `referencia a categoría desconocida: "${cid}"`);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return { ok: errors.length === 0, errors };
+}
+
+/**
+ * Validador del payload de una frase de canción (Phase 13).
+ *
+ * Adaptado de `validateWordButtonsPayload` — el payload está APLANADO sobre la
+ * frase (prompt/answer/distractors directos, no bajo `.payload`), porque una
+ * frase de canción no lleva campo `type` (siempre es word-buttons inverso).
+ *
+ * Reglas:
+ *   - `prompt` (línea italiana) string no vacío.
+ *   - `answer` (tokens españoles) array de ≥1 strings no vacíos.
+ *   - `distractors` (opcional) array de strings no vacíos.
+ *
+ * D-08: acumula errores sin early-return.
+ *
+ * @param {object} phrase
+ * @param {string} file
+ * @param {(file:string, id:string, reason:string) => void} push
+ */
+function validateSongPhrasePayload(phrase, file, push) {
+  const { prompt, answer, distractors } = phrase;
+
+  if (typeof prompt !== 'string' || !prompt.trim()) {
+    push(file, phrase.id, '"prompt" debe ser string no vacío');
+  }
+
+  if (!Array.isArray(answer) || answer.length === 0) {
+    push(file, phrase.id, `"answer" debe ser array de al menos 1 token (encontrado: ${Array.isArray(answer) ? answer.length : typeof answer})`);
+  } else if (answer.some(t => typeof t !== 'string' || !t.trim())) {
+    push(file, phrase.id, '"answer" contiene tokens vacíos o no-string');
+  }
+
+  if (distractors !== undefined) {
+    if (!Array.isArray(distractors)) {
+      push(file, phrase.id, `"distractors" debe ser array si está presente (encontrado: ${typeof distractors})`);
+    } else if (distractors.some(t => typeof t !== 'string' || !t.trim())) {
+      push(file, phrase.id, '"distractors" contiene tokens vacíos o no-string');
+    }
+  }
+}
+
 // ─── Payload validators (dispatch table targets) ─────────────────────────────
 
 /**

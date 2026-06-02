@@ -1,0 +1,24 @@
+{
+  "id": "mini-prueba",
+  "title": "Mini-cancion de prueba",
+  "phrases": [
+    {
+      "id": "mini-prueba-001",
+      "prompt": "Ho una macchina nuova.",
+      "answer": ["tengo", "un", "coche", "nuevo"],
+      "categoryIds": ["avere"]
+    },
+    {
+      "id": "mini-prueba-002",
+      "prompt": "Vado a casa da te.",
+      "answer": ["voy", "a", "tu", "casa"],
+      "categoryIds": ["preposiciones"]
+    },
+    {
+      "id": "mini-prueba-003",
+      "prompt": "La musica e bella stasera.",
+      "answer": ["la", "musica", "es", "bonita", "esta", "noche"],
+      "categoryIds": []
+    }
+  ]
+}
