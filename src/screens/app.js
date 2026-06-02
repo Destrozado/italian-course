@@ -236,6 +236,14 @@ export function appShell(appDataReady) {
      * `completeSession`) — debe capturarse al lanzar.
      */
     songBefore: null,
+    /**
+     * Phase 13 — Block B del resumen: lista de categorías que REGRESARON de
+     * estado por las frases falladas de esta canción (antes hecha/dominada →
+     * ahora no-hecha). Set por `completeSong()` reusando el CONCEPTO de
+     * `computeSummaryDelta` (factual antes→después, SIN gamificación). Limpiado
+     * en `returnToSongList()`. `null` fuera del resumen (guard del template).
+     */
+    songSummaryDelta: null,
 
     // ─── Sub-estado backup (Phase 4 D-84) ───────────────────────────────────
     /** null | { kind: 'success' | 'error', text: string }. Limpiado al salir
@@ -452,6 +460,194 @@ export function appShell(appDataReady) {
 
       // Transición final a session.
       this.currentScreen = 'session';
+    },
+
+    // ════════════════════════════════════════════════════════════════════════
+    // Playthrough de canción (Phase 13 — PLAY-01/02/03/05, LINK-02/04)
+    // ════════════════════════════════════════════════════════════════════════
+
+    /**
+     * Phase 13 — Lanza el playthrough de una canción. Copia la FORMA de
+     * `_launchExamen` (build lista ordenada → reset sub-estado → init primera →
+     * transición) PERO con divergencias standalone:
+     *
+     *   - PLAY-01 / LINK-04: recorre `songsById[songId].phrases` EN ORDEN
+     *     DECLARADO. NO usa `buildFullTest`/`buildSession` ni `fisherYates`
+     *     sobre el orden de frases (el shuffle del BANCO de cada frase SÍ está
+     *     permitido — D-05, vía `initSubStateForExercise`).
+     *   - LINK-04: las frases se resuelven contra el mapa DEDICADO
+     *     `songPhraseById`, NUNCA contra `content.exerciseById` (donde no
+     *     existen). El getter `songCurrentPhrase` hace ese lookup, evitando
+     *     volver song-aware a `sessionCurrentExercise`.
+     *   - PLAY-05: NO escribe `inFlightTest` (sin slot de reanudación;
+     *     abandonar descarta lo no comprometido, re-entrar empieza de cero).
+     *     Como `sessionMode = 'cancion'` (no 'test-completo'), el branch de
+     *     persistInFlightTest de `applyResultToSession`/`sessionAdvance` se omite.
+     *
+     * Normaliza cada frase a un objeto graduable word-buttons (las frases del
+     * JSON no llevan `type`): `{ id, type:'word-buttons', payload:{prompt,
+     * answer, distractors}, categoryIds }`. Así `wordButtons.grade()` y la
+     * cascada `applyImmediateFailure` (que lee `categoryIds`) se reutilizan tal
+     * cual.
+     *
+     * Captura el snapshot `songBefore` (deep-clone de categoryProgress) AL
+     * INICIO: la cascada de canción es INCREMENTAL (cada frase fallada muta
+     * categoryProgress), así que el "antes" del bloque de impacto del resumen
+     * debe tomarse aquí, no al final.
+     *
+     * @param {string} songId
+     */
+    startSong(songId) {
+      // Pattern S-2: cancelaciones defensivas antes de cualquier reset.
+      this.cancelAutoAdvance();
+      this.cancelMatchFlash();
+
+      const song = this.content?.songsById?.[songId];
+      if (!song || !Array.isArray(song.phrases)) return;
+
+      // Normalizar cada frase a un objeto graduable word-buttons (las frases
+      // NO llevan `type` en el JSON; son word-buttons inverso it->es).
+      // PLAY-01: el ORDEN es el declarado (Array.map preserva el orden, sin
+      // fisherYates sobre las frases).
+      const phraseById = {};
+      const orderedIds = [];
+      for (const phrase of song.phrases) {
+        const graded = {
+          id: phrase.id,
+          type: 'word-buttons',
+          payload: {
+            prompt: phrase.prompt,
+            answer: phrase.answer ?? [],
+            distractors: phrase.distractors ?? []
+          },
+          categoryIds: phrase.categoryIds ?? []
+        };
+        phraseById[phrase.id] = graded;
+        orderedIds.push(phrase.id);
+      }
+
+      this.songActiveId = songId;
+      this.songPhraseById = phraseById;
+
+      // sessionMode 'cancion' — distinto de 'test-completo' para que
+      // applyResultToSession/sessionAdvance NO persistan inFlightTest (PLAY-05)
+      // y el render/teclado dispatchen al path de canción.
+      this.sessionMode = 'cancion';
+
+      // Reuso del sub-estado session* para cursor/results/feedback/word-buttons.
+      this.sessionExerciseIds = orderedIds;
+      this.sessionCursor = 0;
+      this.sessionResults = [];
+      this.sessionSelectedIndex = null;
+      this.sessionFeedback = null;
+      this.wordButtonsBank = [];
+      this.wordButtonsAnswer = [];
+      // Reset match (defensivo, idéntico a _launchExamen).
+      this.matchLeft = [];
+      this.matchRight = [];
+      this.matchSelectedLeftIdx = null;
+      this.matchPairsConsumed = [];
+      this.matchHadFailure = false;
+      this.matchFirstWrongPair = null;
+      this.matchFlashIdx = null;
+      this.matchFlashHandle = null;
+
+      // Snapshot `before` de categoryProgress AL INICIO (la cascada es
+      // incremental — debe capturarse antes del primer fallo). Deep-clone
+      // defensivo igual que completeSession.
+      this.songBefore = JSON.parse(JSON.stringify(this.state.categoryProgress ?? {}));
+
+      // Init sub-estado de la PRIMERA frase (rama word-buttons:
+      // bank = fisherYates(answer ∪ distractors) — shuffle del banco permitido D-05).
+      if (orderedIds.length > 0) {
+        this.initSubStateForExercise(phraseById[orderedIds[0]]);
+      }
+
+      // PLAY-05: NO persistInFlightTest. Transición a la pantalla de canción.
+      this.currentScreen = 'cancion';
+    },
+
+    /**
+     * Phase 13 — Comprobar la frase actual (analog de `wordButtonsCheck`, D-58)
+     * pero resolviendo contra `songPhraseById` (NO `sessionCurrentExercise`,
+     * que lee de exerciseById donde la frase NO existe — LINK-04).
+     *
+     * Delega en `applyResultToSession` (ÚNICO call-site de la cascada D-54,
+     * Pitfall #2 — NO añade un segundo). `applyResultToSession` ya dispatcha
+     * por `sessionMode === 'cancion'`: en acierto programa `songAdvance` (600ms,
+     * PLAY-03); en fallo aplica `applyImmediateFailure` + saveState SÍNCRONO
+     * (LINK-02; categoryIds vacío = no-op, LINK-03) y omite inFlightTest (PLAY-05).
+     */
+    songCheck() {
+      if (this.sessionFeedback !== null) return;
+      if (!this.wordButtonsCanCheck) return;
+      const phrase = this.songCurrentPhrase;
+      if (!phrase) return;
+      const correct = registry[phrase.type].grade(phrase, { tokens: this.wordButtonsAnswer });
+      this.applyResultToSession(phrase, correct, [...this.wordButtonsAnswer]);
+    },
+
+    /**
+     * Phase 13 — Avanza a la siguiente frase (analog de `sessionAdvance`) pero
+     * resolviendo la siguiente frase contra `songPhraseById` y disparando
+     * `completeSong()` (no `completeSession`) al pasar el final. NO persiste
+     * inFlightTest (PLAY-05).
+     */
+    songAdvance() {
+      this.cancelAutoAdvance();
+
+      this.sessionCursor += 1;
+      this.sessionSelectedIndex = null;
+      this.sessionFeedback = null;
+
+      if (this.sessionCursor >= this.sessionExerciseIds.length) {
+        this.completeSong();
+      } else {
+        const nextId = this.sessionExerciseIds[this.sessionCursor];
+        this.initSubStateForExercise(this.songPhraseById[nextId]);
+      }
+    },
+
+    /**
+     * Phase 13 — Handler de teclado del playthrough de canción (analog de
+     * `handleSessionKey`, D-71/D-72) resolviendo la frase contra
+     * `songCurrentPhrase` y avanzando con `songAdvance`/comprobando con
+     * `songCheck`. Bound vía `@keydown.window` en la pantalla 'cancion';
+     * auto-unmount al cambiar `currentScreen` (D-72).
+     */
+    handleSongKey(event) {
+      if (event.ctrlKey || event.metaKey || event.altKey) return;
+      const phrase = this.songCurrentPhrase;
+      if (!phrase) return;
+      const key = event.key;
+
+      if (key === 'Enter' || key === ' ') {
+        if (key === ' ') event.preventDefault();
+        if (this.sessionFeedback === 'incorrect') {
+          this.songAdvance();
+          return;
+        }
+        if (this.sessionFeedback === null && this.wordButtonsCanCheck) {
+          this.songCheck();
+          return;
+        }
+        return;
+      }
+
+      if (key === 'Backspace') {
+        if (this.sessionFeedback !== null) return;
+        event.preventDefault();
+        const last = this.wordButtonsAnswer.length - 1;
+        if (last >= 0) this.wordButtonsRemoveWord(last);
+        return;
+      }
+
+      // Dígitos 1-9: colocar la palabra del banco (mismo que word-buttons).
+      if (/^[1-9]$/.test(key)) {
+        if (this.sessionFeedback !== null) return;
+        const idx = Number(key) - 1;
+        if (idx < this.wordButtonsBank.length) this.wordButtonsAddWord(idx);
+      }
     },
 
     /**
@@ -1250,9 +1446,15 @@ export function appShell(appDataReady) {
       this.sessionResults.push({ exerciseId: ex.id, correct, userAnswer });
 
       if (correct) {
-        // SESSION-05 verde: auto-avance tras ~600ms. Guardar handle para
-        // poder cancelar (Pitfall #5).
-        this.sessionAutoAdvanceHandle = setTimeout(() => this.sessionAdvance(), 600);
+        // SESSION-05 / PLAY-03 verde: auto-avance tras ~600ms. Guardar handle
+        // para poder cancelar (Pitfall #5). El target del avance dispatcha por
+        // modo: en canción (Phase 13) la siguiente frase se resuelve contra
+        // `songPhraseById` vía `songAdvance` (NO `sessionAdvance`, que lee de
+        // exerciseById donde la frase no existe — LINK-04).
+        const advance = this.sessionMode === 'cancion'
+          ? () => this.songAdvance()
+          : () => this.sessionAdvance();
+        this.sessionAutoAdvanceHandle = setTimeout(advance, 600);
       } else {
         // D-54: cascada inmediata + persist (single call-site para todos
         // los tipos). Plan 02-03 UAT round 2 confirmó que este es el
@@ -1895,6 +2097,100 @@ export function appShell(appDataReady) {
     },
 
     // ════════════════════════════════════════════════════════════════════════
+    // Completado + resumen de canción (Phase 13 — PLAY-04, SONG-02/04, D-02/D-04)
+    // ════════════════════════════════════════════════════════════════════════
+
+    /**
+     * Phase 13 — Rutina de completado del playthrough (analog de
+     * `completeSession`). DIVERGE del Test completo:
+     *
+     *   - NO llama `applySessionResult` (standalone — LINK-04): la cascada D-54
+     *     ya ocurrió per-frase vía `applyImmediateFailure` (categoryProgress se
+     *     mutó incrementalmente durante el recorrido). El status pasada/fallada
+     *     de la canción se escribe AQUÍ, write-once-at-end (D-02).
+     *   - El bloque de impacto (Block B) se computa del set
+     *     `failedCategoryIds` de las frases falladas (resuelto contra
+     *     `songPhraseById`) usando el snapshot `songBefore` (capturado al INICIO
+     *     en `startSong`) vs el `categoryProgress` actual — solo lista las
+     *     categorías que regresaron (hecha/dominada → no-hecha).
+     *
+     * `songProgress[songId] = { status, lastPlayedAt }` es redimible/bidireccional
+     * (D-03): completar limpio → 'pasada'; con ≥1 fallo → 'fallada'.
+     */
+    completeSong() {
+      const songId = this.songActiveId;
+      const results = this.sessionResults;
+      const today = todayLocal();
+
+      // Write-once-at-end (D-02): status reflejando el último recorrido completo.
+      const status = results.some(r => !r.correct) ? 'fallada' : 'pasada';
+      const newState = {
+        ...this.state,
+        songProgress: { ...(this.state.songProgress ?? {}) }
+      };
+      newState.songProgress[songId] = { status, lastPlayedAt: today };
+      newState.firstUsedAt = newState.firstUsedAt ?? new Date().toISOString();
+      saveState(newState);
+      this.state = newState;
+
+      // Block B — categorías que bajaron de estado por las frases falladas de
+      // ESTA canción. Reusa el CONCEPTO de computeSummaryDelta (set auxiliar +
+      // status antes→después), pero el lookup es songPhraseById (NO exerciseById)
+      // y el "antes" es el snapshot de inicio (cascada incremental).
+      const failedCategoryIds = new Set(
+        results
+          .filter(r => !r.correct)
+          .flatMap(r => this.songPhraseById[r.exerciseId]?.categoryIds ?? [])
+      );
+      const before = this.songBefore ?? {};
+      const after = this.state.categoryProgress ?? {};
+      const catNameById = {};
+      for (const cat of this.content.categories ?? []) catNameById[cat.id] = cat.name;
+
+      const regressed = [];
+      for (const catId of failedCategoryIds) {
+        const statusBefore = before[catId]?.status ?? 'no-hecha';
+        const statusAfter = after[catId]?.status ?? 'no-hecha';
+        const isRegression =
+          (statusBefore === 'hecha' || statusBefore === 'dominada') &&
+          statusAfter === 'no-hecha';
+        if (isRegression) {
+          regressed.push({
+            categoryId: catId,
+            categoryName: catNameById[catId] ?? catId,
+            statusBefore,
+            statusAfter,
+            isRegression: true
+          });
+        }
+      }
+      regressed.sort((a, b) => a.categoryName.localeCompare(b.categoryName));
+      this.songSummaryDelta = regressed;
+
+      // Block A — snapshot de resultados (CR-02: sobrevive al unmount/reset).
+      this.summarySessionResults = [...results];
+
+      this.cancelAutoAdvance();
+      this.currentScreen = 'cancion-summary';
+    },
+
+    /**
+     * Phase 13 — Vuelve al listado de canciones desde el resumen (analog de
+     * `returnToHomeFromSummary`). Limpia el sub-estado de canción + summary,
+     * resetea la sesión, y vuelve a `currentScreen='canciones'` para que el
+     * listado refleje el nuevo estado pasada/fallada (SONG-02/SONG-04).
+     */
+    returnToSongList() {
+      this.resetSession();
+      this.songActiveId = null;
+      this.songPhraseById = {};
+      this.songBefore = null;
+      this.songSummaryDelta = null;
+      this.summarySessionResults = [];
+      this.currentScreen = 'canciones';
+    },
+
+    // ════════════════════════════════════════════════════════════════════════
     // Getters reactivos (Alpine los recomputa por dependencias granulares)
     // ════════════════════════════════════════════════════════════════════════
 
@@ -1929,6 +2225,28 @@ export function appShell(appDataReady) {
     /** SESSION-04: indicador "Ejercicio X / N" visible toda la sesión. */
     get sessionProgressLabel() {
       return `Ejercicio ${this.sessionCursor + 1} / ${this.sessionExerciseIds.length}`;
+    },
+
+    /**
+     * Phase 13 — Frase actualmente mostrada en el playthrough de canción.
+     * Espejo defensivo de `sessionCurrentExercise` PERO resolviendo contra el
+     * mapa DEDICADO `songPhraseById` (LINK-04: las frases de canción NO existen
+     * en `content.exerciseById`). Devuelve `null` cuando el cursor pasó del
+     * final, no hay canción activa, o el id no existe (defensivo — double-defense
+     * Alpine, evita TypeError durante el tick de unmount).
+     *
+     * @returns {object|null}
+     */
+    get songCurrentPhrase() {
+      if (this.sessionCursor >= this.sessionExerciseIds.length) return null;
+      const id = this.sessionExerciseIds[this.sessionCursor];
+      if (!id) return null;
+      return this.songPhraseById?.[id] ?? null;
+    },
+
+    /** Phase 13 — indicador "Frase X / N" del playthrough de canción. */
+    get songProgressLabel() {
+      return `Frase ${this.sessionCursor + 1} / ${this.sessionExerciseIds.length}`;
     },
 
     /**

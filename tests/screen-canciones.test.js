@@ -83,3 +83,113 @@ describe('Canciones — Task 1: boot wiring + home button + listado', () => {
       'app.js debe referenciar el valor de pantalla \'canciones\'');
   });
 });
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Task 2 — Playthrough secuencial it->es + cascada D-54 (PLAY-01/02/03/05, LINK)
+// ─────────────────────────────────────────────────────────────────────────────
+
+describe('Canciones — Task 2: playthrough secuencial + cascada D-54', () => {
+  // Ventana de inspección del CUERPO de startSong: desde su definición hasta
+  // el `/**` del siguiente método (JSDoc de songCheck) para no contaminarse
+  // con métodos vecinos ni con sus comentarios.
+  const startSongIdx = appSrc.search(/^\s+startSong\(songId\)\s*\{/m);
+  let startSongEnd = startSongIdx + 3000;
+  if (startSongIdx > -1) {
+    const nextDoc = appSrc.indexOf('\n    /**', startSongIdx + 50);
+    if (nextDoc > -1) startSongEnd = nextDoc;
+  }
+  const startSongWindow = startSongIdx > -1
+    ? appSrc.slice(startSongIdx, startSongEnd)
+    : '';
+
+  test('startSong(songId) está definido en src/screens/app.js (SONG-03 / PLAY-01)', () => {
+    assert.ok(startSongIdx > -1,
+      'startSong(songId) debe estar definido — entry point del playthrough');
+  });
+
+  test('startSong NO usa buildFullTest / buildSession / fisherYates sobre el orden de frases (PLAY-01, LINK-04)', () => {
+    assert.ok(!startSongWindow.includes('buildFullTest'),
+      'startSong NO debe llamar buildFullTest — recorre phrases EN ORDEN (PLAY-01)');
+    assert.ok(!startSongWindow.includes('buildSession'),
+      'startSong NO debe llamar buildSession — standalone (LINK-04)');
+    // El shuffle del orden de frases está prohibido; el banco de cada frase SÍ
+    // puede usar fisherYates pero eso ocurre en initSubStateForExercise, no en
+    // el cuerpo de startSong directamente sobre el orderedIds.
+    assert.ok(!/fisherYates\([^)]*orderedIds/.test(startSongWindow),
+      'startSong NO debe hacer fisherYates sobre el orden de frases (PLAY-01)');
+  });
+
+  test('startSong NO persiste inFlightTest (PLAY-05 — sin slot de reanudación)', () => {
+    // Chequeamos la INVOCACIÓN (this.persistInFlightTest()), no la mención en
+    // comentarios — el cuerpo documenta explícitamente "NO persistInFlightTest".
+    assert.ok(!/this\.persistInFlightTest\(/.test(startSongWindow),
+      'startSong NO debe llamar persistInFlightTest — abandonar descarta, re-entra de cero (PLAY-05)');
+  });
+
+  test('startSong resuelve frases contra songPhraseById, NO contra exerciseById (LINK-04)', () => {
+    assert.ok(startSongWindow.includes('songPhraseById'),
+      'el playthrough debe usar el mapa dedicado songPhraseById (LINK-04)');
+    // Chequeamos el ACCESO de código a exerciseById (lookup), no menciones en
+    // comentarios.
+    assert.ok(!/\.exerciseById\b/.test(startSongWindow),
+      'startSong NO debe leer .exerciseById — las frases no existen ahí (LINK-04)');
+  });
+
+  test('startSong captura el snapshot before AL INICIO (cascada incremental)', () => {
+    assert.ok(startSongWindow.includes('songBefore') && startSongWindow.includes('categoryProgress'),
+      'startSong debe capturar songBefore = deep-clone de categoryProgress al inicio (cascada incremental)');
+    assert.ok(startSongWindow.includes("this.currentScreen = 'cancion'"),
+      "startSong debe transicionar a currentScreen='cancion'");
+  });
+
+  test('el path de canción NO añade un call-site de cascada (Pitfall #2, D-54)', () => {
+    // Baseline pre-Phase-13: 2 invocaciones de applyImmediateFailure ya
+    // existentes — applyResultToSession (path unificado word-buttons/multi-choice
+    // + completado match) y matchPickRight (cascada per-pareja del match, D-61).
+    // El playthrough de canción REUSA applyResultToSession (vía songCheck) y NO
+    // debe añadir un tercer call-site (Pitfall #2). Verificamos que el total se
+    // mantiene en 2 invocaciones de código.
+    const invocations = (appSrc.match(/=\s*applyImmediateFailure\(/g) || []).length;
+    assert.equal(invocations, 2,
+      `applyImmediateFailure debe mantenerse en 2 call-sites preexistentes (applyResultToSession + matchPickRight); el path de canción NO añade otro; encontrados: ${invocations}`);
+    // Y el cuerpo de startSong NO debe INVOCAR applyImmediateFailure directamente
+    // (chequeamos la llamada `applyImmediateFailure(`, no menciones en comentarios).
+    assert.ok(!/applyImmediateFailure\(/.test(startSongWindow),
+      'startSong NO debe llamar applyImmediateFailure directamente (reusa applyResultToSession — Pitfall #2)');
+  });
+
+  test('songCheck delega en applyResultToSession (single call-site D-54)', () => {
+    const idx = appSrc.search(/^\s+songCheck\(\)\s*\{/m);
+    assert.ok(idx > -1, 'songCheck debe estar definido');
+    const window = appSrc.slice(idx, idx + 800);
+    assert.ok(window.includes('applyResultToSession'),
+      'songCheck debe delegar en applyResultToSession (único call-site de cascada)');
+    assert.ok(window.includes('songCurrentPhrase'),
+      'songCheck debe resolver la frase contra songCurrentPhrase (LINK-04)');
+  });
+
+  test('songAdvance dispara completeSong al final, sin persistInFlightTest (PLAY-05)', () => {
+    const idx = appSrc.search(/^\s+songAdvance\(\)\s*\{/m);
+    assert.ok(idx > -1, 'songAdvance debe estar definido');
+    const window = appSrc.slice(idx, idx + 800);
+    assert.ok(window.includes('completeSong'),
+      'songAdvance debe llamar completeSong al pasar el final');
+    assert.ok(!window.includes('persistInFlightTest'),
+      'songAdvance NO debe persistir inFlightTest (PLAY-05)');
+  });
+
+  test('index.html: render del playthrough usa x-text para el prompt italiano (T-02-01, NO x-html)', () => {
+    const idx = indexSrc.indexOf("currentScreen === 'cancion' && songCurrentPhrase");
+    assert.ok(idx > -1, 'debe existir el template del playthrough cancion');
+    // Ventana del template de canción hasta el cierre.
+    const window = indexSrc.slice(idx, idx + 3500);
+    assert.ok(window.includes('x-text="songCurrentPhrase.payload.prompt"'),
+      'el prompt italiano debe renderizarse con x-text (T-02-01)');
+    assert.ok(!window.includes('x-html'),
+      'el bloque del playthrough NO debe usar x-html (T-02-01 anti-XSS)');
+    assert.ok(window.includes('handleSongKey($event)'),
+      'el playthrough debe enlazar @keydown.window="handleSongKey($event)" (D-72)');
+    assert.ok(window.includes('songCheck') && window.includes('songAdvance'),
+      'el playthrough debe enlazar songCheck (Comprobar) y songAdvance (Siguiente)');
+  });
+});

@@ -563,6 +563,91 @@
       </template>
 
       <!-- ════════════════════════════════════════════════════════════════ -->
+      <!-- Pantalla CANCION — playthrough (Phase 13, PLAY-01/02/03/05)       -->
+      <!-- ════════════════════════════════════════════════════════════════ -->
+      <!--
+        Recorrido secuencial it->es de las frases de una canción. Copia el
+        bloque word-buttons de la sesión (banco + área respuesta + frase
+        correcta al fallar + Comprobar/Siguiente) pero resuelve la frase activa
+        contra `songCurrentPhrase` (LINK-04: las frases NO están en
+        exerciseById) y dispatcha al path de canción (songCheck/songAdvance).
+
+        Double-defense Alpine: outer guard `currentScreen === 'cancion' &&
+        songCurrentPhrase` — el getter ya devuelve null defensivamente; el x-if
+        evita que los bindings se evalúen durante el tick de unmount.
+
+        @keydown.window="handleSongKey($event)" (D-72): atajos word-buttons
+        (1-9 banco, Backspace, Enter=Comprobar/avanzar). Auto-unmount al cambiar
+        currentScreen.
+
+        T-02-01 anti-XSS: la línea italiana (`payload.prompt`) y la respuesta
+        correcta se renderizan EXCLUSIVAMENTE con `x-text` (NUNCA x-html).
+      -->
+      <template x-if="currentScreen === 'cancion' && songCurrentPhrase">
+        <article @keydown.window="handleSongKey($event)">
+          <!-- PLAY-01: indicador "Frase X / N" visible todo el recorrido. -->
+          <header x-text="songProgressLabel"></header>
+
+          <!-- PLAY-02: la línea ITALIANA es el texto a traducir (x-text — T-02-01). -->
+          <p x-text="songCurrentPhrase.payload.prompt"></p>
+
+          <div>
+            <!-- Banco de palabras españolas (con sufijo numérico ¹..⁹, D-69). -->
+            <div class="wb-bank">
+              <template x-for="(entry, idx) in bankWithKeys" :key="entry.word + '_' + idx">
+                <button type="button"
+                        @click="wordButtonsAddWord(idx)"
+                        :disabled="sessionFeedback !== null"
+                        :aria-label="'Palabra ' + entry.key + ': ' + entry.word">
+                  <span x-text="entry.word"></span><sup class="kbd-hint" x-text="entry.key"></sup>
+                </button>
+              </template>
+            </div>
+
+            <!-- Área respuesta (tokens colocados). -->
+            <div class="wb-answer"
+                 :class="{
+                   'wb-answer-empty': wordButtonsAnswer.length === 0 && sessionFeedback === null,
+                   'incorrecta': sessionFeedback === 'incorrect'
+                 }"
+                 aria-live="polite">
+              <template x-for="(word, idx) in wordButtonsAnswer" :key="word + '_' + idx">
+                <button type="button"
+                        @click="wordButtonsRemoveWord(idx)"
+                        :disabled="sessionFeedback !== null"
+                        x-text="word"></button>
+              </template>
+            </div>
+
+            <!-- PLAY-03: frase correcta literal al fallar (x-text — T-02-01). -->
+            <p x-show="sessionFeedback === 'incorrect'" class="wb-correct-answer">
+              Respuesta correcta:
+              <strong x-text="songCurrentPhrase.payload.answer.join(' ')"></strong>
+            </p>
+
+            <!-- Comprobar + Siguiente (path de canción: songCheck/songAdvance). -->
+            <div class="button-row">
+              <button type="button"
+                      x-show="sessionFeedback === null"
+                      @click="songCheck"
+                      :disabled="!wordButtonsCanCheck">Comprobar</button>
+              <button type="button"
+                      x-show="sessionFeedback === 'incorrect'"
+                      @click="songAdvance">Siguiente</button>
+            </div>
+          </div>
+
+          <hr>
+          <!--
+            PLAY-05: abandonar a mitad descarta el progreso NO comprometido (los
+            fallos ya cascadeados por D-54 quedan persistidos). Re-entrar empieza
+            de cero. Directo a la lista (sin slot de reanudación).
+          -->
+          <button type="button" class="secondary" @click="returnToSongList">← Volver a Canciones</button>
+        </article>
+      </template>
+
+      <!-- ════════════════════════════════════════════════════════════════ -->
       <!-- Pantalla SUMMARY (D-37, SESSION-07 — Plan 02-04)                  -->
       <!-- ════════════════════════════════════════════════════════════════ -->
       <!--
