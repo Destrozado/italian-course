@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Canciones (bloque de traducción)
 status: executing
-last_updated: "2026-06-02T13:16:13.831Z"
-last_activity: 2026-06-02 -- Phase 14 planning complete
+last_updated: "2026-06-02T13:53:24.679Z"
+last_activity: 2026-06-02 -- Phase 14 execution started
 progress:
   total_phases: 4
   completed_phases: 1
@@ -21,16 +21,16 @@ See: `.planning/PROJECT.md` (updated 2026-06-02)
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 13 — bloque-canciones-modelo-de-datos-playthrough-end-to-end
+**Current Focus:** Phase 14 — contenido-equilibrio-mentale-ultimo-autorado-validaci-n-lige
 
 **Milestone v1.3 Goal:** Añadir un bloque "Canciones" separado del home: traducir canciones italianas frase a frase como ejercicio (word-buttons en dirección inversa italiano→español), con las frases enganchadas al motor de re-verificación existente vía cascada D-54. Reproducción secuencial tipo Test completo (sin reinicio a mitad) + resumen de errores. Frases catalogables (cascada al fallar) o sin categoría (guardadas, sin cascada). Canciones standalone: NO entran en Repaso 20 / Test ni en la tabla de categorías. Estado simple pasada/fallada por canción (NO dominada/streak/21-day). Primer contenido: "Equilibrio mentale — Ultimo". Brownfield: REUTILIZA engine (cascada D-54, schema-validator `PAYLOAD_VALIDATORS`, word-buttons `grade()`, patrón Test-completo/summary-errors) — NO reconstruye el motor.
 
 ## Current Position
 
-Phase: 13 (bloque-canciones-modelo-de-datos-playthrough-end-to-end) — EXECUTING
-Plan: 2 of 2
-Status: Ready to execute
-Last activity: 2026-06-02 -- Phase 14 planning complete
+Phase: 14 (contenido-equilibrio-mentale-ultimo-autorado-validaci-n-lige) — EXECUTING
+Plan: 1 of 1
+Status: Executing Phase 14
+Last activity: 2026-06-02 -- Phase 14 execution started
 
 ## Quick Tasks Completed
 

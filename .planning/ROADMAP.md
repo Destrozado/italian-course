@@ -52,7 +52,7 @@
 ### v1.3 — Canciones (bloque de traducción) — ACTIVE (Planning)
 
 - [x] **Phase 13: Bloque Canciones + modelo de datos + playthrough end-to-end** — Pantalla Canciones con listado/estado, schema de canción + validator + migración, reproducción secuencial con word-buttons inverso (italiano→español), feedback + resumen, frases enganchadas con cascada D-54, standalone fuera del sampler (completed 2026-06-02)
-- [ ] **Phase 14: Contenido "Equilibrio mentale — Ultimo" autorado + validación ligera** — Letra dividida en frases con sentido (limpiando ruido no-lírico), traducción española curada + distractoras + enganche de categorías por frase, validación ligera autor-oráculo (NO quórum estricto R1-R7)
+- [x] **Phase 14: Contenido "Equilibrio mentale — Ultimo" autorado + validación ligera** — Letra dividida en frases con sentido (limpiando ruido no-lírico), traducción española curada + distractoras + enganche de categorías por frase, validación ligera autor-oráculo (NO quórum estricto R1-R7) (completed 2026-06-02)
 
 ## Phase Details
 
@@ -80,7 +80,7 @@
   2. Cada frase tiene su traducción española curada como answer tokens, distractoras opcionales, y un enganche de categorías gramaticales existentes (o está marcada explícitamente sin categoría); fallar una frase enganchada cascada D-54 a las categorías declaradas (CONT-02)
   3. El contenido pasa la validación ligera autor-oráculo (una IA verifica que la traducción española sea defendible y que el enganche de categorías por frase sea correcto; el autor es oráculo final sobre el fraseo artístico), SIN exigir el quórum gramatical estricto R1-R7 (CONT-03)
 **Plans**: 1 plan
-- [ ] 14-01-PLAN.md — Autorar "Equilibrio mentale — Ultimo" por bloques (limpieza ruido + segmentación por sentido + traducción curada + enganche limpio) + validación ligera autor-oráculo (1 pase IA) + índice lockstep + sub-test
+- [x] 14-01-PLAN.md — Autorar "Equilibrio mentale — Ultimo" por bloques (limpieza ruido + segmentación por sentido + traducción curada + enganche limpio) + validación ligera autor-oráculo (1 pase IA) + índice lockstep + sub-test
 **UI hint**: yes
 
 ## Progress
@@ -91,7 +91,7 @@
 | 9-10 | v1.1 | 8/8 | Complete | 2026-05-27 |
 | 11-12 | v1.2 | 10/10 | Complete | 2026-05-28 |
 | 13. Bloque Canciones + playthrough | v1.3 | 2/2 | Complete   | 2026-06-02 |
-| 14. Contenido "Equilibrio mentale" | v1.3 | 0/1 | Not started | - |
+| 14. Contenido "Equilibrio mentale" | v1.3 | 1/1 | Complete   | 2026-06-02 |
 
 ## Backlog
 
