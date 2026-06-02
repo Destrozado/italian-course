@@ -212,6 +212,14 @@ export function validateSongs({ songs, knownCategoryIds }) {
       continue; // sin array no podemos traversar las frases
     }
 
+    if (song.phrases.length === 0) {
+      // WR-01: una canción con 0 frases es un callejón sin salida — la pantalla
+      // 'cancion' nunca monta (songCurrentPhrase es null), completeSong no corre
+      // y songProgress jamás se escribe. Rechazar en validación (banner DATA-02).
+      push(file, songId, '"phrases" debe contener al menos 1 frase');
+      continue; // sin frases no hay nada que traversar
+    }
+
     const seenPhraseIds = new Set();
     for (const phrase of song.phrases) {
       // id de frase presente y único dentro de la canción

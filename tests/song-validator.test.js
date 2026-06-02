@@ -195,6 +195,18 @@ describe('data/schema-validator — validateSongs', () => {
     assert.ok(/phrases/.test(reasons), `falta error de phrases: ${reasons}`);
   });
 
+  test('rechaza canción con phrases vacío [] (WR-01: callejón sin salida)', () => {
+    const result = validateSongs({
+      songs: [
+        { id: 'cancion-1', title: 'Canción uno', phrases: [] }
+      ],
+      knownCategoryIds
+    });
+    assert.equal(result.ok, false);
+    assert.ok(result.errors.some(e => /al menos 1 frase/.test(e.reason)),
+      `Esperaba error de phrases vacío; errores: ${JSON.stringify(result.errors)}`);
+  });
+
   test('rechaza frase sin id', () => {
     const result = validateSongs({
       songs: [
