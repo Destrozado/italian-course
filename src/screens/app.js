@@ -2249,6 +2249,7 @@ export function appShell(appDataReady) {
      * @returns {object|null}
      */
     get songCurrentPhrase() {
+      if (!this.content) return null;
       if (this.sessionCursor >= this.sessionExerciseIds.length) return null;
       const id = this.sessionExerciseIds[this.sessionCursor];
       if (!id) return null;
