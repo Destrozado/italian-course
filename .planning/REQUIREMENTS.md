@@ -71,17 +71,37 @@ Excluido explícitamente de v1.3, con razón para evitar scope creep.
 
 ## Traceability
 
-Mapeo requisito → fase. Lo rellena el roadmapper.
+Mapeo requisito → fase. Phase 13 = Bloque Canciones + modelo de datos + playthrough end-to-end. Phase 14 = Contenido "Equilibrio mentale — Ultimo" autorado + validación ligera.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| (pendiente — lo completa el roadmapper) | | |
+| SONG-01 | Phase 13 | Pending |
+| SONG-02 | Phase 13 | Pending |
+| SONG-03 | Phase 13 | Pending |
+| SONG-04 | Phase 13 | Pending |
+| PLAY-01 | Phase 13 | Pending |
+| PLAY-02 | Phase 13 | Pending |
+| PLAY-03 | Phase 13 | Pending |
+| PLAY-04 | Phase 13 | Pending |
+| PLAY-05 | Phase 13 | Pending |
+| LINK-01 | Phase 13 | Pending |
+| LINK-02 | Phase 13 | Pending |
+| LINK-03 | Phase 13 | Pending |
+| LINK-04 | Phase 13 | Pending |
+| DATA-01 | Phase 13 | Pending |
+| DATA-02 | Phase 13 | Pending |
+| DATA-03 | Phase 13 | Pending |
+| CONT-01 | Phase 14 | Pending |
+| CONT-02 | Phase 14 | Pending |
+| CONT-03 | Phase 14 | Pending |
 
 **Coverage:**
 - v1.3 requirements: 19 total
-- Mapped to phases: (pendiente roadmapper)
-- Unmapped: (pendiente roadmapper)
+- Mapped to phases: 19/19 (100%) — Phase 13: 16 (SONG-01..04 + PLAY-01..05 + LINK-01..04 + DATA-01..03); Phase 14: 3 (CONT-01..03)
+- Unmapped (orphans): 0
+- Duplicados (un requisito en >1 fase): 0
+- Gaps (success criterion sin requisito que lo soporte): 0
 
 ---
 *Requirements defined: 2026-06-02*
-*Last updated: 2026-06-02 after v1.3 milestone definition*
+*Last updated: 2026-06-02 — Traceability completada por el roadmapper (19/19 mapped, 0 orphans, 0 duplicados, 0 gaps). Phases 13-14 (numeración CONTINÚA desde Phase 12).*
