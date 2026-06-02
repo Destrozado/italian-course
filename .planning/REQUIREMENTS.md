@@ -38,9 +38,9 @@ Requisitos del milestone v1.3. Cada uno mapea a una fase del roadmap.
 
 ### Contenido inicial (CONT)
 
-- [ ] **CONT-01**: "Equilibrio mentale — Ultimo" dividida en frases con sentido completo y catalogables (limpiando ruido no-lírico: créditos de directo, "You might also like", etc.)
-- [ ] **CONT-02**: Cada frase con su traducción española curada (answer tokens) + distractoras opcionales + enganche de categorías (o marcada explícitamente sin categoría)
-- [ ] **CONT-03**: El contenido de la canción se valida en modo ligero autor-oráculo (IA verifica que la traducción española sea defendible y que el enganche de categorías por frase sea correcto; el autor es oráculo final sobre el fraseo artístico) — NO se exige el quórum gramatical estricto R1-R7
+- [x] **CONT-01**: "Equilibrio mentale — Ultimo" dividida en frases con sentido completo y catalogables (limpiando ruido no-lírico: créditos de directo, "You might also like", etc.)
+- [x] **CONT-02**: Cada frase con su traducción española curada (answer tokens) + distractoras opcionales + enganche de categorías (o marcada explícitamente sin categoría)
+- [x] **CONT-03**: El contenido de la canción se valida en modo ligero autor-oráculo (IA verifica que la traducción española sea defendible y que el enganche de categorías por frase sea correcto; el autor es oráculo final sobre el fraseo artístico) — NO se exige el quórum gramatical estricto R1-R7
 
 ## Future Requirements
 
@@ -91,9 +91,9 @@ Mapeo requisito → fase. Phase 13 = Bloque Canciones + modelo de datos + playth
 | DATA-01 | Phase 13 | Complete |
 | DATA-02 | Phase 13 | Complete |
 | DATA-03 | Phase 13 | Complete |
-| CONT-01 | Phase 14 | Pending |
-| CONT-02 | Phase 14 | Pending |
-| CONT-03 | Phase 14 | Pending |
+| CONT-01 | Phase 14 | Complete |
+| CONT-02 | Phase 14 | Complete |
+| CONT-03 | Phase 14 | Complete |
 
 **Coverage:**
 - v1.3 requirements: 19 total

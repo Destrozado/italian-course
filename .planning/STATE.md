@@ -2,15 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Canciones (bloque de traducción)
-status: executing
-last_updated: "2026-06-02T13:53:24.679Z"
+status: ready_to_plan
+last_updated: 2026-06-02T15:29:00.189Z
 last_activity: 2026-06-02 -- Phase 14 execution started
 progress:
   total_phases: 4
   completed_phases: 1
   total_plans: 3
-  completed_plans: 2
+  completed_plans: 3
   percent: 25
+stopped_at: Phase 14 complete (1/1) — ready to discuss Phase 999.1
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -21,16 +22,16 @@ See: `.planning/PROJECT.md` (updated 2026-06-02)
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 14 — contenido-equilibrio-mentale-ultimo-autorado-validaci-n-lige
+**Current Focus:** Phase 999.1 — bot n reiniciar ejercicios en pantalla de sesi n
 
 **Milestone v1.3 Goal:** Añadir un bloque "Canciones" separado del home: traducir canciones italianas frase a frase como ejercicio (word-buttons en dirección inversa italiano→español), con las frases enganchadas al motor de re-verificación existente vía cascada D-54. Reproducción secuencial tipo Test completo (sin reinicio a mitad) + resumen de errores. Frases catalogables (cascada al fallar) o sin categoría (guardadas, sin cascada). Canciones standalone: NO entran en Repaso 20 / Test ni en la tabla de categorías. Estado simple pasada/fallada por canción (NO dominada/streak/21-day). Primer contenido: "Equilibrio mentale — Ultimo". Brownfield: REUTILIZA engine (cascada D-54, schema-validator `PAYLOAD_VALIDATORS`, word-buttons `grade()`, patrón Test-completo/summary-errors) — NO reconstruye el motor.
 
 ## Current Position
 
-Phase: 14 (contenido-equilibrio-mentale-ultimo-autorado-validaci-n-lige) — EXECUTING
-Plan: 1 of 1
-Status: Executing Phase 14
-Last activity: 2026-06-02 -- Phase 14 execution started
+Phase: 999.1
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-06-02
 
 ## Quick Tasks Completed
 
@@ -64,6 +65,7 @@ Last activity: 2026-06-02 -- Phase 14 execution started
 | 14. Contenido "Equilibrio mentale" | 0 | — | — |
 | Phase 13 P01 | 5 min | 2 tasks | 9 files |
 | Phase 13 P02 | ~12 min | 3 tasks | 4 files |
+| 14 | 1 | - | - |
 
 ## Accumulated Context
 

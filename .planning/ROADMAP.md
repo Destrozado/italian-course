@@ -91,7 +91,7 @@
 | 9-10 | v1.1 | 8/8 | Complete | 2026-05-27 |
 | 11-12 | v1.2 | 10/10 | Complete | 2026-05-28 |
 | 13. Bloque Canciones + playthrough | v1.3 | 2/2 | Complete   | 2026-06-02 |
-| 14. Contenido "Equilibrio mentale" | v1.3 | 1/1 | Complete   | 2026-06-02 |
+| 14. Contenido "Equilibrio mentale" | v1.3 | 1/1 | Complete    | 2026-06-02 |
 
 ## Backlog
 
