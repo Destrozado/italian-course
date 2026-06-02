@@ -1,5 +1,24 @@
 # Milestones
 
+## v1.3 — Canciones (bloque de traducción) (Shipped: 2026-06-02)
+
+**Phases completed:** 2 phases (13-14), 3 plans, ~6 tasks
+**Stats:** +1,101 LOC (`src/`, `content/`, `index.html`), 306/306 tests verdes, 19/19 requirements (4 SONG + 5 PLAY + 4 LINK + 3 DATA + 3 CONT). Git range `9d29e90`→`ea59cfe`. Timeline: 1 día (2026-06-02).
+**Brownfield:** reutiliza el engine v1.0 (cascada D-54, word-buttons `grade()`, schema-validator `PAYLOAD_VALIDATORS`, patrón Test-completo) — NO reconstruye el motor.
+
+**Key accomplishments:**
+
+- Bloque "Canciones" separado del home (6º `currentScreen`): listado con estado por canción (no hecha / pasada / fallada) + número de frases; estado plano `{status, lastPlayedAt}` persistido en localStorage entre sesiones (NO dominada/racha/21-day) — SONG-01..04.
+- Playthrough secuencial it→es reutilizando word-buttons en dirección INVERSA (línea italiana = prompt → user construye tokens españoles): N frases en orden tipo Test completo sin reinicio a mitad, feedback verde/rojo inmediato con traducción correcta al fallar, resumen post-canción (Block A frases falladas vs correcta + Block B impacto en categorías) — PLAY-01..05.
+- Enganche al motor por frase vía cascada D-54: fallar una frase con `categoryIds` resetea esas categorías gramaticales (1 solo call-site, reusando `applyResultToSession`, 0 nuevos `applyImmediateFailure`); frases sin categoría guardadas sin cascada (LINK-03, preparado para CATPROC futuro); canciones standalone fuera del sampler Repaso 20 / Test / tabla de categorías (LINK-04) — LINK-01..04.
+- Modelo de datos coherente con lo existente: schema de canción + `validateSongs` export separado (no extiende `PAYLOAD_VALIDATORS`) con banner visible, `migrate4to5`/`hydrateV5` deep-clone defensivo (schemaVersion 4→5), `backup.js` extendido a v5 para round-trip export/import — DATA-01..03.
+- Primera canción real "Equilibrio mentale (Home piano session) — Ultimo" autorada como 17 frases it→es (limpieza de ruido no-lírico + segmentación por sentido + traducción curada por bloques + enganche limpio) con validación ligera autor-oráculo (1 pase IA, NO quórum estricto R1-R7) — CONT-01..03.
+- Bug del MOTOR cazado durante UAT humano: `bankWithKeys` guardaba solo contra `sessionCurrentExercise` (null en modo canción por LINK-04), dejando el banco de palabras vacío en TODAS las canciones; arreglado en `02d6f4a` + tests de regresión. Tras el fix el autor confirmó la canción jugable de principio a fin.
+
+**Known deferred items at close:** 4 (acknowledged — see STATE.md §Deferred Items). 2 son quick tasks heredados de v1.0 (`260525-pwq` shuffle multi-choice, `260525-vvj` botón reiniciar examen — ambos shipped, marcados "missing" por frontmatter sin status reconocible); 2 son escenarios human-UAT de Phase 13 (cascada D-54 desde frase de canción, PLAY-05 abandono/re-entrada, LINK-04 aislamiento) cubiertos por tests automáticos (306/306) y por la confirmación en navegador de Phase 14, pero nunca click-through manual formal.
+
+---
+
 ## v1.2 Más contenido A1 (Articoli + Partitivos) (Shipped: 2026-05-28)
 
 **Phases completed:** 4 phases, 10 plans, 21 tasks

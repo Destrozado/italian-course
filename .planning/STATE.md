@@ -2,16 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Canciones (bloque de traducción)
-status: ready_to_plan
-last_updated: 2026-06-02T15:29:00.189Z
-last_activity: 2026-06-02 -- Phase 14 execution started
+status: Awaiting next milestone
+last_updated: "2026-06-02T15:44:47.384Z"
+last_activity: 2026-06-02 — Milestone v1.3 completed and archived
 progress:
-  total_phases: 4
-  completed_phases: 1
+  total_phases: 2
+  completed_phases: 2
   total_plans: 3
   completed_plans: 3
-  percent: 25
-stopped_at: Phase 14 complete (1/1) — ready to discuss Phase 999.1
+  percent: 100
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -22,16 +21,16 @@ See: `.planning/PROJECT.md` (updated 2026-06-02)
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 999.1 — bot n reiniciar ejercicios en pantalla de sesi n
+**Current Focus:** Planificando el próximo milestone (`/gsd:new-milestone`). v1.3 shipped y archivado.
 
 **Milestone v1.3 Goal:** Añadir un bloque "Canciones" separado del home: traducir canciones italianas frase a frase como ejercicio (word-buttons en dirección inversa italiano→español), con las frases enganchadas al motor de re-verificación existente vía cascada D-54. Reproducción secuencial tipo Test completo (sin reinicio a mitad) + resumen de errores. Frases catalogables (cascada al fallar) o sin categoría (guardadas, sin cascada). Canciones standalone: NO entran en Repaso 20 / Test ni en la tabla de categorías. Estado simple pasada/fallada por canción (NO dominada/streak/21-day). Primer contenido: "Equilibrio mentale — Ultimo". Brownfield: REUTILIZA engine (cascada D-54, schema-validator `PAYLOAD_VALIDATORS`, word-buttons `grade()`, patrón Test-completo/summary-errors) — NO reconstruye el motor.
 
 ## Current Position
 
-Phase: 999.1
-Plan: Not started
-Status: Ready to plan
-Last activity: 2026-06-02
+Phase: Milestone v1.3 complete
+Plan: —
+Status: Awaiting next milestone
+Last activity: 2026-06-02 — Milestone v1.3 completed and archived
 
 ## Quick Tasks Completed
 
@@ -116,6 +115,17 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 
 ## Deferred Items
 
+Items reconocidos y diferidos al cierre del milestone v1.3 (2026-06-02). El autor eligió "Acknowledge & proceed" en el open-artifact audit:
+
+| Categoría | Item | Status |
+|-----------|------|--------|
+| quick_task | 260525-pwq — fix shuffle de options en multiple-choice | shipped (v1.0-era; flagged "missing" por frontmatter sin status reconocible) |
+| quick_task | 260525-vvj — botón reiniciar examen | shipped 2026-05-25 (commit `7eaf5a2`; false-positive en el audit) |
+| uat_gap | Phase 13 13-HUMAN-UAT.md — 3 escenarios pendientes (cascada D-54 desde frase, PLAY-05 abandono, LINK-04 aislamiento) | cubiertos por tests automáticos (306/306) + confirmación navegador Phase 14; sin click-through manual formal |
+| verification_gap | Phase 13 13-VERIFICATION.md — status human_needed | automated 14/14; superseded por UAT navegador de Phase 14 |
+
+---
+
 Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future):
 
 | Categoría | Item | Status | Deferred At |
@@ -149,4 +159,4 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future):
 
 ## Operator Next Steps
 
-- `/gsd:plan-phase 13` para descomponer Bloque Canciones + playthrough en planes ejecutables.
+- Start the next milestone with /gsd-new-milestone

@@ -8,20 +8,11 @@ Web personal de ejercicios de italiano para preparar el A1 (y luego A2). Es una 
 
 **Que el sistema te obligue a no olvidar.** El motor de repetición tiene que garantizar que cada categoría se re-verifica constantemente, y que un solo fallo en cualquier ejercicio te devuelve a repetir esa categoría entera. Sin ese loop, el resto no importa.
 
-## Current Milestone: v1.3 Canciones (bloque de traducción)
+## Current Milestone: ninguno (v1.3 shipped — planificando el próximo)
 
-**Goal:** Añadir un bloque "Canciones" — traducir canciones italianas frase a frase como ejercicio, con las frases enganchadas al motor de re-verificación existente vía cascada D-54.
+**Last shipped:** v1.3 — Canciones (bloque de traducción) (2026-06-02). Bloque nuevo "Canciones" separado del home: traducir canciones italianas frase a frase con word-buttons inverso (italiano→español), frases enganchadas al motor de re-verificación vía cascada D-54, recorrido secuencial tipo Test completo + resumen, estado simple pasada/fallada por canción. Primera canción real: "Equilibrio mentale (Home piano session) — Ultimo" (17 frases). Brownfield: reutiliza el engine v1.0 sin reconstruirlo. 19/19 requirements, 306/306 tests verdes.
 
-**Target features:**
-- Pantalla nueva "Canciones" con listado de canciones (estado pasada/fallada por canción), separada de la tabla de categorías del home
-- Reproducir una canción = recorrer sus N frases en orden; cada frase muestra la línea en italiano y se construye la traducción en español eligiendo palabras (word-buttons en dirección inversa italiano→español)
-- Recorrido completo hasta el final (patrón Test completo) + resumen con errores; sin reinicio a mitad
-- Cada frase es catalogable: enganchada a categorías gramaticales existentes → fallarla dispara cascada D-54 inmediata a esas categorías
-- Frases sin categoría se etiquetan y guardan (el proceso que propone categorías nuevas se DIFIERE a un milestone futuro)
-- Canciones standalone: NO entran en Repaso 20 / Test ni en la tabla de categorías del home
-- Primer contenido: "Equilibrio mentale — Ultimo", dividida en frases con sentido + traducción curada + validación por quórum (patrón editorial heredado)
-
-**Last shipped:** v1.2 — Articoli + Partitivos, 100 ejercicios nuevos validados por quórum cross-vendor (DeepSeek + Opus 4.7). 9 categorías totales, 372/372 ejercicios validated.
+Próximo paso: `/gsd-new-milestone` para definir v1.4 (ver §Next Milestone Goals).
 
 ## Requirements
 
@@ -123,6 +114,21 @@ Web personal de ejercicios de italiano para preparar el A1 (y luego A2). Es una 
 - ✓ Cobertura 100% editorial: 271/271 ejercicios con explanation curada. Milestone v1.0 ready to ship.
 - ✓ Cero migración schemaVersion (sigue 4 — D-176). Cero modificación schema validator (D-171), render UI (D-172), motor re-verificación.
 
+**Phase 13 — Bloque Canciones + modelo de datos + playthrough end-to-end (2026-06-02):**
+- ✓ Bloque "Canciones" como 6º `currentScreen` (espejo de session/summary/backup en el factory plano de `src/screens/app.js`), separado de la tabla de categorías del home; listado con estado por canción (no hecha / pasada / fallada) + número de frases (SONG-01, SONG-02, SONG-03)
+- ✓ Estado por canción plano `songProgress[songId] = {status, lastPlayedAt}` — NO dominada/racha/log 21-day; persiste en localStorage entre sesiones; `migrate4to5`/`hydrateV5` con deep-clone defensivo (schemaVersion 4→5), `backup.js` extendido a v5 para round-trip export/import (SONG-04, DATA-03)
+- ✓ Playthrough secuencial it→es reutilizando word-buttons en dirección INVERSA (línea italiana = prompt → user construye tokens españoles): N frases en orden tipo Test completo sin reinicio a mitad, feedback verde/rojo con traducción correcta al fallar, auto-avance, pantallas DEDICADAS `cancion`/`cancion-summary` (getter `songCurrentPhrase` + mapa `songPhraseById`, no song-aware `sessionCurrentExercise`) (PLAY-01, PLAY-02, PLAY-03)
+- ✓ Resumen post-canción: Block A frases falladas (tu respuesta vs correcta) + Block B categorías que bajaron de estado; abandonar a mitad descarta el progreso no comprometido y al re-entrar empieza de cero (sin slot `inFlightTest` para canciones) (PLAY-04, PLAY-05)
+- ✓ Cascada D-54 por frase reutilizando `applyResultToSession` (0 nuevos call-sites de `applyImmediateFailure`, Pitfall #2): fallar una frase con `categoryIds` resetea esas categorías; frases sin categoría guardadas sin cascada (preparado para CATPROC); canciones standalone fuera del sampler Repaso 20 / Test / tabla de categorías (LINK-01, LINK-02, LINK-03, LINK-04)
+- ✓ Schema de canción + `validateSongs` export SEPARADO (no extiende `PAYLOAD_VALIDATORS`, coherente con standalone) con banner visible coherente con el validator existente; `loadSongs` cableado en boot (`songsById` hermano de `exerciseById`) (DATA-01, DATA-02)
+- ✓ 306/306 tests verdes (+19 en `screen-canciones.test.js`); 2 plans (13-01 modelo de datos + 13-02 slice jugable)
+
+**Phase 14 — Contenido "Equilibrio mentale — Ultimo" autorado + validación ligera (2026-06-02):**
+- ✓ Primera canción real "Equilibrio mentale (Home piano session) — Ultimo" autorada como 17 frases it→es: limpieza de ruido no-lírico (créditos de directo, "You might also like") + segmentación por sentido completo + traducción española curada por bloques + enganche limpio (todas las frases `categoryIds: []` en esta canción) (CONT-01, CONT-02)
+- ✓ Validación ligera autor-oráculo (1 pase IA: traducción defendible + enganche correcto), NO el quórum gramatical estricto R1-R7 — las traducciones de canciones son "particulares" por diseño; el autor es oráculo final sobre el fraseo artístico (CONT-03)
+- ✓ Índice de canciones en lockstep + sub-test de presencia; bug del MOTOR cazado en UAT humano (`bankWithKeys` dejaba el banco vacío en modo canción, LINK-04) y arreglado en `02d6f4a` con tests de regresión; autor confirmó la canción jugable de principio a fin
+- ✓ 1 plan (14-01)
+
 **Phase 8 — Modo Examen por categoría (2026-05-25):**
 - ✓ Botón "Examen" en cada fila de la tabla home (6ª columna nueva) que arranca un Test completo de SOLO esa categoría con 1 click directo (D-181). Resuelve el dolor canónico "5-6 Repasos para validar dominio de una sola categoría" capturado tras Phase 7.2.
 - ✓ Handler `startExamen(categoryId)` + helper privado `_launchExamen(catId)` en `src/screens/app.js`. El helper extrae el cuerpo del lanzamiento puro para 2 call-sites (directo + onConfirm post-clearInFlightTest). Reset SUPERSET completo (heredado de restartRepaso Phase 6 D-104) — Examen puede venir de mid-match si el path conflict D-44 cancela un Test previo.
@@ -135,21 +141,15 @@ Web personal de ejercicios de italiano para preparar el A1 (y luego A2). Es una 
 
 ### Active
 
-<!-- Current scope. Building toward these. v1.3 Canciones — requirements en REQUIREMENTS.md. -->
+<!-- Current scope. Vacío: v1.3 shipped, sin milestone activo. Definir v1.4 con `/gsd-new-milestone`. -->
 
-**Milestone v1.3 — Canciones (bloque de traducción italiano→español):**
-- Bloque/pantalla "Canciones" con listado y estado pasada/fallada por canción (separado del home de categorías)
-- Reproducción secuencial de una canción frase a frase (recorrido tipo Test completo + resumen de errores)
-- Mecánica de traducción inversa: línea italiana mostrada → construir traducción española con word-buttons
-- Frases catalogables enganchadas a categorías gramaticales → cascada D-54 inmediata al fallar
-- Soporte en el modelo de datos para frases sin categoría (etiquetadas/guardadas; proceso de propuesta diferido)
-- Contenido inicial: "Equilibrio mentale — Ultimo" (división en frases + traducción curada + validación por quórum)
+_(Ninguno — milestone v1.3 cerrado. Próximo scope se define en `/gsd-new-milestone`; candidatos en §Next Milestone Goals.)_
 
-### Recently Validated (v1.2 — shipped 2026-05-28)
+### Recently Validated (v1.3 — shipped 2026-06-02)
 
-- ✓ **Articoli** como 8ª categoría (Phase 11): temario exhaustivo det+indet + 56 ejercicios cubriendo cada forma/disparador/trampa + 6 bridges multi-cat con género-número y sustantivos-irregulares — validado por quórum cross-vendor (DeepSeek Flash + Opus 4.7); 8 bugs de autoría capturados por el cross-vendor que human-verify dejó pasar.
-- ✓ **Partitivos** como 9ª categoría (Phase 12): temario exhaustivo + 44 ejercicios (37 base MC + 2 match + 5 PART-05 partitivo-vs-preposizione) — validado por quórum cross-vendor (DeepSeek Pro + Opus 4.7) con 5 disputed resueltos por el autor (4 ACCEPT-FIX, 1 OVERRIDE D-02 en `partitivos-036`).
-- ✓ Patrón de categoría nueva consolidado: temario ANTES de ejercicios (verificable en git) → ejercicios curados con explanations → integración 3-count lockstep → validación por quórum. Reutiliza infra v1.1 sin tocar engine.
+- ✓ **Bloque Canciones** (Phase 13): pantalla nueva separada del home con listado + estado pasada/fallada por canción; playthrough secuencial it→es reutilizando word-buttons inverso; cascada D-54 por frase; standalone fuera del sampler; schema + `validateSongs` + `migrate4to5`. Brownfield puro — 0 reconstrucción del motor (16 requirements SONG/PLAY/LINK/DATA).
+- ✓ **"Equilibrio mentale — Ultimo"** (Phase 14): primera canción real autorada (17 frases) con validación ligera autor-oráculo (NO quórum R1-R7). Un bug del motor (`bankWithKeys` en modo canción) cazado y arreglado durante UAT humano (3 requirements CONT).
+- ✓ Patrón "bloque nuevo sobre engine existente" validado: el engine v1.0 (cascada D-54, word-buttons `grade()`, schema-validator, patrón Test-completo) soporta un modo de ejercicio completamente nuevo reutilizando call-sites existentes sin tocar la mecánica de re-verificación.
 
 ### Out of Scope
 
@@ -166,20 +166,24 @@ Web personal de ejercicios de italiano para preparar el A1 (y luego A2). Es una 
 
 ## Current State
 
+**v1.3 shipped 2026-06-02** — Bloque "Canciones": modo de ejercicio nuevo (traducción it→es frase a frase con word-buttons inverso) construido enteramente sobre el engine v1.0 sin reconstruirlo. Pantalla separada del home, estado simple pasada/fallada por canción, cascada D-54 por frase enganchada, standalone fuera del sampler. Primera canción real "Equilibrio mentale — Ultimo" (17 frases) autorada con validación ligera autor-oráculo (NO quórum R1-R7). schemaVersion 4→5 (`migrate4to5` + `backup.js` v5). Un bug del motor (`bankWithKeys` vacío en modo canción por LINK-04) cazado en UAT humano y arreglado (`02d6f4a`). 2 phases, 3 plans, 19/19 requirements, 306/306 tests verdes.
+
 **v1.2 shipped 2026-05-28** — 2 categorías nuevas de gramática A1 diseñadas desde cero sin PDF: Articoli (56 ejercicios, 8ª categoría) + Partitivos (44 ejercicios, 9ª categoría). 100 ejercicios nuevos, todos validados por quórum cross-vendor (DeepSeek + Opus 4.7); el cross-vendor capturó 8 bugs en Articoli que el human-verify dejó pasar (contracciones prep+art, leak de triggers fonéticos, acentos graves c'è/più). 1 override autor en `partitivos-036` (D-02: el ejercicio entrena USO del partitivo afirmativo, ∅ válido pero no idiomático). Gate verde: reporter exit 0 (372/372 validated), smoke `VAL_07_STRICT=1` 137/137 PASS. Patrón "categoría nueva" consolidado: temario→ejercicios→integración lockstep→quórum.
 
 **v1.1 shipped 2026-05-27** — Validación editorial. 272/272 ejercicios validados por quórum Opus 4.7 + Sonnet 4.6 contra R1-R7→C1-C5. 55 disputed resueltos. Infra editorial reutilizable: skills `gsd-validate-exercise` + `gsd-validate-batch`, reporter, smoke paramétrico.
 
 **v1.0 shipped 2026-05-25** — Motor de re-verificación + 7 categorías + Modo Examen. 26 plans, 271 ejercicios curados, 62/62 requirements.
 
-**Stack actual:** Alpine.js 3.15.12 + Pico CSS 2.1.1 (CDN+SRI pinned), ES modules vanilla, schemaVersion 4. 9 archivos JSON de contenido (372 ejercicios validated). Infraestructura editorial: skills `gsd-validate-exercise` + `gsd-validate-batch`, `scripts/run-validation-271.mjs`, `scripts/validate-ai-pass.mjs` (multi-provider con auto-fallback 429, añadido en v1.2).
+**Stack actual:** Alpine.js 3.15.12 + Pico CSS 2.1.1 (CDN+SRI pinned), ES modules vanilla, **schemaVersion 5**. 9 archivos JSON de gramática (372 ejercicios validated) + bloque Canciones standalone (`validateSongs`, 1ª canción real "Equilibrio mentale" 17 frases + mini-canción de prueba). Infraestructura editorial: skills `gsd-validate-exercise` + `gsd-validate-batch`, `scripts/run-validation-271.mjs`, `scripts/validate-ai-pass.mjs` (multi-provider con auto-fallback 429, añadido en v1.2).
 
-**Last activity:** 2026-05-28 — Milestone v1.2 archivado.
+**Last activity:** 2026-06-02 — Milestone v1.3 archivado.
 
-## Next Milestone Goals (post-v1.2)
+## Next Milestone Goals (post-v1.3)
 
-> Backlog v1.3+ (capturado para que `/gsd-new-milestone` lo reactive):
+> Backlog v1.4+ (capturado para que `/gsd-new-milestone` lo reactive):
 >
+> - **Categorización asistida de frases de canciones** (CATPROC-01/02): un proceso recorre las frases sin categoría de las canciones y propone categorías candidatas; el autor crea una categoría nueva desde una propuesta y re-engancha las frases huérfanas. El modelo de datos v1.3 (LINK-03) ya lo soporta sin bloquearlo.
+> - **Más canciones** (MUSIC-X1): añadir canciones al bloque conforme el autor las quiera trabajar; el patrón de alta queda consolidado en v1.3.
 > - **Categorías nuevas de tiempos verbales** (TENSE-X1..X4): Pretérito imperfetto, Futuro semplice, Condizionale, Congiuntivo — conforme la profesora entrega material
 > - **Bridges multi-cat Partitivos** (PART-X1): cruces Partitivos↔género-número/sustantivos, diferidos en v1.2 para acotar
 > - **Modo móvil responsive** si el autor lo echa en falta tras uso real
@@ -233,6 +237,10 @@ Web personal de ejercicios de italiano para preparar el A1 (y luego A2). Es una 
 | 2026-05-25: canon ortográfico español correcto (acentos + ñ) en TODAS las explanations del proyecto (D-135 / EXPL-06) | Si está escrito en español, debe estar bien escrito. El canon Phase 7 ("sin acentos") fue incidental del executor inicial, no decisión consciente. Italianismos citados preservan ortografía italiana (D-137) — solo el texto explicativo en español sigue el canon RAE | ✓ Validado Phase 7.1 (50 Preposiciones re-acentuadas Plan 7.1-01 + 40 Género-Número ingestadas con acentos correctos Plan 7.1-02 + smoke test paramétrico verifica ASCII apóstrofes preservados). Patrón heredado por fases incrementales 7.2..7.6 |
 | 2026-05-25: Cobertura 100% editorial pre-ship — todas las 7 categorías con explanations curadas (EXPL-09..14) | No shipear a medias con solo Preposiciones + Génnum cubiertas; uso real demanda explanation en cualquier categoría que se falle. 11 batches D-85 secuenciales aceptables a cambio de cobertura completa pre-milestone v1.0 | ✓ Validado Phase 7.2 (181 explanations curadas + 7 entries en CATEGORIES_WITH_EXPLANATIONS + tests 199/199 verdes + UAT integral 7 categorías × Repaso 20 mixto post-Task-4) |
 | 2026-05-25: Phase 8 — 6ª call-site `requestConfirm` con copy literal D-44 idéntica + confirmLabel `Descartar y empezar` lockeado | Patrón unificado de Phase 2 D-44 — coherencia textual entre las 6 call-sites del helper. UI-SPEC línea 222 sugería inicialmente `Continuar` (coherencia con D-27), pero análisis empírico de las 5 call-sites previas (commit d7a0e4b) reveló distribución `Descartar*` 4/5 + `Continuar` 1/5. Planner lockeó `Descartar y empezar` por proximidad semántica EXACTA con openPicker D-44 (mismo message + mismo intent: descartar Test completo activo + arrancar nuevo). Homogeneización general de las 6 call-sites diferida (out of scope Phase 8) | ✓ Validado Phase 8 (Plan 08-01 — 6ª call-site del helper con copy literal + confirmLabel verificable por grep + smoke test 4 del screen-examen.test.js) |
+| 2026-06-02: v1.3 — Bloque Canciones brownfield, REUTILIZAR el engine, NO reconstruir | El motor de re-verificación (cascada D-54, word-buttons `grade()`, schema-validator, patrón Test-completo) está DONE; un modo de ejercicio nuevo (traducción it→es) se construye sobre call-sites existentes para minimizar superficie de bug y mantener una sola mecánica de cascada | ✓ Validado Phase 13+14 (playthrough reusa `applyResultToSession`, 0 nuevos `applyImmediateFailure`; 306/306 tests; el único bug del milestone fue del motor pre-existente, no de código nuevo) |
+| 2026-06-02: Canciones standalone (LINK-04) — fuera del sampler Repaso 20 / Test / tabla de categorías; pantallas DEDICADAS `cancion`/`cancion-summary` con `songCurrentPhrase`/`songPhraseById` | El espíritu de re-verificación llega vía cascada a las categorías gramaticales reales enganchadas por frase, no convirtiendo la canción en categoría; mantenerlo aparte evita contaminar el modelo de categorías (dominada/racha/21-day) | ✓ Validado Phase 13 (canciones nunca aparecen en sampler ni home; bug `bankWithKeys` en Phase 14 confirmó que el aislamiento `sessionCurrentExercise=null` era correcto — el fix fue aceptar también `songCurrentPhrase`) |
+| 2026-06-02: Estado por canción plano `{status, lastPlayedAt}` (pasada/fallada), NO dominada/racha/21-day; sin slot de reanudación (PLAY-05) | Las canciones no son material de re-verificación graduada como las categorías; el estado simple basta y el abandono-descarta-y-reempieza evita la complejidad de `inFlightTest` por canción | ✓ Validado Phase 13 (`songProgress` plano + `migrate4to5` + `backup.js` v5; abandonar a mitad reempieza de cero, fallos ya cascadeados persisten) |
+| 2026-06-02: Validación de contenido de canciones LIGERA autor-oráculo (CONT-03), NO quórum estricto R1-R7 | Las traducciones de canciones son "particulares" por diseño (fraseo artístico); el quórum gramatical produciría falsos positivos sobre decisiones de estilo. Una IA verifica que la traducción sea defendible y el enganche correcto; el autor decide el fraseo | ✓ Validado Phase 14 ("Equilibrio mentale" 17 frases con 1 pase IA + autor oráculo; sin disputed gramatical) |
 
 ## Evolution
 
@@ -252,4 +260,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-06-02 — Milestone v1.3 Canciones abierto vía `/gsd-new-milestone`. v1.2 (Articoli + Partitivos) archivado; 9 categorías totales (372 ejercicios validated).*
+*Last updated: 2026-06-02 — Milestone v1.3 (Canciones) shipped y archivado. Bloque Canciones sobre el engine v1.0 + 1ª canción real "Equilibrio mentale"; schemaVersion 5; 306/306 tests. Sin milestone activo — próximo scope vía `/gsd-new-milestone`.*
