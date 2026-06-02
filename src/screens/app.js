@@ -88,8 +88,10 @@ export function appShell(appDataReady) {
     // ─── Bootstrap ──────────────────────────────────────────────────────────
     ready: false,
 
-    // ─── Navegación (D-24, D-84 Phase 4) ────────────────────────────────────
-    /** 'home' | 'picker' | 'session' | 'summary' | 'backup'. */
+    // ─── Navegación (D-24, D-84 Phase 4; Phase 13 canciones) ────────────────
+    /** 'home' | 'picker' | 'session' | 'summary' | 'backup' |
+     *  'canciones' (listado Phase 13) | 'cancion' (playthrough) |
+     *  'cancion-summary' (resumen post-canción). */
     currentScreen: 'home',
 
     // ─── Sub-estado picker (D-33/D-34/D-35) ─────────────────────────────────
@@ -205,6 +207,35 @@ export function appShell(appDataReady) {
      *     ortogonal — no involucra `completeSession` ni `returnToHomeFromSummary`).
      */
     summarySessionResults: [],
+
+    // ─── Sub-estado canción (Phase 13 — playthrough standalone) ─────────────
+    /**
+     * Id de la canción actualmente en curso (null fuera del playthrough). El
+     * playthrough REUTILIZA el sub-estado `session*` (cursor, results, feedback,
+     * wordButtonsBank/Answer) pero resuelve la frase activa contra el mapa
+     * DEDICADO `songPhraseById` — NO contra `content.exerciseById`, donde las
+     * frases de canción NO existen (standalone, LINK-04). El getter
+     * `songCurrentPhrase` hace ese lookup; mantenerlo separado evita volver
+     * song-aware a `sessionCurrentExercise`.
+     */
+    songActiveId: null,
+    /**
+     * Mapa frase-id → objeto frase GRADUABLE (`{ id, type:'word-buttons',
+     * payload:{prompt, answer, distractors}, categoryIds }`). Poblado por
+     * `startSong` normalizando `songsById[songId].phrases`. La cascada D-54 lee
+     * `phrase.categoryIds` (vacío = no-op, LINK-03); el resumen Block A/B
+     * resuelve el lookup aquí (no en exerciseById).
+     */
+    songPhraseById: {},
+    /**
+     * Deep-clone de `state.categoryProgress` capturado AL INICIO de la canción
+     * (en `startSong`), ANTES del primer fallo. La cascada de canción es
+     * INCREMENTAL (cada frase fallada muta categoryProgress vía
+     * `applyImmediateFailure` + saveState), así que el snapshot "antes" para el
+     * bloque de impacto del resumen NO se puede tomar al final (como
+     * `completeSession`) — debe capturarse al lanzar.
+     */
+    songBefore: null,
 
     // ─── Sub-estado backup (Phase 4 D-84) ───────────────────────────────────
     /** null | { kind: 'success' | 'error', text: string }. Limpiado al salir
@@ -2173,6 +2204,37 @@ export function appShell(appDataReady) {
           examenTooltip: examenEnabled ? '' : 'No hay ejercicios en esta categoría'
         };
       });
+    },
+
+    /**
+     * Phase 13 (SONG-01/SONG-02/SONG-04) — espejo de `categoriesForDisplay`
+     * para el listado de la pantalla Canciones. Mapea `content.songsById`
+     * (cargado standalone por `loadSongs`, LINK-04) + `state.songProgress` a
+     * filas `{ id, title, phraseCount, status, statusLabel }`.
+     *
+     * Status por defecto `'no-hecha'` cuando no hay entrada en `songProgress`
+     * (canción nunca terminada — D-02). `songProgress[id]` es plano
+     * `{ status, lastPlayedAt? }` (sin streak/dominada — D-03).
+     *
+     * Double-defense Alpine (house pattern): guard `if (!this.content)` antes
+     * de leer `songsById` — los bindings se evalúan antes de que `init()`
+     * resuelva (igual que `bankWithKeys` línea ~1920 y `categoriesForDisplay`).
+     *
+     * @returns {Array<{id:string, title:string, phraseCount:number, status:string, statusLabel:string}>}
+     */
+    get songsForDisplay() {
+      if (!this.content || !this.state) return [];
+      const byId = this.content.songsById ?? {};
+      return Object.values(byId).map(song => {
+        const status = this.state.songProgress?.[song.id]?.status ?? 'no-hecha';
+        return {
+          id: song.id,
+          title: song.title ?? song.id,
+          phraseCount: Array.isArray(song.phrases) ? song.phrases.length : 0,
+          status,
+          statusLabel: songStatusLabelFor(status)
+        };
+      });
     }
   };
 }
@@ -2201,6 +2263,22 @@ function badgeGlyphFor(status) {
 function statusLabelFor(status) {
   if (status === 'hecha') return 'hecha';
   if (status === 'dominada') return 'dominada';
+  return 'no hecha';
+}
+
+/**
+ * Phase 13 (D-02) — texto humano del status de una canción para el badge
+ * `aria-label` del listado. Tres valores redimibles (NO sticky, NO dominada):
+ *   - 'pasada'   → último recorrido completo SIN fallos
+ *   - 'fallada'  → último recorrido completo con ≥1 fallo
+ *   - 'no-hecha' → nunca terminada (default)
+ *
+ * @param {string} status
+ * @returns {string}
+ */
+function songStatusLabelFor(status) {
+  if (status === 'pasada') return 'pasada';
+  if (status === 'fallada') return 'fallada';
   return 'no hecha';
 }
 

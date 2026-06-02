@@ -33,7 +33,7 @@
 // esperando para siempre y `ready` permanece false (no se ve la app, solo
 // el banner como output único — D-10 all-or-nothing).
 
-import { loadContent } from './data/content-loader.js';
+import { loadContent, loadSongs } from './data/content-loader.js';
 import { loadState, saveState } from './data/storage.js';
 import { applyNewExerciseRegression } from './domain/progress.js';
 import { appShell } from './screens/app.js';
@@ -72,6 +72,28 @@ async function bootstrap() {
 
     // 2. Load + validate content (NFC normalize, schema validate).
     const content = await loadContent(categoryIds);
+
+    // 2.b Cargar canciones (Phase 13, DATA-01/02, LINK-04). Path SEPARADO de
+    //     loadContent: `songsById` se adjunta como campo HERMANO de
+    //     `exerciseById` y NUNCA se mezcla en el pool de ejercicios — las
+    //     canciones no entran en buildSession/buildFullTest ni en la tabla de
+    //     categorías (standalone). Derivamos los ids del índice songs.json
+    //     (loadSongs hace el mismo fetch interno si se omite, pero pasamos los
+    //     conocidos para validar el enganche categoryIds[] de cada frase).
+    //
+    //     Los errores de validación de canción fluyen al MISMO catch →
+    //     renderValidationBanner (DATA-02), igual que los del contenido de
+    //     ejercicios. `applyNewExerciseRegression` (paso 4) NO corre sobre
+    //     canciones — son standalone (LINK-04).
+    const songsIndexRaw = await fetch('content/songs.json').then(r => {
+      if (!r.ok) throw new Error(`No se pudo cargar content/songs.json: HTTP ${r.status}`);
+      return r.json();
+    });
+    const songIds = (songsIndexRaw?.songs ?? []).map(s => s.id);
+    const knownCategoryIds = new Set((content.categories ?? []).map(c => c.id));
+    const { songsById } = await loadSongs(songIds, knownCategoryIds);
+    // Adjuntar songsById como campo HERMANO (NO en exerciseById — LINK-04).
+    content.songsById = songsById;
 
     // 3. Load state (auto-migrate v1 → v2 vía storage.js).
     const state0 = loadState();

@@ -144,6 +144,12 @@
           <div class="button-row button-row-prominent">
             <button type="button" @click="openPicker('repaso')">Repaso 20</button>
             <button type="button" @click="openPicker('test-completo')">Test completo</button>
+            <!--
+              Phase 13 (D-01): "Canciones" es un botón PROTAGONISTA, al mismo
+              nivel visual que Repaso/Test completo (SIN `class="secondary"`,
+              a diferencia de Backup). Abre el listado `currentScreen='canciones'`.
+            -->
+            <button type="button" @click="currentScreen = 'canciones'">Canciones</button>
             <button type="button" class="secondary" @click="currentScreen = 'backup'">Backup</button>
           </div>
 
@@ -184,6 +190,61 @@
               </tbody>
             </table>
           </figure>
+        </article>
+      </template>
+
+      <!-- ════════════════════════════════════════════════════════════════ -->
+      <!-- Pantalla CANCIONES — listado (Phase 13, SONG-01/02/03/04)         -->
+      <!-- ════════════════════════════════════════════════════════════════ -->
+      <!--
+        Bloque SEPARADO de la tabla de categorías (D-01 milestone): las
+        canciones NO son filas de esa tabla y NO entran en el sampler (LINK-04).
+        Listado x-for espejo de la tabla de categorías: badge de estado
+        (no-hecha/pasada/fallada — D-02), nº de frases (SONG-02) y botón "Jugar"
+        de 1 clic (SONG-03). El status viene de `songProgress` persistido (SONG-04).
+
+        Double-defense Alpine: el getter `songsForDisplay` guarda `if (!this.content)`
+        y el outer `x-if` evita que los bindings se evalúen pre-init.
+
+        T-02-01 anti-XSS: el title de la canción se renderiza con `x-text`; el
+        glyph del badge es texto LITERAL en el HTML (fijo, NO viene del JSON).
+      -->
+      <template x-if="currentScreen === 'canciones'">
+        <article>
+          <header><h2>Canciones</h2></header>
+
+          <figure>
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Estado</th>
+                  <th scope="col">Canción</th>
+                  <th scope="col">Frases</th>
+                  <th scope="col">Jugar</th>
+                </tr>
+              </thead>
+              <tbody>
+                <template x-for="song in songsForDisplay" :key="song.id">
+                  <tr>
+                    <td>
+                      <span :class="`badge-${song.status}`"
+                            :aria-label="song.statusLabel"></span>
+                      <span x-text="song.statusLabel"></span>
+                    </td>
+                    <td x-text="song.title"></td>
+                    <td x-text="song.phraseCount"></td>
+                    <td>
+                      <button type="button"
+                              @click="startSong(song.id)">Jugar</button>
+                    </td>
+                  </tr>
+                </template>
+              </tbody>
+            </table>
+          </figure>
+
+          <hr>
+          <button type="button" class="secondary" @click="currentScreen = 'home'">← Volver al home</button>
         </article>
       </template>
 
