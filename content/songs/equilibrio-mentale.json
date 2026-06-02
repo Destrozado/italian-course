@@ -1,0 +1,108 @@
+{
+  "id": "equilibrio-mentale",
+  "title": "Equilibrio mentale (Home piano session) — Ultimo",
+  "phrases": [
+    {
+      "id": "equilibrio-mentale-001",
+      "prompt": "Mi sento come questa goccia appesa a una ringhiera, che casca e si concede a quest'asfalto, questa sera",
+      "answer": ["me", "siento", "como", "esta", "gota", "colgada", "de", "una", "barandilla", "que", "cae", "y", "se", "entrega", "a", "este", "asfalto", "esta", "noche"],
+      "categoryIds": []
+    },
+    {
+      "id": "equilibrio-mentale-002",
+      "prompt": "Mi sento come un piccolo secondo da smaltire, come un cerchio di un ricordo che si chiude e va a dormire",
+      "answer": ["me", "siento", "como", "un", "pequeño", "segundo", "por", "consumir", "como", "un", "círculo", "de", "un", "recuerdo", "que", "se", "cierra", "y", "se", "va", "a", "dormir"],
+      "categoryIds": []
+    },
+    {
+      "id": "equilibrio-mentale-003",
+      "prompt": "Mi sento come quei binari fermi alla stazione, mentre aspettano quel treno che ha cambiato direzione",
+      "answer": ["me", "siento", "como", "esas", "vías", "paradas", "en", "la", "estación", "mientras", "esperan", "ese", "tren", "que", "ha", "cambiado", "de", "dirección"],
+      "categoryIds": []
+    },
+    {
+      "id": "equilibrio-mentale-004",
+      "prompt": "Mi sento come tanti, ma non sono più nessuno, e cammino in questa casa in cui hai lasciato il tuo profumo",
+      "answer": ["me", "siento", "como", "tantos", "pero", "ya", "no", "soy", "nadie", "y", "camino", "por", "esta", "casa", "en", "la", "que", "dejaste", "tu", "perfume"],
+      "categoryIds": []
+    },
+    {
+      "id": "equilibrio-mentale-005",
+      "prompt": "Ma allora, dammi la tua mano, perché da solo non ce la farò",
+      "answer": ["pero", "entonces", "dame", "tu", "mano", "porque", "solo", "no", "voy", "a", "poder"],
+      "categoryIds": []
+    },
+    {
+      "id": "equilibrio-mentale-006",
+      "prompt": "Io che ho sudato per un piano, che per destino non realizzerò",
+      "answer": ["yo", "que", "he", "sudado", "por", "un", "plan", "que", "por", "destino", "no", "realizaré"],
+      "categoryIds": []
+    },
+    {
+      "id": "equilibrio-mentale-007",
+      "prompt": "Amore, dammi la tua mano, che sto crollando dentro ai miei perché",
+      "answer": ["amor", "dame", "tu", "mano", "que", "me", "estoy", "derrumbando", "dentro", "de", "mis", "porqués"],
+      "categoryIds": []
+    },
+    {
+      "id": "equilibrio-mentale-008",
+      "prompt": "Vedo le luci da lontano, devo resistere",
+      "answer": ["veo", "las", "luces", "desde", "lejos", "tengo", "que", "resistir"],
+      "categoryIds": []
+    },
+    {
+      "id": "equilibrio-mentale-009",
+      "prompt": "Il mio equilibrio mentale si sgretola solo, mentre affogo nel mare e accanto non c'è nessuno",
+      "answer": ["mi", "equilibrio", "mental", "se", "desmorona", "solo", "mientras", "me", "ahogo", "en", "el", "mar", "y", "al", "lado", "no", "hay", "nadie"],
+      "categoryIds": []
+    },
+    {
+      "id": "equilibrio-mentale-010",
+      "prompt": "Mi sento come freni che non funzionano bene, perché io non so fermare mai un'emozione se mi viene",
+      "answer": ["me", "siento", "como", "frenos", "que", "no", "funcionan", "bien", "porque", "nunca", "sé", "frenar", "una", "emoción", "si", "me", "viene"],
+      "categoryIds": []
+    },
+    {
+      "id": "equilibrio-mentale-011",
+      "prompt": "Mi sento come carte in cui è già pieno di pensieri, che poi lasci in libreria, dove depositi il tuo ieri",
+      "answer": ["me", "siento", "como", "papeles", "ya", "llenos", "de", "pensamientos", "que", "luego", "dejas", "en", "la", "estantería", "donde", "depositas", "tu", "ayer"],
+      "categoryIds": []
+    },
+    {
+      "id": "equilibrio-mentale-012",
+      "prompt": "Mi sento come spazio, tra l'istinto e la ragione, io compenso le mie voglie, non portandole all'errore",
+      "answer": ["me", "siento", "como", "espacio", "entre", "el", "instinto", "y", "la", "razón", "compenso", "mis", "ganas", "sin", "llevarlas", "al", "error"],
+      "categoryIds": []
+    },
+    {
+      "id": "equilibrio-mentale-013",
+      "prompt": "Come un vaso condannato alla polvere in cantina, e ricordi quando tu dicevi \"È bello\", gli anni prima",
+      "answer": ["como", "un", "jarrón", "condenado", "al", "polvo", "en", "el", "sótano", "y", "recuerdas", "cuando", "decías", "es", "bonito", "años", "atrás"],
+      "categoryIds": []
+    },
+    {
+      "id": "equilibrio-mentale-014",
+      "prompt": "Faccio sogni un po' strani, poi mi sveglio sudato",
+      "answer": ["tengo", "sueños", "un", "poco", "raros", "luego", "me", "despierto", "sudado"],
+      "categoryIds": []
+    },
+    {
+      "id": "equilibrio-mentale-015",
+      "prompt": "Mi alzo ed esco a fumare, sopra passa un aereo",
+      "answer": ["me", "levanto", "y", "salgo", "a", "fumar", "pasa", "un", "avión", "por", "encima"],
+      "categoryIds": []
+    },
+    {
+      "id": "equilibrio-mentale-016",
+      "prompt": "Allora insegnami tu a vivere",
+      "answer": ["entonces", "enséñame", "tú", "a", "vivir"],
+      "categoryIds": []
+    },
+    {
+      "id": "equilibrio-mentale-017",
+      "prompt": "Che io non so, non so come resistere",
+      "answer": ["que", "yo", "no", "sé", "no", "sé", "cómo", "resistir"],
+      "categoryIds": []
+    }
+  ]
+}
