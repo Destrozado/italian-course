@@ -3,10 +3,10 @@ gsd_state_version: 1.0
 milestone: v1.4
 milestone_name: Variantes de ejercicio (slots por regla)
 status: planning
-last_updated: "2026-06-02T19:40:42.187Z"
+last_updated: "2026-06-02T20:15:00.000Z"
 last_activity: 2026-06-02
 progress:
-  total_phases: 0
+  total_phases: 3
   completed_phases: 0
   total_plans: 0
   completed_plans: 0
@@ -21,16 +21,16 @@ See: `.planning/PROJECT.md` (updated 2026-06-02)
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Planificando el próximo milestone (`/gsd:new-milestone`). v1.3 shipped y archivado.
+**Current Focus:** Milestone v1.4 — Variantes de ejercicio (slots por regla). Roadmap fijado (Phases 15-17). Motor slot+variantes + piloto Preposiciones.
 
-**Milestone v1.3 Goal:** Añadir un bloque "Canciones" separado del home: traducir canciones italianas frase a frase como ejercicio (word-buttons en dirección inversa italiano→español), con las frases enganchadas al motor de re-verificación existente vía cascada D-54. Reproducción secuencial tipo Test completo (sin reinicio a mitad) + resumen de errores. Frases catalogables (cascada al fallar) o sin categoría (guardadas, sin cascada). Canciones standalone: NO entran en Repaso 20 / Test ni en la tabla de categorías. Estado simple pasada/fallada por canción (NO dominada/streak/21-day). Primer contenido: "Equilibrio mentale — Ultimo". Brownfield: REUTILIZA engine (cascada D-54, schema-validator `PAYLOAD_VALIDATORS`, word-buttons `grade()`, patrón Test-completo/summary-errors) — NO reconstruye el motor.
+**Milestone v1.4 Goal:** Matar la memorización por palabras introduciendo *slots* (1 por regla) con variantes intercambiables; un examen recorre N slots eligiendo 1 variante al azar en cada uno, manteniendo intacta la re-verificación D-54. MOTOR + 1 PILOTO: construir el modelo de datos y el motor de examen por slots, luego convertir SOLO Preposiciones como piloto real. Las otras 8 categorías siguen funcionando como slots de 1 variante (backward-compat) — su conversión es out-of-scope (CONV-01 futuro). Brownfield: REUTILIZA la cascada D-54, el sampler, el schema-validator, el patrón Test-completo y `applyResultToSession` — NO reconstruye el motor.
 
 ## Current Position
 
-Phase: Not started (defining requirements)
+Phase: Not started (roadmap fijado, pendiente de planificar Phase 15)
 Plan: —
-Status: Defining requirements
-Last activity: 2026-06-02 — Milestone v1.4 started
+Status: Planning
+Last activity: 2026-06-02 — Milestone v1.4 roadmap creado (Phases 15-17)
 
 ## Quick Tasks Completed
 
@@ -43,120 +43,99 @@ Last activity: 2026-06-02 — Milestone v1.4 started
 | Métrica | Valor |
 |---------|-------|
 | Fases v1.0 | 10/10 completas (Phase 1-8 incl. decimales 7.1/7.2) — SHIPPED 2026-05-25 |
-| Fases v1.1 | 2/2 completas (Phase 9 infra + Phase 10 ejecución) — SHIPPED 2026-05-27 |
-| Fases v1.2 | 2/2 completas (Phase 11 Articoli + Phase 12 Partitivos) — SHIPPED 2026-05-28 |
-| Fases v1.3 | 0/2 (Phase 13 Bloque Canciones + playthrough; Phase 14 Contenido "Equilibrio mentale") |
+| Fases v1.1 | 2/2 completas (Phase 9-10) — SHIPPED 2026-05-27 |
+| Fases v1.2 | 2/2 completas (Phase 11-12) — SHIPPED 2026-05-28 |
+| Fases v1.3 | 2/2 completas (Phase 13-14) — SHIPPED 2026-06-02 |
+| Fases v1.4 | 0/3 (Phase 15 modelo slot+variantes; Phase 16 motor de examen por slots; Phase 17 piloto Preposiciones) |
 | Requisitos v1.0 completos | 62/62 (100%) |
 | Requisitos v1.1 completos | 8/8 (100% — VAL-01..08) |
 | Requisitos v1.2 completos | 15/15 (100% — ART-01..08 + PART-01..07) |
-| Requisitos v1.3 mapeados | 19/19 (100% — SONG/PLAY/LINK/DATA → Phase 13 (16); CONT → Phase 14 (3); 0 orphans) |
-| Requisitos v1.3 completos | 0/19 (planning) |
-| Ejercicios totales en la app | 373 validated (9 categorías gramaticales) |
-| Categorías gramaticales | 9 (Articoli 8ª; Partitivos 9ª) — las canciones son bloque APARTE, no categorías |
+| Requisitos v1.3 completos | 19/19 (100% — SONG/PLAY/LINK/DATA + CONT) |
+| Requisitos v1.4 mapeados | 17/17 (100% — SLOT→Phase 15 (6); EXAM→Phase 16 (6); PILOT→Phase 17 (5); 0 orphans) |
+| Requisitos v1.4 completos | 0/17 (planning) |
+| Ejercicios totales en la app | 373 validated (9 categorías gramaticales) + bloque Canciones standalone |
+| Categorías gramaticales | 9 (en v1.4: Preposiciones se convierte a slots-piloto; las otras 8 = slots de 1 variante) |
+| schemaVersion actual | 5 (v1.4 migra a 6) |
 | Granularidad | coarse |
-| Mode | mixed — Phase 13 es slice vertical de software (engine reuse); Phase 14 es contenido editorial (validación ligera autor-oráculo, NO quórum estricto) |
-
-**By Phase (v1.3):**
-
-| Phase | Plans | Total | Avg/Plan |
-|-------|-------|-------|----------|
-| 13. Bloque Canciones + playthrough | 0 | — | — |
-| 14. Contenido "Equilibrio mentale" | 0 | — | — |
-| Phase 13 P01 | 5 min | 2 tasks | 9 files |
-| Phase 13 P02 | ~12 min | 3 tasks | 4 files |
-| 14 | 1 | - | - |
+| Mode | mixed — Phase 15/16 software (motor + migración), Phase 17 contenido editorial (quórum R1-R7) |
 
 ## Accumulated Context
 
 ### Roadmap Evolution
 
 - **2026-05-25 — Milestone v1.0 shipped.** 10 fases activas, 26 plans, 71 tasks. 271/271 ejercicios curados con explanations en 7 categorías. Motor de re-verificación + Modo Examen operativos.
-- **2026-05-27 — Milestone v1.1 shipped.** 2 fases (9-10), 8 plans. 272/272 ejercicios validados por quórum Opus 4.7 + Sonnet 4.6 contra R1-R7→C1-C5. 55 disputed resueltos, 0 deferred.
-- **2026-05-28 — Milestone v1.2 shipped.** 2 fases (11-12), 10 plans. 100 ejercicios nuevos (Articoli 56 + Partitivos 44) validados por quórum cross-vendor (DeepSeek + Opus 4.7). 9 categorías totales, 372/372 validated. Patrón "categoría nueva" consolidado.
-- **2026-06-02 — Milestone v1.3 abierto + roadmap fijado.** Bloque "Canciones" (traducción italiano→español frase a frase, enganchada al engine vía cascada D-54). Numeración CONTINÚA desde v1.2 (Phase 13 + Phase 14, NO reset — mismo criterio que v1.1/v1.2). El autor favorece slices verticales pequeños y patrones consolidados — 2 fases: (13) software end-to-end reutilizando el engine; (14) contenido "Equilibrio mentale" autorado + validación ligera. 19 requirements (4 SONG + 5 PLAY + 4 LINK + 3 DATA + 3 CONT), 19/19 mapped, 0 orphans, 0 gaps.
+- **2026-05-27 — Milestone v1.1 shipped.** 2 fases (9-10), 8 plans. 272/272 ejercicios validados por quórum Opus 4.7 + Sonnet 4.6 contra R1-R7→C1-C5. 55 disputed resueltos.
+- **2026-05-28 — Milestone v1.2 shipped.** 2 fases (11-12), 10 plans. 100 ejercicios nuevos (Articoli 56 + Partitivos 44) validados por quórum cross-vendor. 9 categorías totales, 372/372 validated.
+- **2026-06-02 — Milestone v1.3 shipped.** 2 fases (13-14), 3 plans, 19/19 requirements, 306/306 tests. Bloque Canciones brownfield sobre el engine v1.0. schemaVersion 4→5. 1ª canción real "Equilibrio mentale — Ultimo".
+- **2026-06-02 — Milestone v1.4 abierto + roadmap fijado.** Variantes de ejercicio (slots por regla). Numeración CONTINÚA desde v1.3 (Phase 14) → **Phases 15-17, NO reset** (mismo criterio que v1.1/v1.2/v1.3). 3 fases coarse, vertical/shippable: **Phase 15 (Modelo de datos slot+variantes + schema + migración)** mapea 6 SLOT (modelo, explicación a nivel de slot, validator, migración `5→6`, backward-compat de las 8 categorías); **Phase 16 (Motor de examen por slots)** mapea 6 EXAM (1 variante aleatoria por slot, "hecha"=N slots, cascada D-54 reusando `applyResultToSession`, racha/dominada + 3 modos integran el muestreo) — engine exercisable end-to-end con slots de 1 variante ANTES de la rework de contenido; **Phase 17 (Piloto Preposiciones)** mapea 5 PILOT (reagrupar 57 ejercicios en slots, autorar variantes nuevas con quórum R1-R7, slot `in spiaggia`, reset progreso, validator + smoke). **Cobertura: 17/17 mapped, 0 orphans, 0 duplicados, 0 gaps.** PILOT depende de SLOT+EXAM en su sitio. Brownfield: el motor de re-verificación NO se reconstruye.
 
 ### Decisions
 
-Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisiones que constriñen el trabajo v1.3:
+Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisiones que constriñen el trabajo v1.4:
 
-- **Phase numbering CONTINÚA (13, 14), NO reset a 1** — audit trail histórico lineal; MILESTONES.md y REQUIREMENTS.md traceability incrementales (mismo criterio que v1.1 y v1.2).
-- **Brownfield, mostly-integration: REUTILIZAR, NO reconstruir** — el motor de re-verificación está DONE y NO se toca. Phase 13 reutiliza: cascada D-54 `applyImmediateFailure`/`applyResultToSession` (`src/screens/app.js`); tipo word-buttons `grade()` (`src/exercise-types/word-buttons.js`) que ya gradúa una secuencia exacta de tokens case-insensitively — las canciones lo usan en dirección INVERSA (línea italiana = prompt → user construye tokens españoles = answer); schema-validator hand-written (`src/data/schema-validator.js`, dispatch `PAYLOAD_VALIDATORS`); patrón Test-completo + summary-errors UX.
-- **Vertical-slice ordering** — Phase 13 debe entregar un loop end-to-end "jugar una canción mínima" temprano (con una canción semilla de pocas frases), no fragmentar en data-model→UI→mecánica horizontales. Phase 14 carga el contenido real "Equilibrio mentale" sobre la maquinaria ya verificada.
-- **Canciones standalone (LINK-04)** — NO entran en el sampler de Repaso 20 / Test completo ni en la tabla de categorías del home. Bloque APARTE. El espíritu de re-verificación llega vía cascada D-54 a las categorías gramaticales reales enganchadas por frase.
-- **Recorrido tipo Test completo, NO mid-restart (PLAY-01)** — N frases en orden hasta el final + resumen. PERO sin slot de reanudación `inFlightTest`: abandonar a mitad descarta el progreso no comprometido (los fallos ya cascadeados por D-54 quedan) y al re-entrar empieza de cero (PLAY-05). Diferencia explícita con el Test completo de categorías (que sí se reanuda).
-- **Estado por canción simple: pasada/fallada (SONG-02/04)** — NO dominada / NO racha / NO log 21-day. Persiste en localStorage entre sesiones. Mucho más simple que el modelo de categorías.
-- **Frases sin categoría soportadas en el modelo (LINK-03)** — etiquetadas y guardadas, sin disparar cascada; preparado para el proceso de propuesta de categorías nuevas (CATPROC) que se DIFIERE a un milestone futuro. El modelo de datos v1.3 no debe bloquearlo.
-- **Validación de contenido LIGERA autor-oráculo (CONT-03)** — NO el quórum gramatical estricto R1-R7 que usan las categorías. Una IA verifica que la traducción española sea defendible y que el enganche de categorías por frase sea correcto; el autor es oráculo final sobre el fraseo artístico (las traducciones de canciones son "particulares" por diseño).
-- **Schema de canción + migración coherentes con lo existente (DATA-01/02/03)** — el JSON de canción se valida con el mismo patrón hand-written + banner visible; si el state requiere campos nuevos, migración `migrateNtoM` desde schemaVersion 4 (mismo patrón que `migrate3to4`).
-- **Canon editorial heredado** — donde el contenido lleve texto explicativo en español: acentos correctos (á/é/í/ó/ú + ñ RAE) + italianismos citados con ortografía italiana, plain text sin markdown, apóstrofes ASCII U+0027 (D-129/D-135/D-137). El italiano de las frases preserva su ortografía.
-- [Phase ?]: Plan 13-01: validateSongs export separado (no extiende PAYLOAD_VALIDATORS) — coherente con LINK-04 standalone
-- [Phase ?]: Plan 13-01: songProgress plano {status,lastPlayedAt} sin streak/dominada (D-03); migrate4to5/hydrateV5 deep-clone defensivo (CR-03/T-13-01)
-- [Phase ?]: Plan 13-01 [Rule 2]: backup.js extendido a v5 para preservar round-trip export/import del estado actual
-- [Phase ?]: Plan 13-02: pantallas DEDICADAS cancion/cancion-summary + getter songCurrentPhrase y mapa dedicado songPhraseById (no song-aware sessionCurrentExercise, LINK-04)
-- [Phase ?]: Plan 13-02: cascada de cancion REUSA applyResultToSession (0 call-sites nuevos de applyImmediateFailure, Pitfall #2); auto-avance dispatcha por sessionMode=cancion; PLAY-05 sin inFlightTest
+- **Phase numbering CONTINÚA (15, 16, 17), NO reset a 1** — audit trail histórico lineal; MILESTONES.md y REQUIREMENTS.md traceability incrementales (mismo criterio que v1.1/v1.2/v1.3).
+- **MOTOR + 1 PILOTO, NO conversión masiva** — v1.4 construye el modelo+motor de slots y convierte SOLO Preposiciones como piloto real. Las otras 8 categorías siguen funcionando intactas como slots de 1 variante (backward-compat, SLOT-06). Su conversión es CONV-01 (futuro, out-of-scope explícito) — evita re-validar 372 ejercicios de golpe.
+- **Brownfield, REUTILIZAR el engine, NO reconstruir** — el motor de re-verificación está DONE (cascada D-54, sampler, schema-validator, patrón Test-completo, `applyResultToSession`). El muestreo por slot es una capa sobre el sampler existente; "hecha" por slots es una redefinición del recuento; la cascada por variante reusa `applyResultToSession`.
+- **Pitfall #2 — minimizar call-sites de `applyImmediateFailure`** — actualmente exactamente 2 call-sites (decisión final + primer fallo match). EXAM-03 debe mantener ese número: la cascada por variante de slot reusa `applyResultToSession`, NO añade un 3er call-site. Verificable por grep.
+- **Vertical-slice ordering con dependencia clara** — Phase 16 (motor) debe ser exercisable end-to-end con slots de 1 variante (gracias a SLOT-06 backward-compat) ANTES de la rework de contenido de Phase 17. PILOT depende de SLOT+EXAM en su sitio.
+- **Contenido del piloto pasa el quórum estricto R1-R7** — las variantes nuevas de Preposiciones (PILOT-02) NO usan la validación ligera autor-oráculo de canciones; usan el quórum cross-vendor gramatical (skills `gsd-validate-exercise` / `gsd-validate-batch`), porque son ejercicios gramaticales reales.
+- **Explicación a nivel de slot, NO por variante (SLOT-02)** — variantes intercambiables comparten regla y explicación; más simple de autorar/validar. Explicación propia por variante está out-of-scope.
+- **Reset de progreso de Preposiciones al migrar (PILOT-04)** — coherente con el Core Value y mucho más simple que mapear estado ejercicio→slot; el resto de categorías conserva su progreso.
+- **Migración coherente con el patrón existente (SLOT-05)** — `migrate5to6` + `hydrateV6` idempotente + deep-clone defensivo (mismo patrón que `migrate4to5`); `backup.js` extendido a v6 para round-trip.
+- **Canon editorial heredado** — explanations de slot en español acentuado correcto + italianismos preservados, plain text sin markdown, apóstrofes ASCII U+0027 (D-129/D-135/D-137).
 
 ### Pending Todos
 
-- [ ] `/gsd:plan-phase 13` — descomponer Phase 13 (Bloque Canciones + modelo de datos + playthrough end-to-end) en planes ejecutables, favoreciendo un slice vertical "jugar una canción mínima" temprano (schema + validator + migración, pantalla Canciones + listado/estado, playthrough word-buttons inverso + feedback + resumen, cascada D-54 + standalone)
-- [ ] `/gsd:plan-phase 14` — descomponer Phase 14 (Contenido "Equilibrio mentale — Ultimo") tras cerrar Phase 13 (limpieza ruido → segmentación en frases → traducción curada + distractoras + enganche categorías → validación ligera autor-oráculo)
-- [ ] `/gsd:complete-milestone v1.3` — tras verifier PASS de Phase 14
+- [ ] `/gsd:plan-phase 15` — descomponer Phase 15 (Modelo de datos slot+variantes + schema + migración): shape del slot+variantes, validator extendido (slot sin variantes / variante sin payload / explicación ausente), `migrate5to6`/`hydrateV6` + `backup.js` v6, backward-compat de las 8 categorías como slots de 1 variante.
+- [ ] `/gsd:plan-phase 16` — descomponer Phase 16 (Motor de examen por slots): muestreo 1 variante/slot en el sampler, "hecha"=N slots + recuento "Ejercicios"=slots, cascada D-54 reusando `applyResultToSession` (0 nuevos call-sites), racha/dominada sobre la nueva "hecha", integración Repaso 20 / Test / Examen. Engine exercisable end-to-end.
+- [ ] `/gsd:plan-phase 17` — descomponer Phase 17 (Piloto Preposiciones): reagrupar 57 ejercicios en slots por regla, autorar variantes nuevas (D-85 + quórum R1-R7), slot `in spiaggia / in montagna / al mare / in campagna`, reset progreso, validator + smoke paramétrico.
+- [ ] `/gsd:complete-milestone v1.4` — tras verifier PASS de Phase 17.
 
 ### Blockers/Concerns
 
-(Ninguno — engine v1.0 DONE y operativo, word-buttons/schema-validator/cascada D-54/patrón Test-completo reutilizables, roadmap v1.3 fijado, canon ortográfico establecido)
+(Ninguno — engine v1.0 DONE y operativo, sampler/cascada D-54/schema-validator/patrón Test-completo reutilizables, roadmap v1.4 fijado, infra de quórum cross-vendor disponible.)
 
 ### Decisions Pending (a resolver en plan-time)
 
-- **Shape exacto del schema de canción** — `{songId, title, artist, phrases:[{phraseId, italian, answer:[tokens es], distractors?:[], categoryIds?:[]}]}` o variante; decidir el shape concreto y cómo se distingue una frase sin categoría (`categoryIds:[]` vs ausencia del campo) en plan-time.
-- **Dónde vive el JSON de canciones en disco** — carpeta `content/songs/` 1 archivo por canción (espejo del patrón `content/exercises/`) vs `content/songs.json` único; decisión en plan-time.
-- **Cómo carga/registra la pantalla Canciones** — 6º `currentScreen` en el factory plano `src/screens/app.js` (espejo de session/summary/backup) + carga del JSON de canciones en boot; confirmar en plan-time.
-- **Si DATA-03 (migración) realmente se necesita** — depende de si el state de canciones (pasada/fallada por canción) requiere una subkey nueva en el state raíz → si la añade, bump schemaVersion 4→5 con `migrate4to5`; si se puede colgar de la estructura existente sin campos nuevos, DATA-03 se cubre por "no se necesita migración" documentado. Decisión al diseñar el state shape.
-- **Modo de validación ligera (CONT-03)** — qué IA(s) y prompt para el autor-oráculo (NO el reporter R1-R7); decisión en plan-time de Phase 14.
+- **Shape exacto del modelo slot+variantes en JSON** — cómo se representa un slot (`{slotId, categoryIds, explanation, variants:[...]}`?), dónde vive la explicación, cómo se identifica una variante; y cómo el backward-compat lee un ejercicio plano actual como slot de 1 variante (¿adapter en `loadExercises` vs migración del JSON en disco?). Decisión en plan-time de Phase 15.
+- **Cómo el sampler/recuento pasa de ejercicios a slots** — el sampler ponderado actual opera sobre ejercicios; decidir si pondera a nivel de slot y elige variante dentro, o pre-resuelve variantes y filtra duplicados de slot. GUARANTEE phase ≥1 slot/categoría. Decisión en plan-time de Phase 16.
+- **Recuento "Ejercicios" del home = slots** — qué getter cambia y cómo se muestra (N slots) sin romper categorías backward-compat (slots de 1 variante = mismo N que hoy). Plan-time Phase 16.
+- **Granularidad del regroup de Preposiciones** — cuántos slots y qué reglas (los 57 ejercicios actuales → ¿cuántos slots?); cuántas variantes nuevas autorar por slot. Plan-time Phase 17.
 
 ## Deferred Items
 
-Items reconocidos y diferidos al cierre del milestone v1.3 (2026-06-02). El autor eligió "Acknowledge & proceed" en el open-artifact audit:
-
-| Categoría | Item | Status |
-|-----------|------|--------|
-| quick_task | 260525-pwq — fix shuffle de options en multiple-choice | shipped (v1.0-era; flagged "missing" por frontmatter sin status reconocible) |
-| quick_task | 260525-vvj — botón reiniciar examen | shipped 2026-05-25 (commit `7eaf5a2`; false-positive en el audit) |
-| uat_gap | Phase 13 13-HUMAN-UAT.md — 3 escenarios pendientes (cascada D-54 desde frase, PLAY-05 abandono, LINK-04 aislamiento) | cubiertos por tests automáticos (306/306) + confirmación navegador Phase 14; sin click-through manual formal |
-| verification_gap | Phase 13 13-VERIFICATION.md — status human_needed | automated 14/14; superseded por UAT navegador de Phase 14 |
-
----
-
-Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future):
+Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.md §Backlog):
 
 | Categoría | Item | Status | Deferred At |
 |-----------|------|--------|-------------|
-| Categorización asistida | CATPROC-01/02 — proceso que propone categorías nuevas para frases de canciones sin categoría + creación/re-enganche por el autor | Backlog post-v1.3 (modelo de datos v1.3 LINK-03 ya lo soporta) | v1.3 init |
-| Contenido | MUSIC-X1 — más canciones conforme el autor las quiera trabajar (patrón de alta consolidado en v1.3) | Backlog post-v1.3 | v1.3 init |
-| Contenido | TENSE-X1..X4 (Pretérito imperfetto / Futuro semplice / Condizionale / Congiuntivo) conforme la profesora entrega material | Backlog | v1.2 init |
+| Conversión categorías | CONV-01 — reestructurar las otras 8 categorías a slots-por-regla + variantes, una por milestone incremental, siguiendo el patrón del piloto Preposiciones | Backlog post-v1.4 (en v1.4 funcionan como slots de 1 variante, SLOT-06) | v1.4 init |
+| Autoría asistida | AUTHOR-01 — UI/proceso asistido para autorar/revisar variantes sin editar JSON a mano | Backlog post-v1.4 (en v1.4 a mano + quórum, patrón D-85) | v1.4 init |
+| Categorización asistida | CATPROC-01/02 — proponer categorías nuevas para frases de canciones sin categoría | Backlog post-v1.3 | v1.3 init |
+| Contenido | MUSIC-X1 — más canciones | Backlog post-v1.3 | v1.3 init |
+| Contenido | TENSE-X1..X4 (Pretérito imperfetto / Futuro semplice / Condizionale / Congiuntivo) | Backlog | v1.2 init |
 | Bridges | PART-X1 — bridges Partitivos ↔ género-número / sustantivos | Backlog | v1.2 init |
-| UX | Modo móvil responsive si emerge dolor; refactor confirmLabel unificado 6 call-sites; Examen multi-cat | Backlog | v1.0/v1.1 |
+| UX | Modo móvil responsive; refactor confirmLabel unificado 6 call-sites; Examen multi-cat | Backlog | v1.0/v1.1 |
 
 ## Session Continuity
 
 ### Last Session
 
-- **Fecha:** 2026-06-02 — **Plan 13-02 completado (último plan de Phase 13).** Slice VERTICAL jugable del bloque Canciones reutilizando el engine: botón protagonista en el home, pantalla de listado con estado por canción, playthrough secuencial it->es con feedback y cascada D-54 inmediata (un solo call-site, reusando `applyResultToSession`), y resumen post-canción (Block A frases falladas vs correcta + Block B impacto factual en categorías). 3 tasks, 3 commits (`1b80210` boot+listado, `10fe9c8` playthrough+cascada, `db69f8e` resumen+write-once). Pantallas DEDICADAS `cancion`/`cancion-summary` (getter `songCurrentPhrase` + mapa `songPhraseById`, no song-aware `sessionCurrentExercise` — LINK-04). `loadSongs` cableado en boot (`main.js`), `songsById` hermano de `exerciseById`. 306/306 tests pass (+19 en `screen-canciones.test.js`). Requisitos completados: SONG-01..04, PLAY-01..05, LINK-02/04. **Phase 13 ready for verification.** Stopped at: 13-02 ejecutado. Resume file: None. Siguiente: verificación de Phase 13, luego `/gsd:plan-phase 14`.
-- **Fecha:** 2026-06-02 — Roadmap del milestone v1.3 (Canciones) creado por el roadmapper. **Numeración CONTINÚA desde Phase 12 → Phases 13-14, NO reset** (mismo criterio que v1.1/v1.2). 2 fases coarse, vertical-slice: **Phase 13 (Bloque Canciones + modelo de datos + playthrough end-to-end)** mapea 16 requisitos (SONG-01..04 + PLAY-01..05 + LINK-01..04 + DATA-01..03) y entrega el loop completo "jugar una canción mínima" reutilizando el engine (cascada D-54, word-buttons inverso, schema-validator, patrón Test-completo); **Phase 14 (Contenido "Equilibrio mentale — Ultimo")** mapea 3 (CONT-01..03) — letra segmentada + traducción curada + enganche de categorías + validación ligera autor-oráculo (NO quórum R1-R7). **Cobertura: 19/19 mapped, 0 orphans, 0 duplicados, 0 gaps** (cada success criterion respaldado por ≥1 requisito). Brownfield: el motor de re-verificación NO se reconstruye. Archivos escritos: `.planning/ROADMAP.md` (sección v1.3 ACTIVE con summary checklist + Phase Details 5 criteria Phase 13 / 3 criteria Phase 14 + UI hint:yes en ambas + Progress table +2 filas + backlog CATPROC/MUSIC-X1), `.planning/REQUIREMENTS.md` (Traceability 19 filas + Coverage 19/19), `.planning/STATE.md` (este — re-inicializado para v1.3 planning). v1.0/v1.1/v1.2 preservados archivados. Stopped at: roadmap creado. Resume file: None. Siguiente: `/gsd:plan-phase 13`.
-- **Fecha:** 2026-05-28 — Plan 12-04 completado: cableó `partitivos` en los 3 puntos de integración en LOCKSTEP N=44. Milestone v1.2 cerrado y archivado.
+- **Fecha:** 2026-06-02 — **Roadmap del milestone v1.4 (Variantes de ejercicio / slots por regla) creado por el roadmapper.** Numeración CONTINÚA desde Phase 14 → **Phases 15-17, NO reset** (mismo criterio que v1.1/v1.2/v1.3). 3 fases coarse, vertical/shippable con dependencia explícita: **Phase 15 (Modelo de datos slot+variantes + schema + migración)** mapea 6 SLOT — modelo slot (1 regla, 1..N variantes), explicación a nivel de slot, validator extendido, `migrate5to6`/`hydrateV6` + `backup.js` v6, backward-compat de las 8 categorías como slots de 1 variante; **Phase 16 (Motor de examen por slots)** mapea 6 EXAM — el sampler elige 1 variante aleatoria por slot, "hecha"=pasar N slots + recuento "Ejercicios"=slots, cascada D-54 reusando `applyResultToSession` (0 nuevos call-sites, Pitfall #2), racha/dominada sobre la nueva "hecha", integración Repaso 20 / Test / Examen — engine exercisable end-to-end ANTES de la rework de contenido; **Phase 17 (Piloto Preposiciones)** mapea 5 PILOT — reagrupar 57 ejercicios en slots por regla, autorar variantes nuevas (D-85 + quórum R1-R7), slot `in spiaggia / in montagna`, reset progreso de Preposiciones, validator + smoke paramétrico. **Cobertura: 17/17 mapped, 0 orphans, 0 duplicados, 0 gaps** (cada success criterion respaldado por ≥1 requisito). MOTOR + 1 PILOTO: las otras 8 categorías NO se convierten (CONV-01 futuro). Brownfield: el motor de re-verificación NO se reconstruye. Archivos escritos: `.planning/ROADMAP.md` (sección v1.4 ACTIVE: summary checklist Phases 15-17 + Phase Details con 5 criteria c/u + Progress table +3 filas + backlog CONV-01/AUTHOR-01), `.planning/REQUIREMENTS.md` (Traceability 17 filas + Coverage 17/17), `.planning/STATE.md` (este — re-inicializado para v1.4 planning). v1.0/v1.1/v1.2/v1.3 preservados archivados. Stopped at: roadmap creado. Resume file: None. Siguiente: `/gsd:plan-phase 15`.
+- **Fecha:** 2026-06-02 — Plan 14-01 + cierre de v1.3 (Canciones). Milestone v1.3 archivado.
 
-### Files Generated (este ciclo, 2026-06-02)
+### Files Generated (este ciclo, 2026-06-02 — v1.4 roadmap)
 
-- `.planning/ROADMAP.md` (modified — sección `### v1.3 — ACTIVE` con Phase 13 + Phase 14 en summary checklist; `## Phase Details` con las 2 fases completas (goal/depends-on/requirements/success criteria + UI hint:yes); `## Progress` table +2 filas v1.3; backlog CATPROC + MUSIC-X1; footer milestone v1.3)
-- `.planning/REQUIREMENTS.md` (modified — Traceability 19 filas SONG/PLAY/LINK/DATA→Phase 13 + CONT→Phase 14; Coverage 19/19 mapped, 0 orphans/duplicados/gaps; footer)
-- `.planning/STATE.md` (modified — re-inicializado para v1.3 planning; frontmatter milestone v1.3 + total_phases 2; decisiones v1.3; decisiones pending plan-time)
+- `.planning/ROADMAP.md` (modified — sección `### 🚧 v1.4 — ACTIVE` con Phases 15-17 en summary checklist; `## Phase Details` con las 3 fases completas (goal/depends-on/requirements/5 success criteria; UI hint:yes en Phase 16); `## Progress` table +3 filas v1.4; backlog CONV-01 + AUTHOR-01; footer milestone v1.4)
+- `.planning/REQUIREMENTS.md` (modified — Traceability 17 filas SLOT→Phase 15 / EXAM→Phase 16 / PILOT→Phase 17; Coverage 17/17 mapped, 0 orphans/duplicados/gaps; footer)
+- `.planning/STATE.md` (modified — re-inicializado para v1.4 planning; frontmatter milestone v1.4 + total_phases 3; decisiones v1.4; decisiones pending plan-time)
 
-**Heredado (engine + infra reutilizable en v1.3, NO se reconstruye):**
+**Heredado (engine + infra reutilizable en v1.4, NO se reconstruye):**
 
-- `src/screens/app.js` — cascada D-54 `applyImmediateFailure` / `applyResultToSession`, factory plano `currentScreen`, patrón Test-completo + summary-errors
-- `src/exercise-types/word-buttons.js` — `grade()` por secuencia exacta de tokens case-insensitive (las canciones lo usan en dirección inversa italiano→español)
-- `src/data/schema-validator.js` — dispatch table `PAYLOAD_VALIDATORS` + banner visible
-- Patrón migración `migrateNtoM` (schemaVersion 4, último `migrate3to4`)
+- `src/screens/app.js` — cascada D-54 `applyImmediateFailure` / `applyResultToSession` (2 call-sites EXACTOS — Pitfall #2), factory plano `currentScreen`, patrón Test-completo + summary-errors, sampler GUARANTEE/FILL.
+- `src/data/schema-validator.js` — dispatch table `PAYLOAD_VALIDATORS` + banner visible (se extiende para slot+variantes).
+- Patrón migración `migrateNtoM` (schemaVersion 5, último `migrate4to5`) → `migrate5to6` + `hydrateV6` + `backup.js` v6.
+- Infra de quórum cross-vendor: skills `gsd-validate-exercise` / `gsd-validate-batch`, `scripts/validate-ai-pass.mjs`, reporter — para PILOT-02.
 
 ## Operator Next Steps
 
-- Start the next milestone with /gsd-new-milestone
+- `/gsd:plan-phase 15` para descomponer la primera fase del milestone v1.4.

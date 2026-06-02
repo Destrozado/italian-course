@@ -8,6 +8,7 @@
 - ✅ **v1.1 — Validación editorial** — Phases 9-10 (shipped 2026-05-27). 272/272 ejercicios validados por quórum multi-AI. Ver [milestones/v1.1-ROADMAP.md](./milestones/v1.1-ROADMAP.md).
 - ✅ **v1.2 — Más contenido A1 (Articoli + Partitivos)** — Phases 11-12 (shipped 2026-05-28). 2 categorías nuevas (8ª y 9ª), 100 ejercicios nuevos validados por quórum cross-vendor. Ver [milestones/v1.2-ROADMAP.md](./milestones/v1.2-ROADMAP.md).
 - ✅ **v1.3 — Canciones (bloque de traducción)** — Phases 13-14 (shipped 2026-06-02). Bloque nuevo "Canciones": traducir canciones italianas frase a frase (word-buttons inverso italiano→español), enganchadas al motor vía cascada D-54; 1ª canción real "Equilibrio mentale". 19/19 requirements, 306/306 tests. Brownfield: reutiliza el engine. Ver [milestones/v1.3-ROADMAP.md](./milestones/v1.3-ROADMAP.md).
+- 🚧 **v1.4 — Variantes de ejercicio (slots por regla)** — Phases 15-17 (ACTIVE). Motor slot+variantes (1 slot = 1 regla, 1..N variantes intercambiables; examen elige 1 variante aleatoria por slot) + piloto Preposiciones. Brownfield: reutiliza la cascada D-54, sampler, schema-validator, patrón Test-completo. 17 requirements (6 SLOT + 6 EXAM + 5 PILOT).
 
 ## Phases
 
@@ -59,6 +60,54 @@
 
 </details>
 
+### 🚧 v1.4 — Variantes de ejercicio (slots por regla) — ACTIVE
+
+Numeración CONTINÚA desde Phase 14 → Phases 15-17 (NO reset — mismo criterio que v1.1/v1.2/v1.3).
+
+- [ ] **Phase 15: Modelo de datos slot+variantes + schema + migración** — Slots (1 regla = 1 slot, 1..N variantes intercambiables), explicación a nivel de slot, validator extendido, migración `schemaVersion 5→6`, backward-compat de las 8 categorías no-piloto como slots de 1 variante.
+- [ ] **Phase 16: Motor de examen por slots** — El sampler/examen elige 1 variante aleatoria por slot; "hecha" = pasar los N slots; cascada D-54 reusando `applyResultToSession` (0 nuevos call-sites); racha/dominada y Repaso 20 / Test / Examen integran el muestreo por slot. Engine exercisable end-to-end.
+- [ ] **Phase 17: Piloto Preposiciones (contenido)** — Reagrupar los 57 ejercicios en slots por regla, autorar variantes nuevas (quórum R1-R7), añadir el slot `in spiaggia / in montagna`, reset de progreso de Preposiciones, pasar validator + smoke paramétrico.
+
+## Phase Details
+
+### Phase 15: Modelo de datos slot+variantes + schema + migración
+**Goal**: El contenido y el state soportan un modelo slot+variantes — cada slot representa una regla con 1..N variantes intercambiables y una explicación compartida — con validator estricto, migración `5→6` y las 8 categorías no-piloto funcionando intactas como slots de 1 variante.
+**Depends on**: Phase 14 (último estado shipped v1.3, schemaVersion 5)
+**Requirements**: SLOT-01, SLOT-02, SLOT-03, SLOT-04, SLOT-05, SLOT-06
+**Success Criteria** (what must be TRUE):
+  1. Un archivo de categoría define slots, cada slot contiene 1..N variantes (cada variante = un payload jugable completo del tipo multiple-choice / word-buttons / match) y una explicación a nivel de slot compartida por todas sus variantes.
+  2. Un slot con exactamente 1 variante carga y se trata con normalidad (sin caso especial visible).
+  3. El validator rechaza con banner visible un JSON malformado: slot sin variantes, variante sin payload válido para su tipo, o explicación ausente — coherente con el banner del validator existente.
+  4. Tras la migración `5→6` (`migrate5to6` + `hydrateV6`, idempotente + deep-clone defensivo) el state arranca limpio y `backup.js` exporta/importa round-trip en v6.
+  5. Las 8 categorías no-piloto siguen cargando y funcionando sin re-autoría — cada ejercicio actual se interpreta como 1 slot de 1 variante (backward-compat verificable: la app arranca con las 9 categorías visibles como hoy).
+**Plans**: TBD
+
+### Phase 16: Motor de examen por slots
+**Goal**: El motor de re-verificación recorre slots en vez de ejercicios sueltos — elige 1 variante aleatoria por slot, redefine "categoría hecha" como pasar los N slots, y mantiene la cascada D-54, la racha de 21 días y los 3 modos de sesión intactos. Engine exercisable end-to-end con slots de 1 variante antes de la rework de contenido.
+**Depends on**: Phase 15
+**Requirements**: EXAM-01, EXAM-02, EXAM-03, EXAM-04, EXAM-05, EXAM-06
+**Success Criteria** (what must be TRUE):
+  1. Una sesión de una categoría presenta como máximo 1 variante por slot — nunca dos variantes del mismo slot en la misma sesión.
+  2. Una categoría se marca "hecha" solo al pasar sin fallar 1 variante de cada uno de sus N slots; el recuento "Ejercicios" del home muestra slots, no variantes.
+  3. Fallar la variante de un slot resetea al instante las `categoryIds` del slot (cascada D-54), reusando `applyResultToSession` — el conteo de call-sites de `applyImmediateFailure` sigue siendo exactamente 2 (Pitfall #2 verificable por grep).
+  4. Al re-hacer una categoría tras fallo/reset, la selección aleatoria se reejecuta y pueden tocar variantes distintas a la pasada anterior.
+  5. Racha 21 días + promoción hecha→dominada operan sobre la nueva definición de "hecha" por slots, y Repaso 20 / Test completo / Modo Examen integran el muestreo por slot (GUARANTEE ≥1 slot por categoría elegida).
+**Plans**: TBD
+**UI hint**: yes
+
+### Phase 17: Piloto Preposiciones (contenido)
+**Goal**: Preposiciones se convierte en el primer caso real del modelo slot+variantes — los 57 ejercicios validados se reagrupan en slots por regla, se autoran variantes nuevas que pasan el quórum, se añade el slot locativo fijo `in spiaggia`, y su progreso se resetea — demostrando que el motor mata la memorización por palabras con dolor real.
+**Depends on**: Phase 16 (el motor de slots debe estar exercisable antes de la rework de contenido)
+**Requirements**: PILOT-01, PILOT-02, PILOT-03, PILOT-04, PILOT-05
+**Success Criteria** (what must be TRUE):
+  1. Los 57 ejercicios validados de Preposiciones quedan reagrupados en slots por regla — los que entrenan la misma regla reformulada son ahora variantes del mismo slot.
+  2. Las variantes nuevas autoradas (patrón D-85: Claude propone → autor revisa) pasan el quórum cross-vendor R1-R7 antes de entrar.
+  3. Existe un slot de preposición locativa fija `in spiaggia / in montagna / al mare / in campagna` que antes no estaba en ninguna categoría.
+  4. Al migrar Preposiciones a slots su progreso se resetea a no-hecha (racha 0); el resto de categorías conserva su progreso.
+  5. La estructura final de Preposiciones pasa el validator y el smoke test paramétrico, con la cobertura de explanations preservada a nivel de slot.
+**Plans**: TBD
+**UI hint**: no
+
 ## Progress
 
 | Phase | Milestone | Plans Complete | Status | Completed |
@@ -67,8 +116,19 @@
 | 9-10 | v1.1 | 8/8 | Complete | 2026-05-27 |
 | 11-12 | v1.2 | 10/10 | Complete | 2026-05-28 |
 | 13-14 | v1.3 | 3/3 | Complete | 2026-06-02 |
+| 15. Modelo de datos slot+variantes | v1.4 | 0/? | Not started | - |
+| 16. Motor de examen por slots | v1.4 | 0/? | Not started | - |
+| 17. Piloto Preposiciones (contenido) | v1.4 | 0/? | Not started | - |
 
 ## Backlog
+
+### Conversión del resto de categorías a slots (CONV-01 — diferido a milestone futuro)
+
+**Status:** Backlog post-v1.4. Reestructurar las otras 8 categorías (Avere, Essere, Verbos-movimiento, Sustantivos-irregulares, Género-número, Profesiones, Articoli, Partitivos) a slots-por-regla + variantes, una por milestone incremental siguiendo el patrón validado en el piloto Preposiciones (Phase 17). En v1.4 estas 8 categorías funcionan como slots de 1 variante (backward-compat, SLOT-06).
+
+### Autoría asistida de variantes (AUTHOR-01 — diferido)
+
+**Status:** Backlog post-v1.4. UI o proceso asistido para autorar/revisar variantes de un slot sin editar JSON a mano. En v1.4 las variantes se autoran a mano + quórum (patrón D-85).
 
 ### Phase 999.1: Botón "Reiniciar ejercicios" en pantalla de sesión (PROMOTED → Phase 6)
 
@@ -108,3 +168,4 @@
 *Milestone v1.1 shipped 2026-05-27 — detalles en `.planning/milestones/v1.1-ROADMAP.md`.*
 *Milestone v1.2 shipped 2026-05-28 — detalles en `.planning/milestones/v1.2-ROADMAP.md`.*
 *Milestone v1.3 shipped 2026-06-02 — Phases 13-14 (numeración CONTINÚA desde Phase 12). Bloque Canciones: 19 requirements, 306/306 tests, brownfield sobre el engine v1.0. Detalles en `.planning/milestones/v1.3-ROADMAP.md`.*
+*Milestone v1.4 abierto 2026-06-02 — Phases 15-17 (numeración CONTINÚA desde Phase 14). Variantes de ejercicio (slots por regla): motor slot+variantes + piloto Preposiciones. 17 requirements (6 SLOT + 6 EXAM + 5 PILOT), 17/17 mapped, 0 orphans. Brownfield: reutiliza cascada D-54, sampler, schema-validator, patrón Test-completo.*

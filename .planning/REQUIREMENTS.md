@@ -57,33 +57,34 @@ Diferidos a milestones futuros. Reconocidos pero no en el roadmap actual.
 
 ## Traceability
 
-Qué fases cubren qué requirements. Se completa en la creación del roadmap.
+Qué fases cubren qué requirements.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SLOT-01 | — | Pending |
-| SLOT-02 | — | Pending |
-| SLOT-03 | — | Pending |
-| SLOT-04 | — | Pending |
-| SLOT-05 | — | Pending |
-| SLOT-06 | — | Pending |
-| EXAM-01 | — | Pending |
-| EXAM-02 | — | Pending |
-| EXAM-03 | — | Pending |
-| EXAM-04 | — | Pending |
-| EXAM-05 | — | Pending |
-| EXAM-06 | — | Pending |
-| PILOT-01 | — | Pending |
-| PILOT-02 | — | Pending |
-| PILOT-03 | — | Pending |
-| PILOT-04 | — | Pending |
-| PILOT-05 | — | Pending |
+| SLOT-01 | Phase 15 | Pending |
+| SLOT-02 | Phase 15 | Pending |
+| SLOT-03 | Phase 15 | Pending |
+| SLOT-04 | Phase 15 | Pending |
+| SLOT-05 | Phase 15 | Pending |
+| SLOT-06 | Phase 15 | Pending |
+| EXAM-01 | Phase 16 | Pending |
+| EXAM-02 | Phase 16 | Pending |
+| EXAM-03 | Phase 16 | Pending |
+| EXAM-04 | Phase 16 | Pending |
+| EXAM-05 | Phase 16 | Pending |
+| EXAM-06 | Phase 16 | Pending |
+| PILOT-01 | Phase 17 | Pending |
+| PILOT-02 | Phase 17 | Pending |
+| PILOT-03 | Phase 17 | Pending |
+| PILOT-04 | Phase 17 | Pending |
+| PILOT-05 | Phase 17 | Pending |
 
 **Coverage:**
 - v1.4 requirements: 17 total
-- Mapped to phases: 0 (roadmap pendiente)
-- Unmapped: 17 ⚠️
+- Mapped to phases: 17 (Phase 15: 6 SLOT · Phase 16: 6 EXAM · Phase 17: 5 PILOT)
+- Unmapped: 0 ✓
+- Orphans: 0 · Duplicados: 0 · Gaps: 0
 
 ---
 *Requirements defined: 2026-06-02*
-*Last updated: 2026-06-02 after initial definition*
+*Last updated: 2026-06-02 — roadmap creado (Phases 15-17). 17/17 mapped, 0 orphans.*
