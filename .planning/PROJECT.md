@@ -8,7 +8,18 @@ Web personal de ejercicios de italiano para preparar el A1 (y luego A2). Es una 
 
 **Que el sistema te obligue a no olvidar.** El motor de repetición tiene que garantizar que cada categoría se re-verifica constantemente, y que un solo fallo en cualquier ejercicio te devuelve a repetir esa categoría entera. Sin ese loop, el resto no importa.
 
-## Current Milestone: — (v1.2 shipped 2026-05-28; v1.3 por definir vía `/gsd-new-milestone`)
+## Current Milestone: v1.3 Canciones (bloque de traducción)
+
+**Goal:** Añadir un bloque "Canciones" — traducir canciones italianas frase a frase como ejercicio, con las frases enganchadas al motor de re-verificación existente vía cascada D-54.
+
+**Target features:**
+- Pantalla nueva "Canciones" con listado de canciones (estado pasada/fallada por canción), separada de la tabla de categorías del home
+- Reproducir una canción = recorrer sus N frases en orden; cada frase muestra la línea en italiano y se construye la traducción en español eligiendo palabras (word-buttons en dirección inversa italiano→español)
+- Recorrido completo hasta el final (patrón Test completo) + resumen con errores; sin reinicio a mitad
+- Cada frase es catalogable: enganchada a categorías gramaticales existentes → fallarla dispara cascada D-54 inmediata a esas categorías
+- Frases sin categoría se etiquetan y guardan (el proceso que propone categorías nuevas se DIFIERE a un milestone futuro)
+- Canciones standalone: NO entran en Repaso 20 / Test ni en la tabla de categorías del home
+- Primer contenido: "Equilibrio mentale — Ultimo", dividida en frases con sentido + traducción curada + validación por quórum (patrón editorial heredado)
 
 **Last shipped:** v1.2 — Articoli + Partitivos, 100 ejercicios nuevos validados por quórum cross-vendor (DeepSeek + Opus 4.7). 9 categorías totales, 372/372 ejercicios validated.
 
@@ -124,9 +135,15 @@ Web personal de ejercicios de italiano para preparar el A1 (y luego A2). Es una 
 
 ### Active
 
-<!-- Current scope. Building toward these. v1.2 shipped — see Validated. v1.3 TBD via /gsd-new-milestone. -->
+<!-- Current scope. Building toward these. v1.3 Canciones — requirements en REQUIREMENTS.md. -->
 
-(Vacío — siguiente milestone por definir.)
+**Milestone v1.3 — Canciones (bloque de traducción italiano→español):**
+- Bloque/pantalla "Canciones" con listado y estado pasada/fallada por canción (separado del home de categorías)
+- Reproducción secuencial de una canción frase a frase (recorrido tipo Test completo + resumen de errores)
+- Mecánica de traducción inversa: línea italiana mostrada → construir traducción española con word-buttons
+- Frases catalogables enganchadas a categorías gramaticales → cascada D-54 inmediata al fallar
+- Soporte en el modelo de datos para frases sin categoría (etiquetadas/guardadas; proceso de propuesta diferido)
+- Contenido inicial: "Equilibrio mentale — Ultimo" (división en frases + traducción curada + validación por quórum)
 
 ### Recently Validated (v1.2 — shipped 2026-05-28)
 
@@ -235,4 +252,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-05-28 after v1.2 milestone shipped — Articoli + Partitivos archived; 9 categorías totales (372 ejercicios validated). Awaiting `/gsd-new-milestone` para v1.3.*
+*Last updated: 2026-06-02 — Milestone v1.3 Canciones abierto vía `/gsd-new-milestone`. v1.2 (Articoli + Partitivos) archivado; 9 categorías totales (372 ejercicios validated).*
