@@ -1,0 +1,36 @@
+{
+  "_comment": "Phase 15 Plan 03 — FIXTURE de autoría slot+variantes. NO es contenido de producción: vive en _fixtures/ y NO entra en categoryRegistry (content/categories.json). Sirve de contrato canónico para Phase 16/17 y lo ejercita tests/fixtures/slot-variants-integration.test.js. Canon editorial heredado: español acentuado correcto, plain text sin markdown, apóstrofes ASCII U+0027, sin HTML (D-129/D-135/D-137, T-15-XSS).",
+  "exercises": [
+    {
+      "id": "slot-demo-001",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "explanation": "La preposición \"in\" se usa con países y regiones sin artículo; con ciudades se usa \"a\". Las variantes comparten esta regla y solo cambia el lugar.",
+      "variants": [
+        {
+          "prompt": "Vado ___ Italia per le vacanze.",
+          "options": ["in", "a", "da", "su"],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Quest'anno andiamo ___ Toscana.",
+          "options": ["a", "in", "con", "tra"],
+          "correctIndex": 1
+        }
+      ]
+    },
+    {
+      "id": "slot-demo-spiaggia",
+      "type": "multiple-choice",
+      "categoryIds": ["preposiciones"],
+      "explanation": "Locución locativa fija \"in spiaggia\": se memoriza como bloque, no tiene variante equivalente con otra preposición. Es el caso canónico de slot de 1 variante (SLOT-03).",
+      "variants": [
+        {
+          "prompt": "D'estate andiamo sempre ___ spiaggia.",
+          "options": ["in", "a", "su"],
+          "correctIndex": 0
+        }
+      ]
+    }
+  ]
+}
