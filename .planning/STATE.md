@@ -2,13 +2,13 @@
 gsd_state_version: 1.0
 milestone: v1.4
 milestone_name: Variantes de ejercicio (slots por regla)
-status: planning
-last_updated: "2026-06-02T20:41:12.855Z"
-last_activity: 2026-06-02 — Milestone v1.4 roadmap creado (Phases 15-17)
+status: executing
+last_updated: "2026-06-02T22:31:53.822Z"
+last_activity: 2026-06-02 -- Phase 15 planning complete
 progress:
   total_phases: 5
   completed_phases: 0
-  total_plans: 0
+  total_plans: 3
   completed_plans: 0
   percent: 0
 ---
@@ -29,8 +29,8 @@ See: `.planning/PROJECT.md` (updated 2026-06-02)
 
 Phase: Not started (roadmap fijado, pendiente de planificar Phase 15)
 Plan: —
-Status: Planning
-Last activity: 2026-06-02 — Milestone v1.4 roadmap creado (Phases 15-17)
+Status: Ready to execute
+Last activity: 2026-06-02 -- Phase 15 planning complete
 
 ## Quick Tasks Completed
 
