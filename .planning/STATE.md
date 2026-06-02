@@ -2,11 +2,11 @@
 gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Canciones (bloque de traducción)
-status: planning
-last_updated: "2026-06-02T09:13:49.321Z"
-last_activity: 2026-06-02
+status: "v1.3 roadmap creado; pendiente `/gsd:plan-phase 13`"
+last_updated: "2026-06-02T09:35:43.849Z"
+last_activity: 2026-06-02 — Milestone v1.3 roadmap creado (Phases 13-14)
 progress:
-  total_phases: 2
+  total_phases: 4
   completed_phases: 0
   total_plans: 0
   completed_plans: 0
