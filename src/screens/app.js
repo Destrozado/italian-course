@@ -1311,10 +1311,21 @@ export function appShell(appDataReady) {
       for (const [cid, prog] of Object.entries(imported.categoryProgress ?? {})) {
         if (validCategoryIds.has(cid)) reapedCategoryProgress[cid] = prog;
       }
+      // WR-02: el mismo reaping ME-04 aplica al sub-árbol songProgress. Un
+      // backup que referencia un song id ya ausente de content.songsById (el
+      // autor renombró/eliminó un JSON de canción entre exports) acumularía
+      // huérfanos invisibles (songsForDisplay itera songsById, no songProgress).
+      // LINK-04: el set válido son las keys de songsById, sin mezclar pools.
+      const validSongIds = new Set(Object.keys(this.content.songsById ?? {}));
+      const reapedSongProgress = {};
+      for (const [sid, prog] of Object.entries(imported.songProgress ?? {})) {
+        if (validSongIds.has(sid)) reapedSongProgress[sid] = prog;
+      }
       imported = {
         ...imported,
         exerciseStats: reapedExerciseStats,
-        categoryProgress: reapedCategoryProgress
+        categoryProgress: reapedCategoryProgress,
+        songProgress: reapedSongProgress
       };
 
       this.state = imported;
