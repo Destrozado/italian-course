@@ -20,6 +20,8 @@ import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
+import { appShell } from '../src/screens/app.js';
+
 const appJsPath = new URL('../src/screens/app.js', import.meta.url);
 const indexHtmlPath = new URL('../index.html', import.meta.url);
 const mainJsPath = new URL('../src/main.js', import.meta.url);
@@ -254,5 +256,64 @@ describe('Canciones — Task 3: resumen post-canción + write-once + retorno', (
       'Block B debe usar la flecha delta-regression (render factual antes→después, sin gamificación)');
     assert.ok(window.includes('returnToSongList'),
       'el resumen debe enlazar returnToSongList para volver al listado');
+  });
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Regresión — bankWithKeys debe pintar el banco en modo canción (WR bug fix)
+//
+// En modo canción la frase activa vive en songPhraseById (LINK-04), NO en
+// exerciseById, así que sessionCurrentExercise es null. El getter bankWithKeys
+// guardaba SOLO contra sessionCurrentExercise → devolvía [] y el banco de
+// palabras nunca se pintaba (afectaba a TODAS las canciones). El fix acepta
+// también songCurrentPhrase, manteniendo la defensa anti-TypeError del unmount.
+// ─────────────────────────────────────────────────────────────────────────────
+describe('Canciones — regresión: bankWithKeys pinta el banco en modo canción', () => {
+  function songApp(bank) {
+    const app = appShell(Promise.resolve());
+    // Frase activa SOLO en songPhraseById (LINK-04) — exerciseById vacío.
+    app.content = { exerciseById: {}, songsById: {} };
+    app.sessionMode = 'cancion';
+    app.sessionExerciseIds = ['equilibrio-mentale-001'];
+    app.sessionCursor = 0;
+    app.songPhraseById = {
+      'equilibrio-mentale-001': {
+        id: 'equilibrio-mentale-001',
+        type: 'word-buttons',
+        payload: { prompt: 'Mi sento come...', answer: ['me', 'siento', 'como'], distractors: [] },
+        categoryIds: []
+      }
+    };
+    app.wordButtonsBank = bank;
+    return app;
+  }
+
+  test('bankWithKeys NO está vacío en modo canción aunque sessionCurrentExercise sea null (LINK-04)', () => {
+    const app = songApp(['como', 'me', 'siento']);
+    assert.equal(app.sessionCurrentExercise, null,
+      'precondición: la frase de canción no existe en exerciseById (LINK-04)');
+    assert.ok(app.songCurrentPhrase, 'precondición: songCurrentPhrase resuelve la frase activa');
+    assert.equal(app.bankWithKeys.length, 3,
+      'el banco debe pintar las 3 palabras en modo canción (no [])');
+    assert.deepEqual(app.bankWithKeys.map(e => e.word), ['como', 'me', 'siento'],
+      'bankWithKeys debe derivar de wordButtonsBank preservando el orden barajado');
+  });
+
+  test('bankWithKeys numera las teclas 1..9 y deja key vacía a partir del índice 9 (D-69)', () => {
+    const app = songApp(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']);
+    const keys = app.bankWithKeys.map(e => e.key);
+    assert.deepEqual(keys.slice(0, 9), ['1', '2', '3', '4', '5', '6', '7', '8', '9']);
+    assert.equal(keys[9], '', 'la palabra en índice 9 (10ª) no debe numerarse (D-69)');
+  });
+
+  test('bankWithKeys devuelve [] cuando no hay frase activa (defensa anti-TypeError del unmount)', () => {
+    const app = appShell(Promise.resolve());
+    app.content = { exerciseById: {}, songsById: {} };
+    app.sessionExerciseIds = [];
+    app.sessionCursor = 0;
+    assert.equal(app.sessionCurrentExercise, null);
+    assert.equal(app.songCurrentPhrase, null);
+    assert.equal(app.bankWithKeys.length, 0,
+      'sin frase activa en ningún modo, bankWithKeys debe ser [] (unmount tick)');
   });
 });

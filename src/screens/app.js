@@ -2281,7 +2281,12 @@ export function appShell(appDataReady) {
      * @returns {Array<{word: string, key: string}>}
      */
     get bankWithKeys() {
-      if (!this.sessionCurrentExercise) return [];
+      // En modo canción la frase activa vive en `songPhraseById` (LINK-04), NO
+      // en `exerciseById`, así que `sessionCurrentExercise` es null y dejaría el
+      // banco vacío aunque `wordButtonsBank` esté poblado. Aceptar también
+      // `songCurrentPhrase` arregla el render del banco en canciones y mantiene
+      // la defensa anti-TypeError del tick de unmount (ambos null = []).
+      if (!this.sessionCurrentExercise && !this.songCurrentPhrase) return [];
       return this.wordButtonsBank.map((word, idx) => ({
         word,
         key: idx < 9 ? String(idx + 1) : ''
