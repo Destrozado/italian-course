@@ -16,7 +16,7 @@
 //     `main.js` captura, esconde el app placeholder y renderiza el banner.
 //   - Mensajes en español (FOUND-04).
 
-import { validateContent } from './schema-validator.js';
+import { validateContent, validateSongs } from './schema-validator.js';
 
 /**
  * Carga + valida el contenido. Llamado UNA VEZ en bootstrap.
@@ -68,6 +68,68 @@ export async function loadContent(categoryRegistry) {
     categories: categoriesRaw.categories,
     exerciseById
   };
+}
+
+/**
+ * Carga + valida las canciones (Phase 13, DATA-01/DATA-02, LINK-04).
+ *
+ * Path de carga SEPARADO de `loadContent` (standalone, LINK-04): las canciones
+ * NUNCA se mezclan en `exerciseById` ni entran en `buildSession`/`buildFullTest`.
+ * Devuelve un mapa `songsById` HERMANO (id de canción → documento) más el
+ * índice ligero `songs[]` para el listado.
+ *
+ * Secuencia espejo de `loadContent`: fetch del índice `songs.json`, fetch de
+ * cada `content/songs/<id>.json`, NFC normalize EN EL BORDE (D-09) ANTES de
+ * validar, y `validateSongs` con las categorías conocidas. Si la validación
+ * falla, lanza Error con `.errors` (DATA-02) — fluye al mismo banner que el
+ * contenido de ejercicios.
+ *
+ * @param {string[]} songIds - IDs de canciones a cargar. Si se omite, se
+ *   derivan del índice `content/songs.json`.
+ * @param {Iterable<string>} knownCategoryIds - IDs de categoría válidos
+ *   (para validar el enganche `categoryIds[]` de cada frase).
+ * @returns {Promise<{songs: Array<{id:string,title:string,phraseCount?:number}>, songsById: Record<string, object>}>}
+ * @throws {Error & {errors: Array<{file:string, exerciseId?:string, reason:string}>}}
+ */
+export async function loadSongs(songIds, knownCategoryIds) {
+  // 1. Cargar el índice ligero (songs.json)
+  const indexRaw = await fetchJson('content/songs.json');
+  const index = Array.isArray(indexRaw?.songs) ? indexRaw.songs : [];
+
+  // 2. Derivar el set de ids a cargar (param explícito o índice)
+  const ids = Array.isArray(songIds) && songIds.length > 0
+    ? songIds
+    : index.map(s => s?.id).filter(id => typeof id === 'string');
+
+  // 3. Cargar cada documento de canción
+  /** @type {Array<object>} */
+  const songDocs = [];
+  for (const sid of ids) {
+    const raw = await fetchJson(`content/songs/${sid}.json`);
+    songDocs.push(raw);
+  }
+
+  // 4. NFC normalize EN EL BORDE (D-09) — antes de validar. `wordButtons.grade()`
+  //    asume NFC y NO renormaliza, igual que con los ejercicios.
+  for (const doc of songDocs) {
+    normalizeNfcInPlace(doc);
+  }
+
+  // 5. Validar (D-08 / DATA-02)
+  const known = knownCategoryIds instanceof Set ? knownCategoryIds : new Set(knownCategoryIds ?? []);
+  const { ok, errors } = validateSongs({ songs: songDocs, knownCategoryIds: known });
+  if (!ok) {
+    const err = new Error('Validación de canciones fallida');
+    /** @type {any} */ (err).errors = errors;
+    throw err;
+  }
+
+  // 6. Construir el mapa songsById HERMANO (LINK-04 — NUNCA en exerciseById)
+  /** @type {Record<string, object>} */
+  const songsById = {};
+  for (const doc of songDocs) songsById[doc.id] = doc;
+
+  return { songs: index, songsById };
 }
 
 /**

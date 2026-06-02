@@ -85,28 +85,28 @@ describe('data/storage v3 — migrate2to3 + hydrateV3 + blankState v3', () => {
     assert.equal(out.firstUsedAt, null);
   });
 
-  // Test 4 — post-Phase 6 (D-111): blankState bumpea a v4 nominal (shape root
-  // idéntico; sólo cambia el shape interno de inFlightTest.answers — backfill
-  // userAnswer). Como blankState no incluye inFlightTest, el shape es idéntico
-  // a v3 salvo schemaVersion: 4.
-  test('blankState() devuelve shape v4 con lastBackupAt/firstUsedAt null (Phase 6 bump)', () => {
+  // Test 4 — post-Phase 13: blankState bumpea a v5 (añade songProgress {}).
+  // Como blankState no incluye inFlightTest, el shape root es idéntico a v4
+  // salvo schemaVersion: 5 y el nuevo songProgress {}.
+  test('blankState() devuelve shape v5 con songProgress {} + lastBackupAt/firstUsedAt null (Phase 13 bump)', () => {
     const s = blankState();
-    assert.equal(s.schemaVersion, 4);
+    assert.equal(s.schemaVersion, 5);
     assert.deepEqual(s.exerciseStats, {});
     assert.deepEqual(s.categoryProgress, {});
     assert.deepEqual(s.dailyLog, {});
+    assert.deepEqual(s.songProgress, {});
     assert.equal(s.lastBackupAt, null);
     assert.equal(s.firstUsedAt, null);
     // inFlightTest sigue omitido (undefined)
     assert.equal(s.inFlightTest, undefined);
     assert.equal(Object.prototype.hasOwnProperty.call(s, 'inFlightTest'), false,
-      'blankState() v4 NO debe materializar inFlightTest como key explícita');
+      'blankState() v5 NO debe materializar inFlightTest como key explícita');
   });
 
   // Test 5 — usamos parseBackupFile como wrapper indirecto del dispatcher
   // porque `migrate()` es privado. Construimos un wrapper válido v1 y
-  // verificamos que sale por la cadena 1→2→3→4 (Phase 6 extiende a v4).
-  test('migración cadena v1 → v4 hidratada (via parseBackupFile)', () => {
+  // verificamos que sale por la cadena 1→2→3→4→5 (Phase 13 extiende a v5).
+  test('migración cadena v1 → v5 hidratada (via parseBackupFile)', () => {
     const v1Wrapper = {
       kind: 'italian-course-backup',
       exportedAt: '2026-05-24T10:00:00.000Z',
@@ -118,10 +118,11 @@ describe('data/storage v3 — migrate2to3 + hydrateV3 + blankState v3', () => {
     };
     const result = parseBackupFile(JSON.stringify(v1Wrapper));
     assert.equal(result.ok, true);
-    assert.equal(result.state.schemaVersion, 4);
+    assert.equal(result.state.schemaVersion, 5);
     assert.deepEqual(result.state.exerciseStats, v1Wrapper.state.exerciseStats);
     assert.deepEqual(result.state.categoryProgress, {});
     assert.deepEqual(result.state.dailyLog, {});
+    assert.deepEqual(result.state.songProgress, {});
     assert.equal(result.state.lastBackupAt, null);
     assert.equal(result.state.firstUsedAt, null);
   });
@@ -132,9 +133,9 @@ describe('data/storage v3 — migrate2to3 + hydrateV3 + blankState v3', () => {
 // ────────────────────────────────────────────────────────────────────────────
 
 describe('data/backup — parseBackupFile happy path', () => {
-  // Test 6 — post-Phase 6: parseBackupFile sale como v4 al final de la cadena
-  // (migrate3to4 + hydrateV4 son los últimos eslabones tras Phase 6 D-111).
-  test('happy path v3: wrapper válido + state v3 migra automáticamente a v4', () => {
+  // Test 6 — post-Phase 13: parseBackupFile sale como v5 al final de la cadena
+  // (migrate4to5 + hydrateV5 son los últimos eslabones tras Phase 13).
+  test('happy path v3: wrapper válido + state v3 migra automáticamente a v5', () => {
     const stateV3 = {
       schemaVersion: 3,
       exerciseStats: {},
@@ -151,15 +152,15 @@ describe('data/backup — parseBackupFile happy path', () => {
     };
     const r = parseBackupFile(JSON.stringify(wrapper));
     assert.equal(r.ok, true);
-    assert.equal(r.state.schemaVersion, 4);
+    assert.equal(r.state.schemaVersion, 5);
     assert.equal(r.summary.exportedAt, '2026-05-24T14:32:11.000Z');
     assert.equal(r.summary.categories, 0);
     assert.equal(r.summary.exercises, 0);
   });
 
-  // Test 13 — migración explícita v1→v4 (duplicado de Test 5 pero desde el
+  // Test 13 — migración explícita v1→v5 (duplicado de Test 5 pero desde el
   // describe block correspondiente para legibilidad del runner).
-  test('migración v1 → v4 OK (state.schemaVersion=1 + wrapper.schemaVersion=1)', () => {
+  test('migración v1 → v5 OK (state.schemaVersion=1 + wrapper.schemaVersion=1)', () => {
     const wrapper = {
       kind: 'italian-course-backup',
       exportedAt: '2026-01-15T08:00:00.000Z',
@@ -171,14 +172,14 @@ describe('data/backup — parseBackupFile happy path', () => {
     };
     const r = parseBackupFile(JSON.stringify(wrapper));
     assert.equal(r.ok, true);
-    assert.equal(r.state.schemaVersion, 4);
+    assert.equal(r.state.schemaVersion, 5);
     assert.equal(r.state.lastBackupAt, null);
     assert.equal(r.state.firstUsedAt, null);
     assert.deepEqual(r.state.exerciseStats, wrapper.state.exerciseStats);
   });
 
   // Test 14
-  test('migración v2 → v4 OK', () => {
+  test('migración v2 → v5 OK', () => {
     const wrapper = {
       kind: 'italian-course-backup',
       exportedAt: '2026-03-10T08:00:00.000Z',
@@ -192,7 +193,7 @@ describe('data/backup — parseBackupFile happy path', () => {
     };
     const r = parseBackupFile(JSON.stringify(wrapper));
     assert.equal(r.ok, true);
-    assert.equal(r.state.schemaVersion, 4);
+    assert.equal(r.state.schemaVersion, 5);
     assert.equal(r.state.lastBackupAt, null);
     assert.equal(r.summary.categories, 1);
     assert.equal(r.summary.exercises, 1);
@@ -239,9 +240,9 @@ describe('data/backup — parseBackupFile error paths', () => {
     assert.match(r.reason, /schemaVersion/);
   });
 
-  // Test 11 — post-Phase 6 (D-111): CURRENT_SCHEMA_VERSION = 4. Un wrapper
+  // Test 11 — post-Phase 13: CURRENT_SCHEMA_VERSION = 5. Un wrapper
   // con schemaVersion: 99 sigue siendo "versión más nueva".
-  test('rejects future schemaVersion > 4 (menciona "versión más nueva")', () => {
+  test('rejects future schemaVersion > 5 (menciona "versión más nueva")', () => {
     const r = parseBackupFile(JSON.stringify({
       kind: 'italian-course-backup',
       schemaVersion: 99,

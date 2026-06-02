@@ -25,7 +25,7 @@
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { blankState, migrate1to2, hydrateV2, migrate2to3, hydrateV3, migrate3to4, hydrateV4 } from '../src/data/storage.js';
+import { blankState, migrate1to2, hydrateV2, migrate2to3, hydrateV3, migrate3to4, hydrateV4, migrate4to5, hydrateV5 } from '../src/data/storage.js';
 
 // Phase 4 (D-77/D-78): bumped schemaVersion from 2 → 3 con dos campos
 // nuevos (lastBackupAt, firstUsedAt). El "blankState v2" describe-name
@@ -33,13 +33,14 @@ import { blankState, migrate1to2, hydrateV2, migrate2to3, hydrateV3, migrate3to4
 // (la realidad actual). Tests adicionales de la cadena v1→v2→v3 viven
 // en `tests/backup.test.js` (co-located con backup.js Phase 4).
 
-describe('data/storage — blankState v4 (Phase 6 bump)', () => {
-  test('blankState() devuelve shape v4 completo con lastBackupAt/firstUsedAt null', () => {
+describe('data/storage — blankState v5 (Phase 13 bump)', () => {
+  test('blankState() devuelve shape v5 completo con songProgress {} + lastBackupAt/firstUsedAt null', () => {
     const s = blankState();
-    assert.equal(s.schemaVersion, 4);
+    assert.equal(s.schemaVersion, 5);
     assert.deepEqual(s.exerciseStats, {});
     assert.deepEqual(s.categoryProgress, {});
     assert.deepEqual(s.dailyLog, {});
+    assert.deepEqual(s.songProgress, {});   // NEW Phase 13
     assert.equal(s.lastBackupAt, null);
     assert.equal(s.firstUsedAt, null);
     // `inFlightTest` debe estar omitido (undefined), no presente como key.
@@ -48,8 +49,8 @@ describe('data/storage — blankState v4 (Phase 6 bump)', () => {
       'blankState() no debería incluir la clave `inFlightTest` (debe ser omitida)');
   });
 
-  test('blankState() codifica schemaVersion: 4 (Phase 6 bump)', () => {
-    assert.equal(blankState().schemaVersion, 4);
+  test('blankState() codifica schemaVersion: 5 (Phase 13 bump)', () => {
+    assert.equal(blankState().schemaVersion, 5);
   });
 });
 
@@ -392,5 +393,124 @@ describe('data/storage v4 — migrate3to4 chain + hydrateV4 (Phase 6)', () => {
     assert.equal(out.lastBackupAt, v4In.lastBackupAt);
     assert.equal(out.firstUsedAt, v4In.firstUsedAt);
     assert.deepEqual(out.inFlightTest, v4In.inFlightTest);
+  });
+});
+
+// ────────────────────────────────────────────────────────────────────────────
+// Phase 13 (D-02/D-03) — migrate4to5 + hydrateV5 chain + songProgress sub-árbol
+//
+// Bump v4 → v5: añade el sub-árbol `songProgress` (estado por canción, plano:
+// { status, lastPlayedAt? }). Deep-clone defensivo por sub-dict (CR-03 /
+// T-13-01). El estado de canción NO es sticky (no streak / no dominada).
+// ────────────────────────────────────────────────────────────────────────────
+
+describe('data/storage v5 — migrate4to5 chain + hydrateV5 (Phase 13)', () => {
+  test('migrate4to5 sobre v4 fresh produce v5 con songProgress {} + sub-objetos íntegros', () => {
+    const v4 = {
+      schemaVersion: 4,
+      exerciseStats: { a1: { timesShown: 2, timesCorrect: 1, timesFailed: 1 } },
+      categoryProgress: { avere: { status: 'hecha', streakDays: 3, clearedExerciseIds: ['a1'], lastSuccessDate: '2026-05-20' } },
+      dailyLog: { '2026-05-20': { date: '2026-05-20', categoriesPracticed: ['avere'], categoriesWithFailure: [] } },
+      lastBackupAt: '2026-05-22T10:00:00.000Z',
+      firstUsedAt: '2026-04-01T08:00:00.000Z'
+      // sin songProgress (state pre-Phase 13) — debe arrancar {}
+    };
+    const v5 = migrate4to5(v4);
+    assert.equal(v5.schemaVersion, 5);
+    assert.deepEqual(v5.exerciseStats, v4.exerciseStats);
+    assert.deepEqual(v5.categoryProgress, v4.categoryProgress);
+    assert.deepEqual(v5.dailyLog, v4.dailyLog);
+    assert.deepEqual(v5.songProgress, {}, 'songProgress arranca {} cuando no existe en v4');
+    assert.equal(v5.lastBackupAt, v4.lastBackupAt);
+    assert.equal(v5.firstUsedAt, v4.firstUsedAt);
+    assert.equal(v5.inFlightTest, undefined,
+      'inFlightTest undefined del v4 se preserva como undefined en v5');
+  });
+
+  test('migrate4to5 preserva songProgress existente con deep-clone (no comparte referencia)', () => {
+    const v4 = {
+      schemaVersion: 4,
+      exerciseStats: {},
+      categoryProgress: {},
+      dailyLog: {},
+      songProgress: { 'mini-prueba': { status: 'fallada', lastPlayedAt: '2026-06-01' } },
+      lastBackupAt: null,
+      firstUsedAt: null
+    };
+    const v5 = migrate4to5(v4);
+    assert.deepEqual(v5.songProgress, { 'mini-prueba': { status: 'fallada', lastPlayedAt: '2026-06-01' } });
+    assert.notEqual(v5.songProgress, v4.songProgress, 'deep-clone: no comparte la referencia del sub-dict');
+    assert.notEqual(v5.songProgress['mini-prueba'], v4.songProgress['mini-prueba'],
+      'deep-clone: las entradas anidadas tampoco comparten referencia (CR-03)');
+  });
+
+  test('migrate4to5 con songProgress no-objeto (corrupto) cae a {}', () => {
+    for (const bad of [null, 'x', 42, []]) {
+      const v4 = { schemaVersion: 4, exerciseStats: {}, categoryProgress: {}, dailyLog: {}, songProgress: bad, lastBackupAt: null, firstUsedAt: null };
+      const v5 = migrate4to5(v4);
+      // Arrays son typeof 'object' → se clonan tal cual; null/string/number → {}.
+      // El contrato es: songProgress siempre es un objeto navegable.
+      assert.equal(typeof v5.songProgress, 'object');
+      assert.notEqual(v5.songProgress, null);
+    }
+  });
+
+  test('migrate4to5 anti-prototype-pollution: __proto__ como own-property no contamina el global', () => {
+    const malicious = JSON.parse('{"schemaVersion":4,"exerciseStats":{},"categoryProgress":{},"dailyLog":{},"songProgress":{"__proto__":{"polluted":true}},"lastBackupAt":null,"firstUsedAt":null}');
+    const v5 = migrate4to5(malicious);
+    assert.equal(({}).polluted, undefined, 'el prototipo global Object no debe quedar contaminado');
+    assert.equal(v5.schemaVersion, 5);
+  });
+
+  test('hydrateV5 sobre v5 válido preserva todos los campos incluido songProgress', () => {
+    const v5In = {
+      schemaVersion: 5,
+      exerciseStats: { x: { timesShown: 2, timesCorrect: 2, timesFailed: 0 } },
+      categoryProgress: { avere: { status: 'hecha', streakDays: 1, clearedExerciseIds: ['x'], lastSuccessDate: '2026-05-23' } },
+      dailyLog: { '2026-05-23': { date: '2026-05-23', categoriesPracticed: ['avere'], categoriesWithFailure: [] } },
+      songProgress: { 'mini-prueba': { status: 'pasada', lastPlayedAt: '2026-06-02' } },
+      lastBackupAt: '2026-05-22T10:00:00.000Z',
+      firstUsedAt: '2026-05-01T08:00:00.000Z',
+      inFlightTest: { categoryIds: ['avere'], exerciseIds: ['x'], cursor: 0, answers: [], startedAt: 1716480000000 }
+    };
+    const out = hydrateV5(v5In);
+    assert.equal(out.schemaVersion, 5);
+    assert.deepEqual(out.exerciseStats, v5In.exerciseStats);
+    assert.deepEqual(out.categoryProgress, v5In.categoryProgress);
+    assert.deepEqual(out.dailyLog, v5In.dailyLog);
+    assert.deepEqual(out.songProgress, v5In.songProgress);
+    assert.notEqual(out.songProgress, v5In.songProgress, 'deep-clone defensivo');
+    assert.equal(out.lastBackupAt, v5In.lastBackupAt);
+    assert.equal(out.firstUsedAt, v5In.firstUsedAt);
+    assert.deepEqual(out.inFlightTest, v5In.inFlightTest);
+  });
+
+  test('hydrateV5 sobre v5 con songProgress ausente lo normaliza a {}', () => {
+    const out = hydrateV5({ schemaVersion: 5, exerciseStats: {}, categoryProgress: {}, dailyLog: {}, lastBackupAt: null, firstUsedAt: null });
+    assert.deepEqual(out.songProgress, {});
+  });
+
+  // Cadena completa: un blob v4 antiguo (con datos) pasado por migrate4to5 +
+  // hydrateV5 sale v5, songProgress:{}, y categoryProgress preservado — el
+  // criterio de aceptación del Task 2 (loadState de un v4 antiguo no pierde
+  // datos previos). Aquí ejercemos la composición de los dos eslabones (el
+  // dispatcher `migrate()` es privado; backup.test.js cubre la cadena 1→5 vía
+  // parseBackupFile).
+  test('cadena v4 → v5: un blob v4 con datos preserva categoryProgress y añade songProgress {}', () => {
+    const v4 = {
+      schemaVersion: 4,
+      exerciseStats: { a1: { timesShown: 5, timesCorrect: 4, timesFailed: 1 } },
+      categoryProgress: { avere: { status: 'hecha', streakDays: 7, clearedExerciseIds: ['a1'] } },
+      dailyLog: { '2026-05-30': { date: '2026-05-30', categoriesPracticed: ['avere'], categoriesWithFailure: [] } },
+      lastBackupAt: null,
+      firstUsedAt: '2026-04-01T08:00:00.000Z'
+    };
+    const v5 = hydrateV5(migrate4to5(v4));
+    assert.equal(v5.schemaVersion, 5);
+    assert.deepEqual(v5.songProgress, {});
+    assert.deepEqual(v5.categoryProgress.avere, v4.categoryProgress.avere,
+      'categoryProgress preservado a través de la migración v4 → v5');
+    assert.deepEqual(v5.exerciseStats, v4.exerciseStats);
+    assert.equal(v5.firstUsedAt, v4.firstUsedAt);
   });
 });

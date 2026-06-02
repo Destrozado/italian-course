@@ -32,7 +32,7 @@
 //     desconocido (futuro) → warn + blankState.
 
 const KEY = 'italianCourse.v1';
-const CURRENT_SCHEMA_VERSION = 4;
+const CURRENT_SCHEMA_VERSION = 5;
 
 /**
  * Devuelve un estado "en blanco" (sin progreso) — el estado inicial canónico
@@ -58,6 +58,7 @@ export function blankState() {
     exerciseStats: {},
     categoryProgress: {},
     dailyLog: {},
+    songProgress: {},      // NEW (D-02/D-03 Phase 13) — estado por canción, plano
     lastBackupAt: null,    // NEW (D-77 Phase 4)
     firstUsedAt: null      // NEW (D-78 Phase 4)
     // inFlightTest omitido (undefined) — saveState/JSON.stringify lo elide.
@@ -138,7 +139,8 @@ function migrate(parsed) {
   if (s.schemaVersion === 1) s = migrate1to2(s);
   if (s.schemaVersion === 2) s = migrate2to3(s);
   if (s.schemaVersion === 3) s = migrate3to4(s);
-  if (s.schemaVersion === 4) return hydrateV4(s);
+  if (s.schemaVersion === 4) s = migrate4to5(s);
+  if (s.schemaVersion === 5) return hydrateV5(s);
 
   // Versión desconocida (probablemente futura) → no perdemos datos del autor:
   // logueamos warning y arrancamos limpio.
@@ -386,6 +388,81 @@ export function hydrateV4(parsed) {
       : {},
     dailyLog: (typeof parsed.dailyLog === 'object' && parsed.dailyLog !== null)
       ? JSON.parse(JSON.stringify(parsed.dailyLog))
+      : {},
+    lastBackupAt: typeof parsed.lastBackupAt === 'string' ? parsed.lastBackupAt : null,
+    firstUsedAt: typeof parsed.firstUsedAt === 'string' ? parsed.firstUsedAt : null,
+    inFlightTest: parsed.inFlightTest
+  };
+}
+
+/**
+ * Migra un estado v4 a v5 (D-02/D-03, Phase 13). Añade el sub-árbol nuevo
+ * `songProgress` (estado por canción: `{ status, lastPlayedAt? }` plano) y
+ * preserva el resto íntegro con deep-clone defensivo.
+ *
+ * `songProgress` es PLANO (D-03): NO copia la maquinaria de promoción de
+ * `categoryProgress` (streakDays / becameHechaAt / becameDominadaAt /
+ * dominada). El estado de una canción es redimible/bidireccional y refleja el
+ * último recorrido completo (no-hecha | pasada | fallada).
+ *
+ * Deep-clone defensivo (CR-03): el `JSON.parse(JSON.stringify(...))` por
+ * sub-dict neutraliza getters / `__proto__` como own-property — mismo patrón
+ * anti-prototype-pollution que `migrate3to4` (T-13-01). Si `v4.songProgress`
+ * existe como objeto se clona; si no, arranca `{}`.
+ *
+ * Exportada para testabilidad — el dispatcher la usa como eslabón v4 → v5.
+ *
+ * @param {object} v4 - Estado parseado con `schemaVersion: 4`.
+ * @returns {object} Estado normalizado v5.
+ */
+export function migrate4to5(v4) {
+  return {
+    schemaVersion: 5,
+    exerciseStats: (typeof v4.exerciseStats === 'object' && v4.exerciseStats !== null)
+      ? JSON.parse(JSON.stringify(v4.exerciseStats))
+      : {},
+    categoryProgress: (typeof v4.categoryProgress === 'object' && v4.categoryProgress !== null)
+      ? JSON.parse(JSON.stringify(v4.categoryProgress))
+      : {},
+    dailyLog: (typeof v4.dailyLog === 'object' && v4.dailyLog !== null)
+      ? JSON.parse(JSON.stringify(v4.dailyLog))
+      : {},
+    songProgress: (typeof v4.songProgress === 'object' && v4.songProgress !== null)
+      ? JSON.parse(JSON.stringify(v4.songProgress))
+      : {},   // NEW sub-árbol (Phase 13)
+    lastBackupAt: typeof v4.lastBackupAt === 'string' ? v4.lastBackupAt : null,
+    firstUsedAt: typeof v4.firstUsedAt === 'string' ? v4.firstUsedAt : null,
+    inFlightTest: v4.inFlightTest
+  };
+}
+
+/**
+ * Hidrata un estado v5 ya en disco con type-guards defensivos en cada
+ * sub-objeto. Espejo de `hydrateV4` con la línea `songProgress` añadida.
+ *
+ * Deep-clone defensivo (CR-03 / T-13-01): igual que `migrate4to5` y
+ * `hydrateV4`. Útil cuando el usuario edita manualmente localStorage o cuando
+ * el backup importado viene de una shape v5 con sub-objetos malformados.
+ *
+ * Exportada para testabilidad — invocada al final de la cadena de migración.
+ *
+ * @param {object} parsed - Estado parseado con `schemaVersion: 5`.
+ * @returns {object} Estado v5 con campos garantizados.
+ */
+export function hydrateV5(parsed) {
+  return {
+    schemaVersion: 5,
+    exerciseStats: (typeof parsed.exerciseStats === 'object' && parsed.exerciseStats !== null)
+      ? JSON.parse(JSON.stringify(parsed.exerciseStats))
+      : {},
+    categoryProgress: (typeof parsed.categoryProgress === 'object' && parsed.categoryProgress !== null)
+      ? JSON.parse(JSON.stringify(parsed.categoryProgress))
+      : {},
+    dailyLog: (typeof parsed.dailyLog === 'object' && parsed.dailyLog !== null)
+      ? JSON.parse(JSON.stringify(parsed.dailyLog))
+      : {},
+    songProgress: (typeof parsed.songProgress === 'object' && parsed.songProgress !== null)
+      ? JSON.parse(JSON.stringify(parsed.songProgress))
       : {},
     lastBackupAt: typeof parsed.lastBackupAt === 'string' ? parsed.lastBackupAt : null,
     firstUsedAt: typeof parsed.firstUsedAt === 'string' ? parsed.firstUsedAt : null,
