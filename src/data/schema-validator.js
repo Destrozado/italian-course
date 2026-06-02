@@ -34,6 +34,21 @@ const PAYLOAD_VALIDATORS = {
 };
 
 /**
+ * Phase 15 (SLOT-04): dispatch table tipo → validador de SUPERFICIE plana.
+ *
+ * Espejo de `PAYLOAD_VALIDATORS`, pero los targets validan un objeto plano
+ * (`{prompt, options, ...}` sin el wrapper `.payload`) con prefijo de mensajes
+ * configurable. Se usa para validar cada entrada de `variants[]` de un slot —
+ * una variante es una superficie aplanada, idéntico premise que una frase de
+ * canción (ver `validateSongPhrasePayload`).
+ */
+const SURFACE_VALIDATORS = {
+  'multiple-choice': validateMultipleChoiceSurface,
+  'word-buttons': validateWordButtonsSurface,
+  'match': validateMatchSurface
+};
+
+/**
  * Valida el contenido cargado (`categories.json` + cada `exercises/*.json`).
  *
  * Estrategia: acumula errores en un array y los devuelve TODOS al final. El
@@ -121,16 +136,33 @@ export function validateContent({ categories, exercisesByFile }) {
         }
       }
 
-      // payload presente
-      if (!ex.payload || typeof ex.payload !== 'object') {
-        push(file, ex.id, 'falta "payload" o no es un objeto');
+      // Phase 15 (SLOT-04, D-15-02/04/06): regla `payload` XOR `variants[]`.
+      // Un ejercicio-slot describe O un payload legacy (slot de 1 variante,
+      // back-compat de los 8 archivos) O un array `variants[]` con la
+      // explanation a nivel de slot. Nunca ambos, nunca ninguno. D-08: se
+      // acumulan todos los errores, jamás se lanza mid-walk.
+      const hasVariants = Array.isArray(ex.variants);
+      const hasPayload = ex.payload && typeof ex.payload === 'object';
+
+      if (hasPayload && hasVariants) {
+        // (a) ambos presentes → ambiguo, se rechaza.
+        push(file, ex.id, 'un ejercicio no puede tener "payload" y "variants" a la vez');
+        continue;
+      }
+      if (!hasPayload && !hasVariants) {
+        // (b) ninguno → falta la superficie jugable.
+        push(file, ex.id, 'falta "payload" o "variants" (un ejercicio-slot necesita uno de los dos)');
         continue;
       }
 
-      // payload shape — dispatched por tipo. El validador específico empuja
-      // errores adicionales y NO retorna early; D-08 invariante (acumular
-      // todos los errores en un solo pase).
-      validator(ex, file, push);
+      if (hasPayload) {
+        // (c) ruta legacy — sin cambios respecto a fases anteriores. El
+        // validador de payload empuja errores adicionales y NO retorna early.
+        validator(ex, file, push);
+      } else {
+        // (d) ruta nueva slot+variants (SLOT-01/02/03).
+        validateVariants(ex, file, push);
+      }
 
       // Phase 9 (D-VAL-08, VAL-01): campo opcional top-level `validation`.
       // NO entra en PAYLOAD_VALIDATORS (no es payload — es metadata del
@@ -140,6 +172,53 @@ export function validateContent({ categories, exercisesByFile }) {
   }
 
   return { ok: errors.length === 0, errors };
+}
+
+/**
+ * Phase 15 (SLOT-01/02/03/04): valida la rama `variants[]` de un ejercicio-slot.
+ *
+ * Premisas (D-15-02):
+ *   - `explanation` vive a NIVEL de slot (top-level del ejercicio) y es
+ *     OBLIGATORIA cuando hay `variants[]` — la regla es compartida por todas
+ *     las variantes (SLOT-02). Cada variante NO lleva explanation propia.
+ *   - cada entrada de `variants[]` es un objeto PLANO con SOLO la superficie del
+ *     payload según el `type` del slot (`type` vive a nivel de slot, D-15-05).
+ *
+ * Reglas (rechazos):
+ *   - `variants[]` vacío `[]`.
+ *   - falta `explanation` a nivel de slot (no string no vacío).
+ *   - una variante con superficie inválida para el `type` del slot — el mensaje
+ *     ubica la variante por índice (`variants[k]...`).
+ *
+ * D-08: acumula TODOS los errores en un solo recorrido, nunca lanza mid-walk.
+ * El llamador ya garantizó `Array.isArray(ex.variants)`; aun así, este helper es
+ * defensivo y no traversa si la longitud es 0.
+ *
+ * @param {object} ex - el ejercicio-slot (con `ex.variants` array).
+ * @param {string} file
+ * @param {(file:string, exerciseId:string, reason:string) => void} push
+ */
+function validateVariants(ex, file, push) {
+  // SLOT-02: explanation obligatoria a nivel de slot cuando hay variantes.
+  if (typeof ex.explanation !== 'string' || !ex.explanation.trim()) {
+    push(file, ex.id, 'los slots con "variants" requieren "explanation" a nivel de slot (string no vacío)');
+  }
+
+  if (ex.variants.length === 0) {
+    push(file, ex.id, '"variants" no puede estar vacío');
+    return; // sin variantes no hay superficies que validar
+  }
+
+  // El `type` ya fue verificado soportado por el llamador (dispatch lookup).
+  const surfaceValidator = SURFACE_VALIDATORS[ex.type];
+
+  ex.variants.forEach((variant, k) => {
+    if (!variant || typeof variant !== 'object' || Array.isArray(variant)) {
+      push(file, ex.id, `"variants[${k}]" debe ser un objeto con la superficie del tipo "${ex.type}"`);
+      return; // skip esta variante — no traversar campos de un valor malformado
+    }
+    surfaceValidator(variant, ex.id, file, push, `variants[${k}]`);
+  });
 }
 
 /**
@@ -314,31 +393,51 @@ function validateSongPhrasePayload(phrase, file, push) {
  * @param {(file:string, exerciseId:string, reason:string) => void} push
  */
 function validateMultipleChoicePayload(ex, file, push) {
-  const { prompt, options, correctIndex } = ex.payload;
-
-  if (typeof prompt !== 'string' || !prompt.includes('___')) {
-    push(file, ex.id, '"payload.prompt" debe ser string y contener el hueco "___"');
-  }
-
-  if (!Array.isArray(options) || options.length < 3 || options.length > 4) {
-    push(file, ex.id, `"payload.options" debe ser array de 3 o 4 strings (encontrado: ${Array.isArray(options) ? options.length : typeof options})`);
-  } else if (options.some(o => typeof o !== 'string' || !o.trim())) {
-    push(file, ex.id, '"payload.options" contiene entradas vacías o no-string');
-  }
-
-  const optsLen = Array.isArray(options) ? options.length : 0;
-  if (!Number.isInteger(correctIndex) || correctIndex < 0 || correctIndex >= optsLen) {
-    push(file, ex.id, `"payload.correctIndex" inválido: ${correctIndex} (debe ser entero en rango [0, ${optsLen}))`);
-  }
+  // Phase 15 (SLOT-04): la lógica de superficie vive en el helper plano; este
+  // wrapper la aplica al `payload` legacy (prefijo de mensajes "payload").
+  validateMultipleChoiceSurface(ex.payload, ex.id, file, push, 'payload');
 
   // Phase 7 plan 01 (D-116, EXPL-01): regla opcional `payload.explanation`.
   // Si está presente, debe ser string no vacío (rechaza `null`, number, array,
   // object, `""`, `"   "`). Si está ausente, back-compat con los 271 ejercicios
   // pre-Phase-7. Sin enforce de longitud (D-128 es recomendación editorial).
+  // Solo aplica al payload legacy — los slots con variantes llevan la
+  // explanation a nivel de slot (validada en `validateContent`, SLOT-02).
   if (ex.payload.explanation !== undefined) {
     if (typeof ex.payload.explanation !== 'string' || !ex.payload.explanation.trim()) {
       push(file, ex.id, '"payload.explanation" debe ser string no vacío si está presente');
     }
+  }
+}
+
+/**
+ * Phase 15 (SLOT-04): valida la SUPERFICIE de `multiple-choice` sobre un objeto
+ * plano (un `payload` legacy o una variante de slot), con prefijo de mensajes
+ * configurable. Adaptado de la lógica original de `validateMultipleChoicePayload`
+ * — mismo premise que `validateSongPhrasePayload` (payload APLANADO).
+ *
+ * @param {object} surface - `{prompt, options, correctIndex}`.
+ * @param {string} exId
+ * @param {string} file
+ * @param {(file:string, exerciseId:string, reason:string) => void} push
+ * @param {string} label - prefijo de campo: `"payload"` (legacy) o `"variants[k]"`.
+ */
+function validateMultipleChoiceSurface(surface, exId, file, push, label) {
+  const { prompt, options, correctIndex } = surface;
+
+  if (typeof prompt !== 'string' || !prompt.includes('___')) {
+    push(file, exId, `"${label}.prompt" debe ser string y contener el hueco "___"`);
+  }
+
+  if (!Array.isArray(options) || options.length < 3 || options.length > 4) {
+    push(file, exId, `"${label}.options" debe ser array de 3 o 4 strings (encontrado: ${Array.isArray(options) ? options.length : typeof options})`);
+  } else if (options.some(o => typeof o !== 'string' || !o.trim())) {
+    push(file, exId, `"${label}.options" contiene entradas vacías o no-string`);
+  }
+
+  const optsLen = Array.isArray(options) ? options.length : 0;
+  if (!Number.isInteger(correctIndex) || correctIndex < 0 || correctIndex >= optsLen) {
+    push(file, exId, `"${label}.correctIndex" inválido: ${correctIndex} (debe ser entero en rango [0, ${optsLen}))`);
   }
 }
 
@@ -358,31 +457,48 @@ function validateMultipleChoicePayload(ex, file, push) {
  * @param {(file:string, exerciseId:string, reason:string) => void} push
  */
 function validateWordButtonsPayload(ex, file, push) {
-  const { prompt, answer, distractors } = ex.payload;
+  // Phase 15 (SLOT-04): superficie en el helper plano; wrapper sobre el payload.
+  validateWordButtonsSurface(ex.payload, ex.id, file, push, 'payload');
+
+  // Phase 7 plan 01 (D-116, EXPL-01): regla opcional `payload.explanation`.
+  // Misma semántica que en multi-choice — uniforme cross-types (D-113). Solo
+  // aplica al payload legacy (slots con variantes → explanation a nivel slot).
+  if (ex.payload.explanation !== undefined) {
+    if (typeof ex.payload.explanation !== 'string' || !ex.payload.explanation.trim()) {
+      push(file, ex.id, '"payload.explanation" debe ser string no vacío si está presente');
+    }
+  }
+}
+
+/**
+ * Phase 15 (SLOT-04): valida la SUPERFICIE de `word-buttons` sobre un objeto
+ * plano (payload legacy o variante de slot). Espejo de `validateSongPhrasePayload`
+ * (también una superficie word-buttons aplanada).
+ *
+ * @param {object} surface - `{prompt, answer, distractors?}`.
+ * @param {string} exId
+ * @param {string} file
+ * @param {(file:string, exerciseId:string, reason:string) => void} push
+ * @param {string} label - prefijo de campo: `"payload"` o `"variants[k]"`.
+ */
+function validateWordButtonsSurface(surface, exId, file, push, label) {
+  const { prompt, answer, distractors } = surface;
 
   if (typeof prompt !== 'string' || !prompt.trim()) {
-    push(file, ex.id, '"payload.prompt" debe ser string no vacío');
+    push(file, exId, `"${label}.prompt" debe ser string no vacío`);
   }
 
   if (!Array.isArray(answer) || answer.length === 0) {
-    push(file, ex.id, `"payload.answer" debe ser array de al menos 1 token (encontrado: ${Array.isArray(answer) ? answer.length : typeof answer})`);
+    push(file, exId, `"${label}.answer" debe ser array de al menos 1 token (encontrado: ${Array.isArray(answer) ? answer.length : typeof answer})`);
   } else if (answer.some(t => typeof t !== 'string' || !t.trim())) {
-    push(file, ex.id, '"payload.answer" contiene tokens vacíos o no-string');
+    push(file, exId, `"${label}.answer" contiene tokens vacíos o no-string`);
   }
 
   if (distractors !== undefined) {
     if (!Array.isArray(distractors)) {
-      push(file, ex.id, `"payload.distractors" debe ser array si está presente (encontrado: ${typeof distractors})`);
+      push(file, exId, `"${label}.distractors" debe ser array si está presente (encontrado: ${typeof distractors})`);
     } else if (distractors.some(t => typeof t !== 'string' || !t.trim())) {
-      push(file, ex.id, '"payload.distractors" contiene tokens vacíos o no-string');
-    }
-  }
-
-  // Phase 7 plan 01 (D-116, EXPL-01): regla opcional `payload.explanation`.
-  // Misma semántica que en multi-choice — uniforme cross-types (D-113).
-  if (ex.payload.explanation !== undefined) {
-    if (typeof ex.payload.explanation !== 'string' || !ex.payload.explanation.trim()) {
-      push(file, ex.id, '"payload.explanation" debe ser string no vacío si está presente');
+      push(file, exId, `"${label}.distractors" contiene tokens vacíos o no-string`);
     }
   }
 }
@@ -404,43 +520,61 @@ function validateWordButtonsPayload(ex, file, push) {
  * @param {(file:string, exerciseId:string, reason:string) => void} push
  */
 function validateMatchPayload(ex, file, push) {
-  const { prompt, pairs } = ex.payload;
-
-  if (typeof prompt !== 'string' || !prompt.trim()) {
-    push(file, ex.id, '"payload.prompt" debe ser string no vacío');
-  }
-
-  if (!Array.isArray(pairs)) {
-    push(file, ex.id, `"payload.pairs" debe ser array de tuples [izq, der] (encontrado: ${typeof pairs})`);
-    return; // sin array no podemos traversar
-  }
-
-  if (pairs.length < 2 || pairs.length > 10) {
-    push(file, ex.id, `"payload.pairs" debe tener entre 2 y 10 entradas (encontrado: ${pairs.length})`);
-  }
-
-  pairs.forEach((p, idx) => {
-    if (!Array.isArray(p) || p.length !== 2) {
-      push(file, ex.id, `"payload.pairs[${idx}]" debe ser tuple de exactamente 2 strings`);
-      return; // skip esta iteración del forEach — no traversar p[0]/p[1]
-    }
-    if (typeof p[0] !== 'string' || !p[0].trim()) {
-      push(file, ex.id, `"payload.pairs[${idx}][0]" debe ser string no vacío`);
-    }
-    if (typeof p[1] !== 'string' || !p[1].trim()) {
-      push(file, ex.id, `"payload.pairs[${idx}][1]" debe ser string no vacío`);
-    }
-  });
+  // Phase 15 (SLOT-04): superficie en el helper plano; wrapper sobre el payload.
+  validateMatchSurface(ex.payload, ex.id, file, push, 'payload');
 
   // Phase 7 plan 01 (D-116, EXPL-01): regla opcional `payload.explanation`.
   // Misma semántica que en multi-choice y word-buttons — uniforme cross-types
   // (D-113). En match, la explicación se renderiza tras el grid antes de
-  // "Siguiente" porque no existe línea "Respuesta correcta:" en este tipo.
+  // "Siguiente" porque no existe línea "Respuesta correcta:" en este tipo. Solo
+  // aplica al payload legacy (slots con variantes → explanation a nivel slot).
   if (ex.payload.explanation !== undefined) {
     if (typeof ex.payload.explanation !== 'string' || !ex.payload.explanation.trim()) {
       push(file, ex.id, '"payload.explanation" debe ser string no vacío si está presente');
     }
   }
+}
+
+/**
+ * Phase 15 (SLOT-04): valida la SUPERFICIE de `match` sobre un objeto plano
+ * (payload legacy o variante de slot). Conserva el early-return DENTRO del
+ * forEach cuando una pair no es array (evita `TypeError: p[0]` al traversar
+ * un valor malformado) — D-08 a nivel local, sin early-return global.
+ *
+ * @param {object} surface - `{prompt, pairs}`.
+ * @param {string} exId
+ * @param {string} file
+ * @param {(file:string, exerciseId:string, reason:string) => void} push
+ * @param {string} label - prefijo de campo: `"payload"` o `"variants[k]"`.
+ */
+function validateMatchSurface(surface, exId, file, push, label) {
+  const { prompt, pairs } = surface;
+
+  if (typeof prompt !== 'string' || !prompt.trim()) {
+    push(file, exId, `"${label}.prompt" debe ser string no vacío`);
+  }
+
+  if (!Array.isArray(pairs)) {
+    push(file, exId, `"${label}.pairs" debe ser array de tuples [izq, der] (encontrado: ${typeof pairs})`);
+    return; // sin array no podemos traversar
+  }
+
+  if (pairs.length < 2 || pairs.length > 10) {
+    push(file, exId, `"${label}.pairs" debe tener entre 2 y 10 entradas (encontrado: ${pairs.length})`);
+  }
+
+  pairs.forEach((p, idx) => {
+    if (!Array.isArray(p) || p.length !== 2) {
+      push(file, exId, `"${label}.pairs[${idx}]" debe ser tuple de exactamente 2 strings`);
+      return; // skip esta iteración del forEach — no traversar p[0]/p[1]
+    }
+    if (typeof p[0] !== 'string' || !p[0].trim()) {
+      push(file, exId, `"${label}.pairs[${idx}][0]" debe ser string no vacío`);
+    }
+    if (typeof p[1] !== 'string' || !p[1].trim()) {
+      push(file, exId, `"${label}.pairs[${idx}][1]" debe ser string no vacío`);
+    }
+  });
 }
 
 // ─── Top-level field validators ──────────────────────────────────────────────
