@@ -51,7 +51,7 @@
 
 ### v1.3 — Canciones (bloque de traducción) — ACTIVE (Planning)
 
-- [ ] **Phase 13: Bloque Canciones + modelo de datos + playthrough end-to-end** — Pantalla Canciones con listado/estado, schema de canción + validator + migración, reproducción secuencial con word-buttons inverso (italiano→español), feedback + resumen, frases enganchadas con cascada D-54, standalone fuera del sampler
+- [x] **Phase 13: Bloque Canciones + modelo de datos + playthrough end-to-end** — Pantalla Canciones con listado/estado, schema de canción + validator + migración, reproducción secuencial con word-buttons inverso (italiano→español), feedback + resumen, frases enganchadas con cascada D-54, standalone fuera del sampler (completed 2026-06-02)
 - [ ] **Phase 14: Contenido "Equilibrio mentale — Ultimo" autorado + validación ligera** — Letra dividida en frases con sentido (limpiando ruido no-lírico), traducción española curada + distractoras + enganche de categorías por frase, validación ligera autor-oráculo (NO quórum estricto R1-R7)
 
 ## Phase Details
@@ -68,7 +68,7 @@
   5. El contenido de canciones vive en JSON editado a mano contra un schema definido (canción → frases ordenadas con metadatos); el schema-validator rechaza JSON de canción malformado con banner visible coherente con el validator existente; si el state de canciones requiere campos nuevos hay migración `schemaVersion` coherente con el patrón `migrateNtoM` (DATA-01, DATA-02, DATA-03)
 **Plans**: 2 plans
 - [x] 13-01-PLAN.md — Modelo de datos: schema de canción + validateSongs + loadSongs standalone + migrate4to5/songProgress + mini-canción de prueba
-- [ ] 13-02-PLAN.md — Slice jugable: botón Canciones + listado con estado + playthrough secuencial it→es con cascada D-54 + resumen post-canción
+- [x] 13-02-PLAN.md — Slice jugable: botón Canciones + listado con estado + playthrough secuencial it→es con cascada D-54 + resumen post-canción
 **UI hint**: yes
 
 ### Phase 14: Contenido "Equilibrio mentale — Ultimo" autorado + validación ligera
@@ -89,7 +89,7 @@
 | 1-8 | v1.0 | 26/26 | Complete | 2026-05-25 |
 | 9-10 | v1.1 | 8/8 | Complete | 2026-05-27 |
 | 11-12 | v1.2 | 10/10 | Complete | 2026-05-28 |
-| 13. Bloque Canciones + playthrough | v1.3 | 1/2 | In Progress|  |
+| 13. Bloque Canciones + playthrough | v1.3 | 2/2 | Complete   | 2026-06-02 |
 | 14. Contenido "Equilibrio mentale" | v1.3 | 0/? | Not started | - |
 
 ## Backlog

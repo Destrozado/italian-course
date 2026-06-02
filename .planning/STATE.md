@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Canciones (bloque de traducción)
-status: executing
-last_updated: "2026-06-02T11:07:30.483Z"
+status: verifying
+last_updated: "2026-06-02T11:23:41.168Z"
 last_activity: 2026-06-02
 progress:
   total_phases: 4
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 2
-  completed_plans: 1
-  percent: 0
+  completed_plans: 2
+  percent: 25
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -29,7 +29,7 @@ See: `.planning/PROJECT.md` (updated 2026-06-02)
 
 Phase: 13 (bloque-canciones-modelo-de-datos-playthrough-end-to-end) — EXECUTING
 Plan: 2 of 2
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-06-02
 
 ## Quick Tasks Completed
@@ -63,6 +63,7 @@ Last activity: 2026-06-02
 | 13. Bloque Canciones + playthrough | 0 | — | — |
 | 14. Contenido "Equilibrio mentale" | 0 | — | — |
 | Phase 13 P01 | 5 min | 2 tasks | 9 files |
+| Phase 13 P02 | ~12 min | 3 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -90,6 +91,8 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - [Phase ?]: Plan 13-01: validateSongs export separado (no extiende PAYLOAD_VALIDATORS) — coherente con LINK-04 standalone
 - [Phase ?]: Plan 13-01: songProgress plano {status,lastPlayedAt} sin streak/dominada (D-03); migrate4to5/hydrateV5 deep-clone defensivo (CR-03/T-13-01)
 - [Phase ?]: Plan 13-01 [Rule 2]: backup.js extendido a v5 para preservar round-trip export/import del estado actual
+- [Phase ?]: Plan 13-02: pantallas DEDICADAS cancion/cancion-summary + getter songCurrentPhrase y mapa dedicado songPhraseById (no song-aware sessionCurrentExercise, LINK-04)
+- [Phase ?]: Plan 13-02: cascada de cancion REUSA applyResultToSession (0 call-sites nuevos de applyImmediateFailure, Pitfall #2); auto-avance dispatcha por sessionMode=cancion; PLAY-05 sin inFlightTest
 
 ### Pending Todos
 
@@ -125,6 +128,7 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future):
 
 ### Last Session
 
+- **Fecha:** 2026-06-02 — **Plan 13-02 completado (último plan de Phase 13).** Slice VERTICAL jugable del bloque Canciones reutilizando el engine: botón protagonista en el home, pantalla de listado con estado por canción, playthrough secuencial it->es con feedback y cascada D-54 inmediata (un solo call-site, reusando `applyResultToSession`), y resumen post-canción (Block A frases falladas vs correcta + Block B impacto factual en categorías). 3 tasks, 3 commits (`1b80210` boot+listado, `10fe9c8` playthrough+cascada, `db69f8e` resumen+write-once). Pantallas DEDICADAS `cancion`/`cancion-summary` (getter `songCurrentPhrase` + mapa `songPhraseById`, no song-aware `sessionCurrentExercise` — LINK-04). `loadSongs` cableado en boot (`main.js`), `songsById` hermano de `exerciseById`. 306/306 tests pass (+19 en `screen-canciones.test.js`). Requisitos completados: SONG-01..04, PLAY-01..05, LINK-02/04. **Phase 13 ready for verification.** Stopped at: 13-02 ejecutado. Resume file: None. Siguiente: verificación de Phase 13, luego `/gsd:plan-phase 14`.
 - **Fecha:** 2026-06-02 — Roadmap del milestone v1.3 (Canciones) creado por el roadmapper. **Numeración CONTINÚA desde Phase 12 → Phases 13-14, NO reset** (mismo criterio que v1.1/v1.2). 2 fases coarse, vertical-slice: **Phase 13 (Bloque Canciones + modelo de datos + playthrough end-to-end)** mapea 16 requisitos (SONG-01..04 + PLAY-01..05 + LINK-01..04 + DATA-01..03) y entrega el loop completo "jugar una canción mínima" reutilizando el engine (cascada D-54, word-buttons inverso, schema-validator, patrón Test-completo); **Phase 14 (Contenido "Equilibrio mentale — Ultimo")** mapea 3 (CONT-01..03) — letra segmentada + traducción curada + enganche de categorías + validación ligera autor-oráculo (NO quórum R1-R7). **Cobertura: 19/19 mapped, 0 orphans, 0 duplicados, 0 gaps** (cada success criterion respaldado por ≥1 requisito). Brownfield: el motor de re-verificación NO se reconstruye. Archivos escritos: `.planning/ROADMAP.md` (sección v1.3 ACTIVE con summary checklist + Phase Details 5 criteria Phase 13 / 3 criteria Phase 14 + UI hint:yes en ambas + Progress table +2 filas + backlog CATPROC/MUSIC-X1), `.planning/REQUIREMENTS.md` (Traceability 19 filas + Coverage 19/19), `.planning/STATE.md` (este — re-inicializado para v1.3 planning). v1.0/v1.1/v1.2 preservados archivados. Stopped at: roadmap creado. Resume file: None. Siguiente: `/gsd:plan-phase 13`.
 - **Fecha:** 2026-05-28 — Plan 12-04 completado: cableó `partitivos` en los 3 puntos de integración en LOCKSTEP N=44. Milestone v1.2 cerrado y archivado.
 
