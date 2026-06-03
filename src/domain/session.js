@@ -90,20 +90,27 @@ export function exerciseWeight(timesShown) {
  * Pure: no muta `state` ni `allExercises`.
  *
  * @param {string[]} categoryIds   - Categorías seleccionadas.
- * @param {Array<{id: string, categoryIds: string[]}>} allExercises - Pool completo.
+ * @param {Array<{id: string, categoryIds: string[], variants?: object[]}>} allExercises
+ *   - Pool completo de SLOTS normalizados (Phase 16); legacy = slot de 1 variante.
  * @param {{exerciseStats?: Record<string, {timesShown: number}>}} state - Estado.
  * @param {number} requestedSize   - Tamaño deseado de la sesión (p.ej. 20).
  * @param {'repaso'} [mode='repaso'] - Phase 1 solo soporta 'repaso'.
  * @param {() => number} [rng=Math.random] - RNG inyectable para tests.
- * @returns {{ exerciseIds: string[], actualSize: number }}
+ * @returns {{ exerciseIds: string[], variantIndices: number[], actualSize: number }}
+ *   `variantIndices[i]` es la variante elegida para `exerciseIds[i]`
+ *   (EXAM-01/04, D-16-08): 1 variante fijada por slot al construir la sesión.
  */
 export function buildSession(categoryIds, allExercises, state, requestedSize, mode = 'repaso', rng = Math.random) {
   // 1. Pool por solapamiento de categoryIds.
+  //    Nota (Phase 16): `allExercises` ahora recibe objetos SLOT normalizados
+  //    (`{id, type, categoryIds, explanation, variants[]}`) en lugar de
+  //    ejercicios legacy con `.payload`. El filtro por `categoryIds` es idéntico
+  //    porque el slot lleva `{id, categoryIds}`; legacy = slot de 1 variante.
   const pool = allExercises.filter(ex =>
     Array.isArray(ex.categoryIds) && ex.categoryIds.some(c => categoryIds.includes(c))
   );
 
-  if (pool.length === 0) return { exerciseIds: [], actualSize: 0 };
+  if (pool.length === 0) return { exerciseIds: [], variantIndices: [], actualSize: 0 };
 
   const targetSize = Math.min(requestedSize, pool.length);
   const session = []; // ejercicios elegidos (referencias del pool)
@@ -150,8 +157,12 @@ export function buildSession(categoryIds, allExercises, state, requestedSize, mo
   //    original (no muta el array compartido fuera de scope).
   const shuffledSession = fisherYates(session, rng);
 
+  // 5. Selección de variante por slot (Phase 16, EXAM-01/04 / D-16-08).
+  //    Cada slot elegido fija UNA variante aleatoria uniforme con el MISMO `rng`
+  //    ya threaded. `variantIndices` queda alineado 1:1 con `exerciseIds`.
   return {
     exerciseIds: shuffledSession.map(ex => ex.id),
+    variantIndices: shuffledSession.map(slot => pickVariantIndex(slot, rng)),
     actualSize: shuffledSession.length
   };
 }
@@ -166,9 +177,11 @@ export function buildSession(categoryIds, allExercises, state, requestedSize, mo
  * Pure: no muta `allExercises`. Determinista con seed (mismo seed → mismo orden).
  *
  * @param {string[]} categoryIds - Categorías seleccionadas.
- * @param {Array<{id: string, categoryIds: string[]}>} allExercises - Pool completo.
+ * @param {Array<{id: string, categoryIds: string[], variants?: object[]}>} allExercises
+ *   - Pool completo de SLOTS normalizados (Phase 16); legacy = slot de 1 variante.
  * @param {() => number} [rng=Math.random] - RNG inyectable para tests.
- * @returns {{ exerciseIds: string[], actualSize: number }}
+ * @returns {{ exerciseIds: string[], variantIndices: number[], actualSize: number }}
+ *   `variantIndices[i]` es la variante elegida para `exerciseIds[i]` (D-16-08).
  */
 export function buildFullTest(categoryIds, allExercises, rng = Math.random) {
   // 1. Pool por solapamiento de categoryIds (mismo filtro que buildSession).
@@ -181,13 +194,44 @@ export function buildFullTest(categoryIds, allExercises, rng = Math.random) {
   //    mismo determinismo dado RNG fijo — un único call-site para el shuffle).
   const shuffled = fisherYates(pool, rng);
 
+  // 3. Selección de variante por slot (Phase 16, D-16-08) — idéntico a buildSession.
+  //    Pool vacío → `shuffled` vacío → ambos arrays vacíos, actualSize 0.
   return {
     exerciseIds: shuffled.map(ex => ex.id),
+    variantIndices: shuffled.map(slot => pickVariantIndex(slot, rng)),
     actualSize: shuffled.length
   };
 }
 
 // ─── Helpers privados ───────────────────────────────────────────────────────
+
+/**
+ * Elige el índice de UNA variante dentro de un slot (Phase 16, EXAM-01/04).
+ *
+ * Hermano de `weightedPickOne` pero SIN peso: la selección es UNIFORME
+ * aleatoria entre las variantes del slot (D-16-01 — cada variante con igual
+ * probabilidad, cero state nuevo, cero contador por variante). Usa el MISMO
+ * `rng` ya threaded en el sampler — no introduce un segundo RNG.
+ *
+ *   - slot con N>1 variantes → entero uniforme en [0, N).
+ *   - slot con 0 o 1 variante → 0 (D-16-10, default backward-compat: los slots
+ *     legacy de 1 variante siempre resuelven a su única variante, índice 0).
+ *
+ * Defensivo (T-16-01): si `slot.variants` está ausente o no es array, n=1 → 0;
+ * jamás indexa fuera de rango. `Math.floor(rng()*n)` con n<=1→0 cubre el borde
+ * patológico rng()→1.0 (T-16-02) igual que el patrón de `weightedPickOne`.
+ *
+ * Pure: no lee de `../data/*` (preserva la pureza de capa, session.js:27);
+ * lee `slot.variants` del objeto slot recibido por parámetro.
+ *
+ * @param {{variants?: object[]}} slot - Slot normalizado (con `variants[]`).
+ * @param {() => number} rng - RNG inyectable; debe devolver float en [0,1).
+ * @returns {number} Índice de variante en [0, N).
+ */
+function pickVariantIndex(slot, rng) {
+  const n = Array.isArray(slot.variants) ? slot.variants.length : 1;
+  return n <= 1 ? 0 : Math.floor(rng() * n);
+}
 
 /**
  * Muestreo ponderado de UN ejercicio entre `candidates`, ponderado por
