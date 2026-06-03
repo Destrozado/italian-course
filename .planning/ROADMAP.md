@@ -66,7 +66,7 @@ Numeración CONTINÚA desde Phase 14 → Phases 15-17 (NO reset — mismo criter
 
 - [x] **Phase 15: Modelo de datos slot+variantes + schema + migración** — Slots (1 regla = 1 slot, 1..N variantes intercambiables), explicación a nivel de slot, validator extendido, migración `schemaVersion 5→6`, backward-compat de las 8 categorías no-piloto como slots de 1 variante. (completed 2026-06-03)
 - [x] **Phase 16: Motor de examen por slots** — El sampler/examen elige 1 variante aleatoria por slot; "hecha" = pasar los N slots; cascada D-54 reusando `applyResultToSession` (0 nuevos call-sites); racha/dominada y Repaso 20 / Test / Examen integran el muestreo por slot. Engine exercisable end-to-end. (completed 2026-06-03)
-- [ ] **Phase 17: Piloto Preposiciones (contenido)** — Reagrupar los 57 ejercicios en slots por regla, autorar variantes nuevas (quórum R1-R7), añadir el slot `in spiaggia / in montagna`, reset de progreso de Preposiciones, pasar validator + smoke paramétrico.
+- [ ] **Phase 17: Piloto Preposiciones (contenido)** — Reagrupar los 52 ejercicios en slots por regla, autorar variantes nuevas (quórum R1-R7), añadir el slot `in spiaggia / in montagna`, reset de progreso de Preposiciones, pasar validator + smoke paramétrico.
 
 ## Phase Details
 
@@ -101,11 +101,11 @@ Numeración CONTINÚA desde Phase 14 → Phases 15-17 (NO reset — mismo criter
 **UI hint**: yes
 
 ### Phase 17: Piloto Preposiciones (contenido)
-**Goal**: Preposiciones se convierte en el primer caso real del modelo slot+variantes — los 57 ejercicios validados se reagrupan en slots por regla, se autoran variantes nuevas que pasan el quórum, se añade el slot locativo fijo `in spiaggia`, y su progreso se resetea — demostrando que el motor mata la memorización por palabras con dolor real.
+**Goal**: Preposiciones se convierte en el primer caso real del modelo slot+variantes — los 52 ejercicios validados se reagrupan en slots por regla, se autoran variantes nuevas que pasan el quórum, se añade el slot locativo fijo `in spiaggia`, y su progreso se resetea — demostrando que el motor mata la memorización por palabras con dolor real.
 **Depends on**: Phase 16 (el motor de slots debe estar exercisable antes de la rework de contenido)
 **Requirements**: PILOT-01, PILOT-02, PILOT-03, PILOT-04, PILOT-05
 **Success Criteria** (what must be TRUE):
-  1. Los 57 ejercicios validados de Preposiciones quedan reagrupados en slots por regla — los que entrenan la misma regla reformulada son ahora variantes del mismo slot.
+  1. Los 52 ejercicios validados de Preposiciones quedan reagrupados en slots por regla — los que entrenan la misma regla reformulada son ahora variantes del mismo slot.
   2. Las variantes nuevas autoradas (patrón D-85: Claude propone → autor revisa) pasan el quórum cross-vendor R1-R7 antes de entrar.
   3. Existe un slot de preposición locativa fija `in spiaggia / in montagna / al mare / in campagna` que antes no estaba en ninguna categoría.
   4. Al migrar Preposiciones a slots su progreso se resetea a no-hecha (racha 0); el resto de categorías conserva su progreso.
