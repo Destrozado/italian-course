@@ -1119,8 +1119,15 @@ export function appShell(appDataReady) {
       // Back-compat: un inFlightTest pre-existente (escrito antes de esta fase)
       // NO lleva `variantIndices` → rellenar con 0 por id restante (los slots
       // legacy son de 1 variante, índice 0 correcto). Sin migración de schemaVersion.
+      // WR-02: si el autor editó el JSON entre sesiones y un slot encogió su
+      // `variants[]`, un índice persistido fuera de rango debe clamparse a 0
+      // (D-16-09: reanudar muestra la MISMA variante salvo que ya no exista).
       this.sessionVariantIndices = Array.isArray(ift.variantIndices)
-        ? [...ift.variantIndices]
+        ? ift.exerciseIds.map((id, i) => {
+            const n = this.content.slotById[id]?.variants?.length ?? 1;
+            const v = ift.variantIndices[i] ?? 0;
+            return v < n ? v : 0; // clamp stale/shrunk index to 0
+          })
         : ift.exerciseIds.map(() => 0);
       this.sessionCursor = ift.cursor;
       this.sessionResults = [...ift.answers];
