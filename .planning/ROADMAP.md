@@ -91,7 +91,8 @@ Numeración CONTINÚA desde Phase 17 → Phases 18-20 (NO reset — mismo criter
   2. Las otras 7 categorías (Avere, Essere, Verbos-movimiento, Sustantivos-irregulares, Género-número, Profesiones, Preposiciones) conservan su progreso byte-intacto tras migrar (verificable por test).
   3. `backup.js` exporta v8 reimportable round-trip; un backup v7 importado migra a v8 reseteando articoli+partitivos; los backups `>8` se rechazan (forward-compat).
   4. La app arranca limpia sobre el state migrado y los tests siguen verdes (los 342 baseline + los nuevos de la cadena v8).
-**Plans**: TBD
+**Plans**: 1 plan
+- [ ] 18-01-PLAN.md — migrate7to8 + hydrateV8 (reset selectivo articoli+partitivos, MIG-01) + backup.js round-trip v8 (MIG-02); clon literal del patrón 17-01 con 2 prefijos; 2 tasks TDD
 **UI hint**: no
 
 ### Phase 19: Articoli a slots (contenido)
@@ -126,7 +127,7 @@ Numeración CONTINÚA desde Phase 17 → Phases 18-20 (NO reset — mismo criter
 | 11-12 | v1.2 | 10/10 | Complete | 2026-05-28 |
 | 13-14 | v1.3 | 3/3 | Complete | 2026-06-02 |
 | 15-17 | v1.4 | 9/9 | Complete | 2026-06-03 |
-| 18. Migración 7→8 (reset articoli+partitivos) | v1.5 | 0/? | Not started | - |
+| 18. Migración 7→8 (reset articoli+partitivos) | v1.5 | 0/1 | Not started | - |
 | 19. Articoli a slots (contenido) | v1.5 | 0/? | Not started | - |
 | 20. Partitivi a slots (contenido) | v1.5 | 0/? | Not started | - |
 
