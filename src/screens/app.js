@@ -104,6 +104,15 @@ export function appShell(appDataReady) {
     /** 'repaso' | 'test-completo' | null. */
     sessionMode: null,
     sessionExerciseIds: [],
+    /**
+     * Phase 16 (EXAM-01/D-16-08): array paralelo a `sessionExerciseIds` con el
+     * `variantIndex` fijado por slot al construir la sesión (devuelto por
+     * `buildSession`/`buildFullTest`). El getter `sessionCurrentExercise`
+     * resuelve `slotById[id].variants[variantIndex]`. Default 0 cuando falta
+     * (slot legacy de 1 variante, o resume de un inFlightTest pre-existente
+     * sin variantIndices — D-16-10).
+     */
+    sessionVariantIndices: [],
     sessionCursor: 0,
     /** Array<{exerciseId: string, correct: boolean}>. */
     sessionResults: [],
@@ -414,7 +423,9 @@ export function appShell(appDataReady) {
       this.cancelMatchFlash();
 
       // Construir el pool completo de la categoría (Examen es 1-cat — D-181).
-      const allExercises = Object.values(this.content.exerciseById);
+      // Phase 16: el sampler opera sobre SLOTS (slot id == exercise id para
+      // legacy de 1 variante); `buildFullTest` devuelve `variantIndices` paralelo.
+      const allExercises = Object.values(this.content.slotById);
       const result = buildFullTest([catId], allExercises);
 
       // D-189: sessionMode literal 'test-completo' (NO this.pickerMode —
@@ -429,6 +440,8 @@ export function appShell(appDataReady) {
       // Reset sub-estado de sesión (idéntico al patrón de startSession +
       // restartRepaso — superset completo).
       this.sessionExerciseIds = result.exerciseIds;
+      // Phase 16 (D-16-08): la variante fijada por slot viaja paralela.
+      this.sessionVariantIndices = result.variantIndices;
       this.sessionCursor = 0;
       this.sessionResults = [];
       this.sessionSelectedIndex = null;
@@ -449,9 +462,9 @@ export function appShell(appDataReady) {
       this.matchFlashHandle = null;
 
       // Inicializar sub-estado del PRIMER ejercicio si hay pool.
+      // Phase 16: el getter slot-aware re-envuelve la variante fijada (cursor=0).
       if (result.exerciseIds.length > 0) {
-        const firstEx = this.content.exerciseById[result.exerciseIds[0]];
-        this.initSubStateForExercise(firstEx);
+        this.initSubStateForExercise(this.sessionCurrentExercise);
       }
 
       // D-182 slot único — Examen SIEMPRE persiste (no condicional como
@@ -800,7 +813,9 @@ export function appShell(appDataReady) {
      * con `0/N ejercicios` (D-41/D-42).
      */
     startSession() {
-      const allExercises = Object.values(this.content.exerciseById);
+      // Phase 16: el sampler opera sobre SLOTS (slot id == exercise id para
+      // legacy de 1 variante); el return lleva `variantIndices` paralelo.
+      const allExercises = Object.values(this.content.slotById);
       let result;
       if (this.pickerMode === 'repaso') {
         result = buildSession(
@@ -821,6 +836,8 @@ export function appShell(appDataReady) {
       this.cancelAutoAdvance();
       this.sessionMode = this.pickerMode;
       this.sessionExerciseIds = result.exerciseIds;
+      // Phase 16 (D-16-08): la variante fijada por slot viaja paralela.
+      this.sessionVariantIndices = result.variantIndices;
       this.sessionCursor = 0;
       this.sessionResults = [];
       this.sessionSelectedIndex = null;
@@ -828,10 +845,10 @@ export function appShell(appDataReady) {
 
       // Phase 3 plan 01: inicializar sub-estado del PRIMER ejercicio (si
       // hay alguno). En pool vacío `result.exerciseIds = []` y el getter
-      // sessionCurrentExercise devuelve null defensivamente.
+      // sessionCurrentExercise devuelve null defensivamente. Phase 16: el
+      // getter slot-aware re-envuelve la variante fijada (cursor=0).
       if (result.exerciseIds.length > 0) {
-        const firstEx = this.content.exerciseById[result.exerciseIds[0]];
-        this.initSubStateForExercise(firstEx);
+        this.initSubStateForExercise(this.sessionCurrentExercise);
       }
 
       // D-41 / D-42 (Plan 02-04): primer write de inFlightTest para Test
@@ -921,7 +938,10 @@ export function appShell(appDataReady) {
       this.cancelMatchFlash();
 
       // Pool completo del contenido — compartido por ambas ramas.
-      const allExercises = Object.values(this.content.exerciseById);
+      // Phase 16: el sampler opera sobre SLOTS; el re-roll puede fijar
+      // variantIndices distintos (EXAM-04 — la memorización por palabras muere
+      // porque la superficie cambia entre pasadas).
+      const allExercises = Object.values(this.content.slotById);
 
       // Dispatch dual-mode: buildSession (Repaso 20) vs buildFullTest (Examen).
       let result;
@@ -956,6 +976,8 @@ export function appShell(appDataReady) {
       // sin tocar localStorage (D-101 + SESSION-08); los fallos D-54 ya
       // persistidos por sessionSelectOption/matchPickRight quedan intactos.
       this.sessionExerciseIds = result.exerciseIds;
+      // Phase 16 (D-16-08 / EXAM-04): la variante re-rolleada viaja paralela.
+      this.sessionVariantIndices = result.variantIndices;
       this.sessionCursor = 0;
       this.sessionResults = [];
       this.sessionSelectedIndex = null;
@@ -989,9 +1011,9 @@ export function appShell(appDataReady) {
       // Si el pool quedó vacío (edge improbable post-cascada masiva),
       // initSubStateForExercise no se invoca; el getter sessionCurrentExercise
       // devuelve null y el <template x-if> de index.html evita render.
+      // Phase 16: el getter slot-aware re-envuelve la variante re-rolleada (cursor=0).
       if (result.exerciseIds.length > 0) {
-        const firstEx = this.content.exerciseById[result.exerciseIds[0]];
-        this.initSubStateForExercise(firstEx);
+        this.initSubStateForExercise(this.sessionCurrentExercise);
       }
 
       // Phase 8.y — re-persistir inFlightTest SOLO en rama Examen (D-182
@@ -1103,8 +1125,10 @@ export function appShell(appDataReady) {
       // porque inFlightTest no guarda sub-estado de tipo (sólo cursor +
       // answers). Trade-off aceptable — la frase a construir es la misma.
       if (this.sessionExerciseIds[this.sessionCursor]) {
-        const ex = this.content.exerciseById[this.sessionExerciseIds[this.sessionCursor]];
-        this.initSubStateForExercise(ex);
+        // Phase 16: el getter slot-aware resuelve la variante en el cursor
+        // restaurado. Si `sessionVariantIndices` está vacío (resume legacy),
+        // el getter cae a índice 0 (D-16-10).
+        this.initSubStateForExercise(this.sessionCurrentExercise);
       }
       this.currentScreen = 'session';
     },
@@ -1519,8 +1543,9 @@ export function appShell(appDataReady) {
         // de que Alpine reactive bindings lean el x-data (Pitfall #3: el
         // wordButtonsBank del ejercicio anterior arrastra basura si no
         // limpiamos antes del render del siguiente).
-        const nextEx = this.content.exerciseById[this.sessionExerciseIds[this.sessionCursor]];
-        this.initSubStateForExercise(nextEx);
+        // Phase 16: el cursor ya está avanzado; el getter slot-aware resuelve
+        // la variante FIJADA del nuevo slot (NO se re-sortea aquí — EXAM-01).
+        this.initSubStateForExercise(this.sessionCurrentExercise);
 
         if (this.sessionMode === 'test-completo') {
           // D-42: persistir cursor avanzado (captura el avance post-advance
@@ -2232,7 +2257,35 @@ export function appShell(appDataReady) {
       if (this.sessionCursor >= this.sessionExerciseIds.length) return null;
       const id = this.sessionExerciseIds[this.sessionCursor];
       if (!id) return null;
-      return this.content.exerciseById?.[id] ?? null;
+      // Phase 16 (EXAM-01 / D-16-08) — resolución slot-aware. Espejo del patrón
+      // `songCurrentPhrase` + el synthetic-payload de `songStart`: resolvemos la
+      // VARIANTE fijada al construir la sesión y la re-envolvemos en un objeto
+      // con shape legacy `{id, type, categoryIds, payload:{...}}` para que TODOS
+      // los bindings `.payload.*` del template, `initSubStateForExercise`,
+      // `applyResultToSession` y la cascada D-54 (que lee `.id`/`.categoryIds`)
+      // sobrevivan SIN tocar. Guards defensivos espejo del getter legacy.
+      const slot = this.content.slotById?.[id];
+      if (!slot) return null;
+      const vIdx = this.sessionCurrentVariantIndex;
+      // Surface fallback a variants[0] / {} (D-16-10 + defensa anti-TypeError).
+      const surface = slot.variants?.[vIdx] ?? slot.variants?.[0] ?? {};
+      return {
+        id: slot.id,
+        type: slot.type,
+        categoryIds: slot.categoryIds,
+        payload: { ...surface, explanation: slot.explanation }
+      };
+    },
+
+    /**
+     * Phase 16 (D-16-10): `variantIndex` de la variante mostrada en el cursor
+     * actual. Default 0 cuando el array paralelo no tiene entrada (slot legacy
+     * de 1 variante, resume de inFlightTest legacy sin variantIndices, o índice
+     * defensivo fuera de rango). Consumido por `sessionCurrentExercise` y por el
+     * push de `sessionResults` (registra qué variante se mostró — D-16-09).
+     */
+    get sessionCurrentVariantIndex() {
+      return this.sessionVariantIndices[this.sessionCursor] ?? 0;
     },
 
     /** SESSION-04: indicador "Ejercicio X / N" visible toda la sesión. */
