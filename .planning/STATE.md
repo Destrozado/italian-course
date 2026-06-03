@@ -2,9 +2,9 @@
 gsd_state_version: 1.0
 milestone: v1.5
 milestone_name: "Conversión a slots: Bloque Artículos"
-status: planning
-last_updated: "2026-06-04T00:00:00.000Z"
-last_activity: 2026-06-04
+status: "Roadmap creado, pendiente de `/gsd:plan-phase 18`"
+last_updated: "2026-06-03T23:15:24.053Z"
+last_activity: 2026-06-04 — Roadmap v1.5 creado por el roadmapper
 progress:
   total_phases: 3
   completed_phases: 0
