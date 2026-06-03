@@ -89,10 +89,7 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 
 ### Pending Todos
 
-- [ ] `/gsd:plan-phase 15` — descomponer Phase 15 (Modelo de datos slot+variantes + schema + migración): shape del slot+variantes, validator extendido (slot sin variantes / variante sin payload / explicación ausente), `migrate5to6`/`hydrateV6` + `backup.js` v6, backward-compat de las 8 categorías como slots de 1 variante.
-- [ ] `/gsd:plan-phase 16` — descomponer Phase 16 (Motor de examen por slots): muestreo 1 variante/slot en el sampler, "hecha"=N slots + recuento "Ejercicios"=slots, cascada D-54 reusando `applyResultToSession` (0 nuevos call-sites), racha/dominada sobre la nueva "hecha", integración Repaso 20 / Test / Examen. Engine exercisable end-to-end.
-- [ ] `/gsd:plan-phase 17` — descomponer Phase 17 (Piloto Preposiciones): reagrupar 57 ejercicios en slots por regla, autorar variantes nuevas (D-85 + quórum R1-R7), slot `in spiaggia / in montagna / al mare / in campagna`, reset progreso, validator + smoke paramétrico.
-- [ ] `/gsd:complete-milestone v1.4` — tras verifier PASS de Phase 17.
+(Ninguno — 0 pending. El todo `articulos-indeterminados-partitivos` se cerró 2026-06-03 como ya-cubierto: el contenido ya shipped en v1.2 — indeterminativi en `articoli.json`, partitivos en `partitivos.json`.)
 
 ### Blockers/Concerns
 
@@ -127,7 +124,7 @@ Open-artifact audit (`audit-open`) flagged 3 items; reconocidos como deferred �
 |-----------|------|--------|
 | quick_task | `260525-pwq-fix-shuffle-de-options-en-multiple-choic` | ✅ Shipped (tiene SUMMARY.md, v1.0 era); flag "missing" solo por frontmatter sin campo `status` |
 | quick_task | `260525-vvj-boton-reiniciar-examen-phase-8-y` | ✅ Shipped (SUMMARY.md + commit `7eaf5a2`); flag "missing" por mismo motivo de frontmatter |
-| todo | `2026-06-02-articulos-indeterminados-partitivos` | 📋 Idea de contenido futuro (categoría de artículos indeterminados), sin relación con el scope de motor de v1.4 |
+| todo | `2026-06-02-articulos-indeterminados-partitivos` | ✅ Cerrado 2026-06-03 como ya-cubierto — el contenido ya shipped en v1.2 (`articoli.json` indeterminativi + `partitivos.json`). Movido a `todos/completed/` |
 
 ## Session Continuity
 
