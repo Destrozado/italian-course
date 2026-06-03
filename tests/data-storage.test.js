@@ -25,7 +25,7 @@
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { blankState, migrate1to2, hydrateV2, migrate2to3, hydrateV3, migrate3to4, hydrateV4, migrate4to5, hydrateV5, migrate5to6, hydrateV6, migrate6to7, hydrateV7 } from '../src/data/storage.js';
+import { blankState, migrate1to2, hydrateV2, migrate2to3, hydrateV3, migrate3to4, hydrateV4, migrate4to5, hydrateV5, migrate5to6, hydrateV6, migrate6to7, hydrateV7, migrate7to8, hydrateV8 } from '../src/data/storage.js';
 
 // Phase 4 (D-77/D-78): bumped schemaVersion from 2 → 3 con dos campos
 // nuevos (lastBackupAt, firstUsedAt). El "blankState v2" describe-name
@@ -845,5 +845,263 @@ describe('data/storage v7 — migrate6to7 reset selectivo de Preposiciones (Phas
     assert.deepEqual(v7.exerciseStats['partitivos-001'], v6.exerciseStats['partitivos-001']);
     assert.deepEqual(v7.songProgress, v6.songProgress);
     assert.equal(v7.firstUsedAt, v6.firstUsedAt);
+  });
+});
+
+// ────────────────────────────────────────────────────────────────────────────
+// data/storage v8 — migrate7to8 reset selectivo de articoli + partitivos (Phase 18)
+//
+// Clon literal del bloque v7 (migrate6to7) con UNA desviación funcional: el
+// reset opera sobre DOS prefijos de id de categoría (articoli + partitivos) en
+// vez de uno (preposiciones). El reset prepara la renumeración de ids de las
+// Phases 19/20 (no se puede renumerar con progreso vivo). Las otras 7
+// categorías (avere, essere, preposiciones, verbos-movimiento,
+// sustantivos-irregulares, genero-numero, profesiones) quedan byte-intactas.
+// ────────────────────────────────────────────────────────────────────────────
+
+describe('data/storage v8 — migrate7to8 reset selectivo de articoli + partitivos (Phase 18)', () => {
+  // Helper: un v7 con progreso en articoli + partitivos (los DOS reseteados) +
+  // avere/essere como categorías preservadas. OJO (vs el analog v7): partitivos
+  // ya NO es "preservado" — en v8 se resetea junto a articoli.
+  function v7WithArticoliPartitivos() {
+    return {
+      schemaVersion: 7,
+      exerciseStats: {
+        'articoli-001': { timesShown: 5, timesCorrect: 4, timesFailed: 1 },
+        'articoli-052': { timesShown: 3, timesCorrect: 2, timesFailed: 1 },
+        'partitivos-001': { timesShown: 2, timesCorrect: 1, timesFailed: 1 },
+        'partitivos-010': { timesShown: 6, timesCorrect: 5, timesFailed: 1 },
+        'avere-001': { timesShown: 7, timesCorrect: 7, timesFailed: 0 },
+        'essere-001': { timesShown: 4, timesCorrect: 3, timesFailed: 1 }
+      },
+      categoryProgress: {
+        articoli: { status: 'hecha', streakDays: 9, clearedExerciseIds: ['articoli-001'], lastSuccessDate: '2026-05-30' },
+        partitivos: { status: 'dominada', streakDays: 11, clearedExerciseIds: ['partitivos-001'], lastSuccessDate: '2026-05-30' },
+        avere: { status: 'dominada', streakDays: 14, clearedExerciseIds: ['avere-001'], lastSuccessDate: '2026-05-31' },
+        essere: { status: 'hecha', streakDays: 4, clearedExerciseIds: ['essere-001'], lastSuccessDate: '2026-05-29' }
+      },
+      dailyLog: { '2026-05-30': { date: '2026-05-30', categoriesPracticed: ['articoli', 'partitivos', 'avere'], categoriesWithFailure: [] } },
+      songProgress: { 'mini-prueba': { status: 'pasada', lastPlayedAt: '2026-06-02' } },
+      lastBackupAt: '2026-05-22T10:00:00.000Z',
+      firstUsedAt: '2026-04-01T08:00:00.000Z'
+    };
+  }
+
+  test('migrate7to8 borra categoryProgress.articoli y partitivos y deja avere/essere intactos', () => {
+    const v7 = v7WithArticoliPartitivos();
+    const v8 = migrate7to8(v7);
+    assert.equal(v8.schemaVersion, 8);
+    assert.equal(v8.categoryProgress.articoli, undefined,
+      'categoryProgress.articoli debe quedar ausente tras el reset');
+    assert.equal(v8.categoryProgress.partitivos, undefined,
+      'categoryProgress.partitivos debe quedar ausente tras el reset');
+    assert.equal(Object.prototype.hasOwnProperty.call(v8.categoryProgress, 'articoli'), false,
+      'la clave articoli no debe existir como own-property');
+    assert.equal(Object.prototype.hasOwnProperty.call(v8.categoryProgress, 'partitivos'), false,
+      'la clave partitivos no debe existir como own-property');
+    assert.deepEqual(v8.categoryProgress.avere, v7.categoryProgress.avere,
+      'avere conserva su progreso byte-intacto');
+    assert.deepEqual(v8.categoryProgress.essere, v7.categoryProgress.essere,
+      'essere conserva su progreso byte-intacto');
+  });
+
+  test('migrate7to8 poda exerciseStats con prefijo articoli y partitivos y preserva avere/essere', () => {
+    const v7 = v7WithArticoliPartitivos();
+    const v8 = migrate7to8(v7);
+    assert.equal(v8.exerciseStats['articoli-001'], undefined);
+    assert.equal(v8.exerciseStats['articoli-052'], undefined);
+    assert.equal(v8.exerciseStats['partitivos-001'], undefined);
+    assert.equal(v8.exerciseStats['partitivos-010'], undefined);
+    assert.equal(Object.prototype.hasOwnProperty.call(v8.exerciseStats, 'articoli-001'), false);
+    assert.equal(Object.prototype.hasOwnProperty.call(v8.exerciseStats, 'partitivos-001'), false);
+    assert.deepEqual(v8.exerciseStats['avere-001'], v7.exerciseStats['avere-001']);
+    assert.deepEqual(v8.exerciseStats['essere-001'], v7.exerciseStats['essere-001']);
+  });
+
+  test('migrate7to8 invalida inFlightTest que referencia ids de articoli o partitivos', () => {
+    const v7a = v7WithArticoliPartitivos();
+    v7a.inFlightTest = {
+      categoryIds: ['articoli'],
+      exerciseIds: ['articoli-006', 'avere-001'],
+      variantIndices: [0, 0],
+      cursor: 0,
+      answers: [],
+      startedAt: 1716480000000
+    };
+    assert.equal(migrate7to8(v7a).inFlightTest, undefined,
+      'un Test en vuelo que toca articoli se invalida al migrar');
+
+    const v7b = v7WithArticoliPartitivos();
+    v7b.inFlightTest = {
+      categoryIds: ['partitivos'],
+      exerciseIds: ['avere-001', 'partitivos-003'],
+      variantIndices: [0, 0],
+      cursor: 0,
+      answers: [],
+      startedAt: 1716480000000
+    };
+    assert.equal(migrate7to8(v7b).inFlightTest, undefined,
+      'un Test en vuelo que toca partitivos se invalida al migrar');
+  });
+
+  test('migrate7to8 preserva inFlightTest que NO toca articoli ni partitivos', () => {
+    const v7 = v7WithArticoliPartitivos();
+    v7.inFlightTest = {
+      categoryIds: ['avere', 'essere'],
+      exerciseIds: ['avere-001', 'essere-001'],
+      variantIndices: [0, 0],
+      cursor: 1,
+      answers: [],
+      startedAt: 1716480000000
+    };
+    const v8 = migrate7to8(v7);
+    assert.deepEqual(v8.inFlightTest, v7.inFlightTest,
+      'un Test en vuelo ajeno a articoli/partitivos se preserva');
+  });
+
+  test('migrate7to8 sin inFlightTest no crashea y preserva undefined', () => {
+    const v7 = v7WithArticoliPartitivos();
+    const v8 = migrate7to8(v7);
+    assert.equal(v8.inFlightTest, undefined);
+  });
+
+  test('migrate7to8 es idempotente (re-ejecutar sobre un v8 ya migrado da la misma shape)', () => {
+    const v7 = v7WithArticoliPartitivos();
+    const once = migrate7to8(v7);
+    const twice = migrate7to8(once);
+    assert.deepEqual(twice, once,
+      'migrate7to8(migrate7to8(x)) deep-equals migrate7to8(x) — delete de clave ausente es no-op');
+  });
+
+  test('migrate7to8 es puro (no muta el input — articoli/partitivos siguen presentes en el v7 original)', () => {
+    const v7 = v7WithArticoliPartitivos();
+    migrate7to8(v7);
+    assert.ok(v7.categoryProgress.articoli,
+      'el input v7 NO debe mutarse: categoryProgress.articoli sigue presente');
+    assert.ok(v7.categoryProgress.partitivos,
+      'el input v7 NO debe mutarse: categoryProgress.partitivos sigue presente');
+    assert.ok(v7.exerciseStats['articoli-001'],
+      'el input v7 NO debe mutarse: exerciseStats[articoli-001] sigue presente');
+    assert.ok(v7.exerciseStats['partitivos-001'],
+      'el input v7 NO debe mutarse: exerciseStats[partitivos-001] sigue presente');
+  });
+
+  test('migrate7to8 anti-prototype-pollution: __proto__ own-property no contamina el global', () => {
+    const malicious = JSON.parse('{"schemaVersion":7,"exerciseStats":{"__proto__":{"polluted":true},"avere-001":{"timesShown":1}},"categoryProgress":{},"dailyLog":{},"songProgress":{},"lastBackupAt":null,"firstUsedAt":null}');
+    const v8 = migrate7to8(malicious);
+    assert.equal(({}).polluted, undefined, 'el prototipo global Object no debe quedar contaminado');
+    assert.equal(v8.schemaVersion, 8);
+  });
+
+  test('migrate7to8 con sub-dict no-objeto (corrupto) cae a {}', () => {
+    for (const bad of [null, 'x', 42]) {
+      const v7 = { schemaVersion: 7, exerciseStats: bad, categoryProgress: bad, dailyLog: bad, songProgress: bad, lastBackupAt: null, firstUsedAt: null };
+      const v8 = migrate7to8(v7);
+      for (const key of ['exerciseStats', 'categoryProgress', 'dailyLog', 'songProgress']) {
+        assert.equal(typeof v8[key], 'object');
+        assert.notEqual(v8[key], null);
+      }
+    }
+  });
+
+  test('hydrateV8 es espejo de hydrateV7 (versión 8) SIN poda — preserva articoli/partitivos si están presentes', () => {
+    const v8In = {
+      schemaVersion: 8,
+      exerciseStats: { 'articoli-uno': { timesShown: 2, timesCorrect: 2, timesFailed: 0 }, 'partitivos-del': { timesShown: 1, timesCorrect: 1, timesFailed: 0 }, 'avere-001': { timesShown: 1, timesCorrect: 1, timesFailed: 0 } },
+      categoryProgress: { articoli: { status: 'hecha', streakDays: 1, clearedExerciseIds: ['articoli-uno'] }, partitivos: { status: 'hecha', streakDays: 1, clearedExerciseIds: ['partitivos-del'] } },
+      dailyLog: {},
+      songProgress: {},
+      lastBackupAt: null,
+      firstUsedAt: null,
+      inFlightTest: { categoryIds: ['avere'], exerciseIds: ['avere-001'], cursor: 0, answers: [], startedAt: 1716480000000 }
+    };
+    const out = hydrateV8(v8In);
+    assert.equal(out.schemaVersion, 8);
+    // hydrateV8 NO poda: un state v8-shaped llega íntegro.
+    assert.deepEqual(out.categoryProgress, v8In.categoryProgress,
+      'hydrateV8 NO repite la poda — preserva lo que llega');
+    assert.deepEqual(out.exerciseStats, v8In.exerciseStats);
+    assert.notEqual(out.exerciseStats, v8In.exerciseStats, 'deep-clone defensivo');
+    assert.deepEqual(out.inFlightTest, v8In.inFlightTest);
+  });
+
+  test('hydrateV8 sobre v8 con sub-dicts ausentes los normaliza a {}', () => {
+    const out = hydrateV8({ schemaVersion: 8, lastBackupAt: null, firstUsedAt: null });
+    assert.deepEqual(out.exerciseStats, {});
+    assert.deepEqual(out.categoryProgress, {});
+    assert.deepEqual(out.dailyLog, {});
+    assert.deepEqual(out.songProgress, {});
+  });
+
+  // Cadena completa: un blob v7 con progreso en articoli/partitivos pasado por
+  // la cadena de migración (migrate7to8 → hydrateV8) sale v8 con ambas
+  // categorías reseteadas y las otras intactas.
+  test('cadena v7 → v8: articoli/partitivos reseteados, avere/essere preservados, schemaVersion 8', () => {
+    const v7 = v7WithArticoliPartitivos();
+    const v8 = hydrateV8(migrate7to8(v7));
+    assert.equal(v8.schemaVersion, 8);
+    assert.equal(v8.categoryProgress.articoli, undefined,
+      'articoli reseteada a través de la cadena v7 → v8');
+    assert.equal(v8.categoryProgress.partitivos, undefined,
+      'partitivos reseteada a través de la cadena v7 → v8');
+    assert.deepEqual(v8.categoryProgress.avere, v7.categoryProgress.avere,
+      'avere preservado a través de la cadena');
+    assert.deepEqual(v8.categoryProgress.essere, v7.categoryProgress.essere,
+      'essere preservado a través de la cadena');
+    assert.equal(v8.exerciseStats['articoli-001'], undefined);
+    assert.equal(v8.exerciseStats['partitivos-001'], undefined);
+    assert.deepEqual(v8.exerciseStats['avere-001'], v7.exerciseStats['avere-001']);
+    assert.deepEqual(v8.songProgress, v7.songProgress);
+    assert.equal(v8.firstUsedAt, v7.firstUsedAt);
+  });
+
+  // Test REFORZADO (D-04): fixture con progreso en las 9 categorías → migrate7to8
+  // → (a) articoli + partitivos ausentes de ambos dicts; (b) las 7 restantes
+  // deep-equal byte a byte pre/post. Más riguroso que el analog v7 (1 categoría).
+  test('no-regresión D-04: las 7 categorías no-reseteadas quedan byte-idénticas, articoli/partitivos ausentes', () => {
+    const SIETE = ['avere', 'essere', 'preposiciones', 'verbos-movimiento', 'sustantivos-irregulares', 'genero-numero', 'profesiones'];
+    const RESET = ['articoli', 'partitivos'];
+
+    const categoryProgress = {};
+    const exerciseStats = {};
+    let n = 1;
+    for (const cat of [...SIETE, ...RESET]) {
+      categoryProgress[cat] = { status: 'hecha', streakDays: n, clearedExerciseIds: [`${cat}-001`], lastSuccessDate: '2026-05-30' };
+      exerciseStats[`${cat}-001`] = { timesShown: n, timesCorrect: n, timesFailed: 0 };
+      exerciseStats[`${cat}-002`] = { timesShown: n + 1, timesCorrect: n, timesFailed: 1 };
+      n++;
+    }
+    const v7 = {
+      schemaVersion: 7,
+      exerciseStats,
+      categoryProgress,
+      dailyLog: { '2026-05-30': { date: '2026-05-30', categoriesPracticed: [...SIETE, ...RESET], categoriesWithFailure: [] } },
+      songProgress: {},
+      lastBackupAt: null,
+      firstUsedAt: '2026-04-01T08:00:00.000Z'
+    };
+
+    // Snapshot byte a byte de las 7 preservadas ANTES de migrar.
+    const beforeCP = JSON.parse(JSON.stringify(categoryProgress));
+    const beforeES = JSON.parse(JSON.stringify(exerciseStats));
+
+    const v8 = migrate7to8(v7);
+
+    // (a) articoli + partitivos ausentes de ambos dicts.
+    for (const cat of RESET) {
+      assert.equal(v8.categoryProgress[cat], undefined, `categoryProgress.${cat} debe estar ausente`);
+      assert.equal(v8.exerciseStats[`${cat}-001`], undefined, `exerciseStats.${cat}-001 debe estar podado`);
+      assert.equal(v8.exerciseStats[`${cat}-002`], undefined, `exerciseStats.${cat}-002 debe estar podado`);
+    }
+
+    // (b) las 7 restantes byte a byte deep-equal pre/post (por categoría).
+    for (const cat of SIETE) {
+      assert.deepEqual(v8.categoryProgress[cat], beforeCP[cat],
+        `categoryProgress.${cat} debe quedar byte-idéntico`);
+      assert.deepEqual(v8.exerciseStats[`${cat}-001`], beforeES[`${cat}-001`],
+        `exerciseStats.${cat}-001 debe quedar byte-idéntico`);
+      assert.deepEqual(v8.exerciseStats[`${cat}-002`], beforeES[`${cat}-002`],
+        `exerciseStats.${cat}-002 debe quedar byte-idéntico`);
+    }
   });
 });
