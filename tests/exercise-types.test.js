@@ -1263,7 +1263,7 @@ describe('validation-state — deriveStatus (Phase 9 D-VAL-07)', () => {
 //   3. plain text sin markdown markers (T-02-01 anti-XSS — los tokens **/__/##/` no se interpretan)
 
 const CATEGORIES_WITH_EXPLANATIONS = [
-  { file: 'content/exercises/preposiciones.json', expected: 52 },
+  { file: 'content/exercises/preposiciones.json', expected: 49 },
   { file: 'content/exercises/genero-numero.json', expected: 40 },
   { file: 'content/exercises/avere.json', expected: 23 },
   { file: 'content/exercises/sustantivos-irregulares.json', expected: 31 },
@@ -1274,6 +1274,20 @@ const CATEGORIES_WITH_EXPLANATIONS = [
   { file: 'content/exercises/partitivos.json', expected: 44 },
   // Cobertura editorial: 272/272 v1.0/v1.1 + 56 articoli (8ª categoría, v1.2 Phase 11) + 44 partitivos (9ª categoría, v1.2 Phase 12) = 372 con explanation curada.
 ];
+
+// Bifurcación por shape (PILOT-05 — listo para CONV-01, NO hardcodea slug):
+//   slot   → ex.variants es Array. La explanation vive top-level (ex.explanation),
+//            y cada variante aporta su propio prompt (ex.variants[].prompt).
+//   legacy → ruta clásica payload (ex.payload.explanation / ex.payload.prompt).
+// Estos accessors mantienen los escaneos de seguridad (R1/R2/smart-quotes/markdown)
+// shape-agnostic: la cobertura editorial NO se pierde al convertir un shape.
+const getExplanation = (ex) =>
+  Array.isArray(ex.variants) ? ex.explanation : ex.payload?.explanation;
+// Devuelve TODOS los prompts del ejercicio (1 en legacy, N en slot):
+const getPrompts = (ex) =>
+  Array.isArray(ex.variants)
+    ? ex.variants.map(v => v?.prompt || '')
+    : [ex.payload?.prompt || ''];
 
 describe('Categorías con explanation coverage (Phase 7.1+)', () => {
   for (const { file, expected } of CATEGORIES_WITH_EXPLANATIONS) {
@@ -1290,9 +1304,10 @@ describe('Categorías con explanation coverage (Phase 7.1+)', () => {
           `Esperaba ${expected} ejercicios en ${file}, encontré ${data.exercises.length}`
         );
 
-        const missing = data.exercises.filter(ex =>
-          typeof ex.payload?.explanation !== 'string' || !ex.payload.explanation.trim()
-        );
+        const missing = data.exercises.filter(ex => {
+          const explanation = getExplanation(ex);
+          return typeof explanation !== 'string' || !explanation.trim();
+        });
 
         assert.equal(
           missing.length,
@@ -1304,7 +1319,7 @@ describe('Categorías con explanation coverage (Phase 7.1+)', () => {
       test('apóstrofes ASCII (CONT-06 / D-129)', () => {
         const smartQuotePattern = /[‘’“”]/;
         const violations = data.exercises
-          .filter(ex => smartQuotePattern.test(ex.payload?.explanation || ''))
+          .filter(ex => smartQuotePattern.test(getExplanation(ex) || ''))
           .map(ex => ex.id);
 
         assert.equal(
@@ -1320,7 +1335,7 @@ describe('Categorías con explanation coverage (Phase 7.1+)', () => {
         // (pueden aparecer como puntuación). Solo doblados o headers prefijo.
         const mdPattern = /(\*\*|__|##|`)/;
         const violations = data.exercises
-          .filter(ex => mdPattern.test(ex.payload?.explanation || ''))
+          .filter(ex => mdPattern.test(getExplanation(ex) || ''))
           .map(ex => ex.id);
 
         assert.equal(
@@ -1340,8 +1355,9 @@ describe('Categorías con explanation coverage (Phase 7.1+)', () => {
         //   — regla / — atención / — sustantivo invariable / — artículo definido / — forma fem / — forma masc / — inserción / — concordancia / — patrón / — excepción
         const leakPattern = /§\d+|\((refuerzo|regla|combina|grupo|familia|cuerpo|animales|lugares|locución|D-\d+)\b|—\s*(regla|atención|sustantivo\s+invariable|artículo\s+definido|forma\s+(fem|masc)|inserción|concordancia|patrón|excepción)/i;
         const violations = data.exercises
-          .filter(ex => leakPattern.test(ex.payload?.prompt || ''))
-          .map(ex => `${ex.id}: "${ex.payload.prompt}"`);
+          .flatMap(ex => getPrompts(ex).map(prompt => ({ ex, prompt })))
+          .filter(({ prompt }) => leakPattern.test(prompt))
+          .map(({ ex, prompt }) => `${ex.id}: "${prompt}"`);
 
         assert.equal(
           violations.length,
@@ -1359,8 +1375,8 @@ describe('Categorías con explanation coverage (Phase 7.1+)', () => {
         //   — ver #NNN, del #NNN        — frases con ref
         const xrefPattern = /#\d{3}\b|#[a-z]+-\d+|\bmc-\d+\b/i;
         const violations = data.exercises
-          .filter(ex => xrefPattern.test(ex.payload?.explanation || ''))
-          .map(ex => `${ex.id}: ...${(ex.payload.explanation.match(/[^.]*#\S*[^.]*/) || [''])[0].trim()}...`);
+          .filter(ex => xrefPattern.test(getExplanation(ex) || ''))
+          .map(ex => `${ex.id}: ...${((getExplanation(ex) || '').match(/[^.]*#\S*[^.]*/) || [''])[0].trim()}...`);
 
         assert.equal(
           violations.length,

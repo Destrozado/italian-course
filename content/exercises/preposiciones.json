@@ -2197,7 +2197,24 @@
           ],
           "correctIndex": 1
         }
-      ]
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-05-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "preposiciones-al-mare",
@@ -2217,7 +2234,24 @@
           ],
           "correctIndex": 1
         }
-      ]
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-05-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     }
   ]
 }
