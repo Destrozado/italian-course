@@ -13,8 +13,16 @@ findings:
   warning: 2
   info: 3
   total: 5
-status: issues_found
+warnings_resolved: 2
+info_open: 3
+status: resolved
 ---
+
+> **Resolution (2026-06-03, `/gsd:code-review 16 --fix`):** Both WARNING findings fixed.
+> WR-01 → `fix(16): clamp pickVariantIndex against out-of-range rng` (`e92c3d7`).
+> WR-02 → `fix(16): clamp stale variantIndex on inFlightTest resume` (`12d7819`).
+> Suite 327/327 green after fixes. The 3 INFO items remain open (out of `--fix` default scope):
+> IN-01 (extract `reconcileVariantIndices` for a resume-clamp unit test), IN-02 (`summaryVariantSurface` perf), IN-03 (inert `variantIndex` on song results).
 
 # Phase 16: Code Review Report
 
