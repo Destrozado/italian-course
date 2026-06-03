@@ -8,11 +8,19 @@ Web personal de ejercicios de italiano para preparar el A1 (y luego A2). Es una 
 
 **Que el sistema te obligue a no olvidar.** El motor de repetición tiene que garantizar que cada categoría se re-verifica constantemente, y que un solo fallo en cualquier ejercicio te devuelve a repetir esa categoría entera. Sin ese loop, el resto no importa.
 
-## Status: entre milestones (v1.4 shipped — próximo sin definir)
+## Current Milestone: v1.5 — Conversión a slots: Bloque Artículos (CONV-01)
 
-**Last shipped:** v1.4 — Variantes de ejercicio (slots por regla) (2026-06-03). Motor slot+variantes: cada slot representa 1 regla con 1..N variantes intercambiables (misma explicación a nivel de slot, distinta superficie); el examen recorre N slots eligiendo 1 variante al azar por slot, "categoría hecha" = pasar 1 variante de cada slot, fallar una dispara la cascada D-54 intacta. Piloto Preposiciones: 52 ejercicios validados reagrupados en 49 slots por regla, 41 variantes nuevas autoradas por quórum cross-vendor (6 bugs cazados), 2 slots locativos nuevos (`in spiaggia` / `al mare`). `schemaVersion 5→6→7`. Brownfield: reutiliza el engine v1.0 sin reconstruirlo. 17/17 requirements, 342/342 tests verdes.
+**Goal:** Convertir Articoli y Partitivi al modelo slot+variantes (reagrupar por regla + autorar variantes nuevas con quórum cross-vendor), demostrando que el patrón validado en el piloto Preposiciones (Phase 17) escala a las categorías de mejor encaje — sin tocar el motor v1.4.
 
-Próximo paso: `/gsd-new-milestone` para definir el siguiente milestone (CONV-01: convertir el resto de categorías a slots, una por milestone — ver Next Milestone Goals).
+**Target features:**
+- **Articoli → slots por regla**: determinativi (il/lo/l'/la/i/gli/le) + indeterminativi (un/uno/una/un') reagrupados por disparador fonético; variantes nuevas (patrón D-85 + quórum R1-R7) donde la regla admite reformulación. Los indeterminativi pasan a ser slots propios dentro de Articoli (recoge el espíritu del todo cerrado 2026-06-03, sin categoría nueva).
+- **Partitivi → slots por regla**: del-formas por disparador + eje contable/incontable + alternativas (qualche/alcuni/un po' di) + omisión en negativa + distinción partitivo-vs-preposizione; variantes nuevas por quórum.
+- **Migración `schemaVersion 7→8`** (`migrate7to8`/`hydrateV8`): reset de progreso SOLO de `articoli` + `partitivos`; las otras 7 categorías conservan progreso; `backup.js` round-trip v8.
+- **Validator + smoke paramétrico** (ya bifurcado por shape desde v1.4) verdes; cobertura de explanations a nivel de slot preservada; posibles slots nuevos para huecos detectados durante la autoría.
+
+**Last shipped:** v1.4 — Variantes de ejercicio (slots por regla) (2026-06-03). Motor slot+variantes + piloto Preposiciones (52 ejercicios → 49 slots, 41 variantes nuevas por quórum, 2 slots locativos). `schemaVersion 5→6→7`. Brownfield sobre el engine v1.0. 17/17 requirements, 342/342 tests verdes.
+
+**Scope boundary:** Las 6 categorías restantes (Avere, Essere, Verbi di movimento — verbos; Sostantivi irregolari, Genere e numero, Professioni — morfología) quedan fuera de v1.5; su conversión continúa CONV-01 en milestones futuros (encaje pobre de las léxicas — Sostantivi irregolari/Professioni — a evaluar entonces).
 
 ## Requirements
 
@@ -141,9 +149,15 @@ Próximo paso: `/gsd-new-milestone` para definir el siguiente milestone (CONV-01
 
 ### Active
 
-<!-- Sin milestone activo. Definir el siguiente con /gsd-new-milestone. Candidato natural: CONV-01 (resto de categorías a slots). -->
+<!-- Milestone v1.5 — Conversión a slots: Bloque Artículos (CONV-01). REQ-IDs en REQUIREMENTS.md. -->
 
-_(Ningún milestone activo — v1.4 shipped 2026-06-03. Próximo: `/gsd-new-milestone`.)_
+**Milestone v1.5 — Conversión a slots: Bloque Artículos (Articoli + Partitivi):**
+- Articoli reagrupada en slots por regla (determinativi + indeterminativi por disparador fonético) + variantes nuevas por quórum
+- Partitivi reagrupada en slots por regla (del-formas + contable/incontable + alternativas + omisión + partitivo-vs-prep) + variantes nuevas por quórum
+- Migración `schemaVersion 7→8`: reset de progreso SOLO de articoli + partitivos; backup v8
+- Validator + smoke paramétrico verdes; explanations a nivel de slot; huecos detectados → slots nuevos
+
+_(Requirements detallados y trazabilidad en `.planning/REQUIREMENTS.md`.)_
 
 ### Recently Validated (v1.4 — shipped 2026-06-03)
 
@@ -267,4 +281,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-06-03 — Milestone v1.4 (Variantes de ejercicio / slots por regla) ARCHIVADO. 3 phases (15-17), 9 plans, 17/17 requirements (6 SLOT + 6 EXAM + 5 PILOT), 342/342 tests verdes, `schemaVersion 5→6→7`. Motor slot+variantes sobre el engine v1.0 (cascada D-54 intacta, 2 call-sites) + piloto Preposiciones (52 ejercicios → 49 slots, 41 variantes nuevas por quórum cross-vendor cazando 6 bugs, 2 slots locativos). Las 8 categorías no-piloto = slots de 1 variante (backward-compat, CONV-01 difiere su conversión). Entre milestones — próximo: `/gsd-new-milestone` (candidato: CONV-01).*
+*Last updated: 2026-06-04 — Milestone v1.5 (Conversión a slots: Bloque Artículos / CONV-01) INICIADO: convertir Articoli + Partitivi a slots+variantes (reagrupar por regla + autorar variantes nuevas por quórum), migración 7→8 con reset selectivo de ambas categorías, reutilizando toda la maquinaria v1.4. Las 6 categorías restantes (verbos + morfología) continúan CONV-01 en milestones futuros. Numeración de fases CONTINÚA desde Phase 17. — v1.4 (Variantes de ejercicio / slots por regla) ARCHIVADO. 3 phases (15-17), 9 plans, 17/17 requirements (6 SLOT + 6 EXAM + 5 PILOT), 342/342 tests verdes, `schemaVersion 5→6→7`. Motor slot+variantes sobre el engine v1.0 (cascada D-54 intacta, 2 call-sites) + piloto Preposiciones (52 ejercicios → 49 slots, 41 variantes nuevas por quórum cross-vendor cazando 6 bugs, 2 slots locativos). Las 8 categorías no-piloto = slots de 1 variante (backward-compat, CONV-01 difiere su conversión). Entre milestones — próximo: `/gsd-new-milestone` (candidato: CONV-01).*
