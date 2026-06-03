@@ -95,7 +95,9 @@ Numeración CONTINÚA desde Phase 14 → Phases 15-17 (NO reset — mismo criter
   3. Fallar la variante de un slot resetea al instante las `categoryIds` del slot (cascada D-54), reusando `applyResultToSession` — el conteo de call-sites de `applyImmediateFailure` sigue siendo exactamente 2 (Pitfall #2 verificable por grep).
   4. Al re-hacer una categoría tras fallo/reset, la selección aleatoria se reejecuta y pueden tocar variantes distintas a la pasada anterior.
   5. Racha 21 días + promoción hecha→dominada operan sobre la nueva definición de "hecha" por slots, y Repaso 20 / Test completo / Modo Examen integran el muestreo por slot (GUARANTEE ≥1 slot por categoría elegida).
-**Plans**: TBD
+**Plans**: 2 plans
+  - [ ] 16-01-PLAN.md — Sampler por slot: pickVariantIndex + variantIndices en buildSession/buildFullTest + tests seedados (EXAM-01/04/06)
+  - [ ] 16-02-PLAN.md — Cableado screen: getter slot-aware (.payload sintetico), variantIndices en 3 launch sites/inFlightTest/sessionResults/summary, cascada D-54 intacta + checkpoint booteo (EXAM-01..06)
 **UI hint**: yes
 
 ### Phase 17: Piloto Preposiciones (contenido)
@@ -120,7 +122,7 @@ Numeración CONTINÚA desde Phase 14 → Phases 15-17 (NO reset — mismo criter
 | 11-12 | v1.2 | 10/10 | Complete | 2026-05-28 |
 | 13-14 | v1.3 | 3/3 | Complete | 2026-06-02 |
 | 15. Modelo de datos slot+variantes | v1.4 | 3/3 | Complete    | 2026-06-03 |
-| 16. Motor de examen por slots | v1.4 | 0/? | Not started | - |
+| 16. Motor de examen por slots | v1.4 | 0/2 | In progress | - |
 | 17. Piloto Preposiciones (contenido) | v1.4 | 0/? | Not started | - |
 
 ## Backlog
