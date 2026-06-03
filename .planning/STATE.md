@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.4
 milestone_name: Variantes de ejercicio (slots por regla)
 status: executing
-last_updated: "2026-06-03T07:39:21.283Z"
-last_activity: 2026-06-03 -- Phase 16 planning complete
+last_updated: "2026-06-03T07:44:47.244Z"
+last_activity: 2026-06-03 -- Plan 16-01 completado (sampler de dominio por slots + variantIndices)
 progress:
   total_phases: 5
   completed_phases: 1
   total_plans: 5
-  completed_plans: 3
+  completed_plans: 4
   percent: 20
 ---
 
@@ -21,16 +21,16 @@ See: `.planning/PROJECT.md` (updated 2026-06-02)
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 999.1 — bot n reiniciar ejercicios en pantalla de sesi n
+**Current Focus:** Phase 16 — motor-de-examen-por-slots
 
 **Milestone v1.4 Goal:** Matar la memorización por palabras introduciendo *slots* (1 por regla) con variantes intercambiables; un examen recorre N slots eligiendo 1 variante al azar en cada uno, manteniendo intacta la re-verificación D-54. MOTOR + 1 PILOTO: construir el modelo de datos y el motor de examen por slots, luego convertir SOLO Preposiciones como piloto real. Las otras 8 categorías siguen funcionando como slots de 1 variante (backward-compat) — su conversión es out-of-scope (CONV-01 futuro). Brownfield: REUTILIZA la cascada D-54, el sampler, el schema-validator, el patrón Test-completo y `applyResultToSession` — NO reconstruye el motor.
 
 ## Current Position
 
-Phase: 999.1
-Plan: Not started
-Status: Ready to execute
-Last activity: 2026-06-03 -- Phase 16 planning complete
+Phase: 16 (motor-de-examen-por-slots) — EXECUTING
+Plan: 2 of 2
+Status: Ready to execute Plan 16-02 (cableado app.js / inFlightTest / sessionResults / render slot-aware)
+Last activity: 2026-06-03 -- Plan 16-01 completado: pickVariantIndex + variantIndices en buildSession/buildFullTest (EXAM-01/04/06), 327/327 tests verdes
 
 ## Quick Tasks Completed
 
@@ -84,6 +84,7 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - **Migración coherente con el patrón existente (SLOT-05)** — `migrate5to6` + `hydrateV6` idempotente + deep-clone defensivo (mismo patrón que `migrate4to5`); `backup.js` extendido a v6 para round-trip. ✓ **Implementado Plan 15-02** (D-15-09: bump NOMINAL a nivel del state root — el modelo slot+variantes vive en `content/`, no en el state; mismo set de sub-dicts que v5; sin reset de progreso, Preposiciones reset es Phase 17; 341/341 tests verdes, +9 nuevos v6).
 - **Canon editorial heredado** — explanations de slot en español acentuado correcto + italianismos preservados, plain text sin markdown, apóstrofes ASCII U+0027 (D-129/D-135/D-137).
 - **Verificación e2e + fixture canónico como contrato (SLOT-01/03/06)** — ✓ **Implementado Plan 15-03**: el fixture `content/exercises/_fixtures/slot-demo.json` (1 slot multi-variante + 1 slot de 1, fuera del registry) recorre el pipeline completo (validateContent → normalizeExerciseToSlot → slotById) sin mutar el legacy; las 9 categorías reales validan intactas con el validator extendido (SLOT-06); avere snapshot verde. 367/367 tests. **Checkpoint humano (ASVS L1, block-on-high) APPROVED**: la app arranca con las 9 categorías como hoy, state persiste en schemaVersion 6 sin reset, backup round-trip v6 funciona, banners de validación como texto plano (T-15-REGR/XSS/DATALOSS mitigados). El fixture queda como contrato vivo del shape de autoría para Phase 16/17.
+- **Muestreo por slot + selección de variante en el dominio (EXAM-01/04/06)** — ✓ **Implementado Plan 16-01**: `pickVariantIndex(slot, rng)` helper puro uniforme (D-16-01, default 0 para 0/1 variante D-16-10, guard `Array.isArray`); `buildSession`/`buildFullTest` devuelven `{exerciseIds, variantIndices, actualSize}` con arrays alineados 1:1 (opción **parallel-array** elegida sobre array-of-pairs por diff mínimo al plumbing de Plan 02, D-16-08). Mismo `rng` ya threaded (cero segundo RNG, determinismo con seed). **Cero state nuevo, cero contador por variante; peso anclado a slot.id == exercise.id (D-15-09).** Pureza de capa intacta (cero import de `../data/*`/`../screens/*`). 6 tests deterministas nuevos (EXAM-01 sin duplicados de slot, EXAM-04 barrido de seeds → ≥2 índices distintos, D-16-10 legacy → 0, buildFullTest exhaustivo). 327/327 tests verdes (`node --test tests/*.test.js`).
 
 ### Pending Todos
 
