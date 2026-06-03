@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.4
 milestone_name: Variantes de ejercicio (slots por regla)
 status: executing
-last_updated: "2026-06-03T13:59:44.000Z"
-last_activity: 2026-06-03 -- Plan 17-01 ejecutado (migración 6→7 + reset Preposiciones)
+last_updated: "2026-06-03T16:30:00.000Z"
+last_activity: 2026-06-03 -- Plan 17-02 ejecutado (Preposiciones reescrito a 47 slots slot+variantes + fact 57→52)
 progress:
   total_phases: 5
   completed_phases: 2
   total_plans: 9
-  completed_plans: 5
-  percent: 40
+  completed_plans: 6
+  percent: 44
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -28,9 +28,9 @@ See: `.planning/PROJECT.md` (updated 2026-06-02)
 ## Current Position
 
 Phase: 17 (Piloto Preposiciones (contenido)) — EXECUTING
-Plan: 2 of 4
-Status: Executing Phase 17 (Plan 17-01 completo)
-Last activity: 2026-06-03 -- Plan 17-01 ejecutado (migración 6→7 + reset Preposiciones)
+Plan: 3 of 4
+Status: Executing Phase 17 (Plan 17-02 completo)
+Last activity: 2026-06-03 -- Plan 17-02 ejecutado (Preposiciones reescrito a 47 slots + fact 57→52)
 
 ## Quick Tasks Completed
 
@@ -52,7 +52,7 @@ Last activity: 2026-06-03 -- Plan 17-01 ejecutado (migración 6→7 + reset Prep
 | Requisitos v1.2 completos | 15/15 (100% — ART-01..08 + PART-01..07) |
 | Requisitos v1.3 completos | 19/19 (100% — SONG/PLAY/LINK/DATA + CONT) |
 | Requisitos v1.4 mapeados | 17/17 (100% — SLOT→Phase 15 (6); EXAM→Phase 16 (6); PILOT→Phase 17 (5); 0 orphans) |
-| Requisitos v1.4 completos | 13/17 (SLOT 6/6 Phase 15 + EXAM 6/6 Phase 16; PILOT 1/5 — PILOT-04 reset migración Plan 17-01) |
+| Requisitos v1.4 completos | 14/17 (SLOT 6/6 Phase 15 + EXAM 6/6 Phase 16; PILOT 2/5 — PILOT-04 reset Plan 17-01 + PILOT-01 reagrupación Plan 17-02) |
 | schemaVersion actual | 7 (Plan 17-01: migrate6to7 + hydrateV7 + backup v7, reset selectivo de Preposiciones D-17-08) |
 | Ejercicios totales en la app | 373 validated (9 categorías gramaticales) + bloque Canciones standalone |
 | Categorías gramaticales | 9 (en v1.4: Preposiciones se convierte a slots-piloto; las otras 8 = slots de 1 variante) |
@@ -85,6 +85,7 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - **Canon editorial heredado** — explanations de slot en español acentuado correcto + italianismos preservados, plain text sin markdown, apóstrofes ASCII U+0027 (D-129/D-135/D-137).
 - **Verificación e2e + fixture canónico como contrato (SLOT-01/03/06)** — ✓ **Implementado Plan 15-03**: el fixture `content/exercises/_fixtures/slot-demo.json` (1 slot multi-variante + 1 slot de 1, fuera del registry) recorre el pipeline completo (validateContent → normalizeExerciseToSlot → slotById) sin mutar el legacy; las 9 categorías reales validan intactas con el validator extendido (SLOT-06); avere snapshot verde. 367/367 tests. **Checkpoint humano (ASVS L1, block-on-high) APPROVED**: la app arranca con las 9 categorías como hoy, state persiste en schemaVersion 6 sin reset, backup round-trip v6 funciona, banners de validación como texto plano (T-15-REGR/XSS/DATALOSS mitigados). El fixture queda como contrato vivo del shape de autoría para Phase 16/17.
 - **Muestreo por slot + selección de variante en el dominio (EXAM-01/04/06)** — ✓ **Implementado Plan 16-01**: `pickVariantIndex(slot, rng)` helper puro uniforme (D-16-01, default 0 para 0/1 variante D-16-10, guard `Array.isArray`); `buildSession`/`buildFullTest` devuelven `{exerciseIds, variantIndices, actualSize}` con arrays alineados 1:1 (opción **parallel-array** elegida sobre array-of-pairs por diff mínimo al plumbing de Plan 02, D-16-08). Mismo `rng` ya threaded (cero segundo RNG, determinismo con seed). **Cero state nuevo, cero contador por variante; peso anclado a slot.id == exercise.id (D-15-09).** Pureza de capa intacta (cero import de `../data/*`/`../screens/*`). 6 tests deterministas nuevos (EXAM-01 sin duplicados de slot, EXAM-04 barrido de seeds → ≥2 índices distintos, D-16-10 legacy → 0, buildFullTest exhaustivo). 327/327 tests verdes (`node --test tests/*.test.js`).
+- **Reagrupación de Preposiciones a slot+variantes (PILOT-01)** — ✓ **Implementado Plan 17-02**: los 52 ejercicios fuente reescritos a **47 slots** (mapa auditado `17-REAGRUPACION-MAP.md`, aprobado por el autor en checkpoint:decision). **5 fusiones** (D-17-03 + D-17-01): SUL 006/013/043→3v, AL 011/015→2v, DI-posesso 010/012→2v, **TRA-futuro 008/049→2v (tra/fra fusionados, opción `tra-fra-fusion` aprobada — misma regla pedagógica tempo futuro, D-17-01)**; el resto = singletons (1v). `payload` eliminado en los 47, superficies movidas **intactas** a `variants[]` (cambio de contenedor → NO re-validación, NFC preservado); `explanation` a nivel de slot (merge D-17-05 base+matices en los 4 fusionados; sube tal cual en singletons); variantes SIN explanation propia. `validation` top-level conservado por slot (passes[] del ejercicio dominante; todas las superficies fuente ya `validated` por opus-4-7/sonnet-4-6 2026-05-26). Esquema de id semántico limpio (D-15-09): `preposiciones-{forma|regla}`. **validateContent verde** (47 slots, shape slot+variantes válido). Fact correction 57→52 en REQUIREMENTS.md (PILOT-01) + ROADMAP.md (3 refs). **Rojo ESPERADO** (sync en 17-04): 3 hardcodes `expected: 52` en `tests/exercise-types.test.js:1266`, `tests/fixtures/slot-variants-integration.test.js:169`, `scripts/run-validation-271.mjs:75`. T-17-04/05/06 satisfechos (plain-text, cobertura 1:1 de los 52 ids, validador corrido). Commits: `c1e54cc` (mapa Task 1) + `e75073a` (reescritura Task 2).
 - **Cableado del motor de slots end-to-end en la pantalla (EXAM-02/03/05/06)** — ✓ **Implementado Plan 16-02**: getter `sessionCurrentExercise` reescrito como **slot-aware** — resuelve `content.slotById[id].variants[variantIndex]` y lo re-envuelve en `{id, type, categoryIds, payload:{...surface, explanation: slot.explanation}}` (**synthetic-payload re-wrap**, mismo truco que `songCurrentPhrase`/`songStart` de Phase 13) → `initSubStateForExercise` y todos los bindings `.payload.*` sobreviven sin tocar. Campo `sessionVariantIndices` paralelo a `sessionExerciseIds` (parallel-array, D-16-08); los **3 launch sites** (`startSession`/`_launchExamen`/`resetSession`) alimentan el pool con `Object.values(content.slotById)` y guardan `result.variantIndices`; `sessionAdvance`/`resumeInFlightTest` resuelven vía el getter (NO re-sortean). La variante viaja en `inFlightTest` (`variantIndices:[...]`) → **resume = misma variante**; blobs legacy sin `variantIndices` → fallback `.map(() => 0)` (D-16-10), **sin bump de schemaVersion** (sigue v6, D-16-09). `sessionResults` registra `variantIndex`; el review de errores del summary muestra la **variante exacta fallada** vía helper `summaryVariantSurface(result)` (index.html, copy/estructura idénticos, EXAM-02). **Cascada D-54 y racha intactas** — `applyResultToSession` reusado, **2 call-sites de `applyImmediateFailure`** (Pitfall #2, grep-verificado). 327/327 tests verdes. **Checkpoint booteo (human-verify, gate=blocking) APPROVED** bajo auto/chain-mode (mitad automatizada del gate verde). **UAT manual de browser** (boot local, home count, Repaso 20 hecha, fallo→cascada D-54, Test resume misma variante, review de errores, localStorage v6 sin reset) trasladado al usuario como verificación de confianza — NO ejecutado headlessly. **Phase 16 COMPLETE: EXAM 6/6.**
 
 ### Pending Todos

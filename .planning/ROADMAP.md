@@ -112,7 +112,7 @@ Numeración CONTINÚA desde Phase 14 → Phases 15-17 (NO reset — mismo criter
   5. La estructura final de Preposiciones pasa el validator y el smoke test paramétrico, con la cobertura de explanations preservada a nivel de slot.
 **Plans**: 4 plans
   - [x] 17-01-PLAN.md — Migración schemaVersion 6→7 (migrate6to7/hydrateV7) + backup v7: reset de progreso de SOLO Preposiciones (PILOT-04)
-  - [ ] 17-02-PLAN.md — Reagrupar los 52 ejercicios a slots por regla/forma (fusiones SUL/AL/DI-posesso) + explanation a nivel de slot + fact correction 57→52 (PILOT-01)
+  - [x] 17-02-PLAN.md — Reagrupar los 52 ejercicios a 47 slots por regla/forma (fusiones SUL/AL/DI-posesso/tra-fra) + explanation a nivel de slot + fact correction 57→52 (PILOT-01) ✓
   - [ ] 17-03-PLAN.md — Autorar variantes nuevas con quórum cross-vendor R1-R7 + slots locativos in-spiaggia/al-mare (PILOT-02/03)
   - [ ] 17-04-PLAN.md — Smoke paramétrico bifurcado por shape + sync de los 3 hardcodes de count contra el conteo real de slots (PILOT-05)
 **UI hint**: no
