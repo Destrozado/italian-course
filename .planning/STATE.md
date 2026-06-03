@@ -2,16 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.4
 milestone_name: Variantes de ejercicio (slots por regla)
-status: ready_to_plan
-last_updated: 2026-06-03T08:07:52.301Z
-last_activity: 2026-06-03 -- Plan 16-02 completado (cableado screen slot-aware + checkpoint booteo APPROVED); Phase 16 COMPLETE
+status: planning
+last_updated: "2026-06-03T13:23:11.750Z"
+last_activity: 2026-06-03
 progress:
   total_phases: 5
   completed_phases: 2
   total_plans: 5
   completed_plans: 5
   percent: 40
-stopped_at: Phase 16 complete (2/2) — ready to discuss Phase 999.1
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
