@@ -188,7 +188,7 @@ _(Requirements detallados y trazabilidad en `.planning/REQUIREMENTS.md`.)_
 
 **v1.0 shipped 2026-05-25** — Motor de re-verificación + 7 categorías + Modo Examen. 26 plans, 271 ejercicios curados, 62/62 requirements.
 
-**Stack actual:** Alpine.js 3.15.12 + Pico CSS 2.1.1 (CDN+SRI pinned), ES modules vanilla, **schemaVersion 5**. 9 archivos JSON de gramática (372 ejercicios validated) + bloque Canciones standalone (`validateSongs`, 1ª canción real "Equilibrio mentale" 17 frases + mini-canción de prueba). Infraestructura editorial: skills `gsd-validate-exercise` + `gsd-validate-batch`, `scripts/run-validation-271.mjs`, `scripts/validate-ai-pass.mjs` (multi-provider con auto-fallback 429, añadido en v1.2).
+**Stack actual:** Alpine.js 3.15.12 + Pico CSS 2.1.1 (CDN+SRI pinned), ES modules vanilla, **schemaVersion 6**. 9 archivos JSON de gramática (372 ejercicios validated) + bloque Canciones standalone (`validateSongs`, 1ª canción real "Equilibrio mentale" 17 frases + mini-canción de prueba). Infraestructura editorial: skills `gsd-validate-exercise` + `gsd-validate-batch`, `scripts/run-validation-271.mjs`, `scripts/validate-ai-pass.mjs` (multi-provider con auto-fallback 429, añadido en v1.2).
 
 **Last activity:** 2026-06-02 — Milestone v1.3 archivado.
 
@@ -274,4 +274,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-06-03 — Milestone v1.4 (Variantes de ejercicio / slots por regla), Phase 15 completa: modelo de datos slot+variantes (validator XOR payload/variants[], explicación a nivel de slot), migración `schemaVersion 5→6` (`migrate5to6`/`hydrateV6`) + backup round-trip v6, las 9 categorías reales cargan intactas como slots de 1 variante (SLOT-01..06, 367/367 tests, checkpoint humano aprobado). Siguiente: Phase 16 (motor de examen por slots).*
+*Last updated: 2026-06-03 — Milestone v1.4 (Variantes de ejercicio / slots por regla), Phase 16 completa: motor de examen por slots. `buildSession`/`buildFullTest` recorren slots y fijan 1 variante uniforme-aleatoria por slot al construir (`pickVariantIndex` + array paralelo `variantIndices`); getter `sessionCurrentExercise` slot-aware resuelve `slotById[id].variants[variantIndex]` en `.payload` sintético (análogo `songCurrentPhrase`); `variantIndices` threaded por inFlightTest/sessionResults/summary-errors; cascada D-54 intacta (2 call-sites), schemaVersion sigue 6 sin migración, progress.js sin tocar (EXAM-01..06, 327/327 tests). Verificación automatizada 5/5; 6 items de UAT manual en navegador pendientes (`16-HUMAN-UAT.md`). Code review: 0 blocker, 2 warning (WR-01 clamp en pickVariantIndex, WR-02 validar variantIndex en reanudación). Siguiente: Phase 17 (Piloto Preposiciones) — única fase v1.4 restante.*
