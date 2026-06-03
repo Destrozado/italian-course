@@ -1,8 +1,8 @@
 ---
 phase: 16-motor-de-examen-por-slots
 verified: 2026-06-03T10:30:00Z
-status: human_needed
-score: 5/5 automated truths verified
+status: passed
+score: 5/5 automated truths verified; 6/6 human UAT items passed (see 16-HUMAN-UAT.md, 2026-06-03)
 overrides_applied: 0
 human_verification:
   - test: "Arrancar el server local y verificar las 9 categorías visibles con recuento Ejercicios idéntico al pre-fase"
