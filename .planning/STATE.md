@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.4
 milestone_name: Variantes de ejercicio (slots por regla)
 status: executing
-last_updated: "2026-06-03T16:30:00.000Z"
-last_activity: 2026-06-03 -- Plan 17-03 PAUSADO (quórum round 1 externo hecho; espera cuota Gemini + mitad Claude). Ver 17-03-RESUME.md
+last_updated: "2026-06-03T20:03:09.928Z"
+last_activity: 2026-06-03 -- Plan 17-04 completado (smoke bifurcado por shape + 3 counts sync a 49 + TOTAL 370). Phase 17 PILOT 5/5. v1.4 listo para cerrar.
 progress:
   total_phases: 5
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 9
-  completed_plans: 6
-  percent: 44
+  completed_plans: 9
+  percent: 60
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -28,9 +28,9 @@ See: `.planning/PROJECT.md` (updated 2026-06-02)
 ## Current Position
 
 Phase: 17 (Piloto Preposiciones (contenido)) — EXECUTING (Plan 17-03 PAUSADO)
-Plan: 3 of 4
-Status: 17-01 ✓, 17-02 ✓; 17-03 EN PROGRESO — quórum cross-vendor round 1 (mitad externa Gemini+DeepSeek) hecho sobre 43 variantes; PAUSADO por rate-limit de Gemini (24 variantes esperan pase Gemini) + falta mitad Claude (Opus+Sonnet). preposiciones.json AÚN NO modificado. 17-04 espera. Reanudar con .planning/phases/17-piloto-preposiciones-contenido/17-03-RESUME.md
-Last activity: 2026-06-03 -- Plan 17-03 pausado en quórum round 1 (ver 17-03-RESUME.md)
+Plan: 4 of 4
+Status: Ready to execute
+Last activity: 2026-06-03
 
 ## Quick Tasks Completed
 
@@ -46,15 +46,15 @@ Last activity: 2026-06-03 -- Plan 17-03 pausado en quórum round 1 (ver 17-03-RE
 | Fases v1.1 | 2/2 completas (Phase 9-10) — SHIPPED 2026-05-27 |
 | Fases v1.2 | 2/2 completas (Phase 11-12) — SHIPPED 2026-05-28 |
 | Fases v1.3 | 2/2 completas (Phase 13-14) — SHIPPED 2026-06-02 |
-| Fases v1.4 | 2/3 (Phase 15 modelo slot+variantes ✓; Phase 16 motor de examen por slots ✓; Phase 17 piloto Preposiciones pendiente) |
+| Fases v1.4 | 3/3 (Phase 15 modelo slot+variantes ✓; Phase 16 motor de examen por slots ✓; Phase 17 piloto Preposiciones ✓) |
 | Requisitos v1.0 completos | 62/62 (100%) |
 | Requisitos v1.1 completos | 8/8 (100% — VAL-01..08) |
 | Requisitos v1.2 completos | 15/15 (100% — ART-01..08 + PART-01..07) |
 | Requisitos v1.3 completos | 19/19 (100% — SONG/PLAY/LINK/DATA + CONT) |
 | Requisitos v1.4 mapeados | 17/17 (100% — SLOT→Phase 15 (6); EXAM→Phase 16 (6); PILOT→Phase 17 (5); 0 orphans) |
-| Requisitos v1.4 completos | 14/17 (SLOT 6/6 Phase 15 + EXAM 6/6 Phase 16; PILOT 2/5 — PILOT-04 reset Plan 17-01 + PILOT-01 reagrupación Plan 17-02) |
+| Requisitos v1.4 completos | 17/17 (SLOT 6/6 Phase 15 + EXAM 6/6 Phase 16 + PILOT 5/5 Phase 17 — 04 reset/01 reagrupación/02-03 variantes+locativos/05 smoke+counts) |
 | schemaVersion actual | 7 (Plan 17-01: migrate6to7 + hydrateV7 + backup v7, reset selectivo de Preposiciones D-17-08) |
-| Ejercicios totales en la app | 373 validated (9 categorías gramaticales) + bloque Canciones standalone |
+| Ejercicios totales en la app | 370 validated (9 categorías; Preposiciones = 49 slots tras conversión v1.4 PILOT) + bloque Canciones standalone |
 | Categorías gramaticales | 9 (en v1.4: Preposiciones se convierte a slots-piloto; las otras 8 = slots de 1 variante) |
 | Granularidad | coarse |
 | Mode | mixed — Phase 15/16 software (motor + migración), Phase 17 contenido editorial (quórum R1-R7) |
@@ -87,6 +87,7 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - **Muestreo por slot + selección de variante en el dominio (EXAM-01/04/06)** — ✓ **Implementado Plan 16-01**: `pickVariantIndex(slot, rng)` helper puro uniforme (D-16-01, default 0 para 0/1 variante D-16-10, guard `Array.isArray`); `buildSession`/`buildFullTest` devuelven `{exerciseIds, variantIndices, actualSize}` con arrays alineados 1:1 (opción **parallel-array** elegida sobre array-of-pairs por diff mínimo al plumbing de Plan 02, D-16-08). Mismo `rng` ya threaded (cero segundo RNG, determinismo con seed). **Cero state nuevo, cero contador por variante; peso anclado a slot.id == exercise.id (D-15-09).** Pureza de capa intacta (cero import de `../data/*`/`../screens/*`). 6 tests deterministas nuevos (EXAM-01 sin duplicados de slot, EXAM-04 barrido de seeds → ≥2 índices distintos, D-16-10 legacy → 0, buildFullTest exhaustivo). 327/327 tests verdes (`node --test tests/*.test.js`).
 - **Reagrupación de Preposiciones a slot+variantes (PILOT-01)** — ✓ **Implementado Plan 17-02**: los 52 ejercicios fuente reescritos a **47 slots** (mapa auditado `17-REAGRUPACION-MAP.md`, aprobado por el autor en checkpoint:decision). **5 fusiones** (D-17-03 + D-17-01): SUL 006/013/043→3v, AL 011/015→2v, DI-posesso 010/012→2v, **TRA-futuro 008/049→2v (tra/fra fusionados, opción `tra-fra-fusion` aprobada — misma regla pedagógica tempo futuro, D-17-01)**; el resto = singletons (1v). `payload` eliminado en los 47, superficies movidas **intactas** a `variants[]` (cambio de contenedor → NO re-validación, NFC preservado); `explanation` a nivel de slot (merge D-17-05 base+matices en los 4 fusionados; sube tal cual en singletons); variantes SIN explanation propia. `validation` top-level conservado por slot (passes[] del ejercicio dominante; todas las superficies fuente ya `validated` por opus-4-7/sonnet-4-6 2026-05-26). Esquema de id semántico limpio (D-15-09): `preposiciones-{forma|regla}`. **validateContent verde** (47 slots, shape slot+variantes válido). Fact correction 57→52 en REQUIREMENTS.md (PILOT-01) + ROADMAP.md (3 refs). **Rojo ESPERADO** (sync en 17-04): 3 hardcodes `expected: 52` en `tests/exercise-types.test.js:1266`, `tests/fixtures/slot-variants-integration.test.js:169`, `scripts/run-validation-271.mjs:75`. T-17-04/05/06 satisfechos (plain-text, cobertura 1:1 de los 52 ids, validador corrido). Commits: `c1e54cc` (mapa Task 1) + `e75073a` (reescritura Task 2).
 - **Cableado del motor de slots end-to-end en la pantalla (EXAM-02/03/05/06)** — ✓ **Implementado Plan 16-02**: getter `sessionCurrentExercise` reescrito como **slot-aware** — resuelve `content.slotById[id].variants[variantIndex]` y lo re-envuelve en `{id, type, categoryIds, payload:{...surface, explanation: slot.explanation}}` (**synthetic-payload re-wrap**, mismo truco que `songCurrentPhrase`/`songStart` de Phase 13) → `initSubStateForExercise` y todos los bindings `.payload.*` sobreviven sin tocar. Campo `sessionVariantIndices` paralelo a `sessionExerciseIds` (parallel-array, D-16-08); los **3 launch sites** (`startSession`/`_launchExamen`/`resetSession`) alimentan el pool con `Object.values(content.slotById)` y guardan `result.variantIndices`; `sessionAdvance`/`resumeInFlightTest` resuelven vía el getter (NO re-sortean). La variante viaja en `inFlightTest` (`variantIndices:[...]`) → **resume = misma variante**; blobs legacy sin `variantIndices` → fallback `.map(() => 0)` (D-16-10), **sin bump de schemaVersion** (sigue v6, D-16-09). `sessionResults` registra `variantIndex`; el review de errores del summary muestra la **variante exacta fallada** vía helper `summaryVariantSurface(result)` (index.html, copy/estructura idénticos, EXAM-02). **Cascada D-54 y racha intactas** — `applyResultToSession` reusado, **2 call-sites de `applyImmediateFailure`** (Pitfall #2, grep-verificado). 327/327 tests verdes. **Checkpoint booteo (human-verify, gate=blocking) APPROVED** bajo auto/chain-mode (mitad automatizada del gate verde). **UAT manual de browser** (boot local, home count, Repaso 20 hecha, fallo→cascada D-54, Test resume misma variante, review de errores, localStorage v6 sin reset) trasladado al usuario como verificación de confianza — NO ejecutado headlessly. **Phase 16 COMPLETE: EXAM 6/6.**
+- **Smoke paramétrico shape-agnostic + sync de los 3 counts (PILOT-05)** — ✓ **Implementado Plan 17-04**: el smoke de `tests/exercise-types.test.js` se **bifurca por shape** vía `Array.isArray(ex.variants)` (NO hardcodea slug → listo para CONV-01): dos accessors `getExplanation`/`getPrompts` enrutan coverage/smart-quotes/markdown/R2 a `ex.explanation` top-level y R1 a **cada** `ex.variants[].prompt` (flatMap) para slots; las 8 categorías legacy siguen por `ex.payload.*` intactas. Los **3 hardcodes** `expected: 52` (exercise-types:1266, slot-variants-integration:169, run-validation-271:75) sincronizados a **49** = `data.exercises.length` real (47 reagrupados + 2 locativos); `TOTAL_EXPECTED` 373→**370** (373−52+49). Comentario de run-validation-271 actualizado narrando la conversión. **Desviación Rule 3:** persistido el bloque `validation` (Opus+Sonnet correcta, 2026-05-29) de los 2 slots locativos `preposiciones-in-locativo`/`preposiciones-al-mare` — su quórum cross-vendor ya pasó en 17-03 (audit en 17-03-SUMMARY) pero no se había persistido como `passes[]`; sin él `VAL_07_STRICT` y `run-validation-271` (ambos acceptance del plan) fallaban. Verificación: `node --test tests/*.test.js`, `VAL_07_STRICT=1 node --test tests/*.test.js`, `node scripts/run-validation-271.mjs` (Milestone gate PASS), `validate-content-fixture preposiciones`, `assert-avere-prefix-unchanged` → **todos exit 0**. Commits: `d4ea624` (Task 1) + `38718fd` (Task 2). **Phase 17 COMPLETE: PILOT 5/5. v1.4 listo para `/gsd:complete-milestone`.**
 
 ### Pending Todos
 

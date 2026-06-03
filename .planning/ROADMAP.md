@@ -66,7 +66,7 @@ Numeración CONTINÚA desde Phase 14 → Phases 15-17 (NO reset — mismo criter
 
 - [x] **Phase 15: Modelo de datos slot+variantes + schema + migración** — Slots (1 regla = 1 slot, 1..N variantes intercambiables), explicación a nivel de slot, validator extendido, migración `schemaVersion 5→6`, backward-compat de las 8 categorías no-piloto como slots de 1 variante. (completed 2026-06-03)
 - [x] **Phase 16: Motor de examen por slots** — El sampler/examen elige 1 variante aleatoria por slot; "hecha" = pasar los N slots; cascada D-54 reusando `applyResultToSession` (0 nuevos call-sites); racha/dominada y Repaso 20 / Test / Examen integran el muestreo por slot. Engine exercisable end-to-end. (completed 2026-06-03)
-- [ ] **Phase 17: Piloto Preposiciones (contenido)** — Reagrupar los 52 ejercicios en slots por regla, autorar variantes nuevas (quórum R1-R7), añadir el slot `in spiaggia / in montagna`, reset de progreso de Preposiciones, pasar validator + smoke paramétrico.
+- [x] **Phase 17: Piloto Preposiciones (contenido)** — Reagrupar los 52 ejercicios en slots por regla, autorar variantes nuevas (quórum R1-R7), añadir el slot `in spiaggia / in montagna`, reset de progreso de Preposiciones, pasar validator + smoke paramétrico. (completed 2026-06-03)
 
 ## Phase Details
 
@@ -113,8 +113,8 @@ Numeración CONTINÚA desde Phase 14 → Phases 15-17 (NO reset — mismo criter
 **Plans**: 4 plans
   - [x] 17-01-PLAN.md — Migración schemaVersion 6→7 (migrate6to7/hydrateV7) + backup v7: reset de progreso de SOLO Preposiciones (PILOT-04)
   - [x] 17-02-PLAN.md — Reagrupar los 52 ejercicios a 47 slots por regla/forma (fusiones SUL/AL/DI-posesso/tra-fra) + explanation a nivel de slot + fact correction 57→52 (PILOT-01) ✓
-  - [ ] 17-03-PLAN.md — Autorar variantes nuevas con quórum cross-vendor R1-R7 + slots locativos in-spiaggia/al-mare (PILOT-02/03)
-  - [ ] 17-04-PLAN.md — Smoke paramétrico bifurcado por shape + sync de los 3 hardcodes de count contra el conteo real de slots (PILOT-05)
+  - [x] 17-03-PLAN.md — Autorar variantes nuevas con quórum cross-vendor R1-R7 + slots locativos in-spiaggia/al-mare (PILOT-02/03)
+  - [x] 17-04-PLAN.md — Smoke paramétrico bifurcado por shape + sync de los 3 hardcodes de count contra el conteo real de slots (PILOT-05)
 **UI hint**: no
 
 ## Progress
@@ -127,7 +127,7 @@ Numeración CONTINÚA desde Phase 14 → Phases 15-17 (NO reset — mismo criter
 | 13-14 | v1.3 | 3/3 | Complete | 2026-06-02 |
 | 15. Modelo de datos slot+variantes | v1.4 | 3/3 | Complete    | 2026-06-03 |
 | 16. Motor de examen por slots | v1.4 | 2/2 | Complete    | 2026-06-03 |
-| 17. Piloto Preposiciones (contenido) | v1.4 | 1/4 | In Progress|  |
+| 17. Piloto Preposiciones (contenido) | v1.4 | 4/4 | Complete   | 2026-06-03 |
 
 ## Backlog
 
