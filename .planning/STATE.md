@@ -2,8 +2,8 @@
 gsd_state_version: 1.0
 milestone: v1.5
 milestone_name: "Conversión a slots: Bloque Artículos"
-status: verifying
-last_updated: "2026-06-04T00:00:00.000Z"
+status: ready_to_plan
+last_updated: 2026-06-03T23:52:47.447Z
 last_activity: 2026-06-04 -- Phase 18 plan 01 completado (migración 7→8)
 progress:
   total_phases: 3
@@ -11,6 +11,7 @@ progress:
   total_plans: 1
   completed_plans: 1
   percent: 33
+stopped_at: Phase 18 complete (1/1) — ready to discuss Phase 19
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -21,14 +22,14 @@ See: `.planning/PROJECT.md` (updated 2026-06-04 — Milestone v1.5 iniciado)
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 18 — migraci-n-7-8-reset-selectivo-articoli-partitivos
+**Current Focus:** Phase 19 — articoli a slots (contenido)
 
 ## Current Position
 
-Phase: 18 (migraci-n-7-8-reset-selectivo-articoli-partitivos) — COMPLETE
-Plan: 1 of 1 — DONE
-Status: Phase complete — ready for verification
-Last activity: 2026-06-04 -- migrate7to8 + hydrateV8 + backup v8 (358/358 tests verdes)
+Phase: 19
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-06-03
 
 ## Quick Tasks Completed
 

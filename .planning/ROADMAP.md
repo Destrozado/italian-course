@@ -127,7 +127,7 @@ Numeración CONTINÚA desde Phase 17 → Phases 18-20 (NO reset — mismo criter
 | 11-12 | v1.2 | 10/10 | Complete | 2026-05-28 |
 | 13-14 | v1.3 | 3/3 | Complete | 2026-06-02 |
 | 15-17 | v1.4 | 9/9 | Complete | 2026-06-03 |
-| 18. Migración 7→8 (reset articoli+partitivos) | v1.5 | 1/1 | Complete   | 2026-06-03 |
+| 18. Migración 7→8 (reset articoli+partitivos) | v1.5 | 1/1 | Complete    | 2026-06-03 |
 | 19. Articoli a slots (contenido) | v1.5 | 0/? | Not started | - |
 | 20. Partitivi a slots (contenido) | v1.5 | 0/? | Not started | - |
 
