@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.4
 milestone_name: Variantes de ejercicio (slots por regla)
-status: executing
-last_updated: "2026-06-02T22:47:14.268Z"
-last_activity: 2026-06-02
+status: verifying
+last_updated: "2026-06-03T06:07:33.075Z"
+last_activity: 2026-06-03
 progress:
   total_phases: 5
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 3
-  completed_plans: 2
-  percent: 0
+  completed_plans: 3
+  percent: 20
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -27,10 +27,10 @@ See: `.planning/PROJECT.md` (updated 2026-06-02)
 
 ## Current Position
 
-Phase: 15 (modelo-de-datos-slot-variantes-schema-migraci-n) — EXECUTING
-Plan: 3 of 3
-Status: Plan 15-02 completo (migrate5to6 + hydrateV6 + backup round-trip v6, 341/341 tests verdes); siguiente Plan 15-03
-Last activity: 2026-06-03 -- Plan 15-02 ejecutado (SLOT-05)
+Phase: 15 (modelo-de-datos-slot-variantes-schema-migraci-n) — READY FOR VERIFICATION
+Plan: 3 of 3 (todos completos)
+Status: Plan 15-03 completo (fixture slot+variantes + integración e2e + back-compat SLOT-06; checkpoint humano APPROVED). 367/367 tests verdes. Fase 15 cerrada — los 6 SLOT-01..06 completos.
+Last activity: 2026-06-03 -- Plan 15-03 ejecutado (SLOT-01/03/06 integración), Phase 15 ready for verification
 
 ## Quick Tasks Completed
 
@@ -83,6 +83,7 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - **Reset de progreso de Preposiciones al migrar (PILOT-04)** — coherente con el Core Value y mucho más simple que mapear estado ejercicio→slot; el resto de categorías conserva su progreso.
 - **Migración coherente con el patrón existente (SLOT-05)** — `migrate5to6` + `hydrateV6` idempotente + deep-clone defensivo (mismo patrón que `migrate4to5`); `backup.js` extendido a v6 para round-trip. ✓ **Implementado Plan 15-02** (D-15-09: bump NOMINAL a nivel del state root — el modelo slot+variantes vive en `content/`, no en el state; mismo set de sub-dicts que v5; sin reset de progreso, Preposiciones reset es Phase 17; 341/341 tests verdes, +9 nuevos v6).
 - **Canon editorial heredado** — explanations de slot en español acentuado correcto + italianismos preservados, plain text sin markdown, apóstrofes ASCII U+0027 (D-129/D-135/D-137).
+- **Verificación e2e + fixture canónico como contrato (SLOT-01/03/06)** — ✓ **Implementado Plan 15-03**: el fixture `content/exercises/_fixtures/slot-demo.json` (1 slot multi-variante + 1 slot de 1, fuera del registry) recorre el pipeline completo (validateContent → normalizeExerciseToSlot → slotById) sin mutar el legacy; las 9 categorías reales validan intactas con el validator extendido (SLOT-06); avere snapshot verde. 367/367 tests. **Checkpoint humano (ASVS L1, block-on-high) APPROVED**: la app arranca con las 9 categorías como hoy, state persiste en schemaVersion 6 sin reset, backup round-trip v6 funciona, banners de validación como texto plano (T-15-REGR/XSS/DATALOSS mitigados). El fixture queda como contrato vivo del shape de autoría para Phase 16/17.
 
 ### Pending Todos
 

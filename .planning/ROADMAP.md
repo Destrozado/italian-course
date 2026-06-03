@@ -64,7 +64,7 @@
 
 Numeración CONTINÚA desde Phase 14 → Phases 15-17 (NO reset — mismo criterio que v1.1/v1.2/v1.3).
 
-- [ ] **Phase 15: Modelo de datos slot+variantes + schema + migración** — Slots (1 regla = 1 slot, 1..N variantes intercambiables), explicación a nivel de slot, validator extendido, migración `schemaVersion 5→6`, backward-compat de las 8 categorías no-piloto como slots de 1 variante.
+- [x] **Phase 15: Modelo de datos slot+variantes + schema + migración** — Slots (1 regla = 1 slot, 1..N variantes intercambiables), explicación a nivel de slot, validator extendido, migración `schemaVersion 5→6`, backward-compat de las 8 categorías no-piloto como slots de 1 variante. (completed 2026-06-03)
 - [ ] **Phase 16: Motor de examen por slots** — El sampler/examen elige 1 variante aleatoria por slot; "hecha" = pasar los N slots; cascada D-54 reusando `applyResultToSession` (0 nuevos call-sites); racha/dominada y Repaso 20 / Test / Examen integran el muestreo por slot. Engine exercisable end-to-end.
 - [ ] **Phase 17: Piloto Preposiciones (contenido)** — Reagrupar los 57 ejercicios en slots por regla, autorar variantes nuevas (quórum R1-R7), añadir el slot `in spiaggia / in montagna`, reset de progreso de Preposiciones, pasar validator + smoke paramétrico.
 
@@ -83,7 +83,7 @@ Numeración CONTINÚA desde Phase 14 → Phases 15-17 (NO reset — mismo criter
 **Plans**: 3 plans
   - [x] 15-01-PLAN.md — Validator slot+variantes (payload XOR variants[]) + loader slotById (SLOT-01/02/03/04/06)
   - [x] 15-02-PLAN.md — Migración schemaVersion 5→6 (migrate5to6/hydrateV6) + backup.js round-trip v6 (SLOT-05)
-  - [ ] 15-03-PLAN.md — Integración end-to-end + back-compat de las 9 categorías + checkpoint booteo (SLOT-01/03/06)
+  - [x] 15-03-PLAN.md — Integración end-to-end + back-compat de las 9 categorías + checkpoint booteo (SLOT-01/03/06)
 
 ### Phase 16: Motor de examen por slots
 **Goal**: El motor de re-verificación recorre slots en vez de ejercicios sueltos — elige 1 variante aleatoria por slot, redefine "categoría hecha" como pasar los N slots, y mantiene la cascada D-54, la racha de 21 días y los 3 modos de sesión intactos. Engine exercisable end-to-end con slots de 1 variante antes de la rework de contenido.
@@ -119,7 +119,7 @@ Numeración CONTINÚA desde Phase 14 → Phases 15-17 (NO reset — mismo criter
 | 9-10 | v1.1 | 8/8 | Complete | 2026-05-27 |
 | 11-12 | v1.2 | 10/10 | Complete | 2026-05-28 |
 | 13-14 | v1.3 | 3/3 | Complete | 2026-06-02 |
-| 15. Modelo de datos slot+variantes | v1.4 | 2/3 | In Progress|  |
+| 15. Modelo de datos slot+variantes | v1.4 | 3/3 | Complete   | 2026-06-03 |
 | 16. Motor de examen por slots | v1.4 | 0/? | Not started | - |
 | 17. Piloto Preposiciones (contenido) | v1.4 | 0/? | Not started | - |
 
