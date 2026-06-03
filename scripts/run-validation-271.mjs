@@ -308,7 +308,7 @@ const val06Pass =
   totalActual === TOTAL_EXPECTED &&
   !anyLoadError;
 console.log(
-  `  VAL-06 (271/271 validated): ${
+  `  VAL-06 (${TOTAL_EXPECTED}/${TOTAL_EXPECTED} validated): ${
     val06Pass
       ? ok(`PASS (${totalValidated}/${TOTAL_EXPECTED})`)
       : fail(`FAIL (${totalValidated}/${TOTAL_EXPECTED} — pending=${totalPending}, missing=${totalMissing}, disputed=${totalDisputed})`)

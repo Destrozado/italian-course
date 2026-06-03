@@ -16,14 +16,14 @@
 //
 // Patrón discriminado del retorno (espejo de `validateContent` en
 // `schema-validator.js` que retorna `{ok, errors}`):
-//   - `{ok: true, state, summary}` cuando todo va bien (state ya migrado a v4).
+//   - `{ok: true, state, summary}` cuando todo va bien (state ya migrado a v7).
 //   - `{ok: false, reason}` con un mensaje único en español si algo falla.
 //
 // El backup tiene UNA sola razón de fallo a la vez (no acumula como
 // schema-validator) — la primera guard que dispara aborta el parse y
 // devuelve el reason específico.
 
-import { migrate1to2, migrate2to3, migrate3to4, migrate4to5, hydrateV5, migrate5to6, hydrateV6, migrate6to7, hydrateV7 } from './storage.js';
+import { migrate1to2, migrate2to3, migrate3to4, migrate4to5, migrate5to6, migrate6to7, hydrateV7 } from './storage.js';
 
 /** Espejo de la constante en storage.js — mantener inline para que el
  *  módulo sea testeable independiente sin importar storage.CURRENT_SCHEMA_VERSION.
@@ -49,8 +49,8 @@ const CURRENT_SCHEMA_VERSION = 7;
  *      (Pitfall #6 RESEARCH — defensa contra wrapper editado a mano).
  *   4. Compatibilidad: `state.schemaVersion <= CURRENT_SCHEMA_VERSION`.
  *      Rechaza versiones futuras (D-74).
- *   5. Cadena de migración: migrate1to2 → migrate2to3 → migrate3to4 →
- *      hydrateV4. Sale siempre como v4 normalizada (hydrateV4 neutraliza
+ *   5. Cadena de migración: migrate1to2 → … → migrate6to7 → hydrateV7.
+ *      Sale siempre como v7 normalizada (hydrateV7 neutraliza
  *      prototype pollution per T-04-02).
  *   6. Summary derivado del state migrado: número de categorías con
  *      progreso, número de ejercicios con stats, fecha de export para

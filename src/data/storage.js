@@ -73,10 +73,10 @@ export function blankState() {
  * backup defensivo bajo `italianCourse.v1.corrupt.<timestamp>` y arranca
  * limpio.
  *
- * El estado devuelto SIEMPRE está en el shape v4 (las migraciones 1→2→3→4
+ * El estado devuelto SIEMPRE está en el shape v7 (las migraciones 1→…→7
  * corren transparente vía el dispatcher).
  *
- * @returns {{schemaVersion: 4, exerciseStats: object, categoryProgress: object, dailyLog: object, lastBackupAt: ?string, firstUsedAt: ?string, inFlightTest?: object}}
+ * @returns {{schemaVersion: 7, exerciseStats: object, categoryProgress: object, dailyLog: object, songProgress: object, lastBackupAt: ?string, firstUsedAt: ?string, inFlightTest?: object}}
  */
 export function loadState() {
   let raw;
@@ -133,7 +133,7 @@ export function saveState(state) {
  * directo).
  *
  * @param {*} parsed - Resultado de JSON.parse del raw blob persistido.
- * @returns {object} Estado normalizado en el shape v4.
+ * @returns {object} Estado normalizado en el shape v7.
  */
 function migrate(parsed) {
   if (!parsed || typeof parsed !== 'object') return blankState();
