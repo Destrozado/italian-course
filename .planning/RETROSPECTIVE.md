@@ -39,6 +39,44 @@
 
 ---
 
+## Milestone: v1.4 — Variantes de ejercicio (slots por regla)
+
+**Shipped:** 2026-06-03
+**Phases:** 3 (15-17) | **Plans:** 9 | **Sessions:** ~2 días (2026-06-02 → 2026-06-03)
+
+### What Was Built
+- Modelo de datos slot+variantes: `validateContent` acepta `payload` XOR `variants[]`; `slotById` derivado vía `normalizeExerciseToSlot` (legacy→slot-de-1); explicación a nivel de slot; migración `5→6` + backup v6.
+- Motor de examen por slots: `pickVariantIndex` + `variantIndices` paralelo fija 1 variante aleatoria por slot; "hecha" = pasar 1 variante de cada slot; getter slot-aware con `.payload` sintético; cascada D-54 con 2 call-sites; Repaso 20 / Test / Examen integran el muestreo.
+- Piloto Preposiciones: 52 ejercicios → 49 slots por regla (4 fusiones + 2 slots locativos), 41 variantes nuevas por quórum cross-vendor; `migrate6to7` resetea SOLO Preposiciones; smoke paramétrico bifurcado por shape.
+
+### What Worked
+- **Engine-first, content-last:** Phase 16 dejó el motor exercisable end-to-end con las 9 categorías legacy como slots de 1 variante ANTES de tocar contenido real (Phase 17). El piloto cayó sobre maquinaria ya verificada — mismo patrón "slice vertical temprano" que pagó en v1.3.
+- **Synthetic-payload re-wrap:** re-envolver `slotById[id].variants[i]` en un `.payload` sintético (truco heredado de `songCurrentPhrase`) dejó `initSubStateForExercise` y todos los bindings `.payload.*` intactos — la rework de motor más invasiva del proyecto se hizo sin reescribir el render.
+- **Cross-vendor cazó 6 bugs otra vez:** el quórum DeepSeek + Opus + Sonnet sobre las 41 variantes nuevas atrapó 6 dobles-validez R7 que un human-verify habría aprobado; 2 se rechazaron de plano (slots quedaron de-1). Tercer milestone consecutivo donde la verificación multi-capa atrapa lo que una sola capa deja pasar.
+- **`normalizeExerciseToSlot` como única costura back-compat:** una función pura legacy→slot-de-1 hizo que las 8 categorías no-piloto sobrevivieran sin re-autoría ni casos especiales visibles (SLOT-06).
+
+### What Was Inefficient
+- **Fact drift en el conteo de Preposiciones:** el roadmap arrastró "57 ejercicios" hasta Phase 17, donde se corrigió a 52 reales (fact correction 57→52) y luego se recalculó a 49 slots / TOTAL_EXPECTED 370 aritméticamente. Tres hardcodes de count tuvieron que sincronizarse a mano — señal de que los conteos derivados deberían leerse de `data.exercises.length`, no hardcodearse.
+- **Gemini se rate-limiteó** (free tier) durante el quórum de Phase 17, dejando el gate efectivo en DeepSeek + Opus + Sonnet. Funcionó (es justo el combo que la memoria del proyecto registra como cazador de bugs) pero el 4º vendor quedó como bonus inconsistente.
+- **6 items de UAT manual de Phase 16** quedaron pendientes de click-through en navegador al cierre de fase (cubiertos por 342/342 tests automáticos + verificación 5/5), repitiendo el patrón de v1.3 de UAT humano que se difiere.
+
+### Patterns Established
+- **Rework de motor + piloto de contenido:** un cambio estructural del modelo de datos (slot+variantes) se introduce sin reconstruir el engine — `normalizeExerciseToSlot` absorbe el legacy, el getter `.payload` sintético preserva el render, y una sola categoría (Preposiciones) valida el dolor real antes de convertir las demás (CONV-01 incremental).
+- **Migración con poda quirúrgica:** `migrate6to7` clona el patrón deep-clone de `migrate5to6` + 3 desviaciones (delete clave, filtro por prefijo, invalidación condicional de inFlightTest) para resetear SOLO una categoría; `hydrateVN` queda como espejo sin poda.
+- **Smoke bifurcado por shape:** `Array.isArray(ex.variants)` + accessors shape-agnostic (`getExplanation`/`getPrompts`) dejan un solo test cubrir slot y legacy — reutilizable sin reescribir cuando CONV-01 convierta las otras 8 categorías.
+
+### Key Lessons
+1. Los conteos de contenido deben **derivarse** (`data.exercises.length`), no hardcodearse en 3 sitios — el fact drift 57→52→49 costó re-sincronización manual y un recálculo aritmético de TOTAL_EXPECTED.
+2. El truco de re-wrap en `.payload` sintético (de `songCurrentPhrase` en v1.3) generalizó: cuando un modo nuevo cambia la forma del dato, re-envolverlo en la forma que el render ya espera es más barato que tocar el render.
+3. Validar el modelo nuevo con UNA categoría real (piloto) antes de convertir las 9 evita re-validar 372 ejercicios de golpe y deja que el dolor real (fusiones, dobles-validez, huecos como `in spiaggia`) emerja en escala pequeña.
+
+### Cost Observations
+- Model mix: predominantemente opus (perfil `quality`); quórum de validación vía workflow paralelo (Opus + Sonnet, 1-por-1 aislado VAL-03) + DeepSeek cross-vendor.
+- Sessions: ~2 días (2026-06-02 → 2026-06-03).
+- Notable: la rework de motor más invasiva del proyecto (modelo de datos nuevo) costó +10,310/−854 LOC pero 0 bugs de cascada — el "single call-site" (`applyResultToSession`) volvió a pagar.
+
+---
+
 ## Cross-Milestone Trends
 
 ### Process Evolution
@@ -49,6 +87,7 @@
 | v1.1 | — | 2 | Infra de validación editorial (quórum multi-AI, skills, reporter) |
 | v1.2 | — | 2 | Patrón "categoría nueva" consolidado (temario→ejercicios→lockstep→quórum); cross-vendor caza bugs que human-verify deja pasar |
 | v1.3 | ~1 día | 2 | Patrón "bloque nuevo sobre engine" — un modo de ejercicio nuevo reutiliza el motor sin reconstruirlo |
+| v1.4 | ~2 días | 3 | Patrón "rework de motor + piloto de contenido" — modelo de datos nuevo (slots) sin reconstruir el engine; 1 categoría piloto valida el dolor antes de convertir las 9 |
 
 ### Cumulative Quality
 
@@ -58,6 +97,7 @@
 | v1.1 | 261/261 | 272/272 validados por quórum | skills validación, reporter |
 | v1.2 | 268/268 | 372/372 validados | `validate-ai-pass.mjs` multi-provider |
 | v1.3 | 306/306 | 19/19 requirements | bloque Canciones, `validateSongs`, `migrate4to5` |
+| v1.4 | 342/342 | 17/17 requirements · Preposiciones 49 slots por quórum | modelo slot+variantes, `pickVariantIndex`, `normalizeExerciseToSlot`, `migrate5to6`/`6to7`, smoke bifurcado por shape |
 
 ### Top Lessons (Verified Across Milestones)
 1. **Reutilizar un único call-site central paga** — `applyResultToSession` (v1.0) absorbió tanto los tipos nuevos de v1.0 como el modo canción de v1.3 sin duplicar la cascada.

@@ -2,35 +2,33 @@
 gsd_state_version: 1.0
 milestone: v1.4
 milestone_name: Variantes de ejercicio (slots por regla)
-status: executing
-last_updated: "2026-06-03T20:03:09.928Z"
-last_activity: 2026-06-03 -- Plan 17-04 completado (smoke bifurcado por shape + 3 counts sync a 49 + TOTAL 370). Phase 17 PILOT 5/5. v1.4 listo para cerrar.
+status: Awaiting next milestone
+last_updated: "2026-06-03T21:01:25.993Z"
+last_activity: 2026-06-03 — Milestone v1.4 completed and archived
 progress:
-  total_phases: 5
+  total_phases: 3
   completed_phases: 3
   total_plans: 9
   completed_plans: 9
-  percent: 60
+  percent: 100
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
 
 ## Project Reference
 
-See: `.planning/PROJECT.md` (updated 2026-06-02)
+See: `.planning/PROJECT.md` (updated 2026-06-03 after v1.4 milestone)
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 17 — Piloto Preposiciones (contenido)
-
-**Milestone v1.4 Goal:** Matar la memorización por palabras introduciendo *slots* (1 por regla) con variantes intercambiables; un examen recorre N slots eligiendo 1 variante al azar en cada uno, manteniendo intacta la re-verificación D-54. MOTOR + 1 PILOTO: construir el modelo de datos y el motor de examen por slots, luego convertir SOLO Preposiciones como piloto real. Las otras 8 categorías siguen funcionando como slots de 1 variante (backward-compat) — su conversión es out-of-scope (CONV-01 futuro). Brownfield: REUTILIZA la cascada D-54, el sampler, el schema-validator, el patrón Test-completo y `applyResultToSession` — NO reconstruye el motor.
+**Current Focus:** Entre milestones — v1.4 shipped 2026-06-03. Próximo: `/gsd-new-milestone` (candidato natural: CONV-01 — convertir el resto de categorías a slots, una por milestone, siguiendo el piloto Preposiciones).
 
 ## Current Position
 
-Phase: 17 (Piloto Preposiciones (contenido)) — EXECUTING (Plan 17-03 PAUSADO)
-Plan: 4 of 4
-Status: Ready to execute
-Last activity: 2026-06-03
+Phase: Milestone v1.4 complete
+Plan: —
+Status: Awaiting next milestone
+Last activity: 2026-06-03 — Milestone v1.4 completed and archived
 
 ## Quick Tasks Completed
 
@@ -121,6 +119,16 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 | Bridges | PART-X1 — bridges Partitivos ↔ género-número / sustantivos | Backlog | v1.2 init |
 | UX | Modo móvil responsive; refactor confirmLabel unificado 6 call-sites; Examen multi-cat | Backlog | v1.0/v1.1 |
 
+### Acknowledged at v1.4 close (2026-06-03)
+
+Open-artifact audit (`audit-open`) flagged 3 items; reconocidos como deferred — ninguno es un deliverable de v1.4:
+
+| Categoría | Item | Status |
+|-----------|------|--------|
+| quick_task | `260525-pwq-fix-shuffle-de-options-en-multiple-choic` | ✅ Shipped (tiene SUMMARY.md, v1.0 era); flag "missing" solo por frontmatter sin campo `status` |
+| quick_task | `260525-vvj-boton-reiniciar-examen-phase-8-y` | ✅ Shipped (SUMMARY.md + commit `7eaf5a2`); flag "missing" por mismo motivo de frontmatter |
+| todo | `2026-06-02-articulos-indeterminados-partitivos` | 📋 Idea de contenido futuro (categoría de artículos indeterminados), sin relación con el scope de motor de v1.4 |
+
 ## Session Continuity
 
 ### Last Session
@@ -143,5 +151,4 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Operator Next Steps
 
-- **UAT manual recomendado** (Phase 16): arrancar `npx serve`, abrir `http://localhost:PORT`, y recorrer los 7 pasos del checkpoint (home count, Repaso 20 hecha, fallo→cascada D-54, Test resume misma variante, review de errores, localStorage `schemaVersion:6` sin reset, sin banner de validación). Documentado en `16-02-SUMMARY.md` §"Manual UAT carried forward".
-- `/gsd:plan-phase 17` para descomponer la última fase del milestone v1.4 (Piloto Preposiciones).
+- Start the next milestone with /gsd-new-milestone

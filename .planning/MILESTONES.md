@@ -1,5 +1,25 @@
 # Milestones
 
+## v1.4 — Variantes de ejercicio (slots por regla) (Shipped: 2026-06-03)
+
+**Phases completed:** 3 phases (15-17), 9 plans, 17/17 requirements (6 SLOT + 6 EXAM + 5 PILOT)
+**Stats:** 59 files changed, +10,310/−854 LOC, 342/342 tests verdes (+36 desde v1.3). Git range `dfa2695`→`2fde105`. Timeline: 2 días (2026-06-02 → 2026-06-03).
+**Brownfield:** reutiliza la cascada D-54, el sampler ponderado, el schema-validator y el patrón Test-completo del engine v1.0 — NO reconstruye el motor; `schemaVersion 5→6→7`.
+
+**Key accomplishments:**
+
+- **Modelo de datos slot+variantes (SLOT-01..06):** `validateContent` acepta `payload` XOR `variants[]` reusando validadores de superficie por tipo; `loadContent` expone un `slotById` uniforme derivado vía la función pura `normalizeExerciseToSlot` (legacy→slot-de-1) sin tocar `exerciseById`. Explicación pedagógica a nivel de slot (compartida por sus variantes). Migración `5→6` (`migrate5to6`/`hydrateV6`) idempotente + deep-clone defensivo + `backup.js` round-trip v6.
+- **Back-compat verificada (SLOT-06):** las 9 categorías reales siguen validando intactas con el validator extendido y se interpretan como slots de 1 variante; el autor confirmó en navegador que la app arranca con las 9 categorías como hoy, el state persiste en v6 sin reset y el backup round-trip funciona.
+- **Motor de examen por slots (EXAM-01..06):** `pickVariantIndex` uniforme + `variantIndices` paralelo en `buildSession`/`buildFullTest` fija 1 variante aleatoria por slot; "categoría hecha" = pasar 1 variante de cada slot; render slot-aware vía getter con `.payload` sintético threaded por los 3 launch sites / inFlightTest / sessionResults / summary-errors. Cascada D-54 intacta con exactamente 2 call-sites de `applyImmediateFailure` (Pitfall #2 verificado por grep). Repaso 20 / Test / Examen integran el muestreo por slot.
+- **Reset selectivo de Preposiciones (PILOT-04):** `migrate6to7`/`hydrateV7` resetean SOLO el progreso de Preposiciones (categoryProgress + exerciseStats por prefijo + inFlightTest) vía bump nominal de `schemaVersion 6→7`; las otras 8 categorías quedan byte-intactas; `backup.js` extendido a round-trip v7.
+- **Piloto Preposiciones (PILOT-01..03, 05):** los 52 ejercicios validados reagrupados en 47 slots por regla/forma (4 slots fusionados con explanation mergeada: SUL 3v, AL 2v, DI-posesso 2v, TRA-futuro 2v) → 49 slots tras autorar 41 variantes nuevas vía quórum cross-vendor (DeepSeek + Opus + Sonnet, **6 bugs reales cazados, 2 variantes rechazadas por doble-validez**) + 2 slots locativos nuevos (`in spiaggia/montagna/campagna` + `al mare`, hueco que no estaba en ninguna categoría). Smoke paramétrico bifurcado por shape (slot/legacy) — reutilizable para CONV-01.
+
+**Known deferred items at close:** 3 (acknowledged — see STATE.md §Deferred Items). 2 son quick tasks heredados de v1.0 (`260525-pwq` shuffle multi-choice, `260525-vvj` botón reiniciar examen — ambos shipped, marcados "missing" por frontmatter sin status reconocible); 1 es un todo de contenido futuro (`articulos-indeterminados-partitivos`) sin relación con el scope de motor de v1.4.
+
+**Note:** Cerrado sin `/gsd:audit-milestone` previo (opcional) — readiness verificada manualmente: 17/17 requirements check, 3/3 fases con SUMMARY.md, 342/342 tests verdes.
+
+---
+
 ## v1.3 — Canciones (bloque de traducción) (Shipped: 2026-06-02)
 
 **Phases completed:** 2 phases (13-14), 3 plans, ~6 tasks

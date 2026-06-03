@@ -8,19 +8,11 @@ Web personal de ejercicios de italiano para preparar el A1 (y luego A2). Es una 
 
 **Que el sistema te obligue a no olvidar.** El motor de repetición tiene que garantizar que cada categoría se re-verifica constantemente, y que un solo fallo en cualquier ejercicio te devuelve a repetir esa categoría entera. Sin ese loop, el resto no importa.
 
-## Current Milestone: v1.4 — Variantes de ejercicio (slots por regla)
+## Status: entre milestones (v1.4 shipped — próximo sin definir)
 
-**Goal:** Matar la memorización por palabras introduciendo "slots" (1 por regla) con variantes intercambiables; un examen recorre N slots eligiendo 1 variante al azar en cada uno, manteniendo intacta la re-verificación D-54.
+**Last shipped:** v1.4 — Variantes de ejercicio (slots por regla) (2026-06-03). Motor slot+variantes: cada slot representa 1 regla con 1..N variantes intercambiables (misma explicación a nivel de slot, distinta superficie); el examen recorre N slots eligiendo 1 variante al azar por slot, "categoría hecha" = pasar 1 variante de cada slot, fallar una dispara la cascada D-54 intacta. Piloto Preposiciones: 52 ejercicios validados reagrupados en 49 slots por regla, 41 variantes nuevas autoradas por quórum cross-vendor (6 bugs cazados), 2 slots locativos nuevos (`in spiaggia` / `al mare`). `schemaVersion 5→6→7`. Brownfield: reutiliza el engine v1.0 sin reconstruirlo. 17/17 requirements, 342/342 tests verdes.
 
-**Target features:**
-- **Modelo de datos slot+variantes** — cada slot tiene 1..N variantes intercambiables (misma regla, MISMA explicación a nivel de slot, distinta superficie: nombres/sustantivos/frase); slots de 1 variante para excepciones concretas sin variante posible (`in spiaggia`).
-- **Motor de examen por slots** — el sampler/examen elige 1 variante aleatoria por slot; "hecha" = pasar los N slots de la categoría sin fallar; fallar uno = cascada D-54 (resetea la categoría a no-hecha); al re-hacer tras fallo tocan variantes distintas → muere la memorización por palabras.
-- **Schema validator + migración** — esquema slot+variantes con validator extendido; migración `schemaVersion 5→6`; las 8 categorías no-piloto siguen funcionando como slots de 1 variante (backward-compat); reset del progreso de Preposiciones al migrar (coherente con Core Value).
-- **Piloto Preposiciones** — reagrupar los 57 ejercicios validados en slots por regla; autorar variantes nuevas (patrón D-85: Claude propone → autor revisa → quórum R1-R7) hasta varias por slot donde tenga sentido; añadir el slot `in spiaggia / in montagna` (preposición locativa fija, hueco detectado: no estaba en ninguna categoría).
-
-**Last shipped:** v1.3 — Canciones (bloque de traducción) (2026-06-02). Bloque nuevo "Canciones" separado del home: traducir canciones italianas frase a frase con word-buttons inverso (italiano→español), frases enganchadas al motor de re-verificación vía cascada D-54, recorrido secuencial tipo Test completo + resumen, estado simple pasada/fallada por canción. Primera canción real: "Equilibrio mentale (Home piano session) — Ultimo" (17 frases). Brownfield: reutiliza el engine v1.0 sin reconstruirlo. 19/19 requirements, 306/306 tests verdes.
-
-Próximo paso: definir requirements (REQUIREMENTS.md) y roadmap (este flujo).
+Próximo paso: `/gsd-new-milestone` para definir el siguiente milestone (CONV-01: convertir el resto de categorías a slots, una por milestone — ver Next Milestone Goals).
 
 ## Requirements
 
@@ -149,21 +141,16 @@ Próximo paso: definir requirements (REQUIREMENTS.md) y roadmap (este flujo).
 
 ### Active
 
-<!-- Current scope: milestone v1.4 — Variantes de ejercicio (slots por regla). REQ-IDs en REQUIREMENTS.md. -->
+<!-- Sin milestone activo. Definir el siguiente con /gsd-new-milestone. Candidato natural: CONV-01 (resto de categorías a slots). -->
 
-**Milestone v1.4 — Variantes de ejercicio (slots por regla):**
-- Modelo de datos slot+variantes (1 slot = 1 regla; 1..N variantes intercambiables; explicación a nivel de slot)
-- Motor de examen por slots (1 variante aleatoria por slot; "hecha" = N slots; cascada D-54 intacta)
-- Schema validator + migración `schemaVersion 5→6` (8 categorías no-piloto = slots de 1 variante; reset progreso Preposiciones)
-- Piloto Preposiciones: reagrupar 57 ejercicios en slots + autorar variantes nuevas (quórum R1-R7) + slot `in spiaggia/in montagna`
+_(Ningún milestone activo — v1.4 shipped 2026-06-03. Próximo: `/gsd-new-milestone`.)_
 
-_(Requirements detallados y trazabilidad en `.planning/REQUIREMENTS.md`.)_
+### Recently Validated (v1.4 — shipped 2026-06-03)
 
-### Recently Validated (v1.3 — shipped 2026-06-02)
-
-- ✓ **Bloque Canciones** (Phase 13): pantalla nueva separada del home con listado + estado pasada/fallada por canción; playthrough secuencial it→es reutilizando word-buttons inverso; cascada D-54 por frase; standalone fuera del sampler; schema + `validateSongs` + `migrate4to5`. Brownfield puro — 0 reconstrucción del motor (16 requirements SONG/PLAY/LINK/DATA).
-- ✓ **"Equilibrio mentale — Ultimo"** (Phase 14): primera canción real autorada (17 frases) con validación ligera autor-oráculo (NO quórum R1-R7). Un bug del motor (`bankWithKeys` en modo canción) cazado y arreglado durante UAT humano (3 requirements CONT).
-- ✓ Patrón "bloque nuevo sobre engine existente" validado: el engine v1.0 (cascada D-54, word-buttons `grade()`, schema-validator, patrón Test-completo) soporta un modo de ejercicio completamente nuevo reutilizando call-sites existentes sin tocar la mecánica de re-verificación.
+- ✓ **Modelo de datos slot+variantes** (Phase 15): `validateContent` acepta `payload` XOR `variants[]` reusando validadores de superficie por tipo; `slotById` uniforme derivado vía la función pura `normalizeExerciseToSlot` (legacy→slot-de-1); explicación a nivel de slot; migración `5→6` idempotente + `backup.js` round-trip v6; las 9 categorías legacy validan intactas como slots de 1 variante (SLOT-01..06).
+- ✓ **Motor de examen por slots** (Phase 16): `pickVariantIndex` uniforme + `variantIndices` paralelo en `buildSession`/`buildFullTest` fija 1 variante aleatoria por slot; "categoría hecha" = pasar 1 variante de cada slot; render slot-aware vía getter con `.payload` sintético; cascada D-54 intacta (2 call-sites verificados por grep); Repaso 20 / Test / Examen integran el muestreo por slot (EXAM-01..06).
+- ✓ **Piloto Preposiciones** (Phase 17): 52 ejercicios → 49 slots por regla (4 fusiones + 2 slots locativos nuevos), 41 variantes nuevas autoradas por quórum cross-vendor (DeepSeek + Opus + Sonnet, 6 bugs reales cazados, 2 rechazadas por doble-validez); `migrate6to7` resetea SOLO Preposiciones; smoke paramétrico bifurcado por shape reutilizable para CONV-01 (PILOT-01..05).
+- ✓ Patrón "rework de motor + piloto de contenido" validado: el modelo slot+variantes se añade sin reconstruir el engine (cascada D-54, sampler, schema-validator, patrón Test-completo intactos), las 8 categorías no-piloto sobreviven como slots de 1 variante, y el quórum cross-vendor sigue cazando bugs que un human-verify aprobaría.
 
 ### Out of Scope
 
@@ -180,6 +167,8 @@ _(Requirements detallados y trazabilidad en `.planning/REQUIREMENTS.md`.)_
 
 ## Current State
 
+**v1.4 shipped 2026-06-03** — Variantes de ejercicio (slots por regla). El contenido pasa de "ejercicios sueltos" a un modelo slot+variantes: cada slot = 1 regla con 1..N variantes intercambiables y explicación compartida; el examen elige 1 variante al azar por slot, "hecha" = pasar los N slots, y re-hacer tras fallo puede tocar variantes distintas → mata la memorización por palabras. Motor reescrito sobre el engine v1.0 sin tocar la cascada D-54 (2 call-sites de `applyImmediateFailure`, verificados por grep). Las 8 categorías no-piloto siguen como slots de 1 variante (backward-compat). Piloto Preposiciones: 52 ejercicios → 49 slots, 41 variantes nuevas por quórum cross-vendor (6 bugs cazados, 2 rechazadas), 2 slots locativos nuevos (`in spiaggia`/`al mare`). `schemaVersion 5→6→7` (`migrate5to6`/`6to7`, reset selectivo de Preposiciones). 3 phases, 9 plans, 17/17 requirements, 342/342 tests verdes.
+
 **v1.3 shipped 2026-06-02** — Bloque "Canciones": modo de ejercicio nuevo (traducción it→es frase a frase con word-buttons inverso) construido enteramente sobre el engine v1.0 sin reconstruirlo. Pantalla separada del home, estado simple pasada/fallada por canción, cascada D-54 por frase enganchada, standalone fuera del sampler. Primera canción real "Equilibrio mentale — Ultimo" (17 frases) autorada con validación ligera autor-oráculo (NO quórum R1-R7). schemaVersion 4→5 (`migrate4to5` + `backup.js` v5). Un bug del motor (`bankWithKeys` vacío en modo canción por LINK-04) cazado en UAT humano y arreglado (`02d6f4a`). 2 phases, 3 plans, 19/19 requirements, 306/306 tests verdes.
 
 **v1.2 shipped 2026-05-28** — 2 categorías nuevas de gramática A1 diseñadas desde cero sin PDF: Articoli (56 ejercicios, 8ª categoría) + Partitivos (44 ejercicios, 9ª categoría). 100 ejercicios nuevos, todos validados por quórum cross-vendor (DeepSeek + Opus 4.7); el cross-vendor capturó 8 bugs en Articoli que el human-verify dejó pasar (contracciones prep+art, leak de triggers fonéticos, acentos graves c'è/più). 1 override autor en `partitivos-036` (D-02: el ejercicio entrena USO del partitivo afirmativo, ∅ válido pero no idiomático). Gate verde: reporter exit 0 (372/372 validated), smoke `VAL_07_STRICT=1` 137/137 PASS. Patrón "categoría nueva" consolidado: temario→ejercicios→integración lockstep→quórum.
@@ -188,14 +177,16 @@ _(Requirements detallados y trazabilidad en `.planning/REQUIREMENTS.md`.)_
 
 **v1.0 shipped 2026-05-25** — Motor de re-verificación + 7 categorías + Modo Examen. 26 plans, 271 ejercicios curados, 62/62 requirements.
 
-**Stack actual:** Alpine.js 3.15.12 + Pico CSS 2.1.1 (CDN+SRI pinned), ES modules vanilla, **schemaVersion 6**. 9 archivos JSON de gramática (372 ejercicios validated) + bloque Canciones standalone (`validateSongs`, 1ª canción real "Equilibrio mentale" 17 frases + mini-canción de prueba). Infraestructura editorial: skills `gsd-validate-exercise` + `gsd-validate-batch`, `scripts/run-validation-271.mjs`, `scripts/validate-ai-pass.mjs` (multi-provider con auto-fallback 429, añadido en v1.2).
+**Stack actual:** Alpine.js 3.15.12 + Pico CSS 2.1.1 (CDN+SRI pinned), ES modules vanilla, **schemaVersion 7**. 9 archivos JSON de gramática (Preposiciones reworkeada a 49 slots+variantes; las otras 8 categorías = slots de 1 variante, 370 slots totales) + bloque Canciones standalone (`validateSongs`, 1ª canción real "Equilibrio mentale" 17 frases + mini-canción de prueba). Engine slot-aware: `pickVariantIndex` + `variantIndices`, getter `.payload` sintético, `normalizeExerciseToSlot`. Infraestructura editorial: skills `gsd-validate-exercise` + `gsd-validate-batch`, `scripts/run-validation-271.mjs`, `scripts/validate-ai-pass.mjs` (multi-provider con auto-fallback 429), smoke paramétrico bifurcado por shape (slot/legacy).
 
-**Last activity:** 2026-06-02 — Milestone v1.3 archivado.
+**Last activity:** 2026-06-03 — Milestone v1.4 archivado.
 
-## Next Milestone Goals (post-v1.3)
+## Next Milestone Goals (post-v1.4)
 
-> Backlog v1.4+ (capturado para que `/gsd-new-milestone` lo reactive):
+> Backlog v1.5+ (capturado para que `/gsd-new-milestone` lo reactive):
 >
+> - **Conversión del resto de categorías a slots** (CONV-01): reestructurar las otras 8 categorías (Avere, Essere, Verbos-movimiento, Sustantivos-irregulares, Género-número, Profesiones, Articoli, Partitivos) a slots-por-regla + variantes, una por milestone incremental siguiendo el patrón validado en el piloto Preposiciones (Phase 17). En v1.4 funcionan como slots de 1 variante (backward-compat). **Candidato natural al próximo milestone.**
+> - **Autoría asistida de variantes** (AUTHOR-01): UI o proceso asistido para autorar/revisar variantes de un slot sin editar JSON a mano; en v1.4 se autoran a mano + quórum (patrón D-85).
 > - **Categorización asistida de frases de canciones** (CATPROC-01/02): un proceso recorre las frases sin categoría de las canciones y propone categorías candidatas; el autor crea una categoría nueva desde una propuesta y re-engancha las frases huérfanas. El modelo de datos v1.3 (LINK-03) ya lo soporta sin bloquearlo.
 > - **Más canciones** (MUSIC-X1): añadir canciones al bloque conforme el autor las quiera trabajar; el patrón de alta queda consolidado en v1.3.
 > - **Categorías nuevas de tiempos verbales** (TENSE-X1..X4): Pretérito imperfetto, Futuro semplice, Condizionale, Congiuntivo — conforme la profesora entrega material
@@ -252,6 +243,8 @@ _(Requirements detallados y trazabilidad en `.planning/REQUIREMENTS.md`.)_
 | 2026-05-25: Cobertura 100% editorial pre-ship — todas las 7 categorías con explanations curadas (EXPL-09..14) | No shipear a medias con solo Preposiciones + Génnum cubiertas; uso real demanda explanation en cualquier categoría que se falle. 11 batches D-85 secuenciales aceptables a cambio de cobertura completa pre-milestone v1.0 | ✓ Validado Phase 7.2 (181 explanations curadas + 7 entries en CATEGORIES_WITH_EXPLANATIONS + tests 199/199 verdes + UAT integral 7 categorías × Repaso 20 mixto post-Task-4) |
 | 2026-05-25: Phase 8 — 6ª call-site `requestConfirm` con copy literal D-44 idéntica + confirmLabel `Descartar y empezar` lockeado | Patrón unificado de Phase 2 D-44 — coherencia textual entre las 6 call-sites del helper. UI-SPEC línea 222 sugería inicialmente `Continuar` (coherencia con D-27), pero análisis empírico de las 5 call-sites previas (commit d7a0e4b) reveló distribución `Descartar*` 4/5 + `Continuar` 1/5. Planner lockeó `Descartar y empezar` por proximidad semántica EXACTA con openPicker D-44 (mismo message + mismo intent: descartar Test completo activo + arrancar nuevo). Homogeneización general de las 6 call-sites diferida (out of scope Phase 8) | ✓ Validado Phase 8 (Plan 08-01 — 6ª call-site del helper con copy literal + confirmLabel verificable por grep + smoke test 4 del screen-examen.test.js) |
 | 2026-06-02: v1.3 — Bloque Canciones brownfield, REUTILIZAR el engine, NO reconstruir | El motor de re-verificación (cascada D-54, word-buttons `grade()`, schema-validator, patrón Test-completo) está DONE; un modo de ejercicio nuevo (traducción it→es) se construye sobre call-sites existentes para minimizar superficie de bug y mantener una sola mecánica de cascada | ✓ Validado Phase 13+14 (playthrough reusa `applyResultToSession`, 0 nuevos `applyImmediateFailure`; 306/306 tests; el único bug del milestone fue del motor pre-existente, no de código nuevo) |
+| 2026-06-03: v1.4 — Slot+variantes con explicación a nivel de slot (no por variante) y render vía `.payload` sintético | Variantes intercambiables comparten regla → comparten explicación (más simple de autorar/validar); un getter slot-aware que re-envuelve `slotById[id].variants[i]` en un `.payload` sintético (análogo `songCurrentPhrase`) deja sobrevivir `initSubStateForExercise` y todos los bindings `.payload.*` sin tocarlos, y `normalizeExerciseToSlot` hace que las 9 categorías legacy sean slots de 1 variante sin re-autoría | ✓ Validado Phase 15-17 (`pickVariantIndex` + `variantIndices` paralelo; cascada D-54 con 2 call-sites verificados por grep; 342/342 tests; piloto Preposiciones 49 slots con quórum cazando 6 bugs) |
+| 2026-06-03: v1.4 — Reset selectivo de progreso al migrar contenido a slots (`migrate6to7` solo toca Preposiciones) | Mapear el progreso viejo ejercicio→slot es complejo y de poco valor; resetear solo la categoría reworkeada (categoryProgress + exerciseStats por prefijo + inFlightTest) es coherente con el Core Value ("te obliga a no olvidar") y deja las otras 8 categorías byte-intactas | ✓ Validado Phase 17 (`migrate6to7`/`hydrateV7`, schemaVersion 6→7, backup round-trip v7; las 8 no-piloto conservan progreso) |
 | 2026-06-02: Canciones standalone (LINK-04) — fuera del sampler Repaso 20 / Test / tabla de categorías; pantallas DEDICADAS `cancion`/`cancion-summary` con `songCurrentPhrase`/`songPhraseById` | El espíritu de re-verificación llega vía cascada a las categorías gramaticales reales enganchadas por frase, no convirtiendo la canción en categoría; mantenerlo aparte evita contaminar el modelo de categorías (dominada/racha/21-day) | ✓ Validado Phase 13 (canciones nunca aparecen en sampler ni home; bug `bankWithKeys` en Phase 14 confirmó que el aislamiento `sessionCurrentExercise=null` era correcto — el fix fue aceptar también `songCurrentPhrase`) |
 | 2026-06-02: Estado por canción plano `{status, lastPlayedAt}` (pasada/fallada), NO dominada/racha/21-day; sin slot de reanudación (PLAY-05) | Las canciones no son material de re-verificación graduada como las categorías; el estado simple basta y el abandono-descarta-y-reempieza evita la complejidad de `inFlightTest` por canción | ✓ Validado Phase 13 (`songProgress` plano + `migrate4to5` + `backup.js` v5; abandonar a mitad reempieza de cero, fallos ya cascadeados persisten) |
 | 2026-06-02: Validación de contenido de canciones LIGERA autor-oráculo (CONT-03), NO quórum estricto R1-R7 | Las traducciones de canciones son "particulares" por diseño (fraseo artístico); el quórum gramatical produciría falsos positivos sobre decisiones de estilo. Una IA verifica que la traducción sea defendible y el enganche correcto; el autor decide el fraseo | ✓ Validado Phase 14 ("Equilibrio mentale" 17 frases con 1 pase IA + autor oráculo; sin disputed gramatical) |
@@ -274,4 +267,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-06-03 — Milestone v1.4 (Variantes de ejercicio / slots por regla), Phase 16 completa: motor de examen por slots. `buildSession`/`buildFullTest` recorren slots y fijan 1 variante uniforme-aleatoria por slot al construir (`pickVariantIndex` + array paralelo `variantIndices`); getter `sessionCurrentExercise` slot-aware resuelve `slotById[id].variants[variantIndex]` en `.payload` sintético (análogo `songCurrentPhrase`); `variantIndices` threaded por inFlightTest/sessionResults/summary-errors; cascada D-54 intacta (2 call-sites), schemaVersion sigue 6 sin migración, progress.js sin tocar (EXAM-01..06, 327/327 tests). Verificación automatizada 5/5; 6 items de UAT manual en navegador pendientes (`16-HUMAN-UAT.md`). Code review: 0 blocker, 2 warning (WR-01 clamp en pickVariantIndex, WR-02 validar variantIndex en reanudación). Siguiente: Phase 17 (Piloto Preposiciones) — única fase v1.4 restante.*
+*Last updated: 2026-06-03 — Milestone v1.4 (Variantes de ejercicio / slots por regla) ARCHIVADO. 3 phases (15-17), 9 plans, 17/17 requirements (6 SLOT + 6 EXAM + 5 PILOT), 342/342 tests verdes, `schemaVersion 5→6→7`. Motor slot+variantes sobre el engine v1.0 (cascada D-54 intacta, 2 call-sites) + piloto Preposiciones (52 ejercicios → 49 slots, 41 variantes nuevas por quórum cross-vendor cazando 6 bugs, 2 slots locativos). Las 8 categorías no-piloto = slots de 1 variante (backward-compat, CONV-01 difiere su conversión). Entre milestones — próximo: `/gsd-new-milestone` (candidato: CONV-01).*
