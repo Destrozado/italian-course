@@ -110,7 +110,11 @@ Numeración CONTINÚA desde Phase 14 → Phases 15-17 (NO reset — mismo criter
   3. Existe un slot de preposición locativa fija `in spiaggia / in montagna / al mare / in campagna` que antes no estaba en ninguna categoría.
   4. Al migrar Preposiciones a slots su progreso se resetea a no-hecha (racha 0); el resto de categorías conserva su progreso.
   5. La estructura final de Preposiciones pasa el validator y el smoke test paramétrico, con la cobertura de explanations preservada a nivel de slot.
-**Plans**: TBD
+**Plans**: 4 plans
+  - [ ] 17-01-PLAN.md — Migración schemaVersion 6→7 (migrate6to7/hydrateV7) + backup v7: reset de progreso de SOLO Preposiciones (PILOT-04)
+  - [ ] 17-02-PLAN.md — Reagrupar los 52 ejercicios a slots por regla/forma (fusiones SUL/AL/DI-posesso) + explanation a nivel de slot + fact correction 57→52 (PILOT-01)
+  - [ ] 17-03-PLAN.md — Autorar variantes nuevas con quórum cross-vendor R1-R7 + slots locativos in-spiaggia/al-mare (PILOT-02/03)
+  - [ ] 17-04-PLAN.md — Smoke paramétrico bifurcado por shape + sync de los 3 hardcodes de count contra el conteo real de slots (PILOT-05)
 **UI hint**: no
 
 ## Progress
@@ -123,7 +127,7 @@ Numeración CONTINÚA desde Phase 14 → Phases 15-17 (NO reset — mismo criter
 | 13-14 | v1.3 | 3/3 | Complete | 2026-06-02 |
 | 15. Modelo de datos slot+variantes | v1.4 | 3/3 | Complete    | 2026-06-03 |
 | 16. Motor de examen por slots | v1.4 | 2/2 | Complete    | 2026-06-03 |
-| 17. Piloto Preposiciones (contenido) | v1.4 | 0/? | Not started | - |
+| 17. Piloto Preposiciones (contenido) | v1.4 | 0/4 | Not started | - |
 
 ## Backlog
 
