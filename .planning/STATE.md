@@ -2,8 +2,8 @@
 gsd_state_version: 1.0
 milestone: v1.4
 milestone_name: Variantes de ejercicio (slots por regla)
-status: verifying
-last_updated: "2026-06-03T06:07:33.075Z"
+status: ready_to_plan
+last_updated: 2026-06-03T06:16:20.473Z
 last_activity: 2026-06-03
 progress:
   total_phases: 5
@@ -11,6 +11,7 @@ progress:
   total_plans: 3
   completed_plans: 3
   percent: 20
+stopped_at: Phase 15 complete (3/3) — ready to discuss Phase 999.1
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -21,16 +22,16 @@ See: `.planning/PROJECT.md` (updated 2026-06-02)
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 15 — modelo-de-datos-slot-variantes-schema-migraci-n
+**Current Focus:** Phase 999.1 — bot n reiniciar ejercicios en pantalla de sesi n
 
 **Milestone v1.4 Goal:** Matar la memorización por palabras introduciendo *slots* (1 por regla) con variantes intercambiables; un examen recorre N slots eligiendo 1 variante al azar en cada uno, manteniendo intacta la re-verificación D-54. MOTOR + 1 PILOTO: construir el modelo de datos y el motor de examen por slots, luego convertir SOLO Preposiciones como piloto real. Las otras 8 categorías siguen funcionando como slots de 1 variante (backward-compat) — su conversión es out-of-scope (CONV-01 futuro). Brownfield: REUTILIZA la cascada D-54, el sampler, el schema-validator, el patrón Test-completo y `applyResultToSession` — NO reconstruye el motor.
 
 ## Current Position
 
-Phase: 15 (modelo-de-datos-slot-variantes-schema-migraci-n) — READY FOR VERIFICATION
-Plan: 3 of 3 (todos completos)
-Status: Plan 15-03 completo (fixture slot+variantes + integración e2e + back-compat SLOT-06; checkpoint humano APPROVED). 367/367 tests verdes. Fase 15 cerrada — los 6 SLOT-01..06 completos.
-Last activity: 2026-06-03 -- Plan 15-03 ejecutado (SLOT-01/03/06 integración), Phase 15 ready for verification
+Phase: 999.1
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-06-03
 
 ## Quick Tasks Completed
 

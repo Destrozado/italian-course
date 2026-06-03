@@ -119,7 +119,7 @@ Numeración CONTINÚA desde Phase 14 → Phases 15-17 (NO reset — mismo criter
 | 9-10 | v1.1 | 8/8 | Complete | 2026-05-27 |
 | 11-12 | v1.2 | 10/10 | Complete | 2026-05-28 |
 | 13-14 | v1.3 | 3/3 | Complete | 2026-06-02 |
-| 15. Modelo de datos slot+variantes | v1.4 | 3/3 | Complete   | 2026-06-03 |
+| 15. Modelo de datos slot+variantes | v1.4 | 3/3 | Complete    | 2026-06-03 |
 | 16. Motor de examen por slots | v1.4 | 0/? | Not started | - |
 | 17. Piloto Preposiciones (contenido) | v1.4 | 0/? | Not started | - |
 
