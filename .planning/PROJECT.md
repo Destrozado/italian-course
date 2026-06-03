@@ -274,4 +274,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-06-02 — Milestone v1.4 (Variantes de ejercicio / slots por regla) iniciado. Motor + piloto Preposiciones: modelo slot+variantes, examen elige 1 variante aleatoria por slot, cascada D-54 intacta, migración schemaVersion 5→6. Requirements y roadmap en curso.*
+*Last updated: 2026-06-03 — Milestone v1.4 (Variantes de ejercicio / slots por regla), Phase 15 completa: modelo de datos slot+variantes (validator XOR payload/variants[], explicación a nivel de slot), migración `schemaVersion 5→6` (`migrate5to6`/`hydrateV6`) + backup round-trip v6, las 9 categorías reales cargan intactas como slots de 1 variante (SLOT-01..06, 367/367 tests, checkpoint humano aprobado). Siguiente: Phase 16 (motor de examen por slots).*
