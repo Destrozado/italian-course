@@ -218,8 +218,9 @@ export function buildFullTest(categoryIds, allExercises, rng = Math.random) {
  *     legacy de 1 variante siempre resuelven a su única variante, índice 0).
  *
  * Defensivo (T-16-01): si `slot.variants` está ausente o no es array, n=1 → 0;
- * jamás indexa fuera de rango. `Math.floor(rng()*n)` con n<=1→0 cubre el borde
- * patológico rng()→1.0 (T-16-02) igual que el patrón de `weightedPickOne`.
+ * jamás indexa fuera de rango. Para N>1 aplica un clamp explícito
+ * `Math.min(n-1, Math.floor(rng()*n))`, de modo que el borde patológico
+ * rng()===1.0 (T-16-02) devuelve N-1 en vez de N (índice fuera de rango).
  *
  * Pure: no lee de `../data/*` (preserva la pureza de capa, session.js:27);
  * lee `slot.variants` del objeto slot recibido por parámetro.
@@ -230,7 +231,8 @@ export function buildFullTest(categoryIds, allExercises, rng = Math.random) {
  */
 function pickVariantIndex(slot, rng) {
   const n = Array.isArray(slot.variants) ? slot.variants.length : 1;
-  return n <= 1 ? 0 : Math.floor(rng() * n);
+  if (n <= 1) return 0;
+  return Math.min(n - 1, Math.floor(rng() * n)); // clamp guards rng()===1.0
 }
 
 /**
