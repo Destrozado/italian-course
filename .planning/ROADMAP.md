@@ -65,7 +65,7 @@
 Numeración CONTINÚA desde Phase 14 → Phases 15-17 (NO reset — mismo criterio que v1.1/v1.2/v1.3).
 
 - [x] **Phase 15: Modelo de datos slot+variantes + schema + migración** — Slots (1 regla = 1 slot, 1..N variantes intercambiables), explicación a nivel de slot, validator extendido, migración `schemaVersion 5→6`, backward-compat de las 8 categorías no-piloto como slots de 1 variante. (completed 2026-06-03)
-- [ ] **Phase 16: Motor de examen por slots** — El sampler/examen elige 1 variante aleatoria por slot; "hecha" = pasar los N slots; cascada D-54 reusando `applyResultToSession` (0 nuevos call-sites); racha/dominada y Repaso 20 / Test / Examen integran el muestreo por slot. Engine exercisable end-to-end.
+- [x] **Phase 16: Motor de examen por slots** — El sampler/examen elige 1 variante aleatoria por slot; "hecha" = pasar los N slots; cascada D-54 reusando `applyResultToSession` (0 nuevos call-sites); racha/dominada y Repaso 20 / Test / Examen integran el muestreo por slot. Engine exercisable end-to-end. (completed 2026-06-03)
 - [ ] **Phase 17: Piloto Preposiciones (contenido)** — Reagrupar los 57 ejercicios en slots por regla, autorar variantes nuevas (quórum R1-R7), añadir el slot `in spiaggia / in montagna`, reset de progreso de Preposiciones, pasar validator + smoke paramétrico.
 
 ## Phase Details
@@ -97,7 +97,7 @@ Numeración CONTINÚA desde Phase 14 → Phases 15-17 (NO reset — mismo criter
   5. Racha 21 días + promoción hecha→dominada operan sobre la nueva definición de "hecha" por slots, y Repaso 20 / Test completo / Modo Examen integran el muestreo por slot (GUARANTEE ≥1 slot por categoría elegida).
 **Plans**: 2 plans
   - [x] 16-01-PLAN.md — Sampler por slot: pickVariantIndex + variantIndices en buildSession/buildFullTest + tests seedados (EXAM-01/04/06)
-  - [ ] 16-02-PLAN.md — Cableado screen: getter slot-aware (.payload sintetico), variantIndices en 3 launch sites/inFlightTest/sessionResults/summary, cascada D-54 intacta + checkpoint booteo (EXAM-01..06)
+  - [x] 16-02-PLAN.md — Cableado screen: getter slot-aware (.payload sintetico), variantIndices en 3 launch sites/inFlightTest/sessionResults/summary, cascada D-54 intacta + checkpoint booteo (EXAM-01..06)
 **UI hint**: yes
 
 ### Phase 17: Piloto Preposiciones (contenido)
@@ -122,7 +122,7 @@ Numeración CONTINÚA desde Phase 14 → Phases 15-17 (NO reset — mismo criter
 | 11-12 | v1.2 | 10/10 | Complete | 2026-05-28 |
 | 13-14 | v1.3 | 3/3 | Complete | 2026-06-02 |
 | 15. Modelo de datos slot+variantes | v1.4 | 3/3 | Complete    | 2026-06-03 |
-| 16. Motor de examen por slots | v1.4 | 1/2 | In Progress|  |
+| 16. Motor de examen por slots | v1.4 | 2/2 | Complete    | 2026-06-03 |
 | 17. Piloto Preposiciones (contenido) | v1.4 | 0/? | Not started | - |
 
 ## Backlog

@@ -19,10 +19,10 @@
 ### Motor de examen por slots (EXAM)
 
 - [x] **EXAM-01**: Al construir una sesión de una categoría, el motor recorre los N slots y selecciona 1 variante aleatoria por slot (nunca dos variantes del mismo slot en la misma sesión).
-- [ ] **EXAM-02**: "Categoría hecha" se redefine: pasar sin fallar 1 variante de cada uno de los N slots. El recuento "Ejercicios" del home refleja slots, no variantes.
-- [ ] **EXAM-03**: Fallar la variante de un slot dispara la cascada D-54 inmediata sobre las `categoryIds` del slot, reutilizando `applyResultToSession` sin nuevos call-sites de `applyImmediateFailure` (Pitfall #2).
+- [x] **EXAM-02**: "Categoría hecha" se redefine: pasar sin fallar 1 variante de cada uno de los N slots. El recuento "Ejercicios" del home refleja slots, no variantes.
+- [x] **EXAM-03**: Fallar la variante de un slot dispara la cascada D-54 inmediata sobre las `categoryIds` del slot, reutilizando `applyResultToSession` sin nuevos call-sites de `applyImmediateFailure` (Pitfall #2).
 - [x] **EXAM-04**: Al re-hacer una categoría tras fallo/reset, la selección aleatoria se reejecuta → pueden tocar variantes distintas a la pasada anterior (impide memorización por palabras).
-- [ ] **EXAM-05**: Racha de 21 días y promoción hecha→dominada operan sobre la categoría con la nueva definición de "hecha" por slots, sin cambiar la mecánica de racha.
+- [x] **EXAM-05**: Racha de 21 días y promoción hecha→dominada operan sobre la categoría con la nueva definición de "hecha" por slots, sin cambiar la mecánica de racha.
 - [x] **EXAM-06**: Repaso 20, Test completo y Modo Examen integran el muestreo por slot (GUARANTEE ≥1 slot por categoría elegida; sampler ponderado a nivel de slot).
 
 ### Piloto de contenido — Preposiciones (PILOT)
@@ -68,10 +68,10 @@ Qué fases cubren qué requirements.
 | SLOT-05 | Phase 15 | Complete |
 | SLOT-06 | Phase 15 | Complete |
 | EXAM-01 | Phase 16 | Complete |
-| EXAM-02 | Phase 16 | Pending |
-| EXAM-03 | Phase 16 | Pending |
+| EXAM-02 | Phase 16 | Complete |
+| EXAM-03 | Phase 16 | Complete |
 | EXAM-04 | Phase 16 | Complete |
-| EXAM-05 | Phase 16 | Pending |
+| EXAM-05 | Phase 16 | Complete |
 | EXAM-06 | Phase 16 | Complete |
 | PILOT-01 | Phase 17 | Pending |
 | PILOT-02 | Phase 17 | Pending |
