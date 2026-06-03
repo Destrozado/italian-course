@@ -25,7 +25,7 @@
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { blankState, migrate1to2, hydrateV2, migrate2to3, hydrateV3, migrate3to4, hydrateV4, migrate4to5, hydrateV5, migrate5to6, hydrateV6 } from '../src/data/storage.js';
+import { blankState, migrate1to2, hydrateV2, migrate2to3, hydrateV3, migrate3to4, hydrateV4, migrate4to5, hydrateV5, migrate5to6, hydrateV6, migrate6to7, hydrateV7 } from '../src/data/storage.js';
 
 // Phase 4 (D-77/D-78): bumped schemaVersion from 2 → 3 con dos campos
 // nuevos (lastBackupAt, firstUsedAt). El "blankState v2" describe-name
@@ -33,10 +33,10 @@ import { blankState, migrate1to2, hydrateV2, migrate2to3, hydrateV3, migrate3to4
 // (la realidad actual). Tests adicionales de la cadena v1→v2→v3 viven
 // en `tests/backup.test.js` (co-located con backup.js Phase 4).
 
-describe('data/storage — blankState v6 (Phase 15 nominal bump)', () => {
-  test('blankState() devuelve shape v6 completo con el mismo set de sub-dicts + lastBackupAt/firstUsedAt null', () => {
+describe('data/storage — blankState v7 (Phase 17 nominal bump)', () => {
+  test('blankState() devuelve shape v7 completo con el mismo set de sub-dicts + lastBackupAt/firstUsedAt null', () => {
     const s = blankState();
-    assert.equal(s.schemaVersion, 6);
+    assert.equal(s.schemaVersion, 7);
     assert.deepEqual(s.exerciseStats, {});
     assert.deepEqual(s.categoryProgress, {});
     assert.deepEqual(s.dailyLog, {});
@@ -49,8 +49,8 @@ describe('data/storage — blankState v6 (Phase 15 nominal bump)', () => {
       'blankState() no debería incluir la clave `inFlightTest` (debe ser omitida)');
   });
 
-  test('blankState() codifica schemaVersion: 6 (Phase 15 bump nominal)', () => {
-    assert.equal(blankState().schemaVersion, 6);
+  test('blankState() codifica schemaVersion: 7 (Phase 17 bump nominal)', () => {
+    assert.equal(blankState().schemaVersion, 7);
   });
 });
 
@@ -634,9 +634,9 @@ describe('data/storage v6 — migrate5to6 chain + hydrateV6 (Phase 15)', () => {
     assert.deepEqual(out.songProgress, {});
   });
 
-  test('blankState() ahora schemaVersion 6 con el mismo set de sub-dicts', () => {
+  test('blankState() ahora schemaVersion 7 con el mismo set de sub-dicts', () => {
     const s = blankState();
-    assert.equal(s.schemaVersion, 6);
+    assert.equal(s.schemaVersion, 7);
     assert.deepEqual(s.exerciseStats, {});
     assert.deepEqual(s.categoryProgress, {});
     assert.deepEqual(s.dailyLog, {});
@@ -666,5 +666,184 @@ describe('data/storage v6 — migrate5to6 chain + hydrateV6 (Phase 15)', () => {
     assert.deepEqual(v6.exerciseStats, v5.exerciseStats);
     assert.deepEqual(v6.songProgress, v5.songProgress);
     assert.equal(v6.firstUsedAt, v5.firstUsedAt);
+  });
+});
+
+// ────────────────────────────────────────────────────────────────────────────
+// Phase 17 (D-17-08 / PILOT-04) — migrate6to7 + hydrateV7 chain (RESET Preposiciones)
+//
+// Bump v6 → v7 NOMINAL a nivel del state root, PERO con una poda quirúrgica:
+// migrate6to7 resetea SOLO el progreso de Preposiciones —
+//   (1) delete categoryProgress.preposiciones,
+//   (2) poda exerciseStats con prefijo 'preposiciones',
+//   (3) invalida inFlightTest si referencia ids de Preposiciones —
+// dejando las otras 8 categorías (+ dailyLog + songProgress + timestamps)
+// byte-intactas. hydrateV7 es espejo LITERAL de hydrateV6 con versión 7, SIN
+// poda (un state que llega a hydrateV7 ya viene v7-shaped). Deep-clone
+// defensivo anti-prototype-pollution preservado (CR-03 / T-04-02 / T-17-01),
+// idempotente + puro (T-17-02).
+// ────────────────────────────────────────────────────────────────────────────
+
+describe('data/storage v7 — migrate6to7 reset selectivo de Preposiciones (Phase 17)', () => {
+  // Helper: un v6 con progreso en Preposiciones + otras categorías.
+  function v6WithPreposiciones() {
+    return {
+      schemaVersion: 6,
+      exerciseStats: {
+        'preposiciones-001': { timesShown: 5, timesCorrect: 4, timesFailed: 1 },
+        'preposiciones-052': { timesShown: 3, timesCorrect: 2, timesFailed: 1 },
+        'avere-001': { timesShown: 7, timesCorrect: 7, timesFailed: 0 },
+        'partitivos-001': { timesShown: 2, timesCorrect: 1, timesFailed: 1 }
+      },
+      categoryProgress: {
+        preposiciones: { status: 'hecha', streakDays: 9, clearedExerciseIds: ['preposiciones-001'], lastSuccessDate: '2026-05-30' },
+        avere: { status: 'dominada', streakDays: 14, clearedExerciseIds: ['avere-001'], lastSuccessDate: '2026-05-31' }
+      },
+      dailyLog: { '2026-05-30': { date: '2026-05-30', categoriesPracticed: ['preposiciones', 'avere'], categoriesWithFailure: [] } },
+      songProgress: { 'mini-prueba': { status: 'pasada', lastPlayedAt: '2026-06-02' } },
+      lastBackupAt: '2026-05-22T10:00:00.000Z',
+      firstUsedAt: '2026-04-01T08:00:00.000Z'
+    };
+  }
+
+  test('migrate6to7 borra categoryProgress.preposiciones y deja avere intacto', () => {
+    const v6 = v6WithPreposiciones();
+    const v7 = migrate6to7(v6);
+    assert.equal(v7.schemaVersion, 7);
+    assert.equal(v7.categoryProgress.preposiciones, undefined,
+      'categoryProgress.preposiciones debe quedar ausente tras el reset');
+    assert.equal(Object.prototype.hasOwnProperty.call(v7.categoryProgress, 'preposiciones'), false,
+      'la clave preposiciones no debe existir como own-property');
+    assert.deepEqual(v7.categoryProgress.avere, v6.categoryProgress.avere,
+      'avere conserva su progreso byte-intacto');
+  });
+
+  test('migrate6to7 poda exerciseStats con prefijo preposiciones y preserva avere/partitivos', () => {
+    const v6 = v6WithPreposiciones();
+    const v7 = migrate6to7(v6);
+    assert.equal(v7.exerciseStats['preposiciones-001'], undefined);
+    assert.equal(v7.exerciseStats['preposiciones-052'], undefined);
+    assert.equal(Object.prototype.hasOwnProperty.call(v7.exerciseStats, 'preposiciones-001'), false);
+    assert.deepEqual(v7.exerciseStats['avere-001'], v6.exerciseStats['avere-001']);
+    assert.deepEqual(v7.exerciseStats['partitivos-001'], v6.exerciseStats['partitivos-001']);
+  });
+
+  test('migrate6to7 invalida inFlightTest que referencia ids de Preposiciones', () => {
+    const v6 = v6WithPreposiciones();
+    v6.inFlightTest = {
+      categoryIds: ['preposiciones'],
+      exerciseIds: ['preposiciones-006', 'avere-001'],
+      variantIndices: [0, 0],
+      cursor: 0,
+      answers: [],
+      startedAt: 1716480000000
+    };
+    const v7 = migrate6to7(v6);
+    assert.equal(v7.inFlightTest, undefined,
+      'un Test en vuelo que toca Preposiciones se invalida al migrar');
+  });
+
+  test('migrate6to7 preserva inFlightTest que NO toca Preposiciones', () => {
+    const v6 = v6WithPreposiciones();
+    v6.inFlightTest = {
+      categoryIds: ['avere'],
+      exerciseIds: ['avere-001', 'partitivos-001'],
+      variantIndices: [0, 0],
+      cursor: 1,
+      answers: [],
+      startedAt: 1716480000000
+    };
+    const v7 = migrate6to7(v6);
+    assert.deepEqual(v7.inFlightTest, v6.inFlightTest,
+      'un Test en vuelo ajeno a Preposiciones se preserva');
+  });
+
+  test('migrate6to7 sin inFlightTest no crashea y preserva undefined', () => {
+    const v6 = v6WithPreposiciones();
+    const v7 = migrate6to7(v6);
+    assert.equal(v7.inFlightTest, undefined);
+  });
+
+  test('migrate6to7 es idempotente (re-ejecutar sobre un v7 ya migrado da la misma shape)', () => {
+    const v6 = v6WithPreposiciones();
+    const once = migrate6to7(v6);
+    const twice = migrate6to7(once);
+    assert.deepEqual(twice, once,
+      'migrate6to7(migrate6to7(x)) deep-equals migrate6to7(x) — delete de clave ausente es no-op');
+  });
+
+  test('migrate6to7 es puro (no muta el input — preposiciones sigue presente en el v6 original)', () => {
+    const v6 = v6WithPreposiciones();
+    migrate6to7(v6);
+    assert.ok(v6.categoryProgress.preposiciones,
+      'el input v6 NO debe mutarse: categoryProgress.preposiciones sigue presente');
+    assert.ok(v6.exerciseStats['preposiciones-001'],
+      'el input v6 NO debe mutarse: exerciseStats[preposiciones-001] sigue presente');
+  });
+
+  test('migrate6to7 anti-prototype-pollution: __proto__ own-property no contamina el global', () => {
+    const malicious = JSON.parse('{"schemaVersion":6,"exerciseStats":{"__proto__":{"polluted":true},"avere-001":{"timesShown":1}},"categoryProgress":{},"dailyLog":{},"songProgress":{},"lastBackupAt":null,"firstUsedAt":null}');
+    const v7 = migrate6to7(malicious);
+    assert.equal(({}).polluted, undefined, 'el prototipo global Object no debe quedar contaminado');
+    assert.equal(v7.schemaVersion, 7);
+  });
+
+  test('migrate6to7 con sub-dict no-objeto (corrupto) cae a {}', () => {
+    for (const bad of [null, 'x', 42]) {
+      const v6 = { schemaVersion: 6, exerciseStats: bad, categoryProgress: bad, dailyLog: bad, songProgress: bad, lastBackupAt: null, firstUsedAt: null };
+      const v7 = migrate6to7(v6);
+      for (const key of ['exerciseStats', 'categoryProgress', 'dailyLog', 'songProgress']) {
+        assert.equal(typeof v7[key], 'object');
+        assert.notEqual(v7[key], null);
+      }
+    }
+  });
+
+  test('hydrateV7 es espejo de hydrateV6 (versión 7) SIN poda — preserva preposiciones si está presente', () => {
+    const v7In = {
+      schemaVersion: 7,
+      exerciseStats: { 'preposiciones-al': { timesShown: 2, timesCorrect: 2, timesFailed: 0 }, 'avere-001': { timesShown: 1, timesCorrect: 1, timesFailed: 0 } },
+      categoryProgress: { preposiciones: { status: 'hecha', streakDays: 1, clearedExerciseIds: ['preposiciones-al'] } },
+      dailyLog: {},
+      songProgress: {},
+      lastBackupAt: null,
+      firstUsedAt: null,
+      inFlightTest: { categoryIds: ['avere'], exerciseIds: ['avere-001'], cursor: 0, answers: [], startedAt: 1716480000000 }
+    };
+    const out = hydrateV7(v7In);
+    assert.equal(out.schemaVersion, 7);
+    // hydrateV7 NO poda: un state v7-shaped llega íntegro.
+    assert.deepEqual(out.categoryProgress, v7In.categoryProgress,
+      'hydrateV7 NO repite la poda — preserva lo que llega');
+    assert.deepEqual(out.exerciseStats, v7In.exerciseStats);
+    assert.notEqual(out.exerciseStats, v7In.exerciseStats, 'deep-clone defensivo');
+    assert.deepEqual(out.inFlightTest, v7In.inFlightTest);
+  });
+
+  test('hydrateV7 sobre v7 con sub-dicts ausentes los normaliza a {}', () => {
+    const out = hydrateV7({ schemaVersion: 7, lastBackupAt: null, firstUsedAt: null });
+    assert.deepEqual(out.exerciseStats, {});
+    assert.deepEqual(out.categoryProgress, {});
+    assert.deepEqual(out.dailyLog, {});
+    assert.deepEqual(out.songProgress, {});
+  });
+
+  // Cadena completa: un blob v6 con progreso en Preposiciones pasado por la
+  // cadena de migración (migrate6to7 → hydrateV7) sale v7 con Preposiciones
+  // reseteada y las otras categorías intactas. Verifica el dispatcher vía
+  // hydrateV7(migrate6to7(...)) (migrate() es privado).
+  test('cadena v6 → v7: Preposiciones reseteada, avere/partitivos preservados, schemaVersion 7', () => {
+    const v6 = v6WithPreposiciones();
+    const v7 = hydrateV7(migrate6to7(v6));
+    assert.equal(v7.schemaVersion, 7);
+    assert.equal(v7.categoryProgress.preposiciones, undefined,
+      'Preposiciones reseteada a través de la cadena v6 → v7');
+    assert.deepEqual(v7.categoryProgress.avere, v6.categoryProgress.avere,
+      'avere preservado a través de la cadena');
+    assert.equal(v7.exerciseStats['preposiciones-001'], undefined);
+    assert.deepEqual(v7.exerciseStats['avere-001'], v6.exerciseStats['avere-001']);
+    assert.deepEqual(v7.exerciseStats['partitivos-001'], v6.exerciseStats['partitivos-001']);
+    assert.deepEqual(v7.songProgress, v6.songProgress);
+    assert.equal(v7.firstUsedAt, v6.firstUsedAt);
   });
 });
