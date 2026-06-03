@@ -2,8 +2,8 @@
 gsd_state_version: 1.0
 milestone: v1.4
 milestone_name: Variantes de ejercicio (slots por regla)
-status: executing
-last_updated: "2026-06-03T08:00:00.000Z"
+status: ready_to_plan
+last_updated: 2026-06-03T08:07:52.301Z
 last_activity: 2026-06-03 -- Plan 16-02 completado (cableado screen slot-aware + checkpoint booteo APPROVED); Phase 16 COMPLETE
 progress:
   total_phases: 5
@@ -11,6 +11,7 @@ progress:
   total_plans: 5
   completed_plans: 5
   percent: 40
+stopped_at: Phase 16 complete (2/2) — ready to discuss Phase 999.1
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -21,16 +22,16 @@ See: `.planning/PROJECT.md` (updated 2026-06-02)
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 16 — motor-de-examen-por-slots
+**Current Focus:** Phase 999.1 — bot n reiniciar ejercicios en pantalla de sesi n
 
 **Milestone v1.4 Goal:** Matar la memorización por palabras introduciendo *slots* (1 por regla) con variantes intercambiables; un examen recorre N slots eligiendo 1 variante al azar en cada uno, manteniendo intacta la re-verificación D-54. MOTOR + 1 PILOTO: construir el modelo de datos y el motor de examen por slots, luego convertir SOLO Preposiciones como piloto real. Las otras 8 categorías siguen funcionando como slots de 1 variante (backward-compat) — su conversión es out-of-scope (CONV-01 futuro). Brownfield: REUTILIZA la cascada D-54, el sampler, el schema-validator, el patrón Test-completo y `applyResultToSession` — NO reconstruye el motor.
 
 ## Current Position
 
-Phase: 16 (motor-de-examen-por-slots) — COMPLETE
-Plan: 2 of 2 (ambos completos)
-Status: Phase 16 completa. Siguiente: `/gsd:plan-phase 17` (Piloto Preposiciones).
-Last activity: 2026-06-03 -- Plan 16-02 completado: getter sessionCurrentExercise slot-aware (.payload sintético) + variantIndices threaded por 3 launch sites/inFlightTest/sessionResults/summary-errors (EXAM-02/03/05), checkpoint booteo APPROVED, 327/327 tests verdes, 2 call-sites applyImmediateFailure, schemaVersion 6 sin bump
+Phase: 999.1
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-06-03
 
 ## Quick Tasks Completed
 
