@@ -1073,6 +1073,10 @@ export function appShell(appDataReady) {
         inFlightTest: {
           categoryIds,
           exerciseIds: [...this.sessionExerciseIds],
+          // Phase 16 (D-16-09): la variante fijada por slot viaja en el blob
+          // para que reanudar muestre la MISMA variante (no se re-sortea).
+          // Array paralelo a exerciseIds — sin bump de schemaVersion (sigue v6).
+          variantIndices: [...this.sessionVariantIndices],
           cursor: this.sessionCursor,
           answers: [...this.sessionResults],
           startedAt: prev?.startedAt ?? Date.now()
@@ -1111,6 +1115,13 @@ export function appShell(appDataReady) {
       // Restaurar sub-estado session desde el inFlightTest.
       this.sessionMode = 'test-completo';
       this.sessionExerciseIds = [...ift.exerciseIds];
+      // Phase 16 (D-16-09 / D-16-10): restaurar la variante fijada por slot.
+      // Back-compat: un inFlightTest pre-existente (escrito antes de esta fase)
+      // NO lleva `variantIndices` → rellenar con 0 por id restante (los slots
+      // legacy son de 1 variante, índice 0 correcto). Sin migración de schemaVersion.
+      this.sessionVariantIndices = Array.isArray(ift.variantIndices)
+        ? [...ift.variantIndices]
+        : ift.exerciseIds.map(() => 0);
       this.sessionCursor = ift.cursor;
       this.sessionResults = [...ift.answers];
       this.sessionSelectedIndex = null;
@@ -1480,7 +1491,16 @@ export function appShell(appDataReady) {
      */
     applyResultToSession(ex, correct, userAnswer) {
       this.sessionFeedback = correct ? 'correct' : 'incorrect';
-      this.sessionResults.push({ exerciseId: ex.id, correct, userAnswer });
+      // Phase 16 (D-16-09): registrar qué VARIANTE concreta se mostró, para que
+      // el review de errores del summary resuelva la variante exacta fallada.
+      // `ex` ya es el objeto re-envuelto por el getter slot-aware (lleva
+      // `.id`/`.categoryIds`) — la cascada D-54 dispara por `slotId` sin cambio.
+      this.sessionResults.push({
+        exerciseId: ex.id,
+        correct,
+        userAnswer,
+        variantIndex: this.sessionCurrentVariantIndex
+      });
 
       if (correct) {
         // SESSION-05 / PLAY-03 verde: auto-avance tras ~600ms. Guardar handle
@@ -2286,6 +2306,34 @@ export function appShell(appDataReady) {
      */
     get sessionCurrentVariantIndex() {
       return this.sessionVariantIndices[this.sessionCursor] ?? 0;
+    },
+
+    /**
+     * Phase 16 (D-16-09): resuelve la VARIANTE concreta fallada de un resultado
+     * de sesión a la superficie re-envuelta con shape legacy `{type, payload}`,
+     * para que el bloque "Errores cometidos" del summary muestre el prompt /
+     * respuesta correcta / explicación de la variante EXACTA que se falló (no la
+     * variante 0 por defecto). Mismo truco synthetic-payload que
+     * `sessionCurrentExercise`, pero resolviendo por `result.exerciseId` +
+     * `result.variantIndex` en lugar del cursor vivo.
+     *
+     * Defensivo: si el slot ya no existe (autor editó el JSON entre arranque y
+     * fin de sesión) devuelve `null` — el filter del template ya excluye esos
+     * resultados, pero el `null` añade defensa-en-profundidad. `variantIndex`
+     * ausente (resultado legacy pre-fase) cae a 0 (D-16-10).
+     *
+     * @param {{exerciseId:string, variantIndex?:number}} result
+     * @returns {{type:string, payload:object}|null}
+     */
+    summaryVariantSurface(result) {
+      const slot = this.content?.slotById?.[result.exerciseId];
+      if (!slot) return null;
+      const vIdx = result.variantIndex ?? 0;
+      const surface = slot.variants?.[vIdx] ?? slot.variants?.[0] ?? {};
+      return {
+        type: slot.type,
+        payload: { ...surface, explanation: slot.explanation }
+      };
     },
 
     /** SESSION-04: indicador "Ejercicio X / N" visible toda la sesión. */

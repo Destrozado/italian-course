@@ -733,68 +733,71 @@
                tick de unmount cuando `returnToHomeFromSummary()` llama
                `resetSession()` antes de cambiar `currentScreen` a 'home' —
                mismo patrón de snapshot que `summaryDelta` (línea 462). -->
-          <template x-if="summarySessionResults.some(r => !r.correct && content.exerciseById[r.exerciseId])">
+          <!-- Phase 16 (D-16-09): el review de errores resuelve la VARIANTE
+               EXACTA fallada vía `summaryVariantSurface(result)` (slotById +
+               result.variantIndex), no `content.exerciseById[...].payload`. El
+               helper re-envuelve la superficie de la variante en `{type, payload}`
+               (mismo synthetic-payload que sessionCurrentExercise), así la
+               estructura visual y el copy quedan IDÉNTICOS (EXAM-02). El filter
+               guarda contra slot ausente (`content.slotById[r.exerciseId]`). -->
+          <template x-if="summarySessionResults.some(r => !r.correct && content.slotById[r.exerciseId])">
             <section class="summary-errors">
               <h3>Errores cometidos</h3>
               <ul>
-                <!-- CR-01 fix: el filter exige `content.exerciseById[r.exerciseId]`
-                     truthy (no null). Si el autor editó el JSON entre arranque y
-                     fin de sesión y el `exerciseId` ya no existe en `content`, la
-                     fila se omite silenciosamente en lugar de crashear con
-                     `TypeError: Cannot read properties of null`. T-02-01 intacto. -->
-                <template x-for="result in summarySessionResults.filter(r => !r.correct && content.exerciseById[r.exerciseId])" :key="result.exerciseId">
+                <!-- CR-01 fix (Phase 16 update): el filter exige
+                     `content.slotById[r.exerciseId]` truthy (no null). Si el autor
+                     editó el JSON entre arranque y fin de sesión y el slot ya no
+                     existe, la fila se omite silenciosamente en lugar de crashear
+                     con `TypeError: Cannot read properties of null`. T-02-01 /
+                     T-16-NULL intactos. -->
+                <template x-for="result in summarySessionResults.filter(r => !r.correct && content.slotById[r.exerciseId])" :key="result.exerciseId">
                   <li>
-                    <strong x-text="content.exerciseById[result.exerciseId].payload.prompt"></strong>
+                    <strong x-text="summaryVariantSurface(result).payload.prompt"></strong>
 
-                    <template x-if="content.exerciseById[result.exerciseId].type === 'multiple-choice'">
+                    <template x-if="summaryVariantSurface(result).type === 'multiple-choice'">
                       <div>
                         <div>Tu respuesta: <span class="user-answer" x-text="result.userAnswer"></span></div>
-                        <div>Respuesta correcta: <strong x-text="content.exerciseById[result.exerciseId].payload.options[content.exerciseById[result.exerciseId].payload.correctIndex]"></strong></div>
+                        <div>Respuesta correcta: <strong x-text="summaryVariantSurface(result).payload.options[summaryVariantSurface(result).payload.correctIndex]"></strong></div>
                         <!--
                           Phase 7 plan 01 (D-119, EXPL-03) — Explicación
                           pedagógica en summary "Errores cometidos". Optional
-                          chaining `?.payload?.explanation` defensivo (CR-01
-                          fix Phase 6 ya garantiza que el filter exterior
-                          excluye exerciseIds stale; el chaining añade
-                          defensa-en-profundidad). `x-text` exclusivo
-                          (T-02-01). Misma clase visual `.summary-error-
-                          explanation` para coherencia cross-context con la
-                          sesión (D-120).
+                          chaining `?.payload?.explanation` defensivo (el filter
+                          exterior ya excluye exerciseIds stale; el chaining añade
+                          defensa-en-profundidad). `x-text` exclusivo (T-02-01).
+                          Phase 16: la explicación es a nivel de slot, re-envuelta
+                          en payload.explanation por `summaryVariantSurface`.
                         -->
-                        <p x-show="content.exerciseById[result.exerciseId]?.payload?.explanation"
+                        <p x-show="summaryVariantSurface(result)?.payload?.explanation"
                            class="summary-error-explanation"
-                           x-text="content.exerciseById[result.exerciseId].payload.explanation"></p>
+                           x-text="summaryVariantSurface(result).payload.explanation"></p>
                       </div>
                     </template>
 
-                    <template x-if="content.exerciseById[result.exerciseId].type === 'word-buttons'">
+                    <template x-if="summaryVariantSurface(result).type === 'word-buttons'">
                       <div>
                         <div>Tu respuesta: <span class="user-answer" x-text="(result.userAnswer || []).join(' ')"></span></div>
-                        <div>Respuesta correcta: <strong x-text="content.exerciseById[result.exerciseId].payload.answer.join(' ')"></strong></div>
+                        <div>Respuesta correcta: <strong x-text="summaryVariantSurface(result).payload.answer.join(' ')"></strong></div>
                         <!-- Phase 7 plan 01 (D-119, EXPL-03) — ver comentario en multi-choice. -->
-                        <p x-show="content.exerciseById[result.exerciseId]?.payload?.explanation"
+                        <p x-show="summaryVariantSurface(result)?.payload?.explanation"
                            class="summary-error-explanation"
-                           x-text="content.exerciseById[result.exerciseId].payload.explanation"></p>
+                           x-text="summaryVariantSurface(result).payload.explanation"></p>
                       </div>
                     </template>
 
-                    <template x-if="content.exerciseById[result.exerciseId].type === 'match' && result.userAnswer">
+                    <template x-if="summaryVariantSurface(result).type === 'match' && result.userAnswer">
                       <div>
                         <div>Tu respuesta: <span class="user-answer" x-text="result.userAnswer.left + ' ↔ ' + result.userAnswer.right"></span></div>
                         <!-- WR-01 fix: lookup por ÍNDICE canónico `leftIdx`
-                             (capturado en matchPickRight contra payload.pairs[]),
-                             NO por texto. Esto resuelve correctamente el caso
-                             de parejas duplicadas con el mismo `left` (D-66
-                             permite homónimos). Fallback `(?)` si por cualquier
-                             razón `leftIdx` no apunta a un par válido (incluye
-                             el caso pre-WR-01 donde el shape antiguo `{left,
-                             right}` no tenía leftIdx — `pairs[undefined]` es
-                             undefined y `?.[1]` lo cortocircuita). -->
-                        <div>Respuesta correcta: <strong x-text="result.userAnswer.left + ' ↔ ' + (content.exerciseById[result.exerciseId].payload.pairs[result.userAnswer.leftIdx]?.[1] || '(?)')"></strong></div>
+                             (capturado en matchPickRight contra pairs[]), NO por
+                             texto. Resuelve parejas duplicadas con el mismo `left`
+                             (D-66 permite homónimos). Fallback `(?)` si `leftIdx`
+                             no apunta a un par válido. Phase 16: `pairs` viene de
+                             la variante fallada vía summaryVariantSurface. -->
+                        <div>Respuesta correcta: <strong x-text="result.userAnswer.left + ' ↔ ' + (summaryVariantSurface(result).payload.pairs[result.userAnswer.leftIdx]?.[1] || '(?)')"></strong></div>
                         <!-- Phase 7 plan 01 (D-119, EXPL-03) — ver comentario en multi-choice. -->
-                        <p x-show="content.exerciseById[result.exerciseId]?.payload?.explanation"
+                        <p x-show="summaryVariantSurface(result)?.payload?.explanation"
                            class="summary-error-explanation"
-                           x-text="content.exerciseById[result.exerciseId].payload.explanation"></p>
+                           x-text="summaryVariantSurface(result).payload.explanation"></p>
                       </div>
                     </template>
                   </li>
