@@ -50,24 +50,30 @@ Diferidos a milestones futuros. Reconocidos pero no en el roadmap actual.
 
 ## Traceability
 
-Qué fases cubren qué requirements. (Rellenado por el roadmapper.)
+Qué fases cubren qué requirements.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| ART-01 | TBD | Pending |
-| ART-02 | TBD | Pending |
-| ART-03 | TBD | Pending |
-| ART-04 | TBD | Pending |
-| PART-01 | TBD | Pending |
-| PART-02 | TBD | Pending |
-| PART-03 | TBD | Pending |
-| MIG-01 | TBD | Pending |
-| MIG-02 | TBD | Pending |
+| MIG-01 | Phase 18 | Pending |
+| MIG-02 | Phase 18 | Pending |
+| ART-01 | Phase 19 | Pending |
+| ART-02 | Phase 19 | Pending |
+| ART-03 | Phase 19 | Pending |
+| ART-04 | Phase 19 | Pending |
+| PART-01 | Phase 20 | Pending |
+| PART-02 | Phase 20 | Pending |
+| PART-03 | Phase 20 | Pending |
 
 **Coverage:**
 - v1.5 requirements: 9 total (4 ART + 3 PART + 2 MIG)
-- Mapped to phases: TBD (roadmapper)
-- Unmapped: TBD
+- Mapped to phases: 9/9 (100%) — MIG→Phase 18 (2); ART→Phase 19 (4); PART→Phase 20 (3)
+- Unmapped: 0 (0 orphans, 0 duplicados, 0 gaps)
+
+**Mapping rationale:**
+- **Phase 18 (Migración 7→8)** ← MIG-01 (migrate7to8/hydrateV8 reset selectivo articoli+partitivos), MIG-02 (backup.js round-trip v8). Va PRIMERA porque la renumeración de ids de las fases de contenido no se puede hacer con progreso vivo (mismo criterio que el plan 17-01 del piloto).
+- **Phase 19 (Articoli a slots)** ← ART-01 (reagrupar 56 ejercicios por regla), ART-02 (variantes nuevas por quórum + huecos → slots), ART-03 (indeterminativi como slots propios), ART-04 (validator + smoke + counts + explanations a nivel de slot). Depende de Phase 18.
+- **Phase 20 (Partitivi a slots)** ← PART-01 (reagrupar 44 ejercicios por regla), PART-02 (variantes nuevas por quórum + huecos → slots), PART-03 (validator + smoke + counts + explanations a nivel de slot). Depende de Phase 18; independiente de Phase 19 tras la migración.
 
 ---
 *Requirements defined: 2026-06-04*
+*Traceability mapped: 2026-06-04 — 9/9 requirements mapped to Phases 18-20, 0 orphans.*
