@@ -237,17 +237,22 @@ describe('data/backup v7 — round-trip + import v6→v7 (Phase 17)', () => {
     assert.equal(wrapper.schemaVersion, 7, 'el wrapper espeja state.schemaVersion=7');
     const r = parseBackupFile(JSON.stringify(wrapper));
     assert.equal(r.ok, true, `no debe rechazarse (reason: ${r.reason})`);
-    assert.equal(r.state.schemaVersion, 7);
+    // Post-Phase 18: un backup v7 ya NO es current-version; importarlo migra
+    // v7→v8 (CURRENT=8). El round-trip sale como v8 normalizada.
+    assert.equal(r.state.schemaVersion, 8);
   });
 
-  test('round-trip v7 preserva avere/essere/partitivos progreso intacto', () => {
+  test('round-trip v7 preserva avere/essere; partitivos se resetea en el import v7→v8', () => {
     const state = stateV7();
     const wrapper = buildBackupWrapper(state, '2026-06-03T12:00:00.000Z');
     const r = parseBackupFile(JSON.stringify(wrapper));
     assert.equal(r.ok, true);
     assert.deepEqual(r.state.categoryProgress.avere, state.categoryProgress.avere);
     assert.deepEqual(r.state.categoryProgress.essere, state.categoryProgress.essere);
-    assert.deepEqual(r.state.exerciseStats['partitivos-001'], state.exerciseStats['partitivos-001']);
+    // partitivos-001 venía en el state v7; el import migra a v8 y lo resetea
+    // (migrate7to8 poda el prefijo partitivos, D-06).
+    assert.equal(r.state.exerciseStats['partitivos-001'], undefined,
+      'partitivos se poda en el import v7→v8 (reset selectivo)');
   });
 
   test('import de backup v6 → state v7 con Preposiciones reseteada', () => {

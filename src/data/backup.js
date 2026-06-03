@@ -23,7 +23,7 @@
 // schema-validator) — la primera guard que dispara aborta el parse y
 // devuelve el reason específico.
 
-import { migrate1to2, migrate2to3, migrate3to4, migrate4to5, migrate5to6, migrate6to7, hydrateV7 } from './storage.js';
+import { migrate1to2, migrate2to3, migrate3to4, migrate4to5, migrate5to6, migrate6to7, hydrateV7, migrate7to8, hydrateV8 } from './storage.js';
 
 /** Espejo de la constante en storage.js — mantener inline para que el
  *  módulo sea testeable independiente sin importar storage.CURRENT_SCHEMA_VERSION.
@@ -33,10 +33,13 @@ import { migrate1to2, migrate2to3, migrate3to4, migrate4to5, migrate5to6, migrat
  *  `content/` (validator + loader), NO en el state; el set de sub-dicts no
  *  cambia. Phase 17 (D-17-08): bump 6 → 7 — `migrate6to7` resetea SOLO el
  *  progreso de Preposiciones (reagrupada a slots+variantes en el piloto); el
- *  set de sub-dicts sigue sin cambiar. El backup debe migrar hasta v7 para que
- *  un export del estado actual se reimporte sin "versión más nueva"; un import
- *  de un backup v6 migra a v7 reseteando Preposiciones (coherente con el reset). */
-const CURRENT_SCHEMA_VERSION = 7;
+ *  set de sub-dicts sigue sin cambiar. Phase 18 (D-18 / MIG-02): bump 7 → 8 —
+ *  `migrate7to8` resetea el progreso de DOS categorías (articoli + partitivos),
+ *  reagrupadas a slots en las Phases 19/20; el set de sub-dicts sigue sin
+ *  cambiar. El backup debe migrar hasta v8 para que un export del estado actual
+ *  se reimporte sin "versión más nueva"; un import de un backup v7 migra a v8
+ *  reseteando articoli+partitivos (coherente con el reset, D-06). */
+const CURRENT_SCHEMA_VERSION = 8;
 
 /**
  * Parse + valida + migra un string JSON proveniente de un archivo backup.
@@ -49,9 +52,9 @@ const CURRENT_SCHEMA_VERSION = 7;
  *      (Pitfall #6 RESEARCH — defensa contra wrapper editado a mano).
  *   4. Compatibilidad: `state.schemaVersion <= CURRENT_SCHEMA_VERSION`.
  *      Rechaza versiones futuras (D-74).
- *   5. Cadena de migración: migrate1to2 → … → migrate6to7 → hydrateV7.
- *      Sale siempre como v7 normalizada (hydrateV7 neutraliza
- *      prototype pollution per T-04-02).
+ *   5. Cadena de migración: migrate1to2 → … → migrate6to7 → migrate7to8 →
+ *      hydrateV8. Sale siempre como v8 normalizada (hydrateV8 neutraliza
+ *      prototype pollution per T-04-02 / T-18-01).
  *   6. Summary derivado del state migrado: número de categorías con
  *      progreso, número de ejercicios con stats, fecha de export para
  *      el confirm inline (D-76).
@@ -121,7 +124,8 @@ export function parseBackupFile(rawStr) {
   if (migrated.schemaVersion === 4) migrated = migrate4to5(migrated);
   if (migrated.schemaVersion === 5) migrated = migrate5to6(migrated);
   if (migrated.schemaVersion === 6) migrated = migrate6to7(migrated);
-  migrated = hydrateV7(migrated);
+  if (migrated.schemaVersion === 7) migrated = migrate7to8(migrated);
+  migrated = hydrateV8(migrated);
 
   // 6. Summary para el confirm inline (D-76).
   const summary = {
