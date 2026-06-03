@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.5
 milestone_name: "Conversión a slots: Bloque Artículos"
-status: executing
-last_updated: "2026-06-03T23:34:07.441Z"
-last_activity: 2026-06-03 -- Phase 18 planning complete
+status: verifying
+last_updated: "2026-06-04T00:00:00.000Z"
+last_activity: 2026-06-04 -- Phase 18 plan 01 completado (migración 7→8)
 progress:
   total_phases: 3
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 1
-  completed_plans: 0
-  percent: 0
+  completed_plans: 1
+  percent: 33
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -21,14 +21,14 @@ See: `.planning/PROJECT.md` (updated 2026-06-04 — Milestone v1.5 iniciado)
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Milestone v1.5 — Conversión a slots: Bloque Artículos (CONV-01). Roadmap fijado (Phases 18-20). Convertir Articoli + Partitivi al modelo slot+variantes reutilizando TODA la maquinaria v1.4 (motor, sampler, cascada D-54, smoke bifurcado por shape — NO se tocan). Siguiente: `/gsd:plan-phase 18`.
+**Current Focus:** Phase 18 — migraci-n-7-8-reset-selectivo-articoli-partitivos
 
 ## Current Position
 
-Phase: 18 (Migración 7→8) — Not started (roadmap fijado, sin plans aún)
-Plan: —
-Status: Ready to execute
-Last activity: 2026-06-03 -- Phase 18 planning complete
+Phase: 18 (migraci-n-7-8-reset-selectivo-articoli-partitivos) — COMPLETE
+Plan: 1 of 1 — DONE
+Status: Phase complete — ready for verification
+Last activity: 2026-06-04 -- migrate7to8 + hydrateV8 + backup v8 (358/358 tests verdes)
 
 ## Quick Tasks Completed
 
@@ -45,15 +45,16 @@ Last activity: 2026-06-03 -- Phase 18 planning complete
 | Fases v1.2 | 2/2 completas (Phase 11-12) — SHIPPED 2026-05-28 |
 | Fases v1.3 | 2/2 completas (Phase 13-14) — SHIPPED 2026-06-02 |
 | Fases v1.4 | 3/3 completas (Phase 15-17) — SHIPPED 2026-06-03 |
-| Fases v1.5 | 0/3 (Phase 18 migración 7→8 ⏳; Phase 19 Articoli ⏳; Phase 20 Partitivi ⏳) |
+| Fases v1.5 | 1/3 (Phase 18 migración 7→8 ✅; Phase 19 Articoli ⏳; Phase 20 Partitivi ⏳) |
+| Requisitos v1.5 completos | 2/9 (MIG-01 + MIG-02) |
+| Phase 18 plan 01 | 2 tareas TDD, 4 archivos, ~12 min, 358/358 tests (16 nuevos v8) |
 | Requisitos v1.0 completos | 62/62 (100%) |
 | Requisitos v1.1 completos | 8/8 (100% — VAL-01..08) |
 | Requisitos v1.2 completos | 15/15 (100% — ART-01..08 + PART-01..07) |
 | Requisitos v1.3 completos | 19/19 (100% — SONG/PLAY/LINK/DATA + CONT) |
 | Requisitos v1.4 completos | 17/17 (100% — 6 SLOT + 6 EXAM + 5 PILOT) |
 | Requisitos v1.5 mapeados | 9/9 (100% — MIG→Phase 18 (2); ART→Phase 19 (4); PART→Phase 20 (3); 0 orphans) |
-| Requisitos v1.5 completos | 0/9 |
-| schemaVersion actual | 7 (v1.5 migrará a 8: migrate7to8 + hydrateV8 + backup v8, reset selectivo de articoli+partitivos en Phase 18) |
+| schemaVersion actual | 8 (Phase 18: migrate7to8 + hydrateV8 + backup v8, reset selectivo de articoli+partitivos — DONE) |
 | Ejercicios totales en la app | 370 validated (9 categorías; Preposiciones = 49 slots tras v1.4; Articoli + Partitivos = slots de 1 variante hasta convertirse en v1.5) + bloque Canciones standalone |
 | Categorías gramaticales | 9 (en v1.5 se convierten Articoli + Partitivi a slots; las otras 7 = slots de 1 variante) |
 | Granularidad | coarse |
@@ -118,6 +119,7 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ### Last Session
 
+- **Fecha:** 2026-06-04 — **Phase 18 plan 01 ejecutado y completado (migración `7→8`, reset selectivo articoli+partitivos).** 2 tareas TDD (RED→GREEN cada una), 4 archivos modificados, suite completa **358/358 verde** (342 baseline + 16 nuevos tests v8). Task 1 (MIG-01): `migrate7to8` (clon literal de `migrate6to7` con DOS prefijos: `delete categoryProgress.articoli`+`.partitivos`, filtro `exerciseStats` por ambos prefijos, invalidación de `inFlightTest`) + `hydrateV8` (espejo sin poda) + `CURRENT_SCHEMA_VERSION=8` + eslabón v7→v8 en `migrate()`; test reforzado D-04 (fixture 9 categorías, las 7 preservadas byte-idénticas). Task 2 (MIG-02): `backup.js` round-trip v8 (constante espejo + import + eslabón en `parseBackupFile`), import v7→v8 resetea articoli/partitivos (D-06), rechazo >8 automático. Desviaciones: solo sync de asserts pre-existentes 7→8 (blankState + round-trip v7, consecuencia directa del bump, precedente 17-01 dev 1) — sin desviación funcional. Commits: 465afc1 (test) / 39fc7e8 (feat) / 9e460d5 (test) / b5380e5 (feat). Stopped at: plan 01 completo, fase lista para verificación. Resume file: None. Siguiente: verificar Phase 18 y luego `/gsd:plan-phase 19` (Articoli a slots).
 - **Fecha:** 2026-06-04 — **Roadmap del milestone v1.5 (Conversión a slots: Bloque Artículos / CONV-01) creado por el roadmapper.** Numeración CONTINÚA desde Phase 17 → **Phases 18-20, NO reset** (mismo criterio que v1.1/v1.2/v1.3/v1.4). 3 fases coarse, vertical/shippable con dependencia explícita: **Phase 18 (Migración 7→8, reset selectivo articoli+partitivos)** mapea 2 MIG — `migrate7to8`/`hydrateV8` idempotente + deep-clone defensivo, reset de progreso SOLO de articoli + partitivos (categoryProgress + exerciseStats por prefijo + inFlightTest, racha 0), las otras 7 byte-intactas, `backup.js` round-trip v8 + import v7→v8, rechazo de >8; va PRIMERA porque la renumeración de ids de contenido no se puede hacer con progreso vivo; **Phase 19 (Articoli a slots)** mapea 4 ART — reagrupar 56 ejercicios por regla (determinativi por disparador fonético + indeterminativi como slots propios ART-03), variantes nuevas por quórum R1-R7 + huecos→slots, validator + smoke paramétrico + sync de counts + explanations a nivel de slot; **Phase 20 (Partitivi a slots)** mapea 3 PART — reagrupar 44 ejercicios por regla (del-formas + contable/incontable + alternativas + omisión + partitivo-vs-prep), variantes nuevas por quórum + huecos→slots, validator + smoke + counts + explanations a nivel de slot. **Cobertura: 9/9 mapped, 0 orphans, 0 duplicados, 0 gaps** (cada success criterion respaldado por ≥1 requisito). Phases 19/20 dependen de Phase 18; independientes entre sí tras la migración. **Brownfield puro contenido + migración: el motor slot+variantes v1.4 NO se reconstruye ni se toca.** Archivos escritos: `.planning/ROADMAP.md` (v1.4 colapsado a `<details>` SHIPPED + sección `### 🚧 v1.5 — ACTIVE` con Phases 18-20 en summary checklist + Phase Details con 3-4 criteria c/u + Progress table +3 filas + footer milestone v1.5), `.planning/REQUIREMENTS.md` (Traceability 9 filas MIG→Phase 18 / ART→Phase 19 / PART→Phase 20 + Coverage 9/9 + mapping rationale), `.planning/STATE.md` (este — re-inicializado para v1.5 planning). v1.0-v1.4 preservados archivados. Stopped at: roadmap creado. Resume file: None. Siguiente: `/gsd:plan-phase 18`.
 - **Fecha:** 2026-06-03 — Milestone v1.4 (Variantes de ejercicio / slots por regla) shipped + archivado. 3 fases (15-17), 9 plans, 17/17 requirements, 342/342 tests.
 

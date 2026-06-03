@@ -22,8 +22,8 @@
 
 ### Migración + datos (MIG)
 
-- [ ] **MIG-01**: Migración `schemaVersion 7→8` (`migrate7to8` + `hydrateV8`) idempotente y con deep-clone defensivo; resetea el progreso SOLO de `articoli` + `partitivos` (categoryProgress + exerciseStats por prefijo + inFlightTest), racha a 0; las otras 7 categorías conservan su progreso byte-intacto.
-- [ ] **MIG-02**: `backup.js` extendido a round-trip v8 (export v8 reimportable); el import de un backup v7 migra a v8 reseteando articoli+partitivos, y los >8 se rechazan (forward-compat).
+- [x] **MIG-01**: Migración `schemaVersion 7→8` (`migrate7to8` + `hydrateV8`) idempotente y con deep-clone defensivo; resetea el progreso SOLO de `articoli` + `partitivos` (categoryProgress + exerciseStats por prefijo + inFlightTest), racha a 0; las otras 7 categorías conservan su progreso byte-intacto.
+- [x] **MIG-02**: `backup.js` extendido a round-trip v8 (export v8 reimportable); el import de un backup v7 migra a v8 reseteando articoli+partitivos, y los >8 se rechazan (forward-compat).
 
 ## Future Requirements
 
@@ -54,8 +54,8 @@ Qué fases cubren qué requirements.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| MIG-01 | Phase 18 | Pending |
-| MIG-02 | Phase 18 | Pending |
+| MIG-01 | Phase 18 | Complete |
+| MIG-02 | Phase 18 | Complete |
 | ART-01 | Phase 19 | Pending |
 | ART-02 | Phase 19 | Pending |
 | ART-03 | Phase 19 | Pending |
