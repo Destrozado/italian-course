@@ -2,8 +2,8 @@
 gsd_state_version: 1.0
 milestone: v1.4
 milestone_name: Variantes de ejercicio (slots por regla)
-status: ready_to_plan
-last_updated: 2026-06-03T06:16:20.473Z
+status: planning
+last_updated: "2026-06-03T07:22:46.076Z"
 last_activity: 2026-06-03
 progress:
   total_phases: 5
@@ -11,7 +11,6 @@ progress:
   total_plans: 3
   completed_plans: 3
   percent: 20
-stopped_at: Phase 15 complete (3/3) — ready to discuss Phase 999.1
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
