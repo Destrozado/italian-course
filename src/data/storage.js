@@ -32,26 +32,27 @@
 //     desconocido (futuro) → warn + blankState.
 
 const KEY = 'italianCourse.v1';
-const CURRENT_SCHEMA_VERSION = 6;
+const CURRENT_SCHEMA_VERSION = 7;
 
 /**
  * Devuelve un estado "en blanco" (sin progreso) — el estado inicial canónico
- * con shape v6 (D-46/D-47 + D-77/D-78 Phase 4 + D-111 Phase 6 + D-02/D-03
- * Phase 13 + D-15-08/D-15-09 Phase 15).
+ * con shape v7 (D-46/D-47 + D-77/D-78 Phase 4 + D-111 Phase 6 + D-02/D-03
+ * Phase 13 + D-15-08/D-15-09 Phase 15 + D-17-08 Phase 17).
  *
- * Phase 15 (D-15-09): el bump 5 → 6 es NOMINAL a nivel del state root — no
- * añade campos nuevos ni sub-árboles. El modelo slot+variantes vive en
- * `content/` (validator + loader), NO en el state; `exerciseStats` sigue
- * keyed por id de ejercicio-slot. El set de sub-dicts es IDÉNTICO a v5
- * (exerciseStats, categoryProgress, dailyLog, songProgress), igual que el
- * precedente de bump nominal 3 → 4 (D-110/D-111). Sin reset de progreso
- * (Preposiciones reset es Phase 17).
+ * Phase 17 (D-17-08): el bump 6 → 7 es NOMINAL a nivel del state root — no
+ * añade campos nuevos ni sub-árboles. El set de sub-dicts es IDÉNTICO a v6
+ * (exerciseStats, categoryProgress, dailyLog, songProgress). La diferencia
+ * efectiva del bump vive en `migrate6to7`, que resetea SOLO el progreso de
+ * Preposiciones (reagrupada a slots+variantes en el piloto); un estado en
+ * blanco no tiene progreso que resetear, así que `blankState()` solo cambia
+ * el número de versión respecto a v6. Precedente de bump nominal: 5 → 6
+ * (D-15-09) y 3 → 4 (D-110/D-111).
  *
  * Nota: `inFlightTest` se omite (undefined) deliberadamente; `JSON.stringify`
  * lo elide al persistir y el resto del código trata `state.inFlightTest`
  * como opcional.
  *
- * @returns {{schemaVersion: 6, exerciseStats: object, categoryProgress: object, dailyLog: object, songProgress: object, lastBackupAt: null, firstUsedAt: null}}
+ * @returns {{schemaVersion: 7, exerciseStats: object, categoryProgress: object, dailyLog: object, songProgress: object, lastBackupAt: null, firstUsedAt: null}}
  */
 export function blankState() {
   return {
@@ -142,7 +143,8 @@ function migrate(parsed) {
   if (s.schemaVersion === 3) s = migrate3to4(s);
   if (s.schemaVersion === 4) s = migrate4to5(s);
   if (s.schemaVersion === 5) s = migrate5to6(s);
-  if (s.schemaVersion === 6) return hydrateV6(s);
+  if (s.schemaVersion === 6) s = migrate6to7(s);
+  if (s.schemaVersion === 7) return hydrateV7(s);
 
   // Versión desconocida (probablemente futura) → no perdemos datos del autor:
   // logueamos warning y arrancamos limpio.
@@ -538,6 +540,132 @@ export function migrate5to6(v5) {
 export function hydrateV6(parsed) {
   return {
     schemaVersion: 6,
+    exerciseStats: (typeof parsed.exerciseStats === 'object' && parsed.exerciseStats !== null)
+      ? JSON.parse(JSON.stringify(parsed.exerciseStats))
+      : {},
+    categoryProgress: (typeof parsed.categoryProgress === 'object' && parsed.categoryProgress !== null)
+      ? JSON.parse(JSON.stringify(parsed.categoryProgress))
+      : {},
+    dailyLog: (typeof parsed.dailyLog === 'object' && parsed.dailyLog !== null)
+      ? JSON.parse(JSON.stringify(parsed.dailyLog))
+      : {},
+    songProgress: (typeof parsed.songProgress === 'object' && parsed.songProgress !== null)
+      ? JSON.parse(JSON.stringify(parsed.songProgress))
+      : {},
+    lastBackupAt: typeof parsed.lastBackupAt === 'string' ? parsed.lastBackupAt : null,
+    firstUsedAt: typeof parsed.firstUsedAt === 'string' ? parsed.firstUsedAt : null,
+    inFlightTest: parsed.inFlightTest
+  };
+}
+
+/**
+ * Migra un estado v6 a v7 (D-17-08 / PILOT-04, Phase 17). El bump es NOMINAL a
+ * nivel del shape root (mismo set de sub-dicts que v6), PERO aplica una poda
+ * QUIRÚRGICA: resetea SOLO el progreso de la categoría Preposiciones, que en
+ * el piloto v1.4 se reagrupa de 52 ejercicios planos a slots+variantes. Mapear
+ * el estado ejercicio→slot legacy sería frágil; el reset es coherente con el
+ * Core Value (re-verificar desde cero) y mucho más simple (D-17-08). Las otras
+ * 8 categorías conservan su progreso byte-intacto.
+ *
+ * Espejo de `migrate5to6` (Phase 15) con la versión a 7 y TRES desviaciones
+ * (D-17-08):
+ *   (1) tras el deep-clone de `categoryProgress`, `delete clone.preposiciones`
+ *       → la categoría re-lazy-inicializa como no-hecha, racha 0 (D-47);
+ *   (2) `exerciseStats` se reconstruye filtrando las claves con prefijo
+ *       `preposiciones` (cubre tanto los ids legacy `preposiciones-001..052`
+ *       como los nuevos ids de slot `preposiciones-al`, etc.). Ninguna otra de
+ *       las 9 categorías reales empieza por `preposiciones`, así que el match
+ *       de prefijo es seguro (avere/essere/preposiciones/verbos-movimiento/
+ *       sustantivos-irregulares/genero-numero/profesiones/articoli/partitivos);
+ *   (3) `inFlightTest` se invalida a `undefined` si referencia algún id de
+ *       Preposiciones — tras la reagrupación esos ids ya no existen en
+ *       `slotById`, y reanudar el Test crashearía el render (`slotById[id]`
+ *       undefined). La invalidación pasa en la MIGRACIÓN, no se confía del
+ *       guard de UI (que no valida existencia de ids). Estilo de reconstrucción
+ *       condicional clonado de `migrate3to4` (no muta el input).
+ *
+ * Deep-clone defensivo (CR-03 / T-04-02 / T-17-01): el
+ * `JSON.parse(JSON.stringify(...))` por sub-dict neutraliza getters /
+ * `__proto__` como own-property; reconstruye un root literal fresco
+ * `{ schemaVersion: 7, ... }`, nunca asigna `__proto__` como prototipo. Crítico
+ * aquí: la poda (`delete` + filtro de claves) opera sobre dicts derivados del
+ * input parseado del autor — sin el clone, una clave maliciosa o un getter del
+ * state importado se colaría al live state.
+ *
+ * Idempotencia + pureza (T-17-02): NO muta el input. Re-ejecutar sobre un v7 ya
+ * migrado produce la misma shape (Preposiciones ya ausente → `delete` y filtro
+ * son no-op; `inFlightTest` ya invalidado o ajeno → se preserva).
+ *
+ * Exportada para testabilidad — el dispatcher la usa como eslabón v6 → v7.
+ *
+ * @param {object} v6 - Estado parseado con `schemaVersion: 6`.
+ * @returns {object} Estado normalizado v7 con Preposiciones reseteada.
+ */
+export function migrate6to7(v6) {
+  // (1) Reset de categoryProgress.preposiciones tras deep-clone defensivo.
+  const categoryProgress = (typeof v6.categoryProgress === 'object' && v6.categoryProgress !== null)
+    ? JSON.parse(JSON.stringify(v6.categoryProgress))
+    : {};
+  delete categoryProgress.preposiciones;
+
+  // (2) Poda por prefijo de exerciseStats['preposiciones*'] tras deep-clone.
+  const exerciseStatsAll = (typeof v6.exerciseStats === 'object' && v6.exerciseStats !== null)
+    ? JSON.parse(JSON.stringify(v6.exerciseStats))
+    : {};
+  const exerciseStats = {};
+  for (const k of Object.keys(exerciseStatsAll)) {
+    if (!k.startsWith('preposiciones')) exerciseStats[k] = exerciseStatsAll[k];
+  }
+
+  // (3) Invalidar inFlightTest si referencia ids de Preposiciones (Pitfall 3).
+  //     Reconstrucción condicional sin mutar el input (estilo migrate3to4).
+  let inFlightTest = v6.inFlightTest;
+  if (inFlightTest && typeof inFlightTest === 'object' &&
+      Array.isArray(inFlightTest.exerciseIds) &&
+      inFlightTest.exerciseIds.some(id => typeof id === 'string' && id.startsWith('preposiciones'))) {
+    inFlightTest = undefined;
+  }
+
+  return {
+    schemaVersion: 7,
+    exerciseStats,
+    categoryProgress,
+    dailyLog: (typeof v6.dailyLog === 'object' && v6.dailyLog !== null)
+      ? JSON.parse(JSON.stringify(v6.dailyLog))
+      : {},
+    songProgress: (typeof v6.songProgress === 'object' && v6.songProgress !== null)
+      ? JSON.parse(JSON.stringify(v6.songProgress))
+      : {},
+    lastBackupAt: typeof v6.lastBackupAt === 'string' ? v6.lastBackupAt : null,
+    firstUsedAt: typeof v6.firstUsedAt === 'string' ? v6.firstUsedAt : null,
+    inFlightTest
+  };
+}
+
+/**
+ * Hidrata un estado v7 ya en disco con type-guards defensivos en cada
+ * sub-objeto. Espejo LITERAL de `hydrateV6` (Phase 15) con la versión a 7 —
+ * el shape v7 root es idéntico a v6 (el bump 6 → 7 es nominal a nivel del
+ * shape; la diferencia efectiva, el reset de Preposiciones, la hace
+ * `migrate6to7` durante la cadena).
+ *
+ * NO repite la poda de `migrate6to7`: un state que llega a `hydrateV7` ya viene
+ * v7-shaped (Preposiciones ya reseteada durante la cadena) o es un import
+ * directo v7 que debe preservarse íntegro. Precedente: `hydrateV6` no
+ * re-ejecuta la lógica de `migrate5to6`, solo garantiza shape.
+ *
+ * Deep-clone defensivo (CR-03 / T-04-02 / T-17-01): igual que `migrate6to7` y
+ * `hydrateV6`. Útil cuando el usuario edita manualmente localStorage o cuando
+ * el backup importado viene de una shape v7 con sub-objetos malformados.
+ *
+ * Exportada para testabilidad — invocada al final de la cadena de migración.
+ *
+ * @param {object} parsed - Estado parseado con `schemaVersion: 7`.
+ * @returns {object} Estado v7 con campos garantizados.
+ */
+export function hydrateV7(parsed) {
+  return {
+    schemaVersion: 7,
     exerciseStats: (typeof parsed.exerciseStats === 'object' && parsed.exerciseStats !== null)
       ? JSON.parse(JSON.stringify(parsed.exerciseStats))
       : {},
