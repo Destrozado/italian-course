@@ -30,7 +30,7 @@
 - [ ] **PILOT-01**: Los 57 ejercicios validados de Preposiciones se reagrupan en slots por regla (los que entrenan la misma regla reformulada pasan a ser variantes del mismo slot).
 - [ ] **PILOT-02**: Se autoran variantes nuevas (patrón D-85: Claude propone → autor revisa → quórum R1-R7) donde tenga sentido; cada variante nueva pasa el quórum cross-vendor antes de entrar.
 - [ ] **PILOT-03**: Se añade el slot de preposición locativa fija `in spiaggia / in montagna / al mare / in campagna` (hueco detectado: no estaba en ninguna categoría).
-- [ ] **PILOT-04**: Al migrar Preposiciones a slots, su progreso se resetea a no-hecha (racha 0); el resto de categorías conserva su progreso.
+- [x] **PILOT-04**: Al migrar Preposiciones a slots, su progreso se resetea a no-hecha (racha 0); el resto de categorías conserva su progreso.
 - [ ] **PILOT-05**: La estructura final de Preposiciones pasa el validator y el smoke test paramétrico (cobertura de explanations por slot preservada).
 
 ## Future Requirements
@@ -76,7 +76,7 @@ Qué fases cubren qué requirements.
 | PILOT-01 | Phase 17 | Pending |
 | PILOT-02 | Phase 17 | Pending |
 | PILOT-03 | Phase 17 | Pending |
-| PILOT-04 | Phase 17 | Pending |
+| PILOT-04 | Phase 17 | Complete |
 | PILOT-05 | Phase 17 | Pending |
 
 **Coverage:**

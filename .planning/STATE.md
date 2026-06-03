@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.4
 milestone_name: Variantes de ejercicio (slots por regla)
 status: executing
-last_updated: "2026-06-03T13:47:31.309Z"
-last_activity: 2026-06-03 -- Phase 17 planning complete
+last_updated: "2026-06-03T13:59:44.000Z"
+last_activity: 2026-06-03 -- Plan 17-01 ejecutado (migración 6→7 + reset Preposiciones)
 progress:
   total_phases: 5
   completed_phases: 2
@@ -21,16 +21,16 @@ See: `.planning/PROJECT.md` (updated 2026-06-02)
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 999.1 — bot n reiniciar ejercicios en pantalla de sesi n
+**Current Focus:** Phase 17 — Piloto Preposiciones (contenido)
 
 **Milestone v1.4 Goal:** Matar la memorización por palabras introduciendo *slots* (1 por regla) con variantes intercambiables; un examen recorre N slots eligiendo 1 variante al azar en cada uno, manteniendo intacta la re-verificación D-54. MOTOR + 1 PILOTO: construir el modelo de datos y el motor de examen por slots, luego convertir SOLO Preposiciones como piloto real. Las otras 8 categorías siguen funcionando como slots de 1 variante (backward-compat) — su conversión es out-of-scope (CONV-01 futuro). Brownfield: REUTILIZA la cascada D-54, el sampler, el schema-validator, el patrón Test-completo y `applyResultToSession` — NO reconstruye el motor.
 
 ## Current Position
 
-Phase: 999.1
-Plan: Not started
-Status: Ready to execute
-Last activity: 2026-06-03 -- Phase 17 planning complete
+Phase: 17 (Piloto Preposiciones (contenido)) — EXECUTING
+Plan: 2 of 4
+Status: Executing Phase 17 (Plan 17-01 completo)
+Last activity: 2026-06-03 -- Plan 17-01 ejecutado (migración 6→7 + reset Preposiciones)
 
 ## Quick Tasks Completed
 
@@ -52,10 +52,10 @@ Last activity: 2026-06-03 -- Phase 17 planning complete
 | Requisitos v1.2 completos | 15/15 (100% — ART-01..08 + PART-01..07) |
 | Requisitos v1.3 completos | 19/19 (100% — SONG/PLAY/LINK/DATA + CONT) |
 | Requisitos v1.4 mapeados | 17/17 (100% — SLOT→Phase 15 (6); EXAM→Phase 16 (6); PILOT→Phase 17 (5); 0 orphans) |
-| Requisitos v1.4 completos | 12/17 (SLOT 6/6 Phase 15 + EXAM 6/6 Phase 16; PILOT 0/5 Phase 17 pendiente) |
+| Requisitos v1.4 completos | 13/17 (SLOT 6/6 Phase 15 + EXAM 6/6 Phase 16; PILOT 1/5 — PILOT-04 reset migración Plan 17-01) |
+| schemaVersion actual | 7 (Plan 17-01: migrate6to7 + hydrateV7 + backup v7, reset selectivo de Preposiciones D-17-08) |
 | Ejercicios totales en la app | 373 validated (9 categorías gramaticales) + bloque Canciones standalone |
 | Categorías gramaticales | 9 (en v1.4: Preposiciones se convierte a slots-piloto; las otras 8 = slots de 1 variante) |
-| schemaVersion actual | 6 (Plan 15-02: migrate5to6 + hydrateV6 + backup v6, bump nominal D-15-09) |
 | Granularidad | coarse |
 | Mode | mixed — Phase 15/16 software (motor + migración), Phase 17 contenido editorial (quórum R1-R7) |
 
@@ -80,7 +80,7 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - **Vertical-slice ordering con dependencia clara** — Phase 16 (motor) debe ser exercisable end-to-end con slots de 1 variante (gracias a SLOT-06 backward-compat) ANTES de la rework de contenido de Phase 17. PILOT depende de SLOT+EXAM en su sitio.
 - **Contenido del piloto pasa el quórum estricto R1-R7** — las variantes nuevas de Preposiciones (PILOT-02) NO usan la validación ligera autor-oráculo de canciones; usan el quórum cross-vendor gramatical (skills `gsd-validate-exercise` / `gsd-validate-batch`), porque son ejercicios gramaticales reales.
 - **Explicación a nivel de slot, NO por variante (SLOT-02)** — variantes intercambiables comparten regla y explicación; más simple de autorar/validar. Explicación propia por variante está out-of-scope.
-- **Reset de progreso de Preposiciones al migrar (PILOT-04)** — coherente con el Core Value y mucho más simple que mapear estado ejercicio→slot; el resto de categorías conserva su progreso.
+- **Reset de progreso de Preposiciones al migrar (PILOT-04)** — coherente con el Core Value y mucho más simple que mapear estado ejercicio→slot; el resto de categorías conserva su progreso. ✓ **Implementado Plan 17-01** (D-17-08): `migrate6to7` clona el patrón deep-clone de `migrate5to6` + 3 desviaciones (delete `categoryProgress.preposiciones`; filtro de `exerciseStats` por prefijo `preposiciones` — cubre ids legacy y futuros de slot; invalidación de `inFlightTest` si algún `exerciseId` empieza por `preposiciones`, evitando crash al reanudar). `hydrateV7` = espejo de `hydrateV6` SIN poda. `CURRENT_SCHEMA_VERSION` 6→7 (storage + backup espejo). `backup.js` round-trip v7 + import v6→v7 reseteando Preposiciones. Idempotente + puro + anti-prototype-pollution preservado. 342/342 tests verdes (+18 nuevos v7); avere snapshot intacto. Las otras 8 categorías byte-intactas (verificado por test).
 - **Migración coherente con el patrón existente (SLOT-05)** — `migrate5to6` + `hydrateV6` idempotente + deep-clone defensivo (mismo patrón que `migrate4to5`); `backup.js` extendido a v6 para round-trip. ✓ **Implementado Plan 15-02** (D-15-09: bump NOMINAL a nivel del state root — el modelo slot+variantes vive en `content/`, no en el state; mismo set de sub-dicts que v5; sin reset de progreso, Preposiciones reset es Phase 17; 341/341 tests verdes, +9 nuevos v6).
 - **Canon editorial heredado** — explanations de slot en español acentuado correcto + italianismos preservados, plain text sin markdown, apóstrofes ASCII U+0027 (D-129/D-135/D-137).
 - **Verificación e2e + fixture canónico como contrato (SLOT-01/03/06)** — ✓ **Implementado Plan 15-03**: el fixture `content/exercises/_fixtures/slot-demo.json` (1 slot multi-variante + 1 slot de 1, fuera del registry) recorre el pipeline completo (validateContent → normalizeExerciseToSlot → slotById) sin mutar el legacy; las 9 categorías reales validan intactas con el validator extendido (SLOT-06); avere snapshot verde. 367/367 tests. **Checkpoint humano (ASVS L1, block-on-high) APPROVED**: la app arranca con las 9 categorías como hoy, state persiste en schemaVersion 6 sin reset, backup round-trip v6 funciona, banners de validación como texto plano (T-15-REGR/XSS/DATALOSS mitigados). El fixture queda como contrato vivo del shape de autoría para Phase 16/17.
