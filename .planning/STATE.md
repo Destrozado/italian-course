@@ -4,7 +4,7 @@ milestone: v1.4
 milestone_name: Variantes de ejercicio (slots por regla)
 status: executing
 last_updated: "2026-06-03T16:30:00.000Z"
-last_activity: 2026-06-03 -- Plan 17-02 ejecutado (Preposiciones reescrito a 47 slots slot+variantes + fact 57→52)
+last_activity: 2026-06-03 -- Plan 17-03 PAUSADO (quórum round 1 externo hecho; espera cuota Gemini + mitad Claude). Ver 17-03-RESUME.md
 progress:
   total_phases: 5
   completed_phases: 2
@@ -27,10 +27,10 @@ See: `.planning/PROJECT.md` (updated 2026-06-02)
 
 ## Current Position
 
-Phase: 17 (Piloto Preposiciones (contenido)) — EXECUTING
+Phase: 17 (Piloto Preposiciones (contenido)) — EXECUTING (Plan 17-03 PAUSADO)
 Plan: 3 of 4
-Status: Executing Phase 17 (Plan 17-02 completo)
-Last activity: 2026-06-03 -- Plan 17-02 ejecutado (Preposiciones reescrito a 47 slots + fact 57→52)
+Status: 17-01 ✓, 17-02 ✓; 17-03 EN PROGRESO — quórum cross-vendor round 1 (mitad externa Gemini+DeepSeek) hecho sobre 43 variantes; PAUSADO por rate-limit de Gemini (24 variantes esperan pase Gemini) + falta mitad Claude (Opus+Sonnet). preposiciones.json AÚN NO modificado. 17-04 espera. Reanudar con .planning/phases/17-piloto-preposiciones-contenido/17-03-RESUME.md
+Last activity: 2026-06-03 -- Plan 17-03 pausado en quórum round 1 (ver 17-03-RESUME.md)
 
 ## Quick Tasks Completed
 
