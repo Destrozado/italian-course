@@ -3,967 +3,2221 @@
     {
       "id": "preposiciones-di-origen",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "La preposición Di indica origen estable: de dónde es alguien por nacimiento o identidad permanente. Maria è di Roma di nascita significa 'Maria es de Roma de nacimiento'. La locución fija 'di nascita' (de nacimiento) refuerza que se trata del origen y no de la ubicación actual. Distinta de Da, que marca el punto de partida de un movimiento concreto (viene da Pisa = vino desde Pisa hoy), y de A, que indicaría ubicación actual (è a Roma = está en Roma ahora mismo).",
       "variants": [
         {
           "prompt": "Maria viene da Pisa, ma è ___ Roma di nascita.",
-          "options": ["di", "a", "da", "in"],
+          "options": [
+            "di",
+            "a",
+            "da",
+            "in"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Paolo è ___ Napoli di nascita.",
+          "options": [
+            "di",
+            "a",
+            "da",
+            "in"
+          ],
           "correctIndex": 0
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-a-casa",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "Con la palabra casa el italiano usa la preposición A como excepción idiomática, no In como dicta la regla general de paesi y regioni. Vado a casa equivale a 'voy a mi casa' como locución fija. Cuidado: el hispanohablante piensa en 'en casa' y se inclina por In, pero con casa el italiano siempre usa A.",
       "variants": [
         {
           "prompt": "Vado ___ casa.",
-          "options": ["in", "a", "da", "per"],
+          "options": [
+            "in",
+            "a",
+            "da",
+            "per"
+          ],
           "correctIndex": 1
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-da-provenienza",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "La preposición Da marca el punto de partida o procedencia de un movimiento concreto: de dónde sales. Vengo a Roma da Milano stamattina equivale a 'vengo a Roma desde Milán esta mañana' — el destino (a Roma) ya está marcado explícitamente con 'a', por lo que la otra preposición tiene que indicar el origen del viaje, y para ciudades el italiano usa Da. Se distingue de Di, que indica origen estable (Sono di Milano = soy de Milán, identidad permanente).",
       "variants": [
         {
           "prompt": "Vengo a Roma ___ Milano stamattina.",
-          "options": ["di", "a", "da", "in"],
+          "options": [
+            "di",
+            "a",
+            "da",
+            "in"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Arrivo a Napoli ___ Firenze stasera.",
+          "options": [
+            "di",
+            "a",
+            "da",
+            "in"
+          ],
           "correctIndex": 2
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-in-paese",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "Con paesi y regioni el italiano usa la preposición In para indicar el lugar donde se vive o se está. Vivo in Italia significa 'vivo en Italia'. La regla contrasta con las ciudades, que llevan A (Vivo a Milano). ¡Atención!: el hispanohablante tiende a usar 'a' para ambos, pero el italiano distingue paese (In) vs città (A).",
       "variants": [
         {
           "prompt": "Vivo ___ Italia.",
-          "options": ["a", "in", "da", "su"],
+          "options": [
+            "a",
+            "in",
+            "da",
+            "su"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Vivo ___ Francia da tre anni.",
+          "options": [
+            "a",
+            "in",
+            "da",
+            "su"
+          ],
           "correctIndex": 1
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-con-compagnia",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "La preposición Con indica compagnia: con quién se realiza la acción. Esco con gli amici stasera equivale a 'salgo con los amigos esta noche'. Es el uso más directo de Con y suele resultar transparente para el hispanohablante porque coincide con la preposición española 'con' en este contexto.",
       "variants": [
         {
           "prompt": "Esco ___ gli amici stasera.",
-          "options": ["di", "per", "con", "tra"],
+          "options": [
+            "di",
+            "per",
+            "con",
+            "tra"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Vado al cinema ___ mia sorella, non da solo.",
+          "options": [
+            "di",
+            "per",
+            "con",
+            "tra"
+          ],
           "correctIndex": 2
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-per-scopo",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "La preposición Per expresa scopo o finalidad: para qué se hace la acción. Studio per imparare l'italiano se traduce como 'estudio para aprender italiano'. Per se construye siempre con infinitivo cuando introduce un objetivo, igual que el español 'para + infinitivo'.",
       "variants": [
         {
           "prompt": "Studio ___ imparare l'italiano.",
-          "options": ["di", "a", "per", "con"],
+          "options": [
+            "di",
+            "a",
+            "per",
+            "con"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Lavoro ___ guadagnare bene.",
+          "options": [
+            "di",
+            "a",
+            "per",
+            "con"
+          ],
           "correctIndex": 2
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-tra-futuro",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "Tra (y su sinónimo Fra) expresa tempo futuro: dentro de cuánto tiempo ocurrirá algo desde el momento presente. Tra due giorni parto equivale a 'dentro de dos días salgo'. La traducción 'dentro de' fija el futuro y descarta Da (desde hace, pasado continuativo), In (en el plazo de, duración para completar) y Per (durante). Tra y Fra son sinónimos intercambiables: ambos miden distancia temporal hacia el futuro. Nota eufónica: ante palabras que empiezan por 'tr-' el italiano prefiere Fra a Tra para evitar la cacofonía 'tra tre' (por eso 'fra tre giorni' es la forma natural en italiano cuidado).",
       "variants": [
         {
           "prompt": "___ due giorni parto.",
-          "options": ["Per", "In", "Tra", "Da"],
+          "options": [
+            "Per",
+            "In",
+            "Tra",
+            "Da"
+          ],
           "correctIndex": 2
         },
         {
           "prompt": "___ tre giorni partiamo per Roma. (en español: 'Dentro de tres días salimos hacia Roma')",
-          "options": ["fra", "da", "in", "per"],
+          "options": [
+            "fra",
+            "da",
+            "in",
+            "per"
+          ],
           "correctIndex": 0
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-per-durata",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "Per además de finalidad expresa durata: cuánto tiempo dura una acción. Ieri ho studiato per due ore se traduce como 'ayer estudié durante dos horas'. El adverbio 'ieri' ancla la acción en el pasado cerrado, lo que descarta 'da due ore' (desde hace dos horas, duración hasta el presente) y deja Per como única opción para el periodo cuantificado.",
       "variants": [
         {
           "prompt": "Ieri ho studiato ___ due ore. (en español: 'Ayer estudié durante dos horas')",
-          "options": ["a", "per", "in", "da"],
+          "options": [
+            "a",
+            "per",
+            "in",
+            "da"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Ieri ho dormito ___ otto ore. (en español: 'Ayer dormí durante ocho horas')",
+          "options": [
+            "a",
+            "per",
+            "in",
+            "da"
+          ],
           "correctIndex": 1
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-di-posesso",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "Di indica posesso o pertenencia: a quién pertenece algo. Il libro di Marco se traduce como 'el libro de Marco'. Delante de nombres propios Di nunca se contrae con artículo: en italiano no se dice 'del Marco' ni 'della Maria', igual que en español no se dice 'el libro del Marco' ni 'la Maria'. La regla aplica a cualquier nombre propio de persona.",
       "variants": [
         {
           "prompt": "Il libro ___ Marco è interessante.",
-          "options": ["di", "da", "per", "a"],
+          "options": [
+            "di",
+            "da",
+            "per",
+            "a"
+          ],
           "correctIndex": 0
         },
         {
           "prompt": "La macchina ___ Maria è rossa.",
-          "options": ["di", "della", "dalla", "alla"],
+          "options": [
+            "di",
+            "della",
+            "dalla",
+            "alla"
+          ],
           "correctIndex": 0
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-sul",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "Su significa 'sobre' o 'encima de' con contacto físico. Cuando va seguida del artículo definido se fusiona en una preposición articolata: Su + Il (masc sing) = Sul. Il gatto è sul tavolo = el gato está sobre la mesa. Mismo patrón: Su + La = Sulla, Su + Le = Sulle. Su exige superficie expuesta y contrasta con Nel, que implicaría 'dentro de' (cajón, caja). La regla se repite en contextos distintos (mesa, pupitre): siempre que haya contacto sobre una superficie masculina singular, Su + Il = Sul.",
       "variants": [
         {
           "prompt": "Il gatto è ___ tavolo.",
-          "options": ["sul", "nel", "al", "dal"],
+          "options": [
+            "sul",
+            "nel",
+            "al",
+            "dal"
+          ],
           "correctIndex": 0
         },
         {
           "prompt": "Le chiavi sono ___ tavolo.",
-          "options": ["nel", "sul", "al", "dal"],
+          "options": [
+            "nel",
+            "sul",
+            "al",
+            "dal"
+          ],
           "correctIndex": 1
         },
         {
           "prompt": "Il quaderno è ___ banco.",
-          "options": ["sul", "sullo", "sulla", "nel"],
+          "options": [
+            "sul",
+            "sullo",
+            "sulla",
+            "nel"
+          ],
           "correctIndex": 0
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-al",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "Cuando A precede a un sustantivo con artículo definido se fusiona en una preposición articolata. A + Il (masc sing) = Al. Andiamo al cinema equivale a 'vamos al cine'. El error típico A1 es usar la preposición simple A sola, olvidando que el artículo Il debe contraerse con ella. La contracción también aparece en locuciones fijas como 'parlare al telefono' (hablar por teléfono): aunque el español dice 'por teléfono', el italiano exige Al, no A sola.",
       "variants": [
         {
           "prompt": "Andiamo ___ cinema.",
-          "options": ["a", "al", "nel", "in"],
+          "options": [
+            "a",
+            "al",
+            "nel",
+            "in"
+          ],
           "correctIndex": 1
         },
         {
           "prompt": "Parlo ___ telefono.",
-          "options": ["a", "al", "nel", "con"],
+          "options": [
+            "a",
+            "al",
+            "nel",
+            "con"
+          ],
           "correctIndex": 1
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-dalla",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "Da combinada con el artículo femenino singular La produce la preposición articolata Dalla. Vengo dalla stazione adesso significa 'vengo desde la estación ahora'. La traducción 'desde' fija la lectura de origen (da = procedencia) y descarta 'alla' (a la estación, destino); para sustantivos femeninos con artículo definido la fusión es da + la = dalla.",
       "variants": [
         {
           "prompt": "Vengo ___ stazione adesso. (en español: 'Vengo desde la estación ahora')",
-          "options": ["dalla", "alla", "nella", "sulla"],
+          "options": [
+            "dalla",
+            "alla",
+            "nella",
+            "sulla"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Esco ___ banca alle cinque. (en español: 'Salgo del banco a las cinco')",
+          "options": [
+            "dalla",
+            "alla",
+            "nella",
+            "sulla"
+          ],
           "correctIndex": 0
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-a-ciudad",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "Con nombres de ciudad el italiano usa la preposición A para direzione, no In. Vado a Roma quest'estate equivale a 'voy a Roma este verano'. La regla contrasta con paesi y regioni, que llevan In (Vado in Italia). Importante: distinguir ciudad (A) vs país (In) es uno de los errores más típicos del A1.",
       "variants": [
         {
           "prompt": "Vado ___ Roma quest'estate.",
-          "options": ["in", "a", "da", "per"],
+          "options": [
+            "in",
+            "a",
+            "da",
+            "per"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Quest'inverno vado ___ Milano per lavoro.",
+          "options": [
+            "in",
+            "a",
+            "da",
+            "per"
+          ],
           "correctIndex": 1
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-a-hora",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "La preposición A indica tempo cuando se señala una hora concreta del día. Pranziamo a mezzogiorno se traduce como 'almorzamos al mediodía'. Misma regla con las horas: alle otto, a mezzanotte. Equivale al español 'a las ocho' que también usa A para fijar la hora.",
       "variants": [
         {
           "prompt": "Pranziamo ___ mezzogiorno.",
-          "options": ["in", "per", "a", "tra"],
+          "options": [
+            "in",
+            "per",
+            "a",
+            "tra"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Ceniamo ___ mezzanotte.",
+          "options": [
+            "in",
+            "per",
+            "a",
+            "tra"
+          ],
           "correctIndex": 2
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-da-agente",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "En italiano, cuando una acción la realiza un agente en una frase pasiva, la preposición obligatoria es Da. Il libro è scritto da lui se traduce como 'el libro está escrito por él'. La traducción 'por él' (agente que ejecuta la acción) fija Da y descarta 'per' (que daría 'per lui' = 'para él', destinatario). Da expresa autoría o ejecución, distinto del español 'por' que cubre causa y agente.",
       "variants": [
         {
           "prompt": "Il libro è scritto ___ lui. (en español: 'El libro está escrito por él')",
-          "options": ["da", "di", "per", "con"],
+          "options": [
+            "da",
+            "di",
+            "per",
+            "con"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "La cena è preparata ___ lei. (en español: 'La cena está preparada por ella')",
+          "options": [
+            "da",
+            "di",
+            "per",
+            "con"
+          ],
           "correctIndex": 0
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-in-trasporto",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "Con medios de transporte cerrados el italiano usa In sin artículo: in macchina, in treno, in autobus. Vado al lavoro in macchina equivale a 'voy al trabajo en coche'. Excepción idiomática vs paesi (Vivo in Italia) — aquí In no significa 'dentro de', sino 'mediante'. A pie usa A (a piedi).",
       "variants": [
         {
           "prompt": "Vado al lavoro ___ macchina.",
-          "options": ["con", "a", "in", "per"],
+          "options": [
+            "con",
+            "a",
+            "in",
+            "per"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Vado a scuola ___ treno.",
+          "options": [
+            "con",
+            "a",
+            "in",
+            "per"
+          ],
           "correctIndex": 2
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-su-argomento",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "Su también indica argomento o tema: sobre qué trata algo. Ho letto un libro su Roma antica equivale a 'he leído un libro sobre la Roma antigua'. Su aquí no implica contacto físico (sul tavolo) ni superficie vertical, sino el tema de un texto, conversación o reflexión. (Nota: la preposición 'di' también puede marcar tema en italiano — 'libro di storia' — por eso se reserva para un ejercicio aparte donde la traducción fuerce 'di'; aquí 'di' se omite de las opciones para que 'sobre' tenga una sola respuesta limpia).",
       "variants": [
         {
           "prompt": "Ho letto un libro ___ Roma antica. (en español: 'He leído un libro sobre la Roma antigua')",
-          "options": ["su", "per", "in", "con"],
+          "options": [
+            "su",
+            "per",
+            "in",
+            "con"
+          ],
           "correctIndex": 0
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-del",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "Di + Il se fusiona en la preposición articolata Del cuando el sustantivo es masculino singular regular. Il colore del cielo significa 'el color del cielo'. El patrón paralelo al español 'del' (de + el) es uno de los pocos casos donde italiano y español coinciden palabra por palabra.",
       "variants": [
         {
           "prompt": "Il colore ___ cielo è azzurro.",
-          "options": ["del", "al", "dal", "nel"],
+          "options": [
+            "del",
+            "al",
+            "dal",
+            "nel"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Il tetto ___ palazzo è rosso.",
+          "options": [
+            "del",
+            "al",
+            "dal",
+            "nel"
+          ],
           "correctIndex": 0
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-dello",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "Cuando el sustantivo masculino singular empieza por s + consonante, z, gn, ps o x, el artículo es Lo (no Il), y Di se fusiona en Dello. Il libro dello studente se traduce como 'el libro del estudiante'. Misma regla: lo zaino, lo gnomo, lo psicologo, lo xilofono — todos exigen Lo y por tanto Dello.",
       "variants": [
         {
           "prompt": "Il libro ___ studente è sul banco.",
-          "options": ["del", "dello", "della", "dei"],
+          "options": [
+            "del",
+            "dello",
+            "della",
+            "dei"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "La fine ___ spettacolo è triste.",
+          "options": [
+            "del",
+            "dello",
+            "della",
+            "dei"
+          ],
           "correctIndex": 1
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-della",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "La preposición articolata Della resulta de Di + La cuando el sustantivo es femenino singular. La porta della casa equivale a 'la puerta de la casa'. Es la combinación más directa para hispanohablantes porque coincide estructuralmente con 'de la' del español.",
       "variants": [
         {
           "prompt": "La porta ___ casa è aperta.",
-          "options": ["del", "dello", "della", "dalla"],
+          "options": [
+            "del",
+            "dello",
+            "della",
+            "dalla"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Il colore ___ macchina è rosso.",
+          "options": [
+            "del",
+            "dello",
+            "della",
+            "dalla"
+          ],
           "correctIndex": 2
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-dei",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "Para sustantivos masculinos plurales regulares el artículo es I, y Di se fusiona en Dei. Il rumore dei bambini significa 'el ruido de los niños'. La distractora Delle implicaría femenino plural (delle bambine = de las niñas).",
       "variants": [
         {
           "prompt": "Il rumore ___ bambini è forte.",
-          "options": ["dei", "degli", "delle", "del"],
+          "options": [
+            "dei",
+            "degli",
+            "delle",
+            "del"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Le voci ___ ragazzi sono allegre.",
+          "options": [
+            "dei",
+            "degli",
+            "delle",
+            "del"
+          ],
           "correctIndex": 0
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-degli",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "Cuando el sustantivo masculino plural empieza por vocal o por s + consonante, z, gn, ps, x, el artículo es Gli y Di se fusiona en Degli. Le lezioni degli studenti equivale a 'las lecciones de los estudiantes'. Misma lógica que Dello pero en plural: degli amici, degli zaini, degli gnomi.",
       "variants": [
         {
           "prompt": "Le lezioni ___ studenti sono finite.",
-          "options": ["dei", "degli", "delle", "dello"],
+          "options": [
+            "dei",
+            "degli",
+            "delle",
+            "dello"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Il rumore ___ aerei è forte.",
+          "options": [
+            "dei",
+            "degli",
+            "delle",
+            "dello"
+          ],
           "correctIndex": 1
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-delle",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "Para sustantivos femeninos plurales el artículo es Le y Di se fusiona en Delle. I libri delle ragazze significa 'los libros de las chicas'. Patrón simétrico al masculino Dei pero en femenino: ragazze, amiche, sorelle, donne — todas piden Delle.",
       "variants": [
         {
           "prompt": "I libri ___ ragazze sono nuovi.",
-          "options": ["dei", "degli", "delle", "della"],
+          "options": [
+            "dei",
+            "degli",
+            "delle",
+            "della"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Le pagine ___ riviste sono colorate.",
+          "options": [
+            "dei",
+            "degli",
+            "delle",
+            "della"
+          ],
           "correctIndex": 2
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-nel",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "In + Il = Nel. Cuando el sustantivo masculino singular regular indica el interior de algo, In se fusiona con su artículo. Le chiavi sono nel cassetto se traduce como 'las llaves están dentro del cajón'. La traducción 'dentro' fija Nel (interior) y descarta Sul, que significaría 'encima del cajón' (superficie). Ambas son italiano correcto pero con significado distinto: aquí el contexto pide el interior.",
       "variants": [
         {
           "prompt": "Le chiavi sono ___ cassetto. (en español: 'Las llaves están dentro del cajón')",
-          "options": ["sul", "nel", "al", "dal"],
+          "options": [
+            "sul",
+            "nel",
+            "al",
+            "dal"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Il latte è ___ frigorifero. (en español: 'La leche está dentro del frigorífico')",
+          "options": [
+            "sul",
+            "nel",
+            "al",
+            "dal"
+          ],
           "correctIndex": 1
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-nello",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "Cuando el sustantivo masculino singular empieza por s + consonante, z, gn, ps o x, el artículo es Lo y In se fusiona en Nello. I libri sono nello zaino significa 'los libros están en la mochila'. Misma regla de artículo que Dello aplicada a In.",
       "variants": [
         {
           "prompt": "I libri sono ___ zaino.",
-          "options": ["nel", "nello", "nella", "negli"],
+          "options": [
+            "nel",
+            "nello",
+            "nella",
+            "negli"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Lavoro ___ studio del dentista.",
+          "options": [
+            "nel",
+            "nello",
+            "nella",
+            "negli"
+          ],
           "correctIndex": 1
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-nella",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "Nella es la preposición articolata femenina singular de In + La. Vivo nella città di Milano equivale a 'vivo en la ciudad de Milán'. Distinto del uso In sin artículo para paesi/regioni (Vivo in Italia): aquí città lleva artículo definido, por eso la fusión.",
       "variants": [
         {
           "prompt": "Vivo ___ città di Milano.",
-          "options": ["nel", "nella", "alla", "dalla"],
+          "options": [
+            "nel",
+            "nella",
+            "alla",
+            "dalla"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "I bambini giocano ___ stanza.",
+          "options": [
+            "nel",
+            "nella",
+            "alla",
+            "dalla"
+          ],
           "correctIndex": 1
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-nei",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "In + I = Nei. Para sustantivos masculinos plurales regulares dentro de los cuales se hace algo. I bambini giocano nei giardini pubblici significa 'los niños juegan en los jardines públicos'. Marca interior + plural masculino simultáneamente en una sola preposición.",
       "variants": [
         {
           "prompt": "I bambini giocano ___ giardini pubblici.",
-          "options": ["nei", "negli", "nelle", "dei"],
+          "options": [
+            "nei",
+            "negli",
+            "nelle",
+            "dei"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "I libri sono ___ cassetti.",
+          "options": [
+            "nei",
+            "negli",
+            "nelle",
+            "dei"
+          ],
           "correctIndex": 0
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-negli",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "Cuando el masculino plural empieza por vocal o s + consonante, z, gn, ps, x, el artículo es Gli y In se fusiona en Negli. Le penne sono negli astucci significa 'los bolígrafos están en los estuches'. El astuccio (estuche) es un contenedor que envuelve las penne, por eso In y no Su. Misma lógica que Degli aplicada a In: negli amici, negli zaini.",
       "variants": [
         {
           "prompt": "Le penne sono ___ astucci.",
-          "options": ["nei", "negli", "nelle", "sugli"],
+          "options": [
+            "nei",
+            "negli",
+            "nelle",
+            "sugli"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "I documenti sono archiviati ___ uffici.",
+          "options": [
+            "nei",
+            "negli",
+            "nelle",
+            "sugli"
+          ],
           "correctIndex": 1
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-nelle",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "Nelle es la preposición articolata femenina plural de In + Le. Le foto sono nelle cornici significa 'las fotos están en los marcos' — el italiano ve la cornice (marco) como un contenedor que rodea la foto, por eso In y no Su. Cuidado: si quieres decir que las fotos están colgadas en la pared, no dentro de un marco, lo natural es Sulle pareti (sobre la superficie vertical) — Nelle pareti suena a fotos empotradas dentro del muro.",
       "variants": [
         {
           "prompt": "Le foto sono ___ cornici.",
-          "options": ["nei", "negli", "nelle", "sulle"],
+          "options": [
+            "nei",
+            "negli",
+            "nelle",
+            "sulle"
+          ],
           "correctIndex": 2
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-allo",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "A + Lo = Allo cuando el sustantivo masculino singular empieza por s + consonante, z, gn, ps o x. Vado allo stadio domenica equivale a 'voy al estadio el domingo'. Misma lógica de artículo Lo aplicada a la preposición A: allo zoo, allo gnomo, allo psicologo.",
       "variants": [
         {
           "prompt": "Vado ___ stadio domenica.",
-          "options": ["al", "allo", "alla", "agli"],
+          "options": [
+            "al",
+            "allo",
+            "alla",
+            "agli"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Porto i bambini ___ zoo.",
+          "options": [
+            "al",
+            "allo",
+            "alla",
+            "agli"
+          ],
           "correctIndex": 1
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-alla",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "A + La = Alla. Andiamo alla stazione in taxi equivale a 'vamos a la estación en taxi'. La fusión sigue el mismo patrón que Al pero en femenino singular: alla casa, alla scuola, alla porta — siempre que el sustantivo femenino lleve artículo definido La.",
       "variants": [
         {
           "prompt": "Andiamo ___ stazione in taxi.",
-          "options": ["al", "allo", "alla", "alle"],
+          "options": [
+            "al",
+            "allo",
+            "alla",
+            "alle"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Andiamo ___ festa insieme.",
+          "options": [
+            "al",
+            "allo",
+            "alla",
+            "alle"
+          ],
           "correctIndex": 2
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-ai",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "Para sustantivos masculinos plurales regulares el artículo es I, y A se fusiona en Ai. Do un regalo ai bambini significa 'doy un regalo a los niños'. Patrón paralelo a Dei pero con A en vez de Di — la misma lógica de artículo aplicada a otra preposición base.",
       "variants": [
         {
           "prompt": "Do un regalo ___ bambini.",
-          "options": ["ai", "agli", "alle", "dei"],
+          "options": [
+            "ai",
+            "agli",
+            "alle",
+            "dei"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Scrivo una mail ___ colleghi.",
+          "options": [
+            "ai",
+            "agli",
+            "alle",
+            "dei"
+          ],
           "correctIndex": 0
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-agli",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "Cuando el masculino plural empieza por vocal o s + consonante, z, gn, ps, x, el artículo es Gli y A se fusiona en Agli. Spiego la lezione agli studenti equivale a 'explico la lección a los estudiantes'. Misma lógica de artículo Gli aplicada a A.",
       "variants": [
         {
           "prompt": "Spiego la lezione ___ studenti.",
-          "options": ["ai", "agli", "alle", "allo"],
+          "options": [
+            "ai",
+            "agli",
+            "alle",
+            "allo"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Do da mangiare ___ uccelli.",
+          "options": [
+            "ai",
+            "agli",
+            "alle",
+            "allo"
+          ],
           "correctIndex": 1
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-alle",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "Para sustantivos femeninos plurales el artículo es Le y A se fusiona en Alle. Scrivo una lettera alle mie amiche significa 'escribo una carta a mis amigas'. La traducción 'a mis amigas' (destinatario) fija Alle y descarta 'delle' (que daría 'delle mie amiche' = 'de mis amigas', posesión/autoría). El alumno debe ver que la carta va dirigida A ellas, no que es DE ellas.",
       "variants": [
         {
           "prompt": "Scrivo una lettera ___ mie amiche. (en español: 'Escribo una carta a mis amigas')",
-          "options": ["ai", "agli", "alle", "delle"],
+          "options": [
+            "ai",
+            "agli",
+            "alle",
+            "delle"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Regalo dei fiori ___ mie cugine. (en español: 'Regalo flores a mis primas')",
+          "options": [
+            "ai",
+            "agli",
+            "alle",
+            "delle"
+          ],
           "correctIndex": 2
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-dal",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "Da + Il = Dal. Esco dal lavoro alle sei equivale a 'salgo del trabajo a las seis'. Da indica el origen o punto de salida del movimiento, y al unirse al artículo masculino singular Il forma Dal: dal lavoro, dal mercato, dal supermercato.",
       "variants": [
         {
           "prompt": "Esco ___ lavoro alle sei.",
-          "options": ["dal", "dallo", "dalla", "dai"],
+          "options": [
+            "dal",
+            "dallo",
+            "dalla",
+            "dai"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Torno ___ mercato adesso.",
+          "options": [
+            "dal",
+            "dallo",
+            "dalla",
+            "dai"
+          ],
           "correctIndex": 0
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-dallo",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "Cuando el masculino singular empieza por s + consonante, z, gn, ps o x, el artículo es Lo y Da se fusiona en Dallo. Esco dallo studio del dentista significa 'salgo del consultorio del dentista'. Misma regla de Lo aplicada a Da.",
       "variants": [
         {
           "prompt": "Esco ___ studio del dentista.",
-          "options": ["dal", "dallo", "dalla", "dai"],
+          "options": [
+            "dal",
+            "dallo",
+            "dalla",
+            "dai"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Esco ___ stadio dopo la partita.",
+          "options": [
+            "dal",
+            "dallo",
+            "dalla",
+            "dai"
+          ],
           "correctIndex": 1
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-dai",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "Da + I = Dai. Torno dai cugini domani significa 'vuelvo a [casa de] los primos mañana'. Característica del italiano: con personas Da implica 'a la casa de' (si la dirección es hacia) o 'desde la casa de' (si la dirección es desde). La preposición articolata se forma como cualquier otra: da + artículo masculino plural regular I. Cuidado: solo aplica a sustantivos masculinos plurales que empiezan por consonante normal (cugini, ragazzi, nonni). Si empieza por vocal (amici) o s+consonante (studenti), el artículo es Gli y se forma Dagli.",
       "variants": [
         {
           "prompt": "Torno ___ cugini domani.",
-          "options": ["dai", "dagli", "dalle", "degli"],
+          "options": [
+            "dai",
+            "dagli",
+            "dalle",
+            "degli"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Torno ___ nonni stasera.",
+          "options": [
+            "dai",
+            "dagli",
+            "dalle",
+            "degli"
+          ],
           "correctIndex": 0
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-dagli",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "Cuando el masculino plural empieza por vocal o s + consonante, z, gn, ps, x, el artículo es Gli y Da se fusiona en Dagli. Esco dagli studenti dopo la lezione equivale a 'salgo de [con] los estudiantes después de la lección'. Mismo principio de articulación que Degli y Agli.",
       "variants": [
         {
           "prompt": "Esco ___ studenti dopo la lezione.",
-          "options": ["dai", "dagli", "dalle", "degli"],
+          "options": [
+            "dai",
+            "dagli",
+            "dalle",
+            "degli"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Vengo ___ zii in campagna.",
+          "options": [
+            "dai",
+            "dagli",
+            "dalle",
+            "degli"
+          ],
           "correctIndex": 1
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-dalle",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "Da + Le = Dalle. Vengo dalle mie zie significa 'vengo de [casa de] mis tías'. Con personas femeninas plurales Da articulada implica salir del lugar donde están.",
       "variants": [
         {
           "prompt": "Vengo ___ mie zie.",
-          "options": ["dai", "dagli", "dalle", "delle"],
+          "options": [
+            "dai",
+            "dagli",
+            "dalle",
+            "delle"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Torno ___ nonne domani.",
+          "options": [
+            "dai",
+            "dagli",
+            "dalle",
+            "delle"
+          ],
           "correctIndex": 2
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-sullo",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "Cuando el masculino singular empieza por s + consonante, z, gn, ps o x, el artículo es Lo y Su se fusiona en Sullo. Lo zucchero è sullo scaffale significa 'el azúcar está en la estantería'. Misma lógica de Lo aplicada a Su.",
       "variants": [
         {
           "prompt": "Lo zucchero è ___ scaffale.",
-          "options": ["sul", "sullo", "sulla", "sui"],
+          "options": [
+            "sul",
+            "sullo",
+            "sulla",
+            "sui"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "La giacca è ___ sgabello.",
+          "options": [
+            "sul",
+            "sullo",
+            "sulla",
+            "sui"
+          ],
           "correctIndex": 1
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-sulla",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "Su + La = Sulla. La penna è sulla sedia equivale a 'el bolígrafo está sobre la silla'. Cuando la superficie de contacto es un sustantivo femenino singular con artículo definido, Su articulada produce Sulla. Patrón paralelo a Della en femenino.",
       "variants": [
         {
           "prompt": "La penna è ___ sedia.",
-          "options": ["sul", "sullo", "sulla", "alla"],
+          "options": [
+            "sul",
+            "sullo",
+            "sulla",
+            "alla"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Il libro è ___ scrivania, sopra i fogli.",
+          "options": [
+            "sul",
+            "sullo",
+            "sulla",
+            "alla"
+          ],
           "correctIndex": 2
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-sui",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "Su no solo significa estar encima en horizontal sino también pegado a superficies verticales. Los cuadros se cuelgan en los muros — contacto físico con la pared. Su + I (los, masc plural) = Sui. I quadri sono sui muri equivale a 'los cuadros están sobre los muros'.",
       "variants": [
         {
           "prompt": "I quadri sono ___ muri.",
-          "options": ["sui", "sugli", "sulle", "nei"],
+          "options": [
+            "sui",
+            "sugli",
+            "sulle",
+            "nei"
+          ],
           "correctIndex": 0
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-sugli",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "Cuando el masculino plural empieza por vocal o s + consonante, z, gn, ps, x, el artículo es Gli y Su se fusiona en Sugli. Gli uccelli si posano sugli alberi significa 'los pájaros se posan sobre los árboles'. El verbo posarsi (posarse) implica una posición fija sobre una superficie, por eso Su (sobre) y no Da (origen del movimiento). Cuidado: con verbos de movimiento que indican caída o salida — como cadere o uscire — el italiano usa Da (Le foglie cadono dagli alberi), no Su.",
       "variants": [
         {
           "prompt": "Gli uccelli si posano ___ alberi.",
-          "options": ["sui", "sugli", "sulle", "negli"],
+          "options": [
+            "sui",
+            "sugli",
+            "sulle",
+            "negli"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Le foto sono ___ scaffali, sopra i libri.",
+          "options": [
+            "sui",
+            "sugli",
+            "sulle",
+            "negli"
+          ],
           "correctIndex": 1
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-sulle",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "Su + Le = Sulle. I libri sono sulle scrivanie equivale a 'los libros están sobre los escritorios'. Para sustantivos femeninos plurales (le scrivanie) la preposición Su se fusiona con el artículo Le dando Sulle, igual que Su + Il = Sul en masculino singular.",
       "variants": [
         {
           "prompt": "I libri sono ___ scrivanie.",
-          "options": ["sui", "sugli", "sulle", "nelle"],
+          "options": [
+            "sui",
+            "sugli",
+            "sulle",
+            "nelle"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "I bicchieri sono ___ mensole.",
+          "options": [
+            "sui",
+            "sugli",
+            "sulle",
+            "nelle"
+          ],
           "correctIndex": 2
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-con-strumento",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "Con tiene dos usos distintos: compagnia (esco con amici) y mezzo o strumento. Mangio la pasta con la forchetta equivale a 'como la pasta con el tenedor'. En este caso Con introduce el instrumento usado para realizar la acción, no la persona que acompaña. Mismo principio en italiano y español.",
       "variants": [
         {
           "prompt": "Mangio la pasta ___ la forchetta.",
-          "options": ["a", "con", "di", "per"],
+          "options": [
+            "a",
+            "con",
+            "di",
+            "per"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Taglio il pane ___ il coltello.",
+          "options": [
+            "a",
+            "con",
+            "di",
+            "per"
+          ],
           "correctIndex": 1
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-di-materia",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "Di marca la materia o disciplina en colocaciones fijas como esame di matematica, professore di matematica, lezione di storia, corso di cucina. La traducción 'de matemáticas' fija Di. A diferencia de 'libro' (que admite tanto 'libro di' como 'libro su'), la palabra 'esame' solo se combina con Di: 'esame su matematica' no existe en italiano. Por eso aquí Di es la única opción natural.",
       "variants": [
         {
           "prompt": "Domani ho un esame ___ matematica. (en español: 'Mañana tengo un examen de matemáticas')",
-          "options": ["di", "su", "per", "a"],
+          "options": [
+            "di",
+            "su",
+            "per",
+            "a"
+          ],
           "correctIndex": 0
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-7", "date": "2026-05-26", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-26", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
     },
     {
       "id": "preposiciones-da-encasade",
       "type": "multiple-choice",
-      "categoryIds": ["preposiciones"],
+      "categoryIds": [
+        "preposiciones"
+      ],
       "explanation": "Con personas la preposición Da significa 'a casa de' o 'en casa de': Passo da te equivale a 'paso por tu casa'. El mismo patrón vale para da Maria (en casa de María) o dal medico (en la consulta del médico). Es una excepción idiomática del italiano que se aprende de memoria. Cuidado: el hispanohablante calca 'por tu casa' y se inclina por Per, pero para ir o estar adonde está alguien el italiano usa siempre Da, nunca Per ni A.",
       "variants": [
         {
           "prompt": "Passo ___ te alle otto. (en español: 'Paso por tu casa a las ocho')",
-          "options": ["a", "per", "da", "in"],
+          "options": [
+            "a",
+            "per",
+            "da",
+            "in"
+          ],
           "correctIndex": 2
         }
       ],
       "validation": {
         "status": "validated",
         "passes": [
-          { "by": "claude-opus-4-8", "date": "2026-05-29", "verdict": "correcta", "concerns": [] },
-          { "by": "claude-sonnet-4-6", "date": "2026-05-29", "verdict": "correcta", "concerns": [] }
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-05-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
         ]
       }
+    },
+    {
+      "id": "preposiciones-in-locativo",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "preposiciones"
+      ],
+      "explanation": "Con ciertos lugares geográficos abiertos el italiano usa In SIN artículo como locución fija para indicar dónde se está o adónde se va: in spiaggia, in montagna, in campagna, in città. Vado in spiaggia equivale a 'voy a la playa'. Cuidado: el hispanohablante calca 'a la playa' y se inclina por A, pero estos lugares piden In sin artículo. Excepción dentro del grupo: el mar usa Al (al mare), no In.",
+      "variants": [
+        {
+          "prompt": "D'estate andiamo ___ spiaggia ogni giorno.",
+          "options": [
+            "a",
+            "in",
+            "su",
+            "da"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Quest'inverno vado ___ montagna a sciare.",
+          "options": [
+            "a",
+            "in",
+            "su",
+            "da"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "I nonni vivono ___ campagna.",
+          "options": [
+            "a",
+            "in",
+            "su",
+            "da"
+          ],
+          "correctIndex": 1
+        }
+      ]
+    },
+    {
+      "id": "preposiciones-al-mare",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "preposiciones"
+      ],
+      "explanation": "Para el mar el italiano usa Al (a + il) como excepción dentro de los locativos geográficos: andare al mare = 'ir a la playa / al mar'. Contrasta con in spiaggia, in montagna, in campagna, que van con In sin artículo. El mar es el caso especial que rompe la serie In: se dice al mare, nunca 'in mare' (que significaría 'dentro del agua') ni 'a mare'.",
+      "variants": [
+        {
+          "prompt": "Quest'estate andiamo ___ mare in Sicilia.",
+          "options": [
+            "a",
+            "al",
+            "in",
+            "su"
+          ],
+          "correctIndex": 1
+        }
+      ]
     }
   ]
 }
