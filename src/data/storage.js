@@ -32,27 +32,29 @@
 //     desconocido (futuro) → warn + blankState.
 
 const KEY = 'italianCourse.v1';
-const CURRENT_SCHEMA_VERSION = 7;
+const CURRENT_SCHEMA_VERSION = 8;
 
 /**
  * Devuelve un estado "en blanco" (sin progreso) — el estado inicial canónico
- * con shape v7 (D-46/D-47 + D-77/D-78 Phase 4 + D-111 Phase 6 + D-02/D-03
- * Phase 13 + D-15-08/D-15-09 Phase 15 + D-17-08 Phase 17).
+ * con shape v8 (D-46/D-47 + D-77/D-78 Phase 4 + D-111 Phase 6 + D-02/D-03
+ * Phase 13 + D-15-08/D-15-09 Phase 15 + D-17-08 Phase 17 + D-18 Phase 18).
  *
- * Phase 17 (D-17-08): el bump 6 → 7 es NOMINAL a nivel del state root — no
- * añade campos nuevos ni sub-árboles. El set de sub-dicts es IDÉNTICO a v6
- * (exerciseStats, categoryProgress, dailyLog, songProgress). La diferencia
- * efectiva del bump vive en `migrate6to7`, que resetea SOLO el progreso de
- * Preposiciones (reagrupada a slots+variantes en el piloto); un estado en
- * blanco no tiene progreso que resetear, así que `blankState()` solo cambia
- * el número de versión respecto a v6. Precedente de bump nominal: 5 → 6
- * (D-15-09) y 3 → 4 (D-110/D-111).
+ * Phase 18 (D-18 / MIG-01): el bump 7 → 8 es NOMINAL a nivel del state root —
+ * no añade campos nuevos ni sub-árboles. El set de sub-dicts es IDÉNTICO a v7.
+ * La diferencia efectiva del bump vive en `migrate7to8`, que resetea SOLO el
+ * progreso de DOS categorías (articoli + partitivos), reagrupadas a
+ * slots+variantes en las Phases 19/20; un estado en blanco no tiene progreso
+ * que resetear, así que `blankState()` solo cambia el número de versión.
+ *
+ * Phase 17 (D-17-08): el bump 6 → 7 fue NOMINAL — `migrate6to7` resetea SOLO el
+ * progreso de Preposiciones (reagrupada a slots+variantes en el piloto).
+ * Precedente de bump nominal: 5 → 6 (D-15-09) y 3 → 4 (D-110/D-111).
  *
  * Nota: `inFlightTest` se omite (undefined) deliberadamente; `JSON.stringify`
  * lo elide al persistir y el resto del código trata `state.inFlightTest`
  * como opcional.
  *
- * @returns {{schemaVersion: 7, exerciseStats: object, categoryProgress: object, dailyLog: object, songProgress: object, lastBackupAt: null, firstUsedAt: null}}
+ * @returns {{schemaVersion: 8, exerciseStats: object, categoryProgress: object, dailyLog: object, songProgress: object, lastBackupAt: null, firstUsedAt: null}}
  */
 export function blankState() {
   return {
@@ -73,10 +75,10 @@ export function blankState() {
  * backup defensivo bajo `italianCourse.v1.corrupt.<timestamp>` y arranca
  * limpio.
  *
- * El estado devuelto SIEMPRE está en el shape v7 (las migraciones 1→…→7
+ * El estado devuelto SIEMPRE está en el shape v8 (las migraciones 1→…→8
  * corren transparente vía el dispatcher).
  *
- * @returns {{schemaVersion: 7, exerciseStats: object, categoryProgress: object, dailyLog: object, songProgress: object, lastBackupAt: ?string, firstUsedAt: ?string, inFlightTest?: object}}
+ * @returns {{schemaVersion: 8, exerciseStats: object, categoryProgress: object, dailyLog: object, songProgress: object, lastBackupAt: ?string, firstUsedAt: ?string, inFlightTest?: object}}
  */
 export function loadState() {
   let raw;
@@ -133,7 +135,7 @@ export function saveState(state) {
  * directo).
  *
  * @param {*} parsed - Resultado de JSON.parse del raw blob persistido.
- * @returns {object} Estado normalizado en el shape v7.
+ * @returns {object} Estado normalizado en el shape v8.
  */
 function migrate(parsed) {
   if (!parsed || typeof parsed !== 'object') return blankState();
@@ -144,7 +146,8 @@ function migrate(parsed) {
   if (s.schemaVersion === 4) s = migrate4to5(s);
   if (s.schemaVersion === 5) s = migrate5to6(s);
   if (s.schemaVersion === 6) s = migrate6to7(s);
-  if (s.schemaVersion === 7) return hydrateV7(s);
+  if (s.schemaVersion === 7) s = migrate7to8(s);
+  if (s.schemaVersion === 8) return hydrateV8(s);
 
   // Versión desconocida (probablemente futura) → no perdemos datos del autor:
   // logueamos warning y arrancamos limpio.
@@ -666,6 +669,116 @@ export function migrate6to7(v6) {
 export function hydrateV7(parsed) {
   return {
     schemaVersion: 7,
+    exerciseStats: (typeof parsed.exerciseStats === 'object' && parsed.exerciseStats !== null)
+      ? JSON.parse(JSON.stringify(parsed.exerciseStats))
+      : {},
+    categoryProgress: (typeof parsed.categoryProgress === 'object' && parsed.categoryProgress !== null)
+      ? JSON.parse(JSON.stringify(parsed.categoryProgress))
+      : {},
+    dailyLog: (typeof parsed.dailyLog === 'object' && parsed.dailyLog !== null)
+      ? JSON.parse(JSON.stringify(parsed.dailyLog))
+      : {},
+    songProgress: (typeof parsed.songProgress === 'object' && parsed.songProgress !== null)
+      ? JSON.parse(JSON.stringify(parsed.songProgress))
+      : {},
+    lastBackupAt: typeof parsed.lastBackupAt === 'string' ? parsed.lastBackupAt : null,
+    firstUsedAt: typeof parsed.firstUsedAt === 'string' ? parsed.firstUsedAt : null,
+    inFlightTest: parsed.inFlightTest
+  };
+}
+
+/**
+ * Migra un estado v7 a v8 (D-18 / MIG-01). Espejo LITERAL de `migrate6to7`
+ * (Phase 17) con UNA desviación funcional: el reset selectivo opera sobre DOS
+ * prefijos de id de categoría (`articoli` + `partitivos`) en vez de uno
+ * (`preposiciones`). Deja libre la renumeración de ids que harán las Phases
+ * 19/20 — no se puede renumerar con progreso vivo. El progreso de
+ * articoli+partitivos se resetea por diseño (Core Value: re-verificación).
+ *
+ * Seguridad de prefijo (D-03): las otras 7 categorías (`avere`, `essere`,
+ * `preposiciones`, `verbos-movimiento`, `sustantivos-irregulares`,
+ * `genero-numero`, `profesiones`) NO empiezan por `articoli` ni `partitivos`,
+ * así que el filtro `startsWith` no tiene colisiones y las preserva byte a
+ * byte. (El id de la categoría partitivos es `partitivos` en español aunque el
+ * display sea "Partitivi".)
+ *
+ * Reset por prefijo (no por igualdad exacta) cubre tanto los ids legacy como
+ * los nuevos ids de slot que producirán las Phases 19/20 (seguirán empezando
+ * por `articoli`/`partitivos`).
+ *
+ * Idempotencia + pureza (T-18-02): NO muta el input. Re-ejecutar sobre un v8 ya
+ * migrado produce la misma shape (articoli/partitivos ya ausentes → `delete` y
+ * filtro son no-op; `inFlightTest` ya invalidado o ajeno → se preserva).
+ *
+ * Exportada para testabilidad — el dispatcher la usa como eslabón v7 → v8.
+ *
+ * @param {object} v7 - Estado parseado con `schemaVersion: 7`.
+ * @returns {object} Estado normalizado v8 con articoli + partitivos reseteados.
+ */
+export function migrate7to8(v7) {
+  // (1) Reset de categoryProgress.articoli + .partitivos tras deep-clone defensivo.
+  const categoryProgress = (typeof v7.categoryProgress === 'object' && v7.categoryProgress !== null)
+    ? JSON.parse(JSON.stringify(v7.categoryProgress))
+    : {};
+  delete categoryProgress.articoli;
+  delete categoryProgress.partitivos;
+
+  // (2) Poda por prefijo de exerciseStats['articoli*' | 'partitivos*'] tras deep-clone.
+  const exerciseStatsAll = (typeof v7.exerciseStats === 'object' && v7.exerciseStats !== null)
+    ? JSON.parse(JSON.stringify(v7.exerciseStats))
+    : {};
+  const exerciseStats = {};
+  for (const k of Object.keys(exerciseStatsAll)) {
+    if (!k.startsWith('articoli') && !k.startsWith('partitivos')) exerciseStats[k] = exerciseStatsAll[k];
+  }
+
+  // (3) Invalidar inFlightTest si referencia ids de articoli o partitivos (Pitfall 3).
+  //     Reconstrucción condicional sin mutar el input (estilo migrate3to4).
+  let inFlightTest = v7.inFlightTest;
+  if (inFlightTest && typeof inFlightTest === 'object' &&
+      Array.isArray(inFlightTest.exerciseIds) &&
+      inFlightTest.exerciseIds.some(id => typeof id === 'string' && (id.startsWith('articoli') || id.startsWith('partitivos')))) {
+    inFlightTest = undefined;
+  }
+
+  return {
+    schemaVersion: 8,
+    exerciseStats,
+    categoryProgress,
+    dailyLog: (typeof v7.dailyLog === 'object' && v7.dailyLog !== null)
+      ? JSON.parse(JSON.stringify(v7.dailyLog))
+      : {},
+    songProgress: (typeof v7.songProgress === 'object' && v7.songProgress !== null)
+      ? JSON.parse(JSON.stringify(v7.songProgress))
+      : {},
+    lastBackupAt: typeof v7.lastBackupAt === 'string' ? v7.lastBackupAt : null,
+    firstUsedAt: typeof v7.firstUsedAt === 'string' ? v7.firstUsedAt : null,
+    inFlightTest
+  };
+}
+
+/**
+ * Hidrata un estado v8 ya en disco con type-guards defensivos en cada
+ * sub-objeto. Espejo LITERAL de `hydrateV7` (Phase 17) con la versión a 8 — el
+ * shape v8 root es idéntico a v7 (el bump 7 → 8 es nominal a nivel del shape;
+ * la diferencia efectiva, el reset de articoli+partitivos, la hace
+ * `migrate7to8` durante la cadena).
+ *
+ * NO repite la poda de `migrate7to8`: un state que llega a `hydrateV8` ya viene
+ * v8-shaped (articoli/partitivos ya reseteados durante la cadena) o es un
+ * import directo v8 que debe preservarse íntegro. Precedente: `hydrateV7` no
+ * re-ejecuta la lógica de `migrate6to7`, solo garantiza shape.
+ *
+ * Deep-clone defensivo (CR-03 / T-18-01): igual que `migrate7to8` y `hydrateV7`.
+ *
+ * Exportada para testabilidad — invocada al final de la cadena de migración.
+ *
+ * @param {object} parsed - Estado parseado con `schemaVersion: 8`.
+ * @returns {object} Estado v8 con campos garantizados.
+ */
+export function hydrateV8(parsed) {
+  return {
+    schemaVersion: 8,
     exerciseStats: (typeof parsed.exerciseStats === 'object' && parsed.exerciseStats !== null)
       ? JSON.parse(JSON.stringify(parsed.exerciseStats))
       : {},
