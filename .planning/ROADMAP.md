@@ -77,7 +77,7 @@
 Numeración CONTINÚA desde Phase 17 → Phases 18-20 (NO reset — mismo criterio que v1.1/v1.2/v1.3/v1.4). **Brownfield puro contenido + migración:** toda la maquinaria slot+variantes del motor v1.4 (`normalizeExerciseToSlot`, `pickVariantIndex`, getter slot-aware con `.payload` sintético, sampler por slot, cascada D-54 con 2 call-sites de `applyImmediateFailure`, smoke paramétrico bifurcado por shape) YA EXISTE y NO se toca. Se replica EXACTAMENTE el patrón del piloto Preposiciones (Phase 17): migración con reset selectivo → reagrupar por regla con explanation a nivel de slot → autorar variantes por quórum cross-vendor R1-R7 → smoke + sync de counts. Diferencia clave vs v1.4: la migración `7→8` resetea DOS categorías (articoli + partitivos) a la vez.
 
 - [x] **Phase 18: Migración `7→8` (reset selectivo articoli + partitivos)** — `migrate7to8`/`hydrateV8` idempotente + deep-clone defensivo; resetea el progreso SOLO de `articoli` + `partitivos` (categoryProgress + exerciseStats por prefijo + inFlightTest, racha 0); las otras 7 categorías byte-intactas; `backup.js` round-trip v8 + import v7→v8. Va PRIMERA: bloquea la renumeración de ids de las dos fases de contenido (no se puede renumerar con progreso vivo). (completed 2026-06-03)
-- [ ] **Phase 19: Articoli a slots (contenido)** — Reagrupar los 56 ejercicios en slots por regla (determinativi por disparador fonético + indeterminativi como slots propios, ART-03), autorar variantes nuevas por quórum cross-vendor R1-R7, slots nuevos para huecos detectados, validator + smoke paramétrico verdes con counts re-sincronizados.
+- [x] **Phase 19: Articoli a slots (contenido)** — Reagrupar los 56 ejercicios en slots por regla (determinativi por disparador fonético + indeterminativi como slots propios, ART-03), autorar variantes nuevas por quórum cross-vendor R1-R7, slots nuevos para huecos detectados, validator + smoke paramétrico verdes con counts re-sincronizados. (completed 2026-06-04)
 - [ ] **Phase 20: Partitivi a slots (contenido)** — Reagrupar los 44 ejercicios en slots por regla (del-formas + contable/incontable + alternativas + omisión en negativa + partitivo-vs-preposizione), autorar variantes nuevas por quórum cross-vendor R1-R7, validator + smoke paramétrico verdes con counts re-sincronizados.
 
 ## Phase Details
@@ -107,7 +107,7 @@ Numeración CONTINÚA desde Phase 17 → Phases 18-20 (NO reset — mismo criter
 **Plans**: 3 plans
 - [x] 19-01-PLAN.md — reagrupar los 56 ejercicios en slots por forma/sub-disparador (lo/gli split, formas invariables agrupadas, indeterminativi slots propios, match + cruces slots-de-1 con id estable), explanation a nivel de slot (ART-01, ART-03)
 - [x] 19-02-PLAN.md — autorar variantes nuevas (engordar celdas pobres) + slots de huecos y/i+vocal, cada superficie por quórum cross-vendor R1-R7 (ART-02, ART-03) — 8 superficies validadas (4× correcta, 0 incorrecta), 32→34 slots
-- [ ] 19-03-PLAN.md — re-sincronizar los 3 hardcodes de count + TOTAL_EXPECTED al nº real de slots; validator + smoke paramétrico verdes (ART-04)
+- [x] 19-03-PLAN.md — re-sincronizar los 3 hardcodes de count + TOTAL_EXPECTED al nº real de slots; validator + smoke paramétrico verdes (ART-04)
 **UI hint**: no
 
 ### Phase 20: Partitivi a slots (contenido)
@@ -131,7 +131,7 @@ Numeración CONTINÚA desde Phase 17 → Phases 18-20 (NO reset — mismo criter
 | 13-14 | v1.3 | 3/3 | Complete | 2026-06-02 |
 | 15-17 | v1.4 | 9/9 | Complete | 2026-06-03 |
 | 18. Migración 7→8 (reset articoli+partitivos) | v1.5 | 1/1 | Complete    | 2026-06-03 |
-| 19. Articoli a slots (contenido) | v1.5 | 2/3 | In Progress|  |
+| 19. Articoli a slots (contenido) | v1.5 | 3/3 | Complete   | 2026-06-04 |
 | 20. Partitivi a slots (contenido) | v1.5 | 0/? | Not started | - |
 
 ## Backlog
