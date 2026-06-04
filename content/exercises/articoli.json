@@ -1,16 +1,34 @@
 {
   "exercises": [
     {
-      "id": "articoli-001",
+      "id": "articoli-il-cons",
       "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Leggo ___ libro in giardino.",
-        "options": ["il", "lo", "l'", "la"],
-        "correctIndex": 0,
-        "explanation": "Ante una consonante simple (l-) el artículo determinativo masculino singular es il: il libro. La forma lo se reserva para sonidos especiales (s+consonante, z, gn, ps, x) y l' para las vocales; aquí ninguno aplica. El hispanohablante tiende a elegir bien il en estos casos: la dificultad real aparece con lo y l', no con il."
-      },
-      "notes": "Determinativo masc sing il ante consonante simple (celda il/consonante). Distractoras lo/l'/la = errores ante otros disparadores.",
+      "categoryIds": [
+        "articoli"
+      ],
+      "explanation": "Ante una consonante simple el artículo determinativo masculino singular es il: il libro, il ragazzo, il cane, il tavolo. La forma lo se reserva para sonidos especiales (s+consonante, z, gn, ps, x) y l' para las vocales; aquí ninguno aplica. il es la forma por defecto del masculino singular y cubre la mayoría de las consonantes (b, c, d, f, l, m, n, p, r, t, v...); solo cambia a lo o l' cuando el sonido inicial lo obliga. El hispanohablante tiende a elegir bien il en estos casos: la dificultad real aparece con lo y l', no con il.",
+      "variants": [
+        {
+          "prompt": "Leggo ___ libro in giardino.",
+          "options": ["il", "lo", "l'", "la"],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Ho conosciuto ___ ragazzo ieri.",
+          "options": ["il", "lo", "l'", "la"],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Dov'è ___ cane di Marco?",
+          "options": ["il", "lo", "l'", "la"],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Pulisco ___ tavolo della cucina.",
+          "options": ["il", "lo", "l'", "la"],
+          "correctIndex": 0
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -30,16 +48,29 @@
       }
     },
     {
-      "id": "articoli-002",
+      "id": "articoli-lo-scons",
       "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Ho conosciuto ___ ragazzo ieri.",
-        "options": ["il", "lo", "l'", "la"],
-        "correctIndex": 0,
-        "explanation": "Ragazzo empieza por r-, una consonante simple, asi que pide il: il ragazzo. Recuerda que il es la forma por defecto del masculino singular y solo cambia a lo o l' cuando el sonido inicial lo obliga (s impura, z, gn, ps, x o vocal)."
-      },
-      "notes": "Determinativo masc sing il ante consonante simple (il ragazzo). Refuerza la forma por defecto.",
+      "categoryIds": [
+        "articoli"
+      ],
+      "explanation": "Ante s seguida de consonante (s impura) el masculino singular usa lo, no il: lo studente, lo studio, lo spagnolo. Toda palabra masculina que arranca con s impura (st-, sp-, sc-, sg-, sl-, sm-, sn-...) toma lo en singular. El error típico del hispanohablante es decir il studente o el espanol por analogía, pero el italiano necesita lo para apoyar la pronunciación de la s+consonante; la distractora il es justo el calco que hay que evitar.",
+      "variants": [
+        {
+          "prompt": "Ho visto ___ studente nuovo.",
+          "options": ["il", "lo", "l'", "la"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Continuo ___ studio di pianoforte.",
+          "options": ["il", "lo", "l'", "la"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Parlo con ___ spagnolo del corso.",
+          "options": ["il", "lo", "l'", "la"],
+          "correctIndex": 1
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -59,16 +90,29 @@
       }
     },
     {
-      "id": "articoli-003",
+      "id": "articoli-lo-z",
       "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Dov'è ___ cane di Marco?",
-        "options": ["il", "lo", "l'", "la"],
-        "correctIndex": 0,
-        "explanation": "Cane empieza por c- (consonante simple), por tanto il cane. El italiano usa lo solo ante grupos consonanticos dificiles de pronunciar tras un sonido cerrado; una c- normal no lo es, asi que se mantiene il."
-      },
-      "notes": "Determinativo masc sing il ante consonante simple (il cane).",
+      "categoryIds": [
+        "articoli"
+      ],
+      "explanation": "La z- inicial en italiano exige lo en el masculino singular: lo zio, lo zaino, lo zucchero. El hispanohablante suele decir il zio por analogía, pero la z- entra en el mismo grupo que la s impura y siempre dispara lo, nunca il. Es un patrón confirmado en lo zio, lo zaino, lo zucchero: toda palabra masculina que empieza por z toma lo.",
+      "variants": [
+        {
+          "prompt": "Conosco bene ___ zio di Marco.",
+          "options": ["il", "lo", "l'", "la"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Ho perso ___ zaino in palestra.",
+          "options": ["il", "lo", "l'", "la"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Mi passi ___ zucchero, per favore?",
+          "options": ["il", "lo", "l'", "la"],
+          "correctIndex": 1
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -88,16 +132,19 @@
       }
     },
     {
-      "id": "articoli-004",
+      "id": "articoli-lo-ps",
       "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Pulisco ___ tavolo della cucina.",
-        "options": ["il", "lo", "l'", "la"],
-        "correctIndex": 0,
-        "explanation": "Tavolo empieza por t- (consonante simple): il tavolo. Es otro caso de la regla general del masculino singular il, que cubre la mayoria de las consonantes (b, c, d, f, l, m, n, p, r, t, v...)."
-      },
-      "notes": "Determinativo masc sing il ante consonante simple (il tavolo). Densidad D-12 de la celda il.",
+      "categoryIds": [
+        "articoli"
+      ],
+      "explanation": "Psicologo empieza por ps-, un grupo consonantico que en italiano pide lo: lo psicologo. Es una de las trampas mas faciles de fallar, porque en espanol decimos el psicologo; el italiano trata ps- como s impura y exige lo.",
+      "variants": [
+        {
+          "prompt": "Conosco ___ psicologo famoso.",
+          "options": ["il", "lo", "l'", "la"],
+          "correctIndex": 1
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -117,16 +164,19 @@
       }
     },
     {
-      "id": "articoli-005",
+      "id": "articoli-lo-gn",
       "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Ho visto ___ studente nuovo.",
-        "options": ["il", "lo", "l'", "la"],
-        "correctIndex": 1,
-        "explanation": "Studente empieza por s seguida de consonante (s impura), y ante ese sonido el masculino singular usa lo, no il: lo studente. El error tipico del hispanohablante es decir il studente por analogia con el espanol, pero el italiano necesita lo para apoyar la pronunciacion de la s+consonante."
-      },
-      "notes": "Determinativo masc sing lo ante s+consonante (s impura). Trampa D-04 #2. Distractora il = calco del espanol.",
+      "categoryIds": [
+        "articoli"
+      ],
+      "explanation": "Gnomo empieza por gn-, sonido que tambien exige lo: lo gnomo. El grupo gn- se comporta como la s impura y la z, asi que el masculino singular es lo, no il.",
+      "variants": [
+        {
+          "prompt": "Nella fiaba appare ___ gnomo del bosco.",
+          "options": ["il", "lo", "l'", "la"],
+          "correctIndex": 1
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -146,16 +196,19 @@
       }
     },
     {
-      "id": "articoli-006",
+      "id": "articoli-lo-x",
       "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Continuo ___ studio di pianoforte.",
-        "options": ["il", "lo", "l'", "la"],
-        "correctIndex": 1,
-        "explanation": "Studio empieza por s+consonante (st-), asi que el articulo es lo: lo studio. Toda palabra masculina que arranca con s impura (st-, sp-, sc-, sg-, sl-, sm-, sn-...) toma lo en singular."
-      },
-      "notes": "Determinativo masc sing lo ante s+consonante (lo studio). Refuerza la regla de s impura.",
+      "categoryIds": [
+        "articoli"
+      ],
+      "explanation": "Xilofono empieza por x-, otro sonido que pide lo: lo xilofono. La x- inicial es poco frecuente pero entra en el mismo grupo de la s impura y la z, asi que el articulo es lo.",
+      "variants": [
+        {
+          "prompt": "In aula c'è ___ xilofono per i bambini.",
+          "options": ["il", "lo", "l'", "la"],
+          "correctIndex": 1
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -175,16 +228,34 @@
       }
     },
     {
-      "id": "articoli-007",
+      "id": "articoli-l-masc-vocal",
       "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Parlo con ___ spagnolo del corso.",
-        "options": ["il", "lo", "l'", "la"],
-        "correctIndex": 1,
-        "explanation": "Spagnolo empieza por sp- (s impura), luego lo spagnolo. Aunque en espanol decimos el espanol, en italiano la s+consonante obliga a lo. La distractora il es justo el calco que hay que evitar."
-      },
-      "notes": "Determinativo masc sing lo ante s+consonante (lo spagnolo). Contraste con calco espanol.",
+      "categoryIds": [
+        "articoli"
+      ],
+      "explanation": "Ante vocal el masculino singular se elide a l': l'amico, l'occhio, l'uomo, l'orso. La elision con apostrofo ocurre en ambos generos ante vocal, asi que tanto l'amico como l'amica usan l'. La regla se aplica a las cinco vocales (a, e, i, o, u): el articulo siempre pierde la vocal final y se apostrofa, dando l'. El error es escribir il amico o lo amico sin elidir; aunque el sustantivo sea masculino, ante vocal nunca se mantiene il ni se usa lo.",
+      "variants": [
+        {
+          "prompt": "Aspetto ___ amico all'uscita.",
+          "options": ["il", "lo", "l'", "la"],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Mi fa male ___ occhio destro.",
+          "options": ["il", "lo", "l'", "la"],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Ho incontrato ___ uomo del negozio.",
+          "options": ["il", "lo", "l'", "la"],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Allo zoo ___ orso dorme tutto il giorno.",
+          "options": ["il", "lo", "l'", "la"],
+          "correctIndex": 2
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -204,16 +275,29 @@
       }
     },
     {
-      "id": "articoli-008",
+      "id": "articoli-la-invariable",
       "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Conosco bene ___ zio di Marco.",
-        "options": ["il", "lo", "l'", "la"],
-        "correctIndex": 1,
-        "explanation": "Zio empieza por z-, sonido que en italiano exige lo en el masculino singular: lo zio. El hispanohablante suele decir il zio por analogia, pero la z- entra en el mismo grupo que la s impura y pide lo."
-      },
-      "notes": "Determinativo masc sing lo ante z (lo zio). Trampa canonica D-04 #1. Distractora il = error tipico.",
+      "categoryIds": [
+        "articoli"
+      ],
+      "explanation": "El femenino singular casi no cambia la forma: se usa la ante cualquier consonante (incluida la s impura y la z) y solo l' ante vocal. Así, la casa, la zia, la studentessa. A diferencia del masculino, el femenino NO cambia ante z ni s impura: contrasta la zia con lo zio, y la studentessa con lo studente. El femenino mantiene la ante z, s impura y el resto de consonantes.",
+      "variants": [
+        {
+          "prompt": "___ casa di mia nonna è grande.",
+          "options": ["il", "lo", "la", "l'"],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Saluto ___ zia di Firenze.",
+          "options": ["il", "lo", "la", "l'"],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Conosco ___ studentessa di Roma.",
+          "options": ["il", "lo", "la", "l'"],
+          "correctIndex": 2
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -233,16 +317,29 @@
       }
     },
     {
-      "id": "articoli-009",
+      "id": "articoli-l-fem-vocal",
       "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Ho perso ___ zaino in palestra.",
-        "options": ["il", "lo", "l'", "la"],
-        "correctIndex": 1,
-        "explanation": "Zaino empieza por z-, asi que lleva lo: lo zaino. La z- inicial siempre dispara lo en el masculino singular, igual que en lo zio o lo zucchero."
-      },
-      "notes": "Determinativo masc sing lo ante z (lo zaino). Trampa D-04 #4 (parte det).",
+      "categoryIds": [
+        "articoli"
+      ],
+      "explanation": "Ante vocal el femenino singular se elide a l': l'amica, l'opera, l'isola. La elision ante vocal funciona igual en femenino que en masculino (l'amico / l'amica): es la unica situacion en que el femenino cambia de la a l', perdiendo la a y apostrofandose. Recuerda que esta elision solo ocurre en singular: en plural el femenino vuelve a le isole, sin apostrofo.",
+      "variants": [
+        {
+          "prompt": "___ amica di Sofia è spagnola.",
+          "options": ["il", "lo", "la", "l'"],
+          "correctIndex": 3
+        },
+        {
+          "prompt": "Stasera andiamo a vedere ___ opera alla Scala.",
+          "options": ["il", "lo", "la", "l'"],
+          "correctIndex": 3
+        },
+        {
+          "prompt": "___ isola di Capri è bellissima.",
+          "options": ["il", "lo", "la", "l'"],
+          "correctIndex": 3
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -262,16 +359,24 @@
       }
     },
     {
-      "id": "articoli-010",
+      "id": "articoli-i-plural",
       "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Mi passi ___ zucchero, per favore?",
-        "options": ["il", "lo", "l'", "la"],
-        "correctIndex": 1,
-        "explanation": "Zucchero arranca con z-, sonido que pide lo: lo zucchero. Confirma el patron: toda palabra masculina que empieza por z toma lo, nunca il."
-      },
-      "notes": "Determinativo masc sing lo ante z (lo zucchero). Densidad de la celda z.",
+      "categoryIds": [
+        "articoli"
+      ],
+      "explanation": "Todos los masculinos con il en singular pasan a i en plural: i libri (de il libro), i ragazzi (de il ragazzo). La forma gli queda reservada al plural de lo y de l'. Regla nemotécnica: si el singular es il, el plural es i; si era lo o l', el plural es gli.",
+      "variants": [
+        {
+          "prompt": "Ho comprato ___ libri per l'esame.",
+          "options": ["i", "gli", "le", "l'"],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "___ ragazzi giocano in cortile.",
+          "options": ["i", "gli", "le", "l'"],
+          "correctIndex": 0
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -291,16 +396,19 @@
       }
     },
     {
-      "id": "articoli-011",
+      "id": "articoli-gli-scons",
       "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Conosco ___ psicologo famoso.",
-        "options": ["il", "lo", "l'", "la"],
-        "correctIndex": 1,
-        "explanation": "Psicologo empieza por ps-, un grupo consonantico que en italiano pide lo: lo psicologo. Es una de las trampas mas faciles de fallar, porque en espanol decimos el psicologo; el italiano trata ps- como s impura y exige lo."
-      },
-      "notes": "Determinativo masc sing lo ante ps (lo psicologo). Trampa canonica D-04 #3. Distractora il = calco espanol.",
+      "categoryIds": [
+        "articoli"
+      ],
+      "explanation": "Studenti es plural de studente, que en singular lleva lo (s impura). El plural de lo es gli: gli studenti. El error tipico es decir i studenti por analogia con il, pero la s+consonante exige gli en plural.",
+      "variants": [
+        {
+          "prompt": "Ho salutato ___ studenti in corridoio.",
+          "options": ["i", "gli", "le", "l'"],
+          "correctIndex": 1
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -320,16 +428,19 @@
       }
     },
     {
-      "id": "articoli-012",
+      "id": "articoli-gli-z",
       "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Nella fiaba appare ___ gnomo del bosco.",
-        "options": ["il", "lo", "l'", "la"],
-        "correctIndex": 1,
-        "explanation": "Gnomo empieza por gn-, sonido que tambien exige lo: lo gnomo. El grupo gn- se comporta como la s impura y la z, asi que el masculino singular es lo, no il."
-      },
-      "notes": "Determinativo masc sing lo ante gn (lo gnomo). Celda gn (anticipa gli gnocchi en plural).",
+      "categoryIds": [
+        "articoli"
+      ],
+      "explanation": "Zii es plural de zio, que en singular lleva lo (z-). El plural de lo es gli, asi que gli zii. Igual que en singular lo zio, en plural la z- mantiene la familia lo/gli y nunca usa il/i.",
+      "variants": [
+        {
+          "prompt": "Domenica vengono ___ zii dal paese.",
+          "options": ["i", "gli", "le", "l'"],
+          "correctIndex": 1
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -349,16 +460,19 @@
       }
     },
     {
-      "id": "articoli-013",
+      "id": "articoli-gli-ps",
       "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "In aula c'è ___ xilofono per i bambini.",
-        "options": ["il", "lo", "l'", "la"],
-        "correctIndex": 1,
-        "explanation": "Xilofono empieza por x-, otro sonido que pide lo: lo xilofono. La x- inicial es poco frecuente pero entra en el mismo grupo de la s impura y la z, asi que el articulo es lo."
-      },
-      "notes": "Determinativo masc sing lo ante x (lo xilofono). Celda x en alcance v1.2.",
+      "categoryIds": [
+        "articoli"
+      ],
+      "explanation": "Psicologi es plural de psicologo, masculino con lo en singular (ps-). Su plural es gli: gli psicologi. El grupo ps- pertenece a la familia lo/gli tanto en singular como en plural.",
+      "variants": [
+        {
+          "prompt": "Al convegno parlano ___ psicologi più noti.",
+          "options": ["i", "gli", "le", "l'"],
+          "correctIndex": 1
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -378,16 +492,19 @@
       }
     },
     {
-      "id": "articoli-014",
+      "id": "articoli-gli-gn",
       "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Aspetto ___ amico all'uscita.",
-        "options": ["il", "lo", "l'", "la"],
-        "correctIndex": 2,
-        "explanation": "Amico empieza por vocal (a-), y ante vocal el masculino singular se elide a l': l'amico. La elision con apostrofo ocurre en ambos generos ante vocal, asi que tanto l'amico como l'amica usan l'. El error es escribir il amico o lo amico sin elidir."
-      },
-      "notes": "Determinativo masc sing l' ante vocal (l'amico). Trampa canonica D-04 #6 (parte masc). Apostrofo ASCII U+0027.",
+      "categoryIds": [
+        "articoli"
+      ],
+      "explanation": "Gnocchi empieza por gn-, sonido de la familia lo/gli, asi que en plural es gli gnocchi (singular lo gnocco). Es una trampa clasica: muchos dicen i gnocchi, pero gn- siempre pide gli en plural.",
+      "variants": [
+        {
+          "prompt": "A pranzo prepariamo ___ gnocchi fatti in casa.",
+          "options": ["i", "gli", "le", "l'"],
+          "correctIndex": 1
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -407,16 +524,24 @@
       }
     },
     {
-      "id": "articoli-015",
+      "id": "articoli-gli-vocal",
       "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Mi fa male ___ occhio destro.",
-        "options": ["il", "lo", "l'", "la"],
-        "correctIndex": 2,
-        "explanation": "Occhio empieza por vocal (o-), por lo que el articulo se elide a l': l'occhio. Ante cualquier vocal el masculino singular pierde la vocal final y se apostrofa, dando siempre l'."
-      },
-      "notes": "Determinativo masc sing l' ante vocal (l'occhio). Densidad de la celda vocal.",
+      "categoryIds": [
+        "articoli"
+      ],
+      "explanation": "Todo lo que en singular era l' (vocal) pasa en plural a gli: gli amici (de l'amico), gli occhi (de l'occhio). La forma gli absorbe el plural tanto de lo como de l'. Recuerda que en plural no hay elision: se escribe gli completo, no g'.",
+      "variants": [
+        {
+          "prompt": "Stasera escono ___ amici di Luca.",
+          "options": ["i", "gli", "le", "l'"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Chiudi ___ occhi e rilassati.",
+          "options": ["i", "gli", "le", "l'"],
+          "correctIndex": 1
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -436,16 +561,29 @@
       }
     },
     {
-      "id": "articoli-016",
+      "id": "articoli-le-invariable",
       "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Ho incontrato ___ uomo del negozio.",
-        "options": ["il", "lo", "l'", "la"],
-        "correctIndex": 2,
-        "explanation": "Uomo empieza por vocal (u-), asi que se elide a l': l'uomo. La regla de la elision se aplica a las cinco vocales (a, e, i, o, u) en el masculino singular, generando siempre l'."
-      },
-      "notes": "Determinativo masc sing l' ante vocal (l'uomo). Refuerza elision masc.",
+      "categoryIds": [
+        "articoli"
+      ],
+      "explanation": "El plural femenino es siempre le, sin variacion fonetica ni elision: le case, le amiche, le studentesse. El femenino plural se usa ante cualquier sonido inicial, incluida la s impura, y nunca se elide: se escribe le amiche, no l'amiche. La elision a l' solo existe en singular.",
+      "variants": [
+        {
+          "prompt": "___ case del quartiere sono nuove.",
+          "options": ["i", "gli", "le", "l'"],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Invito ___ amiche alla festa.",
+          "options": ["i", "gli", "le", "l'"],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "___ studentesse preparano l'esame insieme.",
+          "options": ["i", "gli", "le", "l'"],
+          "correctIndex": 2
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -465,16 +603,24 @@
       }
     },
     {
-      "id": "articoli-017",
+      "id": "articoli-un-cons",
       "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Allo zoo ___ orso dorme tutto il giorno.",
-        "options": ["il", "lo", "l'", "la"],
-        "correctIndex": 2,
-        "explanation": "Orso empieza por vocal (o-), por eso l'orso. Aunque el animal sea masculino, ante vocal el articulo siempre se apostrofa a l', no se mantiene il ni se usa lo."
-      },
-      "notes": "Determinativo masc sing l' ante vocal (l'orso).",
+      "categoryIds": [
+        "articoli"
+      ],
+      "explanation": "Ante consonante simple el indeterminativo masculino es un: un libro, un ragazzo. La forma un es la forma por defecto del masculino y cubre tanto las consonantes simples como las vocales; uno se reserva a la s impura, z, gn, ps y x. Solo cambia a uno ante esos sonidos difíciles.",
+      "variants": [
+        {
+          "prompt": "Vorrei comprare ___ libro nuovo.",
+          "options": ["un", "uno", "una", "un'"],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "C'e ___ ragazzo che ti cerca.",
+          "options": ["un", "uno", "una", "un'"],
+          "correctIndex": 0
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -494,16 +640,24 @@
       }
     },
     {
-      "id": "articoli-018",
+      "id": "articoli-un-masc-vocal",
       "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "___ casa di mia nonna è grande.",
-        "options": ["il", "lo", "la", "l'"],
-        "correctIndex": 2,
-        "explanation": "Casa es femenino y empieza por consonante, asi que lleva la: la casa. En femenino el sonido inicial casi no cambia la forma: se usa la ante cualquier consonante (incluida la s impura) y solo l' ante vocal."
-      },
-      "notes": "Determinativo fem sing la ante consonante (la casa).",
+      "categoryIds": [
+        "articoli"
+      ],
+      "explanation": "En masculino el indeterminativo ante vocal es un, SIN apostrofo: un amico, un occhio. El apostrofo del indeterminativo (un') es marca EXCLUSIVA del femenino, nunca del masculino: escribir un'amico es incorrecto. A diferencia del determinativo (l'occhio, que sí se elide), el indeterminativo masculino ante vocal mantiene un entero: ni se elide ni se apostrofa.",
+      "variants": [
+        {
+          "prompt": "Ho incontrato ___ amico per strada.",
+          "options": ["un", "uno", "una", "un'"],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Marco ha ___ occhio più chiaro dell'altro.",
+          "options": ["un", "uno", "una", "un'"],
+          "correctIndex": 0
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -523,16 +677,19 @@
       }
     },
     {
-      "id": "articoli-019",
+      "id": "articoli-uno-scons",
       "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Saluto ___ zia di Firenze.",
-        "options": ["il", "lo", "la", "l'"],
-        "correctIndex": 2,
-        "explanation": "Zia es femenino: aunque empieza por z-, en femenino no hay forma especial, se usa la zia. A diferencia del masculino (lo zio), el femenino mantiene la ante z, s impura y el resto de consonantes."
-      },
-      "notes": "Determinativo fem sing la ante z (la zia). Contraste con lo zio (masc) para fijar que el fem no cambia ante z.",
+      "categoryIds": [
+        "articoli"
+      ],
+      "explanation": "Studente empieza por s impura (st-), y ante ese sonido el indeterminativo masculino es uno: uno studente. Es el espejo del determinativo lo studente: el mismo disparador fonetico que pide lo en el determinativo pide uno en el indeterminativo. El calco un studente es el error a evitar.",
+      "variants": [
+        {
+          "prompt": "Per cena invito ___ studente straniero.",
+          "options": ["un", "uno", "una", "un'"],
+          "correctIndex": 1
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -552,16 +709,19 @@
       }
     },
     {
-      "id": "articoli-020",
+      "id": "articoli-uno-z",
       "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Conosco ___ studentessa di Roma.",
-        "options": ["il", "lo", "la", "l'"],
-        "correctIndex": 2,
-        "explanation": "Studentessa es femenino y empieza por s impura, pero en femenino eso no importa: el articulo es la studentessa. Ojo al contraste con el masculino lo studente, donde la s+consonante si cambia la forma a lo."
-      },
-      "notes": "Determinativo fem sing la ante s+consonante (la studentessa). Contraste con lo studente.",
+      "categoryIds": [
+        "articoli"
+      ],
+      "explanation": "Zaino empieza por z-, sonido que en masculino pide uno: uno zaino. Igual que lo zaino en el determinativo, la z- inicial obliga a la forma larga uno en el indeterminativo. Decir un zaino es el error tipico del hispanohablante.",
+      "variants": [
+        {
+          "prompt": "Mi serve ___ zaino per la gita.",
+          "options": ["un", "uno", "una", "un'"],
+          "correctIndex": 1
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -581,16 +741,19 @@
       }
     },
     {
-      "id": "articoli-021",
+      "id": "articoli-uno-ps",
       "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "___ amica di Sofia è spagnola.",
-        "options": ["il", "lo", "la", "l'"],
-        "correctIndex": 3,
-        "explanation": "Amica empieza por vocal (a-), asi que el femenino singular se elide a l': l'amica. La elision ante vocal funciona igual en femenino que en masculino (l'amico / l'amica): es la unica situacion en que el femenino cambia de la a l'."
-      },
-      "notes": "Determinativo fem sing l' ante vocal (l'amica). Trampa canonica D-04 #6 (parte fem). Espejo con l'amico.",
+      "categoryIds": [
+        "articoli"
+      ],
+      "explanation": "Psicologo empieza por ps-, grupo que en masculino exige uno: uno psicologo. Espejo del determinativo lo psicologo. El ps- entra en la familia de la s impura, asi que la forma corta un es incorrecta aqui.",
+      "variants": [
+        {
+          "prompt": "Vorrei diventare ___ psicologo.",
+          "options": ["un", "uno", "una", "un'"],
+          "correctIndex": 1
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -610,16 +773,19 @@
       }
     },
     {
-      "id": "articoli-022",
+      "id": "articoli-uno-gn",
       "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Stasera andiamo a vedere ___ opera alla Scala.",
-        "options": ["il", "lo", "la", "l'"],
-        "correctIndex": 3,
-        "explanation": "Opera es femenino y empieza por vocal (o-), por eso l'opera. Ante vocal el femenino pierde la a de la y se apostrofa, dando l', exactamente igual que en l'amica o l'isola."
-      },
-      "notes": "Determinativo fem sing l' ante vocal (l'opera).",
+      "categoryIds": [
+        "articoli"
+      ],
+      "explanation": "Gnomo empieza por gn-, sonido que en masculino pide uno: uno gnomo. El grupo gn- pertenece a la familia que exige la forma larga uno, igual que en el determinativo lo gnomo.",
+      "variants": [
+        {
+          "prompt": "Nel disegno c'è ___ gnomo con il cappello.",
+          "options": ["un", "uno", "una", "un'"],
+          "correctIndex": 1
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -639,16 +805,29 @@
       }
     },
     {
-      "id": "articoli-023",
+      "id": "articoli-una-invariable",
       "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "___ isola di Capri è bellissima.",
-        "options": ["il", "lo", "la", "l'"],
-        "correctIndex": 3,
-        "explanation": "Isola empieza por vocal (i-), asi que el femenino se elide a l': l'isola. Recuerda que esta elision solo ocurre en singular: en plural el femenino vuelve a le isole, sin apostrofo."
-      },
-      "notes": "Determinativo fem sing l' ante vocal (l'isola). Anticipa que el plural fem nunca se elide.",
+      "categoryIds": [
+        "articoli"
+      ],
+      "explanation": "En femenino la forma una se usa ante cualquier consonante (incluida la s impura y la z): una casa, una zia, una studentessa. Solo cambia a un' ante vocal. A diferencia del masculino (uno zio, uno studente), el femenino no usa la forma larga ante z ni s impura: se mantiene una ante consonantes y solo se apostrofa (un') ante vocal.",
+      "variants": [
+        {
+          "prompt": "In soggiorno c'è ___ casa delle bambole.",
+          "options": ["un", "uno", "una", "un'"],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Ho ___ zia che vive a Torino.",
+          "options": ["un", "uno", "una", "un'"],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "E ___ studentessa molto brava.",
+          "options": ["un", "uno", "una", "un'"],
+          "correctIndex": 2
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -668,712 +847,29 @@
       }
     },
     {
-      "id": "articoli-024",
+      "id": "articoli-un-fem-vocal",
       "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Ho comprato ___ libri per l'esame.",
-        "options": ["i", "gli", "le", "l'"],
-        "correctIndex": 0,
-        "explanation": "Libri es el plural de libro, que en singular lleva il (consonante simple). Todos los masculinos con il en singular pasan a i en plural: i libri. La forma gli queda reservada al plural de lo y de l'."
-      },
-      "notes": "Determinativo masc plural i (plural de il). i libri.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-v4-flash",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "articoli-025",
-      "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "___ ragazzi giocano in cortile.",
-        "options": ["i", "gli", "le", "l'"],
-        "correctIndex": 0,
-        "explanation": "Ragazzi es plural de ragazzo, masculino con il en singular, por tanto i ragazzi. La regla: si el singular es il, el plural es i; si era lo o l', el plural es gli."
-      },
-      "notes": "Determinativo masc plural i (plural de il). i ragazzi.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-v4-flash",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "articoli-026",
-      "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Ho salutato ___ studenti in corridoio.",
-        "options": ["i", "gli", "le", "l'"],
-        "correctIndex": 1,
-        "explanation": "Studenti es plural de studente, que en singular lleva lo (s impura). El plural de lo es gli: gli studenti. El error tipico es decir i studenti por analogia con il, pero la s+consonante exige gli en plural."
-      },
-      "notes": "Determinativo masc plural gli (plural de lo, s+consonante). gli studenti. Distractora i = error tipico.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-v4-flash",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "articoli-027",
-      "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Domenica vengono ___ zii dal paese.",
-        "options": ["i", "gli", "le", "l'"],
-        "correctIndex": 1,
-        "explanation": "Zii es plural de zio, que en singular lleva lo (z-). El plural de lo es gli, asi que gli zii. Igual que en singular lo zio, en plural la z- mantiene la familia lo/gli y nunca usa il/i."
-      },
-      "notes": "Determinativo masc plural gli (plural de lo, z). gli zii.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-v4-flash",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "articoli-028",
-      "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Al convegno parlano ___ psicologi più noti.",
-        "options": ["i", "gli", "le", "l'"],
-        "correctIndex": 1,
-        "explanation": "Psicologi es plural de psicologo, masculino con lo en singular (ps-). Su plural es gli: gli psicologi. El grupo ps- pertenece a la familia lo/gli tanto en singular como en plural."
-      },
-      "notes": "Determinativo masc plural gli (plural de lo, ps). gli psicologi.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-v4-flash",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "articoli-029",
-      "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "A pranzo prepariamo ___ gnocchi fatti in casa.",
-        "options": ["i", "gli", "le", "l'"],
-        "correctIndex": 1,
-        "explanation": "Gnocchi empieza por gn-, sonido de la familia lo/gli, asi que en plural es gli gnocchi (singular lo gnocco). Es una trampa clasica: muchos dicen i gnocchi, pero gn- siempre pide gli en plural."
-      },
-      "notes": "Determinativo masc plural gli ante gn (gli gnocchi). Trampa canonica D-04 #5. Distractora i = error tipico.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-v4-flash",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "articoli-030",
-      "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Stasera escono ___ amici di Luca.",
-        "options": ["i", "gli", "le", "l'"],
-        "correctIndex": 1,
-        "explanation": "Amici es plural de amico, que en singular se elide a l' (vocal). Todo lo que en singular era l' pasa en plural a gli: gli amici. La forma gli absorbe el plural tanto de lo como de l'."
-      },
-      "notes": "Determinativo masc plural gli (plural de l', vocal). gli amici.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-v4-flash",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "articoli-031",
-      "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Chiudi ___ occhi e rilassati.",
-        "options": ["i", "gli", "le", "l'"],
-        "correctIndex": 1,
-        "explanation": "Occhi es plural de occhio, que en singular se elide a l' (vocal). El plural de l' es gli, por eso gli occhi. Recuerda que en plural no hay elision: se escribe gli completo, no g'."
-      },
-      "notes": "Determinativo masc plural gli (plural de l', vocal). gli occhi.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-v4-flash",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "articoli-032",
-      "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "___ case del quartiere sono nuove.",
-        "options": ["i", "gli", "le", "l'"],
-        "correctIndex": 2,
-        "explanation": "Case es plural femenino de casa, y el plural femenino es siempre le: le case. El femenino plural no tiene variacion fonetica ni elision: se usa le ante cualquier sonido inicial."
-      },
-      "notes": "Determinativo fem plural le (le case). El fem plural es invariable.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-v4-flash",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "articoli-033",
-      "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Invito ___ amiche alla festa.",
-        "options": ["i", "gli", "le", "l'"],
-        "correctIndex": 2,
-        "explanation": "Amiche es plural femenino de amica. Aunque empieza por vocal, el plural femenino nunca se elide: se escribe le amiche, no l'amiche. La elision a l' solo existe en singular."
-      },
-      "notes": "Determinativo fem plural le ante vocal (le amiche). El plural fem no elide (R5). Distractora l' = error de elision.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-v4-flash",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "articoli-034",
-      "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "___ studentesse preparano l'esame insieme.",
-        "options": ["i", "gli", "le", "l'"],
-        "correctIndex": 2,
-        "explanation": "Studentesse es plural femenino de studentessa. El femenino plural es siempre le, sin importar la s impura inicial: le studentesse. En femenino ni el singular ni el plural cambian por el sonido inicial (salvo l' ante vocal en singular)."
-      },
-      "notes": "Determinativo fem plural le ante s+consonante (le studentesse).",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-v4-flash",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "articoli-035",
-      "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Vorrei comprare ___ libro nuovo.",
-        "options": ["un", "uno", "una", "un'"],
-        "correctIndex": 0,
-        "explanation": "Libro empieza por consonante simple (l-), por eso el indeterminativo masculino es un: un libro. La forma un cubre tanto las consonantes simples como las vocales en masculino; uno se reserva a la s impura, z, gn, ps y x."
-      },
-      "notes": "Indeterminativo masc un ante consonante simple (un libro). Espejo de il libro.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-v4-flash",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "articoli-036",
-      "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "C'e ___ ragazzo che ti cerca.",
-        "options": ["un", "uno", "una", "un'"],
-        "correctIndex": 0,
-        "explanation": "Ragazzo empieza por r- (consonante simple), asi que el indeterminativo es un: un ragazzo. En masculino, un es la forma por defecto y solo se convierte en uno ante los sonidos dificiles (s+consonante, z, gn, ps, x)."
-      },
-      "notes": "Indeterminativo masc un ante consonante simple (un ragazzo).",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-v4-flash",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "articoli-037",
-      "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Ho incontrato ___ amico per strada.",
-        "options": ["un", "uno", "una", "un'"],
-        "correctIndex": 0,
-        "explanation": "Amico empieza por vocal (a-), y en masculino el indeterminativo ante vocal es un, SIN apostrofo: un amico. Esta es la trampa central del bloque: el apostrofo del indeterminativo (un') es marca exclusiva del femenino, nunca del masculino. Escribir un'amico es incorrecto."
-      },
-      "notes": "Indeterminativo masc un ante vocal SIN apostrofo (un amico). Trampa D-04 #7 (parte masc). Distractora un' = error de apostrofo masc.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-v4-flash",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "articoli-038",
-      "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Marco ha ___ occhio più chiaro dell'altro.",
-        "options": ["un", "uno", "una", "un'"],
-        "correctIndex": 0,
-        "explanation": "Occhio empieza por vocal (o-) y es masculino, por eso un occhio, sin apostrofo. A diferencia del determinativo (l'occhio, que si se elide), el indeterminativo masculino ante vocal mantiene un entero: ni se elide ni se apostrofa."
-      },
-      "notes": "Indeterminativo masc un ante vocal sin apostrofo (un occhio). Contraste con l'occhio (det elide, indet no).",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-v4-flash",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "articoli-039",
-      "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Per cena invito ___ studente straniero.",
-        "options": ["un", "uno", "una", "un'"],
-        "correctIndex": 1,
-        "explanation": "Studente empieza por s impura (st-), y ante ese sonido el indeterminativo masculino es uno: uno studente. Es el espejo del determinativo lo studente: el mismo disparador fonetico que pide lo en el determinativo pide uno en el indeterminativo. El calco un studente es el error a evitar."
-      },
-      "notes": "Indeterminativo masc uno ante s+consonante (uno studente). Trampa D-04 #2 (parte indet). Espejo de lo studente. Distractora un = calco.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-v4-flash",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "articoli-040",
-      "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Mi serve ___ zaino per la gita.",
-        "options": ["un", "uno", "una", "un'"],
-        "correctIndex": 1,
-        "explanation": "Zaino empieza por z-, sonido que en masculino pide uno: uno zaino. Igual que lo zaino en el determinativo, la z- inicial obliga a la forma larga uno en el indeterminativo. Decir un zaino es el error tipico del hispanohablante."
-      },
-      "notes": "Indeterminativo masc uno ante z (uno zaino). Trampa D-04 #4 (parte indet). Espejo de lo zaino.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-v4-flash",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "articoli-041",
-      "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Vorrei diventare ___ psicologo.",
-        "options": ["un", "uno", "una", "un'"],
-        "correctIndex": 1,
-        "explanation": "Psicologo empieza por ps-, grupo que en masculino exige uno: uno psicologo. Espejo del determinativo lo psicologo. El ps- entra en la familia de la s impura, asi que la forma corta un es incorrecta aqui."
-      },
-      "notes": "Indeterminativo masc uno ante ps (uno psicologo). Espejo de lo psicologo.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-v4-flash",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "articoli-042",
-      "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Nel disegno c'è ___ gnomo con il cappello.",
-        "options": ["un", "uno", "una", "un'"],
-        "correctIndex": 1,
-        "explanation": "Gnomo empieza por gn-, sonido que en masculino pide uno: uno gnomo. El grupo gn- pertenece a la familia que exige la forma larga uno, igual que en el determinativo lo gnomo."
-      },
-      "notes": "Indeterminativo masc uno ante gn (uno gnomo). Espejo de lo gnomo.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-v4-flash",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "articoli-043",
-      "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "In soggiorno c'è ___ casa delle bambole.",
-        "options": ["un", "uno", "una", "un'"],
-        "correctIndex": 2,
-        "explanation": "Casa es femenino y empieza por consonante, por eso el indeterminativo es una: una casa. En femenino la forma una se usa ante cualquier consonante (incluida la s impura) y solo cambia a un' ante vocal."
-      },
-      "notes": "Indeterminativo fem una ante consonante (una casa).",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-v4-flash",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "articoli-044",
-      "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Ho ___ zia che vive a Torino.",
-        "options": ["un", "uno", "una", "un'"],
-        "correctIndex": 2,
-        "explanation": "Zia es femenino: aunque empieza por z-, el femenino no usa la forma larga, sino una zia. A diferencia del masculino (uno zio), la z- no cambia el indeterminativo femenino, que se mantiene una ante consonantes y solo se apostrofa (un') ante vocal."
-      },
-      "notes": "Indeterminativo fem una ante z (una zia). Contraste con uno zio (masc).",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-v4-flash",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "articoli-045",
-      "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "E ___ studentessa molto brava.",
-        "options": ["un", "uno", "una", "un'"],
-        "correctIndex": 2,
-        "explanation": "Studentessa es femenino y empieza por s impura, pero en femenino eso no importa: una studentessa. Es el contraste claro con el masculino uno studente, donde la s+consonante si fuerza la forma larga uno."
-      },
-      "notes": "Indeterminativo fem una ante s+consonante (una studentessa). Contraste con uno studente.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-v4-flash",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "articoli-046",
-      "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Ho ___ amica che parla cinque lingue.",
-        "options": ["un", "uno", "una", "un'"],
-        "correctIndex": 3,
-        "explanation": "Amica es femenino y empieza por vocal (a-), por eso el indeterminativo se elide a un' con apostrofo: un'amica. Aqui esta el corazon de la trampa: en masculino un amico va SIN apostrofo, pero en femenino un'amica lleva apostrofo. Misma vocal inicial, distinto genero, distinta marca ortografica."
-      },
-      "notes": "Indeterminativo fem un' ante vocal CON apostrofo (un'amica). Trampa D-04 #7 (parte fem). Espejo de un amico. ASCII U+0027.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-v4-flash",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "articoli-047",
-      "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Stasera danno ___ opera di Verdi.",
-        "options": ["un", "uno", "una", "un'"],
-        "correctIndex": 3,
-        "explanation": "Opera es femenino y empieza por vocal (o-), asi que el indeterminativo se apostrofa a un': un'opera. La elision a un' solo ocurre en femenino ante vocal; el masculino ante vocal nunca se apostrofa (un amico, no un'amico)."
-      },
-      "notes": "Indeterminativo fem un' ante vocal (un'opera). Refuerza apostrofo solo femenino.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-v4-flash",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "articoli-048",
-      "type": "multiple-choice",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Ti aspetto da ___ ora in piazza.",
-        "options": ["un", "uno", "una", "un'"],
-        "correctIndex": 3,
-        "explanation": "Ora es femenino y empieza por vocal (o-), por eso un'ora con apostrofo. Es un caso muy frecuente (un'ora = una hora) donde el apostrofo es obligatorio porque el sustantivo es femenino y empieza por vocal."
-      },
-      "notes": "Indeterminativo fem un' ante vocal (un'ora). Caso frecuente del femenino elidido.",
+      "categoryIds": [
+        "articoli"
+      ],
+      "explanation": "En femenino, ante vocal el indeterminativo se elide a un' con apostrofo: un'amica, un'opera, un'ora. Aqui esta el corazon de la trampa: en masculino un amico va SIN apostrofo, pero en femenino un'amica lleva apostrofo. Misma vocal inicial, distinto genero, distinta marca ortografica. La elision a un' solo ocurre en femenino ante vocal; el masculino ante vocal nunca se apostrofa (un amico, no un'amico). Es un caso muy frecuente (un'ora = una hora).",
+      "variants": [
+        {
+          "prompt": "Ho ___ amica che parla cinque lingue.",
+          "options": ["un", "uno", "una", "un'"],
+          "correctIndex": 3
+        },
+        {
+          "prompt": "Stasera danno ___ opera di Verdi.",
+          "options": ["un", "uno", "una", "un'"],
+          "correctIndex": 3
+        },
+        {
+          "prompt": "Ti aspetto da ___ ora in piazza.",
+          "options": ["un", "uno", "una", "un'"],
+          "correctIndex": 3
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -1395,21 +891,24 @@
     {
       "id": "articoli-049",
       "type": "match",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Empareja cada sustantivo con su artículo determinativo.",
-        "pairs": [
-          ["studente", "lo"],
-          ["zio", "lo"],
-          ["psicologo", "lo"],
-          ["gnocchi", "gli"],
-          ["amici", "gli"],
-          ["zii", "gli"],
-          ["libri", "i"]
-        ],
-        "explanation": "Este empareje va mas alla del il/la/l' basico: agrupa los disparadores que obligan a lo en singular y a gli en plural. La serie lo aparece ante s+consonante (lo studente), z (lo zio), ps (lo psicologo), gn, x: todos comparten la misma regla fonetica aunque sean sonidos distintos. En plural, gli absorbe todo lo que en singular era lo o l': gli studenti, gli zii, gli psicologi, gli gnocchi, gli amici (de l'amico). El plural i queda reservado a lo que en singular llevaba il (i libri, de il libro). La trampa del hispanohablante es usar il ante z- o s+cons- como en espanol; el italiano exige lo por motivos foneticos, y su plural es gli, no i."
-      },
-      "notes": "Match determinativo avanzado (D-06): agrupa lo (studente/zio/psicologo) + gli (gnocchi/amici/zii, plural de lo y l') + i (libri, plural de il). 3 valores distintos en columna derecha (lo, gli, i) cumple R3. Duplicados textuales intencionales (D-66): lo x3, gli x3 — el grading consume por indice. DESIGN RULE: articolo<->sustantivo no es derivable por raiz (depende de la fonetica inicial). status pending para quorum (D-15).",
+      "categoryIds": [
+        "articoli"
+      ],
+      "explanation": "Este empareje va mas alla del il/la/l' basico: agrupa los disparadores que obligan a lo en singular y a gli en plural. La serie lo aparece ante s+consonante (lo studente), z (lo zio), ps (lo psicologo), gn, x: todos comparten la misma regla fonetica aunque sean sonidos distintos. En plural, gli absorbe todo lo que en singular era lo o l': gli studenti, gli zii, gli psicologi, gli gnocchi, gli amici (de l'amico). El plural i queda reservado a lo que en singular llevaba il (i libri, de il libro). La trampa del hispanohablante es usar il ante z- o s+cons- como en espanol; el italiano exige lo por motivos foneticos, y su plural es gli, no i.",
+      "variants": [
+        {
+          "prompt": "Empareja cada sustantivo con su artículo determinativo.",
+          "pairs": [
+            ["studente", "lo"],
+            ["zio", "lo"],
+            ["psicologo", "lo"],
+            ["gnocchi", "gli"],
+            ["amici", "gli"],
+            ["zii", "gli"],
+            ["libri", "i"]
+          ]
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -1431,20 +930,23 @@
     {
       "id": "articoli-050",
       "type": "match",
-      "categoryIds": ["articoli"],
-      "payload": {
-        "prompt": "Empareja cada sustantivo con su artículo indeterminativo. Fíjate en el género y en la vocal o consonante inicial.",
-        "pairs": [
-          ["studente", "uno"],
-          ["zaino", "uno"],
-          ["amico", "un"],
-          ["libro", "un"],
-          ["amica", "un'"],
-          ["casa", "una"]
-        ],
-        "explanation": "El indeterminativo masculino refleja la misma fonetica que el determinativo: uno ante s+consonante (uno studente), z (uno zaino), ps, gn, x — exactamente donde el determinativo usa lo. Ante el resto de consonantes y tambien ante vocal el masculino usa un sin apostrofo (un libro, un amico): cuidado, un amico NO lleva apostrofo. El femenino usa una ante consonante (una casa) y se apostrofa a un' solo ante vocal (un'amica). El unico apostrofo del indeterminativo es por tanto femenino: contrasta un amico (masculino, sin apostrofo) con un'amica (femenino, con apostrofo), misma vocal inicial y distinta marca ortografica."
-      },
-      "notes": "Match indeterminativo (D-06): uno (studente/zaino, s+cons y z) + un (amico vocal sin apostrofo / libro consonante) + un' (amica fem+vocal) + una (casa fem+cons). 4 valores distintos en columna derecha (uno, un, un', una) cumple R3. Duplicados intencionales (D-66): uno x2, un x2. Cubre la trampa #7 del temario (un'amica vs un amico). status pending para quorum (D-15).",
+      "categoryIds": [
+        "articoli"
+      ],
+      "explanation": "El indeterminativo masculino refleja la misma fonetica que el determinativo: uno ante s+consonante (uno studente), z (uno zaino), ps, gn, x — exactamente donde el determinativo usa lo. Ante el resto de consonantes y tambien ante vocal el masculino usa un sin apostrofo (un libro, un amico): cuidado, un amico NO lleva apostrofo. El femenino usa una ante consonante (una casa) y se apostrofa a un' solo ante vocal (un'amica). El unico apostrofo del indeterminativo es por tanto femenino: contrasta un amico (masculino, sin apostrofo) con un'amica (femenino, con apostrofo), misma vocal inicial y distinta marca ortografica.",
+      "variants": [
+        {
+          "prompt": "Empareja cada sustantivo con su artículo indeterminativo. Fíjate en el género y en la vocal o consonante inicial.",
+          "pairs": [
+            ["studente", "uno"],
+            ["zaino", "uno"],
+            ["amico", "un"],
+            ["libro", "un"],
+            ["amica", "un'"],
+            ["casa", "una"]
+          ]
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -1466,14 +968,18 @@
     {
       "id": "articoli-300",
       "type": "multiple-choice",
-      "categoryIds": ["articoli", "genero-numero"],
-      "payload": {
-        "prompt": "___ ragazze italiane studiano molto.",
-        "options": ["le", "i", "gli", "la"],
-        "correctIndex": 0,
-        "explanation": "Ragazze es el plural femenino de ragazza, y el articulo determinativo del plural femenino es siempre le: le ragazze. La trampa cruza dos dimensiones: hay que reconocer el numero y genero (plural femenino) y aplicar la regla del articulo (le es invariable, nunca se elide). Las distractoras i y gli son plurales masculinos, y la es singular femenino: ninguna concuerda con ragazze."
-      },
-      "notes": "Cruce Articoli + Genero-Numero (D-08/D-09). Plural femenino ragazze -> le. Cruza la regla del articulo (le invariable) con la concordancia de numero/genero. status pending (D-15).",
+      "categoryIds": [
+        "articoli",
+        "genero-numero"
+      ],
+      "explanation": "Ragazze es el plural femenino de ragazza, y el articulo determinativo del plural femenino es siempre le: le ragazze. La trampa cruza dos dimensiones: hay que reconocer el numero y genero (plural femenino) y aplicar la regla del articulo (le es invariable, nunca se elide). Las distractoras i y gli son plurales masculinos, y la es singular femenino: ninguna concuerda con ragazze.",
+      "variants": [
+        {
+          "prompt": "___ ragazze italiane studiano molto.",
+          "options": ["le", "i", "gli", "la"],
+          "correctIndex": 0
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -1495,14 +1001,18 @@
     {
       "id": "articoli-301",
       "type": "multiple-choice",
-      "categoryIds": ["articoli", "genero-numero"],
-      "payload": {
-        "prompt": "___ studenti arrivano in ritardo ogni giorno.",
-        "options": ["gli", "i", "le", "lo"],
-        "correctIndex": 0,
-        "explanation": "Studenti es el plural masculino de studente, que en singular lleva lo por la s+consonante (lo studente). En plural, todo lo que llevaba lo o l' pasa a gli: gli studenti. La trampa cruza el numero (plural masculino) con el disparador fonetico (s impura): no vale i (ese es el plural de los que en singular llevaban il), ni le (femenino), ni lo (singular)."
-      },
-      "notes": "Cruce Articoli + Genero-Numero (D-08/D-09). Plural masculino de lo studente -> gli studenti. Cruza disparador fonetico (s impura) con concordancia de numero. status pending (D-15).",
+      "categoryIds": [
+        "articoli",
+        "genero-numero"
+      ],
+      "explanation": "Studenti es el plural masculino de studente, que en singular lleva lo por la s+consonante (lo studente). En plural, todo lo que llevaba lo o l' pasa a gli: gli studenti. La trampa cruza el numero (plural masculino) con el disparador fonetico (s impura): no vale i (ese es el plural de los que en singular llevaban il), ni le (femenino), ni lo (singular).",
+      "variants": [
+        {
+          "prompt": "___ studenti arrivano in ritardo ogni giorno.",
+          "options": ["gli", "i", "le", "lo"],
+          "correctIndex": 0
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -1524,14 +1034,18 @@
     {
       "id": "articoli-302",
       "type": "multiple-choice",
-      "categoryIds": ["articoli", "genero-numero"],
-      "payload": {
-        "prompt": "___ libri sono sul tavolo.",
-        "options": ["i", "gli", "le", "il"],
-        "correctIndex": 0,
-        "explanation": "Libri es el plural masculino de libro, que en singular lleva il por empezar por consonante simple (il libro). El plural de il es i: i libri. La trampa cruza el numero (plural masculino) con la regla del articulo: gli se reserva para los plurales de lo y l', no para los de il; le es femenino e il es singular. Solo i concuerda."
-      },
-      "notes": "Cruce Articoli + Genero-Numero (D-08/D-09). Plural masculino de il libro -> i libri. Contrasta i (plural de il) frente a gli (plural de lo/l'). status pending (D-15).",
+      "categoryIds": [
+        "articoli",
+        "genero-numero"
+      ],
+      "explanation": "Libri es el plural masculino de libro, que en singular lleva il por empezar por consonante simple (il libro). El plural de il es i: i libri. La trampa cruza el numero (plural masculino) con la regla del articulo: gli se reserva para los plurales de lo y l', no para los de il; le es femenino e il es singular. Solo i concuerda.",
+      "variants": [
+        {
+          "prompt": "___ libri sono sul tavolo.",
+          "options": ["i", "gli", "le", "il"],
+          "correctIndex": 0
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -1553,14 +1067,18 @@
     {
       "id": "articoli-303",
       "type": "multiple-choice",
-      "categoryIds": ["articoli", "sustantivos-irregulares"],
-      "payload": {
-        "prompt": "___ braccia sono stanche dopo il lavoro.",
-        "options": ["le", "i", "gli", "la"],
-        "correctIndex": 0,
-        "explanation": "Braccia es un plural irregular: el singular masculino braccio (il braccio) hace plural femenino braccia, por eso el articulo es le y el adjetivo concuerda como stanche. La trampa cruza la regla del articulo con la irregularidad del sustantivo: aunque en singular era masculino (il braccio), en plural cambia de genero y exige le, no i ni gli. La es singular femenino y no concuerda con el plural."
-      },
-      "notes": "Cruce Articoli + Sustantivos Irregulares (D-09). Plural irregular braccia (sing masc braccio -> plural fem braccia) -> articulo le. Modelo espejo de avere-302. status pending (D-15).",
+      "categoryIds": [
+        "articoli",
+        "sustantivos-irregulares"
+      ],
+      "explanation": "Braccia es un plural irregular: el singular masculino braccio (il braccio) hace plural femenino braccia, por eso el articulo es le y el adjetivo concuerda como stanche. La trampa cruza la regla del articulo con la irregularidad del sustantivo: aunque en singular era masculino (il braccio), en plural cambia de genero y exige le, no i ni gli. La es singular femenino y no concuerda con el plural.",
+      "variants": [
+        {
+          "prompt": "___ braccia sono stanche dopo il lavoro.",
+          "options": ["le", "i", "gli", "la"],
+          "correctIndex": 0
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -1582,14 +1100,18 @@
     {
       "id": "articoli-304",
       "type": "multiple-choice",
-      "categoryIds": ["articoli", "sustantivos-irregulares"],
-      "payload": {
-        "prompt": "___ uova sono nel frigorifero.",
-        "options": ["le", "gli", "i", "l'"],
-        "correctIndex": 0,
-        "explanation": "Uova es un plural irregular: el singular masculino uovo (l'uovo, con elision ante vocal) hace plural femenino uova, que toma el articulo le: le uova. La trampa cruza la regla del articulo con la irregularidad: en singular era masculino y se elidia (l'uovo), pero en plural cambia a femenino y usa le. No vale gli (plural masculino) ni i; l' es singular y no concuerda con el plural."
-      },
-      "notes": "Cruce Articoli + Sustantivos Irregulares (D-09). Plural irregular uova (sing masc l'uovo -> plural fem uova) -> articulo le. Cruza elision singular con cambio de genero en plural. status pending (D-15).",
+      "categoryIds": [
+        "articoli",
+        "sustantivos-irregulares"
+      ],
+      "explanation": "Uova es un plural irregular: el singular masculino uovo (l'uovo, con elision ante vocal) hace plural femenino uova, que toma el articulo le: le uova. La trampa cruza la regla del articulo con la irregularidad: en singular era masculino y se elidia (l'uovo), pero en plural cambia a femenino y usa le. No vale gli (plural masculino) ni i; l' es singular y no concuerda con el plural.",
+      "variants": [
+        {
+          "prompt": "___ uova sono nel frigorifero.",
+          "options": ["le", "gli", "i", "l'"],
+          "correctIndex": 0
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -1611,14 +1133,18 @@
     {
       "id": "articoli-305",
       "type": "multiple-choice",
-      "categoryIds": ["articoli", "sustantivos-irregulares"],
-      "payload": {
-        "prompt": "___ zii vengono a cena domenica.",
-        "options": ["gli", "i", "le", "lo"],
-        "correctIndex": 0,
-        "explanation": "Zii es el plural de zio, que en singular lleva lo por empezar por z- (lo zio). En plural, todo lo que llevaba lo o l' pasa a gli: gli zii. La trampa cruza la regla del articulo (z- dispara lo, y su plural es gli) con el plural del sustantivo: no vale i (plural de il) ni le (femenino), y lo es singular. El hispanohablante tiende a usar i, pero el disparador z- exige la serie lo/gli."
-      },
-      "notes": "Cruce Articoli + Sustantivos Irregulares (D-09). Plural de lo zio -> gli zii (la z- dispara la serie lo/gli). Cruza disparador fonetico con el plural del sustantivo. status pending (D-15).",
+      "categoryIds": [
+        "articoli",
+        "sustantivos-irregulares"
+      ],
+      "explanation": "Zii es el plural de zio, que en singular lleva lo por empezar por z- (lo zio). En plural, todo lo que llevaba lo o l' pasa a gli: gli zii. La trampa cruza la regla del articulo (z- dispara lo, y su plural es gli) con el plural del sustantivo: no vale i (plural de il) ni le (femenino), y lo es singular. El hispanohablante tiende a usar i, pero el disparador z- exige la serie lo/gli.",
+      "variants": [
+        {
+          "prompt": "___ zii vengono a cena domenica.",
+          "options": ["gli", "i", "le", "lo"],
+          "correctIndex": 0
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
