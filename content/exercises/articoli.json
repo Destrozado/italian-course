@@ -339,7 +339,7 @@
       "categoryIds": [
         "articoli"
       ],
-      "explanation": "Xilofono empieza por x-, otro sonido que pide lo: lo xilofono. La x- inicial es poco frecuente pero entra en el mismo grupo de la s impura y la z, asi que el articulo es lo.",
+      "explanation": "La x- inicial pide lo en masculino singular: lo xenofobo, lo xilofono. La x- es poco frecuente pero entra en el mismo grupo de la s impura y la z, así que el artículo es lo, no il.",
       "variants": [
         {
           "prompt": "In aula c'è ___ xilofono per i bambini.",
@@ -350,6 +350,45 @@
             "la"
           ],
           "correctIndex": 1
+        },
+        {
+          "prompt": "Il regista intervista ___ xenofobo del quartiere.",
+          "options": [
+            "il",
+            "lo",
+            "l'",
+            "la"
+          ],
+          "correctIndex": 1,
+          "validation": {
+            "status": "validated",
+            "passes": [
+              {
+                "by": "gemini-2.5-flash",
+                "date": "2026-06-04",
+                "verdict": "correcta",
+                "concerns": []
+              },
+              {
+                "by": "deepseek-chat",
+                "date": "2026-06-04",
+                "verdict": "correcta",
+                "concerns": []
+              },
+              {
+                "by": "claude-opus-4-7",
+                "date": "2026-06-04",
+                "verdict": "correcta",
+                "concerns": []
+              },
+              {
+                "by": "claude-sonnet-4-6",
+                "date": "2026-06-04",
+                "verdict": "correcta",
+                "concerns": []
+              }
+            ]
+          }
         }
       ],
       "validation": {
