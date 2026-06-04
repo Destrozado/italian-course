@@ -2,16 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.5
 milestone_name: "Conversión a slots: Bloque Artículos"
-status: ready_to_plan
-last_updated: 2026-06-03T23:52:47.447Z
-last_activity: 2026-06-04 -- Phase 18 plan 01 completado (migración 7→8)
+status: planning
+last_updated: "2026-06-04T09:05:41.517Z"
+last_activity: 2026-06-03
 progress:
   total_phases: 3
   completed_phases: 1
   total_plans: 1
   completed_plans: 1
   percent: 33
-stopped_at: Phase 18 complete (1/1) — ready to discuss Phase 19
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
