@@ -171,7 +171,7 @@ describe('back-compat SLOT-06 — las 9 categorías reales validan con el valida
     { slug: 'sustantivos-irregulares', expected: 31 },
     { slug: 'genero-numero', expected: 40 },
     { slug: 'profesiones', expected: 51 },
-    { slug: 'articoli', expected: 56 },
+    { slug: 'articoli', expected: 34 },
     { slug: 'partitivos', expected: 44 }
   ];
 

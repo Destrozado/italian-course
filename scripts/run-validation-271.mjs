@@ -61,7 +61,7 @@ const fail = (txt) => `${RED}${txt}${RESET}`;
 const warn = (txt) => `${YELLOW}${txt}${RESET}`;
 
 // D-VAL-22 orden lockeado: riesgo-first (preposiciones) + alfabético resto.
-// La suma de `expected` es 370. Historial del total:
+// La suma de `expected` es 348. Historial del total:
 //   373 = 272 (271 originales v1.0 + 1 ejercicio preposiciones-051 creado durante
 //   la validación editorial de Phase 10) + 56 de la 8ª categoría `articoli`
 //   (v1.2 Phase 11: 48 base + 2 match + 6 bridges) + 44 de la 9ª categoría
@@ -72,13 +72,19 @@ const warn = (txt) => `${YELLOW}${txt}${RESET}`;
 //   nuevos (PILOT-03: in-locativo, al-mare) = 49 slots reales (antes 52 ejercicios
 //   payload). TOTAL = 373 − 52 + 49 = 370. El conteo `expected` de preposiciones
 //   se mide como data.exercises.length (nº de slots), no nº de variantes.
+//   → 348 (v1.5 Phase 19, ART-04): Articoli se convirtió al shape slot+variantes.
+//   La reagrupación fundió 56 ejercicios payload por forma/disparador → 32 slots
+//   (19-01) + 2 slots nuevos semiconsonánticos y/i+vocal por quórum cross-vendor
+//   (19-02: articoli-lo-yi, articoli-gli-yi) = 34 slots reales. Las 56 superficies
+//   fuente se preservaron 1:1 como variantes. TOTAL = 370 − 56 + 34 = 348. El
+//   conteo `expected` de articoli se mide como data.exercises.length (nº de slots).
 // `articoli` es alfabéticamente primero del resto, así que va justo tras
 // preposiciones; `partitivos` ordena entre genero-numero y profesiones. El
 // reporter falla si la suma encontrada en disco no coincide con el expected —
 // protege contra archivos JSON con ejercicios borrados/duplicados.
 const CATEGORIES = [
   { slug: 'preposiciones',            file: 'content/exercises/preposiciones.json',            expected: 49 },
-  { slug: 'articoli',                 file: 'content/exercises/articoli.json',                 expected: 56 },
+  { slug: 'articoli',                 file: 'content/exercises/articoli.json',                 expected: 34 },
   { slug: 'avere',                    file: 'content/exercises/avere.json',                    expected: 23 },
   { slug: 'essere',                   file: 'content/exercises/essere.json',                   expected: 39 },
   { slug: 'genero-numero',            file: 'content/exercises/genero-numero.json',            expected: 40 },
@@ -88,7 +94,7 @@ const CATEGORIES = [
   { slug: 'verbos-movimiento',        file: 'content/exercises/verbos-movimiento.json',        expected: 37 },
 ];
 
-const TOTAL_EXPECTED = 370;
+const TOTAL_EXPECTED = 348;
 
 /**
  * Relax path-B (RESEARCH Open Q #1 opción c): si `deriveStatus` da `disputed`
