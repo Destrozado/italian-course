@@ -104,7 +104,10 @@ Numeración CONTINÚA desde Phase 17 → Phases 18-20 (NO reset — mismo criter
   2. Los indeterminativi (un/uno/una/un') quedan como slots propios dentro de Articoli con sus reglas de selección (uno ante s+cons/z/gn/ps/x/y/i+vocal; un' ante femenino+vocal) — sin crear categoría nueva.
   3. Las variantes nuevas autoradas (patrón D-85: Claude propone → autor revisa) pasan el quórum cross-vendor R1-R7 antes de entrar; los huecos de regla detectados durante la autoría se añaden como slots nuevos.
   4. La estructura final de Articoli pasa el validator y el smoke paramétrico (con los hardcodes de count re-sincronizados al nº real de slots, como en D-17-04), con la cobertura de explanations a nivel de slot preservada.
-**Plans**: TBD
+**Plans**: 3 plans
+- [ ] 19-01-PLAN.md — reagrupar los 56 ejercicios en slots por forma/sub-disparador (lo/gli split, formas invariables agrupadas, indeterminativi slots propios, match + cruces slots-de-1 con id estable), explanation a nivel de slot (ART-01, ART-03)
+- [ ] 19-02-PLAN.md — autorar variantes nuevas (engordar celdas pobres) + slots de huecos y/i+vocal, cada superficie por quórum cross-vendor R1-R7 (ART-02, ART-03)
+- [ ] 19-03-PLAN.md — re-sincronizar los 3 hardcodes de count + TOTAL_EXPECTED al nº real de slots; validator + smoke paramétrico verdes (ART-04)
 **UI hint**: no
 
 ### Phase 20: Partitivi a slots (contenido)
@@ -128,7 +131,7 @@ Numeración CONTINÚA desde Phase 17 → Phases 18-20 (NO reset — mismo criter
 | 13-14 | v1.3 | 3/3 | Complete | 2026-06-02 |
 | 15-17 | v1.4 | 9/9 | Complete | 2026-06-03 |
 | 18. Migración 7→8 (reset articoli+partitivos) | v1.5 | 1/1 | Complete    | 2026-06-03 |
-| 19. Articoli a slots (contenido) | v1.5 | 0/? | Not started | - |
+| 19. Articoli a slots (contenido) | v1.5 | 0/3 | Planned | - |
 | 20. Partitivi a slots (contenido) | v1.5 | 0/? | Not started | - |
 
 ## Backlog
