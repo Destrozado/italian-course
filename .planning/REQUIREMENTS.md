@@ -9,9 +9,9 @@
 
 ### Articoli a slots (ART)
 
-- [ ] **ART-01**: Los 56 ejercicios de Articoli se reagrupan en slots por regla — determinativi por disparador fonético (il/i; lo/gli ante s+cons/z/gn/ps/x/y/i+vocal; l'/gli ante vocal; la/le) e indeterminativi como slots propios; los ejercicios que entrenan la misma regla reformulada pasan a ser variantes del mismo slot.
+- [x] **ART-01**: Los 56 ejercicios de Articoli se reagrupan en slots por regla — determinativi por disparador fonético (il/i; lo/gli ante s+cons/z/gn/ps/x/y/i+vocal; l'/gli ante vocal; la/le) e indeterminativi como slots propios; los ejercicios que entrenan la misma regla reformulada pasan a ser variantes del mismo slot.
 - [ ] **ART-02**: Se autoran variantes nuevas (patrón D-85: Claude propone → autor revisa → quórum cross-vendor R1-R7) en los slots de Articoli cuya regla admite reformulación; cada variante nueva pasa el quórum antes de entrar. Los huecos de regla detectados durante la autoría se añaden como slots nuevos.
-- [ ] **ART-03**: Los indeterminativi (un/uno/una/un') quedan como slots propios dentro de Articoli con sus reglas de selección (uno ante s+cons/z/gn/ps/x/y/i+vocal; un' ante femenino+vocal) — recoge el espíritu del todo cerrado el 2026-06-03, sin crear categoría nueva.
+- [x] **ART-03**: Los indeterminativi (un/uno/una/un') quedan como slots propios dentro de Articoli con sus reglas de selección (uno ante s+cons/z/gn/ps/x/y/i+vocal; un' ante femenino+vocal) — recoge el espíritu del todo cerrado el 2026-06-03, sin crear categoría nueva.
 - [ ] **ART-04**: La estructura final de Articoli pasa el validator y el smoke paramétrico (con los hardcodes de count re-sincronizados al nº real de slots, como en D-17-04), con la cobertura de explanations a nivel de slot preservada.
 
 ### Partitivi a slots (PART)
@@ -56,9 +56,9 @@ Qué fases cubren qué requirements.
 |-------------|-------|--------|
 | MIG-01 | Phase 18 | Complete |
 | MIG-02 | Phase 18 | Complete |
-| ART-01 | Phase 19 | Pending |
+| ART-01 | Phase 19 | Complete |
 | ART-02 | Phase 19 | Pending |
-| ART-03 | Phase 19 | Pending |
+| ART-03 | Phase 19 | Complete |
 | ART-04 | Phase 19 | Pending |
 | PART-01 | Phase 20 | Pending |
 | PART-02 | Phase 20 | Pending |
