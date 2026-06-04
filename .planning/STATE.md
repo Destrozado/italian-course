@@ -2,9 +2,9 @@
 gsd_state_version: 1.0
 milestone: v1.5
 milestone_name: "Conversión a slots: Bloque Artículos"
-status: verifying
-last_updated: "2026-06-04T10:56:01.601Z"
-last_activity: 2026-06-04 -- Phase 19 plan 03 completado (count Articoli 56→34, TOTAL_EXPECTED 370→348, ART-04 cerrado)
+status: phase-complete
+last_updated: "2026-06-04T11:30:00.000Z"
+last_activity: 2026-06-04 -- Phase 19 VERIFICADA (ART-01..04 PASSED 4/4; code review WR-01/WR-02 corregidos; suite 358/358)
 progress:
   total_phases: 3
   completed_phases: 2
@@ -25,10 +25,10 @@ See: `.planning/PROJECT.md` (updated 2026-06-04 — Milestone v1.5 iniciado)
 
 ## Current Position
 
-Phase: 19 (articoli-a-slots-contenido) — COMPLETE (ready for verification)
+Phase: 19 (articoli-a-slots-contenido) — COMPLETE & VERIFIED ✅
 Plan: 3 of 3 completados
-Status: Phase complete — ready for verification (ART-01..04 cerrados, 6/9 requisitos v1.5)
-Last activity: 2026-06-04 -- Phase 19 plan 03 completado (sync de counts, ART-04)
+Status: Phase 19 verificada (ART-01..04 PASSED 4/4; code review resuelto; suite 358/358). Siguiente: Phase 20 (Partitivi a slots).
+Last activity: 2026-06-04 -- Phase 19 verificada y cerrada (6/9 requisitos v1.5)
 
 ## Quick Tasks Completed
 
@@ -45,8 +45,8 @@ Last activity: 2026-06-04 -- Phase 19 plan 03 completado (sync de counts, ART-04
 | Fases v1.2 | 2/2 completas (Phase 11-12) — SHIPPED 2026-05-28 |
 | Fases v1.3 | 2/2 completas (Phase 13-14) — SHIPPED 2026-06-02 |
 | Fases v1.4 | 3/3 completas (Phase 15-17) — SHIPPED 2026-06-03 |
-| Fases v1.5 | 1/3 (Phase 18 migración 7→8 ✅; Phase 19 Articoli ⏳ plan 02/03 ✅; Phase 20 Partitivi ⏳) |
-| Requisitos v1.5 completos | 5/9 (MIG-01 + MIG-02 + ART-01 + ART-02 + ART-03) |
+| Fases v1.5 | 2/3 (Phase 18 migración 7→8 ✅; Phase 19 Articoli ✅ VERIFICADA; Phase 20 Partitivi ⏳) |
+| Requisitos v1.5 completos | 6/9 (MIG-01 + MIG-02 + ART-01 + ART-02 + ART-03 + ART-04) |
 | Phase 18 plan 01 | 2 tareas TDD, 4 archivos, ~12 min, 358/358 tests (16 nuevos v8) |
 | Phase 19 plan 01 | reagrupación 56→32 slots, 1 archivo, ~15 min, validateContent verde (count 56 rojo a propósito hasta 19-03) |
 | Phase 19 plan 02 | 8 superficies por quórum cross-vendor (4× correcta), 32→34 slots, 1 archivo, ~45 min, validateContent verde (count rojo a propósito hasta 19-03) |
