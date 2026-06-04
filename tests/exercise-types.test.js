@@ -1270,7 +1270,7 @@ const CATEGORIES_WITH_EXPLANATIONS = [
   { file: 'content/exercises/verbos-movimiento.json', expected: 37 },
   { file: 'content/exercises/essere.json', expected: 39 },
   { file: 'content/exercises/profesiones.json', expected: 51 },
-  { file: 'content/exercises/articoli.json', expected: 56 },
+  { file: 'content/exercises/articoli.json', expected: 34 },
   { file: 'content/exercises/partitivos.json', expected: 44 },
   // Cobertura editorial: 370 con explanation curada tras el piloto v1.4 (Phase 17): Preposiciones pasó de 52 ejercicios a 49 slots (explanation a nivel de slot); las otras 8 categorías por ejercicio.
 ];

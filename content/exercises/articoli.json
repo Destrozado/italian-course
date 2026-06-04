@@ -1674,6 +1674,35 @@
         "articoli"
       ],
       "explanation": "Ante un sonido semiconsonántico, la y- inicial (yogurt) y la i+vocal (iodio, iato) disparan lo en el masculino singular, igual que la s impura: lo yogurt, lo iodio. El hispanohablante tiende a decir el yogur o el yodo y a elegir il, pero estos sonidos entran en la familia de lo/gli; la forma il es incorrecta aquí.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-04",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-04",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-06-04",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-06-04",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
       "variants": [
         {
           "prompt": "A colazione mangio ___ yogurt alla frutta.",
@@ -1762,6 +1791,35 @@
         "articoli"
       ],
       "explanation": "El plural de lo es gli también ante los sonidos semiconsonánticos: la y- (gli yogurt) y la i+vocal entran en la serie lo/gli. Como en singular era lo yogurt, en plural es gli yogurt (yogurt es invariable). El error es decir i yogurt por analogía con il/i; el disparador semiconsonántico mantiene la familia lo/gli.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-04",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-04",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-06-04",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-06-04",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
       "variants": [
         {
           "prompt": "In frigorifero ci sono ___ yogurt scaduti.",
