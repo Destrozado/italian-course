@@ -263,7 +263,7 @@
       "categoryIds": [
         "articoli"
       ],
-      "explanation": "Gnomo empieza por gn-, sonido que tambien exige lo: lo gnomo. El grupo gn- se comporta como la s impura y la z, asi que el masculino singular es lo, no il.",
+      "explanation": "El grupo gn- exige lo en masculino singular: lo gnocco, lo gnomo. El gn- se comporta como la s impura y la z, así que el artículo es lo, no il.",
       "variants": [
         {
           "prompt": "Nella fiaba appare ___ gnomo del bosco.",
@@ -274,6 +274,45 @@
             "la"
           ],
           "correctIndex": 1
+        },
+        {
+          "prompt": "Al ristorante ho ordinato ___ gnocco di patate più grande.",
+          "options": [
+            "il",
+            "lo",
+            "l'",
+            "la"
+          ],
+          "correctIndex": 1,
+          "validation": {
+            "status": "validated",
+            "passes": [
+              {
+                "by": "gemini-2.5-flash",
+                "date": "2026-06-04",
+                "verdict": "correcta",
+                "concerns": []
+              },
+              {
+                "by": "deepseek-chat",
+                "date": "2026-06-04",
+                "verdict": "correcta",
+                "concerns": []
+              },
+              {
+                "by": "claude-opus-4-7",
+                "date": "2026-06-04",
+                "verdict": "correcta",
+                "concerns": []
+              },
+              {
+                "by": "claude-sonnet-4-6",
+                "date": "2026-06-04",
+                "verdict": "correcta",
+                "concerns": []
+              }
+            ]
+          }
         }
       ],
       "validation": {
