@@ -11,10 +11,13 @@ files_reviewed_list:
 findings:
   critical: 0
   warning: 2
+  warning_resolved: 2
   info: 2
   total: 4
-status: issues_found
+status: resolved
 ---
+
+> **Resolución (2026-06-04):** WR-01 y WR-02 corregidos (`È`/`C'è`) en commit posterior al review. Verde 358/358 tras el fix. IN-01/IN-02 (Info) quedan documentados, no bloquean.
 
 # Phase 19: Code Review Report
 
