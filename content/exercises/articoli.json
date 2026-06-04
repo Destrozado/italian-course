@@ -1139,7 +1139,7 @@
       "categoryIds": [
         "articoli"
       ],
-      "explanation": "Gnomo empieza por gn-, sonido que en masculino pide uno: uno gnomo. El grupo gn- pertenece a la familia que exige la forma larga uno, igual que en el determinativo lo gnomo.",
+      "explanation": "El grupo gn- exige en masculino la forma larga uno: uno gnomo. El gn- pertenece a la familia de la s impura y la z, igual que en el determinativo lo gnomo; la forma corta un es incorrecta ante gn-.",
       "variants": [
         {
           "prompt": "Nel disegno c'è ___ gnomo con il cappello.",
@@ -1150,6 +1150,45 @@
             "un'"
           ],
           "correctIndex": 1
+        },
+        {
+          "prompt": "Nel presepe manca ___ gnomo di ceramica.",
+          "options": [
+            "un",
+            "uno",
+            "una",
+            "un'"
+          ],
+          "correctIndex": 1,
+          "validation": {
+            "status": "validated",
+            "passes": [
+              {
+                "by": "gemini-2.5-flash",
+                "date": "2026-06-04",
+                "verdict": "correcta",
+                "concerns": []
+              },
+              {
+                "by": "deepseek-chat",
+                "date": "2026-06-04",
+                "verdict": "correcta",
+                "concerns": []
+              },
+              {
+                "by": "claude-opus-4-7",
+                "date": "2026-06-04",
+                "verdict": "correcta",
+                "concerns": []
+              },
+              {
+                "by": "claude-sonnet-4-6",
+                "date": "2026-06-04",
+                "verdict": "correcta",
+                "concerns": []
+              }
+            ]
+          }
         }
       ],
       "validation": {
