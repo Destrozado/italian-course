@@ -1666,6 +1666,55 @@
           }
         ]
       }
+    },
+    {
+      "id": "articoli-lo-yi",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "articoli"
+      ],
+      "explanation": "Ante un sonido semiconsonántico, la y- inicial (yogurt) y la i+vocal (iodio, iato) disparan lo en el masculino singular, igual que la s impura: lo yogurt, lo iodio. El hispanohablante tiende a decir el yogur o el yodo y a elegir il, pero estos sonidos entran en la familia de lo/gli; la forma il es incorrecta aquí.",
+      "variants": [
+        {
+          "prompt": "A colazione mangio ___ yogurt alla frutta.",
+          "options": [
+            "il",
+            "lo",
+            "l'",
+            "la"
+          ],
+          "correctIndex": 1,
+          "validation": {
+            "status": "validated",
+            "passes": [
+              {
+                "by": "gemini-2.5-flash",
+                "date": "2026-06-04",
+                "verdict": "correcta",
+                "concerns": []
+              },
+              {
+                "by": "deepseek-chat",
+                "date": "2026-06-04",
+                "verdict": "correcta",
+                "concerns": []
+              },
+              {
+                "by": "claude-opus-4-7",
+                "date": "2026-06-04",
+                "verdict": "correcta",
+                "concerns": []
+              },
+              {
+                "by": "claude-sonnet-4-6",
+                "date": "2026-06-04",
+                "verdict": "correcta",
+                "concerns": []
+              }
+            ]
+          }
+        }
+      ]
     }
   ]
 }
