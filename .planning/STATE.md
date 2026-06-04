@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.5
 milestone_name: "Conversión a slots: Bloque Artículos"
 status: executing
-last_updated: "2026-06-04T10:06:14.476Z"
-last_activity: 2026-06-04 -- Phase 19 plan 01 completado (articoli.json 56→32 slots)
+last_updated: "2026-06-04T11:30:00.000Z"
+last_activity: 2026-06-04 -- Phase 19 plan 02 completado (8 superficies por quórum, 32→34 slots)
 progress:
   total_phases: 3
   completed_phases: 1
   total_plans: 4
-  completed_plans: 2
-  percent: 33
+  completed_plans: 3
+  percent: 44
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -26,9 +26,9 @@ See: `.planning/PROJECT.md` (updated 2026-06-04 — Milestone v1.5 iniciado)
 ## Current Position
 
 Phase: 19 (articoli-a-slots-contenido) — EXECUTING
-Plan: 2 of 3
-Status: Ready to execute (plan 01 completado: articoli.json reescrito a 32 slots)
-Last activity: 2026-06-04 -- Phase 19 plan 01 completado
+Plan: 3 of 3
+Status: Ready to execute (plan 02 completado: 8 superficies por quórum, articoli.json 32→34 slots)
+Last activity: 2026-06-04 -- Phase 19 plan 02 completado
 
 ## Quick Tasks Completed
 
@@ -45,10 +45,11 @@ Last activity: 2026-06-04 -- Phase 19 plan 01 completado
 | Fases v1.2 | 2/2 completas (Phase 11-12) — SHIPPED 2026-05-28 |
 | Fases v1.3 | 2/2 completas (Phase 13-14) — SHIPPED 2026-06-02 |
 | Fases v1.4 | 3/3 completas (Phase 15-17) — SHIPPED 2026-06-03 |
-| Fases v1.5 | 1/3 (Phase 18 migración 7→8 ✅; Phase 19 Articoli ⏳ plan 01/03 ✅; Phase 20 Partitivi ⏳) |
-| Requisitos v1.5 completos | 4/9 (MIG-01 + MIG-02 + ART-01 + ART-03) |
+| Fases v1.5 | 1/3 (Phase 18 migración 7→8 ✅; Phase 19 Articoli ⏳ plan 02/03 ✅; Phase 20 Partitivi ⏳) |
+| Requisitos v1.5 completos | 5/9 (MIG-01 + MIG-02 + ART-01 + ART-02 + ART-03) |
 | Phase 18 plan 01 | 2 tareas TDD, 4 archivos, ~12 min, 358/358 tests (16 nuevos v8) |
 | Phase 19 plan 01 | reagrupación 56→32 slots, 1 archivo, ~15 min, validateContent verde (count 56 rojo a propósito hasta 19-03) |
+| Phase 19 plan 02 | 8 superficies por quórum cross-vendor (4× correcta), 32→34 slots, 1 archivo, ~45 min, validateContent verde (count rojo a propósito hasta 19-03) |
 | Requisitos v1.0 completos | 62/62 (100%) |
 | Requisitos v1.1 completos | 8/8 (100% — VAL-01..08) |
 | Requisitos v1.2 completos | 15/15 (100% — ART-01..08 + PART-01..07) |
@@ -86,6 +87,8 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - **Contenido pasa el quórum estricto R1-R7** — las variantes nuevas (ART-02 / PART-02) usan el quórum cross-vendor gramatical, NO la validación ligera autor-oráculo de canciones; son ejercicios gramaticales reales.
 - **Explicación a nivel de slot, NO por variante (SLOT-02 heredado de v1.4)** — variantes intercambiables comparten regla y explicación; más simple de autorar/validar.
 - **Canon editorial heredado** — explanations de slot en español acentuado correcto + italianismos preservados, plain text sin markdown, apóstrofes ASCII U+0027 (D-129/D-135/D-137). Gloss ES "(en español: ...)" en prompts es canon R7 del autor (MEMORY.md).
+- **D-19-07 (explanations rule-first + RAE-acentuadas en los slots tocados por 19-02)** — el quórum cross-vendor (Gemini/DeepSeek, canon D-135/C4) cazó las explanations ASCII heredadas de 19-01 como C4-incorrecta (sin tildes + ejemplo-sustantivo distinto del noun del prompt). Las 7 explanations de slot que recibieron variante nueva se reescribieron rule-first (lideran con el disparador, no con un sustantivo) + tildes RAE + nombran ambos sustantivos, alineándolas con el resto del corpus (preposiciones ya acentuado). Es el bug-catcher cross-vendor documentado en acción. Los slots NO tocados por 19-02 conservan su explanation ASCII (sync fuera de alcance de este plan).
+- **D-19-08 (mitad Claude del quórum vía `claude -p` headless cuando el executor no tiene Task)** — el skill gsd-validate-exercise corre los pases Claude vía Task subagent; el executor secuencial no dispone de Task/slash-commands, así que la mitad Claude se ejecutó con `claude -p --model claude-opus-4-7` y `--model claude-sonnet-4-6` (IDs literales D-VAL-02), 1 proceso fresh-context por modelo por superficie, con el 09-VALIDATION-PROMPT verbatim y el ejercicio SIN el campo validation (no sesgar). Equivalente funcional 1-por-1 NUNCA batched.
 
 ### Pending Todos
 
@@ -120,6 +123,7 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ### Last Session
 
+- **Fecha:** 2026-06-04 — **Phase 19 plan 02 ejecutado y completado (variantes nuevas + huecos y/i+vocal por quórum cross-vendor).** Agente de continuación: Task 1 (propuesta de 8 superficies, commit `90ea2aa`) heredado del agente previo + checkpoint:human-verify (gate blocking-human, D-85) **APROBADO** por el autor (las 8 superficies as-is). Task 2 ejecutado aquí: las **8 superficies aprobadas pasaron el quórum cross-vendor completo R1-R7** (gemini-2.5-flash + deepseek-chat + claude-opus-4-7 + claude-sonnet-4-6, los 4 `correcta`, 0 `incorrecta`, status `validated`), 1-por-1, fresh context, NUNCA batched. **5 celdas pobres engordadas a 2 variantes** (lo+ps "lo pseudonimo", lo+gn "lo gnocco", lo+x "lo xenofobo", uno+ps "uno pseudonimo", uno+gn "uno gnomo") + **2 slots NUEVOS de huecos semiconsonánticos** (`articoli-lo-yi`: lo yogurt + lo iodio; `articoli-gli-yi`: gli yogurt) con R6 verificada por el quórum (lo iodio sin elisión; gli yogurt invariable). **articoli.json 32→34 slots**; cada variante nueva con su `validation.passes[]` de 4 pases; explanation a nivel de slot. validateContent exit 0 (34 slots); suite 127/128 (único rojo = count hardcoded → 19-03). 0 ids temporales residuales, 0 payload, 0 smart-quotes. **Desviaciones (Rule 1, bug-catcher cross-vendor):** (1) explanations ASCII heredadas de 19-01 reescritas rule-first + RAE-acentuadas (D-19-07); (2) "piu"→"più" en el prompt de lo gnocco. **Disputed resuelto 1×:** DeepSeek alucinó tildes inexistentes en lo iodio (false-positive C4 que el propio prompt advierte); re-run sobre el MISMO texto dio correcta (no override-atajo). **0 superficies excluidas** — las 8 pasaron el gate. ART-02 completado (5/9 requisitos v1.5). Commits: `90ea2aa` (Task 1, heredado) + 8 feat (`6163549`/`e6a4ff2`/`f4659e3`/`f9cee36`/`c25c6a7`/`9411014`/`7207d38`/`5569763`). Stopped at: plan 02 completo. Resume file: None. Siguiente: ejecutar 19-03 (sincronizar el count REAL **34** en los 3 hardcodes: `tests/exercise-types.test.js`, `tests/fixtures/slot-variants-integration.test.js`, `scripts/run-validation-271.mjs`; smoke paramétrico verde).
 - **Fecha:** 2026-06-04 — **Phase 19 plan 01 ejecutado y completado (Articoli reescrito a slot+variantes).** Agente de continuación: Task 1 (mapa de reagrupación, commit `2dd3b9f`) heredado del agente previo + checkpoint:decision **APROBADO Opción A** por el autor (split por sub-disparador, D-19-02 locked, 32 slots). Task 2 ejecutado aquí: `content/exercises/articoli.json` reescrito de **56 ejercicios legacy `payload` → 32 slots `slot+variantes`** según `19-REAGRUPACION-MAP.md`. 16 determinativi (lo/gli split por sub-disparador D-19-02; la/le invariables agrupadas D-17-01) + 8 indeterminativi como slots propios (ART-03, `categoryIds=["articoli"]`) + 2 match slots-de-1 (049/050, D-19-03) + 6 cruces (300..305 id ESTABLE + 2 categoryIds, D-19-04). Las 56 superficies fuente (54 MC + 2 match) movidas INTACTAS a `variants[]` (cambio de contenedor → sin re-validación, cobertura 1:1); explanation top-level por slot mergeada (D-17-05, base más completa + matices injertados); payload eliminado; variantes sin explanation propia; apóstrofes ASCII U+0027 preservados (113, 0 no-ASCII). `validate-content-fixture articoli` verde (32 slots); suite 127/128 (único rojo = count hardcoded `56` en `exercise-types.test.js:1273` → ESPERADO, se sincroniza en 19-03; mismos hardcodes en `slot-variants-integration.test.js:174` y `run-validation-271.mjs:81` NO tocados). Criterio de `validation` por slot: heredar el `passes[]` de las superficies fuente (todas comparten el mismo quórum deepseek-v4-flash + claude-opus-4-7 / 2026-05-27). Desviaciones: ninguna (plan ejecutado tal cual). Celdas pobres marcadas para engorde en 19-02: lo+ps/gn/x, gli+s-cons/z/ps/gn, uno+s-cons/z/ps/gn. ART-01 + ART-03 completados. Commits: `2dd3b9f` (docs, mapa) / `21a3df1` (feat, reescritura). Stopped at: plan 01 completo. Resume file: None. Siguiente: `/gsd:plan-phase 19` o ejecutar 19-02 (variantes nuevas + huecos y/i+vocal por quórum cross-vendor).
 - **Fecha:** 2026-06-04 — **Phase 18 plan 01 ejecutado y completado (migración `7→8`, reset selectivo articoli+partitivos).** 2 tareas TDD (RED→GREEN cada una), 4 archivos modificados, suite completa **358/358 verde** (342 baseline + 16 nuevos tests v8). Task 1 (MIG-01): `migrate7to8` (clon literal de `migrate6to7` con DOS prefijos: `delete categoryProgress.articoli`+`.partitivos`, filtro `exerciseStats` por ambos prefijos, invalidación de `inFlightTest`) + `hydrateV8` (espejo sin poda) + `CURRENT_SCHEMA_VERSION=8` + eslabón v7→v8 en `migrate()`; test reforzado D-04 (fixture 9 categorías, las 7 preservadas byte-idénticas). Task 2 (MIG-02): `backup.js` round-trip v8 (constante espejo + import + eslabón en `parseBackupFile`), import v7→v8 resetea articoli/partitivos (D-06), rechazo >8 automático. Desviaciones: solo sync de asserts pre-existentes 7→8 (blankState + round-trip v7, consecuencia directa del bump, precedente 17-01 dev 1) — sin desviación funcional. Commits: 465afc1 (test) / 39fc7e8 (feat) / 9e460d5 (test) / b5380e5 (feat). Stopped at: plan 01 completo, fase lista para verificación. Resume file: None. Siguiente: verificar Phase 18 y luego `/gsd:plan-phase 19` (Articoli a slots).
 - **Fecha:** 2026-06-04 — **Roadmap del milestone v1.5 (Conversión a slots: Bloque Artículos / CONV-01) creado por el roadmapper.** Numeración CONTINÚA desde Phase 17 → **Phases 18-20, NO reset** (mismo criterio que v1.1/v1.2/v1.3/v1.4). 3 fases coarse, vertical/shippable con dependencia explícita: **Phase 18 (Migración 7→8, reset selectivo articoli+partitivos)** mapea 2 MIG — `migrate7to8`/`hydrateV8` idempotente + deep-clone defensivo, reset de progreso SOLO de articoli + partitivos (categoryProgress + exerciseStats por prefijo + inFlightTest, racha 0), las otras 7 byte-intactas, `backup.js` round-trip v8 + import v7→v8, rechazo de >8; va PRIMERA porque la renumeración de ids de contenido no se puede hacer con progreso vivo; **Phase 19 (Articoli a slots)** mapea 4 ART — reagrupar 56 ejercicios por regla (determinativi por disparador fonético + indeterminativi como slots propios ART-03), variantes nuevas por quórum R1-R7 + huecos→slots, validator + smoke paramétrico + sync de counts + explanations a nivel de slot; **Phase 20 (Partitivi a slots)** mapea 3 PART — reagrupar 44 ejercicios por regla (del-formas + contable/incontable + alternativas + omisión + partitivo-vs-prep), variantes nuevas por quórum + huecos→slots, validator + smoke + counts + explanations a nivel de slot. **Cobertura: 9/9 mapped, 0 orphans, 0 duplicados, 0 gaps** (cada success criterion respaldado por ≥1 requisito). Phases 19/20 dependen de Phase 18; independientes entre sí tras la migración. **Brownfield puro contenido + migración: el motor slot+variantes v1.4 NO se reconstruye ni se toca.** Archivos escritos: `.planning/ROADMAP.md` (v1.4 colapsado a `<details>` SHIPPED + sección `### 🚧 v1.5 — ACTIVE` con Phases 18-20 en summary checklist + Phase Details con 3-4 criteria c/u + Progress table +3 filas + footer milestone v1.5), `.planning/REQUIREMENTS.md` (Traceability 9 filas MIG→Phase 18 / ART→Phase 19 / PART→Phase 20 + Coverage 9/9 + mapping rationale), `.planning/STATE.md` (este — re-inicializado para v1.5 planning). v1.0-v1.4 preservados archivados. Stopped at: roadmap creado. Resume file: None. Siguiente: `/gsd:plan-phase 18`.
