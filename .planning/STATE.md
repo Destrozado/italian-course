@@ -2,9 +2,9 @@
 gsd_state_version: 1.0
 milestone: v1.5
 milestone_name: "Conversión a slots: Bloque Artículos"
-status: phase-complete
-last_updated: "2026-06-04T11:30:00.000Z"
-last_activity: 2026-06-04 -- Phase 19 VERIFICADA (ART-01..04 PASSED 4/4; code review WR-01/WR-02 corregidos; suite 358/358)
+status: verifying
+last_updated: "2026-06-04T22:13:45.244Z"
+last_activity: 2026-06-04 -- Phase 19 verificada y cerrada (6/9 requisitos v1.5)
 progress:
   total_phases: 3
   completed_phases: 2
