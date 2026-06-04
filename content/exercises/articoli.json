@@ -10,22 +10,42 @@
       "variants": [
         {
           "prompt": "Leggo ___ libro in giardino.",
-          "options": ["il", "lo", "l'", "la"],
+          "options": [
+            "il",
+            "lo",
+            "l'",
+            "la"
+          ],
           "correctIndex": 0
         },
         {
           "prompt": "Ho conosciuto ___ ragazzo ieri.",
-          "options": ["il", "lo", "l'", "la"],
+          "options": [
+            "il",
+            "lo",
+            "l'",
+            "la"
+          ],
           "correctIndex": 0
         },
         {
           "prompt": "Dov'è ___ cane di Marco?",
-          "options": ["il", "lo", "l'", "la"],
+          "options": [
+            "il",
+            "lo",
+            "l'",
+            "la"
+          ],
           "correctIndex": 0
         },
         {
           "prompt": "Pulisco ___ tavolo della cucina.",
-          "options": ["il", "lo", "l'", "la"],
+          "options": [
+            "il",
+            "lo",
+            "l'",
+            "la"
+          ],
           "correctIndex": 0
         }
       ],
@@ -57,17 +77,32 @@
       "variants": [
         {
           "prompt": "Ho visto ___ studente nuovo.",
-          "options": ["il", "lo", "l'", "la"],
+          "options": [
+            "il",
+            "lo",
+            "l'",
+            "la"
+          ],
           "correctIndex": 1
         },
         {
           "prompt": "Continuo ___ studio di pianoforte.",
-          "options": ["il", "lo", "l'", "la"],
+          "options": [
+            "il",
+            "lo",
+            "l'",
+            "la"
+          ],
           "correctIndex": 1
         },
         {
           "prompt": "Parlo con ___ spagnolo del corso.",
-          "options": ["il", "lo", "l'", "la"],
+          "options": [
+            "il",
+            "lo",
+            "l'",
+            "la"
+          ],
           "correctIndex": 1
         }
       ],
@@ -99,17 +134,32 @@
       "variants": [
         {
           "prompt": "Conosco bene ___ zio di Marco.",
-          "options": ["il", "lo", "l'", "la"],
+          "options": [
+            "il",
+            "lo",
+            "l'",
+            "la"
+          ],
           "correctIndex": 1
         },
         {
           "prompt": "Ho perso ___ zaino in palestra.",
-          "options": ["il", "lo", "l'", "la"],
+          "options": [
+            "il",
+            "lo",
+            "l'",
+            "la"
+          ],
           "correctIndex": 1
         },
         {
           "prompt": "Mi passi ___ zucchero, per favore?",
-          "options": ["il", "lo", "l'", "la"],
+          "options": [
+            "il",
+            "lo",
+            "l'",
+            "la"
+          ],
           "correctIndex": 1
         }
       ],
@@ -137,12 +187,56 @@
       "categoryIds": [
         "articoli"
       ],
-      "explanation": "Psicologo empieza por ps-, un grupo consonantico que en italiano pide lo: lo psicologo. Es una de las trampas mas faciles de fallar, porque en espanol decimos el psicologo; el italiano trata ps- como s impura y exige lo.",
+      "explanation": "El grupo ps- es una s impura, así que en masculino singular pide lo: lo pseudonimo, lo psicologo. Es una de las trampas más fáciles de fallar, porque en español decimos el seudónimo o el psicólogo y arrastramos el il; el italiano trata ps- como s impura y exige lo.",
       "variants": [
         {
           "prompt": "Conosco ___ psicologo famoso.",
-          "options": ["il", "lo", "l'", "la"],
+          "options": [
+            "il",
+            "lo",
+            "l'",
+            "la"
+          ],
           "correctIndex": 1
+        },
+        {
+          "prompt": "Lo scrittore firma con ___ pseudonimo elegante.",
+          "options": [
+            "il",
+            "lo",
+            "l'",
+            "la"
+          ],
+          "correctIndex": 1,
+          "validation": {
+            "status": "validated",
+            "passes": [
+              {
+                "by": "gemini-2.5-flash",
+                "date": "2026-06-04",
+                "verdict": "correcta",
+                "concerns": []
+              },
+              {
+                "by": "deepseek-chat",
+                "date": "2026-06-04",
+                "verdict": "correcta",
+                "concerns": []
+              },
+              {
+                "by": "claude-opus-4-7",
+                "date": "2026-06-04",
+                "verdict": "correcta",
+                "concerns": []
+              },
+              {
+                "by": "claude-sonnet-4-6",
+                "date": "2026-06-04",
+                "verdict": "correcta",
+                "concerns": []
+              }
+            ]
+          }
         }
       ],
       "validation": {
@@ -173,7 +267,12 @@
       "variants": [
         {
           "prompt": "Nella fiaba appare ___ gnomo del bosco.",
-          "options": ["il", "lo", "l'", "la"],
+          "options": [
+            "il",
+            "lo",
+            "l'",
+            "la"
+          ],
           "correctIndex": 1
         }
       ],
@@ -205,7 +304,12 @@
       "variants": [
         {
           "prompt": "In aula c'è ___ xilofono per i bambini.",
-          "options": ["il", "lo", "l'", "la"],
+          "options": [
+            "il",
+            "lo",
+            "l'",
+            "la"
+          ],
           "correctIndex": 1
         }
       ],
@@ -237,22 +341,42 @@
       "variants": [
         {
           "prompt": "Aspetto ___ amico all'uscita.",
-          "options": ["il", "lo", "l'", "la"],
+          "options": [
+            "il",
+            "lo",
+            "l'",
+            "la"
+          ],
           "correctIndex": 2
         },
         {
           "prompt": "Mi fa male ___ occhio destro.",
-          "options": ["il", "lo", "l'", "la"],
+          "options": [
+            "il",
+            "lo",
+            "l'",
+            "la"
+          ],
           "correctIndex": 2
         },
         {
           "prompt": "Ho incontrato ___ uomo del negozio.",
-          "options": ["il", "lo", "l'", "la"],
+          "options": [
+            "il",
+            "lo",
+            "l'",
+            "la"
+          ],
           "correctIndex": 2
         },
         {
           "prompt": "Allo zoo ___ orso dorme tutto il giorno.",
-          "options": ["il", "lo", "l'", "la"],
+          "options": [
+            "il",
+            "lo",
+            "l'",
+            "la"
+          ],
           "correctIndex": 2
         }
       ],
@@ -284,17 +408,32 @@
       "variants": [
         {
           "prompt": "___ casa di mia nonna è grande.",
-          "options": ["il", "lo", "la", "l'"],
+          "options": [
+            "il",
+            "lo",
+            "la",
+            "l'"
+          ],
           "correctIndex": 2
         },
         {
           "prompt": "Saluto ___ zia di Firenze.",
-          "options": ["il", "lo", "la", "l'"],
+          "options": [
+            "il",
+            "lo",
+            "la",
+            "l'"
+          ],
           "correctIndex": 2
         },
         {
           "prompt": "Conosco ___ studentessa di Roma.",
-          "options": ["il", "lo", "la", "l'"],
+          "options": [
+            "il",
+            "lo",
+            "la",
+            "l'"
+          ],
           "correctIndex": 2
         }
       ],
@@ -326,17 +465,32 @@
       "variants": [
         {
           "prompt": "___ amica di Sofia è spagnola.",
-          "options": ["il", "lo", "la", "l'"],
+          "options": [
+            "il",
+            "lo",
+            "la",
+            "l'"
+          ],
           "correctIndex": 3
         },
         {
           "prompt": "Stasera andiamo a vedere ___ opera alla Scala.",
-          "options": ["il", "lo", "la", "l'"],
+          "options": [
+            "il",
+            "lo",
+            "la",
+            "l'"
+          ],
           "correctIndex": 3
         },
         {
           "prompt": "___ isola di Capri è bellissima.",
-          "options": ["il", "lo", "la", "l'"],
+          "options": [
+            "il",
+            "lo",
+            "la",
+            "l'"
+          ],
           "correctIndex": 3
         }
       ],
@@ -368,12 +522,22 @@
       "variants": [
         {
           "prompt": "Ho comprato ___ libri per l'esame.",
-          "options": ["i", "gli", "le", "l'"],
+          "options": [
+            "i",
+            "gli",
+            "le",
+            "l'"
+          ],
           "correctIndex": 0
         },
         {
           "prompt": "___ ragazzi giocano in cortile.",
-          "options": ["i", "gli", "le", "l'"],
+          "options": [
+            "i",
+            "gli",
+            "le",
+            "l'"
+          ],
           "correctIndex": 0
         }
       ],
@@ -405,7 +569,12 @@
       "variants": [
         {
           "prompt": "Ho salutato ___ studenti in corridoio.",
-          "options": ["i", "gli", "le", "l'"],
+          "options": [
+            "i",
+            "gli",
+            "le",
+            "l'"
+          ],
           "correctIndex": 1
         }
       ],
@@ -437,7 +606,12 @@
       "variants": [
         {
           "prompt": "Domenica vengono ___ zii dal paese.",
-          "options": ["i", "gli", "le", "l'"],
+          "options": [
+            "i",
+            "gli",
+            "le",
+            "l'"
+          ],
           "correctIndex": 1
         }
       ],
@@ -469,7 +643,12 @@
       "variants": [
         {
           "prompt": "Al convegno parlano ___ psicologi più noti.",
-          "options": ["i", "gli", "le", "l'"],
+          "options": [
+            "i",
+            "gli",
+            "le",
+            "l'"
+          ],
           "correctIndex": 1
         }
       ],
@@ -501,7 +680,12 @@
       "variants": [
         {
           "prompt": "A pranzo prepariamo ___ gnocchi fatti in casa.",
-          "options": ["i", "gli", "le", "l'"],
+          "options": [
+            "i",
+            "gli",
+            "le",
+            "l'"
+          ],
           "correctIndex": 1
         }
       ],
@@ -533,12 +717,22 @@
       "variants": [
         {
           "prompt": "Stasera escono ___ amici di Luca.",
-          "options": ["i", "gli", "le", "l'"],
+          "options": [
+            "i",
+            "gli",
+            "le",
+            "l'"
+          ],
           "correctIndex": 1
         },
         {
           "prompt": "Chiudi ___ occhi e rilassati.",
-          "options": ["i", "gli", "le", "l'"],
+          "options": [
+            "i",
+            "gli",
+            "le",
+            "l'"
+          ],
           "correctIndex": 1
         }
       ],
@@ -570,17 +764,32 @@
       "variants": [
         {
           "prompt": "___ case del quartiere sono nuove.",
-          "options": ["i", "gli", "le", "l'"],
+          "options": [
+            "i",
+            "gli",
+            "le",
+            "l'"
+          ],
           "correctIndex": 2
         },
         {
           "prompt": "Invito ___ amiche alla festa.",
-          "options": ["i", "gli", "le", "l'"],
+          "options": [
+            "i",
+            "gli",
+            "le",
+            "l'"
+          ],
           "correctIndex": 2
         },
         {
           "prompt": "___ studentesse preparano l'esame insieme.",
-          "options": ["i", "gli", "le", "l'"],
+          "options": [
+            "i",
+            "gli",
+            "le",
+            "l'"
+          ],
           "correctIndex": 2
         }
       ],
@@ -612,12 +821,22 @@
       "variants": [
         {
           "prompt": "Vorrei comprare ___ libro nuovo.",
-          "options": ["un", "uno", "una", "un'"],
+          "options": [
+            "un",
+            "uno",
+            "una",
+            "un'"
+          ],
           "correctIndex": 0
         },
         {
           "prompt": "C'e ___ ragazzo che ti cerca.",
-          "options": ["un", "uno", "una", "un'"],
+          "options": [
+            "un",
+            "uno",
+            "una",
+            "un'"
+          ],
           "correctIndex": 0
         }
       ],
@@ -649,12 +868,22 @@
       "variants": [
         {
           "prompt": "Ho incontrato ___ amico per strada.",
-          "options": ["un", "uno", "una", "un'"],
+          "options": [
+            "un",
+            "uno",
+            "una",
+            "un'"
+          ],
           "correctIndex": 0
         },
         {
           "prompt": "Marco ha ___ occhio più chiaro dell'altro.",
-          "options": ["un", "uno", "una", "un'"],
+          "options": [
+            "un",
+            "uno",
+            "una",
+            "un'"
+          ],
           "correctIndex": 0
         }
       ],
@@ -686,7 +915,12 @@
       "variants": [
         {
           "prompt": "Per cena invito ___ studente straniero.",
-          "options": ["un", "uno", "una", "un'"],
+          "options": [
+            "un",
+            "uno",
+            "una",
+            "un'"
+          ],
           "correctIndex": 1
         }
       ],
@@ -718,7 +952,12 @@
       "variants": [
         {
           "prompt": "Mi serve ___ zaino per la gita.",
-          "options": ["un", "uno", "una", "un'"],
+          "options": [
+            "un",
+            "uno",
+            "una",
+            "un'"
+          ],
           "correctIndex": 1
         }
       ],
@@ -750,7 +989,12 @@
       "variants": [
         {
           "prompt": "Vorrei diventare ___ psicologo.",
-          "options": ["un", "uno", "una", "un'"],
+          "options": [
+            "un",
+            "uno",
+            "una",
+            "un'"
+          ],
           "correctIndex": 1
         }
       ],
@@ -782,7 +1026,12 @@
       "variants": [
         {
           "prompt": "Nel disegno c'è ___ gnomo con il cappello.",
-          "options": ["un", "uno", "una", "un'"],
+          "options": [
+            "un",
+            "uno",
+            "una",
+            "un'"
+          ],
           "correctIndex": 1
         }
       ],
@@ -814,17 +1063,32 @@
       "variants": [
         {
           "prompt": "In soggiorno c'è ___ casa delle bambole.",
-          "options": ["un", "uno", "una", "un'"],
+          "options": [
+            "un",
+            "uno",
+            "una",
+            "un'"
+          ],
           "correctIndex": 2
         },
         {
           "prompt": "Ho ___ zia che vive a Torino.",
-          "options": ["un", "uno", "una", "un'"],
+          "options": [
+            "un",
+            "uno",
+            "una",
+            "un'"
+          ],
           "correctIndex": 2
         },
         {
           "prompt": "E ___ studentessa molto brava.",
-          "options": ["un", "uno", "una", "un'"],
+          "options": [
+            "un",
+            "uno",
+            "una",
+            "un'"
+          ],
           "correctIndex": 2
         }
       ],
@@ -856,17 +1120,32 @@
       "variants": [
         {
           "prompt": "Ho ___ amica che parla cinque lingue.",
-          "options": ["un", "uno", "una", "un'"],
+          "options": [
+            "un",
+            "uno",
+            "una",
+            "un'"
+          ],
           "correctIndex": 3
         },
         {
           "prompt": "Stasera danno ___ opera di Verdi.",
-          "options": ["un", "uno", "una", "un'"],
+          "options": [
+            "un",
+            "uno",
+            "una",
+            "un'"
+          ],
           "correctIndex": 3
         },
         {
           "prompt": "Ti aspetto da ___ ora in piazza.",
-          "options": ["un", "uno", "una", "un'"],
+          "options": [
+            "un",
+            "uno",
+            "una",
+            "un'"
+          ],
           "correctIndex": 3
         }
       ],
@@ -899,13 +1178,34 @@
         {
           "prompt": "Empareja cada sustantivo con su artículo determinativo.",
           "pairs": [
-            ["studente", "lo"],
-            ["zio", "lo"],
-            ["psicologo", "lo"],
-            ["gnocchi", "gli"],
-            ["amici", "gli"],
-            ["zii", "gli"],
-            ["libri", "i"]
+            [
+              "studente",
+              "lo"
+            ],
+            [
+              "zio",
+              "lo"
+            ],
+            [
+              "psicologo",
+              "lo"
+            ],
+            [
+              "gnocchi",
+              "gli"
+            ],
+            [
+              "amici",
+              "gli"
+            ],
+            [
+              "zii",
+              "gli"
+            ],
+            [
+              "libri",
+              "i"
+            ]
           ]
         }
       ],
@@ -938,12 +1238,30 @@
         {
           "prompt": "Empareja cada sustantivo con su artículo indeterminativo. Fíjate en el género y en la vocal o consonante inicial.",
           "pairs": [
-            ["studente", "uno"],
-            ["zaino", "uno"],
-            ["amico", "un"],
-            ["libro", "un"],
-            ["amica", "un'"],
-            ["casa", "una"]
+            [
+              "studente",
+              "uno"
+            ],
+            [
+              "zaino",
+              "uno"
+            ],
+            [
+              "amico",
+              "un"
+            ],
+            [
+              "libro",
+              "un"
+            ],
+            [
+              "amica",
+              "un'"
+            ],
+            [
+              "casa",
+              "una"
+            ]
           ]
         }
       ],
@@ -976,7 +1294,12 @@
       "variants": [
         {
           "prompt": "___ ragazze italiane studiano molto.",
-          "options": ["le", "i", "gli", "la"],
+          "options": [
+            "le",
+            "i",
+            "gli",
+            "la"
+          ],
           "correctIndex": 0
         }
       ],
@@ -1009,7 +1332,12 @@
       "variants": [
         {
           "prompt": "___ studenti arrivano in ritardo ogni giorno.",
-          "options": ["gli", "i", "le", "lo"],
+          "options": [
+            "gli",
+            "i",
+            "le",
+            "lo"
+          ],
           "correctIndex": 0
         }
       ],
@@ -1042,7 +1370,12 @@
       "variants": [
         {
           "prompt": "___ libri sono sul tavolo.",
-          "options": ["i", "gli", "le", "il"],
+          "options": [
+            "i",
+            "gli",
+            "le",
+            "il"
+          ],
           "correctIndex": 0
         }
       ],
@@ -1075,7 +1408,12 @@
       "variants": [
         {
           "prompt": "___ braccia sono stanche dopo il lavoro.",
-          "options": ["le", "i", "gli", "la"],
+          "options": [
+            "le",
+            "i",
+            "gli",
+            "la"
+          ],
           "correctIndex": 0
         }
       ],
@@ -1108,7 +1446,12 @@
       "variants": [
         {
           "prompt": "___ uova sono nel frigorifero.",
-          "options": ["le", "gli", "i", "l'"],
+          "options": [
+            "le",
+            "gli",
+            "i",
+            "l'"
+          ],
           "correctIndex": 0
         }
       ],
@@ -1141,7 +1484,12 @@
       "variants": [
         {
           "prompt": "___ zii vengono a cena domenica.",
-          "options": ["gli", "i", "le", "lo"],
+          "options": [
+            "gli",
+            "i",
+            "le",
+            "lo"
+          ],
           "correctIndex": 0
         }
       ],
