@@ -908,7 +908,7 @@
           "correctIndex": 0
         },
         {
-          "prompt": "C'e ___ ragazzo che ti cerca.",
+          "prompt": "C'è ___ ragazzo che ti cerca.",
           "options": [
             "un",
             "uno",
@@ -1238,7 +1238,7 @@
           "correctIndex": 2
         },
         {
-          "prompt": "E ___ studentessa molto brava.",
+          "prompt": "È ___ studentessa molto brava.",
           "options": [
             "un",
             "uno",
