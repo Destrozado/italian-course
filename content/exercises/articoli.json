@@ -1754,6 +1754,55 @@
           }
         }
       ]
+    },
+    {
+      "id": "articoli-gli-yi",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "articoli"
+      ],
+      "explanation": "El plural de lo es gli también ante los sonidos semiconsonánticos: la y- (gli yogurt) y la i+vocal entran en la serie lo/gli. Como en singular era lo yogurt, en plural es gli yogurt (yogurt es invariable). El error es decir i yogurt por analogía con il/i; el disparador semiconsonántico mantiene la familia lo/gli.",
+      "variants": [
+        {
+          "prompt": "In frigorifero ci sono ___ yogurt scaduti.",
+          "options": [
+            "i",
+            "gli",
+            "le",
+            "l'"
+          ],
+          "correctIndex": 1,
+          "validation": {
+            "status": "validated",
+            "passes": [
+              {
+                "by": "gemini-2.5-flash",
+                "date": "2026-06-04",
+                "verdict": "correcta",
+                "concerns": []
+              },
+              {
+                "by": "deepseek-chat",
+                "date": "2026-06-04",
+                "verdict": "correcta",
+                "concerns": []
+              },
+              {
+                "by": "claude-opus-4-7",
+                "date": "2026-06-04",
+                "verdict": "correcta",
+                "concerns": []
+              },
+              {
+                "by": "claude-sonnet-4-6",
+                "date": "2026-06-04",
+                "verdict": "correcta",
+                "concerns": []
+              }
+            ]
+          }
+        }
+      ]
     }
   ]
 }
