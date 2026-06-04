@@ -118,7 +118,10 @@ Numeración CONTINÚA desde Phase 17 → Phases 18-20 (NO reset — mismo criter
   1. Los 44 ejercicios de Partitivi quedan reagrupados en slots por regla — del-formas por disparador fonético + eje contable/incontable + alternativas (qualche/alcuni/un po' di) + omisión en negativa + distinción partitivo-vs-preposizione articolata; los que entrenan la misma regla reformulada son variantes del mismo slot, con explicación a nivel de slot.
   2. Las variantes nuevas autoradas (patrón D-85 + quórum cross-vendor R1-R7) pasan el quórum antes de entrar; los huecos detectados durante la autoría se añaden como slots nuevos.
   3. La estructura final de Partitivi pasa el validator y el smoke paramétrico (counts re-sincronizados al nº real de slots), con la cobertura de explanations a nivel de slot preservada.
-**Plans**: TBD
+**Plans**: 3 plans
+- [ ] 20-01-PLAN.md — reagrupar los 44 ejercicios en slots por forma/sub-disparador (del-formas split dello z/s-impura + degli s-impura/vocal/z, delle invariable agrupada), 3 slots de alternativas (alcuni/e juntos), slot de contraste de negativa con "∅", slot de clasificación de 3 opciones, pares D-01 absorbidos, 038/039 match slots-de-1; ids semánticos libres (0 cruces); explanation a nivel de slot (PART-01)
+- [ ] 20-02-PLAN.md — autorar variantes nuevas (engordar celdas pobres de del-formas) + slots de huecos de suoni speciali (dello/degli + gn/ps/x donde haya sustantivo A1 natural), cada superficie por quórum cross-vendor R1-R7 + validation top-level (PART-02)
+- [ ] 20-03-PLAN.md — re-sincronizar los 3 hardcodes de count + TOTAL_EXPECTED al nº real de slots; validator + smoke paramétrico verdes (PART-03)
 **UI hint**: no
 
 ## Progress
@@ -132,7 +135,7 @@ Numeración CONTINÚA desde Phase 17 → Phases 18-20 (NO reset — mismo criter
 | 15-17 | v1.4 | 9/9 | Complete | 2026-06-03 |
 | 18. Migración 7→8 (reset articoli+partitivos) | v1.5 | 1/1 | Complete    | 2026-06-03 |
 | 19. Articoli a slots (contenido) | v1.5 | 3/3 | Complete   | 2026-06-04 |
-| 20. Partitivi a slots (contenido) | v1.5 | 0/? | Not started | - |
+| 20. Partitivi a slots (contenido) | v1.5 | 0/3 | Planned | - |
 
 ## Backlog
 
