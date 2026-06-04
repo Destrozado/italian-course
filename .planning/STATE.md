@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.5
 milestone_name: "Conversión a slots: Bloque Artículos"
-status: verifying
-last_updated: "2026-06-04T22:13:45.244Z"
-last_activity: 2026-06-04 -- Phase 19 verificada y cerrada (6/9 requisitos v1.5)
+status: executing
+last_updated: "2026-06-04T22:59:43.787Z"
+last_activity: 2026-06-04 -- Phase 20 planning complete
 progress:
   total_phases: 3
   completed_phases: 2
-  total_plans: 4
+  total_plans: 7
   completed_plans: 4
-  percent: 67
+  percent: 57
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -27,8 +27,8 @@ See: `.planning/PROJECT.md` (updated 2026-06-04 — Milestone v1.5 iniciado)
 
 Phase: 19 (articoli-a-slots-contenido) — COMPLETE & VERIFIED ✅
 Plan: 3 of 3 completados
-Status: Phase 19 verificada (ART-01..04 PASSED 4/4; code review resuelto; suite 358/358). Siguiente: Phase 20 (Partitivi a slots).
-Last activity: 2026-06-04 -- Phase 19 verificada y cerrada (6/9 requisitos v1.5)
+Status: Ready to execute
+Last activity: 2026-06-04 -- Phase 20 planning complete
 
 ## Quick Tasks Completed
 
