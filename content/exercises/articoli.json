@@ -1063,7 +1063,7 @@
       "categoryIds": [
         "articoli"
       ],
-      "explanation": "Psicologo empieza por ps-, grupo que en masculino exige uno: uno psicologo. Espejo del determinativo lo psicologo. El ps- entra en la familia de la s impura, asi que la forma corta un es incorrecta aqui.",
+      "explanation": "El grupo ps- es una s impura, así que en masculino exige la forma larga uno: uno pseudonimo, uno psicologo. Es el espejo del determinativo lo pseudonimo; la forma corta un es incorrecta ante ps-.",
       "variants": [
         {
           "prompt": "Vorrei diventare ___ psicologo.",
@@ -1074,6 +1074,45 @@
             "un'"
           ],
           "correctIndex": 1
+        },
+        {
+          "prompt": "Lo scrittore ha scelto ___ pseudonimo per il romanzo.",
+          "options": [
+            "un",
+            "uno",
+            "una",
+            "un'"
+          ],
+          "correctIndex": 1,
+          "validation": {
+            "status": "validated",
+            "passes": [
+              {
+                "by": "gemini-2.5-flash",
+                "date": "2026-06-04",
+                "verdict": "correcta",
+                "concerns": []
+              },
+              {
+                "by": "deepseek-chat",
+                "date": "2026-06-04",
+                "verdict": "correcta",
+                "concerns": []
+              },
+              {
+                "by": "claude-opus-4-7",
+                "date": "2026-06-04",
+                "verdict": "correcta",
+                "concerns": []
+              },
+              {
+                "by": "claude-sonnet-4-6",
+                "date": "2026-06-04",
+                "verdict": "correcta",
+                "concerns": []
+              }
+            ]
+          }
         }
       ],
       "validation": {
