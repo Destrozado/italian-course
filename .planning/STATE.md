@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.6
 milestone_name: "Conversión a slots: categorías restantes"
-status: executing
-last_updated: "2026-06-05T15:26:21.723Z"
-last_activity: 2026-06-05 -- Phase 21 planning complete
+status: verifying
+last_updated: "2026-06-05T15:48:00.000Z"
+last_activity: 2026-06-05 -- Phase 21 completada (migrate8to9 + hydrateV9 + backup v9, 374/374 tests)
 progress:
   total_phases: 7
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 1
-  completed_plans: 0
-  percent: 0
+  completed_plans: 1
+  percent: 14
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -21,14 +21,14 @@ See: `.planning/PROJECT.md` (updated 2026-06-05 — Milestone v1.6 abierto)
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Milestone v1.6 — Conversión a slots: categorías restantes (CONV-01 cierre). Roadmap fijado (Phases 21-27). Próximo: `/gsd:plan-phase 21`.
+**Current Focus:** Phase 21 — migraci-n-8-9-reset-selectivo-de-las-6-categor-as
 
 ## Current Position
 
-Phase: 21 (Migración 8→9 — reset selectivo de las 6 categorías) — Not started
-Plan: —
-Status: Ready to execute
-Last activity: 2026-06-05 -- Phase 21 planning complete
+Phase: 21 (migraci-n-8-9-reset-selectivo-de-las-6-categor-as) — COMPLETE
+Plan: 1 of 1 (completado)
+Status: Phase complete — ready for verification
+Last activity: 2026-06-05 -- Phase 21 completada (migrate8to9 + hydrateV9 + backup v9, 374/374 tests)
 
 ## Quick Tasks Completed
 
@@ -46,7 +46,7 @@ Last activity: 2026-06-05 -- Phase 21 planning complete
 | Fases v1.3 | 2/2 completas (Phase 13-14) — SHIPPED 2026-06-02 |
 | Fases v1.4 | 3/3 completas (Phase 15-17) — SHIPPED 2026-06-03 |
 | Fases v1.5 | 3/3 completas (Phase 18-20) — SHIPPED 2026-06-05 |
-| Fases v1.6 | 0/7 (Phases 21-27 — roadmap fijado, sin empezar) |
+| Fases v1.6 | 1/7 (Phase 21 completada — migración 8→9; Phases 22-27 pendientes) |
 | Requisitos v1.6 mapeados | 14/14 (100% — MIG-03/04→Phase 21; AVE→22; ESS→23; MOV→24; GEN→25; PROF→26; SOST→27; 0 orphans) |
 | Requisitos v1.0 completos | 62/62 (100%) |
 | Requisitos v1.1 completos | 8/8 (100% — VAL-01..08) |
@@ -54,7 +54,7 @@ Last activity: 2026-06-05 -- Phase 21 planning complete
 | Requisitos v1.3 completos | 19/19 (100% — SONG/PLAY/LINK/DATA + CONT) |
 | Requisitos v1.4 completos | 17/17 (100% — 6 SLOT + 6 EXAM + 5 PILOT) |
 | Requisitos v1.5 completos | 9/9 (100% — MIG-01/02 + ART-01..04 + PART-01..03) |
-| schemaVersion actual | 8 (v1.5: migrate7to8 + hydrateV8 + backup v8; v1.6 Phase 21 bumpea a 9) |
+| schemaVersion actual | 9 (v1.6 Phase 21: migrate8to9 + hydrateV9 + backup v9; reset selectivo de las 6 categorías a convertir) |
 | Categorías gramaticales | 9 (3 ya en formato slot+variantes: preposiciones + articoli + partitivos; v1.6 convierte las otras 6) |
 | Granularidad | coarse |
 | Mode | mixed — Phase 21 software (migración), Phases 22-27 contenido editorial (quórum R1-R7) |
@@ -123,6 +123,7 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ### Last Session
 
+- **Fecha:** 2026-06-05 — **Phase 21 (Migración `8→9`, reset selectivo de las 6 categorías / MIG-03 + MIG-04) COMPLETADA.** `migrate8to9`/`hydrateV9` + `CURRENT_SCHEMA_VERSION=9` (storage.js + backup.js espejo) clonando el patrón `migrate7to8`/`hydrateV8`, con reset de progreso SOLO de las 6 categorías a convertir (avere, essere, verbos-movimiento, genero-numero, profesiones, sustantivos-irregulares) vía `const RESET_PREFIXES_V9` + `some(startsWith)`; las 3 ya convertidas (preposiciones, articoli, partitivos) byte-intactas (verificado por fixture de 9 categorías). `backup.js` round-trip v9 + import v8→v9 con reset + rechazo `>9`. 1 plan TDD (2 tasks RED→GREEN), **374/374 tests verdes** (358 baseline + 16 v9). Desviaciones: 3 syncs Rule 3 (asserts blankState 8→9; round-trip v7/v8 ahora resetean avere/essere — antes preservados; tests HI-01/ME-04 migrados a categoría ficticia `test-cat` que no colisiona con ningún prefijo de reset). Commits: ec7bbcf (test T1), af7cb75 (feat T1), 3a159af (test T2), 521e5f8 (feat T2). Quedan Phases 22-27 (las 6 conversiones de contenido). Stopped at: Phase 21 completada. Resume file: None. Siguiente: verificación de fase → Phase 22 (Avere).
 - **Fecha:** 2026-06-05 — **Roadmap del milestone v1.6 (Conversión a slots: categorías restantes / CONV-01 cierre) creado por el roadmapper.** Numeración CONTINÚA desde Phase 20 → **Phases 21-27, NO reset** (mismo criterio que v1.1-v1.5). 7 fases coarse (1 migración + 6 conversiones, 1 fase por categoría): **Phase 21 (Migración 8→9, reset selectivo de las 6 categorías)** mapea MIG-03/04 — `migrate8to9`/`hydrateV9` idempotente + deep-clone defensivo, reset de progreso SOLO de las 6 categorías a convertir (avere, essere, verbos-movimiento, genero-numero, profesiones, sustantivos-irregulares) vía predicado de 6 prefijos, las 3 ya convertidas (preposiciones, articoli, partitivos) byte-intactas, `backup.js` round-trip v9 + import v8→v9 + rechazo >9; va PRIMERA porque la renumeración de ids no se puede hacer con progreso vivo; **Phase 22 (Avere, 23 ejer.)** AVE-01/02, **Phase 23 (Essere, 39 ejer.)** ESS-01/02, **Phase 24 (Verbi di movimento, 37 ejer.)** MOV-01/02 — verbos; **Phase 25 (Genere e numero, 40 ejer.)** GEN-01/02 — morfología; **Phase 26 (Professioni, 51 ejer., léxica)** PROF-01/02, **Phase 27 (Sostantivi irregolari, 31 ejer., léxica)** SOST-01/02 — léxicas con decisión abierta regla-con-variantes O slots-de-1 (a resolver en discuss/plan). Cada conversión replica el patrón de Phases 19/20: reagrupar a slots por regla con explanation a nivel de slot → autorar variantes nuevas por quórum cross-vendor R1-R7 (+ huecos→slots) → sincronizar counts derivados del JSON; validator + smoke verdes. **Cobertura: 14/14 mapped, 0 orphans, 0 duplicados, 0 gaps** (cada success criterion respaldado por ≥1 requisito). Phases 22-27 dependen de Phase 21; independientes entre sí tras la migración. **Brownfield puro contenido + migración: el motor slot+variantes v1.4 NO se reconstruye ni se toca.** Archivos escritos: `.planning/ROADMAP.md` (v1.0-v1.5 colapsados a `<details>` SHIPPED + sección `### 🚧 v1.6 — ACTIVE` con Phases 21-27 en summary checklist + Phase Details con 3-4 criteria c/u (UI hint:no en las 7) + Progress table +7 filas + footer milestone v1.6 + sección `## Backlog` preservada con CONV-01/AUTHOR-01/CATPROC/MUSIC/TENSE/PART-X1), `.planning/REQUIREMENTS.md` (Traceability 14 filas MIG→21 / AVE→22 / ESS→23 / MOV→24 / GEN→25 / PROF→26 / SOST→27 + Coverage 14/14 + mapping rationale), `.planning/STATE.md` (este — re-inicializado para v1.6 planning). v1.0-v1.5 preservados archivados. Stopped at: roadmap creado. Resume file: None. Siguiente: `/gsd:plan-phase 21`.
 - **Fecha:** 2026-06-05 — Milestone v1.5 (Conversión a slots: Bloque Artículos / CONV-01) shipped. 3 fases (18-20), 7 plans, 9/9 requirements, 358/358 tests. Articoli (56→34) + Partitivi (44→19) a slot+variantes + migración 7→8. schemaVersion 7→8. 3/9 categorías en formato slot+variantes.
 

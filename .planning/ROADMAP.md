@@ -88,7 +88,7 @@
 
 Numeración CONTINÚA desde Phase 20 → Phases 21-27 (NO reset — mismo criterio que v1.1/v1.2/v1.3/v1.4/v1.5). **Brownfield puro contenido + migración:** toda la maquinaria slot+variantes del motor v1.4 (`normalizeExerciseToSlot`, `pickVariantIndex`, getter slot-aware con `.payload` sintético, sampler por slot, cascada D-54 con 2 call-sites de `applyImmediateFailure`, smoke paramétrico bifurcado por shape) YA EXISTE y NO se toca. Se replica EXACTAMENTE el patrón de Phases 17/19/20: migración con reset selectivo → reagrupar por regla con explanation a nivel de slot → autorar variantes por quórum cross-vendor R1-R7 → smoke + sync de counts. Diferencia clave vs v1.5: la migración `8→9` resetea SEIS categorías a la vez (predicado de 6 prefijos), y hay 6 conversiones (1 fase por categoría) en lugar de 2. Para las dos categorías léxicas (Professioni, Sostantivi irregolari) la decisión "regla-con-variantes real O slots-de-1 reagrupados" se resuelve en discuss/plan de cada una — no se fuerzan variantes artificiales.
 
-- [ ] **Phase 21: Migración `8→9` (reset selectivo de las 6 categorías)** — `migrate8to9`/`hydrateV9` idempotente + deep-clone defensivo; resetea el progreso SOLO de las 6 categorías a convertir (`avere`, `essere`, `verbos-movimiento`, `genero-numero`, `profesiones`, `sustantivos-irregulares`) vía un predicado de 6 prefijos; las 3 ya convertidas (`preposiciones`, `articoli`, `partitivos`) byte-intactas; `backup.js` round-trip v9 + import v8→v9 + rechazo `>9`. Va PRIMERA: bloquea la renumeración de ids de las 6 fases de contenido (no se renumera con progreso vivo).
+- [x] **Phase 21: Migración `8→9` (reset selectivo de las 6 categorías)** — `migrate8to9`/`hydrateV9` idempotente + deep-clone defensivo; resetea el progreso SOLO de las 6 categorías a convertir (`avere`, `essere`, `verbos-movimiento`, `genero-numero`, `profesiones`, `sustantivos-irregulares`) vía un predicado de 6 prefijos; las 3 ya convertidas (`preposiciones`, `articoli`, `partitivos`) byte-intactas; `backup.js` round-trip v9 + import v8→v9 + rechazo `>9`. Va PRIMERA: bloquea la renumeración de ids de las 6 fases de contenido (no se renumera con progreso vivo). (completed 2026-06-05)
 - [ ] **Phase 22: Avere a slots (contenido)** — Reagrupar los 23 ejercicios de Avere en slots por regla (presente indicativo + idiomático + passato prossimo + cruces multi-cat), autorar variantes nuevas por quórum cross-vendor R1-R7, huecos→slots, validator + smoke + counts re-sincronizados + explanation a nivel de slot.
 - [ ] **Phase 23: Essere a slots (contenido)** — Reagrupar los 39 ejercicios de Essere en slots por regla (presente indicativo + identidad/nacionalidad/profesión/estado/cópula + participio stato/stata/stati/state + cruces), autorar variantes nuevas por quórum, huecos→slots, validator + smoke + counts + explanation a nivel de slot.
 - [ ] **Phase 24: Verbi di movimento a slots (contenido)** — Reagrupar los 37 ejercicios de Verbi di movimento en slots por regla, autorar variantes nuevas por quórum, huecos→slots, validator + smoke + counts + explanation a nivel de slot.
@@ -109,7 +109,7 @@ Numeración CONTINÚA desde Phase 20 → Phases 21-27 (NO reset — mismo criter
   4. La app arranca limpia sobre el state migrado y los tests siguen verdes (los 358 baseline + los nuevos de la cadena v9).
 **Plans**: 1 plan
 Plans:
-- [ ] 21-01-PLAN.md — migrate8to9 + hydrateV9 + bump CURRENT_SCHEMA_VERSION (storage.js, MIG-03) + backup.js round-trip v9 + import v8→v9 con reset (MIG-04); 2 tasks TDD, clon literal de 18-01 con predicado de 6 prefijos
+- [x] 21-01-PLAN.md — migrate8to9 + hydrateV9 + bump CURRENT_SCHEMA_VERSION (storage.js, MIG-03) + backup.js round-trip v9 + import v8→v9 con reset (MIG-04); 2 tasks TDD, clon literal de 18-01 con predicado de 6 prefijos
 **UI hint**: no
 
 ### Phase 22: Avere a slots (contenido)
@@ -189,7 +189,7 @@ Plans:
 | 13-14 | v1.3 | 3/3 | Complete | 2026-06-02 |
 | 15-17 | v1.4 | 9/9 | Complete | 2026-06-03 |
 | 18-20 | v1.5 | 7/7 | Complete | 2026-06-05 |
-| 21. Migración 8→9 (reset 6 categorías) | v1.6 | 0/1 | Planned | - |
+| 21. Migración 8→9 (reset 6 categorías) | v1.6 | 1/1 | Complete   | 2026-06-05 |
 | 22. Avere a slots (contenido) | v1.6 | 0/0 | Not started | - |
 | 23. Essere a slots (contenido) | v1.6 | 0/0 | Not started | - |
 | 24. Verbi di movimento a slots (contenido) | v1.6 | 0/0 | Not started | - |

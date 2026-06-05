@@ -9,8 +9,8 @@
 
 ### Migración + datos (MIG)
 
-- [ ] **MIG-03**: Migración `schemaVersion 8→9` (`migrate8to9` + `hydrateV9`) idempotente y con deep-clone defensivo; resetea el progreso SOLO de las 6 categorías a convertir (`avere`, `essere`, `verbos-movimiento`, `genero-numero`, `profesiones`, `sustantivos-irregulares` — categoryProgress + exerciseStats por prefijo + inFlightTest, racha a 0) mediante un predicado de 6 prefijos; las 3 ya convertidas (`preposiciones`, `articoli`, `partitivos`) conservan su progreso byte-intacto.
-- [ ] **MIG-04**: `backup.js` extendido a round-trip v9 (export v9 reimportable); el import de un backup v8 migra a v9 reseteando las 6 categorías, y los `>9` se rechazan (forward-compat).
+- [x] **MIG-03**: Migración `schemaVersion 8→9` (`migrate8to9` + `hydrateV9`) idempotente y con deep-clone defensivo; resetea el progreso SOLO de las 6 categorías a convertir (`avere`, `essere`, `verbos-movimiento`, `genero-numero`, `profesiones`, `sustantivos-irregulares` — categoryProgress + exerciseStats por prefijo + inFlightTest, racha a 0) mediante un predicado de 6 prefijos; las 3 ya convertidas (`preposiciones`, `articoli`, `partitivos`) conservan su progreso byte-intacto.
+- [x] **MIG-04**: `backup.js` extendido a round-trip v9 (export v9 reimportable); el import de un backup v8 migra a v9 reseteando las 6 categorías, y los `>9` se rechazan (forward-compat).
 
 ### Avere a slots (AVE) — 23 ejercicios
 
@@ -73,8 +73,8 @@ Diferidos a milestones futuros. Reconocidos pero no en el roadmap actual.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| MIG-03 | Phase 21 | Pending |
-| MIG-04 | Phase 21 | Pending |
+| MIG-03 | Phase 21 | Complete |
+| MIG-04 | Phase 21 | Complete |
 | AVE-01 | Phase 22 | Pending |
 | AVE-02 | Phase 22 | Pending |
 | ESS-01 | Phase 23 | Pending |
