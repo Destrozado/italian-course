@@ -15,7 +15,7 @@
 ### Avere a slots (AVE) — 23 ejercicios
 
 - [ ] **AVE-01**: Los 23 ejercicios de Avere se reagrupan en slots por regla con explanation a nivel de slot; la estructura final pasa el validator y el smoke paramétrico con los hardcodes de count re-sincronizados al nº real de slots leído del JSON.
-- [ ] **AVE-02**: Se autoran variantes nuevas (patrón D-85: Claude propone → autor revisa → quórum cross-vendor R1-R7) donde la regla admite reformulación; cada variante nueva pasa el quórum antes de entrar; los huecos de regla detectados → slots nuevos.
+- [x] **AVE-02**: Se autoran variantes nuevas (patrón D-85: Claude propone → autor revisa → quórum cross-vendor R1-R7) donde la regla admite reformulación; cada variante nueva pasa el quórum antes de entrar; los huecos de regla detectados → slots nuevos.
 
 ### Essere a slots (ESS) — 39 ejercicios
 
@@ -76,7 +76,7 @@ Diferidos a milestones futuros. Reconocidos pero no en el roadmap actual.
 | MIG-03 | Phase 21 | Complete |
 | MIG-04 | Phase 21 | Complete |
 | AVE-01 | Phase 22 | Pending |
-| AVE-02 | Phase 22 | Pending |
+| AVE-02 | Phase 22 | Complete |
 | ESS-01 | Phase 23 | Pending |
 | ESS-02 | Phase 23 | Pending |
 | MOV-01 | Phase 24 | Pending |
