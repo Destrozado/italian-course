@@ -17,6 +17,16 @@
             "abbiamo"
           ],
           "correctIndex": 0
+        },
+        {
+          "prompt": "Io ___ due fratelli.",
+          "options": [
+            "ho",
+            "hai",
+            "ha",
+            "hanno"
+          ],
+          "correctIndex": 0
         }
       ],
       "validation": {
