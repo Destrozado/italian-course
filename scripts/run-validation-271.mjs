@@ -61,7 +61,7 @@ const fail = (txt) => `${RED}${txt}${RESET}`;
 const warn = (txt) => `${YELLOW}${txt}${RESET}`;
 
 // D-VAL-22 orden lockeado: riesgo-first (preposiciones) + alfabético resto.
-// La suma de `expected` es 348. Historial del total:
+// La suma de `expected` es 323. Historial del total:
 //   373 = 272 (271 originales v1.0 + 1 ejercicio preposiciones-051 creado durante
 //   la validación editorial de Phase 10) + 56 de la 8ª categoría `articoli`
 //   (v1.2 Phase 11: 48 base + 2 match + 6 bridges) + 44 de la 9ª categoría
@@ -78,6 +78,13 @@ const warn = (txt) => `${YELLOW}${txt}${RESET}`;
 //   (19-02: articoli-lo-yi, articoli-gli-yi) = 34 slots reales. Las 56 superficies
 //   fuente se preservaron 1:1 como variantes. TOTAL = 370 − 56 + 34 = 348. El
 //   conteo `expected` de articoli se mide como data.exercises.length (nº de slots).
+//   → 323 (v1.5 Phase 20, PART-03): Partitivos se convirtió al shape slot+variantes.
+//   La reagrupación fundió 44 ejercicios payload por del-forma/disparador → 17 slots
+//   (20-01) + 2 slots nuevos de suoni speciali plural por quórum cross-vendor
+//   (20-02: partitivos-degli-gn, partitivos-degli-ps) = 19 slots reales. Las 44
+//   superficies fuente se preservaron 1:1 como variantes (+6 superficies nuevas:
+//   4 engordes de celdas pobres + 2 de los slots nuevos). TOTAL = 348 − 44 + 19 = 323.
+//   El conteo `expected` de partitivos se mide como data.exercises.length (nº de slots).
 // `articoli` es alfabéticamente primero del resto, así que va justo tras
 // preposiciones; `partitivos` ordena entre genero-numero y profesiones. El
 // reporter falla si la suma encontrada en disco no coincide con el expected —
@@ -88,13 +95,13 @@ const CATEGORIES = [
   { slug: 'avere',                    file: 'content/exercises/avere.json',                    expected: 23 },
   { slug: 'essere',                   file: 'content/exercises/essere.json',                   expected: 39 },
   { slug: 'genero-numero',            file: 'content/exercises/genero-numero.json',            expected: 40 },
-  { slug: 'partitivos',               file: 'content/exercises/partitivos.json',               expected: 44 },
+  { slug: 'partitivos',               file: 'content/exercises/partitivos.json',               expected: 19 },
   { slug: 'profesiones',              file: 'content/exercises/profesiones.json',              expected: 51 },
   { slug: 'sustantivos-irregulares',  file: 'content/exercises/sustantivos-irregulares.json',  expected: 31 },
   { slug: 'verbos-movimiento',        file: 'content/exercises/verbos-movimiento.json',        expected: 37 },
 ];
 
-const TOTAL_EXPECTED = 348;
+const TOTAL_EXPECTED = 323;
 
 /**
  * Relax path-B (RESEARCH Open Q #1 opción c): si `deriveStatus` da `disputed`
