@@ -71,7 +71,33 @@ Diferidos a milestones futuros. Reconocidos pero no en el roadmap actual.
 
 ## Traceability
 
-_(Pendiente — la rellena el roadmapper al crear el roadmap. Mapeo esperado: MIG-03/04 → fase de migración; AVE/ESS/MOV/GEN/PROF/SOST → 1 fase de conversión por categoría.)_
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| MIG-03 | Phase 21 | Pending |
+| MIG-04 | Phase 21 | Pending |
+| AVE-01 | Phase 22 | Pending |
+| AVE-02 | Phase 22 | Pending |
+| ESS-01 | Phase 23 | Pending |
+| ESS-02 | Phase 23 | Pending |
+| MOV-01 | Phase 24 | Pending |
+| MOV-02 | Phase 24 | Pending |
+| GEN-01 | Phase 25 | Pending |
+| GEN-02 | Phase 25 | Pending |
+| PROF-01 | Phase 26 | Pending |
+| PROF-02 | Phase 26 | Pending |
+| SOST-01 | Phase 27 | Pending |
+| SOST-02 | Phase 27 | Pending |
+
+**Coverage:** 14/14 requirements mapped ✓ — 0 orphans, 0 duplicados, 0 gaps.
+
+**Mapping rationale:**
+- **MIG-03/04 → Phase 21** (migración `8→9` reset selectivo de las 6 categorías). Va PRIMERA: la renumeración de ids de las 6 fases de contenido no se puede hacer con progreso vivo (mismo criterio que Phase 18 en v1.5 y el plan 17-01 del piloto). Predicado de 6 prefijos; `backup.js` round-trip v9 + import v8→v9 + rechazo `>9`.
+- **AVE-01/02 → Phase 22** | **ESS-01/02 → Phase 23** | **MOV-01/02 → Phase 24** (verbos): cada fase reagrupa a slots por regla con explanation a nivel de slot → autora variantes nuevas por quórum cross-vendor R1-R7 (+ huecos→slots) → sincroniza counts derivados del JSON; validator + smoke verdes. Patrón EXACTO de Phases 19/20.
+- **GEN-01/02 → Phase 25** (morfología): terminaciones de género + formación de plural; match preserva DESIGN RULE D-04.
+- **PROF-01/02 → Phase 26** | **SOST-01/02 → Phase 27** (léxicas): mismo flujo, pero la decisión "regla-con-variantes real O slots-de-1 reagrupados" se resuelve en discuss/plan de cada una (no se fuerzan variantes artificiales). Phase 27 cierra CONV-01 (9/9 categorías de gramática unificadas).
+- Cada criterio de éxito de cada fase está respaldado por ≥1 requisito; cada requisito mapea a exactamente una fase.
+- Phases 22-27 dependen de Phase 21 (la migración); independientes entre sí tras la migración (cualquier orden o paralelo).
 
 ---
 *Requirements defined: 2026-06-05*
+*Traceability mapeada 2026-06-05 por el roadmapper — Phases 21-27, 14/14 requirements, 0 orphans.*
