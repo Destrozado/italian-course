@@ -64,6 +64,16 @@
             "avete"
           ],
           "correctIndex": 1
+        },
+        {
+          "prompt": "Tu ___ un cane in casa?",
+          "options": [
+            "ho",
+            "hai",
+            "abbiamo",
+            "hanno"
+          ],
+          "correctIndex": 1
         }
       ],
       "validation": {
