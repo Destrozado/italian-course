@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.6
 milestone_name: "Conversión a slots: categorías restantes"
 status: executing
-last_updated: "2026-06-05T17:04:28.434Z"
-last_activity: 2026-06-05 -- Phase 22 planning complete
+last_updated: "2026-06-05T19:30:00.000Z"
+last_activity: 2026-06-05 -- Phase 22 Plan 01 completado (Avere → 19 slots + re-base D-88)
 progress:
   total_phases: 7
   completed_phases: 1
@@ -21,14 +21,14 @@ See: `.planning/PROJECT.md` (updated 2026-06-05 — Milestone v1.6 abierto)
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 22 — avere a slots (contenido)
+**Current Focus:** Phase 22 — avere-a-slots-contenido
 
 ## Current Position
 
-Phase: 22
-Plan: Not started
-Status: Ready to execute
-Last activity: 2026-06-05 -- Phase 22 planning complete
+Phase: 22 (avere-a-slots-contenido) — EXECUTING
+Plan: 2 of 3 (22-01 completado; siguiente 22-02)
+Status: Executing Phase 22
+Last activity: 2026-06-05 -- Phase 22 Plan 01 completado (Avere → 19 slots + re-base D-88)
 
 ## Quick Tasks Completed
 
@@ -123,6 +123,7 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ### Last Session
 
+- **Fecha:** 2026-06-05 — **Phase 22 Plan 01 (Avere a slots — reagrupación + re-base D-88 / AVE-01 parcial) COMPLETADO.** Los 23 ejercicios legacy de Avere reagrupados en **19 slots** slot+variantes por regla: presente indicativo por persona = 6 slots-de-1 (`avere-ho/hai/ha/abbiamo/avete/hanno`, D-19-01); sensación física idiomática = 1 slot `avere-sensazioni` con 2 variantes (fame+caldo, D-17-01); passato prossimo con auxiliar avere = 1 slot `avere-passato-prossimo` con 4 variantes (D-17-01, validation de 009 preservada con su disputed→override autor, canon D-02); word-buttons (100/101) = 2 slots-de-1; match (200/201/202) = 3 slots-de-1 (dos `ha` de 202 preservados, D-66); cruces multi-cat = 6 slots `avere-300..305` con id ESTABLE + 2 categoryIds intactos (D-19-04/D-87). `payload` eliminado, superficies movidas intactas a `variants[]`, explanation a nivel de slot (merge D-17-05 con pitfalls del hispanohablante), sin smart-quotes. **Blindaje APPEND-ONLY D-88 re-basado** (relax D-178 opción A): `snapshot-avere-prefix.mjs` regeneró el snapshot al estado slot+variantes y `assert-avere-prefix-unchanged.mjs` vuelve a exit 0; el invariante se preserva sobre el nuevo ground truth, no se ignora (snapshot gitignored). `validate-content-fixture.mjs avere` exit 0 (19 ejercicios). **Rojo esperado:** los 3 hardcodes de count de avere (`expected: 23` en `tests/exercise-types.test.js`, `tests/fixtures/slot-variants-integration.test.js`, `scripts/run-validation-271.mjs` + `TOTAL_EXPECTED`) quedan rojos a propósito → se sincronizan a 19 en 22-03. Sin desviaciones. Task 1 (mapa, commit 46ab9e5) verificado, no rehecho. Commits: 46ab9e5 (Task 1 mapa), fda481b (Task 2 reescritura + re-base). Stopped at: 22-01 completado. Resume file: None. Siguiente: 22-02 (autorar variantes nuevas por quórum cross-vendor R1-R7 — engorde de 6 celdas pobres de presente + idiomatismos avere sete/freddo/sonno/ragione/anni + passato de otros verbos; checkpoint:human-verify D-85).
 - **Fecha:** 2026-06-05 — **Phase 21 (Migración `8→9`, reset selectivo de las 6 categorías / MIG-03 + MIG-04) COMPLETADA.** `migrate8to9`/`hydrateV9` + `CURRENT_SCHEMA_VERSION=9` (storage.js + backup.js espejo) clonando el patrón `migrate7to8`/`hydrateV8`, con reset de progreso SOLO de las 6 categorías a convertir (avere, essere, verbos-movimiento, genero-numero, profesiones, sustantivos-irregulares) vía `const RESET_PREFIXES_V9` + `some(startsWith)`; las 3 ya convertidas (preposiciones, articoli, partitivos) byte-intactas (verificado por fixture de 9 categorías). `backup.js` round-trip v9 + import v8→v9 con reset + rechazo `>9`. 1 plan TDD (2 tasks RED→GREEN), **374/374 tests verdes** (358 baseline + 16 v9). Desviaciones: 3 syncs Rule 3 (asserts blankState 8→9; round-trip v7/v8 ahora resetean avere/essere — antes preservados; tests HI-01/ME-04 migrados a categoría ficticia `test-cat` que no colisiona con ningún prefijo de reset). Commits: ec7bbcf (test T1), af7cb75 (feat T1), 3a159af (test T2), 521e5f8 (feat T2). Quedan Phases 22-27 (las 6 conversiones de contenido). Stopped at: Phase 21 completada. Resume file: None. Siguiente: verificación de fase → Phase 22 (Avere).
 - **Fecha:** 2026-06-05 — **Roadmap del milestone v1.6 (Conversión a slots: categorías restantes / CONV-01 cierre) creado por el roadmapper.** Numeración CONTINÚA desde Phase 20 → **Phases 21-27, NO reset** (mismo criterio que v1.1-v1.5). 7 fases coarse (1 migración + 6 conversiones, 1 fase por categoría): **Phase 21 (Migración 8→9, reset selectivo de las 6 categorías)** mapea MIG-03/04 — `migrate8to9`/`hydrateV9` idempotente + deep-clone defensivo, reset de progreso SOLO de las 6 categorías a convertir (avere, essere, verbos-movimiento, genero-numero, profesiones, sustantivos-irregulares) vía predicado de 6 prefijos, las 3 ya convertidas (preposiciones, articoli, partitivos) byte-intactas, `backup.js` round-trip v9 + import v8→v9 + rechazo >9; va PRIMERA porque la renumeración de ids no se puede hacer con progreso vivo; **Phase 22 (Avere, 23 ejer.)** AVE-01/02, **Phase 23 (Essere, 39 ejer.)** ESS-01/02, **Phase 24 (Verbi di movimento, 37 ejer.)** MOV-01/02 — verbos; **Phase 25 (Genere e numero, 40 ejer.)** GEN-01/02 — morfología; **Phase 26 (Professioni, 51 ejer., léxica)** PROF-01/02, **Phase 27 (Sostantivi irregolari, 31 ejer., léxica)** SOST-01/02 — léxicas con decisión abierta regla-con-variantes O slots-de-1 (a resolver en discuss/plan). Cada conversión replica el patrón de Phases 19/20: reagrupar a slots por regla con explanation a nivel de slot → autorar variantes nuevas por quórum cross-vendor R1-R7 (+ huecos→slots) → sincronizar counts derivados del JSON; validator + smoke verdes. **Cobertura: 14/14 mapped, 0 orphans, 0 duplicados, 0 gaps** (cada success criterion respaldado por ≥1 requisito). Phases 22-27 dependen de Phase 21; independientes entre sí tras la migración. **Brownfield puro contenido + migración: el motor slot+variantes v1.4 NO se reconstruye ni se toca.** Archivos escritos: `.planning/ROADMAP.md` (v1.0-v1.5 colapsados a `<details>` SHIPPED + sección `### 🚧 v1.6 — ACTIVE` con Phases 21-27 en summary checklist + Phase Details con 3-4 criteria c/u (UI hint:no en las 7) + Progress table +7 filas + footer milestone v1.6 + sección `## Backlog` preservada con CONV-01/AUTHOR-01/CATPROC/MUSIC/TENSE/PART-X1), `.planning/REQUIREMENTS.md` (Traceability 14 filas MIG→21 / AVE→22 / ESS→23 / MOV→24 / GEN→25 / PROF→26 / SOST→27 + Coverage 14/14 + mapping rationale), `.planning/STATE.md` (este — re-inicializado para v1.6 planning). v1.0-v1.5 preservados archivados. Stopped at: roadmap creado. Resume file: None. Siguiente: `/gsd:plan-phase 21`.
 - **Fecha:** 2026-06-05 — Milestone v1.5 (Conversión a slots: Bloque Artículos / CONV-01) shipped. 3 fases (18-20), 7 plans, 9/9 requirements, 358/358 tests. Articoli (56→34) + Partitivi (44→19) a slot+variantes + migración 7→8. schemaVersion 7→8. 3/9 categorías en formato slot+variantes.
