@@ -1,23 +1,24 @@
 {
   "exercises": [
     {
-      "id": "avere-001",
+      "id": "avere-ho",
       "type": "multiple-choice",
       "categoryIds": [
         "avere"
       ],
-      "payload": {
-        "prompt": "Io ___ una macchina nuova.",
-        "options": [
-          "ho",
-          "hai",
-          "ha",
-          "abbiamo"
-        ],
-        "correctIndex": 0,
-        "explanation": "La forma 'ho' es la primera persona singular del presente indicativo del verbo avere y se usa con el pronombre 'io' para expresar posesión. En italiano, 'Io ho una macchina' equivale al español 'Yo tengo un coche': el verbo avere cubre todo lo que en español hacemos con tener, sin necesidad de verbos auxiliares adicionales."
-      },
-      "notes": "Presente indicativo, 1ª persona singular (io). Posesión.",
+      "explanation": "La forma 'ho' es la primera persona singular del presente indicativo del verbo avere y se usa con el pronombre 'io' para expresar posesión. En italiano, 'Io ho una macchina' equivale al español 'Yo tengo un coche': el verbo avere cubre todo lo que en español hacemos con tener, sin necesidad de verbos auxiliares adicionales.",
+      "variants": [
+        {
+          "prompt": "Io ___ una macchina nuova.",
+          "options": [
+            "ho",
+            "hai",
+            "ha",
+            "abbiamo"
+          ],
+          "correctIndex": 0
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -37,23 +38,24 @@
       }
     },
     {
-      "id": "avere-002",
+      "id": "avere-hai",
       "type": "multiple-choice",
       "categoryIds": [
         "avere"
       ],
-      "payload": {
-        "prompt": "Tu ___ una sorella più grande?",
-        "options": [
-          "ho",
-          "hai",
-          "ha",
-          "avete"
-        ],
-        "correctIndex": 1,
-        "explanation": "El presente indicativo de avere en la segunda persona singular es 'hai', que acompaña al pronombre 'tu'. La frase 'Tu hai una sorella' se traduce como '¿Tú tienes una hermana?'. Cuidado: la grafía italiana mantiene la 'h' inicial muda en toda la conjugación (ho, hai, ha, hanno), aunque no se pronuncie."
-      },
-      "notes": "Presente indicativo, 2ª persona singular (tu). Familia.",
+      "explanation": "El presente indicativo de avere en la segunda persona singular es 'hai', que acompaña al pronombre 'tu'. La frase 'Tu hai una sorella' se traduce como '¿Tú tienes una hermana?'. Cuidado: la grafía italiana mantiene la 'h' inicial muda en toda la conjugación (ho, hai, ha, hanno), aunque no se pronuncie.",
+      "variants": [
+        {
+          "prompt": "Tu ___ una sorella più grande?",
+          "options": [
+            "ho",
+            "hai",
+            "ha",
+            "avete"
+          ],
+          "correctIndex": 1
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -73,23 +75,24 @@
       }
     },
     {
-      "id": "avere-003",
+      "id": "avere-ha",
       "type": "multiple-choice",
       "categoryIds": [
         "avere"
       ],
-      "payload": {
-        "prompt": "Lui ___ ventidue anni.",
-        "options": [
-          "hai",
-          "ha",
-          "abbiamo",
-          "hanno"
-        ],
-        "correctIndex": 1,
-        "explanation": "Para expresar la edad, el italiano usa el verbo avere, no essere: la edad se 'tiene', no se 'es'. La tercera persona singular es 'ha', así que 'Lui ha ventidue anni' equivale al español 'Él tiene veintidós años'. ¡Atención!: el hispanohablante traduce literalmente y dice 'è ventidue anni', que es uno de los errores A1 más frecuentes."
-      },
-      "notes": "Presente indicativo, 3ª persona singular (lui). En italiano, la edad se expresa con avere (no con essere).",
+      "explanation": "Para expresar la edad, el italiano usa el verbo avere, no essere: la edad se 'tiene', no se 'es'. La tercera persona singular es 'ha', así que 'Lui ha ventidue anni' equivale al español 'Él tiene veintidós años'. ¡Atención!: el hispanohablante traduce literalmente y dice 'è ventidue anni', que es uno de los errores A1 más frecuentes.",
+      "variants": [
+        {
+          "prompt": "Lui ___ ventidue anni.",
+          "options": [
+            "hai",
+            "ha",
+            "abbiamo",
+            "hanno"
+          ],
+          "correctIndex": 1
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -109,23 +112,24 @@
       }
     },
     {
-      "id": "avere-004",
+      "id": "avere-abbiamo",
       "type": "multiple-choice",
       "categoryIds": [
         "avere"
       ],
-      "payload": {
-        "prompt": "Noi ___ molti amici a Roma.",
-        "options": [
-          "abbiamo",
-          "avete",
-          "hanno",
-          "ha"
-        ],
-        "correctIndex": 0,
-        "explanation": "La primera persona plural del presente indicativo de avere es 'abbiamo', una forma que rompe la raíz 'av-' y conviene memorizar aparte. 'Noi abbiamo molti amici' equivale al español 'Nosotros tenemos muchos amigos'. Ojo: el español dice 'tenemos' con raíz regular, pero el italiano cambia de raíz; conviene practicar 'abbiamo' por separado."
-      },
-      "notes": "Presente indicativo, 1ª persona plural (noi).",
+      "explanation": "La primera persona plural del presente indicativo de avere es 'abbiamo', una forma que rompe la raíz 'av-' y conviene memorizar aparte. 'Noi abbiamo molti amici' equivale al español 'Nosotros tenemos muchos amigos'. Ojo: el español dice 'tenemos' con raíz regular, pero el italiano cambia de raíz; conviene practicar 'abbiamo' por separado.",
+      "variants": [
+        {
+          "prompt": "Noi ___ molti amici a Roma.",
+          "options": [
+            "abbiamo",
+            "avete",
+            "hanno",
+            "ha"
+          ],
+          "correctIndex": 0
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -145,23 +149,24 @@
       }
     },
     {
-      "id": "avere-005",
+      "id": "avere-avete",
       "type": "multiple-choice",
       "categoryIds": [
         "avere"
       ],
-      "payload": {
-        "prompt": "Voi ___ tempo per un caffè?",
-        "options": [
-          "abbiamo",
-          "avete",
-          "hanno",
-          "hai"
-        ],
-        "correctIndex": 1,
-        "explanation": "El presente indicativo de avere en la segunda persona plural es 'avete', que acompaña al pronombre 'voi'. La frase 'Voi avete tempo' se traduce como '¿Vosotros tenéis tiempo?'. La 'h' inicial del singular desaparece en 'avete' y 'abbiamo', pero reaparece en 'hanno' (3ª plural): es una particularidad ortográfica que conviene memorizar."
-      },
-      "notes": "Presente indicativo, 2ª persona plural (voi).",
+      "explanation": "El presente indicativo de avere en la segunda persona plural es 'avete', que acompaña al pronombre 'voi'. La frase 'Voi avete tempo' se traduce como '¿Vosotros tenéis tiempo?'. La 'h' inicial del singular desaparece en 'avete' y 'abbiamo', pero reaparece en 'hanno' (3ª plural): es una particularidad ortográfica que conviene memorizar.",
+      "variants": [
+        {
+          "prompt": "Voi ___ tempo per un caffè?",
+          "options": [
+            "abbiamo",
+            "avete",
+            "hanno",
+            "hai"
+          ],
+          "correctIndex": 1
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -181,23 +186,24 @@
       }
     },
     {
-      "id": "avere-006",
+      "id": "avere-hanno",
       "type": "multiple-choice",
       "categoryIds": [
         "avere"
       ],
-      "payload": {
-        "prompt": "Loro ___ una casa al mare.",
-        "options": [
-          "abbiamo",
-          "avete",
-          "hanno",
-          "ha"
-        ],
-        "correctIndex": 2,
-        "explanation": "La tercera persona plural del presente indicativo de avere es 'hanno', con doble 'n' y 'h' inicial muda. 'Loro hanno una casa' equivale al español 'Ellos tienen una casa'. Cuidado: no confundir con 'anno' (año, sin 'h'); la grafía 'hanno' del verbo es obligatoria aunque la pronunciación sea idéntica."
-      },
-      "notes": "Presente indicativo, 3ª persona plural (loro).",
+      "explanation": "La tercera persona plural del presente indicativo de avere es 'hanno', con doble 'n' y 'h' inicial muda. 'Loro hanno una casa' equivale al español 'Ellos tienen una casa'. Cuidado: no confundir con 'anno' (año, sin 'h'); la grafía 'hanno' del verbo es obligatoria aunque la pronunciación sea idéntica.",
+      "variants": [
+        {
+          "prompt": "Loro ___ una casa al mare.",
+          "options": [
+            "abbiamo",
+            "avete",
+            "hanno",
+            "ha"
+          ],
+          "correctIndex": 2
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -217,23 +223,34 @@
       }
     },
     {
-      "id": "avere-007",
+      "id": "avere-sensazioni",
       "type": "multiple-choice",
       "categoryIds": [
         "avere"
       ],
-      "payload": {
-        "prompt": "Non ho mangiato niente: ___ fame!",
-        "options": [
-          "ho",
-          "sono",
-          "hai",
-          "è"
-        ],
-        "correctIndex": 0,
-        "explanation": "En italiano, las sensaciones físicas como el hambre, la sed o el frío se expresan con avere, no con essere: 'ho fame' significa 'tengo hambre', literalmente 'tengo hambre' en su sentido posesivo. ¡Atención!: el hispanohablante a veces traduce 'estoy hambriento' como 'sono affamato', pero la construcción A1 estándar es 'avere fame', siempre con avere."
-      },
-      "notes": "Expresión idiomática: 'avere fame' (tener hambre). En italiano se usa avere, no essere.",
+      "explanation": "En italiano las sensaciones físicas (calor, frío, hambre, sed) se construyen con avere, no con essere, siguiendo siempre el mismo patrón: 'ho caldo' equivale a 'tengo calor' y 'ho fame' a 'tengo hambre'. Cuidado: 'sono caldo' existe pero significa 'estoy caliente' en otros sentidos (atractivo, encendido), no la sensación térmica neutra; y el hispanohablante a veces traduce 'estoy hambriento' como 'sono affamato', pero la construcción A1 estándar es 'avere fame'. Para hablar de las sensaciones del cuerpo en A1 se usa siempre avere.",
+      "variants": [
+        {
+          "prompt": "Non ho mangiato niente: ___ fame!",
+          "options": [
+            "ho",
+            "sono",
+            "hai",
+            "è"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Apri la finestra, per favore: ___ caldo.",
+          "options": [
+            "sono",
+            "ho",
+            "è",
+            "siamo"
+          ],
+          "correctIndex": 1
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -253,59 +270,54 @@
       }
     },
     {
-      "id": "avere-008",
+      "id": "avere-passato-prossimo",
       "type": "multiple-choice",
       "categoryIds": [
         "avere"
       ],
-      "payload": {
-        "prompt": "Apri la finestra, per favore: ___ caldo.",
-        "options": [
-          "sono",
-          "ho",
-          "è",
-          "siamo"
-        ],
-        "correctIndex": 1,
-        "explanation": "La sensación de calor o frío en italiano se construye con avere siguiendo el mismo patrón que 'avere fame': 'ho caldo' equivale al español 'tengo calor'. Cuidado: 'sono caldo' existe en italiano pero significa 'estoy caliente' en otros sentidos (atractivo, encendido), no la sensación térmica neutra; para hablar del cuerpo en A1 se usa siempre 'avere caldo'."
-      },
-      "notes": "Expresión idiomática: 'avere caldo' (tener calor).",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "avere-009",
-      "type": "multiple-choice",
-      "categoryIds": [
-        "avere"
+      "explanation": "En el passato prossimo, los verbos transitivos (los que admiten complemento directo, como mangiare) se conjugan siempre con el auxiliar avere. La regla pedagógica simple: si el verbo lleva 'qualcosa' detrás (lo comes, lo bebes, lo lees), el auxiliar es avere. También piden avere los verbos de comunicación (parlare, dire, rispondere), aunque la preposición 'con' no cambia la regla; los verbos de actividad física o corporal (dormire, ridere, piangere) aunque no sean transitivos, donde el hispanohablante a veces opta por essere por intuición; y los verbos cognitivos (capire, sapere, pensare). En todos ellos el participio es invariable cuando el auxiliar es avere.",
+      "variants": [
+        {
+          "prompt": "Stamattina io ___ mangiato una pizza enorme.",
+          "options": [
+            "ho",
+            "sono",
+            "abbiamo",
+            "hanno"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Tu ___ parlato con Marco ieri sera?",
+          "options": [
+            "sei",
+            "hai",
+            "ha",
+            "avete"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Noi ___ dormito bene questa notte.",
+          "options": [
+            "siamo",
+            "avete",
+            "abbiamo",
+            "hanno"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Loro ___ capito tutta la lezione.",
+          "options": [
+            "sono",
+            "hanno",
+            "abbiamo",
+            "ha"
+          ],
+          "correctIndex": 1
+        }
       ],
-      "payload": {
-        "prompt": "Stamattina io ___ mangiato una pizza enorme.",
-        "options": [
-          "ho",
-          "sono",
-          "abbiamo",
-          "hanno"
-        ],
-        "correctIndex": 0,
-        "explanation": "En el passato prossimo, los verbos transitivos (los que admiten complemento directo, como mangiare) se conjugan siempre con el auxiliar avere. 'Io ho mangiato una pizza' equivale al español 'Yo he comido una pizza'. La regla pedagógica simple: si el verbo lleva 'qualcosa' detrás (lo comes, lo bebes, lo lees), el auxiliar es avere."
-      },
-      "notes": "Passato prossimo, 1ª singular. Verbo transitivo (mangiare) → auxiliar avere. PDF §3.",
       "validation": {
         "status": "validated",
         "passes": [
@@ -335,134 +347,27 @@
       }
     },
     {
-      "id": "avere-010",
-      "type": "multiple-choice",
-      "categoryIds": [
-        "avere"
-      ],
-      "payload": {
-        "prompt": "Tu ___ parlato con Marco ieri sera?",
-        "options": [
-          "sei",
-          "hai",
-          "ha",
-          "avete"
-        ],
-        "correctIndex": 1,
-        "explanation": "Los verbos de comunicación como parlare, dire o rispondere también se conjugan con avere en el passato prossimo, aunque no lleven complemento directo evidente. 'Tu hai parlato con Marco' equivale al español '¿Tú has hablado con Marco?'. Importante: la presencia de la preposición 'con' no cambia la regla; el auxiliar sigue siendo avere."
-      },
-      "notes": "Passato prossimo, 2ª singular. Verbo de comunicación (parlare) → auxiliar avere. PDF §3.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "avere-011",
-      "type": "multiple-choice",
-      "categoryIds": [
-        "avere"
-      ],
-      "payload": {
-        "prompt": "Noi ___ dormito bene questa notte.",
-        "options": [
-          "siamo",
-          "avete",
-          "abbiamo",
-          "hanno"
-        ],
-        "correctIndex": 2,
-        "explanation": "Los verbos que describen una actividad física o corporal, como dormire, ridere o piangere, se conjugan con avere en el passato prossimo aunque no sean transitivos. 'Noi abbiamo dormito bene' equivale al español 'Nosotros hemos dormido bien'. Cuidado: el hispanohablante a veces opta por essere por intuición, pero dormire siempre pide avere."
-      },
-      "notes": "Passato prossimo, 1ª plural. Actividad física (dormire) → auxiliar avere. PDF §3.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "avere-012",
-      "type": "multiple-choice",
-      "categoryIds": [
-        "avere"
-      ],
-      "payload": {
-        "prompt": "Loro ___ capito tutta la lezione.",
-        "options": [
-          "sono",
-          "hanno",
-          "abbiamo",
-          "ha"
-        ],
-        "correctIndex": 1,
-        "explanation": "Los verbos cognitivos como capire, sapere o pensare construyen el passato prossimo con avere, porque expresan una acción mental ejercida sobre un objeto (la lección, una idea, una respuesta). 'Loro hanno capito la lezione' equivale al español 'Ellos han entendido la lección'. El participio 'capito' es invariable cuando el auxiliar es avere."
-      },
-      "notes": "Passato prossimo, 3ª plural. Verbo cognitivo (capire) → auxiliar avere. PDF §3.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "avere-100",
+      "id": "avere-wb-posesion",
       "type": "word-buttons",
       "categoryIds": [
         "avere"
       ],
-      "payload": {
-        "prompt": "Yo tengo un coche.",
-        "answer": [
-          "io",
-          "ho",
-          "una",
-          "macchina"
-        ],
-        "distractors": [
-          "hai",
-          "sono"
-        ],
-        "explanation": "La construcción italiana de la frase es paralela a la española: sujeto + verbo + objeto. 'Io ho una macchina' equivale al español 'Yo tengo un coche', con 'macchina' como traducción de 'coche' (también puede decirse 'auto'). Cuidado con las distractoras: 'hai' es la 2ª persona singular (no coincide con 'io') y 'sono' pertenece al verbo essere, que no se usa para expresar posesión."
-      },
-      "notes": "Posesión simple — D-64 ejemplo canónico.",
+      "explanation": "La construcción italiana de la frase es paralela a la española: sujeto + verbo + objeto. 'Io ho una macchina' equivale al español 'Yo tengo un coche', con 'macchina' como traducción de 'coche' (también puede decirse 'auto'). Cuidado con las distractoras: 'hai' es la 2ª persona singular (no coincide con 'io') y 'sono' pertenece al verbo essere, que no se usa para expresar posesión.",
+      "variants": [
+        {
+          "prompt": "Yo tengo un coche.",
+          "answer": [
+            "io",
+            "ho",
+            "una",
+            "macchina"
+          ],
+          "distractors": [
+            "hai",
+            "sono"
+          ]
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -482,119 +387,26 @@
       }
     },
     {
-      "id": "avere-101",
+      "id": "avere-wb-fame",
       "type": "word-buttons",
       "categoryIds": [
         "avere"
       ],
-      "payload": {
-        "prompt": "Nosotros tenemos hambre.",
-        "answer": [
-          "noi",
-          "abbiamo",
-          "fame"
-        ],
-        "distractors": [
-          "sete",
-          "ho"
-        ],
-        "explanation": "La expresión 'avere fame' (tener hambre) sigue el patrón idiomático italiano de las sensaciones físicas, donde la posesión sustituye al estado: 'noi abbiamo fame' equivale al español 'nosotros tenemos hambre'. La forma 'abbiamo' es la 1ª plural de avere. Ojo con las distractoras: 'sete' significa 'sed' (otra sensación) y 'ho' es la 1ª singular, no la plural."
-      },
-      "notes": "Idiomático avere fame — sin distractoras correctas.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "avere-200",
-      "type": "match",
-      "categoryIds": [
-        "avere"
-      ],
-      "payload": {
-        "prompt": "Empareja el sujeto con la forma de avere.",
-        "pairs": [
-          [
-            "io",
-            "ho"
-          ],
-          [
-            "tu",
-            "hai"
-          ],
-          [
-            "lui",
-            "ha"
-          ],
-          [
+      "explanation": "La expresión 'avere fame' (tener hambre) sigue el patrón idiomático italiano de las sensaciones físicas, donde la posesión sustituye al estado: 'noi abbiamo fame' equivale al español 'nosotros tenemos hambre'. La forma 'abbiamo' es la 1ª plural de avere. Ojo con las distractoras: 'sete' significa 'sed' (otra sensación) y 'ho' es la 1ª singular, no la plural.",
+      "variants": [
+        {
+          "prompt": "Nosotros tenemos hambre.",
+          "answer": [
             "noi",
-            "abbiamo"
-          ]
-        ],
-        "explanation": "Cada pronombre personal italiano tiene una forma propia y única del presente indicativo de avere: io ho, tu hai, lui ha, noi abbiamo. La memorización persona por persona es el primer paso A1 antes de pasar al passato prossimo. Importante: las cuatro formas tienen raíces visualmente distintas (h-, h-, h-, abb-), así que conviene practicarlas en bloque y no derivar unas de otras."
-      },
-      "notes": "Match de conjugaciones avere — 4 parejas, sin duplicados.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "avere-201",
-      "type": "match",
-      "categoryIds": [
-        "avere"
-      ],
-      "payload": {
-        "prompt": "Empareja la persona con la forma de avere correspondiente.",
-        "pairs": [
-          [
-            "voi",
-            "avete"
+            "abbiamo",
+            "fame"
           ],
-          [
-            "loro",
-            "hanno"
-          ],
-          [
-            "io",
+          "distractors": [
+            "sete",
             "ho"
-          ],
-          [
-            "lei",
-            "ha"
           ]
-        ],
-        "explanation": "El presente indicativo de avere distingue seis personas con formas específicas, y este ejercicio refuerza voi avete, loro hanno y la 3ª singular ha (compartida por lui, lei e Lei formal). 'Voi avete' equivale al español 'vosotros tenéis' y 'loro hanno' a 'ellos tienen'. Cuidado: 'avete' y 'abbiamo' pierden la h inicial; 'hanno' la recupera con doble n."
-      },
-      "notes": "Match con 'ha' en derecha — verifica que duplicados textuales serían posibles si existieran; aquí cada izq es distinta.",
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -614,34 +426,131 @@
       }
     },
     {
-      "id": "avere-202",
+      "id": "avere-match-persone-1",
       "type": "match",
       "categoryIds": [
         "avere"
       ],
-      "payload": {
-        "prompt": "Empareja cada sujeto con su forma de avere.",
-        "pairs": [
-          [
-            "lui",
-            "ha"
-          ],
-          [
-            "lei",
-            "ha"
-          ],
-          [
-            "noi",
-            "abbiamo"
-          ],
-          [
-            "voi",
-            "avete"
+      "explanation": "Cada pronombre personal italiano tiene una forma propia y única del presente indicativo de avere: io ho, tu hai, lui ha, noi abbiamo. La memorización persona por persona es el primer paso A1 antes de pasar al passato prossimo. Importante: las cuatro formas tienen raíces visualmente distintas (h-, h-, h-, abb-), así que conviene practicarlas en bloque y no derivar unas de otras.",
+      "variants": [
+        {
+          "prompt": "Empareja el sujeto con la forma de avere.",
+          "pairs": [
+            [
+              "io",
+              "ho"
+            ],
+            [
+              "tu",
+              "hai"
+            ],
+            [
+              "lui",
+              "ha"
+            ],
+            [
+              "noi",
+              "abbiamo"
+            ]
           ]
-        ],
-        "explanation": "La tercera persona singular del verbo avere es 'ha' tanto para 'lui' como para 'lei': el italiano no marca el género en la conjugación verbal, así que ambos pronombres comparten la misma forma. Las demás personas tienen formas propias: noi abbiamo, voi avete. Por eso 'ha' aparece dos veces y ambos emparejamientos son igual de correctos."
-      },
-      "notes": "Match con DUPLICADOS textuales en columna derecha (D-66): dos 'ha' válidos — el grading los consume por índice; el usuario puede emparejar 'lui'→primer 'ha' o 'lui'→segundo 'ha' indistintamente.",
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "avere-match-persone-2",
+      "type": "match",
+      "categoryIds": [
+        "avere"
+      ],
+      "explanation": "El presente indicativo de avere distingue seis personas con formas específicas, y este ejercicio refuerza voi avete, loro hanno y la 3ª singular ha (compartida por lui, lei e Lei formal). 'Voi avete' equivale al español 'vosotros tenéis' y 'loro hanno' a 'ellos tienen'. Cuidado: 'avete' y 'abbiamo' pierden la h inicial; 'hanno' la recupera con doble n.",
+      "variants": [
+        {
+          "prompt": "Empareja la persona con la forma de avere correspondiente.",
+          "pairs": [
+            [
+              "voi",
+              "avete"
+            ],
+            [
+              "loro",
+              "hanno"
+            ],
+            [
+              "io",
+              "ho"
+            ],
+            [
+              "lei",
+              "ha"
+            ]
+          ]
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-05-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "avere-match-persone-3",
+      "type": "match",
+      "categoryIds": [
+        "avere"
+      ],
+      "explanation": "La tercera persona singular del verbo avere es 'ha' tanto para 'lui' como para 'lei': el italiano no marca el género en la conjugación verbal, así que ambos pronombres comparten la misma forma. Las demás personas tienen formas propias: noi abbiamo, voi avete. Por eso 'ha' aparece dos veces y ambos emparejamientos son igual de correctos.",
+      "variants": [
+        {
+          "prompt": "Empareja cada sujeto con su forma de avere.",
+          "pairs": [
+            [
+              "lui",
+              "ha"
+            ],
+            [
+              "lei",
+              "ha"
+            ],
+            [
+              "noi",
+              "abbiamo"
+            ],
+            [
+              "voi",
+              "avete"
+            ]
+          ]
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -667,18 +576,19 @@
         "avere",
         "profesiones"
       ],
-      "payload": {
-        "prompt": "Lui ___ un fratello medico.",
-        "options": [
-          "ho",
-          "hai",
-          "ha",
-          "abbiamo"
-        ],
-        "correctIndex": 2,
-        "explanation": "La tercera persona singular del presente indicativo de avere es 'ha', usada con 'lui': 'Lui ha un fratello medico' equivale al español 'Él tiene un hermano médico'. El sujeto 'lui' (3ª persona singular) pide siempre 'ha', frente a 'ho' (io), 'hai' (tu) o 'abbiamo' (noi)."
-      },
-      "notes": "Cruce Avere + Profesiones (D-87 / SEED-02). Posesión 3ª singular + profesión masculina (medico). Fallarlo cascadeará D-54 sobre ambas categorías.",
+      "explanation": "La tercera persona singular del presente indicativo de avere es 'ha', usada con 'lui': 'Lui ha un fratello medico' equivale al español 'Él tiene un hermano médico'. El sujeto 'lui' (3ª persona singular) pide siempre 'ha', frente a 'ho' (io), 'hai' (tu) o 'abbiamo' (noi).",
+      "variants": [
+        {
+          "prompt": "Lui ___ un fratello medico.",
+          "options": [
+            "ho",
+            "hai",
+            "ha",
+            "abbiamo"
+          ],
+          "correctIndex": 2
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -704,18 +614,19 @@
         "avere",
         "profesiones"
       ],
-      "payload": {
-        "prompt": "Io ___ una sorella avvocata.",
-        "options": [
-          "ho",
-          "hai",
-          "ha",
-          "abbiamo"
-        ],
-        "correctIndex": 0,
-        "explanation": "La primera persona singular del verbo avere es 'ho', usada con 'io': 'Io ho una sorella avvocata' equivale al español 'Yo tengo una hermana abogada'. La forma femenina 'avvocata' se obtiene cambiando la -o final del masculino 'avvocato' por -a, siguiendo la familia productiva -o → -a común a muchas profesiones italianas (avvocato/avvocata, maestro/maestra, segretario/segretaria)."
-      },
-      "notes": "Cruce Avere + Profesiones (D-87 / SEED-02). Posesión 1ª singular + profesión femenina (avvocata, regla -o→-a del PDF Profesiones).",
+      "explanation": "La primera persona singular del verbo avere es 'ho', usada con 'io': 'Io ho una sorella avvocata' equivale al español 'Yo tengo una hermana abogada'. La forma femenina 'avvocata' se obtiene cambiando la -o final del masculino 'avvocato' por -a, siguiendo la familia productiva -o → -a común a muchas profesiones italianas (avvocato/avvocata, maestro/maestra, segretario/segretaria).",
+      "variants": [
+        {
+          "prompt": "Io ___ una sorella avvocata.",
+          "options": [
+            "ho",
+            "hai",
+            "ha",
+            "abbiamo"
+          ],
+          "correctIndex": 0
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -741,18 +652,19 @@
         "avere",
         "sustantivos-irregulares"
       ],
-      "payload": {
-        "prompt": "Lui ___ due braccia stanche.",
-        "options": [
-          "ho",
-          "hai",
-          "ha",
-          "abbiamo"
-        ],
-        "correctIndex": 2,
-        "explanation": "El verbo avere conjugado con 'lui' es 'ha' (3ª singular), y aquí acompaña a un plural irregular del cuerpo: 'braccia' (brazos) viene del singular masculino 'braccio' pero hace plural femenino, por eso el adjetivo concuerda como 'stanche'. 'Lui ha due braccia stanche' equivale al español 'Él tiene dos brazos cansados'. Cuidado: muchos sustantivos del cuerpo italiano cambian de género al pasar al plural."
-      },
-      "notes": "Cruce Avere + Sustantivos Irregulares (D-87 / SEED-02). Posesión 3ª singular + plural irregular `braccia` (singular masc `braccio` → plural fem `braccia`, concordancia `stanche`).",
+      "explanation": "El verbo avere conjugado con 'lui' es 'ha' (3ª singular), y aquí acompaña a un plural irregular del cuerpo: 'braccia' (brazos) viene del singular masculino 'braccio' pero hace plural femenino, por eso el adjetivo concuerda como 'stanche'. 'Lui ha due braccia stanche' equivale al español 'Él tiene dos brazos cansados'. Cuidado: muchos sustantivos del cuerpo italiano cambian de género al pasar al plural.",
+      "variants": [
+        {
+          "prompt": "Lui ___ due braccia stanche.",
+          "options": [
+            "ho",
+            "hai",
+            "ha",
+            "abbiamo"
+          ],
+          "correctIndex": 2
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -778,18 +690,19 @@
         "avere",
         "preposiciones"
       ],
-      "payload": {
-        "prompt": "Maria ___ una zia a Milano.",
-        "options": [
-          "ho",
-          "hai",
-          "ha",
-          "abbiamo"
-        ],
-        "correctIndex": 2,
-        "explanation": "El sujeto 'Maria' es 3ª persona singular y pide la forma 'ha' de avere. La frase combina la posesión (avere una zia, tener una tía) con la preposición 'a' que indica la ciudad donde está la tía: 'Maria ha una zia a Milano' equivale al español 'Maria tiene una tía en Milán'. Importante: con nombres de ciudad el italiano usa siempre 'a', mientras que con países y regiones usa 'in'."
-      },
-      "notes": "Cruce Avere + Preposiciones (D-87 / SEED-02). Posesión 3ª singular + `a` de ciudad (preposición simple, regla canónica PDF Preposizioni). Fallarlo cascadeará sobre Avere y Preposiciones.",
+      "explanation": "El sujeto 'Maria' es 3ª persona singular y pide la forma 'ha' de avere. La frase combina la posesión (avere una zia, tener una tía) con la preposición 'a' que indica la ciudad donde está la tía: 'Maria ha una zia a Milano' equivale al español 'Maria tiene una tía en Milán'. Importante: con nombres de ciudad el italiano usa siempre 'a', mientras que con países y regiones usa 'in'.",
+      "variants": [
+        {
+          "prompt": "Maria ___ una zia a Milano.",
+          "options": [
+            "ho",
+            "hai",
+            "ha",
+            "abbiamo"
+          ],
+          "correctIndex": 2
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -815,18 +728,19 @@
         "avere",
         "genero-numero"
       ],
-      "payload": {
-        "prompt": "Lui ___ due figli e una figlia.",
-        "options": [
-          "ho",
-          "hai",
-          "ha",
-          "abbiamo"
-        ],
-        "correctIndex": 2,
-        "explanation": "Con 'lui' el verbo avere es 'ha' (3ª persona singular), aunque el complemento sea plural: lo que se conjuga es el sujeto, no el objeto. La frase 'Lui ha due figli e una figlia' equivale al español 'Él tiene dos hijos y una hija', e ilustra la concordancia de género y número del italiano: 'figli' es plural masculino (-o → -i) y 'figlia' es singular femenino terminado en -a."
-      },
-      "notes": "Cruce Avere + Genero/Numero (D-87 / SEED-02). Posesión 3ª singular + plural masc (figli) + singular fem (figlia) en la misma frase — concordancia género/número del PDF Genero y Número.",
+      "explanation": "Con 'lui' el verbo avere es 'ha' (3ª persona singular), aunque el complemento sea plural: lo que se conjuga es el sujeto, no el objeto. La frase 'Lui ha due figli e una figlia' equivale al español 'Él tiene dos hijos y una hija', e ilustra la concordancia de género y número del italiano: 'figli' es plural masculino (-o → -i) y 'figlia' es singular femenino terminado en -a.",
+      "variants": [
+        {
+          "prompt": "Lui ___ due figli e una figlia.",
+          "options": [
+            "ho",
+            "hai",
+            "ha",
+            "abbiamo"
+          ],
+          "correctIndex": 2
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -852,18 +766,19 @@
         "avere",
         "verbos-movimiento"
       ],
-      "payload": {
-        "prompt": "Maria è andata al cinema e ___ visto un bel film.",
-        "options": [
-          "ho",
-          "hai",
-          "ha",
-          "abbiamo"
-        ],
-        "correctIndex": 2,
-        "explanation": "La frase contrasta los dos auxiliares del passato prossimo en italiano: 'è andata' usa essere (verbo de movimiento andare, con participio que concuerda en género con el sujeto femenino) y 'ha visto' usa avere (verbo transitivo vedere, con participio invariable). 'Maria è andata al cinema e ha visto un bel film' equivale al español 'Maria fue al cine y vio una buena película'. Regla pedagógica clave: movimiento = essere, transitivo = avere."
-      },
-      "notes": "Cruce Avere + Verbos de movimiento (D-87 / SEED-02). Contrasta los dos auxiliares del passato prossimo: `è andata` (essere para verbo de movimiento, regla PDF Verbos Movimiento) vs `ha visto` (avere para verbo transitivo `vedere`). Fallarlo cascadeará sobre Avere y Verbos de movimiento.",
+      "explanation": "La frase contrasta los dos auxiliares del passato prossimo en italiano: 'è andata' usa essere (verbo de movimiento andare, con participio que concuerda en género con el sujeto femenino) y 'ha visto' usa avere (verbo transitivo vedere, con participio invariable). 'Maria è andata al cinema e ha visto un bel film' equivale al español 'Maria fue al cine y vio una buena película'. Regla pedagógica clave: movimiento = essere, transitivo = avere.",
+      "variants": [
+        {
+          "prompt": "Maria è andata al cinema e ___ visto un bel film.",
+          "options": [
+            "ho",
+            "hai",
+            "ha",
+            "abbiamo"
+          ],
+          "correctIndex": 2
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
