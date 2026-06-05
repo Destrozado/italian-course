@@ -58,7 +58,7 @@
 - [x] Phase 13: Bloque Canciones + modelo de datos + playthrough end-to-end (2/2 plans) — completed 2026-06-02
 - [x] Phase 14: Contenido "Equilibrio mentale — Ultimo" autorado + validación ligera (1/1 plan) — completed 2026-06-02
 
-**Total:** 2 fases, 3 plans, 19/19 requirements (4 SONG + 5 PLAY + 4 LINK + 3 DATA + 3 CONT), 306/306 tests verdes. Bloque Canciones standalone sobre el engine v1.0 (cascada D-54, word-buttons inverso, schema-validator, patrón Test completo) — sin reconstruir el motor; schemaVersion 4→5; 1ª canción real "Equilibrio mentale — Ultimo" (17 frases) con validación ligera autor-oráculo. Detalles en `.planning/milestones/v1.3-ROADMAP.md`.
+**Total:** 2 fases, 3 plans, 19/19 requirements, 306/306 tests verdes. Bloque Canciones standalone sobre el engine v1.0 (cascada D-54, word-buttons inverso, schema-validator, patrón Test completo) — sin reconstruir el motor; schemaVersion 4→5; 1ª canción real "Equilibrio mentale — Ultimo" (17 frases) con validación ligera autor-oráculo. Detalles en `.planning/milestones/v1.3-ROADMAP.md`.
 
 </details>
 
@@ -107,7 +107,9 @@ Numeración CONTINÚA desde Phase 20 → Phases 21-27 (NO reset — mismo criter
   2. Las 3 categorías ya convertidas (`preposiciones`, `articoli`, `partitivos`) conservan su progreso byte-intacto tras migrar (verificable por test con fixture de las 9 categorías).
   3. `backup.js` exporta v9 reimportable round-trip; un backup v8 importado migra a v9 reseteando las 6 categorías; los backups `>9` se rechazan (forward-compat).
   4. La app arranca limpia sobre el state migrado y los tests siguen verdes (los 358 baseline + los nuevos de la cadena v9).
-**Plans**: TBD
+**Plans**: 1 plan
+Plans:
+- [ ] 21-01-PLAN.md — migrate8to9 + hydrateV9 + bump CURRENT_SCHEMA_VERSION (storage.js, MIG-03) + backup.js round-trip v9 + import v8→v9 con reset (MIG-04); 2 tasks TDD, clon literal de 18-01 con predicado de 6 prefijos
 **UI hint**: no
 
 ### Phase 22: Avere a slots (contenido)
@@ -187,7 +189,7 @@ Numeración CONTINÚA desde Phase 20 → Phases 21-27 (NO reset — mismo criter
 | 13-14 | v1.3 | 3/3 | Complete | 2026-06-02 |
 | 15-17 | v1.4 | 9/9 | Complete | 2026-06-03 |
 | 18-20 | v1.5 | 7/7 | Complete | 2026-06-05 |
-| 21. Migración 8→9 (reset 6 categorías) | v1.6 | 0/0 | Not started | - |
+| 21. Migración 8→9 (reset 6 categorías) | v1.6 | 0/1 | Planned | - |
 | 22. Avere a slots (contenido) | v1.6 | 0/0 | Not started | - |
 | 23. Essere a slots (contenido) | v1.6 | 0/0 | Not started | - |
 | 24. Verbi di movimento a slots (contenido) | v1.6 | 0/0 | Not started | - |
