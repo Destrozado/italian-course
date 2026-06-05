@@ -158,6 +158,16 @@
             "ha"
           ],
           "correctIndex": 0
+        },
+        {
+          "prompt": "Noi ___ una bella casa in centro.",
+          "options": [
+            "abbiamo",
+            "avete",
+            "hanno",
+            "ho"
+          ],
+          "correctIndex": 0
         }
       ],
       "validation": {
