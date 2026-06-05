@@ -252,6 +252,16 @@
             "ha"
           ],
           "correctIndex": 2
+        },
+        {
+          "prompt": "Loro ___ due bambini piccoli.",
+          "options": [
+            "abbiamo",
+            "avete",
+            "hanno",
+            "ha"
+          ],
+          "correctIndex": 2
         }
       ],
       "validation": {
