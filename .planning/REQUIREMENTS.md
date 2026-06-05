@@ -16,7 +16,7 @@
 
 ### Partitivi a slots (PART)
 
-- [ ] **PART-01**: Los 44 ejercicios de Partitivi se reagrupan en slots por regla — del-formas por disparador fonético + eje contable/incontable + alternativas (qualche/alcuni/un po' di) + omisión en negativa + distinción partitivo-vs-preposizione articolata.
+- [x] **PART-01**: Los 44 ejercicios de Partitivi se reagrupan en slots por regla — del-formas por disparador fonético + eje contable/incontable + alternativas (qualche/alcuni/un po' di) + omisión en negativa + distinción partitivo-vs-preposizione articolata.
 - [ ] **PART-02**: Se autoran variantes nuevas (D-85 + quórum cross-vendor R1-R7) en los slots de Partitivi cuya regla admite reformulación; cada variante nueva pasa el quórum antes de entrar. Los huecos detectados durante la autoría se añaden como slots nuevos.
 - [ ] **PART-03**: La estructura final de Partitivi pasa el validator y el smoke paramétrico (counts re-sincronizados), con la cobertura de explanations a nivel de slot preservada.
 
@@ -60,7 +60,7 @@ Qué fases cubren qué requirements.
 | ART-02 | Phase 19 | Complete |
 | ART-03 | Phase 19 | Complete |
 | ART-04 | Phase 19 | Complete |
-| PART-01 | Phase 20 | Pending |
+| PART-01 | Phase 20 | Complete |
 | PART-02 | Phase 20 | Pending |
 | PART-03 | Phase 20 | Pending |
 
