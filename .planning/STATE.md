@@ -2,16 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.5
 milestone_name: "Conversión a slots: Bloque Artículos"
-status: milestone_complete
-last_updated: 2026-06-05T08:03:39.640Z
-last_activity: 2026-06-05 -- Phase 20 plan 03 ejecutado (sync de los 3 hardcodes de count Partitivi 44->19, TOTAL_EXPECTED 348->323; PART-03 cerrado, v1.5 9/9 requisitos)
+status: Awaiting next milestone
+last_updated: "2026-06-05T08:41:23.036Z"
+last_activity: 2026-06-05 — Milestone v1.5 completed and archived
 progress:
   total_phases: 3
   completed_phases: 3
   total_plans: 7
   completed_plans: 7
   percent: 100
-stopped_at: Milestone complete (Phase 20 was final phase)
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -26,10 +25,10 @@ See: `.planning/PROJECT.md` (updated 2026-06-04 — Milestone v1.5 iniciado)
 
 ## Current Position
 
-Phase: 20
-Plan: Not started
-Status: Milestone complete
-Last activity: 2026-06-05
+Phase: Milestone v1.5 complete
+Plan: —
+Status: Awaiting next milestone
+Last activity: 2026-06-05 — Milestone v1.5 completed and archived
 
 ## Quick Tasks Completed
 
@@ -122,6 +121,8 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 | Contenido | TENSE-X1..X4 (Pretérito imperfetto / Futuro semplice / Condizionale / Congiuntivo) | Backlog | v1.2 init |
 | Bridges | PART-X1 — bridges Partitivos ↔ género-número / sustantivos | Backlog | v1.2 init |
 | UX | Modo móvil responsive; refactor confirmLabel unificado 6 call-sites; Examen multi-cat | Backlog | v1.0/v1.1 |
+| Quick task (falso-positivo) | `260525-pwq` shuffle de options en multiple-choice — YA shipped en v1.0; marcado "missing" por frontmatter sin status reconocible | Acknowledged (no es trabajo pendiente) | v1.3/v1.4/v1.5 |
+| Quick task (falso-positivo) | `260525-vvj` botón reiniciar examen (Phase 8) — YA shipped en v1.0; marcado "missing" por frontmatter sin status reconocible | Acknowledged (no es trabajo pendiente) | v1.3/v1.4/v1.5 |
 
 ## Session Continuity
 
@@ -154,4 +155,4 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Operator Next Steps
 
-- Plan the first phase with `/gsd:plan-phase 18`
+- Start the next milestone with /gsd-new-milestone

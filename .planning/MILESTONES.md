@@ -1,5 +1,24 @@
 # Milestones
 
+## v1.5 — Conversión a slots: Bloque Artículos (Shipped: 2026-06-05)
+
+**Phases completed:** 3 phases (18-20), 7 plans, 9/9 requirements (4 ART + 3 PART + 2 MIG)
+**Stats:** 91 files changed, +8,245/−2,384 LOC, 358/358 tests verdes (367/367 con `VAL_07_STRICT=1`). Git range `2fde105`→`1e2e30c` (69 commits). Timeline: 3 días (2026-06-03 → 2026-06-05).
+**Brownfield:** reutiliza toda la maquinaria v1.4 (motor slot-aware, sampler, cascada D-54, schema-validator, smoke bifurcado por shape) — NO se toca el engine; `schemaVersion 7→8`.
+
+**Key accomplishments:**
+
+- **Migración `7→8` reset selectivo (MIG-01/02, Phase 18):** `migrate7to8`/`hydrateV8` + `CURRENT_SCHEMA_VERSION=8` (espejo en storage.js + backup.js) clonando el patrón `migrate6to7`/`hydrateV7`, reseteando el progreso SOLO de Articoli + Partitivos (las otras 7 categorías byte-intactas, verificado por fixture de 9 categorías). Backup round-trip v8 + import v7→v8 con reset + rechazo `>8`. 1 plan TDD.
+- **Articoli → slots (ART-01..04, Phase 19):** `articoli.json` reescrito de 56 ejercicios legacy `payload` a **34 slots** `slot+variantes` (16 determinativi lo/gli split por sub-disparador fonético + 8 indeterminativi como slots propios + 2 match + 6 cruces con id estable, explanation top-level mergeada D-17-05).
+- **Partitivi → slots (PART-01..03, Phase 20):** `partitivos.json` reescrito de 44 ejercicios legacy a **19 slots** (10 del-formas split por sub-disparador + 3 alternativas qualche/un po' di/alcuni-e + 1 contraste de negativa con `∅` como skill propio + 1 clasificación partitivo-vs-preposizione MC de 3 opciones + 2 match; pares contable/incontable absorbidos por `correctIndex` real).
+- **Variantes nuevas por quórum cross-vendor (Phases 19+20):** 14 superficies nuevas (8 Articoli + 6 Partitivi) pasaron el quórum completo R1-R7 (Gemini + DeepSeek + Opus 4.7 + Sonnet 4.6, 4× correcta cero incorrecta, 1-por-1 NUNCA batched) — engorde de celdas pobres + slots nuevos de huecos de suoni speciali (semiconsonánticos `lo/gli-yi`, `degli-gn/ps`). El cross-vendor volvió a cazar disputed (falso-positivo de acento de DeepSeek en 'piden') resueltos sin override-atajo.
+- **Counts re-sincronizados (ART-04 + PART-03):** los 3 hardcodes de count + `TOTAL_EXPECTED` sincronizados al conteo REAL leído del JSON (Articoli 370→348, Partitivi 348→323); smoke shape-agnostic y reporter verdes sin tocar validator/loader/motor. Verificación de fase 9/9 must-haves.
+- **CONV-01 bloque Artículos cerrado:** 3 de 9 categorías ya en formato unificado slot+variantes (preposiciones piloto + articoli + partitivos); demuestra que el patrón pilot→escala funciona reutilizando la maquinaria sin reconstruir nada. Quedan las 6 categorías verbos+morfología para milestones futuros.
+
+**Known deferred items at close:** 2 (acknowledged — see STATE.md §Deferred Items). Son los mismos 2 quick tasks heredados de v1.0 (`260525-pwq` shuffle multi-choice, `260525-vvj` botón reiniciar examen — ambos shipped, marcados "missing" por frontmatter sin status reconocible), ya acknowledged en los cierres de v1.3 y v1.4. Sin relación con el scope de contenido de v1.5.
+
+---
+
 ## v1.4 — Variantes de ejercicio (slots por regla) (Shipped: 2026-06-03)
 
 **Phases completed:** 3 phases (15-17), 9 plans, 17/17 requirements (6 SLOT + 6 EXAM + 5 PILOT)

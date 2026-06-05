@@ -77,6 +77,45 @@
 
 ---
 
+## Milestone: v1.5 — Conversión a slots: Bloque Artículos (CONV-01)
+
+**Shipped:** 2026-06-05
+**Phases:** 3 (18-20) | **Plans:** 7 | **Sessions:** ~3 días (2026-06-03 → 2026-06-05)
+
+### What Was Built
+- Migración `7→8` con reset selectivo de DOS categorías a la vez (articoli + partitivos): `migrate7to8`/`hydrateV8` clon literal de `migrate6to7` con predicado de dos prefijos; backup round-trip v8 + import v7→v8.
+- Articoli 56 ejercicios legacy → 34 slots (16 determinativi lo/gli split por sub-disparador fonético + 8 indeterminativi como slots propios + 2 match + 6 cruces); 8 variantes nuevas por quórum + 2 slots de huecos semiconsonánticos (`lo/gli-yi`).
+- Partitivi 44 ejercicios legacy → 19 slots (del-formas split por sub-disparador + alternativas + negativa con `∅` como skill propio + clasificación partitivo-vs-prep MC de 3 + match); 6 variantes nuevas por quórum + 2 slots de huecos (`degli-gn/ps`).
+- Counts derivados re-sincronizados al conteo REAL del JSON en ambas categorías (370→348→323); smoke shape-agnostic verde sin tocar validator/loader/motor.
+
+### What Worked
+- **El piloto v1.4 escaló sin sorpresas:** convertir Articoli + Partitivi fue replicar EXACTAMENTE el patrón de Preposiciones (Phase 17) sobre maquinaria ya verificada — migración con reset → reagrupar por regla → quórum → sync de counts. Cero rework de motor en todo el milestone.
+- **Counts leídos del JSON, no estimados:** la lección clave de v1.4 (fact drift 57→52→49) se aplicó: 19-03 y 20-03 leyeron `data.exercises.length` real (34, 19) en vez de la estimación del plan — sin re-sincronización manual ni recálculo aritmético frágil.
+- **Cross-vendor cazó disputed otra vez:** el quórum (Gemini + DeepSeek + Opus + Sonnet) sobre las 14 variantes nuevas volvió a atrapar falsos-positivos (alucinación de acento de DeepSeek en 'piden'/'lo iodio'), resueltos sin override-atajo. Cuarto milestone consecutivo donde la verificación multi-capa paga.
+- **Split por sub-disparador como decisión de checkpoint:** dejar al autor aprobar la granularidad (dello→z/s-impura, degli→s-impura/vocal/z) antes de reescribir el JSON evitó re-trabajo — el checkpoint:decision cayó en el momento correcto (tras el mapa, antes de la reescritura).
+
+### What Was Inefficient
+- **Celdas pobres → engorde en 2 pasos:** el split por sub-disparador dejó 4-5 slots con 1 variante que hubo que engordar en una fase aparte (19-02/20-02). El split y el engorde podrían haberse planificado como un solo paso si el mapa hubiera anticipado los huecos.
+- **Huecos singulares descartados tarde:** los huecos `dello+gn/ps/x` se propusieron y luego se descartaron en el checkpoint (exigen incontable sobre sustantivos contables) — un filtro R6 antes de proponer habría ahorrado el ida y vuelta.
+- **v1.5 no se archivó al terminar la última fase:** execute-phase marcó la fase y el milestone completos pero `complete-milestone` quedó pendiente; al intentar abrir v1.6 directamente, su cleanup habría borrado las fases sin archivar (detectado y corregido reordenando: cerrar v1.5 primero).
+
+### Patterns Established
+- **Conversión de categoría = 3 plans:** reagrupar a slots (checkpoint:decision sobre granularidad) → autorar variantes nuevas + huecos por quórum (checkpoint:human-verify) → sincronizar counts derivados. Plantilla repetible para las 6 categorías restantes.
+- **Migración multi-categoría:** un solo `migrateNtoM` puede resetear varias categorías con un predicado de N prefijos — no hace falta una migración por categoría.
+- **Cerrar milestone antes de abrir el siguiente:** `complete-milestone` es prerrequisito de `new-milestone`, no alternativa — el cleanup de new-milestone asume las fases previas ya archivadas.
+
+### Key Lessons
+1. El patrón pilot→escala (validar con 1 categoría, luego convertir en serie) sigue pagando: 3/9 categorías convertidas sin tocar el motor, cada una reutilizando la maquinaria verificada.
+2. Aplicar la lección de fact-drift de v1.4 (leer counts del JSON) eliminó por completo la re-sincronización manual frágil de este milestone.
+3. Filtrar la viabilidad lingüística (R6: incontable vs contable) ANTES de proponer variantes evita ciclos de propuesta→descarte en el checkpoint del autor.
+
+### Cost Observations
+- Model mix: predominantemente opus (executor/orchestrator) + sonnet (verifier); quórum de validación cross-vendor (Gemini + DeepSeek + Opus + Sonnet, 1-por-1 aislado).
+- Sessions: ~3 días (2026-06-03 → 2026-06-05), 69 commits.
+- Notable: +8,245/−2,384 LOC casi todo contenido (JSON) + tests; 0 cambios de lógica de motor — el milestone más "puro contenido" desde v1.2.
+
+---
+
 ## Cross-Milestone Trends
 
 ### Process Evolution
