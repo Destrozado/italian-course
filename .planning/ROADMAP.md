@@ -78,7 +78,7 @@ Numeración CONTINÚA desde Phase 17 → Phases 18-20 (NO reset — mismo criter
 
 - [x] **Phase 18: Migración `7→8` (reset selectivo articoli + partitivos)** — `migrate7to8`/`hydrateV8` idempotente + deep-clone defensivo; resetea el progreso SOLO de `articoli` + `partitivos` (categoryProgress + exerciseStats por prefijo + inFlightTest, racha 0); las otras 7 categorías byte-intactas; `backup.js` round-trip v8 + import v7→v8. Va PRIMERA: bloquea la renumeración de ids de las dos fases de contenido (no se puede renumerar con progreso vivo). (completed 2026-06-03)
 - [x] **Phase 19: Articoli a slots (contenido)** — Reagrupar los 56 ejercicios en slots por regla (determinativi por disparador fonético + indeterminativi como slots propios, ART-03), autorar variantes nuevas por quórum cross-vendor R1-R7, slots nuevos para huecos detectados, validator + smoke paramétrico verdes con counts re-sincronizados. (completed 2026-06-04)
-- [ ] **Phase 20: Partitivi a slots (contenido)** — Reagrupar los 44 ejercicios en slots por regla (del-formas + contable/incontable + alternativas + omisión en negativa + partitivo-vs-preposizione), autorar variantes nuevas por quórum cross-vendor R1-R7, validator + smoke paramétrico verdes con counts re-sincronizados.
+- [x] **Phase 20: Partitivi a slots (contenido)** — Reagrupar los 44 ejercicios en slots por regla (del-formas + contable/incontable + alternativas + omisión en negativa + partitivo-vs-preposizione), autorar variantes nuevas por quórum cross-vendor R1-R7, validator + smoke paramétrico verdes con counts re-sincronizados. (completed 2026-06-05)
 
 ## Phase Details
 
@@ -121,7 +121,7 @@ Numeración CONTINÚA desde Phase 17 → Phases 18-20 (NO reset — mismo criter
 **Plans**: 3 plans
 - [x] 20-01-PLAN.md — reagrupar los 44 ejercicios en slots por forma/sub-disparador (del-formas split dello z/s-impura + degli s-impura/vocal/z, delle invariable agrupada), 3 slots de alternativas (alcuni/e juntos), slot de contraste de negativa con "∅", slot de clasificación de 3 opciones, pares D-01 absorbidos, 038/039 match slots-de-1; ids semánticos libres (0 cruces); explanation a nivel de slot (PART-01) — 44→17 slots (completed 2026-06-05)
 - [x] 20-02-PLAN.md — autorar variantes nuevas (engordar celdas pobres de del-formas) + slots de huecos de suoni speciali (dello/degli + gn/ps/x donde haya sustantivo A1 natural), cada superficie por quórum cross-vendor R1-R7 + validation top-level (PART-02) — 6 superficies 4× correcta, 17→19 slots (completed 2026-06-05)
-- [ ] 20-03-PLAN.md — re-sincronizar los 3 hardcodes de count + TOTAL_EXPECTED al nº real de slots; validator + smoke paramétrico verdes (PART-03)
+- [x] 20-03-PLAN.md — re-sincronizar los 3 hardcodes de count + TOTAL_EXPECTED al nº real de slots; validator + smoke paramétrico verdes (PART-03)
 **UI hint**: no
 
 ## Progress
@@ -135,7 +135,7 @@ Numeración CONTINÚA desde Phase 17 → Phases 18-20 (NO reset — mismo criter
 | 15-17 | v1.4 | 9/9 | Complete | 2026-06-03 |
 | 18. Migración 7→8 (reset articoli+partitivos) | v1.5 | 1/1 | Complete    | 2026-06-03 |
 | 19. Articoli a slots (contenido) | v1.5 | 3/3 | Complete   | 2026-06-04 |
-| 20. Partitivi a slots (contenido) | v1.5 | 2/3 | In Progress | - |
+| 20. Partitivi a slots (contenido) | v1.5 | 3/3 | Complete   | 2026-06-05 |
 
 ## Backlog
 
