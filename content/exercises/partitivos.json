@@ -625,6 +625,55 @@
       }
     },
     {
+      "id": "partitivos-degli-ps",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "partitivos"
+      ],
+      "explanation": "Ante un contable masculino en plural que empieza por ps-, el partitivo es degli. El grupo ps- es uno de los suoni speciali que en plural masculino exigen gli, y di + gli da degli: degli psicologi, unos psicólogos. En plural, degli absorbe lo que en singular era dello (lo psicologo da degli psicologi). El hispanohablante tiende a decir dei psicologi calcando el español los psicólogos, pero el grupo ps- exige gli.",
+      "variants": [
+        {
+          "prompt": "Nella clinica lavorano ___ psicologi esperti.",
+          "options": [
+            "degli",
+            "dei",
+            "delle",
+            "dello"
+          ],
+          "correctIndex": 0
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-05",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-05",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-06-05",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-06-05",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
       "id": "partitivos-delle-invariable",
       "type": "multiple-choice",
       "categoryIds": [
