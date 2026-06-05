@@ -886,6 +886,55 @@
           }
         ]
       }
+    },
+    {
+      "id": "avere-ragione",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "avere"
+      ],
+      "explanation": "Para decir que alguien tiene razón, el italiano usa el verbo avere, no essere: 'avere ragione' equivale al español 'tener razón'. La frase 'Tu hai ragione' se traduce como 'Tú tienes razón'. Cuidado: el hispanohablante a veces duda y prueba con essere ('sei ragione'), pero esa construcción no existe en italiano; igual que las sensaciones físicas, este estado se tiene con avere. La forma 'hai' es la segunda persona singular del presente de avere.",
+      "variants": [
+        {
+          "prompt": "Lo ammetto: alla fine tu ___ ragione!",
+          "options": [
+            "sei",
+            "hai",
+            "è",
+            "sono"
+          ],
+          "correctIndex": 1
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-05",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-05",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-06-05",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-06-05",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     }
   ]
 }
