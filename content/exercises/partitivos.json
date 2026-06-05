@@ -151,6 +151,16 @@
             "dell'"
           ],
           "correctIndex": 0
+        },
+        {
+          "prompt": "Sento ___ stress per gli esami.",
+          "options": [
+            "dello",
+            "del",
+            "della",
+            "dell'"
+          ],
+          "correctIndex": 0
         }
       ],
       "validation": {
@@ -165,6 +175,24 @@
           {
             "by": "claude-opus-4-7",
             "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-05",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-05",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-06-05",
             "verdict": "correcta",
             "concerns": []
           }
