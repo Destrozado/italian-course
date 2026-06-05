@@ -309,6 +309,16 @@
             "siamo"
           ],
           "correctIndex": 1
+        },
+        {
+          "prompt": "Dammi un bicchiere d'acqua: ___ sete.",
+          "options": [
+            "ho",
+            "sono",
+            "sei",
+            "è"
+          ],
+          "correctIndex": 0
         }
       ],
       "validation": {
