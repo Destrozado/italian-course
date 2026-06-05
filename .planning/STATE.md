@@ -2,8 +2,8 @@
 gsd_state_version: 1.0
 milestone: v1.6
 milestone_name: "Conversión a slots: categorías restantes"
-status: verifying
-last_updated: "2026-06-05T15:48:00.000Z"
+status: ready_to_plan
+last_updated: 2026-06-05T15:46:04.494Z
 last_activity: 2026-06-05 -- Phase 21 completada (migrate8to9 + hydrateV9 + backup v9, 374/374 tests)
 progress:
   total_phases: 7
@@ -11,6 +11,7 @@ progress:
   total_plans: 1
   completed_plans: 1
   percent: 14
+stopped_at: Phase 21 complete (1/1) — ready to discuss Phase 22
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -21,14 +22,14 @@ See: `.planning/PROJECT.md` (updated 2026-06-05 — Milestone v1.6 abierto)
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 21 — migraci-n-8-9-reset-selectivo-de-las-6-categor-as
+**Current Focus:** Phase 22 — avere a slots (contenido)
 
 ## Current Position
 
-Phase: 21 (migraci-n-8-9-reset-selectivo-de-las-6-categor-as) — COMPLETE
-Plan: 1 of 1 (completado)
-Status: Phase complete — ready for verification
-Last activity: 2026-06-05 -- Phase 21 completada (migrate8to9 + hydrateV9 + backup v9, 374/374 tests)
+Phase: 22
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-06-05
 
 ## Quick Tasks Completed
 
