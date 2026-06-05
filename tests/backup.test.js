@@ -246,7 +246,7 @@ describe('data/backup v7 — round-trip + import v6→v7 (Phase 17)', () => {
     assert.equal(r.state.schemaVersion, 9);
   });
 
-  test('round-trip v7 ahora resetea avere/essere (migrate8to9); partitivos preservada', () => {
+  test('round-trip v7 ahora resetea avere/essere (migrate8to9) y partitivos (migrate7to8)', () => {
     const state = stateV7();
     const wrapper = buildBackupWrapper(state, '2026-06-03T12:00:00.000Z');
     const r = parseBackupFile(JSON.stringify(wrapper));
@@ -259,10 +259,12 @@ describe('data/backup v7 — round-trip + import v6→v7 (Phase 17)', () => {
       'essere se resetea en el import al pasar por migrate8to9');
     assert.equal(r.state.exerciseStats['avere-001'], undefined);
     assert.equal(r.state.exerciseStats['essere-001'], undefined);
-    // partitivos-001 venía en el state v7; ahora es categoría PRESERVADA en v9
-    // (ya convertida a slots en Phase 20) → se mantiene byte-intacta.
-    assert.deepEqual(r.state.exerciseStats['partitivos-001'], state.exerciseStats['partitivos-001'],
-      'partitivos se preserva en el import (categoría ya convertida)');
+    // partitivos-001 venía en el state v7; aunque en v9 es categoría preservada,
+    // un backup v7 cruza la cadena por migrate7to8 (que poda partitivos como
+    // reseteada de v8). El reset histórico de la cadena prevalece: partitivos
+    // se poda en un import v7 (un import v8+ sí la preservaría).
+    assert.equal(r.state.exerciseStats['partitivos-001'], undefined,
+      'partitivos se poda en el import v7 (migrate7to8 corre en la cadena)');
   });
 
   test('import de backup v6 → state v9 con Preposiciones y avere reseteadas', () => {
@@ -732,7 +734,7 @@ describe('data/backup HI-01 — commitImport re-corre applyNewExerciseRegression
           a2: { timesShown: 3, timesCorrect: 3, timesFailed: 0 }
         },
         categoryProgress: {
-          avere: {
+          'test-cat': {
             status: 'hecha',
             clearedExerciseIds: ['a1', 'a2'],
             streakDays: 5,
@@ -748,12 +750,17 @@ describe('data/backup HI-01 — commitImport re-corre applyNewExerciseRegression
       }
     };
     // Content actual con un ejercicio nuevo `a3` que el backup no tenía.
+    // Post-Phase 21: usamos una categoría ficticia `test-cat` que NO colisiona
+    // con ningún prefijo de reset de la cadena (migrate6to7 poda preposiciones,
+    // migrate7to8 poda articoli+partitivos, migrate8to9 poda las 6) para que la
+    // migración v3→v9 no resetee el categoryProgress y el test siga ejerciendo
+    // solo la lógica de applyNewExerciseRegression.
     const content = {
-      categories: [{ id: 'avere', name: 'avere', order: 1 }],
+      categories: [{ id: 'test-cat', name: 'test-cat', order: 1 }],
       exerciseById: {
-        a1: { id: 'a1', categoryIds: ['avere'], type: 'multiple-choice', payload: {} },
-        a2: { id: 'a2', categoryIds: ['avere'], type: 'multiple-choice', payload: {} },
-        a3: { id: 'a3', categoryIds: ['avere'], type: 'multiple-choice', payload: {} }
+        a1: { id: 'a1', categoryIds: ['test-cat'], type: 'multiple-choice', payload: {} },
+        a2: { id: 'a2', categoryIds: ['test-cat'], type: 'multiple-choice', payload: {} },
+        a3: { id: 'a3', categoryIds: ['test-cat'], type: 'multiple-choice', payload: {} }
       }
     };
 
@@ -761,9 +768,9 @@ describe('data/backup HI-01 — commitImport re-corre applyNewExerciseRegression
     assert.equal(parsed.ok, true);
     // Simula commitImport: parseBackupFile → applyNewExerciseRegression.
     const finalState = applyNewExerciseRegression(parsed.state, content);
-    const cat = finalState.categoryProgress.avere;
+    const cat = finalState.categoryProgress['test-cat'];
 
-    assert.equal(cat.status, 'no-hecha', 'avere debe demote tras detectar a3 nuevo en content');
+    assert.equal(cat.status, 'no-hecha', 'test-cat debe demote tras detectar a3 nuevo en content');
     assert.equal(cat.streakDays, 0);
     assert.equal(cat.becameHechaAt, undefined);
     assert.equal(cat.becameDominadaAt, undefined);
@@ -785,7 +792,7 @@ describe('data/backup HI-01 — commitImport re-corre applyNewExerciseRegression
         schemaVersion: 3,
         exerciseStats: {},
         categoryProgress: {
-          avere: {
+          'test-cat': {
             status: 'hecha',
             clearedExerciseIds: ['a1', 'a2'],
             streakDays: 7,
@@ -800,18 +807,21 @@ describe('data/backup HI-01 — commitImport re-corre applyNewExerciseRegression
         firstUsedAt: '2026-05-01T09:00:00.000Z'
       }
     };
+    // Post-Phase 21: categoría ficticia `test-cat` que NO colisiona con ningún
+    // prefijo de reset de la cadena (la migración v3→v9 no la resetea); el test
+    // ejerce solo la idempotencia de la regresión.
     const content = {
-      categories: [{ id: 'avere', name: 'avere', order: 1 }],
+      categories: [{ id: 'test-cat', name: 'test-cat', order: 1 }],
       exerciseById: {
-        a1: { id: 'a1', categoryIds: ['avere'], type: 'multiple-choice', payload: {} },
-        a2: { id: 'a2', categoryIds: ['avere'], type: 'multiple-choice', payload: {} }
+        a1: { id: 'a1', categoryIds: ['test-cat'], type: 'multiple-choice', payload: {} },
+        a2: { id: 'a2', categoryIds: ['test-cat'], type: 'multiple-choice', payload: {} }
       }
     };
 
     const parsed = parseBackupFile(JSON.stringify(wrapper));
     assert.equal(parsed.ok, true);
     const finalState = applyNewExerciseRegression(parsed.state, content);
-    const cat = finalState.categoryProgress.avere;
+    const cat = finalState.categoryProgress['test-cat'];
 
     assert.equal(cat.status, 'hecha');
     assert.equal(cat.streakDays, 7);
@@ -884,7 +894,7 @@ describe('data/backup ME-04 — commitImport reapa huérfanos en exerciseStats/c
         schemaVersion: 3,
         exerciseStats: {},
         categoryProgress: {
-          'avere': { status: 'hecha', clearedExerciseIds: ['a1'], streakDays: 3, lastSuccessDate: '2026-01-14' },
+          'test-cat': { status: 'hecha', clearedExerciseIds: ['a1'], streakDays: 3, lastSuccessDate: '2026-01-14' },
           'old-category': { status: 'dominada', clearedExerciseIds: ['x1'], streakDays: 30 }  // huérfana
         },
         dailyLog: {},
@@ -892,10 +902,13 @@ describe('data/backup ME-04 — commitImport reapa huérfanos en exerciseStats/c
         firstUsedAt: null
       }
     };
+    // Post-Phase 21: categoría ficticia `test-cat` que NO colisiona con ningún
+    // prefijo de reset de la cadena (no reseteada por la migración); el test
+    // ejerce solo el reap de huérfanos.
     const content = {
-      categories: [{ id: 'avere', name: 'avere', order: 1 }],
+      categories: [{ id: 'test-cat', name: 'test-cat', order: 1 }],
       exerciseById: {
-        a1: { id: 'a1', categoryIds: ['avere'], type: 'multiple-choice', payload: {} }
+        a1: { id: 'a1', categoryIds: ['test-cat'], type: 'multiple-choice', payload: {} }
       }
     };
 
@@ -907,11 +920,11 @@ describe('data/backup ME-04 — commitImport reapa huérfanos en exerciseStats/c
     for (const [cid, prog] of Object.entries(parsed.state.categoryProgress)) {
       if (validCategoryIds.has(cid)) reaped[cid] = prog;
     }
-    assert.deepEqual(Object.keys(reaped), ['avere']);
+    assert.deepEqual(Object.keys(reaped), ['test-cat']);
     assert.equal(reaped['old-category'], undefined);
     // La cat válida se preserva íntegra.
-    assert.equal(reaped.avere.status, 'hecha');
-    assert.equal(reaped.avere.streakDays, 3);
+    assert.equal(reaped['test-cat'].status, 'hecha');
+    assert.equal(reaped['test-cat'].streakDays, 3);
   });
 
   test('idempotencia: sin huérfanos, el reap es no-op (todas las keys se preservan)', () => {
@@ -926,18 +939,20 @@ describe('data/backup ME-04 — commitImport reapa huérfanos en exerciseStats/c
           a2: { timesShown: 1, timesCorrect: 0, timesFailed: 1 }
         },
         categoryProgress: {
-          avere: { status: 'no-hecha', clearedExerciseIds: ['a1'], streakDays: 0 }
+          'test-cat': { status: 'no-hecha', clearedExerciseIds: ['a1'], streakDays: 0 }
         },
         dailyLog: {},
         lastBackupAt: null,
         firstUsedAt: null
       }
     };
+    // Post-Phase 21: categoría ficticia `test-cat` que NO colisiona con ningún
+    // prefijo de reset de la cadena (no reseteada por la migración).
     const content = {
-      categories: [{ id: 'avere', name: 'avere', order: 1 }],
+      categories: [{ id: 'test-cat', name: 'test-cat', order: 1 }],
       exerciseById: {
-        a1: { id: 'a1', categoryIds: ['avere'], type: 'multiple-choice', payload: {} },
-        a2: { id: 'a2', categoryIds: ['avere'], type: 'multiple-choice', payload: {} }
+        a1: { id: 'a1', categoryIds: ['test-cat'], type: 'multiple-choice', payload: {} },
+        a2: { id: 'a2', categoryIds: ['test-cat'], type: 'multiple-choice', payload: {} }
       }
     };
     const parsed = parseBackupFile(JSON.stringify(wrapper));
@@ -952,7 +967,7 @@ describe('data/backup ME-04 — commitImport reapa huérfanos en exerciseStats/c
       if (validCategoryIds.has(cid)) reapedProg[cid] = p;
     }
     assert.deepEqual(Object.keys(reapedStats).sort(), ['a1', 'a2']);
-    assert.deepEqual(Object.keys(reapedProg), ['avere']);
+    assert.deepEqual(Object.keys(reapedProg), ['test-cat']);
   });
 });
 
