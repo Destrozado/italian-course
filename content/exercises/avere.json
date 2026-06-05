@@ -205,6 +205,16 @@
             "hai"
           ],
           "correctIndex": 1
+        },
+        {
+          "prompt": "Voi ___ una macchina grande?",
+          "options": [
+            "abbiamo",
+            "avete",
+            "hanno",
+            "hai"
+          ],
+          "correctIndex": 1
         }
       ],
       "validation": {
