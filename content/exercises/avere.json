@@ -426,6 +426,16 @@
             "avete"
           ],
           "correctIndex": 1
+        },
+        {
+          "prompt": "Noi ___ letto tutto il giornale stamattina.",
+          "options": [
+            "siamo",
+            "avete",
+            "abbiamo",
+            "hanno"
+          ],
+          "correctIndex": 2
         }
       ],
       "validation": {
