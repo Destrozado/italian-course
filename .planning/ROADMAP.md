@@ -120,7 +120,11 @@ Plans:
   1. Los 23 ejercicios de Avere quedan reagrupados en slots por regla con explicación a nivel de slot; los que entrenan la misma regla reformulada son variantes del mismo slot. Los cruces multi-cat (avere-300..305) preservan id estable y sus `categoryIds[]`, y la cascada D-54 sigue funcionando (2 call-sites intactos, verificable por grep).
   2. Donde la regla admite reformulación se autoran variantes nuevas (patrón D-85: Claude propone → autor revisa → quórum cross-vendor R1-R7, 4× correcta 0 incorrecta, 1-por-1 NUNCA batched); los huecos de regla detectados se añaden como slots nuevos. El blindaje APPEND-ONLY D-88 de avere se respeta (relax mínimo D-178 si aplica).
   3. La estructura final de Avere pasa el validator y el smoke paramétrico, con los hardcodes de count re-sincronizados al nº real de slots leído del JSON y la cobertura de explanations a nivel de slot preservada.
-**Plans**: TBD
+**Plans**: 3 plans
+Plans:
+- [ ] 22-01-PLAN.md — reagrupar los 23 ejercicios a slots por regla (presente por persona + sensaciones + passato prossimo + word-buttons/match + cruces 300..305) con explanation a nivel de slot; checkpoint:decision del mapa + re-base del blindaje APPEND-ONLY D-88 (D-178)
+- [ ] 22-02-PLAN.md — autorar variantes nuevas por quórum cross-vendor R1-R7 (engorde de celdas pobres de presente + idiomatismos avere sete/freddo/sonno/ragione/anni + passato de otros verbos); checkpoint:human-verify D-85
+- [ ] 22-03-PLAN.md — re-sincronizar los 3 hardcodes de count + TOTAL_EXPECTED al nº real de slots leído del JSON; smoke shape-agnostic + reporter verdes
 **UI hint**: no
 
 ### Phase 23: Essere a slots (contenido)
@@ -190,7 +194,7 @@ Plans:
 | 15-17 | v1.4 | 9/9 | Complete | 2026-06-03 |
 | 18-20 | v1.5 | 7/7 | Complete | 2026-06-05 |
 | 21. Migración 8→9 (reset 6 categorías) | v1.6 | 1/1 | Complete    | 2026-06-05 |
-| 22. Avere a slots (contenido) | v1.6 | 0/0 | Not started | - |
+| 22. Avere a slots (contenido) | v1.6 | 0/3 | Planned | - |
 | 23. Essere a slots (contenido) | v1.6 | 0/0 | Not started | - |
 | 24. Verbi di movimento a slots (contenido) | v1.6 | 0/0 | Not started | - |
 | 25. Genere e numero a slots (contenido) | v1.6 | 0/0 | Not started | - |
