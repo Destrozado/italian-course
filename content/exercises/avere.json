@@ -319,6 +319,16 @@
             "è"
           ],
           "correctIndex": 0
+        },
+        {
+          "prompt": "Mettiti il cappotto: io ___ freddo.",
+          "options": [
+            "sono",
+            "ho",
+            "è",
+            "siamo"
+          ],
+          "correctIndex": 1
         }
       ],
       "validation": {
