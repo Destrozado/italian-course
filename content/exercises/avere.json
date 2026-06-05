@@ -100,10 +100,20 @@
       "categoryIds": [
         "avere"
       ],
-      "explanation": "Para expresar la edad, el italiano usa el verbo avere, no essere: la edad se 'tiene', no se 'es'. La tercera persona singular es 'ha', así que 'Lui ha ventidue anni' equivale al español 'Él tiene veintidós años'. ¡Atención!: el hispanohablante traduce literalmente y dice 'è ventidue anni', que es uno de los errores A1 más frecuentes.",
+      "explanation": "La tercera persona singular del presente indicativo de avere es 'ha', compartida por 'lui' y 'lei' (el italiano no marca el género en el verbo). Sirve para la posesión, 'Lei ha un gatto nero' equivale al español 'Ella tiene un gato negro', y para la edad, donde el italiano usa avere y no essere: 'Lui ha ventidue anni' equivale a 'Él tiene veintidós años'. ¡Atención!: el hispanohablante traduce literalmente y dice 'è ventidue anni', que es uno de los errores A1 más frecuentes.",
       "variants": [
         {
           "prompt": "Lui ___ ventidue anni.",
+          "options": [
+            "hai",
+            "ha",
+            "abbiamo",
+            "hanno"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Lei ___ un gatto nero.",
           "options": [
             "hai",
             "ha",
