@@ -85,12 +85,12 @@ describe('data/storage v3 — migrate2to3 + hydrateV3 + blankState v3', () => {
     assert.equal(out.firstUsedAt, null);
   });
 
-  // Test 4 — post-Phase 18: blankState bumpea a v8 (bump nominal con reset de
-  // articoli+partitivos en migrate7to8, D-18). Como blankState no tiene progreso
-  // que resetear, su shape root es idéntico a v7 salvo schemaVersion: 8.
-  test('blankState() devuelve shape v8 con songProgress {} + lastBackupAt/firstUsedAt null (Phase 18 bump nominal)', () => {
+  // Test 4 — post-Phase 21: blankState bumpea a v9 (bump nominal con reset de
+  // las 6 categorías en migrate8to9, D-21). Como blankState no tiene progreso
+  // que resetear, su shape root es idéntico a v8 salvo schemaVersion: 9.
+  test('blankState() devuelve shape v9 con songProgress {} + lastBackupAt/firstUsedAt null (Phase 21 bump nominal)', () => {
     const s = blankState();
-    assert.equal(s.schemaVersion, 8);
+    assert.equal(s.schemaVersion, 9);
     assert.deepEqual(s.exerciseStats, {});
     assert.deepEqual(s.categoryProgress, {});
     assert.deepEqual(s.dailyLog, {});
@@ -100,13 +100,13 @@ describe('data/storage v3 — migrate2to3 + hydrateV3 + blankState v3', () => {
     // inFlightTest sigue omitido (undefined)
     assert.equal(s.inFlightTest, undefined);
     assert.equal(Object.prototype.hasOwnProperty.call(s, 'inFlightTest'), false,
-      'blankState() v8 NO debe materializar inFlightTest como key explícita');
+      'blankState() v9 NO debe materializar inFlightTest como key explícita');
   });
 
   // Test 5 — usamos parseBackupFile como wrapper indirecto del dispatcher
   // porque `migrate()` es privado. Construimos un wrapper válido v1 y
-  // verificamos que sale por la cadena 1→2→3→4→5→6→7→8 (Phase 18 extiende a v8).
-  test('migración cadena v1 → v8 hidratada (via parseBackupFile)', () => {
+  // verificamos que sale por la cadena 1→2→3→4→5→6→7→8→9 (Phase 21 extiende a v9).
+  test('migración cadena v1 → v9 hidratada (via parseBackupFile)', () => {
     const v1Wrapper = {
       kind: 'italian-course-backup',
       exportedAt: '2026-05-24T10:00:00.000Z',
@@ -118,7 +118,7 @@ describe('data/storage v3 — migrate2to3 + hydrateV3 + blankState v3', () => {
     };
     const result = parseBackupFile(JSON.stringify(v1Wrapper));
     assert.equal(result.ok, true);
-    assert.equal(result.state.schemaVersion, 8);
+    assert.equal(result.state.schemaVersion, 9);
     assert.deepEqual(result.state.exerciseStats, v1Wrapper.state.exerciseStats);
     assert.deepEqual(result.state.categoryProgress, {});
     assert.deepEqual(result.state.dailyLog, {});
@@ -133,9 +133,9 @@ describe('data/storage v3 — migrate2to3 + hydrateV3 + blankState v3', () => {
 // ────────────────────────────────────────────────────────────────────────────
 
 describe('data/backup — parseBackupFile happy path', () => {
-  // Test 6 — post-Phase 18: parseBackupFile sale como v8 al final de la cadena
-  // (migrate7to8 + hydrateV8 son los últimos eslabones tras Phase 18).
-  test('happy path v3: wrapper válido + state v3 migra automáticamente a v8', () => {
+  // Test 6 — post-Phase 21: parseBackupFile sale como v9 al final de la cadena
+  // (migrate8to9 + hydrateV9 son los últimos eslabones tras Phase 21).
+  test('happy path v3: wrapper válido + state v3 migra automáticamente a v9', () => {
     const stateV3 = {
       schemaVersion: 3,
       exerciseStats: {},
@@ -152,15 +152,15 @@ describe('data/backup — parseBackupFile happy path', () => {
     };
     const r = parseBackupFile(JSON.stringify(wrapper));
     assert.equal(r.ok, true);
-    assert.equal(r.state.schemaVersion, 8);
+    assert.equal(r.state.schemaVersion, 9);
     assert.equal(r.summary.exportedAt, '2026-05-24T14:32:11.000Z');
     assert.equal(r.summary.categories, 0);
     assert.equal(r.summary.exercises, 0);
   });
 
-  // Test 13 — migración explícita v1→v8 (duplicado de Test 5 pero desde el
+  // Test 13 — migración explícita v1→v9 (duplicado de Test 5 pero desde el
   // describe block correspondiente para legibilidad del runner).
-  test('migración v1 → v8 OK (state.schemaVersion=1 + wrapper.schemaVersion=1)', () => {
+  test('migración v1 → v9 OK (state.schemaVersion=1 + wrapper.schemaVersion=1)', () => {
     const wrapper = {
       kind: 'italian-course-backup',
       exportedAt: '2026-01-15T08:00:00.000Z',
@@ -172,14 +172,16 @@ describe('data/backup — parseBackupFile happy path', () => {
     };
     const r = parseBackupFile(JSON.stringify(wrapper));
     assert.equal(r.ok, true);
-    assert.equal(r.state.schemaVersion, 8);
+    assert.equal(r.state.schemaVersion, 9);
     assert.equal(r.state.lastBackupAt, null);
     assert.equal(r.state.firstUsedAt, null);
     assert.deepEqual(r.state.exerciseStats, wrapper.state.exerciseStats);
   });
 
-  // Test 14
-  test('migración v2 → v8 OK', () => {
+  // Test 14 — post-Phase 21: el state v2 usa `avere` (categoría reseteada en v9)
+  // + exerciseStats `y1`. Tras la cadena hasta v9, `avere` se poda → categories
+  // baja a 0; `y1` no empieza por prefijo de reset → se preserva (exercises 1).
+  test('migración v2 → v9 OK (avere reseteada por migrate8to9)', () => {
     const wrapper = {
       kind: 'italian-course-backup',
       exportedAt: '2026-03-10T08:00:00.000Z',
@@ -193,10 +195,12 @@ describe('data/backup — parseBackupFile happy path', () => {
     };
     const r = parseBackupFile(JSON.stringify(wrapper));
     assert.equal(r.ok, true);
-    assert.equal(r.state.schemaVersion, 8);
+    assert.equal(r.state.schemaVersion, 9);
     assert.equal(r.state.lastBackupAt, null);
-    assert.equal(r.summary.categories, 1);
-    assert.equal(r.summary.exercises, 1);
+    assert.equal(r.summary.categories, 0,
+      'avere se resetea en migrate8to9 → categoryProgress queda vacío');
+    assert.equal(r.summary.exercises, 1,
+      'y1 no empieza por prefijo de reset → se preserva');
   });
 });
 
@@ -237,25 +241,31 @@ describe('data/backup v7 — round-trip + import v6→v7 (Phase 17)', () => {
     assert.equal(wrapper.schemaVersion, 7, 'el wrapper espeja state.schemaVersion=7');
     const r = parseBackupFile(JSON.stringify(wrapper));
     assert.equal(r.ok, true, `no debe rechazarse (reason: ${r.reason})`);
-    // Post-Phase 18: un backup v7 ya NO es current-version; importarlo migra
-    // v7→v8 (CURRENT=8). El round-trip sale como v8 normalizada.
-    assert.equal(r.state.schemaVersion, 8);
+    // Post-Phase 21: un backup v7 ya NO es current-version; importarlo migra
+    // v7→v8→v9 (CURRENT=9). El round-trip sale como v9 normalizada.
+    assert.equal(r.state.schemaVersion, 9);
   });
 
-  test('round-trip v7 preserva avere/essere; partitivos se resetea en el import v7→v8', () => {
+  test('round-trip v7 ahora resetea avere/essere (migrate8to9); partitivos preservada', () => {
     const state = stateV7();
     const wrapper = buildBackupWrapper(state, '2026-06-03T12:00:00.000Z');
     const r = parseBackupFile(JSON.stringify(wrapper));
     assert.equal(r.ok, true);
-    assert.deepEqual(r.state.categoryProgress.avere, state.categoryProgress.avere);
-    assert.deepEqual(r.state.categoryProgress.essere, state.categoryProgress.essere);
-    // partitivos-001 venía en el state v7; el import migra a v8 y lo resetea
-    // (migrate7to8 poda el prefijo partitivos, D-06).
-    assert.equal(r.state.exerciseStats['partitivos-001'], undefined,
-      'partitivos se poda en el import v7→v8 (reset selectivo)');
+    // Post-Phase 21: avere/essere se resetean en la cadena v8→v9 (migrate8to9
+    // poda esos prefijos, D-21). En v1.5 (Phase 18) eran preservados; ahora NO.
+    assert.equal(r.state.categoryProgress.avere, undefined,
+      'avere se resetea en el import al pasar por migrate8to9');
+    assert.equal(r.state.categoryProgress.essere, undefined,
+      'essere se resetea en el import al pasar por migrate8to9');
+    assert.equal(r.state.exerciseStats['avere-001'], undefined);
+    assert.equal(r.state.exerciseStats['essere-001'], undefined);
+    // partitivos-001 venía en el state v7; ahora es categoría PRESERVADA en v9
+    // (ya convertida a slots en Phase 20) → se mantiene byte-intacta.
+    assert.deepEqual(r.state.exerciseStats['partitivos-001'], state.exerciseStats['partitivos-001'],
+      'partitivos se preserva en el import (categoría ya convertida)');
   });
 
-  test('import de backup v6 → state v7 con Preposiciones reseteada', () => {
+  test('import de backup v6 → state v9 con Preposiciones y avere reseteadas', () => {
     const stateV6 = {
       schemaVersion: 6,
       exerciseStats: {
@@ -279,14 +289,17 @@ describe('data/backup v7 — round-trip + import v6→v7 (Phase 17)', () => {
     };
     const r = parseBackupFile(JSON.stringify(wrapper));
     assert.equal(r.ok, true);
-    assert.equal(r.state.schemaVersion, 8);
+    assert.equal(r.state.schemaVersion, 9);
     assert.equal(r.state.categoryProgress.preposiciones, undefined,
-      'el import v6→v8 resetea Preposiciones (migrate6to7 corre en la cadena)');
+      'el import v6→v9 resetea Preposiciones (migrate6to7 corre en la cadena)');
     assert.equal(r.state.exerciseStats['preposiciones-006'], undefined,
       'las stats de Preposiciones se podan en el import');
-    assert.deepEqual(r.state.categoryProgress.avere, stateV6.categoryProgress.avere,
-      'avere se preserva a través del import v6→v8');
-    assert.deepEqual(r.state.exerciseStats['avere-001'], stateV6.exerciseStats['avere-001']);
+    // Post-Phase 21: avere ya NO se preserva — migrate8to9 lo resetea en la
+    // cadena v8→v9 (en v1.4/v1.5 avere era preservado; ahora está en las 6).
+    assert.equal(r.state.categoryProgress.avere, undefined,
+      'avere se resetea en el import v6→v9 (migrate8to9 corre en la cadena)');
+    assert.equal(r.state.exerciseStats['avere-001'], undefined,
+      'las stats de avere se podan en el import v6→v9');
   });
 });
 
@@ -326,18 +339,20 @@ describe('data/backup v8 — round-trip + import v7→v8 (Phase 18)', () => {
     assert.equal(wrapper.schemaVersion, 8, 'el wrapper espeja state.schemaVersion=8');
     const r = parseBackupFile(JSON.stringify(wrapper));
     assert.equal(r.ok, true, `no debe rechazarse (reason: ${r.reason})`);
-    assert.equal(r.state.schemaVersion, 8);
+    // Post-Phase 21: un backup v8 ya NO es current-version; migra v8→v9.
+    assert.equal(r.state.schemaVersion, 9);
   });
 
-  test('round-trip v8 preserva avere/essere progreso intacto', () => {
+  test('round-trip v8 ahora resetea avere/essere en el import v8→v9 (migrate8to9)', () => {
     const state = stateV8();
     const wrapper = buildBackupWrapper(state, '2026-06-04T12:00:00.000Z');
     const r = parseBackupFile(JSON.stringify(wrapper));
     assert.equal(r.ok, true);
-    assert.deepEqual(r.state.categoryProgress.avere, state.categoryProgress.avere);
-    assert.deepEqual(r.state.categoryProgress.essere, state.categoryProgress.essere);
-    assert.deepEqual(r.state.exerciseStats['avere-001'], state.exerciseStats['avere-001']);
-    assert.deepEqual(r.state.exerciseStats['essere-001'], state.exerciseStats['essere-001']);
+    // Post-Phase 21: avere/essere están en las 6 reseteadas → se podan en v8→v9.
+    assert.equal(r.state.categoryProgress.avere, undefined);
+    assert.equal(r.state.categoryProgress.essere, undefined);
+    assert.equal(r.state.exerciseStats['avere-001'], undefined);
+    assert.equal(r.state.exerciseStats['essere-001'], undefined);
   });
 
   test('import de backup v7 → state v8 con articoli/partitivos reseteados (D-06)', () => {
@@ -366,18 +381,122 @@ describe('data/backup v8 — round-trip + import v7→v8 (Phase 18)', () => {
     };
     const r = parseBackupFile(JSON.stringify(wrapper));
     assert.equal(r.ok, true);
-    assert.equal(r.state.schemaVersion, 8);
+    assert.equal(r.state.schemaVersion, 9);
+    // Post-Phase 21: articoli/partitivos pasan a ser categorías PRESERVADAS
+    // (ya convertidas en Phases 19/20). Al importar un backup v7, migrate7to8
+    // las resetea PERO el state v7 fixture ya las trae, y migrate7to8 las poda
+    // — sin embargo el import sigue siendo v7→v8→v9: migrate7to8 SÍ poda
+    // articoli/partitivos (eran las reseteadas de v8). Documentamos el efecto
+    // real de la cadena: articoli/partitivos podadas por migrate7to8.
     assert.equal(r.state.categoryProgress.articoli, undefined,
-      'el import v7→v8 resetea articoli (migrate7to8 corre en la cadena)');
+      'articoli reseteada por migrate7to8 en la cadena v7→v8');
     assert.equal(r.state.categoryProgress.partitivos, undefined,
-      'el import v7→v8 resetea partitivos (migrate7to8 corre en la cadena)');
-    assert.equal(r.state.exerciseStats['articoli-006'], undefined,
-      'las stats de articoli se podan en el import');
-    assert.equal(r.state.exerciseStats['partitivos-003'], undefined,
-      'las stats de partitivos se podan en el import');
-    assert.deepEqual(r.state.categoryProgress.avere, stateV7.categoryProgress.avere,
-      'avere se preserva a través del import v7→v8');
-    assert.deepEqual(r.state.exerciseStats['avere-001'], stateV7.exerciseStats['avere-001']);
+      'partitivos reseteada por migrate7to8 en la cadena v7→v8');
+    // avere ahora se resetea en v8→v9 (migrate8to9) — antes (Phase 18) se
+    // preservaba; ahora está en las 6 categorías reseteadas.
+    assert.equal(r.state.categoryProgress.avere, undefined,
+      'avere se resetea en el import v7→v9 (migrate8to9 corre en la cadena)');
+    assert.equal(r.state.exerciseStats['avere-001'], undefined,
+      'las stats de avere se podan en el import v7→v9');
+  });
+});
+
+// ────────────────────────────────────────────────────────────────────────────
+// data/backup v9 — round-trip + import v8→v9 con reset de las 6 categorías (Phase 21)
+//
+// Tras Phase 21 (D-21 / MIG-04) la cadena de backup llega hasta v9. Un export
+// del state v9 actual debe reimportarse sin "versión más nueva"; un backup v8
+// importado migra a v9 reseteando las 6 categorías a convertir (coherente con
+// el reset de la migración, D-21: el progreso de esas categorías en un backup
+// viejo se pierde por diseño); las 3 ya convertidas (preposiciones, articoli,
+// partitivos) conservan su progreso byte-intacto.
+// ────────────────────────────────────────────────────────────────────────────
+
+describe('data/backup v9 — round-trip + import v8→v9 (Phase 21)', () => {
+  // Un state v9 con progreso en las 3 categorías PRESERVADAS (preposiciones,
+  // articoli, partitivos) — clon de stateV8.
+  function stateV9() {
+    return {
+      schemaVersion: 9,
+      exerciseStats: {
+        'preposiciones-001': { timesShown: 8, timesCorrect: 8, timesFailed: 0 },
+        'articoli-001': { timesShown: 5, timesCorrect: 4, timesFailed: 1 },
+        'partitivos-001': { timesShown: 3, timesCorrect: 3, timesFailed: 0 }
+      },
+      categoryProgress: {
+        preposiciones: { status: 'dominada', streakDays: 21, clearedExerciseIds: ['preposiciones-001'], lastSuccessDate: '2026-06-01' },
+        articoli: { status: 'hecha', streakDays: 9, clearedExerciseIds: ['articoli-001'], lastSuccessDate: '2026-05-30' },
+        partitivos: { status: 'dominada', streakDays: 11, clearedExerciseIds: ['partitivos-001'], lastSuccessDate: '2026-05-30' }
+      },
+      dailyLog: { '2026-06-01': { date: '2026-06-01', categoriesPracticed: ['preposiciones'], categoriesWithFailure: [] } },
+      songProgress: { 'mini-prueba': { status: 'pasada', lastPlayedAt: '2026-06-02' } },
+      lastBackupAt: '2026-06-01T10:00:00.000Z',
+      firstUsedAt: '2026-04-01T08:00:00.000Z'
+    };
+  }
+
+  test('round-trip v9: export (buildBackupWrapper) → import (parseBackupFile) sin "versión más nueva"', () => {
+    const state = stateV9();
+    const wrapper = buildBackupWrapper(state, '2026-06-05T12:00:00.000Z');
+    assert.equal(wrapper.schemaVersion, 9, 'el wrapper espeja state.schemaVersion=9');
+    const r = parseBackupFile(JSON.stringify(wrapper));
+    assert.equal(r.ok, true, `no debe rechazarse (reason: ${r.reason})`);
+    assert.equal(r.state.schemaVersion, 9);
+  });
+
+  test('round-trip v9 preserva preposiciones/articoli/partitivos progreso intacto', () => {
+    const state = stateV9();
+    const wrapper = buildBackupWrapper(state, '2026-06-05T12:00:00.000Z');
+    const r = parseBackupFile(JSON.stringify(wrapper));
+    assert.equal(r.ok, true);
+    assert.deepEqual(r.state.categoryProgress.preposiciones, state.categoryProgress.preposiciones);
+    assert.deepEqual(r.state.categoryProgress.articoli, state.categoryProgress.articoli);
+    assert.deepEqual(r.state.categoryProgress.partitivos, state.categoryProgress.partitivos);
+    assert.deepEqual(r.state.exerciseStats['preposiciones-001'], state.exerciseStats['preposiciones-001']);
+    assert.deepEqual(r.state.exerciseStats['articoli-001'], state.exerciseStats['articoli-001']);
+    assert.deepEqual(r.state.exerciseStats['partitivos-001'], state.exerciseStats['partitivos-001']);
+  });
+
+  test('import de backup v8 → state v9 con las 6 categorías reseteadas (D-21 / MIG-04)', () => {
+    const stateV8In = {
+      schemaVersion: 8,
+      exerciseStats: {
+        'avere-006': { timesShown: 5, timesCorrect: 4, timesFailed: 1 },
+        'profesiones-003': { timesShown: 3, timesCorrect: 2, timesFailed: 1 },
+        'articoli-001': { timesShown: 7, timesCorrect: 7, timesFailed: 0 }
+      },
+      categoryProgress: {
+        avere: { status: 'hecha', streakDays: 9, clearedExerciseIds: ['avere-006'], lastSuccessDate: '2026-05-30' },
+        profesiones: { status: 'dominada', streakDays: 11, clearedExerciseIds: ['profesiones-003'], lastSuccessDate: '2026-05-30' },
+        articoli: { status: 'dominada', streakDays: 14, clearedExerciseIds: ['articoli-001'], lastSuccessDate: '2026-05-31' }
+      },
+      dailyLog: {},
+      songProgress: {},
+      lastBackupAt: null,
+      firstUsedAt: '2026-04-01T08:00:00.000Z'
+    };
+    const wrapper = {
+      kind: 'italian-course-backup',
+      exportedAt: '2026-06-04T09:00:00.000Z',
+      schemaVersion: 8,
+      state: stateV8In
+    };
+    const r = parseBackupFile(JSON.stringify(wrapper));
+    assert.equal(r.ok, true);
+    assert.equal(r.state.schemaVersion, 9);
+    // Las 6 reseteadas: avere + profesiones podadas (dos de las 6).
+    assert.equal(r.state.categoryProgress.avere, undefined,
+      'el import v8→v9 resetea avere (migrate8to9 corre en la cadena)');
+    assert.equal(r.state.categoryProgress.profesiones, undefined,
+      'el import v8→v9 resetea profesiones (migrate8to9 corre en la cadena)');
+    assert.equal(r.state.exerciseStats['avere-006'], undefined,
+      'las stats de avere se podan en el import');
+    assert.equal(r.state.exerciseStats['profesiones-003'], undefined,
+      'las stats de profesiones se podan en el import');
+    // articoli es PRESERVADA (ya convertida en Phase 19) → byte-intacta.
+    assert.deepEqual(r.state.categoryProgress.articoli, stateV8In.categoryProgress.articoli,
+      'articoli se preserva a través del import v8→v9');
+    assert.deepEqual(r.state.exerciseStats['articoli-001'], stateV8In.exerciseStats['articoli-001']);
   });
 });
 
@@ -421,14 +540,14 @@ describe('data/backup — parseBackupFile error paths', () => {
     assert.match(r.reason, /schemaVersion/);
   });
 
-  // Test 11 — post-Phase 18: CURRENT_SCHEMA_VERSION = 8. Un wrapper con
-  // schemaVersion: 9 (uno por encima del nuevo current) sigue siendo
+  // Test 11 — post-Phase 21: CURRENT_SCHEMA_VERSION = 9. Un wrapper con
+  // schemaVersion: 10 (uno por encima del nuevo current) sigue siendo
   // "versión más nueva".
-  test('rejects future schemaVersion > 8 (menciona "versión más nueva")', () => {
+  test('rejects future schemaVersion > 9 (menciona "versión más nueva")', () => {
     const r = parseBackupFile(JSON.stringify({
       kind: 'italian-course-backup',
-      schemaVersion: 9,
-      state: { schemaVersion: 9 }
+      schemaVersion: 10,
+      state: { schemaVersion: 10 }
     }));
     assert.equal(r.ok, false);
     assert.match(r.reason, /versión más nueva/i);
