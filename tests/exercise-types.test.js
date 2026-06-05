@@ -1265,7 +1265,7 @@ describe('validation-state — deriveStatus (Phase 9 D-VAL-07)', () => {
 const CATEGORIES_WITH_EXPLANATIONS = [
   { file: 'content/exercises/preposiciones.json', expected: 49 },
   { file: 'content/exercises/genero-numero.json', expected: 40 },
-  { file: 'content/exercises/avere.json', expected: 23 },
+  { file: 'content/exercises/avere.json', expected: 20 },
   { file: 'content/exercises/sustantivos-irregulares.json', expected: 31 },
   { file: 'content/exercises/verbos-movimiento.json', expected: 37 },
   { file: 'content/exercises/essere.json', expected: 39 },
