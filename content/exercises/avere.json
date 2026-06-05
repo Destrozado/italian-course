@@ -436,6 +436,16 @@
             "hanno"
           ],
           "correctIndex": 2
+        },
+        {
+          "prompt": "Loro ___ scritto una lettera ai nonni.",
+          "options": [
+            "sono",
+            "hanno",
+            "abbiamo",
+            "ha"
+          ],
+          "correctIndex": 1
         }
       ],
       "validation": {
