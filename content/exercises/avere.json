@@ -416,6 +416,16 @@
             "hanno"
           ],
           "correctIndex": 1
+        },
+        {
+          "prompt": "Tu ___ visto il nuovo film di Sorrentino?",
+          "options": [
+            "sei",
+            "hai",
+            "ha",
+            "avete"
+          ],
+          "correctIndex": 1
         }
       ],
       "validation": {
