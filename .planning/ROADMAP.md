@@ -99,87 +99,119 @@ Numeración CONTINÚA desde Phase 20 → Phases 21-27 (NO reset — mismo criter
 ## Phase Details
 
 ### Phase 21: Migración `8→9` (reset selectivo de las 6 categorías)
+
 **Goal**: El state migra de `schemaVersion 8` a `9` reseteando el progreso SOLO de las 6 categorías a convertir (Avere, Essere, Verbi di movimento, Genere e numero, Professioni, Sostantivi irregolari), dejando las 3 ya convertidas (Preposiciones, Articoli, Partitivos) byte-intactas, y liberando la renumeración de ids que harán las 6 fases de contenido — replicando el patrón de `migrate7to8`/`hydrateV8` de v1.5 pero con SEIS categorías reseteadas en una sola migración mediante un predicado de 6 prefijos.
 **Depends on**: Phase 20 (último estado shipped v1.5, schemaVersion 8)
 **Requirements**: MIG-03, MIG-04
 **Success Criteria** (what must be TRUE):
+
   1. Tras la migración `8→9` (`migrate8to9` + `hydrateV9`, idempotente + deep-clone defensivo anti-prototype-pollution) el progreso de las 6 categorías (`avere`, `essere`, `verbos-movimiento`, `genero-numero`, `profesiones`, `sustantivos-irregulares`) queda reseteado a no-hecha con racha 0: `categoryProgress` borrado para las 6, `exerciseStats` filtrado por los 6 prefijos (cubre ids legacy y futuros de slot), `inFlightTest` invalidado si contiene ids de cualquiera de las 6.
   2. Las 3 categorías ya convertidas (`preposiciones`, `articoli`, `partitivos`) conservan su progreso byte-intacto tras migrar (verificable por test con fixture de las 9 categorías).
   3. `backup.js` exporta v9 reimportable round-trip; un backup v8 importado migra a v9 reseteando las 6 categorías; los backups `>9` se rechazan (forward-compat).
   4. La app arranca limpia sobre el state migrado y los tests siguen verdes (los 358 baseline + los nuevos de la cadena v9).
+
 **Plans**: 1 plan
 Plans:
+
 - [x] 21-01-PLAN.md — migrate8to9 + hydrateV9 + bump CURRENT_SCHEMA_VERSION (storage.js, MIG-03) + backup.js round-trip v9 + import v8→v9 con reset (MIG-04); 2 tasks TDD, clon literal de 18-01 con predicado de 6 prefijos
+
 **UI hint**: no
 
 ### Phase 22: Avere a slots (contenido)
+
 **Goal**: Avere se convierte al modelo slot+variantes — los 23 ejercicios validados se reagrupan en slots por regla (presente indicativo por persona + usos idiomáticos + passato prossimo + cruces multi-cat avere-300..305), se autoran variantes nuevas que pasan el quórum cross-vendor R1-R7, y la estructura final pasa el validator y el smoke. Primera de las 3 categorías de verbos.
 **Depends on**: Phase 21 (la migración 8→9 debe estar hecha antes de renumerar ids — no se renumera con progreso vivo). Independiente de Phases 23-27 una vez hecha la migración.
 **Requirements**: AVE-01, AVE-02
 **Success Criteria** (what must be TRUE):
+
   1. Los 23 ejercicios de Avere quedan reagrupados en slots por regla con explicación a nivel de slot; los que entrenan la misma regla reformulada son variantes del mismo slot. Los cruces multi-cat (avere-300..305) preservan id estable y sus `categoryIds[]`, y la cascada D-54 sigue funcionando (2 call-sites intactos, verificable por grep).
   2. Donde la regla admite reformulación se autoran variantes nuevas (patrón D-85: Claude propone → autor revisa → quórum cross-vendor R1-R7, 4× correcta 0 incorrecta, 1-por-1 NUNCA batched); los huecos de regla detectados se añaden como slots nuevos. El blindaje APPEND-ONLY D-88 de avere se respeta (relax mínimo D-178 si aplica).
   3. La estructura final de Avere pasa el validator y el smoke paramétrico, con los hardcodes de count re-sincronizados al nº real de slots leído del JSON y la cobertura de explanations a nivel de slot preservada.
+
 **Plans**: 3 plans
 Plans:
+**Wave 1**
+
 - [ ] 22-01-PLAN.md — reagrupar los 23 ejercicios a slots por regla (presente por persona + sensaciones + passato prossimo + word-buttons/match + cruces 300..305) con explanation a nivel de slot; checkpoint:decision del mapa + re-base del blindaje APPEND-ONLY D-88 (D-178)
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
 - [ ] 22-02-PLAN.md — autorar variantes nuevas por quórum cross-vendor R1-R7 (engorde de celdas pobres de presente + idiomatismos avere sete/freddo/sonno/ragione/anni + passato de otros verbos); checkpoint:human-verify D-85
+
+**Wave 3** *(blocked on Wave 2 completion)*
+
 - [ ] 22-03-PLAN.md — re-sincronizar los 3 hardcodes de count + TOTAL_EXPECTED al nº real de slots leído del JSON; smoke shape-agnostic + reporter verdes
+
 **UI hint**: no
 
 ### Phase 23: Essere a slots (contenido)
+
 **Goal**: Essere se convierte al modelo slot+variantes — los 39 ejercicios validados se reagrupan en slots por regla (presente indicativo + identidad/nacionalidad/profesión/estado/cópula + participio stato/stata/stati/state + cruces essere-300..305), se autoran variantes nuevas que pasan el quórum, y la estructura final pasa el validator y el smoke. Segunda de las 3 categorías de verbos.
 **Depends on**: Phase 21 (migración 8→9). Independiente de las demás conversiones tras la migración.
 **Requirements**: ESS-01, ESS-02
 **Success Criteria** (what must be TRUE):
+
   1. Los 39 ejercicios de Essere quedan reagrupados en slots por regla con explicación a nivel de slot; el patrón distractoras essere/avere (refuerzo del contraste que confunde al hispanohablante) se preserva donde aplica; los cruces multi-cat (essere-300..305) preservan id estable y `categoryIds[]` con cascada D-54 intacta.
   2. Donde la regla admite reformulación se autoran variantes nuevas (D-85 + quórum cross-vendor R1-R7, 4× correcta, 1-por-1); los huecos detectados se añaden como slots nuevos.
   3. La estructura final de Essere pasa el validator y el smoke paramétrico, con los counts re-sincronizados al nº real de slots y la cobertura de explanations a nivel de slot preservada.
+
 **Plans**: TBD
 **UI hint**: no
 
 ### Phase 24: Verbi di movimento a slots (contenido)
+
 **Goal**: Verbi di movimento se convierte al modelo slot+variantes — los 37 ejercicios validados se reagrupan en slots por regla, se autoran variantes nuevas que pasan el quórum, y la estructura final pasa el validator y el smoke. Tercera y última de las categorías de verbos.
 **Depends on**: Phase 21 (migración 8→9). Independiente de las demás conversiones tras la migración.
 **Requirements**: MOV-01, MOV-02
 **Success Criteria** (what must be TRUE):
+
   1. Los 37 ejercicios de Verbi di movimento quedan reagrupados en slots por regla con explicación a nivel de slot; los que entrenan la misma regla reformulada son variantes del mismo slot. La restricción D-159 (cero referencias cruzadas a Essere por ID o prosa) se preserva en las explanations.
   2. Donde la regla admite reformulación se autoran variantes nuevas (D-85 + quórum cross-vendor R1-R7, 4× correcta, 1-por-1); los huecos detectados se añaden como slots nuevos.
   3. La estructura final de Verbi di movimento pasa el validator y el smoke paramétrico, con los counts re-sincronizados al nº real de slots y la cobertura de explanations a nivel de slot preservada.
+
 **Plans**: TBD
 **UI hint**: no
 
 ### Phase 25: Genere e numero a slots (contenido)
+
 **Goal**: Genere e numero se convierte al modelo slot+variantes — los 40 ejercicios validados se reagrupan en slots por regla (terminaciones de género masc/fem + formación de plural por terminación), se autoran variantes nuevas que pasan el quórum, y la estructura final pasa el validator y el smoke. Primera de las 3 categorías de morfología/léxico.
 **Depends on**: Phase 21 (migración 8→9). Independiente de las demás conversiones tras la migración.
 **Requirements**: GEN-01, GEN-02
 **Success Criteria** (what must be TRUE):
+
   1. Los 40 ejercicios de Genere e numero quedan reagrupados en slots por regla (terminaciones de género + reglas de formación de plural) con explicación a nivel de slot; los 3 match preservan la DESIGN RULE D-04 (match solo si el pareo requiere regla NO derivable por raíz) y los que entrenan la misma regla reformulada son variantes del mismo slot.
   2. Donde la regla admite reformulación se autoran variantes nuevas (D-85 + quórum cross-vendor R1-R7, 4× correcta, 1-por-1); los huecos detectados se añaden como slots nuevos.
   3. La estructura final de Genere e numero pasa el validator y el smoke paramétrico, con los counts re-sincronizados al nº real de slots y la cobertura de explanations a nivel de slot preservada.
+
 **Plans**: TBD
 **UI hint**: no
 
 ### Phase 26: Professioni a slots (contenido, léxica)
+
 **Goal**: Professioni se convierte al modelo unificado — los 51 ejercicios validados se reagrupan en slots con explicación a nivel de slot. En discuss/plan se decide por categoría si hay regla-con-variantes natural (p.ej. femenino de profesiones por terminación) o si conviene dejarlos como slots-de-1 reagrupados (categoría léxica pura). La estructura final pasa el validator y el smoke. Segunda categoría léxica.
 **Depends on**: Phase 21 (migración 8→9). Independiente de las demás conversiones tras la migración.
 **Requirements**: PROF-01, PROF-02
 **Success Criteria** (what must be TRUE):
+
   1. Los 51 ejercicios de Professioni quedan reagrupados en slots con explicación a nivel de slot, en formato unificado slot+variantes; los 3 match preservan la DESIGN RULE D-04 (profesión↔lugar/herramienta/acción, no derivable por raíz). La decisión "regla-con-variantes real O slots-de-1 reagrupados" queda documentada explícitamente para la categoría (no se fuerzan variantes artificiales).
   2. SI se identifica regla-con-variantes (p.ej. femenino por terminación -e/-essa/-trice), se autoran variantes nuevas (D-85 + quórum cross-vendor R1-R7, 4× correcta, 1-por-1) que pasan el quórum antes de entrar; SI la categoría queda como slots-de-1, se documenta que no aplica autoría de variantes.
   3. La estructura final de Professioni pasa el validator y el smoke paramétrico, con los counts re-sincronizados al nº real de slots y la cobertura de explanations a nivel de slot preservada.
+
 **Plans**: TBD
 **UI hint**: no
 
 ### Phase 27: Sostantivi irregolari a slots (contenido, léxica)
+
 **Goal**: Sostantivi irregolari se convierte al modelo unificado — los 31 ejercicios validados se reagrupan en slots con explicación a nivel de slot. En discuss/plan se decide si hay regla-con-variantes natural (p.ej. patrones de plural irregular bue→buoi, uovo→uova) o si conviene dejarlos como slots-de-1 reagrupados. La estructura final pasa el validator y el smoke — cerrando CONV-01 (las 9 categorías de gramática unificadas). Tercera y última categoría léxica.
 **Depends on**: Phase 21 (migración 8→9). Independiente de las demás conversiones tras la migración. Última fase del milestone (cierre de CONV-01).
 **Requirements**: SOST-01, SOST-02
 **Success Criteria** (what must be TRUE):
+
   1. Los 31 ejercicios de Sostantivi irregolari quedan reagrupados en slots con explicación a nivel de slot, en formato unificado slot+variantes (DESIGN RULE D-04 respetada: los plurales irregulares derivables por raíz van a multi-choice, no a match). La decisión "regla-con-variantes real O slots-de-1 reagrupados" queda documentada explícitamente (no se fuerzan variantes artificiales).
   2. SI se identifica regla-con-variantes (p.ej. patrones de plural irregular), se autoran variantes nuevas (D-85 + quórum cross-vendor R1-R7, 4× correcta, 1-por-1) que pasan el quórum antes de entrar; SI la categoría queda como slots-de-1, se documenta que no aplica autoría de variantes.
   3. La estructura final de Sostantivi irregolari pasa el validator y el smoke paramétrico, con los counts re-sincronizados al nº real de slots y la cobertura de explanations a nivel de slot preservada.
   4. Con esta fase, las 9 categorías de gramática quedan en formato slot+variantes unificado: CONV-01 cerrado.
+
 **Plans**: TBD
 **UI hint**: no
 

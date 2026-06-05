@@ -2,16 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.6
 milestone_name: "Conversión a slots: categorías restantes"
-status: ready_to_plan
-last_updated: 2026-06-05T15:46:04.494Z
-last_activity: 2026-06-05 -- Phase 21 completada (migrate8to9 + hydrateV9 + backup v9, 374/374 tests)
+status: executing
+last_updated: "2026-06-05T17:04:28.434Z"
+last_activity: 2026-06-05 -- Phase 22 planning complete
 progress:
   total_phases: 7
   completed_phases: 1
-  total_plans: 1
+  total_plans: 4
   completed_plans: 1
   percent: 14
-stopped_at: Phase 21 complete (1/1) — ready to discuss Phase 22
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -28,8 +27,8 @@ See: `.planning/PROJECT.md` (updated 2026-06-05 — Milestone v1.6 abierto)
 
 Phase: 22
 Plan: Not started
-Status: Ready to plan
-Last activity: 2026-06-05
+Status: Ready to execute
+Last activity: 2026-06-05 -- Phase 22 planning complete
 
 ## Quick Tasks Completed
 
