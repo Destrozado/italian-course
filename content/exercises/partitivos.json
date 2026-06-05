@@ -576,6 +576,55 @@
       }
     },
     {
+      "id": "partitivos-degli-gn",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "partitivos"
+      ],
+      "explanation": "Ante un contable masculino en plural que empieza por gn-, el partitivo es degli. El grupo gn- es uno de los suoni speciali que en plural masculino exigen gli, y di + gli da degli: degli gnocchi, unos ñoquis. En plural, degli absorbe lo que en singular era dello (lo gnocco da degli gnocchi), igual que con la s impura y la z. El error frecuente es dei gnocchi, calcando el plural normal sin atender al grupo gn-.",
+      "variants": [
+        {
+          "prompt": "Stasera mangiamo ___ gnocchi fatti in casa.",
+          "options": [
+            "degli",
+            "dei",
+            "delle",
+            "dello"
+          ],
+          "correctIndex": 0
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-05",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-05",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-06-05",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-06-05",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
       "id": "partitivos-delle-invariable",
       "type": "multiple-choice",
       "categoryIds": [
