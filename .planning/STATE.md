@@ -2,8 +2,8 @@
 gsd_state_version: 1.0
 milestone: v1.5
 milestone_name: "Conversión a slots: Bloque Artículos"
-status: verifying
-last_updated: "2026-06-05T10:10:00Z"
+status: milestone_complete
+last_updated: 2026-06-05T08:03:39.640Z
 last_activity: 2026-06-05 -- Phase 20 plan 03 ejecutado (sync de los 3 hardcodes de count Partitivi 44->19, TOTAL_EXPECTED 348->323; PART-03 cerrado, v1.5 9/9 requisitos)
 progress:
   total_phases: 3
@@ -11,6 +11,7 @@ progress:
   total_plans: 7
   completed_plans: 7
   percent: 100
+stopped_at: Milestone complete (Phase 20 was final phase)
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -21,14 +22,14 @@ See: `.planning/PROJECT.md` (updated 2026-06-04 — Milestone v1.5 iniciado)
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 20 — partitivi-a-slots-contenido
+**Current Focus:** Milestone complete
 
 ## Current Position
 
-Phase: 20 (partitivi-a-slots-contenido) — COMPLETE (3/3 plans)
-Plan: 3 of 3 (todos completados)
-Status: Phase complete — ready for verification
-Last activity: 2026-06-05 -- Phase 20 plan 03 ejecutado (sync de counts Partitivi; PART-03 cerrado)
+Phase: 20
+Plan: Not started
+Status: Milestone complete
+Last activity: 2026-06-05
 
 ## Quick Tasks Completed
 
