@@ -397,6 +397,16 @@
             "del"
           ],
           "correctIndex": 0
+        },
+        {
+          "prompt": "Per cena ho preparato ___ spaghetti.",
+          "options": [
+            "degli",
+            "dei",
+            "delle",
+            "del"
+          ],
+          "correctIndex": 0
         }
       ],
       "validation": {
@@ -411,6 +421,24 @@
           {
             "by": "claude-opus-4-7",
             "date": "2026-05-28",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-05",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-05",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-06-05",
             "verdict": "correcta",
             "concerns": []
           }
