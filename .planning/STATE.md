@@ -2,8 +2,8 @@
 gsd_state_version: 1.0
 milestone: v1.6
 milestone_name: "Conversión a slots: categorías restantes"
-status: verifying
-last_updated: "2026-06-05T18:35:03.116Z"
+status: ready_to_plan
+last_updated: 2026-06-05T18:43:09.343Z
 last_activity: 2026-06-05 -- Phase 22 Plan 03 completado (sync counts 23->20 + TOTAL_EXPECTED 323->320; AVE-01 cerrado)
 progress:
   total_phases: 7
@@ -11,6 +11,7 @@ progress:
   total_plans: 4
   completed_plans: 4
   percent: 29
+stopped_at: Phase 22 complete (3/3) — ready to discuss Phase 23
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -21,14 +22,14 @@ See: `.planning/PROJECT.md` (updated 2026-06-05 — Milestone v1.6 abierto)
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 22 — avere-a-slots-contenido
+**Current Focus:** Phase 23 — essere a slots (contenido)
 
 ## Current Position
 
-Phase: 22 (avere-a-slots-contenido) — COMPLETE (ready for verification)
-Plan: 3 of 3 (22-01, 22-02 y 22-03 completados)
-Status: Phase complete — ready for verification
-Last activity: 2026-06-05 -- Phase 22 Plan 03 completado (sync de counts + cierre AVE-01)
+Phase: 23
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-06-05
 
 ## Quick Tasks Completed
 
