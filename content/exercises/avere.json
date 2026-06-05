@@ -406,6 +406,16 @@
             "ha"
           ],
           "correctIndex": 1
+        },
+        {
+          "prompt": "Ieri io ___ comprato un libro nuovo.",
+          "options": [
+            "sono",
+            "ho",
+            "abbiamo",
+            "hanno"
+          ],
+          "correctIndex": 1
         }
       ],
       "validation": {
