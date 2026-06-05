@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.6
 milestone_name: "Conversión a slots: categorías restantes"
-status: executing
-last_updated: "2026-06-05T19:30:00.000Z"
-last_activity: 2026-06-05 -- Phase 22 Plan 01 completado (Avere → 19 slots + re-base D-88)
+status: verifying
+last_updated: "2026-06-05T18:35:03.116Z"
+last_activity: 2026-06-05 -- Phase 22 Plan 03 completado (sync counts 23->20 + TOTAL_EXPECTED 323->320; AVE-01 cerrado)
 progress:
   total_phases: 7
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 4
-  completed_plans: 1
-  percent: 14
+  completed_plans: 4
+  percent: 29
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -25,10 +25,10 @@ See: `.planning/PROJECT.md` (updated 2026-06-05 — Milestone v1.6 abierto)
 
 ## Current Position
 
-Phase: 22 (avere-a-slots-contenido) — EXECUTING
-Plan: 3 of 3 (22-01 y 22-02 completados; siguiente 22-03)
-Status: Executing Phase 22
-Last activity: 2026-06-05 -- Phase 22 Plan 02 completado (14 variantes nuevas por quórum cross-vendor → 20 slots)
+Phase: 22 (avere-a-slots-contenido) — COMPLETE (ready for verification)
+Plan: 3 of 3 (22-01, 22-02 y 22-03 completados)
+Status: Phase complete — ready for verification
+Last activity: 2026-06-05 -- Phase 22 Plan 03 completado (sync de counts + cierre AVE-01)
 
 ## Quick Tasks Completed
 
@@ -123,6 +123,7 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ### Last Session
 
+- **Fecha:** 2026-06-05 — **Phase 22 Plan 03 (Sync de counts de Avere / cierre AVE-01) COMPLETADO.** Re-sincronizados los **3 hardcodes de count de Avere** (`expected: 23 -> 20`) + `TOTAL_EXPECTED` (`323 -> 320` = 323 − 23 + 20) contra el conteo **REAL** de slots leído del JSON (`data.exercises.length = 20`, NO estimación; era 19 tras 22-01, +1 por avere-ragione en 22-02). Task 1 (commit 0236743): `exercise-types.test.js` CATEGORIES_WITH_EXPLANATIONS avere 23→20; lógica `getExplanation`/`getPrompts` shape-agnostic sin tocar (grep Array.isArray=2). Task 2 (commit 23998c2): `slot-variants-integration.test.js` REAL_CATEGORIES avere 23→20; `run-validation-271.mjs` avere 23→20 + TOTAL_EXPECTED 323→320 + comentario del historial del total con línea analoga a Partitivi. **Verificación toda verde:** `node --test tests/*.test.js` 374 pass / 0 fail; `VAL_07_STRICT=1` 383 pass / 0 fail; reporter exit 0 (VAL-06 320/320 PASS, VAL-08 cero disputed, VAL-04 PASS); `validate-content-fixture.mjs avere` exit 0 (20 ejercicios); `assert-avere-prefix-unchanged.mjs` exit 0 (D-88 NO tocado, solo verificado). articoli=34 y partitivos=19 intactos. Validator/loader/smoke-logic/D-88 NO tocados. AVE-01 marcado completo. **Sin desviaciones — plan ejecutado exactamente como escrito.** 2 commits atómicos. Stopped at: Phase 22 completada (3/3 plans). Resume file: None. Siguiente: verificación de fase → Phase 23 (Essere).
 - **Fecha:** 2026-06-05 — **Phase 22 Plan 02 (Avere variantes nuevas por quórum cross-vendor / AVE-02) COMPLETADO.** 14 superficies nuevas autoradas y validadas 1-por-1 por quórum cross-vendor R1-R7 (>=4x correcta, 0 incorrecta, NUNCA batched) e integradas a sus slots en `avere.json`: 6 celdas pobres de presente engordadas a 2 variantes (ho/hai/ha/abbiamo/avete/hanno); `avere-sensazioni` a 5 variantes (+sete/freddo/sonno); `avere-passato-prossimo` a 8 variantes (+comprare/vedere/leggere/scrivere); **slot NUEVO `avere-ragione`** con validation top-level (D-19-09). **Resultado: 20 slots** (era 19 tras 22-01, +1 ragione). Decisiones D-85 aplicadas: ragione=slot separado, sentire descartado (riesgo pronominal sentirsi→essere), edad no duplicada. **3 disputes cazadas por el quórum y resueltas por REFORMULACIÓN (NO override, MEMORY calidad>tokens):** ha-2 (explanation edad→posesión, C4, ambas externas), freddo (R7 'è freddo' impersonal → sujeto 'io' explícito, Sonnet C2), ragione (R1 leak 'Hai visto' → opener 'Lo ammetto', Opus C5). Gemini agotó cuota 429 → segundo `by` externo distinto = deepseek-reasoner en 7 superficies (quórum sobre `by` real). Mitad Claude vía `claude -p` headless (Opus+Sonnet, fallback D-19-08). Ids temporales legacy eliminados (payload=0, tmp-*=0). **Blindaje D-88 re-basado** (snapshot regenerado, assert exit 0). `validate-content-fixture.mjs avere` exit 0 (20 ejercicios); smart-quotes=0; slots sin validation top-level=0. **Rojo esperado:** los 3 hardcodes de count siguen rojos (real=20, hardcode=23) → 22-03 sincroniza. Sin desviaciones de plan. Task 1 (propuesta, commit 17bd971) verificado, no rehecho. 14 commits atómicos (5969deb..a402fbc, 1 por superficie). Stopped at: 22-02 completado. Resume file: None. Siguiente: 22-03 (sync de counts 23→20 + TOTAL_EXPECTED).
 - **Fecha:** 2026-06-05 — **Phase 22 Plan 01 (Avere a slots — reagrupación + re-base D-88 / AVE-01 parcial) COMPLETADO.** Los 23 ejercicios legacy de Avere reagrupados en **19 slots** slot+variantes por regla: presente indicativo por persona = 6 slots-de-1 (`avere-ho/hai/ha/abbiamo/avete/hanno`, D-19-01); sensación física idiomática = 1 slot `avere-sensazioni` con 2 variantes (fame+caldo, D-17-01); passato prossimo con auxiliar avere = 1 slot `avere-passato-prossimo` con 4 variantes (D-17-01, validation de 009 preservada con su disputed→override autor, canon D-02); word-buttons (100/101) = 2 slots-de-1; match (200/201/202) = 3 slots-de-1 (dos `ha` de 202 preservados, D-66); cruces multi-cat = 6 slots `avere-300..305` con id ESTABLE + 2 categoryIds intactos (D-19-04/D-87). `payload` eliminado, superficies movidas intactas a `variants[]`, explanation a nivel de slot (merge D-17-05 con pitfalls del hispanohablante), sin smart-quotes. **Blindaje APPEND-ONLY D-88 re-basado** (relax D-178 opción A): `snapshot-avere-prefix.mjs` regeneró el snapshot al estado slot+variantes y `assert-avere-prefix-unchanged.mjs` vuelve a exit 0; el invariante se preserva sobre el nuevo ground truth, no se ignora (snapshot gitignored). `validate-content-fixture.mjs avere` exit 0 (19 ejercicios). **Rojo esperado:** los 3 hardcodes de count de avere (`expected: 23` en `tests/exercise-types.test.js`, `tests/fixtures/slot-variants-integration.test.js`, `scripts/run-validation-271.mjs` + `TOTAL_EXPECTED`) quedan rojos a propósito → se sincronizan a 19 en 22-03. Sin desviaciones. Task 1 (mapa, commit 46ab9e5) verificado, no rehecho. Commits: 46ab9e5 (Task 1 mapa), fda481b (Task 2 reescritura + re-base). Stopped at: 22-01 completado. Resume file: None. Siguiente: 22-02 (autorar variantes nuevas por quórum cross-vendor R1-R7 — engorde de 6 celdas pobres de presente + idiomatismos avere sete/freddo/sonno/ragione/anni + passato de otros verbos; checkpoint:human-verify D-85).
 - **Fecha:** 2026-06-05 — **Phase 21 (Migración `8→9`, reset selectivo de las 6 categorías / MIG-03 + MIG-04) COMPLETADA.** `migrate8to9`/`hydrateV9` + `CURRENT_SCHEMA_VERSION=9` (storage.js + backup.js espejo) clonando el patrón `migrate7to8`/`hydrateV8`, con reset de progreso SOLO de las 6 categorías a convertir (avere, essere, verbos-movimiento, genero-numero, profesiones, sustantivos-irregulares) vía `const RESET_PREFIXES_V9` + `some(startsWith)`; las 3 ya convertidas (preposiciones, articoli, partitivos) byte-intactas (verificado por fixture de 9 categorías). `backup.js` round-trip v9 + import v8→v9 con reset + rechazo `>9`. 1 plan TDD (2 tasks RED→GREEN), **374/374 tests verdes** (358 baseline + 16 v9). Desviaciones: 3 syncs Rule 3 (asserts blankState 8→9; round-trip v7/v8 ahora resetean avere/essere — antes preservados; tests HI-01/ME-04 migrados a categoría ficticia `test-cat` que no colisiona con ningún prefijo de reset). Commits: ec7bbcf (test T1), af7cb75 (feat T1), 3a159af (test T2), 521e5f8 (feat T2). Quedan Phases 22-27 (las 6 conversiones de contenido). Stopped at: Phase 21 completada. Resume file: None. Siguiente: verificación de fase → Phase 22 (Avere).
