@@ -1,16 +1,16 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.5
-milestone_name: "Conversión a slots: Bloque Artículos"
-status: Awaiting next milestone
-last_updated: "2026-06-05T08:41:23.036Z"
-last_activity: 2026-06-05 — Milestone v1.5 completed and archived
+milestone: v1.6
+milestone_name: "Conversión a slots: categorías restantes"
+status: planning
+last_updated: "2026-06-05T09:20:02.351Z"
+last_activity: 2026-06-05
 progress:
-  total_phases: 3
-  completed_phases: 3
-  total_plans: 7
-  completed_plans: 7
-  percent: 100
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -25,10 +25,10 @@ See: `.planning/PROJECT.md` (updated 2026-06-04 — Milestone v1.5 iniciado)
 
 ## Current Position
 
-Phase: Milestone v1.5 complete
+Phase: Not started (defining requirements)
 Plan: —
-Status: Awaiting next milestone
-Last activity: 2026-06-05 — Milestone v1.5 completed and archived
+Status: Defining requirements
+Last activity: 2026-06-05 — Milestone v1.6 started
 
 ## Quick Tasks Completed
 
