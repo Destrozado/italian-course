@@ -329,6 +329,16 @@
             "siamo"
           ],
           "correctIndex": 1
+        },
+        {
+          "prompt": "Vado a letto presto perché ___ sonno.",
+          "options": [
+            "sono",
+            "ho",
+            "è",
+            "hai"
+          ],
+          "correctIndex": 1
         }
       ],
       "validation": {
