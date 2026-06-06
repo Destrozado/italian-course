@@ -2,16 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.6
 milestone_name: "Conversión a slots: categorías restantes"
-status: ready_to_plan
-last_updated: 2026-06-05T18:43:09.343Z
-last_activity: 2026-06-05 -- Phase 22 Plan 03 completado (sync counts 23->20 + TOTAL_EXPECTED 323->320; AVE-01 cerrado)
+status: planning
+last_updated: "2026-06-06T13:11:03.576Z"
+last_activity: 2026-06-05
 progress:
   total_phases: 7
   completed_phases: 2
   total_plans: 4
   completed_plans: 4
   percent: 29
-stopped_at: Phase 22 complete (3/3) — ready to discuss Phase 23
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
