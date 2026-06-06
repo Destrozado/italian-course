@@ -155,7 +155,19 @@ Plans:
   2. Donde la regla admite reformulación se autoran variantes nuevas (D-85 + quórum cross-vendor R1-R7, 4× correcta, 1-por-1); los huecos detectados se añaden como slots nuevos.
   3. La estructura final de Essere pasa el validator y el smoke paramétrico, con los counts re-sincronizados al nº real de slots y la cobertura de explanations a nivel de slot preservada.
 
-**Plans**: TBD
+**Plans**: 3 plans
+Plans:
+**Wave 1**
+
+- [ ] 23-01-PLAN.md — reagrupar los 39 ejercicios a slots por regla (presente por persona + identidad/nacionalidad/profesión/estado/cópula + passato prossimo en 4 slots separados por concordancia stato/stata/stati/state D-23-03 + word-buttons 100..103 + cruces 300..305) con explanation a nivel de slot; checkpoint:decision del mapa; SIN snapshot (avere-only, no aplica re-base D-88)
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
+- [ ] 23-02-PLAN.md — autorar variantes nuevas por quórum cross-vendor R1-R7 (engorde de celdas pobres de presente + concordancia de nacionalidad italiano/italiana + localización con essere + slot NUEVO ser/estar D-23-07 + contraste essere/avere agresivo D-23-06); checkpoint:human-verify D-85 + decisión de model IDs (Open Q #1)
+
+**Wave 3** *(blocked on Wave 2 completion)*
+
+- [ ] 23-03-PLAN.md — re-sincronizar los 3 hardcodes de count (exercise-types:1271, slot-variants-integration:168, run-validation-271:103) + TOTAL_EXPECTED (:111, =320−39+n) al nº real de slots leído del JSON; smoke shape-agnostic + reporter verdes
 **UI hint**: no
 
 ### Phase 24: Verbi di movimento a slots (contenido)
@@ -227,7 +239,7 @@ Plans:
 | 18-20 | v1.5 | 7/7 | Complete | 2026-06-05 |
 | 21. Migración 8→9 (reset 6 categorías) | v1.6 | 1/1 | Complete    | 2026-06-05 |
 | 22. Avere a slots (contenido) | v1.6 | 3/3 | Complete    | 2026-06-05 |
-| 23. Essere a slots (contenido) | v1.6 | 0/0 | Not started | - |
+| 23. Essere a slots (contenido) | v1.6 | 0/3 | Planned | - |
 | 24. Verbi di movimento a slots (contenido) | v1.6 | 0/0 | Not started | - |
 | 25. Genere e numero a slots (contenido) | v1.6 | 0/0 | Not started | - |
 | 26. Professioni a slots (contenido, léxica) | v1.6 | 0/0 | Not started | - |
