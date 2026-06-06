@@ -4,7 +4,7 @@ milestone: v1.6
 milestone_name: "Conversión a slots: categorías restantes"
 status: planning
 last_updated: "2026-06-06T13:11:03.576Z"
-last_activity: 2026-06-05
+last_activity: 2026-06-06 -- Phase 23 context gathered (CONTEXT.md) — ready to plan
 progress:
   total_phases: 7
   completed_phases: 2
@@ -26,9 +26,9 @@ See: `.planning/PROJECT.md` (updated 2026-06-05 — Milestone v1.6 abierto)
 ## Current Position
 
 Phase: 23
-Plan: Not started
+Plan: Not started (context gathered — 23-CONTEXT.md)
 Status: Ready to plan
-Last activity: 2026-06-05
+Last activity: 2026-06-06
 
 ## Quick Tasks Completed
 
