@@ -135,6 +135,36 @@
           "prompt": "Un parco, due ___.",
           "options": ["parchi", "parci", "parcos", "parche"],
           "correctIndex": 0
+        },
+        {
+          "prompt": "Un amico, due ___.",
+          "options": ["amichi", "amici", "amicos", "amice"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Un greco, due ___.",
+          "options": ["grechi", "greci", "grecos", "grece"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Un nemico, due ___.",
+          "options": ["nemici", "nemichi", "nemicos", "nemice"],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Un medico, due ___.",
+          "options": ["medichi", "medici", "medicos", "medice"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Un lago, due ___.",
+          "options": ["lagi", "laghi", "lagos", "laghe"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Un gioco, due ___.",
+          "options": ["gioci", "giochi", "giocos", "gioche"],
+          "correctIndex": 1
         }
       ],
       "validation": {
