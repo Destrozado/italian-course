@@ -325,6 +325,11 @@
           "prompt": "Anna ___ corsa subito all'ospedale.",
           "options": ["ha", "è", "hanno", "avete"],
           "correctIndex": 1
+        },
+        {
+          "prompt": "I piccioni ___ volati sul tetto della chiesa.",
+          "options": ["hanno", "sono", "avete", "è"],
+          "correctIndex": 1
         }
       ],
       "validation": {
