@@ -61,7 +61,7 @@ const fail = (txt) => `${RED}${txt}${RESET}`;
 const warn = (txt) => `${YELLOW}${txt}${RESET}`;
 
 // D-VAL-22 orden lockeado: riesgo-first (preposiciones) + alfabético resto.
-// La suma de `expected` es 277. Historial del total:
+// La suma de `expected` es 249. Historial del total:
 //   373 = 272 (271 originales v1.0 + 1 ejercicio preposiciones-051 creado durante
 //   la validación editorial de Phase 10) + 56 de la 8ª categoría `articoli`
 //   (v1.2 Phase 11: 48 base + 2 match + 6 bridges) + 44 de la 9ª categoría
@@ -113,6 +113,19 @@ const warn = (txt) => `${YELLOW}${txt}${RESET}`;
 //   slots + ser/estar), aquí la concordancia es 1 solo slot y NO hay cruces, así que
 //   el net BAJÓ. TOTAL = 307 − 37 + 7 = 277. El conteo `expected` de verbos-movimiento
 //   se mide como data.exercises.length (nº de slots).
+//   → 249 (v1.6 Phase 25, GEN-01): Genere e numero se convirtió al shape
+//   slot+variantes. La reagrupación fundió 40 ejercicios payload a 1 SLOT POR
+//   MICRO-REGLA (D-25-01, granularidad fina): plural -o/-i, -a/-e, -e/-i, sonido
+//   duro -co/-go, invariables, femenino -o/-a, -tore/-trice, -e/-essa, articulo
+//   por sonido + los 3 match preservados (D-25-03/D-04) = 12 slots reales (6 pares
+//   de duplicados literales colapsados a variantes). Las 40 superficies fuente se
+//   preservaron como variantes (+20 superficies nuevas de los 4 ejes D-25-04:
+//   invariables + sonido duro con excepción amico→amici + género -trice/-essa +
+//   plural base — variantes, NO slots, así que NO suben el count). A diferencia de
+//   Verbi di movimento (granularidad por auxiliar), aquí la granularidad es FINA
+//   (más slots por micro-regla) pero los 6 duplicados colapsados hacen que el net
+//   BAJE: 40 payload → 12 slots. TOTAL = 277 − 40 + 12 = 249. El conteo `expected`
+//   de genero-numero se mide como data.exercises.length (nº de slots).
 // `articoli` es alfabéticamente primero del resto, así que va justo tras
 // preposiciones; `partitivos` ordena entre genero-numero y profesiones. El
 // reporter falla si la suma encontrada en disco no coincide con el expected —
@@ -122,14 +135,14 @@ const CATEGORIES = [
   { slug: 'articoli',                 file: 'content/exercises/articoli.json',                 expected: 34 },
   { slug: 'avere',                    file: 'content/exercises/avere.json',                    expected: 20 },
   { slug: 'essere',                   file: 'content/exercises/essere.json',                   expected: 26 },
-  { slug: 'genero-numero',            file: 'content/exercises/genero-numero.json',            expected: 40 },
+  { slug: 'genero-numero',            file: 'content/exercises/genero-numero.json',            expected: 12 },
   { slug: 'partitivos',               file: 'content/exercises/partitivos.json',               expected: 19 },
   { slug: 'profesiones',              file: 'content/exercises/profesiones.json',              expected: 51 },
   { slug: 'sustantivos-irregulares',  file: 'content/exercises/sustantivos-irregulares.json',  expected: 31 },
   { slug: 'verbos-movimiento',        file: 'content/exercises/verbos-movimiento.json',        expected: 7 },
 ];
 
-const TOTAL_EXPECTED = 277;
+const TOTAL_EXPECTED = 249;
 
 /**
  * Relax path-B (RESEARCH Open Q #1 opción c): si `deriveStatus` da `disputed`
