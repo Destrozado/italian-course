@@ -205,6 +205,11 @@
           "prompt": "Giulia è ___ sull'autobus di corsa.",
           "options": ["salito", "salita", "saliti", "salite"],
           "correctIndex": 1
+        },
+        {
+          "prompt": "I ragazzi sono ___ alla festa insieme.",
+          "options": ["venuto", "venuta", "venuti", "venute"],
+          "correctIndex": 2
         }
       ],
       "validation": {
