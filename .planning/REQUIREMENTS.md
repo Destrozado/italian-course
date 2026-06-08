@@ -24,8 +24,8 @@
 
 ### Verbi di movimento a slots (MOV) — 37 ejercicios
 
-- [ ] **MOV-01**: Los 37 ejercicios de Verbi di movimento se reagrupan en slots por regla con explanation a nivel de slot; la estructura final pasa el validator y el smoke con los counts re-sincronizados al nº real de slots.
-- [ ] **MOV-02**: Se autoran variantes nuevas (D-85 + quórum cross-vendor R1-R7) donde la regla admite reformulación; cada variante pasa el quórum antes de entrar; huecos → slots nuevos.
+- [x] **MOV-01**: Los 37 ejercicios de Verbi di movimento se reagrupan en slots por regla con explanation a nivel de slot; la estructura final pasa el validator y el smoke con los counts re-sincronizados al nº real de slots.
+- [x] **MOV-02**: Se autoran variantes nuevas (D-85 + quórum cross-vendor R1-R7) donde la regla admite reformulación; cada variante pasa el quórum antes de entrar; huecos → slots nuevos.
 
 ### Genere e numero a slots (GEN) — 40 ejercicios
 
@@ -79,8 +79,8 @@ Diferidos a milestones futuros. Reconocidos pero no en el roadmap actual.
 | AVE-02 | Phase 22 | Complete |
 | ESS-01 | Phase 23 | Complete |
 | ESS-02 | Phase 23 | Complete |
-| MOV-01 | Phase 24 | Pending |
-| MOV-02 | Phase 24 | Pending |
+| MOV-01 | Phase 24 | Complete |
+| MOV-02 | Phase 24 | Complete |
 | GEN-01 | Phase 25 | Pending |
 | GEN-02 | Phase 25 | Pending |
 | PROF-01 | Phase 26 | Pending |
