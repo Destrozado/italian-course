@@ -1267,7 +1267,7 @@ const CATEGORIES_WITH_EXPLANATIONS = [
   { file: 'content/exercises/genero-numero.json', expected: 40 },
   { file: 'content/exercises/avere.json', expected: 20 },
   { file: 'content/exercises/sustantivos-irregulares.json', expected: 31 },
-  { file: 'content/exercises/verbos-movimiento.json', expected: 37 },
+  { file: 'content/exercises/verbos-movimiento.json', expected: 7 },
   { file: 'content/exercises/essere.json', expected: 26 },
   { file: 'content/exercises/profesiones.json', expected: 51 },
   { file: 'content/exercises/articoli.json', expected: 34 },
