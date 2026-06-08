@@ -93,7 +93,7 @@ Numeración CONTINÚA desde Phase 20 → Phases 21-27 (NO reset — mismo criter
 - [x] **Phase 23: Essere a slots (contenido)** — Reagrupar los 39 ejercicios de Essere en slots por regla (presente indicativo + identidad/nacionalidad/profesión/estado/cópula + participio stato/stata/stati/state + cruces), autorar variantes nuevas por quórum, huecos→slots, validator + smoke + counts + explanation a nivel de slot. (completed 2026-06-08 — 39→26 slots, TOTAL_EXPECTED 320→307)
 - [x] **Phase 24: Verbi di movimento a slots (contenido)** — Reagrupar los 37 ejercicios de Verbi di movimento en slots por regla, autorar variantes nuevas por quórum, huecos→slots, validator + smoke + counts + explanation a nivel de slot. (completed 2026-06-08)
 - [x] **Phase 25: Genere e numero a slots (contenido)** — Reagrupar los 40 ejercicios de Genere e numero en slots por regla (terminaciones de género + formación de plural; match si requiere regla no derivable por raíz, D-04), autorar variantes nuevas por quórum, huecos→slots, validator + smoke + counts + explanation a nivel de slot. (completed 2026-06-08)
-- [ ] **Phase 26: Professioni a slots (contenido, léxica)** — Reagrupar los 51 ejercicios de Professioni en slots. Decisión de discuss/plan: regla-con-variantes natural (p.ej. femenino por terminación) O slots-de-1 reagrupados si la categoría léxica no admite variantes intercambiables. Validator + smoke + counts + explanation a nivel de slot.
+- [x] **Phase 26: Professioni a slots (contenido, léxica)** — Reagrupar los 51 ejercicios de Professioni en slots. Decisión de discuss/plan: regla-con-variantes natural (p.ej. femenino por terminación) O slots-de-1 reagrupados si la categoría léxica no admite variantes intercambiables. Validator + smoke + counts + explanation a nivel de slot. (completed 2026-06-08)
 - [ ] **Phase 27: Sostantivi irregolari a slots (contenido, léxica)** — Reagrupar los 31 ejercicios de Sostantivi irregolari en slots. Decisión de discuss/plan: regla-con-variantes natural (p.ej. patrones de plural irregular) O slots-de-1 reagrupados. Validator + smoke + counts + explanation a nivel de slot. Cierra CONV-01 (9/9 categorías unificadas).
 
 ## Phase Details
@@ -227,7 +227,7 @@ Plans:
 **Plans**: 3 plans (3 waves)
 - [x] 26-01-PLAN.md — Reagrupación HÍBRIDA + reescritura del JSON a slot+variantes (bloque regla por sub-regla de feminización + bloque léxico puro sin variantes + match/WB preservados); 26-REAGRUPACION-MAP.md con la decisión híbrida documentada por bloque (PROF-01)
 - [x] 26-02-PLAN.md — Autoría de variantes nuevas SOLO en feminización por quórum cross-vendor R1-R7 (contraste -trice/-essa + invariables -ista/-ante + -o/-a y -iere/-iera); bloque léxico sin variantes (PROF-02)
-- [ ] 26-03-PLAN.md — Sync de los 3 hardcodes de count + TOTAL_EXPECTED contra el nº real de slots; suite + reporter + smoke estricto verdes (cierre PROF-01)
+- [x] 26-03-PLAN.md — Sync de los 3 hardcodes de count + TOTAL_EXPECTED contra el nº real de slots; suite + reporter + smoke estricto verdes (cierre PROF-01)
 **UI hint**: no
 
 ### Phase 27: Sostantivi irregolari a slots (contenido, léxica)
@@ -260,7 +260,7 @@ Plans:
 | 23. Essere a slots (contenido) | v1.6 | 3/3 | Complete    | 2026-06-08 |
 | 24. Verbi di movimento a slots (contenido) | v1.6 | 3/3 | Complete    | 2026-06-08 |
 | 25. Genere e numero a slots (contenido) | v1.6 | 3/3 | Complete   | 2026-06-08 |
-| 26. Professioni a slots (contenido, léxica) | v1.6 | 2/3 | In Progress|  |
+| 26. Professioni a slots (contenido, léxica) | v1.6 | 3/3 | Complete   | 2026-06-08 |
 | 27. Sostantivi irregolari a slots (contenido, léxica) | v1.6 | 0/0 | Not started | - |
 
 ## Backlog

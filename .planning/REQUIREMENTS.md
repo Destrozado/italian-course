@@ -34,7 +34,7 @@
 
 ### Professioni a slots (PROF) — 51 ejercicios (léxica)
 
-- [ ] **PROF-01**: Los 51 ejercicios de Professioni se reagrupan en slots con explanation a nivel de slot. **Decisión de discuss/plan:** evaluar si hay regla-con-variantes natural (p.ej. femenino de profesiones por terminación) o si conviene dejarlos como slots-de-1 reagrupados — categoría léxica, no toda celda tiene variantes intercambiables. La estructura final pasa el validator y el smoke con los counts re-sincronizados.
+- [x] **PROF-01**: Los 51 ejercicios de Professioni se reagrupan en slots con explanation a nivel de slot. **Decisión de discuss/plan:** evaluar si hay regla-con-variantes natural (p.ej. femenino de profesiones por terminación) o si conviene dejarlos como slots-de-1 reagrupados — categoría léxica, no toda celda tiene variantes intercambiables. La estructura final pasa el validator y el smoke con los counts re-sincronizados.
 - [x] **PROF-02**: Donde exista regla-con-variantes, se autoran variantes nuevas (D-85 + quórum cross-vendor R1-R7) que pasan el quórum antes de entrar; si la categoría queda como slots-de-1, se documenta explícitamente que no aplica autoría de variantes.
 
 ### Sostantivi irregolari a slots (SOST) — 31 ejercicios (léxica)
@@ -83,7 +83,7 @@ Diferidos a milestones futuros. Reconocidos pero no en el roadmap actual.
 | MOV-02 | Phase 24 | Complete |
 | GEN-01 | Phase 25 | Complete |
 | GEN-02 | Phase 25 | Complete |
-| PROF-01 | Phase 26 | Pending |
+| PROF-01 | Phase 26 | Complete |
 | PROF-02 | Phase 26 | Complete |
 | SOST-01 | Phase 27 | Pending |
 | SOST-02 | Phase 27 | Pending |
