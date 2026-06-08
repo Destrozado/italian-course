@@ -182,7 +182,7 @@ Plans:
   3. La estructura final de Verbi di movimento pasa el validator y el smoke paramétrico, con los counts re-sincronizados al nº real de slots y la cobertura de explanations a nivel de slot preservada.
 
 **Plans**: 3 plans
-- [ ] 24-01-PLAN.md — Reagrupar los 37 ejercicios a slots por regla de auxiliar (slot essere, concordancia en 1 slot D-24-03, excepcioni->avere, correre propio D-24-04, 3 word-buttons); mapa auditado + checkpoint
+- [x] 24-01-PLAN.md — Reagrupar los 37 ejercicios a slots por regla de auxiliar (slot essere, concordancia en 1 slot D-24-03, excepcioni->avere, correre propio D-24-04, 3 word-buttons); mapa auditado + checkpoint
 - [ ] 24-02-PLAN.md — Autorar variantes nuevas por quórum cross-vendor R1-R7 (4 ejes de huecos D-24-06: más verbos essere, más excepciones avere, más test-de-destino, matriz de concordancia)
 - [ ] 24-03-PLAN.md — Re-sincronizar los 3 hardcodes de count + TOTAL_EXPECTED contra el nº real de slots (D-24-15)
 **UI hint**: no
@@ -243,7 +243,7 @@ Plans:
 | 21. Migración 8→9 (reset 6 categorías) | v1.6 | 1/1 | Complete    | 2026-06-05 |
 | 22. Avere a slots (contenido) | v1.6 | 3/3 | Complete    | 2026-06-05 |
 | 23. Essere a slots (contenido) | v1.6 | 3/3 | Complete    | 2026-06-08 |
-| 24. Verbi di movimento a slots (contenido) | v1.6 | 0/0 | Not started | - |
+| 24. Verbi di movimento a slots (contenido) | v1.6 | 1/3 | In Progress|  |
 | 25. Genere e numero a slots (contenido) | v1.6 | 0/0 | Not started | - |
 | 26. Professioni a slots (contenido, léxica) | v1.6 | 0/0 | Not started | - |
 | 27. Sostantivi irregolari a slots (contenido, léxica) | v1.6 | 0/0 | Not started | - |

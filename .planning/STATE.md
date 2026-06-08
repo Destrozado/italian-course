@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.6
 milestone_name: "Conversión a slots: categorías restantes"
 status: executing
-last_updated: "2026-06-08T10:29:00.951Z"
-last_activity: 2026-06-08 -- Phase 24 planning complete
+last_updated: "2026-06-08T10:37:01.193Z"
+last_activity: 2026-06-08 -- Phase 24 execution started
 progress:
   total_phases: 7
   completed_phases: 3
@@ -21,14 +21,14 @@ See: `.planning/PROJECT.md` (updated 2026-06-05 — Milestone v1.6 abierto)
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 24 — verbi di movimento a slots (contenido)
+**Current Focus:** Phase 24 — verbi-di-movimento-a-slots-contenido
 
 ## Current Position
 
-Phase: 24
-Plan: Not started
-Status: Ready to execute
-Last activity: 2026-06-08 -- Phase 24 planning complete
+Phase: 24 (verbi-di-movimento-a-slots-contenido) — EXECUTING
+Plan: 1 of 3
+Status: Executing Phase 24
+Last activity: 2026-06-08 -- Phase 24 execution started
 
 ## Quick Tasks Completed
 
