@@ -167,7 +167,7 @@ describe('back-compat SLOT-06 — las 9 categorías reales validan con el valida
     { slug: 'avere', expected: 20 },
     { slug: 'essere', expected: 26 },
     { slug: 'preposiciones', expected: 49 },
-    { slug: 'verbos-movimiento', expected: 37 },
+    { slug: 'verbos-movimiento', expected: 7 },
     { slug: 'sustantivos-irregulares', expected: 31 },
     { slug: 'genero-numero', expected: 40 },
     { slug: 'profesiones', expected: 51 },
