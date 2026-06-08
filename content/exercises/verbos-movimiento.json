@@ -260,6 +260,11 @@
           "prompt": "Tu ___ sciato sulle Alpi l'inverno scorso?",
           "options": ["sei", "hai", "ha", "avete"],
           "correctIndex": 1
+        },
+        {
+          "prompt": "Loro ___ viaggiato in treno per tutta l'Europa.",
+          "options": ["sono", "hanno", "siete", "abbiamo"],
+          "correctIndex": 1
         }
       ],
       "validation": {
