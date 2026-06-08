@@ -281,6 +281,36 @@
             "regista / regista"
           ],
           "correctIndex": 2
+        },
+        {
+          "prompt": "Lo scrittore → la ___.",
+          "options": [
+            "scrittora",
+            "scrittoressa",
+            "scrittrice",
+            "scrittora-trice"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Il lettore → la ___.",
+          "options": [
+            "lettora",
+            "lettoressa",
+            "lettrice",
+            "lettoria"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Il lavoratore → la ___.",
+          "options": [
+            "lavoratora",
+            "lavoratoressa",
+            "lavoratrice",
+            "lavoratoria"
+          ],
+          "correctIndex": 2
         }
       ],
       "validation": {
