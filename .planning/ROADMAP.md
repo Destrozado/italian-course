@@ -198,7 +198,19 @@ Plans:
   2. Donde la regla admite reformulación se autoran variantes nuevas (D-85 + quórum cross-vendor R1-R7, 4× correcta, 1-por-1); los huecos detectados se añaden como slots nuevos.
   3. La estructura final de Genere e numero pasa el validator y el smoke paramétrico, con los counts re-sincronizados al nº real de slots y la cobertura de explanations a nivel de slot preservada.
 
-**Plans**: TBD
+**Plans**: 3 plans
+Plans:
+**Wave 1**
+
+- [ ] 25-01-PLAN.md — Reagrupar los 40 ejercicios a 1 SLOT POR MICRO-REGLA (D-25-01, granularidad fina): plural -o/-i, -a/-e, -e/-i, sonido duro -co/-go, invariables, femenino -o/-a, -tore/-trice, -e/-essa, articulo por sonido; 6 duplicados colapsados a variantes; 3 match preservados (D-25-03/D-04); checkpoint:decision del mapa
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
+- [ ] 25-02-PLAN.md — Autorar variantes nuevas por quorum cross-vendor R1-R7 (4 ejes de huecos D-25-04: invariables, sonido duro con excepcion amico->amici, genero -trice/-essa, plural base); checkpoint:human-verify D-85
+
+**Wave 3** *(blocked on Wave 2 completion)*
+
+- [ ] 25-03-PLAN.md — Re-sincronizar los 3 hardcodes de count + TOTAL_EXPECTED contra el nº real de slots (D-25-11)
 **UI hint**: no
 
 ### Phase 26: Professioni a slots (contenido, léxica)
@@ -244,7 +256,7 @@ Plans:
 | 22. Avere a slots (contenido) | v1.6 | 3/3 | Complete    | 2026-06-05 |
 | 23. Essere a slots (contenido) | v1.6 | 3/3 | Complete    | 2026-06-08 |
 | 24. Verbi di movimento a slots (contenido) | v1.6 | 3/3 | Complete    | 2026-06-08 |
-| 25. Genere e numero a slots (contenido) | v1.6 | 0/0 | Not started | - |
+| 25. Genere e numero a slots (contenido) | v1.6 | 0/3 | Planned     | - |
 | 26. Professioni a slots (contenido, léxica) | v1.6 | 0/0 | Not started | - |
 | 27. Sostantivi irregolari a slots (contenido, léxica) | v1.6 | 0/0 | Not started | - |
 
