@@ -30,7 +30,7 @@
 ### Genere e numero a slots (GEN) — 40 ejercicios
 
 - [ ] **GEN-01**: Los 40 ejercicios de Genere e numero se reagrupan en slots por regla con explanation a nivel de slot; la estructura final pasa el validator y el smoke con los counts re-sincronizados al nº real de slots.
-- [ ] **GEN-02**: Se autoran variantes nuevas (D-85 + quórum cross-vendor R1-R7) donde la regla admite reformulación; cada variante pasa el quórum antes de entrar; huecos → slots nuevos.
+- [x] **GEN-02**: Se autoran variantes nuevas (D-85 + quórum cross-vendor R1-R7) donde la regla admite reformulación; cada variante pasa el quórum antes de entrar; huecos → slots nuevos. (Phase 25 Plan 02 — 20 variantes de los 4 ejes D-25-04 validadas ≥4x correcta, integradas; 0 slots nuevos por decisión del autor.)
 
 ### Professioni a slots (PROF) — 51 ejercicios (léxica)
 
@@ -82,7 +82,7 @@ Diferidos a milestones futuros. Reconocidos pero no en el roadmap actual.
 | MOV-01 | Phase 24 | Complete |
 | MOV-02 | Phase 24 | Complete |
 | GEN-01 | Phase 25 | Pending |
-| GEN-02 | Phase 25 | Pending |
+| GEN-02 | Phase 25 | Complete |
 | PROF-01 | Phase 26 | Pending |
 | PROF-02 | Phase 26 | Pending |
 | SOST-01 | Phase 27 | Pending |
