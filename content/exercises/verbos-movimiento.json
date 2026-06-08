@@ -80,6 +80,11 @@
           "prompt": "Io ___ sceso dal treno alla stazione.",
           "options": ["ho", "sono", "ha", "è"],
           "correctIndex": 1
+        },
+        {
+          "prompt": "Maria ___ salita sull'autobus in fretta.",
+          "options": ["ha", "è", "hanno", "sono"],
+          "correctIndex": 1
         }
       ],
       "validation": {
