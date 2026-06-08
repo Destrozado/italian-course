@@ -210,6 +210,11 @@
           "prompt": "I ragazzi sono ___ alla festa insieme.",
           "options": ["venuto", "venuta", "venuti", "venute"],
           "correctIndex": 2
+        },
+        {
+          "prompt": "Le mie sorelle sono ___ per Milano ieri.",
+          "options": ["partito", "partita", "partiti", "partite"],
+          "correctIndex": 3
         }
       ],
       "validation": {
