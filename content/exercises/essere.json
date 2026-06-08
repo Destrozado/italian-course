@@ -396,6 +396,16 @@
             "italiana"
           ],
           "correctIndex": 1
+        },
+        {
+          "prompt": "Anna e Giulia sono ___.",
+          "options": [
+            "italiana",
+            "italiani",
+            "italiane",
+            "italiano"
+          ],
+          "correctIndex": 2
         }
       ],
       "validation": {
