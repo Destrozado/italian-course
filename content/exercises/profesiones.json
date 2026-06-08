@@ -194,6 +194,16 @@
             "portiere"
           ],
           "correctIndex": 2
+        },
+        {
+          "prompt": "Il giardiniere → la ___.",
+          "options": [
+            "giardiniere",
+            "giardiniera",
+            "giardinieressa",
+            "giardinietrice"
+          ],
+          "correctIndex": 1
         }
       ],
       "validation": {
