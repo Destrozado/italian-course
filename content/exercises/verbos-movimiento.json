@@ -85,6 +85,11 @@
           "prompt": "Maria ___ salita sull'autobus in fretta.",
           "options": ["ha", "è", "hanno", "sono"],
           "correctIndex": 1
+        },
+        {
+          "prompt": "Il bambino ___ caduto mentre giocava.",
+          "options": ["ha", "è", "hanno", "avete"],
+          "correctIndex": 1
         }
       ],
       "validation": {
