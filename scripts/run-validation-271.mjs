@@ -61,7 +61,7 @@ const fail = (txt) => `${RED}${txt}${RESET}`;
 const warn = (txt) => `${YELLOW}${txt}${RESET}`;
 
 // D-VAL-22 orden lockeado: riesgo-first (preposiciones) + alfabético resto.
-// La suma de `expected` es 249. Historial del total:
+// La suma de `expected` es 209. Historial del total:
 //   373 = 272 (271 originales v1.0 + 1 ejercicio preposiciones-051 creado durante
 //   la validación editorial de Phase 10) + 56 de la 8ª categoría `articoli`
 //   (v1.2 Phase 11: 48 base + 2 match + 6 bridges) + 44 de la 9ª categoría
@@ -126,6 +126,17 @@ const warn = (txt) => `${YELLOW}${txt}${RESET}`;
 //   (más slots por micro-regla) pero los 6 duplicados colapsados hacen que el net
 //   BAJE: 40 payload → 12 slots. TOTAL = 277 − 40 + 12 = 249. El conteo `expected`
 //   de genero-numero se mide como data.exercises.length (nº de slots).
+//   → 209 (v1.6 Phase 26, PROF-01): Professioni se convirtió al shape slot+variantes
+//   HIBRIDO. La reagrupación fundió 51 ejercicios payload a 11 slots reales: bloque
+//   REGLA por sub-regla de feminización (D-26-03: -o/-a, -iere/-iera, -tore/-trice,
+//   -e/-essa, invariabili) + bloque LEXICO PURO sin variantes (comprensión + 3 match
+//   preservados D-26-02/D-04) + articolo-suono + word-buttons preservados (D-26-06).
+//   Las 51 superficies fuente se preservaron como variantes (+12 superficies nuevas
+//   SOLO de feminización D-26-04: contraste -trice/-essa + invariables -ista/-ante +
+//   -o/-a y -iere/-iera — variantes, NO slots, así que NO suben el count; el bloque
+//   léxico no recibió variantes, PROF-01). El net BAJÓ por la fusión a slot+variantes:
+//   51 payload → 11 slots. TOTAL = 249 − 51 + 11 = 209. El conteo `expected`
+//   de profesiones se mide como data.exercises.length (nº de slots).
 // `articoli` es alfabéticamente primero del resto, así que va justo tras
 // preposiciones; `partitivos` ordena entre genero-numero y profesiones. El
 // reporter falla si la suma encontrada en disco no coincide con el expected —
@@ -137,12 +148,12 @@ const CATEGORIES = [
   { slug: 'essere',                   file: 'content/exercises/essere.json',                   expected: 26 },
   { slug: 'genero-numero',            file: 'content/exercises/genero-numero.json',            expected: 12 },
   { slug: 'partitivos',               file: 'content/exercises/partitivos.json',               expected: 19 },
-  { slug: 'profesiones',              file: 'content/exercises/profesiones.json',              expected: 51 },
+  { slug: 'profesiones',              file: 'content/exercises/profesiones.json',              expected: 11 },
   { slug: 'sustantivos-irregulares',  file: 'content/exercises/sustantivos-irregulares.json',  expected: 31 },
   { slug: 'verbos-movimiento',        file: 'content/exercises/verbos-movimiento.json',        expected: 7 },
 ];
 
-const TOTAL_EXPECTED = 249;
+const TOTAL_EXPECTED = 209;
 
 /**
  * Relax path-B (RESEARCH Open Q #1 opción c): si `deriveStatus` da `disputed`
