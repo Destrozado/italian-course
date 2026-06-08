@@ -1188,6 +1188,91 @@
           }
         ]
       }
+    },
+    {
+      "id": "essere-ser-estar",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "essere"
+      ],
+      "explanation": "El español usa dos verbos distintos -ser para la identidad y la esencia, estar para el estado y la localización-, pero el italiano lo resuelve todo con un único verbo: essere. Por eso 'Maria è stanca' equivale a 'Maria está cansada' (estado) y 'Maria è medico' equivale a 'Maria es médica' (identidad): la misma forma 'è' cubre lo que el español parte en dos. No existe un verbo italiano separado para 'estar'; tanto el estado transitorio (estar cansado, estar contento) como la identidad permanente (ser médico, ser profesor) se predican con essere. Cuidado con el contraste essere/avere: el estado y la identidad van con essere, pero la edad y las sensaciones físicas momentáneas se TIENEN con avere (ho trent'anni = tengo treinta años; ho fame = tengo hambre), nunca con essere. El adjetivo de estado concuerda con el sujeto (stanca femenino singular, contenti masculino plural), y el rol profesional predicativo va sin artículo (è medico, sono professori).",
+      "variants": [
+        {
+          "prompt": "Oggi Maria ___ stanca e di cattivo umore.",
+          "options": [
+            "ha",
+            "è",
+            "sei",
+            "sono"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Maria ___ medico in un grande ospedale.",
+          "options": [
+            "ha",
+            "sei",
+            "è",
+            "sono"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "I bambini ___ contenti dopo la festa.",
+          "options": [
+            "hanno",
+            "siamo",
+            "sono",
+            "siete"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "I miei genitori ___ professori di matematica.",
+          "options": [
+            "hanno",
+            "siete",
+            "siamo",
+            "sono"
+          ],
+          "correctIndex": 3
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-7",
+            "date": "2026-06-08",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-06-08",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-08",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-08",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-08",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     }
   ]
 }
