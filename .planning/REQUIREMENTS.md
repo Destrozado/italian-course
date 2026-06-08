@@ -19,7 +19,7 @@
 
 ### Essere a slots (ESS) — 39 ejercicios
 
-- [ ] **ESS-01**: Los 39 ejercicios de Essere se reagrupan en slots por regla con explanation a nivel de slot; la estructura final pasa el validator y el smoke paramétrico con los counts re-sincronizados al nº real de slots.
+- [x] **ESS-01**: Los 39 ejercicios de Essere se reagrupan en slots por regla con explanation a nivel de slot; la estructura final pasa el validator y el smoke paramétrico con los counts re-sincronizados al nº real de slots. (Phase 23 Plan 03 — 3 hardcodes 39→26 + TOTAL_EXPECTED 320→307; suite 374/374, strict 383/383, reporter PASS)
 - [x] **ESS-02**: Se autoran variantes nuevas (D-85 + quórum cross-vendor R1-R7) donde la regla admite reformulación; cada variante pasa el quórum antes de entrar; huecos → slots nuevos. (Phase 23 Plan 02 — 14 superficies, todas >=4x correcta; slot nuevo ser/estar; count 25→26)
 
 ### Verbi di movimento a slots (MOV) — 37 ejercicios
@@ -77,7 +77,7 @@ Diferidos a milestones futuros. Reconocidos pero no en el roadmap actual.
 | MIG-04 | Phase 21 | Complete |
 | AVE-01 | Phase 22 | Complete |
 | AVE-02 | Phase 22 | Complete |
-| ESS-01 | Phase 23 | Pending |
+| ESS-01 | Phase 23 | Complete |
 | ESS-02 | Phase 23 | Complete |
 | MOV-01 | Phase 24 | Pending |
 | MOV-02 | Phase 24 | Pending |

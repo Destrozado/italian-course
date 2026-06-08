@@ -90,7 +90,7 @@ Numeración CONTINÚA desde Phase 20 → Phases 21-27 (NO reset — mismo criter
 
 - [x] **Phase 21: Migración `8→9` (reset selectivo de las 6 categorías)** — `migrate8to9`/`hydrateV9` idempotente + deep-clone defensivo; resetea el progreso SOLO de las 6 categorías a convertir (`avere`, `essere`, `verbos-movimiento`, `genero-numero`, `profesiones`, `sustantivos-irregulares`) vía un predicado de 6 prefijos; las 3 ya convertidas (`preposiciones`, `articoli`, `partitivos`) byte-intactas; `backup.js` round-trip v9 + import v8→v9 + rechazo `>9`. Va PRIMERA: bloquea la renumeración de ids de las 6 fases de contenido (no se renumera con progreso vivo). (completed 2026-06-05)
 - [x] **Phase 22: Avere a slots (contenido)** — Reagrupar los 23 ejercicios de Avere en slots por regla (presente indicativo + idiomático + passato prossimo + cruces multi-cat), autorar variantes nuevas por quórum cross-vendor R1-R7, huecos→slots, validator + smoke + counts re-sincronizados + explanation a nivel de slot. (completed 2026-06-05)
-- [ ] **Phase 23: Essere a slots (contenido)** — Reagrupar los 39 ejercicios de Essere en slots por regla (presente indicativo + identidad/nacionalidad/profesión/estado/cópula + participio stato/stata/stati/state + cruces), autorar variantes nuevas por quórum, huecos→slots, validator + smoke + counts + explanation a nivel de slot.
+- [x] **Phase 23: Essere a slots (contenido)** — Reagrupar los 39 ejercicios de Essere en slots por regla (presente indicativo + identidad/nacionalidad/profesión/estado/cópula + participio stato/stata/stati/state + cruces), autorar variantes nuevas por quórum, huecos→slots, validator + smoke + counts + explanation a nivel de slot. (completed 2026-06-08 — 39→26 slots, TOTAL_EXPECTED 320→307)
 - [ ] **Phase 24: Verbi di movimento a slots (contenido)** — Reagrupar los 37 ejercicios de Verbi di movimento en slots por regla, autorar variantes nuevas por quórum, huecos→slots, validator + smoke + counts + explanation a nivel de slot.
 - [ ] **Phase 25: Genere e numero a slots (contenido)** — Reagrupar los 40 ejercicios de Genere e numero en slots por regla (terminaciones de género + formación de plural; match si requiere regla no derivable por raíz, D-04), autorar variantes nuevas por quórum, huecos→slots, validator + smoke + counts + explanation a nivel de slot.
 - [ ] **Phase 26: Professioni a slots (contenido, léxica)** — Reagrupar los 51 ejercicios de Professioni en slots. Decisión de discuss/plan: regla-con-variantes natural (p.ej. femenino por terminación) O slots-de-1 reagrupados si la categoría léxica no admite variantes intercambiables. Validator + smoke + counts + explanation a nivel de slot.
@@ -167,7 +167,7 @@ Plans:
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
-- [ ] 23-03-PLAN.md — re-sincronizar los 3 hardcodes de count (exercise-types:1271, slot-variants-integration:168, run-validation-271:103) + TOTAL_EXPECTED (:111, =320−39+n) al nº real de slots leído del JSON; smoke shape-agnostic + reporter verdes
+- [x] 23-03-PLAN.md — re-sincronizar los 3 hardcodes de count (exercise-types:1271, slot-variants-integration:168, run-validation-271:103) + TOTAL_EXPECTED (:111, =320−39+n) al nº real de slots leído del JSON; smoke shape-agnostic + reporter verdes — completed 2026-06-08 (39→26 en los 3 sitios; TOTAL_EXPECTED 320→307; suite 374/374, strict 383/383, reporter VAL-06 307/307 PASS)
 **UI hint**: no
 
 ### Phase 24: Verbi di movimento a slots (contenido)
