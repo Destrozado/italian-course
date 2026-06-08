@@ -255,6 +255,11 @@
           "prompt": "Noi ___ passeggiato nel centro storico.",
           "options": ["siamo", "abbiamo", "avete", "sono"],
           "correctIndex": 1
+        },
+        {
+          "prompt": "Tu ___ sciato sulle Alpi l'inverno scorso?",
+          "options": ["sei", "hai", "ha", "avete"],
+          "correctIndex": 1
         }
       ],
       "validation": {
