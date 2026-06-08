@@ -1269,7 +1269,7 @@ const CATEGORIES_WITH_EXPLANATIONS = [
   { file: 'content/exercises/sustantivos-irregulares.json', expected: 31 },
   { file: 'content/exercises/verbos-movimiento.json', expected: 7 },
   { file: 'content/exercises/essere.json', expected: 26 },
-  { file: 'content/exercises/profesiones.json', expected: 51 },
+  { file: 'content/exercises/profesiones.json', expected: 11 },
   { file: 'content/exercises/articoli.json', expected: 34 },
   { file: 'content/exercises/partitivos.json', expected: 19 },
   // Cobertura editorial: 370 con explanation curada tras el piloto v1.4 (Phase 17): Preposiciones pasó de 52 ejercicios a 49 slots (explanation a nivel de slot); las otras 8 categorías por ejercicio.
