@@ -378,6 +378,26 @@
             "cliente / cliente"
           ],
           "correctIndex": 1
+        },
+        {
+          "prompt": "Saffo è la più famosa ___ dell'antica Grecia (en español: la poetisa).",
+          "options": [
+            "poeta",
+            "poetatrice",
+            "poetessa",
+            "poeti"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Il principe → la ___.",
+          "options": [
+            "principa",
+            "principessa",
+            "principerice",
+            "principe"
+          ],
+          "correctIndex": 1
         }
       ],
       "validation": {
