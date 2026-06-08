@@ -75,6 +75,11 @@
           "prompt": "Loro ___ usciti dalla scuola.",
           "options": ["hanno", "sono", "abbiamo", "siete"],
           "correctIndex": 1
+        },
+        {
+          "prompt": "Io ___ sceso dal treno alla stazione.",
+          "options": ["ho", "sono", "ha", "è"],
+          "correctIndex": 1
         }
       ],
       "validation": {
