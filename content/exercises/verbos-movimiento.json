@@ -250,6 +250,11 @@
           "prompt": "Lui ___ camminato per due ore.",
           "options": ["è", "ha", "sono", "hanno"],
           "correctIndex": 1
+        },
+        {
+          "prompt": "Noi ___ passeggiato nel centro storico.",
+          "options": ["siamo", "abbiamo", "avete", "sono"],
+          "correctIndex": 1
         }
       ],
       "validation": {
