@@ -100,7 +100,7 @@
       "categoryIds": [
         "essere"
       ],
-      "explanation": "La tercera persona singular del presente indicativo de essere es 'è' con acento grave, forma que cubre lui, lei y la cortesía Lei: la misma conjugación sirve para los dos géneros (lui è / lei è). 'Lui è il mio amico' equivale al español 'Él es mi amigo'. Importante: el acento grave sobre la 'è' es obligatorio porque distingue el verbo (è = es) de la conjunción 'e' (e = y); confundir las dos grafías es uno de los errores ortográficos A1 más frecuentes. Cuidado además con la concordancia: el adjetivo predicativo concuerda en género con el sujeto, así que con un sujeto femenino se escribe 'simpatica' (no simpatico).",
+      "explanation": "La tercera persona singular del presente indicativo de essere es 'è' con acento grave, forma que cubre lui, lei y la cortesía Lei: la misma conjugación sirve para los dos géneros (lui è / lei è). 'Lui è il mio amico' equivale al español 'Él es mi amigo'; 'Il direttore è in ufficio' a 'El director está en la oficina' (la localización también va con essere, falso amigo estar->essere). Importante: el acento grave sobre la 'è' es obligatorio porque distingue el verbo (è = es) de la conjunción 'e' (e = y); confundir las dos grafías es uno de los errores ortográficos A1 más frecuentes. Cuidado además con la concordancia: el adjetivo predicativo concuerda en género con el sujeto, así que con un sujeto femenino se escribe 'simpatica' (no simpatico).",
       "variants": [
         {
           "prompt": "Lui ___ il mio amico.",
@@ -121,6 +121,16 @@
             "sei"
           ],
           "correctIndex": 2
+        },
+        {
+          "prompt": "Il direttore ___ in ufficio adesso.",
+          "options": [
+            "ha",
+            "è",
+            "sei",
+            "sono"
+          ],
+          "correctIndex": 1
         }
       ],
       "validation": {
