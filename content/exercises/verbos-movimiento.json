@@ -195,6 +195,11 @@
           "prompt": "Marco e Luigi sono ___ in ufficio presto.",
           "options": ["entrato", "entrata", "entrati", "entrate"],
           "correctIndex": 2
+        },
+        {
+          "prompt": "Marco è ___ dal treno alla stazione.",
+          "options": ["scesa", "sceso", "scesi", "scese"],
+          "correctIndex": 1
         }
       ],
       "validation": {
