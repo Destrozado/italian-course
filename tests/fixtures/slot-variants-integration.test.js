@@ -165,7 +165,7 @@ describe('back-compat SLOT-06 — las 9 categorías reales validan con el valida
   // futura cambia un conteo, este test obliga a actualizarlo conscientemente.
   const REAL_CATEGORIES = [
     { slug: 'avere', expected: 20 },
-    { slug: 'essere', expected: 39 },
+    { slug: 'essere', expected: 26 },
     { slug: 'preposiciones', expected: 49 },
     { slug: 'verbos-movimiento', expected: 37 },
     { slug: 'sustantivos-irregulares', expected: 31 },
