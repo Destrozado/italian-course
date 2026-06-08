@@ -107,6 +107,26 @@
             "commessrice"
           ],
           "correctIndex": 1
+        },
+        {
+          "prompt": "Il maestro → la ___.",
+          "options": [
+            "maestra",
+            "maestre",
+            "maestressa",
+            "maestrice"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "L'operaio (masc) → l'___ (fem).",
+          "options": [
+            "operaie",
+            "operaia",
+            "operaiessa",
+            "operaitrice"
+          ],
+          "correctIndex": 1
         }
       ],
       "validation": {
