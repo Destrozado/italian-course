@@ -310,6 +310,11 @@
           "prompt": "L'aereo ___ volato a Parigi stamattina.",
           "options": ["ha", "è", "hanno", "avete"],
           "correctIndex": 1
+        },
+        {
+          "prompt": "Gli uccelli ___ volato tutto il giorno.",
+          "options": ["sono", "hanno", "è", "siamo"],
+          "correctIndex": 1
         }
       ],
       "validation": {
