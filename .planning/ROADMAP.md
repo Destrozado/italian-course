@@ -226,7 +226,7 @@ Plans:
 
 **Plans**: 3 plans (3 waves)
 - [x] 26-01-PLAN.md — Reagrupación HÍBRIDA + reescritura del JSON a slot+variantes (bloque regla por sub-regla de feminización + bloque léxico puro sin variantes + match/WB preservados); 26-REAGRUPACION-MAP.md con la decisión híbrida documentada por bloque (PROF-01)
-- [ ] 26-02-PLAN.md — Autoría de variantes nuevas SOLO en feminización por quórum cross-vendor R1-R7 (contraste -trice/-essa + invariables -ista/-ante + -o/-a y -iere/-iera); bloque léxico sin variantes (PROF-02)
+- [x] 26-02-PLAN.md — Autoría de variantes nuevas SOLO en feminización por quórum cross-vendor R1-R7 (contraste -trice/-essa + invariables -ista/-ante + -o/-a y -iere/-iera); bloque léxico sin variantes (PROF-02)
 - [ ] 26-03-PLAN.md — Sync de los 3 hardcodes de count + TOTAL_EXPECTED contra el nº real de slots; suite + reporter + smoke estricto verdes (cierre PROF-01)
 **UI hint**: no
 
@@ -260,7 +260,7 @@ Plans:
 | 23. Essere a slots (contenido) | v1.6 | 3/3 | Complete    | 2026-06-08 |
 | 24. Verbi di movimento a slots (contenido) | v1.6 | 3/3 | Complete    | 2026-06-08 |
 | 25. Genere e numero a slots (contenido) | v1.6 | 3/3 | Complete   | 2026-06-08 |
-| 26. Professioni a slots (contenido, léxica) | v1.6 | 1/3 | In Progress|  |
+| 26. Professioni a slots (contenido, léxica) | v1.6 | 2/3 | In Progress|  |
 | 27. Sostantivi irregolari a slots (contenido, léxica) | v1.6 | 0/0 | Not started | - |
 
 ## Backlog
