@@ -2,15 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.6
 milestone_name: "Conversión a slots: categorías restantes"
-status: executing
-last_updated: "2026-06-08T17:00:00.000Z"
+status: ready_to_plan
+last_updated: 2026-06-08T09:07:01.752Z
 last_activity: 2026-06-08 -- Phase 23 Plan 03 (Sync de counts de Essere / cierre ESS-01) completado -- Phase 23 COMPLETA (3/3)
 progress:
   total_phases: 7
   completed_phases: 3
   total_plans: 7
   completed_plans: 7
-  percent: 57
+  percent: 43
+stopped_at: Phase 23 complete (3/3) — ready to discuss Phase 24
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -21,14 +22,14 @@ See: `.planning/PROJECT.md` (updated 2026-06-05 — Milestone v1.6 abierto)
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 23 — essere-a-slots-contenido
+**Current Focus:** Phase 24 — verbi di movimento a slots (contenido)
 
 ## Current Position
 
-Phase: 23 (essere-a-slots-contenido) — COMPLETA (3/3 plans)
-Plan: 3 of 3 — COMPLETADO
-Status: Phase 23 completa (23-01 + 23-02 + 23-03 completados); pendiente verificación de fase → Phase 24
-Last activity: 2026-06-08 -- Phase 23 Plan 03 (Sync de counts de Essere / cierre ESS-01) completado
+Phase: 24
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-06-08
 
 ## Quick Tasks Completed
 
