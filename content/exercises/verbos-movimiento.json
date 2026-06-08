@@ -320,6 +320,11 @@
           "prompt": "Io ___ corso per un'ora in palestra stamattina.",
           "options": ["sono", "ho", "è", "siamo"],
           "correctIndex": 1
+        },
+        {
+          "prompt": "Anna ___ corsa subito all'ospedale.",
+          "options": ["ha", "è", "hanno", "avete"],
+          "correctIndex": 1
         }
       ],
       "validation": {
