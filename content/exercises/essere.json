@@ -17,6 +17,16 @@
             "siamo"
           ],
           "correctIndex": 1
+        },
+        {
+          "prompt": "Io ___ uno studente di italiano.",
+          "options": [
+            "sei",
+            "sono",
+            "ho",
+            "è"
+          ],
+          "correctIndex": 1
         }
       ],
       "validation": {
