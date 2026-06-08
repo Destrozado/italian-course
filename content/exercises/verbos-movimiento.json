@@ -1,16 +1,82 @@
 {
   "exercises": [
     {
-      "id": "verbos-movimiento-001",
+      "id": "verbos-movimiento-essere",
       "type": "multiple-choice",
       "categoryIds": ["verbos-movimiento"],
-      "payload": {
-        "prompt": "Io ___ andato al cinema.",
-        "options": ["ho", "sono", "ha", "è"],
-        "correctIndex": 1,
-        "explanation": "El passato prossimo de los verbos de movimiento en italiano se forma con el auxiliar essere, no avere. Para la 1ª persona singular el auxiliar es 'sono', así que 'io sono andato' equivale al español 'yo he ido'. Cuidado: el hispanohablante traduce literalmente con haber y dice 'io ho andato', uno de los errores A1 más persistentes; el reflejo correcto es essere con todos los verbos de movimiento."
-      },
-      "notes": "Essere presente 1ª singular ('sono') como auxiliar del passato prossimo de andare (verbo de movimiento → essere, PDF §3 Regla de Oro). Distractora 'ho' es la trampa A1 típica (en español 'he ido' usa haber, pero italiano exige essere).",
+      "explanation": "El passato prossimo de los verbos de movimiento (andare, venire, partire, tornare, uscire, entrare...) se forma con el auxiliar essere, no avere: sono andato, sei venuto, è partito, siamo tornati, siete entrati, sono usciti. El hispanohablante traduce literalmente con haber y dice 'io ho andato', uno de los errores A1 más persistentes; el reflejo correcto es essere con TODOS los verbos de movimiento. La conjugación completa del auxiliar (sono, sei, è, siamo, siete, sono) se memoriza en bloque; ojo con la grafía 'è' (acento grave), que no es la conjunción 'e' (y), y con 'sono', que coincide en la 1ª singular y la 3ª plural (el sujeto explícito desambigua). Y cuando el auxiliar essere ya está dado, el verbo solo puede ser de movimiento con destino: descarta camminato, ballato o nuotato, que van con avere.",
+      "variants": [
+        {
+          "prompt": "Io ___ andato al cinema.",
+          "options": ["ho", "sono", "ha", "è"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Tu ___ venuto alla festa ieri.",
+          "options": ["hai", "sei", "è", "siamo"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Lui ___ partito stamattina.",
+          "options": ["ha", "è", "siamo", "hanno"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Noi ___ tornati a casa tardi.",
+          "options": ["abbiamo", "siamo", "siete", "sono"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Voi ___ entrati nel ristorante.",
+          "options": ["avete", "siete", "siamo", "sono"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Loro ___ usciti alle otto.",
+          "options": ["hanno", "sono", "siete", "abbiamo"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Maria ___ andata al cinema ieri.",
+          "options": ["ha", "è", "hanno", "sono"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "I ragazzi ___ usciti alle otto.",
+          "options": ["hanno", "sono", "siamo", "è"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Io (donna) ___ tornata a casa tardi.",
+          "options": ["ho", "sono", "è", "siamo"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Anna ___ venuta a trovarmi domenica.",
+          "options": ["ha", "è", "hanno", "siamo"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Le mie amiche ___ partite per Napoli.",
+          "options": ["hanno", "sono", "siete", "abbiamo"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Io ___ venuto in macchina.",
+          "options": ["ho", "sono", "è", "siamo"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Lui è ___ a casa di Maria.",
+          "options": ["camminato", "andato", "ballato", "nuotato"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Loro ___ usciti dalla scuola.",
+          "options": ["hanno", "sono", "abbiamo", "siete"],
+          "correctIndex": 1
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -30,16 +96,72 @@
       }
     },
     {
-      "id": "verbos-movimiento-002",
+      "id": "verbos-movimiento-concordanza",
       "type": "multiple-choice",
       "categoryIds": ["verbos-movimiento"],
-      "payload": {
-        "prompt": "Tu ___ venuto alla festa ieri.",
-        "options": ["hai", "sei", "è", "siamo"],
-        "correctIndex": 1,
-        "explanation": "El verbo venire pertenece a la lista canónica de verbos de movimiento que exigen el auxiliar essere en passato prossimo. La 2ª persona singular de essere es 'sei', así que 'tu sei venuto' equivale al español 'tú has venido'. Importante: la conjugación completa del auxiliar (sono, sei, è, siamo, siete, sono) debe memorizarse en bloque, porque el participio del verbo de movimiento no cambia sin un auxiliar correcto."
-      },
-      "notes": "Essere presente 2ª singular ('sei') como auxiliar de venire. PDF §2 tabla essere + §3 Verbi di Movimento. Concordancia masculina ('venuto' presupone sujeto masculino).",
+      "explanation": "Cuando el auxiliar es essere, el participio del verbo de movimiento concuerda en género y número con el sujeto. La matriz tiene cuatro celdas: -o para masculino singular (Lui è andato), -a para femenino singular (Lei è andata), -i para masculino o grupo mixto plural (Noi siamo andati), -e para femenino plural (Loro donne sono andate). Estas cuatro terminaciones se aplican a TODOS los participios de los verbos de movimiento, no solo a andare: uscito/a/i/e, tornato/a/i/e, entrato/a/i/e. A diferencia del español, donde el participio con haber es invariable, el italiano marca el género del sujeto en la propia terminación. Ojo: 'andate' (femenino plural) coincide visualmente con la 2ª plural del presente 'voi andate', pero el auxiliar (siamo/sono) desambigua; en sujetos compuestos (Marco e Luigi) basta un masculino en el grupo para que la concordancia plural sea masculina.",
+      "variants": [
+        {
+          "prompt": "Lei è ___ al mercato ieri.",
+          "options": ["andato", "andata", "andati", "andate"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Lui è ___ in Italia l'anno scorso.",
+          "options": ["andato", "andata", "andati", "andate"],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Noi (uomini) siamo ___ a Roma.",
+          "options": ["andato", "andata", "andati", "andate"],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Noi (donne) siamo ___ in vacanza.",
+          "options": ["andato", "andata", "andati", "andate"],
+          "correctIndex": 3
+        },
+        {
+          "prompt": "Maria è ___ al cinema ieri.",
+          "options": ["andato", "andata", "andati", "andate"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "I ragazzi sono ___ alle otto.",
+          "options": ["uscito", "uscita", "usciti", "uscite"],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Io (donna) sono ___ a casa tardi.",
+          "options": ["tornato", "tornata", "tornati", "tornate"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Loro (donne) sono ___ in centro.",
+          "options": ["andato", "andata", "andati", "andate"],
+          "correctIndex": 3
+        },
+        {
+          "prompt": "Voi siete ___ in classe in ritardo.",
+          "options": ["entrato", "entrata", "entrati", "entrate"],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Marco, tu sei ___ ieri sera?",
+          "options": ["uscito", "uscita", "usciti", "uscite"],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "I miei genitori sono ___ dal viaggio.",
+          "options": ["tornato", "tornata", "tornati", "tornate"],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Marco e Luigi sono ___ in ufficio presto.",
+          "options": ["entrato", "entrata", "entrati", "entrate"],
+          "correctIndex": 2
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -59,16 +181,42 @@
       }
     },
     {
-      "id": "verbos-movimiento-003",
+      "id": "verbos-movimiento-excepcioni-avere",
       "type": "multiple-choice",
       "categoryIds": ["verbos-movimiento"],
-      "payload": {
-        "prompt": "Lui ___ partito stamattina.",
-        "options": ["ha", "è", "siamo", "hanno"],
-        "correctIndex": 1,
-        "explanation": "Partire es uno de los 11 verbos de movimiento del A1 y forma el passato prossimo con essere. La 3ª persona singular del auxiliar es 'è' (con acento grave italiano), así que 'lui è partito' equivale al español 'él ha partido' o 'él se ha marchado'. Ojo: la grafía 'è' (con acento) distingue al verbo de la conjunción 'e' (y); confundir ambas formas en la escritura es un error A1 muy habitual."
-      },
-      "notes": "Essere presente 3ª singular ('è') como auxiliar de partire. PDF §3 lista canónica + ejemplo del PDF 'È partito'.",
+      "explanation": "Algunos verbos parecen de movimiento pero son excepciones: cuando describen una actividad sin destino concreto (viaggiare, nuotare, camminare, ballare) piden auxiliar avere, no essere. Aunque viajar, nadar, caminar o bailar impliquen movimiento, no apuntan a un destino, así que se conjugan con avere: abbiamo viaggiato, hai nuotato, ho camminato, hanno ballato. Con avere el participio queda invariable, siempre terminado en -o (camminato, viaggiato), sin marcar género ni número; las terminaciones -a/-i/-e solo aparecen tras essere, tras avere son trampas. El filtro mental siempre debe ser '¿hay destino?', no '¿hay movimiento?': complementos como 'per due ore' o 'molto' indican duración o cantidad, no destino, y delatan la excepción. El grupo avere de actividades (ballare, nuotare, camminare, viaggiare) se memoriza en bloque, porque la intuición de movimiento engaña al principiante.",
+      "variants": [
+        {
+          "prompt": "Noi ___ viaggiato molto quest'anno.",
+          "options": ["siamo", "abbiamo", "avete", "hanno"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Tu ___ nuotato in piscina?",
+          "options": ["sei", "hai", "ha", "avete"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Ho ___ tutta la mattina nel parco.",
+          "options": ["camminato", "camminata", "camminati", "camminate"],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Loro ___ ballato fino a mezzanotte.",
+          "options": ["sono", "hanno", "avete", "siete"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Voi ___ nuotato in mare quest'estate?",
+          "options": ["siete", "avete", "abbiamo", "hanno"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Lui ___ camminato per due ore.",
+          "options": ["è", "ha", "sono", "hanno"],
+          "correctIndex": 1
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -88,16 +236,22 @@
       }
     },
     {
-      "id": "verbos-movimiento-004",
+      "id": "verbos-movimiento-correre",
       "type": "multiple-choice",
       "categoryIds": ["verbos-movimiento"],
-      "payload": {
-        "prompt": "Noi ___ tornati a casa tardi.",
-        "options": ["abbiamo", "siamo", "siete", "sono"],
-        "correctIndex": 1,
-        "explanation": "Tornare (volver, regresar) es un verbo de movimiento clásico que pide essere en passato prossimo. La 1ª persona plural de essere es 'siamo', así que 'noi siamo tornati' equivale al español 'nosotros hemos vuelto'. Además, el participio concuerda en género y número con el sujeto: aquí 'tornati' es plural masculino, asumiendo un grupo de hombres o un grupo mixto; un grupo solo de mujeres exigiría 'tornate'."
-      },
-      "notes": "Essere presente 1ª plural ('siamo') como auxiliar de tornare + concordancia plural masculino ('tornati'). PDF §3 ejemplo canónico 'Siamo tornati'.",
+      "explanation": "Correre es un verbo especial que cambia de auxiliar según haya destino o no. La pregunta clave es siempre: ¿hay un destino? Con destino, essere; sin destino, avere. Si correr describe una actividad sin meta concreta (ieri ho corso al parco per un'ora, correr como ejercicio), se conjuga con avere. Si lleva un destino explícito (Marco è corso a casa), se comporta como un verbo de movimiento direccional y pide essere. La forma del participio 'corso' es la misma en ambos casos: lo único que cambia es el auxiliar, según el destino.",
+      "variants": [
+        {
+          "prompt": "Ieri ___ corso al parco per un'ora.",
+          "options": ["sono", "ho", "è", "hanno"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Vedendo il pericolo, Marco ___ corso a casa.",
+          "options": ["ha", "è", "hanno", "avete"],
+          "correctIndex": 1
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -117,916 +271,17 @@
       }
     },
     {
-      "id": "verbos-movimiento-005",
-      "type": "multiple-choice",
-      "categoryIds": ["verbos-movimiento"],
-      "payload": {
-        "prompt": "Voi ___ entrati nel ristorante.",
-        "options": ["avete", "siete", "siamo", "sono"],
-        "correctIndex": 1,
-        "explanation": "Entrare es otro verbo de movimiento de la lista canónica del A1 y forma el passato prossimo con essere. La 2ª persona plural del auxiliar es 'siete', así que 'voi siete entrati' equivale al español 'vosotros habéis entrado'. Cuidado con la trampa hispana 'voi avete entrati' (calco de 'habéis entrado'): el español usa haber para todo, pero el italiano reserva avere para los transitivos y exige essere con los verbos de movimiento."
-      },
-      "notes": "Essere presente 2ª plural ('siete') como auxiliar de entrare + concordancia plural masculino ('entrati'). PDF §3 ejemplo 'Siete entrati'.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "verbos-movimiento-006",
-      "type": "multiple-choice",
-      "categoryIds": ["verbos-movimiento"],
-      "payload": {
-        "prompt": "Loro ___ usciti alle otto.",
-        "options": ["hanno", "sono", "siete", "abbiamo"],
-        "correctIndex": 1,
-        "explanation": "La 3ª persona plural de essere coincide en grafía con la 1ª singular: ambas son 'sono'. Por eso 'loro sono usciti' equivale al español 'ellos han salido', con el mismo 'sono' que 'io sono'. Importante: el contexto y el sujeto explícito ('loro' vs 'io') desambiguan la persona; el participio plural masculino 'usciti' confirma aquí que el sujeto es 'loro', no 'io' (que pediría singular 'uscito')."
-      },
-      "notes": "Essere presente 3ª plural ('sono') como auxiliar de uscire + concordancia plural masculino ('usciti'). PDF §3 ejemplo 'Sono usciti'. Sutil: 'sono' coincide forma con 1ª singular pero aquí es 3ª plural por el sujeto 'Loro'.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "verbos-movimiento-007",
-      "type": "multiple-choice",
-      "categoryIds": ["verbos-movimiento"],
-      "payload": {
-        "prompt": "Lei è ___ al mercato ieri.",
-        "options": ["andato", "andata", "andati", "andate"],
-        "correctIndex": 1,
-        "explanation": "Cuando el auxiliar es essere, el participio del verbo de movimiento concuerda en género y número con el sujeto. Para 'Lei' (ella, femenino singular) el participio de andare es 'andata', así que 'Lei è andata al mercato' equivale al español 'Ella ha ido al mercado'. ¡Atención!: a diferencia del español, donde el participio con haber es invariable ('él ha ido / ella ha ido'), el italiano marca el género del sujeto en la propia terminación del participio."
-      },
-      "notes": "Concordancia género participio: sujeto femenino singular 'Lei' → 'andata' (PDF §3 ¡Atención! 'Lui è andato | Lei è andata'). Pitfall A1 critical: el participio con essere DEBE concordar.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "verbos-movimiento-008",
-      "type": "multiple-choice",
-      "categoryIds": ["verbos-movimiento"],
-      "payload": {
-        "prompt": "Lui è ___ in Italia l'anno scorso.",
-        "options": ["andato", "andata", "andati", "andate"],
-        "correctIndex": 0,
-        "explanation": "Para el sujeto 'Lui' (masculino singular) el participio del verbo andare termina en -o: 'Lui è andato in Italia' equivale al español 'Él fue a Italia'. La matriz de concordancia con essere es de cuatro celdas: -o para masc singular, -a para fem singular, -i para masc plural y -e para fem plural. Ojo: la preposición 'in' con países contrasta con 'a' para ciudades ('è andato in Italia' vs 'è andato a Roma')."
-      },
-      "notes": "Concordancia género participio: sujeto masculino singular 'Lui' → 'andato'. PDF §3 ejemplo canónico.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "verbos-movimiento-009",
-      "type": "multiple-choice",
-      "categoryIds": ["verbos-movimiento"],
-      "payload": {
-        "prompt": "Noi (uomini) siamo ___ a Roma.",
-        "options": ["andato", "andata", "andati", "andate"],
-        "correctIndex": 2,
-        "explanation": "Cuando el sujeto plural es masculino (o un grupo mixto, que en italiano se trata como masculino por defecto), el participio termina en -i: 'Noi siamo andati a Roma' equivale al español 'Nosotros hemos ido a Roma'. El paréntesis '(uomini)' del enunciado aclara que el sujeto es masculino plural y evita ambigüedad. Importante: en italiano, basta con que haya un hombre en el grupo para que la concordancia plural sea masculina."
-      },
-      "notes": "Concordancia plural masculino: 'Noi (uomini)' → 'andati' (PDF §3 'Noi siamo andati'). El paréntesis aclara género para hacer la concordancia inequívoca.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "verbos-movimiento-010",
-      "type": "multiple-choice",
-      "categoryIds": ["verbos-movimiento"],
-      "payload": {
-        "prompt": "Noi (donne) siamo ___ in vacanza.",
-        "options": ["andato", "andata", "andati", "andate"],
-        "correctIndex": 3,
-        "explanation": "Cuando el sujeto plural es exclusivamente femenino, el participio termina en -e: 'Noi (donne) siamo andate in vacanza' equivale al español 'Nosotras hemos ido de vacaciones'. Cuidado: la forma 'andate' coincide visualmente con la 2ª persona plural del presente de andare ('voi andate' = vosotros vais), pero aquí funciona como participio plural femenino tras el auxiliar 'siamo'. El sujeto y el auxiliar son las claves para distinguir ambos usos."
-      },
-      "notes": "Concordancia plural femenino: 'Noi (donne)' → 'andate' (PDF §3 ¡Atención! ejemplo explícito 'Noi (donne) siamo andate'). Pitfall A1: confundir 'andate' con 2ª plural del presente.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "verbos-movimiento-011",
-      "type": "multiple-choice",
-      "categoryIds": ["verbos-movimiento"],
-      "payload": {
-        "prompt": "Maria ___ andata al cinema ieri.",
-        "options": ["ha", "è", "hanno", "sono"],
-        "correctIndex": 1,
-        "explanation": "El sujeto 'Maria' es 3ª persona singular femenina, así que el auxiliar de essere es 'è' y el participio concuerda en -a: 'Maria è andata al cinema' equivale al español 'Maria fue al cine'. La distractora 'ha' tienta porque calca el español 'ha ido', pero en italiano el verbo andare pide essere; el participio 'andata' del enunciado ya da la pista, porque solo concuerda tras un auxiliar essere."
-      },
-      "notes": "PDF §5 ejercicio práctico nº1 ('Maria ___ ___ (andare) al cinema ieri'). Aux essere 3ª singular + participio femenino 'andata' por sujeto Maria. Practica conjunta auxiliar + concordancia.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C5-leak] participio fem andata insinua essere"
-            ]
-          },
-          {
-            "by": "autor",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": [
-              "[override] autor mantiene: el ejercicio aun exige elegir persona/numero del auxiliar; el formato par-complementario (dar un lado, pedir el otro) es intencional y coherente con 013/015/025 validados."
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "verbos-movimiento-012",
-      "type": "multiple-choice",
-      "categoryIds": ["verbos-movimiento"],
-      "payload": {
-        "prompt": "Maria è ___ al cinema ieri.",
-        "options": ["andato", "andata", "andati", "andate"],
-        "correctIndex": 1,
-        "explanation": "Una vez fijado el auxiliar 'è' (3ª singular de essere), el participio se elige por el género y número del sujeto: 'Maria' es femenino singular, así que el participio de andare es 'andata'. 'Maria è andata al cinema' equivale al español 'Maria fue al cine'. El passato prossimo combina dos piezas: el auxiliar essere y el participio concordado en género y número."
-      },
-      "notes": "PDF §5 ejercicio nº1 — par complementario al -011: ahora con auxiliar dado, el hueco es el participio. Maria = femenino singular → 'andata'.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "verbos-movimiento-013",
-      "type": "multiple-choice",
-      "categoryIds": ["verbos-movimiento"],
-      "payload": {
-        "prompt": "I ragazzi ___ usciti alle otto.",
-        "options": ["hanno", "sono", "siamo", "è"],
-        "correctIndex": 1,
-        "explanation": "El sujeto 'I ragazzi' (los chicos) es 3ª persona plural masculina, por lo que el auxiliar de essere es 'sono': 'I ragazzi sono usciti alle otto' equivale al español 'Los chicos salieron a las ocho'. Cuidado: 'sono' funciona aquí como 3ª plural, no como 1ª singular; el sujeto explícito 'I ragazzi' y el participio plural 'usciti' confirman la persona. Uscire pide essere por pertenecer a la lista canónica de movimiento."
-      },
-      "notes": "PDF §5 ejercicio nº3 ('I ragazzi ___ ___ (uscire) alle otto'). Aux essere 3ª plural ('sono') + concordancia plural masculino ('usciti'). Ejemplo idéntico al PDF §3 'Sono usciti'.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "verbos-movimiento-014",
-      "type": "multiple-choice",
-      "categoryIds": ["verbos-movimiento"],
-      "payload": {
-        "prompt": "I ragazzi sono ___ alle otto.",
-        "options": ["uscito", "uscita", "usciti", "uscite"],
-        "correctIndex": 2,
-        "explanation": "Con el auxiliar 'sono' (3ª plural de essere) ya dado, el participio se elige por el género y número del sujeto: 'I ragazzi' es masculino plural, así que el participio de uscire es 'usciti'. La frase completa, 'I ragazzi sono usciti alle otto', equivale al español 'Los chicos salieron a las ocho'. Importante: la terminación -i del participio replica la terminación de 'ragazzi', un patrón visual útil para fijar la concordancia."
-      },
-      "notes": "PDF §5 nº3 — par complementario al -013: con aux dado, el hueco es el participio. 'I ragazzi' = plural masculino → 'usciti'.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "verbos-movimiento-015",
-      "type": "multiple-choice",
-      "categoryIds": ["verbos-movimiento"],
-      "payload": {
-        "prompt": "Io (donna) ___ tornata a casa tardi.",
-        "options": ["ho", "sono", "è", "siamo"],
-        "correctIndex": 1,
-        "explanation": "El sujeto 'Io' fija la 1ª persona singular del auxiliar essere, que es 'sono', y el paréntesis '(donna)' aclara que el participio debe ser femenino singular: 'tornata'. Así, 'Io (donna) sono tornata a casa tardi' equivale al español 'Yo (mujer) he vuelto a casa tarde'. Cuidado: la distractora 'ho' es la trampa hispana habitual; el verbo tornare es de movimiento y exige essere en passato prossimo."
-      },
-      "notes": "PDF §5 ejercicio nº4 ('Io (donna) ___ ___ (tornare) a casa tardi'). Reinterpretación: el PDF original escribe 'Io (uovo)' lo cual parece typo del PDF; el contexto pedagógico exige 'Io (donna)' o 'Io (uomo)' para fijar concordancia. Aux essere 1ª singular ('sono') + tornare con essere (PDF §3).",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "verbos-movimiento-016",
-      "type": "multiple-choice",
-      "categoryIds": ["verbos-movimiento"],
-      "payload": {
-        "prompt": "Io (donna) sono ___ a casa tardi.",
-        "options": ["tornato", "tornata", "tornati", "tornate"],
-        "correctIndex": 1,
-        "explanation": "Con el auxiliar 'sono' (1ª singular de essere) ya dado y la aclaración '(donna)' del sujeto, el participio de tornare debe ser femenino singular: 'tornata'. La frase completa 'Io (donna) sono tornata a casa tardi' equivale al español 'Yo (mujer) he vuelto a casa tarde'. Importante: el italiano marca el género del hablante en el propio participio, algo que el español solo hace con adjetivos atributivos ('estoy cansada' vs 'he venido' invariable)."
-      },
-      "notes": "PDF §5 nº4 — par complementario al -015: con aux dado, el hueco es el participio. 'Io (donna)' = femenino singular → 'tornata'.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "verbos-movimiento-017",
-      "type": "multiple-choice",
-      "categoryIds": ["verbos-movimiento"],
-      "payload": {
-        "prompt": "Noi ___ viaggiato molto quest'anno.",
-        "options": ["siamo", "abbiamo", "avete", "hanno"],
-        "correctIndex": 1,
-        "explanation": "¡Atención!: viaggiare es una excepción dentro del grupo de verbos de movimiento. Aunque viajar implique movimiento, no apunta a un destino concreto, por lo que pide auxiliar avere, no essere. La 1ª persona plural es 'abbiamo', así que 'noi abbiamo viaggiato molto' equivale al español 'nosotros hemos viajado mucho'. Importante: con avere el participio queda invariable ('viaggiato' siempre), a diferencia de los verbos del grupo essere que sí concuerdan."
-      },
-      "notes": "PDF §5 ejercicio nº2 ('Noi ___ ___ (viaggiare) molto quest'anno'). Viaggiare = excepción §4 (actividad sin destino específico) → auxiliar AVERE, no essere. Aux 1ª plural ('abbiamo'). Participio invariable 'viaggiato' (PDF §4 'el participio en este caso no cambia').",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "verbos-movimiento-018",
-      "type": "multiple-choice",
-      "categoryIds": ["verbos-movimiento"],
-      "payload": {
-        "prompt": "Tu ___ nuotato in piscina?",
-        "options": ["sei", "hai", "ha", "avete"],
-        "correctIndex": 1,
-        "explanation": "Nuotare (nadar) es otra excepción del grupo de movimiento: describe una actividad física sin destino, no un desplazamiento dirigido, así que en passato prossimo se conjuga con avere. La 2ª persona singular es 'hai', así que 'tu hai nuotato in piscina?' equivale al español '¿tú has nadado en la piscina?'. Ojo: aquí la intuición hispana ('has nadado' con haber) acierta por casualidad; la regla italiana sigue siendo la distinción transitivo/intransitivo, no la pura traducción literal."
-      },
-      "notes": "PDF §5 ejercicio nº5 ('Tu ___ ___ (nuotare) in piscina?'). Nuotare = excepción §4 (actividad física, no destino) → auxiliar AVERE. Aux 2ª singular ('hai'). Pitfall: en español 'has nadado' usa haber; aquí esa intuición acierta por excepción.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "verbos-movimiento-019",
-      "type": "multiple-choice",
-      "categoryIds": ["verbos-movimiento"],
-      "payload": {
-        "prompt": "Ho ___ tutta la mattina nel parco.",
-        "options": ["camminato", "camminata", "camminati", "camminate"],
-        "correctIndex": 0,
-        "explanation": "Camminare (caminar) entra en la lista de excepciones por describir una actividad física sin destino, así que pide avere en passato prossimo. Con el auxiliar avere, el participio queda invariable: siempre 'camminato', terminado en -o, sin marcar género ni número. 'Ho camminato tutta la mattina nel parco' equivale al español 'He caminado toda la mañana en el parque'. Cuidado: las terminaciones en -a, -i, -e solo aparecen tras essere; tras avere son trampas."
-      },
-      "notes": "Camminare = excepción §4 (actividad física sin destino) → AVERE. Con avere el participio NO concorda con el sujeto (PDF §4 'no cambia, siempre termina en -o'): 'camminato' invariable. Aux 1ª singular ('ho') ya dado.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "verbos-movimiento-020",
-      "type": "multiple-choice",
-      "categoryIds": ["verbos-movimiento"],
-      "payload": {
-        "prompt": "Loro ___ ballato fino a mezzanotte.",
-        "options": ["sono", "hanno", "avete", "siete"],
-        "correctIndex": 1,
-        "explanation": "Ballare (bailar) es otra de las actividades físicas sin destino del PDF §4 y pide avere en passato prossimo. La 3ª persona plural es 'hanno', con doble n y h muda, así que 'loro hanno ballato fino a mezzanotte' equivale al español 'ellos bailaron hasta medianoche'. Importante: el grupo avere para actividades (ballare, nuotare, camminare, viaggiare) se memoriza en bloque, porque la intuición de movimiento engaña al principiante."
-      },
-      "notes": "Ballare = excepción §4 (actividad sin destino) → AVERE. Aux 3ª plural ('hanno'). Participio 'ballato' invariable.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "verbos-movimiento-021",
-      "type": "multiple-choice",
-      "categoryIds": ["verbos-movimiento"],
-      "payload": {
-        "prompt": "Ieri ___ corso al parco per un'ora.",
-        "options": ["sono", "ho", "è", "hanno"],
-        "correctIndex": 1,
-        "explanation": "Correre es un verbo especial del PDF §4: cambia de auxiliar según haya destino o no. Aquí 'al parco per un'ora' describe una actividad sin destino concreto (correr como ejercicio), así que se conjuga con avere. La 1ª persona singular es 'ho': 'ieri ho corso al parco' equivale al español 'ayer corrí en el parque'. ¡Atención!: la frase complementaria 'sono corso a casa' (con destino) cambia el auxiliar a essere; misma forma 'corso', diferente significado y auxiliar."
-      },
-      "notes": "Correre = verbo especial §4 con asterisco. Cuando NO hay destino específico (correr por correr, ejercicio), se usa AVERE. Aux 1ª singular ('ho'). Participio 'corso' invariable. Pitfall: si la frase fuera 'sono corso a casa' (con destino) sería ESSERE.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "verbos-movimiento-022",
-      "type": "multiple-choice",
-      "categoryIds": ["verbos-movimiento"],
-      "payload": {
-        "prompt": "Vedendo il pericolo, Marco ___ corso a casa.",
-        "options": ["ha", "è", "hanno", "avete"],
-        "correctIndex": 1,
-        "explanation": "Cuando correre lleva un destino explícito (aquí 'a casa'), el verbo se comporta como un verbo de movimiento direccional y pide essere, no avere. La 3ª persona singular es 'è', así que 'Marco è corso a casa' equivale al español 'Marco corrió a casa'. La pregunta clave para elegir el auxiliar de correre es siempre: ¿hay un destino? Con destino, essere; sin destino, avere."
-      },
-      "notes": "Correre con destino explícito ('a casa') → ESSERE per PDF §4 nota correre*. Aux essere 3ª singular ('è'). Cara opuesta a -021: misma forma 'corso' pero auxiliar cambia según haya destino o no.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "verbos-movimiento-023",
-      "type": "multiple-choice",
-      "categoryIds": ["verbos-movimiento"],
-      "payload": {
-        "prompt": "Loro (donne) sono ___ in centro.",
-        "options": ["andato", "andata", "andati", "andate"],
-        "correctIndex": 3,
-        "explanation": "El sujeto 'Loro (donne)' es plural femenino, así que el participio de andare termina en -e: 'Loro sono andate in centro' equivale al español 'Ellas han ido al centro'. Este ejercicio cierra la matriz de concordancia con essere: -o (masc sg), -a (fem sg), -i (masc pl), -e (fem pl). Importante: las cuatro terminaciones se aplican a TODOS los participios de los verbos de movimiento, no solo a andare."
-      },
-      "notes": "Concordancia plural femenino con essere: 'Loro (donne)' → 'andate'. Cubre el cuarto valor de la matriz andato/andata/andati/andate (PDF §3 ¡Atención!).",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "verbos-movimiento-024",
-      "type": "multiple-choice",
-      "categoryIds": ["verbos-movimiento"],
-      "payload": {
-        "prompt": "Anna ___ venuta a trovarmi domenica.",
-        "options": ["ha", "è", "hanno", "siamo"],
-        "correctIndex": 1,
-        "explanation": "El sujeto 'Anna' es 3ª persona singular femenina, así que el auxiliar essere es 'è' y el participio de venire concuerda como 'venuta'. La frase 'Anna è venuta a trovarmi domenica' equivale al español 'Anna vino a visitarme el domingo'. Cuidado: la distractora 'ha' es la trampa hispana del calco 'ha venido'; el verbo venire pertenece a la lista canónica de movimiento y exige siempre essere."
-      },
-      "notes": "Aux essere 3ª singular para sujeto femenino + venire (movimiento → essere, PDF §3 'Sei venuto'). Participio femenino 'venuta' por concordancia.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C5-leak] participio fem venuta insinua essere"
-            ]
-          },
-          {
-            "by": "autor",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": [
-              "[override] autor mantiene: el ejercicio exige elegir persona/numero del auxiliar; formato par-complementario intencional, coherente con 013/015/025."
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "verbos-movimiento-025",
-      "type": "multiple-choice",
-      "categoryIds": ["verbos-movimiento"],
-      "payload": {
-        "prompt": "Voi siete ___ in classe in ritardo.",
-        "options": ["entrato", "entrata", "entrati", "entrate"],
-        "correctIndex": 2,
-        "explanation": "Con 'voi' como sujeto plural y el auxiliar 'siete' ya dado, el participio se elige por el género del grupo: si es masculino o mixto, termina en -i ('entrati'); si es exclusivamente femenino, en -e ('entrate'). 'Voi siete entrati in classe in ritardo' equivale al español 'Vosotros entrasteis en clase con retraso'. Importante: el masculino plural es la opción por defecto en italiano cuando no se especifica que el grupo sea solo de mujeres."
-      },
-      "notes": "Concordancia plural masculino con voi (asumiendo grupo masc/mixto): 'entrati' (PDF §3 'Siete entrati'). Si 'Voi' fuera grupo de mujeres explícito sería 'entrate'.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "verbos-movimiento-026",
-      "type": "multiple-choice",
-      "categoryIds": ["verbos-movimiento"],
-      "payload": {
-        "prompt": "Le mie amiche ___ partite per Napoli.",
-        "options": ["hanno", "sono", "siete", "abbiamo"],
-        "correctIndex": 1,
-        "explanation": "El sujeto 'Le mie amiche' es plural femenino, así que el auxiliar essere es 'sono' (3ª plural) y el participio de partire concuerda como 'partite'. La frase equivale al español 'Mis amigas partieron hacia Nápoles'. Ojo con la doble pista que ofrece el enunciado: el artículo 'Le' y el participio 'partite' ya marcan femenino plural; cualquier otra opción rompería la concordancia ya visible en la propia oración."
-      },
-      "notes": "Aux essere 3ª plural + concordancia plural femenino ('partite' por sujeto 'Le mie amiche'). Partire con essere por movimiento (PDF §3).",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C5-leak] participio fem pl partite insinua essere"
-            ]
-          },
-          {
-            "by": "autor",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": [
-              "[override] autor mantiene: el ejercicio exige elegir persona/numero del auxiliar; formato par-complementario intencional, coherente con 013/015/025."
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "verbos-movimiento-027",
-      "type": "multiple-choice",
-      "categoryIds": ["verbos-movimiento"],
-      "payload": {
-        "prompt": "Io ___ venuto in macchina.",
-        "options": ["ho", "sono", "è", "siamo"],
-        "correctIndex": 1,
-        "explanation": "Venire sigue exactamente el mismo patrón que andare: ambos son verbos de movimiento canónicos y exigen essere. La 1ª persona singular es 'sono', así que 'io sono venuto in macchina' equivale al español 'yo he venido en coche'. Importante: la preposición 'in' con medios de transporte ('in macchina', 'in treno', 'in autobus') es la forma estándar; no se traduce literalmente como 'en el coche' sino sin artículo, igual que en español 'en coche'."
-      },
-      "notes": "Aux essere 1ª singular + venire (movimiento) → 'sono venuto'. Mismo patrón que andare; refuerza el reflejo essere-with-movement A1.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "verbos-movimiento-028",
-      "type": "multiple-choice",
-      "categoryIds": ["verbos-movimiento"],
-      "payload": {
-        "prompt": "Marco, tu sei ___ ieri sera?",
-        "options": ["uscito", "uscita", "usciti", "uscite"],
-        "correctIndex": 0,
-        "explanation": "Con 'Marco' como destinatario masculino y el auxiliar 'sei' ya dado, el participio de uscire es masculino singular: 'uscito'. 'Marco, tu sei uscito ieri sera?' equivale al español 'Marco, ¿saliste ayer por la noche?'. Importante: el participio con essere concuerda con el género del sujeto; si el destinatario fuera una mujer, sería 'uscita'."
-      },
-      "notes": "Concordancia masculino singular con tu (asumiendo destinatario masculino): 'uscito'. Variante de género típica A1 — si la pregunta se dirige a una mujer sería 'uscita'.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "verbos-movimiento-029",
-      "type": "multiple-choice",
-      "categoryIds": ["verbos-movimiento"],
-      "payload": {
-        "prompt": "I miei genitori sono ___ dal viaggio.",
-        "options": ["tornato", "tornata", "tornati", "tornate"],
-        "correctIndex": 2,
-        "explanation": "El sujeto 'I miei genitori' (mis padres) es plural masculino por defecto, porque incluye al padre y a la madre y el italiano usa el masculino para grupos mixtos. Con el auxiliar 'sono' ya dado, el participio de tornare termina en -i: 'I miei genitori sono tornati dal viaggio' equivale al español 'Mis padres han vuelto del viaje'. Importante: la regla del masculino por defecto en grupos mixtos es general en italiano, no solo en participios."
-      },
-      "notes": "Concordancia plural masculino con tornare (essere por movimiento): 'tornati'. Refuerza concordancia pl. masc. con sujeto explícito.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "verbos-movimiento-030",
-      "type": "multiple-choice",
-      "categoryIds": ["verbos-movimiento"],
-      "payload": {
-        "prompt": "Voi ___ nuotato in mare quest'estate?",
-        "options": ["siete", "avete", "abbiamo", "hanno"],
-        "correctIndex": 1,
-        "explanation": "Nuotare reaparece aquí en 2ª persona plural para fijar la regla del PDF §4: como describe una actividad física sin destino, exige avere. La 2ª persona plural es 'avete', así que 'voi avete nuotato in mare quest'estate?' equivale al español '¿vosotros habéis nadado en el mar este verano?'. Cuidado: la trampa típica es elegir 'siete' por contagio con los verbos de movimiento; el filtro mental siempre debe ser '¿hay destino?', no '¿hay movimiento?'."
-      },
-      "notes": "Nuotare excepción §4 (actividad física) → AVERE. Aux 2ª plural ('avete'). Refuerza con persona distinta al -018.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "verbos-movimiento-031",
-      "type": "multiple-choice",
-      "categoryIds": ["verbos-movimiento"],
-      "payload": {
-        "prompt": "Lui ___ camminato per due ore.",
-        "options": ["è", "ha", "sono", "hanno"],
-        "correctIndex": 1,
-        "explanation": "Camminare parece un verbo de movimiento típico, pero el PDF §4 lo cataloga como actividad física sin destino, por lo que pide avere en passato prossimo. La 3ª persona singular es 'ha', así que 'lui ha camminato per due ore' equivale al español 'él caminó durante dos horas'. ¡Atención!: 'per due ore' indica duración, no destino; ese tipo de complemento es la clave para identificar las excepciones del grupo essere."
-      },
-      "notes": "Camminare excepción §4 → AVERE. Aux 3ª singular ('ha'). Pitfall A1: 'camminare' parece movimiento (lo es físicamente) pero sin destino → AVERE (PDF §4 'actividad física sin destino').",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "verbos-movimiento-032",
-      "type": "multiple-choice",
-      "categoryIds": ["verbos-movimiento"],
-      "payload": {
-        "prompt": "Lui è ___ a casa di Maria.",
-        "options": ["camminato", "andato", "ballato", "nuotato"],
-        "correctIndex": 1,
-        "explanation": "Con el auxiliar 'è' ya fijado, el participio debe pertenecer a un verbo de movimiento con destino, y aquí 'a casa di Maria' es claramente un destino. Solo 'andato' (de andare) encaja: 'lui è andato a casa di Maria' equivale al español 'él fue a casa de Maria'. Importante: 'camminato', 'ballato' y 'nuotato' describen actividades del PDF §4 que se conjugan con avere, no con essere; el auxiliar dado descarta automáticamente las tres distractoras."
-      },
-      "notes": "Discrimina verbo + auxiliar: con essere ('è') el verbo DEBE ser de movimiento con destino (PDF §3). Distractoras camminato/ballato/nuotato son verbos §4 que van con avere, no encajan con 'è'. Solo 'andato' (essere + destino) es correcto.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "verbos-movimiento-033",
-      "type": "multiple-choice",
-      "categoryIds": ["verbos-movimiento"],
-      "payload": {
-        "prompt": "Loro ___ usciti dalla scuola.",
-        "options": ["hanno", "sono", "abbiamo", "siete"],
-        "correctIndex": 1,
-        "explanation": "Uscire (salir) pertenece al grupo canónico de verbos de movimiento del A1 y exige essere en passato prossimo. La 3ª persona plural del auxiliar es 'sono', así que 'loro sono usciti dalla scuola' equivale al español 'ellos han salido de la escuela'. Cuidado: la distractora 'hanno' calca el español 'han salido', pero en italiano el reflejo correcto es essere; el participio plural 'usciti' del enunciado confirma que el auxiliar debe concordar con el grupo masculino."
-      },
-      "notes": "Refuerzo Loro + uscire + essere (PDF §3 'Sono usciti'). Distractora 'hanno' es la trampa hispana de pensar en 'haber salido'.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "verbos-movimiento-034",
-      "type": "multiple-choice",
-      "categoryIds": ["verbos-movimiento"],
-      "payload": {
-        "prompt": "Marco e Luigi sono ___ in ufficio presto.",
-        "options": ["entrato", "entrata", "entrati", "entrate"],
-        "correctIndex": 2,
-        "explanation": "El sujeto compuesto 'Marco e Luigi' suma dos masculinos, así que el participio plural es masculino y termina en -i: 'Marco e Luigi sono entrati in ufficio presto' equivale al español 'Marco y Luigi entraron pronto a la oficina'. Importante: el italiano hace concordancia plural sobre el grupo entero, no sobre el último miembro; la regla es agregar y luego decidir género del grupo resultante, que por defecto es masculino salvo que sea todo femenino."
-      },
-      "notes": "Concordancia plural masculino con sujeto compuesto ('Marco e Luigi'): 'entrati'. Refuerza regla A1: cualquier grupo con al menos un masculino → plural masculino.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "verbos-movimiento-100",
+      "id": "verbos-movimiento-wb-andare",
       "type": "word-buttons",
       "categoryIds": ["verbos-movimiento"],
-      "payload": {
-        "prompt": "Ella ha ido al cine.",
-        "answer": ["lei", "è", "andata", "al", "cinema"],
-        "distractors": ["ha", "andato"],
-        "explanation": "La construcción italiana exige dos piezas correctas a la vez: el auxiliar essere ('è', no 'ha') por ser andare un verbo de movimiento, y el participio femenino singular ('andata', no 'andato') por concordar con el sujeto 'Lei'. La frase 'Lei è andata al cinema' equivale al español 'Ella ha ido al cine'. Cuidado con las distractoras: 'ha' es la trampa hispana del calco 'haber + participio', y 'andato' rompe la concordancia femenina obligatoria con essere."
-      },
-      "notes": "Frase canónica del PDF §5 nº1 traducida desde español. 5 tokens. Distractora 'ha' fuerza el reflejo essere-con-movimiento (el español usa 'haber' pero italiano exige 'essere' con andare); distractora 'andato' fuerza concordancia femenina ('andata' por sujeto Lei). PDF §3 ejemplo canónico 'Lei è andata'. Sin punto final en answer tokens (W-6).",
+      "explanation": "La construcción italiana exige dos piezas correctas a la vez: el auxiliar essere ('è', no 'ha') por ser andare un verbo de movimiento, y el participio femenino singular ('andata', no 'andato') por concordar con el sujeto 'Lei'. La frase 'Lei è andata al cinema' equivale al español 'Ella ha ido al cine'. Cuidado con las distractoras: 'ha' es la trampa hispana del calco 'haber + participio', y 'andato' rompe la concordancia femenina obligatoria con essere.",
+      "variants": [
+        {
+          "prompt": "Ella ha ido al cine.",
+          "answer": ["lei", "è", "andata", "al", "cinema"],
+          "distractors": ["ha", "andato"]
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -1046,16 +301,17 @@
       }
     },
     {
-      "id": "verbos-movimiento-101",
+      "id": "verbos-movimiento-wb-viaggiare",
       "type": "word-buttons",
       "categoryIds": ["verbos-movimiento"],
-      "payload": {
-        "prompt": "Nosotros hemos viajado mucho este año.",
-        "answer": ["noi", "abbiamo", "viaggiato", "molto", "quest'anno"],
-        "distractors": ["siamo", "viaggiati"],
-        "explanation": "Viaggiare es una excepción del PDF §4: aunque implica movimiento, no apunta a un destino concreto, así que pide avere y no essere. La 1ª persona plural es 'abbiamo', y con avere el participio queda invariable ('viaggiato', no 'viaggiati'). La frase 'Noi abbiamo viaggiato molto quest'anno' equivale al español 'Nosotros hemos viajado mucho este año'. ¡Atención! a las dos distractoras: 'siamo' fuerza recordar la excepción, y 'viaggiati' fuerza recordar que el participio con avere no concuerda."
-      },
-      "notes": "PDF §5 nº2 ('Noi ___ ___ (viaggiare) molto quest'anno') como word-buttons. 5 tokens. Distractora 'siamo' refuerza la trampa viaggiare→avere (excepción §4). Distractora 'viaggiati' fuerza recordar que con AVERE el participio NO concorda. Token quest'anno usa apóstrofe ASCII U+0027 (no curly).",
+      "explanation": "Viaggiare es una excepción del PDF §4: aunque implica movimiento, no apunta a un destino concreto, así que pide avere y no essere. La 1ª persona plural es 'abbiamo', y con avere el participio queda invariable ('viaggiato', no 'viaggiati'). La frase 'Noi abbiamo viaggiato molto quest'anno' equivale al español 'Nosotros hemos viajado mucho este año'. ¡Atención! a las dos distractoras: 'siamo' fuerza recordar la excepción, y 'viaggiati' fuerza recordar que el participio con avere no concuerda.",
+      "variants": [
+        {
+          "prompt": "Nosotros hemos viajado mucho este año.",
+          "answer": ["noi", "abbiamo", "viaggiato", "molto", "quest'anno"],
+          "distractors": ["siamo", "viaggiati"]
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -1075,16 +331,17 @@
       }
     },
     {
-      "id": "verbos-movimiento-102",
+      "id": "verbos-movimiento-wb-uscire",
       "type": "word-buttons",
       "categoryIds": ["verbos-movimiento"],
-      "payload": {
-        "prompt": "Ellos han salido a las ocho.",
-        "answer": ["loro", "sono", "usciti", "alle", "otto"],
-        "distractors": ["hanno", "uscito"],
-        "explanation": "Para reconstruir la frase hacen falta dos decisiones: elegir el auxiliar correcto y elegir el participio que concuerda. Uscire es verbo de movimiento, así que pide essere ('sono', no 'hanno' del calco hispano); 'loro' es plural masculino, así que el participio termina en -i ('usciti', no 'uscito'). 'Loro sono usciti alle otto' equivale al español 'Ellos han salido a las ocho'. Importante: la preposición articulada 'alle' (a + le) acompaña las horas plurales en italiano."
-      },
-      "notes": "PDF §5 nº3 ('I ragazzi ___ ___ (uscire) alle otto') reformulado con sujeto pronombre. 5 tokens. Distractora 'hanno' trampa hispana; 'uscito' fuerza concordancia plural masculino → 'usciti'.",
+      "explanation": "Para reconstruir la frase hacen falta dos decisiones: elegir el auxiliar correcto y elegir el participio que concuerda. Uscire es verbo de movimiento, así que pide essere ('sono', no 'hanno' del calco hispano); 'loro' es plural masculino, así que el participio termina en -i ('usciti', no 'uscito'). 'Loro sono usciti alle otto' equivale al español 'Ellos han salido a las ocho'. Importante: la preposición articulada 'alle' (a + le) acompaña las horas plurales en italiano.",
+      "variants": [
+        {
+          "prompt": "Ellos han salido a las ocho.",
+          "answer": ["loro", "sono", "usciti", "alle", "otto"],
+          "distractors": ["hanno", "uscito"]
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
