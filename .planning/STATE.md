@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.6
 milestone_name: "Conversión a slots: categorías restantes"
 status: executing
-last_updated: "2026-06-06T13:56:27.057Z"
-last_activity: 2026-06-06 -- Phase 23 planning complete
+last_updated: "2026-06-08T12:00:00.000Z"
+last_activity: 2026-06-08 -- Phase 23 Plan 01 (Essere a slots — reagrupación) completado
 progress:
   total_phases: 7
   completed_phases: 2
   total_plans: 7
-  completed_plans: 4
-  percent: 29
+  completed_plans: 5
+  percent: 36
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -21,14 +21,14 @@ See: `.planning/PROJECT.md` (updated 2026-06-05 — Milestone v1.6 abierto)
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 23 — essere a slots (contenido)
+**Current Focus:** Phase 23 — essere-a-slots-contenido
 
 ## Current Position
 
-Phase: 23
-Plan: Not started (context gathered — 23-CONTEXT.md)
-Status: Ready to execute
-Last activity: 2026-06-06 -- Phase 23 planning complete
+Phase: 23 (essere-a-slots-contenido) — EXECUTING
+Plan: 2 of 3
+Status: Executing Phase 23 (23-01 completado)
+Last activity: 2026-06-08 -- Phase 23 Plan 01 (Essere a slots — reagrupación) completado
 
 ## Quick Tasks Completed
 
@@ -123,6 +123,7 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ### Last Session
 
+- **Fecha:** 2026-06-08 — **Phase 23 Plan 01 (Essere a slots — reagrupación + reescritura del JSON / ESS-01) COMPLETADO.** Task 1 (mapa `23-REAGRUPACION-MAP.md`) ya estaba hecho (commit 208ad51) y el checkpoint:decision fue resuelto por el autor: **"aprobado" — opción `por-regla-passato-4-slots` (39 ids → 25 slots)**. Task 2 (commit **f0b3f68**): `essere.json` reescrito a slot+variantes. **25 slots:** 6 presente por persona/forma (D-23-02: `essere-sono`/`sei`/`e`/`siamo`/`siete`/`sono-loro`; io-sono y loro-sono = 2 slots distintos; `essere-e` = 003+004 con 2 variantes); 5 bloque por regla (D-23-01: `essere-identidad` 009/010/011, `essere-nacionalidad` 013/014/015, `essere-profesion` 012/016/017/018/019, `essere-stato` 008/020/021/022/023, `essere-copula` 024/025) con explanations mergeadas (D-23-10, bases 010/013/016/020/024 + matices injertados); **4 SLOTS SEPARADOS de passato prossimo por concordancia (D-23-03, DIVERGENCIA vs Avere): `essere-passato-prossimo-stato`/`stata`/`stati`/`state` ← 026/027/028/029** (NO fundir); 4 word-buttons slots-de-1 (D-23-12: `essere-wb-identidad`/`nacionalidad`/`profesion`/`passato` ← 100..103), sin match; 6 cruces `essere-300..305` con id ESTABLE + categoryIds de 2 ids intactos (D-23-09, cascada D-54 preservada). `payload` eliminado (0); superficies movidas intactas a `variants[]`; `validation.passes[]` verbatim (criterio D-23-11: validation de la base en multi-variante); distractoras essere/avere preservadas; apóstrofes ASCII; 0 smart-quotes. **`validate-content-fixture.mjs essere` exit 0 (25 ejercicios).** Acceptance todo verde: payload=0, slots sin explanation=0, variantes con explanation=0, cruces=6 con 2 cats=6, passato=4 slots, wb=4 match=0, essere-only mal-cat=0, ids únicos, sin colisión 300-305. **DIVERGENCIA #2 vs Avere: Essere NO tiene snapshot APPEND-ONLY** (scripts avere-only, 0 refs a essere; no existe `.essere-prefix-snapshot.json`) → NO se corrió ningún script de snapshot/assert, NO se replicó la tarea de re-base D-88. **Rojo esperado (NO arreglado aquí, es 23-03):** los 3 hardcodes de count siguen en 39 (real=25) en `slot-variants-integration.test.js:168`, `run-validation-271.mjs:103`, `exercise-types.test.js:1271`. Sin desviaciones — plan ejecutado exactamente como escrito (mapa aprobado tal cual). Task 1 no rehecho. Stopped at: 23-01 completado. Resume file: None. Siguiente: 23-02 (autorar variantes nuevas por quórum cross-vendor R1-R7 + huecos→slots; checkpoint:human-verify D-85 + Open Q #1 model IDs).
 - **Fecha:** 2026-06-05 — **Phase 22 Plan 03 (Sync de counts de Avere / cierre AVE-01) COMPLETADO.** Re-sincronizados los **3 hardcodes de count de Avere** (`expected: 23 -> 20`) + `TOTAL_EXPECTED` (`323 -> 320` = 323 − 23 + 20) contra el conteo **REAL** de slots leído del JSON (`data.exercises.length = 20`, NO estimación; era 19 tras 22-01, +1 por avere-ragione en 22-02). Task 1 (commit 0236743): `exercise-types.test.js` CATEGORIES_WITH_EXPLANATIONS avere 23→20; lógica `getExplanation`/`getPrompts` shape-agnostic sin tocar (grep Array.isArray=2). Task 2 (commit 23998c2): `slot-variants-integration.test.js` REAL_CATEGORIES avere 23→20; `run-validation-271.mjs` avere 23→20 + TOTAL_EXPECTED 323→320 + comentario del historial del total con línea analoga a Partitivi. **Verificación toda verde:** `node --test tests/*.test.js` 374 pass / 0 fail; `VAL_07_STRICT=1` 383 pass / 0 fail; reporter exit 0 (VAL-06 320/320 PASS, VAL-08 cero disputed, VAL-04 PASS); `validate-content-fixture.mjs avere` exit 0 (20 ejercicios); `assert-avere-prefix-unchanged.mjs` exit 0 (D-88 NO tocado, solo verificado). articoli=34 y partitivos=19 intactos. Validator/loader/smoke-logic/D-88 NO tocados. AVE-01 marcado completo. **Sin desviaciones — plan ejecutado exactamente como escrito.** 2 commits atómicos. Stopped at: Phase 22 completada (3/3 plans). Resume file: None. Siguiente: verificación de fase → Phase 23 (Essere).
 - **Fecha:** 2026-06-05 — **Phase 22 Plan 02 (Avere variantes nuevas por quórum cross-vendor / AVE-02) COMPLETADO.** 14 superficies nuevas autoradas y validadas 1-por-1 por quórum cross-vendor R1-R7 (>=4x correcta, 0 incorrecta, NUNCA batched) e integradas a sus slots en `avere.json`: 6 celdas pobres de presente engordadas a 2 variantes (ho/hai/ha/abbiamo/avete/hanno); `avere-sensazioni` a 5 variantes (+sete/freddo/sonno); `avere-passato-prossimo` a 8 variantes (+comprare/vedere/leggere/scrivere); **slot NUEVO `avere-ragione`** con validation top-level (D-19-09). **Resultado: 20 slots** (era 19 tras 22-01, +1 ragione). Decisiones D-85 aplicadas: ragione=slot separado, sentire descartado (riesgo pronominal sentirsi→essere), edad no duplicada. **3 disputes cazadas por el quórum y resueltas por REFORMULACIÓN (NO override, MEMORY calidad>tokens):** ha-2 (explanation edad→posesión, C4, ambas externas), freddo (R7 'è freddo' impersonal → sujeto 'io' explícito, Sonnet C2), ragione (R1 leak 'Hai visto' → opener 'Lo ammetto', Opus C5). Gemini agotó cuota 429 → segundo `by` externo distinto = deepseek-reasoner en 7 superficies (quórum sobre `by` real). Mitad Claude vía `claude -p` headless (Opus+Sonnet, fallback D-19-08). Ids temporales legacy eliminados (payload=0, tmp-*=0). **Blindaje D-88 re-basado** (snapshot regenerado, assert exit 0). `validate-content-fixture.mjs avere` exit 0 (20 ejercicios); smart-quotes=0; slots sin validation top-level=0. **Rojo esperado:** los 3 hardcodes de count siguen rojos (real=20, hardcode=23) → 22-03 sincroniza. Sin desviaciones de plan. Task 1 (propuesta, commit 17bd971) verificado, no rehecho. 14 commits atómicos (5969deb..a402fbc, 1 por superficie). Stopped at: 22-02 completado. Resume file: None. Siguiente: 22-03 (sync de counts 23→20 + TOTAL_EXPECTED).
 - **Fecha:** 2026-06-05 — **Phase 22 Plan 01 (Avere a slots — reagrupación + re-base D-88 / AVE-01 parcial) COMPLETADO.** Los 23 ejercicios legacy de Avere reagrupados en **19 slots** slot+variantes por regla: presente indicativo por persona = 6 slots-de-1 (`avere-ho/hai/ha/abbiamo/avete/hanno`, D-19-01); sensación física idiomática = 1 slot `avere-sensazioni` con 2 variantes (fame+caldo, D-17-01); passato prossimo con auxiliar avere = 1 slot `avere-passato-prossimo` con 4 variantes (D-17-01, validation de 009 preservada con su disputed→override autor, canon D-02); word-buttons (100/101) = 2 slots-de-1; match (200/201/202) = 3 slots-de-1 (dos `ha` de 202 preservados, D-66); cruces multi-cat = 6 slots `avere-300..305` con id ESTABLE + 2 categoryIds intactos (D-19-04/D-87). `payload` eliminado, superficies movidas intactas a `variants[]`, explanation a nivel de slot (merge D-17-05 con pitfalls del hispanohablante), sin smart-quotes. **Blindaje APPEND-ONLY D-88 re-basado** (relax D-178 opción A): `snapshot-avere-prefix.mjs` regeneró el snapshot al estado slot+variantes y `assert-avere-prefix-unchanged.mjs` vuelve a exit 0; el invariante se preserva sobre el nuevo ground truth, no se ignora (snapshot gitignored). `validate-content-fixture.mjs avere` exit 0 (19 ejercicios). **Rojo esperado:** los 3 hardcodes de count de avere (`expected: 23` en `tests/exercise-types.test.js`, `tests/fixtures/slot-variants-integration.test.js`, `scripts/run-validation-271.mjs` + `TOTAL_EXPECTED`) quedan rojos a propósito → se sincronizan a 19 en 22-03. Sin desviaciones. Task 1 (mapa, commit 46ab9e5) verificado, no rehecho. Commits: 46ab9e5 (Task 1 mapa), fda481b (Task 2 reescritura + re-base). Stopped at: 22-01 completado. Resume file: None. Siguiente: 22-02 (autorar variantes nuevas por quórum cross-vendor R1-R7 — engorde de 6 celdas pobres de presente + idiomatismos avere sete/freddo/sonno/ragione/anni + passato de otros verbos; checkpoint:human-verify D-85).
