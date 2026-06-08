@@ -272,6 +272,16 @@
             "siamo"
           ],
           "correctIndex": 2
+        },
+        {
+          "prompt": "I bambini ___ al mare con i nonni.",
+          "options": [
+            "siamo",
+            "hanno",
+            "sono",
+            "siete"
+          ],
+          "correctIndex": 2
         }
       ],
       "validation": {
