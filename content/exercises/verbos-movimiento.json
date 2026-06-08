@@ -200,6 +200,11 @@
           "prompt": "Marco è ___ dal treno alla stazione.",
           "options": ["scesa", "sceso", "scesi", "scese"],
           "correctIndex": 1
+        },
+        {
+          "prompt": "Giulia è ___ sull'autobus di corsa.",
+          "options": ["salito", "salita", "saliti", "salite"],
+          "correctIndex": 1
         }
       ],
       "validation": {
