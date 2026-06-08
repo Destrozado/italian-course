@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.6
 milestone_name: "Conversión a slots: categorías restantes"
-status: planning
-last_updated: "2026-06-08T22:37:34.101Z"
-last_activity: 2026-06-08
+status: executing
+last_updated: "2026-06-08T22:55:39.587Z"
+last_activity: 2026-06-08 -- Phase 27 planning complete
 progress:
   total_phases: 7
   completed_phases: 6
-  total_plans: 16
+  total_plans: 19
   completed_plans: 16
-  percent: 86
+  percent: 84
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -27,8 +27,8 @@ See: `.planning/PROJECT.md` (updated 2026-06-05 — Milestone v1.6 abierto)
 
 Phase: 27
 Plan: Not started
-Status: Ready to plan
-Last activity: 2026-06-08
+Status: Ready to execute
+Last activity: 2026-06-08 -- Phase 27 planning complete
 
 ## Quick Tasks Completed
 
