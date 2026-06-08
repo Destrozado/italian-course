@@ -90,6 +90,11 @@
           "prompt": "Il bambino ___ caduto mentre giocava.",
           "options": ["ha", "è", "hanno", "avete"],
           "correctIndex": 1
+        },
+        {
+          "prompt": "Noi ___ rimasti a casa tutto il giorno.",
+          "options": ["abbiamo", "siamo", "avete", "sono"],
+          "correctIndex": 1
         }
       ],
       "validation": {
