@@ -20,6 +20,11 @@
           "prompt": "Un libro, due ___.",
           "options": ["libre", "libra", "libros", "libri"],
           "correctIndex": 3
+        },
+        {
+          "prompt": "Un gatto, due ___.",
+          "options": ["gatte", "gatti", "gattos", "gatto"],
+          "correctIndex": 1
         }
       ],
       "validation": {
@@ -49,6 +54,11 @@
         {
           "prompt": "Una mela, due ___.",
           "options": ["meli", "mele", "melas", "melae"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Una porta, due ___.",
+          "options": ["porti", "porte", "portas", "porta"],
           "correctIndex": 1
         }
       ],
@@ -85,6 +95,11 @@
           "prompt": "Un cane, due ___.",
           "options": ["cana", "cane", "canes", "cani"],
           "correctIndex": 3
+        },
+        {
+          "prompt": "Un fiore, due ___.",
+          "options": ["fiore", "fiori", "fiores", "fiora"],
+          "correctIndex": 1
         }
       ],
       "validation": {
