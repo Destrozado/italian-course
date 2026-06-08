@@ -305,6 +305,11 @@
           "prompt": "Vedendo il pericolo, Marco ___ corso a casa.",
           "options": ["ha", "è", "hanno", "avete"],
           "correctIndex": 1
+        },
+        {
+          "prompt": "L'aereo ___ volato a Parigi stamattina.",
+          "options": ["ha", "è", "hanno", "avete"],
+          "correctIndex": 1
         }
       ],
       "validation": {
