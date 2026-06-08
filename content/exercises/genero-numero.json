@@ -180,6 +180,36 @@
           "prompt": "Una virtù, due ___.",
           "options": ["virtù", "virtùs", "virtùe", "virtùi"],
           "correctIndex": 0
+        },
+        {
+          "prompt": "Una libertà, due ___.",
+          "options": ["libertàs", "libertà", "libertàe", "libertài"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Una qualità, due ___.",
+          "options": ["qualità", "qualitàs", "qualitàe", "qualitài"],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Uno sport, due ___.",
+          "options": ["sporti", "sport", "sports", "sporte"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Un bar, due ___.",
+          "options": ["bari", "bars", "bar", "bare"],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Un computer, due ___.",
+          "options": ["computers", "computeri", "computer", "computere"],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Un autobus, due ___.",
+          "options": ["autobusi", "autobus", "autobuses", "autobuse"],
+          "correctIndex": 1
         }
       ],
       "validation": {
