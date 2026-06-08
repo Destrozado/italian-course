@@ -147,7 +147,7 @@
       "categoryIds": [
         "essere"
       ],
-      "explanation": "La primera persona plural del presente indicativo de essere es 'siamo' y se usa para localizar al grupo en un espacio. 'Noi siamo a casa' equivale al español 'Nosotros estamos en casa'. ¡Atención! falso amigo crítico: el español distingue ser y estar (somos vs estamos), pero el italiano usa essere para ambos. Tras 'a casa', el italiano siempre pide essere, no un equivalente de 'estar'. Cuidado con la distractora 'abbiamo': pertenece a avere.",
+      "explanation": "La primera persona plural del presente indicativo de essere es 'siamo' y acompaña al pronombre 'noi'. Sirve tanto para localizar al grupo ('Noi siamo a casa' = 'Nosotros estamos en casa') como para expresar identidad o relación ('Noi siamo amici' = 'Nosotros somos amigos'). ¡Atención! falso amigo crítico: el español distingue ser y estar (somos vs estamos), pero el italiano usa essere para ambos; tras 'a casa' el italiano siempre pide essere, no un equivalente de 'estar'. Cuidado con la distractora 'abbiamo': pertenece a avere (posesión), que no sirve ni para la localización ni para la relación entre personas.",
       "variants": [
         {
           "prompt": "Noi ___ a casa.",
@@ -158,6 +158,16 @@
             "siamo"
           ],
           "correctIndex": 3
+        },
+        {
+          "prompt": "Noi ___ amici da molti anni.",
+          "options": [
+            "siete",
+            "siamo",
+            "abbiamo",
+            "sono"
+          ],
+          "correctIndex": 1
         }
       ],
       "validation": {
