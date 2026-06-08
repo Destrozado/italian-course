@@ -241,7 +241,7 @@
       "categoryIds": [
         "essere"
       ],
-      "explanation": "La tercera persona plural del presente indicativo de essere es 'sono', forma que coincide con la primera persona singular: solo el contexto y el pronombre desambiguan. 'Loro sono in vacanza' equivale al español 'Ellos están de vacaciones'. Importante: la conjugación completa es sono, sei, è, siamo, siete, sono — patrón mental que conviene memorizar en bloque para no titubear en la elección. Cuidado con la distractora 'hanno': pertenece a avere.",
+      "explanation": "La tercera persona plural del presente indicativo de essere es 'sono', forma que coincide con la primera persona singular: solo el contexto y el pronombre desambiguan. 'Loro sono in vacanza' equivale a 'Ellos están de vacaciones' (localización) y 'Loro sono i miei amici' a 'Ellos son mis amigos' (identidad/relación): ambos usos van con essere. Importante: la conjugación completa es sono, sei, è, siamo, siete, sono — patrón mental que conviene memorizar en bloque para no titubear. Cuidado con la distractora 'hanno': pertenece a avere (posesión), que no sirve ni para la localización ni para la relación entre personas.",
       "variants": [
         {
           "prompt": "Loro ___ in vacanza.",
@@ -250,6 +250,16 @@
             "hanno",
             "sono",
             "siete"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Loro ___ i miei migliori amici.",
+          "options": [
+            "siete",
+            "hanno",
+            "sono",
+            "siamo"
           ],
           "correctIndex": 2
         }
