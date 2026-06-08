@@ -1,45 +1,27 @@
 {
   "exercises": [
     {
-      "id": "genero-numero-001",
+      "id": "genero-numero-plurale-o-i",
       "type": "multiple-choice",
       "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "Un ragazzo, due ___.",
-        "options": ["ragazze", "ragazzos", "ragazzi", "ragazzoi"],
-        "correctIndex": 2,
-        "explanation": "La regla general para los sustantivos masculinos en singular que terminan en -o es formar el plural cambiando la -o por una -i. Por lo tanto, 'ragazzo' (chico) se convierte en 'ragazzi' (chicos). Los plurales terminados en -s son calcos del español que no existen en italiano."
-      },
-      "notes": "PDF §1 Regla General. Masculino singular -o → plural -i (Ragazzo→Ragazzi, ejemplo canónico del PDF). Distractoras: `ragazze` (regla femenina -a→-e aplicada por error al masculino), `ragazzos` (calco español con -s), `ragazzoi` (doble vocal final, error A1 frecuente).",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "genero-numero-002",
-      "type": "multiple-choice",
-      "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "Una casa, due ___.",
-        "options": ["casi", "case", "casas", "casae"],
-        "correctIndex": 1,
-        "explanation": "Para los sustantivos femeninos singulares que terminan en -a, el plural se forma cambiando la -a por una -e. Así, 'casa' se convierte en 'case'. Es un error crítico muy común entre hispanohablantes intentar añadir una -s para formar el plural."
-      },
-      "notes": "PDF §4 ¡A practicar! nº3. Femenino singular -a → plural -e (regla §1). Distractoras: `casi` (regla masculina -o→-i aplicada por error al femenino), `casas` (calco español con -s), `casae` (mezcla -a+-e). Pitfall A1 critical: el plural femenino es -e, NO -as.",
+      "explanation": "Los sustantivos masculinos que terminan en -o forman el plural cambiando la -o por -i: ragazzo → ragazzi, libro → libri. Los plurales terminados en -s son un calco del español que NO existe en italiano. Ojo con el género: aplicar la regla femenina -e (ragazze) a un masculino es un error frecuente. Cuidado también con los falsos amigos: 'libra' existe en italiano pero significa otra cosa (unidad de peso o signo del zodíaco); el plural de 'libro' es 'libri'.",
+      "variants": [
+        {
+          "prompt": "Un ragazzo, due ___.",
+          "options": ["ragazze", "ragazzos", "ragazzi", "ragazzoi"],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Un ragazzo, due ___.",
+          "options": ["ragazzi", "ragazzas", "ragazze", "ragazzos"],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Un libro, due ___.",
+          "options": ["libre", "libra", "libros", "libri"],
+          "correctIndex": 3
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
@@ -49,1130 +31,368 @@
       }
     },
     {
-      "id": "genero-numero-003",
+      "id": "genero-numero-plurale-a-e",
       "type": "multiple-choice",
       "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "Un cuoco, due ___.",
-        "options": ["cuoci", "cuocos", "cuoque", "cuochi"],
-        "correctIndex": 3,
-        "explanation": "Las palabras masculinas terminadas en -co suelen necesitar una 'h' en el plural (-chi) para mantener el sonido fuerte original de la consonante (/k/). Sin la 'h', 'cuoci' sonaría suave (como 'ch' en español). Por eso, 'cuoco' (cocinero) pasa a ser 'cuochi'."
-      },
-      "notes": "PDF §3 Palabras en -CO/-GO. Inserción de H para mantener el sonido fuerte /k/: cuoco→cuochi (no `cuoci` que sonaría /tʃ/). Distractoras: `cuoci` (regla -o→-i ingenua sin H, suena /tʃ/), `cuocos` (calco español), `cuoque` (mezcla con qu/c). Regla pedagógica: si el masculino -co da plural con vocal palatal (i/e) tras c, se inserta H.",
+      "explanation": "Los sustantivos femeninos que terminan en -a forman el plural cambiando la -a por -e: casa → case, mela → mele. Es un error A1 crítico y el nº 1 del hispanohablante intentar añadir una -s (casas) o mezclar -es (cases): el plural femenino es -e, NUNCA -as ni -s. La regla es regular y sin excepción en estos casos.",
+      "variants": [
+        {
+          "prompt": "Una casa, due ___.",
+          "options": ["casi", "case", "casas", "casae"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Una casa, due ___.",
+          "options": ["case", "casas", "casi", "cases"],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Una mela, due ___.",
+          "options": ["meli", "mele", "melas", "melae"],
+          "correctIndex": 1
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
+          { "by": "claude-opus-4-7", "date": "2026-05-27", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-27", "verdict": "correcta", "concerns": [] }
         ]
       }
     },
     {
-      "id": "genero-numero-004",
+      "id": "genero-numero-plurale-e-i",
       "type": "multiple-choice",
       "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "Un albergo, due ___.",
-        "options": ["alberghi", "alberghis", "albergi", "alberge"],
-        "correctIndex": 0,
-        "explanation": "Al igual que con la terminación -co, los sustantivos terminados en -go añaden una 'h' en el plural (-ghi) para conservar su sonido velar fuerte (/g/). De este modo, 'albergo' (hotel) cambia su terminación para convertirse en 'alberghi'."
-      },
-      "notes": "PDF §3 Palabras en -CO/-GO. Inserción de H para mantener el sonido fuerte /g/: albergo→alberghi (no `albergi` que sonaría /dʒ/). Distractoras: `albergi` (regla -o→-i ingenua sin H), `alberghis` (calco español), `alberge` (calco femenino -e). Misma regla que cuoco→cuochi pero con -g- en lugar de -c-.",
+      "explanation": "Los sustantivos que terminan en -e —masculinos Y femeninos— forman el plural cambiando la -e por -i: padre → padri, madre → madri, studente → studenti, cane → cani. Es un grupo mixto: no seguir ciegamente la regla -a→-e. 'madre' es femenino pero termina en -e, así que su plural es 'madri', no 'madre'. Evita calcos como 'padres' o 'canes'.",
+      "variants": [
+        {
+          "prompt": "Un padre, due ___.",
+          "options": ["padre", "padres", "padri", "padrei"],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Una madre, due ___.",
+          "options": ["madre", "madri", "madras", "madres"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Uno studente, due ___.",
+          "options": ["studente", "studenti", "studentes", "studentis"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Un cane, due ___.",
+          "options": ["cana", "cane", "canes", "cani"],
+          "correctIndex": 3
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
+          { "by": "claude-opus-4-7", "date": "2026-05-27", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-27", "verdict": "correcta", "concerns": [] }
         ]
       }
     },
     {
-      "id": "genero-numero-005",
+      "id": "genero-numero-plurale-co-chi",
       "type": "multiple-choice",
       "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "Una amica, due ___.",
-        "options": ["amici", "amicas", "amiche", "amicae"],
-        "correctIndex": 2,
-        "explanation": "En el caso de los femeninos que terminan en -ca o -ga, siempre es obligatorio añadir una 'h' en el plural (-che, -ghe) para que no se pierda el sonido fuerte. 'Amica' (amiga) cambia a 'amiche'. A diferencia del masculino ('amico' pasa a 'amici' sin h), el femenino siempre requiere esta inserción ortográfica."
-      },
-      "notes": "PDF §3 Palabras en -CO/-GO (femeninas en -ca/-ga siguen patrón análogo). Inserción de H para mantener el sonido fuerte /k/: amica→amiche (no `amice` que sonaría /tʃ/). Distractoras: `amici` (plural masculino confundido con femenino), `amicas` (calco español), `amicae` (mezcla -a+-e sin H). Contraste pedagógico: `amico→amici` (masc, sin H) vs `amica→amiche` (fem, con H).",
+      "explanation": "Las palabras terminadas en -co/-go insertan una 'h' en el plural (-chi/-ghi) para mantener el sonido duro /k/ y /g/: cuoco → cuochi, albergo → alberghi, parco → parchi. Sin la 'h', 'cuoci' sonaría suave (/tʃ/, como la 'ch' española). En femenino la inserción es obligatoria: amica → amiche. Contrasta con el masculino: amico → amici (SIN h) frente a amica → amiche (CON h).",
+      "variants": [
+        {
+          "prompt": "Un cuoco, due ___.",
+          "options": ["cuoci", "cuocos", "cuoque", "cuochi"],
+          "correctIndex": 3
+        },
+        {
+          "prompt": "Un cuoco, due ___.",
+          "options": ["cuoci", "cuoche", "cuocos", "cuochi"],
+          "correctIndex": 3
+        },
+        {
+          "prompt": "Un albergo, due ___.",
+          "options": ["alberghi", "alberghis", "albergi", "alberge"],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Un albergo, due ___.",
+          "options": ["alberge", "albergi", "alberghi", "albergos"],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Una amica, due ___.",
+          "options": ["amici", "amicas", "amiche", "amicae"],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Una amica, due ___.",
+          "options": ["amici", "amiche", "amicas", "amice"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Un parco, due ___.",
+          "options": ["parchi", "parci", "parcos", "parche"],
+          "correctIndex": 0
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
+          { "by": "claude-opus-4-7", "date": "2026-05-27", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-27", "verdict": "correcta", "concerns": [] }
         ]
       }
     },
     {
-      "id": "genero-numero-006",
+      "id": "genero-numero-invariabili",
       "type": "multiple-choice",
       "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "L'attore → la ___.",
-        "options": ["attora", "attressa", "attrice", "attoressa"],
-        "correctIndex": 2,
-        "explanation": "Las profesiones y sustantivos masculinos que terminan en '-tore' forman sistemáticamente su femenino cambiando esa terminación por '-trice'. Así, 'attore' (actor) se convierte en 'attrice' (actriz). Es un patrón fijo de la lengua."
-      },
-      "notes": "PDF §2B + §4 ¡A practicar! nº5. Patrón -tore → -trice: attore→attrice. Distractoras: `attora` (regla ingenua -e→-a), `attressa` (mezcla con -essa de dottoressa), `attoressa` (forma híbrida errónea). Familia productiva: scrittore→scrittrice, lavoratore→lavoratrice, pittore→pittrice.",
+      "explanation": "Las palabras con vocal acentuada final (-à, -è, -ì, -ò, -ù) y los extranjerismos terminados en consonante son invariables: NO cambian en plural. Un caffè → due caffè; una città → due città; una università → due università; un film → due film. La invariabilidad es absoluta: bajo ninguna circunstancia se escribe con -s ni cambia la terminación. NUNCA cittàs ni films: el calco español del plural en -s es la trampa A1 estrella. En estos casos es el artículo (una/le università) el que marca singular o plural, no el sustantivo. Como en inglés film tiene plural films, pero el italiano lo mantiene invariable.",
+      "variants": [
+        {
+          "prompt": "Un caffè, due ___.",
+          "options": ["caffi", "caffès", "caffè", "caffei"],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Un caffè, due ___.",
+          "options": ["caffi", "caffès", "caffei", "caffè"],
+          "correctIndex": 3
+        },
+        {
+          "prompt": "Una città, due ___.",
+          "options": ["cittàe", "citte", "città", "cittadi"],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Una università, due ___.",
+          "options": ["universite", "università", "universitàe", "universitadi"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Un film, due ___.",
+          "options": ["filmi", "films", "filme", "film"],
+          "correctIndex": 3
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C5-leak] formato flecha transformacion"
-            ]
-          },
-          {
-            "by": "autor",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": [
-              "[override] autor mantiene original: el formato X -> la ___ es la tarea del ejercicio (dar masculino, pedir femenino), NO leak de la regla morfologica; validado consistentemente en 020-027. Falso positivo de Sonnet."
-            ]
-          }
+          { "by": "claude-opus-4-7", "date": "2026-05-27", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-27", "verdict": "correcta", "concerns": [] }
         ]
       }
     },
     {
-      "id": "genero-numero-007",
+      "id": "genero-numero-femminile-o-a",
       "type": "multiple-choice",
       "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "Il dottore → la ___.",
-        "options": ["dottora", "dottoressa", "dottrice", "dottore"],
-        "correctIndex": 1,
-        "explanation": "Muchas profesiones que terminan en '-e' construyen su femenino añadiendo el sufijo '-essa'. 'Dottore' (doctor) se transforma en 'dottoressa' (doctora)."
-      },
-      "notes": "PDF §2B + §4 ¡A practicar! nº2. Patrón -e → -essa: dottore→dottoressa. Distractoras: `dottora` (regla ingenua -e→-a), `dottrice` (confusión con familia -tore→-trice), `dottore` (no cambio, falso amigo invariable). Familia productiva con -essa: studente→studentessa, professore→professoressa.",
+      "explanation": "El cambio de género en los sustantivos básicos es un simple cambio de la vocal final: masculino -o → femenino -a (maestro → maestra, ragazzo → ragazza, gatto → gatta). Aquí NO aplican los sufijos profesionales -essa ni -trice. La mayoría de los nombres de animales sigue este patrón (gatto/gatta, cavallo/cavalla). No confundir el cambio de GÉNERO (amico → amica) con el de NÚMERO (amico → amici plural; amica → amiche plural con h); ni elegir el plural femenino (ragazze) cuando se pide el singular.",
+      "variants": [
+        {
+          "prompt": "L'amico (masculino) → l' ___ (femenino).",
+          "options": ["amica", "amice", "amico", "amici"],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Il maestro → la ___.",
+          "options": ["maestre", "maestressa", "maestra", "maestrice"],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Il ragazzo → la ___.",
+          "options": ["ragazze", "ragazza", "ragazzas", "ragazzina"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Il gatto → la ___.",
+          "options": ["gatta", "gatte", "gattessa", "gattica"],
+          "correctIndex": 0
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
+          { "by": "claude-opus-4-7", "date": "2026-05-27", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-27", "verdict": "correcta", "concerns": [] }
         ]
       }
     },
     {
-      "id": "genero-numero-008",
+      "id": "genero-numero-femminile-trice",
       "type": "multiple-choice",
       "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "Un caffè, due ___.",
-        "options": ["caffi", "caffès", "caffè", "caffei"],
-        "correctIndex": 2,
-        "explanation": "En italiano, cualquier sustantivo que termine en una vocal acentuada es invariable. Su forma plural se escribe y pronuncia exactamente igual que el singular. Por lo tanto, 'un caffè' y 'due caffè' (dos cafés) mantienen la misma palabra base."
-      },
-      "notes": "PDF §3 Casos Particulares — palabras invariables (vocal acentuada): caffè→caffè (NO cambia). Distractoras: `caffi` (regla -e→-i ingenua), `caffès` (plural inglés/francés con -s, calco frecuente), `caffei` (mezcla acento+vocal). Misma regla cubre toda la familia con vocal acentuada (città, università, possibilità) y préstamos del inglés (film, sport, bar).",
+      "explanation": "Los sustantivos masculinos que terminan en -tore forman el femenino cambiando esa terminación por -trice: attore → attrice, scrittore → scrittrice, pittore → pittrice, lavoratore → lavoratrice. Es un patrón fijo y muy productivo de la lengua: mecaniza la regla — todo masculino en -tore hace su femenino en -trice. NO confundir con la familia -e/-essa (dottore → dottoressa); -tore es siempre -trice.",
+      "variants": [
+        {
+          "prompt": "L'attore → la ___.",
+          "options": ["attora", "attressa", "attrice", "attoressa"],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Lo scrittore → la ___.",
+          "options": ["scrittora", "scrittressa", "scrittoressa", "scrittrice"],
+          "correctIndex": 3
+        },
+        {
+          "prompt": "Il pittore → la ___.",
+          "options": ["pittora", "pittoressa", "pittrice", "pittore"],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Il lavoratore → la ___.",
+          "options": ["lavoratora", "lavoratressa", "lavoratrice", "lavoratoressa"],
+          "correctIndex": 2
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
+          { "by": "claude-opus-4-7", "date": "2026-05-27", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-27", "verdict": "correcta", "concerns": [] }
         ]
       }
     },
     {
-      "id": "genero-numero-009",
+      "id": "genero-numero-femminile-essa",
       "type": "multiple-choice",
       "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "___ amico.",
-        "options": ["il", "lo", "l'", "la"],
-        "correctIndex": 2,
-        "explanation": "Cuando un sustantivo masculino singular empieza por vocal, el artículo se elide, perdiendo su última letra y sustituyéndola por un apóstrofo. Por eso, en lugar de decir 'lo amico', la forma obligatoria y fluida es 'l'amico'."
-      },
-      "notes": "Artículo definido masculino singular con elisión ante vocal: `l'amico` (no `il amico`). Distractoras: `il` (forma con consonante, correcta para `il ragazzo`), `lo` (forma para s+cons/z/ps/gn, e.g., `lo zaino`), `la` (femenino, incorrecto por género). Apóstrofe ASCII U+0027 obligatorio (RESEARCH §D).",
+      "explanation": "Muchas profesiones y títulos que terminan en -e (o -sore/-ore) construyen su femenino con el sufijo -essa: professore → professoressa, dottore → dottoressa, studente → studentessa. NO usan la regla -trice (esa es solo para la familia -tore). Evita calcos como 'studenta' o 'dottora', completamente antinaturales en italiano: es studentessa, dottoressa.",
+      "variants": [
+        {
+          "prompt": "Il dottore → la ___.",
+          "options": ["dottora", "dottoressa", "dottrice", "dottore"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Il dottore → la ___.",
+          "options": ["dottoressa", "dottrice", "dottora", "dottore"],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Il professore → la ___.",
+          "options": ["professora", "professoressa", "professrice", "professore"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Lo studente → la ___.",
+          "options": ["studenta", "studentrice", "studentessa", "studente"],
+          "correctIndex": 2
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
+          { "by": "claude-opus-4-7", "date": "2026-05-27", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-27", "verdict": "correcta", "concerns": [] }
         ]
       }
     },
     {
-      "id": "genero-numero-010",
+      "id": "genero-numero-articolo-suono",
       "type": "multiple-choice",
       "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "___ zaino.",
-        "options": ["il", "lo", "l'", "la"],
-        "correctIndex": 1,
-        "explanation": "El artículo 'lo' se usa específicamente delante de sustantivos masculinos singulares que inician con sonidos especiales: 'z', 's + consonante', 'ps', 'gn', 'pn', y 'x'. Como 'zaino' (mochila) empieza con 'z', es incorrecto usar 'il'; se debe usar 'lo zaino'."
-      },
-      "notes": "Artículo definido masculino singular para inicios fonéticos s+cons/z/x/ps/gn: `lo zaino` (no `il zaino`). Distractoras: `il` (forma común con consonante, error por desconocer la regla fonética), `l'` (elisión ante vocal, incorrecta porque z no es vocal), `la` (femenino). Familia: lo zucchero, lo studente, lo psicologo, lo gnocco, lo xilofono.",
+      "explanation": "El artículo definido masculino singular depende del SONIDO inicial del sustantivo: 'lo' ante s+consonante, z, ps, gn, pn y x (lo zaino, lo studente); 'l'' ante vocal por elisión (l'amico, no 'lo amico' ni 'il amico'); 'il' ante el resto de consonantes (il ragazzo). La trampa del hispanohablante es usar 'il' delante de z- o s+cons- como en español; el italiano exige 'lo' por motivos fonéticos. El apóstrofo es ASCII obligatorio.",
+      "variants": [
+        {
+          "prompt": "___ amico.",
+          "options": ["il", "lo", "l'", "la"],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "___ zaino.",
+          "options": ["il", "lo", "l'", "la"],
+          "correctIndex": 1
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
+          { "by": "claude-opus-4-7", "date": "2026-05-27", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-27", "verdict": "correcta", "concerns": [] }
         ]
       }
     },
     {
-      "id": "genero-numero-011",
+      "id": "genero-numero-articolo-plurale-logo",
       "type": "multiple-choice",
       "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "Un ragazzo, due ___.",
-        "options": ["ragazzi", "ragazzas", "ragazze", "ragazzos"],
-        "correctIndex": 0,
-        "explanation": "Aplicando la norma general de género y número: los sustantivos masculinos terminados en -o en singular cambian siempre a -i en su forma plural. 'Ragazzo' pasa a ser 'ragazzi'. Recuerda que el italiano jamás marca los plurales con 's'."
-      },
-      "notes": "Convertido de ex-match-200 (ragazzo↔ragazzi). Duplica intencionalmente mc-001 con distractoras distintas para repaso espaciado. Distractoras: `ragazzas` (calco fem español), `ragazze` (regla fem -e mal aplicada al masc — error frecuente), `ragazzos` (calco masc español). Pitfall: confundir el género del sustantivo.",
+      "explanation": "Las profesiones terminadas en -logo forman el plural en -gi SIN h: psicologo → psicologi. La h se añade en otros sustantivos en -go (lago → laghi), pero NO en los -logo de persona. Además requiere el artículo 'lo' (plural 'gli') por empezar por ps-.",
+      "variants": [
+        {
+          "prompt": "Lo psicologo, due ___.",
+          "options": ["psicologi", "psicologa", "psicologos", "psicologe"],
+          "correctIndex": 0
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
+          { "by": "claude-opus-4-7", "date": "2026-05-27", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-27", "verdict": "correcta", "concerns": [] }
         ]
       }
     },
     {
-      "id": "genero-numero-012",
-      "type": "multiple-choice",
-      "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "Una casa, due ___.",
-        "options": ["case", "casas", "casi", "cases"],
-        "correctIndex": 0,
-        "explanation": "Si un sustantivo es femenino y termina en -a, su plural se forma cambiando esa vocal a -e. El plural de 'casa' siempre es 'case'. Las alternativas terminadas en -s son errores directos del español."
-      },
-      "notes": "Convertido de ex-match-200 (casa↔case). Duplica mc-002 con orden de distractoras distinto. Distractoras: `casas` (calco español), `casi` (regla masc mal aplicada), `cases` (mezcla -e+-s). Pitfall A1 critical: el plural fem es -e, NO -as.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "genero-numero-013",
-      "type": "multiple-choice",
-      "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "Un libro, due ___.",
-        "options": ["libre", "libra", "libros", "libri"],
-        "correctIndex": 3,
-        "explanation": "La palabra 'libro' es un sustantivo masculino completamente regular. Al terminar en -o, se rige por la regla pura y simple: la vocal final cambia a -i, resultando en 'libri'. Presta atención, ya que 'libra' es una palabra real en italiano, pero significa otra cosa (unidad de peso o signo del zodíaco)."
-      },
-      "notes": "Convertido de ex-match-200 (libro↔libri). Distractoras: `libre` (calco fem o francés/español), `libra` (singular fem que es palabra distinta — unidad de peso/zodíaco), `libros` (calco español). PDF §4 ¡A practicar! nº4. Regla regular pura masc -o→-i.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "genero-numero-014",
-      "type": "multiple-choice",
-      "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "Una mela, due ___.",
-        "options": ["meli", "mele", "melas", "melae"],
-        "correctIndex": 1,
-        "explanation": "Al ser 'mela' (manzana) un sustantivo regular femenino que termina en -a, su plural sigue la transformación canónica hacia la vocal -e. 'Mele' es la única respuesta correcta."
-      },
-      "notes": "Convertido de ex-match-200 (mela↔mele). Distractoras: `meli` (regla masc -i mal aplicada al fem), `melas` (calco español), `melae` (mezcla -a+-e). Regla regular pura fem -a→-e — sin excepción aquí (la c es seguida de vocal palatal pero al ir antes de la c con e suena suave naturalmente).",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "genero-numero-015",
-      "type": "multiple-choice",
-      "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "Un padre, due ___.",
-        "options": ["padre", "padres", "padri", "padrei"],
-        "correctIndex": 2,
-        "explanation": "Existe un grupo mixto de sustantivos (con palabras tanto masculinas como femeninas) que terminan en -e en singular. La regla de oro para este grupo es que todos pluralizan cambiando esa -e por una -i. Por lo tanto, 'padre' pasa a ser 'padri'."
-      },
-      "notes": "Convertido de ex-match-201 (padre↔padri). Grupo mixto §1 — sustantivos en -e (ambos géneros) pluralizan en -i. Distractoras: `padre` (invariable falso), `padres` (calco español), `padrei` (doble vocal final, error A1 frecuente).",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "genero-numero-016",
-      "type": "multiple-choice",
-      "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "Una madre, due ___.",
-        "options": ["madre", "madri", "madras", "madres"],
-        "correctIndex": 1,
-        "explanation": "Aunque 'madre' es indudablemente una palabra femenina, termina en -e, lo que la sitúa en el grupo mixto. Su plural, por lo tanto, no se forma con -e, sino siempre con -i. El resultado correcto es 'madri', lo que supone una trampa común para los principiantes que intentan seguir la regla del -a/-e ciegamente."
-      },
-      "notes": "Convertido de ex-match-201 (madre↔madri). Madre es fem pero sigue la regla del grupo mixto -e→-i (no -a→-e porque NO termina en -a). Distractoras: `madre` (invariable falso), `madras` (mezcla calco), `madres` (calco español). Pitfall A1: no asumir que todos los femeninos van -a→-e; los que terminan en -e usan -i.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "genero-numero-017",
-      "type": "multiple-choice",
-      "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "Uno studente, due ___.",
-        "options": ["studente", "studenti", "studentes", "studentis"],
-        "correctIndex": 1,
-        "explanation": "La palabra 'studente' (estudiante) termina en -e en su forma singular, obedeciendo así a la regla del grupo mixto. Al cambiar la -e final por una -i, el plural se forma como 'studenti'. Nada de terminaciones en -s."
-      },
-      "notes": "Convertido de ex-match-201 (studente↔studenti). Mismo grupo mixto -e→-i. Distractoras: `studente` (invariable falso), `studentes` (calco español), `studentis` (mezcla -is). Nota artículo: `uno studente` por s+cons inicial (cubierto en mc-010 con `lo zaino`).",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "genero-numero-018",
-      "type": "multiple-choice",
-      "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "Un cane, due ___.",
-        "options": ["cana", "cane", "canes", "cani"],
-        "correctIndex": 3,
-        "explanation": "'Cane' (perro) es otra palabra fundamental que pertenece al grupo de los singulares acabados en -e. Su plural, consecuentemente, es 'cani'. Aplicar correctamente esta norma evita calcos como 'canes'."
-      },
-      "notes": "Convertido de ex-match-201 (cane↔cani). Grupo mixto -e→-i — palabra de uso A1 muy frecuente. Distractoras: `cana` (singular fem inexistente/calco), `cane` (invariable falso), `canes` (calco español/inglés). Pitfall: NO confundir con `cani` ni con `canne` (cañas, otra palabra).",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "genero-numero-019",
-      "type": "multiple-choice",
-      "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "L'amico (masculino) → l' ___ (femenino).",
-        "options": ["amica", "amice", "amico", "amici"],
-        "correctIndex": 0,
-        "explanation": "El cambio de género en los sustantivos básicos suele consistir en una simple modificación de la última vocal. 'Amico' (amigo), que es masculino en -o, se convierte en 'amica' (amiga), femenino en -a. Es importante no confundir este cambio de género con las reglas de pluralización."
-      },
-      "notes": "Convertido de ex-match-202 (amico↔amica). Patrón §2A -o/-a. Distractoras: `amice` (regla fem -e mal aplicada como si fuera plural), `amico` (invariable falso, mismo masc), `amici` (plural masc, error de número y género simultáneo). Pitfall A1: cambio simple de vocal final por género — NO confundir con la inserción de H del plural (amico→amici sin H, amica→amiche con H).",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "genero-numero-020",
-      "type": "multiple-choice",
-      "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "Il maestro → la ___.",
-        "options": ["maestre", "maestressa", "maestra", "maestrice"],
-        "correctIndex": 2,
-        "explanation": "La palabra 'maestro' sigue el patrón natural del género: basta con cambiar su terminación -o por la -a correspondiente para obtener 'maestra'. Aquí no aplican sufijos profesionales como '-essa' o '-trice'."
-      },
-      "notes": "Convertido de ex-match-202 (maestro↔maestra). Patrón §2A -o/-a — ejemplo del PDF. Distractoras: `maestre` (regla plural fem mal aplicada al singular), `maestressa` (calco -essa que aplica solo a familia -e como dottore→dottoressa), `maestrice` (calco -trice que aplica solo a familia -tore como attore→attrice). Pitfall A1: -tre/-tor son patrones distintos; maestro va a maestra simple.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "genero-numero-021",
-      "type": "multiple-choice",
-      "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "Il ragazzo → la ___.",
-        "options": ["ragazze", "ragazza", "ragazzas", "ragazzina"],
-        "correctIndex": 1,
-        "explanation": "La flexión de género en palabras terminadas en -o es directa: 'ragazzo' (chico) se sustituye por 'ragazza' (chica). Ojo con elegir 'ragazze', que sería el plural femenino y supondría cometer un error de número gramatical."
-      },
-      "notes": "Convertido de ex-match-202 (ragazzo↔ragazza). Ejemplo canónico del PDF §2A. Distractoras: `ragazze` (plural fem confundido con singular), `ragazzas` (calco español), `ragazzina` (diminutivo, palabra distinta — significa `chiquilla`). Pitfall: confundir flexión de género con flexión de número.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "genero-numero-022",
-      "type": "multiple-choice",
-      "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "Il gatto → la ___.",
-        "options": ["gatta", "gatte", "gattessa", "gattica"],
-        "correctIndex": 0,
-        "explanation": "La gran mayoría de los nombres de animales siguen el patrón gramatical estricto del -o para el masculino y -a para el femenino. Aplicándolo a 'gatto', el resultado es 'gatta'."
-      },
-      "notes": "Convertido de ex-match-202 (gatto↔gatta). Patrón §2A -o/-a aplicado a animales. Distractoras: `gatte` (plural fem confundido con singular), `gattessa` (calco -essa que aplica solo a familia -e profesional), `gattica` (forma inventada plausible con -ica). Familia: gatto/gatta, cavallo/cavalla, leone/leonessa (excepción).",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "genero-numero-023",
-      "type": "multiple-choice",
-      "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "Lo scrittore → la ___.",
-        "options": ["scrittora", "scrittressa", "scrittoressa", "scrittrice"],
-        "correctIndex": 3,
-        "explanation": "La regla invariable para los nombres de profesiones que terminan en '-tore' exige que la versión femenina finalice en '-trice'. Por este motivo, 'scrittore' (escritor) debe decirse siempre 'scrittrice' (escritora)."
-      },
-      "notes": "Convertido de ex-match-203 (scrittore↔scrittrice). Patrón §2B -tore→-trice — ejemplo del PDF. Distractoras: `scrittora` (regla ingenua -e→-a), `scrittressa` (mezcla con familia -essa de dottoressa), `scrittoressa` (forma híbrida errónea). Pitfall A1: NO confundir familia -tore (mecanizado: -trice) con familia -e general (-essa).",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "genero-numero-024",
-      "type": "multiple-choice",
-      "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "Il pittore → la ___.",
-        "options": ["pittora", "pittoressa", "pittrice", "pittore"],
-        "correctIndex": 2,
-        "explanation": "Tal y como ocurre con 'attore' y 'scrittore', la terminación '-tore' se cambia rígidamente por '-trice'. Así obtenemos el femenino 'pittrice' (pintora) partiendo de 'pittore'."
-      },
-      "notes": "Convertido de ex-match-203 (pittore↔pittrice). PDF §4 ¡A practicar! nº1. Patrón -tore→-trice. Distractoras: `pittora` (regla ingenua -e→-a), `pittoressa` (mezcla con familia -essa de dottore/professore), `pittore` (invariable falso — mismo masc). Familia: pittore/pittrice, attore/attrice, scrittore/scrittrice.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "genero-numero-025",
-      "type": "multiple-choice",
-      "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "Il lavoratore → la ___.",
-        "options": ["lavoratora", "lavoratressa", "lavoratrice", "lavoratoressa"],
-        "correctIndex": 2,
-        "explanation": "La familia de palabras derivadas en '-tore' es muy productiva en italiano. Mecanizar este patrón te será de gran utilidad: todo el que finaliza en '-tore', finaliza en '-trice' en su contraparte femenina. 'Lavoratore' pasa a 'lavoratrice' (trabajadora)."
-      },
-      "notes": "Convertido de ex-match-203 (lavoratore↔lavoratrice). Extiende la familia productiva -tore/-trice. Distractoras: `lavoratora` (regla ingenua -e→-a), `lavoratressa` (mezcla con -essa), `lavoratoressa` (forma híbrida triple-mezcla). Refuerzo: cualquier profesión en -tore va a -trice (mecanizado).",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "genero-numero-026",
-      "type": "multiple-choice",
-      "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "Il professore → la ___.",
-        "options": ["professora", "professoressa", "professrice", "professore"],
-        "correctIndex": 1,
-        "explanation": "Muchas ocupaciones y títulos que terminan en '-sore' o simplemente '-e' utilizan el sufijo específico '-essa' para indicar el género femenino. Es el caso de 'professore', que se convierte en 'professoressa' (profesora). Esta palabra no usa la regla del '-trice'."
-      },
-      "notes": "Convertido de ex-match-204 (professore↔professoressa). PDF §2B familia -e/-essa — ejemplo del PDF. Distractoras: `professora` (regla ingenua -e→-a), `professrice` (calco con familia -trice de attore, error de pertenencia), `professore` (invariable falso). Pitfall A1: profesores van con -essa, NO con -trice.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "genero-numero-027",
-      "type": "multiple-choice",
-      "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "Lo studente → la ___.",
-        "options": ["studenta", "studentrice", "studentessa", "studente"],
-        "correctIndex": 2,
-        "explanation": "Siguiendo la misma regla productiva de la familia con sufijo '-essa', la palabra 'studente' requiere añadir esta terminación, resultando en 'studentessa'. Hay que evitar calcos como 'studenta', que resultan completamente antinaturales en la lengua italiana."
-      },
-      "notes": "Convertido de ex-match-204 (studente↔studentessa). Familia -e/-essa — ejemplo del PDF. Distractoras: `studenta` (regla ingenua -e→-a), `studentrice` (calco con familia -trice de attore), `studente` (invariable falso). Pitfall A1: estudiante usa -essa (no -trice ni -a).",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "genero-numero-028",
-      "type": "multiple-choice",
-      "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "Il dottore → la ___.",
-        "options": ["dottoressa", "dottrice", "dottora", "dottore"],
-        "correctIndex": 0,
-        "explanation": "El femenino de muchos títulos terminados en '-e' se forma con el sufijo '-essa'. Por eso 'dottore' (doctor) se convierte en 'dottoressa' (doctora)."
-      },
-      "notes": "Convertido de ex-match-204 (dottore↔dottoressa). Duplica mc-007 con orden de distractoras invertido (correct en index 0). Repaso espaciado de la familia -essa más común. Distractoras: `dottrice` (calco -trice), `dottora` (regla ingenua), `dottore` (invariable falso).",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "genero-numero-029",
-      "type": "multiple-choice",
-      "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "Un parco, due ___.",
-        "options": ["parchi", "parci", "parcos", "parche"],
-        "correctIndex": 0,
-        "explanation": "Como regla para conservar la pronunciación inicial (sonido velar o fuerte /k/), las palabras masculinas que acaban en -co suelen necesitar que añadamos una 'h' antes de la 'i' del plural. De esta forma, 'parco' se pluraliza como 'parchi'."
-      },
-      "notes": "Convertido de ex-match-205 (parco↔parchi). Inserción de H para mantener el sonido fuerte /k/. Distractoras: `parci` (regla ingenua -o→-i sin H, sonaría /tʃ/), `parcos` (calco español), `parche` (calco fem). Familia: parco/parchi, banco/banchi, fuoco/fuochi, lago/laghi.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "genero-numero-030",
-      "type": "multiple-choice",
-      "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "Un cuoco, due ___.",
-        "options": ["cuoci", "cuoche", "cuocos", "cuochi"],
-        "correctIndex": 3,
-        "explanation": "Refuerzo ortográfico: Si no introdujéramos la letra 'h', leeríamos 'cuoci', perdiendo de inmediato la dureza del sonido (sonando como 'ch'). Para mantener la coherencia fonética del singular ('cuoco'), debemos usar siempre la forma con 'h': 'cuochi'."
-      },
-      "notes": "Convertido de ex-match-205 (cuoco↔cuochi). Duplica mc-003 con orden de distractoras distinto y correct en index 3. Repaso espaciado. Distractoras: `cuoci` (regla ingenua sin H, sonaría /tʃ/), `cuoche` (calco fem plural), `cuocos` (calco español).",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "genero-numero-031",
-      "type": "multiple-choice",
-      "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "Un albergo, due ___.",
-        "options": ["alberge", "albergi", "alberghi", "albergos"],
-        "correctIndex": 2,
-        "explanation": "Para los sustantivos masculinos finalizados en -go se aplica la misma precaución que con la terminación -co. Al pasar al plural hay que salvaguardar el sonido duro insertando la 'h', convirtiendo a 'albergo' en 'alberghi'."
-      },
-      "notes": "Convertido de ex-match-205 (albergo↔alberghi). Duplica mc-004 con orden de distractoras invertido y correct en index 2. Refuerzo: H mantiene el sonido fuerte /g/ ante vocal palatal -i. Distractoras: `alberge` (calco fem -e), `albergi` (regla ingenua sin H, sonaría /dʒ/), `albergos` (calco español).",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "genero-numero-032",
-      "type": "multiple-choice",
-      "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "Una amica, due ___.",
-        "options": ["amici", "amiche", "amicas", "amice"],
-        "correctIndex": 1,
-        "explanation": "Las palabras femeninas acabadas en -ca son muy estrictas. Siempre incorporan una 'h' en el plural (-che). Un buen truco para hispanohablantes es contrastarlo con el masculino: el chico es 'amico -> amici' (sin h), pero la chica es inquebrantablemente 'amica -> amiche' (con h)."
-      },
-      "notes": "Convertido de ex-match-205 (amica↔amiche). Duplica mc-005 con orden de distractoras invertido y correct en index 1. Contraste pedagógico crítico: `amico→amici` (masc, sin H) vs `amica→amiche` (fem, con H). Distractoras: `amici` (plural masc confundido), `amicas` (calco español), `amice` (regla ingenua sin H, sonaría /tʃ/).",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "genero-numero-033",
-      "type": "multiple-choice",
-      "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "Una città, due ___.",
-        "options": ["cittàe", "citte", "città", "cittadi"],
-        "correctIndex": 2,
-        "explanation": "Cualquier palabra que ostente un acento ortográfico en su última vocal pertenece a la categoría de palabras invariables. Dicho de otro modo, la forma singular y la plural se escriben exactamente igual: 'città' (ciudad) es 'due città' (dos ciudades)."
-      },
-      "notes": "Convertido de ex-match-206 (città↔città). Sustantivo invariable §3 — termina en vocal acentuada -à → NO flexiona. Distractoras: `cittàe` (mezcla acento+e), `citte` (regla -a→-e ingenua), `cittadi` (calco con plural latino-romance). Pitfall A1: NO aplicar -a→-e automáticamente cuando hay vocal acentuada.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "genero-numero-034",
-      "type": "multiple-choice",
-      "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "Una università, due ___.",
-        "options": ["universite", "università", "universitàe", "universitadi"],
-        "correctIndex": 1,
-        "explanation": "Reafirmando la regla de las palabras agudas, 'università' finaliza en vocal acentuada. En consecuencia, el sustantivo es invariable. Aquí es el artículo de la oración (una università, le università) el único responsable de comunicarnos si estamos hablando en plural o singular."
-      },
-      "notes": "Convertido de ex-match-206 (università↔università). Mismo patrón -tà invariable. Distractoras: `universite` (regla ingenua -a→-e), `universitàe` (mezcla acento+e), `universitadi` (calco con plural latino-romance). Familia -tà invariable: città, libertà, possibilità, qualità.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "genero-numero-035",
-      "type": "multiple-choice",
-      "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "Un caffè, due ___.",
-        "options": ["caffi", "caffès", "caffei", "caffè"],
-        "correctIndex": 3,
-        "explanation": "La norma de la invariabilidad es absoluta para todas las vocales acentuadas (-à, -è, -ì, -ò, -ù). La palabra 'caffè' entra de lleno en esta norma y, bajo ninguna circunstancia, se escribirá con 's' al final ni cambiará su terminación."
-      },
-      "notes": "Convertido de ex-match-206 (caffè↔caffè). Duplica mc-008 con orden de distractoras invertido y correct en index 3. Refuerzo: vocal acentuada -è bloquea flexión. Distractoras: `caffi` (regla -e→-i ingenua), `caffès` (calco francés/inglés con -s), `caffei` (mezcla acento+vocal).",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "genero-numero-036",
-      "type": "multiple-choice",
-      "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "Un film, due ___.",
-        "options": ["filmi", "films", "filme", "film"],
-        "correctIndex": 3,
-        "explanation": "Cuando el italiano pide prestadas palabras de origen extranjero que acaban en consonante (como film, sport, bar o computer), se designan como invariables. A diferencia del inglés original, en italiano estas palabras no adoptan una 's' al pluralizarse."
-      },
-      "notes": "Convertido de ex-match-206 (film↔film). Préstamo del inglés terminado en consonante → invariable. Distractoras: `filmi` (regla -o→-i ingenua aplicada erróneamente — film no acaba en -o), `films` (calco inglés con -s), `filme` (calco alemán/fem). Familia anglicisms invariables: film, sport, bar, computer.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "genero-numero-037",
-      "type": "multiple-choice",
-      "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "Lo psicologo, due ___.",
-        "options": ["psicologi", "psicologa", "psicologos", "psicologe"],
-        "correctIndex": 0,
-        "explanation": "Las profesiones terminadas en -logo forman el plural en -gi (sin h): psicologo → psicologi. La h se añade en otros sustantivos en -go (lago → laghi) pero NO en los -logo de persona. Requiere el artículo lo/gli por empezar por ps-."
-      },
-      "notes": "Combina dos reglas: artículo `lo` ante ps- (mc-010 anchor) + plural -co con H (psicologo→psicologhi para mantener /g/). Distractoras: `psicologi` (regla -co→-ci ingenua sin H, sonaría /tʃ/ — PERO atención: en psicologi muchos italianos no insertan H; es la excepción reciente — fuera del A1 estricto, pero plausible para confusión), `psicologos` (calco español), `psicologe` (calco fem). Pitfall A1: para A1 priorizar la regla regular con H; las excepciones modernas (`psicologi` aceptado) son avanzadas.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "genero-numero-207",
+      "id": "genero-numero-match-articolo-singolare",
       "type": "match",
       "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "Empareja sustantivo ↔ artículo definido singular.",
-        "pairs": [
-          ["ragazzo", "il"],
-          ["libro", "il"],
-          ["ragazza", "la"],
-          ["casa", "la"],
-          ["amico", "l'"],
-          ["aula", "l'"]
-        ],
-        "explanation": "El artículo definido en singular se rige por el género y, lo más importante, por cómo suena la primera letra de la palabra. 'Il' y 'La' acompañan a masculinos y femeninos que inician con consonante simple. Pero cuando una palabra empieza por vocal, sin importar de qué género sea, el artículo se elide, formando las contracciones con apóstrofo como 'l'amico' (el amigo) y 'l'aula' (el aula)."
-      },
-      "notes": "MANTENIDO post-UAT design rule: la pairing exige aplicar regla fonética (artículo definido por género + sonido inicial) que NO es visible por similitud de raíz. Apareo correcto sólo si el alumno conoce las 4 formas singulares (il/lo/l'/la) y cuándo aplicar cada una. D-66 duplicados textuales en columna derecha intencionales: 2× `il` (masc + cons), 2× `la` (fem + cons), 2× `l'` (cualquier género + vocal). Grading por índice. Apóstrofes ASCII U+0027.",
+      "explanation": "El artículo definido singular se rige por el género y, sobre todo, por el SONIDO inicial de la palabra. 'Il' y 'La' acompañan a masculinos y femeninos que empiezan por consonante simple. 'Lo' va ante s+consonante, z, ps, gn, pn y x (lo zaino, lo studente). Cuando la palabra empieza por vocal, sin importar el género, el artículo se elide en 'l'' (l'amico masculino, l'aula femenino). La distractora más frecuente del hispanohablante es usar 'Il' ante z- o s+cons- como en español; el italiano requiere 'Lo' por motivos fonéticos.",
+      "variants": [
+        {
+          "prompt": "Empareja sustantivo ↔ artículo definido singular.",
+          "pairs": [
+            ["ragazzo", "il"],
+            ["libro", "il"],
+            ["ragazza", "la"],
+            ["casa", "la"],
+            ["amico", "l'"],
+            ["aula", "l'"]
+          ]
+        },
+        {
+          "prompt": "Empareja cada sustantivo masculino singular con su artículo definido.",
+          "pairs": [
+            ["zaino", "lo"],
+            ["amico", "l'"],
+            ["studente", "lo"],
+            ["ragazzo", "il"]
+          ]
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
+          { "by": "claude-opus-4-7", "date": "2026-05-27", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-27", "verdict": "correcta", "concerns": [] }
         ]
       }
     },
     {
-      "id": "genero-numero-208",
+      "id": "genero-numero-match-articolo-plurale",
       "type": "match",
       "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "Empareja cada sustantivo masculino singular con su artículo definido.",
-        "pairs": [
-          ["zaino", "lo"],
-          ["amico", "l'"],
-          ["studente", "lo"],
-          ["ragazzo", "il"]
-        ],
-        "explanation": "El artículo definido masculino singular depende del sonido inicial del sustantivo: Lo ante s+consonante, z, ps, gn, pn y x (lo zaino, lo studente, lo psicologo); L' ante vocal por elisión (l'amico, l'occhio); Il ante el resto de consonantes (il ragazzo, il libro). La distractora más frecuente del hispanohablante es usar Il delante de z- o s+cons- como en español; el italiano requiere Lo en esos casos por motivos fonéticos."
-      },
-      "notes": "Match con 3 artículos distintos en columna derecha (lo×2, l'×1, il×1) por regla R3 — al menos 3 valores únicos. zaino y studente comparten 'lo' intencionalmente (D-66): testea que el alumno reconoce que tanto z- como s+cons- disparan la misma regla. amico activa elisión l'; ragazzo cae en la regla regular il. El alumno NO puede derivar la respuesta por similitud de raíz — tiene que aplicar la regla fonética italiana A1 más distintiva.",
+      "explanation": "Los artículos definidos plurales se rigen por las mismas reglas de sonido que el singular. El plural femenino es fácil: siempre 'Le'. Para el plural masculino se usa 'I' ante consonante simple (i libri, de il libro) y 'Gli' ante vocal, z o s+consonante (gli amici, gli zaini), en paralelo a 'lo' del singular. Así, gli absorbe en plural todo lo que en singular era 'lo' o 'l''.",
+      "variants": [
+        {
+          "prompt": "Empareja sustantivo plural ↔ artículo definido plural.",
+          "pairs": [
+            ["ragazzi", "i"],
+            ["libri", "i"],
+            ["ragazze", "le"],
+            ["case", "le"],
+            ["amici", "gli"],
+            ["zaini", "gli"]
+          ]
+        }
+      ],
       "validation": {
         "status": "validated",
         "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "genero-numero-209",
-      "type": "match",
-      "categoryIds": ["genero-numero"],
-      "payload": {
-        "prompt": "Empareja sustantivo plural ↔ artículo definido plural.",
-        "pairs": [
-          ["ragazzi", "i"],
-          ["libri", "i"],
-          ["ragazze", "le"],
-          ["case", "le"],
-          ["amici", "gli"],
-          ["zaini", "gli"]
-        ],
-        "explanation": "La lógica de los artículos en plural es directa y se basa en las mismas reglas de sonido que el singular. El plural femenino es fácil: siempre es 'Le'. Para el plural masculino, se utiliza la 'I' ante sustantivos que arrancan con consonante simple, y usamos 'Gli' en palabras que empiecen por vocal, 'z' o 's + consonante', actuando en paralelo a los casos en los que usábamos el artículo 'lo' en su forma singular."
-      },
-      "notes": "MANTENIDO post-UAT design rule: requiere conocer las 3 formas plurales del artículo definido (i/gli/le) y la regla fonética que selecciona entre `i` y `gli` (igual que `il`/`lo` en singular). La forma del artículo NO es visible por la raíz del sustantivo. D-66 duplicados intencionales (2× i, 2× le, 2× gli). Cierra la tabla de artículos plurales — complemento simétrico al singular del 207 y 208.",
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
+          { "by": "claude-opus-4-7", "date": "2026-05-27", "verdict": "correcta", "concerns": [] },
+          { "by": "claude-sonnet-4-6", "date": "2026-05-27", "verdict": "correcta", "concerns": [] }
         ]
       }
     }
