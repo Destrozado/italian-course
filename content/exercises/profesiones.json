@@ -545,6 +545,46 @@
             "avvocato"
           ],
           "correctIndex": 0
+        },
+        {
+          "prompt": "L'artista (masc) → l'___ (fem).",
+          "options": [
+            "artistessa",
+            "artista",
+            "artiste",
+            "artistra"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Il regista → la ___.",
+          "options": [
+            "registessa",
+            "registe",
+            "regista",
+            "registra"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Il comandante → la ___.",
+          "options": [
+            "comandantessa",
+            "comandanta",
+            "comandante",
+            "comandatrice"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "L'agente (masc) → l'___ (fem).",
+          "options": [
+            "agentessa",
+            "agenta",
+            "agente",
+            "agentrice"
+          ],
+          "correctIndex": 2
         }
       ],
       "validation": {
