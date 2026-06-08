@@ -315,6 +315,11 @@
           "prompt": "Gli uccelli ___ volato tutto il giorno.",
           "options": ["sono", "hanno", "è", "siamo"],
           "correctIndex": 1
+        },
+        {
+          "prompt": "Io ___ corso per un'ora in palestra stamattina.",
+          "options": ["sono", "ho", "è", "siamo"],
+          "correctIndex": 1
         }
       ],
       "validation": {
