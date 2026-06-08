@@ -265,6 +265,11 @@
           "prompt": "Loro ___ viaggiato in treno per tutta l'Europa.",
           "options": ["sono", "hanno", "siete", "abbiamo"],
           "correctIndex": 1
+        },
+        {
+          "prompt": "Io ___ nuotato per un'ora in piscina.",
+          "options": ["sono", "ho", "è", "siamo"],
+          "correctIndex": 1
         }
       ],
       "validation": {
