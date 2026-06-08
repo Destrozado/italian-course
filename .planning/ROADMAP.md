@@ -163,7 +163,7 @@ Plans:
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 23-02-PLAN.md — autorar variantes nuevas por quórum cross-vendor R1-R7 (engorde de celdas pobres de presente + concordancia de nacionalidad italiano/italiana + localización con essere + slot NUEVO ser/estar D-23-07 + contraste essere/avere agresivo D-23-06); checkpoint:human-verify D-85 + decisión de model IDs (Open Q #1)
+- [x] 23-02-PLAN.md — autorar variantes nuevas por quórum cross-vendor R1-R7 (engorde de celdas pobres de presente + concordancia de nacionalidad italiano/italiana + localización con essere + slot NUEVO ser/estar D-23-07 + contraste essere/avere agresivo D-23-06); checkpoint:human-verify D-85 + decisión de model IDs (Open Q #1) — completed 2026-06-08 (14 superficies nuevas, todas >=4x correcta; localización absorbida sin slot; slot nuevo ser/estar con validation top-level; count 25 → 26)
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
@@ -239,7 +239,7 @@ Plans:
 | 18-20 | v1.5 | 7/7 | Complete | 2026-06-05 |
 | 21. Migración 8→9 (reset 6 categorías) | v1.6 | 1/1 | Complete    | 2026-06-05 |
 | 22. Avere a slots (contenido) | v1.6 | 3/3 | Complete    | 2026-06-05 |
-| 23. Essere a slots (contenido) | v1.6 | 1/3 | In Progress | - |
+| 23. Essere a slots (contenido) | v1.6 | 2/3 | In Progress | - |
 | 24. Verbi di movimento a slots (contenido) | v1.6 | 0/0 | Not started | - |
 | 25. Genere e numero a slots (contenido) | v1.6 | 0/0 | Not started | - |
 | 26. Professioni a slots (contenido, léxica) | v1.6 | 0/0 | Not started | - |
