@@ -310,6 +310,16 @@
           "prompt": "Il lavoratore → la ___.",
           "options": ["lavoratora", "lavoratressa", "lavoratrice", "lavoratoressa"],
           "correctIndex": 2
+        },
+        {
+          "prompt": "Il direttore → la ___.",
+          "options": ["direttora", "direttoressa", "direttrice", "direttoria"],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Il pescatore → la ___.",
+          "options": ["pescatora", "pescatoressa", "pescatrice", "pescatoria"],
+          "correctIndex": 2
         }
       ],
       "validation": {
@@ -344,6 +354,16 @@
         {
           "prompt": "Lo studente → la ___.",
           "options": ["studenta", "studentrice", "studentessa", "studente"],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Il barone → la ___.",
+          "options": ["barona", "baronessa", "baronrice", "baronetta"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Il conte → la ___.",
+          "options": ["conta", "contrice", "contessa", "contina"],
           "correctIndex": 2
         }
       ],
