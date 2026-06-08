@@ -386,6 +386,16 @@
             "italiane"
           ],
           "correctIndex": 1
+        },
+        {
+          "prompt": "Marco e Luca sono ___.",
+          "options": [
+            "italiano",
+            "italiani",
+            "italiane",
+            "italiana"
+          ],
+          "correctIndex": 1
         }
       ],
       "validation": {
