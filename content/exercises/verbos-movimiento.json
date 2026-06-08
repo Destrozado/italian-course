@@ -105,6 +105,11 @@
           "prompt": "Lui ___ diventato un bravo medico.",
           "options": ["ha", "è", "hanno", "avete"],
           "correctIndex": 1
+        },
+        {
+          "prompt": "Io ___ nato a Roma nel 1990.",
+          "options": ["ho", "sono", "ha", "è"],
+          "correctIndex": 1
         }
       ],
       "validation": {
