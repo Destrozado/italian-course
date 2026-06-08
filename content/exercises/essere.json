@@ -376,6 +376,16 @@
             "sono"
           ],
           "correctIndex": 3
+        },
+        {
+          "prompt": "Marco è ___ di Firenze.",
+          "options": [
+            "italiana",
+            "italiano",
+            "italiani",
+            "italiane"
+          ],
+          "correctIndex": 1
         }
       ],
       "validation": {
