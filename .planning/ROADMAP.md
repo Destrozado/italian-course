@@ -242,7 +242,10 @@ Plans:
   3. La estructura final de Sostantivi irregolari pasa el validator y el smoke paramétrico, con los counts re-sincronizados al nº real de slots y la cobertura de explanations a nivel de slot preservada.
   4. Con esta fase, las 9 categorías de gramática quedan en formato slot+variantes unificado: CONV-01 cerrado.
 
-**Plans**: TBD
+**Plans**: 3 plans
+- [ ] 27-01-PLAN.md — Reagrupar los 31 ejercicios a slot+variantes HIBRIDO (bloque regla por sub-regla + lexico cambio-radice + contraste plurali-regolari); mapa auditado + reescritura del JSON (SOST-01)
+- [ ] 27-02-PLAN.md — Autorar variantes nuevas por quorum cross-vendor R1-R7 SOLO en el bloque regla (sovrabbondanti + invariabili acentuadas/extranjeras); lexico y contraste sin variantes (SOST-02)
+- [ ] 27-03-PLAN.md — Re-sincronizar los 3 hardcodes de count + TOTAL_EXPECTED al n real de slots; cierre de SOST-01 y de CONV-01 (9/9 categorias)
 **UI hint**: no
 
 ## Progress
@@ -261,7 +264,7 @@ Plans:
 | 24. Verbi di movimento a slots (contenido) | v1.6 | 3/3 | Complete    | 2026-06-08 |
 | 25. Genere e numero a slots (contenido) | v1.6 | 3/3 | Complete   | 2026-06-08 |
 | 26. Professioni a slots (contenido, léxica) | v1.6 | 3/3 | Complete    | 2026-06-08 |
-| 27. Sostantivi irregolari a slots (contenido, léxica) | v1.6 | 0/0 | Not started | - |
+| 27. Sostantivi irregolari a slots (contenido, léxica) | v1.6 | 0/3 | Planned | - |
 
 ## Backlog
 
