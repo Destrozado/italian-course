@@ -100,6 +100,11 @@
           "prompt": "Loro ___ restate in ufficio fino a tardi.",
           "options": ["hanno", "sono", "siete", "abbiamo"],
           "correctIndex": 1
+        },
+        {
+          "prompt": "Lui ___ diventato un bravo medico.",
+          "options": ["ha", "è", "hanno", "avete"],
+          "correctIndex": 1
         }
       ],
       "validation": {
