@@ -95,6 +95,11 @@
           "prompt": "Noi ___ rimasti a casa tutto il giorno.",
           "options": ["abbiamo", "siamo", "avete", "sono"],
           "correctIndex": 1
+        },
+        {
+          "prompt": "Loro ___ restate in ufficio fino a tardi.",
+          "options": ["hanno", "sono", "siete", "abbiamo"],
+          "correctIndex": 1
         }
       ],
       "validation": {
