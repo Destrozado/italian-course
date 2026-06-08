@@ -2,16 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.6
 milestone_name: "Conversión a slots: categorías restantes"
-status: ready_to_plan
-last_updated: 2026-06-08T09:07:01.752Z
-last_activity: 2026-06-08 -- Phase 23 Plan 03 (Sync de counts de Essere / cierre ESS-01) completado -- Phase 23 COMPLETA (3/3)
+status: planning
+last_updated: "2026-06-08T10:09:03.312Z"
+last_activity: 2026-06-08
 progress:
   total_phases: 7
   completed_phases: 3
   total_plans: 7
   completed_plans: 7
   percent: 43
-stopped_at: Phase 23 complete (3/3) — ready to discuss Phase 24
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
