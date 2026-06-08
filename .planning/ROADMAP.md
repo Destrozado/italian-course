@@ -224,7 +224,10 @@ Plans:
   2. SI se identifica regla-con-variantes (p.ej. femenino por terminación -e/-essa/-trice), se autoran variantes nuevas (D-85 + quórum cross-vendor R1-R7, 4× correcta, 1-por-1) que pasan el quórum antes de entrar; SI la categoría queda como slots-de-1, se documenta que no aplica autoría de variantes.
   3. La estructura final de Professioni pasa el validator y el smoke paramétrico, con los counts re-sincronizados al nº real de slots y la cobertura de explanations a nivel de slot preservada.
 
-**Plans**: TBD
+**Plans**: 3 plans (3 waves)
+- [ ] 26-01-PLAN.md — Reagrupación HÍBRIDA + reescritura del JSON a slot+variantes (bloque regla por sub-regla de feminización + bloque léxico puro sin variantes + match/WB preservados); 26-REAGRUPACION-MAP.md con la decisión híbrida documentada por bloque (PROF-01)
+- [ ] 26-02-PLAN.md — Autoría de variantes nuevas SOLO en feminización por quórum cross-vendor R1-R7 (contraste -trice/-essa + invariables -ista/-ante + -o/-a y -iere/-iera); bloque léxico sin variantes (PROF-02)
+- [ ] 26-03-PLAN.md — Sync de los 3 hardcodes de count + TOTAL_EXPECTED contra el nº real de slots; suite + reporter + smoke estricto verdes (cierre PROF-01)
 **UI hint**: no
 
 ### Phase 27: Sostantivi irregolari a slots (contenido, léxica)
@@ -257,7 +260,7 @@ Plans:
 | 23. Essere a slots (contenido) | v1.6 | 3/3 | Complete    | 2026-06-08 |
 | 24. Verbi di movimento a slots (contenido) | v1.6 | 3/3 | Complete    | 2026-06-08 |
 | 25. Genere e numero a slots (contenido) | v1.6 | 3/3 | Complete   | 2026-06-08 |
-| 26. Professioni a slots (contenido, léxica) | v1.6 | 0/0 | Not started | - |
+| 26. Professioni a slots (contenido, léxica) | v1.6 | 0/3 | Planned     | - |
 | 27. Sostantivi irregolari a slots (contenido, léxica) | v1.6 | 0/0 | Not started | - |
 
 ## Backlog
