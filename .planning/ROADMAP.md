@@ -91,7 +91,7 @@ Numeración CONTINÚA desde Phase 20 → Phases 21-27 (NO reset — mismo criter
 - [x] **Phase 21: Migración `8→9` (reset selectivo de las 6 categorías)** — `migrate8to9`/`hydrateV9` idempotente + deep-clone defensivo; resetea el progreso SOLO de las 6 categorías a convertir (`avere`, `essere`, `verbos-movimiento`, `genero-numero`, `profesiones`, `sustantivos-irregulares`) vía un predicado de 6 prefijos; las 3 ya convertidas (`preposiciones`, `articoli`, `partitivos`) byte-intactas; `backup.js` round-trip v9 + import v8→v9 + rechazo `>9`. Va PRIMERA: bloquea la renumeración de ids de las 6 fases de contenido (no se renumera con progreso vivo). (completed 2026-06-05)
 - [x] **Phase 22: Avere a slots (contenido)** — Reagrupar los 23 ejercicios de Avere en slots por regla (presente indicativo + idiomático + passato prossimo + cruces multi-cat), autorar variantes nuevas por quórum cross-vendor R1-R7, huecos→slots, validator + smoke + counts re-sincronizados + explanation a nivel de slot. (completed 2026-06-05)
 - [x] **Phase 23: Essere a slots (contenido)** — Reagrupar los 39 ejercicios de Essere en slots por regla (presente indicativo + identidad/nacionalidad/profesión/estado/cópula + participio stato/stata/stati/state + cruces), autorar variantes nuevas por quórum, huecos→slots, validator + smoke + counts + explanation a nivel de slot. (completed 2026-06-08 — 39→26 slots, TOTAL_EXPECTED 320→307)
-- [ ] **Phase 24: Verbi di movimento a slots (contenido)** — Reagrupar los 37 ejercicios de Verbi di movimento en slots por regla, autorar variantes nuevas por quórum, huecos→slots, validator + smoke + counts + explanation a nivel de slot.
+- [x] **Phase 24: Verbi di movimento a slots (contenido)** — Reagrupar los 37 ejercicios de Verbi di movimento en slots por regla, autorar variantes nuevas por quórum, huecos→slots, validator + smoke + counts + explanation a nivel de slot. (completed 2026-06-08)
 - [ ] **Phase 25: Genere e numero a slots (contenido)** — Reagrupar los 40 ejercicios de Genere e numero en slots por regla (terminaciones de género + formación de plural; match si requiere regla no derivable por raíz, D-04), autorar variantes nuevas por quórum, huecos→slots, validator + smoke + counts + explanation a nivel de slot.
 - [ ] **Phase 26: Professioni a slots (contenido, léxica)** — Reagrupar los 51 ejercicios de Professioni en slots. Decisión de discuss/plan: regla-con-variantes natural (p.ej. femenino por terminación) O slots-de-1 reagrupados si la categoría léxica no admite variantes intercambiables. Validator + smoke + counts + explanation a nivel de slot.
 - [ ] **Phase 27: Sostantivi irregolari a slots (contenido, léxica)** — Reagrupar los 31 ejercicios de Sostantivi irregolari en slots. Decisión de discuss/plan: regla-con-variantes natural (p.ej. patrones de plural irregular) O slots-de-1 reagrupados. Validator + smoke + counts + explanation a nivel de slot. Cierra CONV-01 (9/9 categorías unificadas).
@@ -184,7 +184,7 @@ Plans:
 **Plans**: 3 plans
 - [x] 24-01-PLAN.md — Reagrupar los 37 ejercicios a slots por regla de auxiliar (slot essere, concordancia en 1 slot D-24-03, excepcioni->avere, correre propio D-24-04, 3 word-buttons); mapa auditado + checkpoint
 - [x] 24-02-PLAN.md — Autorar variantes nuevas por quórum cross-vendor R1-R7 (4 ejes de huecos D-24-06: más verbos essere, más excepciones avere, más test-de-destino, matriz de concordancia)
-- [ ] 24-03-PLAN.md — Re-sincronizar los 3 hardcodes de count + TOTAL_EXPECTED contra el nº real de slots (D-24-15)
+- [x] 24-03-PLAN.md — Re-sincronizar los 3 hardcodes de count + TOTAL_EXPECTED contra el nº real de slots (D-24-15)
 **UI hint**: no
 
 ### Phase 25: Genere e numero a slots (contenido)
@@ -243,7 +243,7 @@ Plans:
 | 21. Migración 8→9 (reset 6 categorías) | v1.6 | 1/1 | Complete    | 2026-06-05 |
 | 22. Avere a slots (contenido) | v1.6 | 3/3 | Complete    | 2026-06-05 |
 | 23. Essere a slots (contenido) | v1.6 | 3/3 | Complete    | 2026-06-08 |
-| 24. Verbi di movimento a slots (contenido) | v1.6 | 2/3 | In Progress|  |
+| 24. Verbi di movimento a slots (contenido) | v1.6 | 3/3 | Complete   | 2026-06-08 |
 | 25. Genere e numero a slots (contenido) | v1.6 | 0/0 | Not started | - |
 | 26. Professioni a slots (contenido, léxica) | v1.6 | 0/0 | Not started | - |
 | 27. Sostantivi irregolari a slots (contenido, léxica) | v1.6 | 0/0 | Not started | - |
