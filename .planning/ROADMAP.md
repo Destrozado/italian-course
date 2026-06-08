@@ -202,7 +202,7 @@ Plans:
 Plans:
 **Wave 1**
 
-- [ ] 25-01-PLAN.md — Reagrupar los 40 ejercicios a 1 SLOT POR MICRO-REGLA (D-25-01, granularidad fina): plural -o/-i, -a/-e, -e/-i, sonido duro -co/-go, invariables, femenino -o/-a, -tore/-trice, -e/-essa, articulo por sonido; 6 duplicados colapsados a variantes; 3 match preservados (D-25-03/D-04); checkpoint:decision del mapa
+- [x] 25-01-PLAN.md — Reagrupar los 40 ejercicios a 1 SLOT POR MICRO-REGLA (D-25-01, granularidad fina): plural -o/-i, -a/-e, -e/-i, sonido duro -co/-go, invariables, femenino -o/-a, -tore/-trice, -e/-essa, articulo por sonido; 6 duplicados colapsados a variantes; 3 match preservados (D-25-03/D-04); checkpoint:decision del mapa
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
@@ -256,7 +256,7 @@ Plans:
 | 22. Avere a slots (contenido) | v1.6 | 3/3 | Complete    | 2026-06-05 |
 | 23. Essere a slots (contenido) | v1.6 | 3/3 | Complete    | 2026-06-08 |
 | 24. Verbi di movimento a slots (contenido) | v1.6 | 3/3 | Complete    | 2026-06-08 |
-| 25. Genere e numero a slots (contenido) | v1.6 | 0/3 | Planned     | - |
+| 25. Genere e numero a slots (contenido) | v1.6 | 1/3 | In Progress|  |
 | 26. Professioni a slots (contenido, léxica) | v1.6 | 0/0 | Not started | - |
 | 27. Sostantivi irregolari a slots (contenido, léxica) | v1.6 | 0/0 | Not started | - |
 
