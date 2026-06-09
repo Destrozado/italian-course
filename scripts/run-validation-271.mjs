@@ -61,7 +61,7 @@ const fail = (txt) => `${RED}${txt}${RESET}`;
 const warn = (txt) => `${YELLOW}${txt}${RESET}`;
 
 // D-VAL-22 orden lockeado: riesgo-first (preposiciones) + alfabético resto.
-// La suma de `expected` es 209. Historial del total:
+// La suma de `expected` es 183. Historial del total:
 //   373 = 272 (271 originales v1.0 + 1 ejercicio preposiciones-051 creado durante
 //   la validación editorial de Phase 10) + 56 de la 8ª categoría `articoli`
 //   (v1.2 Phase 11: 48 base + 2 match + 6 bridges) + 44 de la 9ª categoría
@@ -137,6 +137,20 @@ const warn = (txt) => `${YELLOW}${txt}${RESET}`;
 //   léxico no recibió variantes, PROF-01). El net BAJÓ por la fusión a slot+variantes:
 //   51 payload → 11 slots. TOTAL = 249 − 51 + 11 = 209. El conteo `expected`
 //   de profesiones se mide como data.exercises.length (nº de slots).
+//   → 183 (v1.6 Phase 27, SOST-01, CIERRE CONV-01): Sostantivi irregolari se
+//   convirtió al shape slot+variantes HIBRIDO. La reagrupación fundió 31 ejercicios
+//   payload (100% MC) a 5 slots reales: bloque REGLA por sub-regla (D-27-02:
+//   sovrabbondanti -o→-a, invariabili-accentate, invariabili-straniere) + bloque
+//   LEXICO PURO cambio-radice sin variantes (uomo/dio/bue/tempio, duplicado
+//   #008==#025 como 2 variantes) + bloque CONTRASTE plurali-regolari sin engorde
+//   (D-27-05). Las 31 superficies fuente se preservaron como variantes (+N
+//   superficies nuevas SOLO del bloque regla D-27-03: sovrabbondanti + invariabili
+//   acentuadas/extranjeras — variantes, NO slots, así que NO suben el count; el
+//   bloque léxico y el contraste no recibieron variantes, SOST-01). El net BAJÓ por
+//   la fusión a slot+variantes: 31 payload → 5 slots. TOTAL = 209 − 31 + 5 = 183.
+//   Con esta conversión CONV-01 queda cerrado: 9/9 categorías de gramática en
+//   slot+variantes → fin de v1.6. El conteo `expected` de sustantivos-irregulares
+//   se mide como data.exercises.length (nº de slots).
 // `articoli` es alfabéticamente primero del resto, así que va justo tras
 // preposiciones; `partitivos` ordena entre genero-numero y profesiones. El
 // reporter falla si la suma encontrada en disco no coincide con el expected —
@@ -149,11 +163,11 @@ const CATEGORIES = [
   { slug: 'genero-numero',            file: 'content/exercises/genero-numero.json',            expected: 12 },
   { slug: 'partitivos',               file: 'content/exercises/partitivos.json',               expected: 19 },
   { slug: 'profesiones',              file: 'content/exercises/profesiones.json',              expected: 11 },
-  { slug: 'sustantivos-irregulares',  file: 'content/exercises/sustantivos-irregulares.json',  expected: 31 },
+  { slug: 'sustantivos-irregulares',  file: 'content/exercises/sustantivos-irregulares.json',  expected: 5 },
   { slug: 'verbos-movimiento',        file: 'content/exercises/verbos-movimiento.json',        expected: 7 },
 ];
 
-const TOTAL_EXPECTED = 209;
+const TOTAL_EXPECTED = 183;
 
 /**
  * Relax path-B (RESEARCH Open Q #1 opción c): si `deriveStatus` da `disputed`
