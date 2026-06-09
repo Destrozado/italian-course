@@ -2,8 +2,8 @@
 gsd_state_version: 1.0
 milestone: v1.6
 milestone_name: "Conversión a slots: categorías restantes"
-status: phase-complete
-last_updated: "2026-06-09T00:00:00.000Z"
+status: milestone_complete
+last_updated: 2026-06-09T06:00:52.758Z
 last_activity: 2026-06-09 -- Phase 27 Plan 03 completado (count sync 31->5, TOTAL_EXPECTED 183, CONV-01 cerrado, fin v1.6)
 progress:
   total_phases: 7
@@ -11,6 +11,7 @@ progress:
   total_plans: 19
   completed_plans: 19
   percent: 100
+stopped_at: Milestone complete (Phase 27 was final phase)
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -21,14 +22,14 @@ See: `.planning/PROJECT.md` (updated 2026-06-05 — Milestone v1.6 abierto)
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 27 — Sostantivi irregolari a slots (contenido, léxica)
+**Current Focus:** Milestone complete
 
 ## Current Position
 
-Phase: 27 (Sostantivi irregolari a slots (contenido, léxica)) — COMPLETE
-Plan: 3 of 3 (todos completados)
-Status: Phase 27 COMPLETA — CONV-01 cerrado (9/9 categorías en slot+variantes) → fin del milestone v1.6
-Last activity: 2026-06-09 -- Phase 27 Plan 03 completado (count sync 31->5, TOTAL_EXPECTED 209->183, CONV-01 cerrado)
+Phase: 27
+Plan: Not started
+Status: Milestone complete
+Last activity: 2026-06-09
 
 ## Quick Tasks Completed
 
