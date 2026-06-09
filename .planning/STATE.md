@@ -2,34 +2,44 @@
 gsd_state_version: 1.0
 milestone: v1.6
 milestone_name: "Conversión a slots: categorías restantes"
-status: milestone_complete
-last_updated: 2026-06-09T06:00:52.758Z
-last_activity: 2026-06-09 -- Phase 27 Plan 03 completado (count sync 31->5, TOTAL_EXPECTED 183, CONV-01 cerrado, fin v1.6)
+status: Awaiting next milestone
+last_updated: "2026-06-09T06:43:55.837Z"
+last_activity: 2026-06-09 — Milestone v1.6 completed and archived
 progress:
   total_phases: 7
   completed_phases: 7
   total_plans: 19
   completed_plans: 19
   percent: 100
-stopped_at: Milestone complete (Phase 27 was final phase)
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
 
 ## Project Reference
 
-See: `.planning/PROJECT.md` (updated 2026-06-05 — Milestone v1.6 abierto)
+See: `.planning/PROJECT.md` (updated 2026-06-09 — Milestone v1.6 shipped, CONV-01 cerrado)
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Milestone complete
+**Current Focus:** Planificar el próximo milestone (`/gsd:new-milestone`) — CONV-01 cerrado, 9/9 categorías de gramática unificadas.
 
 ## Current Position
 
-Phase: 27
-Plan: Not started
-Status: Milestone complete
-Last activity: 2026-06-09
+Phase: Milestone v1.6 complete
+Plan: —
+Status: Awaiting next milestone
+Last activity: 2026-06-09 — Milestone v1.6 completed and archived
+
+## Deferred Items
+
+Items reconocidos y diferidos en el cierre del milestone v1.6 (2026-06-09):
+
+| Category | Item | Status |
+|----------|------|--------|
+| quick_task | 260525-pwq-fix-shuffle-de-options-en-multiple-choice | shipped (tracking huérfano) |
+| quick_task | 260525-vvj-boton-reiniciar-examen | shipped (tracking huérfano) |
+
+Ambos quick tasks tienen `status: shipped` en su SUMMARY.md (completados 2026-05-25, era v1.0); el trabajo se entregó y está en el codebase con tests verdes. El audit los marca "missing" solo por metadata de tracking incompleta (p.ej. `hash: TBD-orchestrator`). No es trabajo pendiente; no son de scope v1.6.
 
 ## Quick Tasks Completed
 
@@ -160,4 +170,4 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Operator Next Steps
 
-- `/gsd:plan-phase 21` (Migración 8→9, reset selectivo de las 6 categorías) — primera fase del milestone v1.6.
+- Start the next milestone with /gsd-new-milestone

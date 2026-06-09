@@ -1,5 +1,25 @@
 # Milestones
 
+## v1.6 Conversión a slots: categorías restantes (CONV-01 cierre) (Shipped: 2026-06-09)
+
+**Phases completed:** 7 phases (21-27), 19 plans, 14/14 requirements (2 MIG + 6×2 conversión)
+**Stats:** 155 commits, 374/374 tests verdes (383/383 con `VAL_07_STRICT=1`), reporter VAL-06 183/183. Git range `fa6660b`→`dcdd777`. Timeline: ~4 días (2026-06-05 → 2026-06-09). `schemaVersion 8→9`.
+**Brownfield:** reutiliza toda la maquinaria slot+variantes del motor v1.4 (getter slot-aware, sampler por slot, cascada D-54 con 2 call-sites, smoke bifurcado por shape) — el motor NO se tocó.
+**Known deferred items at close:** 2 (quick tasks 260525-pwq + 260525-vvj, ya shipped en v1.0 con tracking huérfano — ver STATE.md §Deferred Items).
+
+**Key accomplishments:**
+
+- **Migración `8→9` reset selectivo de 6 categorías (MIG-03/04, Phase 21):** `migrate8to9`/`hydrateV9` idempotente + deep-clone anti-prototype-pollution; resetea el progreso SOLO de las 6 categorías a convertir vía un predicado de 6 prefijos; las 3 ya convertidas byte-intactas; `backup.js` round-trip v9 + import v8→v9 + rechazo `>9`. Va PRIMERA (desbloquea la renumeración de ids).
+- **Avere → slots (AVE-01/02, Phase 22):** 23 ejercicios → **19 slots** por regla (presente por persona + sensaciones + idiomático `aver ragione` + passato prossimo + cruces multi-cat avere-300..305 con id estable y cascada D-54 intacta). 14 superficies nuevas por quórum cross-vendor R1-R7. Counts 23→19, TOTAL_EXPECTED 323→320.
+- **Essere → slots (ESS-01/02, Phase 23):** 39 ejercicios → **26 slots** (presente + identidad/nacionalidad/profesión/estado/cópula + participio stato/stata/stati/state). 14 superficies nuevas + SLOT NUEVO ser/estar (D-23-07). Counts 39→26, TOTAL_EXPECTED 320→307.
+- **Verbi di movimento → slots (MOV-01/02, Phase 24):** 37 ejercicios → **7 slots** por la REGLA DE AUXILIAR (essere-vs-avere en passato prossimo, concordancia en un solo slot, correre aislado). 20 superficies nuevas por quórum. Counts 37→7, TOTAL_EXPECTED 307→277.
+- **Genere e numero → slots (GEN-01/02, Phase 25):** 40 ejercicios → **12 slots** de morfología género/plural (terminaciones + formación de plural; 3 match por D-04). 20 superficies nuevas por quórum. Counts 40→12, TOTAL_EXPECTED 277→249.
+- **Professioni → slots HÍBRIDO (PROF-01/02, Phase 26):** 51 ejercicios → **11 slots** (bloque regla de feminización rule-rich CON variantes + bloque léxico puro SIN variantes: comprensión + 3 match + articolo-suono + word-buttons). 12 superficies nuevas SOLO en feminización. Resuelve la open question (híbrida, no léxica pura). Counts 51→11, TOTAL_EXPECTED 249→209.
+- **Sostantivi irregolari → slots HÍBRIDO (SOST-01/02, Phase 27 — CIERRE):** 31 ejercicios (100% MC) → **5 slots** (bloque regla sovrabbondanti `-o→-a` + invariabili acentuadas/extranjeras CON variantes + bloque léxico cambio-radice + contraste plurali-regolari SIN autoría). 13 superficies nuevas por quórum; el cross-vendor cazó 4 bugs R7 de doble-validez (cigli/sopraccigli/lenzuoli/migli) reformulados. Counts 31→5, TOTAL_EXPECTED 209→183.
+- **CONV-01 CERRADO:** las 9 categorías de gramática quedan en formato slot+variantes unificado. Las dos léxicas (Professioni, Sostantivi irregolari) resueltas como híbridas sin forzar variantes artificiales. El motor v1.4 nunca se reconstruyó — brownfield puro contenido + migración.
+
+---
+
 ## v1.5 — Conversión a slots: Bloque Artículos (Shipped: 2026-06-05)
 
 **Phases completed:** 3 phases (18-20), 7 plans, 9/9 requirements (4 ART + 3 PART + 2 MIG)

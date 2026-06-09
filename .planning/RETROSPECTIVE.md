@@ -116,6 +116,45 @@
 
 ---
 
+## Milestone: v1.6 — Conversión a slots: categorías restantes (CONV-01 cierre)
+
+**Shipped:** 2026-06-09
+**Phases:** 7 (21-27) | **Plans:** 19 | **Sessions:** ~4 días (2026-06-05 → 2026-06-09), 155 commits
+
+### What Was Built
+- Migración `8→9` con reset selectivo de SEIS categorías a la vez (predicado de 6 prefijos) — escalado del patrón de 2 prefijos de v1.5.
+- Las 6 categorías legacy restantes convertidas a slot+variantes: Avere 23→19, Essere 39→26, Verbi di movimento 37→7 (regla de auxiliar), Genere e numero 40→12, Professioni 51→11, Sostantivi irregolari 31→5. ~99 superficies nuevas autoradas por quórum cross-vendor a lo largo del milestone.
+- Las dos categorías léxicas (Professioni, Sostantivi irregolari) resueltas como **HÍBRIDAS**: bloque regla con variantes intercambiables reales + bloque léxico/contraste sin autoría — sin forzar variantes artificiales.
+- Counts derivados re-sincronizados al conteo REAL del JSON en cada conversión (`TOTAL_EXPECTED` 323→…→183). **CONV-01 CERRADO: 9/9 categorías de gramática unificadas.**
+
+### What Worked
+- **La plantilla de 3 plans se mantuvo estable las 6 veces:** mapa+reescritura (checkpoint:decision) → variantes por quórum (checkpoint:human-verify) → sync de counts. Cero rework de motor en todo el milestone, 6 conversiones consecutivas.
+- **El híbrido resolvió la open question sin forzar nada:** para las léxicas, documentar por bloque "dónde hay regla → variantes; dónde es léxico/lema → sin autoría" evitó inventar variantes artificiales y cumplió SOST-01/PROF-01 limpiamente.
+- **Cross-vendor siguió cazando bugs reales:** en Phase 27 el quórum atrapó 4 dobles-validez R7 (cigli/sopraccigli/lenzuoli/migli — distractoras que eran plurales válidos en otro sentido) que un human-verify habría aprobado; quinto milestone consecutivo donde la verificación multi-capa paga.
+- **Counts leídos del JSON, no estimados:** la lección de v1.4/v1.5 ya es reflejo — cada 27-03/26-03/… leyó `data.exercises.length` real.
+
+### What Was Inefficient
+- **Checkpoints de contenido vs --auto:** la cadena se lanzó con `--chain --auto`, pero los checkpoints de calidad de contenido (aprobar mapa + aprobar variantes) son decisiones del autor que NO deben auto-aprobarse; hubo que anular el auto-approve del workflow para pausar de verdad. La tensión entre "autónomo" y "curaduría de contenido" debería ser explícita en el plan.
+- **Auto-extracción de accomplishments ruidosa:** `milestone.complete` extrajo bullets "Task 1 (commit …)" de los SUMMARY en vez de los one-liners reales; hubo que reescribir la entrada de MILESTONES.md a mano.
+- **Detección UI falso-positivo:** el gate de UI saltó por "form" dentro de "formato" en una fase 100% contenido; se resolvió por precedente (las 5 fases previas sin UI-SPEC) pero el grep es frágil.
+
+### Patterns Established
+- **Conversión híbrida regla+léxica:** para categorías léxicas, trocear por bloque (regla con variantes / léxico-lema sin autoría / contraste sin engorde) y documentar la decisión por bloque — no toda categoría tiene "regla con variantes intercambiables".
+- **Migración multi-categoría escala:** un `migrateNtoM` con predicado de N prefijos resetea 6 categorías igual de bien que 2.
+- **Granularidad fina por sub-regla:** 1 slot por sub-regla (sufijo/terminación/sub-disparador) drillea la trampa A1 sin difuminar; el examen rota variantes dentro del slot.
+
+### Key Lessons
+1. El patrón pilot→escala llegó hasta el final: 9/9 categorías convertidas sin reconstruir el motor jamás, cada conversión reutilizando maquinaria verificada en v1.4.
+2. El híbrido (regla + léxico) es la respuesta correcta para categorías que no son rule-rich puras — documentarlo por bloque evita forzar variantes y satisface los criterios "no se fuerzan variantes artificiales".
+3. Los checkpoints de curaduría de contenido deben pausar para revisión humana incluso en cadenas `--auto` — el coste de meter mal contenido al canon permanente es alto y difícil de revertir.
+
+### Cost Observations
+- Model mix: opus (orchestrator + executors + planner) + sonnet (verifier + plan-checker); quórum cross-vendor (Opus 4.8 + Sonnet 4.6 base + Gemini/DeepSeek refuerzo, 1-por-1 aislado) para ~99 variantes nuevas.
+- Sessions: ~4 días (2026-06-05 → 2026-06-09), 155 commits, 7 fases.
+- Notable: milestone más grande del proyecto por fases (7) y commits (155); casi todo contenido (JSON) + tests + migración; 0 cambios de lógica de motor.
+
+---
+
 ## Cross-Milestone Trends
 
 ### Process Evolution
@@ -127,6 +166,8 @@
 | v1.2 | — | 2 | Patrón "categoría nueva" consolidado (temario→ejercicios→lockstep→quórum); cross-vendor caza bugs que human-verify deja pasar |
 | v1.3 | ~1 día | 2 | Patrón "bloque nuevo sobre engine" — un modo de ejercicio nuevo reutiliza el motor sin reconstruirlo |
 | v1.4 | ~2 días | 3 | Patrón "rework de motor + piloto de contenido" — modelo de datos nuevo (slots) sin reconstruir el engine; 1 categoría piloto valida el dolor antes de convertir las 9 |
+| v1.5 | ~3 días | 3 | Pilot→escala: 2 categorías (Articoli + Partitivi) convertidas replicando el piloto; counts leídos del JSON (no estimados); migración multi-categoría (2 prefijos) |
+| v1.6 | ~4 días | 7 | Cierre de CONV-01: las 6 categorías restantes convertidas en serie; migración de 6 prefijos; híbrido regla+léxica para las léxicas; 0 rework de motor |
 
 ### Cumulative Quality
 
@@ -137,6 +178,8 @@
 | v1.2 | 268/268 | 372/372 validados | `validate-ai-pass.mjs` multi-provider |
 | v1.3 | 306/306 | 19/19 requirements | bloque Canciones, `validateSongs`, `migrate4to5` |
 | v1.4 | 342/342 | 17/17 requirements · Preposiciones 49 slots por quórum | modelo slot+variantes, `pickVariantIndex`, `normalizeExerciseToSlot`, `migrate5to6`/`6to7`, smoke bifurcado por shape |
+| v1.5 | 358/358 | 9/9 requirements · Articoli 34 + Partitivi 19 slots | `migrate7to8` reset selectivo de 2 categorías, 2 slots de huecos semiconsonánticos |
+| v1.6 | 374/374 | 14/14 requirements · 9/9 categorías slot+variantes (CONV-01 cerrado) | `migrate8to9` reset de 6 categorías; híbrido regla+léxica (Professioni, Sostantivi irregolari) |
 
 ### Top Lessons (Verified Across Milestones)
 1. **Reutilizar un único call-site central paga** — `applyResultToSession` (v1.0) absorbió tanto los tipos nuevos de v1.0 como el modo canción de v1.3 sin duplicar la cascada.
