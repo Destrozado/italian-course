@@ -40,7 +40,7 @@
 ### Sostantivi irregolari a slots (SOST) — 31 ejercicios (léxica)
 
 - [ ] **SOST-01**: Los 31 ejercicios de Sostantivi irregolari se reagrupan en slots con explanation a nivel de slot. **Decisión de discuss/plan:** evaluar si hay regla-con-variantes natural (p.ej. patrones de plural irregular) o si conviene dejarlos como slots-de-1 reagrupados. La estructura final pasa el validator y el smoke con los counts re-sincronizados.
-- [ ] **SOST-02**: Donde exista regla-con-variantes, se autoran variantes nuevas (D-85 + quórum cross-vendor R1-R7) que pasan el quórum antes de entrar; si la categoría queda como slots-de-1, se documenta explícitamente que no aplica autoría de variantes.
+- [x] **SOST-02**: Donde exista regla-con-variantes, se autoran variantes nuevas (D-85 + quórum cross-vendor R1-R7) que pasan el quórum antes de entrar; si la categoría queda como slots-de-1, se documenta explícitamente que no aplica autoría de variantes.
 
 ## Future Requirements
 
@@ -86,7 +86,7 @@ Diferidos a milestones futuros. Reconocidos pero no en el roadmap actual.
 | PROF-01 | Phase 26 | Complete |
 | PROF-02 | Phase 26 | Complete |
 | SOST-01 | Phase 27 | Pending |
-| SOST-02 | Phase 27 | Pending |
+| SOST-02 | Phase 27 | Done (27-02) |
 
 **Coverage:** 14/14 requirements mapped ✓ — 0 orphans, 0 duplicados, 0 gaps.
 

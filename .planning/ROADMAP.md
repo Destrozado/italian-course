@@ -244,7 +244,7 @@ Plans:
 
 **Plans**: 3 plans
 - [x] 27-01-PLAN.md — Reagrupar los 31 ejercicios a slot+variantes HIBRIDO (bloque regla por sub-regla + lexico cambio-radice + contraste plurali-regolari); mapa auditado + reescritura del JSON (SOST-01) — completed 2026-06-09 (5 slots, 31 variantes)
-- [ ] 27-02-PLAN.md — Autorar variantes nuevas por quorum cross-vendor R1-R7 SOLO en el bloque regla (sovrabbondanti + invariabili acentuadas/extranjeras); lexico y contraste sin variantes (SOST-02)
+- [x] 27-02-PLAN.md — Autorar variantes nuevas por quorum cross-vendor R1-R7 SOLO en el bloque regla (sovrabbondanti + invariabili acentuadas/extranjeras); lexico y contraste sin variantes (SOST-02) — completed 2026-06-09 (13 variantes validadas, 4 bugs R7 cazados+reformulados, 5 slots, 44 variantes)
 - [ ] 27-03-PLAN.md — Re-sincronizar los 3 hardcodes de count + TOTAL_EXPECTED al n real de slots; cierre de SOST-01 y de CONV-01 (9/9 categorias)
 **UI hint**: no
 
@@ -264,7 +264,7 @@ Plans:
 | 24. Verbi di movimento a slots (contenido) | v1.6 | 3/3 | Complete    | 2026-06-08 |
 | 25. Genere e numero a slots (contenido) | v1.6 | 3/3 | Complete   | 2026-06-08 |
 | 26. Professioni a slots (contenido, léxica) | v1.6 | 3/3 | Complete    | 2026-06-08 |
-| 27. Sostantivi irregolari a slots (contenido, léxica) | v1.6 | 1/3 | In Progress | - |
+| 27. Sostantivi irregolari a slots (contenido, léxica) | v1.6 | 2/3 | In Progress | - |
 
 ## Backlog
 
