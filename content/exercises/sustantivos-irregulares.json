@@ -3,58 +3,170 @@
     {
       "id": "sustantivos-irregulares-sovrabbondanti",
       "type": "multiple-choice",
-      "categoryIds": ["sustantivos-irregulares"],
+      "categoryIds": [
+        "sustantivos-irregulares"
+      ],
       "explanation": "Sovrabbondanti: los sustantivos del cuerpo humano que designan partes pareadas forman el plural en -a y CAMBIAN a género femenino. 'Il braccio' (masc) → 'le braccia' (fem); por eso 'le braccia stanche' lleva concordancia femenina entera. Misma familia: dito → dita, osso → ossa, labbro → labbra, uovo → uova; nunca 'bracci' ni 'uovi'. La concordancia exige artículo y adjetivo femeninos en plural ('le uova fresche', no 'i uovi freschi'): la pareja artículo+sustantivo revela el género del plural irregular — 'le' obliga a 'braccia' (fem), no 'bracci' (masc). Excepción dentro de la familia: 'orecchio' hace 'le orecchie' (plural fem en -e, NO en -a como braccia), fijado por la concordancia del contexto (le ... grandi). Matices: para el esqueleto humano 'le ossa' (fem); 'gli ossi' (masc) se reserva para huesos sueltos o de animales. 'Le labbra' son los labios del rostro; 'i labbri' (masc) designa bordes u orillas. Trampa central (inverso): 'braccia' y 'uova' terminan en -a y parecen femeninas, pero el lema base es masculino ('braccio', 'uovo'); esta asimetría de género entre singular y plural es la dificultad central.",
       "variants": [
         {
           "prompt": "Un braccio, due ___.",
-          "options": ["bracci", "braccia", "braccios", "bracce"],
+          "options": [
+            "bracci",
+            "braccia",
+            "braccios",
+            "bracce"
+          ],
           "correctIndex": 1
         },
         {
           "prompt": "Un uovo, due ___.",
-          "options": ["uovi", "uovos", "uova", "uove"],
+          "options": [
+            "uovi",
+            "uovos",
+            "uova",
+            "uove"
+          ],
           "correctIndex": 2
         },
         {
           "prompt": "Un dito, due ___.",
-          "options": ["diti", "dita", "ditos", "ditti"],
+          "options": [
+            "diti",
+            "dita",
+            "ditos",
+            "ditti"
+          ],
           "correctIndex": 1
         },
         {
           "prompt": "Dopo la corsa, le ___ fanno male.",
-          "options": ["ginocchi", "ginocchia", "ginocchios", "ginocche"],
+          "options": [
+            "ginocchi",
+            "ginocchia",
+            "ginocchios",
+            "ginocche"
+          ],
           "correctIndex": 1
         },
         {
           "prompt": "Lo scheletro umano ha molte ___.",
-          "options": ["ossi", "ossa", "osses", "osso"],
+          "options": [
+            "ossi",
+            "ossa",
+            "osses",
+            "osso"
+          ],
           "correctIndex": 1
         },
         {
           "prompt": "Un labbro, due ___.",
-          "options": ["labbri", "labbra", "labbros", "labbre"],
+          "options": [
+            "labbri",
+            "labbra",
+            "labbros",
+            "labbre"
+          ],
           "correctIndex": 1
         },
         {
           "prompt": "Le ___ lunghe.",
-          "options": ["bracci", "braccia", "braccie", "bracce"],
+          "options": [
+            "bracci",
+            "braccia",
+            "braccie",
+            "bracce"
+          ],
           "correctIndex": 1
         },
         {
           "prompt": "Le ___ grandi.",
-          "options": ["orecchi", "orecchia", "orecchie", "orecchios"],
+          "options": [
+            "orecchi",
+            "orecchia",
+            "orecchie",
+            "orecchios"
+          ],
           "correctIndex": 2
         },
         {
           "prompt": "Due braccia, un ___.",
-          "options": ["braccia", "braccio", "braccie", "bracce"],
+          "options": [
+            "braccia",
+            "braccio",
+            "braccie",
+            "bracce"
+          ],
           "correctIndex": 1
         },
         {
           "prompt": "Due uova, un ___.",
-          "options": ["uovo", "uova", "uove", "uovas"],
+          "options": [
+            "uovo",
+            "uova",
+            "uove",
+            "uovas"
+          ],
           "correctIndex": 0
+        },
+        {
+          "prompt": "Mi trucco gli occhi: ho un ciglio lungo e due ___ corte (en español: pestañas).",
+          "options": [
+            "cigli",
+            "ciglia",
+            "ciglios",
+            "cigle"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Le sue ___ folte le coprono gli occhi (en español: cejas).",
+          "options": [
+            "sopraccigli",
+            "sopracciglia",
+            "sopracciglios",
+            "sopracciglie"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Un paio, due ___.",
+          "options": [
+            "pai",
+            "paii",
+            "paia",
+            "paios"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Le ___ del letto matrimoniale sono pulite (en español: las sábanas).",
+          "options": [
+            "lenzuoli",
+            "lenzuola",
+            "lenzuolos",
+            "lenzuole"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "La città è lontana: dobbiamo percorrere ancora molte ___ in macchina (en español: millas).",
+          "options": [
+            "migli",
+            "miglia",
+            "miglios",
+            "miglie"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Due ciglia, un ___.",
+          "options": [
+            "ciglia",
+            "ciglio",
+            "cigle",
+            "ciglo"
+          ],
+          "correctIndex": 1
         }
       ],
       "validation": {
@@ -78,23 +190,80 @@
     {
       "id": "sustantivos-irregulares-invariabili-accentate",
       "type": "multiple-choice",
-      "categoryIds": ["sustantivos-irregulares"],
+      "categoryIds": [
+        "sustantivos-irregulares"
+      ],
       "explanation": "Invariabili acentuadas: los sustantivos terminados en vocal tónica final son INVARIABLES — tienen la misma forma en singular y en plural, y solo el artículo señala el número. 'La città' → 'le città' se escriben igual; misma regla para caffè, virtù, università, tè. La vocal final acentuada bloquea CUALQUIER flexión ('il caffè' / 'i caffè' idénticos); el acento grave sobre la è no se altera ni se elimina al pluralizar; nada de 'caffi'. Toda la familia abstracta en -tà (libertà, possibilità, qualità, università) es invariable y NUNCA se pluraliza con -des (calco español incorrecto): nada de 'universite' ni 'cittadi'.",
       "variants": [
         {
           "prompt": "Una città, due ___.",
-          "options": ["citte", "cittàe", "città", "cittadi"],
+          "options": [
+            "citte",
+            "cittàe",
+            "città",
+            "cittadi"
+          ],
           "correctIndex": 2
         },
         {
           "prompt": "Un caffè, due ___.",
-          "options": ["caffi", "caffè", "caffès", "caffei"],
+          "options": [
+            "caffi",
+            "caffè",
+            "caffès",
+            "caffei"
+          ],
           "correctIndex": 1
         },
         {
           "prompt": "Una università, due ___.",
-          "options": ["universitàe", "universite", "universitadi", "università"],
+          "options": [
+            "universitàe",
+            "universite",
+            "universitadi",
+            "università"
+          ],
           "correctIndex": 3
+        },
+        {
+          "prompt": "Una virtù, due ___.",
+          "options": [
+            "virtudi",
+            "virtù",
+            "virtùe",
+            "virti"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Una tribù, due ___.",
+          "options": [
+            "tribi",
+            "tribù",
+            "tribùe",
+            "tribus"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Una novità, due ___.",
+          "options": [
+            "novitadi",
+            "novite",
+            "novità",
+            "novitàe"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Un'età, due ___.",
+          "options": [
+            "età",
+            "etadi",
+            "ete",
+            "etàe"
+          ],
+          "correctIndex": 0
         }
       ],
       "validation": {
@@ -118,18 +287,60 @@
     {
       "id": "sustantivos-irregulares-invariabili-straniere",
       "type": "multiple-choice",
-      "categoryIds": ["sustantivos-irregulares"],
+      "categoryIds": [
+        "sustantivos-irregulares"
+      ],
       "explanation": "Invariabili extranjeras: los anglicismos terminados en consonante son INVARIABLES en italiano — 'il film' / 'i film' idénticos, igual que sport, bar, computer. El italiano NO añade -s al pluralizar (calco del inglés o del español): nada de 'films' ni 'sports'; el artículo es lo único que marca el número. Los préstamos del inglés conservan su forma original también en plural ('uno sport' / 'gli sport'). Nota de artículo: 'uno sport' (no 'un sport') porque empieza por s+consonante, y en plural 'gli' (no 'i').",
       "variants": [
         {
           "prompt": "Un film, due ___.",
-          "options": ["filmi", "films", "film", "filme"],
+          "options": [
+            "filmi",
+            "films",
+            "film",
+            "filme"
+          ],
           "correctIndex": 2
         },
         {
           "prompt": "Uno sport, due ___.",
-          "options": ["sport", "sports", "sporti", "sporte"],
+          "options": [
+            "sport",
+            "sports",
+            "sporti",
+            "sporte"
+          ],
           "correctIndex": 0
+        },
+        {
+          "prompt": "Un bar, due ___.",
+          "options": [
+            "bari",
+            "bar",
+            "bars",
+            "bare"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Un computer, due ___.",
+          "options": [
+            "computeri",
+            "computers",
+            "computer",
+            "computere"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Un autobus, due ___.",
+          "options": [
+            "autobusi",
+            "autobus",
+            "autobussi",
+            "autobuses"
+          ],
+          "correctIndex": 1
         }
       ],
       "validation": {
@@ -153,47 +364,89 @@
     {
       "id": "sustantivos-irregulares-cambio-radice",
       "type": "multiple-choice",
-      "categoryIds": ["sustantivos-irregulares"],
+      "categoryIds": [
+        "sustantivos-irregulares"
+      ],
       "explanation": "Cambio de raíz: algunos sustantivos forman el plural por cambio de raíz, impredecible — hay que aprender el lema como par memorizable. 'Uomo' → 'uomini' (no 'uomi'), 'dio' → 'dei', 'bue' → 'buoi', 'tempio' → 'templi'. En 'dio' el artículo plural es 'gli dei' (no 'i') y no sigue la regla -o→-i (por eso 'dii' suena mal). 'Tempio' inserta una -l- → 'i templi'; atención a la trampa homófona: 'i tempi' (sin -l-) es el plural de 'tempo' (los tiempos), un lema distinto. 'Bue' inserta una -o- antes de la -i → 'i buoi' (no la regla directa -e→-i, que daría 'bui'). Concordancia: adjetivo y sustantivo concuerdan siempre en número y género — 'un giovane uomo' → 'due giovani uomini', ambos flexionados (giovane -e → giovani -i, regla idéntica a padre → padri). Inversos: el lema base de 'uomini' es 'uomo' (no un falso 'uomine') y el de 'dei' es 'dio' (no 'deo' regularizado); los plurales con cambio de raíz no son simétricos, hay que conocer el lema, no derivarlo.",
       "variants": [
         {
           "prompt": "Un uomo, due ___.",
-          "options": ["uomi", "uomini", "uomos", "uomine"],
+          "options": [
+            "uomi",
+            "uomini",
+            "uomos",
+            "uomine"
+          ],
           "correctIndex": 1
         },
         {
           "prompt": "Un dio, due ___.",
-          "options": ["dii", "dei", "ddi", "dios"],
+          "options": [
+            "dii",
+            "dei",
+            "ddi",
+            "dios"
+          ],
           "correctIndex": 1
         },
         {
           "prompt": "Un tempio, due ___.",
-          "options": ["tempi", "templi", "tempios", "tempie"],
+          "options": [
+            "tempi",
+            "templi",
+            "tempios",
+            "tempie"
+          ],
           "correctIndex": 1
         },
         {
           "prompt": "Un bue, due ___.",
-          "options": ["bua", "bui", "buoi", "buei"],
+          "options": [
+            "bua",
+            "bui",
+            "buoi",
+            "buei"
+          ],
           "correctIndex": 2
         },
         {
           "prompt": "Un tempio, due ___.",
-          "options": ["tempi", "templi", "tempios", "templios"],
+          "options": [
+            "tempi",
+            "templi",
+            "tempios",
+            "templios"
+          ],
           "correctIndex": 1
         },
         {
           "prompt": "Un giovane uomo, due ___.",
-          "options": ["giovani uomini", "giovane uomini", "giovani uomo", "giovanes uomos"],
+          "options": [
+            "giovani uomini",
+            "giovane uomini",
+            "giovani uomo",
+            "giovanes uomos"
+          ],
           "correctIndex": 0
         },
         {
           "prompt": "Due uomini, un ___.",
-          "options": ["uomine", "uomo", "uome", "uomini"],
+          "options": [
+            "uomine",
+            "uomo",
+            "uome",
+            "uomini"
+          ],
           "correctIndex": 1
         },
         {
           "prompt": "Due dei, un ___.",
-          "options": ["dei", "dee", "deo", "dio"],
+          "options": [
+            "dei",
+            "dee",
+            "deo",
+            "dio"
+          ],
           "correctIndex": 3
         }
       ],
@@ -218,47 +471,89 @@
     {
       "id": "sustantivos-irregulares-plurali-regolari",
       "type": "multiple-choice",
-      "categoryIds": ["sustantivos-irregulares"],
+      "categoryIds": [
+        "sustantivos-irregulares"
+      ],
       "explanation": "Plurales regulares de contraste: foils deliberados para distinguir de los irregulares. Femenino -a → -e ('la sorella' → 'le sorelle', 'la donna' → 'le donne'); masculino -o → -i ('il fratello' → 'i fratelli', 'il marito' → 'i mariti'); hay que PARAR a comprobar el género antes de pluralizar. Los terminados en -e (masculinos o femeninos) hacen el plural en -i: 'il padre' → 'i padri', 'la madre' → 'le madri'; el género NO se ve en la -e, solo en el artículo, y la -e ya gastó su turno y exige -i (no -e como donna). El plural masculino 'fratelli' también designa el grupo mixto hermanos+hermanas. 'Marito' (-o→-i) y 'moglie' (-e→-i) son pareja semántica pero NO comparten regla: la terminación del singular dicta el plural, no el significado — 'la moglie' → 'le mogli', donde la -e final no se duplica, se sustituye por -i (no 'moglii'), mismo patrón que madre/padre. Inverso: el singular de 'donne' es 'donna' (-e plur ↔ -a sing, simetría perfecta fem); 'donno' y 'donni' no existen.",
       "variants": [
         {
           "prompt": "Una sorella, due ___.",
-          "options": ["sorelli", "sorelle", "sorella", "sorellas"],
+          "options": [
+            "sorelli",
+            "sorelle",
+            "sorella",
+            "sorellas"
+          ],
           "correctIndex": 1
         },
         {
           "prompt": "Una donna, due ___.",
-          "options": ["donne", "donni", "donna", "donnas"],
+          "options": [
+            "donne",
+            "donni",
+            "donna",
+            "donnas"
+          ],
           "correctIndex": 0
         },
         {
           "prompt": "Un padre, due ___.",
-          "options": ["padre", "padres", "padri", "padrei"],
+          "options": [
+            "padre",
+            "padres",
+            "padri",
+            "padrei"
+          ],
           "correctIndex": 2
         },
         {
           "prompt": "Una madre, due ___.",
-          "options": ["madre", "madri", "madres", "madras"],
+          "options": [
+            "madre",
+            "madri",
+            "madres",
+            "madras"
+          ],
           "correctIndex": 1
         },
         {
           "prompt": "Un fratello, due ___.",
-          "options": ["fratelli", "fratellos", "fratelle", "fratellas"],
+          "options": [
+            "fratelli",
+            "fratellos",
+            "fratelle",
+            "fratellas"
+          ],
           "correctIndex": 0
         },
         {
           "prompt": "Un marito, due ___.",
-          "options": ["marite", "marita", "mariti", "maritos"],
+          "options": [
+            "marite",
+            "marita",
+            "mariti",
+            "maritos"
+          ],
           "correctIndex": 2
         },
         {
           "prompt": "Una moglie, due ___.",
-          "options": ["moglies", "moglie", "moglii", "mogli"],
+          "options": [
+            "moglies",
+            "moglie",
+            "moglii",
+            "mogli"
+          ],
           "correctIndex": 3
         },
         {
           "prompt": "Due donne, una ___.",
-          "options": ["donno", "donna", "donne", "donni"],
+          "options": [
+            "donno",
+            "donna",
+            "donne",
+            "donni"
+          ],
           "correctIndex": 1
         }
       ],
