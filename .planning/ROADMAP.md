@@ -94,7 +94,7 @@ Numeración CONTINÚA desde Phase 20 → Phases 21-27 (NO reset — mismo criter
 - [x] **Phase 24: Verbi di movimento a slots (contenido)** — Reagrupar los 37 ejercicios de Verbi di movimento en slots por regla, autorar variantes nuevas por quórum, huecos→slots, validator + smoke + counts + explanation a nivel de slot. (completed 2026-06-08)
 - [x] **Phase 25: Genere e numero a slots (contenido)** — Reagrupar los 40 ejercicios de Genere e numero en slots por regla (terminaciones de género + formación de plural; match si requiere regla no derivable por raíz, D-04), autorar variantes nuevas por quórum, huecos→slots, validator + smoke + counts + explanation a nivel de slot. (completed 2026-06-08)
 - [x] **Phase 26: Professioni a slots (contenido, léxica)** — Reagrupar los 51 ejercicios de Professioni en slots. Decisión de discuss/plan: regla-con-variantes natural (p.ej. femenino por terminación) O slots-de-1 reagrupados si la categoría léxica no admite variantes intercambiables. Validator + smoke + counts + explanation a nivel de slot. (completed 2026-06-08)
-- [ ] **Phase 27: Sostantivi irregolari a slots (contenido, léxica)** — Reagrupar los 31 ejercicios de Sostantivi irregolari en slots. Decisión de discuss/plan: regla-con-variantes natural (p.ej. patrones de plural irregular) O slots-de-1 reagrupados. Validator + smoke + counts + explanation a nivel de slot. Cierra CONV-01 (9/9 categorías unificadas).
+- [x] **Phase 27: Sostantivi irregolari a slots (contenido, léxica)** — Reagrupar los 31 ejercicios de Sostantivi irregolari en slots. Decisión de discuss/plan: regla-con-variantes natural (p.ej. patrones de plural irregular) O slots-de-1 reagrupados. Validator + smoke + counts + explanation a nivel de slot. Cierra CONV-01 (9/9 categorías unificadas). (completed 2026-06-09 — 5 slots, 44 variantes, TOTAL_EXPECTED 183, CONV-01 cerrado, fin v1.6)
 
 ## Phase Details
 
@@ -245,7 +245,7 @@ Plans:
 **Plans**: 3 plans
 - [x] 27-01-PLAN.md — Reagrupar los 31 ejercicios a slot+variantes HIBRIDO (bloque regla por sub-regla + lexico cambio-radice + contraste plurali-regolari); mapa auditado + reescritura del JSON (SOST-01) — completed 2026-06-09 (5 slots, 31 variantes)
 - [x] 27-02-PLAN.md — Autorar variantes nuevas por quorum cross-vendor R1-R7 SOLO en el bloque regla (sovrabbondanti + invariabili acentuadas/extranjeras); lexico y contraste sin variantes (SOST-02) — completed 2026-06-09 (13 variantes validadas, 4 bugs R7 cazados+reformulados, 5 slots, 44 variantes)
-- [ ] 27-03-PLAN.md — Re-sincronizar los 3 hardcodes de count + TOTAL_EXPECTED al n real de slots; cierre de SOST-01 y de CONV-01 (9/9 categorias)
+- [x] 27-03-PLAN.md — Re-sincronizar los 3 hardcodes de count + TOTAL_EXPECTED al n real de slots; cierre de SOST-01 y de CONV-01 (9/9 categorias) — completed 2026-06-09 (count 31->5, TOTAL_EXPECTED 209->183, suite 374/374 + strict 383/383 + VAL-06 183/183, CONV-01 cerrado, fin v1.6)
 **UI hint**: no
 
 ## Progress
@@ -264,7 +264,7 @@ Plans:
 | 24. Verbi di movimento a slots (contenido) | v1.6 | 3/3 | Complete    | 2026-06-08 |
 | 25. Genere e numero a slots (contenido) | v1.6 | 3/3 | Complete   | 2026-06-08 |
 | 26. Professioni a slots (contenido, léxica) | v1.6 | 3/3 | Complete    | 2026-06-08 |
-| 27. Sostantivi irregolari a slots (contenido, léxica) | v1.6 | 2/3 | In Progress | - |
+| 27. Sostantivi irregolari a slots (contenido, léxica) | v1.6 | 3/3 | Complete    | 2026-06-09 |
 
 ## Backlog
 

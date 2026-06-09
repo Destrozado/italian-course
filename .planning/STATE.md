@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.6
 milestone_name: "Conversión a slots: categorías restantes"
-status: executing
+status: phase-complete
 last_updated: "2026-06-09T00:00:00.000Z"
-last_activity: 2026-06-09 -- Phase 27 Plan 02 completado (13 variantes nuevas validadas por quórum, integradas)
+last_activity: 2026-06-09 -- Phase 27 Plan 03 completado (count sync 31->5, TOTAL_EXPECTED 183, CONV-01 cerrado, fin v1.6)
 progress:
   total_phases: 7
-  completed_phases: 6
+  completed_phases: 7
   total_plans: 19
-  completed_plans: 18
-  percent: 95
+  completed_plans: 19
+  percent: 100
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -25,10 +25,10 @@ See: `.planning/PROJECT.md` (updated 2026-06-05 — Milestone v1.6 abierto)
 
 ## Current Position
 
-Phase: 27 (Sostantivi irregolari a slots (contenido, léxica)) — EXECUTING
-Plan: 3 of 3
-Status: Executing Phase 27 (27-01 + 27-02 completados; 13 variantes nuevas integradas)
-Last activity: 2026-06-09 -- Phase 27 Plan 02 completado (quórum cross-vendor 13/13 validadas)
+Phase: 27 (Sostantivi irregolari a slots (contenido, léxica)) — COMPLETE
+Plan: 3 of 3 (todos completados)
+Status: Phase 27 COMPLETA — CONV-01 cerrado (9/9 categorías en slot+variantes) → fin del milestone v1.6
+Last activity: 2026-06-09 -- Phase 27 Plan 03 completado (count sync 31->5, TOTAL_EXPECTED 209->183, CONV-01 cerrado)
 
 ## Quick Tasks Completed
 
@@ -46,7 +46,7 @@ Last activity: 2026-06-09 -- Phase 27 Plan 02 completado (quórum cross-vendor 1
 | Fases v1.3 | 2/2 completas (Phase 13-14) — SHIPPED 2026-06-02 |
 | Fases v1.4 | 3/3 completas (Phase 15-17) — SHIPPED 2026-06-03 |
 | Fases v1.5 | 3/3 completas (Phase 18-20) — SHIPPED 2026-06-05 |
-| Fases v1.6 | 6/7 (Phases 21 migración 8→9, 22 Avere, 23 Essere, 24 Verbi di movimento, 25 Genere e numero, 26 Professioni completadas; Phase 27 Sostantivi irregolari pendiente) |
+| Fases v1.6 | 7/7 completas (Phases 21 migración 8→9, 22 Avere, 23 Essere, 24 Verbi di movimento, 25 Genere e numero, 26 Professioni, 27 Sostantivi irregolari) — CONV-01 cerrado, 9/9 categorías unificadas |
 | Requisitos v1.6 mapeados | 14/14 (100% — MIG-03/04→Phase 21; AVE→22; ESS→23; MOV→24; GEN→25; PROF→26; SOST→27; 0 orphans) |
 | Requisitos v1.0 completos | 62/62 (100%) |
 | Requisitos v1.1 completos | 8/8 (100% — VAL-01..08) |
