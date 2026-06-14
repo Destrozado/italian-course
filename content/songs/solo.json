@@ -1,0 +1,210 @@
+{
+  "id": "solo",
+  "title": "Solo — Ultimo",
+  "phrases": [
+    {
+      "id": "solo-001",
+      "prompt": "Oggi mi chiudo di nuovo, e quel che resta intatto lo dedico a te",
+      "answer": ["hoy", "me", "encierro", "de", "nuevo", "y", "lo", "que", "queda", "intacto", "te", "lo", "dedico", "a", "ti"],
+      "categoryIds": []
+    },
+    {
+      "id": "solo-002",
+      "prompt": "È come se vivessi coi piedi nel fuoco, e voglio sempre avere quello che adesso non c'è",
+      "answer": ["es", "como", "si", "viviera", "con", "los", "pies", "en", "el", "fuego", "y", "siempre", "quiero", "tener", "lo", "que", "ahora", "no", "está"],
+      "categoryIds": []
+    },
+    {
+      "id": "solo-003",
+      "prompt": "Oggi mi sento sparire, perché non so dentro più quello che ho",
+      "answer": ["hoy", "me", "siento", "desaparecer", "porque", "dentro", "ya", "no", "sé", "lo", "que", "tengo"],
+      "categoryIds": []
+    },
+    {
+      "id": "solo-004",
+      "prompt": "È come se vivessi nei mesi passati, perché adesso non ho nulla che racconterò",
+      "answer": ["es", "como", "si", "viviera", "en", "los", "meses", "pasados", "porque", "ahora", "no", "tengo", "nada", "que", "contaré"],
+      "categoryIds": []
+    },
+    {
+      "id": "solo-005",
+      "prompt": "Ma tu mi piaci di più, perché racconti i sogni proprio come piace a me",
+      "answer": ["pero", "tú", "me", "gustas", "más", "porque", "cuentas", "los", "sueños", "justo", "como", "me", "gusta", "a", "mí"],
+      "categoryIds": []
+    },
+    {
+      "id": "solo-006",
+      "prompt": "Tu sei qualcosa di più, ma non ti scrivo perché dentro sono",
+      "answer": ["tú", "eres", "algo", "más", "pero", "no", "te", "escribo", "porque", "dentro", "estoy"],
+      "categoryIds": []
+    },
+    {
+      "id": "solo-007",
+      "prompt": "Solo, solo, solo",
+      "answer": ["solo", "solo", "solo"],
+      "categoryIds": []
+    },
+    {
+      "id": "solo-008",
+      "prompt": "No, non guardarmi dentro muoio, io muoio, io muoio",
+      "answer": ["no", "no", "me", "mires", "dentro", "muero", "yo", "muero", "yo", "muero"],
+      "categoryIds": []
+    },
+    {
+      "id": "solo-009",
+      "prompt": "Se avrai bisogno, sì, tu scrivimi, scrivimi, scrivimi",
+      "answer": ["si", "lo", "necesitas", "sí", "tú", "escríbeme", "escríbeme", "escríbeme"],
+      "categoryIds": []
+    },
+    {
+      "id": "solo-010",
+      "prompt": "Stringimi il braccio e dopo vivimi, vivimi, vivimi",
+      "answer": ["apriétame", "el", "brazo", "y", "después", "víveme", "víveme", "víveme"],
+      "categoryIds": []
+    },
+    {
+      "id": "solo-011",
+      "prompt": "Non ci riesco, sono solo, solo, solo",
+      "answer": ["no", "lo", "consigo", "estoy", "solo", "solo", "solo"],
+      "categoryIds": []
+    },
+    {
+      "id": "solo-012",
+      "prompt": "No, non sorridere, non gioco, non gioco, non gioco",
+      "answer": ["no", "no", "sonrías", "no", "juego", "no", "juego", "no", "juego"],
+      "categoryIds": []
+    },
+    {
+      "id": "solo-013",
+      "prompt": "Però ti guardo e siamo simili, simili, simili",
+      "answer": ["pero", "te", "miro", "y", "somos", "parecidos", "parecidos", "parecidos"],
+      "categoryIds": []
+    },
+    {
+      "id": "solo-014",
+      "prompt": "Entrambi col sorriso e i lividi, lividi, lividi",
+      "answer": ["ambos", "con", "la", "sonrisa", "y", "los", "moratones", "moratones", "moratones"],
+      "categoryIds": []
+    },
+    {
+      "id": "solo-015",
+      "prompt": "Non vedi che io sono solo, sì, io sono solo",
+      "answer": ["no", "ves", "que", "yo", "estoy", "solo", "sí", "yo", "estoy", "solo"],
+      "categoryIds": []
+    },
+    {
+      "id": "solo-016",
+      "prompt": "Oggi non voglio nessuno, e abbasso le serrande, la luce non c'è",
+      "answer": ["hoy", "no", "quiero", "a", "nadie", "y", "bajo", "las", "persianas", "la", "luz", "no", "está"],
+      "categoryIds": []
+    },
+    {
+      "id": "solo-017",
+      "prompt": "Sto sul divano e passa una pubblicità, di un tizio che sorride e vende una macchina",
+      "answer": ["estoy", "en", "el", "sofá", "y", "pasa", "un", "anuncio", "de", "un", "tipo", "que", "sonríe", "y", "vende", "un", "coche"],
+      "categoryIds": []
+    },
+    {
+      "id": "solo-018",
+      "prompt": "Spengo e rimane il silenzio, e mi trascino in camera come una barca",
+      "answer": ["apago", "y", "queda", "el", "silencio", "y", "me", "arrastro", "a", "la", "habitación", "como", "una", "barca"],
+      "categoryIds": []
+    },
+    {
+      "id": "solo-019",
+      "prompt": "Quando il mare è mosso, ma vole un rifugio, canticchiando nina-nina-ninina",
+      "answer": ["cuando", "el", "mar", "está", "agitado", "pero", "quiere", "un", "refugio", "canturreando", "nina-nina-ninina"],
+      "categoryIds": []
+    },
+    {
+      "id": "solo-020",
+      "prompt": "Ma tu mi piaci di più, perché tu racconti i sogni come piace a me",
+      "answer": ["pero", "tú", "me", "gustas", "más", "porque", "tú", "cuentas", "los", "sueños", "como", "me", "gusta", "a", "mí"],
+      "categoryIds": []
+    },
+    {
+      "id": "solo-021",
+      "prompt": "Sì, tu sei qualcosa di più, ma non ti scrivo perché dentro sono",
+      "answer": ["sí", "tú", "eres", "algo", "más", "pero", "no", "te", "escribo", "porque", "dentro", "estoy"],
+      "categoryIds": []
+    },
+    {
+      "id": "solo-022",
+      "prompt": "Solo, solo, solo",
+      "answer": ["solo", "solo", "solo"],
+      "categoryIds": []
+    },
+    {
+      "id": "solo-023",
+      "prompt": "No, non guardarmi dentro muoio, io muoio, io muoio",
+      "answer": ["no", "no", "me", "mires", "dentro", "muero", "yo", "muero", "yo", "muero"],
+      "categoryIds": []
+    },
+    {
+      "id": "solo-024",
+      "prompt": "Se avrai bisogno, sì, tu scrivimi, scrivimi, scrivimi",
+      "answer": ["si", "lo", "necesitas", "sí", "tú", "escríbeme", "escríbeme", "escríbeme"],
+      "categoryIds": []
+    },
+    {
+      "id": "solo-025",
+      "prompt": "Stringimi il braccio e dopo vivimi, vivimi, vivimi",
+      "answer": ["apriétame", "el", "brazo", "y", "después", "víveme", "víveme", "víveme"],
+      "categoryIds": []
+    },
+    {
+      "id": "solo-026",
+      "prompt": "Non ci riesco, sono solo, solo, solo",
+      "answer": ["no", "lo", "consigo", "estoy", "solo", "solo", "solo"],
+      "categoryIds": []
+    },
+    {
+      "id": "solo-027",
+      "prompt": "No, non sorridere, non gioco, non gioco, non gioco",
+      "answer": ["no", "no", "sonrías", "no", "juego", "no", "juego", "no", "juego"],
+      "categoryIds": []
+    },
+    {
+      "id": "solo-028",
+      "prompt": "Però ti guardo e siamo simili, simili, simili",
+      "answer": ["pero", "te", "miro", "y", "somos", "parecidos", "parecidos", "parecidos"],
+      "categoryIds": []
+    },
+    {
+      "id": "solo-029",
+      "prompt": "Entrambi col sorriso e i lividi, lividi, lividi",
+      "answer": ["ambos", "con", "la", "sonrisa", "y", "los", "moratones", "moratones", "moratones"],
+      "categoryIds": []
+    },
+    {
+      "id": "solo-030",
+      "prompt": "Amore, vedi, sono solo, solo, solo",
+      "answer": ["amor", "mira", "estoy", "solo", "solo", "solo"],
+      "categoryIds": []
+    },
+    {
+      "id": "solo-031",
+      "prompt": "Di notte gli occhi aperti e il buio, nel buio, col buio",
+      "answer": ["de", "noche", "los", "ojos", "abiertos", "y", "la", "oscuridad", "en", "la", "oscuridad", "con", "la", "oscuridad"],
+      "categoryIds": []
+    },
+    {
+      "id": "solo-032",
+      "prompt": "'Sto mondo è un posto senza alibi, alibi, alibi",
+      "answer": ["este", "mundo", "es", "un", "lugar", "sin", "coartadas", "coartadas", "coartadas"],
+      "categoryIds": []
+    },
+    {
+      "id": "solo-033",
+      "prompt": "Ma per fortuna tu lo abiti, abiti, abiti",
+      "answer": ["pero", "por", "suerte", "tú", "lo", "habitas", "habitas", "habitas"],
+      "categoryIds": []
+    },
+    {
+      "id": "solo-034",
+      "prompt": "Amore, vedi, sono solo, non vedi, sono solo",
+      "answer": ["amor", "mira", "estoy", "solo", "no", "ves", "estoy", "solo"],
+      "categoryIds": []
+    }
+  ]
+}
