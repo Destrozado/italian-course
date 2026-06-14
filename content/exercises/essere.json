@@ -399,8 +399,21 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-06-14",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-06-14",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
