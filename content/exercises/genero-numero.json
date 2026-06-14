@@ -391,6 +391,33 @@
       }
     },
     {
+      "id": "genero-numero-nazionalita",
+      "type": "multiple-choice",
+      "categoryIds": ["genero-numero"],
+      "explanation": "El adjetivo de nacionalidad concuerda en género y número con el sustantivo al que acompaña, siguiendo el patrón de cuatro formas -o / -a / -i / -e: masculino singular, femenino singular, masculino plural y femenino plural. Un solo varón lleva la forma en -o; un grupo de varones (o mixto) la de -i; un grupo de mujeres la de -e. Dos detalles ortográficos italianos: las nacionalidades NO se capitalizan, a diferencia del inglés; y para el origen ciudadano se usa 'di' + ciudad ('di Firenze' = 'de Florencia'). En masculino plural, las raíces en -co cambian a -chi para preservar el sonido duro (tedesco → tedeschi), y el plural italiano nunca cierra en -s.",
+      "variants": [
+        {
+          "prompt": "Marco è ___ di Firenze.",
+          "options": ["italiana", "italiano", "italiani", "italiane"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Marco e Luca sono ___.",
+          "options": ["italiano", "italiani", "italiane", "italiana"],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Anna e Giulia sono ___.",
+          "options": ["italiana", "italiani", "italiane", "italiano"],
+          "correctIndex": 2
+        }
+      ],
+      "validation": {
+        "status": "pending",
+        "passes": []
+      }
+    },
+    {
       "id": "genero-numero-articolo-suono",
       "type": "multiple-choice",
       "categoryIds": ["genero-numero"],
