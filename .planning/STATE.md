@@ -28,7 +28,7 @@ See: `.planning/PROJECT.md` (updated 2026-06-09 — Milestone v1.6 shipped, CONV
 Phase: Milestone v1.6 complete
 Plan: —
 Status: Awaiting next milestone
-Last activity: 2026-06-14 — Completed quick task 260614-hxn: separar concordancia de adjetivo de `essere` → `genero-numero`
+Last activity: 2026-06-14 — Completed quick task 260614-wzc: añadir canción "Solo — Ultimo" a los ejercicios de canciones
 
 ## Deferred Items
 
@@ -47,6 +47,7 @@ Ambos quick tasks tienen `status: shipped` en su SUMMARY.md (completados 2026-05
 |-------|----------|-------|-----------|
 | 2026-05-29 | 260529-c35 | Añadir y validar `preposiciones-052` ("Passo da te alle otto") — `da` simple = "en casa de", excepción idiomática A1 | `validated` (quórum Opus 4.8 + Sonnet 4.6, ambas `correcta`); 275 tests PASS; reporter gate PASS (373/373) |
 | 2026-06-14 | 260614-hxn | Separar las 3 variants de concordancia de adjetivo (italiano/italiani/italiane) del bloque `essere-nacionalidad` → nuevo bloque `genero-numero-nazionalita` (`categoryIds: ["genero-numero"]`). Motivo: un fallo de concordancia de género no debe resetear toda la categoría `essere` (el verbo va dado). Variants movidas verbatim; explanations re-enfocadas | Ambos JSON parsean; ambos bloques marcados `status: pending` + `passes: []` → **pendiente re-validar por quórum R1-R7** |
+| 2026-06-14 | 260614-wzc | Añadir canción "Solo — Ultimo" a los ejercicios de canciones: `content/songs/solo.json` (34 frases, prompt italiano + answer ES troceado por palabras, formato espejo de `equilibrio-mentale`) + registro en `content/songs.json` (phraseCount 34). Letra exacta del autor; 'е' cirílica normalizada | `node --test tests/song-validator.test.js` → 17/17 PASS; cirílico 0; IDs únicos 34/34 |
 
 ## Performance Metrics
 
