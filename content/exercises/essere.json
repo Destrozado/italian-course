@@ -365,7 +365,7 @@
       "categoryIds": [
         "essere"
       ],
-      "explanation": "La nacionalidad se predica siempre con essere: 'Io sono spagnolo' equivale al español 'Yo soy español'. Cuidado con dos detalles ortográficos italianos: las nacionalidades NO se capitalizan (spagnolo, no Spagnolo, a diferencia del inglés), y el adjetivo concuerda en género con el hablante (spagnolo si es hombre, spagnola si es mujer; italiano / italiana). Para el origen ciudadano se añade la preposición 'di' + ciudad: 'Lei è italiana di Milano' equivale a 'Ella es italiana de Milán'; 'di' sin artículo es la canónica con nombres propios de ciudad, frente a 'da' que se reserva para procedencia con verbos de movimiento. En plural masculino, ojo a la grafía: 'tedesco' cambia a 'tedeschi' añadiendo la 'h' para preservar el sonido duro (patrón -co → -chi); el plural italiano nunca cierra en -s.",
+      "explanation": "La nacionalidad y el origen se predican con essere, nunca con avere: el verbo afirma quién eres, no algo que posees. La trampa clásica del hispanohablante es calcar 'tener' o confundir la forma de essere con la de avere; aquí el verbo va al hueco y debe concordar en persona y número con el sujeto. La primera persona del singular y la tercera del plural comparten forma; la tercera del singular es la elidida con tilde grave. Para el origen ciudadano se añade 'di' + ciudad ('di Milano' = 'de Milán'), frente a 'da', que se reserva para la procedencia con verbos de movimiento.",
       "variants": [
         {
           "prompt": "Io ___ spagnolo.",
@@ -396,54 +396,11 @@
             "sono"
           ],
           "correctIndex": 3
-        },
-        {
-          "prompt": "Marco è ___ di Firenze.",
-          "options": [
-            "italiana",
-            "italiano",
-            "italiani",
-            "italiane"
-          ],
-          "correctIndex": 1
-        },
-        {
-          "prompt": "Marco e Luca sono ___.",
-          "options": [
-            "italiano",
-            "italiani",
-            "italiane",
-            "italiana"
-          ],
-          "correctIndex": 1
-        },
-        {
-          "prompt": "Anna e Giulia sono ___.",
-          "options": [
-            "italiana",
-            "italiani",
-            "italiane",
-            "italiano"
-          ],
-          "correctIndex": 2
         }
       ],
       "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-7",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-05-27",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
