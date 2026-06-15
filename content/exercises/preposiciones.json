@@ -2252,6 +2252,53 @@
           }
         ]
       }
+    },
+    {
+      "id": "preposiciones-col",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "preposiciones"
+      ],
+      "explanation": "Col es la preposición articulada que fusiona con + il (en español 'con el'), de la misma familia que del (di+il), al (a+il), dal (da+il), nel (in+il) o sul (su+il). La peculiaridad de con es que sus formas contraídas son hoy opcionales y propias del registro literario, poético o coloquial: el italiano estándar moderno suele escribir con il, con la, con lo por separado. De toda la serie solo col (con+il) —y en menor medida coi (con+i)— siguen vivas en el uso normal; las antiguas colla (con+la) y collo (con+lo) son arcaicas y se evitan. Por eso col aparece sobre todo en canciones y lengua literaria y casi nunca en los manuales de A1, que presentan con como preposición simple. En la frase, vivere con qualcuno pide con, y como nonno es masculino singular que empieza por consonante (il nonno), con + il da col: vivo col nonno equivale exactamente a vivo con il nonno = 'vivo con el abuelo'. Las contracciones nel, sul y dal corresponden a in, su y da y no encajan; y con lo, con la o con i fallan en el artículo (lo se reserva para masculinos que empiezan por s+consonante, z, gn...; la es femenino; i es plural).",
+      "variants": [
+        {
+          "prompt": "Vivo ___ nonno. (en español: Vivo con el abuelo.)",
+          "options": [
+            "col",
+            "nel",
+            "sul",
+            "dal"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Vivo ___ nonno. (en español: Vivo con el abuelo.)",
+          "options": [
+            "con il",
+            "con lo",
+            "con la",
+            "con i"
+          ],
+          "correctIndex": 0
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     }
   ]
 }
