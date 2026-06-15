@@ -438,6 +438,22 @@ button.incorrecta {
 }
 
 /*
+ * quick-260615-hr0 (feature todo #3) — Affordance "¿Por qué?" tras ACERTAR.
+ *
+ * Discreto a propósito: NO compite con el botón "Siguiente" (acción primaria).
+ * Variante outline/muted coherente con el tono enseñanza de .session-explanation
+ * (mismo gris muted, tamaño reducido). El autor con la respuesta segura lo ignora;
+ * quien dudaba lo pulsa (o tecla `e`) para confirmar el porqué.
+ */
+.session-why {
+  background: transparent;
+  border-color: var(--pico-muted-border-color, var(--pico-muted-color));
+  color: var(--pico-muted-color);
+  font-size: 0.9em;
+  width: auto;
+}
+
+/*
  * Quick 260615-hhp — Título de UBICACIÓN/contexto visible encima del progreso
  * en session/cancion/summary/cancion-summary. Jerarquía CONTEXT §1: dónde estás
  * (este título, peso/tamaño mayor) → cuánto llevas (el <header> de progreso,
