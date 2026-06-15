@@ -507,3 +507,191 @@ button.incorrecta {
 .picker-timed small {
   color: var(--pico-muted-color, inherit);
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * Phase 28 — Capa responsive móvil (un único breakpoint: 640px)
+ * ─────────────────────────────────────────────────────────────────────────────
+ * TODA regla aquí dentro aplica SOLO a teléfono en vertical (<=640px). El
+ * escritorio (>=641px) NO ve ninguna de estas declaraciones, por eso queda
+ * byte-idéntico a antes de la fase. Implementa el contrato 28-UI-SPEC.md
+ * (8 secciones): tabla->tarjetas, button-row que envuelve, áreas táctiles 44px,
+ * match a 2 columnas con gap reducido, cabecera+cronómetro de session, y panel
+ * de confirmación a ancho completo. CERO colores/fuentes/frameworks nuevos:
+ * reusa las vars de Pico ya en uso (--pico-muted-color, --pico-muted-border-color).
+ * Las dos LOCKED del autor (botón "Examen" cortado; "Backup" fuera de pantalla)
+ * se resuelven en §1 y §2.
+ * ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+
+  /* ── §1 Tabla -> tarjetas verticales (LOCKED #1) ──────────────────────────
+   * Las DOS únicas tablas de la app (home categorías y canciones) son
+   * <figure><table> directos. `figure table` cubre ambas sin tocar nada más.
+   * thead oculto; cada fila pasa a tarjeta (block + separador); cada celda es
+   * una fila label↔valor con el label inyectado vía attr(data-label). Las
+   * celdas sin data-label (nombre de categoría / título de canción) NO pintan
+   * ::before y actúan como título de la tarjeta. */
+  figure table thead {
+    display: none;
+  }
+  figure table,
+  figure table tbody,
+  figure table tr,
+  figure table td {
+    display: block;
+    width: 100%;
+  }
+  figure table tr {
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--pico-muted-border-color, #e0e0e0);
+  }
+  figure table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0;
+    border-bottom: none;
+    text-align: right;
+  }
+  /* Label de campo (izq, muted semibold) sólo cuando hay data-label. */
+  figure table td[data-label]::before {
+    content: attr(data-label);
+    color: var(--pico-muted-color, #6c757d);
+    font-size: 0.8em;
+    font-weight: 600;
+    text-align: left;
+    margin-right: 0.5rem;
+  }
+  /* Celda sin data-label = título de la tarjeta (nombre/título): a la izquierda,
+   * peso/tamaño de heading, ocupa el ancho como cabecera de la tarjeta. */
+  figure table td:not([data-label]) {
+    justify-content: flex-start;
+    text-align: left;
+    font-size: 1.15rem;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  /* §1 botones "Examen"/"Jugar" dentro de su celda: ancho cómodo + tap 44px.
+   * Color secondary/outline intacto (sin override de color). */
+  figure table td[data-label="Examen"],
+  figure table td[data-label="Jugar"] {
+    justify-content: stretch;
+  }
+  figure table td[data-label="Examen"] button,
+  figure table td[data-label="Jugar"] button {
+    width: 100%;
+    min-height: 44px;
+  }
+
+  /* ── §2 Button-row que envuelve (LOCKED #2) ───────────────────────────────
+   * Un solo cambio arregla TODAS las filas de botones (home 4 botones incl.
+   * Backup, picker, banners, word-buttons, match, summary, backup, confirm).
+   * Los botones conservan flex:1 pero con min-width que fuerza wrap a 2-por-fila
+   * en ~360px y 1-por-fila en muy estrecho. Tap target 44px. */
+  .button-row {
+    flex-wrap: wrap;
+  }
+  .button-row button {
+    flex: 1 1 8rem;
+    min-width: 8rem;
+    min-height: 44px;
+  }
+  .button-row-prominent button {
+    padding: 0.85rem 1rem;
+  }
+
+  /* ── §3 Toggle Contrarreloj de home (.home-exam-timed) ────────────────────
+   * No tenía regla previa (sólo defaults Pico). Fila tappable cómoda encima de
+   * la tabla, separada de la button-row de arriba; orden vertical preservado. */
+  .home-exam-timed {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    margin: 0.5rem 0 1rem;
+  }
+
+  /* ── §4 Picker: checkboxes y controles tappables ──────────────────────────
+   * Cada label de categoría con >=44px de alto y espaciado; "Contrarreloj" y
+   * "Empezar" a ancho completo; aviso que envuelve sin overflow. */
+  fieldset label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 44px;
+  }
+  .picker-timed {
+    min-height: 44px;
+  }
+  /* Botón "Empezar" del picker: es el <button> hermano que sigue al label
+   * .picker-timed (acción primaria, fuera de .button-row). Selector acotado
+   * por adyacencia para no afectar otros botones de otras pantallas. */
+  .picker-timed + button {
+    width: 100%;
+    min-height: 44px;
+  }
+  .picker-warning {
+    overflow-wrap: anywhere;
+  }
+
+  /* ── §5 Cabecera de session + cronómetro ──────────────────────────────────
+   * session-context capado a 1.15rem SÓLO en móvil (desktop sigue en 1.25rem).
+   * La barra del cronómetro mantiene flex:1 (nunca colapsa a 0); si aprieta a
+   * la mínima anchura, permitimos que los segundos salten a 2ª línea pero la
+   * barra SIEMPRE visible. tabular-nums y tono rojo intactos. */
+  .session-context {
+    font-size: 1.15rem;
+  }
+  .session-timer {
+    flex-wrap: wrap;
+  }
+  .session-timer-bar {
+    flex: 1 1 100%;
+    min-width: 60%;
+  }
+  .session-timer-secs {
+    flex: 0 0 auto;
+  }
+
+  /* ── §6 Tipos de ejercicio ────────────────────────────────────────────────
+   * multiple-choice: cubierto por §2 (opciones en .button-row).
+   * word-buttons: chips del banco y zona de respuesta con tap cómodo. */
+  .wb-bank button {
+    min-height: 44px;
+  }
+  .wb-answer button {
+    min-height: 44px;
+  }
+  /* match (Claude's Discretion DECIDIDO): MANTENER 2 columnas, gap reducido.
+   * NO se redefine grid-template-columns -> sigue 1fr 1fr de la regla desktop.
+   * items con tap 44px y overflow-wrap para palabras largas en columna estrecha.
+   * .match-selected/.match-consumed/.match-flash NO se tocan (color/anim WCAG). */
+  .match-grid {
+    gap: 0.5rem;
+  }
+  .match-col button {
+    min-height: 44px;
+    overflow-wrap: anywhere;
+  }
+
+  /* ── §7 Summary / cancion-summary / backup ────────────────────────────────
+   * Las listas reflúan solas. user-answer ya tiene overflow-wrap:anywhere.
+   * Aseguramos que los pares ↔ envuelven dentro del <li> y que botones tienen
+   * tap cómodo (los de .button-row ya por §2; el final "Volver" puede estar
+   * suelto). backup export/import cubierto por §2. */
+  .summary-errors li {
+    overflow-wrap: anywhere;
+  }
+
+  /* ── §8 Panel de confirmación a ancho completo ────────────────────────────
+   * En 320-360px el max-width:22rem + offset derecho se recortaba. Lo
+   * extendemos a ancho de viewport con insets laterales para que los botones
+   * confirm/cancel nunca se corten. Su .button-row interna envuelve por §2. */
+  .confirm-inline {
+    left: 1rem;
+    right: 1rem;
+    max-width: none;
+  }
+
+}
