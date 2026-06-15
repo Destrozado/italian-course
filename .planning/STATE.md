@@ -104,7 +104,10 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 
 ### Pending Todos
 
-(Ninguno — 0 pending.)
+- [Mostrar título de ubicación actual en ejercicios](./todos/pending/2026-06-15-mostrar-titulo-de-ubicacion-actual-en-ejercicios.md) — ui — referencia contextual visible dentro de categoría/examen/repaso/canción
+- [Contador de fallos por categoría o canción](./todos/pending/2026-06-15-contador-de-fallos-por-categoria-o-cancion.md) — general — +1 por cada reset de racha, persistido en localStorage
+- [Ver la explicación del ejercicio aunque aciertes](./todos/pending/2026-06-15-ver-explicacion-del-ejercicio-aunque-aciertes.md) — ui — affordance para mostrar explanation tras acertar
+- [Modo examen contrarreloj (tiempo por respuesta)](./todos/pending/2026-06-15-modo-examen-contrarreloj-tiempo-por-respuesta.md) — general — límite de tiempo por pregunta (~5s MC / ~10s match / ~2s por palabra word-buttons)
 
 ### Blockers/Concerns
 
