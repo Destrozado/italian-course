@@ -179,7 +179,7 @@
               <tbody>
                 <template x-for="cat in categoriesForDisplay" :key="cat.id">
                   <tr>
-                    <td>
+                    <td data-label="Estado">
                       <span :class="`badge-${cat.status}`"
                             :aria-label="cat.statusLabel"
                             x-text="cat.badgeGlyph"></span>
@@ -187,14 +187,14 @@
                     <td>
                       <span x-text="cat.name"></span>
                     </td>
-                    <td>
+                    <td data-label="Racha">
                       <span x-text="cat.streakLabel"></span>
                       <small x-show="cat.vecesFallada > 0"
                              x-text="`fallada x${cat.vecesFallada}`"></small>
                     </td>
-                    <td x-text="cat.totalCount"></td>
-                    <td x-text="cat.lastPracticedLabel"></td>
-                    <td>
+                    <td data-label="Ejercicios" x-text="cat.totalCount"></td>
+                    <td data-label="Última vez" x-text="cat.lastPracticedLabel"></td>
+                    <td data-label="Examen">
                       <button type="button"
                               class="secondary outline"
                               :disabled="!cat.examenEnabled"
@@ -242,7 +242,7 @@
               <tbody>
                 <template x-for="song in songsForDisplay" :key="song.id">
                   <tr>
-                    <td>
+                    <td data-label="Estado">
                       <span :class="`badge-${song.status}`"
                             :aria-label="song.statusLabel"></span>
                       <span x-text="song.statusLabel"></span>
@@ -252,8 +252,8 @@
                       <small x-show="song.vecesFallada > 0"
                              x-text="`fallada x${song.vecesFallada}`"></small>
                     </td>
-                    <td x-text="song.phraseCount"></td>
-                    <td>
+                    <td data-label="Frases" x-text="song.phraseCount"></td>
+                    <td data-label="Jugar">
                       <button type="button"
                               @click="startSong(song.id)">Jugar</button>
                     </td>
