@@ -32,7 +32,7 @@
 //     desconocido (futuro) → warn + blankState.
 
 const KEY = 'italianCourse.v1';
-const CURRENT_SCHEMA_VERSION = 9;
+const CURRENT_SCHEMA_VERSION = 10;
 
 /**
  * Devuelve un estado "en blanco" (sin progreso) — el estado inicial canónico
@@ -157,7 +157,8 @@ function migrate(parsed) {
   if (s.schemaVersion === 6) s = migrate6to7(s);
   if (s.schemaVersion === 7) s = migrate7to8(s);
   if (s.schemaVersion === 8) s = migrate8to9(s);
-  if (s.schemaVersion === 9) return hydrateV9(s);
+  if (s.schemaVersion === 9) s = migrate9to10(s);
+  if (s.schemaVersion === 10) return hydrateV10(s);
 
   // Versión desconocida (probablemente futura) → no perdemos datos del autor:
   // logueamos warning y arrancamos limpio.
@@ -930,5 +931,84 @@ export function hydrateV9(parsed) {
     lastBackupAt: typeof parsed.lastBackupAt === 'string' ? parsed.lastBackupAt : null,
     firstUsedAt: typeof parsed.firstUsedAt === 'string' ? parsed.firstUsedAt : null,
     inFlightTest: parsed.inFlightTest
+  };
+}
+
+/**
+ * Migra un estado v9 a v10 (quick-260615-nzi). Bump NOMINAL PURO: preserva TODO
+ * el estado byte a byte (categoryProgress, exerciseStats, songProgress, dailyLog,
+ * timestamps, inFlightTest) y solo cambia `schemaVersion` a 10.
+ *
+ * A DIFERENCIA de `migrate8to9` (reset selectivo), este bump NO hace `delete` ni
+ * poda por prefijo. El feature nuevo (contador `vecesFallada` por categoría y por
+ * canción) NO se reconstruye retroactivamente — el histórico de fallos no es
+ * inferible del estado. Los campos `vecesFallada` se lazy-init a 0 al leer/
+ * incrementar (`?? 0`), no aquí. El deep-clone JSON preserva los `vecesFallada`
+ * que ya existieran (p.ej. en un re-import). Precedente de bump nominal: 8 → 9 a
+ * nivel de shape (D-21), 5 → 6 (D-15-09), 3 → 4 (D-110/D-111).
+ *
+ * Pureza + anti-prototype-pollution (T-nzi-01): NO muta el input; reconstrucción
+ * literal del root + deep-clone `JSON.parse(JSON.stringify(...))` por sub-dict
+ * (neutraliza getters y __proto__ own-property de un backup importado).
+ *
+ * Exportada para testabilidad — el dispatcher la usa como eslabón v9 → v10.
+ *
+ * @param {object} v9 - Estado parseado con `schemaVersion: 9`.
+ * @returns {object} Estado normalizado v10, idéntico salvo la versión.
+ */
+export function migrate9to10(v9) {
+  return {
+    schemaVersion: 10,
+    exerciseStats: (typeof v9.exerciseStats === 'object' && v9.exerciseStats !== null)
+      ? JSON.parse(JSON.stringify(v9.exerciseStats))
+      : {},
+    categoryProgress: (typeof v9.categoryProgress === 'object' && v9.categoryProgress !== null)
+      ? JSON.parse(JSON.stringify(v9.categoryProgress))
+      : {},
+    dailyLog: (typeof v9.dailyLog === 'object' && v9.dailyLog !== null)
+      ? JSON.parse(JSON.stringify(v9.dailyLog))
+      : {},
+    songProgress: (typeof v9.songProgress === 'object' && v9.songProgress !== null)
+      ? JSON.parse(JSON.stringify(v9.songProgress))
+      : {},
+    lastBackupAt: typeof v9.lastBackupAt === 'string' ? v9.lastBackupAt : null,
+    firstUsedAt: typeof v9.firstUsedAt === 'string' ? v9.firstUsedAt : null,
+    inFlightTest: v9.inFlightTest
+  };
+}
+
+/**
+ * Hidrata un estado v10 ya en disco con type-guards defensivos en cada
+ * sub-objeto. Espejo LITERAL de `hydrateV9` con la versión a 10 — el shape v10
+ * root es idéntico a v9 (el bump 9 → 10 es nominal a nivel del shape; el campo
+ * nuevo `vecesFallada` vive lazy dentro de categoryProgress/songProgress y se
+ * preserva por el deep-clone, no requiere garantía de shape root).
+ *
+ * Deep-clone defensivo (T-nzi-01): igual que `migrate9to10` y `hydrateV9`.
+ *
+ * Exportada para testabilidad — invocada al final de la cadena de migración.
+ *
+ * @param {object} parsed - Estado parseado con `schemaVersion: 10`.
+ * @returns {object} Estado v10 con campos garantizados.
+ */
+export function hydrateV10(parsed) {
+  const p = (parsed && typeof parsed === 'object') ? parsed : {};
+  return {
+    schemaVersion: 10,
+    exerciseStats: (typeof p.exerciseStats === 'object' && p.exerciseStats !== null)
+      ? JSON.parse(JSON.stringify(p.exerciseStats))
+      : {},
+    categoryProgress: (typeof p.categoryProgress === 'object' && p.categoryProgress !== null)
+      ? JSON.parse(JSON.stringify(p.categoryProgress))
+      : {},
+    dailyLog: (typeof p.dailyLog === 'object' && p.dailyLog !== null)
+      ? JSON.parse(JSON.stringify(p.dailyLog))
+      : {},
+    songProgress: (typeof p.songProgress === 'object' && p.songProgress !== null)
+      ? JSON.parse(JSON.stringify(p.songProgress))
+      : {},
+    lastBackupAt: typeof p.lastBackupAt === 'string' ? p.lastBackupAt : null,
+    firstUsedAt: typeof p.firstUsedAt === 'string' ? p.firstUsedAt : null,
+    inFlightTest: p.inFlightTest
   };
 }

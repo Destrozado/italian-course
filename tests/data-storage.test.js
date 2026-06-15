@@ -25,7 +25,7 @@
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { blankState, migrate1to2, hydrateV2, migrate2to3, hydrateV3, migrate3to4, hydrateV4, migrate4to5, hydrateV5, migrate5to6, hydrateV6, migrate6to7, hydrateV7, migrate7to8, hydrateV8, migrate8to9, hydrateV9 } from '../src/data/storage.js';
+import { blankState, migrate1to2, hydrateV2, migrate2to3, hydrateV3, migrate3to4, hydrateV4, migrate4to5, hydrateV5, migrate5to6, hydrateV6, migrate6to7, hydrateV7, migrate7to8, hydrateV8, migrate8to9, hydrateV9, migrate9to10, hydrateV10 } from '../src/data/storage.js';
 
 // Phase 4 (D-77/D-78): bumped schemaVersion from 2 → 3 con dos campos
 // nuevos (lastBackupAt, firstUsedAt). El "blankState v2" describe-name
@@ -33,10 +33,10 @@ import { blankState, migrate1to2, hydrateV2, migrate2to3, hydrateV3, migrate3to4
 // (la realidad actual). Tests adicionales de la cadena v1→v2→v3 viven
 // en `tests/backup.test.js` (co-located con backup.js Phase 4).
 
-describe('data/storage — blankState v9 (Phase 21 nominal bump)', () => {
-  test('blankState() devuelve shape v9 completo con el mismo set de sub-dicts + lastBackupAt/firstUsedAt null', () => {
+describe('data/storage — blankState v10 (quick-260615-nzi nominal bump)', () => {
+  test('blankState() devuelve shape v10 completo con el mismo set de sub-dicts + lastBackupAt/firstUsedAt null', () => {
     const s = blankState();
-    assert.equal(s.schemaVersion, 9);
+    assert.equal(s.schemaVersion, 10);
     assert.deepEqual(s.exerciseStats, {});
     assert.deepEqual(s.categoryProgress, {});
     assert.deepEqual(s.dailyLog, {});
@@ -49,8 +49,8 @@ describe('data/storage — blankState v9 (Phase 21 nominal bump)', () => {
       'blankState() no debería incluir la clave `inFlightTest` (debe ser omitida)');
   });
 
-  test('blankState() codifica schemaVersion: 9 (Phase 21 bump nominal)', () => {
-    assert.equal(blankState().schemaVersion, 9);
+  test('blankState() codifica schemaVersion: 10 (quick-260615-nzi bump nominal)', () => {
+    assert.equal(blankState().schemaVersion, 10);
   });
 });
 
@@ -634,9 +634,9 @@ describe('data/storage v6 — migrate5to6 chain + hydrateV6 (Phase 15)', () => {
     assert.deepEqual(out.songProgress, {});
   });
 
-  test('blankState() ahora schemaVersion 9 con el mismo set de sub-dicts', () => {
+  test('blankState() ahora schemaVersion 10 con el mismo set de sub-dicts', () => {
     const s = blankState();
-    assert.equal(s.schemaVersion, 9);
+    assert.equal(s.schemaVersion, 10);
     assert.deepEqual(s.exerciseStats, {});
     assert.deepEqual(s.categoryProgress, {});
     assert.deepEqual(s.dailyLog, {});
@@ -1371,5 +1371,127 @@ describe('data/storage v9 — migrate8to9 reset selectivo de las 6 categorías (
       assert.deepEqual(v9.exerciseStats[`${cat}-002`], beforeES[`${cat}-002`],
         `exerciseStats.${cat}-002 debe quedar byte-idéntico`);
     }
+  });
+});
+
+// ────────────────────────────────────────────────────────────────────────────
+// data/storage v10 — migrate9to10 NOMINAL (quick-260615-nzi)
+//
+// A DIFERENCIA de migrate8to9 (reset selectivo), el bump 9 → 10 es NOMINAL PURO:
+// preserva TODO el estado byte a byte salvo schemaVersion (10). Añade el campo
+// `vecesFallada` por categoría y por canción — lazy-init a 0 al leer/incrementar,
+// NO retroactivamente (no se puede reconstruir el histórico de fallos). El
+// deep-clone JSON conserva los sub-campos `vecesFallada` que ya existieran.
+// ────────────────────────────────────────────────────────────────────────────
+
+describe('data/storage v10 — migrate9to10 nominal (quick-260615-nzi)', () => {
+  // Fixture NUEVO (NO reusar el reset de v8WithSixCategories): un v9 con progreso
+  // en varias categorías, una con vecesFallada ya presente, y un songProgress con
+  // vecesFallada presente, para verificar que el bump nominal lo preserva tal cual.
+  function v9WithFailureCounters() {
+    return {
+      schemaVersion: 9,
+      exerciseStats: {
+        'preposiciones-001': { timesShown: 8, timesCorrect: 8, timesFailed: 0 },
+        'articoli-001': { timesShown: 9, timesCorrect: 8, timesFailed: 1 }
+      },
+      categoryProgress: {
+        preposiciones: { status: 'dominada', streakDays: 21, clearedExerciseIds: ['preposiciones-001'], lastSuccessDate: '2026-06-01', vecesFallada: 3 },
+        articoli: { status: 'hecha', streakDays: 9, clearedExerciseIds: ['articoli-001'], lastSuccessDate: '2026-05-30' }
+      },
+      dailyLog: { '2026-06-01': { date: '2026-06-01', categoriesPracticed: ['preposiciones'], categoriesWithFailure: [] } },
+      songProgress: {
+        'equilibrio-mentale': { status: 'fallada', lastPlayedAt: '2026-06-02', vecesFallada: 2 },
+        'solo': { status: 'pasada', lastPlayedAt: '2026-06-03' }
+      },
+      lastBackupAt: '2026-05-22T10:00:00.000Z',
+      firstUsedAt: '2026-04-01T08:00:00.000Z'
+    };
+  }
+
+  test('migrate9to10 bumpea schemaVersion a 10 y deep-equals el v9 salvo la versión (preserva vecesFallada)', () => {
+    const v9 = v9WithFailureCounters();
+    const v10 = migrate9to10(v9);
+    assert.equal(v10.schemaVersion, 10);
+    // Todo el resto del estado preservado byte a byte.
+    assert.deepEqual(v10.exerciseStats, v9.exerciseStats);
+    assert.deepEqual(v10.categoryProgress, v9.categoryProgress);
+    assert.deepEqual(v10.dailyLog, v9.dailyLog);
+    assert.deepEqual(v10.songProgress, v9.songProgress);
+    assert.equal(v10.lastBackupAt, v9.lastBackupAt);
+    assert.equal(v10.firstUsedAt, v9.firstUsedAt);
+    // vecesFallada existente preservado.
+    assert.equal(v10.categoryProgress.preposiciones.vecesFallada, 3);
+    assert.equal(v10.songProgress['equilibrio-mentale'].vecesFallada, 2);
+    // Construir el "esperado" = v9 con schemaVersion bumpeado prueba la equivalencia total.
+    const expected = { ...JSON.parse(JSON.stringify(v9)), schemaVersion: 10, inFlightTest: undefined };
+    assert.deepEqual(v10, expected);
+  });
+
+  test('migrate9to10 es puro (no muta el input)', () => {
+    const v9 = v9WithFailureCounters();
+    const snapshot = JSON.parse(JSON.stringify(v9));
+    migrate9to10(v9);
+    assert.deepEqual(v9, snapshot, 'el input v9 NO debe mutarse');
+  });
+
+  test('migrate9to10 es idempotente sobre la shape (re-ejecutar vía hydrate da misma shape)', () => {
+    const v9 = v9WithFailureCounters();
+    const once = hydrateV10(migrate9to10(v9));
+    const twice = hydrateV10(migrate9to10({ ...v9, schemaVersion: 9 }));
+    assert.deepEqual(twice, once);
+  });
+
+  test('migrate9to10 preserva inFlightTest tal cual', () => {
+    const v9 = v9WithFailureCounters();
+    v9.inFlightTest = { categoryIds: ['preposiciones'], exerciseIds: ['preposiciones-001'], variantIndices: [0], cursor: 0, answers: [], startedAt: 1716480000000 };
+    const v10 = migrate9to10(v9);
+    assert.deepEqual(v10.inFlightTest, v9.inFlightTest);
+  });
+
+  test('hydrateV10 garantiza shape con sub-dicts malformados → {}', () => {
+    for (const bad of [null, 'x', 42, undefined]) {
+      const out = hydrateV10({ schemaVersion: 10, exerciseStats: bad, categoryProgress: bad, dailyLog: bad, songProgress: bad, lastBackupAt: null, firstUsedAt: null });
+      for (const key of ['exerciseStats', 'categoryProgress', 'dailyLog', 'songProgress']) {
+        assert.equal(typeof out[key], 'object');
+        assert.notEqual(out[key], null);
+      }
+      assert.equal(out.schemaVersion, 10);
+    }
+  });
+
+  test('hydrateV10 anti-prototype-pollution: __proto__ own-property no contamina el global', () => {
+    const malicious = JSON.parse('{"schemaVersion":10,"exerciseStats":{"__proto__":{"polluted":true},"preposiciones-001":{"timesShown":1}},"categoryProgress":{},"dailyLog":{},"songProgress":{},"lastBackupAt":null,"firstUsedAt":null}');
+    const out = hydrateV10(malicious);
+    assert.equal(({}).polluted, undefined, 'el prototipo global Object no debe quedar contaminado');
+    assert.equal(out.schemaVersion, 10);
+  });
+
+  test('cadena end-to-end v8 → v10: las 6 reseteadas por migrate8to9, schemaVersion 10', () => {
+    const v8 = {
+      schemaVersion: 8,
+      exerciseStats: {
+        'avere-001': { timesShown: 5, timesCorrect: 4, timesFailed: 1 },
+        'preposiciones-001': { timesShown: 8, timesCorrect: 8, timesFailed: 0 }
+      },
+      categoryProgress: {
+        avere: { status: 'dominada', streakDays: 14, clearedExerciseIds: ['avere-001'], lastSuccessDate: '2026-05-31' },
+        preposiciones: { status: 'dominada', streakDays: 21, clearedExerciseIds: ['preposiciones-001'], lastSuccessDate: '2026-06-01' }
+      },
+      dailyLog: {},
+      songProgress: {},
+      lastBackupAt: null,
+      firstUsedAt: '2026-04-01T08:00:00.000Z'
+    };
+    const v10 = hydrateV10(migrate9to10(migrate8to9(v8)));
+    assert.equal(v10.schemaVersion, 10);
+    assert.equal(v10.categoryProgress.avere, undefined, 'avere reseteada por migrate8to9 a través de la cadena');
+    assert.equal(v10.exerciseStats['avere-001'], undefined);
+    assert.deepEqual(v10.categoryProgress.preposiciones, v8.categoryProgress.preposiciones,
+      'preposiciones preservada a través de la cadena');
+  });
+
+  test('blankState() devuelve schemaVersion 10', () => {
+    assert.equal(blankState().schemaVersion, 10);
   });
 });

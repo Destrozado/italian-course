@@ -23,7 +23,7 @@
 // schema-validator) — la primera guard que dispara aborta el parse y
 // devuelve el reason específico.
 
-import { migrate1to2, migrate2to3, migrate3to4, migrate4to5, migrate5to6, migrate6to7, hydrateV7, migrate7to8, hydrateV8, migrate8to9, hydrateV9 } from './storage.js';
+import { migrate1to2, migrate2to3, migrate3to4, migrate4to5, migrate5to6, migrate6to7, hydrateV7, migrate7to8, hydrateV8, migrate8to9, hydrateV9, migrate9to10, hydrateV10 } from './storage.js';
 
 /** Espejo de la constante en storage.js — mantener inline para que el
  *  módulo sea testeable independiente sin importar storage.CURRENT_SCHEMA_VERSION.
@@ -39,12 +39,14 @@ import { migrate1to2, migrate2to3, migrate3to4, migrate4to5, migrate5to6, migrat
  *  cambiar. Phase 21 (D-21 / MIG-04): bump 8 a 9 — `migrate8to9` resetea el
  *  progreso de SEIS categorías (avere, essere, verbos-movimiento, genero-numero,
  *  profesiones, sustantivos-irregulares), reagrupadas a slots en las Phases
- *  22-27; el set de sub-dicts sigue sin cambiar. El backup debe migrar hasta v9
- *  para que un export del estado actual se reimporte sin "versión más nueva";
- *  un import de un backup v8 migra a v9 reseteando las 6 categorías (coherente
- *  con el reset, D-21); las 3 ya convertidas (preposiciones, articoli,
- *  partitivos) conservan su progreso. */
-const CURRENT_SCHEMA_VERSION = 9;
+ *  22-27; el set de sub-dicts sigue sin cambiar. quick-260615-nzi: bump NOMINAL
+ *  9 a 10 — `migrate9to10` preserva TODO el estado (solo cambia schemaVersion);
+ *  el feature nuevo (contador `vecesFallada` por categoría y canción) es lazy-init
+ *  a 0, no retroactivo. El backup debe migrar hasta v10 para que un export del
+ *  estado actual se reimporte sin "versión más nueva"; un import de un backup v9
+ *  (o anterior) migra a v10 preservando su progreso, y el campo `vecesFallada`
+ *  sobrevive el roundtrip por el deep-clone. */
+const CURRENT_SCHEMA_VERSION = 10;
 
 /**
  * Parse + valida + migra un string JSON proveniente de un archivo backup.
@@ -131,7 +133,8 @@ export function parseBackupFile(rawStr) {
   if (migrated.schemaVersion === 6) migrated = migrate6to7(migrated);
   if (migrated.schemaVersion === 7) migrated = migrate7to8(migrated);
   if (migrated.schemaVersion === 8) migrated = migrate8to9(migrated);
-  migrated = hydrateV9(migrated);
+  if (migrated.schemaVersion === 9) migrated = migrate9to10(migrated);
+  migrated = hydrateV10(migrated);
 
   // 6. Summary para el confirm inline (D-76).
   const summary = {
