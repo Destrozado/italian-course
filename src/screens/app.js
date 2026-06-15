@@ -2372,6 +2372,55 @@ export function appShell(appDataReady) {
     },
 
     /**
+     * Quick 260615-hhp — Título de UBICACIÓN/contexto mostrado ENCIMA del
+     * progreso mientras el alumno está dentro de una sesión o canción, y
+     * también en los resúmenes. Pura UI derivada (read-only): NO toca estado
+     * persistido ni lógica de scoring/racha.
+     *
+     * Reutilizable para las 4 pantallas (session, cancion, summary,
+     * cancion-summary) porque el estado del que deriva SOBREVIVE al pasar a
+     * resumen (verificado en lifecycles): `completeSession()` NO llama
+     * `resetSession()` (solo `returnToHomeFromSummary()` lo hace), así que
+     * `sessionMode`/`pickerCheckedCategoryIds`/`sessionExerciseIds` siguen vivos
+     * en `summary`; `completeSong()` no limpia `songActiveId` (solo
+     * `returnToSongList()`), así que sigue vivo en `cancion-summary`.
+     *
+     * Formato (CONTEXT §2/§3):
+     *   - test-completo con 1 categoría: "Examen: <nombre categoría>".
+     *   - test-completo multi-cat (o vacío): "Examen" (sin listar nombres).
+     *   - repaso: "Repaso (<N> ejercicios)" con N real = sessionExerciseIds.length
+     *     (NUNCA hardcodear 20).
+     *   - cancion: "Canción: <title>".
+     *
+     * Double-defense Alpine: devuelve '' cuando falta `content`, `sessionMode`
+     * o la entrada esperada (se evalúa durante el tick de unmount). Nunca accede
+     * a `.name`/`.title` sin encadenamiento opcional.
+     *
+     * @returns {string}
+     */
+    get sessionContextLabel() {
+      if (!this.content) return '';
+      switch (this.sessionMode) {
+        case 'test-completo': {
+          if (this.pickerCheckedCategoryIds.length === 1) {
+            const id = this.pickerCheckedCategoryIds[0];
+            const name = this.content.categories?.find(c => c.id === id)?.name ?? id;
+            return `Examen: ${name}`;
+          }
+          return 'Examen';
+        }
+        case 'repaso':
+          return `Repaso (${this.sessionExerciseIds.length} ejercicios)`;
+        case 'cancion': {
+          const title = this.content.songsById?.[this.songActiveId]?.title ?? this.songActiveId;
+          return `Canción: ${title}`;
+        }
+        default:
+          return '';
+      }
+    },
+
+    /**
      * D-69: vista derivada del banco con sufijos numéricos visibles para
      * teclas 1..9. Re-numeración DINÁMICA: el bind `1` siempre apunta a la
      * primera palabra VISIBLE actual; al colocar una palabra, la posición
