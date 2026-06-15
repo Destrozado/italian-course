@@ -28,7 +28,7 @@ See: `.planning/PROJECT.md` (updated 2026-06-09 — Milestone v1.6 shipped, CONV
 Phase: Milestone v1.6 complete
 Plan: —
 Status: Awaiting next milestone
-Last activity: 2026-06-14 — Completed quick task 260614-wzc: añadir canción "Solo — Ultimo" a los ejercicios de canciones
+Last activity: 2026-06-15 — Completed quick task 260615-hhp: título de ubicación/contexto durante la sesión (feature todo #1)
 
 ## Deferred Items
 
@@ -49,6 +49,8 @@ Ambos quick tasks tienen `status: shipped` en su SUMMARY.md (completados 2026-05
 | 2026-06-14 | 260614-hxn | Separar las 3 variants de concordancia de adjetivo (italiano/italiani/italiane) del bloque `essere-nacionalidad` → nuevo bloque `genero-numero-nazionalita` (`categoryIds: ["genero-numero"]`). Motivo: un fallo de concordancia de género no debe resetear toda la categoría `essere` (el verbo va dado). Variants movidas verbatim; explanations re-enfocadas | Ambos JSON parsean; ambos bloques marcados `status: pending` + `passes: []` → **pendiente re-validar por quórum R1-R7** |
 | 2026-06-14 | 260614-wzc | Añadir canción "Solo — Ultimo" a los ejercicios de canciones: `content/songs/solo.json` (34 frases, prompt italiano + answer ES troceado por palabras, formato espejo de `equilibrio-mentale`) + registro en `content/songs.json` (phraseCount 34). Letra exacta del autor; 'е' cirílica normalizada | `node --test tests/song-validator.test.js` → 17/17 PASS; cirílico 0; IDs únicos 34/34 |
 | 2026-06-15 | fast | Corregir traducción `solo-004`: "que contaré" → "que contar" (relativo + infinitivo, español natural) | 17/17 PASS |
+| 2026-06-15 | 260614-wzc-col | Añadir ejercicio `preposiciones-col` (col = con+il) con 2 variantes (col vs nel/sul/dal; con il vs con lo/la/i) + gloss ES (R7). Cubre el hueco de la familia `con` en preposizioni articolate | `validated` (quórum Opus 4.8 + Sonnet 4.6, 0 concerns); contador de tests 49→50 |
+| 2026-06-15 | 260615-hhp | Mostrar título de ubicación/contexto durante la sesión (feature todo #1): getter derivado `sessionContextLabel` ("Examen: <cat>" / "Examen" / "Repaso (N ejercicios)" / "Canción: <title>") + `<h2 class="session-context">` en las 4 pantallas (session/cancion/summary/cancion-summary) + CSS. Pura UI derivada, sin tocar estado persistido | `node --test tests/*.test.js` → 386 pass / 1 fail (preexistente ajeno: genero-numero 12→13); +13 asserts nuevos en `tests/screen-context-label.test.js` |
 
 ## Performance Metrics
 
@@ -104,7 +106,6 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 
 ### Pending Todos
 
-- [Mostrar título de ubicación actual en ejercicios](./todos/pending/2026-06-15-mostrar-titulo-de-ubicacion-actual-en-ejercicios.md) — ui — referencia contextual visible dentro de categoría/examen/repaso/canción
 - [Contador de fallos por categoría o canción](./todos/pending/2026-06-15-contador-de-fallos-por-categoria-o-cancion.md) — general — +1 por cada reset de racha, persistido en localStorage
 - [Ver la explicación del ejercicio aunque aciertes](./todos/pending/2026-06-15-ver-explicacion-del-ejercicio-aunque-aciertes.md) — ui — affordance para mostrar explanation tras acertar
 - [Modo examen contrarreloj (tiempo por respuesta)](./todos/pending/2026-06-15-modo-examen-contrarreloj-tiempo-por-respuesta.md) — general — límite de tiempo por pregunta (~5s MC / ~10s match / ~2s por palabra word-buttons)
