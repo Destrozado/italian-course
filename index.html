@@ -174,7 +174,11 @@
                             :aria-label="cat.statusLabel"
                             x-text="cat.badgeGlyph"></span>
                     </td>
-                    <td x-text="cat.name"></td>
+                    <td>
+                      <span x-text="cat.name"></span>
+                      <small x-show="cat.vecesFallada > 0"
+                             x-text="`fallada x${cat.vecesFallada}`"></small>
+                    </td>
                     <td x-text="cat.streakLabel"></td>
                     <td x-text="cat.totalCount"></td>
                     <td x-text="cat.lastPracticedLabel"></td>
@@ -231,7 +235,11 @@
                             :aria-label="song.statusLabel"></span>
                       <span x-text="song.statusLabel"></span>
                     </td>
-                    <td x-text="song.title"></td>
+                    <td>
+                      <span x-text="song.title"></span>
+                      <small x-show="song.vecesFallada > 0"
+                             x-text="`fallada x${song.vecesFallada}`"></small>
+                    </td>
                     <td x-text="song.phraseCount"></td>
                     <td>
                       <button type="button"

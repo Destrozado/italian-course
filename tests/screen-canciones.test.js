@@ -317,3 +317,106 @@ describe('Canciones — regresión: bankWithKeys pinta el banco en modo canción
       'sin frase activa en ningún modo, bankWithKeys debe ser [] (unmount tick)');
   });
 });
+
+// ─────────────────────────────────────────────────────────────────────────────
+// quick-260615-nzi — contador vecesFallada por canción (completeSong) + getter
+//
+// completeSong incrementa songProgress[songId].vecesFallada +1 por playthrough
+// con >=1 frase fallada (una sola vez); 0 frases falladas → +0. El getter
+// songsForDisplay expone vecesFallada (?? 0). index.html lo muestra solo si N>0.
+// ─────────────────────────────────────────────────────────────────────────────
+describe('Canciones — quick-260615-nzi: contador vecesFallada por canción', () => {
+  // Arma un app con un playthrough listo para cerrar con completeSong.
+  function completedSongApp(results, prevVecesFallada) {
+    const app = appShell(Promise.resolve());
+    app.content = { categories: [], songsById: {} };
+    app.songActiveId = 'equilibrio-mentale';
+    app.sessionResults = results;
+    app.songPhraseById = {};
+    app.songBefore = {};
+    const songProgress = {};
+    if (prevVecesFallada !== undefined) {
+      songProgress['equilibrio-mentale'] = { status: 'fallada', lastPlayedAt: '2026-06-01', vecesFallada: prevVecesFallada };
+    }
+    app.state = {
+      schemaVersion: 10,
+      exerciseStats: {},
+      categoryProgress: {},
+      dailyLog: {},
+      songProgress,
+      lastBackupAt: null,
+      firstUsedAt: null
+    };
+    return app;
+  }
+
+  test('completeSong con >=1 frase fallada → vecesFallada = 1 (desde 0)', () => {
+    const app = completedSongApp([
+      { exerciseId: 'equilibrio-mentale-001', correct: true },
+      { exerciseId: 'equilibrio-mentale-002', correct: false }
+    ]);
+    app.completeSong();
+    assert.equal(app.state.songProgress['equilibrio-mentale'].status, 'fallada');
+    assert.equal(app.state.songProgress['equilibrio-mentale'].vecesFallada, 1,
+      'playthrough con fallo incrementa vecesFallada a 1');
+  });
+
+  test('completeSong sin fallos → +0 (preserva el previo, status pasada)', () => {
+    const app = completedSongApp([
+      { exerciseId: 'equilibrio-mentale-001', correct: true },
+      { exerciseId: 'equilibrio-mentale-002', correct: true }
+    ], 2);
+    app.completeSong();
+    assert.equal(app.state.songProgress['equilibrio-mentale'].status, 'pasada');
+    assert.equal(app.state.songProgress['equilibrio-mentale'].vecesFallada, 2,
+      'playthrough sin fallos NO incrementa — preserva el previo (2)');
+  });
+
+  test('completeSong acumula: previo 2 + playthrough con fallo → 3', () => {
+    const app = completedSongApp([
+      { exerciseId: 'equilibrio-mentale-001', correct: false }
+    ], 2);
+    app.completeSong();
+    assert.equal(app.state.songProgress['equilibrio-mentale'].vecesFallada, 3);
+  });
+
+  test('songsForDisplay expone vecesFallada (?? 0) por canción', () => {
+    const app = appShell(Promise.resolve());
+    app.content = {
+      songsById: {
+        'equilibrio-mentale': { id: 'equilibrio-mentale', title: 'Equilibrio mentale', phrases: [{}, {}] },
+        'solo': { id: 'solo', title: 'Solo', phrases: [{}] }
+      }
+    };
+    app.state = {
+      schemaVersion: 10,
+      exerciseStats: {},
+      categoryProgress: {},
+      dailyLog: {},
+      songProgress: {
+        'equilibrio-mentale': { status: 'fallada', lastPlayedAt: '2026-06-02', vecesFallada: 4 }
+        // 'solo' sin entrada → lazy-init 0
+      },
+      lastBackupAt: null,
+      firstUsedAt: null
+    };
+    const rows = app.songsForDisplay;
+    const eq = rows.find(r => r.id === 'equilibrio-mentale');
+    const solo = rows.find(r => r.id === 'solo');
+    assert.equal(eq.vecesFallada, 4, 'expone el contador persistido');
+    assert.equal(solo.vecesFallada, 0, 'canción sin entrada → lazy-init 0');
+  });
+
+  test('index.html: indicador "fallada xN" en categorías y canciones con x-show N>0', () => {
+    // Categoría: el indicador usa cat.vecesFallada con x-show > 0.
+    assert.ok(/x-show="cat\.vecesFallada > 0"/.test(indexSrc),
+      'la fila de categoría debe mostrar el indicador solo si vecesFallada > 0');
+    assert.ok(/`fallada x\$\{cat\.vecesFallada\}`/.test(indexSrc),
+      'el indicador de categoría debe renderizar "fallada xN" vía x-text');
+    // Canción: idem con song.vecesFallada.
+    assert.ok(/x-show="song\.vecesFallada > 0"/.test(indexSrc),
+      'la fila de canción debe mostrar el indicador solo si vecesFallada > 0');
+    assert.ok(/`fallada x\$\{song\.vecesFallada\}`/.test(indexSrc),
+      'el indicador de canción debe renderizar "fallada xN" vía x-text');
+  });
+});

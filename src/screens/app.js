@@ -2768,7 +2768,9 @@ export function appShell(appDataReady) {
           lastPracticedLabel: formatRelativeDate(lastPracticedDate, today),
           // Phase 8 (D-184/D-187): tooltip nativo solo cuando disabled.
           examenEnabled,
-          examenTooltip: examenEnabled ? '' : 'No hay ejercicios en esta categoría'
+          examenTooltip: examenEnabled ? '' : 'No hay ejercicios en esta categoría',
+          // quick-260615-nzi: contador de veces fallada (lazy-init ?? 0, D-47).
+          vecesFallada: progress?.vecesFallada ?? 0
         };
       });
     },
@@ -2799,7 +2801,9 @@ export function appShell(appDataReady) {
           title: song.title ?? song.id,
           phraseCount: Array.isArray(song.phrases) ? song.phrases.length : 0,
           status,
-          statusLabel: songStatusLabelFor(status)
+          statusLabel: songStatusLabelFor(status),
+          // quick-260615-nzi: contador de veces fallada (lazy-init ?? 0, D-47).
+          vecesFallada: this.state.songProgress?.[song.id]?.vecesFallada ?? 0
         };
       });
     }
