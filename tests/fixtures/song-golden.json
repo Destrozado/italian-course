@@ -3,13 +3,13 @@
   "title": "Golden fixtures (validador de canciones)",
   "phrases": [
     {
-      "id": "ti-dedico-il-silenzio-006",
+      "id": "golden-neg-tiempo-001",
       "prompt": "È da tempo che sai penso che anche il tempo non mi basta",
       "answer": ["hace", "tiempo", "que", "sabes", "pienso", "que", "ni", "el", "tiempo", "me", "basta"],
       "categoryIds": []
     },
     {
-      "id": "equilibrio-mentale-001",
+      "id": "golden-pos-equilibrio-001",
       "prompt": "Mi sento come questa goccia appesa a una ringhiera, che casca e si concede a quest'asfalto, questa sera",
       "answer": ["me", "siento", "como", "esta", "gota", "colgada", "de", "una", "barandilla", "que", "cae", "y", "se", "entrega", "a", "este", "asfalto", "esta", "noche"],
       "categoryIds": []
