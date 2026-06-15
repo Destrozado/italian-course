@@ -212,10 +212,18 @@ export function appShell(appDataReady) {
     multiChoiceOrder: [],
 
     // ─── Sub-estado word-buttons (Phase 3 plan 01; D-56, D-57, D-64) ────────
-    /** Palabras VISIBLES del banco en orden actual (se vacía al colocar). */
+    /**
+     * Banco barajado de palabras (`answer ∪ distractors`), ESTABLE tras init.
+     * Ya NO se muta al colocar/quitar (quick-260615-str): los huecos se
+     * mantienen con un placeholder invisible para evitar reflow.
+     */
     wordButtonsBank: [],
-    /** Tokens colocados en el área respuesta, en orden cronológico. */
-    wordButtonsAnswer: [],
+    /**
+     * Índices del banco colocados en el área respuesta, en orden de click.
+     * NUEVA fuente de verdad de la respuesta (quick-260615-str). Maneja
+     * palabras repetidas por índice. `wordButtonsAnswer` se deriva de aquí.
+     */
+    wordButtonsPlacedIdx: [],
 
     // ─── Sub-estado match (Phase 3 plan 02 — D-60/D-61/D-62/D-63/D-66/D-70) ─
     matchLeft: [],
@@ -528,7 +536,7 @@ export function appShell(appDataReady) {
       this.sessionExplanationRevealed = false; // quick-260615-hr0
       // Sub-estados word-buttons (Phase 3).
       this.wordButtonsBank = [];
-      this.wordButtonsAnswer = [];
+      this.wordButtonsPlacedIdx = [];
       // Sub-estados match (Phase 3 + Phase 6 D-107/D-112).
       this.matchLeft = [];
       this.matchRight = [];
@@ -636,7 +644,7 @@ export function appShell(appDataReady) {
       this.sessionFeedback = null;
       this.sessionExplanationRevealed = false; // quick-260615-hr0
       this.wordButtonsBank = [];
-      this.wordButtonsAnswer = [];
+      this.wordButtonsPlacedIdx = [];
       // Reset match (defensivo, idéntico a _launchExamen).
       this.matchLeft = [];
       this.matchRight = [];
@@ -738,13 +746,16 @@ export function appShell(appDataReady) {
         return;
       }
 
-      // Dígitos 1-9: colocar la palabra del banco (mismo que word-buttons).
-      // WR-04: paridad con handleSessionKey — el bound `idx < 9` mantiene
-      // explícito el invariante D-69 (bankWithKeys solo numera idx < 9).
+      // Dígitos 1-9: colocar la N-ésima palabra VISIBLE del banco (mismo que
+      // word-buttons). quick-260615-str: con huecos estables, la tecla N ya
+      // NO mapea al slot crudo N — `visibleSlotIdx` traduce N→slotIdx de la
+      // N-ésima visible (saltando colocadas). El bound `idx < 9` mantiene
+      // explícito el invariante D-69 (solo se numeran 9 visibles).
       if (/^[1-9]$/.test(key)) {
         if (this.sessionFeedback !== null) return;
         const idx = Number(key) - 1;
-        if (idx < this.wordButtonsBank.length && idx < 9) this.wordButtonsAddWord(idx);
+        const slot = this.visibleSlotIdx(idx);
+        if (idx < 9 && slot !== -1) this.wordButtonsAddWord(slot);
       }
     },
 
@@ -816,7 +827,7 @@ export function appShell(appDataReady) {
       // reset uniforme. Si en el futuro emergen más sub-estados por tipo,
       // este helper sigue siendo el único sitio donde se resetean.
       this.wordButtonsBank = [];
-      this.wordButtonsAnswer = [];
+      this.wordButtonsPlacedIdx = [];
       this.matchLeft = [];
       this.matchRight = [];
       this.matchSelectedLeftIdx = null;
@@ -1084,7 +1095,7 @@ export function appShell(appDataReady) {
       this.sessionExplanationRevealed = false; // quick-260615-hr0
       // Sub-estados word-buttons (Phase 3).
       this.wordButtonsBank = [];
-      this.wordButtonsAnswer = [];
+      this.wordButtonsPlacedIdx = [];
       // Sub-estados match (Phase 3).
       this.matchLeft = [];
       this.matchRight = [];
@@ -1801,37 +1812,40 @@ export function appShell(appDataReady) {
     // ════════════════════════════════════════════════════════════════════════
 
     /**
-     * Mueve la palabra en posición `idx` del banco al final del área respuesta.
-     * Inmutable: asigna arrays NUEVOS para que la reactividad de Alpine los
-     * detecte (in-place `splice`/`push` no triggerea reactividad fiable).
+     * Coloca el slot `slotIdx` del banco en el área respuesta (quick-260615-str).
+     * El banco YA NO se muta: solo se registra el índice del slot en
+     * `wordButtonsPlacedIdx`. El hueco se mantiene visualmente con un
+     * placeholder invisible (visibility:hidden), evitando el reflow que
+     * causaba mis-clicks.
      *
-     * Guard: si ya hay feedback (acertó/falló), no hacer nada. Esto cubre
-     * tanto el click de ratón como las teclas 1-9 después del Comprobar.
+     * Inmutable: asigna un array NUEVO para que la reactividad de Alpine lo
+     * detecte (in-place `push` no triggerea reactividad fiable).
      *
-     * @param {number} idx - Índice de la palabra en `wordButtonsBank`.
+     * Guards: feedback activo (acertó/falló) → no-op; slot fuera de rango →
+     * no-op; slot YA colocado → no-op (no duplica).
+     *
+     * @param {number} slotIdx - Índice del slot en `wordButtonsBank`.
      */
-    wordButtonsAddWord(idx) {
+    wordButtonsAddWord(slotIdx) {
       if (this.sessionFeedback !== null) return;
-      if (idx < 0 || idx >= this.wordButtonsBank.length) return;
-      const word = this.wordButtonsBank[idx];
-      this.wordButtonsBank = this.wordButtonsBank.filter((_, i) => i !== idx);
-      this.wordButtonsAnswer = [...this.wordButtonsAnswer, word];
+      if (slotIdx < 0 || slotIdx >= this.wordButtonsBank.length) return;
+      if (this.wordButtonsPlacedIdx.includes(slotIdx)) return;
+      this.wordButtonsPlacedIdx = [...this.wordButtonsPlacedIdx, slotIdx];
     },
 
     /**
-     * Inverso simétrico: mueve la palabra en posición `idx` del área respuesta
-     * de vuelta al final del banco. D-56: la palabra que regresa NO preserva
-     * su posición original en el banco — se append-ea al final. Esto es
-     * coherente con la mecánica "vuelve al banco" sin estado de "huecos".
+     * Inverso simétrico: quita la palabra en posición `answerPos` del área
+     * respuesta. El slot liberado vuelve a su posición visual ORIGINAL en el
+     * banco (quick-260615-str), porque el banco es estable y solo eliminamos
+     * su índice de `wordButtonsPlacedIdx`.
      *
-     * @param {number} idx - Índice en `wordButtonsAnswer`.
+     * @param {number} answerPos - Posición en la respuesta (índice en
+     *   `wordButtonsPlacedIdx` / `wordButtonsAnswer`).
      */
-    wordButtonsRemoveWord(idx) {
+    wordButtonsRemoveWord(answerPos) {
       if (this.sessionFeedback !== null) return;
-      if (idx < 0 || idx >= this.wordButtonsAnswer.length) return;
-      const word = this.wordButtonsAnswer[idx];
-      this.wordButtonsAnswer = this.wordButtonsAnswer.filter((_, i) => i !== idx);
-      this.wordButtonsBank = [...this.wordButtonsBank, word];
+      if (answerPos < 0 || answerPos >= this.wordButtonsPlacedIdx.length) return;
+      this.wordButtonsPlacedIdx = this.wordButtonsPlacedIdx.filter((_, i) => i !== answerPos);
     },
 
     /**
@@ -2081,7 +2095,7 @@ export function appShell(appDataReady) {
     initSubStateForExercise(exercise) {
       // Limpieza universal de TODOS los sub-estados de tipos nuevos.
       this.wordButtonsBank = [];
-      this.wordButtonsAnswer = [];
+      this.wordButtonsPlacedIdx = [];
       this.matchLeft = [];
       this.matchRight = [];
       this.matchSelectedLeftIdx = null;
@@ -2111,7 +2125,7 @@ export function appShell(appDataReady) {
           ...(exercise.payload.distractors ?? [])
         ];
         this.wordButtonsBank = fisherYates(all);
-        this.wordButtonsAnswer = [];
+        this.wordButtonsPlacedIdx = [];
       } else if (exercise.type === 'match') {
         // D-62: shuffle independiente de cada columna con `fisherYates`.
         // Mismo helper que el sampler de session — un único algoritmo de
@@ -2277,9 +2291,12 @@ export function appShell(appDataReady) {
           return;
         }
         if (ex.type === 'word-buttons') {
-          // D-69: 1..9 dinámicos sobre las palabras visibles del banco.
-          if (idx < this.wordButtonsBank.length && idx < 9) {
-            this.wordButtonsAddWord(idx);
+          // D-69: 1..9 dinámicos sobre las palabras VISIBLES del banco.
+          // quick-260615-str: con huecos estables, la tecla N mapea a la
+          // N-ésima visible via `visibleSlotIdx` (no al slot crudo N).
+          const slot = this.visibleSlotIdx(idx);
+          if (idx < 9 && slot !== -1) {
+            this.wordButtonsAddWord(slot);
           }
           return;
         }
@@ -2671,7 +2688,18 @@ export function appShell(appDataReady) {
      * Double-defense Alpine: si no hay ejercicio actual, retornar []
      * (evita TypeError durante el tick de unmount).
      *
-     * @returns {Array<{word: string, key: string}>}
+     * quick-260615-str: devuelve UNA entrada por CADA slot del banco
+     * (incluidos los colocados), con `{ word, idx, placed, key }`:
+     *   - `idx`: índice del slot en `wordButtonsBank` (estable).
+     *   - `placed`: si el slot está colocado en la respuesta.
+     *   - `key`: numeración DINÁMICA sobre las palabras VISIBLES (salta las
+     *     colocadas; D-69 preservado: 1 = primera visible, renumera al
+     *     colocar — pero el botón NO se mueve, solo cambia su superíndice).
+     *     String(n) si n<=9, si no '' (no alcanzable por teclado).
+     * El render usa `placed` para pintar el slot como placeholder invisible
+     * (visibility:hidden), manteniendo el hueco y evitando reflow.
+     *
+     * @returns {Array<{word: string, idx: number, placed: boolean, key: string}>}
      */
     get bankWithKeys() {
       // En modo canción la frase activa vive en `songPhraseById` (LINK-04), NO
@@ -2680,10 +2708,30 @@ export function appShell(appDataReady) {
       // `songCurrentPhrase` arregla el render del banco en canciones y mantiene
       // la defensa anti-TypeError del tick de unmount (ambos null = []).
       if (!this.sessionCurrentExercise && !this.songCurrentPhrase) return [];
-      return this.wordButtonsBank.map((word, idx) => ({
-        word,
-        key: idx < 9 ? String(idx + 1) : ''
-      }));
+      let n = 0; // contador de palabras VISIBLES (no colocadas) para la key.
+      return this.wordButtonsBank.map((word, idx) => {
+        const placed = this.wordButtonsPlacedIdx.includes(idx);
+        let key = '';
+        if (!placed) {
+          n += 1;
+          key = n <= 9 ? String(n) : '';
+        }
+        return { word, idx, placed, key };
+      });
+    },
+
+    /**
+     * quick-260615-str: traduce la N-ésima palabra VISIBLE (0-based) a su
+     * slotIdx en el banco, saltando las colocadas. Usado por el atajo de
+     * teclado dígito N → coloca la N-ésima visible (no el slot crudo N).
+     * Devuelve -1 si no hay una N-ésima visible.
+     *
+     * @param {number} n - índice 0-based dentro de las palabras visibles.
+     * @returns {number} slotIdx en `wordButtonsBank`, o -1.
+     */
+    visibleSlotIdx(n) {
+      const visibles = this.bankWithKeys.filter(e => !e.placed);
+      return n >= 0 && n < visibles.length ? visibles[n].idx : -1;
     },
 
     /**
@@ -2695,6 +2743,22 @@ export function appShell(appDataReady) {
      */
     get wordButtonsCanCheck() {
       return this.wordButtonsAnswer.length > 0 && this.sessionFeedback === null;
+    },
+
+    /**
+     * quick-260615-str: respuesta DERIVADA de `wordButtonsPlacedIdx` (la nueva
+     * fuente de verdad). Mapea cada índice de slot colocado a su palabra del
+     * banco — maneja palabras repetidas correctamente (mapeo por índice, no
+     * por valor). Satisface a TODOS los lectores actuales (grading via
+     * `{ tokens }`, `applyResultToSession([...])`, `x-for word in
+     * wordButtonsAnswer`, `.length`) sin tocarlos. NO es asignable: los
+     * antiguos resets de `wordButtonsAnswer` se migraron a resetear
+     * `wordButtonsPlacedIdx` en su lugar.
+     *
+     * @returns {string[]} tokens colocados en orden de respuesta.
+     */
+    get wordButtonsAnswer() {
+      return this.wordButtonsPlacedIdx.map(i => this.wordButtonsBank[i]);
     },
 
     /**
