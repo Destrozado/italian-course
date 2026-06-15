@@ -2249,12 +2249,24 @@ export function appShell(appDataReady) {
       const today = todayLocal();
 
       // Write-once-at-end (D-02): status reflejando el último recorrido completo.
-      const status = results.some(r => !r.correct) ? 'fallada' : 'pasada';
+      const huboFallo = results.some(r => !r.correct);
+      const status = huboFallo ? 'fallada' : 'pasada';
       const newState = {
         ...this.state,
         songProgress: { ...(this.state.songProgress ?? {}) }
       };
-      newState.songProgress[songId] = { status, lastPlayedAt: today };
+      // quick-260615-nzi: contador vecesFallada por canción — +1 por playthrough
+      // con >=1 frase fallada (reusa el MISMO huboFallo que alimenta status para
+      // una sola fuente de verdad). Una vez por playthrough: completeSong se
+      // invoca una sola vez al pasar el final; returnToSongList NO re-llama
+      // completeSong → no hay recuento al reentrar al resumen. Lee el previo de
+      // this.state (?? 0, lazy-init) y escribe en newState.
+      const prevVF = this.state.songProgress?.[songId]?.vecesFallada ?? 0;
+      newState.songProgress[songId] = {
+        status,
+        lastPlayedAt: today,
+        vecesFallada: prevVF + (huboFallo ? 1 : 0)
+      };
       newState.firstUsedAt = newState.firstUsedAt ?? new Date().toISOString();
       saveState(newState);
       this.state = newState;

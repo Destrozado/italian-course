@@ -276,14 +276,24 @@ export function applyNewExerciseRegression(state, content) {
  *     un fallo NO bumpea exerciseStats — pero SÍ persiste la regresión de
  *     categoría, que es lo crítico para el core value.
  *
+ * Contador vecesFallada (quick-260615-nzi):
+ *   - +1 a `categoryProgress[catId].vecesFallada` SOLO cuando `hadProgress(prev)`
+ *     es true (la categoría tenía progreso real que este fallo destruye). El
+ *     incremento ocurre AQUÍ (único call-site por fallo, D-54) bajo el guard, y
+ *     `applySessionResult` NO recuenta (corre sobre estado ya reseteado →
+ *     hadProgress false → cero doble conteo immediate+session).
+ *   - Si la categoría ya estaba a cero (hadProgress false), vecesFallada se
+ *     preserva (`?? 0`) sin +1.
+ *
  * Idempotencia:
  *   - Re-invocar `applyImmediateFailure` con el MISMO ejercicio devuelve un
  *     state funcionalmente idéntico (las categorías ya están a 'no-hecha',
- *     re-resetar es no-op; uniqueStrings dedupea el dailyLog).
+ *     re-resetar es no-op; uniqueStrings dedupea el dailyLog; el guard
+ *     hadProgress hace que el contador tampoco recuente).
  *   - `applyImmediateFailure(state, ex, ...)` seguido de `applySessionResult`
  *     con el mismo fail incluido en `answers` produce el MISMO state final que
  *     llamar solo a `applySessionResult` (la rama FAIL-WINS reaplica el
- *     reset sobre state ya reseteado = no-op).
+ *     reset sobre state ya reseteado = no-op; vecesFallada queda igual).
  *
  * Pure: no muta `state` ni `exercise` ni `content`.
  *
@@ -304,8 +314,19 @@ export function applyImmediateFailure(state, exercise, content, today) {
   const catIds = exercise?.categoryIds ?? [];
 
   // 2. Reset cascada por categoría (rama FAIL-WINS de D-39, paso 2).
+  //    quick-260615-nzi: bajo el guard hadProgress (la categoría tenía progreso
+  //    REAL que este fallo destruye) incrementamos vecesFallada +1 ANTES de
+  //    resetear. El campo va EXPLÍCITO en el objeto reset (gana sobre el ...prev)
+  //    para que el incremento sobreviva el reset. Si hadProgress es false, se
+  //    preserva el valor previo (?? 0) sin +1. Esto garantiza:
+  //      - Idempotencia: re-fallar una categoría ya reseteada (hadProgress false)
+  //        NO recuenta.
+  //      - Cero doble conteo: applySessionResult corre sobre estado ya reseteado
+  //        (hadProgress false implícito) y NO toca vecesFallada.
   for (const catId of catIds) {
     const prev = next.categoryProgress[catId] ?? blankCategoryProgress();
+    const wasProgress = hadProgress(prev);
+    const nextVecesFallada = (prev.vecesFallada ?? 0) + (wasProgress ? 1 : 0);
     next.categoryProgress[catId] = {
       ...prev,
       status: 'no-hecha',
@@ -313,7 +334,8 @@ export function applyImmediateFailure(state, exercise, content, today) {
       streakDays: 0,
       becameHechaAt: undefined,
       becameDominadaAt: undefined,
-      lastPracticedDate: today
+      lastPracticedDate: today,
+      vecesFallada: nextVecesFallada
       // lastSuccessDate se preserva (huella histórica; esta sesión no fue éxito).
     };
   }
@@ -334,6 +356,24 @@ export function applyImmediateFailure(state, exercise, content, today) {
 }
 
 // ─── Helpers privados ───────────────────────────────────────────────────────
+
+/**
+ * quick-260615-nzi: ¿la categoría tenía PROGRESO REAL antes del fallo? Definido
+ * UNA sola vez (compartido por el guard del contador vecesFallada en
+ * applyImmediateFailure). Un fallo solo cuenta como "veces fallada" si destruye
+ * progreso real — no si la categoría ya estaba a cero.
+ *
+ * @param {object} cat - Estado previo de la categoría (puede ser blank/lazy).
+ * @returns {boolean}
+ */
+function hadProgress(cat) {
+  return !!(cat && (
+    cat.status === 'hecha' ||
+    cat.status === 'dominada' ||
+    (cat.streakDays ?? 0) > 0 ||
+    (Array.isArray(cat.clearedExerciseIds) && cat.clearedExerciseIds.length > 0)
+  ));
+}
 
 /** Estructura inicial de un ejercicio recién visto. */
 function blankStat() {
