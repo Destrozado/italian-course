@@ -1,0 +1,198 @@
+{
+  "id": "ti-dedico-il-silenzio",
+  "title": "Ti dedico il silenzio — Ultimo",
+  "phrases": [
+    {
+      "id": "ti-dedico-il-silenzio-001",
+      "prompt": "C'è un'aria strana stasera, e torno a casa in silenzio",
+      "answer": ["hay", "un", "aire", "raro", "esta", "noche", "y", "vuelvo", "a", "casa", "en", "silencio"],
+      "categoryIds": []
+    },
+    {
+      "id": "ti-dedico-il-silenzio-002",
+      "prompt": "Tra i rumori del traffico e il telefono spento",
+      "answer": ["entre", "los", "ruidos", "del", "tráfico", "y", "el", "teléfono", "apagado"],
+      "categoryIds": []
+    },
+    {
+      "id": "ti-dedico-il-silenzio-003",
+      "prompt": "E la gente mi guarda, ma non ho niente di vero",
+      "answer": ["y", "la", "gente", "me", "mira", "pero", "no", "tengo", "nada", "de", "verdad"],
+      "categoryIds": []
+    },
+    {
+      "id": "ti-dedico-il-silenzio-004",
+      "prompt": "Io che basta pensarti e già mi manca il respiro",
+      "answer": ["yo", "que", "con", "solo", "pensarte", "ya", "me", "falta", "el", "aliento"],
+      "categoryIds": []
+    },
+    {
+      "id": "ti-dedico-il-silenzio-005",
+      "prompt": "È da tempo che lo cerco questo tempo che mi manca",
+      "answer": ["hace", "tiempo", "que", "lo", "busco", "este", "tiempo", "que", "me", "falta"],
+      "categoryIds": []
+    },
+    {
+      "id": "ti-dedico-il-silenzio-006",
+      "prompt": "È da tempo che sai penso che anche il tempo non mi basta",
+      "answer": ["hace", "tiempo", "que", "sabes", "pienso", "que", "ni", "el", "tiempo", "me", "basta"],
+      "categoryIds": []
+    },
+    {
+      "id": "ti-dedico-il-silenzio-007",
+      "prompt": "So quanto costa per te, ma cerco solo un motivo",
+      "answer": ["sé", "cuánto", "te", "cuesta", "pero", "busco", "solo", "un", "motivo"],
+      "categoryIds": []
+    },
+    {
+      "id": "ti-dedico-il-silenzio-008",
+      "prompt": "Per sentirmi vivo e non è semplice",
+      "answer": ["para", "sentirme", "vivo", "y", "no", "es", "sencillo"],
+      "categoryIds": []
+    },
+    {
+      "id": "ti-dedico-il-silenzio-009",
+      "prompt": "So quanto pesano in te quelle paure lontane",
+      "answer": ["sé", "cuánto", "pesan", "en", "ti", "esos", "miedos", "lejanos"],
+      "categoryIds": []
+    },
+    {
+      "id": "ti-dedico-il-silenzio-010",
+      "prompt": "Meriti anche tu un posto da visitare",
+      "answer": ["mereces", "tú", "también", "un", "lugar", "que", "visitar"],
+      "categoryIds": []
+    },
+    {
+      "id": "ti-dedico-il-silenzio-011",
+      "prompt": "C'è un'aria strana nel cielo, esco da casa in silenzio",
+      "answer": ["hay", "un", "aire", "raro", "en", "el", "cielo", "salgo", "de", "casa", "en", "silencio"],
+      "categoryIds": []
+    },
+    {
+      "id": "ti-dedico-il-silenzio-012",
+      "prompt": "Non è ancora neanche l'alba ma a dormire non ci penso",
+      "answer": ["todavía", "no", "es", "ni", "el", "amanecer", "pero", "en", "dormir", "no", "pienso"],
+      "categoryIds": []
+    },
+    {
+      "id": "ti-dedico-il-silenzio-013",
+      "prompt": "Io cerco solo di capirti e la notte non ci dorme",
+      "answer": ["yo", "solo", "intento", "entenderte", "y", "la", "noche", "no", "duerme"],
+      "categoryIds": []
+    },
+    {
+      "id": "ti-dedico-il-silenzio-014",
+      "prompt": "Se soltanto avessi pace saprei essere come loro",
+      "answer": ["si", "solo", "tuviera", "paz", "sabría", "ser", "como", "ellos"],
+      "categoryIds": []
+    },
+    {
+      "id": "ti-dedico-il-silenzio-015",
+      "prompt": "È da tempo che lo cerco questo tempo che mi manca",
+      "answer": ["hace", "tiempo", "que", "lo", "busco", "este", "tiempo", "que", "me", "falta"],
+      "categoryIds": []
+    },
+    {
+      "id": "ti-dedico-il-silenzio-016",
+      "prompt": "È da tempo che sai penso che anche il tempo non mi basta",
+      "answer": ["hace", "tiempo", "que", "sabes", "pienso", "que", "ni", "el", "tiempo", "me", "basta"],
+      "categoryIds": []
+    },
+    {
+      "id": "ti-dedico-il-silenzio-017",
+      "prompt": "So quanto costa per te, ma cerco solo un motivo",
+      "answer": ["sé", "cuánto", "te", "cuesta", "pero", "busco", "solo", "un", "motivo"],
+      "categoryIds": []
+    },
+    {
+      "id": "ti-dedico-il-silenzio-018",
+      "prompt": "Per sentirmi vivo e non è semplice",
+      "answer": ["para", "sentirme", "vivo", "y", "no", "es", "sencillo"],
+      "categoryIds": []
+    },
+    {
+      "id": "ti-dedico-il-silenzio-019",
+      "prompt": "So quanto pesano in te quelle paure lontane",
+      "answer": ["sé", "cuánto", "pesan", "en", "ti", "esos", "miedos", "lejanos"],
+      "categoryIds": []
+    },
+    {
+      "id": "ti-dedico-il-silenzio-020",
+      "prompt": "Meriti anche tu",
+      "answer": ["mereces", "tú", "también"],
+      "categoryIds": []
+    },
+    {
+      "id": "ti-dedico-il-silenzio-021",
+      "prompt": "Un posto da visitare, e ti dedico il rumore",
+      "answer": ["un", "lugar", "que", "visitar", "y", "te", "dedico", "el", "ruido"],
+      "categoryIds": []
+    },
+    {
+      "id": "ti-dedico-il-silenzio-022",
+      "prompt": "Di queste inutili parole",
+      "answer": ["de", "estas", "inútiles", "palabras"],
+      "categoryIds": []
+    },
+    {
+      "id": "ti-dedico-il-silenzio-023",
+      "prompt": "Un quadro senza il suo colore, che è andato via a volare altrove",
+      "answer": ["un", "cuadro", "sin", "su", "color", "que", "se", "ha", "ido", "a", "volar", "a", "otra", "parte"],
+      "categoryIds": []
+    },
+    {
+      "id": "ti-dedico-il-silenzio-024",
+      "prompt": "Io ti dedico il silenzio tanto non comprendi le parole",
+      "answer": ["yo", "te", "dedico", "el", "silencio", "total", "no", "entiendes", "las", "palabras"],
+      "categoryIds": []
+    },
+    {
+      "id": "ti-dedico-il-silenzio-025",
+      "prompt": "Questa sera provo a farlo, questa sera io ti chiamo",
+      "answer": ["esta", "noche", "intento", "hacerlo", "esta", "noche", "yo", "te", "llamo"],
+      "categoryIds": []
+    },
+    {
+      "id": "ti-dedico-il-silenzio-026",
+      "prompt": "E tanto tu non mi rispondi, e tanto poi se mi rispondi",
+      "answer": ["y", "total", "tú", "no", "me", "respondes", "y", "total", "luego", "si", "me", "respondes"],
+      "categoryIds": []
+    },
+    {
+      "id": "ti-dedico-il-silenzio-027",
+      "prompt": "Dici che non siamo pronti",
+      "answer": ["dices", "que", "no", "estamos", "listos"],
+      "categoryIds": []
+    },
+    {
+      "id": "ti-dedico-il-silenzio-028",
+      "prompt": "Ed io so quanto costa per te, ma cerco solo un motivo",
+      "answer": ["y", "yo", "sé", "cuánto", "te", "cuesta", "pero", "busco", "solo", "un", "motivo"],
+      "categoryIds": []
+    },
+    {
+      "id": "ti-dedico-il-silenzio-029",
+      "prompt": "Per sentirmi vivo e non è semplice",
+      "answer": ["para", "sentirme", "vivo", "y", "no", "es", "sencillo"],
+      "categoryIds": []
+    },
+    {
+      "id": "ti-dedico-il-silenzio-030",
+      "prompt": "So quanto pesano in te quelle paure lontane",
+      "answer": ["sé", "cuánto", "pesan", "en", "ti", "esos", "miedos", "lejanos"],
+      "categoryIds": []
+    },
+    {
+      "id": "ti-dedico-il-silenzio-031",
+      "prompt": "Meriti anche tu un posto da visitare",
+      "answer": ["mereces", "tú", "también", "un", "lugar", "que", "visitar"],
+      "categoryIds": []
+    },
+    {
+      "id": "ti-dedico-il-silenzio-032",
+      "prompt": "Meriti anche tu un posto da visitare",
+      "answer": ["mereces", "tú", "también", "un", "lugar", "que", "visitar"],
+      "categoryIds": []
+    }
+  ]
+}
