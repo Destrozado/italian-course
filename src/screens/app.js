@@ -72,6 +72,43 @@ import { registry } from '../exercise-types/index.js';
 const SESSION_AUTO_ADVANCE_MS = 600;
 const SESSION_AUTO_ADVANCE_WITH_EXPLANATION_MS = 1500;
 
+// ─── Modo contrarreloj (quick-260615-puq, feature todo #4) ──────────────────
+// Límite de tiempo POR respuesta cuando la sesión arranca cronometrada
+// (sessionTimed=true). Constantes nombradas y fáciles de ajustar (CONTEXT
+// decisión 4). word-buttons escala con el nº de palabras de la frase.
+const TIMED_LIMIT_MS_MULTIPLE_CHOICE = 5000;
+const TIMED_LIMIT_MS_MATCH = 10000;
+const TIMED_LIMIT_MS_PER_WORD = 2000;
+// Intervalo del tick del cronómetro (decremento del display + chequeo de
+// expiry). Un único setInterval evita drift display-vs-expiry (CONTEXT §tick).
+const SESSION_TIMER_TICK_MS = 100;
+
+/**
+ * Helper PURO del límite de tiempo (ms) por ejercicio cronometrado
+ * (quick-260615-puq). Función de MÓDULO — no lee `this`, no toca timers, solo
+ * `ex.type` y `ex.payload.answer.length`. Testeable sin Alpine.
+ *
+ *   - multiple-choice → TIMED_LIMIT_MS_MULTIPLE_CHOICE (5000).
+ *   - match           → TIMED_LIMIT_MS_MATCH (10000).
+ *   - word-buttons    → TIMED_LIMIT_MS_PER_WORD × nº de palabras
+ *                       (payload.answer.length — verificado contra
+ *                       src/exercise-types/word-buttons.js; los distractors
+ *                       NO cuentan).
+ *   - tipo desconocido → default defensivo = TIMED_LIMIT_MS_MULTIPLE_CHOICE.
+ *
+ * @param {{type:string, payload?:{answer?:string[]}}} ex
+ * @returns {number} milisegundos del límite de respuesta para `ex`.
+ */
+export function sessionTimeLimitMs(ex) {
+  if (!ex) return TIMED_LIMIT_MS_MULTIPLE_CHOICE;
+  if (ex.type === 'match') return TIMED_LIMIT_MS_MATCH;
+  if (ex.type === 'word-buttons') {
+    return TIMED_LIMIT_MS_PER_WORD * (ex.payload?.answer?.length ?? 0);
+  }
+  // multiple-choice + default defensivo para type desconocido.
+  return TIMED_LIMIT_MS_MULTIPLE_CHOICE;
+}
+
 /**
  * Construye el objeto Alpine `appShell` con las cuatro pantallas y sus
  * sub-estados aplastados (D-25 factory plano).
@@ -128,6 +165,22 @@ export function appShell(appDataReady) {
     /** null | 'correct' | 'incorrect'. */
     sessionFeedback: null,
     sessionAutoAdvanceHandle: null,
+    /**
+     * quick-260615-puq (feature todo #4): modo contrarreloj. Estado RUNTIME-ONLY
+     * (NO persistido — no se escribe en inFlightTest; reanudar un test
+     * interrumpido lo reanuda SIN cronómetro, consecuencia aceptada v1).
+     *   - pickerTimed: flag del checkbox "Contrarreloj" del picker (se resetea
+     *     al abrir el picker, D-34 análogo).
+     *   - sessionTimed: flag ACTIVO de la sesión; se enciende en startSession
+     *     (=pickerTimed), se fuerza false en _launchExamen (examen 1-clic nunca
+     *     cronometrado), y se apaga en resetSession (lifecycle simétrico).
+     *   - sessionTimerIntervalHandle: handle del único setInterval del tick.
+     *   - sessionTimeRemainingMs: reactivo, alimenta la barra + el número.
+     */
+    pickerTimed: false,
+    sessionTimed: false,
+    sessionTimerIntervalHandle: null,
+    sessionTimeRemainingMs: 0,
     /**
      * quick-260615-hr0 (feature todo #3): UI derivada por-ejercicio (NO
      * persistida). Al acertar un ejercicio CON explanation, el affordance
@@ -312,6 +365,7 @@ export function appShell(appDataReady) {
     destroy() {
       this.cancelAutoAdvance();
       this.cancelMatchFlash();
+      this.cancelSessionTimer(); // quick-260615-puq
     },
 
     // ════════════════════════════════════════════════════════════════════════
@@ -343,6 +397,7 @@ export function appShell(appDataReady) {
             this.clearInFlightTest();
             this.pickerMode = mode;
             this.pickerCheckedCategoryIds = [];
+            this.pickerTimed = false; // quick-260615-puq (desmarcado al abrir)
             this.currentScreen = 'picker';
           }
         });
@@ -350,6 +405,7 @@ export function appShell(appDataReady) {
       }
       this.pickerMode = mode;
       this.pickerCheckedCategoryIds = []; // D-34
+      this.pickerTimed = false; // quick-260615-puq (desmarcado al abrir)
       this.currentScreen = 'picker';
     },
 
@@ -437,6 +493,11 @@ export function appShell(appDataReady) {
       // de mid-match si el path conflict canceló un Test previo a medias.
       this.cancelAutoAdvance();
       this.cancelMatchFlash();
+      this.cancelSessionTimer(); // quick-260615-puq
+
+      // quick-260615-puq (CONTEXT decisión 1): el examen 1-clic desde la tabla
+      // de home NUNCA se cronometra.
+      this.sessionTimed = false;
 
       // Construir el pool completo de la categoría (Examen es 1-cat — D-181).
       // Phase 16: el sampler opera sobre SLOTS (slot id == exercise id para
@@ -531,6 +592,7 @@ export function appShell(appDataReady) {
       // Pattern S-2: cancelaciones defensivas antes de cualquier reset.
       this.cancelAutoAdvance();
       this.cancelMatchFlash();
+      this.cancelSessionTimer(); // quick-260615-puq (canción nunca cronometra)
 
       const song = this.content?.songsById?.[songId];
       if (!song || !Array.isArray(song.phrases)) return;
@@ -626,6 +688,7 @@ export function appShell(appDataReady) {
      */
     songAdvance() {
       this.cancelAutoAdvance();
+      this.cancelSessionTimer(); // quick-260615-puq
 
       this.sessionCursor += 1;
       this.sessionSelectedIndex = null;
@@ -733,6 +796,12 @@ export function appShell(appDataReady) {
     resetSession() {
       this.cancelAutoAdvance();
       this.cancelMatchFlash();
+      this.cancelSessionTimer(); // quick-260615-puq
+      // quick-260615-puq (WARNING 1): reset SIMÉTRICO del flag de sesión.
+      // resetSession es el chokepoint de "volver al home" (requestReturnToHome
+      // lo llama en ambas ramas); sin esto sessionTimed quedaría true tras una
+      // sesión cronometrada (riesgo latente).
+      this.sessionTimed = false;
       this.sessionMode = null;
       this.sessionExerciseIds = [];
       this.sessionCursor = 0;
@@ -853,6 +922,14 @@ export function appShell(appDataReady) {
 
       // Reset session sub-estado.
       this.cancelAutoAdvance();
+      // quick-260615-puq (WARNING 2 / hueco S-2): startSession llamaba
+      // cancelAutoAdvance() pero NO cancelMatchFlash(); añadimos ambos +
+      // cancelSessionTimer() (el nuevo) aprovechando que ya tocamos el site.
+      this.cancelMatchFlash();
+      this.cancelSessionTimer();
+      // quick-260615-puq (CONTEXT decisión 1): enciende el cronómetro según el
+      // checkbox del picker. Repaso Y test-completo lo respetan.
+      this.sessionTimed = this.pickerTimed;
       this.sessionMode = this.pickerMode;
       this.sessionExerciseIds = result.exerciseIds;
       // Phase 16 (D-16-08): la variante fijada por slot viaja paralela.
@@ -955,6 +1032,7 @@ export function appShell(appDataReady) {
       // Pattern S-2: cancelar timeouts antes de cualquier reset.
       this.cancelAutoAdvance();
       this.cancelMatchFlash();
+      this.cancelSessionTimer(); // quick-260615-puq
 
       // Pool completo del contenido — compartido por ambas ramas.
       // Phase 16: el sampler opera sobre SLOTS; el re-roll puede fijar
@@ -1518,6 +1596,9 @@ export function appShell(appDataReady) {
      *   `undefined` defiende contra invocaciones legacy.
      */
     applyResultToSession(ex, correct, userAnswer) {
+      // quick-260615-puq: responder detiene el cronómetro de respuesta ANTES de
+      // fijar feedback. Idempotente con el self-call de onSessionTimeout.
+      this.cancelSessionTimer();
       this.sessionFeedback = correct ? 'correct' : 'incorrect';
       // Phase 16 (D-16-09): registrar qué VARIANTE concreta se mostró, para que
       // el review de errores del summary resuelva la variante exacta fallada.
@@ -1587,6 +1668,7 @@ export function appShell(appDataReady) {
      */
     sessionAdvance() {
       this.cancelAutoAdvance();
+      this.cancelSessionTimer(); // quick-260615-puq
 
       this.sessionCursor += 1;
       this.sessionSelectedIndex = null;
@@ -1622,6 +1704,75 @@ export function appShell(appDataReady) {
         clearTimeout(this.sessionAutoAdvanceHandle);
         this.sessionAutoAdvanceHandle = null;
       }
+    },
+
+    // ════════════════════════════════════════════════════════════════════════
+    // Modo contrarreloj (quick-260615-puq — feature todo #4)
+    // ════════════════════════════════════════════════════════════════════════
+
+    /**
+     * Arranca el cronómetro de respuesta del ejercicio actual. Enganchado al
+     * FINAL de initSubStateForExercise (punto único por el que pasa cada
+     * ejercicio nuevo). Guard estricto: solo arranca cuando la sesión está
+     * cronometrada, aún no hay feedback, hay ejercicio actual y NO es canción.
+     *
+     * Mecanismo: un único setInterval (~100ms) que decrementa
+     * sessionTimeRemainingMs; al llegar a ≤0 cancela y dispara onSessionTimeout.
+     * Antes de arrancar llama cancelSessionTimer() (idempotencia — nunca dos
+     * intervals vivos). Pureza de capa D-02: setInterval/clearInterval son
+     * globales permitidos (igual que cancelAutoAdvance).
+     */
+    startSessionTimer() {
+      // Idempotencia: nunca dejar dos intervals.
+      this.cancelSessionTimer();
+      if (
+        !this.sessionTimed ||
+        this.sessionFeedback !== null ||
+        !this.sessionCurrentExercise ||
+        this.sessionMode === 'cancion'
+      ) {
+        return;
+      }
+      const limit = sessionTimeLimitMs(this.sessionCurrentExercise);
+      this.sessionTimeRemainingMs = limit;
+      // Límite 0 (defensivo: word-buttons sin answer) → expira de inmediato.
+      this.sessionTimerIntervalHandle = setInterval(() => {
+        this.sessionTimeRemainingMs -= SESSION_TIMER_TICK_MS;
+        if (this.sessionTimeRemainingMs <= 0) {
+          this.sessionTimeRemainingMs = 0;
+          this.cancelSessionTimer();
+          this.onSessionTimeout();
+        }
+      }, SESSION_TIMER_TICK_MS);
+    },
+
+    /**
+     * Disparado al agotarse el tiempo de respuesta. Guard: no actúa si la
+     * sesión dejó de estar cronometrada o ya hay feedback (evita doble disparo
+     * con un responder simultáneo). El timeout cuenta como FALLO reusando el
+     * call-site único applyResultToSession(ex, false, null) — misma cascada
+     * D-54 que una respuesta incorrecta. NO auto-avanza: el botón "Siguiente"
+     * queda manual (CONTEXT decisión 2).
+     */
+    onSessionTimeout() {
+      if (!this.sessionTimed || this.sessionFeedback !== null) return;
+      this.cancelSessionTimer();
+      this.applyResultToSession(this.sessionCurrentExercise, false, null);
+    },
+
+    /**
+     * Cancela el cronómetro de respuesta (si lo hay). Idempotente —
+     * llamable múltiples veces sin error (incluido el self-call desde
+     * startSessionTimer/onSessionTimeout y desde applyResultToSession al
+     * responder). Forma EXACTA del patrón cancelAutoAdvance: guard de null
+     * antes de clear.
+     */
+    cancelSessionTimer() {
+      if (this.sessionTimerIntervalHandle !== null) {
+        clearInterval(this.sessionTimerIntervalHandle);
+        this.sessionTimerIntervalHandle = null;
+      }
+      this.sessionTimeRemainingMs = 0;
     },
 
     /**
@@ -1983,6 +2134,12 @@ export function appShell(appDataReady) {
         const n = exercise.payload.options.length;
         this.multiChoiceOrder = fisherYates(Array.from({ length: n }, (_, i) => i));
       }
+
+      // quick-260615-puq: enganche del cronómetro de respuesta. Punto único por
+      // el que pasa CADA ejercicio nuevo en session/cancion. El guard interno
+      // de startSessionTimer (sessionTimed + canción excluida + feedback null)
+      // garantiza que no arranca cuando no toca.
+      this.startSessionTimer();
     },
 
     /**
