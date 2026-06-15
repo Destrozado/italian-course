@@ -64,6 +64,14 @@ import { saveState } from '../data/storage.js';
 import { parseBackupFile, buildBackupWrapper } from '../data/backup.js';
 import { registry } from '../exercise-types/index.js';
 
+// ─── quick-260615-hr0 (feature todo #3): ver explicación al ACERTAR ──────────
+// Tiempos de auto-avance en acierto (ms). Constantes nombradas en vez de un
+// literal disperso. Cuando el ejercicio tiene `explanation` el avance se alarga
+// para dar tiempo a reaccionar al affordance "¿Por qué?"; sin explanation (o en
+// modo canción, cuyas frases no llevan explanation) se mantiene el avance rápido.
+const SESSION_AUTO_ADVANCE_MS = 600;
+const SESSION_AUTO_ADVANCE_WITH_EXPLANATION_MS = 1500;
+
 /**
  * Construye el objeto Alpine `appShell` con las cuatro pantallas y sus
  * sub-estados aplastados (D-25 factory plano).
@@ -120,6 +128,14 @@ export function appShell(appDataReady) {
     /** null | 'correct' | 'incorrect'. */
     sessionFeedback: null,
     sessionAutoAdvanceHandle: null,
+    /**
+     * quick-260615-hr0 (feature todo #3): UI derivada por-ejercicio (NO
+     * persistida). Al acertar un ejercicio CON explanation, el affordance
+     * "¿Por qué?" (botón + tecla `e`) revela la explicación bajo demanda y
+     * cancela el auto-avance. Se resetea al avanzar y al iniciar sesión para no
+     * arrastrar el revelado entre ejercicios.
+     */
+    sessionExplanationRevealed: false,
 
     // ─── Sub-estado multi-choice (Phase quick-260525-pwq — D-181) ───────────
     /**
@@ -446,6 +462,7 @@ export function appShell(appDataReady) {
       this.sessionResults = [];
       this.sessionSelectedIndex = null;
       this.sessionFeedback = null;
+      this.sessionExplanationRevealed = false; // quick-260615-hr0
       // Sub-estados word-buttons (Phase 3).
       this.wordButtonsBank = [];
       this.wordButtonsAnswer = [];
@@ -553,6 +570,7 @@ export function appShell(appDataReady) {
       this.sessionResults = [];
       this.sessionSelectedIndex = null;
       this.sessionFeedback = null;
+      this.sessionExplanationRevealed = false; // quick-260615-hr0
       this.wordButtonsBank = [];
       this.wordButtonsAnswer = [];
       // Reset match (defensivo, idéntico a _launchExamen).
@@ -721,6 +739,7 @@ export function appShell(appDataReady) {
       this.sessionResults = [];
       this.sessionSelectedIndex = null;
       this.sessionFeedback = null;
+      this.sessionExplanationRevealed = false; // quick-260615-hr0
       // Phase 3 plan 01: limpiar también los sub-estados de los tipos nuevos.
       // Match queda con sus placeholders (plan 02 los activará); aquí solo
       // reset uniforme. Si en el futuro emergen más sub-estados por tipo,
@@ -982,6 +1001,7 @@ export function appShell(appDataReady) {
       this.sessionResults = [];
       this.sessionSelectedIndex = null;
       this.sessionFeedback = null;
+      this.sessionExplanationRevealed = false; // quick-260615-hr0
       // Sub-estados word-buttons (Phase 3).
       this.wordButtonsBank = [];
       this.wordButtonsAnswer = [];
@@ -1133,6 +1153,7 @@ export function appShell(appDataReady) {
       this.sessionResults = [...ift.answers];
       this.sessionSelectedIndex = null;
       this.sessionFeedback = null;
+      this.sessionExplanationRevealed = false; // quick-260615-hr0
       // Preservar categoryIds en pickerCheckedCategoryIds para que un futuro
       // persistInFlightTest mid-resume capture las mismas categorías (no es
       // crítico — persistInFlightTest cae al fallback `prev?.categoryIds`).
@@ -1518,7 +1539,15 @@ export function appShell(appDataReady) {
         const advance = this.sessionMode === 'cancion'
           ? () => this.songAdvance()
           : () => this.sessionAdvance();
-        this.sessionAutoAdvanceHandle = setTimeout(advance, 600);
+        // quick-260615-hr0 (feature todo #3): cuando NO es canción y el
+        // ejercicio tiene explanation, alargar el auto-avance para dar tiempo a
+        // pulsar "¿Por qué?". Sin explanation (o en canción) se mantiene 600ms.
+        const hasExplanation = this.sessionMode !== 'cancion'
+          && !!ex.payload?.explanation;
+        const autoAdvanceMs = hasExplanation
+          ? SESSION_AUTO_ADVANCE_WITH_EXPLANATION_MS
+          : SESSION_AUTO_ADVANCE_MS;
+        this.sessionAutoAdvanceHandle = setTimeout(advance, autoAdvanceMs);
       } else {
         // D-54: cascada inmediata + persist (single call-site para todos
         // los tipos). Plan 02-03 UAT round 2 confirmó que este es el
@@ -1562,6 +1591,8 @@ export function appShell(appDataReady) {
       this.sessionCursor += 1;
       this.sessionSelectedIndex = null;
       this.sessionFeedback = null;
+      // quick-260615-hr0: no arrastrar el revelado al siguiente ejercicio.
+      this.sessionExplanationRevealed = false;
 
       if (this.sessionCursor >= this.sessionExerciseIds.length) {
         this.completeSession();
@@ -1591,6 +1622,21 @@ export function appShell(appDataReady) {
         clearTimeout(this.sessionAutoAdvanceHandle);
         this.sessionAutoAdvanceHandle = null;
       }
+    },
+
+    /**
+     * quick-260615-hr0 (feature todo #3): revela la explanation TRAS acertar,
+     * bajo demanda (botón "¿Por qué?" o tecla `e`). Cancela el auto-avance y
+     * deja la explicación + botón "Siguiente" para continuar manualmente.
+     *
+     * Guard defensivo: solo actúa en acierto con explanation real (evita
+     * revelar sin sentido y mantener el flujo de fallo/canción intacto).
+     */
+    revealSessionExplanation() {
+      if (this.sessionFeedback !== 'correct') return;
+      if (!this.sessionCurrentExercise?.payload?.explanation) return;
+      this.cancelAutoAdvance();
+      this.sessionExplanationRevealed = true;
     },
 
     // ════════════════════════════════════════════════════════════════════════
@@ -2018,6 +2064,21 @@ export function appShell(appDataReady) {
         }
         // Acierto reciente o área respuesta vacía: no hacer nada.
         // D-71: el auto-avance 600ms gestiona el avance tras acierto.
+        return;
+      }
+
+      // 3b. quick-260615-hr0 (feature todo #3): tecla `e` revela la explanation
+      // TRAS acertar (botón "¿Por qué?" / atajo). DEBE ir antes del bloque de
+      // letras a..i (que retorna temprano cuando sessionFeedback !== null y solo
+      // actúa en match), porque `e` ∈ [a..i]. Solo dispara en acierto, con
+      // explanation real, y aún no revelado. En estado 'correct' la tecla `e`
+      // está libre (1-9 y a..i retornan, Enter/Space es noop).
+      if (key === 'e'
+        && this.sessionFeedback === 'correct'
+        && !this.sessionExplanationRevealed
+        && this.sessionCurrentExercise?.payload?.explanation) {
+        event.preventDefault();
+        this.revealSessionExplanation();
         return;
       }
 
