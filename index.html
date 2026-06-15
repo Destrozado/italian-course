@@ -290,6 +290,14 @@
             </template>
           </fieldset>
 
+          <!-- quick-260615-puq (feature todo #4): modo contrarreloj OPCIONAL.
+               Aplica a repaso Y test-completo (mismo picker vía pickerMode).
+               Desmarcado al abrir (openPicker resetea pickerTimed). -->
+          <label class="picker-timed">
+            <input type="checkbox" x-model="pickerTimed">
+            <span>Contrarreloj <small>(tiempo por respuesta)</small></span>
+          </label>
+
           <!-- Botón Empezar con label dinámico (D-35). -->
           <button type="button"
                   @click="startSession"
@@ -327,6 +335,19 @@
           <h2 class="session-context" x-text="sessionContextLabel"></h2>
           <!-- SESSION-04: indicador "Ejercicio X / N" visible toda la sesión. -->
           <header x-text="sessionProgressLabel"></header>
+
+          <!-- quick-260615-puq (feature todo #4): cronómetro de respuesta.
+               Visible SOLO mientras corre el tiempo (sessionTimed && sin
+               feedback aún). Barra que se vacía (<progress> Pico) + segundos
+               restantes (Math.ceil). La mecánica vive en app.js; aquí solo
+               lectura de sessionTimeRemainingMs (reactivo). -->
+          <div class="session-timer" x-show="sessionTimed && sessionFeedback === null">
+            <progress class="session-timer-bar"
+                      :max="sessionTimeLimitMs(sessionCurrentExercise)"
+                      :value="sessionTimeRemainingMs"></progress>
+            <span class="session-timer-secs"
+                  x-text="Math.ceil(sessionTimeRemainingMs / 1000) + 's'"></span>
+          </div>
 
           <p x-text="sessionCurrentExercise.payload.prompt"></p>
 

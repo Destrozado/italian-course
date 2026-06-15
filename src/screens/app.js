@@ -1722,6 +1722,17 @@ export function appShell(appDataReady) {
      * intervals vivos). Pureza de capa D-02: setInterval/clearInterval son
      * globales permitidos (igual que cancelAutoAdvance).
      */
+    /**
+     * Proxy de instancia del helper PURO de módulo `sessionTimeLimitMs`, para
+     * que el template Alpine pueda computar el `:max` del <progress> del
+     * cronómetro (el helper de módulo no está en el scope del x-data).
+     * @param {object} ex
+     * @returns {number}
+     */
+    sessionTimeLimitMs(ex) {
+      return sessionTimeLimitMs(ex);
+    },
+
     startSessionTimer() {
       // Idempotencia: nunca dejar dos intervals.
       this.cancelSessionTimer();

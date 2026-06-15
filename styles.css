@@ -469,3 +469,41 @@ button.incorrecta {
   color: var(--pico-color, inherit);
 }
 .session-context:empty { display: none; }
+
+/*
+ * Quick 260615-puq — Modo contrarreloj (feature todo #4). Cronómetro de
+ * respuesta en el header de session: barra que se vacía (<progress> Pico) +
+ * segundos restantes. Visible solo mientras corre el tiempo (x-show en el
+ * markup). CSS plano con vars de Pico, sin utilities ni clases globales que
+ * afecten a otras pantallas. Sensación de urgencia: la barra tira a un tono de
+ * alerta para reforzar el "responde rápido o pierdes el progreso".
+ */
+.session-timer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+.session-timer-bar {
+  flex: 1;
+  margin: 0;
+  height: 0.5rem;
+}
+.session-timer-bar::-webkit-progress-value { background: var(--pico-del-color, #d33); }
+.session-timer-bar::-moz-progress-bar { background: var(--pico-del-color, #d33); }
+.session-timer-secs {
+  font-variant-numeric: tabular-nums;
+  font-weight: bold;
+  min-width: 2.5rem;
+  text-align: right;
+  color: var(--pico-del-color, #d33);
+}
+
+/* Checkbox "Contrarreloj" del picker — coherente con el fieldset de categorías. */
+.picker-timed {
+  display: block;
+  margin-top: 0.5rem;
+}
+.picker-timed small {
+  color: var(--pico-muted-color, inherit);
+}
