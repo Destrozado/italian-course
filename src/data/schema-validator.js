@@ -314,6 +314,10 @@ export function validateSongs({ songs, knownCategoryIds }) {
       // payload de la frase (prompt / answer / distractors)
       validateSongPhrasePayload(phrase, file, push);
 
+      // validation OPCIONAL por frase (espejo de ejercicios). validateValidationShape
+      // lee solo .id/.validation y es back-compat: ausencia = OK.
+      validateValidationShape(phrase, file, push);
+
       // categoryIds: OPCIONAL (LINK-03). Ausente o [] es válido. Si está
       // presente, cada entrada debe ser string que referencia categoría
       // conocida — NO se exige que sea no vacío (divergencia vs ejercicios).
