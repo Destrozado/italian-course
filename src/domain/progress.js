@@ -112,6 +112,11 @@ export function applySessionResult(state, sessionResult, content, today) {
 
     if (failedCategoryIds.has(catId)) {
       // ─── FAIL-WINS: cascada de fallo (D-39 paso 2).
+      // quick-260615-r3b (CAMBIO 3): el contador vecesFallada vive AQUÍ. El bucle
+      // corre una vez por categoría tocada y failedCategoryIds es por-sesión, así
+      // que esto cuenta UNA vez por categoría fallada por sesión (fallar 2
+      // ejercicios de la misma categoría en una sesión → +1, no +2).
+      cat.vecesFallada = (cat.vecesFallada ?? 0) + 1;
       cat.status = 'no-hecha';
       cat.clearedExerciseIds = [];        // descarta aciertos previos (sesión y acumulados)
       cat.streakDays = 0;
@@ -276,24 +281,25 @@ export function applyNewExerciseRegression(state, content) {
  *     un fallo NO bumpea exerciseStats — pero SÍ persiste la regresión de
  *     categoría, que es lo crítico para el core value.
  *
- * Contador vecesFallada (quick-260615-nzi):
- *   - +1 a `categoryProgress[catId].vecesFallada` SOLO cuando `hadProgress(prev)`
- *     es true (la categoría tenía progreso real que este fallo destruye). El
- *     incremento ocurre AQUÍ (único call-site por fallo, D-54) bajo el guard, y
- *     `applySessionResult` NO recuenta (corre sobre estado ya reseteado →
- *     hadProgress false → cero doble conteo immediate+session).
- *   - Si la categoría ya estaba a cero (hadProgress false), vecesFallada se
- *     preserva (`?? 0`) sin +1.
+ * Contador vecesFallada (quick-260615-r3b, CAMBIO 3):
+ *   - Este helper YA NO toca `vecesFallada`. El conteo se materializa al CERRAR
+ *     la sesión, en `applySessionResult` (rama FAIL-WINS), +1 una vez por
+ *     categoría fallada por sesión/examen. La unidad de fallo es la sesión, no
+ *     el ejercicio individual.
+ *   - Si el usuario abandona la sesión a medias tras un fallo, el reset cascada
+ *     (regresión de racha/estado) SÍ se persiste aquí; el +1 del contador se
+ *     contabiliza al completar (o reanudar-y-completar) la sesión.
  *
  * Idempotencia:
  *   - Re-invocar `applyImmediateFailure` con el MISMO ejercicio devuelve un
  *     state funcionalmente idéntico (las categorías ya están a 'no-hecha',
- *     re-resetar es no-op; uniqueStrings dedupea el dailyLog; el guard
- *     hadProgress hace que el contador tampoco recuente).
+ *     re-resetar es no-op; uniqueStrings dedupea el dailyLog; vecesFallada no se
+ *     toca aquí, así que no varía).
  *   - `applyImmediateFailure(state, ex, ...)` seguido de `applySessionResult`
  *     con el mismo fail incluido en `answers` produce el MISMO state final que
- *     llamar solo a `applySessionResult` (la rama FAIL-WINS reaplica el
- *     reset sobre state ya reseteado = no-op; vecesFallada queda igual).
+ *     llamar solo a `applySessionResult` (la rama FAIL-WINS reaplica el reset
+ *     sobre state ya reseteado = no-op; el +1 de vecesFallada lo aporta
+ *     applySessionResult en ambos paths → convergen en 1).
  *
  * Pure: no muta `state` ni `exercise` ni `content`.
  *
@@ -314,19 +320,14 @@ export function applyImmediateFailure(state, exercise, content, today) {
   const catIds = exercise?.categoryIds ?? [];
 
   // 2. Reset cascada por categoría (rama FAIL-WINS de D-39, paso 2).
-  //    quick-260615-nzi: bajo el guard hadProgress (la categoría tenía progreso
-  //    REAL que este fallo destruye) incrementamos vecesFallada +1 ANTES de
-  //    resetear. El campo va EXPLÍCITO en el objeto reset (gana sobre el ...prev)
-  //    para que el incremento sobreviva el reset. Si hadProgress es false, se
-  //    preserva el valor previo (?? 0) sin +1. Esto garantiza:
-  //      - Idempotencia: re-fallar una categoría ya reseteada (hadProgress false)
-  //        NO recuenta.
-  //      - Cero doble conteo: applySessionResult corre sobre estado ya reseteado
-  //        (hadProgress false implícito) y NO toca vecesFallada.
+  //    quick-260615-r3b (CAMBIO 3): este helper YA NO toca vecesFallada. El
+  //    contador se materializa al CERRAR la sesión, en applySessionResult
+  //    (rama FAIL-WINS), una vez por categoría fallada por sesión. Aquí solo se
+  //    aplica el reset cascada inmediato (status/clearedExerciseIds/streakDays/
+  //    becameHechaAt/becameDominadaAt/lastPracticedDate), que es lo crítico para
+  //    persistir la regresión si el usuario abandona la sesión a medias.
   for (const catId of catIds) {
     const prev = next.categoryProgress[catId] ?? blankCategoryProgress();
-    const wasProgress = hadProgress(prev);
-    const nextVecesFallada = (prev.vecesFallada ?? 0) + (wasProgress ? 1 : 0);
     next.categoryProgress[catId] = {
       ...prev,
       status: 'no-hecha',
@@ -334,9 +335,9 @@ export function applyImmediateFailure(state, exercise, content, today) {
       streakDays: 0,
       becameHechaAt: undefined,
       becameDominadaAt: undefined,
-      lastPracticedDate: today,
-      vecesFallada: nextVecesFallada
+      lastPracticedDate: today
       // lastSuccessDate se preserva (huella histórica; esta sesión no fue éxito).
+      // vecesFallada se preserva tal cual (el +1 lo aplica applySessionResult).
     };
   }
 
@@ -356,24 +357,6 @@ export function applyImmediateFailure(state, exercise, content, today) {
 }
 
 // ─── Helpers privados ───────────────────────────────────────────────────────
-
-/**
- * quick-260615-nzi: ¿la categoría tenía PROGRESO REAL antes del fallo? Definido
- * UNA sola vez (compartido por el guard del contador vecesFallada en
- * applyImmediateFailure). Un fallo solo cuenta como "veces fallada" si destruye
- * progreso real — no si la categoría ya estaba a cero.
- *
- * @param {object} cat - Estado previo de la categoría (puede ser blank/lazy).
- * @returns {boolean}
- */
-function hadProgress(cat) {
-  return !!(cat && (
-    cat.status === 'hecha' ||
-    cat.status === 'dominada' ||
-    (cat.streakDays ?? 0) > 0 ||
-    (Array.isArray(cat.clearedExerciseIds) && cat.clearedExerciseIds.length > 0)
-  ));
-}
 
 /** Estructura inicial de un ejercicio recién visto. */
 function blankStat() {

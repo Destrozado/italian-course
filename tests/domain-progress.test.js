@@ -701,11 +701,10 @@ describe('domain/progress — D-54 applyImmediateFailure (cascada inmediata)', (
     // Esto garantiza que el nuevo helper no introduce desviaciones del modelo
     // canónico — solo acelera el momento en que el efecto es observable.
     //
-    // EXCEPCIÓN (quick-260615-nzi): el campo `vecesFallada` es immediate-only por
-    // diseño — applyImmediateFailure lo cuenta (Path A), applySessionResult NO
-    // (Path B). Es la garantía de cero doble conteo: la divergencia en este campo
-    // es esperada y se verifica explícitamente más abajo. El resto del
-    // categoryProgress (reset cascade) sigue siendo idéntico entre ambos paths.
+    // quick-260615-r3b (CAMBIO 3): el contador `vecesFallada` ahora vive en
+    // applySessionResult (rama FAIL-WINS, por-sesión). applyImmediateFailure ya
+    // NO lo toca. Por tanto Path A (immediate + session) y Path B (solo session)
+    // CONVERGEN íntegros, incluido vecesFallada=1 — ya no es una "EXCEPCIÓN".
     const content = makeContent([
       { id: 'a1', categoryIds: ['avere'] },
       { id: 'a2', categoryIds: ['avere'] }
@@ -736,24 +735,19 @@ describe('domain/progress — D-54 applyImmediateFailure (cascada inmediata)', (
       ]
     }, content, '2026-05-23');
 
-    // Los estados finales son funcionalmente idénticos salvo el campo
-    // immediate-only `vecesFallada` (comparado por separado abajo).
-    const stripVF = cp => Object.fromEntries(
-      Object.entries(cp).map(([k, v]) => {
-        const { vecesFallada, ...rest } = v;
-        return [k, rest];
-      })
-    );
-    assert.deepEqual(stripVF(finalA.categoryProgress), stripVF(finalB.categoryProgress),
-      'el reset cascade (sin vecesFallada) es idéntico entre ambos paths');
+    // Los estados finales son íntegramente idénticos, incluido vecesFallada
+    // (el +1 lo aporta applySessionResult en AMBOS paths → convergen en 1).
+    assert.deepEqual(finalA.categoryProgress, finalB.categoryProgress,
+      'el categoryProgress completo (incl. vecesFallada) es idéntico entre ambos paths');
     assert.deepEqual(finalA.exerciseStats, finalB.exerciseStats);
     assert.deepEqual(finalA.dailyLog, finalB.dailyLog);
 
-    // Divergencia esperada de vecesFallada: Path A cuenta (immediate), Path B no.
+    // Convergencia de vecesFallada: ambos paths terminan en applySessionResult
+    // sobre avere fallada → exactamente 1.
     assert.equal(finalA.categoryProgress['avere'].vecesFallada, 1,
-      'Path A (immediate) cuenta el fallo exactamente una vez');
-    assert.equal(finalB.categoryProgress['avere'].vecesFallada ?? 0, 0,
-      'Path B (solo session) NO cuenta — applySessionResult no toca vecesFallada');
+      'Path A: el +1 de la sesión cuenta el fallo exactamente una vez');
+    assert.equal(finalB.categoryProgress['avere'].vecesFallada, 1,
+      'Path B: applySessionResult aporta el mismo +1 → convergencia');
   });
 
   test('caso E2E exploit: cat hecha → fail inmediato → abandono sin applySessionResult = regresión persiste', () => {
@@ -859,17 +853,18 @@ describe('domain/progress — D-54 applyImmediateFailure (cascada inmediata)', (
 });
 
 // ────────────────────────────────────────────────────────────────────────────
-// domain/progress — contador vecesFallada de categoría (quick-260615-nzi)
+// domain/progress — contador vecesFallada de categoría
+// (quick-260615-nzi, re-escrito por quick-260615-r3b CAMBIO 3)
 //
-// vecesFallada sube +1 SOLO cuando un fallo resetea PROGRESO REAL de la categoría
-// (hadProgress = status hecha/dominada OR racha>0 OR clearedExerciseIds no vacío).
-// El incremento vive en applyImmediateFailure (call-site canónico D-54), bajo el
-// guard hadProgress, ANTES del reset. applySessionResult NO recuenta (corre sobre
-// estado ya reseteado). Idempotente (re-fallo no recuenta).
+// Nueva semántica POR-SESIÓN: vecesFallada sube +1 una vez por categoría fallada
+// por sesión/examen, materializado al CERRAR la sesión en applySessionResult
+// (rama FAIL-WINS). El bucle corre una vez por categoría tocada y failedCategoryIds
+// es por-sesión → fallar 2 ejercicios de la misma categoría en una sesión = +1.
+// applyImmediateFailure YA NO toca vecesFallada (solo el reset cascada inmediato).
 // ────────────────────────────────────────────────────────────────────────────
 
-describe('domain/progress — contador vecesFallada de categoría (quick-260615-nzi)', () => {
-  test('categoría con progreso real (hecha) → vecesFallada sube a 1 y aplica el reset', () => {
+describe('domain/progress — contador vecesFallada de categoría (por-sesión, quick-260615-r3b)', () => {
+  test('sesión con un fallo en categoría con progreso → vecesFallada sube a 1 y aplica el reset', () => {
     const state = setupHechaState('avere', ['a1', 'a2'], {
       streakDays: 5,
       lastSuccessDate: '2026-05-22',
@@ -880,54 +875,108 @@ describe('domain/progress — contador vecesFallada de categoría (quick-260615-
       { id: 'a2', categoryIds: ['avere'] }
     ]);
 
-    const after = applyImmediateFailure(state, content.exerciseById['a1'], content, '2026-05-23');
+    const after = applySessionResult(state, {
+      answers: [{ exerciseId: 'a1', correct: false }]
+    }, content, '2026-05-23');
     const cat = after.categoryProgress['avere'];
 
-    assert.equal(cat.vecesFallada, 1, 'sube a 1 al perder progreso real');
-    // El reset sigue intacto (el incremento NO lo pisa).
+    assert.equal(cat.vecesFallada, 1, 'sube a 1 al fallar la categoría en la sesión');
+    // El reset cascada (FAIL-WINS) sigue intacto.
     assert.equal(cat.status, 'no-hecha');
     assert.equal(cat.streakDays, 0);
     assert.deepEqual(cat.clearedExerciseIds, []);
   });
 
-  test('categoría a cero (no-hecha, racha 0, cleared []) → vecesFallada sigue 0', () => {
-    const state = blankStateV2();
-    state.categoryProgress['avere'] = {
-      status: 'no-hecha',
-      clearedExerciseIds: [],
-      streakDays: 0,
-      lastPracticedDate: undefined,
-      lastSuccessDate: undefined,
-      becameHechaAt: undefined,
-      becameDominadaAt: undefined
-    };
-    const content = makeContent([{ id: 'a1', categoryIds: ['avere'] }]);
+  test('fallar 2 ejercicios de la MISMA categoría en una sesión → vecesFallada +1 (no +2)', () => {
+    const state = setupHechaState('avere', ['a1', 'a2'], {
+      streakDays: 5,
+      lastSuccessDate: '2026-05-22',
+      becameHechaAt: '2026-05-18'
+    });
+    const content = makeContent([
+      { id: 'a1', categoryIds: ['avere'] },
+      { id: 'a2', categoryIds: ['avere'] }
+    ]);
 
-    const after = applyImmediateFailure(state, content.exerciseById['a1'], content, '2026-05-23');
+    const after = applySessionResult(state, {
+      answers: [
+        { exerciseId: 'a1', correct: false },
+        { exerciseId: 'a2', correct: false }
+      ]
+    }, content, '2026-05-23');
+
+    assert.equal(after.categoryProgress['avere'].vecesFallada, 1,
+      'el bucle corre una vez por categoría → dos fallos de avere cuentan +1, no +2');
+  });
+
+  test('categoría sin fallo en la sesión (rama PROMOTION) → vecesFallada no cambia', () => {
+    const content = makeContent([
+      { id: 'a1', categoryIds: ['avere'] },
+      { id: 'a2', categoryIds: ['avere'] }
+    ]);
+    const after = applySessionResult(blankStateV2(), {
+      answers: [
+        { exerciseId: 'a1', correct: true },
+        { exerciseId: 'a2', correct: true }
+      ]
+    }, content, '2026-05-23');
+
     assert.equal(after.categoryProgress['avere'].vecesFallada ?? 0, 0,
-      'categoría sin progreso NO incrementa vecesFallada');
+      'una sesión limpia (sin fallo) NO incrementa vecesFallada');
+    assert.equal(after.categoryProgress['avere'].status, 'hecha');
   });
 
-  test('categoría nunca tocada (lazy-init) → vecesFallada queda 0 tras el fallo', () => {
-    const state = blankStateV2();
-    const content = makeContent([{ id: 'a1', categoryIds: ['avere'] }]);
-    const after = applyImmediateFailure(state, content.exerciseById['a1'], content, '2026-05-23');
-    assert.equal(after.categoryProgress['avere'].vecesFallada ?? 0, 0);
-  });
-
-  test('idempotencia: dos applyImmediateFailure seguidos con el mismo ejercicio → vecesFallada 1 (no 2)', () => {
+  test('vecesFallada previo se acumula: cat con vecesFallada=2 → sesión fallada → 3', () => {
     const state = setupHechaState('avere', ['a1'], { streakDays: 5, lastSuccessDate: '2026-05-22' });
+    state.categoryProgress['avere'].vecesFallada = 2;
     const content = makeContent([{ id: 'a1', categoryIds: ['avere'] }]);
 
-    const once = applyImmediateFailure(state, content.exerciseById['a1'], content, '2026-05-23');
-    const twice = applyImmediateFailure(once, content.exerciseById['a1'], content, '2026-05-23');
+    const after = applySessionResult(state, {
+      answers: [{ exerciseId: 'a1', correct: false }]
+    }, content, '2026-05-23');
 
-    assert.equal(once.categoryProgress['avere'].vecesFallada, 1);
-    assert.equal(twice.categoryProgress['avere'].vecesFallada, 1,
-      're-fallo sobre categoría ya reseteada (hadProgress false) NO recuenta');
+    assert.equal(after.categoryProgress['avere'].vecesFallada, 3);
   });
 
-  test('NO doble conteo: applyImmediateFailure + applySessionResult con el mismo fail → vecesFallada exactamente 1', () => {
+  test('dos sesiones falladas seguidas → +1 cada una (semántica por-sesión = +2 total)', () => {
+    const content = makeContent([{ id: 'a1', categoryIds: ['avere'] }]);
+    const state = setupHechaState('avere', ['a1'], { streakDays: 5, lastSuccessDate: '2026-05-22' });
+
+    const afterFirst = applySessionResult(state, {
+      answers: [{ exerciseId: 'a1', correct: false }]
+    }, content, '2026-05-23');
+    const afterSecond = applySessionResult(afterFirst, {
+      answers: [{ exerciseId: 'a1', correct: false }]
+    }, content, '2026-05-24');
+
+    assert.equal(afterFirst.categoryProgress['avere'].vecesFallada, 1);
+    assert.equal(afterSecond.categoryProgress['avere'].vecesFallada, 2,
+      'cada sesión fallada cuenta una vez — dos sesiones = +2');
+  });
+
+  test('applyImmediateFailure NO toca vecesFallada (preserva el previo)', () => {
+    const state = setupHechaState('avere', ['a1', 'a2'], {
+      streakDays: 5,
+      lastSuccessDate: '2026-05-22',
+      becameHechaAt: '2026-05-18'
+    });
+    state.categoryProgress['avere'].vecesFallada = 4;
+    const content = makeContent([
+      { id: 'a1', categoryIds: ['avere'] },
+      { id: 'a2', categoryIds: ['avere'] }
+    ]);
+
+    const after = applyImmediateFailure(state, content.exerciseById['a1'], content, '2026-05-23');
+    const cat = after.categoryProgress['avere'];
+
+    assert.equal(cat.vecesFallada, 4, 'el helper inmediato preserva vecesFallada sin +1');
+    // El reset cascada inmediato SÍ se aplica (lo crítico para el core value).
+    assert.equal(cat.status, 'no-hecha');
+    assert.equal(cat.streakDays, 0);
+    assert.deepEqual(cat.clearedExerciseIds, []);
+  });
+
+  test('immediate + session con el mismo fail → vecesFallada exactamente 1 (el +1 lo aporta la sesión)', () => {
     const content = makeContent([
       { id: 'a1', categoryIds: ['avere'] },
       { id: 'a2', categoryIds: ['avere'] }
@@ -944,41 +993,7 @@ describe('domain/progress — contador vecesFallada de categoría (quick-260615-
     }, content, '2026-05-23');
 
     assert.equal(final.categoryProgress['avere'].vecesFallada, 1,
-      'applySessionResult NO recuenta — el conteo es immediate-only, exactamente 1');
-  });
-
-  test('cada disyunto de hadProgress dispara el +1 por separado', () => {
-    const content = makeContent([{ id: 'a1', categoryIds: ['avere'] }]);
-    const baseCat = {
-      status: 'no-hecha',
-      clearedExerciseIds: [],
-      streakDays: 0,
-      lastPracticedDate: undefined,
-      lastSuccessDate: undefined,
-      becameHechaAt: undefined,
-      becameDominadaAt: undefined
-    };
-    const cases = [
-      { ...baseCat, status: 'hecha' },
-      { ...baseCat, status: 'dominada' },
-      { ...baseCat, streakDays: 1 },
-      { ...baseCat, clearedExerciseIds: ['a1'] }
-    ];
-    for (const catState of cases) {
-      const state = blankStateV2();
-      state.categoryProgress['avere'] = catState;
-      const after = applyImmediateFailure(state, content.exerciseById['a1'], content, '2026-05-23');
-      assert.equal(after.categoryProgress['avere'].vecesFallada, 1,
-        `el disyunto ${JSON.stringify(catState)} debe disparar el +1`);
-    }
-  });
-
-  test('vecesFallada previo se acumula: hecha con vecesFallada=2 → fallo → 3', () => {
-    const state = setupHechaState('avere', ['a1'], { streakDays: 5, lastSuccessDate: '2026-05-22' });
-    state.categoryProgress['avere'].vecesFallada = 2;
-    const content = makeContent([{ id: 'a1', categoryIds: ['avere'] }]);
-    const after = applyImmediateFailure(state, content.exerciseById['a1'], content, '2026-05-23');
-    assert.equal(after.categoryProgress['avere'].vecesFallada, 3);
+      'immediate no cuenta; applySessionResult aporta el único +1 de la sesión');
   });
 });
 
