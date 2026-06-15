@@ -64,13 +64,12 @@ import { saveState } from '../data/storage.js';
 import { parseBackupFile, buildBackupWrapper } from '../data/backup.js';
 import { registry } from '../exercise-types/index.js';
 
-// ─── quick-260615-hr0 (feature todo #3): ver explicación al ACERTAR ──────────
-// Tiempos de auto-avance en acierto (ms). Constantes nombradas en vez de un
-// literal disperso. Cuando el ejercicio tiene `explanation` el avance se alarga
-// para dar tiempo a reaccionar al affordance "¿Por qué?"; sin explanation (o en
-// modo canción, cuyas frases no llevan explanation) se mantiene el avance rápido.
+// ─── Auto-avance al acertar ──────────────────────────────────────────────────
+// quick-260615-r3b (CAMBIO 1): el auto-avance al ACERTAR aplica SOLO a modo
+// canción (las frases avanzan solas con este delay). En ejercicios
+// (repaso/test-completo/examen) NO hay auto-avance: el usuario avanza manualmente
+// con "Siguiente", lo que deja pulsar "¿Por qué?" sin carrera.
 const SESSION_AUTO_ADVANCE_MS = 600;
-const SESSION_AUTO_ADVANCE_WITH_EXPLANATION_MS = 1500;
 
 // ─── Modo contrarreloj (quick-260615-puq, feature todo #4) ──────────────────
 // Límite de tiempo POR respuesta cuando la sesión arranca cronometrada
@@ -179,6 +178,9 @@ export function appShell(appDataReady) {
      */
     pickerTimed: false,
     sessionTimed: false,
+    // quick-260615-r3b (CAMBIO 2): toggle "Contrarreloj" de home para el examen
+    // de 1 clic. Runtime-only, NO persistido (espejo de pickerTimed).
+    homeExamTimed: false,
     sessionTimerIntervalHandle: null,
     sessionTimeRemainingMs: 0,
     /**
@@ -495,9 +497,9 @@ export function appShell(appDataReady) {
       this.cancelMatchFlash();
       this.cancelSessionTimer(); // quick-260615-puq
 
-      // quick-260615-puq (CONTEXT decisión 1): el examen 1-clic desde la tabla
-      // de home NUNCA se cronometra.
-      this.sessionTimed = false;
+      // quick-260615-r3b (CAMBIO 2): el examen 1-clic desde la tabla de home
+      // respeta el toggle "Contrarreloj" (homeExamTimed). Runtime-only.
+      this.sessionTimed = this.homeExamTimed;
 
       // Construir el pool completo de la categoría (Examen es 1-cat — D-181).
       // Phase 16: el sampler opera sobre SLOTS (slot id == exercise id para
@@ -1612,23 +1614,16 @@ export function appShell(appDataReady) {
       });
 
       if (correct) {
-        // SESSION-05 / PLAY-03 verde: auto-avance tras ~600ms. Guardar handle
-        // para poder cancelar (Pitfall #5). El target del avance dispatcha por
-        // modo: en canción (Phase 13) la siguiente frase se resuelve contra
-        // `songPhraseById` vía `songAdvance` (NO `sessionAdvance`, que lee de
-        // exerciseById donde la frase no existe — LINK-04).
-        const advance = this.sessionMode === 'cancion'
-          ? () => this.songAdvance()
-          : () => this.sessionAdvance();
-        // quick-260615-hr0 (feature todo #3): cuando NO es canción y el
-        // ejercicio tiene explanation, alargar el auto-avance para dar tiempo a
-        // pulsar "¿Por qué?". Sin explanation (o en canción) se mantiene 600ms.
-        const hasExplanation = this.sessionMode !== 'cancion'
-          && !!ex.payload?.explanation;
-        const autoAdvanceMs = hasExplanation
-          ? SESSION_AUTO_ADVANCE_WITH_EXPLANATION_MS
-          : SESSION_AUTO_ADVANCE_MS;
-        this.sessionAutoAdvanceHandle = setTimeout(advance, autoAdvanceMs);
+        // quick-260615-r3b (CAMBIO 1): el auto-avance al ACERTAR queda gated a
+        // modo canción. En canción (Phase 13, PLAY-03) la siguiente frase se
+        // resuelve contra `songPhraseById` vía `songAdvance` (NO `sessionAdvance`,
+        // que lee de exerciseById donde la frase no existe — LINK-04), con el
+        // avance rápido de 600ms. En ejercicios (repaso/test-completo/examen) NO
+        // se programa ningún auto-avance: el HTML expone "Siguiente" que llamará
+        // a sessionAdvance() cuando el usuario decida (espejo de la rama de fallo).
+        if (this.sessionMode === 'cancion') {
+          this.sessionAutoAdvanceHandle = setTimeout(() => this.songAdvance(), SESSION_AUTO_ADVANCE_MS);
+        }
       } else {
         // D-54: cascada inmediata + persist (single call-site para todos
         // los tipos). Plan 02-03 UAT round 2 confirmó que este es el
