@@ -440,10 +440,13 @@
             <div>
               <!-- D-56 banco: botones con palabras + sufijo numérico ¹..⁹ (D-69). -->
               <div class="wb-bank">
-                <template x-for="(entry, idx) in bankWithKeys" :key="entry.word + '_' + idx">
+                <template x-for="(entry, idx) in bankWithKeys" :key="entry.idx">
                   <button type="button"
-                          @click="wordButtonsAddWord(idx)"
-                          :disabled="sessionFeedback !== null"
+                          @click="wordButtonsAddWord(entry.idx)"
+                          :class="{ 'wb-placed': entry.placed }"
+                          :disabled="sessionFeedback !== null || entry.placed"
+                          :tabindex="entry.placed ? -1 : 0"
+                          :aria-hidden="entry.placed"
                           :aria-label="'Palabra ' + entry.key + ': ' + entry.word">
                     <span x-text="entry.word"></span><sup class="kbd-hint" x-text="entry.key"></sup>
                   </button>
@@ -457,7 +460,7 @@
                      'incorrecta': sessionFeedback === 'incorrect'
                    }"
                    aria-live="polite">
-                <template x-for="(word, idx) in wordButtonsAnswer" :key="word + '_' + idx">
+                <template x-for="(word, idx) in wordButtonsAnswer" :key="idx">
                   <button type="button"
                           @click="wordButtonsRemoveWord(idx)"
                           :disabled="sessionFeedback !== null"
@@ -654,10 +657,13 @@
           <div>
             <!-- Banco de palabras españolas (con sufijo numérico ¹..⁹, D-69). -->
             <div class="wb-bank">
-              <template x-for="(entry, idx) in bankWithKeys" :key="entry.word + '_' + idx">
+              <template x-for="(entry, idx) in bankWithKeys" :key="entry.idx">
                 <button type="button"
-                        @click="wordButtonsAddWord(idx)"
-                        :disabled="sessionFeedback !== null"
+                        @click="wordButtonsAddWord(entry.idx)"
+                        :class="{ 'wb-placed': entry.placed }"
+                        :disabled="sessionFeedback !== null || entry.placed"
+                        :tabindex="entry.placed ? -1 : 0"
+                        :aria-hidden="entry.placed"
                         :aria-label="'Palabra ' + entry.key + ': ' + entry.word">
                   <span x-text="entry.word"></span><sup class="kbd-hint" x-text="entry.key"></sup>
                 </button>
@@ -671,7 +677,7 @@
                    'incorrecta': sessionFeedback === 'incorrect'
                  }"
                  aria-live="polite">
-              <template x-for="(word, idx) in wordButtonsAnswer" :key="word + '_' + idx">
+              <template x-for="(word, idx) in wordButtonsAnswer" :key="idx">
                 <button type="button"
                         @click="wordButtonsRemoveWord(idx)"
                         :disabled="sessionFeedback !== null"

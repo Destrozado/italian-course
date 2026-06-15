@@ -186,6 +186,14 @@ button.incorrecta {
   margin: 1.5rem 0;
 }
 
+/* quick-260615-str: slot de palabra YA colocada. visibility:hidden (NO
+ * display:none) mantiene la caja ocupando su hueco, así las demás palabras
+ * NO se mueven (sin reflow → sin mis-clicks). El botón conserva su tamaño
+ * porque mantiene el mismo padding/contenido, solo se vuelve invisible. */
+.wb-placed {
+  visibility: hidden;
+}
+
 /* D-56: área respuesta con borde dashed + min-height para que sea evidente
  * antes del primer click. Min-height ~3rem alinea visualmente con el área
  * vacía sin colapsar el layout. */
