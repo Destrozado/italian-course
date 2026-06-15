@@ -75,3 +75,149 @@ describe('sessionTimeLimitMs — helper puro de límite por tipo', () => {
     assert.equal(fn({ type: 'match' }), 10000);
   });
 });
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Source-asserts (Task 3) — cableado en app.js (windowed slicing) + markup
+// ─────────────────────────────────────────────────────────────────────────────
+
+const appJsPath = new URL('../src/screens/app.js', import.meta.url);
+const appSrc = readFileSync(appJsPath, 'utf8');
+
+const indexPath = new URL('../index.html', import.meta.url);
+const indexSrc = readFileSync(indexPath, 'utf8');
+
+// Devuelve la ventana del cuerpo de un método `name(` hasta el siguiente
+// `\n    <ident>(` o `\n    get ` (heurística coherente con ctxWindow de
+// screen-context-label.test.js). Acota el assert al método y evita capturar
+// vecinos.
+function methodWindow(name) {
+  const re = new RegExp(`\\n    ${name}\\s*\\(`);
+  const m = appSrc.match(re);
+  if (!m) return '';
+  const start = m.index;
+  const rest = appSrc.slice(start + 6);
+  const nextMatch = rest.search(/\n    [A-Za-z_$][\w$]*\s*\(|\n    get /);
+  const end = nextMatch > -1 ? start + 6 + nextMatch : start + 2500;
+  return appSrc.slice(start, end);
+}
+
+describe('cronómetro contrarreloj — mecánica (source app.js)', () => {
+  test('constantes nombradas de límite existen', () => {
+    assert.ok(appSrc.includes('TIMED_LIMIT_MS_MULTIPLE_CHOICE'),
+      'debe declarar TIMED_LIMIT_MS_MULTIPLE_CHOICE');
+    assert.ok(appSrc.includes('TIMED_LIMIT_MS_MATCH'),
+      'debe declarar TIMED_LIMIT_MS_MATCH');
+    assert.ok(appSrc.includes('TIMED_LIMIT_MS_PER_WORD'),
+      'debe declarar TIMED_LIMIT_MS_PER_WORD');
+  });
+
+  test('cancelSessionTimer es idempotente con guard de null + clearInterval', () => {
+    const w = methodWindow('cancelSessionTimer');
+    assert.ok(w, 'cancelSessionTimer debe existir');
+    assert.ok(/!==\s*null/.test(w), 'debe tener guard de null antes de clear');
+    assert.ok(w.includes('clearInterval') || w.includes('clearTimeout'),
+      'debe limpiar el handle del cronómetro');
+    assert.ok(/=\s*null/.test(w), 'debe poner el handle a null');
+  });
+
+  test('startSessionTimer tiene el guard completo', () => {
+    const w = methodWindow('startSessionTimer');
+    assert.ok(w, 'startSessionTimer debe existir');
+    assert.ok(w.includes('this.sessionTimed'), 'guard: sessionTimed');
+    assert.ok(w.includes('this.sessionFeedback !== null'),
+      'guard: sessionFeedback === null');
+    assert.ok(w.includes("this.sessionMode === 'cancion'"),
+      "guard: excluir sessionMode 'cancion'");
+    assert.ok(w.includes('this.cancelSessionTimer()'),
+      'debe cancelar antes de arrancar (idempotencia)');
+  });
+
+  test('onSessionTimeout llama applyResultToSession(ex, false, null) y tiene guard', () => {
+    const w = methodWindow('onSessionTimeout');
+    assert.ok(w, 'onSessionTimeout debe existir');
+    assert.ok(/this\.sessionFeedback !== null/.test(w),
+      'guard: no dispara si ya hay feedback');
+    assert.ok(/applyResultToSession\(this\.sessionCurrentExercise,\s*false,\s*null\)/.test(w),
+      'timeout = fallo via call-site único con userAnswer null');
+  });
+
+  test('applyResultToSession cancela el cronómetro (responder lo detiene)', () => {
+    const w = methodWindow('applyResultToSession');
+    assert.ok(w, 'applyResultToSession debe existir');
+    assert.ok(w.includes('this.cancelSessionTimer()'),
+      'cancelSessionTimer() debe aparecer al responder');
+  });
+
+  test('initSubStateForExercise engancha startSessionTimer() (por-ejercicio)', () => {
+    const w = methodWindow('initSubStateForExercise');
+    assert.ok(w, 'initSubStateForExercise debe existir');
+    assert.ok(w.includes('this.startSessionTimer()'),
+      'el enganche por-ejercicio del cronómetro');
+  });
+
+  test('startSession liga sessionTimed=pickerTimed y cierra hueco S-2 (cancelMatchFlash + cancelSessionTimer)', () => {
+    const w = methodWindow('startSession');
+    assert.ok(w, 'startSession debe existir');
+    assert.ok(/sessionTimed\s*=\s*this\.pickerTimed/.test(w),
+      'sessionTimed = this.pickerTimed');
+    assert.ok(w.includes('this.cancelMatchFlash()'),
+      'WARNING 2: startSession debe llamar cancelMatchFlash() (hueco S-2)');
+    assert.ok(w.includes('this.cancelSessionTimer()'),
+      'startSession debe llamar cancelSessionTimer()');
+  });
+
+  test('_launchExamen fuerza sessionTimed=false (examen 1-clic nunca cronometrado)', () => {
+    const w = methodWindow('_launchExamen');
+    assert.ok(w, '_launchExamen debe existir');
+    assert.ok(/this\.sessionTimed\s*=\s*false/.test(w),
+      'CONTEXT decisión 1: sessionTimed=false en examen 1-clic');
+    assert.ok(w.includes('this.cancelSessionTimer()'),
+      'cancelación defensiva del cronómetro');
+  });
+
+  test('resetSession resetea sessionTimed=false (WARNING 1 — reset simétrico)', () => {
+    const w = methodWindow('resetSession');
+    assert.ok(w, 'resetSession debe existir');
+    assert.ok(/this\.sessionTimed\s*=\s*false/.test(w),
+      'lifecycle simétrico: sessionTimed=false al volver a home');
+    assert.ok(w.includes('this.cancelSessionTimer()'),
+      'cancelSessionTimer() en el chokepoint de volver a home');
+  });
+
+  test('openPicker resetea pickerTimed=false (desmarcado al abrir)', () => {
+    const w = methodWindow('openPicker');
+    assert.ok(w, 'openPicker debe existir');
+    assert.ok(/this\.pickerTimed\s*=\s*false/.test(w),
+      'pickerTimed se resetea al abrir el picker');
+  });
+
+  test('cobertura anti-fugas: cancelSessionTimer() en todas las transiciones', () => {
+    for (const m of [
+      'destroy', 'resetSession', 'sessionAdvance', 'restartRepaso',
+      '_launchExamen', 'startSong', 'songAdvance', 'applyResultToSession',
+      'startSession'
+    ]) {
+      const w = methodWindow(m);
+      assert.ok(w.includes('this.cancelSessionTimer()'),
+        `${m} debe llamar cancelSessionTimer() (cero timers huérfanos)`);
+    }
+  });
+});
+
+describe('cronómetro contrarreloj — markup (source index.html)', () => {
+  test('el picker contiene un checkbox x-model="pickerTimed"', () => {
+    assert.ok(/<input[^>]*type="checkbox"[^>]*x-model="pickerTimed"/.test(indexSrc)
+      || /x-model="pickerTimed"[^>]*type="checkbox"/.test(indexSrc)
+      || (indexSrc.includes('x-model="pickerTimed"') && indexSrc.includes('type="checkbox"')),
+      'debe haber un checkbox Contrarreloj ligado a pickerTimed');
+  });
+
+  test('el header de session tiene el bloque del cronómetro con x-show + clase session-timer', () => {
+    assert.ok(indexSrc.includes('class="session-timer"'),
+      'debe existir el bloque con clase session-timer');
+    assert.ok(/x-show="sessionTimed\s*&&\s*sessionFeedback\s*===\s*null"/.test(indexSrc),
+      'el bloque debe mostrarse solo con sessionTimed && sessionFeedback === null');
+    assert.ok(indexSrc.includes('sessionTimeRemainingMs'),
+      'debe leer sessionTimeRemainingMs (barra + número)');
+  });
+});
