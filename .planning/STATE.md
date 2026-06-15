@@ -28,7 +28,7 @@ See: `.planning/PROJECT.md` (updated 2026-06-09 — Milestone v1.6 shipped, CONV
 Phase: Milestone v1.6 complete
 Plan: —
 Status: Awaiting next milestone
-Last activity: 2026-06-15 — Completed quick task 260615-hr0: ver explicación al acertar (feature todo #3)
+Last activity: 2026-06-15 — Completed quick task 260615-nzi: contador de fallos por categoría y canción (feature todo #2); schemaVersion 9→10 (migración nominal)
 
 ## Deferred Items
 
@@ -52,6 +52,7 @@ Ambos quick tasks tienen `status: shipped` en su SUMMARY.md (completados 2026-05
 | 2026-06-15 | 260614-wzc-col | Añadir ejercicio `preposiciones-col` (col = con+il) con 2 variantes (col vs nel/sul/dal; con il vs con lo/la/i) + gloss ES (R7). Cubre el hueco de la familia `con` en preposizioni articolate | `validated` (quórum Opus 4.8 + Sonnet 4.6, 0 concerns); contador de tests 49→50 |
 | 2026-06-15 | 260615-hhp | Mostrar título de ubicación/contexto durante la sesión (feature todo #1): getter derivado `sessionContextLabel` ("Examen: <cat>" / "Examen" / "Repaso (N ejercicios)" / "Canción: <title>") + `<h2 class="session-context">` en las 4 pantallas (session/cancion/summary/cancion-summary) + CSS. Pura UI derivada, sin tocar estado persistido | `node --test tests/*.test.js` → 386 pass / 1 fail (preexistente ajeno: genero-numero 12→13); +13 asserts nuevos en `tests/screen-context-label.test.js` |
 | 2026-06-15 | 260615-hr0 | Ver explicación al acertar (feature todo #3): flag `sessionExplanationRevealed` + método `revealSessionExplanation()` (cancela auto-avance), botón "¿Por qué?" + atajo tecla `e` en los 3 tipos de ejercicio, auto-avance condicional (600ms normal / 1500ms si hay explanation). Revelado bajo demanda; flujo de fallo y modo canción intactos. Pura UI/interacción | `node --test tests/*.test.js` → 389 pass / 1 fail (preexistente ajeno); +3 tests nuevos |
+| 2026-06-15 | 260615-nzi | Contador de fallos `vecesFallada` por categoría y canción (feature todo #2): +1 al perder progreso real (guard `hadProgress` en `applyImmediateFailure`, sin doble conteo con `applySessionResult`, idempotente); canción +1 por playthrough con ≥1 fallo en `completeSong`; indicador "fallada xN" (N>0) en home y lista de canciones. **schemaVersion 9→10** (`migrate9to10` nominal + `hydrateV10`, cadena storage+backup, roundtrip preservado) | `node --test tests/*.test.js` → 410 pass / 1 fail (preexistente ajeno genero-numero 12→13); +21 tests netos (no-doble-conteo, idempotencia, migración) |
 
 ## Performance Metrics
 
@@ -107,7 +108,6 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 
 ### Pending Todos
 
-- [Contador de fallos por categoría o canción](./todos/pending/2026-06-15-contador-de-fallos-por-categoria-o-cancion.md) — general — +1 por cada reset de racha, persistido en localStorage
 - [Modo examen contrarreloj (tiempo por respuesta)](./todos/pending/2026-06-15-modo-examen-contrarreloj-tiempo-por-respuesta.md) — general — límite de tiempo por pregunta (~5s MC / ~10s match / ~2s por palabra word-buttons)
 
 ### Blockers/Concerns
