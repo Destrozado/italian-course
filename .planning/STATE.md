@@ -111,7 +111,7 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 
 ### Pending Todos
 
-(Ninguno — las 4 features de la semana completadas.)
+- [Revisar visibilidad/timing del contador de fallos](./todos/pending/2026-06-15-revisar-visibilidad-contador-fallos.md) — general — UAT: fallé y la racha bajó pero no apareció "fallada ×1"; el contador cuenta a fin de sesión mientras el reset de racha es inmediato (inconsistencia)
 
 ### Blockers/Concerns
 
