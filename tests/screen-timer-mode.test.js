@@ -166,11 +166,13 @@ describe('cronómetro contrarreloj — mecánica (source app.js)', () => {
       'startSession debe llamar cancelSessionTimer()');
   });
 
-  test('_launchExamen fuerza sessionTimed=false (examen 1-clic nunca cronometrado)', () => {
+  test('_launchExamen respeta el toggle homeExamTimed (examen 1-clic cronometrado solo si el toggle está activo)', () => {
     const w = methodWindow('_launchExamen');
     assert.ok(w, '_launchExamen debe existir');
-    assert.ok(/this\.sessionTimed\s*=\s*false/.test(w),
-      'CONTEXT decisión 1: sessionTimed=false en examen 1-clic');
+    // quick-260615-r3b (CAMBIO 2): el examen 1-clic ahora hereda el toggle
+    // "Contrarreloj" de home en vez de forzar sessionTimed=false.
+    assert.ok(/this\.sessionTimed\s*=\s*this\.homeExamTimed/.test(w),
+      'CAMBIO 2: sessionTimed = this.homeExamTimed en examen 1-clic');
     assert.ok(w.includes('this.cancelSessionTimer()'),
       'cancelación defensiva del cronómetro');
   });

@@ -153,6 +153,16 @@
             <button type="button" class="secondary" @click="currentScreen = 'backup'">Backup</button>
           </div>
 
+          <!--
+            quick-260615-r3b (CAMBIO 2): toggle "Contrarreloj" para el examen de
+            1 clic de la tabla. Enlaza al flag runtime homeExamTimed (no persistido).
+            Discreto, alineado con la estética de la tabla.
+          -->
+          <label class="home-exam-timed">
+            <input type="checkbox" role="switch" x-model="homeExamTimed">
+            Contrarreloj ⏱
+          </label>
+
           <!-- Tabla densa (D-29) con 6 columnas exactas — 6ª columna Examen añadida en Phase 8 (D-184). -->
           <figure>
             <table>
@@ -407,7 +417,7 @@
                       class="session-why"
                       x-show="sessionFeedback === 'correct' && sessionCurrentExercise.payload.explanation && !sessionExplanationRevealed"
                       @click="revealSessionExplanation()">¿Por qué?</button>
-              <button x-show="sessionFeedback === 'incorrect' || (sessionFeedback === 'correct' && sessionExplanationRevealed)" @click="sessionAdvance">Siguiente</button>
+              <button x-show="sessionFeedback !== null" @click="sessionAdvance">Siguiente</button>
             </div>
           </template>
 
@@ -481,7 +491,7 @@
                         x-show="sessionFeedback === 'correct' && sessionCurrentExercise.payload.explanation && !sessionExplanationRevealed"
                         @click="revealSessionExplanation()">¿Por qué?</button>
                 <button type="button"
-                        x-show="sessionFeedback === 'incorrect' || (sessionFeedback === 'correct' && sessionExplanationRevealed)"
+                        x-show="sessionFeedback !== null"
                         @click="sessionAdvance">Siguiente</button>
               </div>
             </div>
@@ -568,7 +578,7 @@
                       x-show="sessionFeedback === 'correct' && sessionCurrentExercise.payload.explanation && !sessionExplanationRevealed"
                       @click="revealSessionExplanation()">¿Por qué?</button>
               <button type="button"
-                      x-show="sessionFeedback === 'incorrect' || (sessionFeedback === 'correct' && sessionExplanationRevealed)"
+                      x-show="sessionFeedback !== null"
                       @click="sessionAdvance">Siguiente</button>
             </div>
           </template>

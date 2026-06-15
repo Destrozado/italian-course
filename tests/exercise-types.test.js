@@ -1466,22 +1466,29 @@ describe('quick-260615-hr0: ver explicación al acertar', () => {
       'sessionAdvance debe resetear this.sessionExplanationRevealed = false');
   });
 
-  test('applyResultToSession usa una constante de tiempo condicional a explanation (no el literal 600 para el caso con-explanation) y el atajo está gated a correct + explanation', () => {
-    // Constantes nombradas de tiempo (no número mágico para el caso largo).
+  test('quick-260615-r3b (CAMBIO 1): el auto-avance al acertar está gated a cancion; ejercicios no programan auto-avance; el atajo `e` sigue gated a correct + explanation', () => {
+    // Constante de canción conservada; la de explanation eliminada.
     assert.match(APP_SRC, /const\s+SESSION_AUTO_ADVANCE_MS\s*=\s*600/,
-      'Debe existir la constante SESSION_AUTO_ADVANCE_MS = 600');
-    assert.match(APP_SRC, /const\s+SESSION_AUTO_ADVANCE_WITH_EXPLANATION_MS\s*=\s*\d+/,
-      'Debe existir la constante SESSION_AUTO_ADVANCE_WITH_EXPLANATION_MS');
+      'Debe existir la constante SESSION_AUTO_ADVANCE_MS = 600 (canción)');
+    assert.doesNotMatch(APP_SRC, /SESSION_AUTO_ADVANCE_WITH_EXPLANATION_MS/,
+      'La constante SESSION_AUTO_ADVANCE_WITH_EXPLANATION_MS debe estar eliminada (sin uso)');
 
-    // applyResultToSession elige el tiempo via la constante (setTimeout con
-    // variable, no literal 600 hardcodeado para el caso con-explanation).
+    // En la rama de acierto de applyResultToSession el setTimeout/songAdvance
+    // está gated a sessionMode === 'cancion'. Los ejercicios no programan avance.
     const idx = APP_SRC.indexOf('applyResultToSession(ex, correct, userAnswer) {');
     assert.ok(idx > -1, 'applyResultToSession debe existir como método en app.js');
     const body = APP_SRC.slice(idx, idx + 2000);
-    assert.match(body, /SESSION_AUTO_ADVANCE_WITH_EXPLANATION_MS/,
-      'applyResultToSession debe usar SESSION_AUTO_ADVANCE_WITH_EXPLANATION_MS condicionalmente');
-    assert.match(body, /setTimeout\(\s*advance\s*,/,
-      'applyResultToSession debe programar setTimeout(advance, <ms>) (no literal hardcodeado para el caso con-explanation)');
+    const correctIdx = body.indexOf('if (correct) {');
+    assert.ok(correctIdx > -1, 'applyResultToSession debe tener la rama if (correct)');
+    const correctBlock = body.slice(correctIdx, body.indexOf('} else {', correctIdx));
+    assert.match(correctBlock, /sessionMode === 'cancion'/,
+      'la rama de acierto debe gatear el auto-avance a sessionMode === cancion');
+    assert.match(correctBlock, /setTimeout\(\(\)\s*=>\s*this\.songAdvance\(\)\s*,\s*SESSION_AUTO_ADVANCE_MS\)/,
+      'la canción conserva el auto-avance vía songAdvance + SESSION_AUTO_ADVANCE_MS');
+    // No debe quedar ningún setTimeout hacia sessionAdvance en la rama de acierto
+    // (los ejercicios avanzan manualmente con "Siguiente").
+    assert.doesNotMatch(correctBlock, /setTimeout\([^)]*sessionAdvance/,
+      'los ejercicios NO programan auto-avance hacia sessionAdvance en acierto');
 
     // El atajo de teclado / acción reveal está gated a acierto + explanation.
     const handlerIdx = APP_SRC.indexOf('handleSessionKey(event)');
@@ -1498,5 +1505,27 @@ describe('quick-260615-hr0: ver explicación al acertar', () => {
       "el atajo `e` debe estar gated a sessionFeedback === 'correct'");
     assert.match(eBlock, /explanation/,
       'el atajo `e` debe requerir que el ejercicio tenga explanation');
+  });
+
+  test('quick-260615-r3b (CAMBIO 1): el botón Siguiente de los 3 tipos usa x-show="sessionFeedback !== null"; la canción conserva incorrect + songAdvance', () => {
+    const INDEX_SRC = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+
+    // Los 3 botones Siguiente de ejercicio (multi-choice, word-buttons, match)
+    // se muestran SIEMPRE que haya feedback (acierto o fallo).
+    const siguienteNull = (INDEX_SRC.match(/x-show="sessionFeedback !== null"/g) ?? []).length;
+    assert.equal(siguienteNull, 3,
+      'los 3 botones Siguiente de ejercicio usan x-show="sessionFeedback !== null"');
+
+    // La pantalla canción conserva su Siguiente (solo en fallo) + songAdvance.
+    assert.match(INDEX_SRC, /x-show="sessionFeedback === 'incorrect'"[\s\S]{0,80}@click="songAdvance">Siguiente/,
+      'la canción conserva el Siguiente con sessionFeedback === incorrect + songAdvance');
+  });
+
+  test('quick-260615-r3b (CAMBIO 2): el toggle Contrarreloj con x-model="homeExamTimed" existe en home', () => {
+    const INDEX_SRC = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+    const matches = (INDEX_SRC.match(/x-model="homeExamTimed"/g) ?? []).length;
+    assert.equal(matches, 1, 'debe existir exactamente un toggle con x-model="homeExamTimed"');
+    assert.match(INDEX_SRC, /Contrarreloj/,
+      'el toggle debe llevar el texto Contrarreloj');
   });
 });
