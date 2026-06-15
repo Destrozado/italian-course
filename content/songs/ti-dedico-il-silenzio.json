@@ -35,7 +35,7 @@
     {
       "id": "ti-dedico-il-silenzio-006",
       "prompt": "È da tempo che sai penso che anche il tempo non mi basta",
-      "answer": ["hace", "tiempo", "que", "sabes", "pienso", "que", "ni", "el", "tiempo", "me", "basta"],
+      "answer": ["hace", "tiempo", "que", "lo", "sabes", "pienso", "que", "ni", "siquiera", "el", "tiempo", "me", "basta"],
       "categoryIds": []
     },
     {
@@ -95,7 +95,7 @@
     {
       "id": "ti-dedico-il-silenzio-016",
       "prompt": "È da tempo che sai penso che anche il tempo non mi basta",
-      "answer": ["hace", "tiempo", "que", "sabes", "pienso", "que", "ni", "el", "tiempo", "me", "basta"],
+      "answer": ["hace", "tiempo", "que", "lo", "sabes", "pienso", "que", "ni", "siquiera", "el", "tiempo", "me", "basta"],
       "categoryIds": []
     },
     {
