@@ -545,12 +545,20 @@ button.incorrecta {
     padding-bottom: 0.75rem;
     border-bottom: 2px solid var(--pico-muted-border-color, #e0e0e0);
   }
+  /* Trasvase de padding lateral (UAT): Pico saca la <figure> a sangre dentro de
+   * la <article>, así que el texto de las celdas quedaba pegado al borde de color
+   * de la tarjeta. Restamos padding lateral al article-tabla y se lo damos a las
+   * celdas → el texto respira sin ensanchar la tarjeta. */
+  article:has(figure table) {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
   figure table td {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.35rem 0;
+    padding: 0.35rem 0.5rem;
     border-bottom: none;
     text-align: right;
   }
