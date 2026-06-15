@@ -6,205 +6,789 @@
       "id": "solo-001",
       "prompt": "Oggi mi chiudo di nuovo, e quel che resta intatto lo dedico a te",
       "answer": ["hoy", "me", "encierro", "de", "nuevo", "y", "lo", "que", "queda", "intacto", "te", "lo", "dedico", "a", "ti"],
-      "categoryIds": []
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "solo-002",
       "prompt": "È come se vivessi coi piedi nel fuoco, e voglio sempre avere quello che adesso non c'è",
       "answer": ["es", "como", "si", "viviera", "con", "los", "pies", "en", "el", "fuego", "y", "siempre", "quiero", "tener", "lo", "que", "ahora", "no", "está"],
-      "categoryIds": []
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "solo-003",
       "prompt": "Oggi mi sento sparire, perché non so dentro più quello che ho",
       "answer": ["hoy", "me", "siento", "desaparecer", "porque", "dentro", "ya", "no", "sé", "lo", "que", "tengo"],
-      "categoryIds": []
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "solo-004",
       "prompt": "È come se vivessi nei mesi passati, perché adesso non ho nulla che racconterò",
       "answer": ["es", "como", "si", "viviera", "en", "los", "meses", "pasados", "porque", "ahora", "no", "tengo", "nada", "que", "contar"],
-      "categoryIds": []
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "solo-005",
       "prompt": "Ma tu mi piaci di più, perché racconti i sogni proprio come piace a me",
       "answer": ["pero", "tú", "me", "gustas", "más", "porque", "cuentas", "los", "sueños", "justo", "como", "me", "gusta", "a", "mí"],
-      "categoryIds": []
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "solo-006",
       "prompt": "Tu sei qualcosa di più, ma non ti scrivo perché dentro sono",
       "answer": ["tú", "eres", "algo", "más", "pero", "no", "te", "escribo", "porque", "dentro", "estoy"],
-      "categoryIds": []
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "solo-007",
       "prompt": "Solo, solo, solo",
       "answer": ["solo", "solo", "solo"],
-      "categoryIds": []
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "solo-008",
       "prompt": "No, non guardarmi dentro muoio, io muoio, io muoio",
       "answer": ["no", "no", "me", "mires", "dentro", "muero", "yo", "muero", "yo", "muero"],
-      "categoryIds": []
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "solo-009",
       "prompt": "Se avrai bisogno, sì, tu scrivimi, scrivimi, scrivimi",
       "answer": ["si", "lo", "necesitas", "sí", "tú", "escríbeme", "escríbeme", "escríbeme"],
-      "categoryIds": []
+      "categoryIds": [],
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-15",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[S2-fidelidad] la traducción añade 'lo' que no está en el original ('Se avrai bisogno' no tiene objeto directo), cambiando el sentido; sugerencia: \"si necesitas, sí, tú escríbeme, escríbeme, escríbeme\""
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "solo-010",
       "prompt": "Stringimi il braccio e dopo vivimi, vivimi, vivimi",
       "answer": ["apriétame", "el", "brazo", "y", "después", "víveme", "víveme", "víveme"],
-      "categoryIds": []
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "solo-011",
       "prompt": "Non ci riesco, sono solo, solo, solo",
       "answer": ["no", "lo", "consigo", "estoy", "solo", "solo", "solo"],
-      "categoryIds": []
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "solo-012",
       "prompt": "No, non sorridere, non gioco, non gioco, non gioco",
       "answer": ["no", "no", "sonrías", "no", "juego", "no", "juego", "no", "juego"],
-      "categoryIds": []
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "solo-013",
       "prompt": "Però ti guardo e siamo simili, simili, simili",
       "answer": ["pero", "te", "miro", "y", "somos", "parecidos", "parecidos", "parecidos"],
-      "categoryIds": []
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "solo-014",
       "prompt": "Entrambi col sorriso e i lividi, lividi, lividi",
       "answer": ["ambos", "con", "la", "sonrisa", "y", "los", "moratones", "moratones", "moratones"],
-      "categoryIds": []
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "solo-015",
       "prompt": "Non vedi che io sono solo, sì, io sono solo",
       "answer": ["no", "ves", "que", "yo", "estoy", "solo", "sí", "yo", "estoy", "solo"],
-      "categoryIds": []
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "solo-016",
       "prompt": "Oggi non voglio nessuno, e abbasso le serrande, la luce non c'è",
       "answer": ["hoy", "no", "quiero", "a", "nadie", "y", "bajo", "las", "persianas", "la", "luz", "no", "está"],
-      "categoryIds": []
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "solo-017",
       "prompt": "Sto sul divano e passa una pubblicità, di un tizio che sorride e vende una macchina",
       "answer": ["estoy", "en", "el", "sofá", "y", "pasa", "un", "anuncio", "de", "un", "tipo", "que", "sonríe", "y", "vende", "un", "coche"],
-      "categoryIds": []
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "solo-018",
       "prompt": "Spengo e rimane il silenzio, e mi trascino in camera come una barca",
       "answer": ["apago", "y", "queda", "el", "silencio", "y", "me", "arrastro", "a", "la", "habitación", "como", "una", "barca"],
-      "categoryIds": []
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "solo-019",
       "prompt": "Quando il mare è mosso, ma vole un rifugio, canticchiando nina-nina-ninina",
       "answer": ["cuando", "el", "mar", "está", "agitado", "pero", "quiere", "un", "refugio", "canturreando", "nina-nina-ninina"],
-      "categoryIds": []
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "solo-020",
       "prompt": "Ma tu mi piaci di più, perché tu racconti i sogni come piace a me",
       "answer": ["pero", "tú", "me", "gustas", "más", "porque", "tú", "cuentas", "los", "sueños", "como", "me", "gusta", "a", "mí"],
-      "categoryIds": []
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "solo-021",
       "prompt": "Sì, tu sei qualcosa di più, ma non ti scrivo perché dentro sono",
       "answer": ["sí", "tú", "eres", "algo", "más", "pero", "no", "te", "escribo", "porque", "dentro", "estoy"],
-      "categoryIds": []
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "solo-022",
       "prompt": "Solo, solo, solo",
       "answer": ["solo", "solo", "solo"],
-      "categoryIds": []
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "solo-023",
       "prompt": "No, non guardarmi dentro muoio, io muoio, io muoio",
       "answer": ["no", "no", "me", "mires", "dentro", "muero", "yo", "muero", "yo", "muero"],
-      "categoryIds": []
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "solo-024",
       "prompt": "Se avrai bisogno, sì, tu scrivimi, scrivimi, scrivimi",
       "answer": ["si", "lo", "necesitas", "sí", "tú", "escríbeme", "escríbeme", "escríbeme"],
-      "categoryIds": []
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "solo-025",
       "prompt": "Stringimi il braccio e dopo vivimi, vivimi, vivimi",
       "answer": ["apriétame", "el", "brazo", "y", "después", "víveme", "víveme", "víveme"],
-      "categoryIds": []
+      "categoryIds": [],
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-15",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[S4-acentos] el token 'apriétame' lleva acento en la i ('í') cuando la forma correcta es 'apriétame' (acento en la e, porque 'aprieta' sin pronombre no lleva tilde, pero con pronombre se convierte en esdrújula y debe acentuarse la vocal tónica, que es la 'e' de la sílaba 'prié')"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "solo-026",
       "prompt": "Non ci riesco, sono solo, solo, solo",
       "answer": ["no", "lo", "consigo", "estoy", "solo", "solo", "solo"],
-      "categoryIds": []
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "solo-027",
       "prompt": "No, non sorridere, non gioco, non gioco, non gioco",
       "answer": ["no", "no", "sonrías", "no", "juego", "no", "juego", "no", "juego"],
-      "categoryIds": []
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "solo-028",
       "prompt": "Però ti guardo e siamo simili, simili, simili",
       "answer": ["pero", "te", "miro", "y", "somos", "parecidos", "parecidos", "parecidos"],
-      "categoryIds": []
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "solo-029",
       "prompt": "Entrambi col sorriso e i lividi, lividi, lividi",
       "answer": ["ambos", "con", "la", "sonrisa", "y", "los", "moratones", "moratones", "moratones"],
-      "categoryIds": []
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "solo-030",
       "prompt": "Amore, vedi, sono solo, solo, solo",
       "answer": ["amor", "mira", "estoy", "solo", "solo", "solo"],
-      "categoryIds": []
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "solo-031",
       "prompt": "Di notte gli occhi aperti e il buio, nel buio, col buio",
       "answer": ["de", "noche", "los", "ojos", "abiertos", "y", "la", "oscuridad", "en", "la", "oscuridad", "con", "la", "oscuridad"],
-      "categoryIds": []
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "solo-032",
       "prompt": "'Sto mondo è un posto senza alibi, alibi, alibi",
       "answer": ["este", "mundo", "es", "un", "lugar", "sin", "coartadas", "coartadas", "coartadas"],
-      "categoryIds": []
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "solo-033",
       "prompt": "Ma per fortuna tu lo abiti, abiti, abiti",
       "answer": ["pero", "por", "suerte", "tú", "lo", "habitas", "habitas", "habitas"],
-      "categoryIds": []
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     },
     {
       "id": "solo-034",
       "prompt": "Amore, vedi, sono solo, non vedi, sono solo",
       "answer": ["amor", "mira", "estoy", "solo", "no", "ves", "estoy", "solo"],
-      "categoryIds": []
+      "categoryIds": [],
+      "validation": {
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-15",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[S2-fidelidad] la traducción cambia 'vedi' (indicativo 'ves') por 'mira' (imperativo 'look'), alterando el sentido del original que juega con la paradoja de ver/no ver; sugerencia: \"amor ves estoy solo no ves estoy solo\""
+            ]
+          }
+        ]
+      }
     }
   ]
 }
