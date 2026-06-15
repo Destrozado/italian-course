@@ -436,3 +436,20 @@ button.incorrecta {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
+
+/*
+ * Quick 260615-hhp — Título de UBICACIÓN/contexto visible encima del progreso
+ * en session/cancion/summary/cancion-summary. Jerarquía CONTEXT §1: dónde estás
+ * (este título, peso/tamaño mayor) → cuánto llevas (el <header> de progreso,
+ * que queda visualmente menor debajo). Margen inferior pequeño hacia el
+ * progreso, coherente con el ritmo de .summary-delta / .session-explanation.
+ * CSS plano con vars de Pico (sin utilities). Se oculta si el getter devuelve
+ * "" (Alpine renderiza "" como vacío y :empty colapsa el margen).
+ */
+.session-context {
+  margin-bottom: 0.25rem;
+  font-size: 1.25rem;
+  line-height: 1.3;
+  color: var(--pico-color, inherit);
+}
+.session-context:empty { display: none; }

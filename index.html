@@ -315,6 +315,8 @@
       -->
       <template x-if="currentScreen === 'session' && sessionCurrentExercise">
         <article @keydown.window="handleSessionKey($event)">
+          <!-- 260615-hhp: título de ubicación/contexto (dónde estás) ENCIMA del progreso. -->
+          <h2 class="session-context" x-text="sessionContextLabel"></h2>
           <!-- SESSION-04: indicador "Ejercicio X / N" visible toda la sesión. -->
           <header x-text="sessionProgressLabel"></header>
 
@@ -585,6 +587,8 @@
       -->
       <template x-if="currentScreen === 'cancion' && songCurrentPhrase">
         <article @keydown.window="handleSongKey($event)">
+          <!-- 260615-hhp: título de ubicación/contexto (dónde estás) ENCIMA del progreso. -->
+          <h2 class="session-context" x-text="sessionContextLabel"></h2>
           <!-- PLAY-01: indicador "Frase X / N" visible todo el recorrido. -->
           <header x-text="songProgressLabel"></header>
 
@@ -663,6 +667,8 @@
       -->
       <template x-if="currentScreen === 'summary' && summaryDelta">
         <article>
+          <!-- 260615-hhp: contexto de la sesión de la que viene (ENCIMA del header propio del summary, sin romperlo). -->
+          <h2 class="session-context" x-text="sessionContextLabel"></h2>
           <header x-text="summaryHeaderLabel"></header>
 
           <ul class="summary-delta">
@@ -834,6 +840,8 @@
       -->
       <template x-if="currentScreen === 'cancion-summary' && songSummaryDelta">
         <article>
+          <!-- 260615-hhp: contexto de la canción de la que viene (ENCIMA del header propio, sin romperlo). -->
+          <h2 class="session-context" x-text="sessionContextLabel"></h2>
           <header><h2>Canción terminada</h2></header>
 
           <!-- Block A — frases falladas (lookup contra songPhraseById, D-04). -->
