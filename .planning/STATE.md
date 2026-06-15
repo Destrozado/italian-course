@@ -28,7 +28,7 @@ See: `.planning/PROJECT.md` (updated 2026-06-09 — Milestone v1.6 shipped, CONV
 Phase: Milestone v1.6 complete
 Plan: —
 Status: Awaiting next milestone
-Last activity: 2026-06-15 — Completed quick task 260615-puq: modo examen contrarreloj (feature todo #4) — última de las 4 features de la semana
+Last activity: 2026-06-15 — Completed quick task 260615-r3b: refinamientos UAT (auto-avance manual en ejercicios, contrarreloj en examen de tabla, contador por examen fallado)
 
 ## Deferred Items
 
@@ -54,6 +54,7 @@ Ambos quick tasks tienen `status: shipped` en su SUMMARY.md (completados 2026-05
 | 2026-06-15 | 260615-hr0 | Ver explicación al acertar (feature todo #3): flag `sessionExplanationRevealed` + método `revealSessionExplanation()` (cancela auto-avance), botón "¿Por qué?" + atajo tecla `e` en los 3 tipos de ejercicio, auto-avance condicional (600ms normal / 1500ms si hay explanation). Revelado bajo demanda; flujo de fallo y modo canción intactos. Pura UI/interacción | `node --test tests/*.test.js` → 389 pass / 1 fail (preexistente ajeno); +3 tests nuevos |
 | 2026-06-15 | 260615-nzi | Contador de fallos `vecesFallada` por categoría y canción (feature todo #2): +1 al perder progreso real (guard `hadProgress` en `applyImmediateFailure`, sin doble conteo con `applySessionResult`, idempotente); canción +1 por playthrough con ≥1 fallo en `completeSong`; indicador "fallada xN" (N>0) en home y lista de canciones. **schemaVersion 9→10** (`migrate9to10` nominal + `hydrateV10`, cadena storage+backup, roundtrip preservado) | `node --test tests/*.test.js` → 410 pass / 1 fail (preexistente ajeno genero-numero 12→13); +21 tests netos (no-doble-conteo, idempotencia, migración) |
 | 2026-06-15 | 260615-puq | Modo examen contrarreloj (feature todo #4): checkbox "Contrarreloj" en picker (repaso + test-completo, no en examen 1-clic de home); timeout por pregunta = fallo vía `applyResultToSession(ex,false,null)` (Siguiente manual); barra `<progress>` + segundos; tiempos 5s MC / 10s match / 2s·palabra word-buttons en constantes. Único `setInterval`, `cancelSessionTimer` en 9 transiciones (sin fugas), `sessionTimed` runtime-only. Validado por plan-checker (1 bloqueante + 2 warnings corregidos) | `node --test tests/*.test.js` → 430 pass / 1 fail (preexistente ajeno); +20 tests netos |
+| 2026-06-15 | 260615-r3b | Refinamientos UAT sobre las features de la semana: (1) quitar auto-avance al acertar en EJERCICIOS (canciones conservan `songAdvance`), "Siguiente" siempre con feedback → "¿Por qué?" pulsable sin carrera; (2) toggle "Contrarreloj ⏱" (`homeExamTimed` runtime-only) encima de la tabla de home → el "Examen" 1-clic arranca cronometrado; (3) contador `vecesFallada` de categoría = cada examen/sesión fallada (movido a la rama FAIL-WINS de `applySessionResult`, una vez por cat/sesión; `hadProgress` retirado). Canciones (`completeSong`) sin cambios | `node --test tests/*.test.js` → 432 pass / 1 fail (preexistente ajeno) |
 
 ## Performance Metrics
 
