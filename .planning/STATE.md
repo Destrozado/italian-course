@@ -116,6 +116,7 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 ### Pending Todos
 
 - [Revisar visibilidad/timing del contador de fallos](./todos/pending/2026-06-15-revisar-visibilidad-contador-fallos.md) — general — UAT: fallé y la racha bajó pero no apareció "fallada ×1"; el contador cuenta a fin de sesión mientras el reset de racha es inmediato (inconsistencia)
+- [Validador de frases ES para canciones (doble validación, reglas propias)](./todos/pending/2026-06-15-validador-frases-canciones.md) — tooling — quórum multi-modelo con reglas S1-S5 (español con sentido + fidelidad con licencia poética); mirror de gsd-validate-exercise para canciones
 
 ### Blockers/Concerns
 
