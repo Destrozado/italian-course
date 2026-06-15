@@ -276,4 +276,62 @@ describe('data/schema-validator — validateSongs', () => {
     const doc = JSON.parse(readFileSync(new URL('../content/songs/equilibrio-mentale.json', import.meta.url), 'utf8'));
     assert.equal(entry.phraseCount, doc.phrases.length, 'phraseCount === phrases.length');
   });
+
+  // ── validation opcional por frase (espejo de ejercicios, back-compat) ──
+
+  test('acepta una frase con validation bien formado', () => {
+    const result = validateSongs({
+      songs: [
+        {
+          id: 'cancion-1',
+          title: 'Canción uno',
+          phrases: [
+            {
+              id: 'c1-001',
+              prompt: 'Ho fame.',
+              answer: ['tengo', 'hambre'],
+              categoryIds: [],
+              validation: {
+                status: 'pending',
+                passes: [{ by: 'deepseek-chat', date: '2026-06-15', verdict: 'correcta' }]
+              }
+            }
+          ]
+        }
+      ],
+      knownCategoryIds
+    });
+    assert.equal(result.ok, true, `Errores inesperados: ${JSON.stringify(result.errors)}`);
+    assert.deepEqual(result.errors, []);
+  });
+
+  test('rechaza una frase con validation mal formado', () => {
+    const result = validateSongs({
+      songs: [
+        {
+          id: 'cancion-1',
+          title: 'Canción uno',
+          phrases: [
+            {
+              id: 'c1-001',
+              prompt: 'Ho fame.',
+              answer: ['tengo', 'hambre'],
+              categoryIds: [],
+              validation: { status: 'malo', passes: 'no' }
+            }
+          ]
+        }
+      ],
+      knownCategoryIds
+    });
+    assert.equal(result.ok, false);
+    assert.ok(result.errors.some(e => /validation/.test(e.reason)),
+      `Esperaba error que mencione "validation"; errores: ${JSON.stringify(result.errors)}`);
+  });
+
+  test('el fixture tests/fixtures/song-golden.json valida como canción bien formada', () => {
+    const doc = JSON.parse(readFileSync(new URL('./fixtures/song-golden.json', import.meta.url), 'utf8'));
+    const result = validateSongs({ songs: [doc], knownCategoryIds });
+    assert.equal(result.ok, true, `Golden fixture debería validar. Errores: ${JSON.stringify(result.errors, null, 2)}`);
+  });
 });
