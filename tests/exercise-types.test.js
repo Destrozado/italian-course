@@ -1429,3 +1429,74 @@ describe('VAL-07 — todos los ejercicios validated (Phase 10 close gate)', {
     });
   }
 });
+
+// ────────────────────────────────────────────────────────────────────────────
+// quick-260615-hr0 — ver explicación al ACERTAR (feature todo #3)
+//
+// Patrón source-assert (mismo que W3/W5 arriba): leemos el TEXTO FUENTE de
+// app.js y verificamos presencia/proximidad de los símbolos clave. NO se
+// instancia Alpine (factory async + getters reactivos = setup frágil, gap
+// aceptado y documentado en los tests existentes). El UAT humano valida el
+// comportamiento visual mid-sesión.
+// ────────────────────────────────────────────────────────────────────────────
+
+describe('quick-260615-hr0: ver explicación al acertar', () => {
+  const APP_SRC = readFileSync(new URL('../src/screens/app.js', import.meta.url), 'utf8');
+
+  test('la acción reveal cancela el auto-avance y pone sessionExplanationRevealed = true', () => {
+    // Localiza el método reveal y verifica que en su cuerpo cancela el
+    // auto-avance y setea el flag (revelar = parar el avance + mostrar).
+    const idx = APP_SRC.indexOf('revealSessionExplanation(');
+    assert.ok(idx > -1, 'revealSessionExplanation debe existir en app.js');
+    const body = APP_SRC.slice(idx, idx + 600);
+    assert.match(body, /this\.cancelAutoAdvance\(\)/,
+      'revealSessionExplanation debe llamar a this.cancelAutoAdvance()');
+    assert.match(body, /this\.sessionExplanationRevealed\s*=\s*true/,
+      'revealSessionExplanation debe poner this.sessionExplanationRevealed = true');
+    // Guard defensivo: solo en acierto.
+    assert.match(body, /this\.sessionFeedback\s*!==\s*'correct'/,
+      "revealSessionExplanation debe estar gated a sessionFeedback === 'correct'");
+  });
+
+  test('sessionAdvance resetea sessionExplanationRevealed a false (no se arrastra entre ejercicios)', () => {
+    const idx = APP_SRC.indexOf('sessionAdvance() {');
+    assert.ok(idx > -1, 'sessionAdvance debe existir en app.js');
+    const body = APP_SRC.slice(idx, idx + 800);
+    assert.match(body, /this\.sessionExplanationRevealed\s*=\s*false/,
+      'sessionAdvance debe resetear this.sessionExplanationRevealed = false');
+  });
+
+  test('applyResultToSession usa una constante de tiempo condicional a explanation (no el literal 600 para el caso con-explanation) y el atajo está gated a correct + explanation', () => {
+    // Constantes nombradas de tiempo (no número mágico para el caso largo).
+    assert.match(APP_SRC, /const\s+SESSION_AUTO_ADVANCE_MS\s*=\s*600/,
+      'Debe existir la constante SESSION_AUTO_ADVANCE_MS = 600');
+    assert.match(APP_SRC, /const\s+SESSION_AUTO_ADVANCE_WITH_EXPLANATION_MS\s*=\s*\d+/,
+      'Debe existir la constante SESSION_AUTO_ADVANCE_WITH_EXPLANATION_MS');
+
+    // applyResultToSession elige el tiempo via la constante (setTimeout con
+    // variable, no literal 600 hardcodeado para el caso con-explanation).
+    const idx = APP_SRC.indexOf('applyResultToSession(ex, correct, userAnswer) {');
+    assert.ok(idx > -1, 'applyResultToSession debe existir como método en app.js');
+    const body = APP_SRC.slice(idx, idx + 2000);
+    assert.match(body, /SESSION_AUTO_ADVANCE_WITH_EXPLANATION_MS/,
+      'applyResultToSession debe usar SESSION_AUTO_ADVANCE_WITH_EXPLANATION_MS condicionalmente');
+    assert.match(body, /setTimeout\(\s*advance\s*,/,
+      'applyResultToSession debe programar setTimeout(advance, <ms>) (no literal hardcodeado para el caso con-explanation)');
+
+    // El atajo de teclado / acción reveal está gated a acierto + explanation.
+    const handlerIdx = APP_SRC.indexOf('handleSessionKey(event)');
+    assert.ok(handlerIdx > -1, 'handleSessionKey debe existir en app.js');
+    const handlerBody = APP_SRC.slice(handlerIdx, handlerIdx + 8000);
+    assert.match(handlerBody, /key === 'e'/,
+      'handleSessionKey debe tener el atajo de tecla `e`');
+    assert.match(handlerBody, /this\.revealSessionExplanation\(\)/,
+      'el atajo `e` debe invocar this.revealSessionExplanation()');
+    // El gate `=== 'correct'` debe aparecer junto al atajo de la tecla `e`.
+    const eIdx = handlerBody.indexOf("key === 'e'");
+    const eBlock = handlerBody.slice(eIdx, eIdx + 400);
+    assert.match(eBlock, /this\.sessionFeedback\s*===\s*'correct'/,
+      "el atajo `e` debe estar gated a sessionFeedback === 'correct'");
+    assert.match(eBlock, /explanation/,
+      'el atajo `e` debe requerir que el ejercicio tenga explanation');
+  });
+});
