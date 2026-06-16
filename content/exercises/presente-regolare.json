@@ -414,8 +414,33 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": [
+              "[ok] word-buttons -isc-: 'io finisco il lavoro' y 'tu pulisci la casa' correctas y naturales; distractoras = forma sin -isc- (fino, puli) + persona errada (finisce, pulisco), buen C3. Frase ES en prompt es el enunciado a traducir (correcto en word-buttons, NO leak). Italiano sin acentos faltantes. Sin bug de contenido."
+            ]
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-17",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] DeepSeek marca 'raiz' (sin tilde) = falso-positivo de politica (ASCII plano canon). C1/C2/C3/C5 = true; sin bug de contenido."
+            ]
+          },
+          {
+            "by": "autor",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": [
+              "[override] disputed resuelto: unico concern = C4-accent falso-positivo de politica (ASCII plano canon). Sin bug real. Aprobado por la base Claude (Opus)."
+            ]
+          }
+        ]
       }
     },
     {
