@@ -118,3 +118,26 @@ Todas las conjugaciones verificadas correctas: parlo/lavori/studia (-are); prend
 ---
 *Phase: 30-alta-de-presente-regolare-registro-slots-de-regla-variantes-*
 *Completed: 2026-06-17*
+
+---
+
+## Addendum (orchestrator correction, 2026-06-17)
+
+La verificación 1-por-1 del wave-2 cazó (correctamente, vía cross-vendor DeepSeek/Gemini)
+un flag **C4-accent** en las explanations, pero lo resolvió por **override del autor**
+clasificándolo como falso-positivo de política. **Era un bug real, no un falso-positivo:**
+las explanations y los glosses nacieron en ASCII sin acentos, violando PRES-05 (canon
+español ACENTUADO) y la coherencia con las 9 categorías existentes (essere usa 205 chars
+acentuados; presente-regolare tenía 0). El override fue el "override-atajo" que la memoria
+`feedback_disputed_resolution` prohíbe.
+
+**Corrección aplicada por el orquestador (3 commits):**
+1. `5079061` — restaurar acentos español en las 8 explanations (terminación/añadiendo/según/raíz/1ª-3ª).
+2. `2b041a0` — acentuar los 13 glosses `(en español: …)` + 1 prompt word-buttons (Tú limpias).
+3. `1e8248b` — **re-validación canónica Opus 4.8 + Sonnet 4.6** (la base de aprobación documentada,
+   que el executor no pudo correr por falta de `Task`). 18 subagents fresh-context (VAL-03, nunca
+   batched). Resultado: **8/8 validated**. El único disputed (-palatal, C4/R4: última frase era
+   nota de curador) se resolvió **arreglando el contenido** (gotcha para el alumno), no por override
+   — ambas IAs dan `correcta`.
+
+Estado final correcto: los 8 objetos-ejercicio `status: validated` con passes Opus 4.8 + Sonnet 4.6.
