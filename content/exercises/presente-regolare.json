@@ -20,7 +20,7 @@
           "correctIndex": 1
         },
         {
-          "prompt": "Tu ___ in un ufficio in centro. (en espanol: tu trabajas)",
+          "prompt": "Tu ___ in un ufficio in centro. (en español: tú trabajas)",
           "options": [
             "lavoro",
             "lavori",
@@ -30,7 +30,7 @@
           "correctIndex": 1
         },
         {
-          "prompt": "Lui ___ la matematica all'università. (en espanol: el estudia)",
+          "prompt": "Lui ___ la matematica all'università. (en español: él estudia)",
           "options": [
             "studio",
             "studi",
@@ -54,7 +54,7 @@
       "explanation": "Los verbos del segundo grupo (infinitivo en -ere, como prendere o scrivere) forman el presente indicativo quitando -ere y añadiendo -o, -i, -e, -iamo, -ete, -ono. Así 'prendere' da: io prendo, tu prendi, lui prende, noi prendiamo, voi prendete, loro prendono. Fíjate en los dos puntos donde el grupo -ere se distingue del -are: la 3ª persona singular termina en -e (lui prende, no 'prenda') y la 2ª plural en -ete (voi prendete, no 'prendate'). En español el paralelo son los verbos en -er: 'beber' da yo bebo, tú bebes, él bebe. Las distractoras son otras personas del mismo verbo: solo una concuerda con el sujeto.",
       "variants": [
         {
-          "prompt": "Noi ___ il treno alle otto. (en espanol: nosotros cogemos/tomamos)",
+          "prompt": "Noi ___ il treno alle otto. (en español: nosotros cogemos/tomamos)",
           "options": [
             "prendo",
             "prendiamo",
@@ -64,7 +64,7 @@
           "correctIndex": 1
         },
         {
-          "prompt": "Voi ___ una lettera alla nonna. (en espanol: vosotros escribis)",
+          "prompt": "Voi ___ una lettera alla nonna. (en español: vosotros escribís)",
           "options": [
             "scrivo",
             "scrivi",
@@ -88,7 +88,7 @@
       "explanation": "Los verbos del tercer grupo SIMPLE (infinitivo en -ire que NO insertan -isc-, como dormire, partire, aprire) forman el presente quitando -ire y añadiendo -o, -i, -e, -iamo, -ite, -ono. Así 'dormire' da: io dormo, tu dormi, lui dorme, noi dormiamo, voi dormite, loro dormono. Comparten casi todas las desinencias con el grupo -ere; el único punto propio es la 2ª persona plural en -ite (voi dormite). En español el paralelo son los verbos en -ir: 'partir' da yo parto, tú partes, él parte. Cuidado: este grupo simple es el que NO lleva -isc-; verbos como finire o capire sí lo insertan y se tratan aparte. Las distractoras son otras personas del mismo verbo.",
       "variants": [
         {
-          "prompt": "Loro ___ otto ore ogni notte. (en espanol: ellos duermen)",
+          "prompt": "Loro ___ otto ore ogni notte. (en español: ellos duermen)",
           "options": [
             "dormo",
             "dormi",
@@ -98,7 +98,7 @@
           "correctIndex": 3
         },
         {
-          "prompt": "Io ___ per Roma domani mattina. (en espanol: yo salgo/parto)",
+          "prompt": "Io ___ per Roma domani mattina. (en español: yo salgo/parto)",
           "options": [
             "parto",
             "parti",
@@ -122,7 +122,7 @@
       "explanation": "Un grupo grande de verbos en -ire (finire, capire, preferire, pulire) inserta -isc- entre la raíz y la desinencia en las TRES personas del singular y en la 3ª del plural: io finisco, tu finisci, lui finisce, loro finiscono. En cambio noi y voi NO llevan -isc-: noi finiamo, voi finite. Esta es la trampa A1 más caída: 'io finisco' nunca es 'fino' ni 'finio'; la raíz se mantiene (fin-) y el -isc- se intercala. El español no tiene un cambio paralelo, así que hay que aprenderlo como propio del italiano. Las distractoras incluyen la forma SIN -isc- (el error típico) y otras personas: solo la forma correcta concuerda con el sujeto y lleva (o no) el -isc- que toca.",
       "variants": [
         {
-          "prompt": "Io ___ di lavorare alle sei. (en espanol: yo termino)",
+          "prompt": "Io ___ di lavorare alle sei. (en español: yo termino)",
           "options": [
             "fino",
             "finisco",
@@ -132,7 +132,7 @@
           "correctIndex": 1
         },
         {
-          "prompt": "Tu ___ bene l'italiano. (en espanol: tu entiendes/comprendes)",
+          "prompt": "Tu ___ bene l'italiano. (en español: tú entiendes/comprendes)",
           "options": [
             "capi",
             "capo",
@@ -142,7 +142,7 @@
           "correctIndex": 2
         },
         {
-          "prompt": "Lui ___ il caffè al tè. (en espanol: el prefiere)",
+          "prompt": "Lui ___ il caffè al tè. (en español: él prefiere)",
           "options": [
             "prefere",
             "preferisco",
@@ -166,7 +166,7 @@
       "explanation": "Los verbos en -care y -gare (giocare, pagare) añaden una 'h' antes de la desinencia que empieza por -i, es decir en la 2ª persona singular y en la 1ª plural: tu giochi, noi giochiamo; tu paghi, noi paghiamo. La 'h' no se pronuncia: está solo para CONSERVAR el sonido velar duro de la c y la g (como en 'casa' y 'gato'), que sin ella se ablandaría ante la i (sonaría 'gioci'). En español hacemos un ajuste ortográfico parecido para mantener el sonido: 'pagar' da yo pago pero 'pague' lleva u, y 'sacar' da yo saco pero 'saque' con qu. Cuidado con la distractora sin h (giochi frente a 'gioci'): es el error más común. Las distractoras son la versión sin h y otras personas.",
       "variants": [
         {
-          "prompt": "Tu ___ a calcio ogni domenica. (en espanol: tu juegas)",
+          "prompt": "Tu ___ a calcio ogni domenica. (en español: tú juegas)",
           "options": [
             "gioci",
             "giochi",
@@ -176,7 +176,7 @@
           "correctIndex": 1
         },
         {
-          "prompt": "Noi ___ il conto al ristorante. (en espanol: nosotros pagamos)",
+          "prompt": "Noi ___ il conto al ristorante. (en español: nosotros pagamos)",
           "options": [
             "paghiamo",
             "pagiamo",
@@ -200,7 +200,7 @@
       "explanation": "Los verbos en -ciare y -giare (cominciare, mangiare) PIERDEN la 'i' átona del infinitivo cuando la desinencia ya empieza por -i, para no escribir una doble i. Así 'cominciare' da tu cominci (no 'comincii') y noi cominciamo; 'mangiare' da tu mangi y noi mangiamo. La 'i' del infinitivo solo servía para ablandar la c y la g (sonido dulce de 'ce/ci' y 'ge/gi'); como la desinencia -i ya hace ese trabajo, la i sobrante desaparece. Es el reverso del caso velar: allí se AÑADE una h, aquí se QUITA una i, pero el objetivo es el mismo, escribir el sonido correcto sin letras de más. Las distractoras son la versión con doble i o sin el ajuste y otras personas.",
       "variants": [
         {
-          "prompt": "Tu ___ a studiare alle nove. (en espanol: tu empiezas)",
+          "prompt": "Tu ___ a studiare alle nove. (en español: tú empiezas)",
           "options": [
             "comincii",
             "cominci",
@@ -210,7 +210,7 @@
           "correctIndex": 1
         },
         {
-          "prompt": "Noi ___ la pizza il venerdì. (en espanol: nosotros comemos)",
+          "prompt": "Noi ___ la pizza il venerdì. (en español: nosotros comemos)",
           "options": [
             "mangiamo",
             "mangiiamo",
@@ -247,7 +247,7 @@
           ]
         },
         {
-          "prompt": "Tu limpias la casa.",
+          "prompt": "Tú limpias la casa.",
           "answer": [
             "tu",
             "pulisci",
