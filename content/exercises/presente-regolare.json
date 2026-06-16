@@ -100,8 +100,33 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": [
+              "[ok] prendiamo (noi) y scrivete (voi) correctas; una sola opcion valida por variante; distractoras = otras personas del mismo verbo. Prompts limpios sin leak (gloss ES canon R7). Ortografia italiana correcta."
+            ]
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-17",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] DeepSeek marca tildes ausentes (anadiendo/Fijate/espanol/Asi). FALSO-POSITIVO de politica: explanation en ASCII plano por decision del proyecto. C1/C2/C3/C5 = true; sin bug de contenido."
+            ]
+          },
+          {
+            "by": "autor",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": [
+              "[override] disputed resuelto: unico concern = C4-accent falso-positivo de politica (ASCII plano canon). Sin bug real de gramatica/semantica. Aprobado por la base Claude (Opus)."
+            ]
+          }
+        ]
       }
     },
     {
