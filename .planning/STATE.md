@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.7
 milestone_name: Presente regolare (10ª categoría de gramática)
-status: Phase 29 completa — schemaVersion del codebase ahora **11**. Lista para Phase 30.
-last_updated: "2026-06-16T22:13:10.391Z"
-last_activity: 2026-06-16 -- Phase 29 completada (migración 10→11, reset selectivo presente-regolare)
+status: executing
+last_updated: "2026-06-16T22:39:46.291Z"
+last_activity: 2026-06-16 -- Phase 30 planning complete
 progress:
   total_phases: 3
   completed_phases: 1
-  total_plans: 1
+  total_plans: 4
   completed_plans: 1
-  percent: 33
+  percent: 25
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -27,8 +27,8 @@ See: `.planning/PROJECT.md` (updated 2026-06-09 — Milestone v1.6 shipped, CONV
 
 Phase: 29 (Migración 10→11 (reset selectivo SOLO de presente-regolare)) — ✅ COMPLETA
 Plan: 1 of 1 completado (29-01)
-Status: Phase 29 completa — schemaVersion del codebase ahora **11**. Lista para Phase 30.
-Last activity: 2026-06-16 -- Phase 29 completada (migración 10→11, reset selectivo presente-regolare)
+Status: Ready to execute
+Last activity: 2026-06-16 -- Phase 30 planning complete
 
 ## Deferred Items
 
