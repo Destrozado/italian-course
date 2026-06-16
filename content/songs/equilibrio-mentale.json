@@ -327,26 +327,22 @@
     {
       "id": "equilibrio-mentale-015",
       "prompt": "Mi alzo ed esco a fumare, sopra passa un aereo",
-      "answer": ["me", "levanto", "y", "salgo", "a", "fumar", "pasa", "un", "avión", "por", "encima"],
+      "answer": ["me", "levanto", "y", "salgo", "a", "fumar", "por", "encima", "pasa", "un", "avión"],
       "categoryIds": [],
       "validation": {
-        "status": "disputed",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-chat",
-            "date": "2026-06-15",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[S1-natural] la frase reconstruida 'me levanto y salgo a fumar pasa un avión por encima' es agramatical y no se entiende como una oración con sentido en español; sugerencia: \"me levanto y salgo a fumar, por encima pasa un avión\""
-            ]
+            "date": "2026-06-16",
+            "verdict": "correcta",
+            "concerns": []
           },
           {
-            "by": "gemini-2.5-flash",
-            "date": "2026-06-15",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[S1-natural] la frase reconstruida 'me levanto y salgo a fumar pasa un avión por encima' es agramatical y no se entiende como una oración con sentido natural en español, ya que las dos cláusulas están pegadas sin la puntuación o el conector adecuado; sugerencia: \"me levanto y salgo a fumar, por encima pasa un avión\""
-            ]
+            "by": "deepseek-reasoner",
+            "date": "2026-06-16",
+            "verdict": "correcta",
+            "concerns": []
           }
         ]
       }

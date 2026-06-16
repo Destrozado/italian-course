@@ -192,21 +192,19 @@
       "answer": ["si", "lo", "necesitas", "sí", "tú", "escríbeme", "escríbeme", "escríbeme"],
       "categoryIds": [],
       "validation": {
-        "status": "disputed",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-chat",
-            "date": "2026-06-15",
+            "date": "2026-06-16",
             "verdict": "correcta",
             "concerns": []
           },
           {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-15",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[S2-fidelidad] la traducción añade 'lo' que no está en el original ('Se avrai bisogno' no tiene objeto directo), cambiando el sentido; sugerencia: \"si necesitas, sí, tú escríbeme, escríbeme, escríbeme\""
-            ]
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-16",
+            "verdict": "correcta",
+            "concerns": []
           }
         ]
       }
@@ -562,21 +560,19 @@
       "answer": ["apriétame", "el", "brazo", "y", "después", "víveme", "víveme", "víveme"],
       "categoryIds": [],
       "validation": {
-        "status": "disputed",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-chat",
-            "date": "2026-06-15",
+            "date": "2026-06-16",
             "verdict": "correcta",
             "concerns": []
           },
           {
             "by": "deepseek-reasoner",
-            "date": "2026-06-15",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[S4-acentos] el token 'apriétame' lleva acento en la i ('í') cuando la forma correcta es 'apriétame' (acento en la e, porque 'aprieta' sin pronombre no lleva tilde, pero con pronombre se convierte en esdrújula y debe acentuarse la vocal tónica, que es la 'e' de la sílaba 'prié')"
-            ]
+            "date": "2026-06-16",
+            "verdict": "correcta",
+            "concerns": []
           }
         ]
       }
@@ -683,13 +679,13 @@
         "passes": [
           {
             "by": "deepseek-chat",
-            "date": "2026-06-15",
+            "date": "2026-06-16",
             "verdict": "correcta",
             "concerns": []
           },
           {
             "by": "deepseek-reasoner",
-            "date": "2026-06-15",
+            "date": "2026-06-16",
             "verdict": "correcta",
             "concerns": []
           }
@@ -771,21 +767,19 @@
       "answer": ["amor", "mira", "estoy", "solo", "no", "ves", "estoy", "solo"],
       "categoryIds": [],
       "validation": {
-        "status": "disputed",
+        "status": "validated",
         "passes": [
           {
             "by": "deepseek-chat",
-            "date": "2026-06-15",
+            "date": "2026-06-16",
             "verdict": "correcta",
             "concerns": []
           },
           {
             "by": "deepseek-reasoner",
-            "date": "2026-06-15",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[S2-fidelidad] la traducción cambia 'vedi' (indicativo 'ves') por 'mira' (imperativo 'look'), alterando el sentido del original que juega con la paradoja de ver/no ver; sugerencia: \"amor ves estoy solo no ves estoy solo\""
-            ]
+            "date": "2026-06-16",
+            "verdict": "correcta",
+            "concerns": []
           }
         ]
       }

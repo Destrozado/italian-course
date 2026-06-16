@@ -32,9 +32,12 @@ Cada frase es un trozo de una letra: `prompt` es la línea ORIGINAL en italiano,
 
 La traducción en `answer` (reconstruida como frase: tokens unidos por espacios) es **gramatical y SE ENTIENDE** como frase en español. NO tiene que ser literaria ni pulida, pero NO puede ser agramatical ni un sinsentido.
 
-- Marca S1 **false** si la frase reconstruida es ininteligible, agramatical o no se entiende qué quiere decir.
-- Criterio que motivó esta regla: la traducción `"hace tiempo que sabes pienso que ni el tiempo me basta"` viola S1 — es una concatenación que no se lee como español con sentido (falta el `lo`, falta `siquiera`, las dos cláusulas se pegan sin coherencia).
-- NO marques S1 false por estilo poético o por orden de palabras lícito en una letra — solo por sinsentido o agramaticalidad real.
+**CRÍTICO — el `answer` NO lleva puntuación POR DISEÑO.** Es un array de palabras (tokens) que el ejercicio muestra como botones; las comas, puntos y signos de la letra se omiten SIEMPRE. Al evaluar S1 debes **reconstruir mentalmente la frase con la puntuación implícita** y juzgar SOLO si las PALABRAS, en ese orden, forman una traducción correcta y comprensible.
+
+- **PROHIBIDO marcar S1 false por:** falta de comas/puntos, ausencia de conectores que serían solo puntuación, o "oración corrida / run-on" debida a esa ausencia. Eso NO es un error: es el formato. Ejemplo: `"me levanto y salgo a fumar por encima pasa un avión"` es **correcta** (dos cláusulas yuxtapuestas que con la coma implícita se entienden perfectamente) — NO la marques run-on.
+- Marca S1 **false** SOLO por error a nivel de PALABRA: ininteligible, falta(n) palabra(s) que cambian el sentido, palabras sobrantes/incorrectas, mala concordancia, o que de verdad no se entienda aunque le pongas la puntuación.
+- Criterio que motivó esta regla: `"hace tiempo que sabes pienso que ni el tiempo me basta"` viola S1 — NO por falta de comas, sino porque a nivel de PALABRA falta `lo` (objeto de "sabes") y `siquiera` (matiz de "anche"), y aun con puntuación no se lee con sentido.
+- NO marques S1 false por estilo poético, orden de palabras lícito en una letra, ni puntuación ausente — solo por sinsentido o agramaticalidad real a nivel de palabra.
 
 ### S2 — Fidelidad con licencia poética
 
