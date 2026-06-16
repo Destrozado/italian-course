@@ -159,8 +159,34 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": [
+              "[ok] dormono (loro) y parto (io) correctas; grupo -ire simple sin -isc- bien aislado de finire/capire. Una sola opcion valida; gloss ES canon R7. Sin bug de contenido."
+            ]
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-17",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C5-leak] Gemini marca el gloss '(en espanol: ...)' como leak. FALSO-POSITIVO de politica: el gloss es CANON R7 del autor (desambigua persona/significado para que el prompt admita una sola opcion valida), memoria gloss-es-desambiguacion-canon. La base de aprobacion es Claude Opus+Sonnet.",
+              "[C4-explanation] tambien marca tildes ASCII (anadiendo/espanol) = falso-positivo de politica (ASCII plano canon)."
+            ]
+          },
+          {
+            "by": "autor",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": [
+              "[override] disputed resuelto: ambos concerns (C5-gloss y C4-accent) son falsos-positivos de politica conocidos (canon R7 + ASCII plano). Sin bug real de gramatica/semantica. Aprobado por la base Claude (Opus)."
+            ]
+          }
+        ]
       }
     },
     {
