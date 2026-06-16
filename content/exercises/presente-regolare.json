@@ -7,7 +7,7 @@
       "categoryIds": [
         "presente-regolare"
       ],
-      "explanation": "Los verbos del primer grupo (infinitivo en -are, como parlare o lavorare) forman el presente indicativo quitando la terminacion -are y anadiendo las desinencias -o, -i, -a, -iamo, -ate, -ano segun la persona. Asi 'parlare' da: io parlo, tu parli, lui parla, noi parliamo, voi parlate, loro parlano. En espanol seguimos un mecanismo paralelo con los verbos en -ar: 'hablar' da yo hablo, tu hablas, el habla. La clave A1 es no memorizar la tabla de un verbo, sino aplicar la desinencia que toca segun la persona a cualquier verbo nuevo en -are. Cuidado: las distractoras son otras personas del MISMO verbo (parli, parla, parlate), todas existen pero solo una concuerda con el sujeto del enunciado.",
+      "explanation": "Los verbos del primer grupo (infinitivo en -are, como parlare o lavorare) forman el presente indicativo quitando la terminación -are y añadiendo las desinencias -o, -i, -a, -iamo, -ate, -ano según la persona. Así 'parlare' da: io parlo, tu parli, lui parla, noi parliamo, voi parlate, loro parlano. En español seguimos un mecanismo paralelo con los verbos en -ar: 'hablar' da yo hablo, tú hablas, él habla. La clave A1 es no memorizar la tabla de un verbo, sino aplicar la desinencia que toca según la persona a cualquier verbo nuevo en -are. Cuidado: las distractoras son otras personas del MISMO verbo (parli, parla, parlate), todas existen pero solo una concuerda con el sujeto del enunciado.",
       "variants": [
         {
           "prompt": "Io ___ italiano con i miei amici.",
@@ -41,33 +41,8 @@
         }
       ],
       "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-8",
-            "date": "2026-06-17",
-            "verdict": "correcta",
-            "concerns": [
-              "[C5-leak ok] prompts solo frase+hueco; gloss '(en espanol: ...)' es canon R7, no leak. Conjugaciones parlo/lavori/studia correctas; una sola opcion valida por variante. Bug de ortografia italiana corregido: all'universita -> all'università (università)."
-            ]
-          },
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-17",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C4-explanation] DeepSeek marca tildes ausentes en la explanation espanola (terminacion/anadiendo/espanol/segun). FALSO-POSITIVO de politica: el autor escribe las explanations en espanol PLANO ASCII deliberadamente (decision 30-01, canon ASCII-apostrofe del proyecto). NO es bug de contenido."
-            ]
-          },
-          {
-            "by": "autor",
-            "date": "2026-06-17",
-            "verdict": "correcta",
-            "concerns": [
-              "[override] autor resuelve el disputed: el concern C4-accent de DeepSeek es el falso-positivo de politica conocido (explanations en ASCII plano por decision del proyecto, memoria gloss-es-desambiguacion-canon). El bug REAL que el cross-vendor cazo (all'universita -> università) ya fue corregido en el prompt y re-verificado. Aprobado por la base Claude (Opus)."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -76,7 +51,7 @@
       "categoryIds": [
         "presente-regolare"
       ],
-      "explanation": "Los verbos del segundo grupo (infinitivo en -ere, como prendere o scrivere) forman el presente indicativo quitando -ere y anadiendo -o, -i, -e, -iamo, -ete, -ono. Asi 'prendere' da: io prendo, tu prendi, lui prende, noi prendiamo, voi prendete, loro prendono. Fijate en los dos puntos donde el grupo -ere se distingue del -are: la 3a persona singular termina en -e (lui prende, no 'prenda') y la 2a plural en -ete (voi prendete, no 'prendate'). En espanol el paralelo son los verbos en -er: 'beber' da yo bebo, tu bebes, el bebe. Las distractoras son otras personas del mismo verbo: solo una concuerda con el sujeto.",
+      "explanation": "Los verbos del segundo grupo (infinitivo en -ere, como prendere o scrivere) forman el presente indicativo quitando -ere y añadiendo -o, -i, -e, -iamo, -ete, -ono. Así 'prendere' da: io prendo, tu prendi, lui prende, noi prendiamo, voi prendete, loro prendono. Fíjate en los dos puntos donde el grupo -ere se distingue del -are: la 3ª persona singular termina en -e (lui prende, no 'prenda') y la 2ª plural en -ete (voi prendete, no 'prendate'). En español el paralelo son los verbos en -er: 'beber' da yo bebo, tú bebes, él bebe. Las distractoras son otras personas del mismo verbo: solo una concuerda con el sujeto.",
       "variants": [
         {
           "prompt": "Noi ___ il treno alle otto. (en espanol: nosotros cogemos/tomamos)",
@@ -100,33 +75,8 @@
         }
       ],
       "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-8",
-            "date": "2026-06-17",
-            "verdict": "correcta",
-            "concerns": [
-              "[ok] prendiamo (noi) y scrivete (voi) correctas; una sola opcion valida por variante; distractoras = otras personas del mismo verbo. Prompts limpios sin leak (gloss ES canon R7). Ortografia italiana correcta."
-            ]
-          },
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-17",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C4-explanation] DeepSeek marca tildes ausentes (anadiendo/Fijate/espanol/Asi). FALSO-POSITIVO de politica: explanation en ASCII plano por decision del proyecto. C1/C2/C3/C5 = true; sin bug de contenido."
-            ]
-          },
-          {
-            "by": "autor",
-            "date": "2026-06-17",
-            "verdict": "correcta",
-            "concerns": [
-              "[override] disputed resuelto: unico concern = C4-accent falso-positivo de politica (ASCII plano canon). Sin bug real de gramatica/semantica. Aprobado por la base Claude (Opus)."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -135,7 +85,7 @@
       "categoryIds": [
         "presente-regolare"
       ],
-      "explanation": "Los verbos del tercer grupo SIMPLE (infinitivo en -ire que NO insertan -isc-, como dormire, partire, aprire) forman el presente quitando -ire y anadiendo -o, -i, -e, -iamo, -ite, -ono. Asi 'dormire' da: io dormo, tu dormi, lui dorme, noi dormiamo, voi dormite, loro dormono. Comparten casi todas las desinencias con el grupo -ere; el unico punto propio es la 2a persona plural en -ite (voi dormite). En espanol el paralelo son los verbos en -ir: 'partir' da yo parto, tu partes, el parte. Cuidado: este grupo simple es el que NO lleva -isc-; verbos como finire o capire si lo insertan y se tratan aparte. Las distractoras son otras personas del mismo verbo.",
+      "explanation": "Los verbos del tercer grupo SIMPLE (infinitivo en -ire que NO insertan -isc-, como dormire, partire, aprire) forman el presente quitando -ire y añadiendo -o, -i, -e, -iamo, -ite, -ono. Así 'dormire' da: io dormo, tu dormi, lui dorme, noi dormiamo, voi dormite, loro dormono. Comparten casi todas las desinencias con el grupo -ere; el único punto propio es la 2ª persona plural en -ite (voi dormite). En español el paralelo son los verbos en -ir: 'partir' da yo parto, tú partes, él parte. Cuidado: este grupo simple es el que NO lleva -isc-; verbos como finire o capire sí lo insertan y se tratan aparte. Las distractoras son otras personas del mismo verbo.",
       "variants": [
         {
           "prompt": "Loro ___ otto ore ogni notte. (en espanol: ellos duermen)",
@@ -159,34 +109,8 @@
         }
       ],
       "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-8",
-            "date": "2026-06-17",
-            "verdict": "correcta",
-            "concerns": [
-              "[ok] dormono (loro) y parto (io) correctas; grupo -ire simple sin -isc- bien aislado de finire/capire. Una sola opcion valida; gloss ES canon R7. Sin bug de contenido."
-            ]
-          },
-          {
-            "by": "gemini-2.5-flash",
-            "date": "2026-06-17",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C5-leak] Gemini marca el gloss '(en espanol: ...)' como leak. FALSO-POSITIVO de politica: el gloss es CANON R7 del autor (desambigua persona/significado para que el prompt admita una sola opcion valida), memoria gloss-es-desambiguacion-canon. La base de aprobacion es Claude Opus+Sonnet.",
-              "[C4-explanation] tambien marca tildes ASCII (anadiendo/espanol) = falso-positivo de politica (ASCII plano canon)."
-            ]
-          },
-          {
-            "by": "autor",
-            "date": "2026-06-17",
-            "verdict": "correcta",
-            "concerns": [
-              "[override] disputed resuelto: ambos concerns (C5-gloss y C4-accent) son falsos-positivos de politica conocidos (canon R7 + ASCII plano). Sin bug real de gramatica/semantica. Aprobado por la base Claude (Opus)."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -195,7 +119,7 @@
       "categoryIds": [
         "presente-regolare"
       ],
-      "explanation": "Un grupo grande de verbos en -ire (finire, capire, preferire, pulire) inserta -isc- entre la raiz y la desinencia en las TRES personas del singular y en la 3a del plural: io finisco, tu finisci, lui finisce, loro finiscono. En cambio noi y voi NO llevan -isc-: noi finiamo, voi finite. Esta es la trampa A1 mas caida: 'io finisco' nunca es 'fino' ni 'finio'; la raiz se mantiene (fin-) y el -isc- se intercala. El espanol no tiene un cambio paralelo, asi que hay que aprenderlo como propio del italiano. Las distractoras incluyen la forma SIN -isc- (el error tipico) y otras personas: solo la forma correcta concuerda con el sujeto y lleva (o no) el -isc- que toca.",
+      "explanation": "Un grupo grande de verbos en -ire (finire, capire, preferire, pulire) inserta -isc- entre la raíz y la desinencia en las TRES personas del singular y en la 3ª del plural: io finisco, tu finisci, lui finisce, loro finiscono. En cambio noi y voi NO llevan -isc-: noi finiamo, voi finite. Esta es la trampa A1 más caída: 'io finisco' nunca es 'fino' ni 'finio'; la raíz se mantiene (fin-) y el -isc- se intercala. El español no tiene un cambio paralelo, así que hay que aprenderlo como propio del italiano. Las distractoras incluyen la forma SIN -isc- (el error típico) y otras personas: solo la forma correcta concuerda con el sujeto y lleva (o no) el -isc- que toca.",
       "variants": [
         {
           "prompt": "Io ___ di lavorare alle sei. (en espanol: yo termino)",
@@ -229,34 +153,8 @@
         }
       ],
       "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-8",
-            "date": "2026-06-17",
-            "verdict": "correcta",
-            "concerns": [
-              "[ok] grupo -isc- (la trampa A1): finisco/capisci/preferisce correctas; distractoras incluyen la forma SIN -isc- (fino, prefere) que es el error tipico = buen C3. Una sola opcion valida; gloss ES canon R7. Bug de ortografia italiana corregido: 'il caffe al te' -> 'il caffè al tè' (caffè + tè bebida con acento grave). Ambos vendors confirman C1 natural = true tras el fix."
-            ]
-          },
-          {
-            "by": "gemini-2.5-flash",
-            "date": "2026-06-17",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C5-leak] gloss '(en espanol: ...)' = falso-positivo de politica (canon R7).",
-              "[C4-explanation] tildes ASCII (raiz/caida/espanol/mas) = falso-positivo de politica (ASCII plano canon). C1/C2/C3 = true."
-            ]
-          },
-          {
-            "by": "autor",
-            "date": "2026-06-17",
-            "verdict": "correcta",
-            "concerns": [
-              "[override] disputed resuelto: concerns C5-gloss y C4-accent son falsos-positivos de politica conocidos. El bug REAL que el cross-vendor cazo en C1 (il caffe al te -> il caffè al tè) ya fue corregido y re-verificado por ambos vendors (C1 natural=true). Aprobado por la base Claude (Opus)."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -265,7 +163,7 @@
       "categoryIds": [
         "presente-regolare"
       ],
-      "explanation": "Los verbos en -care y -gare (giocare, pagare) anaden una 'h' antes de la desinencia que empieza por -i, es decir en la 2a persona singular y en la 1a plural: tu giochi, noi giochiamo; tu paghi, noi paghiamo. La 'h' no se pronuncia: esta solo para CONSERVAR el sonido velar duro de la c y la g (como en 'casa' y 'gato'), que sin ella se ablandaria ante la i (sonaria 'gioci'). En espanol hacemos un ajuste ortografico parecido para mantener el sonido: 'pagar' da yo pago pero 'pague' lleva u, y 'sacar' da yo saco pero 'saque' con qu. Cuidado con la distractora sin h (giochi frente a 'gioci'): es el error mas comun. Las distractoras son la version sin h y otras personas.",
+      "explanation": "Los verbos en -care y -gare (giocare, pagare) añaden una 'h' antes de la desinencia que empieza por -i, es decir en la 2ª persona singular y en la 1ª plural: tu giochi, noi giochiamo; tu paghi, noi paghiamo. La 'h' no se pronuncia: está solo para CONSERVAR el sonido velar duro de la c y la g (como en 'casa' y 'gato'), que sin ella se ablandaría ante la i (sonaría 'gioci'). En español hacemos un ajuste ortográfico parecido para mantener el sonido: 'pagar' da yo pago pero 'pague' lleva u, y 'sacar' da yo saco pero 'saque' con qu. Cuidado con la distractora sin h (giochi frente a 'gioci'): es el error más común. Las distractoras son la versión sin h y otras personas.",
       "variants": [
         {
           "prompt": "Tu ___ a calcio ogni domenica. (en espanol: tu juegas)",
@@ -289,33 +187,8 @@
         }
       ],
       "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-8",
-            "date": "2026-06-17",
-            "verdict": "correcta",
-            "concerns": [
-              "[ok] ortograficos velares -care/-gare: giochi/paghiamo correctas; distractoras sin h (gioci, pagiamo) = el error tipico, buen C3. Una sola opcion valida; gloss ES canon R7. Prompts en italiano correcto sin acentos faltantes. Sin bug de contenido."
-            ]
-          },
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-17",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C4-explanation] DeepSeek marca 'anaden' (sin enie) = falso-positivo de politica (ASCII plano canon). C1/C2/C3/C5 = true; sin bug de contenido."
-            ]
-          },
-          {
-            "by": "autor",
-            "date": "2026-06-17",
-            "verdict": "correcta",
-            "concerns": [
-              "[override] disputed resuelto: unico concern = C4-accent falso-positivo de politica (ASCII plano canon). Sin bug real. Aprobado por la base Claude (Opus)."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -324,7 +197,7 @@
       "categoryIds": [
         "presente-regolare"
       ],
-      "explanation": "Los verbos en -ciare y -giare (cominciare, mangiare) PIERDEN la 'i' atona del infinitivo cuando la desinencia ya empieza por -i, para no escribir una doble i. Asi 'cominciare' da tu cominci (no 'comincii') y noi cominciamo; 'mangiare' da tu mangi y noi mangiamo. La 'i' del infinitivo solo servia para ablandar la c y la g (sonido dulce de 'ce/ci' y 'ge/gi'); como la desinencia -i ya hace ese trabajo, la i sobrante desaparece. Es el reverso del caso velar: alli se ANADE una h, aqui se QUITA una i, pero el objetivo es el mismo, escribir el sonido correcto sin letras de mas. Las distractoras son la version con doble i o sin el ajuste y otras personas.",
+      "explanation": "Los verbos en -ciare y -giare (cominciare, mangiare) PIERDEN la 'i' átona del infinitivo cuando la desinencia ya empieza por -i, para no escribir una doble i. Así 'cominciare' da tu cominci (no 'comincii') y noi cominciamo; 'mangiare' da tu mangi y noi mangiamo. La 'i' del infinitivo solo servía para ablandar la c y la g (sonido dulce de 'ce/ci' y 'ge/gi'); como la desinencia -i ya hace ese trabajo, la i sobrante desaparece. Es el reverso del caso velar: allí se AÑADE una h, aquí se QUITA una i, pero el objetivo es el mismo, escribir el sonido correcto sin letras de más. Las distractoras son la versión con doble i o sin el ajuste y otras personas.",
       "variants": [
         {
           "prompt": "Tu ___ a studiare alle nove. (en espanol: tu empiezas)",
@@ -348,34 +221,8 @@
         }
       ],
       "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-8",
-            "date": "2026-06-17",
-            "verdict": "correcta",
-            "concerns": [
-              "[ok] ortograficos palatales -ciare/-giare: cominci (pierde la i atona)/mangiamo correctas; distractoras con doble i (comincii, mangiiamo) = el error tipico, buen C3. Una sola opcion valida; gloss ES canon R7. Bug de ortografia italiana corregido: 'il venerdi' -> 'il venerdì'. Ambos vendors confirman C1 natural = true tras el fix."
-            ]
-          },
-          {
-            "by": "gemini-2.5-flash",
-            "date": "2026-06-17",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C5-leak] gloss '(en espanol: ...)' = falso-positivo de politica (canon R7).",
-              "[C4-explanation] tildes ASCII (atona/Asi/servia/alli) = falso-positivo de politica (ASCII plano canon). C1/C2/C3 = true."
-            ]
-          },
-          {
-            "by": "autor",
-            "date": "2026-06-17",
-            "verdict": "correcta",
-            "concerns": [
-              "[override] disputed resuelto: concerns C5-gloss y C4-accent son falsos-positivos de politica conocidos. El bug REAL que el cross-vendor cazo en C1 (il venerdi -> il venerdì) ya fue corregido y re-verificado por ambos vendors (C1 natural=true). Aprobado por la base Claude (Opus)."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -384,7 +231,7 @@
       "categoryIds": [
         "presente-regolare"
       ],
-      "explanation": "Construye la frase aplicando el -isc- de los verbos en -ire que lo insertan (finire, pulire): en io y tu la forma lleva -isc- (io finisco, tu pulisci), mientras que en noi NO lo lleva (noi finiamo). La trampa que las botones-distractoras explotan es justamente la forma sin -isc- (fino) o el -isc- mal colocado (finisce con otra persona): elige la forma que concuerda con el sujeto. Recuerda que la raiz se mantiene (fin-, pul-) y el -isc- se intercala solo en las personas del singular y en la 3a del plural.",
+      "explanation": "Construye la frase aplicando el -isc- de los verbos en -ire que lo insertan (finire, pulire): en io y tu la forma lleva -isc- (io finisco, tu pulisci), mientras que en noi NO lo lleva (noi finiamo). La trampa que las botones-distractoras explotan es justamente la forma sin -isc- (fino) o el -isc- mal colocado (finisce con otra persona): elige la forma que concuerda con el sujeto. Recuerda que la raíz se mantiene (fin-, pul-) y el -isc- se intercala solo en las personas del singular y en la 3ª del plural.",
       "variants": [
         {
           "prompt": "Yo termino el trabajo.",
@@ -414,33 +261,8 @@
         }
       ],
       "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-8",
-            "date": "2026-06-17",
-            "verdict": "correcta",
-            "concerns": [
-              "[ok] word-buttons -isc-: 'io finisco il lavoro' y 'tu pulisci la casa' correctas y naturales; distractoras = forma sin -isc- (fino, puli) + persona errada (finisce, pulisco), buen C3. Frase ES en prompt es el enunciado a traducir (correcto en word-buttons, NO leak). Italiano sin acentos faltantes. Sin bug de contenido."
-            ]
-          },
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-17",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C4-explanation] DeepSeek marca 'raiz' (sin tilde) = falso-positivo de politica (ASCII plano canon). C1/C2/C3/C5 = true; sin bug de contenido."
-            ]
-          },
-          {
-            "by": "autor",
-            "date": "2026-06-17",
-            "verdict": "correcta",
-            "concerns": [
-              "[override] disputed resuelto: unico concern = C4-accent falso-positivo de politica (ASCII plano canon). Sin bug real. Aprobado por la base Claude (Opus)."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -449,7 +271,7 @@
       "categoryIds": [
         "presente-regolare"
       ],
-      "explanation": "Construye la frase conjugando un verbo del primer grupo (-are) en la persona del sujeto: para 'noi' la desinencia es -iamo (noi parliamo). Las botones-distractoras ofrecen otras personas del mismo verbo (parlo, parli), que existen pero no concuerdan con 'noi'. La regla: quita -are del infinitivo y anade la desinencia que pide la persona; el resto de la frase (objeto, complementos) acompana en el orden natural italiano sujeto-verbo-complemento.",
+      "explanation": "Construye la frase conjugando un verbo del primer grupo (-are) en la persona del sujeto: para 'noi' la desinencia es -iamo (noi parliamo). Las botones-distractoras ofrecen otras personas del mismo verbo (parlo, parli), que existen pero no concuerdan con 'noi'. La regla: quita -are del infinitivo y añade la desinencia que pide la persona; el resto de la frase (objeto, complementos) acompaña en el orden natural italiano sujeto-verbo-complemento.",
       "variants": [
         {
           "prompt": "Nosotros hablamos italiano.",
@@ -478,33 +300,8 @@
         }
       ],
       "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-4-8",
-            "date": "2026-06-17",
-            "verdict": "correcta",
-            "concerns": [
-              "[ok] word-buttons -are: 'noi parliamo italiano' y 'loro abitano a Roma' correctas y naturales; distractoras = otras personas del mismo verbo (parlo/parli, abita/abitate), buen C3. Frase ES en prompt es el enunciado a traducir (correcto en word-buttons, NO leak). Italiano sin acentos faltantes. Cubre las personas noi y loro (D-30-03). Sin bug de contenido. (Nota: en un dry-run previo DeepSeek dio 'correcta' 5/5; en el pase escrito marco el C4-accent 'anade' = mismo falso-positivo de politica)."
-            ]
-          },
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-17",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C4-explanation] DeepSeek marca 'anade' (sin enie) = falso-positivo de politica (ASCII plano canon). C1/C2/C3/C5 = true; sin bug de contenido."
-            ]
-          },
-          {
-            "by": "autor",
-            "date": "2026-06-17",
-            "verdict": "correcta",
-            "concerns": [
-              "[override] disputed resuelto: unico concern = C4-accent falso-positivo de politica (ASCII plano canon). Sin bug real. Aprobado por la base Claude (Opus)."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     }
   ]
