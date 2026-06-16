@@ -289,8 +289,33 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": [
+              "[ok] ortograficos velares -care/-gare: giochi/paghiamo correctas; distractoras sin h (gioci, pagiamo) = el error tipico, buen C3. Una sola opcion valida; gloss ES canon R7. Prompts en italiano correcto sin acentos faltantes. Sin bug de contenido."
+            ]
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-17",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] DeepSeek marca 'anaden' (sin enie) = falso-positivo de politica (ASCII plano canon). C1/C2/C3/C5 = true; sin bug de contenido."
+            ]
+          },
+          {
+            "by": "autor",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": [
+              "[override] disputed resuelto: unico concern = C4-accent falso-positivo de politica (ASCII plano canon). Sin bug real. Aprobado por la base Claude (Opus)."
+            ]
+          }
+        ]
       }
     },
     {
