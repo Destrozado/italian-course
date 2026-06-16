@@ -23,6 +23,8 @@ Alta de la categoría `presente-regolare` (conjugación del presente indicativo 
 - [ ] **MIG-05**: `migrate9to10` + `hydrateV10` + `CURRENT_SCHEMA_VERSION=10` idempotentes (deep-clone anti-prototype-pollution), con reset selectivo SOLO del progreso de `presente-regolare`; las 9 categorías existentes quedan byte-intactas (verificado por fixture)
 - [ ] **MIG-06**: `backup.js` soporta round-trip v10 + import v9→v10 con el reset selectivo aplicado + rechazo de wrappers con `schemaVersion > 10`
 
+> **⚠️ Nota de implementación (discrepancia detectada en roadmapping 2026-06-16):** MIG-05/06 fueron escritos asumiendo que el codebase estaba en `schemaVersion 9`. NO lo está: el quick task `260615-nzi` (contador `vecesFallada`) ya introdujo un `migrate9to10`/`hydrateV10` nominal, por lo que `CURRENT_SCHEMA_VERSION` YA es **10**. La migración de reset selectivo de v1.7 va realmente **`10→11`** (`migrate10to11`/`hydrateV11`/`CURRENT_SCHEMA_VERSION=11`; round-trip v11 + import v10→v11 + rechazo `>11`). Los IDs de requisito (MIG-05/06) y su intención se mantienen; solo el número de schema target cambia. Verificar `CURRENT_SCHEMA_VERSION` en plan-time antes de hardcodear.
+
 ### Integración lockstep (INT)
 
 - [ ] **INT-01**: Los counts hardcoded + `TOTAL_EXPECTED` quedan re-sincronizados (183 → 183 + N slots de la categoría nueva) en el reporter y en los tests
@@ -60,18 +62,25 @@ Explícitamente excluido de v1.7. Documentado para evitar scope creep.
 
 ## Traceability
 
-Qué fases cubren qué requisitos. Se rellena durante la creación del roadmap.
+Qué fases cubren qué requisitos. Numeración EMPIEZA en Phase 29 (Phase 28 ya existe — trabajo huérfano "responsive-mobile" archivado).
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| PRES-01 | TBD | Pending |
-| PRES-02 | TBD | Pending |
-| PRES-03 | TBD | Pending |
-| PRES-04 | TBD | Pending |
-| PRES-05 | TBD | Pending |
-| PRES-06 | TBD | Pending |
-| PRES-07 | TBD | Pending |
-| MIG-05 | TBD | Pending |
-| MIG-06 | TBD | Pending |
-| INT-01 | TBD | Pending |
-| INT-02 | TBD | Pending |
+| MIG-05 | Phase 29 | Pending |
+| MIG-06 | Phase 29 | Pending |
+| PRES-01 | Phase 30 | Pending |
+| PRES-02 | Phase 30 | Pending |
+| PRES-03 | Phase 30 | Pending |
+| PRES-04 | Phase 30 | Pending |
+| PRES-05 | Phase 30 | Pending |
+| PRES-06 | Phase 30 | Pending |
+| PRES-07 | Phase 31 | Pending |
+| INT-01 | Phase 31 | Pending |
+| INT-02 | Phase 31 | Pending |
+
+**Coverage:** 11/11 requisitos mapeados (100%), 0 orphans, 0 duplicados, 0 gaps. Cada success criterion del roadmap está respaldado por ≥1 requisito.
+
+**Mapping rationale:**
+- **Phase 29 (Migración `10→11`, reset selectivo de `presente-regolare`)** → MIG-05 + MIG-06. Va PRIMERA (deja el state listo para que la categoría nueva nazca limpia). Espejo del patrón `migrate8to9`/`hydrateV9` de v1.6 pero con un predicado de UN solo prefijo. Target real `10→11` (no `9→10`) — ver nota de implementación arriba.
+- **Phase 30 (Alta de `presente-regolare`: registro + slots de regla + variantes por quórum)** → PRES-01..06. Registrar la categoría (order 10) + crear el JSON nacido en slot+variantes con los slots de regla (PRES-01/02), ≥2 variantes por slot (PRES-03), explanation a nivel de slot (PRES-05), match condicional D-04 (PRES-06), y autorar/validar TODAS las variantes por quórum cross-vendor R1-R7 (PRES-04). El núcleo del milestone.
+- **Phase 31 (Cruces multi-cat + integración lockstep)** → PRES-07 + INT-01 + INT-02. Cruces `presente-regolare`↔avere/essere con cascada D-54 (PRES-07); sync de counts + `TOTAL_EXPECTED` (INT-01); +1 entrada en el smoke paramétrico + suite verde estricta (INT-02). Cierra v1.7.
