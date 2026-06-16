@@ -2,8 +2,8 @@
 gsd_state_version: 1.0
 milestone: v1.7
 milestone_name: Presente regolare (10ª categoría de gramática)
-status: executing
-last_updated: "2026-06-16T22:30:00.000Z"
+status: Phase 29 completa — schemaVersion del codebase ahora **11**. Lista para Phase 30.
+last_updated: "2026-06-16T22:13:10.391Z"
 last_activity: 2026-06-16 -- Phase 29 completada (migración 10→11, reset selectivo presente-regolare)
 progress:
   total_phases: 3
