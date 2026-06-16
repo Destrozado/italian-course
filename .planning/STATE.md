@@ -2,9 +2,9 @@
 gsd_state_version: 1.0
 milestone: v1.7
 milestone_name: Presente regolare (10ª categoría de gramática)
-status: planning
-last_updated: "2026-06-16T18:30:00.000Z"
-last_activity: 2026-06-16
+status: Roadmap creado, pendiente plan-phase 29
+last_updated: "2026-06-16T21:13:48.424Z"
+last_activity: 2026-06-16 — Roadmap v1.7 fijado (Phases 29-31, 11/11 requisitos mapeados)
 progress:
   total_phases: 3
   completed_phases: 0
