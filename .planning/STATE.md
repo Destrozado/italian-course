@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.7
 milestone_name: Presente regolare (10ª categoría de gramática)
 status: executing
-last_updated: "2026-06-16T21:42:11.152Z"
-last_activity: 2026-06-16 -- Phase 29 planning complete
+last_updated: "2026-06-16T22:30:00.000Z"
+last_activity: 2026-06-16 -- Phase 29 completada (migración 10→11, reset selectivo presente-regolare)
 progress:
   total_phases: 3
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 1
-  completed_plans: 0
-  percent: 0
+  completed_plans: 1
+  percent: 33
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -21,14 +21,14 @@ See: `.planning/PROJECT.md` (updated 2026-06-09 — Milestone v1.6 shipped, CONV
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** v1.7 — Presente regolare (10ª categoría). Roadmap fijado (Phases 29-31). Siguiente: `/gsd:plan-phase 29` (migración `10→11`, reset selectivo de `presente-regolare`).
+**Current Focus:** Phase 30 — Alta de presente-regolare (registro + slots de regla + variantes por quórum) — siguiente
 
 ## Current Position
 
-Phase: 29 (no iniciada) — Migración `10→11` (reset selectivo de `presente-regolare`)
-Plan: —
-Status: Ready to execute
-Last activity: 2026-06-16 -- Phase 29 planning complete
+Phase: 29 (Migración 10→11 (reset selectivo SOLO de presente-regolare)) — ✅ COMPLETA
+Plan: 1 of 1 completado (29-01)
+Status: Phase 29 completa — schemaVersion del codebase ahora **11**. Lista para Phase 30.
+Last activity: 2026-06-16 -- Phase 29 completada (migración 10→11, reset selectivo presente-regolare)
 
 ## Deferred Items
 
@@ -83,7 +83,7 @@ Ambos quick tasks tienen `status: shipped` en su SUMMARY.md (completados 2026-05
 | Requisitos v1.5 completos | 9/9 (100% — MIG-01/02 + ART-01..04 + PART-01..03) |
 | Fases v1.7 | 0/3 planificadas (Phase 29 migración `10→11`, Phase 30 alta de `presente-regolare` + variantes por quórum, Phase 31 cruces multi-cat + integración lockstep) |
 | Requisitos v1.7 mapeados | 11/11 (100% — MIG-05/06→Phase 29; PRES-01..06→Phase 30; PRES-07 + INT-01/02→Phase 31; 0 orphans) |
-| schemaVersion actual | **10** (v1.6 dejó 9; el quick task `260615-nzi` bumpeó a 10 con migrate9to10/hydrateV10 nominal por `vecesFallada`). v1.7 Phase 29 migrará **`10→11`** (NO `9→10` como dice MIG-05) |
+| schemaVersion actual | **11** (Phase 29 / 2026-06-16: `migrate10to11`/`hydrateV11`/`RESET_PREFIXES_V11` reset selectivo de `presente-regolare`, espejo de migrate8to9 con 1 prefijo; backup.js round-trip v11 + import v10→v11 + reject >11). Histórico: v1.6 dejó 9; quick `260615-nzi` bumpeó a 10 (vecesFallada nominal); v1.7 Phase 29 a 11 |
 | Categorías gramaticales | 9 (todas en formato slot+variantes unificado, CONV-01 cerrado); v1.7 da de alta la 10ª (`presente-regolare`) nacida directamente en slot+variantes |
 | TOTAL_EXPECTED actual | 183 (9 categorías); v1.7 lo sube a 183 + N slots de `presente-regolare` |
 | Granularidad | coarse |
@@ -94,6 +94,8 @@ Ambos quick tasks tienen `status: shipped` en su SUMMARY.md (completados 2026-05
 ### Roadmap Evolution
 
 - **2026-06-09 — Milestone v1.6 shipped.** 7 fases (21-27), 19 plans, 14/14 requirements, 374/374 tests (383/383 strict). Las 6 categorías legacy convertidas a slot+variantes + migración 8→9 reset selectivo de las 6. CONV-01 CERRADO: 9/9 categorías unificadas. schemaVersion 8→9.
+- **2026-06-16 — Phase 29 completada (migración `10→11`, reset selectivo de `presente-regolare`).** 1 plan (29-01), 3 tasks, 2 commits feat + 1 docs. `migrate10to11` + `hydrateV11` + `RESET_PREFIXES_V11=['presente-regolare']` añadidos a `storage.js` (espejo literal de `migrate8to9`/`hydrateV10` de Phase 21 con UN solo prefijo; deep-clone anti-prototype-pollution, idempotente, puro); `CURRENT_SCHEMA_VERSION` bumpeado a 11 en `storage.js` Y `backup.js` (espejo independiente); dispatcher encadena `10→11→hydrateV11`; `backup.js` round-trip v11 + import v10→v11 con reset + reject `>11` genérico. Verificado en código que el target real era `10→11` (NO `9→10` de los IDs MIG-05/06). +20 tests netos (bloque v11 en data-storage + bloque v11 en backup); suite 468 tests / 467 pass / 1 fail (el preexistente AJENO `genero-numero` content count 12→13 — NO regresión del bump). Trap de tests resuelta en contexto: asserts del output aislado de `migrate9to10`/`hydrateV10` se quedaron en 10, solo los de cadena-a-final-state + `blankState` pasaron a 11. MIG-05/06 completos (11/11 requirements v1.7 → 2 done). Motor de re-verificación NO tocado (brownfield puro sobre la cadena de migración). Commits: `7291eee` (storage), `8564761` (backup). Stopped at: Phase 29 completa. Resume file: None. Siguiente: `/gsd:plan-phase 30` (alta de `presente-regolare` sobre el state v11).
+
 - **2026-06-16 — Milestone v1.7 abierto + roadmap fijado.** Presente regolare (10ª categoría de gramática). Numeración EMPIEZA en **Phase 29** (NO en 28 — Phase 28 ya existe como trabajo huérfano "responsive-mobile" archivado en `.planning/milestones/orphan-phases/`; los stubs `999.1`/`999.2` en `.planning/phases/` son backlog, intactos). 3 fases coarse (alta de categoría, patrón v1.2 + slot v1.6): **Phase 29 (Migración `10→11`, reset selectivo de `presente-regolare`)** mapea MIG-05/06 — espejo de migrate8to9/hydrateV9 con un predicado de UN solo prefijo; va PRIMERA para que la categoría nueva nazca limpia; **Phase 30 (Alta de `presente-regolare`: registro order 10 + slots de regla -are/-ere/-ire/-isc-/ortográficos + ≥2 variantes/slot + explanation a nivel de slot + match condicional D-04, todas las variantes por quórum cross-vendor R1-R7)** mapea PRES-01..06; **Phase 31 (Cruces multi-cat `presente-regolare`↔avere/essere con cascada D-54 + sync de counts/TOTAL_EXPECTED + +1 entrada smoke paramétrico + suite verde estricta)** mapea PRES-07 + INT-01/02. **Cobertura: 11/11 mapped, 0 orphans, 0 duplicados, 0 gaps.** Phase 30 depende de Phase 29; Phase 31 depende de Phase 30. **Brownfield puro contenido + migración: el motor slot+variantes v1.4 NO se reconstruye ni se toca.** **DISCREPANCIA CLAVE detectada en roadmapping:** REQUIREMENTS MIG-05/06 asume `schemaVersion 9` y migración `9→10`, pero `CURRENT_SCHEMA_VERSION` YA está en **10** (quick task `260615-nzi`); la migración real de v1.7 es **`10→11`** — verificar el valor REAL en plan-time. Archivos escritos: `.planning/ROADMAP.md` (v1.0-v1.6 colapsados a `<details>` SHIPPED + Phase 28 huérfana en `<details>` + sección `### 🚧 v1.7 — ACTIVE` con Phases 29-31 + Phase Details 4 criteria c/u + Progress table v1.7 + footer milestone v1.7 + Backlog actualizado con TENSE/REFLEX/MODAL/PASSPROX), `.planning/REQUIREMENTS.md` (Traceability 11 filas MIG→29 / PRES-01..06→30 / PRES-07+INT→31 + Coverage 11/11 + mapping rationale + nota de discrepancia schema en MIG-05/06), `.planning/STATE.md` (este). Stopped at: roadmap creado. Resume file: None. Siguiente: `/gsd:plan-phase 29`.
 
 - **2026-05-25 — Milestone v1.0 shipped.** 10 fases activas, 26 plans, 71 tasks. 271/271 ejercicios curados con explanations en 7 categorías. Motor de re-verificación + Modo Examen operativos.

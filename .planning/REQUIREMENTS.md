@@ -20,8 +20,8 @@ Alta de la categoría `presente-regolare` (conjugación del presente indicativo 
 
 ### Migración (MIG)
 
-- [ ] **MIG-05**: `migrate9to10` + `hydrateV10` + `CURRENT_SCHEMA_VERSION=10` idempotentes (deep-clone anti-prototype-pollution), con reset selectivo SOLO del progreso de `presente-regolare`; las 9 categorías existentes quedan byte-intactas (verificado por fixture)
-- [ ] **MIG-06**: `backup.js` soporta round-trip v10 + import v9→v10 con el reset selectivo aplicado + rechazo de wrappers con `schemaVersion > 10`
+- [x] **MIG-05**: `migrate9to10` + `hydrateV10` + `CURRENT_SCHEMA_VERSION=10` idempotentes (deep-clone anti-prototype-pollution), con reset selectivo SOLO del progreso de `presente-regolare`; las 9 categorías existentes quedan byte-intactas (verificado por fixture) — ✅ entregado como `10→11` (`migrate10to11`/`hydrateV11`/`CURRENT_SCHEMA_VERSION=11`) en Phase 29 (target real del codebase; ver nota de implementación)
+- [x] **MIG-06**: `backup.js` soporta round-trip v10 + import v9→v10 con el reset selectivo aplicado + rechazo de wrappers con `schemaVersion > 10` — ✅ entregado como round-trip v11 + import v10→v11 + rechazo `>11` en Phase 29
 
 > **⚠️ Nota de implementación (discrepancia detectada en roadmapping 2026-06-16):** MIG-05/06 fueron escritos asumiendo que el codebase estaba en `schemaVersion 9`. NO lo está: el quick task `260615-nzi` (contador `vecesFallada`) ya introdujo un `migrate9to10`/`hydrateV10` nominal, por lo que `CURRENT_SCHEMA_VERSION` YA es **10**. La migración de reset selectivo de v1.7 va realmente **`10→11`** (`migrate10to11`/`hydrateV11`/`CURRENT_SCHEMA_VERSION=11`; round-trip v11 + import v10→v11 + rechazo `>11`). Los IDs de requisito (MIG-05/06) y su intención se mantienen; solo el número de schema target cambia. Verificar `CURRENT_SCHEMA_VERSION` en plan-time antes de hardcodear.
 
@@ -66,8 +66,8 @@ Qué fases cubren qué requisitos. Numeración EMPIEZA en Phase 29 (Phase 28 ya 
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| MIG-05 | Phase 29 | Pending |
-| MIG-06 | Phase 29 | Pending |
+| MIG-05 | Phase 29 | Complete |
+| MIG-06 | Phase 29 | Complete |
 | PRES-01 | Phase 30 | Pending |
 | PRES-02 | Phase 30 | Pending |
 | PRES-03 | Phase 30 | Pending |

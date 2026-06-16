@@ -113,7 +113,7 @@ Numeración EMPIEZA en **Phase 29** (NO en 28 — Phase 28 ya existe como trabaj
 
 **NOTA DE NUMERACIÓN DE SCHEMA (discrepancia REQUIREMENTS vs codebase):** REQUIREMENTS.md (MIG-05/06) asume migración `9→10`, pero `CURRENT_SCHEMA_VERSION` YA está en **10** (un quick task posterior — `260615-nzi`, contador `vecesFallada` — introdujo un `migrate9to10`/`hydrateV10` nominal). Por tanto la migración de reset selectivo de v1.7 va realmente **`10→11`** (`migrate10to11`/`hydrateV11`/`CURRENT_SCHEMA_VERSION=11`). El roadmap usa la numeración REAL del codebase (`10→11`); los IDs de requisito (MIG-05/06) se mantienen.
 
-- [ ] **Phase 29: Migración `10→11` (reset selectivo SOLO de `presente-regolare`)** — `migrate10to11`/`hydrateV11` + `CURRENT_SCHEMA_VERSION=11` idempotentes + deep-clone anti-prototype-pollution; reset de progreso SOLO de `presente-regolare` (predicado de 1 prefijo); las 9 categorías existentes + canciones byte-intactas (verificado por fixture); `backup.js` round-trip v11 + import v10→v11 + rechazo `>11`. Va PRIMERA: deja el state listo para que la categoría nueva nazca limpia. (MIG-05, MIG-06)
+- [x] **Phase 29: Migración `10→11` (reset selectivo SOLO de `presente-regolare`)** — `migrate10to11`/`hydrateV11` + `CURRENT_SCHEMA_VERSION=11` idempotentes + deep-clone anti-prototype-pollution; reset de progreso SOLO de `presente-regolare` (predicado de 1 prefijo); las 9 categorías existentes + canciones byte-intactas (verificado por fixture); `backup.js` round-trip v11 + import v10→v11 + rechazo `>11`. Va PRIMERA: deja el state listo para que la categoría nueva nazca limpia. (MIG-05, MIG-06) — ✅ COMPLETA 2026-06-16
 - [ ] **Phase 30: Alta de `presente-regolare` (registro + slots de regla + variantes por quórum)** — Registrar la categoría en `categories.json` (order 10) + crear `content/exercises/presente-regolare.json` nacido en slot+variantes con los slots de regla (`-are`/`-ere`/`-ire` simple/`-ire` con `-isc-`/ortográficos `-care-gare`/`-ciare-giare`), ≥2 variantes intercambiables por slot, explanation a nivel de slot (canon español acentuado), tipos multi-choice + word-buttons + match (match SOLO si NO derivable por raíz, D-04); autorar TODAS las variantes y pasarlas por quórum cross-vendor R1-R7 (`status: validated`; disputed por autor-oráculo). (PRES-01, PRES-02, PRES-03, PRES-04, PRES-05, PRES-06)
 - [ ] **Phase 31: Cruces multi-cat + integración lockstep (cierre v1.7)** — Cruces `presente-regolare`↔avere/essere (contraste presente vs passato prossimo) con cascada D-54 inmediata (patrón avere-300..305); re-sincronizar los counts hardcoded + `TOTAL_EXPECTED` (183 → 183 + N slots de la categoría nueva) + +1 entrada en el smoke paramétrico (`CATEGORIES_WITH_EXPLANATIONS` + validación de contenido); suite verde completa incluido `VAL_07_STRICT=1`. Cierra v1.7 (10ª categoría usable end-to-end). (PRES-07, INT-01, INT-02)
 
@@ -132,7 +132,7 @@ Numeración EMPIEZA en **Phase 29** (NO en 28 — Phase 28 ya existe como trabaj
   4. La app arranca limpia sobre el state migrado y los tests siguen verdes (los baseline + los nuevos de la cadena v11).
 
 **Plans**: 1 plan
-- [ ] 29-01-PLAN.md — `migrate10to11`/`hydrateV11`/`RESET_PREFIXES_V11`/`CURRENT_SCHEMA_VERSION=11` espejo de migrate8to9 (1 prefijo) + bump backup.js round-trip v11/import v10→v11/reject >11 + tests de la cadena v11 (reset, byte-intacto de las 9 + songProgress, idempotencia, pureza, anti-prototype-pollution)
+- [x] 29-01-PLAN.md — `migrate10to11`/`hydrateV11`/`RESET_PREFIXES_V11`/`CURRENT_SCHEMA_VERSION=11` espejo de migrate8to9 (1 prefijo) + bump backup.js round-trip v11/import v10→v11/reject >11 + tests de la cadena v11 (reset, byte-intacto de las 9 + songProgress, idempotencia, pureza, anti-prototype-pollution) — ✅ 2026-06-16 (96/96 storage + 44/44 backup verdes; +20 tests netos; 0 regresiones nuevas)
 
 **UI hint**: no
 
@@ -178,7 +178,7 @@ Numeración EMPIEZA en **Phase 29** (NO en 28 — Phase 28 ya existe como trabaj
 | 15-17 | v1.4 | 9/9 | Complete | 2026-06-03 |
 | 18-20 | v1.5 | 7/7 | Complete | 2026-06-05 |
 | 21-27 | v1.6 | 19/19 | Complete | 2026-06-09 |
-| 29. Migración `10→11` (reset `presente-regolare`) | v1.7 | 0/1 | Not started | - |
+| 29. Migración `10→11` (reset `presente-regolare`) | v1.7 | 1/1 | Complete | 2026-06-16 |
 | 30. Alta de `presente-regolare` (slots + variantes por quórum) | v1.7 | 0/? | Not started | - |
 | 31. Cruces multi-cat + integración lockstep | v1.7 | 0/? | Not started | - |
 
