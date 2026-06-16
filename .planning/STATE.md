@@ -2,13 +2,13 @@
 gsd_state_version: 1.0
 milestone: v1.7
 milestone_name: Presente regolare (10ª categoría de gramática)
-status: Roadmap creado, pendiente plan-phase 29
-last_updated: "2026-06-16T21:13:48.424Z"
-last_activity: 2026-06-16 — Roadmap v1.7 fijado (Phases 29-31, 11/11 requisitos mapeados)
+status: executing
+last_updated: "2026-06-16T21:42:11.152Z"
+last_activity: 2026-06-16 -- Phase 29 planning complete
 progress:
   total_phases: 3
   completed_phases: 0
-  total_plans: 0
+  total_plans: 1
   completed_plans: 0
   percent: 0
 ---
@@ -27,8 +27,8 @@ See: `.planning/PROJECT.md` (updated 2026-06-09 — Milestone v1.6 shipped, CONV
 
 Phase: 29 (no iniciada) — Migración `10→11` (reset selectivo de `presente-regolare`)
 Plan: —
-Status: Roadmap creado, pendiente plan-phase 29
-Last activity: 2026-06-16 — Roadmap v1.7 fijado (Phases 29-31, 11/11 requisitos mapeados)
+Status: Ready to execute
+Last activity: 2026-06-16 -- Phase 29 planning complete
 
 ## Deferred Items
 
