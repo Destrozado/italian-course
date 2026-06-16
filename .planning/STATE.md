@@ -4,13 +4,13 @@ milestone: v1.7
 milestone_name: Presente regolare (10ª categoría de gramática)
 status: executing
 last_updated: "2026-06-17T00:00:00.000Z"
-last_activity: 2026-06-17 -- Plan 30-01 completado (alta presente-regolare: registro + JSON 8 objetos pending)
+last_activity: 2026-06-17 -- Plan 30-02 completado (quórum cross-vendor R1-R7: 8/8 objetos validated; 3 bugs ortografía italiana corregidos)
 progress:
   total_phases: 3
   completed_phases: 1
   total_plans: 4
-  completed_plans: 2
-  percent: 33
+  completed_plans: 3
+  percent: 50
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -26,9 +26,9 @@ See: `.planning/PROJECT.md` (updated 2026-06-09 — Milestone v1.6 shipped, CONV
 ## Current Position
 
 Phase: 30 (Alta de presente-regolare (registro + slots de regla + variantes por quórum)) — EXECUTING
-Plan: 2 of 3
-Status: Ready to execute — Plan 30-01 completado, siguiente es 30-02 (quórum cross-vendor R1-R7 sobre las variantes pending)
-Last activity: 2026-06-17 -- Plan 30-01 completado
+Plan: 3 of 3
+Status: Ready to execute — Plan 30-02 completado (8/8 objetos validated por quórum), siguiente es 30-03 (boot/load + schema-validator + suite baseline verde; registrar N=8 para Phase 31)
+Last activity: 2026-06-17 -- Plan 30-02 completado
 
 ## Deferred Items
 
@@ -92,6 +92,8 @@ Ambos quick tasks tienen `status: shipped` en su SUMMARY.md (completados 2026-05
 ## Accumulated Context
 
 ### Roadmap Evolution
+
+- **2026-06-17 — Plan 30-02 completado (quórum cross-vendor R1-R7 sobre presente-regolare).** 1 task, 8 commits atómicos `validate(presente-regolare)` (1-por-1, NUNCA batched — VAL-03). Los 8 objetos-ejercicio pasados a `validation.status: validated` con `passes[]` populado. **El cross-vendor cazó 3 bugs reales de ortografía italiana** que la autoría de 30-01 dejó pasar (memoria `feedback-cross-vendor-catches-bugs`): `all'universita`→`all'università` (`7bd5d7b`), `il caffe al te`→`il caffè al tè` (`8d23217`), `il venerdi`→`il venerdì` (`f0a8c58`) — corregidos por Rule 1 (NO override) y re-verificados (ambos vendors confirman C1 natural=true tras el fix). Los falsos-positivos de política conocidos (C4-accent: explanations en ASCII plano deliberado; C5-gloss: el gloss `(en espanol: ...)` es canon R7) resueltos por **autor-oráculo con audit trail** (`{by:autor, verdict:correcta, concerns:["[override] ..."]}` + pass de revisión `claude-opus-4-8` correcta + el verdict cross-vendor real conservado como audit trail; `status: validated` manual, precedente `avere-passato-prossimo`). **`Task` no disponible en el executor secuencial** → el pase cross-vendor se hizo con el pool elegible alternativo `scripts/validate-ai-pass.mjs` (Gemini/DeepSeek, claves `.env`), también 1-por-1; el segundo `correcta` distinto lo aporta el author-oracle Claude (Opus) + override autor. Verify del plan: 8/8 validated + 8 commits ≥ 8 objetos → PASS. Suite `node --test tests/*.test.js` 468/469 (1 fail preexistente AJENO genero-numero 12→13, NO regresión). PRES-04 → done (3/3 reqs de Phase 30: 30-01 cerró PRES-01/02/03/05/06). Brownfield puro: solo el bloque `validation` + 3 prompts del JSON de contenido; 0 `.js` tocado. Commits validate: `7bd5d7b`(are), `bcd404b`(ere), `0a10360`(ire), `8d23217`(isc), `8a2cb92`(velar), `f0a8c58`(palatal), `1e15c3e`(isc-wb), `ba1e3e0`(are-wb). Stopped at: Plan 30-02 completo. Resume file: None. Siguiente: Plan 30-03 (boot/load + schema-validator + suite baseline verde; registrar N=8 para Phase 31).
 
 - **2026-06-17 — Plan 30-01 completado (alta de `presente-regolare`: registro + slots de regla + variantes).** 2 tasks, 2 commits feat. Task 1 (`14eec06`): registrada la 10ª categoría `{ "id": "presente-regolare", "name": "Presente indicativo (verbi regolari)", "order": 10 }` en `content/categories.json` (9 entradas previas intactas). Task 2 (`ba3151d`): creado `content/exercises/presente-regolare.json` en formato slot+variantes CONV-01 con **8 objetos-ejercicio** = 6 multiple-choice (uno por grupo de regla: -are/-ere/-ire-simple/-isc-/velar/palatal) + 2 word-buttons (`-isc-` obligatorio D-30-04 + `-are` selectivo D-30-06). `-isc-` reforzado (mc 3 variantes + wb). Eje de variación verbo+persona (D-30-01); las 6 personas io/tu/lui/noi/voi/loro cubiertas a nivel categoría (D-30-03; voi en ere, loro en ire+are-wb). Todas las variantes nacen `validation.status: pending` (las valida el quórum en 30-02). Campo `notes` top-level autor-internal documenta el 0-match (D-30-05, derivable por raíz vs avere/essere no-derivables → aquéllas sí match). Explanations en español plano ASCII (R1-R7 aplicadas; gloss `(en espanol: …)` canon R7). Verificado contra `validateContent` (boot OK) + plain-text/ASCII scan. **`exercises.length=8` es el conteo DEFINITIVO** para que Phase 31 sincronice `TOTAL_EXPECTED` (183→183+8) y los 3 hardcodes leyéndolo dinámicamente — NUNCA hardcodear 6. Requisitos PRES-01/02/03/05/06 → done (PRES-04 quórum es 30-02; PRES-06 0-match documentado). Motor de re-verificación NO tocado (brownfield puro). Stopped at: Plan 30-01 completo. Resume file: None. Siguiente: Plan 30-02 (quórum cross-vendor R1-R7 sobre las variantes pending de presente-regolare).
 

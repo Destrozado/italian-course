@@ -150,7 +150,7 @@ Numeración EMPIEZA en **Phase 29** (NO en 28 — Phase 28 ya existe como trabaj
 
 **Plans**: 3 plans (1 autoría + 1 quórum + 1 verificación)
 - [x] 30-01-PLAN.md — registrar categoría (order 10) + autorar presente-regolare.json (6 slots de regla + variantes + explanations + notes 0-match)
-- [ ] 30-02-PLAN.md — validar por quórum cross-vendor R1-R7 1-por-1 los 6 slots (status validated; disputed por autor-oráculo)
+- [x] 30-02-PLAN.md — validar por quórum cross-vendor R1-R7 1-por-1 los 8 objetos (status validated; disputed por autor-oráculo) — ✅ COMPLETA 2026-06-17
 - [ ] 30-03-PLAN.md — boot/load + schema-validator + suite baseline verde; registrar N=6 para Phase 31
 
 **UI hint**: no
@@ -182,7 +182,7 @@ Numeración EMPIEZA en **Phase 29** (NO en 28 — Phase 28 ya existe como trabaj
 | 18-20 | v1.5 | 7/7 | Complete | 2026-06-05 |
 | 21-27 | v1.6 | 19/19 | Complete | 2026-06-09 |
 | 29. Migración `10→11` (reset `presente-regolare`) | v1.7 | 1/1 | Complete | 2026-06-16 |
-| 30. Alta de `presente-regolare` (slots + variantes por quórum) | v1.7 | 1/3 | In Progress|  |
+| 30. Alta de `presente-regolare` (slots + variantes por quórum) | v1.7 | 2/3 | In Progress|  |
 | 31. Cruces multi-cat + integración lockstep | v1.7 | 0/? | Not started | - |
 
 ## Backlog
