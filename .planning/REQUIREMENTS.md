@@ -10,12 +10,12 @@ Alta de la categoría `presente-regolare` (conjugación del presente indicativo 
 
 ### Contenido — Presente regolare (PRES)
 
-- [ ] **PRES-01**: La categoría `presente-regolare` aparece en `content/categories.json` (order 10), carga en boot y es usable en home/picker/Examen exactamente como las otras 9 categorías
-- [ ] **PRES-02**: Los slots de regla cubren los tres grupos + la sub-regla trampa + los ortográficos: `-are` · `-ere` · `-ire` simple (dormire/partire/aprire) · `-ire` con `-isc-` (finire/capire/preferire/pulire) · ortográficos `-care/-gare` (giochi/paghi) y `-ciare/-giare` (cominci/mangi)
-- [ ] **PRES-03**: Cada slot de regla tiene ≥2 variantes intercambiables (multi-choice y/o word-buttons), de modo que re-hacer la categoría tras un fallo puede presentar una variante distinta del mismo slot (mata la memorización por palabra)
+- [x] **PRES-01**: La categoría `presente-regolare` aparece en `content/categories.json` (order 10), carga en boot y es usable en home/picker/Examen exactamente como las otras 9 categorías
+- [x] **PRES-02**: Los slots de regla cubren los tres grupos + la sub-regla trampa + los ortográficos: `-are` · `-ere` · `-ire` simple (dormire/partire/aprire) · `-ire` con `-isc-` (finire/capire/preferire/pulire) · ortográficos `-care/-gare` (giochi/paghi) y `-ciare/-giare` (cominci/mangi)
+- [x] **PRES-03**: Cada slot de regla tiene ≥2 variantes intercambiables (multi-choice y/o word-buttons), de modo que re-hacer la categoría tras un fallo puede presentar una variante distinta del mismo slot (mata la memorización por palabra)
 - [ ] **PRES-04**: Todas las variantes nuevas pasan el quórum cross-vendor R1-R7 (`status: validated`; los `disputed` se resuelven por el autor-oráculo con audit trail)
-- [ ] **PRES-05**: Cada slot tiene `explanation` curada a nivel de slot (canon ortográfico español acentuado: regla + ejemplo paralelo italiano-español), coherente con la cobertura editorial 100% de las 9 categorías existentes
-- [ ] **PRES-06**: Se incluyen ejercicios tipo `match` SOLO si el pareo NO es derivable por raíz (DESIGN RULE Phase 4 — p. ej. infinitivo↔grupo, verbo↔desinencia atípica); si todo el contenido es derivable por raíz (io→parlo), la categoría queda en multi-choice + word-buttons con 0 match (como Avere/Essere)
+- [x] **PRES-05**: Cada slot tiene `explanation` curada a nivel de slot (canon ortográfico español acentuado: regla + ejemplo paralelo italiano-español), coherente con la cobertura editorial 100% de las 9 categorías existentes
+- [x] **PRES-06**: Se incluyen ejercicios tipo `match` SOLO si el pareo NO es derivable por raíz (DESIGN RULE Phase 4 — p. ej. infinitivo↔grupo, verbo↔desinencia atípica); si todo el contenido es derivable por raíz (io→parlo), la categoría queda en multi-choice + word-buttons con 0 match (como Avere/Essere)
 - [ ] **PRES-07**: Existen cruces multi-cat `presente-regolare` ↔ avere/essere (contraste con el passato prossimo) con cascada D-54 inmediata — fallar uno propaga el reset a las categorías cruzadas (patrón avere-300..305)
 
 ### Migración (MIG)
@@ -68,12 +68,12 @@ Qué fases cubren qué requisitos. Numeración EMPIEZA en Phase 29 (Phase 28 ya 
 |-------------|-------|--------|
 | MIG-05 | Phase 29 | Complete |
 | MIG-06 | Phase 29 | Complete |
-| PRES-01 | Phase 30 | Pending |
-| PRES-02 | Phase 30 | Pending |
-| PRES-03 | Phase 30 | Pending |
+| PRES-01 | Phase 30 | Complete |
+| PRES-02 | Phase 30 | Complete |
+| PRES-03 | Phase 30 | Complete |
 | PRES-04 | Phase 30 | Pending |
-| PRES-05 | Phase 30 | Pending |
-| PRES-06 | Phase 30 | Pending |
+| PRES-05 | Phase 30 | Complete |
+| PRES-06 | Phase 30 | Complete |
 | PRES-07 | Phase 31 | Pending |
 | INT-01 | Phase 31 | Pending |
 | INT-02 | Phase 31 | Pending |

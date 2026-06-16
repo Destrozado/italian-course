@@ -149,7 +149,7 @@ Numeración EMPIEZA en **Phase 29** (NO en 28 — Phase 28 ya existe como trabaj
   4. Todas las variantes nuevas pasan el quórum cross-vendor R1-R7 (`status: validated`, ≥4× correcta 0 incorrecta, 1-por-1 NUNCA batched; los `disputed` se resuelven por el autor-oráculo con audit trail). Se incluyen ejercicios `match` SOLO si el pareo NO es derivable por raíz (DESIGN RULE D-04); si todo es derivable por raíz (io→parlo) la categoría queda en multi-choice + word-buttons con 0 match (como Avere/Essere) y se documenta explícitamente.
 
 **Plans**: 3 plans (1 autoría + 1 quórum + 1 verificación)
-- [ ] 30-01-PLAN.md — registrar categoría (order 10) + autorar presente-regolare.json (6 slots de regla + variantes + explanations + notes 0-match)
+- [x] 30-01-PLAN.md — registrar categoría (order 10) + autorar presente-regolare.json (6 slots de regla + variantes + explanations + notes 0-match)
 - [ ] 30-02-PLAN.md — validar por quórum cross-vendor R1-R7 1-por-1 los 6 slots (status validated; disputed por autor-oráculo)
 - [ ] 30-03-PLAN.md — boot/load + schema-validator + suite baseline verde; registrar N=6 para Phase 31
 
@@ -182,7 +182,7 @@ Numeración EMPIEZA en **Phase 29** (NO en 28 — Phase 28 ya existe como trabaj
 | 18-20 | v1.5 | 7/7 | Complete | 2026-06-05 |
 | 21-27 | v1.6 | 19/19 | Complete | 2026-06-09 |
 | 29. Migración `10→11` (reset `presente-regolare`) | v1.7 | 1/1 | Complete | 2026-06-16 |
-| 30. Alta de `presente-regolare` (slots + variantes por quórum) | v1.7 | 0/3 | Not started | - |
+| 30. Alta de `presente-regolare` (slots + variantes por quórum) | v1.7 | 1/3 | In Progress|  |
 | 31. Cruces multi-cat + integración lockstep | v1.7 | 0/? | Not started | - |
 
 ## Backlog

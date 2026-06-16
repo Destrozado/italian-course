@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.7
 milestone_name: Presente regolare (10ª categoría de gramática)
 status: executing
-last_updated: "2026-06-16T22:39:46.291Z"
-last_activity: 2026-06-16 -- Phase 30 planning complete
+last_updated: "2026-06-17T00:00:00.000Z"
+last_activity: 2026-06-17 -- Plan 30-01 completado (alta presente-regolare: registro + JSON 8 objetos pending)
 progress:
   total_phases: 3
   completed_phases: 1
   total_plans: 4
-  completed_plans: 1
-  percent: 25
+  completed_plans: 2
+  percent: 33
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -21,14 +21,14 @@ See: `.planning/PROJECT.md` (updated 2026-06-09 — Milestone v1.6 shipped, CONV
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 30 — Alta de presente-regolare (registro + slots de regla + variantes por quórum) — siguiente
+**Current Focus:** Phase 30 — Alta de presente-regolare (registro + slots de regla + variantes por quórum)
 
 ## Current Position
 
-Phase: 29 (Migración 10→11 (reset selectivo SOLO de presente-regolare)) — ✅ COMPLETA
-Plan: 1 of 1 completado (29-01)
-Status: Ready to execute
-Last activity: 2026-06-16 -- Phase 30 planning complete
+Phase: 30 (Alta de presente-regolare (registro + slots de regla + variantes por quórum)) — EXECUTING
+Plan: 2 of 3
+Status: Ready to execute — Plan 30-01 completado, siguiente es 30-02 (quórum cross-vendor R1-R7 sobre las variantes pending)
+Last activity: 2026-06-17 -- Plan 30-01 completado
 
 ## Deferred Items
 
@@ -92,6 +92,8 @@ Ambos quick tasks tienen `status: shipped` en su SUMMARY.md (completados 2026-05
 ## Accumulated Context
 
 ### Roadmap Evolution
+
+- **2026-06-17 — Plan 30-01 completado (alta de `presente-regolare`: registro + slots de regla + variantes).** 2 tasks, 2 commits feat. Task 1 (`14eec06`): registrada la 10ª categoría `{ "id": "presente-regolare", "name": "Presente indicativo (verbi regolari)", "order": 10 }` en `content/categories.json` (9 entradas previas intactas). Task 2 (`ba3151d`): creado `content/exercises/presente-regolare.json` en formato slot+variantes CONV-01 con **8 objetos-ejercicio** = 6 multiple-choice (uno por grupo de regla: -are/-ere/-ire-simple/-isc-/velar/palatal) + 2 word-buttons (`-isc-` obligatorio D-30-04 + `-are` selectivo D-30-06). `-isc-` reforzado (mc 3 variantes + wb). Eje de variación verbo+persona (D-30-01); las 6 personas io/tu/lui/noi/voi/loro cubiertas a nivel categoría (D-30-03; voi en ere, loro en ire+are-wb). Todas las variantes nacen `validation.status: pending` (las valida el quórum en 30-02). Campo `notes` top-level autor-internal documenta el 0-match (D-30-05, derivable por raíz vs avere/essere no-derivables → aquéllas sí match). Explanations en español plano ASCII (R1-R7 aplicadas; gloss `(en espanol: …)` canon R7). Verificado contra `validateContent` (boot OK) + plain-text/ASCII scan. **`exercises.length=8` es el conteo DEFINITIVO** para que Phase 31 sincronice `TOTAL_EXPECTED` (183→183+8) y los 3 hardcodes leyéndolo dinámicamente — NUNCA hardcodear 6. Requisitos PRES-01/02/03/05/06 → done (PRES-04 quórum es 30-02; PRES-06 0-match documentado). Motor de re-verificación NO tocado (brownfield puro). Stopped at: Plan 30-01 completo. Resume file: None. Siguiente: Plan 30-02 (quórum cross-vendor R1-R7 sobre las variantes pending de presente-regolare).
 
 - **2026-06-09 — Milestone v1.6 shipped.** 7 fases (21-27), 19 plans, 14/14 requirements, 374/374 tests (383/383 strict). Las 6 categorías legacy convertidas a slot+variantes + migración 8→9 reset selectivo de las 6. CONV-01 CERRADO: 9/9 categorías unificadas. schemaVersion 8→9.
 - **2026-06-16 — Phase 29 completada (migración `10→11`, reset selectivo de `presente-regolare`).** 1 plan (29-01), 3 tasks, 2 commits feat + 1 docs. `migrate10to11` + `hydrateV11` + `RESET_PREFIXES_V11=['presente-regolare']` añadidos a `storage.js` (espejo literal de `migrate8to9`/`hydrateV10` de Phase 21 con UN solo prefijo; deep-clone anti-prototype-pollution, idempotente, puro); `CURRENT_SCHEMA_VERSION` bumpeado a 11 en `storage.js` Y `backup.js` (espejo independiente); dispatcher encadena `10→11→hydrateV11`; `backup.js` round-trip v11 + import v10→v11 con reset + reject `>11` genérico. Verificado en código que el target real era `10→11` (NO `9→10` de los IDs MIG-05/06). +20 tests netos (bloque v11 en data-storage + bloque v11 en backup); suite 468 tests / 467 pass / 1 fail (el preexistente AJENO `genero-numero` content count 12→13 — NO regresión del bump). Trap de tests resuelta en contexto: asserts del output aislado de `migrate9to10`/`hydrateV10` se quedaron en 10, solo los de cadena-a-final-state + `blankState` pasaron a 11. MIG-05/06 completos (11/11 requirements v1.7 → 2 done). Motor de re-verificación NO tocado (brownfield puro sobre la cadena de migración). Commits: `7291eee` (storage), `8564761` (backup). Stopped at: Phase 29 completa. Resume file: None. Siguiente: `/gsd:plan-phase 30` (alta de `presente-regolare` sobre el state v11).
