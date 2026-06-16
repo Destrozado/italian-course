@@ -23,7 +23,7 @@
 // schema-validator) — la primera guard que dispara aborta el parse y
 // devuelve el reason específico.
 
-import { migrate1to2, migrate2to3, migrate3to4, migrate4to5, migrate5to6, migrate6to7, hydrateV7, migrate7to8, hydrateV8, migrate8to9, hydrateV9, migrate9to10, hydrateV10 } from './storage.js';
+import { migrate1to2, migrate2to3, migrate3to4, migrate4to5, migrate5to6, migrate6to7, hydrateV7, migrate7to8, hydrateV8, migrate8to9, hydrateV9, migrate9to10, migrate10to11, hydrateV11 } from './storage.js';
 
 /** Espejo de la constante en storage.js — mantener inline para que el
  *  módulo sea testeable independiente sin importar storage.CURRENT_SCHEMA_VERSION.
@@ -45,8 +45,11 @@ import { migrate1to2, migrate2to3, migrate3to4, migrate4to5, migrate5to6, migrat
  *  a 0, no retroactivo. El backup debe migrar hasta v10 para que un export del
  *  estado actual se reimporte sin "versión más nueva"; un import de un backup v9
  *  (o anterior) migra a v10 preservando su progreso, y el campo `vecesFallada`
- *  sobrevive el roundtrip por el deep-clone. */
-const CURRENT_SCHEMA_VERSION = 10;
+ *  sobrevive el roundtrip por el deep-clone. Phase 29 (D-29 / MIG-05/06): bump
+ *  10 a 11 — `migrate10to11` resetea el progreso de la categoría nueva
+ *  `presente-regolare` (no-op hoy; forward-compat de un backup futuro que ya la
+ *  contenga); el set de sub-dicts sigue sin cambiar. */
+const CURRENT_SCHEMA_VERSION = 11;
 
 /**
  * Parse + valida + migra un string JSON proveniente de un archivo backup.
@@ -134,7 +137,8 @@ export function parseBackupFile(rawStr) {
   if (migrated.schemaVersion === 7) migrated = migrate7to8(migrated);
   if (migrated.schemaVersion === 8) migrated = migrate8to9(migrated);
   if (migrated.schemaVersion === 9) migrated = migrate9to10(migrated);
-  migrated = hydrateV10(migrated);
+  if (migrated.schemaVersion === 10) migrated = migrate10to11(migrated);
+  migrated = hydrateV11(migrated);
 
   // 6. Summary para el confirm inline (D-76).
   const summary = {
