@@ -4,7 +4,7 @@ milestone: v1.6
 milestone_name: "Conversión a slots: categorías restantes"
 status: Awaiting next milestone
 last_updated: "2026-06-15T18:20:30.000Z"
-last_activity: "2026-06-15 — quick 260615-vkr: infra del validador de frases de canción (prompt S1-S5 + script cross-vendor + schema + golden); pasada masiva pendiente"
+last_activity: "2026-06-16 — pasada de validación de canciones COMPLETA: 83/83 validated (DeepSeek+Gemini, fallback deepseek-reasoner); S1 afinado para ignorar puntuación; disputed resueltas"
 progress:
   total_phases: 7
   completed_phases: 7
