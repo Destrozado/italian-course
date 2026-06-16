@@ -229,8 +229,34 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": [
+              "[ok] grupo -isc- (la trampa A1): finisco/capisci/preferisce correctas; distractoras incluyen la forma SIN -isc- (fino, prefere) que es el error tipico = buen C3. Una sola opcion valida; gloss ES canon R7. Bug de ortografia italiana corregido: 'il caffe al te' -> 'il caffè al tè' (caffè + tè bebida con acento grave). Ambos vendors confirman C1 natural = true tras el fix."
+            ]
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-17",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C5-leak] gloss '(en espanol: ...)' = falso-positivo de politica (canon R7).",
+              "[C4-explanation] tildes ASCII (raiz/caida/espanol/mas) = falso-positivo de politica (ASCII plano canon). C1/C2/C3 = true."
+            ]
+          },
+          {
+            "by": "autor",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": [
+              "[override] disputed resuelto: concerns C5-gloss y C4-accent son falsos-positivos de politica conocidos. El bug REAL que el cross-vendor cazo en C1 (il caffe al te -> il caffè al tè) ya fue corregido y re-verificado por ambos vendors (C1 natural=true). Aprobado por la base Claude (Opus)."
+            ]
+          }
+        ]
       }
     },
     {
