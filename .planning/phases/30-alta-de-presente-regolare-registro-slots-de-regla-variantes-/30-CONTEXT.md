@@ -25,14 +25,16 @@ Esta fase da de alta la **10ª categoría** `presente-regolare` (presente indica
 - **D-30-01:** Las ≥2 variantes intercambiables de cada slot varían **verbo + persona simultáneamente** (var1: `io` + verbo A; var2: `tu` + verbo B; etc.). Re-hacer la categoría tras un fallo presenta léxico nuevo Y persona nueva del MISMO slot de regla → obliga a APLICAR la regla de terminación a un lexema fresco en vez de recordar una tabla memorizada. Es la implementación concreta de "matar la memorización por palabra" (PRES-03 / core value).
 
 ### B — Granularidad y conteo de slots
-- **D-30-02:** **Exactamente 6 slots de regla** (N=6). Unidad de slot = UNA regla, no la persona:
+- **D-30-02:** **Exactamente 6 GRUPOS de regla** (no la persona como unidad). Cada grupo cubre UNA regla:
   1. `-are` (parlare, lavorare, studiare…)
   2. `-ere` (temere, prendere, scrivere…)
   3. `-ire` simple (dormire, partire, aprire — verbos nombrados en ROADMAP SC-2)
   4. `-ire` con `-isc-` (finire, capire, preferire, pulire — verbos nombrados)
-  5. ortográficos **velares** `-care/-gare` (giocare→giochi, pagare→paghi): UN slot, una sola regla (añadir `h` para conservar el sonido velar ante `-i`)
-  6. ortográficos **palatales** `-ciare/-giare` (cominciare→cominci, mangiare→mangi): UN slot, una sola regla (perder la `i` átona ante `-i`)
-  - `-care` y `-gare` NO se separan (regla idéntica); `-ciare`/`-giare` tampoco. **N=6 es el número que Phase 31 sincronizará a los 3 hardcodes + `TOTAL_EXPECTED` (`183 → 189`).** El conteo REAL se lee del JSON final, no de esta estimación.
+  5. ortográficos **velares** `-care/-gare` (giocare→giochi, pagare→paghi): UN grupo, una sola regla (añadir `h` para conservar el sonido velar ante `-i`)
+  6. ortográficos **palatales** `-ciare/-giare` (cominciare→cominci, mangiare→mangi): UN grupo, una sola regla (perder la `i` átona ante `-i`)
+  - `-care` y `-gare` NO se separan (regla idéntica); `-ciare`/`-giare` tampoco.
+  - **DISTINCIÓN CLAVE grupo-de-regla vs slot-objeto del JSON** (revelada en plan-check 2026-06-17): en el formato CONV-01 (espejo de essere.json/avere.json) cada ejercicio-objeto tiene un único `type` y sus `variants[]` son todas de ese tipo — un multi-choice y un word-buttons del MISMO grupo son **objetos separados**. Como D-30-06 exige multi-choice en los 6 grupos y D-30-04+D-30-06 añaden word-buttons (`-isc-` obligatorio + selectivos), el array `exercises` tendrá **6 slot-objetos multi-choice + K slot-objetos word-buttons (K≥1)** → **`exercises.length ≥ 7`, NO 6**. El "slot" que cuenta el motor (sampler/`TOTAL_EXPECTED`) es el ejercicio-OBJETO, no el grupo de regla.
+  - **Contrato de conteo para Phase 31:** Phase 31 sincroniza `183 + (exercises.length REAL del JSON final)` a los 3 hardcodes + `TOTAL_EXPECTED`, leído dinámicamente del JSON — **nunca hardcodear 6**. La verificación de esta fase comprueba que (a) los 6 grupos de regla están representados en multi-choice y (b) existe ≥1 slot word-buttons incluyendo el `-isc-`; NO comprueba `exercises.length === 6`.
 - **D-30-03:** **Garantizar las 6 personas (io/tu/lui/noi/voi/loro) distribuidas** a lo largo de la categoría: entre el conjunto de variantes de los 6 slots (≥12 variantes), cada persona debe aparecer al menos una vez (típicamente las menos frecuentes — `voi`/`loro` — son las que hay que vigilar). Ningún slot tiene por qué contener las 6; la cobertura es a nivel de categoría. Verificable en plan/review.
 - **D-30-04:** El slot **`-ire` con `-isc-` recibe refuerzo extra**: arranca con **≥3 variantes** (sobre el pool finire/capire/preferire/pulire) Y es uno de los slots que lleva `word-buttons` (ver D-30-06). Es la trampa A1 más caída (finire→finisco, NO "fino") → más munición que los slots uniformes de ≥2.
 
