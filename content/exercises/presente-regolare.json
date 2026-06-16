@@ -30,7 +30,7 @@
           "correctIndex": 1
         },
         {
-          "prompt": "Lui ___ la matematica all'universita. (en espanol: el estudia)",
+          "prompt": "Lui ___ la matematica all'università. (en espanol: el estudia)",
           "options": [
             "studio",
             "studi",
@@ -41,8 +41,33 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": [
+              "[C5-leak ok] prompts solo frase+hueco; gloss '(en espanol: ...)' es canon R7, no leak. Conjugaciones parlo/lavori/studia correctas; una sola opcion valida por variante. Bug de ortografia italiana corregido: all'universita -> all'università (università)."
+            ]
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-17",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] DeepSeek marca tildes ausentes en la explanation espanola (terminacion/anadiendo/espanol/segun). FALSO-POSITIVO de politica: el autor escribe las explanations en espanol PLANO ASCII deliberadamente (decision 30-01, canon ASCII-apostrofe del proyecto). NO es bug de contenido."
+            ]
+          },
+          {
+            "by": "autor",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": [
+              "[override] autor resuelve el disputed: el concern C4-accent de DeepSeek es el falso-positivo de politica conocido (explanations en ASCII plano por decision del proyecto, memoria gloss-es-desambiguacion-canon). El bug REAL que el cross-vendor cazo (all'universita -> università) ya fue corregido en el prompt y re-verificado. Aprobado por la base Claude (Opus)."
+            ]
+          }
+        ]
       }
     },
     {
@@ -142,7 +167,7 @@
           "correctIndex": 2
         },
         {
-          "prompt": "Lui ___ il caffe al te. (en espanol: el prefiere)",
+          "prompt": "Lui ___ il caffè al tè. (en espanol: el prefiere)",
           "options": [
             "prefere",
             "preferisco",
@@ -210,7 +235,7 @@
           "correctIndex": 1
         },
         {
-          "prompt": "Noi ___ la pizza il venerdi. (en espanol: nosotros comemos)",
+          "prompt": "Noi ___ la pizza il venerdì. (en espanol: nosotros comemos)",
           "options": [
             "mangiamo",
             "mangiiamo",
