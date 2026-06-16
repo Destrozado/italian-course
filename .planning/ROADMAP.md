@@ -114,7 +114,7 @@ Numeración EMPIEZA en **Phase 29** (NO en 28 — Phase 28 ya existe como trabaj
 **NOTA DE NUMERACIÓN DE SCHEMA (discrepancia REQUIREMENTS vs codebase):** REQUIREMENTS.md (MIG-05/06) asume migración `9→10`, pero `CURRENT_SCHEMA_VERSION` YA está en **10** (un quick task posterior — `260615-nzi`, contador `vecesFallada` — introdujo un `migrate9to10`/`hydrateV10` nominal). Por tanto la migración de reset selectivo de v1.7 va realmente **`10→11`** (`migrate10to11`/`hydrateV11`/`CURRENT_SCHEMA_VERSION=11`). El roadmap usa la numeración REAL del codebase (`10→11`); los IDs de requisito (MIG-05/06) se mantienen.
 
 - [x] **Phase 29: Migración `10→11` (reset selectivo SOLO de `presente-regolare`)** — `migrate10to11`/`hydrateV11` + `CURRENT_SCHEMA_VERSION=11` idempotentes + deep-clone anti-prototype-pollution; reset de progreso SOLO de `presente-regolare` (predicado de 1 prefijo); las 9 categorías existentes + canciones byte-intactas (verificado por fixture); `backup.js` round-trip v11 + import v10→v11 + rechazo `>11`. Va PRIMERA: deja el state listo para que la categoría nueva nazca limpia. (MIG-05, MIG-06) — ✅ COMPLETA 2026-06-16
-- [ ] **Phase 30: Alta de `presente-regolare` (registro + slots de regla + variantes por quórum)** — Registrar la categoría en `categories.json` (order 10) + crear `content/exercises/presente-regolare.json` nacido en slot+variantes con los slots de regla (`-are`/`-ere`/`-ire` simple/`-ire` con `-isc-`/ortográficos `-care-gare`/`-ciare-giare`), ≥2 variantes intercambiables por slot, explanation a nivel de slot (canon español acentuado), tipos multi-choice + word-buttons + match (match SOLO si NO derivable por raíz, D-04); autorar TODAS las variantes y pasarlas por quórum cross-vendor R1-R7 (`status: validated`; disputed por autor-oráculo). (PRES-01, PRES-02, PRES-03, PRES-04, PRES-05, PRES-06)
+- [x] **Phase 30: Alta de `presente-regolare` (registro + slots de regla + variantes por quórum)** — Registrar la categoría en `categories.json` (order 10) + crear `content/exercises/presente-regolare.json` nacido en slot+variantes con los slots de regla (`-are`/`-ere`/`-ire` simple/`-ire` con `-isc-`/ortográficos `-care-gare`/`-ciare-giare`), ≥2 variantes intercambiables por slot, explanation a nivel de slot (canon español acentuado), tipos multi-choice + word-buttons + match (match SOLO si NO derivable por raíz, D-04); autorar TODAS las variantes y pasarlas por quórum cross-vendor R1-R7 (`status: validated`; disputed por autor-oráculo). (PRES-01, PRES-02, PRES-03, PRES-04, PRES-05, PRES-06) — ✅ COMPLETA 2026-06-17 (8 objetos / 18 variantes / 8/8 validated; boot/load + schema-validator verde; conteo DEFINITIVO exercises.length=8 para Phase 31)
 - [ ] **Phase 31: Cruces multi-cat + integración lockstep (cierre v1.7)** — Cruces `presente-regolare`↔avere/essere (contraste presente vs passato prossimo) con cascada D-54 inmediata (patrón avere-300..305); re-sincronizar los counts hardcoded + `TOTAL_EXPECTED` (183 → 183 + N slots de la categoría nueva) + +1 entrada en el smoke paramétrico (`CATEGORIES_WITH_EXPLANATIONS` + validación de contenido); suite verde completa incluido `VAL_07_STRICT=1`. Cierra v1.7 (10ª categoría usable end-to-end). (PRES-07, INT-01, INT-02)
 
 ## Phase Details
@@ -151,7 +151,7 @@ Numeración EMPIEZA en **Phase 29** (NO en 28 — Phase 28 ya existe como trabaj
 **Plans**: 3 plans (1 autoría + 1 quórum + 1 verificación)
 - [x] 30-01-PLAN.md — registrar categoría (order 10) + autorar presente-regolare.json (6 slots de regla + variantes + explanations + notes 0-match)
 - [x] 30-02-PLAN.md — validar por quórum cross-vendor R1-R7 1-por-1 los 8 objetos (status validated; disputed por autor-oráculo) — ✅ COMPLETA 2026-06-17
-- [ ] 30-03-PLAN.md — boot/load + schema-validator + suite baseline verde; registrar N=6 para Phase 31
+- [x] 30-03-PLAN.md — boot/load + schema-validator (0 errores de shape) + suite baseline verde (468/469, único fail preexistente AJENO genero-numero); conteo DEFINITIVO exercises.length=8 (18 variantes) registrado para Phase 31 — ✅ COMPLETA 2026-06-17 (Phase 30 COMPLETA 3/3)
 
 **UI hint**: no
 
@@ -182,7 +182,7 @@ Numeración EMPIEZA en **Phase 29** (NO en 28 — Phase 28 ya existe como trabaj
 | 18-20 | v1.5 | 7/7 | Complete | 2026-06-05 |
 | 21-27 | v1.6 | 19/19 | Complete | 2026-06-09 |
 | 29. Migración `10→11` (reset `presente-regolare`) | v1.7 | 1/1 | Complete | 2026-06-16 |
-| 30. Alta de `presente-regolare` (slots + variantes por quórum) | v1.7 | 2/3 | In Progress|  |
+| 30. Alta de `presente-regolare` (slots + variantes por quórum) | v1.7 | 3/3 | Complete | 2026-06-17 |
 | 31. Cruces multi-cat + integración lockstep | v1.7 | 0/? | Not started | - |
 
 ## Backlog
