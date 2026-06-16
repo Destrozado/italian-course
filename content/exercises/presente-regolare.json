@@ -478,8 +478,33 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": [
+              "[ok] word-buttons -are: 'noi parliamo italiano' y 'loro abitano a Roma' correctas y naturales; distractoras = otras personas del mismo verbo (parlo/parli, abita/abitate), buen C3. Frase ES en prompt es el enunciado a traducir (correcto en word-buttons, NO leak). Italiano sin acentos faltantes. Cubre las personas noi y loro (D-30-03). Sin bug de contenido. (Nota: en un dry-run previo DeepSeek dio 'correcta' 5/5; en el pase escrito marco el C4-accent 'anade' = mismo falso-positivo de politica)."
+            ]
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-17",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] DeepSeek marca 'anade' (sin enie) = falso-positivo de politica (ASCII plano canon). C1/C2/C3/C5 = true; sin bug de contenido."
+            ]
+          },
+          {
+            "by": "autor",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": [
+              "[override] disputed resuelto: unico concern = C4-accent falso-positivo de politica (ASCII plano canon). Sin bug real. Aprobado por la base Claude (Opus)."
+            ]
+          }
+        ]
       }
     }
   ]
