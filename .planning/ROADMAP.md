@@ -131,7 +131,8 @@ Numeración EMPIEZA en **Phase 29** (NO en 28 — Phase 28 ya existe como trabaj
   3. `backup.js` exporta v11 reimportable round-trip; un backup v10 importado migra a v11 aplicando el reset selectivo de `presente-regolare`; los backups `>11` se rechazan (forward-compat).
   4. La app arranca limpia sobre el state migrado y los tests siguen verdes (los baseline + los nuevos de la cadena v11).
 
-**Plans**: TBD
+**Plans**: 1 plan
+- [ ] 29-01-PLAN.md — `migrate10to11`/`hydrateV11`/`RESET_PREFIXES_V11`/`CURRENT_SCHEMA_VERSION=11` espejo de migrate8to9 (1 prefijo) + bump backup.js round-trip v11/import v10→v11/reject >11 + tests de la cadena v11 (reset, byte-intacto de las 9 + songProgress, idempotencia, pureza, anti-prototype-pollution)
 
 **UI hint**: no
 
@@ -177,7 +178,7 @@ Numeración EMPIEZA en **Phase 29** (NO en 28 — Phase 28 ya existe como trabaj
 | 15-17 | v1.4 | 9/9 | Complete | 2026-06-03 |
 | 18-20 | v1.5 | 7/7 | Complete | 2026-06-05 |
 | 21-27 | v1.6 | 19/19 | Complete | 2026-06-09 |
-| 29. Migración `10→11` (reset `presente-regolare`) | v1.7 | 0/? | Not started | - |
+| 29. Migración `10→11` (reset `presente-regolare`) | v1.7 | 0/1 | Not started | - |
 | 30. Alta de `presente-regolare` (slots + variantes por quórum) | v1.7 | 0/? | Not started | - |
 | 31. Cruces multi-cat + integración lockstep | v1.7 | 0/? | Not started | - |
 
