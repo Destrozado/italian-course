@@ -41,8 +41,21 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
@@ -75,8 +88,21 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
@@ -109,8 +135,21 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
@@ -153,8 +192,21 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
@@ -187,8 +239,21 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
@@ -197,7 +262,7 @@
       "categoryIds": [
         "presente-regolare"
       ],
-      "explanation": "Los verbos en -ciare y -giare (cominciare, mangiare) PIERDEN la 'i' átona del infinitivo cuando la desinencia ya empieza por -i, para no escribir una doble i. Así 'cominciare' da tu cominci (no 'comincii') y noi cominciamo; 'mangiare' da tu mangi y noi mangiamo. La 'i' del infinitivo solo servía para ablandar la c y la g (sonido dulce de 'ce/ci' y 'ge/gi'); como la desinencia -i ya hace ese trabajo, la i sobrante desaparece. Es el reverso del caso velar: allí se AÑADE una h, aquí se QUITA una i, pero el objetivo es el mismo, escribir el sonido correcto sin letras de más. Las distractoras son la versión con doble i o sin el ajuste y otras personas.",
+      "explanation": "Los verbos en -ciare y -giare (cominciare, mangiare) PIERDEN la 'i' átona del infinitivo cuando la desinencia ya empieza por -i, para no escribir una doble i. Así 'cominciare' da tu cominci (no 'comincii') y noi cominciamo; 'mangiare' da tu mangi y noi mangiamo. La 'i' del infinitivo solo servía para ablandar la c y la g (sonido dulce de 'ce/ci' y 'ge/gi'); como la desinencia -i ya hace ese trabajo, la i sobrante desaparece. Es el reverso del caso velar: allí se AÑADE una h, aquí se QUITA una i, pero el objetivo es el mismo, escribir el sonido correcto sin letras de más. El error típico es escribir la doble i (comincii, mangiiamo): recuerda que basta una sola i porque la desinencia ya la aporta.",
       "variants": [
         {
           "prompt": "Tu ___ a studiare alle nove. (en español: tú empiezas)",
@@ -221,8 +286,21 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
@@ -261,8 +339,21 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
@@ -300,8 +391,21 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     }
   ]
