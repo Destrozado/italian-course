@@ -1,16 +1,16 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.6
-milestone_name: "Conversión a slots: categorías restantes"
-status: Awaiting next milestone
-last_updated: "2026-06-15T18:20:30.000Z"
-last_activity: "2026-06-16 — pasada de validación de canciones COMPLETA: 83/83 validated (DeepSeek+Gemini, fallback deepseek-reasoner); S1 afinado para ignorar puntuación; disputed resueltas"
+milestone: v1.7
+milestone_name: Presente regolare (10ª categoría de gramática)
+status: planning
+last_updated: "2026-06-16T17:58:08.028Z"
+last_activity: 2026-06-16
 progress:
-  total_phases: 7
-  completed_phases: 7
-  total_plans: 19
-  completed_plans: 19
-  percent: 100
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -25,10 +25,10 @@ See: `.planning/PROJECT.md` (updated 2026-06-09 — Milestone v1.6 shipped, CONV
 
 ## Current Position
 
-Phase: Milestone v1.6 complete
+Phase: Not started (defining requirements)
 Plan: —
-Status: Awaiting next milestone
-Last activity: 2026-06-15 — fast: mover contador "fallada xN" a la columna Racha de la tabla de home
+Status: Defining requirements
+Last activity: 2026-06-16 — Milestone v1.7 started
 
 ## Deferred Items
 
