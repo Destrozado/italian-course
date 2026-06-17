@@ -2,9 +2,9 @@
 gsd_state_version: 1.0
 milestone: v1.7
 milestone_name: Presente regolare (10ª categoría de gramática)
-status: executing
-last_updated: "2026-06-17T00:00:00.000Z"
-last_activity: 2026-06-17 -- Plan 30-03 completado (verificación boot/load + schema-validator + suite baseline verde; conteo DEFINITIVO exercises.length=8 registrado para Phase 31) -- Phase 30 COMPLETA (3/3)
+status: verifying
+last_updated: "2026-06-17T07:57:28.577Z"
+last_activity: 2026-06-17 -- Plan 30-03 completado, Phase 30 completa
 progress:
   total_phases: 3
   completed_phases: 2
