@@ -415,7 +415,7 @@
         "presente-regolare",
         "avere"
       ],
-      "explanation": "Cruce de presente-regolare con avere como AUXILIAR. El passato prossimo (pasado reciente) se forma con el presente de avere (ho, hai, ha, abbiamo, avete, hanno) seguido del participio del verbo. Para los verbos regulares el participio sale del infinitivo: -are da -ato (parlare, parlato), -ere da -uto (temere, temuto), -ire da -ito (dormire, dormito). La inmensa mayoría de verbos usan avere como auxiliar, y con avere el participio NO concuerda con el sujeto: queda siempre invariable en -o (io ho parlato, noi abbiamo parlato). Aquí se pide producir la forma compuesta entera (auxiliar + participio). En español el paralelo es 'he hablado, hemos trabajado': haber + participio invariable. Las distractoras mezclan el auxiliar equivocado (essere en vez de avere) y el participio mal formado, para forzar elegir el auxiliar correcto y el participio regular que toca.",
+      "explanation": "El passato prossimo (el pasado reciente) se forma con el presente de avere como auxiliar (ho, hai, ha, abbiamo, avete, hanno) seguido del participio del verbo. Para los verbos regulares el participio sale del infinitivo: -are da -ato (parlare, parlato), -ere da -uto (temere, temuto), -ire da -ito (dormire, dormito). La inmensa mayoría de los verbos usan avere como auxiliar, y con avere el participio no concuerda con el sujeto: queda siempre invariable en -o (io ho parlato, noi abbiamo parlato). Para acertar elige el auxiliar avere en la persona del sujeto y añade el participio regular que toca. En español el paralelo es 'he hablado, hemos trabajado': haber más participio invariable. Las distractoras mezclan el auxiliar equivocado (essere en vez de avere) y el participio mal formado, así que conviene comprobar las dos cosas: que el auxiliar sea avere y que el participio termine en -ato, -uto o -ito según el grupo.",
       "variants": [
         {
           "prompt": "Ieri io ___ con Maria al telefono. (en español: ayer yo hablé / he hablado)",
@@ -449,8 +449,24 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": [
+              "[D-31-08] auxiliar avere correcto (parlare/lavorare/dormire transitivos-regulares); participio invariable -ato/-ito; distractoras = aux essere + participio mal formado, todas erroneas",
+              "[R1-R7] sin leak; gloss (en español: ...) canon R7; explanation estudiante-foco tras fix C4; acentos canon ES OK"
+            ]
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
@@ -460,7 +476,7 @@
         "presente-regolare",
         "essere"
       ],
-      "explanation": "Cruce de presente-regolare con essere como AUXILIAR. Un grupo de verbos regulares de movimiento o cambio de estado (partire, tornare, arrivare, entrare) forma el passato prossimo con el presente de essere (sono, sei, è, siamo, siete, sono) más el participio. La diferencia clave frente a avere: con essere el participio CONCUERDA con el sujeto en género y número, igual que un adjetivo. Así el participio termina en -o (sujeto masculino singular: Marco è partito), en -a (femenino singular: Maria è tornata), en -i (masculino o mixto plural: i ragazzi sono arrivati) y en -e (femenino plural: le ragazze sono entrate). En español el participio con haber NO cambia, así que esta concordancia es propia del italiano y hay que vigilarla. Las distractoras incluyen el auxiliar equivocado (avere en vez de essere) y el participio con la terminación de concordancia incorrecta para el sujeto.",
+      "explanation": "Un grupo de verbos regulares de movimiento o cambio de estado (partire, tornare, arrivare, entrare) forma el passato prossimo con el presente de essere como auxiliar (sono, sei, è, siamo, siete, sono) más el participio. La diferencia clave frente a avere es que con essere el participio concuerda con el sujeto en género y número, igual que un adjetivo. Así el participio termina en -o con sujeto masculino singular (Marco è partito), en -a con femenino singular (Maria è tornata), en -i con masculino o mixto plural (i ragazzi sono arrivati) y en -e con femenino plural (le ragazze sono entrate). En español el participio con haber no cambia, así que esta concordancia es propia del italiano y conviene vigilarla. Para acertar mira primero el sujeto: elige essere en su persona y haz terminar el participio en la vocal que concuerde en género y número. Las distractoras incluyen el auxiliar equivocado (avere en vez de essere) y el participio con la terminación de concordancia incorrecta para el sujeto.",
       "variants": [
         {
           "prompt": "Ieri Marco ___ presto per il lavoro. (en español: ayer Marco salió / ha salido)",
@@ -505,7 +521,14 @@
       ],
       "validation": {
         "status": "pending",
-        "passes": []
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
@@ -515,7 +538,7 @@
         "presente-regolare",
         "avere"
       ],
-      "explanation": "Cruce que contrasta el passato prossimo (con avere) frente al presente regular, y pide PRODUCIR el presente. El enunciado ya trae escrita la forma compuesta del pasado (ho parlato, abbiamo mangiato) como contexto temporal: esa forma solo se EXPONE, no hay que conjugarla. Lo que se pide es la forma del presente indicativo del mismo verbo para la acción habitual, marcada por expresiones como 'di solito' (normalmente). La regla del presente regular sigue intacta: quita la terminación del infinitivo y añade la desinencia de la persona (-o, -i, -a, -iamo, -ate, -ano para -are). El objetivo pedagógico es no confundir el tiempo: ayer hice algo distinto (pasado), pero de costumbre hago esto (presente). En español es el mismo contraste 'ayer hablé español, pero normalmente hablo italiano'. Las distractoras son otras personas del presente del mismo verbo: solo una concuerda con el sujeto.",
+      "explanation": "Aquí hay que formar el presente indicativo regular, no el pasado. El enunciado ya trae escrita la forma compuesta del passato prossimo con avere (ho parlato, abbiamo mangiato), que sirve solo como contexto temporal de lo que pasó ayer; el hueco pide la forma del presente del mismo verbo para la acción habitual, marcada por expresiones como 'di solito' (normalmente). La regla del presente regular sigue intacta: quita la terminación del infinitivo y añade la desinencia de la persona (-o, -i, -a, -iamo, -ate, -ano para los verbos en -are). La clave es no confundir los dos tiempos: ayer ocurrió algo distinto en pasado, pero de costumbre la acción va en presente. En español es el mismo contraste de 'ayer hablé español, pero normalmente hablo italiano'. Las distractoras son otras personas del presente del mismo verbo: solo una concuerda con el sujeto.",
       "variants": [
         {
           "prompt": "Ieri ho parlato spagnolo, ma di solito io ___ italiano. (en español: pero normalmente yo hablo)",
@@ -540,7 +563,14 @@
       ],
       "validation": {
         "status": "pending",
-        "passes": []
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
@@ -550,7 +580,7 @@
         "presente-regolare",
         "essere"
       ],
-      "explanation": "Cruce que contrasta el passato prossimo (con essere) frente al presente regular, y pide PRODUCIR el presente. El enunciado ya trae escrita la forma compuesta del pasado con essere (sono partito, è tornato), con el participio ya concordado: esa forma solo se EXPONE como contexto temporal, no hay que tocarla. Lo que se pide es el presente indicativo del mismo verbo para la acción habitual, señalada por 'di solito' (normalmente). La regla del presente regular se mantiene: para los verbos en -ire simples como partire la desinencia es -o, -i, -e, -iamo, -ite, -ono (io parto, lui parte). El objetivo es separar los dos tiempos: ayer ocurrió algo distinto (pasado con essere), pero de costumbre pasa esto (presente). En español el contraste es 'ayer salí tarde, pero normalmente salgo pronto'. Las distractoras son otras personas del presente del mismo verbo: solo una concuerda con el sujeto.",
+      "explanation": "Aquí hay que formar el presente indicativo regular, no el pasado. El enunciado ya trae escrita la forma compuesta del passato prossimo con essere (sono partito, è tornato), con el participio ya concordado, que sirve solo como contexto temporal de ayer; el hueco pide el presente del mismo verbo para la acción habitual, señalada por 'di solito' (normalmente). La regla del presente regular se mantiene: para los verbos en -ire simples como partire la desinencia es -o, -i, -e, -iamo, -ite, -ono (io parto, lui parte). La clave es separar los dos tiempos: ayer ocurrió algo distinto en pasado, pero de costumbre la acción va en presente. En español el contraste es 'ayer salí tarde, pero normalmente salgo pronto'. Las distractoras son otras personas del presente del mismo verbo: solo una concuerda con el sujeto.",
       "variants": [
         {
           "prompt": "Ieri sono partito tardi, ma di solito io ___ presto. (en español: pero normalmente yo salgo)",
@@ -575,7 +605,14 @@
       ],
       "validation": {
         "status": "pending",
-        "passes": []
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     }
   ]
