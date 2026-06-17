@@ -167,7 +167,7 @@ Numeración EMPIEZA en **Phase 29** (NO en 28 — Phase 28 ya existe como trabaj
   3. Hay +1 entrada en el smoke paramétrico (`CATEGORIES_WITH_EXPLANATIONS` + validación de contenido) cubriendo `presente-regolare`; la suite verde completa pasa, incluido `VAL_07_STRICT=1`, y el reporter VAL-06 cuenta la categoría nueva (todas las variantes `validated`, 0 disputed sin resolver).
 
 **Plans**: 2 plans (1 cruces+quórum / 1 lockstep+suite verde)
-- [ ] 31-01-PLAN.md — autorar ~4 cruces multi-cat presente-regolare<->avere/essere (slot+variantes, participios regulares, ambas direcciones del contraste presente/passato prossimo) + quórum cross-vendor R1-R7 1-por-1 (status validated; D-31-08 concordancia+auxiliar) (PRES-07)
+- [x] 31-01-PLAN.md — autorar ~4 cruces multi-cat presente-regolare<->avere/essere (slot+variantes, participios regulares, ambas direcciones del contraste presente/passato prossimo) + quórum cross-vendor R1-R7 1-por-1 (status validated; D-31-08 concordancia+auxiliar) (PRES-07)
 - [ ] 31-02-PLAN.md — sincronizar los 3 count arrays + TOTAL_EXPECTED (183->195, leídos del JSON real) + smoke paramétrico +1 entrada + suite verde estricta VAL_07_STRICT=1 + reporter VAL-06 (INT-01, INT-02)
 
 **UI hint**: no
@@ -185,7 +185,7 @@ Numeración EMPIEZA en **Phase 29** (NO en 28 — Phase 28 ya existe como trabaj
 | 21-27 | v1.6 | 19/19 | Complete | 2026-06-09 |
 | 29. Migración `10→11` (reset `presente-regolare`) | v1.7 | 1/1 | Complete | 2026-06-16 |
 | 30. Alta de `presente-regolare` (slots + variantes por quórum) | v1.7 | 3/3 | Complete | 2026-06-17 |
-| 31. Cruces multi-cat + integración lockstep | v1.7 | 0/2 | Planned | - |
+| 31. Cruces multi-cat + integración lockstep | v1.7 | 1/2 | In Progress|  |
 
 ## Backlog
 

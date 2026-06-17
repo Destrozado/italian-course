@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.7
 milestone_name: Presente regolare (10ª categoría de gramática)
 status: executing
-last_updated: "2026-06-17T08:18:44.670Z"
-last_activity: 2026-06-17 -- Phase 31 planning complete
+last_updated: "2026-06-17T08:30:51.160Z"
+last_activity: 2026-06-17
 progress:
   total_phases: 3
   completed_phases: 2
   total_plans: 6
-  completed_plans: 4
-  percent: 67
+  completed_plans: 5
+  percent: 83
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -21,14 +21,14 @@ See: `.planning/PROJECT.md` (updated 2026-06-09 — Milestone v1.6 shipped, CONV
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 30 — Alta de presente-regolare (registro + slots de regla + variantes por quórum)
+**Current Focus:** Phase 31 — cruces-multi-cat-integraci-n-lockstep-cierre-v1-7
 
 ## Current Position
 
-Phase: 30 (Alta de presente-regolare (registro + slots de regla + variantes por quórum)) — COMPLETA (3/3)
-Plan: 3 of 3 (completado)
-Status: Ready to execute
-Last activity: 2026-06-17 -- Phase 31 planning complete
+Phase: 31 (cruces-multi-cat-integraci-n-lockstep-cierre-v1-7) — EXECUTING
+Plan: 2 of 2
+Status: Plan 31-01 completo — Ready to execute Plan 31-02 (integración lockstep)
+Last activity: 2026-06-17 -- Plan 31-01 completado (4 cruces validados, exercises.length FINAL=12)
 
 ## Deferred Items
 
@@ -92,6 +92,8 @@ Ambos quick tasks tienen `status: shipped` en su SUMMARY.md (completados 2026-05
 ## Accumulated Context
 
 ### Roadmap Evolution
+
+- **2026-06-17 — Plan 31-01 completado (cruces multi-cat presente-regolare↔avere/essere + quórum cross-vendor — PRES-07).** 2 tasks, 5 commits. Task 1 (`b4eddff`): autorados **4 cruces** `presente-regolare-300..303` (M=4) en el hub `presente-regolare.json` DESPUÉS de los 8 slots base (byte-intactos), formato **slot+variantes** (NO single-variant pese a avere-300..305, por D-31-05 anti-memorización) con ≥2 variantes c/u; matriz D-31-05 completa: 300 compuesto·avere, 301 compuesto·essere, 302 presente-contraste·avere, 303 presente-contraste·essere; categoryIds de 2 (hub PRIMERO); SOLO participios regulares -ato/-uto/-ito, 0 auxiliares irregulares (sin andare/venire); el cruce 301 cubre las 4 terminaciones de concordancia participio↔sujeto (è partito -o / è tornata -a / sono arrivati -i / sono entrate -e) variando el sujeto. Task 2 (4 commits `validate(presente-regolare): cross 30X` — `0e7aa5f`/`8bdf66a`/`774d343`/`dc4c100`): quórum cross-vendor R1-R7 **1-por-1** (NUNCA batched, VAL-03); `Task` no disponible en el executor secuencial → pool elegible `scripts/validate-ai-pass.mjs` (DeepSeek+fallback Gemini, claves `.env` SET) aporta el pase cross-vendor REAL; el 2º `correcta` distinto lo aporta el author-oracle Claude Opus (`by: claude-opus-4-8`) con audit trail D-31-08 en `concerns[]` (concordancia participio↔sujeto + elección de auxiliar explícitos por cruce). **El cross-vendor cazó 1 bug real de calidad C4-explanation** en el cruce 302 (meta-comentario de curador "Cruce…/se EXPONE/no hay que conjugarla", viola R4): NO es falso-positivo de política → reescritas las 4 explanations a foco-estudiante por **Rule 1 (NO override)** y re-validadas (DeepSeek `correcta` 0 concerns en los 4). Net: los 4 cruces `validation.status: validated`, ≥2 passes correcta + ≥2 `by` distintos, 0 disputed/pending. **Verificación:** schema-validator (firma ES module) 0 errores de shape; cascada D-54 intacta (`grep -c "applyImmediateFailure(this.state" src/screens/app.js` = 2, motor NO tocado); 8 slots base byte-intactos; **`exercises.length` FINAL = 12** (8 base + 4 cruces) registrado para que el Plan 02 lo lea DINÁMICAMENTE (NUNCA hardcodear). Suite `node --test tests/*.test.js` 469/468 (1 fail preexistente AJENO genero-numero 12→13, NO regresión; presente-regolare aún no entra en `CATEGORIES_WITH_EXPLANATIONS`/`TOTAL_EXPECTED` — lockstep diferido a 31-02 por diseño). PRES-07 → done. Brownfield puro: solo el bloque de contenido del JSON; 0 `.js` tocado. Stopped at: Plan 31-01 completo. Resume file: None. Siguiente: Plan 31-02 (sincronizar los 3 count arrays + `TOTAL_EXPECTED` leídos del JSON real → 183 + 12 grano-ejercicio + +1 entrada smoke paramétrico + suite verde estricta `VAL_07_STRICT=1` + reporter VAL-06; INT-01/INT-02).
 
 - **2026-06-17 — Plan 30-03 completado (verificación boot/load + schema-validator + suite baseline) — Phase 30 COMPLETA (3/3).** 1 task de verificación read-only, 1 commit docs (`36d625b`). **BOOT/LOAD + SCHEMA-VALIDATOR:** se reprodujo el path real de `loadContent` (`validateContent({ categories, exercisesByFile })`, ES module — NO la firma posicional `require()` del `node -e` del plan, ajustada según read_first como el plan instruye); resultado **0 errores de shape** — `presente-regolare.json` (8 objetos, 18 variantes, 8/8 `validated`) carga limpio en boot. **SUITE BASELINE:** `node --test tests/*.test.js` → **469 tests / 468 pass / 1 fail**; el único fail es el preexistente AJENO (`tests/exercise-types.test.js:1300`, genero-numero "Esperaba 12, encontré 13" por el quick task `260614-hxn` que añadió el 13º objeto sin sincronizar el hardcode) — NO regresión de Phase 30, no toca presente-regolare. **0 fails NUEVOS**: presente-regolare aún no entra en `TOTAL_EXPECTED` (`scripts/run-validation-271.mjs:170`=183) ni en `CATEGORIES_WITH_EXPLANATIONS` ni en el smoke (lockstep diferido a Phase 31). **CONTEO DEFINITIVO registrado para Phase 31:** `exercises.length=8` (objetos-ejercicio, grano canónico = "183+8=191") + 18 variantes totales (grano superficie = "183+18=201"); ambos leídos DINÁMICAMENTE del JSON, NUNCA hardcodear 6. **USABILIDAD:** categoría registrada (order 10) + válida + motor v1.4 intacto → home/picker/Repaso 20/Examen la incluyen automáticamente; PRES-01 cerrado end-to-end. 0 archivos de runtime/tests modificados (brownfield read-only). Stopped at: Plan 30-03 completo, Phase 30 completa. Resume file: None. Siguiente: verificación de fase → Phase 31 (cruces multi-cat presente-regolare↔avere/essere + sync de los 3 counts/TOTAL_EXPECTED 183→183+N + +1 smoke paramétrico).
 
