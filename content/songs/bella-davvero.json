@@ -1,0 +1,265 @@
+{
+  "id": "bella-davvero",
+  "title": "Bella davvero — Ultimo",
+  "phrases": [
+    {
+      "id": "bella-davvero-001",
+      "prompt": "Mi ricordo di te",
+      "answer": ["me", "acuerdo", "de", "ti"],
+      "categoryIds": [],
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "bella-davvero-002",
+      "prompt": "Eri bella, eri bella, eri bella, eri bella davvero",
+      "answer": ["eras", "bella", "eras", "bella", "eras", "bella", "eras", "bella", "de", "verdad"],
+      "categoryIds": [],
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "bella-davvero-003",
+      "prompt": "E dormivi così col pigiama tuo blu",
+      "answer": ["y", "dormías", "así", "con", "tu", "pijama", "azul"],
+      "categoryIds": [],
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "bella-davvero-004",
+      "prompt": "Che ti andava un po' stretto e che forse era troppo leggero",
+      "answer": ["que", "te", "quedaba", "un", "poco", "estrecho", "y", "que", "quizás", "era", "demasiado", "ligero"],
+      "categoryIds": [],
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "bella-davvero-005",
+      "prompt": "Mi ricordo di te",
+      "answer": ["me", "acuerdo", "de", "ti"],
+      "categoryIds": [],
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "bella-davvero-006",
+      "prompt": "Eri bella, eri bella, eri bella, eri bella sul serio",
+      "answer": ["eras", "bella", "eras", "bella", "eras", "bella", "eras", "bella", "en", "serio"],
+      "categoryIds": [],
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "bella-davvero-007",
+      "prompt": "Te ne stavi così, col tuo naso all'insù",
+      "answer": ["estabas", "así", "con", "tu", "nariz", "hacia", "arriba"],
+      "categoryIds": [],
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "bella-davvero-008",
+      "prompt": "Indicando e piangendo qui sotto 'st'inutile cielo",
+      "answer": ["señalando", "y", "llorando", "aquí", "bajo", "este", "inútil", "cielo"],
+      "categoryIds": [],
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "bella-davvero-009",
+      "prompt": "Ti ricordi di me",
+      "answer": ["te", "acuerdas", "de", "mí"],
+      "categoryIds": [],
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "bella-davvero-010",
+      "prompt": "Ero zitto, ero zitto, ero zitto, ero zitto davvero",
+      "answer": ["estaba", "callado", "estaba", "callado", "estaba", "callado", "estaba", "callado", "de", "verdad"],
+      "categoryIds": [],
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "bella-davvero-011",
+      "prompt": "Me ne stavo così, col cappuccio all'insù",
+      "answer": ["estaba", "así", "con", "la", "capucha", "hacia", "arriba"],
+      "categoryIds": [],
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "bella-davvero-012",
+      "prompt": "Sempre schivo e in disparte, ma in fondo col cuore sincero",
+      "answer": ["siempre", "esquivo", "y", "apartado", "pero", "en", "el", "fondo", "con", "el", "corazón", "sincero"],
+      "categoryIds": [],
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "bella-davvero-013",
+      "prompt": "Era bello per me",
+      "answer": ["era", "bonito", "para", "mí"],
+      "categoryIds": [],
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "bella-davvero-014",
+      "prompt": "Era bello, era bello, era bello, era bello davvero",
+      "answer": ["era", "bonito", "era", "bonito", "era", "bonito", "era", "bonito", "de", "verdad"],
+      "categoryIds": [],
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "bella-davvero-015",
+      "prompt": "Mi guardavi come dipendesse soltanto da me",
+      "answer": ["me", "mirabas", "como", "si", "dependiera", "solo", "de", "mí"],
+      "categoryIds": [],
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "bella-davvero-016",
+      "prompt": "Tu mi bucavi con gli occhi e in un colpo eri dentro di me",
+      "answer": ["tú", "me", "perforabas", "con", "los", "ojos", "y", "de", "golpe", "estabas", "dentro", "de", "mí"],
+      "categoryIds": [],
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "bella-davvero-017",
+      "prompt": "Mi ricordo di te",
+      "answer": ["me", "acuerdo", "de", "ti"],
+      "categoryIds": [],
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "bella-davvero-018",
+      "prompt": "Mi ricordo di te",
+      "answer": ["me", "acuerdo", "de", "ti"],
+      "categoryIds": [],
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "bella-davvero-019",
+      "prompt": "Eri bella, eri bella, eri bella, eri bella davvero",
+      "answer": ["eras", "bella", "eras", "bella", "eras", "bella", "eras", "bella", "de", "verdad"],
+      "categoryIds": [],
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "bella-davvero-020",
+      "prompt": "E parlavi di un mondo che adesso però qui non c'è",
+      "answer": ["y", "hablabas", "de", "un", "mundo", "que", "ahora", "sin", "embargo", "aquí", "no", "está"],
+      "categoryIds": [],
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "bella-davvero-021",
+      "prompt": "E mi sento da solo anche se sei di fianco di me",
+      "answer": ["y", "me", "siento", "solo", "aunque", "estés", "a", "mi", "lado"],
+      "categoryIds": [],
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "bella-davvero-022",
+      "prompt": "Mi ricordo di te",
+      "answer": ["me", "acuerdo", "de", "ti"],
+      "categoryIds": [],
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "bella-davvero-023",
+      "prompt": "Avevamo un sogno in tasca",
+      "answer": ["teníamos", "un", "sueño", "en", "el", "bolsillo"],
+      "categoryIds": [],
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "bella-davvero-024",
+      "prompt": "Sigarette e birre in piazza",
+      "answer": ["cigarrillos", "y", "cervezas", "en", "la", "plaza"],
+      "categoryIds": [],
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "bella-davvero-025",
+      "prompt": "Sapevamo di arroganza",
+      "answer": ["sabíamos", "a", "arrogancia"],
+      "categoryIds": [],
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "bella-davvero-026",
+      "prompt": "Timidezza e vita sparsa, noi",
+      "answer": ["timidez", "y", "vida", "dispersa", "nosotros"],
+      "categoryIds": [],
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "bella-davvero-027",
+      "prompt": "Tra i dubbi, certezze, le lacrime nere, noi",
+      "answer": ["entre", "las", "dudas", "certezas", "las", "lágrimas", "negras", "nosotros"],
+      "categoryIds": [],
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "bella-davvero-028",
+      "prompt": "Avevamo quel poco per ridere tutte le sere",
+      "answer": ["teníamos", "aquel", "poco", "para", "reír", "todas", "las", "noches"],
+      "categoryIds": [],
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "bella-davvero-029",
+      "prompt": "Ma era bello, era bello, era bello, era bello davvero",
+      "answer": ["pero", "era", "bonito", "era", "bonito", "era", "bonito", "era", "bonito", "de", "verdad"],
+      "categoryIds": [],
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "bella-davvero-030",
+      "prompt": "Dimmi perché la vita di colpo c'ha portato qui a parlare così",
+      "answer": ["dime", "por", "qué", "la", "vida", "de", "golpe", "nos", "ha", "traído", "aquí", "a", "hablar", "así"],
+      "categoryIds": [],
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "bella-davvero-031",
+      "prompt": "Come fossimo stelle già spente che vedi per caso nel cielo",
+      "answer": ["como", "si", "fuéramos", "estrellas", "ya", "apagadas", "que", "ves", "por", "casualidad", "en", "el", "cielo"],
+      "categoryIds": [],
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "bella-davvero-032",
+      "prompt": "È finita, è finita, è finita, è finita davvero",
+      "answer": ["se", "acabó", "se", "acabó", "se", "acabó", "se", "acabó", "de", "verdad"],
+      "categoryIds": [],
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "bella-davvero-033",
+      "prompt": "Ma io sento che un giorno per caso ritornerai qui",
+      "answer": ["pero", "yo", "siento", "que", "un", "día", "por", "casualidad", "volverás", "aquí"],
+      "categoryIds": [],
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "bella-davvero-034",
+      "prompt": "Siamo stelle per sempre vicine in un pezzo di cielo",
+      "answer": ["somos", "estrellas", "para", "siempre", "cercanas", "en", "un", "trozo", "de", "cielo"],
+      "categoryIds": [],
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "bella-davvero-035",
+      "prompt": "Eri bella, eri bella, eri bella, eri bella, eri bella davvero",
+      "answer": ["eras", "bella", "eras", "bella", "eras", "bella", "eras", "bella", "eras", "bella", "de", "verdad"],
+      "categoryIds": [],
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "bella-davvero-036",
+      "prompt": "Siamo stelle per sempre vicine in un pezzo di cielo",
+      "answer": ["somos", "estrellas", "para", "siempre", "cercanas", "en", "un", "trozo", "de", "cielo"],
+      "categoryIds": [],
+      "validation": { "status": "pending", "passes": [] }
+    },
+    {
+      "id": "bella-davvero-037",
+      "prompt": "Eri bella, eri bella, eri bella, eri bella, eri bella davvero",
+      "answer": ["eras", "bella", "eras", "bella", "eras", "bella", "eras", "bella", "eras", "bella", "de", "verdad"],
+      "categoryIds": [],
+      "validation": { "status": "pending", "passes": [] }
+    }
+  ]
+}
