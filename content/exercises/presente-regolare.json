@@ -624,8 +624,18 @@
         }
       ],
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": [
+              "[D-31-01 direccion] pide PRESENTE; passato con essere (sono partito/è tornato, participio concordado) solo EXPUESTO como contraste temporal, correcto",
+              "[presente regular] parto (io), torna (lui) correctos; distractoras = otras personas del presente",
+              "[R1-R7] sin leak; gloss R7; explanation estudiante-foco tras fix C4; acentos canon ES OK"
+            ]
+          },
           {
             "by": "deepseek-chat",
             "date": "2026-06-17",
