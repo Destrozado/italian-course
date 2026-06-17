@@ -2,8 +2,8 @@
 gsd_state_version: 1.0
 milestone: v1.7
 milestone_name: Presente regolare (10ª categoría de gramática)
-status: executing
-last_updated: "2026-06-17T09:15:00.000Z"
+status: milestone_complete
+last_updated: 2026-06-17T08:50:13.159Z
 last_activity: 2026-06-17
 progress:
   total_phases: 3
@@ -11,6 +11,7 @@ progress:
   total_plans: 6
   completed_plans: 6
   percent: 100
+stopped_at: Milestone complete (Phase 31 was final phase)
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -21,14 +22,14 @@ See: `.planning/PROJECT.md` (updated 2026-06-09 — Milestone v1.6 shipped, CONV
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 31 — cruces-multi-cat-integraci-n-lockstep-cierre-v1-7
+**Current Focus:** Milestone complete
 
 ## Current Position
 
-Phase: 31 (cruces-multi-cat-integraci-n-lockstep-cierre-v1-7) — COMPLETA (2/2)
-Plan: 2 of 2 — COMPLETO
-Status: Phase 31 completa — v1.7 cerrado end-to-end (10ª categoría presente-regolare integrada en lockstep). Ready to `/gsd:verify-phase 31` / `/gsd:complete-milestone v1.7`
-Last activity: 2026-06-17 -- Plan 31-02 completado (3 count arrays + TOTAL_EXPECTED 183->195 derivados del JSON real; smoke + gate validated verdes sobre presente-regolare; INT-01/INT-02 done)
+Phase: 31
+Plan: Not started
+Status: Milestone complete
+Last activity: 2026-06-17
 
 ## Deferred Items
 

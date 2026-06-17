@@ -185,7 +185,7 @@ Numeración EMPIEZA en **Phase 29** (NO en 28 — Phase 28 ya existe como trabaj
 | 21-27 | v1.6 | 19/19 | Complete | 2026-06-09 |
 | 29. Migración `10→11` (reset `presente-regolare`) | v1.7 | 1/1 | Complete | 2026-06-16 |
 | 30. Alta de `presente-regolare` (slots + variantes por quórum) | v1.7 | 3/3 | Complete | 2026-06-17 |
-| 31. Cruces multi-cat + integración lockstep | v1.7 | 2/2 | Complete | 2026-06-17 |
+| 31. Cruces multi-cat + integración lockstep | v1.7 | 2/2 | Complete    | 2026-06-17 |
 
 ## Backlog
 
