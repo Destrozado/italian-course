@@ -2,13 +2,13 @@
 gsd_state_version: 1.0
 milestone: v1.7
 milestone_name: Presente regolare (10ª categoría de gramática)
-status: verifying
-last_updated: "2026-06-17T07:57:28.577Z"
-last_activity: 2026-06-17 -- Plan 30-03 completado, Phase 30 completa
+status: executing
+last_updated: "2026-06-17T08:18:44.670Z"
+last_activity: 2026-06-17 -- Phase 31 planning complete
 progress:
   total_phases: 3
   completed_phases: 2
-  total_plans: 4
+  total_plans: 6
   completed_plans: 4
   percent: 67
 ---
@@ -27,8 +27,8 @@ See: `.planning/PROJECT.md` (updated 2026-06-09 — Milestone v1.6 shipped, CONV
 
 Phase: 30 (Alta de presente-regolare (registro + slots de regla + variantes por quórum)) — COMPLETA (3/3)
 Plan: 3 of 3 (completado)
-Status: Phase 30 completa — Plan 30-03 verificó boot/load + schema-validator (0 errores) + suite baseline verde (468/469, único fail preexistente AJENO genero-numero); conteo DEFINITIVO exercises.length=8 (18 variantes) registrado para Phase 31. Siguiente: verificación de fase → Phase 31 (cruces multi-cat + integración lockstep)
-Last activity: 2026-06-17 -- Plan 30-03 completado, Phase 30 completa
+Status: Ready to execute
+Last activity: 2026-06-17 -- Phase 31 planning complete
 
 ## Deferred Items
 
