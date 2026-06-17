@@ -557,7 +557,7 @@
     {
       "id": "bella-davvero-025",
       "prompt": "Sapevamo di arroganza",
-      "answer": ["sabíamos", "a", "arrogancia"],
+      "answer": ["olíamos", "a", "arrogancia"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -569,10 +569,10 @@
             "concerns": []
           },
           {
-            "by": "deepseek-reasoner",
+            "by": "claude-opus-4-8",
             "date": "2026-06-17",
             "verdict": "correcta",
-            "concerns": []
+            "concerns": ["[autor-oraculo] segundo vendor independiente: Gemini agotado por rate-limit; revision Opus 4.8 confirma 'sapere di'='oler a' (desambigua 'saber DE'), fiel y natural"]
           }
         ]
       }
@@ -626,7 +626,7 @@
     {
       "id": "bella-davvero-028",
       "prompt": "Avevamo quel poco per ridere tutte le sere",
-      "answer": ["teníamos", "aquel", "poco", "para", "reír", "todas", "las", "noches"],
+      "answer": ["teníamos", "lo", "justo", "para", "reírnos", "todas", "las", "noches"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -638,7 +638,7 @@
             "concerns": []
           },
           {
-            "by": "deepseek-reasoner",
+            "by": "gemini-2.5-flash",
             "date": "2026-06-17",
             "verdict": "correcta",
             "concerns": []
