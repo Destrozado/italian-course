@@ -2,16 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.7
 milestone_name: Presente regolare (10ª categoría de gramática)
-status: milestone_complete
-last_updated: 2026-06-17T08:50:13.159Z
-last_activity: 2026-06-17
+status: Awaiting next milestone
+last_updated: "2026-06-17T13:33:32.413Z"
+last_activity: 2026-06-17 — Milestone v1.7 completed and archived
 progress:
   total_phases: 3
   completed_phases: 3
   total_plans: 6
   completed_plans: 6
   percent: 100
-stopped_at: Milestone complete (Phase 31 was final phase)
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -26,10 +25,10 @@ See: `.planning/PROJECT.md` (updated 2026-06-09 — Milestone v1.6 shipped, CONV
 
 ## Current Position
 
-Phase: 31
-Plan: Not started
-Status: Milestone complete
-Last activity: 2026-06-17
+Phase: Milestone v1.7 complete
+Plan: —
+Status: Awaiting next milestone
+Last activity: 2026-06-17 — Milestone v1.7 completed and archived
 
 ## Deferred Items
 
@@ -167,6 +166,15 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 | UX | Modo móvil responsive; refactor confirmLabel unificado 6 call-sites; Examen multi-cat | Backlog | v1.0/v1.1 |
 | Quick task (falso-positivo) | `260525-pwq` shuffle de options en multiple-choice — YA shipped en v1.0; marcado "missing" por frontmatter sin status reconocible | Acknowledged (no es trabajo pendiente) | v1.3/v1.4/v1.5 |
 | Quick task (falso-positivo) | `260525-vvj` botón reiniciar examen (Phase 8) — YA shipped en v1.0; marcado "missing" por frontmatter sin status reconocible | Acknowledged (no es trabajo pendiente) | v1.3/v1.4/v1.5 |
+| Quick task (tracking) | `260614-hxn` separar variants de concordancia de adjetivos (genero-numero) — origen de la discrepancia AJENA 13-vs-12 del reporter VAL-06 | Acknowledged; reconciliar count = quick task fuera de scope v1.7 | v1.7 close |
+| Quick task (tracking) | `260614-wzc` añadir canción "Ultimo" solo a los ejercicios | Acknowledged (status 'missing' = frontmatter sin status reconocible) | v1.7 close |
+| Quick task (tracking) | `260615-hhp` mostrar título de ubicación/contexto durante el ejercicio | Acknowledged (status 'missing') | v1.7 close |
+| Quick task (tracking) | `260615-hr0` ver la explicación del ejercicio aunque se acierte | Acknowledged (status 'missing') | v1.7 close |
+| Quick task (tracking) | `260615-nzi` contador de fallos por categoría y canción (bumpeó schemaVersion 9→10) | Acknowledged (status 'missing') | v1.7 close |
+| Quick task (tracking) | `260615-puq` modo examen contrarreloj (tiempo por respuesta) | Acknowledged (status 'missing') | v1.7 close |
+| Quick task (tracking) | `260615-r3b` refinar features (quitar auto-avance en examen…) | Acknowledged (status 'missing') | v1.7 close |
+| Quick task (tracking) | `260615-str` word-buttons: huecos estables al seleccionar | Acknowledged (status 'missing') | v1.7 close |
+| Quick task (tracking) | `260615-vkr` validador de frases de canción ES (infra, S1-S5, 83/83 validated) | Acknowledged (status 'missing') | v1.7 close |
 
 ## Session Continuity
 
@@ -210,4 +218,4 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Operator Next Steps
 
-- Plan the first phase with `/gsd:plan-phase 29` (Migración `10→11`, reset selectivo de `presente-regolare`).
+- Start the next milestone with /gsd-new-milestone

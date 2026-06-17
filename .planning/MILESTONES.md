@@ -1,5 +1,23 @@
 # Milestones
 
+## v1.7 Presente regolare (Shipped: 2026-06-17)
+
+**Phases completed:** 3 phases (29-31), 6 plans, 11/11 requirements (7 PRES + 2 MIG + 2 INT)
+**Stats:** suite 473/474 (483/484 con `VAL_07_STRICT=1`; único fail preexistente AJENO genero-numero). Timeline ~2 días (2026-06-16 → 2026-06-17). `schemaVersion 10→11`.
+**Brownfield:** alta de la 10ª categoría `presente-regolare` + cruces multi-cat + migración — el motor v1.4 (cascada D-54, sampler, slot-engine) NO se tocó.
+**Known deferred items at close:** 11 quick tasks con status 'missing' (todos PRE-v1.7, tracking-only; ver STATE.md §Deferred Items). Incluye la discrepancia AJENA de conteo genero-numero/preposiciones que deja el reporter VAL-06 en FAIL 197/195 — `presente-regolare` aporta 12=12 sin gap; reconciliación = quick task fuera de scope.
+
+**Key accomplishments:**
+
+- Eslabón 10→11 de la cadena de migración del state: `migrate10to11` resetea selectivamente por prefijo SOLO la categoría nueva `presente-regolare` (espejo de `migrate8to9` con 1 prefijo en vez de 6), `hydrateV11` garantiza shape sin re-podar, y `backup.js` bumpea a 11 con round-trip v11 + import v10→v11 + reject >11.
+- 10ª categoría presente-regolare registrada (order 10) y materializada en slot+variantes: 8 objetos-ejercicio (6 multiple-choice cubriendo los 6 grupos de regla -are/-ere/-ire/-isc-/velar/palatal + 2 word-buttons incl. el -isc- reforzado), todas las variantes pending para el quórum, 0 match documentado en notes.
+- Los 8 objetos-ejercicio de presente-regolare.json validados 1-por-1 (NUNCA batched, VAL-03) por quórum cross-vendor R1-R7; el quórum cazó 3 bugs reales de ortografía italiana (università / caffè-tè / venerdì) que se corrigieron y re-verificaron; los falsos-positivos de política (C4-accent ASCII + C5-gloss) resueltos por autor-oráculo con audit trail; 8 commits atómicos. PRES-04 cerrado.
+- `presente-regolare` carga en boot y `validateContent` la acepta sin un solo error de shape (8 objetos, 18 variantes, todos `validated`); la suite baseline sigue verde (468/469, único fail = el preexistente AJENO genero-numero 12→13, NO regresión de esta fase); conteo DEFINITIVO `exercises.length=8` registrado para que Phase 31 sincronice `TOTAL_EXPECTED` (183→183+8). PRES-01 cerrado end-to-end, motor intacto.
+- 4 cruces presente vs passato prossimo (slot+variantes, solo participios regulares, ambas direcciones) que cierran PRES-07, todos validados por quorum cross-vendor Opus+DeepSeek con chequeo explicito de concordancia participio<->sujeto y eleccion de auxiliar (D-31-08).
+- presente-regolare (10ª categoria) enganchada al harness de regresion: aparece como entrada NUEVA en los 3 count arrays y en TOTAL_EXPECTED (183->195), con el expected derivado DINAMICAMENTE del JSON real (12 = 8 slots base + 4 cruces, D-31-06, nunca un numero magico); el smoke parametrico y el gate estricto D-VAL-18 corren y pasan sobre la categoria; suite verde salvo el unico fail preexistente AJENO (genero-numero 12->13). v1.7 cerrado end-to-end.
+
+---
+
 ## v1.6 Conversión a slots: categorías restantes (CONV-01 cierre) (Shipped: 2026-06-09)
 
 **Phases completed:** 7 phases (21-27), 19 plans, 14/14 requirements (2 MIG + 6×2 conversión)

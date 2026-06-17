@@ -8,9 +8,11 @@ Web personal de ejercicios de italiano para preparar el A1 (y luego A2). Es una 
 
 **Que el sistema te obligue a no olvidar.** El motor de repetición tiene que garantizar que cada categoría se re-verifica constantemente, y que un solo fallo en cualquier ejercicio te devuelve a repetir esa categoría entera. Sin ese loop, el resto no importa.
 
-## Current Milestone: v1.7 — Presente regolare (10ª categoría de gramática)
+## Last Milestone: v1.7 — Presente regolare (10ª categoría de gramática) — ✅ SHIPPED 2026-06-17
 
-**Goal:** Añadir la conjugación del presente indicativo de verbos regulares como nueva categoría `presente-regolare`, nacida directamente en el formato slot+variantes unificado (CONV-01) y validada por quórum cross-vendor R1-R7. Es el cimiento verbal A1 que falta — hoy solo existen los auxiliares irregulares avere/essere, pero no la conjugación regular -are/-ere/-ire que sostiene el grueso del idioma.
+**Estado:** COMPLETO y archivado (`.planning/milestones/v1.7-ROADMAP.md`). 3 fases (29-31), 6 plans, 11/11 requirements, suite 473/474 (483/484 strict). Siguiente milestone vía `/gsd:new-milestone`.
+
+**Goal (entregado):** Añadir la conjugación del presente indicativo de verbos regulares como nueva categoría `presente-regolare`, nacida directamente en el formato slot+variantes unificado (CONV-01) y validada por quórum cross-vendor R1-R7. Es el cimiento verbal A1 que faltaba — antes solo existían los auxiliares irregulares avere/essere, no la conjugación regular -are/-ere/-ire que sostiene el grueso del idioma.
 
 **Target features:**
 - Categoría nueva `presente-regolare` en `content/exercises/` + entrada `order:10` en `categories.json`, nacida como slot+variantes (NO legacy de 1 variante).

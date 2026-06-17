@@ -155,6 +155,46 @@
 
 ---
 
+## Milestone: v1.7 — Presente regolare (10ª categoría de gramática)
+
+**Shipped:** 2026-06-17
+**Phases:** 3 (29-31) | **Plans:** 6 | **Sessions:** ~2 días (2026-06-16 → 2026-06-17)
+
+### What Was Built
+- Migración `10→11` con reset selectivo de UN solo prefijo (`presente-regolare`) — el caso mínimo del patrón multi-prefijo de v1.5/v1.6.
+- Alta de la 10ª categoría `presente-regolare` nacida DIRECTAMENTE en slot+variantes (8 slots base: `-are`/`-ere`/`-ire`/`-isc-`/velar/palatal + 2 word-buttons; 18 variantes por quórum) — primera categoría que NO requiere conversión legacy→slot.
+- 4 cruces multi-cat `presente-regolare`↔avere/essere (contraste presente vs passato prossimo, ambas direcciones, solo participios regulares) con cascada D-54 — en formato slot+variantes (no single-variant como el precedente avere-300..305).
+- Integración lockstep con **conteo dinámico**: `TOTAL_EXPECTED` computado (`CATEGORIES.reduce`, 183→195) y `expected` derivado del JSON real vía `slotCountOf`/`readJson` — por primera vez ningún número mágico.
+
+### What Worked
+- **Conteo dinámico del JSON real:** la lección acumulada de v1.4-v1.6 ("leer, no estimar") se materializó en helpers que derivan el count del archivo — el milestone no hardcodeó un solo número de slots.
+- **Cross-vendor siguió cazando bugs reales:** Phase 30 atrapó 3 bugs de ortografía italiana (università/caffè-tè/venerdì); Phase 31, 1 violación R4 real (meta-comentario de curador) — sexto milestone consecutivo donde la verificación multi-capa paga.
+- **Slot+variantes aplicado también a los cruces:** en vez de copiar el single-variant de avere-300..305, los cruces se autoraron como slots con ≥2 variantes (verbo fresco al re-presentar) — coherente con el core anti-memorización.
+- **Chequeo explícito del riesgo nuevo:** la concordancia participio↔sujeto con essere (è partito/partita/sono partiti/partite) se mandó verificar EXPLÍCITAMENTE en el quórum (D-31-08), no se delegó a que el modelo la cazara.
+
+### What Was Inefficient
+- **Deuda de conteo preexistente latente:** el reporter VAL-06 quedó en FAIL (197/195) por DOS discrepancias (genero-numero 13-vs-12, preposiciones) que llevaban rojas desde antes de v1.7 sin que ningún milestone lo notara — solo salió a la luz al recomputar `TOTAL_EXPECTED`. Una reconciliación periódica de counts lo habría cazado antes.
+- **Fix asimétrico:** solo `presente-regolare` recibió conteo dinámico; los literales stale de genero-numero/preposiciones siguen hardcodeados en los mismos arrays (code review WR-03).
+- **Regresión de robustez introducida:** el helper `slotCountOf` hace `JSON.parse` sin try/catch en module-init, fuera del defensivo `loadCategory` del reporter — un JSON corrupto ahora crashea el reporter entero (WR-01), violando su contrato "nunca throws".
+- **Detección UI falso-positivo otra vez:** el gate de UI saltó por "ui"/"form" dentro de "suite"/"información" en una fase 100% contenido — mismo grep frágil que en v1.6.
+
+### Patterns Established
+- **Categoría nacida-en-slots:** dar de alta una categoría nueva directamente en slot+variantes (sin paso de conversión) — más simple que el regroup de v1.5/v1.6 porque no hay legacy que migrar.
+- **Conteo dinámico + guard de coherencia:** derivar `expected` y `TOTAL_EXPECTED` del JSON real; el número mágico es deuda esperando a divergir.
+- **Cruces multi-cat en formato slot+variantes:** los cruces también rotan variantes (no se congelan en una frase fija).
+
+### Key Lessons
+1. Una categoría nueva en el formato unificado (post-CONV-01) cuesta menos que convertir una legacy — el alta de v1.7 fue migración + autoría + lockstep, sin reescritura de shape.
+2. La deuda de conteo se acumula en silencio: los `expected` hardcodeados de categorías AJENAS pueden estar rojos durante milestones hasta que un reporter recomputa el total. Vale una reconciliación periódica.
+3. Conteo dinámico > número mágico, pero aplícalo UNIFORMEMENTE — un fix asimétrico deja la mitad del array todavía frágil.
+
+### Cost Observations
+- Model mix: opus (orchestrator + executors + planner) + sonnet (verifier + plan-checker); quórum cross-vendor para 22 superficies nuevas (18 base + 4 cruces): Opus author-oracle + DeepSeek real (Phase 31), Opus+Sonnet+Gemini/DeepSeek (Phase 30).
+- Sessions: ~2 días (2026-06-16 → 2026-06-17), 3 fases, 6 plans.
+- Notable: milestone más corto desde v1.3; casi todo contenido (JSON) + tests + migración; 0 cambios de lógica de motor (cascada D-54 intacta, 2 call-sites verificados por grep).
+
+---
+
 ## Cross-Milestone Trends
 
 ### Process Evolution
@@ -168,6 +208,7 @@
 | v1.4 | ~2 días | 3 | Patrón "rework de motor + piloto de contenido" — modelo de datos nuevo (slots) sin reconstruir el engine; 1 categoría piloto valida el dolor antes de convertir las 9 |
 | v1.5 | ~3 días | 3 | Pilot→escala: 2 categorías (Articoli + Partitivi) convertidas replicando el piloto; counts leídos del JSON (no estimados); migración multi-categoría (2 prefijos) |
 | v1.6 | ~4 días | 7 | Cierre de CONV-01: las 6 categorías restantes convertidas en serie; migración de 6 prefijos; híbrido regla+léxica para las léxicas; 0 rework de motor |
+| v1.7 | ~2 días | 3 | Alta de categoría nacida-en-slots (sin conversión); conteo dinámico del JSON (`TOTAL_EXPECTED` computado, no mágico); cruces multi-cat slot+variantes; deuda de conteo AJENA preexistente aflora al recomputar |
 
 ### Cumulative Quality
 
@@ -180,6 +221,7 @@
 | v1.4 | 342/342 | 17/17 requirements · Preposiciones 49 slots por quórum | modelo slot+variantes, `pickVariantIndex`, `normalizeExerciseToSlot`, `migrate5to6`/`6to7`, smoke bifurcado por shape |
 | v1.5 | 358/358 | 9/9 requirements · Articoli 34 + Partitivi 19 slots | `migrate7to8` reset selectivo de 2 categorías, 2 slots de huecos semiconsonánticos |
 | v1.6 | 374/374 | 14/14 requirements · 9/9 categorías slot+variantes (CONV-01 cerrado) | `migrate8to9` reset de 6 categorías; híbrido regla+léxica (Professioni, Sostantivi irregolari) |
+| v1.7 | 473/474 (483/484 strict) | 11/11 requirements · 10ª categoría `presente-regolare` (8 base + 4 cruces) | `migrate10to11` reset de 1 prefijo; conteo dinámico `slotCountOf`; cruces multi-cat slot+variantes |
 
 ### Top Lessons (Verified Across Milestones)
 1. **Reutilizar un único call-site central paga** — `applyResultToSession` (v1.0) absorbió tanto los tipos nuevos de v1.0 como el modo canción de v1.3 sin duplicar la cascada.
