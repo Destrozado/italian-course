@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.7
 milestone_name: Presente regolare (10ª categoría de gramática)
 status: executing
-last_updated: "2026-06-17T08:30:51.160Z"
+last_updated: "2026-06-17T09:15:00.000Z"
 last_activity: 2026-06-17
 progress:
   total_phases: 3
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 6
-  completed_plans: 5
-  percent: 83
+  completed_plans: 6
+  percent: 100
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -25,10 +25,10 @@ See: `.planning/PROJECT.md` (updated 2026-06-09 — Milestone v1.6 shipped, CONV
 
 ## Current Position
 
-Phase: 31 (cruces-multi-cat-integraci-n-lockstep-cierre-v1-7) — EXECUTING
-Plan: 2 of 2
-Status: Plan 31-01 completo — Ready to execute Plan 31-02 (integración lockstep)
-Last activity: 2026-06-17 -- Plan 31-01 completado (4 cruces validados, exercises.length FINAL=12)
+Phase: 31 (cruces-multi-cat-integraci-n-lockstep-cierre-v1-7) — COMPLETA (2/2)
+Plan: 2 of 2 — COMPLETO
+Status: Phase 31 completa — v1.7 cerrado end-to-end (10ª categoría presente-regolare integrada en lockstep). Ready to `/gsd:verify-phase 31` / `/gsd:complete-milestone v1.7`
+Last activity: 2026-06-17 -- Plan 31-02 completado (3 count arrays + TOTAL_EXPECTED 183->195 derivados del JSON real; smoke + gate validated verdes sobre presente-regolare; INT-01/INT-02 done)
 
 ## Deferred Items
 
@@ -92,6 +92,8 @@ Ambos quick tasks tienen `status: shipped` en su SUMMARY.md (completados 2026-05
 ## Accumulated Context
 
 ### Roadmap Evolution
+
+- **2026-06-17 — Plan 31-02 completado (integración lockstep de presente-regolare — INT-01/INT-02) — Phase 31 COMPLETA (2/2), v1.7 CERRADO.** 2 tasks (1 edición + 1 verificación read-only), 1 commit feat (`9653e8d`) + docs. **INT-01:** presente-regolare estaba AUSENTE de los TRES count arrays Y de `TOTAL_EXPECTED` (descubrimiento PATTERNS.md). Añadida como 10ª entrada NUEVA (no bumpeo) en `CATEGORIES_WITH_EXPLANATIONS` (`tests/exercise-types.test.js`), `REAL_CATEGORIES` (`tests/fixtures/slot-variants-integration.test.js`) y `CATEGORIES` (`scripts/run-validation-271.mjs`), con el `expected` DERIVADO del JSON real en disco (D-31-06 dynamic-count, helpers `slotCountOf`/`readJson(...).exercises.length` — NUNCA literal mágico) = **12** (8 slots base + 4 cruces). `TOTAL_EXPECTED` ahora computado como `CATEGORIES.reduce(sum)` = 183 + 12 = **195** + guard de coherencia runtime. Comentarios "9 categorías" → "10 categorías" (3 sitios en slot-variants) + línea de historial Phase 31 en el bloque de run-validation-271. **INT-02:** el smoke paramétrico corre automáticamente sobre presente-regolare (`ok 10 - content/exercises/presente-regolare.json`: count 12 + explanation + ASCII + no-markdown + R1-no-leak + R2-no-xref, todos PASS); el gate estricto D-VAL-18 `VAL_07_STRICT=1` también verde sobre la categoría (`ok 10 ... status === "validated"`, los 12 validados por Plan 01). **Suite:** `node --test tests/*.test.js` → **474/473** (1 fail); `VAL_07_STRICT=1` → **484/483** (1 fail). El ÚNICO fail en ambos es el preexistente AJENO genero-numero ("Esperaba 12, encontré 13", quick `260614-hxn`) — CERO fails NUEVOS ligados a presente-regolare. **HALLAZGO out-of-scope (documentado, NO auto-fix):** el reporter VAL-06 da `FAIL (197/195)`, gap +2, por DOS discrepantes de conteo preexistentes AJENOS — genero-numero (13-vs-12, documentado) Y **preposiciones (50-vs-49, NO documentado antes)** —; verificado corriendo el reporter de HEAD que YA daba `FAIL (185/183)` con el mismo gap +2 (preexistente, NO regresión). presente-regolare aporta 12=12 sin discrepancia propia (VAL-04/VAL-08 PASS). NO se tocó genero-numero (prohibido por plan) ni preposiciones (fuera de scope); reconciliar ambos expecteds = quick task futuro AJENO a v1.7. Cascada D-54 intacta (`grep -c "applyImmediateFailure(this.state" src/screens/app.js` = 2, motor NO tocado, brownfield puro sobre test/script). INT-01/INT-02 → done; **11/11 requirements v1.7 completos**, v1.7 cerrado: presente-regolare es la 10ª categoría usable end-to-end bajo el gate de regresión. Stopped at: Phase 31 completa, v1.7 cerrado. Resume file: None. Siguiente: `/gsd:verify-phase 31` → `/gsd:complete-milestone v1.7`.
 
 - **2026-06-17 — Plan 31-01 completado (cruces multi-cat presente-regolare↔avere/essere + quórum cross-vendor — PRES-07).** 2 tasks, 5 commits. Task 1 (`b4eddff`): autorados **4 cruces** `presente-regolare-300..303` (M=4) en el hub `presente-regolare.json` DESPUÉS de los 8 slots base (byte-intactos), formato **slot+variantes** (NO single-variant pese a avere-300..305, por D-31-05 anti-memorización) con ≥2 variantes c/u; matriz D-31-05 completa: 300 compuesto·avere, 301 compuesto·essere, 302 presente-contraste·avere, 303 presente-contraste·essere; categoryIds de 2 (hub PRIMERO); SOLO participios regulares -ato/-uto/-ito, 0 auxiliares irregulares (sin andare/venire); el cruce 301 cubre las 4 terminaciones de concordancia participio↔sujeto (è partito -o / è tornata -a / sono arrivati -i / sono entrate -e) variando el sujeto. Task 2 (4 commits `validate(presente-regolare): cross 30X` — `0e7aa5f`/`8bdf66a`/`774d343`/`dc4c100`): quórum cross-vendor R1-R7 **1-por-1** (NUNCA batched, VAL-03); `Task` no disponible en el executor secuencial → pool elegible `scripts/validate-ai-pass.mjs` (DeepSeek+fallback Gemini, claves `.env` SET) aporta el pase cross-vendor REAL; el 2º `correcta` distinto lo aporta el author-oracle Claude Opus (`by: claude-opus-4-8`) con audit trail D-31-08 en `concerns[]` (concordancia participio↔sujeto + elección de auxiliar explícitos por cruce). **El cross-vendor cazó 1 bug real de calidad C4-explanation** en el cruce 302 (meta-comentario de curador "Cruce…/se EXPONE/no hay que conjugarla", viola R4): NO es falso-positivo de política → reescritas las 4 explanations a foco-estudiante por **Rule 1 (NO override)** y re-validadas (DeepSeek `correcta` 0 concerns en los 4). Net: los 4 cruces `validation.status: validated`, ≥2 passes correcta + ≥2 `by` distintos, 0 disputed/pending. **Verificación:** schema-validator (firma ES module) 0 errores de shape; cascada D-54 intacta (`grep -c "applyImmediateFailure(this.state" src/screens/app.js` = 2, motor NO tocado); 8 slots base byte-intactos; **`exercises.length` FINAL = 12** (8 base + 4 cruces) registrado para que el Plan 02 lo lea DINÁMICAMENTE (NUNCA hardcodear). Suite `node --test tests/*.test.js` 469/468 (1 fail preexistente AJENO genero-numero 12→13, NO regresión; presente-regolare aún no entra en `CATEGORIES_WITH_EXPLANATIONS`/`TOTAL_EXPECTED` — lockstep diferido a 31-02 por diseño). PRES-07 → done. Brownfield puro: solo el bloque de contenido del JSON; 0 `.js` tocado. Stopped at: Plan 31-01 completo. Resume file: None. Siguiente: Plan 31-02 (sincronizar los 3 count arrays + `TOTAL_EXPECTED` leídos del JSON real → 183 + 12 grano-ejercicio + +1 entrada smoke paramétrico + suite verde estricta `VAL_07_STRICT=1` + reporter VAL-06; INT-01/INT-02).
 

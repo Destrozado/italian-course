@@ -27,8 +27,8 @@ Alta de la categoría `presente-regolare` (conjugación del presente indicativo 
 
 ### Integración lockstep (INT)
 
-- [ ] **INT-01**: Los counts hardcoded + `TOTAL_EXPECTED` quedan re-sincronizados (183 → 183 + N slots de la categoría nueva) en el reporter y en los tests
-- [ ] **INT-02**: +1 entrada en el smoke paramétrico (validación de contenido + `CATEGORIES_WITH_EXPLANATIONS`) cubriendo la categoría nueva; suite verde completa, incluido `VAL_07_STRICT=1`
+- [x] **INT-01**: Los counts hardcoded + `TOTAL_EXPECTED` quedan re-sincronizados (183 → 195 = 183 + 12 slots reales) en el reporter y en los tests — ✅ Plan 31-02 (expected derivado del JSON real, D-31-06, en los 3 arrays)
+- [x] **INT-02**: +1 entrada en el smoke paramétrico (validación de contenido + `CATEGORIES_WITH_EXPLANATIONS`) cubriendo la categoría nueva; suite verde completa, incluido `VAL_07_STRICT=1` — ✅ Plan 31-02 (smoke + gate validated verdes sobre presente-regolare; único fail preexistente AJENO genero-numero)
 
 ## Future Requirements
 
@@ -75,8 +75,8 @@ Qué fases cubren qué requisitos. Numeración EMPIEZA en Phase 29 (Phase 28 ya 
 | PRES-05 | Phase 30 | Complete |
 | PRES-06 | Phase 30 | Complete |
 | PRES-07 | Phase 31 | Complete |
-| INT-01 | Phase 31 | Pending |
-| INT-02 | Phase 31 | Pending |
+| INT-01 | Phase 31 | Complete |
+| INT-02 | Phase 31 | Complete |
 
 **Coverage:** 11/11 requisitos mapeados (100%), 0 orphans, 0 duplicados, 0 gaps. Cada success criterion del roadmap está respaldado por ≥1 requisito.
 

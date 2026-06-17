@@ -115,7 +115,7 @@ Numeración EMPIEZA en **Phase 29** (NO en 28 — Phase 28 ya existe como trabaj
 
 - [x] **Phase 29: Migración `10→11` (reset selectivo SOLO de `presente-regolare`)** — `migrate10to11`/`hydrateV11` + `CURRENT_SCHEMA_VERSION=11` idempotentes + deep-clone anti-prototype-pollution; reset de progreso SOLO de `presente-regolare` (predicado de 1 prefijo); las 9 categorías existentes + canciones byte-intactas (verificado por fixture); `backup.js` round-trip v11 + import v10→v11 + rechazo `>11`. Va PRIMERA: deja el state listo para que la categoría nueva nazca limpia. (MIG-05, MIG-06) — ✅ COMPLETA 2026-06-16
 - [x] **Phase 30: Alta de `presente-regolare` (registro + slots de regla + variantes por quórum)** — Registrar la categoría en `categories.json` (order 10) + crear `content/exercises/presente-regolare.json` nacido en slot+variantes con los slots de regla (`-are`/`-ere`/`-ire` simple/`-ire` con `-isc-`/ortográficos `-care-gare`/`-ciare-giare`), ≥2 variantes intercambiables por slot, explanation a nivel de slot (canon español acentuado), tipos multi-choice + word-buttons + match (match SOLO si NO derivable por raíz, D-04); autorar TODAS las variantes y pasarlas por quórum cross-vendor R1-R7 (`status: validated`; disputed por autor-oráculo). (PRES-01, PRES-02, PRES-03, PRES-04, PRES-05, PRES-06) — ✅ COMPLETA 2026-06-17 (8 objetos / 18 variantes / 8/8 validated; boot/load + schema-validator verde; conteo DEFINITIVO exercises.length=8 para Phase 31)
-- [ ] **Phase 31: Cruces multi-cat + integración lockstep (cierre v1.7)** — Cruces `presente-regolare`↔avere/essere (contraste presente vs passato prossimo) con cascada D-54 inmediata (patrón avere-300..305); re-sincronizar los counts hardcoded + `TOTAL_EXPECTED` (183 → 183 + N slots de la categoría nueva) + +1 entrada en el smoke paramétrico (`CATEGORIES_WITH_EXPLANATIONS` + validación de contenido); suite verde completa incluido `VAL_07_STRICT=1`. Cierra v1.7 (10ª categoría usable end-to-end). (PRES-07, INT-01, INT-02)
+- [x] **Phase 31: Cruces multi-cat + integración lockstep (cierre v1.7)** — Cruces `presente-regolare`↔avere/essere (contraste presente vs passato prossimo) con cascada D-54 inmediata (patrón avere-300..305); re-sincronizar los counts hardcoded + `TOTAL_EXPECTED` (183 → 195 = 183 + 12 slots reales) + +1 entrada en el smoke paramétrico (`CATEGORIES_WITH_EXPLANATIONS` + validación de contenido); suite verde completa incluido `VAL_07_STRICT=1`. Cierra v1.7 (10ª categoría usable end-to-end). (PRES-07, INT-01, INT-02) — ✅ COMPLETA 2026-06-17 (suite 473/474 normal, 483/484 estricto; único fail preexistente AJENO genero-numero; smoke + gate validated verdes sobre presente-regolare)
 
 ## Phase Details
 
@@ -168,7 +168,7 @@ Numeración EMPIEZA en **Phase 29** (NO en 28 — Phase 28 ya existe como trabaj
 
 **Plans**: 2 plans (1 cruces+quórum / 1 lockstep+suite verde)
 - [x] 31-01-PLAN.md — autorar ~4 cruces multi-cat presente-regolare<->avere/essere (slot+variantes, participios regulares, ambas direcciones del contraste presente/passato prossimo) + quórum cross-vendor R1-R7 1-por-1 (status validated; D-31-08 concordancia+auxiliar) (PRES-07)
-- [ ] 31-02-PLAN.md — sincronizar los 3 count arrays + TOTAL_EXPECTED (183->195, leídos del JSON real) + smoke paramétrico +1 entrada + suite verde estricta VAL_07_STRICT=1 + reporter VAL-06 (INT-01, INT-02)
+- [x] 31-02-PLAN.md — sincronizar los 3 count arrays + TOTAL_EXPECTED (183->195, derivados del JSON real, D-31-06) + smoke paramétrico +1 entrada (presente-regolare: count/explanation/ASCII/no-markdown/R1/R2) + gate validated estricto VAL_07_STRICT=1 verde sobre la categoría (INT-01, INT-02) — ✅ COMPLETA 2026-06-17. NOTA: reporter VAL-06 sigue en FAIL (197/195) por DOS discrepantes de conteo preexistentes AJENOS (genero-numero 13-vs-12 + preposiciones 50-vs-49); presente-regolare aporta 12=12 sin discrepancia — reconciliación de esos dos = quick task fuera de scope v1.7
 
 **UI hint**: no
 
@@ -185,7 +185,7 @@ Numeración EMPIEZA en **Phase 29** (NO en 28 — Phase 28 ya existe como trabaj
 | 21-27 | v1.6 | 19/19 | Complete | 2026-06-09 |
 | 29. Migración `10→11` (reset `presente-regolare`) | v1.7 | 1/1 | Complete | 2026-06-16 |
 | 30. Alta de `presente-regolare` (slots + variantes por quórum) | v1.7 | 3/3 | Complete | 2026-06-17 |
-| 31. Cruces multi-cat + integración lockstep | v1.7 | 1/2 | In Progress|  |
+| 31. Cruces multi-cat + integración lockstep | v1.7 | 2/2 | Complete | 2026-06-17 |
 
 ## Backlog
 
