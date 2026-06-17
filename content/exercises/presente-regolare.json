@@ -407,6 +407,176 @@
           }
         ]
       }
+    },
+    {
+      "id": "presente-regolare-300",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "presente-regolare",
+        "avere"
+      ],
+      "explanation": "Cruce de presente-regolare con avere como AUXILIAR. El passato prossimo (pasado reciente) se forma con el presente de avere (ho, hai, ha, abbiamo, avete, hanno) seguido del participio del verbo. Para los verbos regulares el participio sale del infinitivo: -are da -ato (parlare, parlato), -ere da -uto (temere, temuto), -ire da -ito (dormire, dormito). La inmensa mayoría de verbos usan avere como auxiliar, y con avere el participio NO concuerda con el sujeto: queda siempre invariable en -o (io ho parlato, noi abbiamo parlato). Aquí se pide producir la forma compuesta entera (auxiliar + participio). En español el paralelo es 'he hablado, hemos trabajado': haber + participio invariable. Las distractoras mezclan el auxiliar equivocado (essere en vez de avere) y el participio mal formado, para forzar elegir el auxiliar correcto y el participio regular que toca.",
+      "variants": [
+        {
+          "prompt": "Ieri io ___ con Maria al telefono. (en español: ayer yo hablé / he hablado)",
+          "options": [
+            "ho parlato",
+            "sono parlato",
+            "ho parlate",
+            "ho parlando"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "La settimana scorsa noi ___ molto in ufficio. (en español: la semana pasada nosotros trabajamos / hemos trabajado)",
+          "options": [
+            "siamo lavorato",
+            "abbiamo lavorato",
+            "abbiamo lavorate",
+            "abbiamo lavorando"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Stanotte tu ___ poche ore. (en español: esta noche tú dormiste / has dormido)",
+          "options": [
+            "sei dormito",
+            "hai dormiti",
+            "hai dormito",
+            "hai dormendo"
+          ],
+          "correctIndex": 2
+        }
+      ],
+      "validation": {
+        "status": "pending",
+        "passes": []
+      }
+    },
+    {
+      "id": "presente-regolare-301",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "presente-regolare",
+        "essere"
+      ],
+      "explanation": "Cruce de presente-regolare con essere como AUXILIAR. Un grupo de verbos regulares de movimiento o cambio de estado (partire, tornare, arrivare, entrare) forma el passato prossimo con el presente de essere (sono, sei, è, siamo, siete, sono) más el participio. La diferencia clave frente a avere: con essere el participio CONCUERDA con el sujeto en género y número, igual que un adjetivo. Así el participio termina en -o (sujeto masculino singular: Marco è partito), en -a (femenino singular: Maria è tornata), en -i (masculino o mixto plural: i ragazzi sono arrivati) y en -e (femenino plural: le ragazze sono entrate). En español el participio con haber NO cambia, así que esta concordancia es propia del italiano y hay que vigilarla. Las distractoras incluyen el auxiliar equivocado (avere en vez de essere) y el participio con la terminación de concordancia incorrecta para el sujeto.",
+      "variants": [
+        {
+          "prompt": "Ieri Marco ___ presto per il lavoro. (en español: ayer Marco salió / ha salido)",
+          "options": [
+            "ha partito",
+            "è partito",
+            "è partita",
+            "sono partito"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Ieri sera Maria ___ a casa molto tardi. (en español: ayer por la noche Maria volvió / ha vuelto)",
+          "options": [
+            "ha tornata",
+            "è tornato",
+            "è tornata",
+            "è tornate"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Ieri i ragazzi ___ alla festa insieme. (en español: ayer los chicos llegaron / han llegado)",
+          "options": [
+            "hanno arrivati",
+            "è arrivati",
+            "sono arrivate",
+            "sono arrivati"
+          ],
+          "correctIndex": 3
+        },
+        {
+          "prompt": "Stamattina le ragazze ___ in classe puntuali. (en español: esta mañana las chicas entraron / han entrado)",
+          "options": [
+            "sono entrate",
+            "hanno entrate",
+            "è entrate",
+            "sono entrati"
+          ],
+          "correctIndex": 0
+        }
+      ],
+      "validation": {
+        "status": "pending",
+        "passes": []
+      }
+    },
+    {
+      "id": "presente-regolare-302",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "presente-regolare",
+        "avere"
+      ],
+      "explanation": "Cruce que contrasta el passato prossimo (con avere) frente al presente regular, y pide PRODUCIR el presente. El enunciado ya trae escrita la forma compuesta del pasado (ho parlato, abbiamo mangiato) como contexto temporal: esa forma solo se EXPONE, no hay que conjugarla. Lo que se pide es la forma del presente indicativo del mismo verbo para la acción habitual, marcada por expresiones como 'di solito' (normalmente). La regla del presente regular sigue intacta: quita la terminación del infinitivo y añade la desinencia de la persona (-o, -i, -a, -iamo, -ate, -ano para -are). El objetivo pedagógico es no confundir el tiempo: ayer hice algo distinto (pasado), pero de costumbre hago esto (presente). En español es el mismo contraste 'ayer hablé español, pero normalmente hablo italiano'. Las distractoras son otras personas del presente del mismo verbo: solo una concuerda con el sujeto.",
+      "variants": [
+        {
+          "prompt": "Ieri ho parlato spagnolo, ma di solito io ___ italiano. (en español: pero normalmente yo hablo)",
+          "options": [
+            "parlo",
+            "parli",
+            "parla",
+            "parlano"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "La settimana scorsa abbiamo mangiato al ristorante, ma di solito noi ___ a casa. (en español: pero normalmente nosotros comemos)",
+          "options": [
+            "mangia",
+            "mangio",
+            "mangiamo",
+            "mangiano"
+          ],
+          "correctIndex": 2
+        }
+      ],
+      "validation": {
+        "status": "pending",
+        "passes": []
+      }
+    },
+    {
+      "id": "presente-regolare-303",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "presente-regolare",
+        "essere"
+      ],
+      "explanation": "Cruce que contrasta el passato prossimo (con essere) frente al presente regular, y pide PRODUCIR el presente. El enunciado ya trae escrita la forma compuesta del pasado con essere (sono partito, è tornato), con el participio ya concordado: esa forma solo se EXPONE como contexto temporal, no hay que tocarla. Lo que se pide es el presente indicativo del mismo verbo para la acción habitual, señalada por 'di solito' (normalmente). La regla del presente regular se mantiene: para los verbos en -ire simples como partire la desinencia es -o, -i, -e, -iamo, -ite, -ono (io parto, lui parte). El objetivo es separar los dos tiempos: ayer ocurrió algo distinto (pasado con essere), pero de costumbre pasa esto (presente). En español el contraste es 'ayer salí tarde, pero normalmente salgo pronto'. Las distractoras son otras personas del presente del mismo verbo: solo una concuerda con el sujeto.",
+      "variants": [
+        {
+          "prompt": "Ieri sono partito tardi, ma di solito io ___ presto. (en español: pero normalmente yo salgo)",
+          "options": [
+            "parto",
+            "parti",
+            "parte",
+            "partono"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Ieri Marco è tornato a mezzanotte, ma di solito lui ___ alle dieci. (en español: pero normalmente él vuelve)",
+          "options": [
+            "torno",
+            "torni",
+            "torna",
+            "tornano"
+          ],
+          "correctIndex": 2
+        }
+      ],
+      "validation": {
+        "status": "pending",
+        "passes": []
+      }
     }
   ]
 }
