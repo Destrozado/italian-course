@@ -520,8 +520,18 @@
         }
       ],
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": [
+              "[D-31-08a concordancia] è partito (Marco m-sg -o), è tornata (Maria f-sg -a), sono arrivati (i ragazzi m-pl -i), sono entrate (le ragazze f-pl -e): las 4 concuerdan en genero/numero con su sujeto",
+              "[D-31-08b auxiliar] essere correcto para partire/tornare/arrivare/entrare; distractoras incluyen aux avere (ha/hanno) y concordancia incorrecta, todas erroneas",
+              "[R1-R7] sin leak; gloss R7; acentos canon ES OK; participios regulares -ato/-ito"
+            ]
+          },
           {
             "by": "deepseek-chat",
             "date": "2026-06-17",
