@@ -572,8 +572,18 @@
         }
       ],
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-06-17",
+            "verdict": "correcta",
+            "concerns": [
+              "[D-31-01 direccion] pide PRESENTE; passato con avere (ho parlato/abbiamo mangiato) solo EXPUESTO como contraste temporal, correcto",
+              "[presente regular] parlo (io), mangiamo (noi) correctos; distractoras = otras personas del presente",
+              "[R1-R7] sin leak; gloss R7; explanation estudiante-foco tras fix C4; acentos canon ES OK"
+            ]
+          },
           {
             "by": "deepseek-chat",
             "date": "2026-06-17",
