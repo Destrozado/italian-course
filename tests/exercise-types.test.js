@@ -1262,6 +1262,14 @@ describe('validation-state — deriveStatus (Phase 9 D-VAL-07)', () => {
 //   2. apóstrofes ASCII U+0027 (CONT-06 — anti smart-quote contamination)
 //   3. plain text sin markdown markers (T-02-01 anti-XSS — los tokens **/__/##/` no se interpretan)
 
+// D-31-06 (dynamic-count): lee exercises.length del JSON REAL en disco para que el
+// expected siga al contenido, NO un número mágico. Se usa para la 10ª categoría
+// `presente-regolare` (v1.7 Phase 31, INT-01): 8 slots base + 4 cruces = 12 hoy.
+const __explCountFile = fileURLToPath(import.meta.url);
+const __explCountDir = dirname(__explCountFile);
+const slotCountOf = (relFile) =>
+  JSON.parse(readFileSync(resolve(__explCountDir, '..', relFile), 'utf-8')).exercises.length;
+
 const CATEGORIES_WITH_EXPLANATIONS = [
   { file: 'content/exercises/preposiciones.json', expected: 50 },
   { file: 'content/exercises/genero-numero.json', expected: 12 },
@@ -1272,6 +1280,9 @@ const CATEGORIES_WITH_EXPLANATIONS = [
   { file: 'content/exercises/profesiones.json', expected: 11 },
   { file: 'content/exercises/articoli.json', expected: 34 },
   { file: 'content/exercises/partitivos.json', expected: 19 },
+  // v1.7 Phase 31 (INT-01): 10ª categoría presente-regolare. expected DINÁMICO
+  // (D-31-06) = exercises.length real (12 = 8 slots base Phase 30 + 4 cruces Plan 01).
+  { file: 'content/exercises/presente-regolare.json', expected: slotCountOf('content/exercises/presente-regolare.json') },
   // Cobertura editorial: 370 con explanation curada tras el piloto v1.4 (Phase 17): Preposiciones pasó de 52 ejercicios a 49 slots (explanation a nivel de slot); las otras 8 categorías por ejercicio.
 ];
 

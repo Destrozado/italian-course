@@ -61,7 +61,7 @@ const fail = (txt) => `${RED}${txt}${RESET}`;
 const warn = (txt) => `${YELLOW}${txt}${RESET}`;
 
 // D-VAL-22 orden lockeado: riesgo-first (preposiciones) + alfabético resto.
-// La suma de `expected` es 183. Historial del total:
+// La suma de `expected` es 195. Historial del total:
 //   373 = 272 (271 originales v1.0 + 1 ejercicio preposiciones-051 creado durante
 //   la validación editorial de Phase 10) + 56 de la 8ª categoría `articoli`
 //   (v1.2 Phase 11: 48 base + 2 match + 6 bridges) + 44 de la 9ª categoría
@@ -151,10 +151,25 @@ const warn = (txt) => `${YELLOW}${txt}${RESET}`;
 //   Con esta conversión CONV-01 queda cerrado: 9/9 categorías de gramática en
 //   slot+variantes → fin de v1.6. El conteo `expected` de sustantivos-irregulares
 //   se mide como data.exercises.length (nº de slots).
+//   → 195 (v1.7 Phase 31, PRES-07/INT-01): presente-regolare engancha al motor.
+//   La 10ª categoría nació directamente en slot+variantes (Phase 30): 8 slots base
+//   de regla (-are/-ere/-ire/-isc-/velar/palatal) + 4 cruces multi-cat con
+//   avere/essere (Plan 31-01: presente-regolare-300..303, compuesto/presente-contraste
+//   × avere/essere) = 12 slots reales. presente-regolare estaba AUSENTE de los 3
+//   count arrays Y de TOTAL_EXPECTED hasta aquí (lockstep diferido por diseño); este
+//   plan la AÑADE (no bumpea). TOTAL = 183 + 12 = 195. El conteo `expected` de
+//   presente-regolare se DERIVA del JSON real en disco (D-31-06 dynamic-count, NO
+//   número mágico), igual que el resto: data.exercises.length (nº de slots).
 // `articoli` es alfabéticamente primero del resto, así que va justo tras
 // preposiciones; `partitivos` ordena entre genero-numero y profesiones. El
 // reporter falla si la suma encontrada en disco no coincide con el expected —
 // protege contra archivos JSON con ejercicios borrados/duplicados.
+// D-31-06 (dynamic-count): el expected de presente-regolare se DERIVA del JSON real
+// en disco (8 slots base + 4 cruces = 12 hoy), NUNCA un número mágico. Si el JSON
+// crece/encoge, el expected y TOTAL_EXPECTED se mueven con él automáticamente.
+const slotCountOf = (file) =>
+  JSON.parse(readFileSync(resolve(projectRoot, file), 'utf8')).exercises.length;
+
 const CATEGORIES = [
   { slug: 'preposiciones',            file: 'content/exercises/preposiciones.json',            expected: 49 },
   { slug: 'articoli',                 file: 'content/exercises/articoli.json',                 expected: 34 },
@@ -162,12 +177,30 @@ const CATEGORIES = [
   { slug: 'essere',                   file: 'content/exercises/essere.json',                   expected: 26 },
   { slug: 'genero-numero',            file: 'content/exercises/genero-numero.json',            expected: 12 },
   { slug: 'partitivos',               file: 'content/exercises/partitivos.json',               expected: 19 },
+  { slug: 'presente-regolare',        file: 'content/exercises/presente-regolare.json',        expected: slotCountOf('content/exercises/presente-regolare.json') },
   { slug: 'profesiones',              file: 'content/exercises/profesiones.json',              expected: 11 },
   { slug: 'sustantivos-irregulares',  file: 'content/exercises/sustantivos-irregulares.json',  expected: 5 },
   { slug: 'verbos-movimiento',        file: 'content/exercises/verbos-movimiento.json',        expected: 7 },
 ];
 
-const TOTAL_EXPECTED = 183;
+// TOTAL_EXPECTED = suma de los expected por entrada (183 base + 12 de presente-regolare
+// derivado del JSON = 195). Computado para que NUNCA divirja de la suma de los literales.
+const TOTAL_EXPECTED = CATEGORIES.reduce((s, c) => s + c.expected, 0);
+
+// Guard de coherencia (D-31-06): con presente-regolare en 12 slots, el total esperado
+// es TOTAL_EXPECTED = 195 (183 + 12). Si el JSON de presente-regolare cambia su nº de
+// slots, este assert salta y obliga a revisar el historial conscientemente.
+{
+  const PRESENTE_REGOLARE_SLOTS = slotCountOf('content/exercises/presente-regolare.json');
+  const TOTAL_EXPECTED_BASELINE = 183 + PRESENTE_REGOLARE_SLOTS; // hoy 183 + 12 = 195
+  if (TOTAL_EXPECTED !== TOTAL_EXPECTED_BASELINE) {
+    console.error(
+      `Incoherencia de conteo: TOTAL_EXPECTED=${TOTAL_EXPECTED} != 183 + presente-regolare(${PRESENTE_REGOLARE_SLOTS})=${TOTAL_EXPECTED_BASELINE}. ` +
+      `Revisa los expected literales de CATEGORIES vs el JSON real.`
+    );
+    process.exit(1);
+  }
+}
 
 /**
  * Relax path-B (RESEARCH Open Q #1 opción c): si `deriveStatus` da `disputed`

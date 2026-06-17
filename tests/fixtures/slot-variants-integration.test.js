@@ -10,7 +10,7 @@
 //   2) lo pasa por validateContent con categorías reales -> ok true,
 //   3) lo normaliza con la MISMA función pura que usa loadContent
 //      (normalizeExerciseToSlot) y afirma el shape de slotById,
-//   4) afirma back-compat (SLOT-06): las 9 categorías reales del registry siguen
+//   4) afirma back-compat (SLOT-06): las 10 categorías reales del registry siguen
 //      validando con el validator extendido, y el conteo por categoría no cambia.
 //
 // El snapshot append-only de avere se verifica vía
@@ -157,12 +157,14 @@ describe('integración slot+variantes — pipeline sobre slot-demo.json', () => 
 });
 
 // ────────────────────────────────────────────────────────────────────────────
-// Back-compat gate SLOT-06 (Task 2): las 9 categorías reales + conteo intacto
+// Back-compat gate SLOT-06 (Task 2): las 10 categorías reales + conteo intacto
 // ────────────────────────────────────────────────────────────────────────────
 
-describe('back-compat SLOT-06 — las 9 categorías reales validan con el validator extendido', () => {
+describe('back-compat SLOT-06 — las 10 categorías reales validan con el validator extendido', () => {
   // Conteos esperados (espejo del registry actual). Si una alta de contenido
   // futura cambia un conteo, este test obliga a actualizarlo conscientemente.
+  // v1.7 Phase 31 (INT-01): presente-regolare con expected DINÁMICO (D-31-06) =
+  // exercises.length real del JSON (12 = 8 slots base + 4 cruces), NO número mágico.
   const REAL_CATEGORIES = [
     { slug: 'avere', expected: 20 },
     { slug: 'essere', expected: 26 },
@@ -172,7 +174,8 @@ describe('back-compat SLOT-06 — las 9 categorías reales validan con el valida
     { slug: 'genero-numero', expected: 12 },
     { slug: 'profesiones', expected: 11 },
     { slug: 'articoli', expected: 34 },
-    { slug: 'partitivos', expected: 19 }
+    { slug: 'partitivos', expected: 19 },
+    { slug: 'presente-regolare', expected: readJson('content/exercises/presente-regolare.json').exercises.length }
   ];
 
   for (const { slug, expected } of REAL_CATEGORIES) {
@@ -201,7 +204,7 @@ describe('back-compat SLOT-06 — las 9 categorías reales validan con el valida
     });
   }
 
-  test('las 9 categorías reales validan TODAS juntas en un solo bundle (ids únicos globales)', () => {
+  test('las 10 categorías reales validan TODAS juntas en un solo bundle (ids únicos globales)', () => {
     const exercisesByFile = {};
     for (const { slug } of REAL_CATEGORIES) {
       const file = `content/exercises/${slug}.json`;
