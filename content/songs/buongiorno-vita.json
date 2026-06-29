@@ -1,0 +1,1605 @@
+{
+  "id": "buongiorno-vita",
+  "title": "Buongiorno vita — Ultimo",
+  "phrases": [
+    {
+      "id": "buongiorno-vita-001",
+      "prompt": "Buongiorno, vita che mi stai aspettando",
+      "answer": [
+        "buenos",
+        "días",
+        "vida",
+        "que",
+        "me",
+        "estás",
+        "esperando"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-002",
+      "prompt": "Ho tutto pronto, passi per di qua?",
+      "answer": [
+        "lo",
+        "tengo",
+        "todo",
+        "listo",
+        "pasas",
+        "por",
+        "aquí"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-003",
+      "prompt": "Su, dai, non vedi che mi sto perdendo?",
+      "answer": [
+        "venga",
+        "vamos",
+        "no",
+        "ves",
+        "que",
+        "me",
+        "estoy",
+        "perdiendo"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": [
+              "[autor-oraculo] segundo vendor independiente: DeepSeek-chat marco S1 'venga vamos' poco natural, pero 'Su, dai' son DOS interjecciones de animo y 'venga, vamos' las refleja fielmente; reconstruida con la coma implicita (S1 ignora puntuacion) es natural; DeepSeek-reasoner ya dio correcta"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-004",
+      "prompt": "Non è normale pure alla mia età",
+      "answer": [
+        "no",
+        "es",
+        "normal",
+        "incluso",
+        "a",
+        "mi",
+        "edad"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-005",
+      "prompt": "Voglio sentirti, dammi una risposta",
+      "answer": [
+        "quiero",
+        "sentirte",
+        "dame",
+        "una",
+        "respuesta"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-006",
+      "prompt": "Che poi la sento e arriva dentro me",
+      "answer": [
+        "que",
+        "luego",
+        "la",
+        "siento",
+        "y",
+        "llega",
+        "dentro",
+        "de",
+        "mí"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-007",
+      "prompt": "Per te che, vita, io sto resistendo",
+      "answer": [
+        "por",
+        "ti",
+        "vida",
+        "yo",
+        "estoy",
+        "resistiendo"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-008",
+      "prompt": "Perché non credo, eppure Dio qui c'è",
+      "answer": [
+        "porque",
+        "no",
+        "creo",
+        "y",
+        "sin",
+        "embargo",
+        "Dios",
+        "está",
+        "aquí"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-009",
+      "prompt": "T'abbraccerò",
+      "answer": [
+        "te",
+        "abrazaré"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-010",
+      "prompt": "Così che tu non possa andare via",
+      "answer": [
+        "para",
+        "que",
+        "no",
+        "puedas",
+        "irte"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-011",
+      "prompt": "Non dirmi no",
+      "answer": [
+        "no",
+        "me",
+        "digas",
+        "que",
+        "no"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-012",
+      "prompt": "Tanto saprei amarti pure come idea",
+      "answer": [
+        "total",
+        "sabría",
+        "amarte",
+        "incluso",
+        "como",
+        "idea"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-013",
+      "prompt": "In quei momenti sappi sempre",
+      "answer": [
+        "en",
+        "esos",
+        "momentos",
+        "ten",
+        "siempre",
+        "presente"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-014",
+      "prompt": "Che l'estate arriverà",
+      "answer": [
+        "que",
+        "el",
+        "verano",
+        "llegará"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-015",
+      "prompt": "E se poi il caldo non si sente",
+      "answer": [
+        "y",
+        "si",
+        "luego",
+        "el",
+        "calor",
+        "no",
+        "se",
+        "siente"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-016",
+      "prompt": "È perché dentro ce l'hai già",
+      "answer": [
+        "es",
+        "porque",
+        "dentro",
+        "ya",
+        "lo",
+        "tienes"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-017",
+      "prompt": "Buongiorno mondo, cosa vuoi che dica?",
+      "answer": [
+        "buenos",
+        "días",
+        "mundo",
+        "qué",
+        "quieres",
+        "que",
+        "diga"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-018",
+      "prompt": "Da te ho cercato sempre e solo fuga",
+      "answer": [
+        "de",
+        "ti",
+        "he",
+        "buscado",
+        "siempre",
+        "y",
+        "solo",
+        "huida"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-019",
+      "prompt": "A volte ascolto una foglia cadere",
+      "answer": [
+        "a",
+        "veces",
+        "escucho",
+        "caer",
+        "una",
+        "hoja"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-020",
+      "prompt": "Ed il cemento che la sa aspettare",
+      "answer": [
+        "y",
+        "el",
+        "cemento",
+        "que",
+        "sabe",
+        "esperarla"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-021",
+      "prompt": "Come riposa il sole quando è inverno",
+      "answer": [
+        "como",
+        "descansa",
+        "el",
+        "sol",
+        "cuando",
+        "es",
+        "invierno"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-022",
+      "prompt": "Col freddo addosso tu lo stai aspettando",
+      "answer": [
+        "con",
+        "el",
+        "frío",
+        "encima",
+        "tú",
+        "lo",
+        "estás",
+        "esperando"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-023",
+      "prompt": "Scopri te stesso quando è primavera",
+      "answer": [
+        "descúbrete",
+        "a",
+        "ti",
+        "mismo",
+        "cuando",
+        "es",
+        "primavera"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-024",
+      "prompt": "Perché c'è un fiore e prima qui non c'era",
+      "answer": [
+        "porque",
+        "hay",
+        "una",
+        "flor",
+        "y",
+        "antes",
+        "aquí",
+        "no",
+        "había"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-025",
+      "prompt": "E t'abbraccerò",
+      "answer": [
+        "y",
+        "te",
+        "abrazaré"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-026",
+      "prompt": "Così che tu non possa andare via",
+      "answer": [
+        "para",
+        "que",
+        "no",
+        "puedas",
+        "irte"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-027",
+      "prompt": "Non dirmi no",
+      "answer": [
+        "no",
+        "me",
+        "digas",
+        "que",
+        "no"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-028",
+      "prompt": "Tanto saprei amarti pure come idea",
+      "answer": [
+        "total",
+        "sabría",
+        "amarte",
+        "incluso",
+        "como",
+        "idea"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-029",
+      "prompt": "In quei momenti sappi sempre",
+      "answer": [
+        "en",
+        "esos",
+        "momentos",
+        "ten",
+        "siempre",
+        "presente"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-030",
+      "prompt": "Che l'estate arriverà",
+      "answer": [
+        "que",
+        "el",
+        "verano",
+        "llegará"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-031",
+      "prompt": "E se poi il caldo non si sente",
+      "answer": [
+        "y",
+        "si",
+        "luego",
+        "el",
+        "calor",
+        "no",
+        "se",
+        "siente"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-032",
+      "prompt": "È perché dentro ce l'hai già",
+      "answer": [
+        "es",
+        "porque",
+        "dentro",
+        "ya",
+        "lo",
+        "tienes"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-033",
+      "prompt": "Quando avevo 15 anni, andavo al parco con le cuffie",
+      "answer": [
+        "cuando",
+        "tenía",
+        "15",
+        "años",
+        "iba",
+        "al",
+        "parque",
+        "con",
+        "los",
+        "auriculares"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-034",
+      "prompt": "Adesso ce ne ho 25 e vado al parco con le cuffie",
+      "answer": [
+        "ahora",
+        "tengo",
+        "25",
+        "y",
+        "voy",
+        "al",
+        "parque",
+        "con",
+        "los",
+        "auriculares"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-035",
+      "prompt": "Mi piace ricominciare da dove sono partito",
+      "answer": [
+        "me",
+        "gusta",
+        "volver",
+        "a",
+        "empezar",
+        "desde",
+        "donde",
+        "partí"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-036",
+      "prompt": "Per essere tale e quale al ricordo di me bambino",
+      "answer": [
+        "para",
+        "ser",
+        "idéntico",
+        "al",
+        "recuerdo",
+        "de",
+        "mí",
+        "de",
+        "niño"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-037",
+      "prompt": "Mio padre mi disse: \"Svegliati e cercati un bel lavoro\"",
+      "answer": [
+        "mi",
+        "padre",
+        "me",
+        "dijo",
+        "despiértate",
+        "y",
+        "búscate",
+        "un",
+        "buen",
+        "trabajo"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-038",
+      "prompt": "In effetti lo cercai ma poi persi quello che sono",
+      "answer": [
+        "en",
+        "efecto",
+        "lo",
+        "busqué",
+        "pero",
+        "luego",
+        "perdí",
+        "lo",
+        "que",
+        "soy"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-039",
+      "prompt": "Mi sedetti al pianoforte e feci un patto con il sangue",
+      "answer": [
+        "me",
+        "senté",
+        "al",
+        "piano",
+        "e",
+        "hice",
+        "un",
+        "pacto",
+        "con",
+        "la",
+        "sangre"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-040",
+      "prompt": "Per vincere avrò la musica, per lei che alzo le spalle, io",
+      "answer": [
+        "para",
+        "vencer",
+        "tendré",
+        "la",
+        "música",
+        "por",
+        "ella",
+        "me",
+        "encojo",
+        "de",
+        "hombros",
+        "yo"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-041",
+      "prompt": "T'abbraccerò",
+      "answer": [
+        "te",
+        "abrazaré"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-042",
+      "prompt": "Così che tu non possa andare via",
+      "answer": [
+        "para",
+        "que",
+        "no",
+        "puedas",
+        "irte"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-043",
+      "prompt": "E non dirmi no",
+      "answer": [
+        "y",
+        "no",
+        "me",
+        "digas",
+        "que",
+        "no"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-044",
+      "prompt": "Tanto saprei amarti pure come idea",
+      "answer": [
+        "total",
+        "sabría",
+        "amarte",
+        "incluso",
+        "como",
+        "idea"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": [
+              "[autor-oraculo] segundo vendor independiente: DeepSeek-reasoner leyo 'Tanto' como cantidad, pero aqui es marcador discursivo italiano (=‘de todos modos/total’); 'total' es fiel e idiomatico y coincide con 012/028 ya validados; falso-positivo S2"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-045",
+      "prompt": "In quei momenti sappi sempre",
+      "answer": [
+        "en",
+        "esos",
+        "momentos",
+        "sabe",
+        "siempre"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-046",
+      "prompt": "Che l'estate arriverà",
+      "answer": [
+        "que",
+        "el",
+        "verano",
+        "llegará"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-047",
+      "prompt": "E se poi il caldo non si sente",
+      "answer": [
+        "y",
+        "si",
+        "luego",
+        "el",
+        "calor",
+        "no",
+        "se",
+        "siente"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-048",
+      "prompt": "È perché dentro ce l'hai già",
+      "answer": [
+        "es",
+        "porque",
+        "dentro",
+        "ya",
+        "lo",
+        "tienes"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-049",
+      "prompt": "Quindi non essere delusa",
+      "answer": [
+        "así",
+        "que",
+        "no",
+        "estés",
+        "decepcionada"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-050",
+      "prompt": "Da te stessa, questo mai",
+      "answer": [
+        "de",
+        "ti",
+        "misma",
+        "esto",
+        "nunca"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": [
+              "[autor-oraculo] segundo vendor independiente: DeepSeek-chat marco run-on, pero su propia 'correccion' son las MISMAS palabras con una coma; S1 ignora puntuacion por diseno; 'questo'='esto' fiel; falso-positivo S1/S2"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-051",
+      "prompt": "Perché anche il mare si riposa",
+      "answer": [
+        "porque",
+        "también",
+        "el",
+        "mar",
+        "descansa"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "buongiorno-vita-052",
+      "prompt": "È quando è calmo che godrai",
+      "answer": [
+        "es",
+        "cuando",
+        "está",
+        "en",
+        "calma",
+        "cuando",
+        "disfrutarás"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    }
+  ]
+}
