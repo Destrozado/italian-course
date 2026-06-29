@@ -9,3 +9,6 @@ scripts/.avere-prefix-snapshot.json
 
 # Material PDF de la profesora — referencia local, no entra al repo
 material-profesora/
+
+# Alternate Data Streams de WSL/Windows (basura de descargas) — nunca commitear
+*:Zone.Identifier

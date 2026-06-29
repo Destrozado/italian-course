@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;}
+body{margin:0;background:#e7e9ec;}
+button{font-family:inherit;}
+.optlink{color:#2f7d56;text-decoration:none;border-bottom:1px solid rgba(47,125,86,.4);}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:radial-gradient(120% 80% at 50% 0%, #eef0f2 0%, #e3e6e9 100%);padding:46px 32px 90px;font-family:'Hanken Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased;">
+
+  <section id="turn2" style="max-width:1080px;margin:0 auto 90px;">
+    <div style="text-align:center;">
+      <div style="font-size:12px;letter-spacing:2.5px;font-weight:700;color:#9aa1aa;">TURNO 2 · FLUJO COMPLETO</div>
+      <h1 style="font-family:'Spectral',serif;font-size:31px;font-weight:600;color:#23272d;margin:8px 0 6px;letter-spacing:-.4px;">Ejercicio, emparejar, canciones y resultados</h1>
+      <p style="font-size:14.5px;line-height:1.55;color:#6b7280;max-width:660px;margin:0 auto;">Todo en el estilo Editoriale del Home. La pantalla <a class="optlink" href="#2a">2a</a> es interactiva: elige una opción y pulsa <em>Comprobar</em>. Refiérete a cada una por su ID en el chat.</p>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:56px 48px;justify-content:center;align-items:flex-start;margin-top:40px;">
+
+      <!-- ============================ 2A — EJERCICIO (OPCIÓN MÚLTIPLE) ============================ -->
+      <div id="2a" style="display:flex;flex-direction:column;align-items:center;gap:16px;">
+        <div style="display:flex;align-items:center;gap:11px;align-self:flex-start;">
+          <span style="display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:26px;padding:0 9px;border-radius:8px;background:#23272d;color:#fff;font-family:'Space Grotesk',monospace;font-weight:700;font-size:13px;letter-spacing:.5px;">2a</span>
+          <div><div style="font-size:15px;font-weight:800;color:#23272d;">Ejercicio · opción múltiple</div><div style="font-size:12.5px;color:#6b7280;">Interactivo — elige y comprueba</div></div>
+        </div>
+        <div style="position:relative;width:390px;height:844px;border-radius:46px;background:#f4f0e8;overflow:hidden;box-shadow:0 32px 64px rgba(40,34,24,.22),0 0 0 1px rgba(0,0,0,.05);">
+          <div style="position:absolute;top:12px;left:50%;transform:translateX(-50%);width:108px;height:30px;border-radius:16px;background:#15110c;z-index:50;"></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 28px 0;color:#2b2722;"><span style="font-size:15px;font-weight:700;">9:41</span><div style="display:flex;gap:7px;align-items:center;"><svg width="18" height="12" viewBox="0 0 18 12"><path d="M9 3.3c2 0 3.8.8 5.1 2.1l1-1A8.6 8.6 0 0 0 9 1.5 8.6 8.6 0 0 0 2.9 4.4l1 1A7.2 7.2 0 0 1 9 3.3Z" fill="#2b2722"/><circle cx="9" cy="9.5" r="1.6" fill="#2b2722"/></svg><svg width="25" height="12" viewBox="0 0 25 12"><rect x="1" y="1" width="21" height="10" rx="3" fill="none" stroke="#2b2722" stroke-opacity=".4"/><rect x="2.5" y="2.5" width="15" height="7" rx="1.6" fill="#2b2722"/><rect x="23" y="4" width="1.5" height="4" rx=".7" fill="#2b2722" fill-opacity=".4"/></svg></div></div>
+
+          <div style="padding:14px 22px 26px;height:100%;display:flex;flex-direction:column;box-sizing:border-box;">
+            <div style="display:flex;align-items:center;gap:12px;flex-shrink:0;">
+              <div style="width:34px;height:34px;border-radius:99px;border:1px solid rgba(43,39,34,.18);display:flex;align-items:center;justify-content:center;font-size:19px;color:#5f594d;cursor:pointer;">&lsaquo;</div>
+              <div style="flex:1;height:5px;border-radius:99px;background:rgba(43,39,34,.10);overflow:hidden;"><div style="width:35%;height:100%;background:#2f7d56;border-radius:99px;"></div></div>
+              <span style="font-family:'Space Grotesk',monospace;font-size:13px;font-weight:700;color:#8c8576;">07/20</span>
+            </div>
+
+            <div style="margin-top:34px;flex-shrink:0;">
+              <div style="font-size:11px;letter-spacing:2px;font-weight:700;color:#a89f8c;">AVERE · PRESENTE INDICATIVO</div>
+              <div style="font-family:'Spectral',serif;font-size:30px;line-height:1.3;font-weight:500;color:#2b2722;margin-top:14px;">Lui <span style="{{ exBlankStyle }}">{{ exBlank }}</span> ventidue anni.</div>
+              <div style="font-family:'Spectral',serif;font-style:italic;font-size:14px;color:#b3ab99;margin-top:10px;">Elige la forma correcta de <span style="font-style:normal;">avere</span>.</div>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:10px;margin-top:26px;flex-shrink:0;">
+              <sc-for list="{{ exOptions }}" as="opt" hint-placeholder-count="4">
+                <button style="{{ opt.style }}" onClick="{{ opt.onClick }}"><span>{{ opt.t }}</span><span style="{{ opt.markStyle }}">{{ opt.mark }}</span></button>
+              </sc-for>
+            </div>
+
+            <sc-if value="{{ exFeedback.show }}" hint-placeholder-val="{{ false }}">
+              <div style="{{ exFeedback.boxStyle }}">
+                <div style="{{ exFeedback.titleStyle }}">{{ exFeedback.title }}</div>
+                <div style="font-size:13px;line-height:1.5;color:#5f594d;">{{ exFeedback.text }}</div>
+              </div>
+            </sc-if>
+
+            <div style="flex:1;"></div>
+            <button style="{{ exCta.style }}" onClick="{{ exCta.onClick }}">{{ exCta.label }}</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================ 2B — EMPAREJAR ============================ -->
+      <div id="2b" style="display:flex;flex-direction:column;align-items:center;gap:16px;">
+        <div style="display:flex;align-items:center;gap:11px;align-self:flex-start;">
+          <span style="display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:26px;padding:0 9px;border-radius:8px;background:#23272d;color:#fff;font-family:'Space Grotesk',monospace;font-weight:700;font-size:13px;letter-spacing:.5px;">2b</span>
+          <div><div style="font-size:15px;font-weight:800;color:#23272d;">Ejercicio · emparejar</div><div style="font-size:12.5px;color:#6b7280;">Dos columnas, conexión por color</div></div>
+        </div>
+        <div style="position:relative;width:390px;height:844px;border-radius:46px;background:#f4f0e8;overflow:hidden;box-shadow:0 32px 64px rgba(40,34,24,.22),0 0 0 1px rgba(0,0,0,.05);">
+          <div style="position:absolute;top:12px;left:50%;transform:translateX(-50%);width:108px;height:30px;border-radius:16px;background:#15110c;z-index:50;"></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 28px 0;color:#2b2722;"><span style="font-size:15px;font-weight:700;">9:41</span><div style="display:flex;gap:7px;align-items:center;"><svg width="18" height="12" viewBox="0 0 18 12"><path d="M9 3.3c2 0 3.8.8 5.1 2.1l1-1A8.6 8.6 0 0 0 9 1.5 8.6 8.6 0 0 0 2.9 4.4l1 1A7.2 7.2 0 0 1 9 3.3Z" fill="#2b2722"/><circle cx="9" cy="9.5" r="1.6" fill="#2b2722"/></svg><svg width="25" height="12" viewBox="0 0 25 12"><rect x="1" y="1" width="21" height="10" rx="3" fill="none" stroke="#2b2722" stroke-opacity=".4"/><rect x="2.5" y="2.5" width="15" height="7" rx="1.6" fill="#2b2722"/><rect x="23" y="4" width="1.5" height="4" rx=".7" fill="#2b2722" fill-opacity=".4"/></svg></div></div>
+
+          <div style="padding:14px 22px 26px;height:100%;display:flex;flex-direction:column;box-sizing:border-box;">
+            <div style="display:flex;align-items:center;gap:12px;flex-shrink:0;">
+              <div style="width:34px;height:34px;border-radius:99px;border:1px solid rgba(43,39,34,.18);display:flex;align-items:center;justify-content:center;font-size:19px;color:#5f594d;cursor:pointer;">&lsaquo;</div>
+              <div style="flex:1;height:5px;border-radius:99px;background:rgba(43,39,34,.10);overflow:hidden;"><div style="width:60%;height:100%;background:#2f7d56;border-radius:99px;"></div></div>
+              <span style="font-family:'Space Grotesk',monospace;font-size:13px;font-weight:700;color:#8c8576;">12/20</span>
+            </div>
+
+            <div style="margin-top:30px;flex-shrink:0;">
+              <div style="font-size:11px;letter-spacing:2px;font-weight:700;color:#a89f8c;">AVERE · EMPAREJAR</div>
+              <div style="font-family:'Spectral',serif;font-size:24px;line-height:1.25;font-weight:500;color:#2b2722;margin-top:12px;">Empareja cada persona con su forma de <span style="font-style:italic;">avere</span>.</div>
+            </div>
+
+            <div style="display:flex;gap:14px;margin-top:28px;flex-shrink:0;">
+              <!-- left: personas -->
+              <div style="flex:1;display:flex;flex-direction:column;gap:11px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 14px;border-radius:13px;border:1.5px solid #cfe3d6;background:#e8f1ea;font-family:'Spectral',serif;font-size:17px;color:#23603f;"><span>io</span><span style="width:20px;height:20px;border-radius:99px;background:#2f7d56;color:#fff;font-family:'Hanken Grotesk',sans-serif;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;">1</span></div>
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 14px;border-radius:13px;border:1.5px solid #cfe3d6;background:#e8f1ea;font-family:'Spectral',serif;font-size:17px;color:#23603f;"><span>tu</span><span style="width:20px;height:20px;border-radius:99px;background:#2f7d56;color:#fff;font-family:'Hanken Grotesk',sans-serif;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;">2</span></div>
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 14px;border-radius:13px;border:2.5px solid #2f7d56;background:#fbfaf6;font-family:'Spectral',serif;font-size:17px;color:#2b2722;box-shadow:0 6px 16px rgba(47,125,86,.18);"><span>lui</span><span style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;font-weight:700;color:#2f7d56;">eligiendo…</span></div>
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 14px;border-radius:13px;border:1.5px solid rgba(43,39,34,.16);background:#fbfaf6;font-family:'Spectral',serif;font-size:17px;color:#2b2722;"><span>noi</span></div>
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 14px;border-radius:13px;border:1.5px solid #cfe3d6;background:#e8f1ea;font-family:'Spectral',serif;font-size:17px;color:#23603f;"><span>loro</span><span style="width:20px;height:20px;border-radius:99px;background:#2f7d56;color:#fff;font-family:'Hanken Grotesk',sans-serif;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;">3</span></div>
+              </div>
+              <!-- right: formas -->
+              <div style="flex:1;display:flex;flex-direction:column;gap:11px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 14px;border-radius:13px;border:2px dashed #2f7d56;background:#fbfaf6;font-family:'Spectral',serif;font-size:17px;color:#2b2722;"><span>ha</span><span style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;font-weight:700;color:#b3ab99;">?</span></div>
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 14px;border-radius:13px;border:1.5px solid #cfe3d6;background:#e8f1ea;font-family:'Spectral',serif;font-size:17px;color:#23603f;"><span>hanno</span><span style="width:20px;height:20px;border-radius:99px;background:#2f7d56;color:#fff;font-family:'Hanken Grotesk',sans-serif;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;">3</span></div>
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 14px;border-radius:13px;border:1.5px solid #cfe3d6;background:#e8f1ea;font-family:'Spectral',serif;font-size:17px;color:#23603f;"><span>ho</span><span style="width:20px;height:20px;border-radius:99px;background:#2f7d56;color:#fff;font-family:'Hanken Grotesk',sans-serif;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;">1</span></div>
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 14px;border-radius:13px;border:1.5px solid rgba(43,39,34,.16);background:#fbfaf6;font-family:'Spectral',serif;font-size:17px;color:#2b2722;"><span>abbiamo</span></div>
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 14px;border-radius:13px;border:1.5px solid #cfe3d6;background:#e8f1ea;font-family:'Spectral',serif;font-size:17px;color:#23603f;"><span>hai</span><span style="width:20px;height:20px;border-radius:99px;background:#2f7d56;color:#fff;font-family:'Hanken Grotesk',sans-serif;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;">2</span></div>
+              </div>
+            </div>
+
+            <div style="flex:1;"></div>
+            <div style="font-family:'Spectral',serif;font-style:italic;font-size:13px;color:#b3ab99;text-align:center;margin-bottom:12px;">3 de 5 emparejadas</div>
+            <button style="width:100%;padding:16px;border:none;border-radius:14px;background:#dcd7cb;color:#a89f8c;font-size:16px;font-weight:700;cursor:default;">Comprobar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================ 2C — CANCIONES ============================ -->
+      <div id="2c" style="display:flex;flex-direction:column;align-items:center;gap:16px;">
+        <div style="display:flex;align-items:center;gap:11px;align-self:flex-start;">
+          <span style="display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:26px;padding:0 9px;border-radius:8px;background:#23272d;color:#fff;font-family:'Space Grotesk',monospace;font-weight:700;font-size:13px;letter-spacing:.5px;">2c</span>
+          <div><div style="font-size:15px;font-weight:800;color:#23272d;">Canciones</div><div style="font-size:12.5px;color:#6b7280;">Rellenar huecos con letras</div></div>
+        </div>
+        <div style="position:relative;width:390px;height:844px;border-radius:46px;background:#f4f0e8;overflow:hidden;box-shadow:0 32px 64px rgba(40,34,24,.22),0 0 0 1px rgba(0,0,0,.05);">
+          <div style="position:absolute;top:12px;left:50%;transform:translateX(-50%);width:108px;height:30px;border-radius:16px;background:#15110c;z-index:50;"></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 28px 0;color:#2b2722;"><span style="font-size:15px;font-weight:700;">9:41</span><div style="display:flex;gap:7px;align-items:center;"><svg width="18" height="12" viewBox="0 0 18 12"><path d="M9 3.3c2 0 3.8.8 5.1 2.1l1-1A8.6 8.6 0 0 0 9 1.5 8.6 8.6 0 0 0 2.9 4.4l1 1A7.2 7.2 0 0 1 9 3.3Z" fill="#2b2722"/><circle cx="9" cy="9.5" r="1.6" fill="#2b2722"/></svg><svg width="25" height="12" viewBox="0 0 25 12"><rect x="1" y="1" width="21" height="10" rx="3" fill="none" stroke="#2b2722" stroke-opacity=".4"/><rect x="2.5" y="2.5" width="15" height="7" rx="1.6" fill="#2b2722"/><rect x="23" y="4" width="1.5" height="4" rx=".7" fill="#2b2722" fill-opacity=".4"/></svg></div></div>
+
+          <div style="padding:16px 22px 0;height:100%;overflow:hidden;">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">
+              <div style="width:34px;height:34px;border-radius:99px;border:1px solid rgba(43,39,34,.18);display:flex;align-items:center;justify-content:center;font-size:19px;color:#5f594d;cursor:pointer;">&lsaquo;</div>
+              <div style="font-family:'Spectral',serif;font-size:30px;font-weight:600;color:#2b2722;letter-spacing:-.5px;">Canciones</div>
+            </div>
+
+            <!-- featured -->
+            <div style="display:flex;gap:14px;align-items:center;padding:14px;border-radius:18px;background:#fbf8f1;box-shadow:0 8px 22px rgba(40,34,24,.08);border:1px solid rgba(43,39,34,.06);margin-bottom:18px;">
+              <div style="width:66px;height:66px;border-radius:12px;flex-shrink:0;background:repeating-linear-gradient(135deg,#2f7d56,#2f7d56 7px,#296c4a 7px,#296c4a 14px);display:flex;align-items:center;justify-content:center;font-family:'Spectral',serif;font-size:26px;color:#fbfaf6;">L</div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-size:10px;letter-spacing:1.5px;font-weight:700;color:#2f7d56;">CONTINUAR</div>
+                <div style="font-family:'Spectral',serif;font-size:19px;font-weight:600;color:#2b2722;line-height:1.1;margin-top:2px;">L'italiano</div>
+                <div style="font-family:'Spectral',serif;font-style:italic;font-size:13px;color:#a39a88;">Toto Cutugno</div>
+                <div style="display:flex;align-items:center;gap:7px;margin-top:8px;"><div style="flex:1;height:4px;border-radius:99px;background:rgba(43,39,34,.10);overflow:hidden;"><div style="width:60%;height:100%;background:#2f7d56;"></div></div><span style="font-size:11px;color:#a39a88;white-space:nowrap;">9/14 huecos</span></div>
+              </div>
+            </div>
+
+            <div style="font-size:11px;letter-spacing:2px;font-weight:700;color:#a89f8c;margin-bottom:4px;">TODAS LAS CANCIONES</div>
+
+            <div style="display:flex;align-items:center;gap:13px;padding:14px 0;border-bottom:1px solid rgba(43,39,34,.09);">
+              <div style="width:46px;height:46px;border-radius:11px;flex-shrink:0;background:repeating-linear-gradient(135deg,#e9eef7,#e9eef7 6px,#dfe6f2 6px,#dfe6f2 12px);display:flex;align-items:center;justify-content:center;font-family:'Spectral',serif;font-size:18px;color:#3a5a8a;">V</div>
+              <div style="flex:1;min-width:0;"><div style="font-family:'Spectral',serif;font-size:17px;font-weight:600;color:#2b2722;">Volare</div><div style="font-family:'Spectral',serif;font-style:italic;font-size:12.5px;color:#a39a88;">Domenico Modugno · A1 · 9 huecos</div></div>
+              <span style="width:9px;height:9px;border-radius:99px;background:#2f7d56;flex-shrink:0;"></span>
+            </div>
+            <div style="display:flex;align-items:center;gap:13px;padding:14px 0;border-bottom:1px solid rgba(43,39,34,.09);">
+              <div style="width:46px;height:46px;border-radius:11px;flex-shrink:0;background:repeating-linear-gradient(135deg,#f6e9e6,#f6e9e6 6px,#efddd8 6px,#efddd8 12px);display:flex;align-items:center;justify-content:center;font-family:'Spectral',serif;font-size:18px;color:#b5412e;">C</div>
+              <div style="flex:1;min-width:0;"><div style="font-family:'Spectral',serif;font-size:17px;font-weight:600;color:#2b2722;">Con te partirò</div><div style="font-family:'Spectral',serif;font-style:italic;font-size:12.5px;color:#a39a88;">Andrea Bocelli · A2 · 18 huecos</div></div>
+              <span style="width:9px;height:9px;border-radius:99px;background:#b9852f;flex-shrink:0;"></span>
+            </div>
+            <div style="display:flex;align-items:center;gap:13px;padding:14px 0;border-bottom:1px solid rgba(43,39,34,.09);">
+              <div style="width:46px;height:46px;border-radius:11px;flex-shrink:0;background:repeating-linear-gradient(135deg,#f5ecdb,#f5ecdb 6px,#ede2cc 6px,#ede2cc 12px);display:flex;align-items:center;justify-content:center;font-family:'Spectral',serif;font-size:18px;color:#9a6b1f;">F</div>
+              <div style="flex:1;min-width:0;"><div style="font-family:'Spectral',serif;font-size:17px;font-weight:600;color:#2b2722;">Felicità</div><div style="font-family:'Spectral',serif;font-style:italic;font-size:12.5px;color:#a39a88;">Al Bano & Romina · A1 · 11 huecos</div></div>
+              <span style="width:9px;height:9px;border-radius:99px;background:#c4bcab;flex-shrink:0;"></span>
+            </div>
+            <div style="display:flex;align-items:center;gap:13px;padding:14px 0;border-bottom:1px solid rgba(43,39,34,.09);">
+              <div style="width:46px;height:46px;border-radius:11px;flex-shrink:0;background:repeating-linear-gradient(135deg,#efeaf4,#efeaf4 6px,#e6def0 6px,#e6def0 12px);display:flex;align-items:center;justify-content:center;font-family:'Spectral',serif;font-size:18px;color:#6a4a86;">S</div>
+              <div style="flex:1;min-width:0;"><div style="font-family:'Spectral',serif;font-size:17px;font-weight:600;color:#2b2722;">La solitudine</div><div style="font-family:'Spectral',serif;font-style:italic;font-size:12.5px;color:#a39a88;">Laura Pausini · B1 · 22 huecos</div></div>
+              <span style="width:9px;height:9px;border-radius:99px;background:#c4bcab;flex-shrink:0;"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================ 2D — RESULTADOS ============================ -->
+      <div id="2d" style="display:flex;flex-direction:column;align-items:center;gap:16px;">
+        <div style="display:flex;align-items:center;gap:11px;align-self:flex-start;">
+          <span style="display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:26px;padding:0 9px;border-radius:8px;background:#23272d;color:#fff;font-family:'Space Grotesk',monospace;font-weight:700;font-size:13px;letter-spacing:.5px;">2d</span>
+          <div><div style="font-size:15px;font-weight:800;color:#23272d;">Resultados</div><div style="font-size:12.5px;color:#6b7280;">Puntuación, cascada y errores</div></div>
+        </div>
+        <div style="position:relative;width:390px;height:844px;border-radius:46px;background:#f4f0e8;overflow:hidden;box-shadow:0 32px 64px rgba(40,34,24,.22),0 0 0 1px rgba(0,0,0,.05);">
+          <div style="position:absolute;top:12px;left:50%;transform:translateX(-50%);width:108px;height:30px;border-radius:16px;background:#15110c;z-index:50;"></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 28px 0;color:#2b2722;"><span style="font-size:15px;font-weight:700;">9:41</span><div style="display:flex;gap:7px;align-items:center;"><svg width="18" height="12" viewBox="0 0 18 12"><path d="M9 3.3c2 0 3.8.8 5.1 2.1l1-1A8.6 8.6 0 0 0 9 1.5 8.6 8.6 0 0 0 2.9 4.4l1 1A7.2 7.2 0 0 1 9 3.3Z" fill="#2b2722"/><circle cx="9" cy="9.5" r="1.6" fill="#2b2722"/></svg><svg width="25" height="12" viewBox="0 0 25 12"><rect x="1" y="1" width="21" height="10" rx="3" fill="none" stroke="#2b2722" stroke-opacity=".4"/><rect x="2.5" y="2.5" width="15" height="7" rx="1.6" fill="#2b2722"/><rect x="23" y="4" width="1.5" height="4" rx=".7" fill="#2b2722" fill-opacity=".4"/></svg></div></div>
+
+          <div style="padding:16px 22px 0;height:100%;overflow:hidden;">
+            <div style="font-size:11px;letter-spacing:2px;font-weight:700;color:#a89f8c;">EXAMEN</div>
+            <div style="font-family:'Spectral',serif;font-size:24px;font-weight:600;color:#2b2722;line-height:1.15;margin-top:4px;">Avere — presente indicativo</div>
+
+            <!-- score hero -->
+            <div style="display:flex;align-items:center;gap:18px;margin:20px 0 6px;padding:18px;border-radius:18px;background:#fbf8f1;border:1px solid rgba(43,39,34,.07);box-shadow:0 8px 22px rgba(40,34,24,.07);">
+              <div style="width:72px;height:72px;border-radius:99px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:conic-gradient(#2f7d56 281deg,#e6ddcd 0deg);"><div style="width:56px;height:56px;border-radius:99px;background:#fbf8f1;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',monospace;font-size:18px;font-weight:700;color:#2f7d56;">78%</div></div>
+              <div>
+                <div style="font-family:'Spectral',serif;font-size:30px;font-weight:600;color:#2b2722;line-height:1;">18<span style="color:#b3ab99;">/23</span></div>
+                <div style="font-size:13px;color:#8c8576;margin-top:4px;">correctos</div>
+                <div style="font-family:'Spectral',serif;font-style:italic;font-size:13px;color:#a39a88;margin-top:2px;">Sesión terminada</div>
+              </div>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;margin:20px 0 8px;">
+              <span style="font-size:11px;letter-spacing:2px;font-weight:700;color:#a89f8c;">CATEGORÍAS AFECTADAS</span>
+              <span style="font-size:11px;font-weight:600;color:#b3ab99;">cascada · 8</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid rgba(43,39,34,.08);"><span style="flex:1;font-family:'Spectral',serif;font-size:15px;color:#2b2722;">Avere</span><span style="font-size:10px;font-weight:700;color:#b5412e;background:#f6e9e6;border-radius:99px;padding:3px 8px;">FALLÓ</span><span style="font-size:11px;color:#a39a88;width:54px;text-align:right;">23 ej.</span></div>
+            <div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid rgba(43,39,34,.08);"><span style="flex:1;font-family:'Spectral',serif;font-size:15px;color:#2b2722;">Essere</span><span style="font-size:10px;font-weight:700;color:#b5412e;background:#f6e9e6;border-radius:99px;padding:3px 8px;">FALLÓ</span><span style="font-size:11px;color:#a39a88;width:54px;text-align:right;">28 ej.</span></div>
+            <div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid rgba(43,39,34,.08);"><span style="flex:1;font-family:'Spectral',serif;font-size:15px;color:#2b2722;">Genere e numero</span><span style="font-size:10px;font-weight:700;color:#b5412e;background:#f6e9e6;border-radius:99px;padding:3px 8px;">FALLÓ</span><span style="font-size:11px;color:#a39a88;width:54px;text-align:right;">18 ej.</span></div>
+            <div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid rgba(43,39,34,.08);"><span style="flex:1;font-family:'Spectral',serif;font-size:15px;color:#2b2722;">Preposizioni</span><span style="font-size:11px;color:#a39a88;width:54px;text-align:right;">51 ej.</span></div>
+            <div style="font-family:'Spectral',serif;font-style:italic;font-size:13px;color:#a39a88;padding:10px 0 0;">+4 categorías más en cascada</div>
+
+            <div style="font-size:11px;letter-spacing:2px;font-weight:700;color:#a89f8c;margin:18px 0 8px;">ERRORES COMETIDOS · 5</div>
+            <div style="padding:14px;border-radius:14px;background:#fbf8f1;border:1px solid rgba(43,39,34,.07);">
+              <div style="font-family:'Spectral',serif;font-size:16px;color:#2b2722;">Lui <span style="border-bottom:2px solid #2f7d56;padding:0 4px;color:#2f7d56;font-weight:600;">ha</span> due braccia stanche.</div>
+              <div style="display:flex;gap:14px;margin-top:8px;font-size:12.5px;"><span style="color:#b5412e;">Tu: <span style="text-decoration:line-through;">abbiamo</span></span><span style="color:#2f7d56;">Correcta: ha</span></div>
+              <div style="font-family:'Spectral',serif;font-style:italic;font-size:12.5px;line-height:1.5;color:#8c8576;margin-top:8px;">Con lui, avere es <span style="font-style:normal;">ha</span>. <span style="font-style:normal;">braccia</span> es plural femenino irregular de <span style="font-style:normal;">braccio</span>, por eso <span style="font-style:normal;">stanche</span>.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="turn1" style="max-width:1080px;margin:0 auto;">
+    <div style="text-align:center;">
+      <div style="font-size:12px;letter-spacing:2.5px;font-weight:700;color:#9aa1aa;">TURNO 1 · HOME / CATEGORÍAS</div>
+      <h1 style="font-family:'Spectral',serif;font-size:31px;font-weight:600;color:#23272d;margin:8px 0 6px;letter-spacing:-.4px;">Dos direcciones para la pantalla principal</h1>
+      <p style="font-size:14.5px;line-height:1.55;color:#6b7280;max-width:640px;margin:0 auto;">Mobile-first, con la misma información que tu app (categorías, racha, ejercicios, examen y acciones rápidas) en dos lenguajes visuales. Refiérete a cada una por su ID — <a class="optlink" href="#1a">1a</a> o <a class="optlink" href="#1b">1b</a> — en el chat.</p>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:64px;justify-content:center;align-items:flex-start;margin-top:40px;">
+
+      <!-- ============================ 1A — EDITORIALE ============================ -->
+      <div id="1a" style="display:flex;flex-direction:column;align-items:center;gap:16px;">
+        <div style="display:flex;align-items:center;gap:11px;align-self:flex-start;">
+          <span style="display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:26px;padding:0 9px;border-radius:8px;background:#23272d;color:#fff;font-family:'Space Grotesk',monospace;font-weight:700;font-size:13px;letter-spacing:.5px;">1a</span>
+          <div>
+            <div style="font-size:15px;font-weight:800;color:#23272d;">Editoriale</div>
+            <div style="font-size:12.5px;color:#6b7280;">Papel cálido · serif · tricolore sutil</div>
+          </div>
+        </div>
+
+        <div style="position:relative;width:390px;height:844px;border-radius:46px;background:#f4f0e8;overflow:hidden;box-shadow:0 32px 64px rgba(40,34,24,.22),0 0 0 1px rgba(0,0,0,.05);">
+          <div style="position:absolute;top:12px;left:50%;transform:translateX(-50%);width:108px;height:30px;border-radius:16px;background:#15110c;z-index:50;"></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 28px 0;color:#2b2722;">
+            <span style="font-size:15px;font-weight:700;letter-spacing:.2px;">9:41</span>
+            <div style="display:flex;gap:7px;align-items:center;">
+              <svg width="18" height="12" viewBox="0 0 18 12"><path d="M9 3.3c2 0 3.8.8 5.1 2.1l1-1A8.6 8.6 0 0 0 9 1.5 8.6 8.6 0 0 0 2.9 4.4l1 1A7.2 7.2 0 0 1 9 3.3Z" fill="#2b2722"/><circle cx="9" cy="9.5" r="1.6" fill="#2b2722"/></svg>
+              <svg width="25" height="12" viewBox="0 0 25 12"><rect x="1" y="1" width="21" height="10" rx="3" fill="none" stroke="#2b2722" stroke-opacity=".4"/><rect x="2.5" y="2.5" width="15" height="7" rx="1.6" fill="#2b2722"/><rect x="23" y="4" width="1.5" height="4" rx=".7" fill="#2b2722" fill-opacity=".4"/></svg>
+            </div>
+          </div>
+
+          <div style="padding:16px 22px 0;height:100%;overflow:hidden;">
+            <sc-if value="{{ tricolore }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex;height:4px;border-radius:99px;overflow:hidden;width:56px;margin-bottom:16px;">
+                <div style="flex:1;background:#2f7d56;"></div><div style="flex:1;background:#fbfaf6;"></div><div style="flex:1;background:#b5412e;"></div>
+              </div>
+            </sc-if>
+
+            <div style="margin-bottom:18px;">
+              <div style="font-size:11px;letter-spacing:2.5px;font-weight:700;color:#a89f8c;">ITALIANO · A1 / A2</div>
+              <div style="font-family:'Spectral',serif;font-size:38px;line-height:1.02;font-weight:600;color:#2b2722;margin-top:6px;letter-spacing:-.6px;">Categorías</div>
+            </div>
+
+            <button style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border:none;border-radius:16px;background:#2f7d56;color:#fbfaf6;cursor:pointer;text-align:left;box-shadow:0 10px 22px rgba(47,125,86,.28);">
+              <span><span style="display:block;font-size:16px;font-weight:700;">Repaso 20</span><span style="display:block;font-size:12px;opacity:.85;margin-top:2px;">20 ejercicios al azar · 5 min</span></span>
+              <span style="font-size:21px;line-height:1;">&rarr;</span>
+            </button>
+            <div style="display:flex;gap:8px;margin-top:9px;">
+              <button style="flex:1;padding:11px 4px;border:1px solid rgba(43,39,34,.16);background:transparent;border-radius:12px;color:#5f594d;font-size:12.5px;font-weight:600;cursor:pointer;">Test completo</button>
+              <button style="flex:1;padding:11px 4px;border:1px solid rgba(43,39,34,.16);background:transparent;border-radius:12px;color:#5f594d;font-size:12.5px;font-weight:600;cursor:pointer;">Canciones</button>
+              <button style="flex:1;padding:11px 4px;border:1px solid rgba(43,39,34,.16);background:transparent;border-radius:12px;color:#5f594d;font-size:12.5px;font-weight:600;cursor:pointer;">Backup</button>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;margin:24px 0 4px;">
+              <span style="font-size:11px;letter-spacing:2px;font-weight:700;color:#a89f8c;">CATEGORÍAS</span>
+              <div style="display:flex;align-items:center;gap:9px;">
+                <span style="font-size:12.5px;font-weight:600;color:#8c8576;">Contrarreloj</span>
+                <div onClick="{{ toggleA }}" style="{{ swA.track }}"><div style="{{ swA.knob }}"></div></div>
+              </div>
+            </div>
+
+            <sc-for list="{{ cats }}" as="cat" hint-placeholder-count="5">
+              <div style="display:flex;align-items:center;gap:13px;padding:15px 0;border-bottom:1px solid rgba(43,39,34,.09);">
+                <div style="width:9px;height:9px;border-radius:99px;background:{{ cat.dotColor }};flex-shrink:0;"></div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-family:'Spectral',serif;font-size:18px;font-weight:600;color:#2b2722;line-height:1.15;">{{ cat.name }}</div>
+                  <div style="font-family:'Spectral',serif;font-style:italic;font-size:12.5px;color:#a39a88;margin-top:1px;">{{ cat.topic }}</div>
+                  <sc-if value="{{ showProgress }}" hint-placeholder-val="{{ true }}">
+                    <div style="display:flex;align-items:center;gap:8px;margin-top:7px;">
+                      <div style="flex:1;height:4px;border-radius:99px;background:rgba(43,39,34,.08);overflow:hidden;max-width:110px;"><div style="{{ cat.barStyleA }}"></div></div>
+                      <span style="font-size:11px;color:#a39a88;white-space:nowrap;">{{ cat.streakLineA }}</span>
+                    </div>
+                  </sc-if>
+                </div>
+                <button style="flex-shrink:0;padding:7px 15px;border:1px solid #2b2722;background:transparent;border-radius:99px;font-size:12.5px;font-weight:700;color:#2b2722;cursor:pointer;">Examen</button>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================ 1B — SOFT / MODERNO ============================ -->
+      <div id="1b" style="display:flex;flex-direction:column;align-items:center;gap:16px;">
+        <div style="display:flex;align-items:center;gap:11px;align-self:flex-start;">
+          <span style="display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:26px;padding:0 9px;border-radius:8px;background:#23272d;color:#fff;font-family:'Space Grotesk',monospace;font-weight:700;font-size:13px;letter-spacing:.5px;">1b</span>
+          <div>
+            <div style="font-size:15px;font-weight:800;color:#23272d;">Soft / Moderno</div>
+            <div style="font-size:12.5px;color:#6b7280;">Tarjetas claras · anillos de racha · vivo</div>
+          </div>
+        </div>
+
+        <div style="position:relative;width:390px;height:844px;border-radius:46px;background:#eef1f4;overflow:hidden;box-shadow:0 32px 64px rgba(20,30,45,.20),0 0 0 1px rgba(0,0,0,.05);">
+          <div style="position:absolute;top:12px;left:50%;transform:translateX(-50%);width:108px;height:30px;border-radius:16px;background:#0b0e12;z-index:50;"></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 28px 0;color:#1a1d21;">
+            <span style="font-size:15px;font-weight:700;letter-spacing:.2px;">9:41</span>
+            <div style="display:flex;gap:7px;align-items:center;">
+              <svg width="18" height="12" viewBox="0 0 18 12"><path d="M9 3.3c2 0 3.8.8 5.1 2.1l1-1A8.6 8.6 0 0 0 9 1.5 8.6 8.6 0 0 0 2.9 4.4l1 1A7.2 7.2 0 0 1 9 3.3Z" fill="#1a1d21"/><circle cx="9" cy="9.5" r="1.6" fill="#1a1d21"/></svg>
+              <svg width="25" height="12" viewBox="0 0 25 12"><rect x="1" y="1" width="21" height="10" rx="3" fill="none" stroke="#1a1d21" stroke-opacity=".4"/><rect x="2.5" y="2.5" width="15" height="7" rx="1.6" fill="#1a1d21"/><rect x="23" y="4" width="1.5" height="4" rx=".7" fill="#1a1d21" fill-opacity=".4"/></svg>
+            </div>
+          </div>
+
+          <div style="padding:16px 16px 0;height:100%;overflow:hidden;">
+            <div style="margin:6px 2px 16px;">
+              <div style="font-size:11px;letter-spacing:2px;font-weight:700;color:#9aa1aa;">ITALIANO · A1/A2</div>
+              <div style="font-size:27px;font-weight:800;color:#1a1d21;letter-spacing:-.6px;margin-top:3px;">Categorías</div>
+            </div>
+
+            <sc-if value="{{ showStats }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex;gap:9px;margin-bottom:15px;">
+                <div style="flex:1;background:#fff;border-radius:14px;padding:12px 10px;box-shadow:0 1px 2px rgba(16,24,40,.05),0 4px 12px rgba(16,24,40,.05);">
+                  <div style="font-family:'Space Grotesk',monospace;font-size:22px;font-weight:700;color:#1f8a5b;">12</div>
+                  <div style="font-size:11px;color:#8b929b;margin-top:1px;font-weight:600;">Racha (días)</div>
+                </div>
+                <div style="flex:1;background:#fff;border-radius:14px;padding:12px 10px;box-shadow:0 1px 2px rgba(16,24,40,.05),0 4px 12px rgba(16,24,40,.05);">
+                  <div style="font-family:'Space Grotesk',monospace;font-size:22px;font-weight:700;color:#1a1d21;">144</div>
+                  <div style="font-size:11px;color:#8b929b;margin-top:1px;font-weight:600;">Ejercicios</div>
+                </div>
+                <div style="flex:1;background:#fff;border-radius:14px;padding:12px 10px;box-shadow:0 1px 2px rgba(16,24,40,.05),0 4px 12px rgba(16,24,40,.05);">
+                  <div style="font-family:'Space Grotesk',monospace;font-size:22px;font-weight:700;color:#1a1d21;">1<span style="color:#b0b6bd;">/6</span></div>
+                  <div style="font-size:11px;color:#8b929b;margin-top:1px;font-weight:600;">Dominadas</div>
+                </div>
+              </div>
+            </sc-if>
+
+            <button style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:15px 16px;border:none;border-radius:16px;background:#1f8a5b;color:#fff;cursor:pointer;text-align:left;box-shadow:0 10px 20px rgba(31,138,91,.30);">
+              <span><span style="display:block;font-size:16px;font-weight:800;">Repaso 20</span><span style="display:block;font-size:12px;opacity:.9;margin-top:2px;">20 ejercicios al azar · 5 min</span></span>
+              <span style="font-size:21px;line-height:1;">&rarr;</span>
+            </button>
+            <div style="display:flex;gap:8px;margin-top:9px;">
+              <button style="flex:1;padding:12px 4px;border:none;background:#fff;border-radius:13px;color:#3a4048;font-size:12.5px;font-weight:700;cursor:pointer;box-shadow:0 1px 2px rgba(16,24,40,.05),0 3px 10px rgba(16,24,40,.05);">Test completo</button>
+              <button style="flex:1;padding:12px 4px;border:none;background:#fff;border-radius:13px;color:#3a4048;font-size:12.5px;font-weight:700;cursor:pointer;box-shadow:0 1px 2px rgba(16,24,40,.05),0 3px 10px rgba(16,24,40,.05);">Canciones</button>
+              <button style="flex:1;padding:12px 4px;border:none;background:#fff;border-radius:13px;color:#3a4048;font-size:12.5px;font-weight:700;cursor:pointer;box-shadow:0 1px 2px rgba(16,24,40,.05),0 3px 10px rgba(16,24,40,.05);">Backup</button>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;background:#fff;border-radius:14px;padding:11px 14px;margin-top:10px;box-shadow:0 1px 2px rgba(16,24,40,.05),0 3px 10px rgba(16,24,40,.05);">
+              <span style="font-size:13.5px;font-weight:600;color:#3a4048;">Contrarreloj</span>
+              <div onClick="{{ toggleB }}" style="{{ swB.track }}"><div style="{{ swB.knob }}"></div></div>
+            </div>
+
+            <div style="font-size:11px;letter-spacing:2px;font-weight:700;color:#9aa1aa;margin:20px 0 10px;">CATEGORÍAS</div>
+
+            <sc-for list="{{ cats }}" as="cat" hint-placeholder-count="5">
+              <div style="display:flex;align-items:center;gap:12px;background:#fff;border-radius:18px;padding:12px;margin-bottom:9px;box-shadow:0 1px 2px rgba(16,24,40,.05),0 4px 14px rgba(16,24,40,.05);">
+                <div style="width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;background:{{ cat.tileBg }};color:{{ cat.tileFg }};flex-shrink:0;">{{ cat.initial }}</div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:15px;font-weight:700;color:#1a1d21;line-height:1.15;">{{ cat.name }}</div>
+                  <div style="font-size:12px;color:#8b929b;margin-top:2px;">{{ cat.metaB }}</div>
+                  <button style="margin-top:8px;padding:5px 13px;border:1px solid #e3e7ec;background:#f6f8fa;border-radius:99px;font-size:12px;font-weight:700;color:#3a4048;cursor:pointer;">Examen</button>
+                </div>
+                <sc-if value="{{ showProgress }}" hint-placeholder-val="{{ true }}">
+                  <div style="{{ cat.ringStyle }}">
+                    <div style="width:34px;height:34px;border-radius:99px;background:#fff;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',monospace;font-size:13px;font-weight:700;color:#1a1d21;">{{ cat.ringNum }}</div>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 980, &quot;height&quot;: 1200 },
+  &quot;tricolore&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Estilo&quot; },
+  &quot;showProgress&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Estilo&quot; },
+  &quot;showStats&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Estilo&quot; }
+}">
+class Component extends DCLogic {
+  state = { crA: false, crB: true, exSel: null, exChecked: false };
+
+  renderVals() {
+    const green = '#2f7d56';
+    const amber = '#b9852f';
+    const neutral = '#c4bcab';
+    const tintMap = {
+      green:  { bg:'#e8f1ea', fg:'#2f7d56' },
+      red:    { bg:'#f6e9e6', fg:'#b5412e' },
+      blue:   { bg:'#e9eef7', fg:'#3a5a8a' },
+      amber:  { bg:'#f5ecdb', fg:'#9a6b1f' },
+      purple: { bg:'#efeaf4', fg:'#6a4a86' },
+      teal:   { bg:'#e4f0ef', fg:'#2f6f6b' },
+    };
+    const dot = { dom: green, prog: amber, new: neutral };
+
+    const base = [
+      { name:'Avere',              topic:'presente indicativo',  ej:23, streak:21, initial:'Av', tint:'green',  state:'dom'  },
+      { name:'Essere',             topic:'presente indicativo',  ej:28, streak:12, initial:'Es', tint:'red',    state:'prog' },
+      { name:'Preposizioni',       topic:'di · a · da · in',     ej:52, streak:6,  initial:'Pr', tint:'blue',   state:'prog' },
+      { name:'Verbi di movimento', topic:'andare · venire · stare', ej:9, streak:0, initial:'Vm', tint:'amber', state:'new'  },
+      { name:'Articoli',           topic:'il · lo · la · i · gli', ej:18, streak:9, initial:'Ar', tint:'purple', state:'prog' },
+      { name:'Plurale dei nomi',   topic:'-o → -i · -a → -e',    ej:14, streak:0,  initial:'Pl', tint:'teal',   state:'new'  },
+    ];
+
+    const cats = base.map(c => {
+      const pct = Math.round(c.streak / 21 * 100);
+      const deg = Math.round(c.streak / 21 * 360);
+      const t = tintMap[c.tint];
+      return {
+        name: c.name, topic: c.topic, initial: c.initial,
+        dotColor: dot[c.state],
+        barStyleA: {
+          width: pct + '%', height: '100%', borderRadius: '99px',
+          background: c.state === 'dom' ? green : (c.state === 'prog' ? amber : green),
+        },
+        streakLineA: c.streak === 0
+          ? ('Sin empezar · ' + c.ej + ' ejercicios')
+          : (c.streak + '/21 d · ' + c.ej + ' ejercicios'),
+        metaB: c.topic + ' · ' + c.ej + ' ej',
+        tileBg: t.bg, tileFg: t.fg,
+        ringStyle: {
+          width: '46px', height: '46px', borderRadius: '99px', flexShrink: 0,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          background: 'conic-gradient(' + green + ' ' + deg + 'deg, #e3e6ea 0deg)',
+        },
+        ringNum: c.streak === 0 ? '0' : String(c.streak),
+      };
+    });
+
+    const sw = (on) => ({
+      track: {
+        width: 46, height: 27, borderRadius: 999, padding: 3, boxSizing: 'border-box',
+        cursor: 'pointer', display: 'flex', flexShrink: 0,
+        justifyContent: on ? 'flex-end' : 'flex-start',
+        background: on ? green : '#d6d1c4', transition: 'background .2s, justify-content .2s',
+      },
+      knob: { width: 21, height: 21, borderRadius: 999, background: '#fff', boxShadow: '0 1px 2px rgba(0,0,0,.25)' },
+    });
+
+    // ---- Ejercicio: completar frase (opción múltiple) ----
+    const exCorrect = 2;
+    const exWords = ['ho', 'hai', 'ha', 'abbiamo'];
+    const sel = this.state.exSel;
+    const checked = this.state.exChecked;
+    const optBase = {
+      display:'flex', alignItems:'center', justifyContent:'space-between',
+      padding:'15px 18px', borderRadius:'14px', border:'1.5px solid rgba(43,39,34,.16)',
+      background:'#fbfaf6', cursor:'pointer', fontFamily:"'Spectral',serif", fontSize:'18px', fontWeight:500, color:'#2b2722',
+    };
+    const exOptions = exWords.map((t, i) => {
+      let style = { ...optBase }; let mark = ''; let markColor = green;
+      if (!checked) {
+        if (sel === i) style = { ...optBase, border:'2px solid '+green, background:'#eaf2ec', padding:'14px 17px' };
+      } else {
+        if (i === exCorrect) { style = { ...optBase, border:'2px solid '+green, background:'#e8f1ea', color:'#23603f', padding:'14px 17px' }; mark = '✓'; markColor = green; }
+        else if (i === sel) { style = { ...optBase, border:'2px solid #b5412e', background:'#f6e9e6', color:'#8f3322', padding:'14px 17px' }; mark = '✗'; markColor = '#b5412e'; }
+        else { style = { ...optBase, opacity:0.5 }; }
+      }
+      return {
+        t, style, mark,
+        markStyle:{ fontFamily:"'Hanken Grotesk',sans-serif", fontSize:'16px', fontWeight:800, color:markColor },
+        onClick: () => { if (!this.state.exChecked) this.setState({ exSel:i }); },
+      };
+    });
+    const ctaEnabled = sel !== null;
+    const exBlank = sel === null ? '\u00a0\u00a0\u00a0\u00a0\u00a0' : exWords[sel];
+    const exBlankStyle = sel === null
+      ? { color:'#bdb4a2', borderBottom:'2px solid #cfc7b5', padding:'0 6px' }
+      : (!checked ? { color:green, fontWeight:600, borderBottom:'2px solid '+green, padding:'0 6px' }
+        : (sel === exCorrect ? { color:green, fontWeight:600, borderBottom:'2px solid '+green, padding:'0 6px' }
+          : { color:'#b5412e', fontWeight:600, borderBottom:'2px solid #b5412e', padding:'0 6px' }));
+    const fbCorrect = checked && sel === exCorrect;
+    const exFeedback = {
+      show: checked,
+      title: fbCorrect ? '¡Esatto!' : 'Quasi…',
+      titleStyle: { fontFamily:"'Spectral',serif", fontSize:'17px', fontWeight:600, color: fbCorrect ? '#23603f' : '#8f3322', marginBottom:'4px' },
+      text: 'Con lui se usa ha (3.\u00aa persona singular). \u201CLui ha ventidue anni\u201D = \u201C\u00c9l tiene veintid\u00f3s a\u00f1os\u201D.',
+      boxStyle: {
+        background: fbCorrect ? '#e8f1ea' : '#f6e9e6',
+        border: '1px solid ' + (fbCorrect ? '#cfe3d6' : '#ecd3cc'),
+        borderRadius:'14px', padding:'14px 16px', marginTop:'16px',
+      },
+    };
+    const exCta = {
+      label: checked ? 'Continuar →' : 'Comprobar',
+      style: {
+        width:'100%', padding:'16px', border:'none', borderRadius:'14px',
+        cursor: (ctaEnabled || checked) ? 'pointer' : 'default',
+        fontFamily:"'Hanken Grotesk',sans-serif", fontSize:'16px', fontWeight:700,
+        background: (ctaEnabled || checked) ? green : '#dcd7cb', color: (ctaEnabled || checked) ? '#fbfaf6' : '#a89f8c',
+        boxShadow: (ctaEnabled || checked) ? '0 10px 22px rgba(47,125,86,.26)' : 'none',
+      },
+      onClick: () => {
+        if (this.state.exChecked) this.setState({ exChecked:false, exSel:null });
+        else if (this.state.exSel !== null) this.setState({ exChecked:true });
+      },
+    };
+
+    return {
+      cats, exOptions, exBlank, exBlankStyle, exFeedback, exCta,
+      tricolore: this.props.tricolore ?? true,
+      showProgress: this.props.showProgress ?? true,
+      showStats: this.props.showStats ?? true,
+      swA: sw(this.state.crA),
+      swB: sw(this.state.crB),
+      toggleA: () => this.setState(s => ({ crA: !s.crA })),
+      toggleB: () => this.setState(s => ({ crB: !s.crB })),
+    };
+  }
+}
+</script>
+</body>
+</html>
