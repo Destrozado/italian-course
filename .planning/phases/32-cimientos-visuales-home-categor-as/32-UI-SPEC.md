@@ -1,10 +1,11 @@
 ---
 phase: 32
 slug: cimientos-visuales-home-categor-as
-status: draft
+status: approved
 shadcn_initialized: false
 preset: none
 created: 2026-06-30
+reviewed_at: 2026-06-30
 ---
 
 # Phase 32 — UI Design Contract
