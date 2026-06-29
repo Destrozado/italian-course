@@ -2,9 +2,9 @@
 gsd_state_version: 1.0
 milestone: v1.8
 milestone_name: Rediseño visual Editoriale
-status: planning
-last_updated: "2026-06-30T00:40:00.000Z"
-last_activity: 2026-06-30
+status: "Roadmap creado (3 fases 32-34), listo para `/gsd:plan-phase 32`"
+last_updated: "2026-06-29T22:46:37.301Z"
+last_activity: 2026-06-30 — Roadmap v1.8 creado (19/19 requirements mapeados, 0 orphans)
 progress:
   total_phases: 3
   completed_phases: 0
