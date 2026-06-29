@@ -1,0 +1,2504 @@
+{
+  "id": "sogni-appesi",
+  "title": "Sogni appesi — Ultimo",
+  "phrases": [
+    {
+      "id": "sogni-appesi-001",
+      "prompt": "Provo a dimenticare",
+      "answer": [
+        "intento",
+        "olvidar"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-002",
+      "prompt": "Scelte che fanno male",
+      "answer": [
+        "decisiones",
+        "que",
+        "hacen",
+        "daño"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-003",
+      "prompt": "Abbraccio le mie certezze",
+      "answer": [
+        "abrazo",
+        "mis",
+        "certezas"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-004",
+      "prompt": "Provo a darmi da fare",
+      "answer": [
+        "intento",
+        "ponerme",
+        "manos",
+        "a",
+        "la",
+        "obra"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-005",
+      "prompt": "Ma ancora non riesco a capire",
+      "answer": [
+        "pero",
+        "todavía",
+        "no",
+        "consigo",
+        "entender"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-006",
+      "prompt": "Se il mondo un giorno io potrò amarlo",
+      "answer": [
+        "si",
+        "el",
+        "mundo",
+        "un",
+        "día",
+        "yo",
+        "podré",
+        "amarlo"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-007",
+      "prompt": "Se resto chiuso a dormire",
+      "answer": [
+        "si",
+        "me",
+        "quedo",
+        "encerrado",
+        "durmiendo"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-008",
+      "prompt": "Quando dovrei incontrarlo",
+      "answer": [
+        "cuando",
+        "debería",
+        "encontrarlo"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-009",
+      "prompt": "Quello che cerco di dire",
+      "answer": [
+        "lo",
+        "que",
+        "intento",
+        "decir"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-010",
+      "prompt": "Da quando scappavo da tutto",
+      "answer": [
+        "desde",
+        "cuando",
+        "escapaba",
+        "de",
+        "todo"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-011",
+      "prompt": "Quando ridevano in gruppo",
+      "answer": [
+        "cuando",
+        "se",
+        "reían",
+        "en",
+        "grupo"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-012",
+      "prompt": "Tornavo e scrivevo distrutto",
+      "answer": [
+        "volvía",
+        "y",
+        "escribía",
+        "destrozado"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-013",
+      "prompt": "È che ho gridato tanto",
+      "answer": [
+        "es",
+        "que",
+        "he",
+        "gritado",
+        "tanto"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-014",
+      "prompt": "In classe non ero presente",
+      "answer": [
+        "en",
+        "clase",
+        "no",
+        "estaba",
+        "presente"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-015",
+      "prompt": "Sognavo di vivere in alto",
+      "answer": [
+        "soñaba",
+        "con",
+        "vivir",
+        "en",
+        "lo",
+        "alto"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-016",
+      "prompt": "Dimostrare che ero un vincente",
+      "answer": [
+        "demostrar",
+        "que",
+        "era",
+        "un",
+        "ganador"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-017",
+      "prompt": "E quando ho incontrato me stesso",
+      "answer": [
+        "y",
+        "cuando",
+        "me",
+        "encontré",
+        "a",
+        "mí",
+        "mismo"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-018",
+      "prompt": "Mentre correvo di notte",
+      "answer": [
+        "mientras",
+        "corría",
+        "de",
+        "noche"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-019",
+      "prompt": "Gli ho urlato di odiarlo contro",
+      "answer": [
+        "le",
+        "grité",
+        "que",
+        "lo",
+        "odiara"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-020",
+      "prompt": "E lui ha diviso le rotte",
+      "answer": [
+        "y",
+        "él",
+        "dividió",
+        "las",
+        "rutas"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-021",
+      "prompt": "Ma guarda che strana la sorte",
+      "answer": [
+        "pero",
+        "mira",
+        "qué",
+        "extraña",
+        "la",
+        "suerte"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-022",
+      "prompt": "Oggi che mi sento bene",
+      "answer": [
+        "hoy",
+        "que",
+        "me",
+        "siento",
+        "bien"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-023",
+      "prompt": "Io lo rincontro per strada",
+      "answer": [
+        "yo",
+        "lo",
+        "reencuentro",
+        "por",
+        "la",
+        "calle"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-024",
+      "prompt": "Gli chiedo di ridere insieme",
+      "answer": [
+        "le",
+        "pido",
+        "que",
+        "riamos",
+        "juntos"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": [
+              "[autor-oraculo] segundo vendor: DeepSeek-chat marco S4 sobre \"riamos\", pero es falso-positivo: \"riamos\" (subjuntivo presente nosotros de reir) es palabra llana terminada en -s con diptongo \"ia\" -> sin tilde; la tilde del hiato corresponde al indicativo \"reimos\", no al subjuntivo. DeepSeek-reasoner ya dio correcta"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-025",
+      "prompt": "E dimmi che cosa resta",
+      "answer": [
+        "y",
+        "dime",
+        "qué",
+        "queda"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-026",
+      "prompt": "Se vivi senza memoria",
+      "answer": [
+        "si",
+        "vives",
+        "sin",
+        "memoria"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-027",
+      "prompt": "Perdo la voce, cerco la pace",
+      "answer": [
+        "pierdo",
+        "la",
+        "voz",
+        "busco",
+        "la",
+        "paz"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-028",
+      "prompt": "E lascio che la vita viva per me",
+      "answer": [
+        "y",
+        "dejo",
+        "que",
+        "la",
+        "vida",
+        "viva",
+        "por",
+        "mí"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-029",
+      "prompt": "E dimmi che cosa senti",
+      "answer": [
+        "y",
+        "dime",
+        "qué",
+        "sientes"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-030",
+      "prompt": "Se scopri di avere paura",
+      "answer": [
+        "si",
+        "descubres",
+        "que",
+        "tienes",
+        "miedo"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-031",
+      "prompt": "Brucio i consigli, alzo il volume",
+      "answer": [
+        "quemo",
+        "los",
+        "consejos",
+        "subo",
+        "el",
+        "volumen"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-032",
+      "prompt": "L'ansia nasconde i sorrisi che ho",
+      "answer": [
+        "la",
+        "ansiedad",
+        "esconde",
+        "las",
+        "sonrisas",
+        "que",
+        "tengo"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-033",
+      "prompt": "E dimmi che cosa vedi",
+      "answer": [
+        "y",
+        "dime",
+        "qué",
+        "ves"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-034",
+      "prompt": "Quando ripensi al domani",
+      "answer": [
+        "cuando",
+        "vuelves",
+        "a",
+        "pensar",
+        "en",
+        "el",
+        "mañana"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-035",
+      "prompt": "Quali domande? Quante risposte?",
+      "answer": [
+        "qué",
+        "preguntas",
+        "cuántas",
+        "respuestas"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-036",
+      "prompt": "\"Forse domani\" ripeti, \"Forse\"",
+      "answer": [
+        "quizás",
+        "mañana",
+        "repites",
+        "quizás"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-037",
+      "prompt": "E vivo coi sogni appesi",
+      "answer": [
+        "y",
+        "vivo",
+        "con",
+        "los",
+        "sueños",
+        "colgados"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-038",
+      "prompt": "Vivo coi sogni appesi",
+      "answer": [
+        "vivo",
+        "con",
+        "los",
+        "sueños",
+        "colgados"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-039",
+      "prompt": "Girano le pareti",
+      "answer": [
+        "giran",
+        "las",
+        "paredes"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-040",
+      "prompt": "Vivo, vivo coi sogni appesi",
+      "answer": [
+        "vivo",
+        "vivo",
+        "con",
+        "los",
+        "sueños",
+        "colgados"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-041",
+      "prompt": "Quando ascoltavo la gente parlare mentre dava lezioni",
+      "answer": [
+        "cuando",
+        "escuchaba",
+        "a",
+        "la",
+        "gente",
+        "hablar",
+        "mientras",
+        "daba",
+        "lecciones"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-042",
+      "prompt": "Non ho saputo imparare ed ora disegno le delusioni, le conclusioni",
+      "answer": [
+        "no",
+        "supe",
+        "aprender",
+        "y",
+        "ahora",
+        "dibujo",
+        "las",
+        "decepciones",
+        "las",
+        "conclusiones"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-043",
+      "prompt": "È facile avere ambizioni, un po' meno concretizzarle",
+      "answer": [
+        "es",
+        "fácil",
+        "tener",
+        "ambiciones",
+        "un",
+        "poco",
+        "menos",
+        "concretarlas"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-044",
+      "prompt": "Ero un bambino diverso, odiavo chi amava e aspettavo l'inverno",
+      "answer": [
+        "era",
+        "un",
+        "niño",
+        "diferente",
+        "odiaba",
+        "a",
+        "quien",
+        "amaba",
+        "y",
+        "esperaba",
+        "el",
+        "invierno"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-045",
+      "prompt": "Sempre collocato nel gruppo dei perdenti",
+      "answer": [
+        "siempre",
+        "colocado",
+        "en",
+        "el",
+        "grupo",
+        "de",
+        "los",
+        "perdedores"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-046",
+      "prompt": "In questo percorso a chi c'ho intorno ho dato un sorriso e mille incidenti",
+      "answer": [
+        "en",
+        "este",
+        "camino",
+        "a",
+        "quien",
+        "tengo",
+        "alrededor",
+        "le",
+        "he",
+        "dado",
+        "una",
+        "sonrisa",
+        "y",
+        "mil",
+        "incidentes"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-047",
+      "prompt": "Ma mando avanti la ruota, lascio che giri da sé",
+      "answer": [
+        "pero",
+        "hago",
+        "avanzar",
+        "la",
+        "rueda",
+        "dejo",
+        "que",
+        "gire",
+        "por",
+        "sí",
+        "sola"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-048",
+      "prompt": "Riesci a capirmi solo se hai sempre voluto qualcosa che non c'è",
+      "answer": [
+        "consigues",
+        "entenderme",
+        "solo",
+        "si",
+        "siempre",
+        "has",
+        "querido",
+        "algo",
+        "que",
+        "no",
+        "existe"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-049",
+      "prompt": "E adesso tirando le somme non sto vivendo come volevo",
+      "answer": [
+        "y",
+        "ahora",
+        "haciendo",
+        "balance",
+        "no",
+        "estoy",
+        "viviendo",
+        "como",
+        "quería"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-050",
+      "prompt": "Ma posso essere fiero di portare avanti quello che credo",
+      "answer": [
+        "pero",
+        "puedo",
+        "estar",
+        "orgulloso",
+        "de",
+        "sacar",
+        "adelante",
+        "lo",
+        "que",
+        "creo"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-051",
+      "prompt": "Da quando ero bambino, solo un obiettivo",
+      "answer": [
+        "desde",
+        "cuando",
+        "era",
+        "niño",
+        "solo",
+        "un",
+        "objetivo"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-052",
+      "prompt": "Dalla parte degli ultimi, per sentirmi primo",
+      "answer": [
+        "del",
+        "lado",
+        "de",
+        "los",
+        "últimos",
+        "para",
+        "sentirme",
+        "primero"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-053",
+      "prompt": "Dimmi che cosa resta",
+      "answer": [
+        "dime",
+        "qué",
+        "queda"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-054",
+      "prompt": "Se vivi senza memoria",
+      "answer": [
+        "si",
+        "vives",
+        "sin",
+        "memoria"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-055",
+      "prompt": "Perdo la voce, cerco la pace",
+      "answer": [
+        "pierdo",
+        "la",
+        "voz",
+        "busco",
+        "la",
+        "paz"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-056",
+      "prompt": "E lascio che la vita viva per me",
+      "answer": [
+        "y",
+        "dejo",
+        "que",
+        "la",
+        "vida",
+        "viva",
+        "por",
+        "mí"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-057",
+      "prompt": "Dimmi che cosa senti",
+      "answer": [
+        "dime",
+        "qué",
+        "sientes"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-058",
+      "prompt": "Se scopri di avere paura",
+      "answer": [
+        "si",
+        "descubres",
+        "que",
+        "tienes",
+        "miedo"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-059",
+      "prompt": "Brucio i consigli, alzo il volume",
+      "answer": [
+        "quemo",
+        "los",
+        "consejos",
+        "subo",
+        "el",
+        "volumen"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-060",
+      "prompt": "L'ansia nasconde i sorrisi che ho",
+      "answer": [
+        "la",
+        "ansiedad",
+        "esconde",
+        "las",
+        "sonrisas",
+        "que",
+        "tengo"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-061",
+      "prompt": "E dimmi che cosa vedi",
+      "answer": [
+        "y",
+        "dime",
+        "qué",
+        "ves"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-062",
+      "prompt": "Quando ripensi al domani",
+      "answer": [
+        "cuando",
+        "vuelves",
+        "a",
+        "pensar",
+        "en",
+        "el",
+        "mañana"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-063",
+      "prompt": "Quali domande? Quante risposte?",
+      "answer": [
+        "qué",
+        "preguntas",
+        "cuántas",
+        "respuestas"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-064",
+      "prompt": "\"Forse domani\" ripeti, \"Forse\"",
+      "answer": [
+        "quizás",
+        "mañana",
+        "repites",
+        "quizás"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-065",
+      "prompt": "E vivo coi sogni appesi",
+      "answer": [
+        "y",
+        "vivo",
+        "con",
+        "los",
+        "sueños",
+        "colgados"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-066",
+      "prompt": "Vivo coi sogni appesi",
+      "answer": [
+        "vivo",
+        "con",
+        "los",
+        "sueños",
+        "colgados"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-067",
+      "prompt": "Girano le pareti",
+      "answer": [
+        "giran",
+        "las",
+        "paredes"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-068",
+      "prompt": "Io vivo coi sogni appesi",
+      "answer": [
+        "yo",
+        "vivo",
+        "con",
+        "los",
+        "sueños",
+        "colgados"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-069",
+      "prompt": "Dimmi che cosa resta",
+      "answer": [
+        "dime",
+        "qué",
+        "queda"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-070",
+      "prompt": "Se vivi senza memoria",
+      "answer": [
+        "si",
+        "vives",
+        "sin",
+        "memoria"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-071",
+      "prompt": "Perdo la voce, cerco la pace",
+      "answer": [
+        "pierdo",
+        "la",
+        "voz",
+        "busco",
+        "la",
+        "paz"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-072",
+      "prompt": "E lascio che la vita viva per me",
+      "answer": [
+        "y",
+        "dejo",
+        "que",
+        "la",
+        "vida",
+        "viva",
+        "por",
+        "mí"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-073",
+      "prompt": "Dimmi che cosa senti",
+      "answer": [
+        "dime",
+        "qué",
+        "sientes"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-074",
+      "prompt": "Se scopri di avere paura",
+      "answer": [
+        "si",
+        "descubres",
+        "que",
+        "tienes",
+        "miedo"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-075",
+      "prompt": "Brucio i consigli, alzo il volume",
+      "answer": [
+        "quemo",
+        "los",
+        "consejos",
+        "subo",
+        "el",
+        "volumen"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-076",
+      "prompt": "L'ansia nasconde i sorrisi che ho",
+      "answer": [
+        "la",
+        "ansiedad",
+        "esconde",
+        "las",
+        "sonrisas",
+        "que",
+        "tengo"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-077",
+      "prompt": "Dimmi che cosa vedi",
+      "answer": [
+        "dime",
+        "qué",
+        "ves"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-078",
+      "prompt": "Quando ripensi al domani",
+      "answer": [
+        "cuando",
+        "vuelves",
+        "a",
+        "pensar",
+        "en",
+        "el",
+        "mañana"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-079",
+      "prompt": "Quali domande? Quante risposte?",
+      "answer": [
+        "qué",
+        "preguntas",
+        "cuántas",
+        "respuestas"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-080",
+      "prompt": "\"Forse domani\" ripeti, \"Forse\"",
+      "answer": [
+        "quizás",
+        "mañana",
+        "repites",
+        "quizás"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-081",
+      "prompt": "E vivo coi sogni appesi",
+      "answer": [
+        "y",
+        "vivo",
+        "con",
+        "los",
+        "sueños",
+        "colgados"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-082",
+      "prompt": "Vivo coi sogni appesi",
+      "answer": [
+        "vivo",
+        "con",
+        "los",
+        "sueños",
+        "colgados"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-083",
+      "prompt": "Girano le pareti",
+      "answer": [
+        "giran",
+        "las",
+        "paredes"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "sogni-appesi-084",
+      "prompt": "Vivo, vivo coi sogni appesi",
+      "answer": [
+        "vivo",
+        "vivo",
+        "con",
+        "los",
+        "sueños",
+        "colgados"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    }
+  ]
+}
