@@ -1,9 +1,10 @@
 {
   "songs": [
-    { "id": "mini-prueba", "title": "Mini-cancion de prueba", "phraseCount": 3 },
-    { "id": "equilibrio-mentale", "title": "Equilibrio mentale (Home piano session) — Ultimo", "phraseCount": 17 },
-    { "id": "solo", "title": "Solo — Ultimo", "phraseCount": 34 },
-    { "id": "ti-dedico-il-silenzio", "title": "Ti dedico il silenzio — Ultimo", "phraseCount": 32 },
-    { "id": "bella-davvero", "title": "Bella davvero — Ultimo", "phraseCount": 37 }
+    {"id":"mini-prueba","title":"Mini-cancion de prueba","phraseCount":3},
+    {"id":"equilibrio-mentale","title":"Equilibrio mentale (Home piano session) — Ultimo","phraseCount":17},
+    {"id":"solo","title":"Solo — Ultimo","phraseCount":34},
+    {"id":"ti-dedico-il-silenzio","title":"Ti dedico il silenzio — Ultimo","phraseCount":32},
+    {"id":"bella-davvero","title":"Bella davvero — Ultimo","phraseCount":37},
+    {"id":"cuore-di-plastica","title":"Cuore di plastica — Ultimo","phraseCount":50}
   ]
 }

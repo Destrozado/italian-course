@@ -1,0 +1,1156 @@
+{
+  "id": "cuore-di-plastica",
+  "title": "Cuore di plastica — Ultimo",
+  "phrases": [
+    {
+      "id": "cuore-di-plastica-001",
+      "prompt": "Sento che il mio cuore è diventato di plastica",
+      "answer": ["siento", "que", "mi", "corazón", "se", "ha", "vuelto", "de", "plástico"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-002",
+      "prompt": "E voglio avere tutto, anche quello che non c'è",
+      "answer": ["y", "quiero", "tenerlo", "todo", "incluso", "lo", "que", "no", "existe"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-003",
+      "prompt": "Sento che ti ho persa, ma rimani fantastica",
+      "answer": ["siento", "que", "te", "he", "perdido", "pero", "sigues", "siendo", "fantástica"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-004",
+      "prompt": "E tornando a casa in testa ho pezzi sparsi di te",
+      "answer": ["y", "volviendo", "a", "casa", "tengo", "en", "la", "cabeza", "trozos", "dispersos", "de", "ti"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-005",
+      "prompt": "Ti ho conosciuta che parlavi piano",
+      "answer": ["te", "conocí", "cuando", "hablabas", "bajito"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-006",
+      "prompt": "Guardavi il cielo ed io guardavo te",
+      "answer": ["mirabas", "el", "cielo", "y", "yo", "te", "miraba"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-007",
+      "prompt": "Canto con il piano, la musica mi mastica",
+      "answer": ["canto", "con", "el", "piano", "la", "música", "me", "mastica"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-008",
+      "prompt": "Tu voli nella mano e piove una mia lacrima",
+      "answer": ["tú", "vuelas", "en", "la", "mano", "y", "llueve", "una", "lágrima", "mía"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-009",
+      "prompt": "Rimani te che guardi il finestrino quando sei in macchina",
+      "answer": ["sigues", "siendo", "tú", "que", "miras", "la", "ventanilla", "cuando", "estás", "en", "el", "coche"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-010",
+      "prompt": "Quella nera di un po' di anni fa",
+      "answer": ["aquella", "negra", "de", "hace", "unos", "años"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-011",
+      "prompt": "Sento che il mio cuore è diventato di plastica",
+      "answer": ["siento", "que", "mi", "corazón", "se", "ha", "vuelto", "de", "plástico"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-012",
+      "prompt": "E voglio avere tutto, anche quello che non c'è",
+      "answer": ["y", "quiero", "tenerlo", "todo", "incluso", "lo", "que", "no", "existe"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-013",
+      "prompt": "Sento che ti ho persa, ma rimani fantastica",
+      "answer": ["siento", "que", "te", "he", "perdido", "pero", "sigues", "siendo", "fantástica"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-014",
+      "prompt": "E tornando a casa in testa ho pezzi sparsi di te",
+      "answer": ["y", "volviendo", "a", "casa", "tengo", "en", "la", "cabeza", "trozos", "dispersos", "de", "ti"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-015",
+      "prompt": "Vedi, un giorno nuovo è solamente una pagina",
+      "answer": ["ves", "un", "día", "nuevo", "es", "solamente", "una", "página"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-016",
+      "prompt": "E tu sai disegnare molto meglio di me",
+      "answer": ["y", "tú", "sabes", "dibujar", "mucho", "mejor", "que", "yo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-017",
+      "prompt": "Prendi questa vita e fanne ciò che vuoi",
+      "answer": ["toma", "esta", "vida", "y", "haz", "con", "ella", "lo", "que", "quieras"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-018",
+      "prompt": "Basta che io volo quando volerai",
+      "answer": ["basta", "con", "que", "yo", "vuele", "cuando", "vueles"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-019",
+      "prompt": "Ti ho conosciuta che studiavi il piano",
+      "answer": ["te", "conocí", "cuando", "estudiabas", "piano"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-020",
+      "prompt": "Nel giradischi mettevi Chopin",
+      "answer": ["en", "el", "tocadiscos", "ponías", "a", "Chopin"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-021",
+      "prompt": "Parli di tutto come fosse un modo",
+      "answer": ["hablas", "de", "todo", "como", "si", "fuera", "un", "modo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-022",
+      "prompt": "Per non parlare mai troppo di te",
+      "answer": ["para", "no", "hablar", "nunca", "demasiado", "de", "ti"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-023",
+      "prompt": "Oh, bella che se canti la mia anima si immagina",
+      "answer": ["oh", "bella", "que", "si", "cantas", "mi", "alma", "se", "imagina"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-024",
+      "prompt": "Distesa fra gli spazi e il blu della galassia",
+      "answer": ["tendida", "entre", "los", "espacios", "y", "el", "azul", "de", "la", "galaxia"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-025",
+      "prompt": "Qui rimani te che guardi il finestrino quando sei in macchina",
+      "answer": ["aquí", "sigues", "siendo", "tú", "que", "miras", "la", "ventanilla", "cuando", "estás", "en", "el", "coche"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-026",
+      "prompt": "Quella nera di un po' di anni fa",
+      "answer": ["aquella", "negra", "de", "hace", "unos", "años"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-027",
+      "prompt": "Sento che il mio cuore è diventato di plastica",
+      "answer": ["siento", "que", "mi", "corazón", "se", "ha", "vuelto", "de", "plástico"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-028",
+      "prompt": "E voglio avere tutto, anche quello che non c'è",
+      "answer": ["y", "quiero", "tenerlo", "todo", "incluso", "lo", "que", "no", "existe"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-029",
+      "prompt": "Sento che ti ho persa, ma rimani fantastica",
+      "answer": ["siento", "que", "te", "he", "perdido", "pero", "sigues", "siendo", "fantástica"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-030",
+      "prompt": "E tornando a casa in testa ho pezzi sparsi di te",
+      "answer": ["y", "volviendo", "a", "casa", "tengo", "en", "la", "cabeza", "trozos", "dispersos", "de", "ti"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-031",
+      "prompt": "Vedi, un giorno nuovo è solamente una pagina",
+      "answer": ["ves", "un", "día", "nuevo", "es", "solamente", "una", "página"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-032",
+      "prompt": "E tu sai disegnare molto meglio di me",
+      "answer": ["y", "tú", "sabes", "dibujar", "mucho", "mejor", "que", "yo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-033",
+      "prompt": "Prendi questa vita e fanne ciò che vuoi",
+      "answer": ["toma", "esta", "vida", "y", "haz", "con", "ella", "lo", "que", "quieras"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-034",
+      "prompt": "Basta che io volo quando volerai",
+      "answer": ["basta", "con", "que", "yo", "vuele", "cuando", "vueles"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-035",
+      "prompt": "Qui con te",
+      "answer": ["aquí", "contigo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-036",
+      "prompt": "C'è da vivere, vivere, vivere",
+      "answer": ["hay", "que", "vivir", "vivir", "vivir"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-037",
+      "prompt": "Io qui a scrivere, scrivere, scrivere",
+      "answer": ["yo", "aquí", "escribiendo", "escribiendo", "escribiendo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-038",
+      "prompt": "Qui con te",
+      "answer": ["aquí", "contigo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-039",
+      "prompt": "C'è da vivere, vivere, vivere",
+      "answer": ["hay", "que", "vivir", "vivir", "vivir"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-040",
+      "prompt": "Io qui a scrivere, scrivere, scrivere",
+      "answer": ["yo", "aquí", "escribiendo", "escribiendo", "escribiendo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-041",
+      "prompt": "Sento che il mio cuore è diventato di plastica",
+      "answer": ["siento", "que", "mi", "corazón", "se", "ha", "vuelto", "de", "plástico"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-042",
+      "prompt": "E voglio avere tutto, anche quello che non c'è",
+      "answer": ["y", "quiero", "tenerlo", "todo", "incluso", "lo", "que", "no", "existe"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-043",
+      "prompt": "Sento che ti ho persa, ma rimani fantastica",
+      "answer": ["siento", "que", "te", "he", "perdido", "pero", "sigues", "siendo", "fantástica"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-044",
+      "prompt": "E tornando a casa in testa ho pezzi sparsi di te",
+      "answer": ["y", "volviendo", "a", "casa", "tengo", "en", "la", "cabeza", "trozos", "dispersos", "de", "ti"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-045",
+      "prompt": "Vedi, un giorno nuovo è solamente una pagina",
+      "answer": ["ves", "un", "día", "nuevo", "es", "solamente", "una", "página"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-046",
+      "prompt": "E tu sai disegnare molto meglio di me",
+      "answer": ["y", "tú", "sabes", "dibujar", "mucho", "mejor", "que", "yo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-047",
+      "prompt": "Prendi questa vita e fanne ciò che vuoi",
+      "answer": ["toma", "esta", "vida", "y", "haz", "con", "ella", "lo", "que", "quieras"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-048",
+      "prompt": "Prendi questa vita e fanne ciò che vuoi",
+      "answer": ["toma", "esta", "vida", "y", "haz", "con", "ella", "lo", "que", "quieras"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-049",
+      "prompt": "Prendi questa vita e fanne ciò che vuoi",
+      "answer": ["toma", "esta", "vida", "y", "haz", "con", "ella", "lo", "que", "quieras"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cuore-di-plastica-050",
+      "prompt": "Basta che io volo quando volerai",
+      "answer": ["basta", "con", "que", "yo", "vuele", "cuando", "vueles"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    }
+  ]
+}
