@@ -1,0 +1,857 @@
+{
+  "id": "22-settembre",
+  "title": "22 settembre — Ultimo",
+  "phrases": [
+    {
+      "id": "22-settembre-001",
+      "prompt": "Preferisco vivere senza mai più chiedere",
+      "answer": ["prefiero", "vivir", "sin", "volver", "a", "pedir", "nunca", "más"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "22-settembre-002",
+      "prompt": "Preferisco stringere che lasciare perdere",
+      "answer": ["prefiero", "aferrarme", "que", "dejarlo", "estar"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "22-settembre-003",
+      "prompt": "Vivo nel confronto di un secolo e un secondo",
+      "answer": ["vivo", "en", "el", "contraste", "de", "un", "siglo", "y", "un", "segundo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "22-settembre-004",
+      "prompt": "E non trovo così assurdo che il mondo sia un istinto",
+      "answer": ["y", "no", "encuentro", "tan", "absurdo", "que", "el", "mundo", "sea", "un", "instinto"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "22-settembre-005",
+      "prompt": "Ti va se ci lasciamo? Che torna il desiderio",
+      "answer": ["te", "parece", "si", "nos", "dejamos", "que", "vuelve", "el", "deseo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "22-settembre-006",
+      "prompt": "Poi vieni qui vicino e raccontami un segreto",
+      "answer": ["luego", "ven", "aquí", "cerca", "y", "cuéntame", "un", "secreto"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "22-settembre-007",
+      "prompt": "Io so di un vecchio pazzo che parla alle persone",
+      "answer": ["yo", "sé", "de", "un", "viejo", "loco", "que", "habla", "a", "las", "personas"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "22-settembre-008",
+      "prompt": "Di cose mai accadute, per vivere un po' altrove",
+      "answer": ["de", "cosas", "nunca", "sucedidas", "para", "vivir", "un", "poco", "en", "otra", "parte"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "22-settembre-009",
+      "prompt": "Io la vita la prendo com'è",
+      "answer": ["yo", "la", "vida", "la", "tomo", "como", "es"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "22-settembre-010",
+      "prompt": "Questo viaggio che parte da sé",
+      "answer": ["este", "viaje", "que", "parte", "por", "sí", "solo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "22-settembre-011",
+      "prompt": "Che non chiede il permesso mai a me",
+      "answer": ["que", "no", "pide", "nunca", "permiso", "a", "mí"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "22-settembre-012",
+      "prompt": "Io la vita la prendo com'è",
+      "answer": ["yo", "la", "vida", "la", "tomo", "como", "es"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "22-settembre-013",
+      "prompt": "Puoi lasciare adesso le vecchie convinzioni",
+      "answer": ["puedes", "dejar", "ahora", "las", "viejas", "convicciones"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "22-settembre-014",
+      "prompt": "Ne costruiremo altre con nuove mie parole",
+      "answer": ["construiremos", "otras", "con", "nuevas", "palabras", "mías"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "22-settembre-015",
+      "prompt": "Ci penserò io a tutto, tu dovrai un po' affidarti",
+      "answer": ["yo", "me", "ocuparé", "de", "todo", "tú", "tendrás", "que", "confiar", "un", "poco"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "22-settembre-016",
+      "prompt": "E perdona la freddezza, ma spero che mi salvi",
+      "answer": ["y", "perdona", "la", "frialdad", "pero", "espero", "que", "me", "salves"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "22-settembre-017",
+      "prompt": "Per starmene in silenzio in sere più autunnali",
+      "answer": ["para", "quedarme", "en", "silencio", "en", "tardes", "más", "otoñales"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "22-settembre-018",
+      "prompt": "Ricordo me in un parco a dire, \"Mostra quanto vali\"",
+      "answer": ["me", "recuerdo", "en", "un", "parque", "diciendo", "demuestra", "cuánto", "vales"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "22-settembre-019",
+      "prompt": "E non essere mai affranto, se un sogno non si svela",
+      "answer": ["y", "no", "estés", "nunca", "abatido", "si", "un", "sueño", "no", "se", "revela"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "22-settembre-020",
+      "prompt": "Ho visto gente esclusa ridere a squarciagola",
+      "answer": ["he", "visto", "a", "gente", "excluida", "reír", "a", "carcajadas"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "22-settembre-021",
+      "prompt": "Io la vita la prendo com'è",
+      "answer": ["yo", "la", "vida", "la", "tomo", "como", "es"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "22-settembre-022",
+      "prompt": "Questo viaggio che parte da sé",
+      "answer": ["este", "viaje", "que", "parte", "por", "sí", "solo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "22-settembre-023",
+      "prompt": "Che non chiede il permesso mai a me",
+      "answer": ["que", "no", "pide", "nunca", "permiso", "a", "mí"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "22-settembre-024",
+      "prompt": "Io la vita la prendo com'è",
+      "answer": ["yo", "la", "vida", "la", "tomo", "como", "es"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "22-settembre-025",
+      "prompt": "Non prenderò quel treno che porta nel futuro",
+      "answer": ["no", "tomaré", "ese", "tren", "que", "lleva", "al", "futuro"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "22-settembre-026",
+      "prompt": "No, io voglio godere anche un semplice minuto",
+      "answer": ["no", "yo", "quiero", "disfrutar", "incluso", "un", "simple", "minuto"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "22-settembre-027",
+      "prompt": "E il 22 settembre io tornerò in quel posto",
+      "answer": ["y", "el", "22", "de", "septiembre", "yo", "volveré", "a", "ese", "lugar"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "22-settembre-028",
+      "prompt": "Tu sai che cosa intendo, ma adesso io non posso",
+      "answer": ["tú", "sabes", "lo", "que", "quiero", "decir", "pero", "ahora", "yo", "no", "puedo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "22-settembre-029",
+      "prompt": "Non posso più permetterlo, devo alzarmi e scendere",
+      "answer": ["ya", "no", "puedo", "permitirlo", "debo", "levantarme", "y", "bajar"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "22-settembre-030",
+      "prompt": "Non scriverò la musica, ma vita della gente",
+      "answer": ["no", "escribiré", "la", "música", "sino", "vida", "de", "la", "gente"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "22-settembre-031",
+      "prompt": "Io sento una missione e ti giuro che andrò a meta",
+      "answer": ["yo", "siento", "una", "misión", "y", "te", "juro", "que", "llegaré", "a", "la", "meta"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "22-settembre-032",
+      "prompt": "Cantare in pieno inverno per dar la primavera",
+      "answer": ["cantar", "en", "pleno", "invierno", "para", "dar", "la", "primavera"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "22-settembre-033",
+      "prompt": "Io la vita la prendo com'è",
+      "answer": ["yo", "la", "vida", "la", "tomo", "como", "es"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "22-settembre-034",
+      "prompt": "Questo viaggio che parte da sé",
+      "answer": ["este", "viaje", "que", "parte", "por", "sí", "solo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "22-settembre-035",
+      "prompt": "Che non chiede il permesso mai a me",
+      "answer": ["que", "no", "pide", "nunca", "permiso", "a", "mí"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "22-settembre-036",
+      "prompt": "Io la vita la prendo com'è",
+      "answer": ["yo", "la", "vida", "la", "tomo", "como", "es"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "22-settembre-037",
+      "prompt": "Io la vita la prendo com'è",
+      "answer": ["yo", "la", "vida", "la", "tomo", "como", "es"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    }
+  ]
+}
