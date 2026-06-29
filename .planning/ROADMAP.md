@@ -12,6 +12,7 @@
 - ✅ **v1.5 — Conversión a slots: Bloque Artículos (CONV-01)** — Phases 18-20 (shipped 2026-06-05). Articoli (56→34 slots) + Partitivi (44→19 slots) convertidos al modelo slot+variantes reagrupando por regla + autorando 14 variantes nuevas por quórum cross-vendor; migración `schemaVersion 7→8` con reset selectivo de ambas categorías. 9/9 requirements (4 ART + 3 PART + 2 MIG), 358/358 tests. Brownfield: reutiliza toda la maquinaria v1.4 sin tocar el motor. Ver [milestones/v1.5-ROADMAP.md](./milestones/v1.5-ROADMAP.md).
 - ✅ **v1.6 — Conversión a slots: categorías restantes (CONV-01 cierre)** — Phases 21-27 (shipped 2026-06-09). Las 6 categorías legacy restantes (Avere, Essere, Verbi di movimento + Genere e numero, Professioni, Sostantivi irregolari) convertidas al modelo slot+variantes + migración `8→9` con reset selectivo de las 6. **CONV-01 CERRADO: las 9 categorías de gramática en formato unificado.** 14/14 requirements (2 MIG + 6×2 conversión), 374/374 tests. Ver [milestones/v1.6-ROADMAP.md](./milestones/v1.6-ROADMAP.md).
 - ✅ **v1.7 — Presente regolare (10ª categoría de gramática)** — Phases 29-31 (shipped 2026-06-17). Alta de la 10ª categoría `presente-regolare` (presente indicativo de verbos regulares) nacida directamente en slot+variantes + cruces multi-cat ↔ avere/essere (contraste passato prossimo, cascada D-54) + migración `10→11` reset selectivo + integración lockstep. 11/11 requirements (7 PRES + 2 MIG + 2 INT), suite 473/474 (483/484 strict). Brownfield: motor v1.4 NO tocado. Ver [milestones/v1.7-ROADMAP.md](./milestones/v1.7-ROADMAP.md).
+- 🚧 **v1.8 — Rediseño visual "Editoriale"** — Phases 32-34 (in progress, iniciado 2026-06-30). Aplica la dirección visual Editoriale (papel cálido, serif Spectral, acento tricolore verde/blanco/rojo, mucho aire) del handoff `design_handoff_italiano_redesign/` a las 8 pantallas de la app, recreada con fidelidad alta en el stack real (vanilla + Alpine + Pico, sin build). Capa de tokens + fuentes auto-hospedadas + `app.css` sobre Pico, Home/Categorías, pantallas de ejercicio, canciones/resultados/picker. **Brownfield UI puro: motor (cascada D-54, sampler, slot-engine, localStorage, schema, migraciones) NO se toca.** 19 requirements (4 FND + 6 HOME + 5 EX + 4 SRP).
 
 ## Phases
 
@@ -118,6 +119,50 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
 
 </details>
 
+### 🚧 v1.8 — Rediseño visual "Editoriale" (In Progress)
+
+**Milestone Goal:** Aplicar la dirección visual **Editoriale** (papel cálido `#f4f0e8`, tipografía serif Spectral, acento tricolore verde/blanco/rojo, mucho aire) del handoff `design_handoff_italiano_redesign/` a las **8 pantallas** de la app, recreada con **fidelidad alta** en el stack real (vanilla + Alpine.js + Pico CSS + ES modules, sin build, **NO React**). Brownfield **UI puro**: solo capa de presentación (markup + CSS, y a lo sumo bindings de presentación). El motor (cascada D-54, sampler, slot-engine, localStorage, schema, migraciones) **NO se toca**. `support.js` y el `.dc.html` son referencia, **no van a producción**.
+
+**Numeración:** v1.7 terminó en Phase 31; Phase 28 es trabajo huérfano archivado. v1.8 **CONTINÚA en Phase 32** (no reinicia).
+
+#### Phase 32: Cimientos visuales + Home/Categorías
+**Goal**: La app entera adopta el lenguaje Editoriale (tokens + fuentes offline + capa `app.css` sobre Pico + motivo tricolore) y la Home/Categorías queda rediseñada como pantalla principal editorial, en columna móvil y como tabla editorial en desktop, sin perder funcionalidad.
+**Depends on**: Nothing (primera fase de v1.8; debe ir PRIMERA porque toda fase posterior consume tokens/fuentes/`app.css`)
+**Requirements**: FND-01, FND-02, FND-03, FND-04, HOME-01, HOME-02, HOME-03, HOME-04, HOME-05, HOME-06
+**Success Criteria** (what must be TRUE):
+  1. Al abrir la app con `npx serve`, la Home se renderiza sobre **papel cálido** con título serif **Categorías** (Spectral 38) y la cabecera overline `ITALIANO · A1 / A2` — la estética azul/blanca anterior ha desaparecido.
+  2. Las 3 familias (Spectral, Hanken Grotesk, Space Grotesk) cargan vía `@font-face` desde `vendor/fonts/` con **cero peticiones a `fonts.googleapis.com`** (verificable en la pestaña Network y funcionando offline).
+  3. El **CTA verde Repaso 20** (ancho completo, título + subtítulo + flecha, sombra verde), la fila de 3 botones **ghost** (Test completo · Canciones · Backup) y el **switch Contrarreloj** se ven en estilo Editoriale y lanzan/conmutan exactamente el mismo comportamiento que hoy.
+  4. Cada categoría se muestra en estilo editorial — punto de estado (verde dominado / ámbar en progreso / neutro sin empezar), nombre serif + tema en cursiva, barra de racha `streak/21` con meta "N/21 d · M ejercicios", y píldora **Examen** — con los datos reales del state.
+  5. En **desktop** la Home se presenta como **tabla editorial** (Estado · Categoría · Racha · Ejercicios · Examen) con papel/serif/hairlines, conservando toda la funcionalidad (lanzar práctica de categoría, Examen 1-clic).
+**Plans**: TBD
+**UI hint**: yes
+
+#### Phase 33: Pantallas de ejercicio
+**Goal**: Las pantallas de práctica/examen (opción múltiple, emparejar, word-buttons) adoptan el lenguaje Editoriale con barra superior unificada, recreando los estados de selección/comprobado del handoff sobre el motor intacto.
+**Depends on**: Phase 32 (consume tokens, fuentes y `app.css`)
+**Requirements**: EX-01, EX-02, EX-03, EX-04, EX-05
+**Success Criteria** (what must be TRUE):
+  1. Toda pantalla de ejercicio muestra la **barra superior** Editoriale: botón atrás circular, barra de progreso verde (% del set), contador `NN/NN` en Space Grotesk y **chip de cronómetro** cuando Contrarreloj está activo.
+  2. El **bloque de pregunta** muestra overline de categoría + frase serif (30px) con el hueco y la sugerencia en cursiva.
+  3. **Opción múltiple** reproduce los estados del handoff: selección (borde verde + `green-selection` + hueco rellenado), comprobado (correcta `green-tint` ✓ / elegida-incorrecta `red-tint` ✗ / resto opacadas), caja de feedback verde/rojo con título serif + explicación, y CTA **Comprobar → Continuar** — grading y cascada D-54 inalterados.
+  4. **Emparejar** muestra dos columnas de píldoras con **badge numérico** por par y estados activa / candidata (borde discontinuo) / emparejada (`green-tint`), nota "N de M emparejadas" y CTA deshabilitado hasta completar.
+  5. **Word-buttons** (no especificado en el handoff) se ve coherente con el lenguaje Editoriale (banco de palabras, huecos estables, feedback verde/rojo consistente con opción múltiple).
+**Plans**: TBD
+**UI hint**: yes
+
+#### Phase 34: Canciones · Resultados · Picker
+**Goal**: El bloque Canciones, la reproducción de canción, los Resultados de examen y el picker de Repaso/Examen adoptan el lenguaje Editoriale, cerrando las 8 pantallas del rediseño con datos reales de sesión.
+**Depends on**: Phase 32 (tokens/fuentes/`app.css`); reutiliza la barra superior de Phase 33 para la reproducción de canción
+**Requirements**: SRP-01, SRP-02, SRP-03, SRP-04
+**Success Criteria** (what must be TRUE):
+  1. La pantalla **Canciones** muestra la tarjeta destacada **Continuar** (portada + overline verde + progreso) y la lista con **tiles tintados** (inicial serif), título serif, meta en cursiva y punto de estado — sin arte de portada real (placeholders tintados).
+  2. La **reproducción de canción** (rellenar huecos) se ve con el lenguaje Editoriale y la misma barra superior que las pantallas de ejercicio.
+  3. **Resultados de examen** muestra el **anillo de score** (`conic-gradient`) + "X/Y correctos", la sección **categorías afectadas** (cascada, etiqueta `FALLÓ`) y los **errores** (frase resuelta, "Tu: ~~x~~ / Correcta: y", explicación), todo con los datos reales de la sesión terminada.
+  4. El **picker** de Repaso/Examen se ve en estilo Editoriale (checkboxes/selección, Seleccionar/Quitar todo, contador) conservando su comportamiento de selección de categorías.
+**Plans**: TBD
+**UI hint**: yes
+
 ## Progress
 
 | Phase | Milestone | Plans Complete | Status | Completed |
@@ -130,6 +175,9 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
 | 18-20 | v1.5 | 7/7 | Complete | 2026-06-05 |
 | 21-27 | v1.6 | 19/19 | Complete | 2026-06-09 |
 | 29-31 | v1.7 | 6/6 | Complete | 2026-06-17 |
+| 32. Cimientos visuales + Home/Categorías | v1.8 | 0/TBD | Not started | - |
+| 33. Pantallas de ejercicio | v1.8 | 0/TBD | Not started | - |
+| 34. Canciones · Resultados · Picker | v1.8 | 0/TBD | Not started | - |
 
 ## Backlog
 
@@ -167,3 +215,4 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
 *Milestone v1.5 shipped 2026-06-05 — Phases 18-20 (numeración CONTINÚA desde Phase 17). Conversión a slots: Bloque Artículos (CONV-01): Articoli (56→34 slots) + Partitivi (44→19 slots) a slots+variantes + migración 7→8 reset selectivo. 9 requirements (4 ART + 3 PART + 2 MIG), 358/358 tests, `schemaVersion 7→8`. Detalles en `.planning/milestones/v1.5-ROADMAP.md`.*
 *Milestone v1.6 shipped 2026-06-09 — Phases 21-27 (numeración CONTINÚA desde Phase 20). Conversión a slots: categorías restantes (CONV-01 cierre): las 6 categorías legacy convertidas a slot+variantes, 1 fase por categoría + migración 8→9 reset selectivo de las 6. 14/14 requirements (2 MIG + 6×2 conversión), 374/374 tests (383/383 strict), `schemaVersion 8→9`. **CONV-01 CERRADO: 9/9 categorías de gramática en formato slot+variantes unificado.** Motor v1.4 NO tocado. Detalles en `.planning/milestones/v1.6-ROADMAP.md`.*
 *Milestone v1.7 shipped 2026-06-17 — Phases 29-31 (numeración EMPIEZA en 29, NO en 28 — Phase 28 ya existe como trabajo huérfano "responsive-mobile" archivado en `.planning/milestones/orphan-phases/`; la numeración no se reutiliza). Presente regolare (10ª categoría de gramática): alta de `presente-regolare` nacida directamente en slot+variantes (slots de regla -are/-ere/-ire/-isc-/ortográficos, variantes por quórum cross-vendor R1-R7, cruces multi-cat con avere/essere) + migración con reset selectivo SOLO de la categoría nueva + integración lockstep. 11 requirements (7 PRES + 2 MIG + 2 INT), 11/11 mapped, 0 orphans. **Brownfield puro contenido + migración: motor v1.4 NO tocado.** Phase 29 (migración) → Phase 30 (alta + slots + variantes por quórum) → Phase 31 (cruces multi-cat + integración lockstep). DISCREPANCIA: la migración va `10→11` (no `9→10` como dice MIG-05) porque el codebase ya está en schemaVersion 10 tras el quick task `260615-nzi`; los stubs de backlog `999.1`/`999.2` en `.planning/phases/` quedan intactos (no son fases de este milestone).*
+*Milestone v1.8 en progreso desde 2026-06-30 — Phases 32-34 (numeración CONTINÚA desde Phase 31; Phase 28 es trabajo huérfano archivado, no se reutiliza). Rediseño visual "Editoriale": brownfield UI puro que aplica la dirección visual del handoff `design_handoff_italiano_redesign/` a las 8 pantallas en el stack real (vanilla + Alpine + Pico, NO React). Phase 32 (cimientos visuales: tokens + fuentes auto-hospedadas + `app.css` sobre Pico + tricolore, debe ir PRIMERA porque toda fase posterior la consume + Home/Categorías) → Phase 33 (pantallas de ejercicio) → Phase 34 (canciones/resultados/picker). 19 requirements (4 FND + 6 HOME + 5 EX + 4 SRP), 19/19 mapped, 0 orphans. **Motor (cascada D-54, sampler, slot-engine, localStorage, schema, migraciones) NO se toca; `support.js` no se integra.***

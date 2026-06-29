@@ -44,4 +44,27 @@
 - **Reescritura de la estructura JS** no presentacional (los componentes Alpine y getters existentes se conservan; solo cambia markup/CSS y, si acaso, bindings de presentación).
 
 ## Traceability
-<!-- Rellenado por el roadmapper: REQ-ID → Phase. -->
+
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| FND-01 | Phase 32 | Pending |
+| FND-02 | Phase 32 | Pending |
+| FND-03 | Phase 32 | Pending |
+| FND-04 | Phase 32 | Pending |
+| HOME-01 | Phase 32 | Pending |
+| HOME-02 | Phase 32 | Pending |
+| HOME-03 | Phase 32 | Pending |
+| HOME-04 | Phase 32 | Pending |
+| HOME-05 | Phase 32 | Pending |
+| HOME-06 | Phase 32 | Pending |
+| EX-01 | Phase 33 | Pending |
+| EX-02 | Phase 33 | Pending |
+| EX-03 | Phase 33 | Pending |
+| EX-04 | Phase 33 | Pending |
+| EX-05 | Phase 33 | Pending |
+| SRP-01 | Phase 34 | Pending |
+| SRP-02 | Phase 34 | Pending |
+| SRP-03 | Phase 34 | Pending |
+| SRP-04 | Phase 34 | Pending |
+
+**Coverage:** 19/19 requirements mapeados a exactamente una fase. 0 orphans, 0 duplicados.

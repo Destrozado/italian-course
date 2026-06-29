@@ -3,10 +3,10 @@ gsd_state_version: 1.0
 milestone: v1.8
 milestone_name: Rediseño visual Editoriale
 status: planning
-last_updated: "2026-06-29T22:34:38.724Z"
-last_activity: 2026-06-29
+last_updated: "2026-06-30T00:40:00.000Z"
+last_activity: 2026-06-30
 progress:
-  total_phases: 0
+  total_phases: 3
   completed_phases: 0
   total_plans: 0
   completed_plans: 0
@@ -21,14 +21,14 @@ See: `.planning/PROJECT.md` (updated 2026-06-09 — Milestone v1.6 shipped, CONV
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Milestone complete
+**Current Focus:** v1.8 — Rediseno visual "Editoriale" (brownfield UI puro: tokens + fuentes auto-hospedadas + app.css sobre Pico + las 8 pantallas; motor NO se toca). Phase 32 (cimientos + Home) lista para planificar.
 
 ## Current Position
 
-Phase: Not started (defining requirements)
+Phase: Phase 32 — Cimientos visuales + Home/Categorias (not started)
 Plan: —
-Status: Defining requirements
-Last activity: 2026-06-29 — Milestone v1.8 started
+Status: Roadmap creado (3 fases 32-34), listo para `/gsd:plan-phase 32`
+Last activity: 2026-06-30 — Roadmap v1.8 creado (19/19 requirements mapeados, 0 orphans)
 
 ## Deferred Items
 
@@ -91,6 +91,8 @@ Ambos quick tasks tienen `status: shipped` en su SUMMARY.md (completados 2026-05
 | Requisitos v1.5 completos | 9/9 (100% — MIG-01/02 + ART-01..04 + PART-01..03) |
 | Fases v1.7 | 0/3 planificadas (Phase 29 migración `10→11`, Phase 30 alta de `presente-regolare` + variantes por quórum, Phase 31 cruces multi-cat + integración lockstep) |
 | Requisitos v1.7 mapeados | 11/11 (100% — MIG-05/06→Phase 29; PRES-01..06→Phase 30; PRES-07 + INT-01/02→Phase 31; 0 orphans) |
+| Fases v1.8 | 0/3 planificadas (Phase 32 cimientos visuales + Home/Categorias, Phase 33 pantallas de ejercicio, Phase 34 canciones/resultados/picker) |
+| Requisitos v1.8 mapeados | 19/19 (100% — FND-01..04 + HOME-01..06 → Phase 32; EX-01..05 → Phase 33; SRP-01..04 → Phase 34; 0 orphans) |
 | schemaVersion actual | **11** (Phase 29 / 2026-06-16: `migrate10to11`/`hydrateV11`/`RESET_PREFIXES_V11` reset selectivo de `presente-regolare`, espejo de migrate8to9 con 1 prefijo; backup.js round-trip v11 + import v10→v11 + reject >11). Histórico: v1.6 dejó 9; quick `260615-nzi` bumpeó a 10 (vecesFallada nominal); v1.7 Phase 29 a 11 |
 | Categorías gramaticales | 9 (todas en formato slot+variantes unificado, CONV-01 cerrado); v1.7 da de alta la 10ª (`presente-regolare`) nacida directamente en slot+variantes |
 | TOTAL_EXPECTED actual | 183 (9 categorías); v1.7 lo sube a 183 + N slots de `presente-regolare` |
@@ -100,6 +102,8 @@ Ambos quick tasks tienen `status: shipped` en su SUMMARY.md (completados 2026-05
 ## Accumulated Context
 
 ### Roadmap Evolution
+
+- **2026-06-30 — Roadmap v1.8 creado (Rediseno visual "Editoriale").** Milestone brownfield **UI puro**: aplicar la direccion visual Editoriale del handoff `design_handoff_italiano_redesign/` (papel calido `#f4f0e8`, serif Spectral, tricolore verde/blanco/rojo, mucho aire) a las **8 pantallas**, recreada con fidelidad alta en el stack real (vanilla + Alpine + Pico, **NO React**). **3 fases (granularidad coarse), numeracion CONTINUA en Phase 32** (v1.7 termino en 31; Phase 28 es huerfana archivada, no se reutiliza): **Phase 32** Cimientos visuales + Home/Categorias (FND-01..04 capa de tokens CSS + fuentes Spectral/Hanken/Space auto-hospedadas en `vendor/fonts/` via @font-face SIN peticiones a Google + `app.css` Editoriale sobre Pico + motivo tricolore; HOME-01..06 cabecera serif + CTA verde Repaso 20 + 3 ghost + filas de categoria + switch Contrarreloj + tabla editorial desktop) — va PRIMERA porque toda fase posterior consume tokens/fuentes/`app.css`; **Phase 33** Pantallas de ejercicio (EX-01..05 barra superior con progreso/contador/chip cronometro + opcion multiple con estados seleccion/comprobado + emparejar con badges numericos + word-buttons extrapolado); **Phase 34** Canciones/Resultados/Picker (SRP-01..04 lista de canciones + tarjeta Continuar + tiles tintados + reproduccion extrapolada + anillo de score conic-gradient + cascada/errores + picker extrapolado). **19/19 requirements mapeados a exactamente 1 fase, 0 orphans, 0 duplicados** (4 FND + 6 HOME → 32; 5 EX → 33; 4 SRP → 34). **Scope boundary blindado:** cero cambios de motor/logica/dominio/persistencia/validacion — cascada D-54 (2 call-sites), sampler, slot-engine, `localStorage`, schema y migraciones INTACTOS; cambios = markup + CSS (y a lo sumo bindings de presentacion Alpine). `support.js` y el `.dc.html` son referencia, NO van a produccion. Las 3 fases son independientemente observables en la app con `npx serve`. Stopped at: roadmap creado. Resume file: None. Siguiente: `/gsd:plan-phase 32`.
 
 - **2026-06-17 — Plan 31-02 completado (integración lockstep de presente-regolare — INT-01/INT-02) — Phase 31 COMPLETA (2/2), v1.7 CERRADO.** 2 tasks (1 edición + 1 verificación read-only), 1 commit feat (`9653e8d`) + docs. **INT-01:** presente-regolare estaba AUSENTE de los TRES count arrays Y de `TOTAL_EXPECTED` (descubrimiento PATTERNS.md). Añadida como 10ª entrada NUEVA (no bumpeo) en `CATEGORIES_WITH_EXPLANATIONS` (`tests/exercise-types.test.js`), `REAL_CATEGORIES` (`tests/fixtures/slot-variants-integration.test.js`) y `CATEGORIES` (`scripts/run-validation-271.mjs`), con el `expected` DERIVADO del JSON real en disco (D-31-06 dynamic-count, helpers `slotCountOf`/`readJson(...).exercises.length` — NUNCA literal mágico) = **12** (8 slots base + 4 cruces). `TOTAL_EXPECTED` ahora computado como `CATEGORIES.reduce(sum)` = 183 + 12 = **195** + guard de coherencia runtime. Comentarios "9 categorías" → "10 categorías" (3 sitios en slot-variants) + línea de historial Phase 31 en el bloque de run-validation-271. **INT-02:** el smoke paramétrico corre automáticamente sobre presente-regolare (`ok 10 - content/exercises/presente-regolare.json`: count 12 + explanation + ASCII + no-markdown + R1-no-leak + R2-no-xref, todos PASS); el gate estricto D-VAL-18 `VAL_07_STRICT=1` también verde sobre la categoría (`ok 10 ... status === "validated"`, los 12 validados por Plan 01). **Suite:** `node --test tests/*.test.js` → **474/473** (1 fail); `VAL_07_STRICT=1` → **484/483** (1 fail). El ÚNICO fail en ambos es el preexistente AJENO genero-numero ("Esperaba 12, encontré 13", quick `260614-hxn`) — CERO fails NUEVOS ligados a presente-regolare. **HALLAZGO out-of-scope (documentado, NO auto-fix):** el reporter VAL-06 da `FAIL (197/195)`, gap +2, por DOS discrepantes de conteo preexistentes AJENOS — genero-numero (13-vs-12, documentado) Y **preposiciones (50-vs-49, NO documentado antes)** —; verificado corriendo el reporter de HEAD que YA daba `FAIL (185/183)` con el mismo gap +2 (preexistente, NO regresión). presente-regolare aporta 12=12 sin discrepancia propia (VAL-04/VAL-08 PASS). NO se tocó genero-numero (prohibido por plan) ni preposiciones (fuera de scope); reconciliar ambos expecteds = quick task futuro AJENO a v1.7. Cascada D-54 intacta (`grep -c "applyImmediateFailure(this.state" src/screens/app.js` = 2, motor NO tocado, brownfield puro sobre test/script). INT-01/INT-02 → done; **11/11 requirements v1.7 completos**, v1.7 cerrado: presente-regolare es la 10ª categoría usable end-to-end bajo el gate de regresión. Stopped at: Phase 31 completa, v1.7 cerrado. Resume file: None. Siguiente: `/gsd:verify-phase 31` → `/gsd:complete-milestone v1.7`.
 
