@@ -1,0 +1,1313 @@
+{
+  "id": "piccola-stella",
+  "title": "Piccola stella — Ultimo",
+  "phrases": [
+    {
+      "id": "piccola-stella-001",
+      "prompt": "Hai da sempre compreso la mia fantasia",
+      "answer": [
+        "desde",
+        "siempre",
+        "has",
+        "comprendido",
+        "mi",
+        "fantasía"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-002",
+      "prompt": "L'hai accesa poi spenta, poi sei andata via",
+      "answer": [
+        "la",
+        "encendiste",
+        "luego",
+        "apagaste",
+        "luego",
+        "te",
+        "fuiste"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-003",
+      "prompt": "Sei tornata più forte con un sasso nel cuore",
+      "answer": [
+        "volviste",
+        "más",
+        "fuerte",
+        "con",
+        "una",
+        "piedra",
+        "en",
+        "el",
+        "corazón"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-004",
+      "prompt": "Hai preso il mio giorno, lo hai reso migliore",
+      "answer": [
+        "tomaste",
+        "mi",
+        "día",
+        "lo",
+        "hiciste",
+        "mejor"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-005",
+      "prompt": "E ora scrivo qui in fretta per dirtelo ancora",
+      "answer": [
+        "y",
+        "ahora",
+        "escribo",
+        "aquí",
+        "deprisa",
+        "para",
+        "decírtelo",
+        "otra",
+        "vez"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-006",
+      "prompt": "Che sei forte e fragile senza paura",
+      "answer": [
+        "que",
+        "eres",
+        "fuerte",
+        "y",
+        "frágil",
+        "sin",
+        "miedo"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-007",
+      "prompt": "Tu resta la stessa, la stessa di sempre",
+      "answer": [
+        "tú",
+        "sigue",
+        "siendo",
+        "la",
+        "misma",
+        "la",
+        "misma",
+        "de",
+        "siempre"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-008",
+      "prompt": "Sei la cosa più bella che indosso",
+      "answer": [
+        "eres",
+        "la",
+        "cosa",
+        "más",
+        "bella",
+        "que",
+        "llevo",
+        "puesta"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-009",
+      "prompt": "Sei risorsa, sei il cielo e sei il mondo",
+      "answer": [
+        "eres",
+        "un",
+        "recurso",
+        "eres",
+        "el",
+        "cielo",
+        "y",
+        "eres",
+        "el",
+        "mundo"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-010",
+      "prompt": "Sei la strada che porta alla vita",
+      "answer": [
+        "eres",
+        "el",
+        "camino",
+        "que",
+        "lleva",
+        "a",
+        "la",
+        "vida"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-011",
+      "prompt": "Donna instabile, sei la mia sfida",
+      "answer": [
+        "mujer",
+        "inestable",
+        "eres",
+        "mi",
+        "desafío"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-012",
+      "prompt": "Sei la piccola stella che porto",
+      "answer": [
+        "eres",
+        "la",
+        "pequeña",
+        "estrella",
+        "que",
+        "llevo"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-013",
+      "prompt": "Nei momenti in cui non ho luce",
+      "answer": [
+        "en",
+        "los",
+        "momentos",
+        "en",
+        "que",
+        "no",
+        "tengo",
+        "luz"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-014",
+      "prompt": "Sei la piccola stella che porto",
+      "answer": [
+        "eres",
+        "la",
+        "pequeña",
+        "estrella",
+        "que",
+        "llevo"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-015",
+      "prompt": "Nei momenti in cui non ho luce",
+      "answer": [
+        "en",
+        "los",
+        "momentos",
+        "en",
+        "que",
+        "no",
+        "tengo",
+        "luz"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-016",
+      "prompt": "Hai da sempre compreso la mia nostalgia",
+      "answer": [
+        "desde",
+        "siempre",
+        "has",
+        "comprendido",
+        "mi",
+        "nostalgia"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-017",
+      "prompt": "Dei giorni ormai persi ed ormai andati via",
+      "answer": [
+        "de",
+        "los",
+        "días",
+        "ya",
+        "perdidos",
+        "y",
+        "ya",
+        "idos"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-018",
+      "prompt": "Questo tempo trascorso non ne è mai abbastanza",
+      "answer": [
+        "este",
+        "tiempo",
+        "transcurrido",
+        "nunca",
+        "es",
+        "suficiente"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-019",
+      "prompt": "Te che dei miei occhi ne sei la sostanza",
+      "answer": [
+        "tú",
+        "que",
+        "de",
+        "mis",
+        "ojos",
+        "eres",
+        "la",
+        "sustancia"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-020",
+      "prompt": "Comunque poi adesso che ti ho davanti",
+      "answer": [
+        "de",
+        "todos",
+        "modos",
+        "ahora",
+        "que",
+        "te",
+        "tengo",
+        "delante"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-021",
+      "prompt": "Prometto di restarti accanto per sempre",
+      "answer": [
+        "prometo",
+        "quedarme",
+        "a",
+        "tu",
+        "lado",
+        "para",
+        "siempre"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-022",
+      "prompt": "Per sempre, per sempre",
+      "answer": [
+        "para",
+        "siempre",
+        "para",
+        "siempre"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-023",
+      "prompt": "Sei la cosa più bella che indosso",
+      "answer": [
+        "eres",
+        "la",
+        "cosa",
+        "más",
+        "bella",
+        "que",
+        "llevo",
+        "puesta"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-024",
+      "prompt": "Sei risorsa, sei il cielo e sei il mondo",
+      "answer": [
+        "eres",
+        "recurso",
+        "eres",
+        "el",
+        "cielo",
+        "y",
+        "eres",
+        "el",
+        "mundo"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-025",
+      "prompt": "Sei la strada che porta alla vita",
+      "answer": [
+        "eres",
+        "el",
+        "camino",
+        "que",
+        "lleva",
+        "a",
+        "la",
+        "vida"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-026",
+      "prompt": "Donna instabile, sei la mia sfida",
+      "answer": [
+        "mujer",
+        "inestable",
+        "eres",
+        "mi",
+        "desafío"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-027",
+      "prompt": "Sei la piccola stella che porto",
+      "answer": [
+        "eres",
+        "la",
+        "pequeña",
+        "estrella",
+        "que",
+        "llevo"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-028",
+      "prompt": "Nei momenti in cui non ho luce",
+      "answer": [
+        "en",
+        "los",
+        "momentos",
+        "en",
+        "que",
+        "no",
+        "tengo",
+        "luz"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-029",
+      "prompt": "Sei la piccola stella che porto",
+      "answer": [
+        "eres",
+        "la",
+        "pequeña",
+        "estrella",
+        "que",
+        "llevo"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-030",
+      "prompt": "Nei momenti in cui non ho luce",
+      "answer": [
+        "en",
+        "los",
+        "momentos",
+        "en",
+        "que",
+        "no",
+        "tengo",
+        "luz"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-031",
+      "prompt": "Sei l'immenso di un attimo andato",
+      "answer": [
+        "eres",
+        "lo",
+        "inmenso",
+        "de",
+        "un",
+        "instante",
+        "pasado"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-032",
+      "prompt": "Del mio sogno la parte migliore",
+      "answer": [
+        "de",
+        "mi",
+        "sueño",
+        "la",
+        "parte",
+        "mejor"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-033",
+      "prompt": "Sei quel vento che soffia da sempre",
+      "answer": [
+        "eres",
+        "ese",
+        "viento",
+        "que",
+        "sopla",
+        "desde",
+        "siempre"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-034",
+      "prompt": "Ma che riesce a non farmi cadere",
+      "answer": [
+        "pero",
+        "que",
+        "logra",
+        "no",
+        "hacerme",
+        "caer"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-035",
+      "prompt": "Sei la piccola stella che porto",
+      "answer": [
+        "eres",
+        "la",
+        "pequeña",
+        "estrella",
+        "que",
+        "llevo"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-036",
+      "prompt": "Nei momenti in cui non ho luce",
+      "answer": [
+        "en",
+        "los",
+        "momentos",
+        "en",
+        "que",
+        "no",
+        "tengo",
+        "luz"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-037",
+      "prompt": "Sei la piccola stella che porto",
+      "answer": [
+        "eres",
+        "la",
+        "pequeña",
+        "estrella",
+        "que",
+        "llevo"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-038",
+      "prompt": "Nei momenti in cui non ho luce",
+      "answer": [
+        "en",
+        "los",
+        "momentos",
+        "en",
+        "que",
+        "no",
+        "tengo",
+        "luz"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-039",
+      "prompt": "Sei la piccola stella che porto",
+      "answer": [
+        "eres",
+        "la",
+        "pequeña",
+        "estrella",
+        "que",
+        "llevo"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-040",
+      "prompt": "Nei momenti in cui non ho luce",
+      "answer": [
+        "en",
+        "los",
+        "momentos",
+        "en",
+        "que",
+        "no",
+        "tengo",
+        "luz"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-041",
+      "prompt": "Sei la piccola stella che porto",
+      "answer": [
+        "eres",
+        "la",
+        "pequeña",
+        "estrella",
+        "que",
+        "llevo"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "piccola-stella-042",
+      "prompt": "Nei momenti in cui non ho luce",
+      "answer": [
+        "en",
+        "los",
+        "momentos",
+        "en",
+        "que",
+        "no",
+        "tengo",
+        "luz"
+      ],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    }
+  ]
+}
