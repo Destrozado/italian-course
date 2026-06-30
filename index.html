@@ -314,6 +314,38 @@
             </button>
           </template>
 
+          <!--
+            Lista Editoriale "TODAS LAS CANCIONES" (SRP-01, D-05/D-06/D-07).
+            Filas hairline con: tile de portada tintado 46px (inicial serif,
+            repeating-linear-gradient, D-16 LOCKED) + punto de estado
+            (.status-dot con :class badge-${song.status}, D-07 REUSE VERBATIM)
+            + título serif (titleDisplay) + meta cursiva ({artista} · N huecos,
+            D-05/D-06) + flecha "Jugar →". Fila clicable reusa startSong(song.id)
+            verbatim. T-02-01: todo dato vía x-text, nunca x-html.
+          -->
+          <p class="home-overline home-section-overline songs-section-overline">TODAS LAS CANCIONES</p>
+          <div class="songs-list">
+            <template x-for="song in songsForDisplay" :key="song.id">
+              <button type="button" class="song-row" @click="startSong(song.id)">
+                <span class="song-cover" aria-hidden="true"
+                      x-text="song.titleDisplay.charAt(0)"></span>
+                <span class="song-row-body">
+                  <span class="song-row-titleline">
+                    <span class="status-dot" :class="`badge-${song.status}`"
+                          :aria-label="song.statusLabel"></span>
+                    <span class="cat-name song-row-title" x-text="song.titleDisplay"></span>
+                  </span>
+                  <span class="cat-topic song-row-meta" x-text="song.metaLabel"></span>
+                  <small class="song-row-fallada" x-show="song.vecesFallada > 0"
+                         x-text="`fallada x${song.vecesFallada}`"></small>
+                </span>
+                <span class="song-row-cta">
+                  Jugar <span class="home-cta-arrow" aria-hidden="true">→</span>
+                </span>
+              </button>
+            </template>
+          </div>
+
           <hr>
           <button type="button" class="secondary" @click="currentScreen = 'home'">← Volver al home</button>
         </article>

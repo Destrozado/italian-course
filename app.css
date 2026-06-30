@@ -1443,3 +1443,89 @@ th, td { padding: 8px 10px; text-align: left; }
   font-weight: 700;
   color: var(--ed-green);
 }
+
+/* ─── Lista "TODAS LAS CANCIONES" — filas hairline (SRP-01, D-05/D-06/D-07) ───
+ * Overline de sección + filas con tile de portada tintado, punto de estado
+ * (REUSE VERBATIM .status-dot + badge-${status}, D-07), título serif (.cat-name)
+ * y meta cursiva (.cat-topic). El tile de portada sigue la estructura sólida de
+ * .match-badge (L1262) pero con relleno repeating-linear-gradient (net-new,
+ * 34-PATTERNS §No Analog) e inicial serif centrada. */
+.songs-section-overline {
+  margin: 24px 0 8px;              /* lg arriba (card -> sección) */
+}
+.songs-list {
+  display: flex;
+  flex-direction: column;
+}
+.song-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  text-align: left;
+  padding: 12px 0;                 /* sm/md grid; sin fondo (hairline) */
+  border: none;
+  border-bottom: 1px solid var(--ed-border-soft);  /* hairline entre filas */
+  background: transparent;
+  cursor: pointer;
+}
+.song-row:last-of-type {
+  border-bottom: none;
+}
+/* Tile de portada: bloque sólido-con-glyph (estructura de .match-badge) pero
+ * con relleno de franjas repeating-linear-gradient + inicial serif. */
+.song-cover {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 46px;                     /* exception verbatim — handoff §4 (tile de lista 46px) */
+  height: 46px;                    /* exception verbatim — handoff §4 */
+  border-radius: 11px;             /* exception verbatim — handoff §4 (portada radio 11) */
+  background: repeating-linear-gradient(
+    135deg,
+    var(--ed-green-dark) 0,
+    var(--ed-green-dark) 5px,
+    var(--ed-green) 5px,
+    var(--ed-green) 10px
+  );
+  color: var(--ed-surface);
+  font-family: var(--ed-font-serif);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1;
+}
+.song-row-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+.song-row-titleline {
+  display: flex;
+  align-items: center;
+  gap: 8px;                        /* sm: dot <-> título */
+}
+.song-row-title {
+  font-size: 17px;                 /* UI-SPEC §Tipografía: list title 17/600 (override de .cat-name 18) */
+}
+.song-row-meta {
+  margin-top: 2px;
+}
+.song-row-fallada {
+  font-family: var(--ed-font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ed-red);
+  margin-top: 3px;
+}
+.song-row-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  font-family: var(--ed-font-sans);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ed-green);
+}

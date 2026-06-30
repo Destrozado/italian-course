@@ -736,3 +736,89 @@ describe('Phase 34-02 — Task 1: tarjeta destacada Continuar/Empezar (D-01..D-0
       'el bloque canciones NO debe introducir referencias --pico-* reales (var() o definición)');
   });
 });
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Phase 34 (Plan 34-02, Task 2) — Filas Editoriale + tiles de portada (SRP-01)
+//   · sección TODAS LAS CANCIONES; filas hairline x-for songsForDisplay
+//   · tile de portada 46px (LOCKED D-16) repeating-linear-gradient + inicial serif
+//   · status-dot REUSE VERBATIM con :class badge-${song.status} (D-07)
+//   · título serif (titleDisplay) + meta cursiva (metaLabel) (D-05/D-06)
+//   · fallada xN preservado; startSong(song.id) verbatim; x-text only (T-02-01)
+// ─────────────────────────────────────────────────────────────────────────────
+describe('Phase 34-02 — Task 2: filas Editoriale + tiles de portada (D-05/D-06/D-07)', () => {
+  // Ventana acotada al template de canciones (hasta el banner del PICKER).
+  function cancionesWindow() {
+    const start = indexSrc.indexOf("currentScreen === 'canciones'");
+    const pickerBanner = indexSrc.indexOf('Pantalla PICKER', start);
+    return indexSrc.slice(start, pickerBanner > -1 ? pickerBanner : start + 4500);
+  }
+
+  test('index.html: sección TODAS LAS CANCIONES + filas x-for songsForDisplay', () => {
+    const window = cancionesWindow();
+    assert.ok(window.includes('TODAS LAS CANCIONES'),
+      'debe existir el overline de sección TODAS LAS CANCIONES');
+    assert.ok(/x-for="song in songsForDisplay"/.test(window),
+      'la lista debe iterar x-for="song in songsForDisplay"');
+    assert.ok(/class="song-row"/.test(window),
+      'debe existir la fila Editoriale .song-row');
+  });
+
+  test('index.html: status-dot con :class badge-${song.status} REUSE VERBATIM (D-07)', () => {
+    const window = cancionesWindow();
+    assert.ok(/class="status-dot"\s+:class="`badge-\$\{song\.status\}`"/.test(window),
+      'la fila debe reusar el status-dot con :class="`badge-${song.status}`" (D-07)');
+    assert.ok(window.includes(':aria-label="song.statusLabel"'),
+      'el status-dot debe llevar :aria-label="song.statusLabel"');
+  });
+
+  test('index.html: título serif (titleDisplay) + meta cursiva (metaLabel) vía x-text (D-05/D-06)', () => {
+    const window = cancionesWindow();
+    assert.ok(/cat-name[^"]*"\s+x-text="song\.titleDisplay"/.test(window),
+      'el título de la fila debe usar .cat-name con x-text="song.titleDisplay"');
+    assert.ok(/cat-topic[^"]*"\s+x-text="song\.metaLabel"/.test(window),
+      'la meta de la fila debe usar .cat-topic con x-text="song.metaLabel" (D-05/D-06)');
+  });
+
+  test('index.html: la inicial del tile deriva de song.titleDisplay.charAt(0) vía x-text', () => {
+    const window = cancionesWindow();
+    assert.ok(/class="song-cover"[^>]*x-text="song\.titleDisplay\.charAt\(0\)"/.test(window),
+      'el tile .song-cover debe pintar la inicial con x-text="song.titleDisplay.charAt(0)"');
+  });
+
+  test('index.html: la fila reusa startSong(song.id) y preserva "fallada xN"', () => {
+    const window = cancionesWindow();
+    assert.ok(/class="song-row"\s+@click="startSong\(song\.id\)"/.test(window),
+      'la fila debe reusar @click="startSong(song.id)" verbatim');
+    assert.ok(/x-show="song\.vecesFallada > 0"/.test(window),
+      'la fila debe preservar el indicador con x-show="song.vecesFallada > 0"');
+    assert.ok(/`fallada x\$\{song\.vecesFallada\}`/.test(window),
+      'el indicador de canción debe renderizar "fallada xN" vía x-text');
+  });
+
+  test('app.css: .song-cover es 46px (LOCKED D-16) + radio 11 + repeating-linear-gradient', () => {
+    const idx = appCssSrc.indexOf('.song-cover {');
+    assert.ok(idx > -1, 'debe existir la regla .song-cover');
+    const window = appCssSrc.slice(idx, idx + 600);
+    assert.ok(/width:\s*46px/.test(window) && /height:\s*46px/.test(window),
+      '.song-cover debe ser 46px (tile de lista LOCKED, D-16)');
+    assert.ok(/border-radius:\s*11px/.test(window),
+      '.song-cover debe usar radio literal 11 (handoff §4)');
+    assert.ok(window.includes('repeating-linear-gradient'),
+      '.song-cover debe rellenarse con repeating-linear-gradient (stripes)');
+    assert.ok(window.includes('var(--ed-green-dark)'),
+      '.song-cover debe usar --ed-green-dark como stripe por defecto');
+    // Anotación de excepción LOCKED (handoff §4).
+    assert.ok(/46px;\s*\/\* exception verbatim — handoff §4/.test(window),
+      '46px debe llevar la anotación /* exception verbatim — handoff §4 */');
+  });
+
+  test('app.css: .song-row es hairline (border-bottom, sin fondo)', () => {
+    const idx = appCssSrc.indexOf('.song-row {');
+    assert.ok(idx > -1, 'debe existir la regla .song-row');
+    const window = appCssSrc.slice(idx, idx + 400);
+    assert.ok(window.includes('border-bottom'),
+      '.song-row debe llevar un hairline border-bottom');
+    assert.ok(window.includes('background: transparent'),
+      '.song-row no debe tener fondo (fila hairline, no tarjeta)');
+  });
+});
