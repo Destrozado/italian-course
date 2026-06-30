@@ -1,0 +1,225 @@
+/*
+ * app.css — Capa "Editoriale" sobre Pico (Phase 32 · v1.8)
+ *
+ * Pico CSS classless es el reset/base; esta hoja se enlaza DESPUÉS de
+ * ./styles.css en el <head> de index.html para ganar la cascada y aplicar
+ * la dirección visual Editoriale (papel cálido, serif Spectral, tricolore).
+ *
+ * Idioma heredado de styles.css: override-on-Pico vía custom properties
+ * (`var(--ed-*)`) + banners de sección comentados `/* ─── … ─── */`.
+ *
+ * Fuente de verdad de los tokens: 32-UI-SPEC.md §Color/Typography/Radii +
+ * design_handoff_italiano_redesign/README.md §Design Tokens (fidelidad alta:
+ * "Mantén las medidas exactas" — el off-grid 22px y la sombra .26 son verbatim).
+ *
+ * Scope Phase 32: cimientos (tokens, fuentes, fondo papel, tipografía base,
+ * tricolore reutilizable). El rediseño del markup de Home vive en Plan 02;
+ * el de las pantallas de ejercicio/canciones/resultados en Phases 33-34.
+ * Aquí SOLO se aplica la capa global — NO se reestructura el DOM existente.
+ */
+
+/* ─── Self-hosted fonts (FND-02) — @font-face, woff2 en vendor/fonts/ ─── */
+/*
+ * Rutas RELATIVAS (./vendor/fonts/…) como ./styles.css en el <head>.
+ * font-display: swap para no bloquear el render. CERO peticiones a Google
+ * Fonts en runtime (assets servidos localmente; la app funciona offline).
+ * Subset latin descargado en Task 1; pesos = contrato 32-UI-SPEC §Typography.
+ */
+
+/* Spectral (serif) — 400/500/600/700 + italic 400/500 */
+@font-face {
+  font-family: 'Spectral';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./vendor/fonts/spectral-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Spectral';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('./vendor/fonts/spectral-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Spectral';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('./vendor/fonts/spectral-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Spectral';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('./vendor/fonts/spectral-700.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Spectral';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./vendor/fonts/spectral-italic-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Spectral';
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url('./vendor/fonts/spectral-italic-500.woff2') format('woff2');
+}
+
+/* Hanken Grotesk (sans) — 400/500/600/700/800 */
+@font-face {
+  font-family: 'Hanken Grotesk';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./vendor/fonts/hanken-grotesk-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Hanken Grotesk';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('./vendor/fonts/hanken-grotesk-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Hanken Grotesk';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('./vendor/fonts/hanken-grotesk-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Hanken Grotesk';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('./vendor/fonts/hanken-grotesk-700.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Hanken Grotesk';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('./vendor/fonts/hanken-grotesk-800.woff2') format('woff2');
+}
+
+/* Space Grotesk (mono/numérico) — 500/700 */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('./vendor/fonts/space-grotesk-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('./vendor/fonts/space-grotesk-700.woff2') format('woff2');
+}
+
+/* ─── Tokens Editoriale (FND-01) — custom properties en :root ─── */
+/*
+ * Fuente de verdad: 32-UI-SPEC §Color/Typography/Radii + README §Design Tokens.
+ * Valores EXACTOS (alta fidelidad): NO redondear el off-grid 22px ni la sombra
+ * CTA .26 (el .dc.html usaba .28; el README manda .26 — ese es el canon).
+ */
+:root {
+  /* Colores — fondo / superficies */
+  --ed-paper: #f4f0e8;          /* fondo app (dominante 60%) */
+  --ed-paper-elevated: #fbf8f1; /* tarjetas destacadas (P33-34) */
+  --ed-surface: #fbfaf6;        /* superficies claras + segmento crema del tricolore */
+
+  /* Colores — tinta / neutros (texto, hairlines) */
+  --ed-ink: #2b2722;            /* texto principal, borde+texto píldora Examen */
+  --ed-muted: #8c8576;          /* texto secundario / labels */
+  --ed-faint: #a39a88;          /* subtítulos en cursiva, meta, streak label */
+  --ed-faint-2: #a89f8c;        /* overlines */
+  --ed-hairline: rgba(43, 39, 34, 0.09);     /* separadores de fila */
+  --ed-border-soft: rgba(43, 39, 34, 0.16);  /* bordes ghost */
+  --ed-streak-track: rgba(43, 39, 34, 0.08); /* pista vacía de la barra de racha */
+
+  /* Colores — acento / estado */
+  --ed-green: #2f7d56;          /* CTA, dominada, éxito, tricolore izquierdo */
+  --ed-red: #b5412e;            /* error, tricolore derecho */
+  --ed-amber: #b9852f;          /* dot "hecha" (en progreso) */
+  --ed-neutral-dot: #c4bcab;    /* dot "no-hecha" (sin empezar) */
+
+  /* Tipografía — 3 familias auto-hospedadas */
+  --ed-font-serif: 'Spectral', Georgia, serif;
+  --ed-font-sans: 'Hanken Grotesk', system-ui, sans-serif;
+  --ed-font-mono: 'Space Grotesk', ui-monospace, monospace;
+
+  /* Radios */
+  --ed-radius-card: 18px;
+  --ed-radius-cta: 16px;
+  --ed-radius-feedback: 14px;
+  --ed-radius-ghost: 12px;
+  --ed-radius-pill: 999px;
+
+  /* Sombras (valor del README — .26, NO .28) */
+  --ed-shadow-cta: 0 10px 22px rgba(47, 125, 86, .26);
+  --ed-shadow-card: 0 8px 22px rgba(40, 34, 24, .07);
+
+  /* Espaciado clave — padding horizontal de pantalla (off-grid, verbatim) */
+  --ed-space-screen: 22px;
+}
+
+/* ─── Base Editoriale sobre Pico (FND-03) — papel + serif/sans ─── */
+/*
+ * El fondo papel y la tipografía Editoriale sustituyen la estética azul/blanca
+ * de Pico. Sólo capa global; el markup de cada pantalla se rediseña en sus
+ * fases (Home = Plan 02, ejercicio/canciones/resultados = Phases 33-34).
+ */
+body {
+  background-color: var(--ed-paper);
+  color: var(--ed-ink);
+  font-family: var(--ed-font-sans);
+}
+
+/* Títulos serif Spectral (Pico usa su stack sans por defecto). */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--ed-font-serif);
+  color: var(--ed-ink);
+}
+
+/*
+ * Aire lateral de pantalla (22px verbatim del handoff). Ancla en <main>, que
+ * envuelve todas las pantallas (ver index.html). Pico ya centra/limita el
+ * ancho de <main>; aquí sólo se garantiza el gutter Editoriale sin romper el
+ * layout existente.
+ */
+main {
+  padding-left: var(--ed-space-screen);
+  padding-right: var(--ed-space-screen);
+}
+
+/* ─── Motivo tricolore (FND-04) — clase reutilizable por Phases 33-34 ─── */
+/*
+ * 3 segmentos iguales verde/crema/rojo, 4px de alto, radio 999, ~56px de ancho.
+ * Decorativo (cabecera de Home, etc.). Reutilizable: cualquier fase posterior
+ * puede colocar <span class="ed-tricolore"></span> donde el diseño lo pida.
+ */
+/*
+ * Implementación sin markup interno: 3 franjas iguales vía linear-gradient de
+ * paradas duras (verde 0-33.33% / crema 33.33-66.66% / rojo 66.66-100%). Así
+ * .ed-tricolore funciona como un elemento vacío (<span class="ed-tricolore">).
+ */
+.ed-tricolore {
+  display: inline-block;
+  width: 56px;
+  height: 4px;
+  border-radius: var(--ed-radius-pill);
+  overflow: hidden;
+  background-image: linear-gradient(
+    to right,
+    var(--ed-green) 0 33.333%,
+    var(--ed-surface) 33.333% 66.666%,
+    var(--ed-red) 66.666% 100%
+  );
+}
