@@ -2602,6 +2602,60 @@ export function appShell(appDataReady) {
     },
 
     /**
+     * Phase 33 (EX-01) — Porcentaje de avance del set para el ancho de la barra
+     * de progreso verde de la barra superior. Entero 0..100 derivado del estado
+     * existente (sessionCursor + sessionExerciseIds.length), espejo de
+     * `sessionProgressLabel`. Pura lectura derivada (read-only): NO toca el
+     * motor (sampler, cascada D-54, persistencia).
+     *
+     * Double-defense Alpine: con length 0 devuelve 0 (sin divide-by-zero),
+     * coherente con el tick de unmount donde sessionExerciseIds queda vacío.
+     *
+     * @returns {number} entero 0..100
+     */
+    get sessionProgressPercent() {
+      const total = this.sessionExerciseIds.length;
+      if (total === 0) return 0;
+      return Math.round(((this.sessionCursor + 1) / total) * 100);
+    },
+
+    /**
+     * Phase 33 (EX-01) — Contador "NN/NN" (Space Grotesk) de la barra superior.
+     * Misma derivación que `sessionProgressLabel` pero en formato compacto
+     * numérico. Pura lectura derivada (read-only).
+     *
+     * @returns {string} p.ej. "1/20"
+     */
+    get sessionProgressCounter() {
+      return `${this.sessionCursor + 1}/${this.sessionExerciseIds.length}`;
+    },
+
+    /**
+     * Phase 33 (EX-02 / D-08) — Trocea el prompt del ejercicio actual sobre el
+     * literal `___` para renderizar el hueco como un slot inline estilizado
+     * (vacío pre-corrección; relleno con la respuesta post-corrección: subrayado
+     * verde si correcto / tachado rojo si incorrecto). El split es presentacional
+     * puro — NO altera el prompt ni el motor.
+     *
+     * Cada parte se renderiza con `x-text` (T-02-01 anti-XSS), nunca con la
+     * directiva de HTML crudo de Alpine.
+     *
+     * Casos:
+     *   - "Lui ___ ventidue anni." → ["Lui ", " ventidue anni."] (hueco = junta).
+     *   - prompt sin `___`          → [prompt] (un solo elemento, sin hueco).
+     *   - prompt undefined          → [''] (coerción defensiva, no lanza).
+     *
+     * Double-defense Alpine: si no hay ejercicio actual (tick de unmount,
+     * cursor pasado del final), devuelve [] — espejo del guard de `bankWithKeys`.
+     *
+     * @returns {string[]}
+     */
+    get sessionPromptParts() {
+      if (!this.sessionCurrentExercise) return [];
+      return String(this.sessionCurrentExercise.payload.prompt ?? '').split('___');
+    },
+
+    /**
      * Phase 13 — Frase actualmente mostrada en el playthrough de canción.
      * Espejo defensivo de `sessionCurrentExercise` PERO resolviendo contra el
      * mapa DEDICADO `songPhraseById` (LINK-04: las frases de canción NO existen

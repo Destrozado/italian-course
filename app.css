@@ -168,6 +168,18 @@
 
   /* Espaciado clave — padding horizontal de pantalla (off-grid, verbatim) */
   --ed-space-screen: 22px;
+
+  /* Tintes post-corrección (Phase 33 / EX-02/03/04) — pares verde/rojo para el
+   * relleno del hueco, opciones corregidas y caja de feedback. Valores EXACTOS
+   * del 33-UI-SPEC §Color ("Post-grading tint pairs"). NO redefinen --ed-green
+   * / --ed-red base (acentos plenos): estos son tonos suaves de fondo + borde +
+   * texto sobre tinte. */
+  --ed-green-tint: #e8f1ea;        /* fondo opción correcta / feedback ok */
+  --ed-green-tint-border: #cfe3d6; /* borde 2px sobre tinte verde */
+  --ed-green-on-tint: #23603f;     /* texto verde legible sobre el tinte */
+  --ed-red-tint: #f6e9e6;          /* fondo opción elegida-mal / feedback ko */
+  --ed-red-tint-border: #ecd3cc;   /* borde 2px sobre tinte rojo */
+  --ed-red-text: #8f3322;          /* texto rojo legible sobre el tinte */
 }
 
 /* ─── Compat shim de variables --pico-* (FND-03 / GAP-01) ─── */
