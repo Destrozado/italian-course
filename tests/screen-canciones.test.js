@@ -437,7 +437,9 @@ describe('Phase 34-01 — songsForDisplay: title/artist split + featured (D-01/D
   test('songsForDisplay deriva el artista partiendo title por el em-dash "—" (source-assert D-05)', () => {
     const idx = appSrc.search(/get songsForDisplay\s*\(\)\s*\{/);
     assert.ok(idx > -1, 'songsForDisplay debe estar definido');
-    const window = appSrc.slice(idx, idx + 1400);
+    // Ventana amplia: el getter pre-computa featuredId (D-01) antes del map, así
+    // que el split por "—" vive más abajo en el cuerpo.
+    const window = appSrc.slice(idx, idx + 2400);
     assert.ok(window.includes("split('—')"),
       "songsForDisplay debe partir el title por el em-dash '—' (idiom de categoriesForDisplay, D-05)");
     assert.ok(/titleDisplay/.test(window) && /artist/.test(window) && /metaLabel/.test(window),

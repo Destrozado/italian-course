@@ -3078,18 +3078,78 @@ export function appShell(appDataReady) {
     get songsForDisplay() {
       if (!this.content || !this.state) return [];
       const byId = this.content.songsById ?? {};
-      return Object.values(byId).map(song => {
+      // Phase 34 (D-01): la fila destacada "Continuar/Empezar" es la PRIMERA
+      // canción pendiente (no-hecha|fallada) en orden de lista. Pre-computamos
+      // su id recorriendo el orden de iteración (mismo que el map de abajo) para
+      // que solo UNA fila lleve `featured: true`; cuando todas son `pasada`
+      // (D-04, empty state) ningún id queda elegido → ninguna featured.
+      // Presentacional puro — NO toca songProgress ni el motor.
+      const songList = Object.values(byId);
+      const featuredId = songList
+        .map(song => ({
+          id: song.id,
+          status: this.state.songProgress?.[song.id]?.status ?? 'no-hecha'
+        }))
+        .find(s => s.status === 'no-hecha' || s.status === 'fallada')?.id ?? null;
+      return songList.map(song => {
         const status = this.state.songProgress?.[song.id]?.status ?? 'no-hecha';
+        const phraseCount = Array.isArray(song.phrases) ? song.phrases.length : 0;
+        // Phase 34 (D-05/D-06): partir `title` por el em-dash "—" — izquierda =
+        // título serif, derecha = artista cursiva (mismo idiom presentacional que
+        // categoriesForDisplay con el paréntesis). Sin "—" → artista vacío y
+        // titleDisplay = título completo. Meta = "{artista} · {N} huecos" (sin
+        // campo "Nivel" — D-06). NO se toca el JSON ni el motor.
+        const [titlePart, artistPart] = (song.title ?? song.id)
+          .split('—')
+          .map(s => s.trim());
+        const artist = artistPart ?? '';
         return {
           id: song.id,
           title: song.title ?? song.id,
-          phraseCount: Array.isArray(song.phrases) ? song.phrases.length : 0,
+          phraseCount,
           status,
           statusLabel: songStatusLabelFor(status),
           // quick-260615-nzi: contador de veces fallada (lazy-init ?? 0, D-47).
-          vecesFallada: this.state.songProgress?.[song.id]?.vecesFallada ?? 0
+          vecesFallada: this.state.songProgress?.[song.id]?.vecesFallada ?? 0,
+          // Phase 34 (D-05/D-06): campos presentacionales título/artista/meta.
+          titleDisplay: titlePart,
+          artist,
+          metaLabel: artist ? `${artist} · ${phraseCount} huecos` : `${phraseCount} huecos`,
+          // Phase 34 (D-01/D-04): destacada = primera pendiente en orden de lista.
+          featured: featuredId !== null && song.id === featuredId
         };
       });
+    },
+
+    /**
+     * Phase 34 (SRP-03 / D-09 / D-10) — Score X/Y del anillo de la pantalla de
+     * Resultados. Deriva read-only del SNAPSHOT `summarySessionResults` (fijado
+     * en `completeSession`, NO el live `sessionResults` — mismo guard que
+     * `summaryDelta`), de modo que el denominador Y = ejercicios RESPONDIDOS
+     * (no el total del set lanzado): la cascada D-54 puede cortar la sesión
+     * antes del final (D-10). Espejo del idiom read-only de
+     * `sessionProgressPercent` — NO toca el motor (sampler, cascada, grading).
+     *
+     * @returns {{correct:number, total:number, pct:number}} pct entero 0..100
+     */
+    get summaryScore() {
+      const results = this.summarySessionResults ?? [];
+      const total = results.length;
+      const correct = results.filter(r => r.correct).length;
+      return { correct, total, pct: total ? Math.round((correct / total) * 100) : 0 };
+    },
+
+    /**
+     * Phase 34 (SRP-04 / D-12) — Contador "{N} categorías seleccionadas" del
+     * picker de Repaso/Examen. Lectura derivada de `pickerCheckedCategoryIds`
+     * (estado existente del picker). El conteo de EJERCICIOS ya lo muestran
+     * `pickerStartLabel` / el aviso test-completo, así que este contador solo
+     * refleja categorías marcadas (no duplica). Presentacional puro.
+     *
+     * @returns {number}
+     */
+    get pickerSelectedCount() {
+      return this.pickerCheckedCategoryIds.length;
     }
   };
 }
