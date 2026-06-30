@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.8
 milestone_name: Rediseño visual Editoriale
 status: executing
-last_updated: "2026-06-30T12:10:00.000Z"
-last_activity: 2026-06-30 -- Plan 33-01 completado (cimientos EX-01/EX-02)
+last_updated: "2026-06-30T12:40:00.000Z"
+last_activity: 2026-06-30 -- Plan 33-02 completado (opción múltiple EX-03 comprobado)
 progress:
   total_phases: 3
   completed_phases: 1
   total_plans: 7
-  completed_plans: 4
-  percent: 44
+  completed_plans: 5
+  percent: 56
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -26,9 +26,9 @@ See: `.planning/PROJECT.md` (updated 2026-06-09 — Milestone v1.6 shipped, CONV
 ## Current Position
 
 Phase: 33 (pantallas-de-ejercicio) — EXECUTING
-Plan: 2 of 4
+Plan: 3 of 4
 Status: Executing Phase 33
-Last activity: 2026-06-30 -- Plan 33-01 completado (cimientos EX-01/EX-02)
+Last activity: 2026-06-30 -- Plan 33-02 completado (opción múltiple EX-03 comprobado)
 
 ## Deferred Items
 
@@ -102,6 +102,8 @@ Ambos quick tasks tienen `status: shipped` en su SUMMARY.md (completados 2026-05
 ## Accumulated Context
 
 ### Roadmap Evolution
+
+- **2026-06-30 — Plan 33-02 completado (opción múltiple Editoriale comprobado — EX-03) — Phase 33 Plan 2/4, wave 2.** 2 tasks, 2 commits de tarea (`3a2b50c` feat markup MC, `aa0ad8a` feat CSS opciones+marcas+dim + fix test) + docs. **Conscious deviation D-01 honrada:** la opción múltiple SIGUE en 1 PASO — `@click="sessionSelectOption(perm)"` corrige al instante (sin botón "Comprobar", sin estado `green-selection` de pre-selección, teclado 1-4 igual). Los estados *comprobado* (D-02) se aplican DESPUÉS del click. **Task 1 (markup, index.html ~470-556):** fila de opciones repintada a `.session-options` con TODOS los bindings byte-equivalentes (`multiChoiceOrder`/`:key="perm"`/`:disabled`/`'correcta'`/`'incorrecta'`/`x-text options[perm]`); caja `.session-feedback`(`.correct`/`.wrong`, scaffold 33-01) con títulos serif italianos HARDCODEADOS `¡Esatto!`/`Quasi…` (D-09, NUNCA x-text), la línea "Respuesta correcta:" plegada dentro como `.session-feedback-correct` (copy español, `<strong x-text>` preservado, solo en fallo), la `.session-explanation` existente (doble-guard preservado) y el botón `.session-why` "¿Por qué?" (`revealSessionExplanation()` intacto); el botón de avance convertido en la CTA inferior `.session-cta` "Continuar →" (label hardcodeado, D-04) llamando al `sessionAdvance` SIN cambios. **Task 2 (CSS, sección Phase 33 de app.css):** sub-sección "Phase 33 / Plan 02" solo con `--ed-*` — `.session-options` (columna, gap 10px verbatim); opción en reposo (serif 18/500, `--ed-surface`, `--ed-border-soft` 1.5px, radio 14, padding 15×18 verbatim, `justify-content: space-between`); hover border-darken (`@media (hover:hover)`); focus-visible 2px verde; override de `button.correcta`→tinte verde + `--ed-green` 2px + `--ed-green-on-tint` + `::after "✓"` y `button.incorrecta`→tinte rojo + `--ed-red` 2px + `--ed-red-text` + `::after "✗"` (ambos `opacity:1`); dim post-corrección `opacity:0.5` scopeado a `.session-options button:disabled:not(.correcta):not(.incorrecta)` (sin sangrar a match/word-buttons); `.session-feedback-correct` (Hanken 13 `--ed-red-text`). Las marcas ✓/✗ son glifos HARDCODEADOS vía `::after content` (no datos, significado no cromático). **Desviación (auto-fix):** (1) Rule 1 — el test `exercise-types.test.js:1521` (r3b CAMBIO 1) contaba `x-show="sessionFeedback !== null"` global y exigía exactamente 3 (los 3 botones de avance por tipo); el repaint MC añadió legítimamente un 4º (el wrapper de la caja de feedback lleva el mismo guard). Re-expresado para contar los 3 botones de avance por intención (`x-show="sessionFeedback !== null"` seguido a ≤80 chars de `@click="sessionAdvance">` → MC `Continuar →` + word-buttons `Siguiente` + match `Siguiente`), robusto a los wrappers de feedback que añadirán 33-03/33-04; la aserción de canción (`songAdvance`) intacta. **Verificación:** `node --test tests/*.test.js` → **508 pass / 1 fail** (único fail = preexistente AJENO genero-numero 12-vs-13; CERO fails nuevos). `grep -cE 'x-html=' index.html` → 0 (anti-XSS T-33-03; los 3 `x-html` bare son comentarios de documentación). Engine baseline intacto (`applyResultToSession|sessionSelectOption` en app.js = 31). Sin `--pico-*` nuevo en las adiciones de Plan 02. Brownfield UI-puro. 3/5 requirements EX completos (EX-01, EX-02, EX-03). Stopped at: Plan 33-02 completo. Resume file: None. Siguiente: Plan 33-03 (word-buttons, EX-05).
 
 - **2026-06-30 — Plan 33-01 completado (cimientos pantallas de ejercicio Editoriale — EX-01/EX-02) — Phase 33 Plan 1/4, wave 1.** 2 tasks, 3 commits de tarea (`67d2cd5` test RED, `f8bae7b` feat tokens+getters GREEN, `e00048c` feat top-bar+question-block) + docs. **Task 1 (TDD):** 6 tokens de tinte post-corrección en `app.css :root` (`--ed-green-tint`/`-tint-border`/`-on-tint` + `--ed-red-tint`/`-tint-border`/`--ed-red-text`) VERBATIM del 33-UI-SPEC §Color (paleta base `--ed-green`/`--ed-red` intacta); 3 getters read-only en `app.js` con guard double-defense: `sessionProgressPercent` (0..100, sin divide-by-zero), `sessionProgressCounter` (`"N/M"`), `sessionPromptParts` (`split('___')`, `[]` en unmount). Test nuevo `tests/screen-session-editorial.test.js` (14 tests RED→GREEN). **Task 2 (markup+CSS):** barra superior EX-01 en `index.html` — botón atrás circular `‹` (`@click="requestReturnToHome"` + `aria-label="Volver al home"` estático), barra de progreso verde (`:style width = sessionProgressPercent`), contador `NN/NN` (`sessionProgressCounter`), chip de cronómetro D-11 (expresiones del timer `x-show`/`:max`/`:value`/segundos VERBATIM, solo envueltas/clasadas); bloque de pregunta EX-02 — overline `sessionContextLabel` (UPPERCASE vía CSS), prompt serif-30 vía `x-for` sobre `sessionPromptParts` con `<span class="session-gap">` (subrayado verde si correcto / tachado rojo si falla, `sessionFeedback`-driven); footer (`<hr>` + Reiniciar/Volver) VERBATIM. Sección "Phase 33" en `app.css` consumiendo solo `--ed-*`: `.session` (full-height, gutter 22px verbatim, footer `margin-top:auto`), `.session-back`/`.session-progress(-fill)`/`.session-counter`/`.session-progress-sr` (sr-only), chip + override del valor rojo legacy del timer→verde, `.session-context` overline, `.session-prompt`, `.session-gap` (gap-correct/gap-wrong), y scaffolds compartidos `.session-cta` + `.session-feedback`(`.correct`/`.wrong`) + `.session-feedback-title` + `.session-explanation` para 33-02/03/04. **Decisiones:** `<header sessionProgressLabel>` conservado pero visualmente oculto (.session-progress-sr) — el contador NN/NN visible lleva el progreso; gap-fill con optional chaining (`options?.[correctIndex] ?? ''`) para no lanzar en word-buttons/match (refinamiento per-type en 33-02/03/04); barra del timer en verde "agotándose" en vez del rojo legacy. **Desviaciones (auto-fix):** (1) Rule 3 — el JSDoc de un getter contenía el literal `x-html` y tumbaba el grep estricto `!/x-html/`; reescrito sin el literal conservando el invariante. (2) Rule 1 — gap-fill type-safe con optional chaining para los 3 tipos. **Verificación:** `node --test tests/*.test.js` → **508 pass / 1 fail** (único fail = preexistente AJENO genero-numero 12-vs-13; CERO fails nuevos). `grep -cE 'x-html=' index.html` → 0 (los 3 `x-html` son texto de comentario del invariante). Engine grep baselines intactos (`applyResultToSession|sessionSelectOption`=31, `applyImmediateFailure(this.state`=2). Sin Pico, sin redefinir paleta. Brownfield UI-puro. 2/5 requirements EX completos (EX-01, EX-02). Stopped at: Plan 33-01 completo. Resume file: None. Siguiente: Plan 33-02 (opción múltiple 1-paso, EX-03).
 
