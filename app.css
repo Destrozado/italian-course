@@ -1634,3 +1634,105 @@ th, td { padding: 8px 10px; text-align: left; }
 .session-topbar .session-progress-fill {
   transition: width 0.2s ease;     /* ancho derivado del cursor de frase (SRP-02/D-08) */
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * Phase 34 (SRP-03 / D-09 / D-10 / D-11) — Pantalla SUMMARY · hero de score
+ *
+ * Repinta la cabecera de Resultados y añade el ÚNICO elemento net-new de la
+ * fase: el anillo de score conic-gradient. Presentación pura — el getter
+ * summaryScore (34-01) alimenta el ángulo y la fracción; el motor
+ * (completeSession / summaryDelta / summaryVariantSurface) queda intacto.
+ *
+ *   · .summary-title: <header> repintado a serif (espejo de .home-title L459
+ *     escalado a 24/600, D-11). El binding x-text="summaryHeaderLabel" no cambia.
+ *   · .summary-score-hero: layout anillo + cifras (D-09: SIN rama por sessionMode).
+ *   · .summary-score-ring: 72px (--ed-radius-pill) con conic-gradient(var(--ed-green)
+ *     calc(var(--pct) * 3.6deg), var(--ed-ring-track) 0). El 72px y el track
+ *     #e6ddcd son literales del handoff §5 (--ed-ring-track ya tokenizado en 34-01).
+ *     El centro se "perfora" con un círculo --ed-paper-elevated que aloja el %.
+ *   · .summary-score-ring-pct: "%" en Space Grotesk (--ed-font-mono) 22/700
+ *     tabular-nums (x-text desde summaryScore.pct; "%" hardcoded).
+ *   · "X/Y": serif 30/600; el "/Y" en --ed-placeholder (muted). "correctos" +
+ *     "Sesión terminada" literales (T-02-01: x-text solo para datos).
+ *
+ * Cero --pico-*; el bloque gana la cascada por orden de fuente sobre styles.css.
+ * ═══════════════════════════════════════════════════════════════════════════ */
+.summary-title {
+  font-family: var(--ed-font-serif);
+  font-size: 24px;                 /* Resultados title (handoff §Tipografía) */
+  font-weight: 600;
+  letter-spacing: -0.4px;
+  line-height: 1.1;
+  color: var(--ed-ink);
+  margin: 6px 0 0;
+}
+.summary-score-hero {
+  display: flex;
+  align-items: center;
+  gap: 16px;                       /* md: anillo -> cifras */
+  margin: 24px 0;                  /* lg: separa hero de cabecera y cascada */
+}
+.summary-score-ring {
+  position: relative;
+  flex: 0 0 auto;
+  width: 72px;                     /* exception verbatim — handoff §5 (ring 72px) */
+  height: 72px;                    /* exception verbatim — handoff §5 (ring 72px) */
+  border-radius: var(--ed-radius-pill);
+  /* Arco verde proporcional a --pct (= summaryScore.pct, fijado inline);
+   * el resto en --ed-ring-track (#e6ddcd, handoff §5). */
+  background: conic-gradient(
+    var(--ed-green) calc(var(--pct, 0) * 3.6deg),
+    var(--ed-ring-track) 0
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* Perforación central: círculo de papel elevado que deja ver solo el % */
+.summary-score-ring::before {
+  content: "";
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--ed-radius-pill);
+  background: var(--ed-paper-elevated);
+}
+.summary-score-ring-pct {
+  position: relative;              /* sobre la perforación */
+  font-family: var(--ed-font-mono);
+  font-size: 22px;                 /* % del anillo (handoff §Tipografía) */
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--ed-ink);
+}
+.summary-score-figures {
+  display: flex;
+  flex-direction: column;
+}
+.summary-score-fraction {
+  font-family: var(--ed-font-serif);
+  font-size: 30px;                 /* score "X/Y" (handoff §Tipografía) */
+  font-weight: 600;
+  line-height: 1;
+  color: var(--ed-ink);
+  margin: 0;
+}
+.summary-score-denominator {
+  color: var(--ed-placeholder);    /* el "/Y" muted (UI-SPEC §Copywriting) */
+}
+.summary-score-label {
+  font-family: var(--ed-font-sans);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ed-muted);
+  margin: 4px 0 0;                 /* xs */
+}
+.summary-score-sub {
+  font-family: var(--ed-font-serif);
+  font-style: italic;
+  font-size: 12.5px;
+  font-weight: 400;
+  color: var(--ed-faint);
+  margin: 2px 0 0;
+}

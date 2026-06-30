@@ -1093,3 +1093,91 @@ describe('Phase 34-04 — Task 1: barra superior Editoriale de la pantalla canci
       'app.css NO debe añadir reglas prefers-color-scheme (dark-mode off, D-32-03)');
   });
 });
+
+// ───────────────────────────────────────────────────────────────────────────
+// Phase 34 (Plan 34-05, Task 1) — Pantalla SUMMARY: anillo de score + X/Y hero
+//   · D-09: el anillo aparece en TODAS las sesiones (sin rama por sessionMode)
+//   · D-10: Y = summaryScore.total (respondidas, snapshot)
+//   · D-11: <header> reusa summaryHeaderLabel VERBATIM, repintado serif
+// ───────────────────────────────────────────────────────────────────────────
+describe('Phase 34-05 — Task 1: anillo de score + X/Y hero en summary (D-09/D-10/D-11)', () => {
+  // Ventana acotada al template summary (desde su guard hasta el banner CANCION-SUMMARY).
+  function summaryWindow() {
+    const start = indexSrc.indexOf("currentScreen === 'summary' && summaryDelta");
+    const nextBanner = indexSrc.indexOf('Pantalla CANCION-SUMMARY', start);
+    return indexSrc.slice(start, nextBanner > -1 ? nextBanner : start + 6000);
+  }
+
+  test('index.html: el hero bindea summaryScore (pct/correct/total) vía x-text', () => {
+    const window = summaryWindow();
+    assert.ok(/class="summary-score-hero"/.test(window),
+      'debe existir el bloque .summary-score-hero');
+    assert.ok(/x-text="summaryScore\.pct"/.test(window),
+      'el % del anillo debe bindear x-text="summaryScore.pct"');
+    assert.ok(/x-text="summaryScore\.correct"/.test(window),
+      'el X debe bindear x-text="summaryScore.correct"');
+    assert.ok(/x-text="summaryScore\.total"/.test(window),
+      'el Y debe bindear x-text="summaryScore.total" (D-10, respondidas)');
+  });
+
+  test('index.html: el anillo fija --pct inline desde summaryScore.pct (sin campo de motor)', () => {
+    const window = summaryWindow();
+    const ringIdx = window.indexOf('class="summary-score-ring"');
+    assert.ok(ringIdx > -1, 'debe existir el anillo .summary-score-ring');
+    const ringBlock = window.slice(ringIdx, ringIdx + 200);
+    assert.ok(/:style="`--pct:\$\{summaryScore\.pct\}`"/.test(ringBlock),
+      'el anillo debe fijar la custom property --pct inline desde summaryScore.pct');
+  });
+
+  test('index.html: el anillo NO se bifurca por sessionMode (D-09) y NO usa x-html', () => {
+    const window = summaryWindow();
+    const heroIdx = window.indexOf('class="summary-score-hero"');
+    // No hay x-if/x-show sobre sessionMode en el hero (aparece en todas las sesiones).
+    assert.ok(!/sessionMode/.test(window),
+      'el template summary NO debe bifurcar el hero por sessionMode (D-09)');
+    assert.ok(!/x-html\s*=/.test(window),
+      'el template summary NO debe usar x-html (T-02-01 anti-XSS)');
+    assert.ok(heroIdx > -1, 'el hero debe renderizarse incondicionalmente (D-09)');
+  });
+
+  test('index.html: "correctos" + "Sesión terminada" son literales hardcoded', () => {
+    const window = summaryWindow();
+    assert.ok(/>correctos</.test(window),
+      'el literal "correctos" debe estar hardcoded (T-02-01)');
+    assert.ok(/>Sesión terminada</.test(window),
+      'el literal "Sesión terminada" debe estar hardcoded (T-02-01)');
+  });
+
+  test('index.html: el <header> conserva summaryHeaderLabel VERBATIM repintado serif (D-11)', () => {
+    const window = summaryWindow();
+    assert.ok(/class="summary-title"\s+x-text="summaryHeaderLabel"/.test(window),
+      'el título debe reusar x-text="summaryHeaderLabel" con la clase serif .summary-title (D-11)');
+  });
+
+  test('app.css: el bloque summary cita SRP-03/D-09/D-10, usa conic-gradient + --ed-ring-track, sin --pico-*', () => {
+    const banner = appCssSrc.indexOf('Pantalla SUMMARY · hero de score');
+    assert.ok(banner > -1, 'debe existir el banner del bloque summary hero (SRP-03)');
+    // El tail arranca en la línea del banner (que YA lleva las citas SRP-03/D-09/D-10/D-11).
+    const tail = appCssSrc.slice(appCssSrc.lastIndexOf('Phase 34 (SRP-03', banner));
+    assert.ok(tail.includes('SRP-03') && tail.includes('D-09') && tail.includes('D-10'),
+      'el banner debe citar SRP-03/D-09/D-10');
+    assert.ok(/conic-gradient\(/.test(tail),
+      'el anillo debe usar conic-gradient (técnica net-new)');
+    assert.ok(/var\(--ed-green\)\s+calc\(var\(--pct[^)]*\)\s*\*\s*3\.6deg\)/.test(tail),
+      'el arco verde debe derivar del ángulo calc(--pct * 3.6deg)');
+    assert.ok(/var\(--ed-ring-track\)/.test(tail),
+      'la pista vacía del anillo debe usar var(--ed-ring-track) (#e6ddcd, handoff §5)');
+    assert.ok(/72px/.test(tail) && /exception verbatim — handoff §5/.test(tail),
+      'el anillo 72px debe anotarse como exception verbatim — handoff §5');
+    assert.ok(!/var\(\s*--pico-|--pico-[\w-]+\s*:/.test(tail),
+      'el bloque summary NO debe introducir referencias --pico-* reales');
+  });
+
+  test('app.css: el título de Resultados se repinta serif (.summary-title 24/600)', () => {
+    const idx = appCssSrc.indexOf('.summary-title {');
+    assert.ok(idx > -1, 'debe existir .summary-title');
+    const window = appCssSrc.slice(idx, idx + 240);
+    assert.ok(/var\(--ed-font-serif\)/.test(window) && /font-size:\s*24px/.test(window) && /font-weight:\s*600/.test(window),
+      '.summary-title debe ser serif 24/600 (espejo de .home-title escalado, D-11)');
+  });
+});

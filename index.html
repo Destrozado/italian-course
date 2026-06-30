@@ -1044,7 +1044,42 @@
         <article>
           <!-- 260615-hhp: contexto de la sesión de la que viene (ENCIMA del header propio del summary, sin romperlo). -->
           <h2 class="session-context" x-text="sessionContextLabel"></h2>
-          <header x-text="summaryHeaderLabel"></header>
+          <!--
+            Phase 34 (SRP-03 / D-11): el <header> conserva el getter
+            summaryHeaderLabel VERBATIM (cero lógica nueva) — se repinta a
+            título serif (.summary-title, espejo de .home-title escalado a
+            24/600) vía clase, sin tocar el binding.
+          -->
+          <header><h2 class="summary-title" x-text="summaryHeaderLabel"></h2></header>
+
+          <!--
+            Phase 34 (SRP-03 / D-09 / D-10): hero de score con anillo
+            conic-gradient + "X/Y correctos". El anillo aparece en TODAS las
+            sesiones (repaso / test-completo / examen) — NO se bifurca por modo
+            de sesión (D-09: una sola pantalla de Resultados compartida). X/Y
+            desde el getter presentacional summaryScore (Y = summaryScore.total
+            = ejercicios respondidos, snapshot, D-10).
+
+            El ángulo del arco verde se fija con la custom property --pct
+            (= summaryScore.pct) vía :style inline; el CSS la multiplica por
+            3.6deg en el conic-gradient (app.css bloque SRP-03). El "%" del
+            centro y "X/Y" son x-text desde summaryScore; "correctos" y
+            "Sesión terminada" son literales hardcoded (T-02-01, NUNCA x-html).
+          -->
+          <div class="summary-score-hero">
+            <div class="summary-score-ring"
+                 :style="`--pct:${summaryScore.pct}`"
+                 aria-hidden="true">
+              <span class="summary-score-ring-pct"><span x-text="summaryScore.pct"></span>%</span>
+            </div>
+            <div class="summary-score-figures">
+              <p class="summary-score-fraction">
+                <span x-text="summaryScore.correct"></span><span class="summary-score-denominator">/<span x-text="summaryScore.total"></span></span>
+              </p>
+              <p class="summary-score-label">correctos</p>
+              <p class="summary-score-sub">Sesión terminada</p>
+            </div>
+          </div>
 
           <ul class="summary-delta">
             <template x-for="entry in summaryDelta" :key="entry.categoryId">
