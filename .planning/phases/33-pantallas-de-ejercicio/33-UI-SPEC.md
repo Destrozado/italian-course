@@ -27,31 +27,49 @@ created: 2026-06-30
 | Icon library | none — text glyphs only: chevron back `‹`, arrow `→`, marks `✓` / `✗` (consistent with handoff §Assets) |
 | Font | Spectral (serif), Hanken Grotesk (sans), Space Grotesk (mono/numeric) — self-hosted, `var(--ed-font-serif|sans|mono)` |
 
-**Token source of truth:** `app.css` `:root` (Phase 32) + `design_handoff_italiano_redesign/README.md` §Design Tokens. The off-grid `22px` screen gutter and the `.26` CTA shadow are verbatim from the handoff (high fidelity) and override the generic spacing scale below where the handoff dictates an exact value.
+**Token source of truth:** `app.css` `:root` (Phase 32) + `design_handoff_italiano_redesign/README.md` §Design Tokens. Where the handoff §"Espaciado, radios y sombras" dictates an exact pixel value, that verbatim value is authoritative and overrides the generic spacing scale. The off-grid handoff values are isolated in the "Handoff-verbatim pixel values" table below so the grid-aligned scale stays a clean multiple-of-4 set.
 
 ---
 
-## Spacing Scale
+## Spacing
 
-Declared values (multiples of 4 unless the handoff dictates an exact verbatim value):
+Two tables. The first is the generic grid-aligned scale (multiples of 4 only). The second carries the verbatim high-fidelity pixel values from the handoff that intentionally sit off the 4px grid — these are NOT scale violations, they are exact measurements the milestone goal ("fidelidad alta" to `design_handoff_italiano_redesign/README.md`) requires us to reproduce without rounding.
+
+### Spacing scale (grid-aligned, multiples of 4)
 
 | Token | Value | Usage |
 |-------|-------|-------|
 | xs | 4px | Tricolore segment height, progress bar height, gap inside chips |
 | sm | 8px | Compact element spacing, badge gaps |
-| (gap-options) | 10px | Vertical gap between the 4 stacked option buttons (handoff §2) |
 | md | 16px | Default element spacing; feedback box `margin-top` (handoff §2) |
-| (option-pad) | 15px × 18px | Option button padding (vertical × horizontal, handoff §2) |
-| (match-pad) | 14px | Match pill padding; match-grid column gap (handoff §3) |
 | lg | 24px | Block spacing (top bar → question block → options) |
-| **screen** | **22px** | Horizontal screen gutter — VERBATIM off-grid (handoff §Espaciado). Reuse `--ed-space-screen` |
 | xl | 32px | Major vertical breaks within the session layout |
 | 2xl | 48px | Bottom CTA / footer separation |
 
-Exceptions (verbatim from handoff, NOT to be rounded to a 4-multiple):
-- **22px** screen horizontal padding (`--ed-space-screen`).
-- **10px** option stack gap, **15×18px** option padding, **14px** match pill padding — copied exactly to preserve high fidelity.
-- Touch/click targets: this is **desktop-only** in v1 (CLAUDE.md), so no 44px touch-minimum is imposed; option/pill buttons already exceed comfortable click size via their padding.
+Every value above is a true multiple of 4. No off-grid value appears in this table.
+
+### Handoff-verbatim pixel values (exempt from the 4px grid — high-fidelity, do not round)
+
+These come **verbatim from `design_handoff_italiano_redesign/README.md` §"Espaciado, radios y sombras"** (and §2/§3). They override the generic scale where the handoff dictates an exact value. They are deliberate non-grid measurements — the executor MUST reproduce them exactly, NOT snap them to the nearest multiple of 4.
+
+| Value | Kind | Usage | Handoff source |
+|-------|------|-------|----------------|
+| **22px** | spacing | Horizontal screen gutter (Home, ejercicios, resultados). Reuse `--ed-space-screen` | §Espaciado ("Padding horizontal de pantalla: 22px") |
+| **10px** | spacing | Vertical gap between the 4 stacked option buttons | §2 ("4 opciones apiladas (gap 10)") |
+| **15 × 18px** | spacing | Option button padding (vertical × horizontal) | §2 ("padding 15×18") |
+| **14px** | spacing | Match pill padding; match-grid column gap | §3 ("padding 14" · "Dos columnas (flex, gap 14)") |
+| **18px** | radius | Card / elevated panel radius | §Radios ("tarjeta 18") |
+| **16px** | radius | Primary CTA radius (`--ed-radius-cta`) | §Radios ("CTA 16") |
+| **14px** | radius | Option / feedback box / error radius (`--ed-radius-feedback`) | §Radios ("opción/feedback/error 14") |
+| **13px** | radius | Match pill radius | §Radios ("píldora-match 13") |
+| **12px** | radius | Small tile radius (`--ed-radius-ghost`, word-bank tiles) | §Radios ("tile pequeño 12") |
+| **11px** | radius | Cover/portada radius | §Radios ("portada 11") |
+| **999px** | radius | Pill / status dot / ring | §Radios ("pill/punto/anillo 999") |
+| **.26 alpha** | shadow | Primary green CTA shadow `0 10px 22px rgba(47,125,86,.26)` | §Sombras |
+| **.18 alpha** | shadow | Selected match pill shadow `0 6px 16px rgba(47,125,86,.18)` | §Sombras |
+| **.07 alpha** | shadow | Elevated paper card shadow `0 8px 22px rgba(40,34,24,.07)` | §Sombras |
+
+**Touch/click targets:** this is **desktop-only** in v1 (CLAUDE.md), so no 44px touch-minimum is imposed; option/pill buttons already exceed comfortable click size via their padding.
 
 Layout: full-height column with the secondary action row (`Reiniciar` / `Volver al home`) pinned at the bottom (handoff §2 "altura completa con CTA al fondo"). Exact full-height technique is planner's discretion (CONTEXT §Discretion).
 
@@ -69,13 +87,15 @@ All sizes/weights below come from `design_handoff_italiano_redesign/README.md` �
 | Feedback box title ("¡Esatto!" / "Quasi…") | Spectral (serif) | 17px | 600 | 1.3 |
 | Overline (category context) | Hanken Grotesk | 11px | 700 | 1.2 · letter-spacing 2–2.5px · UPPERCASE · color `--ed-faint-2` |
 | Meta / feedback body / explanation | Hanken Grotesk | 13px | 400 | 1.5 · color `--ed-muted` |
-| Match note ("N de M emparejadas") | Hanken Grotesk italic (via Spectral italic if serif reads better) | 12.5px | 400 | 1.5 · color `--ed-faint` |
+| Match note ("N de M emparejadas") | Hanken Grotesk italic | 12px | 400 | 1.5 · color `--ed-faint` |
 | Bottom CTA / secondary buttons | Hanken Grotesk | 16px | 700 | 1 |
 | Progress counter `NN/NN` | Space Grotesk | 13px | 700 | 1 |
 | Timer chip seconds | Space Grotesk | 13px | 700 | 1 |
 | Word-buttons key superscript (`.kbd-hint`) | Hanken Grotesk | ~10px | 500 | 1 · color `--ed-faint` |
 
-Effective set per family: **serif 4 sizes (30/24/18/17)**, **sans 4 sizes (16/13/12.5/11)**, **mono 1 size (13)**. Weights used: serif 500/600, sans 400/700, mono 700 — within the Phase 32 declared ranges. Body line-height 1.5; serif/heading line-height 1.3 (prompt) / 1.2 (overline), per handoff.
+**Match-note size resolution (checker flag):** the match note was 12.5px, only 0.5px below the 13px meta/body size — too close to read as a distinct step. Resolved to **12px** (nearest 4-multiple, a clear step below 13). This stays within the handoff's stated subtitle band of "12.5–14" (§Tipografía), and the note is additionally distinguished by *italic* style and the lighter `--ed-faint` color. Update `.match-note` (or equivalent) to 12px italic.
+
+Effective set per family: **serif 4 sizes (30/24/18/17)**, **sans 4 sizes (16/13/12/11)**, **mono 1 size (13)**. Weights used: serif 500/600, sans 400/700, mono 700 — within the Phase 32 declared ranges. Body line-height 1.5; serif/heading line-height 1.3 (prompt) / 1.2 (overline), per handoff.
 
 ---
 
@@ -122,6 +142,7 @@ NOT accent: resting option buttons, resting pills, the back button, the bottom s
 ### Top bar (EX-01) — applies to all three types
 
 - Circular back button top-left, glyph `‹` → calls existing **`requestReturnToHome`** (keeps the confirmation). Label "Volver al home" (D-10).
+- **Accessibility — back button accessible name:** the back button is icon-only (glyph `‹`), so it MUST carry `aria-label="Volver al home"` at the element level (static attribute, or Alpine `:aria-label`). This gives the control an accessible name independent of its visible glyph. (It calls the existing `requestReturnToHome`.)
 - Green progress bar = % of set (reuse `sessionProgressLabel` / `sessionCursor` + `sessionExerciseIds.length`).
 - Counter `NN/NN` in Space Grotesk (derive from existing progress state; presentational getter only).
 - **Timer chip** (Space Grotesk, remaining seconds) shown WHEN `sessionTimed && sessionFeedback === null`, **AND keep the depleting `<progress>` bar** (`.session-timer-bar`) as reinforcement (D-11). Engine (`sessionTimed`, `sessionTimeRemainingMs`, `sessionTimeLimitMs`) is intact — presentation only.
@@ -159,7 +180,7 @@ NOT accent: resting option buttons, resting pills, the back button, the bottom s
   - **Selected/active pill:** repaint `.match-selected` as green 2.5px border + `--ed-surface` + green shadow (`0 6px 16px rgba(47,125,86,.18)`).
   - **Candidate pill (other column):** dashed green 2px border + "?" — apply ONLY if it fits the current 2-column layout without forcing it (D-05).
   - **Failure flash:** repaint `.match-flash` red animation (≤300ms).
-- Optional centered italic note "N de M emparejadas" derived from match state (presentational only).
+- Optional centered italic note "N de M emparejadas" derived from match state (presentational only). Typeset at 12px Hanken italic, `--ed-faint` (see Typography).
 
 ### Word-buttons (EX-05) — extrapolate Editoriale, D-12
 
@@ -191,6 +212,7 @@ NOT accent: resting option buttons, resting pills, the back button, the bottom s
 | Feedback title — wrong | `Quasi…` (Spectral 17/600) |
 | Feedback body | existing `payload.explanation` (pedagogical, via `.session-explanation`) — unchanged |
 | Reveal affordance (correct) | `¿Por qué?` (existing `.session-why`) — unchanged |
+| Back button accessible name | `aria-label="Volver al home"` (icon-only `‹` control) |
 | Empty state | Not applicable — the screen never renders without an exercise (outer guard `currentScreen === 'session' && sessionCurrentExercise`); no empty-data path in this phase |
 | Error / wrong-answer state | Red feedback box (`Quasi…`) + explanation; for multiple-choice the gap fills red-strikethrough and the correct option shows `✓` (the existing "Respuesta correcta:" line may be folded into the feedback box — planner's call, copy stays Spanish) |
 | Overline (context label) | reuse `sessionContextLabel` — e.g. `EXAMEN: AVERE`, `REPASO (20 EJERCICIOS)` (uppercased via CSS, not in JS) |
@@ -232,3 +254,4 @@ These deviate from REQUIREMENTS/ROADMAP **on purpose** (locked in 33-CONTEXT.md)
 1. **EX-03 partial (D-01):** multiple-choice stays 1-step (instant grade on tap). No "Comprobar" CTA, no pre-check `green-selection` state, no pre-grading gap fill. The *comprobado* states (D-02) and feedback box DO apply.
 2. **EX-04 partial (D-03):** match stays per-pair (instant validate + immediate D-61 cascade). No "match-all-then-Comprobar", no disabled CTA.
 3. **EX-02 (D-07):** the handoff's italic suggestion line is omitted (no data source).
+4. **Off-grid spacing (Dimension 5):** the values 22px (screen gutter), 10px (option gap), 15×18px (option padding), 14px (match padding), and the radii 13/11px sit off the 4px grid **by design** — they are verbatim high-fidelity measurements from `design_handoff_italiano_redesign/README.md` §"Espaciado, radios y sombras" and §2/§3. They are isolated in the "Handoff-verbatim pixel values" table and must be reproduced exactly, not rounded.
