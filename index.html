@@ -388,26 +388,79 @@
         Phase 1 usó con `<template x-if="ready && !done">` (UAT 01-02).
       -->
       <template x-if="currentScreen === 'session' && sessionCurrentExercise">
-        <article @keydown.window="handleSessionKey($event)">
-          <!-- 260615-hhp: título de ubicación/contexto (dónde estás) ENCIMA del progreso. -->
-          <h2 class="session-context" x-text="sessionContextLabel"></h2>
-          <!-- SESSION-04: indicador "Ejercicio X / N" visible toda la sesión. -->
-          <header x-text="sessionProgressLabel"></header>
+        <article class="session" @keydown.window="handleSessionKey($event)">
+          <!--
+            Phase 33 (EX-01) — Barra superior Editoriale: botón atrás circular
+            (‹), barra de progreso verde (% del set), contador NN/NN (Space
+            Grotesk) y chip de cronómetro cuando Contrarreloj está activo.
+            TODOS los bindings se conservan; estética cambia, lógica no.
+          -->
+          <div class="session-topbar">
+            <!-- D-10 + accesibilidad: botón icon-only ‹ con aria-label estático.
+                 Llama al EXISTENTE requestReturnToHome (confirmación intacta). -->
+            <button type="button"
+                    class="session-back"
+                    @click="requestReturnToHome"
+                    aria-label="Volver al home">‹</button>
 
-          <!-- quick-260615-puq (feature todo #4): cronómetro de respuesta.
-               Visible SOLO mientras corre el tiempo (sessionTimed && sin
-               feedback aún). Barra que se vacía (<progress> Pico) + segundos
-               restantes (Math.ceil). La mecánica vive en app.js; aquí solo
-               lectura de sessionTimeRemainingMs (reactivo). -->
-          <div class="session-timer" x-show="sessionTimed && sessionFeedback === null">
-            <progress class="session-timer-bar"
-                      :max="sessionTimeLimitMs(sessionCurrentExercise)"
-                      :value="sessionTimeRemainingMs"></progress>
-            <span class="session-timer-secs"
-                  x-text="Math.ceil(sessionTimeRemainingMs / 1000) + 's'"></span>
+            <!-- Barra de progreso verde: ancho = sessionProgressPercent (getter
+                 nuevo read-only). Pista faint + relleno verde. -->
+            <div class="session-progress" aria-hidden="true">
+              <span class="session-progress-fill"
+                    :style="'width:' + sessionProgressPercent + '%'"></span>
+            </div>
+
+            <!-- Contador NN/NN (Space Grotesk). -->
+            <span class="session-counter" x-text="sessionProgressCounter"></span>
+
+            <!-- quick-260615-puq (feature todo #4): cronómetro de respuesta.
+                 Visible SOLO mientras corre el tiempo (sessionTimed && sin
+                 feedback aún). D-11: chip de segundos restantes + barra que se
+                 vacía (refuerzo). La mecánica vive en app.js; aquí solo lectura
+                 de sessionTimeRemainingMs (reactivo). Las expresiones del timer
+                 (x-show, :max, :value, x-text de segundos) van VERBATIM — solo
+                 se envuelven/clasan para el chip Editoriale. -->
+            <div class="session-timer" x-show="sessionTimed && sessionFeedback === null">
+              <progress class="session-timer-bar"
+                        :max="sessionTimeLimitMs(sessionCurrentExercise)"
+                        :value="sessionTimeRemainingMs"></progress>
+              <span class="session-timer-secs session-timer-chip"
+                    x-text="Math.ceil(sessionTimeRemainingMs / 1000) + 's'"></span>
+            </div>
           </div>
 
-          <p x-text="sessionCurrentExercise.payload.prompt"></p>
+          <!-- 260615-hhp: título de ubicación/contexto (dónde estás), repintado
+               como overline Editoriale (UPPERCASE vía CSS, D-06). -->
+          <h2 class="session-context" x-text="sessionContextLabel"></h2>
+          <!-- SESSION-04: indicador "Ejercicio X / N" conservado como texto
+               accesible; el contador visible NN/NN vive en la barra superior. -->
+          <header class="session-progress-sr" x-text="sessionProgressLabel"></header>
+
+          <!--
+            Phase 33 (EX-02 / D-08) — Prompt serif 30 con el hueco `___`
+            renderizado como slot inline estilizado. Trocea sessionPromptParts
+            (getter nuevo read-only) e intercala un <span> de hueco entre las
+            dos partes. Pre-corrección: hueco vacío subrayado. Post-corrección:
+            se rellena con la respuesta correcta — subrayado verde si acertó
+            (sessionFeedback === 'correct'), tachado rojo si falló. El texto del
+            hueco fluye por x-text (T-02-01 anti-XSS), nunca HTML crudo.
+          -->
+          <p class="session-prompt">
+            <template x-for="(part, idx) in sessionPromptParts" :key="idx">
+              <span>
+                <span x-text="part"></span>
+                <!-- Hueco entre partes: solo si hay una parte siguiente (un único
+                     ___ por prompt → un solo slot tras la primera parte). -->
+                <span x-show="idx < sessionPromptParts.length - 1"
+                      class="session-gap"
+                      :class="{
+                        'gap-correct': sessionFeedback === 'correct',
+                        'gap-wrong': sessionFeedback === 'incorrect'
+                      }"
+                      x-text="sessionFeedback !== null ? (sessionCurrentExercise.payload.options?.[sessionCurrentExercise.payload.correctIndex] ?? '') : ''"></span>
+              </span>
+            </template>
+          </p>
 
           <!--
             Sub-template MULTIPLE-CHOICE (Phase 1 + 2 — sin cambios funcionales

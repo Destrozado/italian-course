@@ -666,3 +666,248 @@ th, td { padding: 8px 10px; text-align: left; }
     text-align: center;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * Phase 33 — Pantallas de ejercicio (EX-01/EX-02 foundation)
+ * ─────────────────────────────────────────────────────────────────────────────
+ * Cimientos compartidos por los tres tipos (multiple-choice / word-buttons /
+ * match): barra superior (atrás · progreso · contador · chip cronómetro),
+ * bloque de pregunta (overline + prompt serif + hueco estilizado), y los
+ * scaffolds compartidos que 33-02/03/04 reutilizan (caja de feedback, CTA
+ * inferior, footer). TODO consume los tokens --ed-* (incluidos los tintes
+ * post-corrección añadidos en :root por el Plan 01). app.css gana la cascada
+ * sobre styles.css (linkado después), así que estos repaints sobre-escriben las
+ * clases legacy (.session-context, .session-timer*, etc.).
+ *
+ * Medidas off-grid del handoff (33-UI-SPEC §Handoff-verbatim): gutter 22px,
+ * gap opción 10px, padding opción 15×18, padding match 14, radios 13/14/12 —
+ * verbatim, NO redondear (marcadas `/* exception verbatim */ ` como en Phase 32).
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ─── Layout de la pantalla (altura completa, footer al fondo) ─── */
+/* El <article class="session"> es columna full-height; la fila secundaria
+ * (Reiniciar / Volver al home) queda empujada al fondo vía margin-top:auto en
+ * su .button-row final. Gutter lateral 22px verbatim del handoff. */
+.session {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 64px);
+  padding-left: var(--ed-space-screen);  /* 22px exception verbatim */
+  padding-right: var(--ed-space-screen); /* 22px exception verbatim */
+}
+/* La última .button-row (footer secundario) se ancla al fondo de la columna. */
+.session > .button-row:last-of-type {
+  margin-top: auto;
+}
+
+/* ─── Barra superior (EX-01) ─── */
+.session-topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;             /* lg: top bar -> bloque pregunta */
+}
+/* Botón atrás circular icon-only (glyph ‹). Superficie clara + borde ghost. */
+.session-back {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--ed-border-soft);
+  border-radius: var(--ed-radius-pill);
+  background: var(--ed-surface);
+  color: var(--ed-ink);
+  font-family: var(--ed-font-serif);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+.session-back:hover { border-color: var(--ed-ink); }
+.session-back:focus-visible {
+  outline: 2px solid var(--ed-green);
+  outline-offset: 2px;
+}
+/* Barra de progreso verde (% del set): pista faint + relleno verde, 4px. */
+.session-progress {
+  flex: 1;
+  height: 4px;                     /* xs */
+  border-radius: var(--ed-radius-pill);
+  background: var(--ed-streak-track);
+  overflow: hidden;
+}
+.session-progress-fill {
+  display: block;
+  height: 100%;
+  border-radius: var(--ed-radius-pill);
+  background: var(--ed-green);
+  transition: width 0.2s ease;
+}
+/* Contador NN/NN — Space Grotesk 13/700. */
+.session-counter {
+  flex-shrink: 0;
+  font-family: var(--ed-font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ed-ink);
+  font-variant-numeric: tabular-nums;
+}
+/* El indicador textual "Ejercicio X / N" se conserva en el DOM (accesible /
+ * tests) pero NO se muestra: la barra superior ya comunica el progreso. */
+.session-progress-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ─── Chip de cronómetro (D-11) — Contrarreloj activo ─── */
+/* El bloque .session-timer se restila dentro de la barra superior: la barra que
+ * se vacía (.session-timer-bar) permanece como refuerzo y los segundos se
+ * pintan como chip pill de tinte verde (Space Grotesk). Las expresiones Alpine
+ * del timer NO se tocan (motor intacto). */
+.session-topbar .session-timer {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+.session-topbar .session-timer-bar {
+  flex: none;
+  width: 56px;
+  height: 4px;                     /* xs */
+  margin: 0;
+}
+/* Override del color rojo legacy del valor del timer (styles.css 514-515): la
+ * barra que se vacía usa el verde Editoriale (app.css gana por orden de fuente).
+ * Sigue leyéndose como "tiempo agotándose" porque el <progress> se vacía. */
+.session-timer-bar::-webkit-progress-value { background: var(--ed-green); }
+.session-timer-bar::-moz-progress-bar { background: var(--ed-green); }
+/* Chip de segundos: pill de tinte verde, Space Grotesk 13/700. */
+.session-timer-chip {
+  min-width: 0;
+  padding: 2px 9px;
+  border-radius: var(--ed-radius-pill);
+  background: var(--ed-green-tint);
+  color: var(--ed-green-on-tint);
+  font-family: var(--ed-font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.4;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── Bloque de pregunta (EX-02) ─── */
+/* Overline de contexto = repaint de .session-context copiando .home-overline:
+ * Hanken 11/700, letter-spacing 2.5px, UPPERCASE vía CSS (NO en JS), faint-2. */
+.session-context {
+  font-family: var(--ed-font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--ed-faint-2);
+  margin: 0 0 8px;
+}
+.session-context:empty { display: none; }
+/* Prompt serif 30/500 line-height 1.3. */
+.session-prompt {
+  font-family: var(--ed-font-serif);
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--ed-ink);
+  margin: 0 0 24px;                /* lg: prompt -> opciones */
+}
+/* Hueco `___` estilizado (D-08). Vacío pre-corrección = subrayado-placeholder
+ * inline; relleno post-corrección con la respuesta + tinte de estado. */
+.session-gap {
+  display: inline-block;
+  min-width: 2.2em;
+  padding: 0 0.15em;
+  text-align: center;
+  border-bottom: 2px solid var(--ed-border-soft);
+}
+.session-gap.gap-correct {
+  color: var(--ed-green);
+  border-bottom-color: var(--ed-green);
+  text-decoration: none;
+}
+.session-gap.gap-wrong {
+  color: var(--ed-red);
+  border-bottom: none;
+  text-decoration: line-through;
+  text-decoration-color: var(--ed-red);
+}
+
+/* ─── CTA inferior primario (scaffold para 33-02/03/04) ─── */
+/* "Continuar →" / "Comprobar" / "Siguiente": copia de .home-cta (verde, radio
+ * CTA, sombra). Los plans per-type aplican esta clase a su botón de avance. */
+.session-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 22px;
+  border: none;
+  border-radius: var(--ed-radius-cta);
+  background: var(--ed-green);
+  color: var(--ed-surface);
+  box-shadow: var(--ed-shadow-cta);
+  font-family: var(--ed-font-sans);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+}
+.session-cta:focus-visible {
+  outline: 2px solid var(--ed-green);
+  outline-offset: 2px;
+}
+
+/* ─── Caja de feedback (scaffold para 33-02/03/04, D-09) ─── */
+/* Contenedor tintado verde/rojo con título serif Italian + explicación.
+ * margin-top 16 (md), radio 14 (--ed-radius-feedback). */
+.session-feedback {
+  margin-top: 16px;                /* md */
+  padding: 14px 16px;
+  border-radius: var(--ed-radius-feedback);
+  border: 1px solid transparent;
+}
+.session-feedback.correct {
+  background: var(--ed-green-tint);
+  border-color: var(--ed-green-tint-border);
+}
+.session-feedback.wrong {
+  background: var(--ed-red-tint);
+  border-color: var(--ed-red-tint-border);
+}
+.session-feedback-title {
+  font-family: var(--ed-font-serif);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0;
+}
+.session-feedback.correct .session-feedback-title { color: var(--ed-green-on-tint); }
+.session-feedback.wrong .session-feedback-title { color: var(--ed-red-text); }
+
+/* Explicación pedagógica (reusa .session-explanation): Hanken 13/400 muted 1.5. */
+.session-explanation {
+  font-family: var(--ed-font-sans);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--ed-muted);
+  font-style: normal;              /* anula el italic legacy de styles.css */
+}
