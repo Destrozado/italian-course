@@ -480,7 +480,19 @@
                 `:key="perm"` es estable entre re-renders del mismo ejercicio
                 (perm es el índice del JSON, no la posición visual).
               -->
-              <div class="button-row">
+              <!--
+                Phase 33 (EX-03 / D-01 / D-02) — Fila de opciones repintada al
+                comprobado Editoriale SIN tocar el flujo de 1 PASO. El @click
+                sigue siendo `sessionSelectOption(perm)` → corrige al instante
+                (D-01: NO hay botón "Comprobar", NO hay estado de pre-selección
+                verde, el teclado 1-4 corrige igual). Las clases `.correcta` /
+                `.incorrecta` (ya toggladas por el motor) se repintan en app.css
+                a tinte verde+✓ / tinte rojo+✗; el resto se atenúa a opacity 0.5.
+                Los marcadores ✓/✗ son <span aria-hidden> hardcodeados (no datos)
+                mostrados por la propia clase de estado → significado NO solo
+                cromático (focus/disabled spec).
+              -->
+              <div class="button-row session-options">
                 <template x-for="(perm, idx) in multiChoiceOrder" :key="perm">
                   <button type="button"
                           @click="sessionSelectOption(perm)"
@@ -493,32 +505,54 @@
                 </template>
               </div>
 
-              <!-- Solo en respuesta incorrecta: muestra la correcta + botón Siguiente. -->
-              <p x-show="sessionFeedback === 'incorrect'">
-                Respuesta correcta:
-                <strong x-text="sessionCurrentExercise.payload.options[sessionCurrentExercise.payload.correctIndex]"></strong>
-              </p>
               <!--
-                Phase 7 plan 01 (D-118, EXPL-02) — Explicación pedagógica
-                inline durante feedback rojo. Doble guard `sessionFeedback ===
-                'incorrect' && sessionCurrentExercise.payload.explanation`:
-                  - Solo aparece al fallar (no en aciertos — preserva la
-                    velocidad bien/mal del flow).
-                  - Solo aparece si el ejercicio tiene explanation (D-121
-                    graceful degradation: sin placeholder, sin "sin
-                    explicación").
-                `x-text` exclusivo (T-02-01 invariante anti-XSS). Tono visual
-                muted/italic via `.session-explanation` en styles.css (D-120).
+                Phase 33 (EX-03 / D-09) — Caja de feedback tintada con título
+                serif italiano (¡Esatto! / Quasi…, HARDCODEADOS, NO x-text) +
+                la explicación pedagógica existente + el affordance "¿Por qué?".
+                `.session-feedback` (+ .correct/.wrong) viene del scaffold 33-01.
+                Solo aparece tras corregir (sessionFeedback !== null).
               -->
-              <p x-show="(sessionFeedback === 'incorrect' || (sessionFeedback === 'correct' && sessionExplanationRevealed)) && sessionCurrentExercise.payload.explanation"
-                 class="session-explanation"
-                 x-text="sessionCurrentExercise.payload.explanation"></p>
-              <!-- quick-260615-hr0: affordance "¿Por qué?" al acertar con explanation. -->
+              <div x-show="sessionFeedback !== null"
+                   class="session-feedback"
+                   :class="{
+                     'correct': sessionFeedback === 'correct',
+                     'wrong': sessionFeedback === 'incorrect'
+                   }">
+                <!-- Títulos italianos hardcodeados (D-09, T-02-01: nunca x-text). -->
+                <p class="session-feedback-title" x-show="sessionFeedback === 'correct'">¡Esatto!</p>
+                <p class="session-feedback-title" x-show="sessionFeedback === 'incorrect'">Quasi…</p>
+
+                <!-- Solo en fallo: la respuesta correcta (copy español, dato vía x-text). -->
+                <p class="session-feedback-correct" x-show="sessionFeedback === 'incorrect'">
+                  Respuesta correcta:
+                  <strong x-text="sessionCurrentExercise.payload.options[sessionCurrentExercise.payload.correctIndex]"></strong>
+                </p>
+                <!--
+                  Phase 7 plan 01 (D-118, EXPL-02) — Explicación pedagógica
+                  inline. Doble guard preservado: aparece al fallar, o al
+                  acertar tras pulsar "¿Por qué?", y solo si hay explanation
+                  (D-121 graceful degradation). `x-text` exclusivo (T-02-01).
+                -->
+                <p x-show="(sessionFeedback === 'incorrect' || (sessionFeedback === 'correct' && sessionExplanationRevealed)) && sessionCurrentExercise.payload.explanation"
+                   class="session-explanation"
+                   x-text="sessionCurrentExercise.payload.explanation"></p>
+                <!-- quick-260615-hr0: affordance "¿Por qué?" al acertar con explanation. -->
+                <button type="button"
+                        class="session-why"
+                        x-show="sessionFeedback === 'correct' && sessionCurrentExercise.payload.explanation && !sessionExplanationRevealed"
+                        @click="revealSessionExplanation()">¿Por qué?</button>
+              </div>
+
+              <!--
+                Phase 33 (EX-03 / D-04) — CTA inferior primaria "Continuar →"
+                (label HARDCODEADO). Avance MANUAL: llama al EXISTENTE
+                `sessionAdvance` sin cambios. Sin auto-avance (600ms = solo modo
+                canción).
+              -->
               <button type="button"
-                      class="session-why"
-                      x-show="sessionFeedback === 'correct' && sessionCurrentExercise.payload.explanation && !sessionExplanationRevealed"
-                      @click="revealSessionExplanation()">¿Por qué?</button>
-              <button x-show="sessionFeedback !== null" @click="sessionAdvance">Siguiente</button>
+                      class="session-cta"
+                      x-show="sessionFeedback !== null"
+                      @click="sessionAdvance">Continuar →</button>
             </div>
           </template>
 
