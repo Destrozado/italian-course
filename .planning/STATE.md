@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.8
 milestone_name: Rediseño visual Editoriale
-status: executing
-last_updated: "2026-06-30T07:36:58.748Z"
+status: verifying
+last_updated: "2026-06-30T07:45:37.977Z"
 last_activity: 2026-06-30
 progress:
   total_phases: 3
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 2
-  completed_plans: 1
-  percent: 50
+  completed_plans: 2
+  percent: 33
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -27,8 +27,8 @@ See: `.planning/PROJECT.md` (updated 2026-06-09 — Milestone v1.6 shipped, CONV
 
 Phase: 32 (cimientos-visuales-home-categor-as) — EXECUTING
 Plan: 2 of 2
-Status: Plan 01 completo (cimientos visuales); listo para ejecutar Plan 02 (Home/Categorías)
-Last activity: 2026-06-30 -- Plan 32-01 completado (capa Editoriale: tokens + fuentes + tricolore + dark off + badge D-01)
+Status: Phase complete — ready for verification
+Last activity: 2026-06-30
 
 ## Deferred Items
 
@@ -102,6 +102,8 @@ Ambos quick tasks tienen `status: shipped` en su SUMMARY.md (completados 2026-05
 ## Accumulated Context
 
 ### Roadmap Evolution
+
+- **2026-06-30 — Plan 32-02 completado (Home/Categorías Editoriale — HOME-01..06) — Phase 32 COMPLETA (2/2), lista para verificación.** 3 tasks, 3 commits de tarea (`7aa4b29` feat streakDays, `752ad8a` feat markup Home, `9c6ed7e` feat estilos app.css) + docs. **Único cambio JS (Task 1):** `categoriesForDisplay` devuelve 1 campo presentacional `streakDays: streak` (raw, reusa el `const streak` ya computado) para el ancho de la barra streak/21; motor verificablemente intacto (`applyImmediateFailure(this.state` = 2). **Markup (Task 2):** bloque `<template x-if="currentScreen==='home'">` reescrito al lenguaje Editoriale reusando TODOS los bindings — **HOME-01** tricolore + overline `ITALIANO · A1 / A2` + título serif `Categorías`; **HOME-02** CTA verde ancho completo `Repaso 20` con `@click="openPicker('repaso')"` VERBATIM (D-05, abre picker, subtítulo neutro `Repaso rápido`); **HOME-03** fila ghost de 3 (Test completo · Canciones · Backup), Canciones BAJA de protagonista a ghost (D-04 supersede D-01 de Phase 13); **HOME-05** switch `Contrarreloj` con `x-model="homeExamTimed"` intacto; **HOME-04** filas con dot 9px (color por `badge-${cat.status}` D-01 vía currentColor), nombre serif + tema cursiva derivado del paréntesis del `name` (D-02 en expresión Alpine sobre x-text), barra streak/21 (ancho = `streakDays/21`, color verde/ámbar), píldora Examen (handler/:disabled/:title verbatim). Banners in-flight/backup conservados; 8 `data-label` intactos (capa móvil Phase-28); anti-XSS preservado (cero `x-html`). **Estilos (Task 3):** bloque "Phase 32 Plan 02" en `app.css` con componentes Home (`home-cta`/`home-ghost`/`status-dot`/`streak-bar`/`examen-pill`) + **HOME-06** tabla editorial desktop bajo `@media (min-width:641px)` (papel/serif/hairlines, oculta "Última vez" → contrato 5 columnas), todo vía `var(--ed-*)`; medidas off-grid verbatim del handoff. Capa móvil Phase-28 (`@media max-width:640px`, tap 44px) intacta. **Decisiones:** subtítulo CTA neutro `Repaso rápido` (no promete lanzamiento que el picker no cumple); color de dot/barra vía `currentColor` heredado del badge D-01 (un solo hogar de color); "Última vez" oculta por CSS (no eliminada, la capa móvil depende del data-label); D-02 en expresión Alpine (no getter) para acotar el JS a 1 campo. **Desviaciones (auto-fix):** (1) Rule 3 — un comentario contenía el literal `x-model="homeExamTimed"` y rompía el test de conteo `quick-260615-r3b`; reescrito sin el literal. (2) Rule 1 — 2 tests estructurales codificaban el contrato visual anterior que el rediseño supersede (Canciones protagonista→ghost D-04; Examen secondary-outline→píldora HOME-04); reconciliados conservando las aserciones de comportamiento. **Verificación:** `node --test tests/*.test.js` → **494 pass / 1 fail** (único fail = preexistente AJENO genero-numero; CERO fails nuevos). Brownfield UI-puro: 0 motor tocado. 6/6 requirements HOME completos. Stopped at: Phase 32 completa (2/2), lista para verificación. Resume file: None. Siguiente: `/gsd:verify-phase 32` → `/gsd:plan-phase 33`.
 
 - **2026-06-30 — Plan 32-01 completado (cimientos visuales Editoriale — FND-01..04).** 3 tasks, 3 commits de tarea (`dbdabb7` feat fuentes, `94e1886` feat app.css, `9b676d7` fix dark+badge) + docs. **FND-02 (offline):** creado `vendor/fonts/` (no existía) con **13 woff2 subset latin** descargados del CDN de Google con UA de Chrome (Spectral 400/500/600/700 + italic 400/500; Hanken Grotesk 400/500/600/700/800; Space Grotesk 500/700), magic header `wOF2` verificado; CERO peticiones a `fonts.googleapis.com`/`gstatic.com` en runtime (grep vacío). **FND-01 (tokens):** nuevo `app.css` declara todos los `--ed-*` en `:root` con valores EXACTOS del handoff (off-grid 22px `--ed-space-screen` y sombra CTA `.26` verbatim, NO `.28`). **FND-03 (base + dark off):** `body` fondo papel `#f4f0e8` + sans Hanken, headings serif Spectral, `<main>` gutter 22px; modo oscuro de Pico desactivado — `styles.css` `:root { color-scheme: light }` (era `light dark`) + `<meta color-scheme="light">`. **FND-04 (tricolore):** clase reutilizable `.ed-tricolore` (verde/crema/rojo, 4px, radio 999) vía `linear-gradient` de paradas duras (funciona como `<span>` vacío, lista para Phases 33-34). **D-01 reconciliado:** las 3 `.badge-*` estaban INVERTIDAS (hecha=verde, dominada=ámbar) → corregidas en UN solo hogar (`styles.css`, tokens `--ed-*` + fallback hex): **dominada=verde `#2f7d56`, hecha=ámbar `#b9852f`, no-hecha=neutro `#c4bcab`**; `app.css` NO redefine `.badge-*` (las dos hojas no se pelean). **Decisiones:** @font-face en `app.css` (no fichero aparte); tricolore como gradiente; color del badge en `styles.css`. **Verificación:** `node --test tests/*.test.js` → **473 pass / 1 fail** (único fail = preexistente AJENO genero-numero; CERO fails nuevos — fase no toca lógica). Brownfield UI-puro: 0 JS/motor tocado. Sin checkpoint (la descarga de red SÍ era posible → no hizo falta el human-action contemplado en el plan). 4/4 requirements FND completos. Stopped at: Plan 32-01 completo. Resume file: None. Siguiente: Plan 32-02 (rediseño markup Home/Categorías reusando estos tokens + badge D-01 + raw `streakDays`).
 

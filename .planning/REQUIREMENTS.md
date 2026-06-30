@@ -11,12 +11,12 @@
 - [x] **FND-04**: El **motivo tricolore** (barra de 3 segmentos verde/crema/rojo, 4px, radio 999) existe como elemento reutilizable disponible en las pantallas.
 
 ### Home / Categorías (HOME)
-- [ ] **HOME-01**: La Home muestra cabecera editorial: overline `ITALIANO · A1 / A2` + título serif **Categorías** (Spectral 38).
-- [ ] **HOME-02**: CTA primario **Repaso 20** (verde, ancho completo, título + subtítulo + flecha, sombra verde) lanza el repaso aleatorio existente.
-- [ ] **HOME-03**: Fila de 3 botones **ghost** (Test completo · Canciones · Backup) con borde `border-soft`, equiespaciados.
-- [ ] **HOME-04**: Cada **fila de categoría** se muestra en estilo editorial: punto de estado (verde dominado / ámbar en progreso / neutro sin empezar), nombre serif + tema en cursiva, barra de racha (`streak/21`) + meta "N/21 d · M ejercicios", y píldora **Examen** a la derecha.
-- [ ] **HOME-05**: El toggle **Contrarreloj** aparece como **switch** Editoriale en la fila de sección de Categorías y conserva su comportamiento actual.
-- [ ] **HOME-06**: En **desktop** la Home se presenta como **tabla editorial** (mismas columnas: Estado · Categoría · Racha · Ejercicios · Examen) con papel/serif/hairlines, sin perder funcionalidad.
+- [x] **HOME-01**: La Home muestra cabecera editorial: overline `ITALIANO · A1 / A2` + título serif **Categorías** (Spectral 38).
+- [x] **HOME-02**: CTA primario **Repaso 20** (verde, ancho completo, título + subtítulo + flecha, sombra verde) lanza el repaso aleatorio existente.
+- [x] **HOME-03**: Fila de 3 botones **ghost** (Test completo · Canciones · Backup) con borde `border-soft`, equiespaciados.
+- [x] **HOME-04**: Cada **fila de categoría** se muestra en estilo editorial: punto de estado (verde dominado / ámbar en progreso / neutro sin empezar), nombre serif + tema en cursiva, barra de racha (`streak/21`) + meta "N/21 d · M ejercicios", y píldora **Examen** a la derecha.
+- [x] **HOME-05**: El toggle **Contrarreloj** aparece como **switch** Editoriale en la fila de sección de Categorías y conserva su comportamiento actual.
+- [x] **HOME-06**: En **desktop** la Home se presenta como **tabla editorial** (mismas columnas: Estado · Categoría · Racha · Ejercicios · Examen) con papel/serif/hairlines, sin perder funcionalidad.
 
 ### Pantallas de ejercicio (EX)
 - [ ] **EX-01**: La pantalla de ejercicio tiene **barra superior** Editoriale: botón atrás circular · barra de progreso verde (% del set) · contador `NN/NN` (Space Grotesk) · **chip de cronómetro** cuando Contrarreloj está activo.
@@ -51,12 +51,12 @@
 | FND-02 | Phase 32 | Complete |
 | FND-03 | Phase 32 | Complete |
 | FND-04 | Phase 32 | Complete |
-| HOME-01 | Phase 32 | Pending |
-| HOME-02 | Phase 32 | Pending |
-| HOME-03 | Phase 32 | Pending |
-| HOME-04 | Phase 32 | Pending |
-| HOME-05 | Phase 32 | Pending |
-| HOME-06 | Phase 32 | Pending |
+| HOME-01 | Phase 32 | Complete |
+| HOME-02 | Phase 32 | Complete |
+| HOME-03 | Phase 32 | Complete |
+| HOME-04 | Phase 32 | Complete |
+| HOME-05 | Phase 32 | Complete |
+| HOME-06 | Phase 32 | Complete |
 | EX-01 | Phase 33 | Pending |
 | EX-02 | Phase 33 | Pending |
 | EX-03 | Phase 33 | Pending |
