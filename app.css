@@ -146,9 +146,12 @@
 
   /* Colores — acento / estado */
   --ed-green: #2f7d56;          /* CTA, dominada, éxito, tricolore izquierdo */
+  --ed-green-dark: #296c4a;     /* Phase 34 (D-46/UI-SPEC §Color): stripe por defecto del tile de portada (repeating-linear-gradient) — net-new, verbatim handoff §4 */
   --ed-red: #b5412e;            /* error, tricolore derecho */
   --ed-amber: #b9852f;          /* dot "hecha" (en progreso) */
   --ed-neutral-dot: #c4bcab;    /* dot "no-hecha" (sin empezar) */
+  --ed-placeholder: var(--ed-faint); /* Phase 34 (UI-SPEC Copywriting): color muted del "/Y" en el hero de score (familia muted, alias de --ed-faint) */
+  --ed-ring-track: #e6ddcd;     /* Phase 34 (handoff §5, SRP-03): pista vacía del anillo de score conic-gradient — literal del handoff, DISTINTO de --ed-streak-track */
 
   /* Tipografía — 3 familias auto-hospedadas */
   --ed-font-serif: 'Spectral', Georgia, serif;
@@ -1296,3 +1299,25 @@ th, td { padding: 8px 10px; text-align: left; }
   text-align: center;
   margin: 0.75rem 0 0;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * Phase 34 (SRP-01 / D-07) — Tríada de estado de CANCIÓN → color
+ * ─────────────────────────────────────────────────────────────────────────
+ * El estado de una canción es `no-hecha / pasada / fallada` (NO la tríada de
+ * categoría `no-hecha / hecha / dominada` de styles.css L62-64). Estas dos
+ * clases AÑADEN la tríada de canción JUNTO a (no en lugar de) la de categoría:
+ *
+ *   pasada  → verde (--ed-green)  · recorrido completo SIN fallos
+ *   fallada → rojo  (--ed-red)    · recorrido completo con ≥1 fallo
+ *   no-hecha → reusa .badge-no-hecha (neutro) de styles.css verbatim
+ *
+ * Igual que la tríada de categoría, fijan `color` para que `currentColor`
+ * pinte el `.status-dot` (background-color: currentColor) y el relleno de la
+ * barra de progreso por estado de la card "Continuar" (D-02). El binding es
+ * `:class="\`badge-${song.status}\`"` — mismo mecanismo que el Home.
+ *
+ * Bloque al FONDO de app.css → gana la cascada por orden de fuente (app.css se
+ * enlaza después de styles.css), mismo specificity (idiom Phase 32-33).
+ * ═════════════════════════════════════════════════════════════════════════ */
+.badge-pasada  { color: var(--ed-green); font-weight: 600; }
+.badge-fallada { color: var(--ed-red);   font-weight: 600; }

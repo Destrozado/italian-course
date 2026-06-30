@@ -29,6 +29,11 @@ const appSrc = readFileSync(appJsPath, 'utf8');
 const indexSrc = readFileSync(indexHtmlPath, 'utf8');
 const mainSrc = readFileSync(mainJsPath, 'utf8');
 
+const appCssPath = new URL('../app.css', import.meta.url);
+const stylesCssPath = new URL('../styles.css', import.meta.url);
+const appCssSrc = readFileSync(appCssPath, 'utf8');
+const stylesCssSrc = readFileSync(stylesCssPath, 'utf8');
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Task 1 — Boot wiring + botón Canciones + pantalla listado (SONG-01/02/03)
 // ─────────────────────────────────────────────────────────────────────────────
@@ -582,5 +587,58 @@ describe('Phase 34-01 — guarda motor intacto (cascada D-54)', () => {
     const invocations = (appSrc.match(/applyImmediateFailure\(this\.state/g) || []).length;
     assert.equal(invocations, 2,
       `applyImmediateFailure(this.state debe mantenerse en 2 call-sites; encontrados: ${invocations}`);
+  });
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Phase 34-01 (Task 2) — tokens net-new + clases badge de la tríada de canción
+//   · app.css :root: --ed-green-dark / --ed-placeholder / --ed-ring-track
+//   · app.css (fondo): .badge-pasada (verde) / .badge-fallada (rojo) — tríada
+//     de CANCIÓN, junto a (no reemplazando) la tríada de categoría en styles.css
+//   · sin --pico-* nuevo, sin prefers-color-scheme (D-32-03, dark-mode off)
+// ─────────────────────────────────────────────────────────────────────────────
+describe('Phase 34-01 — Task 2: tokens net-new + badge de canción (D-07)', () => {
+  test('app.css :root define --ed-green-dark / --ed-placeholder / --ed-ring-track', () => {
+    assert.ok(/--ed-green-dark\s*:\s*#296c4a/.test(appCssSrc),
+      'app.css debe definir --ed-green-dark: #296c4a (stripe portada, UI-SPEC §Color)');
+    assert.ok(/--ed-placeholder\s*:/.test(appCssSrc),
+      'app.css debe definir --ed-placeholder (color muted del "/Y" del hero de score)');
+    assert.ok(/--ed-ring-track\s*:\s*#e6ddcd/.test(appCssSrc),
+      'app.css debe definir --ed-ring-track: #e6ddcd (handoff §5, distinto de --ed-streak-track)');
+  });
+
+  test('app.css define .badge-pasada (verde) y .badge-fallada (rojo) — tríada de canción (D-07)', () => {
+    assert.ok(/\.badge-pasada\s*\{[^}]*var\(--ed-green\)/.test(appCssSrc),
+      '.badge-pasada debe usar color var(--ed-green) (pasada → verde)');
+    assert.ok(/\.badge-fallada\s*\{[^}]*var\(--ed-red\)/.test(appCssSrc),
+      '.badge-fallada debe usar color var(--ed-red) (fallada → rojo)');
+  });
+
+  test('la tríada de categoría en styles.css NO se toca (badge-no-hecha/hecha/dominada)', () => {
+    assert.ok(/\.badge-no-hecha\s*\{/.test(stylesCssSrc),
+      'styles.css conserva .badge-no-hecha (neutro, reusado por la canción)');
+    assert.ok(/\.badge-hecha\s*\{/.test(stylesCssSrc) && /\.badge-dominada\s*\{/.test(stylesCssSrc),
+      'styles.css conserva la tríada de categoría hecha/dominada intacta');
+    // app.css NO debe redefinir badge-pasada/fallada como tríada de CATEGORÍA
+    // (no introduce badge-hecha/badge-dominada nuevos).
+    assert.ok(!/\.badge-dominada\s*\{/.test(appCssSrc),
+      'app.css NO debe redefinir .badge-dominada (la tríada de categoría vive en styles.css)');
+  });
+
+  test('regresión: el bloque badge/token nuevo NO introduce --pico-* ni prefers-color-scheme', () => {
+    // app.css ya tiene un compat-shim --pico-* INTENCIONADO (FND-03/GAP-01) que
+    // mapea las vars de Pico a tokens --ed-* para que styles.css legacy resuelva
+    // (Pico fue eliminado en Phase 32). Ese shim vive SOLO en el bloque
+    // `:root[data-pico-shim]`-style del top del archivo. El bloque badge/token
+    // NUEVO del fondo NO debe añadir más referencias --pico-*: verificamos que
+    // todas las ocurrencias --pico-* siguen ANTES del banner del bloque Phase 34.
+    const banner = appCssSrc.indexOf('Tríada de estado de CANCIÓN');
+    assert.ok(banner > -1, 'debe existir el banner del bloque badge de canción al fondo de app.css');
+    const tail = appCssSrc.slice(banner);
+    assert.ok(!/--pico-/.test(tail),
+      'el bloque badge/token nuevo (Phase 34, fondo) NO debe introducir referencias --pico-*');
+    // Dark-mode forzado OFF (D-32-03): ninguna regla prefers-color-scheme en app.css.
+    assert.ok(!/prefers-color-scheme/.test(appCssSrc),
+      'app.css NO debe añadir reglas prefers-color-scheme (dark-mode off, D-32-03)');
   });
 });
