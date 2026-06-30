@@ -822,3 +822,109 @@ describe('Phase 34-02 — Task 2: filas Editoriale + tiles de portada (D-05/D-06
       '.song-row no debe tener fondo (fila hairline, no tarjeta)');
   });
 });
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Phase 34 (Plan 34-03, Task 1) — Picker: filas Editoriale + tick + contador
+//   · filas hairline x-for content.categories; nombre serif (.cat-name, split
+//     por paréntesis D-14/D-32-02) + sub-título cursiva (.cat-topic) del paréntesis
+//   · check verde ✓ cuando pickerCheckedCategoryIds.includes(cat.id) (D-13)
+//   · @change="pickerToggleCategory(cat.id)" + :checked VERBATIM (motor intacto)
+//   · contador "{N} categorías seleccionadas" vía pickerSelectedCount (D-12),
+//     NO pickerPoolSize (conteo de ejercicios vive en pickerStartLabel)
+//   · pickerTimed / pickerSelectAll / pickerClearAll preservados; x-text only (T-02-01)
+// ─────────────────────────────────────────────────────────────────────────────
+describe('Phase 34-03 — Task 1: picker filas Editoriale + tick + contador (D-12/D-13/D-14)', () => {
+  // Ventana acotada al template del picker (desde el banner PICKER hasta SESSION).
+  function pickerWindow() {
+    const start = indexSrc.indexOf('Pantalla PICKER');
+    const sessionBanner = indexSrc.indexOf('Pantalla SESSION', start);
+    return indexSrc.slice(start, sessionBanner > -1 ? sessionBanner : start + 4000);
+  }
+
+  test('index.html: filas x-for content.categories con nombre serif split por paréntesis (D-14)', () => {
+    const window = pickerWindow();
+    assert.ok(/x-for="cat in content\.categories"/.test(window),
+      'el picker debe iterar x-for="cat in content.categories"');
+    assert.ok(/class="picker-row"/.test(window),
+      'debe existir la fila Editoriale .picker-row (fila completa clicable)');
+    assert.ok(/cat-name[^"]*"\s+x-text="cat\.name\.split\('\('\)\[0\]\.trim\(\)"/.test(window),
+      'el nombre debe usar .cat-name con x-text="cat.name.split(\'(\')[0].trim()" (D-14/D-32-02)');
+    assert.ok(/cat-topic[^"]*"\s+x-show="cat\.name\.includes\('\('\)"/.test(window),
+      'el sub-título .cat-topic debe mostrarse con x-show="cat.name.includes(\'(\')" (D-14)');
+  });
+
+  test('index.html: check verde ✓ gated por pickerCheckedCategoryIds.includes(cat.id) (D-13)', () => {
+    const window = pickerWindow();
+    assert.ok(/class="picker-row-tick"/.test(window),
+      'debe existir el tick .picker-row-tick');
+    assert.ok(/x-show="pickerCheckedCategoryIds\.includes\(cat\.id\)"[^>]*>✓</.test(window),
+      'el ✓ debe mostrarse con x-show="pickerCheckedCategoryIds.includes(cat.id)" (D-13)');
+  });
+
+  test('index.html: @change="pickerToggleCategory(cat.id)" y :checked preservados VERBATIM', () => {
+    const window = pickerWindow();
+    assert.ok(window.includes('@change="pickerToggleCategory(cat.id)"'),
+      'el checkbox debe conservar @change="pickerToggleCategory(cat.id)" verbatim (motor intacto)');
+    assert.ok(window.includes(':checked="pickerCheckedCategoryIds.includes(cat.id)"'),
+      'el checkbox debe conservar :checked="pickerCheckedCategoryIds.includes(cat.id)" verbatim');
+  });
+
+  test('index.html: contador usa pickerSelectedCount (D-12), NO pickerPoolSize', () => {
+    const window = pickerWindow();
+    assert.ok(/class="picker-count"/.test(window),
+      'debe existir el contador .picker-count');
+    assert.ok(window.includes('x-text="pickerSelectedCount"'),
+      'el contador debe bindear x-text="pickerSelectedCount" (D-12)');
+    assert.ok(window.includes('categorías seleccionadas'),
+      'el contador debe llevar el literal "categorías seleccionadas" (plural)');
+    assert.ok(window.includes('categoría seleccionada'),
+      'el contador debe llevar el literal singular "categoría seleccionada"');
+    // El contador NO duplica el conteo de EJERCICIOS (pickerPoolSize vive en
+    // pickerStartLabel / aviso test-completo, D-12).
+    const countIdx = window.indexOf('class="picker-count"');
+    const countBlock = window.slice(countIdx, countIdx + 350);
+    assert.ok(!/pickerPoolSize/.test(countBlock),
+      'el contador NO debe usar pickerPoolSize (D-12: cuenta categorías, no ejercicios)');
+  });
+
+  test('index.html: pickerTimed / pickerSelectAll / pickerClearAll preservados', () => {
+    const window = pickerWindow();
+    assert.ok(window.includes('@click="pickerSelectAll"') && window.includes('@click="pickerClearAll"'),
+      'las acciones masivas pickerSelectAll/pickerClearAll deben preservarse');
+    assert.ok(window.includes('x-model="pickerTimed"'),
+      'el toggle Contrarreloj x-model="pickerTimed" debe preservarse');
+    assert.ok(window.includes('x-text="pickerHeaderLabel"'),
+      'el header pickerHeaderLabel debe preservarse');
+  });
+
+  test('index.html: el picker NO usa el atributo x-html= (T-02-01 anti-XSS)', () => {
+    const window = pickerWindow();
+    assert.ok(!/x-html\s*=/.test(window),
+      'el bloque picker NO debe usar el atributo x-html= (T-02-01)');
+  });
+
+  test('app.css: .picker-row es hairline (border-bottom) y el tick es verde (D-13)', () => {
+    const idx = appCssSrc.indexOf('.picker-row {');
+    assert.ok(idx > -1, 'debe existir la regla .picker-row');
+    const rowWin = appCssSrc.slice(idx, idx + 400);
+    assert.ok(rowWin.includes('border-bottom'),
+      '.picker-row debe llevar un hairline border-bottom');
+    const tickIdx = appCssSrc.indexOf('.picker-row-tick {');
+    assert.ok(tickIdx > -1, 'debe existir la regla .picker-row-tick');
+    const tickWin = appCssSrc.slice(tickIdx, tickIdx + 300);
+    assert.ok(tickWin.includes('var(--ed-green)'),
+      'el tick .picker-row-tick debe ser verde var(--ed-green) (D-13)');
+  });
+
+  test('app.css: el bloque picker cita SRP-04 + literal contador y no introduce --pico-*', () => {
+    const banner = appCssSrc.indexOf('Pantalla PICKER de Repaso/Examen');
+    assert.ok(banner > -1, 'debe existir el banner del bloque picker (SRP-04)');
+    const tail = appCssSrc.slice(banner);
+    assert.ok(tail.includes('SRP-04'),
+      'el banner del bloque picker debe citar SRP-04');
+    assert.ok(!/var\(\s*--pico-|--pico-[\w-]+\s*:/.test(tail),
+      'el bloque picker NO debe introducir referencias --pico-* reales');
+    assert.ok(!/prefers-color-scheme/.test(appCssSrc),
+      'app.css NO debe añadir reglas prefers-color-scheme (dark-mode off, D-32-03)');
+  });
+});

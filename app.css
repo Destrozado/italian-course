@@ -1529,3 +1529,73 @@ th, td { padding: 8px 10px; text-align: left; }
   font-weight: 700;
   color: var(--ed-green);
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * Pantalla PICKER de Repaso/Examen — filas Editoriale + tick + contador
+ * (SRP-04, D-12/D-13/D-14)
+ * ─────────────────────────────────────────────────────────────────────────
+ * Filas hairline estilo Home (D-13): fila completa clicable (<label>), nombre
+ * serif (.cat-name) + sub-título cursiva (.cat-topic, split por paréntesis
+ * D-14/D-32-02) + check verde a la derecha cuando seleccionada. El checkbox
+ * nativo se oculta visualmente pero conserva @change/:checked (motor intacto).
+ * Contador (D-12) = categorías SELECCIONADAS (pickerSelectedCount, 34-01), NO
+ * el conteo de ejercicios (ese vive en pickerStartLabel / aviso test-completo).
+ * Verde reservado para el tick (UI-SPEC §Color). Sin --pico-*, dark-mode off
+ * (D-32-03 — sin reglas de media query de color). Gana por orden de fuente.
+ * ═══════════════════════════════════════════════════════════════════════════ */
+.picker-rows {
+  display: flex;
+  flex-direction: column;
+  margin-top: 16px;                /* md: bulk-actions -> filas */
+}
+.picker-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 12px 0;                 /* hairline, sin fondo (igual que .song-row) */
+  border-bottom: 1px solid var(--ed-border-soft);
+  cursor: pointer;
+}
+.picker-row:last-of-type {
+  border-bottom: none;
+}
+/* Checkbox nativo: oculto visualmente, conserva foco/teclado y el binding
+ * @change="pickerToggleCategory" / :checked VERBATIM. No usa display:none para
+ * no romper el tab-focus de la fila. */
+.picker-check-native {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+.picker-row-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+.picker-row-topic {
+  margin-top: 1px;
+}
+/* Check verde a la derecha cuando la categoría está seleccionada (D-13). Verde
+ * reservado (UI-SPEC §Color). Glyph ✓ hardcoded en el markup (T-02-01). */
+.picker-row-tick {
+  flex-shrink: 0;
+  font-family: var(--ed-font-sans);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ed-green);
+}
+/* Contador "{N} categorías seleccionadas" (D-12). Meta cursiva muted. */
+.picker-count {
+  margin: 16px 0 0;                /* md: filas -> contador */
+  font-family: var(--ed-font-serif);
+  font-style: italic;
+  font-size: 12.5px;
+  color: var(--ed-faint);
+}

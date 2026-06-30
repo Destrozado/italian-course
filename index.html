@@ -372,18 +372,48 @@
             <button type="button" class="secondary" @click="pickerClearAll">Quitar todo</button>
           </div>
 
-          <!-- Checkboxes por categoría (D-34: vacíos al entrar). -->
-          <fieldset>
+          <!--
+            Filas Editoriale del picker (SRP-04, D-13/D-14). Filas hairline
+            estilo Home: fila completa clicable (<label>) con nombre serif
+            (split por paréntesis, D-32-02/D-14) + sub-título cursiva del
+            paréntesis + check verde a la derecha cuando la categoría está
+            seleccionada (D-13). El <input type="checkbox"> nativo se oculta
+            visualmente (.picker-check-native) pero conserva
+            @change="pickerToggleCategory(cat.id)" y :checked VERBATIM (motor
+            intacto). D-34: vacíos al entrar. T-02-01: nombre/sub-título vía
+            x-text; ✓ es glyph hardcoded; nunca x-html.
+          -->
+          <div class="picker-rows">
             <template x-for="cat in content.categories" :key="cat.id">
-              <label>
-                <input type="checkbox"
+              <label class="picker-row">
+                <input type="checkbox" class="picker-check-native"
                        :value="cat.id"
                        :checked="pickerCheckedCategoryIds.includes(cat.id)"
                        @change="pickerToggleCategory(cat.id)">
-                <span x-text="cat.name"></span>
+                <span class="picker-row-body">
+                  <span class="cat-name picker-row-name"
+                        x-text="cat.name.split('(')[0].trim()"></span>
+                  <span class="cat-topic picker-row-topic"
+                        x-show="cat.name.includes('(')"
+                        x-text="cat.name.split('(')[1]?.replace(')', '').trim()"></span>
+                </span>
+                <span class="picker-row-tick" aria-hidden="true"
+                      x-show="pickerCheckedCategoryIds.includes(cat.id)">✓</span>
               </label>
             </template>
-          </fieldset>
+          </div>
+
+          <!--
+            Contador de categorías SELECCIONADAS (D-12). NO duplica el conteo de
+            ejercicios (ese vive en pickerStartLabel + aviso test-completo). Se
+            alimenta del getter pickerSelectedCount (34-01). Singular/plural por
+            dos ramas x-show; el número vía x-text, el sufijo hardcoded (T-02-01).
+          -->
+          <p class="picker-count">
+            <span x-text="pickerSelectedCount"></span>
+            <span x-show="pickerSelectedCount === 1">categoría seleccionada</span>
+            <span x-show="pickerSelectedCount !== 1">categorías seleccionadas</span>
+          </p>
 
           <!-- quick-260615-puq (feature todo #4): modo contrarreloj OPCIONAL.
                Aplica a repaso Y test-completo (mismo picker vía pickerMode).
