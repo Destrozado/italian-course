@@ -1024,3 +1024,148 @@ th, td { padding: 8px 10px; text-align: left; }
   opacity: 0.5;
   cursor: default;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════
+ * Phase 33 / Plan 03 — Word-buttons (EX-05) Editoriale, extrapolado (D-12)
+ *
+ * EX-05 NO está en el handoff: se extrapola el lenguaje CONSISTENTE con
+ * opción múltiple (33-02) sobre la mecánica intacta armar-y-comprobar:
+ *   - Banco (.wb-bank): píldoras serif sobre --ed-surface, borde
+ *     --ed-border-soft, radio --ed-radius-ghost (12). Flex-wrap preservado.
+ *   - Placed (.wb-placed): SE CONSERVA visibility:hidden — el hueco invisible
+ *     mantiene su caja, sin reflow (técnica quick-260615-str). NO se toca.
+ *   - Área respuesta (.wb-answer): hueco estable; relleno post-corrección
+ *     verde-subrayado (.correcta) / rojo-tachado (.incorrecta) — espejo del
+ *     gap-fill de multiple-choice (D-08), consumiendo --ed-green / --ed-red.
+ *   - .kbd-hint: 0.65em relativo, sans 500, --ed-faint.
+ *   - Comprobar deshabilitado: cta-disabled-bg #dcd7cb / cta-disabled-text
+ *     #a89f8c (valores literales del handoff, aislados aquí).
+ * app.css gana la cascada sobre styles.css (mismo specificity, orden fuente):
+ * sobreescribe los .wb-answer.incorrecta / .wb-correct-answer Pico legacy.
+ * Solo --ed-* (+ los 2 hexes literales de disabled); sin Pico, sin paleta nueva.
+ * ═══════════════════════════════════════════════════════════════════════ */
+
+/* Banco: contenedor flex-wrap (margen heredado del legacy, repintado abajo). */
+.wb-bank {
+  margin: 24px 0;                  /* lg, espejo de .session-prompt */
+}
+
+/* Píldora del banco: serif Editoriale sobre --ed-surface (consistente con MC). */
+.wb-bank button {
+  margin: 0;
+  padding: 10px 16px;
+  border: 1.5px solid var(--ed-border-soft);
+  border-radius: var(--ed-radius-ghost);   /* 12 */
+  background: var(--ed-surface);
+  color: var(--ed-ink);
+  font-family: var(--ed-font-serif);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.3;
+  cursor: pointer;
+  transition: border-color 150ms ease, background-color 180ms ease,
+              opacity 180ms ease;
+}
+
+@media (hover: hover) {
+  .wb-bank button:not(:disabled):hover {
+    border-color: var(--ed-ink);
+  }
+}
+
+.wb-bank button:focus-visible {
+  outline: 2px solid var(--ed-green);
+  outline-offset: 2px;
+}
+
+/* Placed: SE CONSERVA el placeholder invisible (no-reflow). styles.css ya lo
+ * declara; lo reafirmamos aquí para que el repaint no rompa la técnica. */
+.wb-placed {
+  visibility: hidden;
+}
+
+/* Área respuesta: hueco estilizado estable sobre --ed-surface. */
+.wb-answer {
+  min-height: 3rem;
+  padding: 14px 16px;
+  margin: 24px 0;
+  border: 1.5px solid var(--ed-border-soft);
+  border-radius: var(--ed-radius-feedback);   /* 14 */
+  background: var(--ed-surface);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  transition: border-color 180ms ease, background-color 180ms ease;
+}
+
+/* Botón de palabra ya colocada (dentro del área respuesta). */
+.wb-answer button {
+  margin: 0;
+  padding: 8px 14px;
+  border: 1.5px solid var(--ed-border-soft);
+  border-radius: var(--ed-radius-ghost);
+  background: var(--ed-surface);
+  color: var(--ed-ink);
+  font-family: var(--ed-font-serif);
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.3;
+  cursor: pointer;
+}
+.wb-answer button:focus-visible {
+  outline: 2px solid var(--ed-green);
+  outline-offset: 2px;
+}
+
+/* Placeholder italic muted cuando el área está vacía y sin feedback (D-58),
+ * repintado hacia --ed-faint (anula el muted Pico legacy). */
+.wb-answer-empty::before {
+  content: 'Construye la frase pulsando las palabras del banco...';
+  color: var(--ed-faint);
+  font-family: var(--ed-font-sans);
+  font-style: italic;
+}
+
+/* Relleno post-corrección (D-08), espejo de .session-gap de multiple-choice.
+ * Acierto: borde+texto verde (subrayado del conjunto vía borde inferior). */
+.wb-answer.correcta {
+  border-color: var(--ed-green);
+}
+.wb-answer.correcta button {
+  color: var(--ed-green);
+  border-color: var(--ed-green);
+  text-decoration: underline;
+  text-decoration-color: var(--ed-green);
+}
+/* Fallo: borde+texto rojo, palabras tachadas (red-strikethrough D-08).
+ * Sobreescribe el .wb-answer.incorrecta Pico legacy de styles.css. */
+.wb-answer.incorrecta {
+  border-color: var(--ed-red);
+  border-style: solid;
+}
+.wb-answer.incorrecta button {
+  color: var(--ed-red);
+  border-color: var(--ed-red);
+  text-decoration: line-through;
+  text-decoration-color: var(--ed-red);
+}
+
+/* Sufijo de tecla ¹..⁹ (D-69): 0.65em relativo, sans 500, --ed-faint.
+ * Sobreescribe el .kbd-hint Pico legacy (muted, 0.75em, weight 600). */
+.kbd-hint {
+  color: var(--ed-faint);
+  font-family: var(--ed-font-sans);
+  font-size: 0.65em;               /* relativo (≈10px sobre el serif 18) */
+  font-weight: 500;
+  margin-left: 0.25rem;
+}
+
+/* Comprobar deshabilitado (handoff): #dcd7cb fondo / #a89f8c texto. Aislado a
+ * la CTA del word-buttons; los .session-cta normales siguen verdes. */
+.session-cta:disabled {
+  background: #dcd7cb;             /* exception verbatim — handoff cta-disabled-bg */
+  color: #a89f8c;                  /* exception verbatim — handoff cta-disabled-text */
+  box-shadow: none;
+  cursor: default;
+}
