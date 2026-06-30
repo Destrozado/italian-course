@@ -170,6 +170,57 @@
   --ed-space-screen: 22px;
 }
 
+/* ─── Remap Pico tokens (FND-03 / GAP-01) — superficies heredan papel/tinta ─── */
+/*
+ * Cierra el GAP-01: Pico 2.1.1 pinta sus superficies de componente (<article>,
+ * <header>/<footer>, formularios, tablas) con sus tokens stock de tema claro,
+ * creando una "card" del color viejo encima del papel y dejando el banner ⚠ de
+ * export y los nombres de categoría sin contraste (texto ≈ fondo). Aquí se
+ * REDEFINEN los custom properties de color de Pico a la paleta Editoriale, de
+ * modo que TODA superficie pintada por Pico herede papel/tinta. Pico sigue
+ * cargado como base/reset — esto solo redefine sus variables, NO lo elimina
+ * (decisión bloqueada 32-CONTEXT D-03 / 32-UI-SPEC "Pico = base, dark mode off").
+ * Bloque separado y contiguo al :root de --ed-* para ganar la cascada con los
+ * tokens ya resueltos.
+ */
+:root {
+  /* Fondo / texto base */
+  --pico-background-color: var(--ed-paper);
+  --pico-color: var(--ed-ink);
+
+  /* Superficies de <article> y sus <header>/<footer> (CLAVE — el banner ⚠ vive
+   * en card-sectioning; sin esto la "card" del header tapaba el texto). NO se
+   * usa --ed-paper-elevated: ese es el ÚNICO color "card" intencional, reservado
+   * a tarjetas destacadas de P33-34, no a las superficies de Home. */
+  --pico-card-background-color: var(--ed-paper);
+  --pico-card-sectioning-background-color: var(--ed-paper);
+
+  /* Neutros / separadores */
+  --pico-muted-color: var(--ed-muted);
+  --pico-muted-border-color: var(--ed-hairline);
+
+  /* Headings → tinta Editoriale */
+  --pico-h1-color: var(--ed-ink);
+  --pico-h2-color: var(--ed-ink);
+  --pico-h3-color: var(--ed-ink);
+  --pico-h4-color: var(--ed-ink);
+  --pico-h5-color: var(--ed-ink);
+  --pico-h6-color: var(--ed-ink);
+
+  /* Acento primario: verde Editoriale en vez del azul stock de Pico
+   * (switch checked, focus, enlaces). */
+  --pico-primary: var(--ed-green);
+  --pico-primary-background: var(--ed-green);
+
+  /* Secundario ("Ir a Backup", botones .secondary): neutro legible sobre papel
+   * (texto/borde tinta-muted; fondo transparente para no competir con el papel). */
+  --pico-secondary: var(--ed-muted);
+  --pico-secondary-background: transparent;
+
+  /* Bordes de formularios/tablas → hairline ghost Editoriale */
+  --pico-border-color: var(--ed-border-soft);
+}
+
 /* ─── Base Editoriale sobre Pico (FND-03) — papel + serif/sans ─── */
 /*
  * El fondo papel y la tipografía Editoriale sustituyen la estética azul/blanca
