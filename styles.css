@@ -103,7 +103,9 @@ button.incorrecta {
 
 /* Aviso inline en el picker para Test completo (D-36). Texto plano discreto. */
 .picker-warning {
-  color: var(--pico-muted-color, #6c757d);
+  /* GAP-01: token Editoriale directo (--pico-muted-color ya está remapeado a
+   * --ed-muted en app.css; aquí se fija explícito con fallback) — legible sobre papel. */
+  color: var(--ed-muted, #6c757d);
   font-size: 0.9em;
   margin-top: 0.5rem;
 }
@@ -134,8 +136,11 @@ button.incorrecta {
  * botones interiores usan estilos Pico por defecto (el secundario gris).
  */
 .inflight-banner {
-  border: 1px solid var(--pico-color-amber-500, #f59e0b);
-  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid var(--ed-amber, #b9852f);
+  background: rgba(185, 133, 47, 0.08);
+  /* GAP-01: texto tinta explícito — AA >=4.5:1 sobre papel/amber-8%, no depende
+   * de la herencia frágil de --pico-color (ya remapeado) ni queda texto ≈ fondo. */
+  color: var(--ed-ink, #2b2722);
   padding: 0.75rem 1rem;
   border-radius: var(--pico-border-radius, 0.25rem);
   margin-bottom: 1rem;
@@ -333,8 +338,12 @@ button.incorrecta {
  * `margin-left: auto`.
  */
 .backup-banner {
-  border: 1px solid var(--pico-color-amber-500, #f59e0b);
-  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid var(--ed-amber, #b9852f);
+  background: rgba(185, 133, 47, 0.08);
+  /* GAP-01: texto tinta explícito ("Aún no has exportado tu progreso" + glyph ⚠)
+   * — AA >=4.5:1 sobre papel/amber-8%; el aviso lo lleva el border ámbar, no el
+   * color del texto. Sin esto el texto heredaba un color ≈ fondo y no se leía. */
+  color: var(--ed-ink, #2b2722);
   padding: 0.75rem 1rem;
   border-radius: var(--pico-border-radius, 0.25rem);
   margin-bottom: 1rem;
