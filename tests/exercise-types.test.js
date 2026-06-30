@@ -1521,11 +1521,16 @@ describe('quick-260615-hr0: ver explicación al acertar', () => {
   test('quick-260615-r3b (CAMBIO 1): el botón Siguiente de los 3 tipos usa x-show="sessionFeedback !== null"; la canción conserva incorrect + songAdvance', () => {
     const INDEX_SRC = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
 
-    // Los 3 botones Siguiente de ejercicio (multi-choice, word-buttons, match)
-    // se muestran SIEMPRE que haya feedback (acierto o fallo).
-    const siguienteNull = (INDEX_SRC.match(/x-show="sessionFeedback !== null"/g) ?? []).length;
-    assert.equal(siguienteNull, 3,
-      'los 3 botones Siguiente de ejercicio usan x-show="sessionFeedback !== null"');
+    // Los 3 botones de avance de ejercicio (multi-choice, word-buttons, match)
+    // se muestran SIEMPRE que haya feedback (acierto o fallo) y llaman a
+    // sessionAdvance. Phase 33 repintó la opción múltiple: el botón de avance es
+    // ahora la CTA "Continuar →" (los otros dos siguen como "Siguiente"); todos
+    // comparten @click="sessionAdvance" + el guard x-show="sessionFeedback !== null".
+    // (Se cuenta @click="sessionAdvance" en vez del guard global porque el guard
+    // ahora envuelve también la caja de feedback Editoriale de la opción múltiple.)
+    const avanceButtons = (INDEX_SRC.match(/x-show="sessionFeedback !== null"[\s\S]{0,80}@click="sessionAdvance">/g) ?? []).length;
+    assert.equal(avanceButtons, 3,
+      'los 3 botones de avance de ejercicio usan x-show="sessionFeedback !== null" + sessionAdvance');
 
     // La pantalla canción conserva su Siguiente (solo en fallo) + songAdvance.
     assert.match(INDEX_SRC, /x-show="sessionFeedback === 'incorrect'"[\s\S]{0,80}@click="songAdvance">Siguiente/,
