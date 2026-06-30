@@ -135,7 +135,9 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
   3. El **CTA verde Repaso 20** (ancho completo, título + subtítulo + flecha, sombra verde), la fila de 3 botones **ghost** (Test completo · Canciones · Backup) y el **switch Contrarreloj** se ven en estilo Editoriale y lanzan/conmutan exactamente el mismo comportamiento que hoy.
   4. Cada categoría se muestra en estilo editorial — punto de estado (verde dominado / ámbar en progreso / neutro sin empezar), nombre serif + tema en cursiva, barra de racha `streak/21` con meta "N/21 d · M ejercicios", y píldora **Examen** — con los datos reales del state.
   5. En **desktop** la Home se presenta como **tabla editorial** (Estado · Categoría · Racha · Ejercicios · Examen) con papel/serif/hairlines, conservando toda la funcionalidad (lanzar práctica de categoría, Examen 1-clic).
-**Plans**: TBD
+**Plans**: 2 plans (wave 1 cimientos → wave 2 Home)
+- [ ] 32-01-PLAN.md — Cimientos Editoriale: tokens `--ed-*` + 3 fuentes auto-hospedadas en `vendor/fonts/` + capa `app.css` sobre Pico + tricolore + dark-mode off + reconciliación `.badge-*` a D-01 (FND-01..04)
+- [ ] 32-02-PLAN.md — Rediseño Home/Categorías: cabecera serif + CTA verde Repaso 20 + fila ghost + switch Contrarreloj + filas de categoría (dot/streak/píldora) + tabla editorial desktop + getter `streakDays` (HOME-01..06)
 **UI hint**: yes
 
 #### Phase 33: Pantallas de ejercicio
@@ -175,7 +177,7 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
 | 18-20 | v1.5 | 7/7 | Complete | 2026-06-05 |
 | 21-27 | v1.6 | 19/19 | Complete | 2026-06-09 |
 | 29-31 | v1.7 | 6/6 | Complete | 2026-06-17 |
-| 32. Cimientos visuales + Home/Categorías | v1.8 | 0/TBD | Not started | - |
+| 32. Cimientos visuales + Home/Categorías | v1.8 | 0/2 | Not started | - |
 | 33. Pantallas de ejercicio | v1.8 | 0/TBD | Not started | - |
 | 34. Canciones · Resultados · Picker | v1.8 | 0/TBD | Not started | - |
 
