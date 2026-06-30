@@ -195,6 +195,39 @@
 
 ---
 
+## Milestone: v1.8 — Rediseño visual "Editoriale"
+
+**Shipped:** 2026-06-30
+**Phases:** 3 (32-34) | **Plans:** 12 | **Tasks:** 15 | **Requirements:** 19/19
+
+### What Was Built
+El rediseño visual "Editoriale" aplicado a las 8 pantallas (papel cálido, serif Spectral/Hanken/Space Grotesk auto-hospedadas, acento verde/rojo, tricolore): cimientos de tokens + fuentes + `app.css` y Home/Categorías (32), pantallas de ejercicio con barra superior unificada (33), y canciones/reproducción/resultados/picker (34). Brownfield UI puro — el motor (cascada D-54, sampler, slot-engine, localStorage, schema) no se tocó.
+
+### What Worked
+- **Pipeline GSD completo por fase** (discuss → ui-phase → plan → execute → code-review → verify → secure) mantuvo cada pantalla verificada antes de avanzar; el audit de milestone solo re-confirmó (19/19 reqs, integración 47/47, 5/5 flows).
+- **Cimientos primero** (tokens/getters en un plan wave-1 que las demás consumen) evitó re-derivar datos y redefinir tokens en cada pantalla.
+- **UI-SPEC + locked decisions (D-01..D-16)** dejaron el repintado sin ambigüedad; el checker upgradeó a 6/6 tras anclar D-15/D-16 (escala/espaciado heredados del handoff) como decisiones explícitas.
+- **Quórum de subagentes** (pattern-mapper, code-reviewer, verifier, integration-checker) cazó la inconsistencia cosmética del `correcta` toggle y confirmó cero `x-html`.
+
+### What Was Inefficient
+- **La eliminación de Pico (GAP-01) dejó un reset base sin migrar** (`<figure>`), que se manifestó como **bug grave de márgenes en móvil** descubierto post-cierre por el autor — no por la suite (los tests no renderizan CSS). Hotfix `13b5631`.
+- **Bookkeeping de frontmatter:** los SUMMARY de Phase 33 no poblaron `requirements_completed`; el audit tuvo que verificar EX-01..05 por otras fuentes.
+- v1.8 desktop-only por diseño dejó el responsive como deuda; el bug de móvil demuestra que "desktop-only" no exime de no-romper-móvil.
+
+### Patterns Established
+- **Repintado brownfield serializado por archivo compartido:** cuando N pantallas comparten `index.html`+`app.css`, una pantalla por wave (no paralelo) evita conflictos; cimientos (getters/tokens) en wave 1.
+- **Locked-inherited deviations:** cuando los valores vienen verbatim de un handoff, anclarlos como decisiones explícitas (D-15/D-16) para que los checkers greenfield no los marquen.
+- **CSS reset migration checklist:** al quitar un framework base (Pico), auditar TODOS los resets de elementos desnudos (`figure`, `figure`, `fieldset`, `table`…), no solo los que tienen estilo propio.
+
+### Key Lessons
+- **Los tests de estructura no cubren regresiones de layout/CSS.** Un "desktop-only" verificado puede esconder un bug grave de móvil. Añadido guard source-assert para el reset de `figure`; idealmente un harness headless (Playwright) para layout.
+- **El audit formal valió:** aunque cada fase ya estaba verificada, el integration-checker dio la foto cross-phase (tokens→consumo, top-bar reuse, getter→template) que ninguna verificación de fase aislada da.
+
+### Cost Observations
+- Model mix: orquestación Opus; subagentes verify/review/integration en Sonnet (perfil quality). 
+- Sesiones: 1 sesión larga (discuss→ship→hotfix), con loop autónomo entre gates esperando UAT humano.
+- Notable: el bug más caro (márgenes móvil) lo encontró el humano en 30s de uso real — barato comparado con no encontrarlo; refuerza UAT humano + harness visual.
+
 ## Cross-Milestone Trends
 
 ### Process Evolution
