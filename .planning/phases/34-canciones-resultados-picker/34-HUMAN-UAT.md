@@ -1,9 +1,10 @@
 ---
-status: partial
+status: resolved
 phase: 34-canciones-resultados-picker
 source: [34-VERIFICATION.md]
 started: 2026-06-30
 updated: 2026-06-30
+resolved_via: 34-UAT.md (7/7 pass, 0 issues)
 ---
 
 ## Current Test

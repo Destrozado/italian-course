@@ -1,9 +1,10 @@
 ---
 phase: 34-canciones-resultados-picker
 verified: 2026-06-30T12:00:00Z
-status: human_needed
+status: passed
 score: 13/13
 overrides_applied: 0
+human_verification_resolved: 2026-06-30 (via 34-UAT.md — 7/7 pass, 0 issues)
 human_verification:
   - test: "Canciones screen: featured Continuar/Empezar card renders for the first pending song with state-based progress bar, tinted cover tile and green overline"
     expected: "First no-hecha/fallada song shows EMPEZAR or CONTINUAR overline in green; state-based bar fills according to status; cover tile shows serif initial; card hidden when all songs are pasada"
