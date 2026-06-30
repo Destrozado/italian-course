@@ -2997,7 +2997,10 @@ export function appShell(appDataReady) {
           examenEnabled,
           examenTooltip: examenEnabled ? '' : 'No hay ejercicios en esta categoría',
           // quick-260615-nzi: contador de veces fallada (lazy-init ?? 0, D-47).
-          vecesFallada: progress?.vecesFallada ?? 0
+          vecesFallada: progress?.vecesFallada ?? 0,
+          // Phase 32 (HOME-04): valor crudo de racha para el ancho de la barra
+          // streak/21 (presentacional; `streak` ya computado arriba). NO toca lógica.
+          streakDays: streak
         };
       });
     },
