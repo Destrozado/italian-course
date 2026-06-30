@@ -1,10 +1,11 @@
 ---
 phase: 33
 slug: pantallas-de-ejercicio
-status: draft
+status: approved
 shadcn_initialized: false
 preset: none
 created: 2026-06-30
+reviewed_at: 2026-06-30
 ---
 
 # Phase 33 — UI Design Contract
@@ -91,7 +92,7 @@ All sizes/weights below come from `design_handoff_italiano_redesign/README.md` �
 | Bottom CTA / secondary buttons | Hanken Grotesk | 16px | 700 | 1 |
 | Progress counter `NN/NN` | Space Grotesk | 13px | 700 | 1 |
 | Timer chip seconds | Space Grotesk | 13px | 700 | 1 |
-| Word-buttons key superscript (`.kbd-hint`) | Hanken Grotesk | ~10px | 500 | 1 · color `--ed-faint` |
+| Word-buttons key superscript (`.kbd-hint`) | Hanken Grotesk | `0.65em` (relative, derived ≈10px) | 500 | 1 · color `--ed-faint` |
 
 **Match-note size resolution (checker flag):** the match note was 12.5px, only 0.5px below the 13px meta/body size — too close to read as a distinct step. Resolved to **12px** (nearest 4-multiple, a clear step below 13). This stays within the handoff's stated subtitle band of "12.5–14" (§Tipografía), and the note is additionally distinguished by *italic* style and the lighter `--ed-faint` color. Update `.match-note` (or equivalent) to 12px italic.
 
@@ -236,14 +237,14 @@ No component registry is in use — the stack is vanilla HTML + Alpine + hand-wr
 
 ## Checker Sign-Off
 
-- [ ] Dimension 1 Copywriting: PASS
-- [ ] Dimension 2 Visuals: PASS
-- [ ] Dimension 3 Color: PASS
-- [ ] Dimension 4 Typography: PASS
-- [ ] Dimension 5 Spacing: PASS
-- [ ] Dimension 6 Registry Safety: PASS
+- [x] Dimension 1 Copywriting: PASS
+- [x] Dimension 2 Visuals: PASS
+- [x] Dimension 3 Color: PASS
+- [x] Dimension 4 Typography: PASS (1 non-blocking FLAG — `.kbd-hint` resolved to relative `em`, see §Typography)
+- [x] Dimension 5 Spacing: PASS
+- [x] Dimension 6 Registry Safety: PASS
 
-**Approval:** pending
+**Approval:** APPROVED 2026-06-30 (gsd-ui-checker, revision 1 — 6/6 dimensions pass)
 
 ---
 
