@@ -423,8 +423,12 @@
             <span>Contrarreloj <small>(tiempo por respuesta)</small></span>
           </label>
 
-          <!-- Botón Empezar con label dinámico (D-35). -->
+          <!-- Botón Empezar con label dinámico (D-35). CTA primaria Editoriale
+               verde (SRP-04): reusa .session-cta (verde + sombra + estado
+               disabled, app.css L859/L1175), sin redefinir. @click/:disabled/
+               x-text VERBATIM (motor intacto). -->
           <button type="button"
+                  class="session-cta picker-cta"
                   @click="startSession"
                   :disabled="pickerPoolSize === 0"
                   x-text="pickerStartLabel"></button>

@@ -928,3 +928,50 @@ describe('Phase 34-03 — Task 1: picker filas Editoriale + tick + contador (D-1
       'app.css NO debe añadir reglas prefers-color-scheme (dark-mode off, D-32-03)');
   });
 });
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Phase 34 (Plan 34-03, Task 2) — Picker: CTA Empezar repintada a .session-cta
+//   · botón Empezar lleva class="session-cta" (verde + sombra + disabled reusados)
+//   · @click="startSession" / :disabled="pickerPoolSize === 0" / x-text="pickerStartLabel" VERBATIM
+//   · aviso test-completo (.picker-warning) intacto; sin x-html
+// ─────────────────────────────────────────────────────────────────────────────
+describe('Phase 34-03 — Task 2: CTA Empezar = .session-cta (SRP-04)', () => {
+  function pickerWindow() {
+    const start = indexSrc.indexOf('Pantalla PICKER');
+    const sessionBanner = indexSrc.indexOf('Pantalla SESSION', start);
+    return indexSrc.slice(start, sessionBanner > -1 ? sessionBanner : start + 4000);
+  }
+
+  test('index.html: Empezar lleva class="session-cta" y conserva startSession/pickerStartLabel/:disabled', () => {
+    const window = pickerWindow();
+    // El botón con x-text="pickerStartLabel" es el Empezar; debe llevar session-cta.
+    const ctaIdx = window.indexOf('x-text="pickerStartLabel"');
+    assert.ok(ctaIdx > -1, 'debe existir el botón Empezar (x-text="pickerStartLabel")');
+    // El <button> que abre justo antes del binding pickerStartLabel.
+    const btnStart = window.lastIndexOf('<button', ctaIdx);
+    const btnBlock = window.slice(btnStart, ctaIdx + 30);
+    assert.ok(/class="session-cta(\s|")/.test(btnBlock) || /class="session-cta /.test(btnBlock),
+      'el botón Empezar debe llevar la clase session-cta');
+    assert.ok(btnBlock.includes('@click="startSession"'),
+      'Empezar debe conservar @click="startSession" verbatim');
+    assert.ok(btnBlock.includes(':disabled="pickerPoolSize === 0"'),
+      'Empezar debe conservar :disabled="pickerPoolSize === 0" verbatim');
+  });
+
+  test('index.html: el aviso test-completo (.picker-warning) sigue intacto', () => {
+    const window = pickerWindow();
+    assert.ok(/class="picker-warning"/.test(window),
+      'el aviso .picker-warning debe seguir presente');
+    assert.ok(/x-show="pickerMode === 'test-completo' && pickerPoolSize > 0"/.test(window),
+      'el aviso debe conservar su x-show sobre pickerMode/pickerPoolSize verbatim');
+  });
+
+  test('app.css: .session-cta NO se redefine en el bloque picker (solo .picker-cta de layout)', () => {
+    const banner = appCssSrc.indexOf('Pantalla PICKER de Repaso/Examen');
+    const tail = appCssSrc.slice(banner);
+    assert.ok(!/\.session-cta\s*\{/.test(tail),
+      'el bloque picker NO debe redefinir .session-cta (se reusa la regla existente)');
+    assert.ok(/\.picker-cta\s*\{/.test(tail),
+      'el bloque picker debe definir .picker-cta (layout/espaciado de contexto)');
+  });
+});

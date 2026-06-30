@@ -1599,3 +1599,11 @@ th, td { padding: 8px 10px; text-align: left; }
   font-size: 12.5px;
   color: var(--ed-faint);
 }
+/* CTA Empezar (SRP-04): REUSA .session-cta (verde + sombra + disabled, app.css
+ * L859/L1175 — no se redefine). Solo se añade el layout/espaciado de contexto
+ * del picker (full-width + margen superior). */
+.picker-cta {
+  display: flex;                   /* full-width en el picker (override del inline-flex de .session-cta) */
+  width: 100%;
+  margin-top: 24px;                /* lg: Contrarreloj -> CTA */
+}
