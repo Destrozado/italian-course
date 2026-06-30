@@ -172,7 +172,7 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
   4. El **picker** de Repaso/Examen se ve en estilo Editoriale (checkboxes/selección, Seleccionar/Quitar todo, contador) conservando su comportamiento de selección de categorías.
 **Plans**: 5 plans (wave 1 cimientos getters/tokens → waves 2-5 una pantalla por ola, serializadas por compartir `index.html`+`app.css`)
 - [x] 34-01-PLAN.md — Cimientos: extender `songsForDisplay` (split título→artista + meta + featured) + getter `summaryScore` (X/Y del snapshot) + getter contador picker + `badge-pasada`/`badge-fallada` + tokens net-new (`--ed-green-dark`/`--ed-placeholder`/`--ed-ring-track`) (SRP-01/03/04)
-- [ ] 34-02-PLAN.md — Canciones: tarjeta destacada Continuar/Empezar (primera pendiente, barra por estado) + lista de filas con cover tile rayado + título serif/meta cursiva + punto de estado (SRP-01)
+- [x] 34-02-PLAN.md — Canciones: tarjeta destacada Continuar/Empezar (primera pendiente, barra por estado) + lista de filas con cover tile rayado + título serif/meta cursiva + punto de estado (SRP-01)
 - [ ] 34-03-PLAN.md — Picker: filas hairline (nombre serif + subtítulo cursiva + tick verde) + contador "N categorías seleccionadas" + CTA `.session-cta` Empezar, handlers verbatim (SRP-04)
 - [ ] 34-04-PLAN.md — Reproducción de canción: barra superior Editoriale (atrás circular ‹ + progreso verde + "Frase X/N", SIN chip de cronómetro) + prompt serif, word-buttons heredados (SRP-02)
 - [ ] 34-05-PLAN.md — Resultados: anillo de score `conic-gradient` + "X/Y correctos" (todos los modos) + cascada CATEGORÍAS AFECTADAS con píldora FALLÓ + tarjetas de error Editoriale (override de `--pico-*` legacy por orden de fuente) (SRP-03)
