@@ -413,17 +413,14 @@ describe('Canciones — quick-260615-nzi: contador vecesFallada por canción', (
     assert.equal(solo.vecesFallada, 0, 'canción sin entrada → lazy-init 0');
   });
 
-  test('index.html: indicador "fallada xN" en categorías y canciones con x-show N>0', () => {
+  test('index.html: indicador "fallada xN" en categorías con x-show N>0', () => {
     // Categoría: el indicador usa cat.vecesFallada con x-show > 0.
     assert.ok(/x-show="cat\.vecesFallada > 0"/.test(indexSrc),
       'la fila de categoría debe mostrar el indicador solo si vecesFallada > 0');
     assert.ok(/`fallada x\$\{cat\.vecesFallada\}`/.test(indexSrc),
       'el indicador de categoría debe renderizar "fallada xN" vía x-text');
-    // Canción: idem con song.vecesFallada.
-    assert.ok(/x-show="song\.vecesFallada > 0"/.test(indexSrc),
-      'la fila de canción debe mostrar el indicador solo si vecesFallada > 0');
-    assert.ok(/`fallada x\$\{song\.vecesFallada\}`/.test(indexSrc),
-      'el indicador de canción debe renderizar "fallada xN" vía x-text');
+    // El indicador de canción (song.vecesFallada) vive ahora en las filas
+    // Editoriale repintadas — se verifica en el bloque Phase 34-02 Task 2.
   });
 });
 
@@ -635,10 +632,107 @@ describe('Phase 34-01 — Task 2: tokens net-new + badge de canción (D-07)', ()
     const banner = appCssSrc.indexOf('Tríada de estado de CANCIÓN');
     assert.ok(banner > -1, 'debe existir el banner del bloque badge de canción al fondo de app.css');
     const tail = appCssSrc.slice(banner);
-    assert.ok(!/--pico-/.test(tail),
+    // Una referencia REAL es `var(--pico-...)` o una definición `--pico-...:`.
+    // Las menciones en PROSA de comentarios ("cero --pico-*") no son referencias
+    // y no deben disparar el guard (mismo criterio que la deviation 34-01 #1).
+    assert.ok(!/var\(\s*--pico-|--pico-[\w-]+\s*:/.test(tail),
       'el bloque badge/token nuevo (Phase 34, fondo) NO debe introducir referencias --pico-*');
     // Dark-mode forzado OFF (D-32-03): ninguna regla prefers-color-scheme en app.css.
     assert.ok(!/prefers-color-scheme/.test(appCssSrc),
       'app.css NO debe añadir reglas prefers-color-scheme (dark-mode off, D-32-03)');
+  });
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Phase 34 (Plan 34-02, Task 1) — Tarjeta DESTACADA Continuar/Empezar (SRP-01)
+//   · render gated por song.featured (D-01); oculta cuando todas pasada (D-04)
+//   · overline CONTINUAR (fallada) / EMPEZAR (no-hecha) hardcoded por rama (D-03)
+//   · superficie --ed-paper-elevated + --ed-radius-card (NO el verde del CTA)
+//   · barra por ESTADO, sin fracción numérica (D-02)
+//   · @click reusa startSong(song.id) verbatim; T-02-01: x-text only, no x-html
+// ─────────────────────────────────────────────────────────────────────────────
+describe('Phase 34-02 — Task 1: tarjeta destacada Continuar/Empezar (D-01..D-04)', () => {
+  test('index.html: la tarjeta destacada se renderiza gated por song.featured (D-01/D-04)', () => {
+    const idx = indexSrc.indexOf("currentScreen === 'canciones'");
+    assert.ok(idx > -1, 'debe existir el template del listado de canciones');
+    const window = indexSrc.slice(idx, idx + 3500);
+    assert.ok(/class="song-featured"/.test(window),
+      'debe existir la tarjeta .song-featured');
+    assert.ok(/x-show="song\.featured"/.test(window),
+      'la tarjeta destacada debe estar gated por x-show="song.featured" (D-01); sin featured no se renderiza (D-04)');
+  });
+
+  test('index.html: overline CONTINUAR/EMPEZAR hardcoded por rama de estado (D-03, T-02-01)', () => {
+    const idx = indexSrc.indexOf("currentScreen === 'canciones'");
+    const window = indexSrc.slice(idx, idx + 3500);
+    assert.ok(window.includes('>CONTINUAR<'),
+      'el overline debe llevar el literal CONTINUAR hardcoded (D-03)');
+    assert.ok(window.includes('>EMPEZAR<'),
+      'el overline debe llevar el literal EMPEZAR hardcoded (D-03)');
+    assert.ok(/x-show="song\.status === 'fallada'"/.test(window),
+      'CONTINUAR debe mostrarse cuando status === fallada (D-03)');
+    assert.ok(/x-show="song\.status === 'no-hecha'"/.test(window),
+      'EMPEZAR debe mostrarse cuando status === no-hecha (D-03)');
+  });
+
+  test('index.html: la tarjeta destacada reusa startSong(song.id) y x-text (T-02-01)', () => {
+    const idx = indexSrc.indexOf('class="song-featured"');
+    assert.ok(idx > -1, 'la tarjeta destacada debe existir');
+    const window = indexSrc.slice(idx, idx + 1200);
+    assert.ok(window.includes('startSong(song.id)'),
+      'la tarjeta destacada debe reusar @click="startSong(song.id)" verbatim');
+    assert.ok(window.includes('x-text="song.titleDisplay"'),
+      'el título destacado debe renderizarse con x-text="song.titleDisplay"');
+    assert.ok(window.includes('x-text="song.artist"'),
+      'el artista destacado debe renderizarse con x-text="song.artist"');
+  });
+
+  test('index.html: la barra destacada NO lleva fracción numérica (D-02)', () => {
+    const idx = indexSrc.indexOf('class="song-featured"');
+    const window = indexSrc.slice(idx, idx + 1200);
+    assert.ok(/song-featured-bar/.test(window),
+      'debe existir la barra de estado .song-featured-bar');
+    // No debe haber binding de fracción/porcentaje numérico en la barra (D-02).
+    assert.ok(!/phraseCount|huecos|\/\s*\$\{|\bpct\b/.test(window),
+      'la barra destacada NO debe mostrar fracción "9/14" ni N huecos (D-02, estado-only)');
+  });
+
+  test('index.html: NO se usa el atributo x-html= en el bloque canciones (T-02-01 anti-XSS)', () => {
+    // Ventana acotada al template de canciones (hasta el banner del PICKER).
+    const start = indexSrc.indexOf("currentScreen === 'canciones'");
+    const pickerBanner = indexSrc.indexOf('Pantalla PICKER', start);
+    const window = indexSrc.slice(start, pickerBanner > -1 ? pickerBanner : start + 3500);
+    // El binding peligroso es el ATRIBUTO `x-html=`; las menciones en prosa de
+    // comentarios ("nunca x-html") son documentación, no uso.
+    assert.ok(!/x-html\s*=/.test(window),
+      'el bloque canciones NO debe usar el atributo x-html= (T-02-01)');
+  });
+
+  test('app.css: .song-featured usa --ed-paper-elevated + --ed-radius-card (NO el verde del CTA)', () => {
+    const idx = appCssSrc.indexOf('.song-featured {');
+    assert.ok(idx > -1, 'debe existir la regla .song-featured');
+    const window = appCssSrc.slice(idx, idx + 500);
+    assert.ok(window.includes('var(--ed-paper-elevated)'),
+      '.song-featured debe usar superficie --ed-paper-elevated (no el relleno verde del home-cta)');
+    assert.ok(window.includes('var(--ed-radius-card)'),
+      '.song-featured debe usar --ed-radius-card (radio 18)');
+    assert.ok(window.includes('var(--ed-shadow-card)'),
+      '.song-featured debe usar --ed-shadow-card');
+  });
+
+  test('app.css: la barra destacada clona la técnica currentColor de .streak-bar (D-02)', () => {
+    const idx = appCssSrc.indexOf('.song-featured-bar-fill');
+    assert.ok(idx > -1, 'debe existir .song-featured-bar-fill');
+    const window = appCssSrc.slice(idx, idx + 300);
+    assert.ok(window.includes('currentColor'),
+      'el relleno de la barra debe usar currentColor (del badge-${status}, D-02)');
+  });
+
+  test('app.css: el bloque canciones cita SRP-01/D-01..D-04 y no introduce --pico-*', () => {
+    const banner = appCssSrc.indexOf('Pantalla CANCIONES');
+    assert.ok(banner > -1, 'debe existir el banner del bloque canciones (SRP-01)');
+    const tail = appCssSrc.slice(banner);
+    assert.ok(!/var\(\s*--pico-|--pico-[\w-]+\s*:/.test(tail),
+      'el bloque canciones NO debe introducir referencias --pico-* reales (var() o definición)');
   });
 });

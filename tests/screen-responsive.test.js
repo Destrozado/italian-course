@@ -65,18 +65,22 @@ describe('Phase 28 — patrones del contrato dentro del media query', () => {
 });
 
 describe('Phase 28 — data-label en las celdas clave (index.html)', () => {
-  test('index.html tiene exactamente 8 atributos data-label (5 home + 3 canciones)', () => {
+  // Phase 34 (SRP-01): la pantalla CANCIONES se repintó al lenguaje Editoriale
+  // y dejó de usar <table> → desaparecen sus 3 celdas data-label
+  // (Estado/Frases/Jugar). La tabla del HOME (5 celdas) se conserva intacta.
+  // v1.8 es desktop-only; el responsive de las pantallas Phase 34 está diferido
+  // (CONTEXT 34 §deferred). Por eso ahora hay 5 data-label, no 8.
+  test('index.html tiene exactamente 5 atributos data-label (tabla home; canciones ya no usa tabla)', () => {
     const matches = html.match(/data-label=/g) || [];
     assert.equal(
       matches.length,
-      8,
-      'esperados 8 data-label: home [Estado/Racha/Ejercicios/Última vez/Examen] + canciones [Estado/Frases/Jugar]'
+      5,
+      'esperados 5 data-label de la tabla home [Estado/Racha/Ejercicios/Última vez/Examen]; canciones se repintó Editoriale sin tabla (Phase 34 SRP-01)'
     );
   });
 
-  test('los botones LOCKED quedan etiquetados: data-label="Examen" y data-label="Jugar"', () => {
-    assert.ok(html.includes('data-label="Examen"'), 'la celda del botón Examen debe llevar data-label="Examen"');
-    assert.ok(html.includes('data-label="Jugar"'), 'la celda del botón Jugar debe llevar data-label="Jugar"');
+  test('el botón LOCKED del home queda etiquetado: data-label="Examen"', () => {
+    assert.ok(html.includes('data-label="Examen"'), 'la celda del botón Examen (home) debe llevar data-label="Examen"');
   });
 });
 

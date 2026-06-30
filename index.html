@@ -272,42 +272,47 @@
         glyph del badge es texto LITERAL en el HTML (fijo, NO viene del JSON).
       -->
       <template x-if="currentScreen === 'canciones'">
-        <article>
-          <header><h2>Canciones</h2></header>
+        <article class="songs-screen">
+          <header class="songs-header">
+            <p class="home-overline">Canciones</p>
+            <h2 class="songs-title">Canta y rellena</h2>
+          </header>
 
-          <figure>
-            <table>
-              <thead>
-                <tr>
-                  <th scope="col">Estado</th>
-                  <th scope="col">Canción</th>
-                  <th scope="col">Frases</th>
-                  <th scope="col">Jugar</th>
-                </tr>
-              </thead>
-              <tbody>
-                <template x-for="song in songsForDisplay" :key="song.id">
-                  <tr>
-                    <td data-label="Estado">
-                      <span :class="`badge-${song.status}`"
-                            :aria-label="song.statusLabel"></span>
-                      <span x-text="song.statusLabel"></span>
-                    </td>
-                    <td>
-                      <span x-text="song.title"></span>
-                      <small x-show="song.vecesFallada > 0"
-                             x-text="`fallada x${song.vecesFallada}`"></small>
-                    </td>
-                    <td data-label="Frases" x-text="song.phraseCount"></td>
-                    <td data-label="Jugar">
-                      <button type="button"
-                              @click="startSong(song.id)">Jugar</button>
-                    </td>
-                  </tr>
-                </template>
-              </tbody>
-            </table>
-          </figure>
+          <!--
+            Tarjeta DESTACADA "Continuar / Empezar" (SRP-01, D-01/D-02/D-03/D-04).
+            Se renderiza SOLO para la fila con song.featured === true (primera
+            no-hecha|fallada en orden de lista, computada en songsForDisplay).
+            Cuando TODAS las canciones están pasada NO hay featured → el x-for
+            no produce ninguna tarjeta (D-04: la ausencia es la señal).
+            El overline (CONTINUAR/EMPEZAR) es texto LITERAL por rama x-show
+            (D-03, T-02-01: nunca x-html). La barra es por ESTADO, sin fracción
+            numérica (D-02). El @click reusa startSong(song.id) verbatim.
+          -->
+          <template x-for="song in songsForDisplay" :key="`featured-${song.id}`">
+            <button type="button"
+                    class="song-featured"
+                    x-show="song.featured"
+                    :class="`badge-${song.status}`"
+                    @click="startSong(song.id)">
+              <span class="song-featured-cover" aria-hidden="true"
+                    x-text="song.titleDisplay.charAt(0)"></span>
+              <span class="song-featured-body">
+                <span class="home-overline song-featured-overline">
+                  <span x-show="song.status === 'fallada'">CONTINUAR</span>
+                  <span x-show="song.status === 'no-hecha'">EMPEZAR</span>
+                </span>
+                <span class="song-featured-title" x-text="song.titleDisplay"></span>
+                <span class="song-featured-artist" x-show="song.artist"
+                      x-text="song.artist"></span>
+                <span class="song-featured-bar">
+                  <span class="song-featured-bar-fill"></span>
+                </span>
+                <span class="song-featured-cta">
+                  Continuar <span class="home-cta-arrow" aria-hidden="true">→</span>
+                </span>
+              </span>
+            </button>
+          </template>
 
           <hr>
           <button type="button" class="secondary" @click="currentScreen = 'home'">← Volver al home</button>

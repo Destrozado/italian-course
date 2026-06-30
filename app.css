@@ -1321,3 +1321,125 @@ th, td { padding: 8px 10px; text-align: left; }
  * ═════════════════════════════════════════════════════════════════════════ */
 .badge-pasada  { color: var(--ed-green); font-weight: 600; }
 .badge-fallada { color: var(--ed-red);   font-weight: 600; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * Phase 34 (SRP-01 / D-01..D-04) — Pantalla CANCIONES · tarjeta DESTACADA
+ * ─────────────────────────────────────────────────────────────────────────
+ * Repinta la lista de Canciones en lenguaje Editoriale. Esta primera sección
+ * cubre la tarjeta "Continuar/Empezar" (D-01 = primera pendiente; oculta si
+ * todas pasada, D-04). Copia la estructura del CTA elevado .home-cta (L470)
+ * pero sobre superficie --ed-paper-elevated (radio 18 --ed-radius-card, sombra
+ * --ed-shadow-card) en lugar del relleno verde sólido (delta de 34-PATTERNS).
+ *
+ * El overline CONTINUAR/EMPEZAR copia .home-overline en verde (D-03). La barra
+ * de progreso es POR ESTADO, sin fracción numérica (D-02): clona la técnica de
+ * .streak-bar/.streak-bar-fill (L592), `currentColor` del badge-${status}.
+ *
+ * Bloque al FONDO de app.css → gana la cascada por orden de fuente. Consume
+ * solo tokens --ed-*; cero --pico-*. Sin reglas de tema oscuro (D-32-03).
+ * ═════════════════════════════════════════════════════════════════════════ */
+.songs-header {
+  margin-bottom: 16px;             /* exception verbatim (header -> card) */
+  border: none;
+  padding: 0;
+}
+.songs-title {
+  font-family: var(--ed-font-serif);
+  font-size: 30px;                 /* UI-SPEC §Tipografía: Canciones title 30/600 */
+  font-weight: 600;
+  letter-spacing: -0.4px;
+  line-height: 1.1;
+  color: var(--ed-ink);
+  margin: 4px 0 0;
+}
+
+/* Tarjeta destacada: superficie elevada (NO el verde del .home-cta). El
+ * `color` lo fija badge-${status} y alimenta `currentColor` de la barra. */
+.song-featured {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  text-align: left;
+  padding: 16px;                   /* md grid */
+  border: none;
+  border-radius: var(--ed-radius-card);
+  background: var(--ed-paper-elevated);
+  box-shadow: var(--ed-shadow-card);
+  cursor: pointer;
+  margin-bottom: 16px;             /* card -> (lista, plan 02 task 2) */
+}
+.song-featured-cover {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 66px;                     /* exception verbatim — handoff §4 (portada destacada 66px) */
+  height: 66px;                    /* exception verbatim — handoff §4 */
+  border-radius: 11px;             /* exception verbatim — handoff §4 (portada radio 11) */
+  background: repeating-linear-gradient(
+    135deg,
+    var(--ed-green-dark) 0,
+    var(--ed-green-dark) 7px,
+    var(--ed-green) 7px,
+    var(--ed-green) 14px
+  );
+  color: var(--ed-surface);
+  font-family: var(--ed-font-serif);
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1;
+}
+.song-featured-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+/* Overline verde dinámico (D-03): hereda .home-overline; aquí se fuerza verde. */
+.song-featured-overline {
+  color: var(--ed-green);
+  margin-bottom: 4px;
+}
+.song-featured-title {
+  font-family: var(--ed-font-serif);
+  font-size: 19px;                 /* UI-SPEC §Tipografía: featured 19/600 */
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--ed-ink);
+}
+.song-featured-artist {
+  font-family: var(--ed-font-serif);
+  font-style: italic;
+  font-size: 12.5px;
+  color: var(--ed-faint);
+  margin-top: 1px;
+}
+/* Barra por ESTADO, SIN fracción (D-02): clon de .streak-bar; el relleno usa
+ * `currentColor` (del badge-${status}). Ancho fijo por estado — la card solo
+ * destaca pendientes (fallada/no-hecha), nunca pasada (D-04). */
+.song-featured-bar {
+  position: relative;
+  height: 4px;                     /* xs grid */
+  border-radius: var(--ed-radius-pill);
+  background: var(--ed-streak-track);
+  overflow: hidden;
+  margin-top: 10px;
+}
+.song-featured-bar-fill {
+  display: block;
+  width: 40%;                      /* estado pendiente: parcial, sin número (D-02) */
+  height: 100%;
+  border-radius: var(--ed-radius-pill);
+  background-color: currentColor;  /* verde/rojo según badge-${status} */
+}
+.song-featured-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 12px;
+  font-family: var(--ed-font-sans);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ed-green);
+}
