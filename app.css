@@ -392,6 +392,13 @@ progress::-webkit-progress-value {
 }
 progress::-moz-progress-bar { background: var(--ed-green); }
 
+/* <figure>: Pico reseteaba su margen; al quitarlo, la hoja UA del navegador
+ * aplica `margin: 1em 40px` → en móvil eso mete 40px de gutter a cada lado de
+ * la <figure><table> de categorías (sobre los 22px de <main>), aplastando las
+ * tarjetas. El restilo de escritorio (@media min-width:641px) ya lo resetea;
+ * este reset base lo arregla en móvil (<=640px) y en cualquier <figure> desnuda. */
+figure { margin: 0; }
+
 /* Tablas desnudas. */
 table { width: 100%; border-collapse: collapse; }
 th, td { padding: 8px 10px; text-align: left; }

@@ -106,3 +106,24 @@ describe('Phase 28 — DESKTOP INTACTO (ningún @media afecta a >=641px)', () =>
     );
   });
 });
+
+// ── Hotfix 2026-07-01 — gutters laterales de <figure> en móvil ──────────────
+// Bug grave: al eliminar Pico en v1.8 (Phase 32) se reimplementaron los resets
+// base de <table>/<article>/<button> en app.css, pero NO el de <figure>. La hoja
+// UA del navegador aplica `figure { margin: 1em 40px }`, metiendo 40px de gutter
+// a cada lado de la <figure><table> de categorías en móvil (sobre los 22px de
+// <main>) → tarjetas aplastadas. El reset de escritorio (@media min-width:641px,
+// .home-editorial figure) lo tapaba sólo >=641px. Fix: reset base `figure{margin:0}`.
+describe('Hotfix — <figure> reset de margen base (gutters móvil)', () => {
+  const appCss = readFileSync(new URL('../app.css', import.meta.url), 'utf8');
+  test('app.css resetea el margen base de <figure> con selector desnudo', () => {
+    // Selector DESNUDO `figure { margin: 0 }` (no `.home-editorial figure`, que es
+    // el restilo de escritorio scoped a @media min-width:641px). El desnudo aplica
+    // en TODOS los viewports, incluido móvil — donde el gutter UA de 40px reaparecía.
+    // Comentarios y la regla scoped de escritorio no matchean este patrón.
+    assert.ok(
+      /(^|\n)figure\s*\{\s*margin:\s*0/.test(appCss),
+      'app.css debe tener una regla base `figure { margin: 0 }` con selector desnudo (sin esto, el gutter UA de 40px aplasta la tabla de categorías en móvil)'
+    );
+  });
+});
