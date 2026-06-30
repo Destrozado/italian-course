@@ -5,11 +5,14 @@
  * Phase 1. Las customizaciones visuales reales llegan en Phase 5 (Polish).
  *
  * `color-scheme` deja al navegador alinear scrollbars/inputs nativos con
- * el modo claro/oscuro automático que Pico activa vía prefers-color-scheme.
+ * el tema. Phase 32 (D-03/FND-03): se FUERZA la paleta papel Editoriale
+ * siempre y se desactiva el modo oscuro automático de Pico — `light` (no
+ * `light dark`) ignora `prefers-color-scheme`. El handoff define una sola
+ * paleta (papel cálido); no se inventa variante oscura.
  */
 
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
 }
 
 /*
@@ -49,14 +52,16 @@ button.incorrecta {
  *
  * Badges de estado de categoría (D-30). Sólo color + font-weight; el glifo
  * Unicode (●/✓/★) es el contenido del `<span x-text="cat.badgeGlyph">`.
- * NO se carga `pico.colors.min.css` (sería +50 KB para usar 3 colores); los
- * fallback hex son la fuente real de color en práctica. Las vars de Pico
- * existen pero no están definidas por la variante `classless.min` — son
- * para compatibilidad con la variante full si el autor decide migrar.
+ *
+ * Phase 32 (D-01): el color renderizado DEBE ser dominada=verde, hecha=ámbar,
+ * no-hecha=neutro. El legacy estaba INVERTIDO (hecha=verde, dominada=ámbar).
+ * Corregido aquí — UN solo hogar para el color del badge (app.css NO redefine
+ * estas clases, para que las dos hojas no se peleen). Se reutilizan los
+ * tokens Editoriale --ed-green / --ed-amber / --ed-neutral-dot.
  */
-.badge-no-hecha { color: var(--pico-muted-color, #6c757d); font-weight: 600; }
-.badge-hecha    { color: var(--pico-color-green-500, #2e7d32); font-weight: 600; }
-.badge-dominada { color: var(--pico-color-amber-500, #f59e0b); font-weight: 600; }
+.badge-no-hecha { color: var(--ed-neutral-dot, #c4bcab); font-weight: 600; }
+.badge-hecha    { color: var(--ed-amber, #b9852f); font-weight: 600; }
+.badge-dominada { color: var(--ed-green, #2f7d56); font-weight: 600; }
 
 /*
  * Patrón genérico para filas de botones adyacentes (`.button-row`).
