@@ -1607,3 +1607,30 @@ th, td { padding: 8px 10px; text-align: left; }
   width: 100%;
   margin-top: 24px;                /* lg: Contrarreloj -> CTA */
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * Phase 34 (SRP-02 / D-08) — Pantalla CANCION · reproducción (rellenar huecos)
+ *
+ * La pantalla `cancion` HEREDA VERBATIM el lenguaje Editoriale de Phase 33:
+ *   · Barra superior: .session-topbar / .session-back (‹ circular 36px,
+ *     aria-label="Volver", reusa returnToSongList) / .session-progress(-fill)
+ *     (4px verde) / .session-counter (Space Grotesk, "Frase X/N"). Definidas en
+ *     app.css L706-761 — NO se redefinen aquí.
+ *   · Frase de la letra: .session-prompt (serif 30/500) — app.css §Bloque pregunta.
+ *   · Word-buttons: .wb-bank / .wb-answer / .wb-placed + tinte post-corrección
+ *     (app.css L1054-1168) — ya aplicados al markup de canción.
+ *
+ * NO hay chip de cronómetro (el bloque de Contrarreloj de la sesión) — las
+ * canciones NUNCA usan Contrarreloj (D-08). El auto-avance 600ms
+ * (sessionMode === 'cancion') y songCheck/songAdvance quedan intactos.
+ *
+ * El ancho del relleno de progreso se deriva PRESENTACIONALMENTE en el markup
+ * con un :style inline que espeja el idiom de `sessionProgressPercent`
+ * ((sessionCursor + 1) / sessionExerciseIds.length) — sin añadir campo de motor.
+ * Este bloque solo fija la transición suave de ese ancho dentro del contexto
+ * de la pantalla de canción (la regla base de .session-progress-fill ya trae la
+ * transición; aquí se documenta y se garantiza por orden de fuente).
+ * ═══════════════════════════════════════════════════════════════════════════ */
+.session-topbar .session-progress-fill {
+  transition: width 0.2s ease;     /* ancho derivado del cursor de frase (SRP-02/D-08) */
+}

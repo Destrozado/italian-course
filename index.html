@@ -938,13 +938,33 @@
       -->
       <template x-if="currentScreen === 'cancion' && songCurrentPhrase">
         <article @keydown.window="handleSongKey($event)">
-          <!-- 260615-hhp: título de ubicación/contexto (dónde estás) ENCIMA del progreso. -->
-          <h2 class="session-context" x-text="sessionContextLabel"></h2>
-          <!-- PLAY-01: indicador "Frase X / N" visible todo el recorrido. -->
-          <header x-text="songProgressLabel"></header>
+          <!--
+            Phase 34 (SRP-02 / D-08) — Barra superior Editoriale heredada de la
+            sesión (EX-01): atrás circular ‹ (reusa returnToSongList) + barra de
+            progreso verde + contador "Frase X/N" (Space Grotesk). SIN chip de
+            cronómetro — las canciones NUNCA usan Contrarreloj (D-08).
+
+            El relleno de progreso espeja el idiom presentacional de
+            `sessionProgressPercent` ((cursor+1)/total) inline — NO añade campo
+            de motor. El botón atrás absorbe la acción de retorno del antiguo
+            botón inferior (returnToSongList VERBATIM, glyph ‹ hardcoded,
+            aria-label="Volver"). T-02-01: todo dato vía x-text.
+          -->
+          <div class="session-topbar">
+            <button type="button"
+                    class="session-back"
+                    aria-label="Volver"
+                    @click="returnToSongList">‹</button>
+            <span class="session-progress" aria-hidden="true">
+              <span class="session-progress-fill"
+                    :style="`width: ${sessionExerciseIds.length ? Math.round(((sessionCursor + 1) / sessionExerciseIds.length) * 100) : 0}%`"></span>
+            </span>
+            <!-- PLAY-01: indicador "Frase X / N" visible todo el recorrido. -->
+            <span class="session-counter" x-text="songProgressLabel"></span>
+          </div>
 
           <!-- PLAY-02: la línea ITALIANA es el texto a traducir (x-text — T-02-01). -->
-          <p x-text="songCurrentPhrase.payload.prompt"></p>
+          <p class="session-prompt" x-text="songCurrentPhrase.payload.prompt"></p>
 
           <div>
             <!-- Banco de palabras españolas (con sufijo numérico ¹..⁹, D-69). -->
@@ -994,14 +1014,15 @@
                       @click="songAdvance">Siguiente</button>
             </div>
           </div>
-
-          <hr>
           <!--
-            PLAY-05: abandonar a mitad descarta el progreso NO comprometido (los
-            fallos ya cascadeados por D-54 quedan persistidos). Re-entrar empieza
-            de cero. Directo a la lista (sin slot de reanudación).
+            Phase 34 (SRP-02 / D-08): el botón secundario inferior de retorno se
+            ELIMINA — la acción de abandono (returnToSongList) vive ahora en el
+            atrás circular ‹ de la barra superior, una sola afordancia canónica.
+
+            PLAY-05 (intacto): abandonar a mitad descarta el progreso NO
+            comprometido (los fallos ya cascadeados por D-54 quedan persistidos);
+            re-entrar empieza de cero, directo a la lista (sin slot de reanudación).
           -->
-          <button type="button" class="secondary" @click="returnToSongList">← Volver a Canciones</button>
         </article>
       </template>
 

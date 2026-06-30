@@ -189,8 +189,11 @@ describe('Canciones — Task 2: playthrough secuencial + cascada D-54', () => {
   test('index.html: render del playthrough usa x-text para el prompt italiano (T-02-01, NO x-html)', () => {
     const idx = indexSrc.indexOf("currentScreen === 'cancion' && songCurrentPhrase");
     assert.ok(idx > -1, 'debe existir el template del playthrough cancion');
-    // Ventana del template de canción hasta el cierre.
-    const window = indexSrc.slice(idx, idx + 3500);
+    // Ventana del template de canción hasta el banner SUMMARY (acotada por
+    // marcador, no por offset fijo: Phase 34-04 añadió la barra superior
+    // Editoriale y un offset fijo dejaría songCheck/songAdvance fuera).
+    const summaryBanner = indexSrc.indexOf('Pantalla SUMMARY', idx);
+    const window = indexSrc.slice(idx, summaryBanner > -1 ? summaryBanner : idx + 4000);
     assert.ok(window.includes('x-text="songCurrentPhrase.payload.prompt"'),
       'el prompt italiano debe renderizarse con x-text (T-02-01)');
     assert.ok(!window.includes('x-html'),
@@ -973,5 +976,120 @@ describe('Phase 34-03 — Task 2: CTA Empezar = .session-cta (SRP-04)', () => {
       'el bloque picker NO debe redefinir .session-cta (se reusa la regla existente)');
     assert.ok(/\.picker-cta\s*\{/.test(tail),
       'el bloque picker debe definir .picker-cta (layout/espaciado de contexto)');
+  });
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Phase 34 (Plan 34-04, Task 1) — Pantalla CANCION: barra superior Editoriale
+//   · REEMPLAZA el <header> pelado por el scaffold .session-topbar heredado:
+//     atrás circular ‹ (.session-back, aria-label="Volver", reusa
+//     returnToSongList) + barra verde .session-progress(-fill) + contador
+//     .session-counter (songProgressLabel "Frase X/N") (D-08)
+//   · SIN .session-timer* — las canciones NUNCA usan Contrarreloj (D-08)
+//   · la frase usa .session-prompt; el botón inferior "← Volver" se elimina
+//     (afordancia única en el atrás circular)
+//   · word-buttons + songCheck/songAdvance + handleSongKey INTACTOS; x-text only
+// ─────────────────────────────────────────────────────────────────────────────
+describe('Phase 34-04 — Task 1: barra superior Editoriale de la pantalla cancion (D-08)', () => {
+  // Ventana acotada al template de canción (desde su guard hasta el banner SUMMARY).
+  function cancionWindow() {
+    const start = indexSrc.indexOf("currentScreen === 'cancion' && songCurrentPhrase");
+    const summaryBanner = indexSrc.indexOf('Pantalla SUMMARY', start);
+    return indexSrc.slice(start, summaryBanner > -1 ? summaryBanner : start + 4000);
+  }
+
+  test('index.html: el <header> pelado se reemplaza por el scaffold .session-topbar', () => {
+    const window = cancionWindow();
+    assert.ok(/class="session-topbar"/.test(window),
+      'la pantalla cancion debe llevar el scaffold .session-topbar (D-08)');
+    // El antiguo <header x-text="songProgressLabel"> ya no debe existir en el bloque.
+    assert.ok(!/<header[^>]*x-text="songProgressLabel"/.test(window),
+      'el <header> pelado con x-text="songProgressLabel" debe eliminarse (reemplazado por la barra)');
+  });
+
+  test('index.html: el atrás circular ‹ reusa returnToSongList y lleva aria-label="Volver"', () => {
+    const window = cancionWindow();
+    const backIdx = window.indexOf('class="session-back"');
+    assert.ok(backIdx > -1, 'debe existir el botón .session-back');
+    const backBlock = window.slice(backIdx, backIdx + 200);
+    assert.ok(backBlock.includes('aria-label="Volver"'),
+      '.session-back debe llevar aria-label="Volver" (convención heredada Phase 33)');
+    assert.ok(backBlock.includes('@click="returnToSongList"'),
+      '.session-back debe reusar @click="returnToSongList" VERBATIM (acción del antiguo botón inferior)');
+    assert.ok(/>‹<\/button>/.test(backBlock),
+      '.session-back debe llevar el glyph ‹ hardcoded (T-02-01)');
+  });
+
+  test('index.html: la barra de progreso deriva el ancho del cursor (espeja sessionProgressPercent, no campo de motor)', () => {
+    const window = cancionWindow();
+    assert.ok(/class="session-progress"/.test(window) && /class="session-progress-fill"/.test(window),
+      'debe existir la barra .session-progress + .session-progress-fill');
+    const fillIdx = window.indexOf('class="session-progress-fill"');
+    const fillBlock = window.slice(fillIdx, fillIdx + 300);
+    assert.ok(fillBlock.includes('sessionCursor') && fillBlock.includes('sessionExerciseIds.length'),
+      'el ancho debe derivar de (sessionCursor + 1) / sessionExerciseIds.length (espejo de sessionProgressPercent, presentacional)');
+    assert.ok(/:style=/.test(fillBlock),
+      'el ancho debe fijarse vía :style (presentacional, sin campo de motor nuevo)');
+  });
+
+  test('index.html: el contador .session-counter bindea songProgressLabel ("Frase X/N")', () => {
+    const window = cancionWindow();
+    assert.ok(/class="session-counter"\s+x-text="songProgressLabel"/.test(window),
+      'el contador debe ser .session-counter con x-text="songProgressLabel" (Frase X/N, D-08)');
+  });
+
+  test('index.html: NO se añade ningún chip de cronómetro .session-timer en la pantalla cancion (D-08)', () => {
+    const window = cancionWindow();
+    assert.ok(!/session-timer/.test(window),
+      'la pantalla cancion NO debe contener ningún token session-timer — los songs nunca usan Contrarreloj (D-08)');
+  });
+
+  test('index.html: la frase de la letra usa .session-prompt (x-text — T-02-01)', () => {
+    const window = cancionWindow();
+    assert.ok(/class="session-prompt"\s+x-text="songCurrentPhrase\.payload\.prompt"/.test(window),
+      'la frase italiana debe llevar .session-prompt con x-text="songCurrentPhrase.payload.prompt"');
+  });
+
+  test('index.html: el botón inferior "← Volver a Canciones" se elimina (afordancia única en el atrás)', () => {
+    const window = cancionWindow();
+    assert.ok(!/Volver a Canciones/.test(window),
+      'el botón inferior "← Volver a Canciones" debe eliminarse (la acción vive en el atrás circular)');
+    // El binding de acción @click="returnToSongList" aparece EXACTAMENTE una vez
+    // (en el atrás circular) — la acción no se duplica entre barra y pie.
+    const clickBindings = window.match(/@click="returnToSongList"/g) || [];
+    assert.equal(clickBindings.length, 1,
+      '@click="returnToSongList" debe aparecer exactamente una vez en el bloque cancion (atrás circular, sin duplicar)');
+  });
+
+  test('index.html: word-buttons + songCheck/songAdvance + handleSongKey INTACTOS; sin x-html', () => {
+    const window = cancionWindow();
+    assert.ok(window.includes('@keydown.window="handleSongKey($event)"'),
+      'el @keydown.window="handleSongKey($event)" debe preservarse (D-72)');
+    assert.ok(window.includes('@click="songCheck"') && window.includes('@click="songAdvance"'),
+      'los bindings songCheck (Comprobar) y songAdvance (Siguiente) deben preservarse');
+    assert.ok(/class="wb-bank"/.test(window) && /class="wb-answer"/.test(window),
+      'los word-buttons (.wb-bank / .wb-answer) deben preservarse');
+    assert.ok(!/x-html\s*=/.test(window),
+      'la pantalla cancion NO debe usar el atributo x-html= (T-02-01 anti-XSS)');
+  });
+
+  test('app.css: el bloque cancion cita SRP-02/D-08, NO redefine .session-topbar/.session-back y no introduce --pico-*', () => {
+    const banner = appCssSrc.indexOf('Pantalla CANCION · reproducción');
+    assert.ok(banner > -1, 'debe existir el banner del bloque cancion (SRP-02/D-08)');
+    const tail = appCssSrc.slice(banner);
+    assert.ok(tail.includes('SRP-02') && tail.includes('D-08'),
+      'el banner del bloque cancion debe citar SRP-02 y D-08');
+    // No redefine las clases base heredadas de Phase 33.
+    assert.ok(!/\.session-back\s*\{/.test(tail),
+      'el bloque cancion NO debe redefinir .session-back (se reusa la regla de Phase 33)');
+    assert.ok(!/\.session-topbar\s*\{/.test(tail),
+      'el bloque cancion NO debe redefinir .session-topbar (se reusa la regla de Phase 33)');
+    // No introduce timer ni --pico-* ni dark-mode.
+    assert.ok(!/\.session-timer/.test(tail),
+      'el bloque cancion NO debe definir reglas .session-timer (D-08)');
+    assert.ok(!/var\(\s*--pico-|--pico-[\w-]+\s*:/.test(tail),
+      'el bloque cancion NO debe introducir referencias --pico-* reales');
+    assert.ok(!/prefers-color-scheme/.test(appCssSrc),
+      'app.css NO debe añadir reglas prefers-color-scheme (dark-mode off, D-32-03)');
   });
 });
