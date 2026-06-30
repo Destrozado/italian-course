@@ -457,7 +457,7 @@
                         'gap-correct': sessionFeedback === 'correct',
                         'gap-wrong': sessionFeedback === 'incorrect'
                       }"
-                      x-text="sessionFeedback !== null ? (sessionCurrentExercise.payload.options?.[sessionCurrentExercise.payload.correctIndex] ?? '') : ''"></span>
+                      x-text="sessionFeedback !== null ? (sessionCurrentExercise.payload.options?.[sessionSelectedIndex] ?? '') : ''"></span>
               </span>
             </template>
           </p>
