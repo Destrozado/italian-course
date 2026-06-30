@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.8
 milestone_name: Rediseño visual Editoriale
 status: executing
-last_updated: "2026-06-30T16:22:18.626Z"
+last_updated: "2026-06-30T16:37:18Z"
 last_activity: 2026-06-30
 progress:
   total_phases: 3
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 12
-  completed_plans: 11
-  percent: 92
+  completed_plans: 12
+  percent: 100
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -25,9 +25,9 @@ See: `.planning/PROJECT.md` (updated 2026-06-09 — Milestone v1.6 shipped, CONV
 
 ## Current Position
 
-Phase: 34 (Canciones · Resultados · Picker) — EXECUTING
-Plan: 5 of 5
-Status: 34-04 completado (reproducción de canción repintada, SRP-02) — listo para 34-05
+Phase: 34 (Canciones · Resultados · Picker) — COMPLETADA (5/5 planes)
+Plan: 5 of 5 — COMPLETADO
+Status: 34-05 completado (Resultados/summary repintado Editoriale, SRP-03: anillo conic-gradient + X/Y correctos D-09/D-10, cascada FALLÓ D-11, error cards). Phase 34 cerrada → milestone v1.8 con los 12 planes ejecutados (pendiente cierre formal de milestone)
 Last activity: 2026-06-30
 
 ## Deferred Items
@@ -91,7 +91,7 @@ Ambos quick tasks tienen `status: shipped` en su SUMMARY.md (completados 2026-05
 | Requisitos v1.5 completos | 9/9 (100% — MIG-01/02 + ART-01..04 + PART-01..03) |
 | Fases v1.7 | 0/3 planificadas (Phase 29 migración `10→11`, Phase 30 alta de `presente-regolare` + variantes por quórum, Phase 31 cruces multi-cat + integración lockstep) |
 | Requisitos v1.7 mapeados | 11/11 (100% — MIG-05/06→Phase 29; PRES-01..06→Phase 30; PRES-07 + INT-01/02→Phase 31; 0 orphans) |
-| Fases v1.8 | 0/3 planificadas (Phase 32 cimientos visuales + Home/Categorias, Phase 33 pantallas de ejercicio, Phase 34 canciones/resultados/picker) |
+| Fases v1.8 | 3/3 completas (Phase 32 cimientos visuales + Home/Categorías 3/3, Phase 33 pantallas de ejercicio 4/4, Phase 34 canciones/resultados/picker 5/5) — los 12 planes ejecutados 2026-06-30; pendiente verificación/cierre formal del milestone |
 | Requisitos v1.8 mapeados | 19/19 (100% — FND-01..04 + HOME-01..06 → Phase 32; EX-01..05 → Phase 33; SRP-01..04 → Phase 34; 0 orphans) |
 | schemaVersion actual | **11** (Phase 29 / 2026-06-16: `migrate10to11`/`hydrateV11`/`RESET_PREFIXES_V11` reset selectivo de `presente-regolare`, espejo de migrate8to9 con 1 prefijo; backup.js round-trip v11 + import v10→v11 + reject >11). Histórico: v1.6 dejó 9; quick `260615-nzi` bumpeó a 10 (vecesFallada nominal); v1.7 Phase 29 a 11 |
 | Categorías gramaticales | 9 (todas en formato slot+variantes unificado, CONV-01 cerrado); v1.7 da de alta la 10ª (`presente-regolare`) nacida directamente en slot+variantes |
@@ -102,6 +102,8 @@ Ambos quick tasks tienen `status: shipped` en su SUMMARY.md (completados 2026-05
 ## Accumulated Context
 
 ### Roadmap Evolution
+
+- **2026-06-30 — Plan 34-05 completado (Resultados/summary repintado Editoriale — SRP-03) — Phase 34 Plan 5/5, wave 5. FINAL del milestone v1.8.** 2 tasks, 2 commits de tarea (`401a6a0` feat anillo de score + X/Y hero, `b98b76d` feat cascada FALLÓ + error cards) + docs. **Task 1 (hero):** insertado `.summary-score-hero` tras el overline `.session-context` — anillo NET-NEW de 72px (exception verbatim handoff §5) con `conic-gradient(var(--ed-green) calc(var(--pct) * 3.6deg), var(--ed-ring-track) 0)`, `--pct` fijado inline desde `summaryScore.pct` (getter de 34-01), perforación central `::before` de `--ed-paper-elevated` que aloja el `%` en Space Grotesk 22/700 tabular-nums; al lado "{X}/{Y}" serif 30/600 (el "/Y" en `--ed-placeholder`) + "correctos" + cursiva "Sesión terminada" (literales hardcoded). El anillo aparece en TODAS las sesiones SIN rama por modo (D-09); Y = `summaryScore.total` = respondidas (D-10). El `<header>` se repinta a `.summary-title` serif 24/600 (espejo de `.home-title` escalado) conservando `x-text="summaryHeaderLabel"` VERBATIM (D-11). **Task 2 (cascada + errores):** overline `CATEGORÍAS AFECTADAS` + píldora `FALLÓ` (`--ed-red-tint`/`--ed-red-text`, Hanken 10/700 UPPER) gateada por `x-show="entry.failed"` (D-11) en columna fija de 54px (exception verbatim handoff §5); overline `ERRORES COMETIDOS · {N}` (N vía `x-text` espejando el filter de errores); cada `<li>` de error repintado a card `--ed-paper-elevated` radio 14, `.user-answer` → `--ed-red-text` + `line-through`, `<strong>` Correcta → `--ed-green-on-tint`, `.summary-error-explanation` → `--ed-muted` italic — TODO como overrides en `app.css` por orden de fuente de las reglas legacy `--pico-*` de `styles.css` (`.delta-regression`/`.delta-promotion`/`.user-answer`/`.summary-error-explanation`), que NO se borran. `summaryDelta`/`summaryVariantSurface`/los 3 sub-templates (multiple-choice/word-buttons/match)/el guard double-defense + filtro de slot preservados VERBATIM. **Decisiones:** la píldora FALLÓ ocupa la columna LOCKED de 54px (el `entry` no expone count de ejercicios → no se inventa "N ej."); D-46 truncado de cascada NO añadido (discreción del planner, `summaryDelta` lista todas); overrides por orden de fuente (idiom Phase 32-33), legacy intacto. **Desviaciones (auto-fix):** (1) Rule 3 — un comentario del hero contenía el literal "sessionMode" y tumbaba el guard `!/sessionMode/` de D-09; reescrito a "modo de sesión". (2) Rule 1 — las aserciones de banner sliceaban tras las citas SRP-03/D-09/D-10 (que viven en la línea de arriba del banner-frase); ancladas a `lastIndexOf('Phase 34 (SRP-03', banner)`. (3) Rule 1 — ventana de la aserción de la píldora ampliada 260→400 chars. **Verificación:** `node --test tests/screen-canciones.test.js` → 93/93 pass (+15 asserts nuevos); `node --test tests/*.test.js` → **574 pass / 1 fail** (único fail = preexistente AJENO genero-numero coverage; CERO fails nuevos). `grep -c 'x-html=' index.html` → 0 (T-02-01); 0 `var(--pico-*)`/`--pico-*:` reales en los bloques nuevos (6 menciones son comentarios de override). Brownfield UI-puro: motor sin tocar. SRP-03 completo. **Phase 34 CERRADA (5/5); los 12 planes de v1.8 ejecutados** (pendiente verificación/cierre formal del milestone). **UAT visual pendiente** (`npx serve`): anillo + píldoras FALLÓ + error cards con datos reales en repaso/test/examen. Stopped at: Plan 34-05 completo (fin de Phase 34). Resume file: None. Siguiente: `/gsd:verify-phase 34` → cierre del milestone v1.8.
 
 - **2026-06-30 — Plan 34-04 completado (reproducción de canción repintada — SRP-02) — Phase 34 Plan 4/5, wave 4.** 1 task, 1 commit de tarea (`3f1f46a` feat barra superior + prompt serif) + docs. **Task 1:** la pantalla `cancion` (rellenar huecos) adopta el lenguaje Editoriale HEREDANDO VERBATIM la barra superior de Phase 33 (D-08). El `<header x-text="songProgressLabel">` pelado (index.html ~L944) se reemplaza por el scaffold `.session-topbar`: botón atrás circular `‹` (`.session-back`, `aria-label="Volver"`, `@click="returnToSongList"` reusado VERBATIM de la acción del antiguo botón inferior) + barra de progreso verde `.session-progress`/`.session-progress-fill` + contador `.session-counter` (`x-text="songProgressLabel"`, "Frase X/N", Space Grotesk). El ancho del relleno se deriva PRESENTACIONALMENTE con un `:style` inline que espeja el idiom de `sessionProgressPercent` (`(sessionCursor + 1) / sessionExerciseIds.length`) — NO añade campo de motor ni getter. **SIN chip de cronómetro** (`.session-timer*`): las canciones NUNCA usan Contrarreloj (D-08). La frase italiana (`<p x-text="songCurrentPhrase.payload.prompt">`) gana `.session-prompt` (serif 30/500); el overline `.session-context` se conserva. El botón inferior "← Volver a Canciones" se ELIMINA (afordancia única en el atrás circular). Word-buttons (`.wb-bank`/`.wb-answer`/`bankWithKeys`), `songCheck`/`songAdvance`, `@keydown.window="handleSongKey"` y el auto-avance 600ms (`sessionMode === 'cancion'`) INTACTOS — el CSS `wb-*` ya los estiliza. Bloque nuevo al FONDO de `app.css` (SRP-02/D-08): banner que documenta las clases heredadas + UNA regla scopeada (`.session-topbar .session-progress-fill` transición de ancho); no redefine `.session-topbar`/`.session-back`, sin `--pico-*`, sin `prefers-color-scheme`. Tests Phase 34-04 en `tests/screen-canciones.test.js` (8 asserts: scaffold, atrás reusa returnToSongList, derive del ancho, counter, no-timer, prompt serif, botón inferior eliminado, engine + anti-XSS intactos). **Desviación (auto-fix):** (1) Rule 1 — el test preexistente de Task 2 (`render del playthrough usa x-text...`) sliceaba una ventana fija de 3500 chars desde el guard de `cancion` y exigía `songCheck`/`songAdvance`; la nueva barra superior los empujó a offset ~3900, fuera de la ventana, tumbando una aserción que mi cambio desestabilizó directamente; re-acotada al banner `Pantalla SUMMARY` (mismo idiom marker-based que mis tests nuevos), intención intacta. **Verificación:** `node --test tests/screen-canciones.test.js` → 78/78 pass; `node --test tests/*.test.js` → **559 pass / 1 fail** (único fail = preexistente AJENO genero-numero coverage 12-vs-13; CERO fails nuevos). `grep -c 'x-html=' index.html` → 0 (T-02-01); 0 `session-timer` en el bloque `cancion`. Brownfield UI-puro: motor sin tocar. SRP-02 completo. **UAT visual pendiente** (`npx serve`): barra superior + prompt serif + word-buttons + auto-avance 600ms tras acierto. Stopped at: Plan 34-04 completo. Resume file: None. Siguiente: Plan 34-05 (repaint Resultados/summary — anillo de score + cascada + errores, SRP-03).
 
