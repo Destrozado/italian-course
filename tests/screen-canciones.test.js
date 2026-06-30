@@ -1181,3 +1181,104 @@ describe('Phase 34-05 — Task 1: anillo de score + X/Y hero en summary (D-09/D-
       '.summary-title debe ser serif 24/600 (espejo de .home-title escalado, D-11)');
   });
 });
+
+// ───────────────────────────────────────────────────────────────────────────
+// Phase 34 (Plan 34-05, Task 2) — SUMMARY: cascada FALLÓ + Errores cometidos
+//   · D-11: FALLÓ ↔ entry.failed; summaryDelta/summaryVariantSurface VERBATIM
+//   · legacy --pico-* (.delta-*/.user-answer) sobrescrito por orden de fuente
+// ───────────────────────────────────────────────────────────────────────────
+describe('Phase 34-05 — Task 2: cascada FALLÓ + errores Editoriale (D-11/D-46)', () => {
+  function summaryWindow() {
+    const start = indexSrc.indexOf("currentScreen === 'summary' && summaryDelta");
+    const nextBanner = indexSrc.indexOf('Pantalla CANCION-SUMMARY', start);
+    return indexSrc.slice(start, nextBanner > -1 ? nextBanner : start + 6000);
+  }
+
+  test('index.html: overline CATEGORÍAS AFECTADAS + píldora FALLÓ gated por entry.failed', () => {
+    const window = summaryWindow();
+    assert.ok(/>CATEGORÍAS AFECTADAS</.test(window),
+      'la cascada debe llevar el overline literal "CATEGORÍAS AFECTADAS" (T-02-01)');
+    const pillIdx = window.indexOf('summary-fallo-pill');
+    assert.ok(pillIdx > -1, 'debe existir la píldora .summary-fallo-pill');
+    const pillBlock = window.slice(window.lastIndexOf('<span', pillIdx) - 60, pillIdx + 80);
+    assert.ok(/x-show="entry\.failed"/.test(pillBlock),
+      'la píldora FALLÓ debe estar gated por x-show="entry.failed" (D-11)');
+    assert.ok(/>FALLÓ</.test(window),
+      'el literal "FALLÓ" debe estar hardcoded (T-02-01)');
+  });
+
+  test('index.html: la columna FALLÓ es fija (.summary-delta-flag); cuerpo en .summary-delta-body', () => {
+    const window = summaryWindow();
+    assert.ok(/class="summary-delta-flag"/.test(window) && /class="summary-delta-body"/.test(window),
+      'la cascada debe partir cuerpo (.summary-delta-body) + columna (.summary-delta-flag, 54px LOCKED)');
+  });
+
+  test('index.html: los bindings de summaryDelta se preservan VERBATIM (cero lógica)', () => {
+    const window = summaryWindow();
+    assert.ok(/x-for="entry in summaryDelta"/.test(window),
+      'el x-for sobre summaryDelta debe preservarse');
+    assert.ok(/:class="\{ 'delta-regression': entry\.isRegression, 'delta-promotion': entry\.isPromotion \}"/.test(window),
+      '.delta-arrow debe conservar el binding regression/promotion VERBATIM');
+    assert.ok(/x-text="entry\.statusBefore"/.test(window) && /x-text="entry\.statusAfter"/.test(window),
+      'statusBefore/statusAfter deben preservarse');
+    assert.ok(/x-text="' · racha ' \+ entry\.streakBefore/.test(window),
+      'el sub-span de racha debe preservarse VERBATIM');
+  });
+
+  test('index.html: overline ERRORES COMETIDOS · N (N vía x-text del filter); sub-templates intactos', () => {
+    const window = summaryWindow();
+    assert.ok(/ERRORES COMETIDOS ·/.test(window),
+      'la sección de errores debe llevar el overline "ERRORES COMETIDOS ·" (T-02-01)');
+    // N derivado del mismo filter que el x-for (presentacional, no campo nuevo).
+    assert.ok(/x-text="summarySessionResults\.filter\(r => !r\.correct && content\.slotById\[r\.exerciseId\]\)\.length"/.test(window),
+      'N debe derivarse del filter de errores con slot (mismo guard que el x-for)');
+    // Los tres sub-templates de summaryVariantSurface se preservan.
+    assert.ok(/summaryVariantSurface\(result\)\.type === 'multiple-choice'/.test(window) &&
+              /summaryVariantSurface\(result\)\.type === 'word-buttons'/.test(window) &&
+              /summaryVariantSurface\(result\)\.type === 'match'/.test(window),
+      'los tres sub-templates de summaryVariantSurface deben preservarse (repaint only)');
+    assert.ok(/class="user-answer"/.test(window) && /class="summary-error-explanation"/.test(window),
+      'las clases .user-answer y .summary-error-explanation se conservan (repaint vía CSS)');
+  });
+
+  test('index.html: el bloque summary completo NO usa x-html (T-02-01)', () => {
+    const window = summaryWindow();
+    assert.ok(!/x-html\s*=/.test(window),
+      'el template summary NO debe usar x-html');
+  });
+
+  test('app.css: .delta-regression/.delta-promotion se re-declaran con --ed-red/--ed-green (override pico)', () => {
+    assert.ok(/\.summary-delta \.delta-regression\s*\{\s*color:\s*var\(--ed-red\)/.test(appCssSrc),
+      '.delta-regression debe re-declararse con var(--ed-red) en app.css (override del --pico legacy)');
+    assert.ok(/\.summary-delta \.delta-promotion\s*\{\s*color:\s*var\(--ed-green\)/.test(appCssSrc),
+      '.delta-promotion debe re-declararse con var(--ed-green) en app.css (override del --pico legacy)');
+    // El legacy --pico- de styles.css NO se borra (override por orden de fuente).
+    assert.ok(/\.delta-regression\s*\{\s*color:\s*var\(--pico-color-red-500/.test(stylesCssSrc),
+      'la regla legacy --pico- de .delta-regression debe seguir en styles.css (no se borra)');
+  });
+
+  test('app.css: .user-answer repintada (line-through + --ed-red-text); FALLÓ pill de --ed-red-tint', () => {
+    const uaIdx = appCssSrc.indexOf('.summary-errors .user-answer {');
+    assert.ok(uaIdx > -1, 'debe existir el override de .summary-errors .user-answer');
+    const ua = appCssSrc.slice(uaIdx, uaIdx + 200);
+    assert.ok(/text-decoration:\s*line-through/.test(ua) && /color:\s*var\(--ed-red-text\)/.test(ua),
+      '.user-answer debe ser --ed-red-text + line-through (struck "Tu")');
+    const pillIdx = appCssSrc.indexOf('.summary-fallo-pill {');
+    assert.ok(pillIdx > -1, 'debe existir .summary-fallo-pill');
+    const pill = appCssSrc.slice(pillIdx, pillIdx + 400);
+    assert.ok(/var\(--ed-red-tint\)/.test(pill) && /var\(--ed-red-text\)/.test(pill) && /font-size:\s*10px/.test(pill),
+      '.summary-fallo-pill debe ser --ed-red-tint/--ed-red-text Hanken 10/700');
+  });
+
+  test('app.css: el bloque cascada/errores cita SRP-03/D-11, anota 54px verbatim, sin nuevos --pico-*', () => {
+    const banner = appCssSrc.indexOf('cascada FALLÓ + Errores cometidos');
+    assert.ok(banner > -1, 'debe existir el banner del bloque cascada/errores');
+    const tail = appCssSrc.slice(appCssSrc.lastIndexOf('Phase 34 (SRP-03', banner));
+    assert.ok(tail.includes('SRP-03') && tail.includes('D-11'),
+      'el banner debe citar SRP-03 y D-11');
+    assert.ok(/54px/.test(tail) && /exception verbatim — handoff §5/.test(tail),
+      'la columna 54px debe anotarse como exception verbatim — handoff §5');
+    assert.ok(!/var\(\s*--pico-|--pico-[\w-]+\s*:/.test(tail),
+      'el bloque cascada/errores NO debe introducir referencias --pico-* nuevas');
+  });
+});

@@ -1736,3 +1736,96 @@ th, td { padding: 8px 10px; text-align: left; }
   color: var(--ed-faint);
   margin: 2px 0 0;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * Phase 34 (SRP-03 / D-11 / D-46) — SUMMARY · cascada FALLÓ + Errores cometidos
+ *
+ * REPINTA (no reescribe) la cascada "categorías afectadas" y la sección
+ * "Errores cometidos". El motor (summaryDelta / summaryVariantSurface / filtro)
+ * y los bindings quedan VERBATIM. Las reglas legacy --pico-* de styles.css
+ * (.delta-regression L164, .delta-promotion L165, .summary-errors .user-answer
+ * L430, .summary-error-explanation L454) se SOBRESCRIBEN aquí por orden de
+ * fuente (app.css se enlaza después de styles.css; misma especificidad) — NO se
+ * borran de styles.css (idiom de cascada de Phase 32-33).
+ *
+ *   · .summary-section-overline: overline de sección (CATEGORÍAS AFECTADAS /
+ *     ERRORES COMETIDOS · N) sobre .home-overline/.home-section-overline.
+ *   · .summary-delta li → flex con cuerpo + columna fija 54px (LOCKED, handoff
+ *     §5) que aloja la píldora FALLÓ.
+ *   · .summary-fallo-pill: --ed-red-tint / --ed-red-text, Hanken 10/700 UPPER.
+ *   · .delta-regression/.delta-promotion → --ed-red / --ed-green (override pico).
+ *   · .summary-errors li → card --ed-paper-elevated radio 14 (--ed-radius-feedback).
+ *   · .user-answer → --ed-red-text + line-through (struck "Tu"); strong Correcta
+ *     → --ed-green-on-tint; .summary-error-explanation → --ed-muted italic.
+ *
+ * Cero nuevos --pico-*; "FALLÓ"/overlines son literales hardcoded (T-02-01).
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Overline de sección del summary (reusa .home-section-overline; margen propio). */
+.summary-section-overline {
+  margin: 24px 0 8px;              /* lg arriba, sm bajo el overline */
+}
+
+/* Cascada: cuerpo + columna fija FALLÓ/N ej. (54px LOCKED). */
+.summary-delta li {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;                        /* sm: cuerpo -> columna */
+}
+.summary-delta-body {
+  flex: 1 1 auto;
+}
+.summary-delta-flag {
+  flex: 0 0 54px;                  /* exception verbatim — handoff §5 (columna FALLÓ/N ej.) */
+  display: flex;
+  justify-content: flex-end;
+}
+.summary-fallo-pill {
+  font-family: var(--ed-font-sans);
+  font-size: 10px;                 /* FALLÓ pill label (handoff §Tipografía) */
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--ed-red-text);
+  background: var(--ed-red-tint);
+  border-radius: var(--ed-radius-pill);
+  padding: 3px 8px;
+}
+/* Override de los colores legacy --pico-* de la flecha de delta (styles.css L164-165). */
+.summary-delta .delta-regression { color: var(--ed-red); }
+.summary-delta .delta-promotion { color: var(--ed-green); }
+/* Sub-spans de razón/racha/pending: muted Editoriale (sobre el --pico-muted legacy). */
+.summary-delta .delta-reason,
+.summary-delta .delta-streak,
+.summary-delta .delta-pending {
+  color: var(--ed-muted);
+}
+
+/* Errores cometidos: cada <li> es una card de papel elevado, radio feedback 14. */
+.summary-errors li {
+  background: var(--ed-paper-elevated);
+  border: 1px solid var(--ed-hairline);
+  border-radius: var(--ed-radius-feedback);
+  padding: 14px 16px;
+  margin-top: 8px;                 /* sm entre cards */
+}
+.summary-errors li strong {
+  font-family: var(--ed-font-serif);
+}
+/* "Tu: ~~x~~" — rojo + tachado (override del legacy fondo rojo sólido styles.css L430). */
+.summary-errors .user-answer {
+  background: none;
+  color: var(--ed-red-text);
+  text-decoration: line-through;
+  padding: 0;
+}
+/* "Correcta: y" — verde sobre tinte (el <strong> tras "Respuesta correcta:"). */
+.summary-errors li div strong {
+  color: var(--ed-green-on-tint);
+}
+/* Explicación pedagógica — muted italic (override del legacy --pico-muted). */
+.summary-errors .summary-error-explanation {
+  color: var(--ed-muted);
+  font-style: italic;
+}

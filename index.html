@@ -1081,25 +1081,43 @@
             </div>
           </div>
 
+          <!--
+            Phase 34 (SRP-03 / D-11): la cascada "categorías afectadas" se
+            REPINTA sin tocar lógica — summaryDelta y todos sus bindings
+            (statusBefore/After, .delta-arrow regression/promotion, racha,
+            pending) quedan VERBATIM. Sólo se añade el overline de sección y un
+            píldora FALLÓ gated por entry.failed (D-11: FALLÓ ↔ entry.failed),
+            colocada en la columna fija de 54px a la derecha (LOCKED, handoff
+            §5). Los colores legacy --pico-* de .delta-regression/.delta-promotion
+            se sobrescriben en app.css por orden de fuente (NO se borran de
+            styles.css). T-02-01: "FALLÓ"/"CATEGORÍAS AFECTADAS" hardcoded.
+          -->
+          <p class="home-overline home-section-overline summary-section-overline">CATEGORÍAS AFECTADAS</p>
           <ul class="summary-delta">
             <template x-for="entry in summaryDelta" :key="entry.categoryId">
               <li>
-                <strong x-text="entry.categoryName"></strong>:
-                <span x-text="entry.statusBefore"></span>
-                <span class="delta-arrow"
-                      :class="{ 'delta-regression': entry.isRegression, 'delta-promotion': entry.isPromotion }">→</span>
-                <span x-text="entry.statusAfter"></span>
-                <template x-if="entry.failed">
-                  <span class="delta-reason" x-text="' · ' + entry.failureReason"></span>
-                </template>
-                <template x-if="entry.streakBefore !== entry.streakAfter">
-                  <span class="delta-streak"
-                        x-text="' · racha ' + entry.streakBefore + ' → ' + entry.streakAfter"></span>
-                </template>
-                <template x-if="entry.statusAfter === 'no-hecha' && entry.pendingForHecha > 0">
-                  <span class="delta-pending"
-                        x-text="' · ' + entry.pendingForHecha + ' ejercicios para volver a hecha'"></span>
-                </template>
+                <span class="summary-delta-body">
+                  <strong x-text="entry.categoryName"></strong>:
+                  <span x-text="entry.statusBefore"></span>
+                  <span class="delta-arrow"
+                        :class="{ 'delta-regression': entry.isRegression, 'delta-promotion': entry.isPromotion }">→</span>
+                  <span x-text="entry.statusAfter"></span>
+                  <template x-if="entry.failed">
+                    <span class="delta-reason" x-text="' · ' + entry.failureReason"></span>
+                  </template>
+                  <template x-if="entry.streakBefore !== entry.streakAfter">
+                    <span class="delta-streak"
+                          x-text="' · racha ' + entry.streakBefore + ' → ' + entry.streakAfter"></span>
+                  </template>
+                  <template x-if="entry.statusAfter === 'no-hecha' && entry.pendingForHecha > 0">
+                    <span class="delta-pending"
+                          x-text="' · ' + entry.pendingForHecha + ' ejercicios para volver a hecha'"></span>
+                  </template>
+                </span>
+                <!-- Columna fija 54px (LOCKED, handoff §5): píldora FALLÓ ↔ entry.failed. -->
+                <span class="summary-delta-flag" aria-hidden="true">
+                  <span x-show="entry.failed" class="summary-fallo-pill">FALLÓ</span>
+                </span>
               </li>
             </template>
           </ul>
@@ -1158,7 +1176,15 @@
                guarda contra slot ausente (`content.slotById[r.exerciseId]`). -->
           <template x-if="summarySessionResults.some(r => !r.correct && content.slotById[r.exerciseId])">
             <section class="summary-errors">
-              <h3>Errores cometidos</h3>
+              <!--
+                Phase 34 (SRP-03 / D-11): el <h3> se repinta a overline de
+                sección "ERRORES COMETIDOS · {N}" (N = nº de errores con slot,
+                vía x-text espejando el filter del x-for de abajo). El motor
+                (summaryVariantSurface / filtro / sub-templates) queda VERBATIM;
+                sólo cambia presentación (cards Editoriale en app.css). El
+                literal "ERRORES COMETIDOS ·" es hardcoded (T-02-01).
+              -->
+              <p class="home-overline home-section-overline summary-section-overline">ERRORES COMETIDOS · <span x-text="summarySessionResults.filter(r => !r.correct && content.slotById[r.exerciseId]).length"></span></p>
               <ul>
                 <!-- CR-01 fix (Phase 16 update): el filter exige
                      `content.slotById[r.exerciseId]` truthy (no null). Si el autor
