@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.8
 milestone_name: Rediseño visual Editoriale
-status: "Roadmap creado (3 fases 32-34), listo para `/gsd:plan-phase 32`"
-last_updated: "2026-06-29T22:46:37.301Z"
-last_activity: 2026-06-30 — Roadmap v1.8 creado (19/19 requirements mapeados, 0 orphans)
+status: executing
+last_updated: "2026-06-30T07:36:58.748Z"
+last_activity: 2026-06-30
 progress:
   total_phases: 3
   completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
-  percent: 0
+  total_plans: 2
+  completed_plans: 1
+  percent: 50
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -21,14 +21,14 @@ See: `.planning/PROJECT.md` (updated 2026-06-09 — Milestone v1.6 shipped, CONV
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** v1.8 — Rediseno visual "Editoriale" (brownfield UI puro: tokens + fuentes auto-hospedadas + app.css sobre Pico + las 8 pantallas; motor NO se toca). Phase 32 (cimientos + Home) lista para planificar.
+**Current Focus:** Phase 32 — cimientos-visuales-home-categor-as
 
 ## Current Position
 
-Phase: Phase 32 — Cimientos visuales + Home/Categorias (not started)
-Plan: —
-Status: Roadmap creado (3 fases 32-34), listo para `/gsd:plan-phase 32`
-Last activity: 2026-06-30 — Roadmap v1.8 creado (19/19 requirements mapeados, 0 orphans)
+Phase: 32 (cimientos-visuales-home-categor-as) — EXECUTING
+Plan: 2 of 2
+Status: Plan 01 completo (cimientos visuales); listo para ejecutar Plan 02 (Home/Categorías)
+Last activity: 2026-06-30 -- Plan 32-01 completado (capa Editoriale: tokens + fuentes + tricolore + dark off + badge D-01)
 
 ## Deferred Items
 
@@ -102,6 +102,8 @@ Ambos quick tasks tienen `status: shipped` en su SUMMARY.md (completados 2026-05
 ## Accumulated Context
 
 ### Roadmap Evolution
+
+- **2026-06-30 — Plan 32-01 completado (cimientos visuales Editoriale — FND-01..04).** 3 tasks, 3 commits de tarea (`dbdabb7` feat fuentes, `94e1886` feat app.css, `9b676d7` fix dark+badge) + docs. **FND-02 (offline):** creado `vendor/fonts/` (no existía) con **13 woff2 subset latin** descargados del CDN de Google con UA de Chrome (Spectral 400/500/600/700 + italic 400/500; Hanken Grotesk 400/500/600/700/800; Space Grotesk 500/700), magic header `wOF2` verificado; CERO peticiones a `fonts.googleapis.com`/`gstatic.com` en runtime (grep vacío). **FND-01 (tokens):** nuevo `app.css` declara todos los `--ed-*` en `:root` con valores EXACTOS del handoff (off-grid 22px `--ed-space-screen` y sombra CTA `.26` verbatim, NO `.28`). **FND-03 (base + dark off):** `body` fondo papel `#f4f0e8` + sans Hanken, headings serif Spectral, `<main>` gutter 22px; modo oscuro de Pico desactivado — `styles.css` `:root { color-scheme: light }` (era `light dark`) + `<meta color-scheme="light">`. **FND-04 (tricolore):** clase reutilizable `.ed-tricolore` (verde/crema/rojo, 4px, radio 999) vía `linear-gradient` de paradas duras (funciona como `<span>` vacío, lista para Phases 33-34). **D-01 reconciliado:** las 3 `.badge-*` estaban INVERTIDAS (hecha=verde, dominada=ámbar) → corregidas en UN solo hogar (`styles.css`, tokens `--ed-*` + fallback hex): **dominada=verde `#2f7d56`, hecha=ámbar `#b9852f`, no-hecha=neutro `#c4bcab`**; `app.css` NO redefine `.badge-*` (las dos hojas no se pelean). **Decisiones:** @font-face en `app.css` (no fichero aparte); tricolore como gradiente; color del badge en `styles.css`. **Verificación:** `node --test tests/*.test.js` → **473 pass / 1 fail** (único fail = preexistente AJENO genero-numero; CERO fails nuevos — fase no toca lógica). Brownfield UI-puro: 0 JS/motor tocado. Sin checkpoint (la descarga de red SÍ era posible → no hizo falta el human-action contemplado en el plan). 4/4 requirements FND completos. Stopped at: Plan 32-01 completo. Resume file: None. Siguiente: Plan 32-02 (rediseño markup Home/Categorías reusando estos tokens + badge D-01 + raw `streakDays`).
 
 - **2026-06-30 — Roadmap v1.8 creado (Rediseno visual "Editoriale").** Milestone brownfield **UI puro**: aplicar la direccion visual Editoriale del handoff `design_handoff_italiano_redesign/` (papel calido `#f4f0e8`, serif Spectral, tricolore verde/blanco/rojo, mucho aire) a las **8 pantallas**, recreada con fidelidad alta en el stack real (vanilla + Alpine + Pico, **NO React**). **3 fases (granularidad coarse), numeracion CONTINUA en Phase 32** (v1.7 termino en 31; Phase 28 es huerfana archivada, no se reutiliza): **Phase 32** Cimientos visuales + Home/Categorias (FND-01..04 capa de tokens CSS + fuentes Spectral/Hanken/Space auto-hospedadas en `vendor/fonts/` via @font-face SIN peticiones a Google + `app.css` Editoriale sobre Pico + motivo tricolore; HOME-01..06 cabecera serif + CTA verde Repaso 20 + 3 ghost + filas de categoria + switch Contrarreloj + tabla editorial desktop) — va PRIMERA porque toda fase posterior consume tokens/fuentes/`app.css`; **Phase 33** Pantallas de ejercicio (EX-01..05 barra superior con progreso/contador/chip cronometro + opcion multiple con estados seleccion/comprobado + emparejar con badges numericos + word-buttons extrapolado); **Phase 34** Canciones/Resultados/Picker (SRP-01..04 lista de canciones + tarjeta Continuar + tiles tintados + reproduccion extrapolada + anillo de score conic-gradient + cascada/errores + picker extrapolado). **19/19 requirements mapeados a exactamente 1 fase, 0 orphans, 0 duplicados** (4 FND + 6 HOME → 32; 5 EX → 33; 4 SRP → 34). **Scope boundary blindado:** cero cambios de motor/logica/dominio/persistencia/validacion — cascada D-54 (2 call-sites), sampler, slot-engine, `localStorage`, schema y migraciones INTACTOS; cambios = markup + CSS (y a lo sumo bindings de presentacion Alpine). `support.js` y el `.dc.html` son referencia, NO van a produccion. Las 3 fases son independientemente observables en la app con `npx serve`. Stopped at: roadmap creado. Resume file: None. Siguiente: `/gsd:plan-phase 32`.
 

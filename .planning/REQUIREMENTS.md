@@ -5,10 +5,10 @@
 ## v1.8 Requirements
 
 ### Cimientos visuales (FND)
-- [ ] **FND-01**: Existe una capa de **tokens Editoriale** como custom properties CSS (todos los colores hex, familias tipográficas, escala de tamaños/pesos, radios y sombras del README) consumida por el resto de estilos.
-- [ ] **FND-02**: Las 3 familias (**Spectral**, **Hanken Grotesk**, **Space Grotesk**) están **auto-hospedadas en `vendor/fonts/`** vía `@font-face` y la app las usa **sin ninguna petición a Google Fonts en runtime** (funciona offline).
-- [ ] **FND-03**: Una capa **`app.css` Editoriale** se aplica **sobre Pico** (Pico permanece como reset/base): fondo papel cálido, tipografía serif y espaciado/aire editoriales globales, sin romper la app existente.
-- [ ] **FND-04**: El **motivo tricolore** (barra de 3 segmentos verde/crema/rojo, 4px, radio 999) existe como elemento reutilizable disponible en las pantallas.
+- [x] **FND-01**: Existe una capa de **tokens Editoriale** como custom properties CSS (todos los colores hex, familias tipográficas, escala de tamaños/pesos, radios y sombras del README) consumida por el resto de estilos.
+- [x] **FND-02**: Las 3 familias (**Spectral**, **Hanken Grotesk**, **Space Grotesk**) están **auto-hospedadas en `vendor/fonts/`** vía `@font-face` y la app las usa **sin ninguna petición a Google Fonts en runtime** (funciona offline).
+- [x] **FND-03**: Una capa **`app.css` Editoriale** se aplica **sobre Pico** (Pico permanece como reset/base): fondo papel cálido, tipografía serif y espaciado/aire editoriales globales, sin romper la app existente.
+- [x] **FND-04**: El **motivo tricolore** (barra de 3 segmentos verde/crema/rojo, 4px, radio 999) existe como elemento reutilizable disponible en las pantallas.
 
 ### Home / Categorías (HOME)
 - [ ] **HOME-01**: La Home muestra cabecera editorial: overline `ITALIANO · A1 / A2` + título serif **Categorías** (Spectral 38).
@@ -47,10 +47,10 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FND-01 | Phase 32 | Pending |
-| FND-02 | Phase 32 | Pending |
-| FND-03 | Phase 32 | Pending |
-| FND-04 | Phase 32 | Pending |
+| FND-01 | Phase 32 | Complete |
+| FND-02 | Phase 32 | Complete |
+| FND-03 | Phase 32 | Complete |
+| FND-04 | Phase 32 | Complete |
 | HOME-01 | Phase 32 | Pending |
 | HOME-02 | Phase 32 | Pending |
 | HOME-03 | Phase 32 | Pending |
