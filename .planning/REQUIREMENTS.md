@@ -22,7 +22,7 @@
 - [x] **EX-01**: La pantalla de ejercicio tiene **barra superior** Editoriale: botón atrás circular · barra de progreso verde (% del set) · contador `NN/NN` (Space Grotesk) · **chip de cronómetro** cuando Contrarreloj está activo.
 - [x] **EX-02**: El **bloque de pregunta** muestra overline de categoría + frase serif (30) con el hueco + sugerencia en cursiva. (sugerencia en cursiva OMITIDA por D-07 — sin fuente de datos.)
 - [x] **EX-03**: **Opción múltiple** recrea los estados del handoff: selección (borde verde + `green-selection` + hueco rellenado), comprobado (correcta `green-tint` ✓ / elegida-incorrecta `red-tint` ✗ / resto opacadas), **caja de feedback** verde/rojo con título serif + explicación, y CTA **Comprobar → Continuar**.
-- [ ] **EX-04**: **Emparejar** recrea las píldoras en 2 columnas con **badge numérico** por par y estados activa / candidata (borde discontinuo) / emparejada (`green-tint`), nota "N de M emparejadas" y CTA deshabilitado hasta completar.
+- [x] **EX-04**: **Emparejar** recrea las píldoras en 2 columnas con **badge numérico** por par y estados activa / emparejada (`green-tint`) + nota "N de M emparejadas". (DESVIACIONES CONSCIENTES: D-03 mantiene el flujo **por-pareja** → sin CTA deshabilitado hasta completar; D-05 omite el estado **candidata (borde discontinuo)** por no encajar en el layout 2-col por-pareja. 33-04.)
 - [x] **EX-05**: **Word-buttons** (no especificado en el handoff) se rediseña **extrapolando el lenguaje Editoriale** (banco de palabras, huecos estables, feedback verde/rojo consistente con EX-03).
 
 ### Canciones · Resultados · Picker (SRP)
@@ -60,7 +60,7 @@
 | EX-01 | Phase 33 | Done (33-01) |
 | EX-02 | Phase 33 | Done (33-01) |
 | EX-03 | Phase 33 | Complete |
-| EX-04 | Phase 33 | Pending |
+| EX-04 | Phase 33 | Complete (D-03/D-05) |
 | EX-05 | Phase 33 | Complete |
 | SRP-01 | Phase 34 | Pending |
 | SRP-02 | Phase 34 | Pending |
