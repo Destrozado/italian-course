@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.8
 milestone_name: Rediseño visual Editoriale
-status: verifying
-last_updated: "2026-06-30T07:45:37.977Z"
-last_activity: 2026-06-30
+status: executing
+last_updated: "2026-06-30T09:55:42.455Z"
+last_activity: 2026-06-30 -- Phase 32 planning complete
 progress:
   total_phases: 3
-  completed_phases: 1
-  total_plans: 2
+  completed_phases: 0
+  total_plans: 3
   completed_plans: 2
-  percent: 33
+  percent: 0
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -27,8 +27,8 @@ See: `.planning/PROJECT.md` (updated 2026-06-09 — Milestone v1.6 shipped, CONV
 
 Phase: 32 (cimientos-visuales-home-categor-as) — EXECUTING
 Plan: 2 of 2
-Status: Phase complete — ready for verification
-Last activity: 2026-06-30
+Status: Ready to execute
+Last activity: 2026-06-30 -- Phase 32 planning complete
 
 ## Deferred Items
 
@@ -133,6 +133,8 @@ Ambos quick tasks tienen `status: shipped` en su SUMMARY.md (completados 2026-05
 - **2026-06-05 — Milestone v1.6 abierto + roadmap fijado.** Conversión a slots: categorías restantes (CONV-01 cierre). Numeración CONTINÚA desde v1.5 (Phase 20) → **Phases 21-27, NO reset** (mismo criterio que v1.1/v1.2/v1.3/v1.4/v1.5). 7 fases coarse (1 migración + 6 conversiones, 1 fase por categoría): **Phase 21 (Migración 8→9, reset selectivo de las 6 categorías)** mapea MIG-03/04 — `migrate8to9`/`hydrateV9` idempotente + deep-clone, reset de progreso SOLO de las 6 a convertir (avere, essere, verbos-movimiento, genero-numero, profesiones, sustantivos-irregulares) vía predicado de 6 prefijos, las 3 ya convertidas (preposiciones, articoli, partitivos) byte-intactas, `backup.js` round-trip v9 + import v8→v9 + rechazo >9; va PRIMERA porque la renumeración de ids de contenido no se puede hacer con progreso vivo (mismo criterio que Phase 18 v1.5 y el plan 17-01 del piloto); **Phase 22 (Avere)** AVE-01/02, **Phase 23 (Essere)** ESS-01/02, **Phase 24 (Verbi di movimento)** MOV-01/02 — verbos; **Phase 25 (Genere e numero)** GEN-01/02 — morfología; **Phase 26 (Professioni)** PROF-01/02, **Phase 27 (Sostantivi irregolari)** SOST-01/02 — léxicas (decisión regla-con-variantes O slots-de-1 en discuss/plan de cada una). Cada conversión replica el patrón de Phases 19/20: reagrupar a slots por regla con explanation a nivel de slot → autorar variantes nuevas por quórum cross-vendor R1-R7 (+ huecos→slots) → sincronizar counts derivados del JSON; validator + smoke verdes. **Cobertura: 14/14 mapped, 0 orphans, 0 duplicados, 0 gaps.** Phases 22-27 dependen de Phase 21; independientes entre sí tras la migración (cualquier orden o paralelo). **Brownfield puro contenido + migración:** toda la maquinaria slot+variantes del motor v1.4 (`normalizeExerciseToSlot`, `pickVariantIndex`, getter slot-aware con `.payload` sintético, sampler por slot, cascada D-54 con 2 call-sites, smoke bifurcado por shape) YA EXISTE y NO se toca. Phase 27 cierra CONV-01 (9/9 categorías unificadas).
 
 ### Decisions
+
+- **2026-06-30 — [override] Decision Coverage Gate (Phase 32, plan-time --gaps).** El gate bloqueante marcó D-02 y D-04 como no cubiertas por ningún plan al planificar el cierre de gap 32-03. Override del autor: **proceder**. Justificación: D-02 (subtítulo "tema" partiendo el paréntesis) y D-04 (CTA Repaso + fila ghost) YA están implementadas y verificadas en el plan 32-02 (COMPLETO, con SUMMARY) — VERIFICATION truth #10 cita `(D-02)`, truths #7-8 cubren D-04. No se perdieron: solo no se citaron por ID literal en el plan-doc ya ejecutado. El plan 32-03 cubre SOLO FND-03 (GAP-01) por alcance. verify-phase puede re-superficiar esto.
 
 Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisiones que constriñen el trabajo v1.6:
 
