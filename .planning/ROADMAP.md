@@ -157,7 +157,7 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
 **Plans**: 4 plans (wave 1 cimientos EX-01/EX-02 → wave 2 opción múltiple → wave 3 word-buttons → wave 4 emparejar; serializados por compartir `index.html`+`app.css`)
 - [x] 33-01-PLAN.md — Cimientos: barra superior (atrás circular + barra de progreso verde + contador NN/NN + chip cronómetro) + bloque de pregunta (overline + frase serif 30 + hueco `___` estilizado, relleno post-corrección) + tokens tint post-corrección + 3 getters presentacionales + scaffold CSS de feedback/CTA (EX-01, EX-02) — SUMMARY 2026-06-30, 508/1 tests (1 fail preexistente ajeno)
 - [x] 33-02-PLAN.md — Opción múltiple 1-paso (D-01): estados comprobado green-tint ✓ / red-tint ✗ / resto opacadas + caja de feedback con título italiano + CTA "Continuar →" (EX-03)
-- [ ] 33-03-PLAN.md — Word-buttons extrapolado a Editoriale: banco + huecos estables (no-reflow) + feedback consistente con opción múltiple, modelo Comprobar→Siguiente conservado (EX-05)
+- [x] 33-03-PLAN.md — Word-buttons extrapolado a Editoriale: banco + huecos estables (no-reflow) + feedback consistente con opción múltiple, modelo Comprobar→Siguiente conservado (EX-05)
 - [ ] 33-04-PLAN.md — Emparejar por-pareja (D-03): 2 columnas de píldoras + badge numérico + green-tint emparejada + selected/flash + nota "N de M emparejadas" (EX-04)
 **UI hint**: yes
 
@@ -186,7 +186,7 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
 | 21-27 | v1.6 | 19/19 | Complete | 2026-06-09 |
 | 29-31 | v1.7 | 6/6 | Complete | 2026-06-17 |
 | 32. Cimientos visuales + Home/Categorías | v1.8 | 3/3 | Complete    | 2026-06-30 |
-| 33. Pantallas de ejercicio | v1.8 | 2/4 | In Progress|  |
+| 33. Pantallas de ejercicio | v1.8 | 3/4 | In Progress|  |
 | 34. Canciones · Resultados · Picker | v1.8 | 0/TBD | Not started | - |
 
 ## Backlog
