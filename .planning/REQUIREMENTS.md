@@ -26,10 +26,10 @@
 - [x] **EX-05**: **Word-buttons** (no especificado en el handoff) se rediseña **extrapolando el lenguaje Editoriale** (banco de palabras, huecos estables, feedback verde/rojo consistente con EX-03).
 
 ### Canciones · Resultados · Picker (SRP)
-- [ ] **SRP-01**: La pantalla **Canciones** muestra tarjeta destacada **Continuar** (portada + overline verde + progreso) y lista de canciones con **tiles tintados** (inicial serif), título serif, meta en cursiva y punto de estado.
+- [x] **SRP-01**: La pantalla **Canciones** muestra tarjeta destacada **Continuar** (portada + overline verde + progreso) y lista de canciones con **tiles tintados** (inicial serif), título serif, meta en cursiva y punto de estado.
 - [ ] **SRP-02**: La pantalla de **reproducción de canción** (rellenar huecos; no especificada en el handoff) se rediseña **extrapolando el lenguaje Editoriale** y la barra superior de EX-01.
-- [ ] **SRP-03**: La pantalla de **Resultados de examen** muestra **anillo de score** (`conic-gradient`) + "X/Y correctos", sección **categorías afectadas** (cascada, etiqueta `FALLÓ`) y **errores** (frase resuelta, "Tu: ~~x~~ / Correcta: y", explicación), con datos reales de la sesión.
-- [ ] **SRP-04**: El **picker** de Repaso/Examen (selección de categorías; no especificado en el handoff) se rediseña **extrapolando el lenguaje Editoriale** (checkboxes/selección, Seleccionar/Quitar todo, contador) conservando su comportamiento.
+- [x] **SRP-03**: La pantalla de **Resultados de examen** muestra **anillo de score** (`conic-gradient`) + "X/Y correctos", sección **categorías afectadas** (cascada, etiqueta `FALLÓ`) y **errores** (frase resuelta, "Tu: ~~x~~ / Correcta: y", explicación), con datos reales de la sesión.
+- [x] **SRP-04**: El **picker** de Repaso/Examen (selección de categorías; no especificado en el handoff) se rediseña **extrapolando el lenguaje Editoriale** (checkboxes/selección, Seleccionar/Quitar todo, contador) conservando su comportamiento.
 
 ## Future Requirements (deferred)
 - Arte de portada de canción **real** (este milestone usa tiles tintados con inicial).
@@ -62,9 +62,9 @@
 | EX-03 | Phase 33 | Complete |
 | EX-04 | Phase 33 | Complete (D-03/D-05) |
 | EX-05 | Phase 33 | Complete |
-| SRP-01 | Phase 34 | Pending |
+| SRP-01 | Phase 34 | Complete |
 | SRP-02 | Phase 34 | Pending |
-| SRP-03 | Phase 34 | Pending |
-| SRP-04 | Phase 34 | Pending |
+| SRP-03 | Phase 34 | Complete |
+| SRP-04 | Phase 34 | Complete |
 
 **Coverage:** 19/19 requirements mapeados a exactamente una fase. 0 orphans, 0 duplicados.

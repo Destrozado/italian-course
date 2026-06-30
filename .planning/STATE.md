@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.8
 milestone_name: Rediseño visual Editoriale
 status: executing
-last_updated: "2026-06-30T15:51:08.264Z"
-last_activity: 2026-06-30 -- Phase 34 planning complete
+last_updated: "2026-06-30T16:08:23.043Z"
+last_activity: 2026-06-30
 progress:
   total_phases: 3
   completed_phases: 2
   total_plans: 12
-  completed_plans: 7
-  percent: 58
+  completed_plans: 9
+  percent: 75
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -21,14 +21,14 @@ See: `.planning/PROJECT.md` (updated 2026-06-09 — Milestone v1.6 shipped, CONV
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 34 — canciones · resultados · picker
+**Current Focus:** Phase 34 — Canciones · Resultados · Picker
 
 ## Current Position
 
-Phase: 34
-Plan: Not started
+Phase: 34 (Canciones · Resultados · Picker) — EXECUTING
+Plan: 2 of 5
 Status: Ready to execute
-Last activity: 2026-06-30 -- Phase 34 planning complete
+Last activity: 2026-06-30
 
 ## Deferred Items
 
@@ -102,6 +102,8 @@ Ambos quick tasks tienen `status: shipped` en su SUMMARY.md (completados 2026-05
 ## Accumulated Context
 
 ### Roadmap Evolution
+
+- **2026-06-30 — Plan 34-01 completado (cimientos presentacionales compartidos — SRP-01/03/04) — Phase 34 Plan 1/5, wave 1.** 2 tasks, 3 commits de tarea (`fd85987` test RED, `7209a19` feat getters GREEN, `0214afe` feat tokens+badge) + docs. **Task 1 (TDD):** `songsForDisplay` extendido con `titleDisplay`/`artist`/`metaLabel` vía `(song.title ?? song.id).split('—').map(trim)` (D-05/D-06; meta = `{artista} · {N} huecos`, sin "Nivel") + flag `featured` = PRIMERA `no-hecha`|`fallada` en orden de lista (D-01), pre-computado un único `featuredId` antes del map → exactamente una featured, ninguna cuando todas son `pasada` (D-04); campos existentes (`id`/`title`/`phraseCount`/`status`/`statusLabel`/`vecesFallada`) preservados verbatim. Nuevo getter read-only `summaryScore` deriva `{correct,total,pct}` del SNAPSHOT `summarySessionResults` (Y = respondidas, NO el set lanzado — D-10) espejando el idiom de `sessionProgressPercent`. Nuevo getter `pickerSelectedCount` = `pickerCheckedCategoryIds.length` (D-12). Tests nuevos en `tests/screen-canciones.test.js` (source-asserts + behavioral sobre el factory instanciado + guard cascada). **Task 2 (CSS):** 3 tokens net-new en `app.css :root` — `--ed-green-dark #296c4a` (stripe portada), `--ed-placeholder` (alias de `--ed-faint`, "/Y" muted), `--ed-ring-track #e6ddcd` (pista del anillo de score, handoff §5, distinto de `--ed-streak-track`) — + bloque al FONDO de `app.css` (gana por orden de fuente) con la tríada de CANCIÓN `.badge-pasada` (verde) / `.badge-fallada` (rojo) JUNTO a (no en lugar de) la tríada de categoría de `styles.css`; `.badge-no-hecha` (neutro) reusado verbatim. **Decisiones:** featured pre-computado (getter puro, motor intacto); `--ed-placeholder` aliasado a `--ed-faint` (paleta muted single-source); ventana del source-assert ampliada a 2400 chars porque el pre-cómputo de featuredId precede al split en el cuerpo. **Desviación (auto-fix):** (1) Rule 3 — el guard "no `--pico-*` nuevo" se ancló al banner único del bloque del fondo ("Tríada de estado de CANCIÓN") en vez de a todo `app.css`, porque existe un compat-shim `--pico-*` INTENCIONADO (FND-03/GAP-01) que debe quedar intacto; verifica que el bloque nuevo no introduce ninguno. **Verificación:** `node --test tests/screen-canciones.test.js` → 43/43 pass; `node --test tests/*.test.js` → **524 pass / 1 fail** (único fail = preexistente AJENO genero-numero coverage; CERO fails nuevos). Sin `x-html` (solo comentarios), sin `--pico-*` nuevo, sin `prefers-color-scheme`; cascada D-54 = 2 call-sites intactos. Brownfield UI-puro: motor sin tocar. 3/3 requirements del plan completos (SRP-01, SRP-03, SRP-04). Stopped at: Plan 34-01 completo. Resume file: None. Siguiente: Plan 34-02 (repaint lista de Canciones, SRP-01).
 
 - **2026-06-30 — Plan 33-02 completado (opción múltiple Editoriale comprobado — EX-03) — Phase 33 Plan 2/4, wave 2.** 2 tasks, 2 commits de tarea (`3a2b50c` feat markup MC, `aa0ad8a` feat CSS opciones+marcas+dim + fix test) + docs. **Conscious deviation D-01 honrada:** la opción múltiple SIGUE en 1 PASO — `@click="sessionSelectOption(perm)"` corrige al instante (sin botón "Comprobar", sin estado `green-selection` de pre-selección, teclado 1-4 igual). Los estados *comprobado* (D-02) se aplican DESPUÉS del click. **Task 1 (markup, index.html ~470-556):** fila de opciones repintada a `.session-options` con TODOS los bindings byte-equivalentes (`multiChoiceOrder`/`:key="perm"`/`:disabled`/`'correcta'`/`'incorrecta'`/`x-text options[perm]`); caja `.session-feedback`(`.correct`/`.wrong`, scaffold 33-01) con títulos serif italianos HARDCODEADOS `¡Esatto!`/`Quasi…` (D-09, NUNCA x-text), la línea "Respuesta correcta:" plegada dentro como `.session-feedback-correct` (copy español, `<strong x-text>` preservado, solo en fallo), la `.session-explanation` existente (doble-guard preservado) y el botón `.session-why` "¿Por qué?" (`revealSessionExplanation()` intacto); el botón de avance convertido en la CTA inferior `.session-cta` "Continuar →" (label hardcodeado, D-04) llamando al `sessionAdvance` SIN cambios. **Task 2 (CSS, sección Phase 33 de app.css):** sub-sección "Phase 33 / Plan 02" solo con `--ed-*` — `.session-options` (columna, gap 10px verbatim); opción en reposo (serif 18/500, `--ed-surface`, `--ed-border-soft` 1.5px, radio 14, padding 15×18 verbatim, `justify-content: space-between`); hover border-darken (`@media (hover:hover)`); focus-visible 2px verde; override de `button.correcta`→tinte verde + `--ed-green` 2px + `--ed-green-on-tint` + `::after "✓"` y `button.incorrecta`→tinte rojo + `--ed-red` 2px + `--ed-red-text` + `::after "✗"` (ambos `opacity:1`); dim post-corrección `opacity:0.5` scopeado a `.session-options button:disabled:not(.correcta):not(.incorrecta)` (sin sangrar a match/word-buttons); `.session-feedback-correct` (Hanken 13 `--ed-red-text`). Las marcas ✓/✗ son glifos HARDCODEADOS vía `::after content` (no datos, significado no cromático). **Desviación (auto-fix):** (1) Rule 1 — el test `exercise-types.test.js:1521` (r3b CAMBIO 1) contaba `x-show="sessionFeedback !== null"` global y exigía exactamente 3 (los 3 botones de avance por tipo); el repaint MC añadió legítimamente un 4º (el wrapper de la caja de feedback lleva el mismo guard). Re-expresado para contar los 3 botones de avance por intención (`x-show="sessionFeedback !== null"` seguido a ≤80 chars de `@click="sessionAdvance">` → MC `Continuar →` + word-buttons `Siguiente` + match `Siguiente`), robusto a los wrappers de feedback que añadirán 33-03/33-04; la aserción de canción (`songAdvance`) intacta. **Verificación:** `node --test tests/*.test.js` → **508 pass / 1 fail** (único fail = preexistente AJENO genero-numero 12-vs-13; CERO fails nuevos). `grep -cE 'x-html=' index.html` → 0 (anti-XSS T-33-03; los 3 `x-html` bare son comentarios de documentación). Engine baseline intacto (`applyResultToSession|sessionSelectOption` en app.js = 31). Sin `--pico-*` nuevo en las adiciones de Plan 02. Brownfield UI-puro. 3/5 requirements EX completos (EX-01, EX-02, EX-03). Stopped at: Plan 33-02 completo. Resume file: None. Siguiente: Plan 33-03 (word-buttons, EX-05).
 
