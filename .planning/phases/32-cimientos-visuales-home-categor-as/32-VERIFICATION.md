@@ -1,8 +1,8 @@
 ---
 phase: 32-cimientos-visuales-home-categor-as
 verified: 2026-06-30T00:00:00Z
-status: gaps_found
-score: 10/10 must-haves verificados (auto) — 1 gap detectado en verificación humana (FND-03 contraste)
+status: passed
+score: 10/10 must-haves verificados — GAP-01 (FND-03) cerrado en 32-03 (Pico eliminado); 5/5 items de verificación humana PASS (navegador headless: Home/Backup/Picker/Session + mobile 390px)
 overrides_applied: 0
 re_verification: false
 human_verification:
@@ -28,8 +28,8 @@ human_verification:
 **Goal de la fase:** La app entera adopta el lenguaje Editoriale (tokens + fuentes offline + capa `app.css` sobre Pico + motivo tricolore) y la Home/Categorías queda rediseñada como pantalla principal editorial, en columna móvil y como tabla editorial en desktop, sin perder funcionalidad.
 
 **Verificado:** 2026-06-30
-**Estado:** gaps_found (todas las verificaciones automáticas pasan; la verificación humana en navegador detectó GAP-01 — contraste roto por superficies de Pico sin remapear, FND-03). Ver sección **Gaps** al final.
-**Re-verificación:** No — verificación inicial
+**Estado:** passed (GAP-01 cerrado en plan 32-03 eliminando Pico; verificación visual en navegador headless de Home/Backup/Picker/Session + mobile 390px, todo legible sobre papel sin card blanca; suite 494/495, fail preexistente ajeno). Ver sección **Gaps** (resuelta) al final.
+**Re-verificación:** Sí — tras cierre de GAP-01 (2026-06-30)
 
 ---
 

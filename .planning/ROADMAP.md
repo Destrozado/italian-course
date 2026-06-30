@@ -178,7 +178,7 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
 | 18-20 | v1.5 | 7/7 | Complete | 2026-06-05 |
 | 21-27 | v1.6 | 19/19 | Complete | 2026-06-09 |
 | 29-31 | v1.7 | 6/6 | Complete | 2026-06-17 |
-| 32. Cimientos visuales + Home/Categorías | v1.8 | 3/3 | Complete   | 2026-06-30 |
+| 32. Cimientos visuales + Home/Categorías | v1.8 | 3/3 | Complete    | 2026-06-30 |
 | 33. Pantallas de ejercicio | v1.8 | 0/TBD | Not started | - |
 | 34. Canciones · Resultados · Picker | v1.8 | 0/TBD | Not started | - |
 
