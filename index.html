@@ -68,9 +68,16 @@
       <!-- Pantalla HOME (D-24, D-29, D-30, D-32)                            -->
       <!-- ════════════════════════════════════════════════════════════════ -->
       <template x-if="currentScreen === 'home'">
-        <article>
-          <header>
-            <h2>Categorías</h2>
+        <article class="home-editorial">
+          <!--
+            HOME-01 — Cabecera editorial: motivo tricolore reutilizable (Plan 01),
+            overline `ITALIANO · A1 / A2` (texto LITERAL, no de JSON) + título serif
+            `Categorías` (Spectral 38/600). Markup-only, sin bindings nuevos.
+          -->
+          <header class="home-header">
+            <span class="ed-tricolore" aria-hidden="true"></span>
+            <p class="home-overline">ITALIANO · A1 / A2</p>
+            <h2 class="home-title">Categorías</h2>
           </header>
 
           <!--
@@ -133,42 +140,56 @@
           </template>
 
           <!--
-            Tres botones lado a lado (D-32 + D-81 Phase 4). Usamos `.button-row`
-            (clase genérica reusable en cualquier sitio con botones adyacentes) +
-            `.button-row-prominent` (variante con font-size/padding extra para
-            acciones primarias) en vez de `role="group"` porque Pico's button
-            group une los bordes (parecen un solo control) y UAT 02-03 detectó
-            que los dos botones se veían "pegados y casi como un título". El
-            mismo patrón reapareció en el picker en UAT 02-04 round 2, motivo
-            por el que `.home-actions` se generalizó a `.button-row`.
-
-            D-81: el tercer botón `Backup` usa `class="secondary"` (Pico muted
-            cyan) — no compite con los protagonistas Repaso/Test completo.
-            Visible siempre, descubrible sin depender del banner.
+            HOME-02 — CTA primario "Repaso 20" (D-04/D-05). Ancho completo, verde,
+            título + subtítulo + flecha + sombra verde (estilado en app.css).
+            COMPORTAMIENTO INTACTO (D-05): @click="openPicker('repaso')" VERBATIM —
+            abre el picker de selección de categorías, NO un lanzamiento directo.
+            El subtítulo es decorativo; se usa "Repaso rápido" (neutro) para no
+            prometer un lanzamiento de 20 directo que choque con el paso del picker.
           -->
-          <div class="button-row button-row-prominent">
-            <button type="button" @click="openPicker('repaso')">Repaso 20</button>
-            <button type="button" @click="openPicker('test-completo')">Test completo</button>
-            <!--
-              Phase 13 (D-01): "Canciones" es un botón PROTAGONISTA, al mismo
-              nivel visual que Repaso/Test completo (SIN `class="secondary"`,
-              a diferencia de Backup). Abre el listado `currentScreen='canciones'`.
-            -->
-            <button type="button" @click="currentScreen = 'canciones'">Canciones</button>
-            <button type="button" class="secondary" @click="currentScreen = 'backup'">Backup</button>
+          <button type="button" class="home-cta" @click="openPicker('repaso')">
+            <span class="home-cta-text">
+              <span class="home-cta-title">Repaso 20</span>
+              <span class="home-cta-sub">Repaso rápido</span>
+            </span>
+            <span class="home-cta-arrow" aria-hidden="true">→</span>
+          </button>
+
+          <!--
+            HOME-03 — Fila ghost de 3 (D-04): Test completo · Canciones · Backup.
+            Todos los @click VERBATIM del diseño anterior. Canciones BAJA de
+            protagonista a ghost (D-04, supersede del D-01 de Phase 13). Bordes
+            border-soft, equiespaciados (flex:1), estilado en app.css.
+          -->
+          <div class="home-ghost-row">
+            <button type="button" class="home-ghost" @click="openPicker('test-completo')">Test completo</button>
+            <button type="button" class="home-ghost" @click="currentScreen = 'canciones'">Canciones</button>
+            <button type="button" class="home-ghost" @click="currentScreen = 'backup'">Backup</button>
           </div>
 
           <!--
-            quick-260615-r3b (CAMBIO 2): toggle "Contrarreloj" para el examen de
-            1 clic de la tabla. Enlaza al flag runtime homeExamTimed (no persistido).
-            Discreto, alineado con la estética de la tabla.
+            HOME-05 — Fila de sección + switch Contrarreloj. Overline `CATEGORÍAS`
+            a la izquierda; label `Contrarreloj` + switch a la derecha. El switch
+            conserva su binding homeExamTimed VERBATIM (quick-260615-r3b, runtime-only):
+            el examen de 1 clic de la tabla arranca cronometrado cuando está on.
           -->
-          <label class="home-exam-timed">
-            <input type="checkbox" role="switch" x-model="homeExamTimed">
-            Contrarreloj ⏱
-          </label>
+          <div class="home-section-row">
+            <p class="home-overline home-section-overline">CATEGORÍAS</p>
+            <label class="home-exam-timed">
+              Contrarreloj
+              <input type="checkbox" role="switch" x-model="homeExamTimed">
+            </label>
+          </div>
 
-          <!-- Tabla densa (D-29) con 6 columnas exactas — 6ª columna Examen añadida en Phase 8 (D-184). -->
+          <!--
+            HOME-04/06 — Tabla de categorías. Se CONSERVA el <figure><table> +
+            x-for + los data-label (la capa móvil Phase-28 depende de ellos). En
+            móvil cae a tarjetas (styles.css @media 640px); en desktop se restila
+            a tabla editorial papel/serif/hairlines (app.css >=641px). Columna
+            "Última vez" se mantiene en el DOM con su data-label (capa móvil) y se
+            OCULTA en desktop por CSS → contrato 5 columnas (Estado · Categoría ·
+            Racha · Ejercicios · Examen). Anti-XSS: TODO contenido via x-text.
+          -->
           <figure>
             <table>
               <thead>
@@ -177,7 +198,7 @@
                   <th scope="col">Categoría</th>
                   <th scope="col">Racha</th>
                   <th scope="col">Ejercicios</th>
-                  <th scope="col">Última vez</th>
+                  <th scope="col" class="col-ultima-vez">Última vez</th>
                   <th scope="col">Examen</th>
                 </tr>
               </thead>
@@ -185,23 +206,44 @@
                 <template x-for="cat in categoriesForDisplay" :key="cat.id">
                   <tr>
                     <td data-label="Estado">
-                      <span :class="`badge-${cat.status}`"
-                            :aria-label="cat.statusLabel"
-                            x-text="cat.badgeGlyph"></span>
+                      <!-- Dot de estado (D-01): el color lo da la clase badge-* (Plan 01). -->
+                      <span class="status-dot"
+                            :class="`badge-${cat.status}`"
+                            :aria-label="cat.statusLabel"></span>
                     </td>
                     <td>
-                      <span x-text="cat.name"></span>
+                      <!--
+                        D-02: nombre serif = parte antes de `(`; subtítulo "tema"
+                        en cursiva = texto dentro del paréntesis. Derivado en
+                        expresión Alpine sobre x-text (anti-XSS, NUNCA x-html).
+                        Las categorías sin paréntesis no muestran subtítulo.
+                      -->
+                      <span class="cat-name" x-text="cat.name.split('(')[0].trim()"></span>
+                      <span class="cat-topic"
+                            x-show="cat.name.includes('(')"
+                            x-text="cat.name.includes('(') ? cat.name.slice(cat.name.indexOf('(') + 1, cat.name.lastIndexOf(')')).trim() : ''"></span>
                     </td>
                     <td data-label="Racha">
-                      <span x-text="cat.streakLabel"></span>
+                      <div class="streak-block">
+                        <!--
+                          Barra streak/21 (HOME-04): ancho de relleno = streakDays/21
+                          (cap 100%), color verde (dominada) / ámbar (hecha) via la
+                          clase badge-*. Estilo inline SOLO para el ancho dinámico.
+                        -->
+                        <span class="streak-bar" :class="`badge-${cat.status}`">
+                          <span class="streak-bar-fill"
+                                :style="`width: ${Math.min(cat.streakDays / 21 * 100, 100)}%`"></span>
+                        </span>
+                        <span class="streak-label" x-text="cat.streakLabel"></span>
+                      </div>
                       <small x-show="cat.vecesFallada > 0"
                              x-text="`fallada x${cat.vecesFallada}`"></small>
                     </td>
                     <td data-label="Ejercicios" x-text="cat.totalCount"></td>
-                    <td data-label="Última vez" x-text="cat.lastPracticedLabel"></td>
+                    <td data-label="Última vez" class="col-ultima-vez" x-text="cat.lastPracticedLabel"></td>
                     <td data-label="Examen">
                       <button type="button"
-                              class="secondary outline"
+                              class="examen-pill"
                               :disabled="!cat.examenEnabled"
                               :title="cat.examenTooltip"
                               @click="startExamen(cat.id)">Examen</button>

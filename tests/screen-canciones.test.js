@@ -44,18 +44,19 @@ describe('Canciones — Task 1: boot wiring + home button + listado', () => {
       'songsById NUNCA debe mezclarse en exerciseById — standalone LINK-04');
   });
 
-  test('index.html tiene el botón Canciones PROTAGONISTA (no class="secondary") en la fila prominente (D-01)', () => {
-    const rowIdx = indexSrc.indexOf('button-row button-row-prominent');
-    assert.ok(rowIdx > -1, 'debe existir la fila prominente .button-row button-row-prominent');
-    // Ventana de la fila prominente (hasta el cierre del div).
+  test('index.html: botón Canciones en la fila ghost editorial (Phase 32 D-04 supersede D-01)', () => {
+    // Phase 32 D-04: Canciones BAJA de protagonista a la fila ghost de 3
+    // (Test completo · Canciones · Backup). El comportamiento se preserva
+    // (abre currentScreen = 'canciones'); solo cambia su nivel visual.
+    const rowIdx = indexSrc.indexOf('home-ghost-row');
+    assert.ok(rowIdx > -1, 'debe existir la fila ghost editorial .home-ghost-row (Phase 32)');
     const rowWindow = indexSrc.slice(rowIdx, rowIdx + 900);
-    assert.ok(rowWindow.includes("currentScreen = 'canciones'"),
-      'el botón Canciones debe abrir currentScreen = \'canciones\'');
-    // Aislar el <button ...>Canciones</button> y verificar que NO lleva secondary.
     const m = rowWindow.match(/<button[^>]*>Canciones<\/button>/);
-    assert.ok(m, 'debe existir un <button>...Canciones</button> en la fila prominente');
-    assert.ok(!/class\s*=\s*"[^"]*secondary[^"]*"/.test(m[0]),
-      'el botón Canciones NO debe llevar class="secondary" — es protagonista (D-01)');
+    assert.ok(m, 'debe existir un <button>...Canciones</button> en la fila ghost');
+    assert.ok(/@click="currentScreen = 'canciones'"/.test(m[0]),
+      'el botón Canciones ghost debe abrir currentScreen = \'canciones\' (comportamiento preservado)');
+    assert.ok(/class\s*=\s*"[^"]*home-ghost[^"]*"/.test(m[0]),
+      'el botón Canciones debe llevar la clase home-ghost (nivel ghost, D-04)');
   });
 
   test('index.html tiene el template del listado currentScreen === \'canciones\'', () => {

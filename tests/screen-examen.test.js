@@ -103,13 +103,16 @@ describe('appShell.startExamen — Phase 8 D-181..D-192', () => {
       'pickerCheckedCategoryIds debe setearse ANTES de persistInFlightTest — si se setea después, el fallback prev?.categoryIds capturaría las cats del Test anterior (regresión silenciosa)');
   });
 
-  test('index.html tiene 6ª columna Examen con botón secondary outline y binding al handler (D-184 + UI-SPEC línea 115)', () => {
+  test('index.html tiene la columna Examen con la píldora editorial y binding al handler (D-184 + Phase 32 HOME-04)', () => {
     assert.ok(
       indexSrc.includes('<th scope="col">Examen</th>'),
-      'index.html debe tener <th scope="col">Examen</th> nuevo — UI-SPEC línea 184 (6ª columna nueva D-184)');
+      'index.html debe tener <th scope="col">Examen</th> (columna Examen D-184)');
+    // Phase 32 (HOME-04): el botón Examen se restila a píldora editorial
+    // (clase examen-pill, borde ink, radio 999) — supersede el secondary outline
+    // de Phase 8. El COMPORTAMIENTO (handler + :disabled + :title) se preserva.
     assert.ok(
-      indexSrc.includes('class="secondary outline"'),
-      "botón Examen debe tener class='secondary outline' — UI-SPEC línea 115 (nivel 3 jerarquía visual; cero CSS nuevo prescrito)");
+      indexSrc.includes('class="examen-pill"'),
+      "botón Examen debe tener class='examen-pill' — Phase 32 HOME-04 (píldora borde ink)");
     assert.ok(
       indexSrc.includes('startExamen(cat.id)'),
       "index.html debe tener @click='startExamen(cat.id)' binding al handler Task 1");
