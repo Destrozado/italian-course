@@ -170,18 +170,20 @@
   --ed-space-screen: 22px;
 }
 
-/* ─── Remap Pico tokens (FND-03 / GAP-01) — superficies heredan papel/tinta ─── */
+/* ─── Compat shim de variables --pico-* (FND-03 / GAP-01) ─── */
 /*
- * Cierra el GAP-01: Pico 2.1.1 pinta sus superficies de componente (<article>,
- * <header>/<footer>, formularios, tablas) con sus tokens stock de tema claro,
- * creando una "card" del color viejo encima del papel y dejando el banner ⚠ de
- * export y los nombres de categoría sin contraste (texto ≈ fondo). Aquí se
- * REDEFINEN los custom properties de color de Pico a la paleta Editoriale, de
- * modo que TODA superficie pintada por Pico herede papel/tinta. Pico sigue
- * cargado como base/reset — esto solo redefine sus variables, NO lo elimina
- * (decisión bloqueada 32-CONTEXT D-03 / 32-UI-SPEC "Pico = base, dark mode off").
- * Bloque separado y contiguo al :root de --ed-* para ganar la cascada con los
- * tokens ya resueltos.
+ * GAP-01 reabierto: el remapeo de variables NO bastaba — Pico 2.1.1 define sus
+ * tokens de color bajo `:root:not([data-theme=dark])` (mayor especificidad que
+ * un `:root` plano), así que su "card" blanca seguía ganando la cascada y tapaba
+ * el papel. Decisión del autor (2026-06-30): ELIMINAR Pico y usar solo la capa
+ * Editoriale (ver index.html). Esto invierte la decisión bloqueada previa
+ * (32-CONTEXT D-03 "Pico = base").
+ *
+ * styles.css (legacy) aún referencia varias `var(--pico-*, <fallback>)`. Este
+ * bloque se conserva como SHIM: enruta esas referencias a los tokens Editoriale
+ * (las que no se definan aquí caen a su fallback hex en styles.css). El reset y
+ * el estilado de elementos que antes daba Pico se reimplementa más abajo
+ * ("Base de elementos").
  */
 :root {
   /* Fondo / texto base */
@@ -221,34 +223,163 @@
   --pico-border-color: var(--ed-border-soft);
 }
 
-/* ─── Base Editoriale sobre Pico (FND-03) — papel + serif/sans ─── */
+/* ─── Base de elementos (FND-03) — reemplaza el reset/base de Pico (eliminado) ─── */
 /*
- * El fondo papel y la tipografía Editoriale sustituyen la estética azul/blanca
- * de Pico. Sólo capa global; el markup de cada pantalla se rediseña en sus
- * fases (Home = Plan 02, ejercicio/canciones/resultados = Phases 33-34).
+ * Pico aportaba box-sizing, centrado de <main>, y el estilado base de <article>,
+ * <button>, <input>, switch, <progress> y <table>. Al quitarlo, esta capa lo
+ * reimplementa con la paleta/tipografía Editoriale (tokens --ed-*). Las pantallas
+ * con clases propias (.home-cta, .examen-pill, etc.) se autoestilan; esto cubre
+ * los elementos "desnudos" del resto de pantallas (ejercicio/backup/canciones)
+ * para que sigan siendo usables y legibles hasta su rediseño en Phases 33-34.
  */
+*, *::before, *::after { box-sizing: border-box; }
+
 body {
+  margin: 0;
   background-color: var(--ed-paper);
   color: var(--ed-ink);
   font-family: var(--ed-font-sans);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Títulos serif Spectral (Pico usa su stack sans por defecto). */
+/* Títulos serif Spectral. */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--ed-font-serif);
   color: var(--ed-ink);
 }
 
 /*
- * Aire lateral de pantalla (22px verbatim del handoff). Ancla en <main>, que
- * envuelve todas las pantallas (ver index.html). Pico ya centra/limita el
- * ancho de <main>; aquí sólo se garantiza el gutter Editoriale sin romper el
- * layout existente.
+ * <main>: centrado + ancho máximo (lo daba Pico) + gutter lateral Editoriale
+ * (22px verbatim del handoff) + aire vertical.
  */
 main {
-  padding-left: var(--ed-space-screen);
-  padding-right: var(--ed-space-screen);
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 24px var(--ed-space-screen) 48px;
 }
+
+/* <article>: una por pantalla. Fondo papel (NO blanco/card) para fundirse con la
+ * página — ESTE era el GAP-01 (la card blanca de Pico encima del papel). */
+article {
+  background: var(--ed-paper);
+  border: none;
+  border-radius: var(--ed-radius-card);
+  padding: 8px 0;
+  margin: 0 0 24px;
+}
+article > header,
+article > footer {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+a { color: var(--ed-green); }
+
+/* Botones "desnudos" (los de clase propia se autoestilan y ganan por orden). */
+button {
+  font-family: var(--ed-font-sans);
+  font-size: 15px;
+  color: var(--ed-ink);
+  background: var(--ed-surface);
+  border: 1px solid var(--ed-border-soft);
+  border-radius: var(--ed-radius-ghost);
+  padding: 10px 16px;
+  cursor: pointer;
+}
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* Campos de formulario desnudos. */
+input, select, textarea {
+  font-family: var(--ed-font-sans);
+  font-size: 15px;
+  color: var(--ed-ink);
+  background: var(--ed-surface);
+  border: 1px solid var(--ed-border-soft);
+  border-radius: var(--ed-radius-ghost);
+  padding: 8px 10px;
+}
+input[type="file"] { background: transparent; border: none; padding: 0; }
+
+/* Checkbox (picker). appearance:none + marca verde. */
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: 1px solid var(--ed-border-soft);
+  border-radius: 5px;
+  background: var(--ed-surface);
+  vertical-align: middle;
+  cursor: pointer;
+}
+input[type="checkbox"]:checked {
+  background: var(--ed-green);
+  border-color: var(--ed-green);
+}
+
+/* Switch role="switch" (Contrarreloj) — reemplaza el switch de Pico. DEBE ir
+ * después de input[type="checkbox"] (misma especificidad → gana por orden). */
+input[role="switch"] {
+  appearance: none;
+  -webkit-appearance: none;
+  position: relative;
+  width: 40px;
+  height: 22px;
+  padding: 0;
+  border: 1px solid var(--ed-border-soft);
+  border-radius: var(--ed-radius-pill);
+  background: var(--ed-streak-track);
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+input[role="switch"]::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  transition: left 0.15s ease;
+}
+input[role="switch"]:checked {
+  background: var(--ed-green);
+  border-color: var(--ed-green);
+}
+input[role="switch"]:checked::before { left: 20px; }
+
+/* <progress>: barra base (la usa el cronómetro de sesión; styles.css fija el
+ * color del valor del timer y gana por especificidad). */
+progress {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  border: none;
+  border-radius: var(--ed-radius-pill);
+  background: var(--ed-streak-track);
+  overflow: hidden;
+}
+progress::-webkit-progress-bar {
+  background: var(--ed-streak-track);
+  border-radius: var(--ed-radius-pill);
+}
+progress::-webkit-progress-value {
+  background: var(--ed-green);
+  border-radius: var(--ed-radius-pill);
+}
+progress::-moz-progress-bar { background: var(--ed-green); }
+
+/* Tablas desnudas. */
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 8px 10px; text-align: left; }
 
 /* ─── Motivo tricolore (FND-04) — clase reutilizable por Phases 33-34 ─── */
 /*

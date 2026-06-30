@@ -7,16 +7,15 @@
   <meta name="color-scheme" content="light">
   <title>Italiano A1/A2 — Ejercicios</title>
 
-  <!-- Pico CSS 2.1.1 (classless variant) — SRI pinned per RESEARCH.md 2026-05-23 -->
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.1.1/css/pico.classless.min.css"
-        integrity="sha384-NZhm4G1I7BpEGdjDKnzEfy3d78xvy7ECKUwwnKTYi036z42IyF056PbHfpQLIYgL"
-        crossorigin="anonymous">
+  <!-- Pico CSS eliminado (Phase 32 / GAP-01): su tema claro stock pintaba una
+       "card" blanca encima del papel y ganaba la cascada vía :root:not([data-theme=dark]).
+       app.css aporta ahora el reset/base de elementos (Editoriale puro). -->
 
   <link rel="stylesheet" href="./styles.css">
 
   <!-- Capa "Editoriale" (Phase 32 · v1.8) — DESPUÉS de styles.css para ganar la
-       cascada: tokens --ed-*, @font-face auto-hospedadas, fondo papel, serif. -->
+       cascada: reset/base de elementos, tokens --ed-*, @font-face auto-hospedadas,
+       fondo papel, serif. -->
   <link rel="stylesheet" href="./app.css">
 
   <!--
