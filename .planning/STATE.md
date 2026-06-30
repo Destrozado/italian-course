@@ -2,9 +2,9 @@
 gsd_state_version: 1.0
 milestone: v1.8
 milestone_name: Rediseño visual Editoriale
-status: executing
-last_updated: "2026-06-30T16:37:18Z"
-last_activity: 2026-06-30
+status: Awaiting next milestone
+last_updated: "2026-06-30T22:44:43.210Z"
+last_activity: 2026-06-30 — Milestone v1.8 completed and archived
 progress:
   total_phases: 3
   completed_phases: 3
@@ -21,14 +21,14 @@ See: `.planning/PROJECT.md` (updated 2026-06-09 — Milestone v1.6 shipped, CONV
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 34 — Canciones · Resultados · Picker
+**Current Focus:** Entre milestones — v1.8 "Editoriale" shipped 2026-06-30. Próximo vía `/gsd:new-milestone`.
 
 ## Current Position
 
-Phase: 34 (Canciones · Resultados · Picker) — COMPLETADA (5/5 planes)
-Plan: 5 of 5 — COMPLETADO
-Status: 34-05 completado (Resultados/summary repintado Editoriale, SRP-03: anillo conic-gradient + X/Y correctos D-09/D-10, cascada FALLÓ D-11, error cards). Phase 34 cerrada → milestone v1.8 con los 12 planes ejecutados (pendiente cierre formal de milestone)
-Last activity: 2026-06-30
+Phase: Milestone v1.8 complete
+Plan: —
+Status: Awaiting next milestone
+Last activity: 2026-06-30 — Milestone v1.8 completed and archived
 
 ## Deferred Items
 
@@ -40,6 +40,17 @@ Items reconocidos y diferidos en el cierre del milestone v1.6 (2026-06-09):
 | quick_task | 260525-vvj-boton-reiniciar-examen | shipped (tracking huérfano) |
 
 Ambos quick tasks tienen `status: shipped` en su SUMMARY.md (completados 2026-05-25, era v1.0); el trabajo se entregó y está en el codebase con tests verdes. El audit los marca "missing" solo por metadata de tracking incompleta (p.ej. `hash: TBD-orchestrator`). No es trabajo pendiente; no son de scope v1.6.
+
+Items reconocidos y diferidos en el cierre del milestone v1.8 (2026-06-30, acknowledged por el autor):
+
+| Category | Item | Status |
+|----------|------|--------|
+| responsive | Móvil — tamaño del prompt en ejercicios + responsive general de las pantallas Editoriale | deferred (v1.8 desktop-only por diseño, CLAUDE.md) |
+| todo | `mobile-responsive-exercise-home.md` | deferred (futuro milestone responsive) |
+| quick_task | 17 quick_tasks "missing" en audit-open | stale — referencias históricas v1.0–v1.7, archivos limpiados; no es trabajo v1.8 |
+| cosmetic | `cancion` `.wb-answer` sin toggle `correcta` (relleno verde post-acierto; sólo visible en la ventana de auto-avance 600ms) | deferred — inconsistencia cosmética vs Phase 33-03, no rompe flujo (34-REVIEW/audit) |
+
+NOTA: el bug **grave** de márgenes laterales en móvil (gutter UA de 40px en `<figure>` tras eliminar Pico) **NO está diferido — se corrigió en hotfix `13b5631` (2026-07-01) y está en `main`**. Lo que queda diferido es el resto del responsive (tamaño de prompt, breakpoints de las pantallas nuevas), out-of-scope de v1.8 (desktop-only). El milestone v1.8 cumplió su definition of done (19/19 requirements desktop, audit passed) — el responsive completo es candidato a milestone propio.
 
 ## Quick Tasks Completed
 

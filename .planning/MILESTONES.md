@@ -1,5 +1,22 @@
 # Milestones
 
+## v1.8 Rediseño visual Editoriale (Shipped: 2026-06-30)
+
+**Phases completed:** 3 phases (32-34), 12 plans, 15 tasks, 19/19 requirements (4 FND + 6 HOME + 5 EX + 4 SRP)
+**Stats:** suite 574/575 (único fail preexistente AJENO genero-numero). Timeline 2026-06-30 (1 día). **Pico ELIMINADO** (Phase 32) → `app.css` pasa a ser la base/reset. Motor (cascada D-54, sampler, slot-engine, localStorage, schema, migraciones) NO tocado.
+**Audit:** `passed` — 19/19 requirements · integración cross-phase 47/47 · 5/5 E2E flows (`.planning/milestones/v1.8-MILESTONE-AUDIT.md`).
+**Known deferred items at close:** responsive móvil (tamaño de prompt + breakpoints de las pantallas nuevas) — v1.8 es desktop-only por diseño; 17 quick_tasks "missing" (stale, pre-v1.8); 1 cosmético (`cancion` `.wb-answer` sin toggle `correcta`). Ver STATE.md §Deferred Items. **Hotfix post-cierre `13b5631` (2026-07-01):** reset base `figure { margin: 0 }` — el gutter UA de 40px de `<figure>` aplastaba la tabla de categorías en móvil (regresión de eliminar Pico); corregido y en `main`.
+
+**Key accomplishments:**
+
+- **Capa Editoriale (Phase 32):** tokens `--ed-*`, 3 fuentes auto-hospedadas en `vendor/fonts/` (cero peticiones a Google, offline-safe), **Pico eliminado** y `app.css` como base/reset (GAP-01), motivo tricolore — la base visual que consumen las 8 pantallas.
+- **Home/Categorías (Phase 32):** cabecera serif (overline + título Spectral 38), CTA verde Repaso, fila ghost (Test/Canciones/Backup), switch Contrarreloj, filas de categoría (dot de estado + nombre/tema serif + barra streak/21 + píldora Examen) y tabla editorial en desktop — bindings Alpine intactos, único cambio JS = `streakDays` expuesto.
+- **Pantallas de ejercicio (Phase 33):** barra superior unificada (atrás + progreso + contador + chip cronómetro), bloque de pregunta serif con hueco, y estados *comprobado* del handoff en opción múltiple / emparejar / word-buttons. Desviación consciente D-01/D-03: flujo 1-paso / por-pareja conservado.
+- **Canciones · reproducción · Resultados · Picker (Phase 34):** lista con tarjeta Continuar/Empezar + tiles tintados + getters presentacionales (`songsForDisplay`/`summaryScore`/`pickerSelectedCount`); reproducción con barra heredada (sin cronómetro); Resultados con anillo `conic-gradient` + X/Y + cascada FALLÓ + errores; picker Editoriale (filas + tick + contador). UAT humano 7/7.
+- **Brownfield UI puro:** las 8 pantallas repintadas sin tocar el motor (cascada D-54 con 2 call-sites intactos verificados, sampler, slot-engine, localStorage, schema, migraciones); invariante anti-XSS `x-text`-only mantenido; cada plan con `<threat_model>` (T-02-01) y phase 34 con SECURITY.md (threats_open 0).
+
+---
+
 ## v1.7 Presente regolare (Shipped: 2026-06-17)
 
 **Phases completed:** 3 phases (29-31), 6 plans, 11/11 requirements (7 PRES + 2 MIG + 2 INT)
