@@ -2,15 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.8
 milestone_name: Rediseño visual Editoriale
-status: executing
-last_updated: "2026-06-30T14:00:00.000Z"
+status: ready_to_plan
+last_updated: 2026-06-30T13:16:35.329Z
 last_activity: 2026-06-30 -- Plan 33-04 completado (match EX-04 Editoriale) → Phase 33 COMPLETA (4/4)
 progress:
   total_phases: 3
   completed_phases: 2
   total_plans: 7
   completed_plans: 7
-  percent: 78
+  percent: 67
+stopped_at: Phase 33 complete (4/4) — ready to discuss Phase 34
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -21,14 +22,14 @@ See: `.planning/PROJECT.md` (updated 2026-06-09 — Milestone v1.6 shipped, CONV
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 33 — pantallas-de-ejercicio
+**Current Focus:** Phase 34 — canciones · resultados · picker
 
 ## Current Position
 
-Phase: 33 (pantallas-de-ejercicio) — COMPLETE (4/4 plans)
-Plan: 4 of 4 (completado)
-Status: Phase 33 cerrada — siguiente Phase 34 (canciones · resultados · picker)
-Last activity: 2026-06-30 -- Plan 33-04 completado (match EX-04 Editoriale, badge numérico + per-pair D-03/D-05); candidata "?" omitida por D-05
+Phase: 34
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-06-30
 
 ## Deferred Items
 
