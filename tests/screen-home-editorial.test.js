@@ -26,6 +26,8 @@ import { readFileSync } from 'node:fs';
 
 const appJs = readFileSync(new URL('../src/screens/app.js', import.meta.url), 'utf8');
 const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+const appCss = readFileSync(new URL('../app.css', import.meta.url), 'utf8');
+const stylesCss = readFileSync(new URL('../styles.css', import.meta.url), 'utf8');
 
 describe('Phase 32-02 Task 1 — streakDays crudo en categoriesForDisplay', () => {
   test('app.js incluye `streakDays: streak` en el return del getter', () => {
@@ -111,5 +113,38 @@ describe('Phase 32-02 Task 2 — barra de racha + anti-XSS (index.html)', () => 
   test('data-label preservados (la capa móvil Phase-28 depende de ellos)', () => {
     assert.ok(html.includes('data-label="Examen"'), 'celda Examen mantiene data-label');
     assert.ok(html.includes('data-label="Última vez"'), 'celda Última vez mantiene data-label');
+  });
+});
+
+describe('Phase 32-02 Task 3 — app.css estila la Home Editoriale', () => {
+  test('CTA consume var(--ed-green) + var(--ed-shadow-cta)', () => {
+    assert.ok(appCss.includes('var(--ed-green)'), 'fondo verde del CTA');
+    assert.ok(appCss.includes('var(--ed-shadow-cta)'), 'sombra verde del CTA');
+  });
+
+  test('borde ghost consume var(--ed-border-soft)', () => {
+    assert.ok(appCss.includes('var(--ed-border-soft)'), 'borde de los botones ghost');
+  });
+
+  test('píldora Examen / barra de racha consumen tokens de tinta y estado', () => {
+    assert.ok(appCss.includes('var(--ed-ink)'), 'borde+texto de la píldora Examen');
+    assert.ok(appCss.includes('var(--ed-streak-track)'), 'pista de la barra de racha');
+  });
+
+  test('existe una regla de tabla editorial en desktop (min-width 641px o figure table)', () => {
+    assert.ok(
+      /min-width:\s*641px/.test(appCss) || /figure\s+table/.test(appCss),
+      'la tabla editorial desktop es el hermano inverso del @media 640px de styles.css'
+    );
+  });
+});
+
+describe('Phase 32-02 Task 3 — capa móvil Phase-28 SIN regresión (styles.css)', () => {
+  test('styles.css conserva @media (max-width: 640px)', () => {
+    assert.ok(stylesCss.includes('@media (max-width: 640px)'));
+  });
+
+  test('styles.css conserva los tap-targets min-height: 44px', () => {
+    assert.ok(stylesCss.includes('min-height: 44px'));
   });
 });

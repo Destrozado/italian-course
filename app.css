@@ -223,3 +223,252 @@ main {
     var(--ed-red) 66.666% 100%
   );
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * Phase 32 Plan 02 — Pantalla Home/Categorías Editoriale (HOME-01..06)
+ * ─────────────────────────────────────────────────────────────────────────────
+ * Componentes de la Home redibujada: cabecera serif, CTA verde "Repaso 20",
+ * fila ghost de 3, switch Contrarreloj, filas de categoría (dot · streak · pill)
+ * y tabla editorial en desktop. TODO consume los tokens --ed-* de :root.
+ *
+ * Medidas EXACTAS del handoff (32-UI-SPEC §Components / §Spacing): las
+ * excepciones off-grid (gap 13px, padding 15px, margin-top 9px, padding 7px 15px,
+ * etc.) van verbatim — NO redondear ("Mantén las medidas exactas").
+ *
+ * Convivencia con la capa móvil Phase-28 (styles.css @media max-width:640px,
+ * tabla->tarjetas + tap-targets 44px): la tabla editorial vive bajo
+ * @media (min-width: 641px) → el hermano inverso. La capa <=640px sigue dueña
+ * del teléfono y NO se toca aquí.
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ─── (1) Cabecera (HOME-01) ─── */
+.home-header {
+  margin-bottom: 18px;             /* exception verbatim (header -> CTA) */
+  border: none;                    /* anula el separador de <header> de Pico */
+  padding: 0;
+}
+.home-header .ed-tricolore {
+  margin-bottom: 16px;
+}
+.home-overline {
+  font-family: var(--ed-font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--ed-faint-2);
+  margin: 0;
+}
+.home-title {
+  font-family: var(--ed-font-serif);
+  font-size: 38px;
+  font-weight: 600;
+  letter-spacing: -0.6px;
+  line-height: 1.02;
+  color: var(--ed-ink);
+  margin: 6px 0 0;
+}
+
+/* ─── (2) CTA primario "Repaso 20" (HOME-02) ─── */
+.home-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  text-align: left;
+  padding: 16px 18px;              /* exception verbatim */
+  border: none;
+  border-radius: var(--ed-radius-cta);
+  background: var(--ed-green);
+  color: var(--ed-surface);
+  box-shadow: var(--ed-shadow-cta);
+  cursor: pointer;
+}
+.home-cta-text {
+  display: flex;
+  flex-direction: column;
+}
+.home-cta-title {
+  font-family: var(--ed-font-sans);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.home-cta-sub {
+  font-family: var(--ed-font-sans);
+  font-size: 12px;
+  font-weight: 400;
+  opacity: 0.85;
+}
+.home-cta-arrow {
+  font-size: 21px;
+  line-height: 1;
+}
+
+/* ─── (3) Fila ghost de 3 (HOME-03) ─── */
+.home-ghost-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 9px;                 /* exception verbatim (CTA -> ghost) */
+}
+.home-ghost {
+  flex: 1;
+  padding: 11px 4px;               /* exception verbatim */
+  border: 1px solid var(--ed-border-soft);
+  border-radius: var(--ed-radius-ghost);
+  background: transparent;
+  color: #5f594d;
+  font-family: var(--ed-font-sans);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ─── (4) Fila de sección + switch Contrarreloj (HOME-05) ─── */
+.home-section-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 24px 0 4px;              /* exception verbatim */
+}
+.home-section-overline {
+  letter-spacing: 2px;             /* overline de sección: 2px (no 2.5px) */
+}
+/* El switch Contrarreloj reusa la clase existente .home-exam-timed (binding
+ * Alpine intacto). Aquí se restila a la estética Editoriale: label sans muted,
+ * gap 9px, track verde cuando on (Pico role="switch"). */
+.home-exam-timed {
+  display: flex;
+  align-items: center;
+  gap: 9px;                        /* exception verbatim (label <-> switch) */
+  margin: 0;
+  font-family: var(--ed-font-sans);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ed-muted);
+}
+.home-exam-timed input[role="switch"] {
+  margin: 0;
+}
+/* Track verde cuando on (Pico pinta el checked con --pico-primary; aquí se
+ * fuerza al verde Editoriale sin tocar el modelo Alpine homeExamTimed). */
+.home-exam-timed input[role="switch"]:checked {
+  background-color: var(--ed-green);
+  border-color: var(--ed-green);
+}
+
+/* ─── (5) Filas de categoría (HOME-04) ─── */
+/* Status dot (D-01): 9px redondo; el color lo da la clase badge-* (Plan 01:
+ * dominada=verde, hecha=ámbar, no-hecha=neutro). El badge-* en styles.css setea
+ * `color`; aquí se mapea ese color a background del dot via currentColor. */
+.status-dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: var(--ed-radius-pill);
+  flex-shrink: 0;
+  background-color: currentColor; /* hereda el color del badge-* (D-01) */
+}
+.cat-name {
+  display: block;
+  font-family: var(--ed-font-serif);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--ed-ink);
+}
+.cat-topic {
+  display: block;
+  font-family: var(--ed-font-serif);
+  font-style: italic;
+  font-size: 12.5px;
+  color: var(--ed-faint);
+  margin-top: 1px;                 /* exception verbatim */
+}
+/* Bloque de racha: barra streak/21 + label. */
+.streak-block {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 7px;                 /* exception verbatim */
+}
+.streak-bar {
+  position: relative;
+  flex: 1;
+  max-width: 110px;
+  height: 4px;
+  border-radius: var(--ed-radius-pill);
+  background: var(--ed-streak-track);
+  overflow: hidden;
+}
+.streak-bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: var(--ed-radius-pill);
+  background-color: currentColor;  /* verde/ámbar según badge-* del estado (D-01) */
+}
+.streak-label {
+  font-family: var(--ed-font-sans);
+  font-size: 11px;
+  color: var(--ed-faint);
+  white-space: nowrap;
+}
+/* Píldora Examen (HOME-04): borde ink, transparente, radio 999. */
+.examen-pill {
+  padding: 7px 15px;               /* exception verbatim */
+  border: 1px solid var(--ed-ink);
+  border-radius: var(--ed-radius-pill);
+  background: transparent;
+  color: var(--ed-ink);
+  font-family: var(--ed-font-sans);
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.examen-pill:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ─── (6) Tabla editorial en desktop (HOME-06) ─── */
+/* El hermano INVERSO del @media (max-width:640px) de styles.css: a partir de
+ * 641px la <figure><table> se restila a tabla editorial papel/serif/hairlines,
+ * conservando el DOM y los bindings. La capa <=640px (tarjetas) NO se toca. */
+@media (min-width: 641px) {
+  .home-editorial figure {
+    background: transparent;
+    margin: 0;
+  }
+  .home-editorial figure table {
+    background: transparent;
+    border-collapse: collapse;
+    --pico-table-border-color: transparent;
+  }
+  .home-editorial figure table thead th {
+    font-family: var(--ed-font-sans);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--ed-faint-2);
+    border-bottom: 1px solid var(--ed-hairline);
+    background: transparent;
+  }
+  .home-editorial figure table td {
+    border-bottom: 1px solid var(--ed-hairline);
+    vertical-align: middle;
+    background: transparent;
+    font-family: var(--ed-font-serif);
+    color: var(--ed-ink);
+  }
+  /* Contrato 5 columnas (Estado · Categoría · Racha · Ejercicios · Examen):
+   * la columna "Última vez" se oculta en desktop (igual que la capa móvil la
+   * omite). El <td> sigue en el DOM con su data-label para la capa Phase-28. */
+  .home-editorial .col-ultima-vez {
+    display: none;
+  }
+  /* La celda Estado centra el dot; la barra de racha mantiene su ancho. */
+  .home-editorial figure table td[data-label="Estado"] {
+    text-align: center;
+  }
+}
