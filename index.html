@@ -722,7 +722,19 @@
                               'match-flash': matchFlashIdx && matchFlashIdx.left === idx
                             }"
                             :aria-label="'Sustantivo ' + (idx + 1) + ': ' + item">
+                      <!--
+                        Phase 33 (EX-04 / D-05) — badge numérico por pareja
+                        emparejada: círculo verde + número blanco (CSS), reemplaza
+                        el sufijo ¹..⁹. El número deriva de `pairIdx + 1` del par
+                        consumido cuyo `leftIdx` coincide (mismo número que el
+                        gemelo de la columna derecha). x-text SOLO sobre el número
+                        derivado (T-33-07: nunca x-html). Pre-emparejado conserva
+                        el sufijo ¹..⁹ (.kbd-hint, oculto al consumir vía CSS).
+                      -->
                       <span x-text="item"></span><sup class="kbd-hint" x-text="idx < 9 ? (idx + 1) : ''"></sup>
+                      <span class="match-badge"
+                            x-show="matchLeftIsConsumed(idx)"
+                            x-text="(matchPairsConsumed.find(p => p.leftIdx === idx)?.pairIdx ?? idx) + 1"></span>
                     </button>
                   </template>
                 </div>
@@ -737,10 +749,25 @@
                             }"
                             :aria-label="'Letra ' + letterFor(idx) + ': ' + item">
                       <span x-text="item"></span><sup class="kbd-hint" x-text="letterFor(idx)"></sup>
+                      <span class="match-badge"
+                            x-show="matchRightIsConsumed(idx)"
+                            x-text="(matchPairsConsumed.find(p => p.rightIdx === idx)?.pairIdx ?? idx) + 1"></span>
                     </button>
                   </template>
                 </div>
               </div>
+              <!--
+                Phase 33 (EX-04, UI-SPEC §Match) — nota opcional "N de M
+                emparejadas": derivación presentacional read-only de
+                `matchPairsConsumed.length` / `matchLeft.length`. x-text SOLO
+                sobre los números derivados (T-33-07). Oculta cuando no hay
+                ninguna emparejada o ya está completo / en feedback final.
+              -->
+              <p class="match-note"
+                 x-show="sessionFeedback === null && matchPairsConsumed.length > 0 && matchPairsConsumed.length < matchLeft.length"
+                 aria-live="polite">
+                <span x-text="matchPairsConsumed.length"></span> de <span x-text="matchLeft.length"></span> emparejadas
+              </p>
               <!--
                 Phase 7 plan 01 (D-118, EXPL-02) — Explicación pedagógica
                 inline durante feedback rojo. En match NO hay línea "Respuesta
@@ -749,15 +776,34 @@
                 el `</div>` que cierra `.match-grid` y el botón "Siguiente".
                 Doble guard + `x-text` exclusivo + clase compartida.
               -->
-              <p x-show="(sessionFeedback === 'incorrect' || (sessionFeedback === 'correct' && sessionExplanationRevealed)) && sessionCurrentExercise.payload.explanation"
-                 class="session-explanation"
-                 x-text="sessionCurrentExercise.payload.explanation"></p>
+              <!--
+                Phase 33 (EX-04 / D-09) — Caja de feedback compartida (scaffold
+                33-01, idéntica al patrón de multiple-choice/word-buttons 33-02/03).
+                En match NO hay caja de "acierto" mid-flow (cada pareja se valida
+                al vuelo); la caja aparece solo en el feedback FINAL. Como el match
+                solo cierra con feedback tras un fallo (matchHadFailure → correct=
+                false), el título es el serif "Quasi…" HARDCODEADO (D-09, T-33-07:
+                nunca x-text). En el caso límite de acierto revelado ("¿Por qué?")
+                la caja se muestra neutra sin título. La explicación pedagógica
+                existente va dentro, vía x-text exclusivo.
+              -->
+              <div x-show="(sessionFeedback === 'incorrect' || (sessionFeedback === 'correct' && sessionExplanationRevealed)) && sessionCurrentExercise.payload.explanation"
+                   class="session-feedback"
+                   :class="{
+                     'correct': sessionFeedback === 'correct',
+                     'wrong': sessionFeedback === 'incorrect'
+                   }">
+                <p class="session-feedback-title" x-show="sessionFeedback === 'incorrect'">Quasi…</p>
+                <p class="session-explanation"
+                   x-text="sessionCurrentExercise.payload.explanation"></p>
+              </div>
               <!-- quick-260615-hr0: affordance "¿Por qué?" al acertar con explanation. -->
               <button type="button"
                       class="session-why"
                       x-show="sessionFeedback === 'correct' && sessionCurrentExercise.payload.explanation && !sessionExplanationRevealed"
                       @click="revealSessionExplanation()">¿Por qué?</button>
               <button type="button"
+                      class="session-cta"
                       x-show="sessionFeedback !== null"
                       @click="sessionAdvance">Siguiente</button>
             </div>
