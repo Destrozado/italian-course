@@ -421,3 +421,164 @@ describe('Canciones — quick-260615-nzi: contador vecesFallada por canción', (
       'el indicador de canción debe renderizar "fallada xN" vía x-text');
   });
 });
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Phase 34 (Plan 34-01) — Getters presentacionales compartidos:
+//   · songsForDisplay extendido (titleDisplay/artist/metaLabel/featured) D-01/D-05/D-06
+//   · summaryScore {correct,total,pct} desde el snapshot summarySessionResults D-09/D-10
+//   · pickerSelectedCount = pickerCheckedCategoryIds.length D-12
+//   · guarda cascada D-54 (applyImmediateFailure(this.state intacto)
+//
+// Presentación pura — el motor NO se toca. Mezcla source-asserts (estilo
+// screen-home-editorial) + asserts behaviorales sobre el factory instanciado
+// (igual que la regresión vecesFallada de songsForDisplay).
+// ─────────────────────────────────────────────────────────────────────────────
+describe('Phase 34-01 — songsForDisplay: title/artist split + featured (D-01/D-05/D-06)', () => {
+  test('songsForDisplay deriva el artista partiendo title por el em-dash "—" (source-assert D-05)', () => {
+    const idx = appSrc.search(/get songsForDisplay\s*\(\)\s*\{/);
+    assert.ok(idx > -1, 'songsForDisplay debe estar definido');
+    const window = appSrc.slice(idx, idx + 1400);
+    assert.ok(window.includes("split('—')"),
+      "songsForDisplay debe partir el title por el em-dash '—' (idiom de categoriesForDisplay, D-05)");
+    assert.ok(/titleDisplay/.test(window) && /artist/.test(window) && /metaLabel/.test(window),
+      'songsForDisplay debe exponer titleDisplay / artist / metaLabel (D-05/D-06)');
+    assert.ok(/featured/.test(window),
+      'songsForDisplay debe etiquetar la fila destacada con un flag featured (D-01)');
+  });
+
+  function songApp(songs, progress) {
+    const app = appShell(Promise.resolve());
+    app.content = { songsById: songs };
+    app.state = {
+      schemaVersion: 10,
+      exerciseStats: {},
+      categoryProgress: {},
+      dailyLog: {},
+      songProgress: progress ?? {},
+      lastBackupAt: null,
+      firstUsedAt: null
+    };
+    return app;
+  }
+
+  test('titleDisplay/artist/metaLabel derivan del split por "—" (artista presente)', () => {
+    const app = songApp({
+      'eq': { id: 'eq', title: 'Equilibrio mentale — Caparezza', phrases: [{}, {}, {}] }
+    });
+    const row = app.songsForDisplay.find(r => r.id === 'eq');
+    assert.equal(row.titleDisplay, 'Equilibrio mentale', 'título = parte izquierda trim');
+    assert.equal(row.artist, 'Caparezza', 'artista = parte derecha trim');
+    assert.equal(row.metaLabel, 'Caparezza · 3 huecos', 'meta = {artista} · {N} huecos');
+  });
+
+  test('sin "—": titleDisplay = título completo, artist = "", meta = "{N} huecos"', () => {
+    const app = songApp({
+      'solo': { id: 'solo', title: 'Solo', phrases: [{}] }
+    });
+    const row = app.songsForDisplay.find(r => r.id === 'solo');
+    assert.equal(row.titleDisplay, 'Solo');
+    assert.equal(row.artist, '', 'sin em-dash → artist vacío');
+    assert.equal(row.metaLabel, '1 huecos', 'sin artista → solo "{N} huecos"');
+  });
+
+  test('featured = primera no-hecha|fallada en orden de lista (D-01)', () => {
+    const app = songApp(
+      {
+        a: { id: 'a', title: 'A', phrases: [{}] },
+        b: { id: 'b', title: 'B', phrases: [{}] },
+        c: { id: 'c', title: 'C', phrases: [{}] }
+      },
+      {
+        a: { status: 'pasada' },
+        b: { status: 'fallada' }
+        // c → no-hecha (sin entrada)
+      }
+    );
+    const rows = app.songsForDisplay;
+    assert.equal(rows.find(r => r.id === 'a').featured, false, 'pasada nunca es featured');
+    assert.equal(rows.find(r => r.id === 'b').featured, true, 'primera fallada/no-hecha = featured');
+    assert.equal(rows.find(r => r.id === 'c').featured, false, 'solo una featured');
+    assert.equal(rows.filter(r => r.featured).length, 1, 'exactamente una featured');
+  });
+
+  test('todas pasada → ninguna featured (D-04 empty state)', () => {
+    const app = songApp(
+      { a: { id: 'a', title: 'A', phrases: [{}] }, b: { id: 'b', title: 'B', phrases: [{}] } },
+      { a: { status: 'pasada' }, b: { status: 'pasada' } }
+    );
+    assert.equal(app.songsForDisplay.filter(r => r.featured).length, 0,
+      'cuando todas son pasada, ninguna fila es featured');
+  });
+
+  test('preserva los campos existentes (id/title/phraseCount/status/statusLabel/vecesFallada)', () => {
+    const app = songApp(
+      { a: { id: 'a', title: 'A — Artista', phrases: [{}, {}] } },
+      { a: { status: 'fallada', vecesFallada: 3 } }
+    );
+    const row = app.songsForDisplay.find(r => r.id === 'a');
+    assert.equal(row.id, 'a');
+    assert.equal(row.title, 'A — Artista', 'title crudo se preserva verbatim');
+    assert.equal(row.phraseCount, 2);
+    assert.equal(row.status, 'fallada');
+    assert.equal(row.vecesFallada, 3);
+    assert.ok(typeof row.statusLabel === 'string' && row.statusLabel.length > 0);
+  });
+});
+
+describe('Phase 34-01 — summaryScore desde el snapshot (D-09/D-10)', () => {
+  test('summaryScore lee summarySessionResults y computa pct (source-assert)', () => {
+    const idx = appSrc.search(/get summaryScore\s*\(\)\s*\{/);
+    assert.ok(idx > -1, 'summaryScore debe estar definido como getter');
+    const window = appSrc.slice(idx, idx + 500);
+    assert.ok(window.includes('summarySessionResults'),
+      'summaryScore debe derivar del SNAPSHOT summarySessionResults (D-10), no de sessionResults live');
+    assert.ok(window.includes('pct'),
+      'summaryScore debe computar el porcentaje pct');
+  });
+
+  test('summaryScore = {correct,total,pct} desde el snapshot', () => {
+    const app = appShell(Promise.resolve());
+    app.summarySessionResults = [
+      { exerciseId: 'x1', correct: true },
+      { exerciseId: 'x2', correct: false },
+      { exerciseId: 'x3', correct: true },
+      { exerciseId: 'x4', correct: true }
+    ];
+    const s = app.summaryScore;
+    assert.equal(s.total, 4, 'total = answered count (D-10)');
+    assert.equal(s.correct, 3, 'correct = conteo de r.correct truthy');
+    assert.equal(s.pct, 75, 'pct = round(correct/total*100)');
+  });
+
+  test('summaryScore con snapshot vacío → {0,0,0} (sin divide-by-zero)', () => {
+    const app = appShell(Promise.resolve());
+    app.summarySessionResults = [];
+    assert.deepEqual(app.summaryScore, { correct: 0, total: 0, pct: 0 });
+  });
+});
+
+describe('Phase 34-01 — pickerSelectedCount (D-12)', () => {
+  test('pickerSelectedCount lee pickerCheckedCategoryIds.length (source-assert)', () => {
+    const idx = appSrc.search(/get pickerSelectedCount\s*\(\)\s*\{/);
+    assert.ok(idx > -1, 'pickerSelectedCount debe estar definido como getter');
+    const window = appSrc.slice(idx, idx + 300);
+    assert.ok(window.includes('pickerCheckedCategoryIds') && window.includes('length'),
+      'pickerSelectedCount debe devolver pickerCheckedCategoryIds.length (D-12)');
+  });
+
+  test('pickerSelectedCount = número de categorías marcadas', () => {
+    const app = appShell(Promise.resolve());
+    app.pickerCheckedCategoryIds = ['a', 'b', 'c'];
+    assert.equal(app.pickerSelectedCount, 3);
+    app.pickerCheckedCategoryIds = [];
+    assert.equal(app.pickerSelectedCount, 0);
+  });
+});
+
+describe('Phase 34-01 — guarda motor intacto (cascada D-54)', () => {
+  test('applyImmediateFailure(this.state se mantiene en 2 call-sites (D-54 no regresa)', () => {
+    const invocations = (appSrc.match(/applyImmediateFailure\(this\.state/g) || []).length;
+    assert.equal(invocations, 2,
+      `applyImmediateFailure(this.state debe mantenerse en 2 call-sites; encontrados: ${invocations}`);
+  });
+});
