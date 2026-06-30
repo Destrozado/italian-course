@@ -170,7 +170,12 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
   2. La **reproducción de canción** (rellenar huecos) se ve con el lenguaje Editoriale y la misma barra superior que las pantallas de ejercicio.
   3. **Resultados de examen** muestra el **anillo de score** (`conic-gradient`) + "X/Y correctos", la sección **categorías afectadas** (cascada, etiqueta `FALLÓ`) y los **errores** (frase resuelta, "Tu: ~~x~~ / Correcta: y", explicación), todo con los datos reales de la sesión terminada.
   4. El **picker** de Repaso/Examen se ve en estilo Editoriale (checkboxes/selección, Seleccionar/Quitar todo, contador) conservando su comportamiento de selección de categorías.
-**Plans**: TBD
+**Plans**: 5 plans (wave 1 cimientos getters/tokens → waves 2-5 una pantalla por ola, serializadas por compartir `index.html`+`app.css`)
+- [ ] 34-01-PLAN.md — Cimientos: extender `songsForDisplay` (split título→artista + meta + featured) + getter `summaryScore` (X/Y del snapshot) + getter contador picker + `badge-pasada`/`badge-fallada` + tokens net-new (`--ed-green-dark`/`--ed-placeholder`/`--ed-ring-track`) (SRP-01/03/04)
+- [ ] 34-02-PLAN.md — Canciones: tarjeta destacada Continuar/Empezar (primera pendiente, barra por estado) + lista de filas con cover tile rayado + título serif/meta cursiva + punto de estado (SRP-01)
+- [ ] 34-03-PLAN.md — Picker: filas hairline (nombre serif + subtítulo cursiva + tick verde) + contador "N categorías seleccionadas" + CTA `.session-cta` Empezar, handlers verbatim (SRP-04)
+- [ ] 34-04-PLAN.md — Reproducción de canción: barra superior Editoriale (atrás circular ‹ + progreso verde + "Frase X/N", SIN chip de cronómetro) + prompt serif, word-buttons heredados (SRP-02)
+- [ ] 34-05-PLAN.md — Resultados: anillo de score `conic-gradient` + "X/Y correctos" (todos los modos) + cascada CATEGORÍAS AFECTADAS con píldora FALLÓ + tarjetas de error Editoriale (override de `--pico-*` legacy por orden de fuente) (SRP-03)
 **UI hint**: yes
 
 ## Progress
@@ -187,7 +192,7 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
 | 29-31 | v1.7 | 6/6 | Complete | 2026-06-17 |
 | 32. Cimientos visuales + Home/Categorías | v1.8 | 3/3 | Complete    | 2026-06-30 |
 | 33. Pantallas de ejercicio | v1.8 | 4/4 | Complete    | 2026-06-30 |
-| 34. Canciones · Resultados · Picker | v1.8 | 0/TBD | Not started | - |
+| 34. Canciones · Resultados · Picker | v1.8 | 0/5 | Not started | - |
 
 ## Backlog
 
