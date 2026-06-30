@@ -151,7 +151,14 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
   3. **Opción múltiple** reproduce los estados del handoff: selección (borde verde + `green-selection` + hueco rellenado), comprobado (correcta `green-tint` ✓ / elegida-incorrecta `red-tint` ✗ / resto opacadas), caja de feedback verde/rojo con título serif + explicación, y CTA **Comprobar → Continuar** — grading y cascada D-54 inalterados.
   4. **Emparejar** muestra dos columnas de píldoras con **badge numérico** por par y estados activa / candidata (borde discontinuo) / emparejada (`green-tint`), nota "N de M emparejadas" y CTA deshabilitado hasta completar.
   5. **Word-buttons** (no especificado en el handoff) se ve coherente con el lenguaje Editoriale (banco de palabras, huecos estables, feedback verde/rojo consistente con opción múltiple).
-**Plans**: TBD
+
+> **Desviaciones conscientes (D-01/D-03, bloqueadas en 33-CONTEXT.md):** opción múltiple se mantiene **1-paso** (tap = corrección instantánea; sin botón "Comprobar", sin estado pre-check `green-selection`; CTA "Continuar →" tras corregir) y emparejar se mantiene **por-pareja** (validación instantánea + cascada D-61; sin "emparejar-todo-y-Comprobar", sin CTA deshabilitado). Los sub-criterios "selección green-selection + hueco pre-rellenado / CTA Comprobar" (EX-03) y "CTA deshabilitado hasta completar" (EX-04) se incumplen a propósito; los estados *comprobado* (D-02) sí se aplican.
+
+**Plans**: 4 plans (wave 1 cimientos EX-01/EX-02 → wave 2 opción múltiple → wave 3 word-buttons → wave 4 emparejar; serializados por compartir `index.html`+`app.css`)
+- [ ] 33-01-PLAN.md — Cimientos: barra superior (atrás circular + barra de progreso verde + contador NN/NN + chip cronómetro) + bloque de pregunta (overline + frase serif 30 + hueco `___` estilizado, relleno post-corrección) + tokens tint post-corrección + 2 getters presentacionales + scaffold CSS de feedback/CTA (EX-01, EX-02)
+- [ ] 33-02-PLAN.md — Opción múltiple 1-paso (D-01): estados comprobado green-tint ✓ / red-tint ✗ / resto opacadas + caja de feedback con título italiano + CTA "Continuar →" (EX-03)
+- [ ] 33-03-PLAN.md — Word-buttons extrapolado a Editoriale: banco + huecos estables (no-reflow) + feedback consistente con opción múltiple, modelo Comprobar→Siguiente conservado (EX-05)
+- [ ] 33-04-PLAN.md — Emparejar por-pareja (D-03): 2 columnas de píldoras + badge numérico + green-tint emparejada + selected/flash + nota "N de M emparejadas" (EX-04)
 **UI hint**: yes
 
 #### Phase 34: Canciones · Resultados · Picker
@@ -179,7 +186,7 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
 | 21-27 | v1.6 | 19/19 | Complete | 2026-06-09 |
 | 29-31 | v1.7 | 6/6 | Complete | 2026-06-17 |
 | 32. Cimientos visuales + Home/Categorías | v1.8 | 3/3 | Complete    | 2026-06-30 |
-| 33. Pantallas de ejercicio | v1.8 | 0/TBD | Not started | - |
+| 33. Pantallas de ejercicio | v1.8 | 0/4 | Planned | - |
 | 34. Canciones · Resultados · Picker | v1.8 | 0/TBD | Not started | - |
 
 ## Backlog
