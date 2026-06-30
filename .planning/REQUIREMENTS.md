@@ -27,7 +27,7 @@
 
 ### Canciones · Resultados · Picker (SRP)
 - [x] **SRP-01**: La pantalla **Canciones** muestra tarjeta destacada **Continuar** (portada + overline verde + progreso) y lista de canciones con **tiles tintados** (inicial serif), título serif, meta en cursiva y punto de estado.
-- [ ] **SRP-02**: La pantalla de **reproducción de canción** (rellenar huecos; no especificada en el handoff) se rediseña **extrapolando el lenguaje Editoriale** y la barra superior de EX-01.
+- [x] **SRP-02**: La pantalla de **reproducción de canción** (rellenar huecos; no especificada en el handoff) se rediseña **extrapolando el lenguaje Editoriale** y la barra superior de EX-01.
 - [x] **SRP-03**: La pantalla de **Resultados de examen** muestra **anillo de score** (`conic-gradient`) + "X/Y correctos", sección **categorías afectadas** (cascada, etiqueta `FALLÓ`) y **errores** (frase resuelta, "Tu: ~~x~~ / Correcta: y", explicación), con datos reales de la sesión.
 - [x] **SRP-04**: El **picker** de Repaso/Examen (selección de categorías; no especificado en el handoff) se rediseña **extrapolando el lenguaje Editoriale** (checkboxes/selección, Seleccionar/Quitar todo, contador) conservando su comportamiento.
 
@@ -63,7 +63,7 @@
 | EX-04 | Phase 33 | Complete (D-03/D-05) |
 | EX-05 | Phase 33 | Complete |
 | SRP-01 | Phase 34 | Complete |
-| SRP-02 | Phase 34 | Pending |
+| SRP-02 | Phase 34 | Complete |
 | SRP-03 | Phase 34 | Complete |
 | SRP-04 | Phase 34 | Complete |
 

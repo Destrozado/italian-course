@@ -174,7 +174,7 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
 - [x] 34-01-PLAN.md — Cimientos: extender `songsForDisplay` (split título→artista + meta + featured) + getter `summaryScore` (X/Y del snapshot) + getter contador picker + `badge-pasada`/`badge-fallada` + tokens net-new (`--ed-green-dark`/`--ed-placeholder`/`--ed-ring-track`) (SRP-01/03/04)
 - [x] 34-02-PLAN.md — Canciones: tarjeta destacada Continuar/Empezar (primera pendiente, barra por estado) + lista de filas con cover tile rayado + título serif/meta cursiva + punto de estado (SRP-01)
 - [x] 34-03-PLAN.md — Picker: filas hairline (nombre serif + subtítulo cursiva + tick verde) + contador "N categorías seleccionadas" + CTA `.session-cta` Empezar, handlers verbatim (SRP-04)
-- [ ] 34-04-PLAN.md — Reproducción de canción: barra superior Editoriale (atrás circular ‹ + progreso verde + "Frase X/N", SIN chip de cronómetro) + prompt serif, word-buttons heredados (SRP-02)
+- [x] 34-04-PLAN.md — Reproducción de canción: barra superior Editoriale (atrás circular ‹ + progreso verde + "Frase X/N", SIN chip de cronómetro) + prompt serif, word-buttons heredados (SRP-02)
 - [ ] 34-05-PLAN.md — Resultados: anillo de score `conic-gradient` + "X/Y correctos" (todos los modos) + cascada CATEGORÍAS AFECTADAS con píldora FALLÓ + tarjetas de error Editoriale (override de `--pico-*` legacy por orden de fuente) (SRP-03)
 **UI hint**: yes
 
@@ -192,7 +192,7 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
 | 29-31 | v1.7 | 6/6 | Complete | 2026-06-17 |
 | 32. Cimientos visuales + Home/Categorías | v1.8 | 3/3 | Complete    | 2026-06-30 |
 | 33. Pantallas de ejercicio | v1.8 | 4/4 | Complete    | 2026-06-30 |
-| 34. Canciones · Resultados · Picker | v1.8 | 3/5 | In Progress|  |
+| 34. Canciones · Resultados · Picker | v1.8 | 4/5 | In Progress|  |
 
 ## Backlog
 
