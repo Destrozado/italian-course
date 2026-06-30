@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.8
 milestone_name: Rediseño visual Editoriale
 status: executing
-last_updated: "2026-06-30T16:15:27.000Z"
+last_updated: "2026-06-30T16:22:18.626Z"
 last_activity: 2026-06-30
 progress:
   total_phases: 3
   completed_phases: 2
   total_plans: 12
   completed_plans: 10
-  percent: 83
+  percent: 67
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -26,8 +26,8 @@ See: `.planning/PROJECT.md` (updated 2026-06-09 — Milestone v1.6 shipped, CONV
 ## Current Position
 
 Phase: 34 (Canciones · Resultados · Picker) — EXECUTING
-Plan: 3 of 5
-Status: 34-02 complete (Canciones list repainted, SRP-01); ready for 34-03
+Plan: 4 of 5
+Status: 34-03 completado (picker repintado, SRP-04) — listo para 34-04
 Last activity: 2026-06-30
 
 ## Deferred Items
@@ -102,6 +102,8 @@ Ambos quick tasks tienen `status: shipped` en su SUMMARY.md (completados 2026-05
 ## Accumulated Context
 
 ### Roadmap Evolution
+
+- **2026-06-30 — Plan 34-03 completado (picker Repaso/Examen repintado — SRP-04) — Phase 34 Plan 3/5, wave 3.** 2 tasks, 2 commits de tarea (`953d87f` feat filas+tick+contador, `1cc26d5` feat CTA `.session-cta`) + docs. **Task 1 (filas+contador):** el `<fieldset>` de checkboxes planos pasa a filas Editoriale hairline (D-13) — `<label class="picker-row">` full-row clicable por `cat in content.categories`, título serif `.cat-name` vía `x-text="cat.name.split('(')[0].trim()"` + sub-título cursiva `.cat-topic` del paréntesis (`x-show="cat.name.includes('(')"`, mismo idiom que el Home D-14/D-32-02) + glyph verde `✓` a la derecha gateado por `x-show="pickerCheckedCategoryIds.includes(cat.id)"`. El checkbox nativo se OCULTA visualmente (`.picker-check-native`: clip 1px + `opacity:0` + `pointer-events:none`, NO `display:none` para no romper el foco) conservando `@change="pickerToggleCategory(cat.id)"` y `:checked` VERBATIM (motor intacto). Contador "{N} categorías seleccionadas"/"1 categoría seleccionada" (D-12) vía el getter `pickerSelectedCount` de 34-01, dos ramas `x-show` singular/plural — NO duplica el conteo de ejercicios (ese vive en `pickerStartLabel` + aviso test-completo). Preservados: `.button-row` (Seleccionar/Quitar todo), `.picker-timed` switch (`x-model="pickerTimed"`), `pickerHeaderLabel`, `.picker-warning`, "← Volver al home". **Task 2 (CTA):** el botón Empezar gana `class="session-cta picker-cta"` reusando la CTA verde + sombra + estado `:disabled` shippeada (app.css L859/L1175, NO redefinida); `@click="startSession"` / `:disabled="pickerPoolSize === 0"` / `x-text="pickerStartLabel"` VERBATIM; regla `.picker-cta` solo de layout (full-width + 24px top). Bloque CSS nuevo al FONDO de `app.css` (`.picker-rows/.picker-row/.picker-check-native/.picker-row-tick/.picker-count/.picker-cta`), solo `--ed-*`, gana por orden de fuente. **Desviación (auto-fix):** (1) Rule 3 — el banner del bloque CSS contenía el literal "prefers-color-scheme" en prosa, que tumbaba el guard `!/prefers-color-scheme/` (regex sobre todo `app.css`, incluido el de 34-01); reescrito a "dark-mode off (D-32-03 — sin reglas de media query de color)" sin el token, conservando la intención (el bloque no añade ninguna regla de ese tipo). **Verificación:** `node --test tests/screen-canciones.test.js` → 69/69 pass; `node --test tests/*.test.js` → **547 pass / 1 fail** (único fail = preexistente AJENO genero-numero coverage; CERO fails nuevos). `grep -c 'x-html=' index.html` → 0 (T-02-01). Sin `--pico-*` nuevo, sin `prefers-color-scheme`. Brownfield UI-puro: motor sin tocar. SRP-04 completo. Stopped at: Plan 34-03 completo. Resume file: None. Siguiente: Plan 34-04 (repaint Resultados/summary, SRP-03).
 
 - **2026-06-30 — Plan 34-01 completado (cimientos presentacionales compartidos — SRP-01/03/04) — Phase 34 Plan 1/5, wave 1.** 2 tasks, 3 commits de tarea (`fd85987` test RED, `7209a19` feat getters GREEN, `0214afe` feat tokens+badge) + docs. **Task 1 (TDD):** `songsForDisplay` extendido con `titleDisplay`/`artist`/`metaLabel` vía `(song.title ?? song.id).split('—').map(trim)` (D-05/D-06; meta = `{artista} · {N} huecos`, sin "Nivel") + flag `featured` = PRIMERA `no-hecha`|`fallada` en orden de lista (D-01), pre-computado un único `featuredId` antes del map → exactamente una featured, ninguna cuando todas son `pasada` (D-04); campos existentes (`id`/`title`/`phraseCount`/`status`/`statusLabel`/`vecesFallada`) preservados verbatim. Nuevo getter read-only `summaryScore` deriva `{correct,total,pct}` del SNAPSHOT `summarySessionResults` (Y = respondidas, NO el set lanzado — D-10) espejando el idiom de `sessionProgressPercent`. Nuevo getter `pickerSelectedCount` = `pickerCheckedCategoryIds.length` (D-12). Tests nuevos en `tests/screen-canciones.test.js` (source-asserts + behavioral sobre el factory instanciado + guard cascada). **Task 2 (CSS):** 3 tokens net-new en `app.css :root` — `--ed-green-dark #296c4a` (stripe portada), `--ed-placeholder` (alias de `--ed-faint`, "/Y" muted), `--ed-ring-track #e6ddcd` (pista del anillo de score, handoff §5, distinto de `--ed-streak-track`) — + bloque al FONDO de `app.css` (gana por orden de fuente) con la tríada de CANCIÓN `.badge-pasada` (verde) / `.badge-fallada` (rojo) JUNTO a (no en lugar de) la tríada de categoría de `styles.css`; `.badge-no-hecha` (neutro) reusado verbatim. **Decisiones:** featured pre-computado (getter puro, motor intacto); `--ed-placeholder` aliasado a `--ed-faint` (paleta muted single-source); ventana del source-assert ampliada a 2400 chars porque el pre-cómputo de featuredId precede al split en el cuerpo. **Desviación (auto-fix):** (1) Rule 3 — el guard "no `--pico-*` nuevo" se ancló al banner único del bloque del fondo ("Tríada de estado de CANCIÓN") en vez de a todo `app.css`, porque existe un compat-shim `--pico-*` INTENCIONADO (FND-03/GAP-01) que debe quedar intacto; verifica que el bloque nuevo no introduce ninguno. **Verificación:** `node --test tests/screen-canciones.test.js` → 43/43 pass; `node --test tests/*.test.js` → **524 pass / 1 fail** (único fail = preexistente AJENO genero-numero coverage; CERO fails nuevos). Sin `x-html` (solo comentarios), sin `--pico-*` nuevo, sin `prefers-color-scheme`; cascada D-54 = 2 call-sites intactos. Brownfield UI-puro: motor sin tocar. 3/3 requirements del plan completos (SRP-01, SRP-03, SRP-04). Stopped at: Plan 34-01 completo. Resume file: None. Siguiente: Plan 34-02 (repaint lista de Canciones, SRP-01).
 
