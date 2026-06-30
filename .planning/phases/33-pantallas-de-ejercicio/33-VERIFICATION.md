@@ -1,10 +1,10 @@
 ---
 phase: 33-pantallas-de-ejercicio
 verified: 2026-06-30T00:00:00Z
-status: human_needed
+status: passed
 score: 5/5 must-haves verified
 overrides_applied: 0
-re_verification: null
+re_verification: "Human UAT passed 6/6 (33-HUMAN-UAT.md). One in-scope layout defect surfaced + fixed (option buttons stretched to ~128px via .button-row flex:1 + column → flex:0 0 auto). Two mobile-responsive items deferred to backlog (desktop-only v1)."
 gaps: []
 human_verification:
   - test: "Run `npx serve`, start a Repaso exercise (multiple-choice). Tap an option."
