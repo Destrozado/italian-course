@@ -953,6 +953,12 @@ th, td { padding: 8px 10px; text-align: left; }
   align-items: center;
   justify-content: space-between;  /* texto izq, marca ✓/✗ dcha */
   width: 100%;
+  /* El div de opciones es `.button-row session-options`: styles.css aplica
+   * `.button-row button { flex: 1 }` (pensado para fila horizontal de ancho
+   * igual). Como `.session-options` invierte a `flex-direction: column` dentro
+   * de `.session { min-height: calc(100vh - 64px) }`, ese `flex:1` estiraba
+   * cada opción en VERTICAL (~128px). Reset a contenido (UAT 33 / desktop+móvil). */
+  flex: 0 0 auto;
   margin: 0;                       /* anula márgenes de botón legacy */
   padding: 15px 18px;              /* exception verbatim — handoff §2 "padding 15×18" */
   border: 1.5px solid var(--ed-border-soft);
