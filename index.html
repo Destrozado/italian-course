@@ -559,19 +559,27 @@
           <!--
             Sub-template WORD-BUTTONS (Phase 3 plan 01; D-56/D-58/D-59/D-69).
 
-            Layout vertical: banco arriba → área respuesta abajo → frase
-            correcta (solo en fallo) → button-row con Comprobar/Siguiente.
+            Phase 33 (EX-05 / D-12 / D-08 / D-09) — Repaint al lenguaje
+            Editoriale, EXTRAPOLADO consistente con opción múltiple (33-02), SOBRE
+            la mecánica intacta de armar-y-comprobar. EX-05 no está en el handoff
+            (D-12): el banco son píldoras sobre --ed-surface con borde
+            --ed-border-soft (radio 12), los huecos colocados se quedan como
+            placeholders invisibles (sin reflow), el área respuesta rellena
+            verde-subrayado (acierto) / rojo-tachado (fallo) post-corrección
+            (D-08), y el feedback va en la caja .session-feedback con título serif
+            italiano ¡Esatto! / Quasi… (D-09) — igual que multiple-choice.
 
-            `.button-row` (NO role="group" — UAT 02-03/02-04 lesson recurrente)
-            para que Comprobar y Siguiente se rendericen con gap visible.
+            El MODELO NATIVO armar-y-comprobar se PRESERVA: Comprobar (deshabilitado
+            hasta wordButtonsCanCheck) → Siguiente. NO es el 1-paso de MC; aquí el
+            usuario genuinamente construye la frase y luego comprueba.
 
             `x-text` exclusivamente para escapado seguro (T-02-01 invariante;
             ningún binding del JSON cruza por la directiva contraria que
-            inyectaría markup sin escapar).
+            inyectaría markup sin escapar). Títulos y labels HARDCODEADOS.
           -->
           <template x-if="sessionCurrentExercise.type === 'word-buttons'">
             <div>
-              <!-- D-56 banco: botones con palabras + sufijo numérico ¹..⁹ (D-69). -->
+              <!-- D-56 banco: píldoras Editoriale con palabras + sufijo ¹..⁹ (D-69). -->
               <div class="wb-bank">
                 <template x-for="(entry, idx) in bankWithKeys" :key="entry.idx">
                   <button type="button"
@@ -586,10 +594,18 @@
                 </template>
               </div>
 
-              <!-- D-56 área respuesta + D-58 placeholder italic (::before en CSS). -->
+              <!--
+                D-56 área respuesta + D-58 placeholder italic (::before en CSS).
+                Phase 33 (D-08): post-corrección el área completa se presenta como
+                el hueco relleno — verde-subrayado al acertar (.correcta) /
+                rojo-tachado al fallar (.incorrecta) — coherente con el gap-fill
+                de multiple-choice. El toggle `incorrecta` ya existía (Phase 3);
+                se añade `correcta` para el estado verde post-corrección.
+              -->
               <div class="wb-answer"
                    :class="{
                      'wb-answer-empty': wordButtonsAnswer.length === 0 && sessionFeedback === null,
+                     'correcta': sessionFeedback === 'correct',
                      'incorrecta': sessionFeedback === 'incorrect'
                    }"
                    aria-live="polite">
@@ -601,34 +617,60 @@
                 </template>
               </div>
 
-              <!-- D-59 frase correcta literal al fallar. -->
-              <p x-show="sessionFeedback === 'incorrect'" class="wb-correct-answer">
-                Respuesta correcta:
-                <strong x-text="sessionCurrentExercise.payload.answer.join(' ')"></strong>
-              </p>
-
               <!--
-                Phase 7 plan 01 (D-118, EXPL-02) — Explicación pedagógica
-                inline (ver comentario homólogo en sub-template multi-choice).
-                Doble guard + `x-text` exclusivo + clase compartida con
-                multi-choice/match para coherencia visual cross-types.
+                Phase 33 (EX-05 / D-09) — Caja de feedback tintada con título
+                serif italiano (¡Esatto! / Quasi…, HARDCODEADOS, NO x-text) + la
+                frase correcta al fallar (D-59 plegada, copy español) + la
+                explicación pedagógica existente + el affordance "¿Por qué?".
+                `.session-feedback` (+ .correct/.wrong) viene del scaffold 33-01,
+                idéntico al patrón de multiple-choice (33-02). Solo aparece tras
+                comprobar (sessionFeedback !== null).
               -->
-              <p x-show="(sessionFeedback === 'incorrect' || (sessionFeedback === 'correct' && sessionExplanationRevealed)) && sessionCurrentExercise.payload.explanation"
-                 class="session-explanation"
-                 x-text="sessionCurrentExercise.payload.explanation"></p>
+              <div x-show="sessionFeedback !== null"
+                   class="session-feedback"
+                   :class="{
+                     'correct': sessionFeedback === 'correct',
+                     'wrong': sessionFeedback === 'incorrect'
+                   }">
+                <!-- Títulos italianos hardcodeados (D-09, T-02-01: nunca x-text). -->
+                <p class="session-feedback-title" x-show="sessionFeedback === 'correct'">¡Esatto!</p>
+                <p class="session-feedback-title" x-show="sessionFeedback === 'incorrect'">Quasi…</p>
 
-              <!-- D-58 botón Comprobar + Siguiente (mismo button-row pattern). -->
-              <div class="button-row">
-                <button type="button"
-                        x-show="sessionFeedback === null"
-                        @click="wordButtonsCheck"
-                        :disabled="!wordButtonsCanCheck">Comprobar</button>
+                <!-- D-59 plegada: frase correcta literal al fallar (copy español, dato vía x-text). -->
+                <p class="session-feedback-correct" x-show="sessionFeedback === 'incorrect'">
+                  Respuesta correcta:
+                  <strong x-text="sessionCurrentExercise.payload.answer.join(' ')"></strong>
+                </p>
+                <!--
+                  Phase 7 plan 01 (D-118, EXPL-02) — Explicación pedagógica
+                  inline (ver comentario homólogo en sub-template multi-choice).
+                  Doble guard + `x-text` exclusivo + clase compartida con
+                  multi-choice/match para coherencia visual cross-types.
+                -->
+                <p x-show="(sessionFeedback === 'incorrect' || (sessionFeedback === 'correct' && sessionExplanationRevealed)) && sessionCurrentExercise.payload.explanation"
+                   class="session-explanation"
+                   x-text="sessionCurrentExercise.payload.explanation"></p>
                 <!-- quick-260615-hr0: affordance "¿Por qué?" al acertar con explanation. -->
                 <button type="button"
                         class="session-why"
                         x-show="sessionFeedback === 'correct' && sessionCurrentExercise.payload.explanation && !sessionExplanationRevealed"
                         @click="revealSessionExplanation()">¿Por qué?</button>
+              </div>
+
+              <!--
+                D-58 / Phase 33 — Modelo NATIVO armar-y-comprobar preservado:
+                Comprobar (deshabilitado hasta wordButtonsCanCheck) → Siguiente.
+                Labels HARDCODEADOS. `.session-cta` (scaffold 33-01) repinta ambos
+                botones al CTA Editoriale verde. NO se convierte a 1-paso (D-12).
+              -->
+              <div class="button-row">
                 <button type="button"
+                        class="session-cta"
+                        x-show="sessionFeedback === null"
+                        @click="wordButtonsCheck"
+                        :disabled="!wordButtonsCanCheck">Comprobar</button>
+                <button type="button"
+                        class="session-cta"
                         x-show="sessionFeedback !== null"
                         @click="sessionAdvance">Siguiente</button>
               </div>
