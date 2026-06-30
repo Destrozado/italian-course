@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.8
 milestone_name: Rediseño visual Editoriale
-status: planning
-last_updated: "2026-06-30T10:54:00.940Z"
-last_activity: 2026-06-30
+status: executing
+last_updated: "2026-06-30T12:10:00.000Z"
+last_activity: 2026-06-30 -- Plan 33-01 completado (cimientos EX-01/EX-02)
 progress:
   total_phases: 3
   completed_phases: 1
-  total_plans: 3
-  completed_plans: 3
-  percent: 33
+  total_plans: 7
+  completed_plans: 4
+  percent: 44
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -21,14 +21,14 @@ See: `.planning/PROJECT.md` (updated 2026-06-09 — Milestone v1.6 shipped, CONV
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 33 — pantallas de ejercicio
+**Current Focus:** Phase 33 — pantallas-de-ejercicio
 
 ## Current Position
 
-Phase: 33
-Plan: Not started
-Status: Ready to plan
-Last activity: 2026-06-30
+Phase: 33 (pantallas-de-ejercicio) — EXECUTING
+Plan: 2 of 4
+Status: Executing Phase 33
+Last activity: 2026-06-30 -- Plan 33-01 completado (cimientos EX-01/EX-02)
 
 ## Deferred Items
 
@@ -102,6 +102,8 @@ Ambos quick tasks tienen `status: shipped` en su SUMMARY.md (completados 2026-05
 ## Accumulated Context
 
 ### Roadmap Evolution
+
+- **2026-06-30 — Plan 33-01 completado (cimientos pantallas de ejercicio Editoriale — EX-01/EX-02) — Phase 33 Plan 1/4, wave 1.** 2 tasks, 3 commits de tarea (`67d2cd5` test RED, `f8bae7b` feat tokens+getters GREEN, `e00048c` feat top-bar+question-block) + docs. **Task 1 (TDD):** 6 tokens de tinte post-corrección en `app.css :root` (`--ed-green-tint`/`-tint-border`/`-on-tint` + `--ed-red-tint`/`-tint-border`/`--ed-red-text`) VERBATIM del 33-UI-SPEC §Color (paleta base `--ed-green`/`--ed-red` intacta); 3 getters read-only en `app.js` con guard double-defense: `sessionProgressPercent` (0..100, sin divide-by-zero), `sessionProgressCounter` (`"N/M"`), `sessionPromptParts` (`split('___')`, `[]` en unmount). Test nuevo `tests/screen-session-editorial.test.js` (14 tests RED→GREEN). **Task 2 (markup+CSS):** barra superior EX-01 en `index.html` — botón atrás circular `‹` (`@click="requestReturnToHome"` + `aria-label="Volver al home"` estático), barra de progreso verde (`:style width = sessionProgressPercent`), contador `NN/NN` (`sessionProgressCounter`), chip de cronómetro D-11 (expresiones del timer `x-show`/`:max`/`:value`/segundos VERBATIM, solo envueltas/clasadas); bloque de pregunta EX-02 — overline `sessionContextLabel` (UPPERCASE vía CSS), prompt serif-30 vía `x-for` sobre `sessionPromptParts` con `<span class="session-gap">` (subrayado verde si correcto / tachado rojo si falla, `sessionFeedback`-driven); footer (`<hr>` + Reiniciar/Volver) VERBATIM. Sección "Phase 33" en `app.css` consumiendo solo `--ed-*`: `.session` (full-height, gutter 22px verbatim, footer `margin-top:auto`), `.session-back`/`.session-progress(-fill)`/`.session-counter`/`.session-progress-sr` (sr-only), chip + override del valor rojo legacy del timer→verde, `.session-context` overline, `.session-prompt`, `.session-gap` (gap-correct/gap-wrong), y scaffolds compartidos `.session-cta` + `.session-feedback`(`.correct`/`.wrong`) + `.session-feedback-title` + `.session-explanation` para 33-02/03/04. **Decisiones:** `<header sessionProgressLabel>` conservado pero visualmente oculto (.session-progress-sr) — el contador NN/NN visible lleva el progreso; gap-fill con optional chaining (`options?.[correctIndex] ?? ''`) para no lanzar en word-buttons/match (refinamiento per-type en 33-02/03/04); barra del timer en verde "agotándose" en vez del rojo legacy. **Desviaciones (auto-fix):** (1) Rule 3 — el JSDoc de un getter contenía el literal `x-html` y tumbaba el grep estricto `!/x-html/`; reescrito sin el literal conservando el invariante. (2) Rule 1 — gap-fill type-safe con optional chaining para los 3 tipos. **Verificación:** `node --test tests/*.test.js` → **508 pass / 1 fail** (único fail = preexistente AJENO genero-numero 12-vs-13; CERO fails nuevos). `grep -cE 'x-html=' index.html` → 0 (los 3 `x-html` son texto de comentario del invariante). Engine grep baselines intactos (`applyResultToSession|sessionSelectOption`=31, `applyImmediateFailure(this.state`=2). Sin Pico, sin redefinir paleta. Brownfield UI-puro. 2/5 requirements EX completos (EX-01, EX-02). Stopped at: Plan 33-01 completo. Resume file: None. Siguiente: Plan 33-02 (opción múltiple 1-paso, EX-03).
 
 - **2026-06-30 — Plan 32-02 completado (Home/Categorías Editoriale — HOME-01..06) — Phase 32 COMPLETA (2/2), lista para verificación.** 3 tasks, 3 commits de tarea (`7aa4b29` feat streakDays, `752ad8a` feat markup Home, `9c6ed7e` feat estilos app.css) + docs. **Único cambio JS (Task 1):** `categoriesForDisplay` devuelve 1 campo presentacional `streakDays: streak` (raw, reusa el `const streak` ya computado) para el ancho de la barra streak/21; motor verificablemente intacto (`applyImmediateFailure(this.state` = 2). **Markup (Task 2):** bloque `<template x-if="currentScreen==='home'">` reescrito al lenguaje Editoriale reusando TODOS los bindings — **HOME-01** tricolore + overline `ITALIANO · A1 / A2` + título serif `Categorías`; **HOME-02** CTA verde ancho completo `Repaso 20` con `@click="openPicker('repaso')"` VERBATIM (D-05, abre picker, subtítulo neutro `Repaso rápido`); **HOME-03** fila ghost de 3 (Test completo · Canciones · Backup), Canciones BAJA de protagonista a ghost (D-04 supersede D-01 de Phase 13); **HOME-05** switch `Contrarreloj` con `x-model="homeExamTimed"` intacto; **HOME-04** filas con dot 9px (color por `badge-${cat.status}` D-01 vía currentColor), nombre serif + tema cursiva derivado del paréntesis del `name` (D-02 en expresión Alpine sobre x-text), barra streak/21 (ancho = `streakDays/21`, color verde/ámbar), píldora Examen (handler/:disabled/:title verbatim). Banners in-flight/backup conservados; 8 `data-label` intactos (capa móvil Phase-28); anti-XSS preservado (cero `x-html`). **Estilos (Task 3):** bloque "Phase 32 Plan 02" en `app.css` con componentes Home (`home-cta`/`home-ghost`/`status-dot`/`streak-bar`/`examen-pill`) + **HOME-06** tabla editorial desktop bajo `@media (min-width:641px)` (papel/serif/hairlines, oculta "Última vez" → contrato 5 columnas), todo vía `var(--ed-*)`; medidas off-grid verbatim del handoff. Capa móvil Phase-28 (`@media max-width:640px`, tap 44px) intacta. **Decisiones:** subtítulo CTA neutro `Repaso rápido` (no promete lanzamiento que el picker no cumple); color de dot/barra vía `currentColor` heredado del badge D-01 (un solo hogar de color); "Última vez" oculta por CSS (no eliminada, la capa móvil depende del data-label); D-02 en expresión Alpine (no getter) para acotar el JS a 1 campo. **Desviaciones (auto-fix):** (1) Rule 3 — un comentario contenía el literal `x-model="homeExamTimed"` y rompía el test de conteo `quick-260615-r3b`; reescrito sin el literal. (2) Rule 1 — 2 tests estructurales codificaban el contrato visual anterior que el rediseño supersede (Canciones protagonista→ghost D-04; Examen secondary-outline→píldora HOME-04); reconciliados conservando las aserciones de comportamiento. **Verificación:** `node --test tests/*.test.js` → **494 pass / 1 fail** (único fail = preexistente AJENO genero-numero; CERO fails nuevos). Brownfield UI-puro: 0 motor tocado. 6/6 requirements HOME completos. Stopped at: Phase 32 completa (2/2), lista para verificación. Resume file: None. Siguiente: `/gsd:verify-phase 32` → `/gsd:plan-phase 33`.
 
