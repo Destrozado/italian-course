@@ -195,6 +195,234 @@
           }
         ]
       }
+    },
+    {
+      "id": "possessivi-suo",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "possessivi"
+      ],
+      "explanation": "El posesivo 'suo/sua/suoi/sue' significa a la vez 'su (de él)' y 'su (de ella)': el italiano NO marca el género del poseedor, igual que el español 'su'. Lo que sí marca es el género y el número de la COSA POSEÍDA: 'la sua macchina' (su coche, femenino) aunque el dueño sea Paolo; 'il suo direttore' (su director, masculino) aunque la jefa sea Giulia. El error es concordar con el poseedor; en italiano solo cuenta el objeto poseído.",
+      "variants": [
+        {
+          "prompt": "Giulia parla con ___ direttore ogni mattina. (en español: su director, de ella)",
+          "options": [
+            "la sua",
+            "il suo",
+            "i suoi",
+            "le sue"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Paolo cerca ___ macchina nel parcheggio. (en español: su coche, de él)",
+          "options": [
+            "il suo",
+            "la sua",
+            "i suoi",
+            "le sue"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Sofia legge ___ libri preferiti. (en español: sus libros, de ella)",
+          "options": [
+            "le sue",
+            "i suoi",
+            "la sua",
+            "il suo"
+          ],
+          "correctIndex": 1
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "possessivi-loro",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "possessivi"
+      ],
+      "explanation": "El posesivo 'loro' (de ellos/ellas) es INVARIABLE: nunca cambia de forma (no existe 'lori' ni 'lora'). Lo único que varía es el artículo, que SIEMPRE lo acompaña y concuerda con la cosa poseída: il loro cane, la loro casa, i loro figli, le loro macchine. A diferencia de mio/tuo/suo, 'loro' no tiene formas propias de género ni número; y a diferencia del parentesco singular, 'loro' conserva el artículo siempre (il loro padre, nunca 'loro padre').",
+      "variants": [
+        {
+          "prompt": "Questa è ___ casa nuova. (en español: su casa, de ellos)",
+          "options": [
+            "il loro",
+            "la loro",
+            "i loro",
+            "le loro"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "___ figli studiano all'università. (en español: sus hijos, de ellos)",
+          "options": [
+            "i loro",
+            "loro",
+            "il loro",
+            "le loro"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Ho visto ___ macchine nel garage. (en español: sus coches, de ellos)",
+          "options": [
+            "le loro",
+            "i loro",
+            "lori",
+            "la loro"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "___ cane abbaia tutta la notte. (en español: su perro, de ellos)",
+          "options": [
+            "loro",
+            "il loro",
+            "la loro",
+            "i loro"
+          ],
+          "correctIndex": 1
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "possessivi-300",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "possessivi",
+        "articoli"
+      ],
+      "explanation": "El grupo posesivo lleva artículo + posesivo + sustantivo, y el artículo se elige por el sonido de la palabra que le sigue, igual que sin posesivo. Cuidado con una trampa: aunque el sustantivo pida 'gli' (gli amici, gli zii), con el posesivo delante el artículo es 'i', porque precede a 'miei/tuoi/suoi' (que empiezan por consonante): 'i miei amici', no 'gli miei amici'. Y frente al español, el artículo nunca se omite: 'mi director' es 'il mio direttore'.",
+      "variants": [
+        {
+          "prompt": "Ho parlato con ___ direttore ieri. (en español: mi director)",
+          "options": [
+            "mio",
+            "il mio",
+            "la mia",
+            "i miei"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "___ amici arrivano domani sera. (en español: mis amigos)",
+          "options": [
+            "gli miei",
+            "i miei",
+            "le mie",
+            "miei"
+          ],
+          "correctIndex": 1
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": [
+              "[C4-explanation] Sonnet dio 2 falsos-positivos por MISREAD del token (leyo suoi como sus/seus en rondas distintas); verificado por hexdump que el texto real es miei/tuoi/suoi; resuelto por tiebreaker cross-vendor DeepSeek (correcta)"
+            ]
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "possessivi-301",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "possessivi",
+        "genero-numero"
+      ],
+      "explanation": "El posesivo concuerda en género y número con la cosa poseída, así que primero necesitas saber el género y el plural reales del sustantivo. Cuidado con los que engañan: 'mano' es FEMENINO (la mano) y su plural es irregular 'mani', por eso es 'le mie mani', no 'i miei mani'. La forma del posesivo (mio/mia/miei/mie) sigue al género y número verdaderos del sustantivo, no a su apariencia.",
+      "variants": [
+        {
+          "prompt": "Ho comprato ___ scarpe nuove ieri. (en español: mis zapatos)",
+          "options": [
+            "i miei",
+            "le mie",
+            "la mia",
+            "il mio"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "D'inverno ___ mani sono sempre fredde. (en español: mis manos)",
+          "options": [
+            "i miei",
+            "le mie",
+            "la mia",
+            "il mio"
+          ],
+          "correctIndex": 1
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     }
   ]
 }
