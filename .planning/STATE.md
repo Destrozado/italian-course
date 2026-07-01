@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.9
 milestone_name: Determinantes + verbos A1/A2
 status: executing
-last_updated: "2026-07-01T10:38:34.825Z"
+last_updated: "2026-07-01T11:33:09.074Z"
 last_activity: 2026-07-01 -- Phase 36 execution started
 progress:
   total_phases: 5
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 5
-  completed_plans: 1
-  percent: 20
+  completed_plans: 5
+  percent: 40
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
