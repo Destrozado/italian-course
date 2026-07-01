@@ -191,7 +191,10 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
   3. El autor es examinado sobre el passato prossimo reflexivo con `essere` + concordancia del participio -o/-a/-i/-e (`mi sono svegliato/a`, `si sono alzati/e`) — slot de concordancia dedicado con las 4 terminaciones como variantes contrastantes, cue de género/número del sujeto en cada prompt (sin doble-validez -o/-a), y CERO auxiliar `avere` (magnet DeepSeek-pass, análogo `presente-regolare-301`).
   4. Los cruces multi-cat `riflessivi↔essere` (passato prossimo) y `riflessivi↔presente-regolare` (presente) existen como contenido (`categoryIds` de 2), propagan la cascada D-54, y NO añaden call-sites (siguen EXACTAMENTE 2 de `applyImmediateFailure`).
   5. Todas las variantes quedan `validation.status: validated` por quórum cross-vendor R1-R7 (≥2 `by` distintos), con explanations acentuadas + gloss canónico donde desambigua + sin leak de regla (R1). La categoría carga en boot y aparece genéricamente en home/picker/Repaso/Examen.
-**Plans**: TBD
+**Plans**: 2 plans
+Plans:
+- [ ] 38-01-PLAN.md — Autorar riflessivi.json (5 slots REFLEX + word-buttons de colocación + 2 cruces -300/-301, quórum estructural) y registrar la categoría (order 14)
+- [ ] 38-02-PLAN.md — Sello canónico Opus+Sonnet + ronda EXTRA DeepSeek del MAGNET pp-concordanza y riflessivi-301 (top-level)
 
 ### Phase 39: PROV-01 + integración lockstep (cierre v1.9)
 **Goal**: El milestone cierra con la marca de procedencia (`origen`) aceptada por el schema-validator y estampada en las 4 categorías nuevas, y con los conteos re-sincronizados en lockstep — los 3 arrays hardcoded + `TOTAL_EXPECTED` + `TOTAL_EXPECTED_BASELINE` + +4 entradas en el smoke paramétrico — de modo que la suite completa (incl. `VAL_07_STRICT=1`) queda verde con las 14 categorías. Transversal y de bajo riesgo (metadata-only, cero motor); mirror de Phase 31 (v1.7).
