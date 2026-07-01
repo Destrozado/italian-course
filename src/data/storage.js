@@ -32,7 +32,7 @@
 //     desconocido (futuro) → warn + blankState.
 
 const KEY = 'italianCourse.v1';
-const CURRENT_SCHEMA_VERSION = 11;
+const CURRENT_SCHEMA_VERSION = 12;
 
 /**
  * Devuelve un estado "en blanco" (sin progreso) — el estado inicial canónico
@@ -159,7 +159,8 @@ function migrate(parsed) {
   if (s.schemaVersion === 8) s = migrate8to9(s);
   if (s.schemaVersion === 9) s = migrate9to10(s);
   if (s.schemaVersion === 10) s = migrate10to11(s);
-  if (s.schemaVersion === 11) return hydrateV11(s);
+  if (s.schemaVersion === 11) s = migrate11to12(s);
+  if (s.schemaVersion === 12) return hydrateV12(s);
 
   // Versión desconocida (probablemente futura) → no perdemos datos del autor:
   // logueamos warning y arrancamos limpio.
@@ -1132,6 +1133,148 @@ export function hydrateV11(parsed) {
   const p = (parsed && typeof parsed === 'object') ? parsed : {};
   return {
     schemaVersion: 11,
+    exerciseStats: (typeof p.exerciseStats === 'object' && p.exerciseStats !== null)
+      ? JSON.parse(JSON.stringify(p.exerciseStats))
+      : {},
+    categoryProgress: (typeof p.categoryProgress === 'object' && p.categoryProgress !== null)
+      ? JSON.parse(JSON.stringify(p.categoryProgress))
+      : {},
+    dailyLog: (typeof p.dailyLog === 'object' && p.dailyLog !== null)
+      ? JSON.parse(JSON.stringify(p.dailyLog))
+      : {},
+    songProgress: (typeof p.songProgress === 'object' && p.songProgress !== null)
+      ? JSON.parse(JSON.stringify(p.songProgress))
+      : {},
+    lastBackupAt: typeof p.lastBackupAt === 'string' ? p.lastBackupAt : null,
+    firstUsedAt: typeof p.firstUsedAt === 'string' ? p.firstUsedAt : null,
+    inFlightTest: p.inFlightTest
+  };
+}
+
+/**
+ * Prefijos de id de categoría que `migrate11to12` resetea (D-35-01/03). Son las
+ * CUATRO categorías NUEVAS del milestone v1.9: `dimostrativi`, `possessivi`,
+ * `modali`, `riflessivi`, que nacen en las Phases 36-38 (Dimostrativi,
+ * Possessivi, Verbi modali, Verbi riflessivi).
+ *
+ * Gate de colisión de prefijo (D-35-03, verificado 2026-07-01): ninguno de los
+ * 10 slugs existentes (avere, essere, verbos-movimiento, genero-numero,
+ * profesiones, sustantivos-irregulares, preposiciones, articoli, partitivos,
+ * presente-regolare) empieza por un slug nuevo ni viceversa, y ningún slug nuevo
+ * es prefijo de otro slug nuevo. El filtro `startsWith` no tiene colisiones y
+ * preserva los 10 legacy byte a byte. (Espejo de RESET_PREFIXES_V11 de Phase 29,
+ * ahora con CUATRO prefijos.)
+ */
+const RESET_PREFIXES_V12 = ['dimostrativi', 'possessivi', 'modali', 'riflessivi'];
+
+/**
+ * Migra un estado v11 a v12 (D-35 / MIG-01). Espejo LITERAL de `migrate10to11`
+ * (Phase 29) con UNA desviación funcional: el reset selectivo opera sobre CUATRO
+ * prefijos de id de categoría (`RESET_PREFIXES_V12`) en vez de uno. Deja el state
+ * listo para que las 4 categorías nuevas nazcan limpias (Phases 36-38) y aplica
+ * forward-compat: el import de un backup futuro que ya contenga progreso de
+ * cualquiera de los 4 slugs (p.ej. tras re-autorar/renumerar slots) queda
+ * reseteado limpiamente. Hoy es un no-op (ningún state actual tiene esos
+ * prefijos); se hace por simetría con el patrón v1.5/v1.6/v1.7 y defensa
+ * forward-compat (D-35-06).
+ *
+ * OJO: el eslabón inmediatamente anterior `migrate10to11` reseteaba UN prefijo
+ * (`presente-regolare`); es el analog funcional directo (mismos 3 pasos). El
+ * `migrate9to10` es un bump NOMINAL PURO — NO es el analog funcional.
+ *
+ * Seguridad de prefijo (gate de colisión, D-35-03, verificado 2026-07-01): los
+ * 10 slugs existentes NO empiezan por ninguno de los 4 prefijos nuevos, así que
+ * el filtro `startsWith` no tiene colisiones y los preserva byte a byte.
+ *
+ * Reset por prefijo (no por igualdad exacta) cubre tanto los ids legacy como los
+ * nuevos ids de slot que producirán las Phases 36-38 (seguirán empezando por su
+ * prefijo de categoría). Usamos la forma `RESET_PREFIXES_V12.some(...)` (como
+ * migrate8to9/migrate10to11) porque el array tiene 4 elementos (D-35-04).
+ *
+ * Idempotencia + pureza (T-35-03): NO muta el input. Re-ejecutar sobre un v12 ya
+ * migrado produce la misma shape (los 4 ya ausentes → `delete` y filtro son
+ * no-op; `inFlightTest` ya invalidado o ajeno → se preserva).
+ *
+ * Deep-clone defensivo (T-35-01): el `JSON.parse(JSON.stringify(...))` por
+ * sub-dict neutraliza getters / `__proto__` como own-property de un backup
+ * importado; reconstruye un root literal fresco `{ schemaVersion: 12, ... }`.
+ *
+ * Exportada para testabilidad — el dispatcher la usa como eslabón v11 → v12.
+ *
+ * @param {object} v11 - Estado parseado con `schemaVersion: 11`.
+ * @returns {object} Estado normalizado v12 con las 4 categorías nuevas reseteadas.
+ */
+export function migrate11to12(v11) {
+  // (1) Reset de categoryProgress de los 4 slugs nuevos tras deep-clone defensivo.
+  const categoryProgress = (typeof v11.categoryProgress === 'object' && v11.categoryProgress !== null)
+    ? JSON.parse(JSON.stringify(v11.categoryProgress))
+    : {};
+  delete categoryProgress['dimostrativi'];
+  delete categoryProgress['possessivi'];
+  delete categoryProgress['modali'];
+  delete categoryProgress['riflessivi'];
+
+  // (2) Poda por prefijo de exerciseStats (cualquiera de los 4) tras deep-clone.
+  const exerciseStatsAll = (typeof v11.exerciseStats === 'object' && v11.exerciseStats !== null)
+    ? JSON.parse(JSON.stringify(v11.exerciseStats))
+    : {};
+  const exerciseStats = {};
+  for (const k of Object.keys(exerciseStatsAll)) {
+    if (!RESET_PREFIXES_V12.some(p => k.startsWith(p))) exerciseStats[k] = exerciseStatsAll[k];
+  }
+
+  // (3) Invalidar inFlightTest si referencia ids de cualquiera de los 4 (Pitfall 3).
+  //     Reconstrucción condicional sin mutar el input (estilo migrate3to4).
+  let inFlightTest = v11.inFlightTest;
+  if (inFlightTest && typeof inFlightTest === 'object' &&
+      Array.isArray(inFlightTest.exerciseIds) &&
+      inFlightTest.exerciseIds.some(id => typeof id === 'string' && RESET_PREFIXES_V12.some(p => id.startsWith(p)))) {
+    inFlightTest = undefined;
+  }
+
+  return {
+    schemaVersion: 12,
+    exerciseStats,
+    categoryProgress,
+    dailyLog: (typeof v11.dailyLog === 'object' && v11.dailyLog !== null)
+      ? JSON.parse(JSON.stringify(v11.dailyLog))
+      : {},
+    songProgress: (typeof v11.songProgress === 'object' && v11.songProgress !== null)
+      ? JSON.parse(JSON.stringify(v11.songProgress))
+      : {},
+    lastBackupAt: typeof v11.lastBackupAt === 'string' ? v11.lastBackupAt : null,
+    firstUsedAt: typeof v11.firstUsedAt === 'string' ? v11.firstUsedAt : null,
+    inFlightTest
+  };
+}
+
+/**
+ * Hidrata un estado v12 ya en disco con type-guards defensivos en cada
+ * sub-objeto. Espejo LITERAL de `hydrateV11` (Phase 29) con la versión a 12 — el
+ * shape v12 root es idéntico a v11 (el bump 11 → 12 es nominal a nivel del shape;
+ * la diferencia efectiva, el reset de las 4 categorías nuevas, la hace
+ * `migrate11to12` durante la cadena, D-35-05).
+ *
+ * NO repite la poda de `migrate11to12`: un state que llega a `hydrateV12` ya viene
+ * v12-shaped (los 4 slugs ya reseteados durante la cadena) o es un import directo
+ * v12 que debe preservarse íntegro (preserva un slug nuevo si llega ya
+ * v12-shaped). Precedente: `hydrateV11` no re-ejecuta lógica de migración, solo
+ * garantiza shape.
+ *
+ * Mantiene el guard root de `hydrateV11` (`const p = ...`) — NO se copia hydrateV9
+ * (que no lo tiene).
+ *
+ * Deep-clone defensivo (T-35-01): igual que `migrate11to12` y `hydrateV11`.
+ *
+ * Exportada para testabilidad — invocada al final de la cadena de migración.
+ *
+ * @param {object} parsed - Estado parseado con `schemaVersion: 12`.
+ * @returns {object} Estado v12 con campos garantizados.
+ */
+export function hydrateV12(parsed) {
+  const p = (parsed && typeof parsed === 'object') ? parsed : {};
+  return {
+    schemaVersion: 12,
     exerciseStats: (typeof p.exerciseStats === 'object' && p.exerciseStats !== null)
       ? JSON.parse(JSON.stringify(p.exerciseStats))
       : {},
