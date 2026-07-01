@@ -1,16 +1,16 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.8
-milestone_name: Rediseño visual Editoriale
-status: Awaiting next milestone
-last_updated: "2026-06-30T22:44:43.210Z"
-last_activity: 2026-06-30 — Milestone v1.8 completed and archived
+milestone: v1.9
+milestone_name: Determinantes + verbos A1/A2
+status: planning
+last_updated: "2026-07-01T06:58:22.572Z"
+last_activity: 2026-07-01
 progress:
-  total_phases: 3
-  completed_phases: 3
-  total_plans: 12
-  completed_plans: 12
-  percent: 100
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -25,10 +25,10 @@ See: `.planning/PROJECT.md` (updated 2026-06-09 — Milestone v1.6 shipped, CONV
 
 ## Current Position
 
-Phase: Milestone v1.8 complete
+Phase: Not started (defining requirements)
 Plan: —
-Status: Awaiting next milestone
-Last activity: 2026-06-30 — Milestone v1.8 completed and archived
+Status: Defining requirements
+Last activity: 2026-07-01 — Milestone v1.9 started
 
 ## Deferred Items
 
