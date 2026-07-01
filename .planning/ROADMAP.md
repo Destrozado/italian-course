@@ -133,7 +133,7 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
 
 ### 🚧 v1.9 — ACTIVE (Phases 35-39) — Determinantes + verbos A1/A2
 
-- [ ] **Phase 35: Migración `11→12` (reset selectivo preventivo de las 4 categorías nuevas)** — desbloquea el nacimiento limpio; espejo del patrón `migrate10to11` (v1.7).
+- [x] **Phase 35: Migración `11→12` (reset selectivo preventivo de las 4 categorías nuevas)** — desbloquea el nacimiento limpio; espejo del patrón `migrate10to11` (v1.7). (completed 2026-07-01)
 - [ ] **Phase 36: Dimostrativi + Possessivi (determinantes)** — 2 categorías nuevas que enganchan con `articoli`/`genero-numero`; 2 magnets de doble-validez (quello quei/quegli; excepción parentesco possessivi).
 - [ ] **Phase 37: Verbi modali** — `potere/volere/dovere` presente + infinitivo; scope gate duro (modal passato prossimo DIFERIDO).
 - [ ] **Phase 38: Verbi riflessivi** — presente + colocación del pronombre + passato prossimo con `essere`+concordancia (magnet); engancha con `presente-regolare`/`essere`.
@@ -151,7 +151,7 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
   3. El export/import de backup hace round-trip en v12, migra un backup `v11→v12` con el reset aplicado, y rechaza cualquier wrapper `> 12` con el mensaje existente — con `CURRENT_SCHEMA_VERSION=12` espejado en `storage.js` Y `backup.js`.
   4. La suite de tests de la cadena de migración pasa (bloque v12 en data-storage + backup) sin fails nuevos; el motor de re-verificación NO se toca.
 **Plans**: 1 plan
-- [ ] 35-01-PLAN.md — Cadena de migración 11→12: RESET_PREFIXES_V12 + migrate11to12/hydrateV12 (storage.js), espejo en backup.js, y tests v12 (reset selectivo, no-regresión legacy, round-trip/import/reject)
+- [x] 35-01-PLAN.md — Cadena de migración 11→12: RESET_PREFIXES_V12 + migrate11to12/hydrateV12 (storage.js), espejo en backup.js, y tests v12 (reset selectivo, no-regresión legacy, round-trip/import/reject)
 
 ### Phase 36: Dimostrativi + Possessivi (determinantes)
 **Goal**: El autor puede ser examinado sobre los dos determinantes que enganchan con el artículo: Dimostrativi (`questo`/`quello` con sus formas tipo-artículo + colapso ES 3-vías→IT 2-vías + `ciò`) y Possessivi (concordancia con la cosa poseída + artículo obligatorio + excepción de parentesco + `loro` invariable). Ambas nacen en slot+variantes, autoradas 1-por-1 por quórum cross-vendor R1-R7, y registradas en `categories.json` (order 11, 12).
@@ -213,7 +213,7 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
 | 21-27 | v1.6 | 19/19 | Complete | 2026-06-09 |
 | 29-31 | v1.7 | 6/6 | Complete | 2026-06-17 |
 | 32-34 | v1.8 | 12/12 | Complete | 2026-06-30 |
-| 35. Migración `11→12` | v1.9 | 0/1 | Planned | - |
+| 35. Migración `11→12` | v1.9 | 1/1 | Complete   | 2026-07-01 |
 | 36. Dimostrativi + Possessivi | v1.9 | 0/? | Not started | - |
 | 37. Verbi modali | v1.9 | 0/? | Not started | - |
 | 38. Verbi riflessivi | v1.9 | 0/? | Not started | - |

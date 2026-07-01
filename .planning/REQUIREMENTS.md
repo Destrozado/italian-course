@@ -48,8 +48,8 @@ Requisitos comprometidos para este milestone. Cada uno mapea a una fase del road
 
 ### Migración (MIG)
 
-- [ ] **MIG-01**: `migrate11to12` + `hydrateV12` idempotentes con deep-clone anti-prototype-pollution y `CURRENT_SCHEMA_VERSION=12`, con reset selectivo del progreso por prefijo SOLO de las 4 categorías nuevas (efectivamente no-op al nacer sin progreso; mirror del patrón `migrate10to11` de v1.7).
-- [ ] **MIG-02**: `backup.js` hace round-trip v12 (export/import), migra import `v11→v12` y rechaza wrappers `> 12`.
+- [x] **MIG-01**: `migrate11to12` + `hydrateV12` idempotentes con deep-clone anti-prototype-pollution y `CURRENT_SCHEMA_VERSION=12`, con reset selectivo del progreso por prefijo SOLO de las 4 categorías nuevas (efectivamente no-op al nacer sin progreso; mirror del patrón `migrate10to11` de v1.7).
+- [x] **MIG-02**: `backup.js` hace round-trip v12 (export/import), migra import `v11→v12` y rechaza wrappers `> 12`.
 
 ### Integración lockstep (INT)
 
@@ -112,8 +112,8 @@ Qué fases cubren qué requisitos. **Poblada por el roadmapper.**
 | REFLEX-05 | Phase 38 | Pending |
 | PROV-01 | Phase 39 | Pending |
 | PROV-02 | Phase 39 | Pending |
-| MIG-01 | Phase 35 | Pending |
-| MIG-02 | Phase 35 | Pending |
+| MIG-01 | Phase 35 | Complete |
+| MIG-02 | Phase 35 | Complete |
 | INT-01 | Phase 39 | Pending |
 | INT-02 | Phase 39 | Pending |
 | INT-03 | Phase 39 | Pending |
