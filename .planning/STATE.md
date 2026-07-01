@@ -2,13 +2,13 @@
 gsd_state_version: 1.0
 milestone: v1.9
 milestone_name: Determinantes + verbos A1/A2
-status: Roadmap fijado — listo para planificar Phase 35
-last_updated: "2026-07-01T08:40:27.901Z"
-last_activity: 2026-07-01 — Roadmap v1.9 creado (5 fases 35-39, 25/25 requirements mapped, 0 orphans)
+status: executing
+last_updated: "2026-07-01T09:00:39.129Z"
+last_activity: 2026-07-01 -- Phase 35 planning complete
 progress:
   total_phases: 5
   completed_phases: 0
-  total_plans: 0
+  total_plans: 1
   completed_plans: 0
   percent: 0
 ---
@@ -27,8 +27,8 @@ See: `.planning/PROJECT.md` (updated 2026-07-01 — Milestone v1.9 ACTIVE, Deter
 
 Phase: 35 of 39 (Migración `11→12`) — READY TO PLAN
 Plan: — (0 plans planificados)
-Status: Roadmap fijado — listo para planificar Phase 35
-Last activity: 2026-07-01 — Roadmap v1.9 creado (5 fases 35-39, 25/25 requirements mapped, 0 orphans)
+Status: Ready to execute
+Last activity: 2026-07-01 -- Phase 35 planning complete
 
 Progress: [░░░░░░░░░░] 0% (0/5 fases v1.9)
 
