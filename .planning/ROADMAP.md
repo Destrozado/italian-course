@@ -134,7 +134,7 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
 ### 🚧 v1.9 — ACTIVE (Phases 35-39) — Determinantes + verbos A1/A2
 
 - [x] **Phase 35: Migración `11→12` (reset selectivo preventivo de las 4 categorías nuevas)** — desbloquea el nacimiento limpio; espejo del patrón `migrate10to11` (v1.7). (completed 2026-07-01)
-- [ ] **Phase 36: Dimostrativi + Possessivi (determinantes)** — 2 categorías nuevas que enganchan con `articoli`/`genero-numero`; 2 magnets de doble-validez (quello quei/quegli; excepción parentesco possessivi).
+- [x] **Phase 36: Dimostrativi + Possessivi (determinantes)** — 2 categorías nuevas que enganchan con `articoli`/`genero-numero`; 2 magnets de doble-validez (quello quei/quegli; excepción parentesco possessivi). (completed 2026-07-01)
 - [ ] **Phase 37: Verbi modali** — `potere/volere/dovere` presente + infinitivo; scope gate duro (modal passato prossimo DIFERIDO).
 - [ ] **Phase 38: Verbi riflessivi** — presente + colocación del pronombre + passato prossimo con `essere`+concordancia (magnet); engancha con `presente-regolare`/`essere`.
 - [ ] **Phase 39: PROV-01 + integración lockstep (cierre v1.9)** — marca de procedencia + sync de los 3 count arrays + `TOTAL_EXPECTED` + smoke; suite verde estricta.
@@ -167,7 +167,7 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
 - [x] 36-01-PLAN.md — Dimostrativi nucleo (questo, quest' elision, quello MC+match, colapso ES) por quorum R1-R7, magnet quei/quegli DeepSeek
 - [x] 36-02-PLAN.md — Dimostrativi A2 (cio single-variant, pronominales) + registro categories.json order 11 + cruce dimostrativi-300
 - [x] 36-03-PLAN.md — Possessivi nucleo (concordancia cosa-poseida, articulo obligatorio+calco, excepcion parentesco 4 carve-outs) MC-only, magnet DeepSeek
-- [ ] 36-04-PLAN.md — Possessivi A2 (suo his/her, loro invariable) + registro categories.json order 12 + cruces possessivi-300/301
+- [x] 36-04-PLAN.md — Possessivi A2 (suo his/her, loro invariable) + registro categories.json order 12 + cruces possessivi-300/301
 
 ### Phase 37: Verbi modali
 **Goal**: El autor puede ser examinado sobre `potere/volere/dovere` en presente indicativo irregular (todas las personas) y sobre la construcción modal + infinitivo (`posso andare`, `voglio mangiare`, `devo studiare`). Categoría nueva en slot+variantes, order 13, autorada por quórum R1-R7, con scope gate duro: passato prossimo modal (auxiliar prestado) queda FUERA de v1.9.
@@ -218,7 +218,7 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
 | 29-31 | v1.7 | 6/6 | Complete | 2026-06-17 |
 | 32-34 | v1.8 | 12/12 | Complete | 2026-06-30 |
 | 35. Migración `11→12` | v1.9 | 1/1 | Complete    | 2026-07-01 |
-| 36. Dimostrativi + Possessivi | v1.9 | 3/4 | In Progress|  |
+| 36. Dimostrativi + Possessivi | v1.9 | 4/4 | Complete   | 2026-07-01 |
 | 37. Verbi modali | v1.9 | 0/? | Not started | - |
 | 38. Verbi riflessivi | v1.9 | 0/? | Not started | - |
 | 39. PROV-01 + integración lockstep | v1.9 | 0/? | Not started | - |
