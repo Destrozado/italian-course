@@ -1,5 +1,22 @@
 # Milestones
 
+## v1.9 Determinantes + verbos A1/A2 (Shipped: 2026-07-01)
+
+**Phases completed:** 5 phases (35-39), 10 plans, 25/25 requirements (5 DEMOS + 5 POSS + 2 MODAL + 5 REFLEX + 2 PROV + 2 MIG + 4 INT)
+**Stats:** 5 phases (35-39), 10 plans, 71 commits (+9,817/−1,743, 112 files). 14 categorías / 225 slots. Migración schemaVersion 11→12. Suite 624/624 (638/638 con VAL_07_STRICT=1), reporter exit 0. Timeline 2026-07-01 (1 día). Brownfield puro de contenido: motor v1.4 NO tocado (D-54 = 2 call-sites).
+**Known deferred items at close:** 19 quick_tasks 'missing' (backlog crónico pre-v1.9: mayoría "añadir canción", varias ideas UX) + 1 todo. Ver STATE.md §Deferred Items.
+
+**Key accomplishments:**
+
+- **Dimostrativi** (order 11, 8 slots, Phase 36) — nacida en slot+variantes: questo concordancia, quest' elisión, quello 6-formas, match noun→forma, colapso ES 3-vías→IT 2-vías, + ciò neutro + formas pronominales + cruce dimostrativi-300 (↔articoli). Quórum Opus 4.8 + Sonnet 4.6 + pase DeepSeek en los 2 magnets quello.
+- **Possessivi** (order 12, 7 slots, Phase 36) — MC-only: concordancia con lo poseído (incl. poseedor≠poseído), artículo obligatorio (distractora del calco), excepción de parentesco (4 carve-outs), suo his/her, loro invariable + cruces possessivi-300 (↔articoli) y possessivi-301 (↔genero-numero).
+- **Verbi modali** (order 13, 6 slots, Phase 37) — potere/volere/dovere presente irregular + modal+infinitivo + cruce modali-300 (↔presente-regolare), validados por quórum.
+- **Verbi riflessivi** (order 14, 7 slots, Phase 38) — presente reflexivo, colocación vía word-buttons (orden-distractor `sveglio mi`), reflexivo sobre terminación regular, MAGNET pp-concordanza -o/-a/-i/-e con essere (CERO avere), trío mismatch ES↔IT (ammalarsi/dimenticarsi(di)/salire), + 2 cruces (riflessivi-300 ↔presente-regolare, riflessivi-301 ↔essere). Sello canónico Opus+Sonnet + ronda EXTRA DeepSeek en los nodos de concordancia.
+- **PROV-01/02** (Phase 39) — campo OPCIONAL `origen` (enum ia-quorum|apuntes-profesora) validado a nivel categoría vía TDD; las 4 cats nuevas estampadas `ia-quorum`; las 10 legacy honestamente AUSENTES (procedencia mixta).
+- **INT-02 lockstep** (Phase 39) — los 3 arrays hardcoded de conteo re-sincronizados con expected DINÁMICO, baseline-guard reframeado sin el magic 183, y las 14 categorías verdes en suite + VAL_07_STRICT + reporter con el motor byte-intacto.
+
+---
+
 ## v1.8 Rediseño visual Editoriale (Shipped: 2026-06-30)
 
 **Phases completed:** 3 phases (32-34), 12 plans, 15 tasks, 19/19 requirements (4 FND + 6 HOME + 5 EX + 4 SRP)

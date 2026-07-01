@@ -228,6 +228,39 @@ El rediseño visual "Editoriale" aplicado a las 8 pantallas (papel cálido, seri
 - Sesiones: 1 sesión larga (discuss→ship→hotfix), con loop autónomo entre gates esperando UAT humano.
 - Notable: el bug más caro (márgenes móvil) lo encontró el humano en 30s de uso real — barato comparado con no encontrarlo; refuerza UAT humano + harness visual.
 
+## Milestone: v1.9 — Determinantes + verbos A1/A2
+
+**Shipped:** 2026-07-02
+**Phases:** 5 (35-39) | **Plans:** 10
+
+### What Was Built
+4 categorías nuevas A1/A2 (Dimostrativi 8 slots, Possessivi 7, Verbi modali 6, Verbi riflessivi 7) autoradas desde cero por quórum cross-vendor R1-R7 en slot+variantes; marca de procedencia opcional `origen` (PROV-01) con las 4 nuevas estampadas; migración 11→12; lockstep de conteos de cierre. 14 categorías / 225 slots, suite 624/638 verde.
+
+### What Worked
+- El patrón "alta = clon del molde v1.7 (presente-regolare)" hizo cada categoría mecánica y de bajo riesgo (brownfield puro de contenido, motor intacto).
+- Quórum cross-vendor (Opus 4.8 + Sonnet 4.6 + DeepSeek en magnets) cazó bugs reales de concordancia/ortografía; la ronda EXTRA DeepSeek en nodos de doble-validez fue clave.
+- El caveat executor-no-puede-Task-quorum se resolvió partiendo la autoría (estructural en executor) del sello canónico Sonnet (top-level) — Phase 38.
+- PROV-01 + lockstep como fase de cierre separada (mirror de Phase 31) mantuvo el conteo honesto y arregló un red preexistente (genero-numero 12→13).
+
+### What Was Inefficient
+- El literal magic 183 del baseline-guard y los 3 arrays hardcoded de conteo siguen siendo un touchpoint frágil (reframeado a suma dinámica en v1.9, debería evitar el problema a futuro).
+- Backlog crónico de 19 quick_tasks 'missing' arrastrado desde mayo sin resolver (diferido otra vez).
+
+### Patterns Established
+- Categoría nueva SIEMPRE nace en slot+variantes (nunca legacy payload); 0-match documentado en notes cuando el pareo es mecánico.
+- Cruces multi-cat con id estable -300/-301 reusando applyResultToSession (0 call-sites nuevos, D-54 = 2).
+- `origen` opcional retrocompatible (absence=accepted); legacy sin etiquetar (procedencia mixta = no mentir).
+
+### Key Lessons
+- Verificar acentos italianos en las OPTIONS, no solo en explanation (bug `si e`→`si è` cazado en el sello Sonnet top-level de Phase 38).
+- El baseline-guard es "lo más fácil de olvidar" en un cierre de conteo — reframear a suma dinámica lo elimina como clase de bug.
+
+### Cost Observations
+- Model mix: autoría/planning en Opus, verificación/checker en Sonnet, refuerzo cross-vendor DeepSeek.
+- Timeline: 1 día intensivo (2026-07-01), 71 commits.
+
+---
+
 ## Cross-Milestone Trends
 
 ### Process Evolution
@@ -242,6 +275,8 @@ El rediseño visual "Editoriale" aplicado a las 8 pantallas (papel cálido, seri
 | v1.5 | ~3 días | 3 | Pilot→escala: 2 categorías (Articoli + Partitivi) convertidas replicando el piloto; counts leídos del JSON (no estimados); migración multi-categoría (2 prefijos) |
 | v1.6 | ~4 días | 7 | Cierre de CONV-01: las 6 categorías restantes convertidas en serie; migración de 6 prefijos; híbrido regla+léxica para las léxicas; 0 rework de motor |
 | v1.7 | ~2 días | 3 | Alta de categoría nacida-en-slots (sin conversión); conteo dinámico del JSON (`TOTAL_EXPECTED` computado, no mágico); cruces multi-cat slot+variantes; deuda de conteo AJENA preexistente aflora al recomputar |
+| v1.8 | 1 día | 3 | Rediseño visual brownfield UI puro: Pico eliminado, `app.css` base, lenguaje Editoriale en las 8 pantallas; motor intacto; hotfix post-cierre CSS reset `<figure>` |
+| v1.9 | 1 día | 5 | 4 categorías nuevas nacidas-en-slots (Dimostrativi/Possessivi/Modali/Riflessivi) + PROV-01 origen + lockstep cierre; quórum con ronda EXTRA en magnets de doble-validez; baseline-guard reframeado dinámico |
 
 ### Cumulative Quality
 
@@ -255,6 +290,8 @@ El rediseño visual "Editoriale" aplicado a las 8 pantallas (papel cálido, seri
 | v1.5 | 358/358 | 9/9 requirements · Articoli 34 + Partitivi 19 slots | `migrate7to8` reset selectivo de 2 categorías, 2 slots de huecos semiconsonánticos |
 | v1.6 | 374/374 | 14/14 requirements · 9/9 categorías slot+variantes (CONV-01 cerrado) | `migrate8to9` reset de 6 categorías; híbrido regla+léxica (Professioni, Sostantivi irregolari) |
 | v1.7 | 473/474 (483/484 strict) | 11/11 requirements · 10ª categoría `presente-regolare` (8 base + 4 cruces) | `migrate10to11` reset de 1 prefijo; conteo dinámico `slotCountOf`; cruces multi-cat slot+variantes |
+| v1.8 | 574/575 | 19/19 requirements · 8 pantallas Editoriale | Pico eliminado → `app.css`; `migrate11to12` (pendiente en v1.9); fuentes auto-hospedadas |
+| v1.9 | 624/624 (638/638 strict) | 25/25 requirements · 14 categorías / 225 slots · 4 categorías nuevas + PROV-01 | `migrate11to12` reset de 4 prefijos; `origen` opcional; baseline-guard dinámico; ronda EXTRA DeepSeek |
 
 ### Top Lessons (Verified Across Milestones)
 1. **Reutilizar un único call-site central paga** — `applyResultToSession` (v1.0) absorbió tanto los tipos nuevos de v1.0 como el modo canción de v1.3 sin duplicar la cascada.

@@ -2,37 +2,33 @@
 gsd_state_version: 1.0
 milestone: v1.9
 milestone_name: Determinantes + verbos A1/A2
-status: executing
-last_updated: "2026-07-01T20:15:49.000Z"
-last_activity: 2026-07-01 -- Phase 39 Plan 02 complete (INT-02/INT-03/INT-04, cierre lockstep)
+status: Awaiting next milestone
+last_updated: "2026-07-01T22:26:27.591Z"
+last_activity: 2026-07-01 — Milestone v1.9 completed and archived
 progress:
   total_phases: 5
-  completed_phases: 4
+  completed_phases: 5
   total_plans: 10
-  completed_plans: 9
-  percent: 90
+  completed_plans: 10
+  percent: 100
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
 
 ## Project Reference
 
-See: `.planning/PROJECT.md` (updated 2026-07-01 — Milestone v1.9 ACTIVE, Determinantes + verbos A1/A2)
+See: `.planning/PROJECT.md` (updated 2026-07-02 — Milestone v1.9 SHIPPED, próximo = responsive móvil)
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 39 — PROV-01 + integración lockstep (cierre v1.9)
+**Current Focus:** Entre milestones — v1.9 cerrado; próximo vía `/gsd:new-milestone` (candidato: responsive móvil)
 
 ## Current Position
 
-Phase: 39 (PROV-01 + integración lockstep (cierre v1.9)) — EXECUTING (2/2 plans done, pending verificación)
-Plan: 2 of 2
-Status: Phase 39 execution complete (Plan 01 + Plan 02); pendiente verificación de fase
-Last activity: 2026-07-01 -- Phase 39 Plan 02 complete (INT-02/INT-03/INT-04); 5 gates green, 638 tests VAL_07_STRICT
-Resume file: None
-Next: verificación de fase 39 (SC-5) → cierre milestone v1.9
-
-Progress: [████████░░] 60% (3/5 phases complete)
+Phase: Milestone v1.9 complete
+Plan: —
+Status: Awaiting next milestone
+Last activity: 2026-07-01 — Milestone v1.9 completed and archived
 
 ## Deferred Items
 
@@ -55,6 +51,31 @@ Items reconocidos y diferidos en el cierre del milestone v1.8 (2026-06-30, ackno
 | cosmetic | `cancion` `.wb-answer` sin toggle `correcta` (relleno verde post-acierto; sólo visible en la ventana de auto-avance 600ms) | deferred — inconsistencia cosmética vs Phase 33-03, no rompe flujo (34-REVIEW/audit) |
 
 NOTA: el bug **grave** de márgenes laterales en móvil (gutter UA de 40px en `<figure>` tras eliminar Pico) **NO está diferido — se corrigió en hotfix `13b5631` (2026-07-01) y está en `main`**. Lo que queda diferido es el resto del responsive (tamaño de prompt, breakpoints de las pantallas nuevas), out-of-scope de v1.8 (desktop-only). El milestone v1.8 cumplió su definition of done (19/19 requirements desktop, audit passed) — el responsive completo es candidato a milestone propio.
+
+Items reconocidos y diferidos en el cierre del milestone v1.9 (2026-07-02, acknowledged por el autor):
+
+| Category | Item | Status |
+|----------|------|--------|
+| quick_task | 260525-pwq-fix-shuffle-de-options-en-multiple-choic | missing |
+| quick_task | 260525-vvj-boton-reiniciar-examen-phase-8-y | missing |
+| quick_task | 260614-hxn-separar-variants-de-concordancia-de-adje | missing |
+| quick_task | 260614-wzc-a-adir-canci-n-ultimo-solo-a-los-ejercic | missing |
+| quick_task | 260615-hhp-mostrar-t-tulo-de-ubicaci-n-contexto-dur | missing |
+| quick_task | 260615-hr0-ver-la-explicaci-n-del-ejercicio-aunque- | missing |
+| quick_task | 260615-nzi-contador-de-fallos-por-categor-a-y-canci | missing |
+| quick_task | 260615-puq-modo-examen-contrarreloj-tiempo-por-resp | missing |
+| quick_task | 260615-r3b-refinar-features-quitar-auto-avance-en-e | missing |
+| quick_task | 260615-str-word-buttons-huecos-estables-al-seleccio | missing |
+| quick_task | 260615-vkr-validador-de-frases-de-canci-n-es-infra- | missing |
+| quick_task | 260617-r10-a-adir-canci-n-bella-davvero-ultimo-al-b | missing |
+| quick_task | 260629-r47-a-adir-canci-n-cuore-di-plastica-ultimo- | missing |
+| quick_task | 260629-re3-a-adir-canci-n-buongiorno-vita-ultimo-al | missing |
+| quick_task | 260629-rl3-a-adir-canci-n-22-settembre-ultimo-al-bl | missing |
+| quick_task | 260629-rq0-a-adir-canci-n-sogni-appesi-ultimo-al-bl | missing |
+| quick_task | 260629-w7g-eliminar-la-canci-n-de-prueba-mini-prueb | missing |
+| quick_task | 260629-whf-a-adir-canci-n-piccola-stella-ultimo-al- | missing |
+| quick_task | 260629-wya-a-adir-canci-n-la-stella-pi-fragile-dell | missing |
+| todo | (sin slug) | open |
 
 ## Quick Tasks Completed
 
