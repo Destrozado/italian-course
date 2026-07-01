@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.9
 milestone_name: Determinantes + verbos A1/A2
 status: executing
-last_updated: "2026-07-01T19:30:00.000Z"
-last_activity: 2026-07-01 -- Phase 38 Plan 01 completo (riflessivi.json 7 slots + categories.json order 14)
+last_updated: "2026-07-01T20:07:45.476Z"
+last_activity: 2026-07-01 -- Phase 39 planning complete
 progress:
   total_phases: 5
-  completed_phases: 3
-  total_plans: 8
-  completed_plans: 7
-  percent: 60
+  completed_phases: 4
+  total_plans: 10
+  completed_plans: 8
+  percent: 80
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -27,8 +27,8 @@ See: `.planning/PROJECT.md` (updated 2026-07-01 — Milestone v1.9 ACTIVE, Deter
 
 Phase: 38 (verbi-riflessivi) — EXECUTING
 Plan: 2 of 2
-Status: Executing Phase 38 (Plan 01 completo; Plan 02 = sello canonico Opus+Sonnet top-level pendiente)
-Last activity: 2026-07-01 -- Phase 38 Plan 01 completo (riflessivi.json 7 slots validados por quorum estructural + categories.json order 14)
+Status: Ready to execute
+Last activity: 2026-07-01 -- Phase 39 planning complete
 Resume file: .planning/phases/38-verbi-riflessivi/38-02-PLAN.md
 Next: /gsd:execute-phase 38 (Plan 02)
 

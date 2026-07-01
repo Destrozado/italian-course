@@ -232,7 +232,12 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
+**Wave 1**
+
 - [ ] 39-01-PLAN.md — PROV-01 enum origen opcional en schema-validator (+ test unitario) + PROV-02 estampar 4 cats (10 legacy ausentes) + INT-01 verify
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
 - [ ] 39-02-PLAN.md — INT-02 lockstep 3 arrays (+4 dinámicas, genero-numero 12→13, preposiciones 49→50, baseline reframe) + INT-03/INT-04 gate de cierre (D-54=2, motor diff vacío, suite + VAL_07_STRICT verdes)
 
 ## Progress
