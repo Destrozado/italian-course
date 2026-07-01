@@ -136,7 +136,7 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
 - [x] **Phase 35: Migración `11→12` (reset selectivo preventivo de las 4 categorías nuevas)** — desbloquea el nacimiento limpio; espejo del patrón `migrate10to11` (v1.7). (completed 2026-07-01)
 - [x] **Phase 36: Dimostrativi + Possessivi (determinantes)** — 2 categorías nuevas que enganchan con `articoli`/`genero-numero`; 2 magnets de doble-validez (quello quei/quegli; excepción parentesco possessivi). (completed 2026-07-01)
 - [x] **Phase 37: Verbi modali** — `potere/volere/dovere` presente + infinitivo; scope gate duro (modal passato prossimo DIFERIDO). (completed 2026-07-01)
-- [ ] **Phase 38: Verbi riflessivi** — presente + colocación del pronombre + passato prossimo con `essere`+concordancia (magnet); engancha con `presente-regolare`/`essere`.
+- [x] **Phase 38: Verbi riflessivi** — presente + colocación del pronombre + passato prossimo con `essere`+concordancia (magnet); engancha con `presente-regolare`/`essere`. (completed 2026-07-01)
 - [ ] **Phase 39: PROV-01 + integración lockstep (cierre v1.9)** — marca de procedencia + sync de los 3 count arrays + `TOTAL_EXPECTED` + smoke; suite verde estricta.
 
 ## Phase Details
@@ -214,7 +214,7 @@ Plans:
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 38-02-PLAN.md — Sello canónico Opus+Sonnet + ronda EXTRA DeepSeek del MAGNET pp-concordanza y riflessivi-301 (top-level)
+- [x] 38-02-PLAN.md — Sello canónico Opus+Sonnet + ronda EXTRA DeepSeek del MAGNET pp-concordanza y riflessivi-301 (top-level)
 
 ### Phase 39: PROV-01 + integración lockstep (cierre v1.9)
 
@@ -247,7 +247,7 @@ Plans:
 | 35. Migración `11→12` | v1.9 | 1/1 | Complete    | 2026-07-01 |
 | 36. Dimostrativi + Possessivi | v1.9 | 4/4 | Complete   | 2026-07-01 |
 | 37. Verbi modali | v1.9 | 1/1 | Complete   | 2026-07-01 |
-| 38. Verbi riflessivi | v1.9 | 1/2 | In Progress|  |
+| 38. Verbi riflessivi | v1.9 | 2/2 | Complete   | 2026-07-01 |
 | 39. PROV-01 + integración lockstep | v1.9 | 0/? | Not started | - |
 
 ## Backlog
