@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.9
 milestone_name: Determinantes + verbos A1/A2
 status: executing
-last_updated: "2026-07-01T18:02:08.976Z"
-last_activity: 2026-07-01 -- Phase 38 planning complete
+last_updated: "2026-07-01T19:30:00.000Z"
+last_activity: 2026-07-01 -- Phase 38 Plan 01 completo (riflessivi.json 7 slots + categories.json order 14)
 progress:
   total_phases: 5
   completed_phases: 3
   total_plans: 8
-  completed_plans: 6
+  completed_plans: 7
   percent: 60
 ---
 
@@ -21,16 +21,16 @@ See: `.planning/PROJECT.md` (updated 2026-07-01 — Milestone v1.9 ACTIVE, Deter
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 38 — verbi-riflessivi (categoría `riflessivi`, order 14)
+**Current Focus:** Phase 38 — verbi-riflessivi
 
 ## Current Position
 
-Phase: 38 (verbi-riflessivi) — CONTEXT GATHERED (ready for planning)
-Plan: none yet (0 plans)
-Status: Ready to execute
-Last activity: 2026-07-01 -- Phase 38 planning complete
-Resume file: .planning/phases/38-verbi-riflessivi/38-CONTEXT.md
-Next: /gsd:plan-phase 38
+Phase: 38 (verbi-riflessivi) — EXECUTING
+Plan: 2 of 2
+Status: Executing Phase 38 (Plan 01 completo; Plan 02 = sello canonico Opus+Sonnet top-level pendiente)
+Last activity: 2026-07-01 -- Phase 38 Plan 01 completo (riflessivi.json 7 slots validados por quorum estructural + categories.json order 14)
+Resume file: .planning/phases/38-verbi-riflessivi/38-02-PLAN.md
+Next: /gsd:execute-phase 38 (Plan 02)
 
 Progress: [████████░░] 60% (3/5 phases complete)
 

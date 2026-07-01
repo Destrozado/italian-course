@@ -210,7 +210,7 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
 Plans:
 **Wave 1**
 
-- [ ] 38-01-PLAN.md — Autorar riflessivi.json (5 slots REFLEX + word-buttons de colocación + 2 cruces -300/-301, quórum estructural) y registrar la categoría (order 14)
+- [x] 38-01-PLAN.md — Autorar riflessivi.json (5 slots REFLEX + word-buttons de colocación + 2 cruces -300/-301, quórum estructural) y registrar la categoría (order 14)
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
@@ -247,7 +247,7 @@ Plans:
 | 35. Migración `11→12` | v1.9 | 1/1 | Complete    | 2026-07-01 |
 | 36. Dimostrativi + Possessivi | v1.9 | 4/4 | Complete   | 2026-07-01 |
 | 37. Verbi modali | v1.9 | 1/1 | Complete   | 2026-07-01 |
-| 38. Verbi riflessivi | v1.9 | 0/? | Not started | - |
+| 38. Verbi riflessivi | v1.9 | 1/2 | In Progress|  |
 | 39. PROV-01 + integración lockstep | v1.9 | 0/? | Not started | - |
 
 ## Backlog

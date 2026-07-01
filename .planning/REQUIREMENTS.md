@@ -35,11 +35,11 @@ Requisitos comprometidos para este milestone. Cada uno mapea a una fase del road
 
 ### Verbi riflessivi (REFLEX)
 
-- [ ] **REFLEX-01**: El autor es examinado sobre el presente reflexivo (`mi chiamo / ti chiami / si chiama`) en todas las personas.
-- [ ] **REFLEX-02**: El autor es examinado sobre la colocación del pronombre reflexivo ANTES del verbo conjugado (`mi sveglio`, nunca `*sveglio mi`) — tipo `word-buttons` con banco que incluye el orden-distractor.
-- [ ] **REFLEX-03**: El autor es examinado sobre el reflexivo construido sobre terminaciones regulares (`si alza`, `ci laviamo`, `vi vestite`) — engancha directamente con `presente-regolare` (v1.7).
-- [ ] **REFLEX-04**: El autor es examinado sobre el passato prossimo reflexivo con `essere` + concordancia del participio -o/-a/-i/-e (`mi sono svegliato/a`, `si sono alzati/e`) — engancha con `essere` (análogo del slot ya shipeado `presente-regolare-301`).
-- [ ] **REFLEX-05** *(A2/diferenciador)*: El autor es examinado sobre 2-3 desajustes reflexivos ES↔IT genuinos (p.ej. `ammalarsi`, `dimenticarsi (di)`, `salire`) — slot pequeño y de alta señal, sin fabricar trampas falsas.
+- [x] **REFLEX-01**: El autor es examinado sobre el presente reflexivo (`mi chiamo / ti chiami / si chiama`) en todas las personas.
+- [x] **REFLEX-02**: El autor es examinado sobre la colocación del pronombre reflexivo ANTES del verbo conjugado (`mi sveglio`, nunca `*sveglio mi`) — tipo `word-buttons` con banco que incluye el orden-distractor.
+- [x] **REFLEX-03**: El autor es examinado sobre el reflexivo construido sobre terminaciones regulares (`si alza`, `ci laviamo`, `vi vestite`) — engancha directamente con `presente-regolare` (v1.7).
+- [x] **REFLEX-04**: El autor es examinado sobre el passato prossimo reflexivo con `essere` + concordancia del participio -o/-a/-i/-e (`mi sono svegliato/a`, `si sono alzati/e`) — engancha con `essere` (análogo del slot ya shipeado `presente-regolare-301`).
+- [x] **REFLEX-05** *(A2/diferenciador)*: El autor es examinado sobre 2-3 desajustes reflexivos ES↔IT genuinos (p.ej. `ammalarsi`, `dimenticarsi (di)`, `salire`) — slot pequeño y de alta señal, sin fabricar trampas falsas.
 
 ### Procedencia del contenido (PROV)
 
@@ -105,11 +105,11 @@ Qué fases cubren qué requisitos. **Poblada por el roadmapper.**
 | POSS-05 | Phase 36 | Pending |
 | MODAL-01 | Phase 37 | Complete |
 | MODAL-02 | Phase 37 | Complete |
-| REFLEX-01 | Phase 38 | Pending |
-| REFLEX-02 | Phase 38 | Pending |
-| REFLEX-03 | Phase 38 | Pending |
-| REFLEX-04 | Phase 38 | Pending |
-| REFLEX-05 | Phase 38 | Pending |
+| REFLEX-01 | Phase 38 | Complete |
+| REFLEX-02 | Phase 38 | Complete |
+| REFLEX-03 | Phase 38 | Complete |
+| REFLEX-04 | Phase 38 | Complete |
+| REFLEX-05 | Phase 38 | Complete |
 | PROV-01 | Phase 39 | Pending |
 | PROV-02 | Phase 39 | Pending |
 | MIG-01 | Phase 35 | Complete |
