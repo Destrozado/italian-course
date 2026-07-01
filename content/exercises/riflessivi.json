@@ -287,12 +287,12 @@
         {
           "prompt": "Spesso tu ___ di comprare il pane. (en español: a menudo te olvidas de comprar el pan)",
           "options": [
-            "dimentichi di",
-            "ti dimentichi di",
             "ti dimentichi",
-            "si dimentica di"
+            "si dimentica",
+            "mi dimentico",
+            "ti dimentichi di"
           ],
-          "correctIndex": 1
+          "correctIndex": 0
         },
         {
           "prompt": "Ogni giorno lui ___ sull'autobus. (en español: cada día él se sube / sube al autobús)",
@@ -310,23 +310,23 @@
         "passes": [
           {
             "by": "claude-opus-4-8",
-            "date": "2026-07-01",
+            "date": "2026-07-02",
             "verdict": "correcta",
             "concerns": [
-              "[D-38-02 trio] SOLO los 3 desajustes genuinos del research: ammalarsi (IT reflexivo mi ammalo vs ES enfermar/ponerse enfermo), dimenticarsi di (IT reflexivo + prep di, ti dimentichi di, vs ES olvidarse de), salire (IT NO-reflexivo 'sale' vs ES subirse). NO se fabrica mismatch con verbos que SI coinciden (chiamarsi/svegliarsi/alzarsi/arrabbiarsi).",
-              "[D-38-02 verificacion IT vs ES] ammalarsi es reflexivo en IT (correcta: mi ammalo; distractora 'ammalo' no-reflexivo = error). salire NO es reflexivo en IT (correcta: sale; distractora 'si sale' = error de anadir el 'se' espanol). dimenticarsi pide di (correcta: ti dimentichi di; distractora 'ti dimentichi' sin prep y 'dimentichi di' sin pronombre).",
-              "[R1-R7] gloss ES (en español: ...) OBLIGATORIO donde la reflexividad difiere (R7, desambiguador legitimo, NO leak). Acentos ES OK; apostrofe/acento italiano literal (sull'autobus)."
+              "[fix-verificado por sustitucion] la KEY sustituida da una sola frase valida por variante; v1 dimenticarsi: KEY \"ti dimentichi\" -> \"tu ti dimentichi di comprare il pane\"; \"ti dimentichi di\" queda como trampa \"di di\" (el prompt ya trae di)."
             ]
           },
           {
-            "by": "deepseek-chat",
-            "date": "2026-07-01",
+            "by": "claude-sonnet-4-6",
+            "date": "2026-07-02",
             "verdict": "correcta",
-            "concerns": []
+            "concerns": [
+              "[fix-verificado por sustitucion] C1/C2 OK en las 3 variantes (ammalarsi/dimenticarsi(di)/salire); una sola opcion valida por variante tras montar la frase; sin doble validez."
+            ]
           },
           {
-            "by": "claude-sonnet-4-6",
-            "date": "2026-07-01",
+            "by": "deepseek-reasoner",
+            "date": "2026-07-02",
             "verdict": "correcta",
             "concerns": []
           }
