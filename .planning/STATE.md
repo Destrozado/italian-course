@@ -2,16 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.9
 milestone_name: Determinantes + verbos A1/A2
-status: ready_to_plan
-last_updated: 2026-07-01T09:38:24.124Z
-last_activity: 2026-07-01 -- Phase 35 Plan 01 completado (migración 11→12)
+status: planning
+last_updated: "2026-07-01T10:01:05.423Z"
+last_activity: 2026-07-01
 progress:
   total_phases: 5
   completed_phases: 1
   total_plans: 1
   completed_plans: 1
   percent: 20
-stopped_at: Phase 35 complete (1/1) — ready to discuss Phase 36
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
