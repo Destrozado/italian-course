@@ -2,8 +2,8 @@
 gsd_state_version: 1.0
 milestone: v1.9
 milestone_name: Determinantes + verbos A1/A2
-status: executing
-last_updated: "2026-07-01T09:28:20Z"
+status: ready_to_plan
+last_updated: 2026-07-01T09:38:24.124Z
 last_activity: 2026-07-01 -- Phase 35 Plan 01 completado (migración 11→12)
 progress:
   total_phases: 5
@@ -11,6 +11,7 @@ progress:
   total_plans: 1
   completed_plans: 1
   percent: 20
+stopped_at: Phase 35 complete (1/1) — ready to discuss Phase 36
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -21,14 +22,14 @@ See: `.planning/PROJECT.md` (updated 2026-07-01 — Milestone v1.9 ACTIVE, Deter
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 35 — Migración 11→12 (reset selectivo preventivo de las 4 categorías nuevas)
+**Current Focus:** Phase 36 — dimostrativi + possessivi (determinantes)
 
 ## Current Position
 
-Phase: 35 (Migración 11→12 (reset selectivo preventivo de las 4 categorías nuevas)) — COMPLETE (1/1 plan)
-Plan: 1 of 1 (completado)
-Status: Phase 35 completa — lista para verificación/cierre
-Last activity: 2026-07-01 -- Phase 35 Plan 01 completado (migración 11→12)
+Phase: 36
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-07-01
 
 Progress: [██░░░░░░░░] 20% (1/5 fases v1.9)
 

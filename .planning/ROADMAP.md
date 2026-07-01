@@ -213,7 +213,7 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
 | 21-27 | v1.6 | 19/19 | Complete | 2026-06-09 |
 | 29-31 | v1.7 | 6/6 | Complete | 2026-06-17 |
 | 32-34 | v1.8 | 12/12 | Complete | 2026-06-30 |
-| 35. Migración `11→12` | v1.9 | 1/1 | Complete   | 2026-07-01 |
+| 35. Migración `11→12` | v1.9 | 1/1 | Complete    | 2026-07-01 |
 | 36. Dimostrativi + Possessivi | v1.9 | 0/? | Not started | - |
 | 37. Verbi modali | v1.9 | 0/? | Not started | - |
 | 38. Verbi riflessivi | v1.9 | 0/? | Not started | - |
