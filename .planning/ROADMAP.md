@@ -157,6 +157,8 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
 - **MODAL-01 — Verbi modali** (del backlog): `potere/volere/dovere` + infinitivo (posso andare / voglio / devo).
 - **REFLEX-01 — Verbi riflessivi** (del backlog): `mi chiamo / ti svegli / si alza` + passato prossimo con `essere` y concordancia.
 
+**PROV-01 — Marca de procedencia a nivel de datos (transversal):** marcar internamente el **origen del contenido** de cada categoría: **basada en apuntes/PDF de la profesora** vs **construida desde cero por IA** (quórum). Distinto de `validation.passes[]` (que registra *quién validó*, no *de dónde salió*). Campo nuevo (p.ej. `source`/`origen` con enum tipo `apuntes-profesora` | `ia-quorum`), probablemente en `categories.json`; el `schema-validator` debe aceptarlo (campo opcional, retrocompatible). **Ojo con la granularidad:** las 10 categorías actuales tienen procedencia MIXTA (transcritas de PDF en v1.0 pero aumentadas con variantes por quórum en v1.4-v1.7) → decidir en discuss/plan si el marcador es por-categoría (grueso), por-slot, o por-variante, y cómo etiquetar el legado. Las 4 categorías nuevas de este milestone nacen `ia-quorum` puras.
+
 Tiempos verbales pesados (imperfetto/futuro/condizionale/congiuntivo/passato prossimo dedicado/irregulares) → milestone SEPARADO posterior (ver abajo), no se agrupan con estos por tamaño.
 
 ### Tiempos verbales y categorías derivadas (post-v1.7)
