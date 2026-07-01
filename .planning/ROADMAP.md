@@ -238,7 +238,7 @@ Plans:
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 39-02-PLAN.md — INT-02 lockstep 3 arrays (+4 dinámicas, genero-numero 12→13, preposiciones 49→50, baseline reframe) + INT-03/INT-04 gate de cierre (D-54=2, motor diff vacío, suite + VAL_07_STRICT verdes)
+- [x] 39-02-PLAN.md — INT-02 lockstep 3 arrays (+4 dinámicas, genero-numero 12→13, preposiciones 49→50, baseline reframe) + INT-03/INT-04 gate de cierre (D-54=2, motor diff vacío, suite + VAL_07_STRICT verdes) — completed 2026-07-01
 
 ## Progress
 
@@ -257,7 +257,7 @@ Plans:
 | 36. Dimostrativi + Possessivi | v1.9 | 4/4 | Complete   | 2026-07-01 |
 | 37. Verbi modali | v1.9 | 1/1 | Complete   | 2026-07-01 |
 | 38. Verbi riflessivi | v1.9 | 2/2 | Complete   | 2026-07-01 |
-| 39. PROV-01 + integración lockstep | v1.9 | 1/2 | In progress | - |
+| 39. PROV-01 + integración lockstep | v1.9 | 2/2 | Pending verify | - |
 
 ## Backlog
 

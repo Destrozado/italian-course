@@ -54,9 +54,9 @@ Requisitos comprometidos para este milestone. Cada uno mapea a una fase del road
 ### Integración lockstep (INT)
 
 - [x] **INT-01**: 4 entradas nuevas en `categories.json` (append, order 11–14) sin romper el display de la tabla del home (order documental, no usado para ordenar).
-- [ ] **INT-02**: Counts re-sincronizados — los 3 arrays hardcoded de count + `TOTAL_EXPECTED` + la fórmula del baseline-guard + `+4` entradas en el smoke paramétrico; el dynamic-count mantiene la honestidad (nunca número mágico).
-- [ ] **INT-03**: Cruces multi-cat (`dimostrativi`↔`articoli`, `possessivi`↔`genero-numero`/`articoli`, `riflessivi`↔`presente-regolare`/`essere`) reusando `applyResultToSession` — la cascada D-54 permanece en EXACTAMENTE 2 call-sites de `applyImmediateFailure` (verificable por grep).
-- [ ] **INT-04**: Todas las variantes nuevas validadas 1-por-1 por quórum cross-vendor R1-R7 con rondas EXTRA en los 3 magnets de doble-validez (formas `quei/quegli` de `quello`; excepción de parentesco de possessivi; concordancia essere del PP reflexivo).
+- [x] **INT-02**: Counts re-sincronizados — los 3 arrays hardcoded de count + `TOTAL_EXPECTED` + la fórmula del baseline-guard + `+4` entradas en el smoke paramétrico; el dynamic-count mantiene la honestidad (nunca número mágico). — ✅ Plan 39-02
+- [x] **INT-03**: Cruces multi-cat (`dimostrativi`↔`articoli`, `possessivi`↔`genero-numero`/`articoli`, `riflessivi`↔`presente-regolare`/`essere`) reusando `applyResultToSession` — la cascada D-54 permanece en EXACTAMENTE 2 call-sites de `applyImmediateFailure` (verificable por grep). — ✅ Plan 39-02 (verify: D-54=2, motor diff vacío)
+- [x] **INT-04**: Todas las variantes nuevas validadas 1-por-1 por quórum cross-vendor R1-R7 con rondas EXTRA en los 3 magnets de doble-validez (formas `quei/quegli` de `quello`; excepción de parentesco de possessivi; concordancia essere del PP reflexivo). — ✅ Plan 39-02 (VAL_07_STRICT verde)
 
 ## Future Requirements
 
@@ -115,9 +115,9 @@ Qué fases cubren qué requisitos. **Poblada por el roadmapper.**
 | MIG-01 | Phase 35 | Complete |
 | MIG-02 | Phase 35 | Complete |
 | INT-01 | Phase 39 | Complete |
-| INT-02 | Phase 39 | Pending |
-| INT-03 | Phase 39 | Pending |
-| INT-04 | Phase 39 | Pending |
+| INT-02 | Phase 39 | Complete |
+| INT-03 | Phase 39 | Complete |
+| INT-04 | Phase 39 | Complete |
 
 **Coverage:**
 - v1.9 requirements: 25 total
