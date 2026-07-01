@@ -165,7 +165,7 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
   5. Todas las variantes nuevas de ambas categorías quedan `validation.status: validated` (≥2 passes correcta, ≥2 `by` distintos); explanations en español acentuado (RAE), apóstrofe ASCII, plain text, gloss `(en español: …)` canónico donde desambigua; sin leak de regla en el prompt (R1).
 **Plans**: 4 plans
 - [x] 36-01-PLAN.md — Dimostrativi nucleo (questo, quest' elision, quello MC+match, colapso ES) por quorum R1-R7, magnet quei/quegli DeepSeek
-- [ ] 36-02-PLAN.md — Dimostrativi A2 (cio single-variant, pronominales) + registro categories.json order 11 + cruce dimostrativi-300
+- [x] 36-02-PLAN.md — Dimostrativi A2 (cio single-variant, pronominales) + registro categories.json order 11 + cruce dimostrativi-300
 - [x] 36-03-PLAN.md — Possessivi nucleo (concordancia cosa-poseida, articulo obligatorio+calco, excepcion parentesco 4 carve-outs) MC-only, magnet DeepSeek
 - [ ] 36-04-PLAN.md — Possessivi A2 (suo his/her, loro invariable) + registro categories.json order 12 + cruces possessivi-300/301
 
@@ -218,7 +218,7 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
 | 29-31 | v1.7 | 6/6 | Complete | 2026-06-17 |
 | 32-34 | v1.8 | 12/12 | Complete | 2026-06-30 |
 | 35. Migración `11→12` | v1.9 | 1/1 | Complete    | 2026-07-01 |
-| 36. Dimostrativi + Possessivi | v1.9 | 2/4 | In Progress|  |
+| 36. Dimostrativi + Possessivi | v1.9 | 3/4 | In Progress|  |
 | 37. Verbi modali | v1.9 | 0/? | Not started | - |
 | 38. Verbi riflessivi | v1.9 | 0/? | Not started | - |
 | 39. PROV-01 + integración lockstep | v1.9 | 0/? | Not started | - |
