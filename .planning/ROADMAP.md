@@ -148,6 +148,17 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
 
 ## Backlog
 
+### 🎯 PRÓXIMO milestone candidato — Determinantes + verbos A1/A2 (post-v1.8)
+
+**Status:** Acordado 2026-07-01 (arrancar vía `/gsd:new-milestone`). Agrupa **4 categorías nuevas** A1/A2 en un solo milestone (uno por categoría sería demasiado, criterio del autor), todas **autoradas desde cero por quórum cross-vendor R1-R7** (patrón D-85; no hay PDF de la profesora aún), en formato **slot+variantes** con migración + reset selectivo + sync de counts + smoke (patrón v1.6/v1.7). **Motor v1.4 intacto** (brownfield puro de contenido). Numeración de fases CONTINÚA desde Phase 34.
+
+- **DEMOS-01 — Dimostrativi** (NUEVA): `questo/questa/questi/queste` (vicino) + `quello` (lontano, colapsa *ese*+*aquel* del español) con sus formas tipo-artículo `quel/quello/quell'/quei/quegli/quelle` (engancha con `articoli`) + pronombre neutro `ciò`. Trampa de calco: ES 3-vías (este/ese/aquel) → IT 2-vías (questo/quello). `codesto` fuera de A1/A2.
+- **POSS-01 — Possessivi** (NUEVA): `il mio / la tua / i suoi…` con artículo (excepción: parentesco singular `mia madre`), concordancia con la cosa poseída (no con el poseedor).
+- **MODAL-01 — Verbi modali** (del backlog): `potere/volere/dovere` + infinitivo (posso andare / voglio / devo).
+- **REFLEX-01 — Verbi riflessivi** (del backlog): `mi chiamo / ti svegli / si alza` + passato prossimo con `essere` y concordancia.
+
+Tiempos verbales pesados (imperfetto/futuro/condizionale/congiuntivo/passato prossimo dedicado/irregulares) → milestone SEPARADO posterior (ver abajo), no se agrupan con estos por tamaño.
+
 ### Tiempos verbales y categorías derivadas (post-v1.7)
 
 **Status:** Backlog. v1.7 entrega el presente regular (`presente-regolare`). Diferidos a milestones futuros conforme la profesora entregue material: **TENSE-X1..X4** (Pretérito imperfetto / Futuro semplice / Condizionale / Congiuntivo), **REFLEX-01** (verbi riflessivi — chiamarsi/svegliarsi/alzarsi, apoyado sobre el presente regular de v1.7), **MODAL-01** (verbi modali potere/volere/dovere + infinitivo), **PASSPROX-01** (passato prossimo como categoría dedicada — elección de auxiliar + participio). Verbos IRREGULARES en presente (andare/fare/venire/dire…) son categoría aparte (out-of-scope explícito de v1.7).
