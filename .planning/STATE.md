@@ -1,10 +1,10 @@
 ---
 gsd_state_version: 1.0
 milestone: v1.9
-milestone_name: Determinantes + verbos A1/A2
-status: verifying
-last_updated: "2026-07-01T13:33:56.135Z"
-last_activity: 2026-07-01
+milestone_name: — ACTIVE
+status: completed
+last_updated: "2026-07-01T13:50:35.761Z"
+last_activity: 2026-07-01 -- Phase 37 marked complete
 progress:
   total_phases: 5
   completed_phases: 3
@@ -25,10 +25,10 @@ See: `.planning/PROJECT.md` (updated 2026-07-01 — Milestone v1.9 ACTIVE, Deter
 
 ## Current Position
 
-Phase: 37 (verbi-modali) — EXECUTING
+Phase: 37 — COMPLETE
 Plan: 1 of 1
-Status: Phase complete — ready for verification
-Last activity: 2026-07-01
+Status: Phase 37 complete
+Last activity: 2026-07-01 -- Phase 37 marked complete
 Resume file: None
 Next: /gsd:plan-phase 37
 
