@@ -229,7 +229,11 @@ Plans:
   4. El smoke paramétrico cubre las 4 nuevas (readdir auto-descubre; +4 entradas explícitas donde el array es hardcoded), y la cascada D-54 permanece en EXACTAMENTE 2 call-sites de `applyImmediateFailure` (verificable por grep + tests en 4 archivos); `git diff src/screens/app.js src/domain/progress.js` vacío.
   5. La suite completa `node --test tests/*.test.js` (y `VAL_07_STRICT=1`) queda verde sobre las 14 categorías; todas las variantes de las 4 nuevas validadas 1-por-1 por quórum R1-R7 con rondas EXTRA en los 3 magnets de doble-validez (INT-04).
 
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [ ] 39-01-PLAN.md — PROV-01 enum origen opcional en schema-validator (+ test unitario) + PROV-02 estampar 4 cats (10 legacy ausentes) + INT-01 verify
+- [ ] 39-02-PLAN.md — INT-02 lockstep 3 arrays (+4 dinámicas, genero-numero 12→13, preposiciones 49→50, baseline reframe) + INT-03/INT-04 gate de cierre (D-54=2, motor diff vacío, suite + VAL_07_STRICT verdes)
 
 ## Progress
 
