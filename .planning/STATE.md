@@ -1,10 +1,10 @@
 ---
 gsd_state_version: 1.0
 milestone: v1.9
-milestone_name: — ACTIVE
-status: completed
-last_updated: "2026-07-01T13:50:35.761Z"
-last_activity: 2026-07-01 -- Phase 37 marked complete
+milestone_name: Determinantes + verbos A1/A2
+status: executing
+last_updated: "2026-07-01T14:10:00.000Z"
+last_activity: 2026-07-01 -- Phase 38 context gathered
 progress:
   total_phases: 5
   completed_phases: 3
@@ -21,18 +21,18 @@ See: `.planning/PROJECT.md` (updated 2026-07-01 — Milestone v1.9 ACTIVE, Deter
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 37 — verbi-modali
+**Current Focus:** Phase 38 — verbi-riflessivi (categoría `riflessivi`, order 14)
 
 ## Current Position
 
-Phase: 37 — COMPLETE
-Plan: 1 of 1
-Status: Phase 37 complete
-Last activity: 2026-07-01 -- Phase 37 marked complete
-Resume file: None
-Next: /gsd:plan-phase 37
+Phase: 38 (verbi-riflessivi) — CONTEXT GATHERED (ready for planning)
+Plan: none yet (0 plans)
+Status: Phase 38 context captured; Phase 37 shipped (verified 4/4 SC)
+Last activity: 2026-07-01 -- Phase 38 context gathered
+Resume file: .planning/phases/38-verbi-riflessivi/38-CONTEXT.md
+Next: /gsd:plan-phase 38
 
-Progress: [██████████] 100%
+Progress: [████████░░] 60% (3/5 phases complete)
 
 ## Deferred Items
 
