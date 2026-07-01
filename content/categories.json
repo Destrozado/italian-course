@@ -10,9 +10,9 @@
     { "id": "articoli",                "name": "Articoli (determinativi e indeterminativi)", "order": 8 },
     { "id": "partitivos",              "name": "Partitivi",                                 "order": 9 },
     { "id": "presente-regolare",       "name": "Presente indicativo (verbi regolari)",      "order": 10 },
-    { "id": "dimostrativi",            "name": "Dimostrativi (questo/quello)",              "order": 11 },
-    { "id": "possessivi",              "name": "Possessivi (il mio/la tua)",                "order": 12 },
-    { "id": "modali",                  "name": "Verbi modali (potere/volere/dovere)",       "order": 13 },
-    { "id": "riflessivi",              "name": "Verbi riflessivi (mi chiamo/si alza)",      "order": 14 }
+    { "id": "dimostrativi",            "name": "Dimostrativi (questo/quello)",              "order": 11, "origen": "ia-quorum" },
+    { "id": "possessivi",              "name": "Possessivi (il mio/la tua)",                "order": 12, "origen": "ia-quorum" },
+    { "id": "modali",                  "name": "Verbi modali (potere/volere/dovere)",       "order": 13, "origen": "ia-quorum" },
+    { "id": "riflessivi",              "name": "Verbi riflessivi (mi chiamo/si alza)",      "order": 14, "origen": "ia-quorum" }
   ]
 }
