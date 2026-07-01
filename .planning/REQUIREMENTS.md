@@ -43,8 +43,8 @@ Requisitos comprometidos para este milestone. Cada uno mapea a una fase del road
 
 ### Procedencia del contenido (PROV)
 
-- [ ] **PROV-01**: El schema-validator acepta un campo OPCIONAL `origen` (enum `ia-quorum` | `apuntes-profesora`) a nivel de categoría en `categories.json`, retrocompatible (las 10 categorías legacy sin el campo siguen validando); valida el enum para cazar typos.
-- [ ] **PROV-02**: Las 4 categorías nuevas nacen con `origen: "ia-quorum"`; las 10 categorías legacy quedan con `origen` AUSENTE (su procedencia es mixta — transcritas de PDF y luego aumentadas por quórum — y no se etiqueta a nivel categoría para no mentir).
+- [x] **PROV-01**: El schema-validator acepta un campo OPCIONAL `origen` (enum `ia-quorum` | `apuntes-profesora`) a nivel de categoría en `categories.json`, retrocompatible (las 10 categorías legacy sin el campo siguen validando); valida el enum para cazar typos.
+- [x] **PROV-02**: Las 4 categorías nuevas nacen con `origen: "ia-quorum"`; las 10 categorías legacy quedan con `origen` AUSENTE (su procedencia es mixta — transcritas de PDF y luego aumentadas por quórum — y no se etiqueta a nivel categoría para no mentir).
 
 ### Migración (MIG)
 
@@ -53,7 +53,7 @@ Requisitos comprometidos para este milestone. Cada uno mapea a una fase del road
 
 ### Integración lockstep (INT)
 
-- [ ] **INT-01**: 4 entradas nuevas en `categories.json` (append, order 11–14) sin romper el display de la tabla del home (order documental, no usado para ordenar).
+- [x] **INT-01**: 4 entradas nuevas en `categories.json` (append, order 11–14) sin romper el display de la tabla del home (order documental, no usado para ordenar).
 - [ ] **INT-02**: Counts re-sincronizados — los 3 arrays hardcoded de count + `TOTAL_EXPECTED` + la fórmula del baseline-guard + `+4` entradas en el smoke paramétrico; el dynamic-count mantiene la honestidad (nunca número mágico).
 - [ ] **INT-03**: Cruces multi-cat (`dimostrativi`↔`articoli`, `possessivi`↔`genero-numero`/`articoli`, `riflessivi`↔`presente-regolare`/`essere`) reusando `applyResultToSession` — la cascada D-54 permanece en EXACTAMENTE 2 call-sites de `applyImmediateFailure` (verificable por grep).
 - [ ] **INT-04**: Todas las variantes nuevas validadas 1-por-1 por quórum cross-vendor R1-R7 con rondas EXTRA en los 3 magnets de doble-validez (formas `quei/quegli` de `quello`; excepción de parentesco de possessivi; concordancia essere del PP reflexivo).
@@ -110,11 +110,11 @@ Qué fases cubren qué requisitos. **Poblada por el roadmapper.**
 | REFLEX-03 | Phase 38 | Complete |
 | REFLEX-04 | Phase 38 | Complete |
 | REFLEX-05 | Phase 38 | Complete |
-| PROV-01 | Phase 39 | Pending |
-| PROV-02 | Phase 39 | Pending |
+| PROV-01 | Phase 39 | Complete |
+| PROV-02 | Phase 39 | Complete |
 | MIG-01 | Phase 35 | Complete |
 | MIG-02 | Phase 35 | Complete |
-| INT-01 | Phase 39 | Pending |
+| INT-01 | Phase 39 | Complete |
 | INT-02 | Phase 39 | Pending |
 | INT-03 | Phase 39 | Pending |
 | INT-04 | Phase 39 | Pending |

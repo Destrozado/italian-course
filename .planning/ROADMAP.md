@@ -234,7 +234,7 @@ Plans:
 Plans:
 **Wave 1**
 
-- [ ] 39-01-PLAN.md — PROV-01 enum origen opcional en schema-validator (+ test unitario) + PROV-02 estampar 4 cats (10 legacy ausentes) + INT-01 verify
+- [x] 39-01-PLAN.md — PROV-01 enum origen opcional en schema-validator (+ test unitario) + PROV-02 estampar 4 cats (10 legacy ausentes) + INT-01 verify — completed 2026-07-01
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
@@ -257,7 +257,7 @@ Plans:
 | 36. Dimostrativi + Possessivi | v1.9 | 4/4 | Complete   | 2026-07-01 |
 | 37. Verbi modali | v1.9 | 1/1 | Complete   | 2026-07-01 |
 | 38. Verbi riflessivi | v1.9 | 2/2 | Complete   | 2026-07-01 |
-| 39. PROV-01 + integración lockstep | v1.9 | 0/? | Not started | - |
+| 39. PROV-01 + integración lockstep | v1.9 | 1/2 | In progress | - |
 
 ## Backlog
 

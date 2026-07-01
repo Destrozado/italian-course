@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.9
 milestone_name: Determinantes + verbos A1/A2
 status: executing
-last_updated: "2026-07-01T20:07:45.476Z"
-last_activity: 2026-07-01 -- Phase 39 planning complete
+last_updated: "2026-07-01T20:08:31.462Z"
+last_activity: 2026-07-01 -- Phase 39 execution started
 progress:
   total_phases: 5
   completed_phases: 4
@@ -21,16 +21,16 @@ See: `.planning/PROJECT.md` (updated 2026-07-01 — Milestone v1.9 ACTIVE, Deter
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 38 — verbi-riflessivi
+**Current Focus:** Phase 39 — PROV-01 + integración lockstep (cierre v1.9)
 
 ## Current Position
 
-Phase: 38 (verbi-riflessivi) — EXECUTING
+Phase: 39 (PROV-01 + integración lockstep (cierre v1.9)) — EXECUTING
 Plan: 2 of 2
-Status: Ready to execute
-Last activity: 2026-07-01 -- Phase 39 planning complete
-Resume file: .planning/phases/38-verbi-riflessivi/38-02-PLAN.md
-Next: /gsd:execute-phase 38 (Plan 02)
+Status: Executing Phase 39 (Plan 01 complete)
+Last activity: 2026-07-01 -- Phase 39 Plan 01 complete (PROV-01/PROV-02/INT-01)
+Resume file: .planning/phases/39-prov-01-integraci-n-lockstep-cierre-v1-9/39-02-PLAN.md
+Next: /gsd:execute-phase 39 (Plan 02)
 
 Progress: [████████░░] 60% (3/5 phases complete)
 
