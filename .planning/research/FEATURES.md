@@ -1,262 +1,180 @@
-# Feature Research
+# Feature Research — v1.9: 4 new grammar categories (rule inventory)
 
-**Domain:** Personal language-learning self-quiz web app (single-user, local, desktop, Italian A1/A2)
-**Researched:** 2026-05-23
-**Confidence:** MEDIUM-HIGH (strong evidence from Anki/Quizlet/Duolingo patterns; LOW only on niche UX micro-decisions like animation timing)
+**Domain:** A1/A2 Italian self-quiz content (slot+variantes JSON) for a Spanish-speaking learner
+**Researched:** 2026-07-01
+**Confidence:** HIGH (grammar verified against multiple authoritative sources; slot/exercise-type design verified against existing repo content `articoli.json` + `presente-regolare.json`)
 
-## Domain Framing
+> **How to read this file.** The "feature landscape" here is not app features — it is the **rule inventory** (candidate slots) for the 4 new categories. Each rule = one candidate slot (one rule, 1..N interchangeable variantes sharing an explanation), classified table-stakes / differentiator / anti-feature, with complexity, dependencies on existing categories, and an exercise-TYPE suggestion reasoned against the DESIGN RULE.
+>
+> **DESIGN RULE (Phase 4, codified):** `match` is ONLY valid when the pairing requires a rule NOT derivable by shared root. Singular↔plural and masc↔fem with a shared root → multiple-choice with plausible distractors. Conjugation derivable by root (io↔parlo) → NOT match (see `presente-regolare.json` notes: 0 match by decision).
+>
+> **Explanation canon (inherited, do NOT re-litigate):** Spanish accented (RAE), Italian quoted literally in Italian spelling, gloss `(en español: ...)` allowed and canonical (R7), plain text, ASCII apostrophe. Distractor pedagogy: distractors are other real forms / the calco error — only one concords.
 
-This is NOT a Duolingo competitor. It is a **personal drill tool** — single user, local-only, no cloud, no social, content authored by hand in JSON. The author's stated ethos is *"nada muy sofisticado, es pura repetición y una gestión de los repasos automatizada."* That phrase is the filter for every feature below. Any feature that does not directly serve **"exercise → binary feedback → category re-verification loop"** is suspect.
-
-The two dominant references in this niche are:
-- **Anki** (deck-based SRS, minimalist, single user, file-based) — closer in spirit to this project
-- **Quizlet** (multi-mode: Learn/Match/Test/Write, gamified, cloud, social) — closer in exercise variety
-
-This app is "Anki-ethos with Quizlet-style exercise types, minus SRS, minus cloud, minus accounts."
+---
 
 ## Feature Landscape
 
-### Table Stakes (Users Expect These)
+### Table Stakes (must cover for A1/A2)
 
-Features the single user will notice immediately if missing. Without these, the app feels broken or amateurish, even for personal use.
+Rules a learner is expected to master at A1/A2. Missing = the category feels incomplete.
 
-| Feature | Why Expected | Complexity | Notes |
-|---------|--------------|------------|-------|
-| **Session progress indicator** ("Ejercicio 7 / 20") | Every quiz/SRS app shows it (Anki, Quizlet, Duolingo). User needs to gauge effort remaining. Without it, sessions feel infinite. | S | Counter in header. Also useful for "test completo" mode where N is dynamic. Fits ethos. |
-| **Binary visual feedback green/red on answer** | Already in spec; reaffirming. The user named this explicitly. Without it the loop has no closure. | S | Already specified. |
-| **"Next" or auto-advance after feedback** | After seeing green/red, you need to move on. Either auto-advance after ~800ms or require Enter/click. | S | Recommend: auto-advance on correct (fast), require click on incorrect (give a beat to register the failure). Both lightweight. |
-| **End-of-session summary** ("Acertaste 18/20, fallaste: Avere, Preposiciones") | Closes the loop. User needs to see which categories got reset and which advanced. Anki/Quizlet/Duolingo all do this. | S | List of category state changes is more valuable here than raw % score. The score number is generic; the **state delta** is the actionable info for this app. |
-| **Category selection UI before session start** | Already in spec (checkboxes). Reaffirming as table stakes. | S | Already specified. Add "select all / clear all" buttons — five seconds to implement, saves clicks daily. |
-| **Per-category overview / dashboard** | The user defined three states (no hecha / hecha / dominada) and a 21-day streak. He MUST be able to see, for each category: current state, streak day count, attempts total. Without this view, the state machine is invisible. | M | This is the home screen. Must show all categories at a glance. State as colored badge, streak as "12/21 días". |
-| **State change indicator at session end** | If a category went from "hecha" to "no hecha" because of a failed exercise, the user needs to see it (red banner: "Avere reseteada por fallo en ejercicio X"). Otherwise the harsh reset rule will feel mysterious and frustrating. | S | This is the visible cost of the fail-all rule. Critical for the rule to feel fair instead of buggy. |
-| **JSON load error reporting** | Content is hand-edited JSON. A typo silently breaking the app = hours debugging. Show a clear error: "exercises.json line 47: missing field 'answer'" or at minimum "JSON inválido". | S | `JSON.parse` throws with line info on modern V8. Catch and display in a visible banner, not console. Critical because content authoring IS the day-1 workflow. |
-| **Export progress to JSON file (manual download)** | Already in spec. Reaffirming. localStorage is volatile (clear cookies, browser corruption, profile reset). Without export, all streaks vanish on one bad day. | S | Already specified. |
-| **Import progress from JSON file** | Counterpart to export. Useless to have a backup you cannot restore. | S | Already specified. Confirm overwrite before applying. |
-| **Keyboard input for answer selection** | Pressing 1/2/3/4 for multiple choice, Enter to confirm, Space for "next". The user is desktop-only and doing 20+ exercises daily — clicking is friction. Even non-power users adopt number keys instantly. | S | Just keydown listeners. Massive ergonomic win. |
-| **Session can be abandoned without corrupting state** | If you close the tab mid-session, the in-progress session should not poison the streak (e.g. mark categories as "failed today"). Streaks should only update on **completed** sessions. | S | Persist session progress only on completion, not per-exercise. Or: persist with explicit "abandoned" flag that excludes from streak math. |
+| Rule (candidate slot) | Category | Why expected | Complexity | Exercise type | Deps |
+|---|---|---|---|---|---|
+| `questo/questa/questi/queste` agreement (vicino) | DEMOS | Core "this"; 4-form gender/number agreement | LOW | multiple-choice | genero-numero |
+| `quest'` elision before vowel (quest'anno, quest'amica) | DEMOS | Standard A1 elision | LOW | multiple-choice | genero-numero |
+| `quello` article-like forms `quel/quello/quell'/quei/quegli/quelle` | DEMOS | The signature trap; mirrors definite article exactly | **HIGH** | multiple-choice + **match** | **articoli** (direct) |
+| ES 3-way → IT 2-way collapse (este/ese/aquel → questo/quello) | DEMOS | THE Spanish-speaker calco trap | MEDIUM | multiple-choice | — |
+| `il mio / la mia / i miei / le mie` (+ tuo/suo) agreement with the THING possessed | POSS | Core possessive; agrees with possessed noun not possessor | MEDIUM | multiple-choice | genero-numero, articoli |
+| Possessive REQUIRES the definite article (la mia casa, not "mia casa") | POSS | Direct contrast with Spanish (mi casa) | LOW | multiple-choice | articoli |
+| Family-member singular unmodified DROPS article (mia madre, tuo fratello) | POSS | High-frequency A1 exception | MEDIUM | multiple-choice | — |
+| Article RETURNS with plural / alteration (i miei fratelli, la mia mamma) | POSS | The exception-to-the-exception | MEDIUM | multiple-choice | genero-numero |
+| Present of `potere / volere / dovere` (irregular, by person) | MODAL | Core A1 irregular conjugation | MEDIUM | multiple-choice + word-buttons | — |
+| Modal + infinitive (posso andare, voglio mangiare, devo studiare) | MODAL | The defining modal construction | LOW | word-buttons + multiple-choice | presente-regolare (infinitive) |
+| Present of `mi chiamo / ti chiami / si chiama` (reflexive, all persons) | REFLEX | First verb every learner meets | MEDIUM | multiple-choice + word-buttons | presente-regolare |
+| Reflexive pronoun placement BEFORE the conjugated verb (mi sveglio, not "sveglio mi") | REFLEX | Core word-order rule | LOW | word-buttons | presente-regolare |
+| Reflexive present built on regular endings (si alza, ci laviamo, vi vestite) | REFLEX | Extends presente-regolare with pronoun | MEDIUM | multiple-choice + word-buttons | **presente-regolare** (direct) |
 
-### Differentiators (Real Value-Add, Optional for v1)
+### Differentiators (A2 depth / nice-to-have, aligned with Core Value "no olvidar")
 
-Features that make the app meaningfully better but are not required to ship. Add post-MVP based on actual usage friction.
+Not required for A1, but they deepen re-verification and cover known learner pain.
 
-| Feature | Value Proposition | Complexity | Notes |
-|---------|-------------------|------------|-------|
-| **Calendar heatmap of practice days** | Anki's "Review Heatmap" plugin is one of its most beloved features. For a 21-day-streak app, seeing the streak visualized as a grid is highly motivating. Per-category practice frequency visible at a glance. | M | Use a small SVG grid, one square per day, color by exercises completed. ~150 LOC. Fits ethos (no external deps required). HIGH motivational value for a streak-based app. |
-| **Per-category attempt/accuracy history** | "Avere: 47 attempts, 89% accuracy, last practiced 3 days ago." Already collecting attempts/correct/failed per exercise — aggregating to category is cheap. | S | Drilldown from category dashboard. Pure derived data, no new persistence. |
-| **Per-exercise history view (dev/debug)** | When the author edits a JSON exercise and it suddenly starts failing 100% of the time, he needs to inspect: "Exercise ej-42: 12 attempts, 0 correct — am I marking the answer key wrong?" This is content-authoring debugging. | S | Sortable table behind a "dev" toggle. Hidden in normal use. |
-| **JSON schema validation with helpful errors** | Beyond `JSON.parse` errors: also validate that each exercise has the expected shape for its type (multiple choice has `options`, match has `pairs`, etc.). Catches authoring mistakes before they reach the session. | M | Use Ajv or hand-rolled validator. Schema is ~30 lines. Worth it for hand-edited content. Distinguish "JSON broken" vs "JSON valid but missing required field for type=match" — the second is the high-value catch. |
-| **"Last export" timestamp warning** | Banner: "Último backup hace 12 días. Exportar ahora." Single-user localStorage data is fragile; gentle nudges prevent loss. | S | Store last-export timestamp in localStorage itself (circular but acceptable). Show banner if > 7 days. Dismissable. |
-| **Reset-confirmation dialog on category failure** | The "fail one exercise → reset N categories" rule is intentionally harsh. A momentary confirmation ("Vas a resetear: Avere, Género") is NOT recommended (it would soften the rule and undermine the design). Instead: a **post-reset** clear message. | — | Documented here to be **explicitly rejected** — the harshness is the feature. See Anti-Features. |
-| **Sample exercise templates in the JSON file** | A commented "examples" section at the top of `exercises.json` showing the shape for each type. Author self-documents. Single best content-authoring helper. | S | Just a few example entries the author keeps for reference. No code. |
-| **Filter/sort categories on dashboard** | Sort by: streak length, last practiced, state. As categories grow from 6 to 20+, this becomes useful. | S | Pure UI, no data work. |
-| **"Skip to next session" if all categories are dominated** | Future state; not relevant for v1 since the user starts with zero dominated categories. | S | Defer until reached. |
-| **Click-to-match interaction for match exercises** | Industry default is drag-and-drop, but click-to-select-then-click-to-pair is faster on desktop, keyboard-friendly, and far simpler to implement. Recommended for THIS app. | S | Avoids drag-and-drop accessibility/touch complexity that this app does not need. Pure click handlers. |
-| **Visible focus rings for keyboard nav** | Tab through options, Enter to select. Power-user ergonomic. CSS-only. | S | `:focus-visible` styles, ~10 lines of CSS. Massive UX gain for keyboard answering. |
+| Rule (candidate slot) | Category | Value | Complexity | Exercise type | Deps |
+|---|---|---|---|---|---|
+| Neutral pronoun `ciò` (ciò che, per ciò) — "that/what" abstract | DEMOS | Fills the neutral-pronoun gap; pronoun quello vs adjective quello | MEDIUM | multiple-choice | — |
+| `questo` vs `quello` as **pronouns** (4 forms: questo/questa/questi/queste, quello/quella/quelli/quelle) | DEMOS | Pronoun forms are simpler than adjective quello — worth isolating | LOW | multiple-choice | genero-numero |
+| `suo` = his/her/its ambiguity (context resolves; agrees with possessed) | POSS | Classic confusion; su/sus is different in ES | MEDIUM | multiple-choice | — |
+| `loro` possessive is INVARIABLE + keeps article (il loro, la loro, i loro, le loro) | POSS | Irregular within the paradigm | MEDIUM | multiple-choice | articoli |
+| Passato prossimo of modals: auxiliary BORROWED from the following infinitive (ho dovuto lavorare vs sono dovuto andare) | MODAL | A2 subtlety; verified rule | **HIGH** | multiple-choice | avere, essere |
+| Reflexive passato prossimo with ESSERE + agreement (mi sono svegliato/a, si sono alzati/e) | REFLEX | A2; all reflexives take essere, participle agrees | **HIGH** | multiple-choice | **essere** (direct) |
+| ES↔IT reflexive mismatch (verbs reflexive in one language not the other) | REFLEX | Genuine calco trap for Spanish speaker | MEDIUM | multiple-choice | — |
 
-### Anti-Features (Commonly Built, Explicitly NOT For This User)
+**ES↔IT reflexive mismatch — concrete pairs to test (research note):** Overlap is large (chiamarsi/llamarse, svegliarsi/despertarse, alzarsi/levantarse, arrabbiarsi/enfadarse all reflexive in both). Genuine mismatches worth a slot: `ammalarsi` (IT reflexive) vs "enfermar/ponerse enfermo"; `dimenticarsi (di)` optional reflexive vs "olvidarse (de)"; `salire` (IT non-reflexive "to go up") vs ES "subirse". Keep this slot SMALL and high-signal — pick 2-3 clear divergences, do not manufacture false traps.
 
-These are features that appear in nearly every public quiz/SRS/language-learning app — and which the user has explicitly excluded in PROJECT.md or whose ethos contradicts his stated philosophy. **Documenting them here so the planner does not drift toward them.**
+### Anti-Features (explicitly OUT of A1/A2 scope)
 
-| Feature | Why Tempting | Why Wrong For This App | Maps To User's Exclusion |
-|---------|--------------|------------------------|--------------------------|
-| **User accounts / login / authentication** | "Every app has it" | Single user, local machine, no cloud. Pure overhead. | PROJECT.md → "Multi-usuario / autenticación" out of scope. |
-| **Cloud sync / cross-device sync** | "What if you switch laptops?" | Author works on one PC. JSON export is enough. Adding sync = backend = abandoning the doble-click-y-funciona stack. | PROJECT.md → "Cloud sync / hosting en internet" out of scope. |
-| **Mobile/responsive design** | "Mobile is the future" | Desktop only by explicit decision. Adding responsive doubles UI surface area for zero v1 benefit. Defer until missed. | PROJECT.md → "Acceso desde móvil" out of scope. |
-| **Free-text typed answer input** | "More realistic than multiple choice" | Requires accent normalization (è/é), synonym handling, case folding, typo tolerance — none of which the author wants to build. Match/MC/word-button input is deliberate. | PROJECT.md → "Respuesta libre escribiendo texto" out of scope. |
-| **Pedagogical explanations on fail/correct** | "Apps should teach, not just test" | App is for **testing what's already learned** from the teacher's PDFs. Theory lives in the PDFs. Adding explanations duplicates that material and slows the loop. | PROJECT.md → "Explicaciones pedagógicas" out of scope. |
-| **SRS algorithm (SM-2, FSRS, ratio-weighted scheduling)** | "Anki does it, it's the gold standard" | Author asked for simple "least-practiced first" weighting. The harsh reset rule already enforces revisitation. Layering SRS on top would conflict with the binary done/not-done state machine. | PROJECT.md → "SRS sofisticado (Anki-style, ratio fallos/aciertos ponderado)" out of scope. |
-| **Reduced frequency for "dominated" categories** | "Why test what's mastered?" | The author explicitly wants dominated categories to keep appearing equally — that is the maintenance loop. | PROJECT.md → "Frecuencia reducida o eliminación de categorías dominadas" out of scope. |
-| **In-app exercise editor / CRUD UI** | "Editing JSON is barbaric" | Author edits JSON comfortably. Building an editor is a whole second app. Defer until the manual flow actually hurts. | PROJECT.md → "UI de edición de ejercicios dentro de la web" out of scope. |
-| **AI exercise generation from PDFs** | "Save hours of authoring" | Author wants curatorial control over content. Marked as future exploration. | PROJECT.md → "Generación de ejercicios con IA" out of scope. |
-| **Badges, XP, trophies, level-up animations** | "Duolingo's secret sauce" | The user is intrinsically motivated by exam prep. The 21-day "dominada" mark IS the gamification. Adding XP/badges adds noise to a tool he wants minimal. | Implicit: "nada muy sofisticado" + only one motivation hook is specified (the 21-day streak). |
-| **Sound effects / haptics on answer** | "Feedback should be multi-sensory" | Desktop, single user, likely studying with background noise of his own choice. Sound effects = annoying in adult deliberate practice. | Implicit: no audio mentioned in spec; ethos is minimal. |
-| **Audio playback of Italian phrases (TTS or recorded)** | "Language learning needs audio" | A1/A2 grammar drilling (Avere, prepositions, gender) is text-based. Pronunciation is a different track of language learning, not this tool's job. If needed later: scope as separate feature, do not bake in. | Implicit: spec describes text-based exercise types only. |
-| **Hints / "show one letter" / 50/50 lifelines** | "Reduces frustration" | Contradicts the failure-as-feedback loop. A hint is a soft fail that doesn't trigger the reset — undermining the core mechanic. | Implicit: contradicts "regla de fallo" design. |
-| **Skip current exercise** | "Sometimes I'm stuck" | Same issue. Either you answer or the session is incomplete. Skipping would create undefined state in the streak/reset math. If you genuinely need to abandon, close the tab (and the abandoned-session rule handles it). | Implicit: contradicts the deterministic state machine. |
-| **Undo last answer** | "What if I misclicked?" | Tempting but breaks the harsh-reset rule's integrity. If undo is allowed after a fail, the rule becomes negotiable. Better: accept that occasional misclicks are noise; the streak rule is forgiving (you only need 21 clean days, not 21 perfect ones across all categories). | Implicit: contradicts "regla de fallo". |
-| **Pause/resume mid-exercise timer** | "Real life happens" | There is no timer in the spec — feedback is binary, not timed. Pause/resume adds state machine complexity for a non-existent constraint. | Implicit: no timing mentioned. |
-| **Daily goal / streak-of-calendar-days (Duolingo-style)** | "Daily streaks drive engagement" | The user explicitly chose **per-category 21-day streak counted only on practiced-without-error days**, NOT calendar days. Adding a parallel calendar-day streak would conflict and confuse. | PROJECT.md key decision → "Racha de 21 días cuenta solo días practicados sin fallo". |
-| **Leaderboards / social / sharing** | "Friends keep you accountable" | Single user. There is nobody else. | PROJECT.md → "Multi-usuario" out of scope. |
-| **Notifications / reminders / email** | "Don't forget to practice" | Desktop static site, no backend, no service worker scope. The author opens the page when he wants. | Implicit: no server, no push. |
-| **Multi-language UI (i18n framework)** | "Future-proofing" | Interface is Spanish, the author is hispanohablante. One language. Adding i18n machinery = framework for nobody. Just hardcode Spanish strings. | PROJECT.md constraint → "Idioma de la interfaz: español". |
-| **Analytics / telemetry** | "Know how you use the app" | Single user, no internet, no privacy story to build. He can read his own JSON to see usage patterns. | Implicit: no server, no internet. |
-| **Theme switcher / dark mode toggle** | "Users expect dark mode" | Use `prefers-color-scheme` CSS media query (zero JS, system-driven) if dark mode matters at all. A theme toggle is UI surface for no real benefit. | Implicit: ethos is minimal. Recommend system-driven, not toggleable. |
+| Rule / feature | Why tempting | Why out of scope | Instead |
+|---|---|---|---|
+| `codesto` (the third demonstrative) | Completes the ES 3-way symmetry (este/ese/aquel) | Archaic/Tuscan-regional, NOT A1/A2; reinforces the wrong mental model | Teach the 2-way collapse explicitly (questo/quello) |
+| Reciprocal reflexives (si amano, ci scriviamo "each other") | Natural extension of reflexive pronouns | A2+/B1 nuance; distinct semantics | Defer to a later reflexive/pronoun milestone |
+| `stesso` (medesimo) as demonstrative-adjacent | Appears near demonstratives in grammars | Not a demonstrative; separate emphatic-adjective topic | Out of category scope |
+| Modal + pronoun placement (voglio farlo / lo voglio fare) | Real and common | Requires clitic pronouns (not yet a category) | Defer until clitics exist as content |
+| `sapere` as a 4th modal | Grammars group it with potere/volere/dovere | Milestone scope is the THREE named modals; sapere ≠ "can" cleanly (skill vs ability) | Out; revisit if a verbs-irregolari milestone lands |
+| Free-text answer for any of these | "More realistic" | Project OUT-OF-SCOPE (accent/synonym normalization); 3 types suffice | multiple-choice / word-buttons / match |
+| Possessive PRONOUN standalone (il mio è rosso) | Symmetry with adjective | Adjective use is table-stakes; pronoun standalone is a thin A2 add | Optional single slot at most; not priority |
+| Heavy tenses (imperfetto/futuro/condizionale/congiuntivo, dedicated passato prossimo, irregular participles) | Would round out verbs | Explicitly a SEPARATE later milestone (PROJECT.md) | Only the modal/reflexive passato prossimo slivers above, and only if scoped in |
+
+---
 
 ## Feature Dependencies
 
 ```
-[Category dashboard]
-    └──requires──> [Per-category state computation]
-                       └──requires──> [Exercise → category mapping (already in spec)]
+DEMOS: quello article-like forms
+    └──requires──> articoli (il/lo/l'/i/gli/le triggers: s-impura, z, ps, gn, x, vowel, semiconsonant)
+                       quel↔il · quello↔lo · quell'↔l' · quei↔i · quegli↔gli · quelle↔le
 
-[End-of-session summary]
-    └──requires──> [State change tracking during session]
-                       └──requires──> [Per-exercise category list (already in spec)]
+POSS: agreement + article rules
+    └──requires──> genero-numero (which form: mio/mia/miei/mie)
+    └──requires──> articoli (which article precedes: il mio / la mia / lo / l')
 
-[21-day streak display]
-    └──requires──> [Daily practice ledger per category]
-                       └──requires──> [Session completion event (not per-exercise)]
+MODAL: modal + infinitive
+    └──enhances──> presente-regolare (the infinitive being governed)
+MODAL: passato prossimo auxiliary borrowing
+    └──requires──> avere + essere (auxiliary + participle agreement)
 
-[Calendar heatmap]
-    └──requires──> [Daily practice ledger per category]
-                       (shares dependency with streak)
+REFLEX: reflexive present
+    └──requires──> presente-regolare (endings the pronoun attaches to)  [DIRECT — builds on v1.7]
+REFLEX: reflexive passato prossimo
+    └──requires──> essere (auxiliary + participle gender/number agreement)  [DIRECT]
 
-[JSON schema validation]
-    └──enhances──> [JSON load error reporting]
-                       (both feed the same error banner)
-
-[Keyboard input]
-    └──enhances──> [Session UX]
-                       (no new data, pure interaction layer)
-
-[Last-export timestamp warning]
-    └──requires──> [Export action persists timestamp]
-
-[Click-to-match] ──CONFLICTS──> [Drag-and-drop matching]
-    (pick one; recommend click for simplicity)
-
-[Undo last answer] ──CONFLICTS──> [Fail-resets-category rule]
-    (undo softens the rule; reject undo)
-
-[Skip exercise] ──CONFLICTS──> [Deterministic session state]
-    (skip creates "neither passed nor failed" state; reject skip)
+ES-3way collapse (DEMOS) ──conflicts──> codesto  (adding codesto reinforces the wrong model)
 ```
 
 ### Dependency Notes
 
-- **Daily practice ledger is the single most important derived data structure.** Both the 21-day streak and the heatmap derive from it. Get this right early: `{ [categoryId]: { [YYYY-MM-DD]: { practiced: true, errored: false } } }`.
-- **Session completion event** must be the unit that updates the ledger, not per-exercise. Otherwise abandoned sessions corrupt streaks.
-- **Per-exercise category list** already exists in the spec (each exercise tests N categories). Everything downstream — state transitions, streak math, fail-reset — depends on it being correctly modeled.
+- **DEMOS `quello` requires `articoli`:** the six adjective forms of `quello` are the definite article shifted by `qu-`, trigger-for-trigger. This is the strongest cross-category link in the milestone and the primary justification for a **match** slot (see below). Multi-cat cross exercises (`dimostrativi`+`articoli`, mirroring the `avere-300` pattern) are natural here for cascade D-54 reinforcement.
+- **POSS requires both `genero-numero` and `articoli`:** two independent axes — form of the possessive (agrees with possessed noun) AND the article that precedes it. Good candidate for multi-cat crosses.
+- **REFLEX builds directly on `presente-regolare` (v1.7):** the reflexive present is regular endings + a pre-posed pronoun. This is the cleanest "builds on prior category" story in the milestone; frame explanations as "you already know si alza's ending from -are; the new part is the `si`."
+- **MODAL + REFLEX passato prossimo both pull in `avere`/`essere`:** these are the A2 slivers. Decide in requirements whether they are IN scope for v1.9 or deferred to the heavy-tenses milestone. Recommendation below.
 
-## MVP Definition
+---
 
-### Launch With (v1)
+## Per-category slot summary (candidate slot counts)
 
-Minimum to make the loop functional and trustworthy. Cut anything that does not serve the core "test → fail → reset → re-verify" mechanic.
+| Category | Table-stakes slots | Differentiator slots | Notes on `match` |
+|---|---|---|---|
+| **DIMOSTRATIVI** | ~4 (questo agr., quest' elision, quello forms, ES-collapse) | ~2 (ciò, pronoun questo/quello) | **1 match JUSTIFIED**: noun→quello-form, same logic as `articoli-049` (trigger not derivable by root) |
+| **POSSESSIVI** | ~4 (form agreement, article-required, family drop, family-return) | ~2 (suo ambiguity, loro invariable) | **match NOT justified** for the core; possessive form is derivable from the noun's gender/number (root-derivable) → multiple-choice with the calco distractor ("mi casa" → "mia casa" no-article). A family-member vs non-family **match** (article vs no-article) is *arguably* justified (rule not derivable by root) — flag for author judgment. |
+| **VERBI MODALI** | ~2 (present conj. of the 3; modal+infinitive) | ~1 (pp auxiliary borrowing) | **match NOT justified**: conjugation derivable by person (same reasoning as `presente-regolare` 0-match). MC + word-buttons only. |
+| **VERBI RIFLESSIVI** | ~3 (chiamarsi/present, pronoun placement, reflexive-on-regular) | ~2 (pp with essere+agreement, ES↔IT mismatch) | **match NOT justified** for conjugation. A pronoun→person **match** (mi↔io, ti↔tu, si↔lui) is root-mechanical → forbidden by DESIGN RULE; use MC/word-buttons. |
 
-- [ ] **Category selection UI before session** — already in spec
-- [ ] **Session of 20 random exercises, weighted by least-practiced** — already in spec
-- [ ] **Three exercise types** (MC fill-in-blank, word-button translation, match columns) — already in spec
-- [ ] **Click-to-match interaction** (not drag) — simpler, keyboard-friendly
-- [ ] **Binary green/red feedback** — already in spec
-- [ ] **Auto-advance on correct, click-to-advance on incorrect** — small ergonomic tweak
-- [ ] **Session progress indicator (X/N)** — table stake
-- [ ] **End-of-session summary with state-change list** ("Avere reseteada", "Preposiciones avanza a 12/21") — without this the rule is invisible
-- [ ] **Per-category dashboard (state + streak + last practiced)** — the home screen
-- [ ] **Fail-resets-all-categories rule applied immediately** — already in spec, core mechanic
-- [ ] **Daily practice ledger persisted to localStorage** — foundation for streak/heatmap
-- [ ] **21-day streak counter per category** — already in spec
-- [ ] **"Test completo" mode** (all exercises of selected categories) — already in spec
-- [ ] **JSON content loading with clear error reporting on parse failure** — protects content workflow
-- [ ] **Manual export/import of progress JSON** — already in spec
-- [ ] **Keyboard input** (number keys for MC, Enter to confirm, Space to advance) — cheap, high ergonomic win
-- [ ] **Spanish UI strings, hardcoded** — already a constraint
-- [ ] **Static HTML/CSS/JS, no build step required to open** — already a constraint
+**Estimated new slots for v1.9 (table-stakes only): ~13.** With differentiators: ~20. In line with prior single-category slot counts (Articoli 34, Preposiciones 49) spread across 4 categories.
 
-### Add After Validation (v1.x)
+---
 
-Add when the v1 loop is proven and friction is felt.
+## `match` justification (per DESIGN RULE) — the decisive calls
 
-- [ ] **JSON schema validation beyond parse errors** — trigger: first time the author ships an exercise that loads but fails at render due to missing field
-- [ ] **Calendar heatmap of practice days** — trigger: when streak counts feel abstract and the author wants visual motivation
-- [ ] **Per-category accuracy/attempts breakdown** — trigger: when the author wants to know which categories are slipping
-- [ ] **Per-exercise history view (dev mode)** — trigger: first time the author suspects a specific exercise is mis-keyed
-- [ ] **"Last export" reminder banner** — trigger: first localStorage scare
-- [ ] **Sample exercise templates in JSON file** — trivial; can ship in v1 if time permits
-- [ ] **Visible focus rings + arrow key navigation** — trigger: keyboard use becomes habitual
+- **DIMOSTRATIVI — `match` JUSTIFIED (1 slot).** noun → `quel/quello/quell'/quei/quegli/quelle`. The pairing requires the phonological-trigger rule (s-impura/z/ps/gn/x/vowel), which is NOT derivable from a shared root — it is exactly the `articoli-049` precedent (`studente`→`lo`, `gnocchi`→`gli`). This is the milestone's clearest legitimate match.
+- **POSSESSIVI — `match` mostly NOT justified.** Core possessive-form selection is root-derivable (noun gender/number → mio/mia/miei/mie), so use MC. **Edge case flagged:** a `match` of family-vs-common noun → article-present/absent (madre→∅, mamma→la, casa→la) tests a rule *not* derivable by root and could qualify — decide in plan; if in doubt, MC with the article/no-article distractor is the safe default.
+- **VERBI MODALI — `match` NOT justified.** Person→form is derivable once you know the (irregular) paradigm; treat like `presente-regolare`'s explicit 0-match decision. MC + word-buttons.
+- **VERBI RIFLESSIVI — `match` NOT justified.** Pronoun↔person (mi↔io) is mechanical association = exactly what D-04/R3 forbid. Conjugation is root-derivable. MC + word-buttons (word-buttons is ideal for pronoun-placement: build "io mi sveglio" from a bank containing the distractor order "sveglio mi").
 
-### Future Consideration (v2+)
+---
 
-Defer until the loop has been used daily for weeks and concrete needs emerge.
+## MVP Definition (recommended scope for v1.9)
 
-- [ ] **In-app exercise editor** — only if JSON authoring becomes painful at scale (50+ exercises)
-- [ ] **Mobile responsive layout** — only if author actually wants mobile practice
-- [ ] **Sub-categories within a PDF** — only if a single PDF turns out to be too coarse
-- [ ] **Audio for pronunciation exercises** — only if pronunciation becomes a learning need (separate scope)
-- [ ] **AI-assisted exercise generation from PDFs** — only after content authoring proves to be the bottleneck
+### Launch With (v1.9 core — table-stakes)
+
+- [ ] **DIMOSTRATIVI:** questo agreement · quest' elision · quello article-like forms (+ 1 match) · ES-3way→2way collapse — *the quello/articoli link is the headline.*
+- [ ] **POSSESSIVI:** form agreement (mio/mia/miei/mie ×tuo/suo) · article-required · family-member drop · article-returns-with-plural/alteration.
+- [ ] **VERBI MODALI:** present of potere/volere/dovere · modal+infinitive.
+- [ ] **VERBI RIFLESSIVI:** reflexive present (chiamarsi + regular-based si alza/ci laviamo) · pronoun placement.
+
+### Add After Validation (differentiators, same milestone if time)
+
+- [ ] DEMOS `ciò` neutral pronoun; questo/quello pronoun forms.
+- [ ] POSS `suo` ambiguity slot; `loro` invariable.
+- [ ] **REFLEX passato prossimo with essere + agreement** — strongest A2 add, direct `essere` dependency, high learner value. **Recommend INCLUDING** (it is the reflexive analogue of the already-shipped `presente-regolare-301` essere-agreement slot).
+
+### Future Consideration (defer)
+
+- [ ] **MODAL passato prossimo auxiliary borrowing** — verified real (ho dovuto lavorare / sono dovuto andare) but genuinely A2-subtle and low-frequency at this level. **Recommend DEFERRING** to the heavy-tenses milestone unless the author wants full symmetry with the reflexive pp slot. Flag for requirements decision.
+- [ ] Reciprocal reflexives, clitic+modal, codesto, sapere-as-modal — out (see anti-features).
 
 ## Feature Prioritization Matrix
 
-| Feature | User Value | Implementation Cost | Priority |
-|---------|------------|---------------------|----------|
-| Per-category dashboard with state/streak | HIGH | LOW | P1 |
-| End-of-session state-change summary | HIGH | LOW | P1 |
-| JSON parse error visible in UI | HIGH | LOW | P1 |
-| Session progress indicator (X/N) | HIGH | LOW | P1 |
-| Keyboard input (number keys, Enter) | HIGH | LOW | P1 |
-| Click-to-match (vs drag) | HIGH | LOW | P1 |
-| Export/import progress JSON | HIGH | LOW | P1 |
-| Daily practice ledger persistence | HIGH | LOW | P1 |
-| JSON schema validation (beyond parse) | MEDIUM | MEDIUM | P2 |
-| Calendar heatmap | MEDIUM | MEDIUM | P2 |
-| Per-category accuracy/attempts breakdown | MEDIUM | LOW | P2 |
-| Per-exercise history view (dev mode) | MEDIUM | LOW | P2 |
-| Last-export reminder banner | MEDIUM | LOW | P2 |
-| Sample exercise templates | LOW | LOW | P2 (free) |
-| Filter/sort categories on dashboard | LOW | LOW | P3 |
-| Visible focus rings + arrow nav | MEDIUM | LOW | P2 |
-| Drag-and-drop matching | LOW | MEDIUM | P3 (reject) |
-| Audio playback | LOW | HIGH | P3 (reject for v1) |
-| Theme toggle | LOW | LOW | P3 (use prefers-color-scheme instead) |
-| Undo / Skip / Pause | NEGATIVE | LOW | REJECT (conflicts with rule) |
-| SRS algorithm | NEGATIVE | HIGH | REJECT (out of scope) |
-| Login / cloud sync | NEGATIVE | HIGH | REJECT (out of scope) |
-| Badges / XP / gamification fluff | NEGATIVE | MEDIUM | REJECT (out of scope) |
+| Rule (slot) | Learner value | Authoring cost | Priority |
+|---|---|---|---|
+| quello article-like forms (+match) | HIGH | HIGH | P1 |
+| ES-3way→2way collapse | HIGH | MEDIUM | P1 |
+| questo/quest' agreement + elision | HIGH | LOW | P1 |
+| possessive article-required + form agreement | HIGH | MEDIUM | P1 |
+| family-member drop + return | HIGH | MEDIUM | P1 |
+| modal present + modal+infinitive | HIGH | MEDIUM | P1 |
+| reflexive present + pronoun placement | HIGH | MEDIUM | P1 |
+| reflexive pp with essere+agreement | HIGH | HIGH | P2 |
+| ciò / suo ambiguity / loro invariable | MEDIUM | MEDIUM | P2 |
+| ES↔IT reflexive mismatch | MEDIUM | MEDIUM | P2 |
+| modal pp auxiliary borrowing | MEDIUM | HIGH | P3 |
 
-**Priority key:**
-- P1: Must have for v1 launch
-- P2: Add post-launch when friction or motivation calls for it
-- P3: Future, low-confidence value
-- REJECT: Documented anti-feature; do not add
-
-## Competitor Feature Analysis
-
-| Feature | Anki | Quizlet | Duolingo | Our Approach |
-|---------|------|---------|----------|--------------|
-| Exercise types | Cards (recall, type, cloze) | Learn/Match/Test/Write | MC, listen, translate, match | MC fill-in-blank + word-button translation + match — fixed set, no expansion |
-| Feedback | Self-rate (Again/Hard/Good/Easy) | Right/wrong + explanation (PLUS) | Right/wrong + explanation + heart loss | Binary green/red, no explanation |
-| Scheduling | SM-2 / FSRS | Simple LCM-style | Crown levels + spaced practice | "Least practiced first" weighting + harsh reset on fail |
-| Mastery indicator | Per-card maturity (young/mature) | Color-coded mastery (red/yellow/green) | Crowns per skill | Three discrete states: no hecha / hecha / dominada |
-| Streak | Per-day calendar streak | Per-day calendar streak | Daily calendar streak (the famous one) | Per-category 21 practiced-and-clean days |
-| Heatmap | Yes, via popular plugin | No | No (annual review only) | Differentiator if added; not v1 |
-| Content authoring | TSV import, plugins, GUI | In-app set creation | None (content is locked) | Hand-edited JSON, no GUI |
-| Storage | SQLite local + optional sync | Cloud, account-bound | Cloud, account-bound | localStorage + manual JSON export |
-| Audio | Optional per-card | Optional per-card | Heavy (core to product) | None |
-| Multi-user | No (single profile, can have multiple) | Yes (accounts) | Yes (accounts) | No |
-| UI customization | Heavy (CSS-editable card templates) | Light | None | Hardcoded Spanish, minimal CSS |
-
-**Pattern observed:** the more an app moves toward consumer/mass-market (Duolingo > Quizlet > Anki), the more it adds account systems, social features, gamification noise, and content lock-in. Moving in the **opposite direction** (more Anki-ethos, less Quizlet-ethos) is the right vector for this project.
-
-## Confidence Assessment
-
-- **Table stakes claims:** HIGH confidence — patterns observed consistently across Anki, Quizlet, Duolingo, Memrise, multiple vocabulary trainers.
-- **Anti-features mapping to user exclusions:** HIGH confidence — all anti-features are either directly listed in PROJECT.md Out of Scope or contradict explicit Key Decisions / "nada muy sofisticado" ethos.
-- **Click-vs-drag matching recommendation:** MEDIUM confidence — industry default is drag-and-drop, but for desktop-only single-user keyboard-friendly app, click is objectively simpler. Defensible.
-- **Heatmap as differentiator:** MEDIUM confidence — Anki community loves the Review Heatmap plugin specifically because base Anki lacks it; analogous appeal expected here.
-- **Auto-advance timing (800ms etc.):** LOW confidence — micro-UX detail. Author should tune by feel after first use.
-- **Session-completion-only ledger updates:** HIGH confidence — required for correctness of streak math regardless of UX preferences.
+**Priority key:** P1 must-have (table-stakes) · P2 should-have (high-value A2) · P3 defer.
 
 ## Sources
 
-- [Anki vs Quizlet 2026 comparison — okti Blog](https://okti.app/en/blog/anki-vs-quizlet-best-alternative-2026/)
-- [Anki vs Quizlet — Flexi Classes](https://flexiclasses.com/mandarin/anki-vs-quizlet/)
-- [Quizlet vs Anki — Coursebox AI](https://www.coursebox.ai/blog/quizlet-vs-anki)
-- [AnkiBuddy custom practice add-on (MC/Match/Written for Anki decks)](https://forums.ankiweb.net/t/ankibuddy-custom-practice-official-thread/22078)
-- [Review Heatmap plugin for Anki — Polyglossic](https://www.polyglossic.com/review-heatmap-anki-plugin/)
-- [Review Heatmap indicators discussion — Anki Forums](https://forums.ankiweb.net/t/review-heatmap-interpretation-of-indicators/38631)
-- [Space: Spaced Repetition (streaks, rest days, vacation mode)](https://apps.apple.com/us/app/space-spaced-repetition/id1546202212)
-- [Top 7 gamified learning apps with progress tracking — QuizCat](https://www.quizcat.ai/blog/top-7-gamified-learning-apps-with-progress-tracking)
-- [UX Case Study: Duolingo — Usability Geek](https://usabilitygeek.com/ux-case-study-duolingo/)
-- [Progress indicator UX best practices — Eleken](https://www.eleken.co/blog-posts/progress-indicator-ux)
-- [Drag and drop UI examples and UX tips — Eleken](https://www.eleken.co/blog-posts/drag-and-drop-ui)
-- [Drag-and-drop matching plugin for Moodle](https://moodle.org/plugins/qtype_ddmatch)
-- [JSON Schema validation guide 2026 — Go Tools](https://go-tools.org/blog/json-schema-validation-complete-guide)
-- [Ajv JSON Schema validator](https://json-schema.org/)
-- [VoCat — vocabulary trainer with calendar view of study history](https://apps.apple.com/us/app/vocat-my-own-vocabulary/id1538546706)
-- [Wokabulary — self-managed vocabulary with tags/categories](https://wokabulary.com/)
-- [Keyboard accessibility for power users — Accesify Blog](https://www.accesify.io/blog/keyboard-shortcuts-accessibility-features/)
-- [localStorage export/import patterns — Medium (QJ Li)](https://medium.com/@qjli/daily-coding-tips-41-very-useful-localstorage-sessionstorage-import-export-tool-2f20fe6010c7)
+- [Italian Demonstrative Adjectives — Lawless Italian](https://www.lawlessitalian.com/grammar/adjectives/demonstrative-adjectives/) — quello forms mirror definite article, questo agreement (HIGH)
+- [Demonstratives questo/quello — Mango Languages](https://mangolanguages.com/resources/learn/grammar/italian/how-to-use-the-demonstratives-questo-this-and-quello-that-in-italian) — quel/quello/quei/quegli triggers verified against il/lo/i/gli (HIGH)
+- [Demonstrative pronouns questo, quello, ciò — Elon.io](https://elon.io/grammar/italian/pronouns/demonstrative/questo-quello) — pronoun 4-form set + ciò neutral (MEDIUM)
+- [Family members and "my" in Italian — Prof Corsini](https://ilsitodiprofcorsini.wordpress.com/family-members-and-my-in-italian/) — singular-unmodified drop, plural/alteration return (HIGH)
+- [Mio, Tuo, Suo and the Definite Article Rule — Polyglottist Academy](https://www.polyglottistlanguageacademy.com/language-culture-travelling-blog/2025/6/22/how-to-use-italian-possessives-mio-tuo-suoand-the-definite-article-rule) — article-required, agreement with possessed, family exception, loro invariable (HIGH)
+- [Italian Possessive Adjectives — Duolingo blog](https://blog.duolingo.com/italian-possessive-adjectives/) — form agreement mio/mia/miei/mie, suo ambiguity (MEDIUM)
+- [Modal verbs overview (dovere/potere/volere) — Elon.io](https://elon.io/grammar/italian/verbs/modal-verbs/overview) — irregular present, modal+infinitive (HIGH)
+- [Passato Prossimo: Potere, Volere, Dovere — Think in Italian](https://www.thinkinitalian.com/potere-volere-dovere-sapere-passato-prossimo) — auxiliary borrowed from following infinitive, essere agreement (HIGH)
+- [Modal verbs in the past tense — OnlineItalianClub](https://onlineitalianclub.com/free-italian-exercises-and-resources/italian-grammar/verbi-modali-passato-prossimo-modal-verbs/) — ho dovuto lavorare / sono dovuto andare (HIGH)
+- [Reflexive Verbs A1 — OnlineItalianClub](https://onlineitalianclub.com/free-italian-exercises-and-resources/online-italian-course-beginner-level-a1/italian-grammar-reflexive-verbs/) — present conjugation, pronoun placement (HIGH)
+- [Reflexive verbs guide — Busuu](https://www.busuu.com/en/italian/reflexive-verb) — all reflexives take essere, participle agreement (HIGH)
+- [Reflexive pronouns/verbs across Romance languages — Adrosverse](https://www.adrosverse.com/comparative-grammar-reflexive-pronouns-and-verbs-in-spanish-portuguese-italian-french/) — ES vs IT reflexive comparison, essere-vs-haber, agreement difference (MEDIUM)
+- Repo: `content/exercises/articoli.json` — slot shape, `match` precedent (articoli-049), explanation canon, article triggers (HIGH — authoritative for THIS project)
+- Repo: `content/exercises/presente-regolare.json` — reflexive dependency base, 0-match decision reasoning, passato prossimo essere-agreement slot (301), gloss/distractor canon (HIGH)
 
 ---
-*Feature research for: personal Italian A1/A2 self-quiz web app*
-*Researched: 2026-05-23*
+*Feature research (rule inventory) for: v1.9 — 4 new A1/A2 grammar categories*
+*Researched: 2026-07-01*
