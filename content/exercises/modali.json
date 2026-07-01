@@ -1,0 +1,392 @@
+{
+  "notes": "Categoría modali (order 13) nacida DIRECTAMENTE en slot+variantes (clon de presente-regolare/possessivi, Phase 36). Cubre MODAL-01 (presente indicativo IRREGULAR de potere/volere/dovere en las 6 personas) + MODAL-02 (construcción modal + infinitivo). DOS decisiones documentadas aquí, espejo de cómo presente-regolare documenta su 0-match: (1) 0-MATCH por D-04/D-37-02: no hay ningún ejercicio de tipo 'match'. La correspondencia persona<->forma es DERIVABLE una vez conocido el paradigma irregular (io->posso, tu->puoi, lui->può, noi->possiamo, voi->potete, loro->possono; análogos de volere/dovere); un match io<->posso sería 'arrastrar sin pensar' una asociación mecánica, justo lo que D-04/R3 prohíben. La categoría queda en multiple-choice + word-buttons, que SÍ obligan a producir/elegir la forma aplicando el paradigma. El 0-match aquí es decisión, no omisión. (2) SCOPE-GATE PASSATO PROSSIMO MODAL fuera de scope HARD (SC#3, Pitfall 5, diferido a PASSPROX-01/MODAL-PP-01): el passato prossimo de los modales (auxiliar avere/essere en presente + el participio pasado del modal, con el auxiliar prestado del infinitivo gobernado) es un pantano de doble-validez A2+/B1 (el italiano coloquial acepta avere en casi todo), fuera del scope A1 de esta categoría. NINGUNA variante contiene el participio pasado de un modal ni un auxiliar (ho/sono/hai/sei/ha/abbiamo/avete/hanno/siamo/siete) seguido de dicho participio. Solo presente indicativo + infinitivo. El acento grave de 'può' (3a persona singular de potere) se preserva literalmente: es parte de la key correcta Y un vector de distractora (D-37-03, trampa del acento può/puoi).",
+  "exercises": [
+    {
+      "id": "modali-potere",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "modali"
+      ],
+      "explanation": "El verbo potere (poder) es IRREGULAR en el presente indicativo: la raíz cambia y NO se conjuga como un verbo regular en -ere. Las seis formas son io posso, tu puoi, lui/lei può, noi possiamo, voi potete, loro possono. Fíjate en tres puntos que caen mucho: la primera persona es posso (no el regular 'poto'), la tercera del singular lleva acento grave (può) y NO debe confundirse con la segunda (puoi), y la tercera del plural es possono (no 'potono'). En español 'poder' también es irregular (yo puedo, tú puedes), así que el mecanismo de raíz que cambia te resulta familiar; lo nuevo es la forma italiana exacta y el acento de può. Las distractoras son la regularización falsa (poto/potono), la confusión del acento (può frente a puoi) y otras personas del mismo verbo: solo una concuerda con el sujeto.",
+      "variants": [
+        {
+          "prompt": "Io ___ venire alla festa stasera. (en español: yo puedo)",
+          "options": [
+            "poto",
+            "posso",
+            "puoi",
+            "può"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Lui ___ parlare tre lingue. (en español: él puede)",
+          "options": [
+            "puoi",
+            "può",
+            "posso",
+            "potete"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Loro ___ aspettare fuori. (en español: ellos pueden)",
+          "options": [
+            "potono",
+            "possono",
+            "possiamo",
+            "potete"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Noi ___ finire il lavoro domani. (en español: nosotros podemos)",
+          "options": [
+            "potiamo",
+            "possiamo",
+            "possono",
+            "potete"
+          ],
+          "correctIndex": 1
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": [
+              "[D-37-03] distractoras cubren regularización falsa (poto/potono/potiamo), trampa del acento (può/puoi) y otras personas; keys posso/può/possono/possiamo correctas",
+              "[R1-R7] sin leak; gloss ES R7 desambigua la persona; explanation nombra la irregularidad sin filtrar la forma; acentos ES corregidos tras C4 DeepSeek; può con acento literal",
+              "[disputed->rewrite] 1a ronda: DeepSeek marco C4-accent REAL (raiz/Fijate/espanol/tambien/confusion sin tilde) -> resuelto por REESCRITURA con tildes RAE, no por override (memoria explanations_must_be_accented)",
+              "[disputed->tiebreaker] 2a ronda tras la reescritura: deepseek-reasoner y deepseek-chat dieron 2 falsos-positivos MISREAD (afirmaron 'español' sin tilde -> correccion byte-identica, y una frase inexistente 'è possono'; el texto real dice 'es possono' y 'mecanismo' llana sin tilde, verificado por byte-inspection); resuelto por tiebreaker cross-vendor deepseek-chat temp 0.0 -> correcta, patron identico a possessivi-300. Base de aprobacion = claude-opus-4-8 + deepseek-chat correcta"
+            ]
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "modali-volere",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "modali"
+      ],
+      "explanation": "El verbo volere (querer) es IRREGULAR en el presente indicativo: io voglio, tu vuoi, lui/lei vuole, noi vogliamo, voi volete, loro vogliono. La forma que más cuesta es la primera, voglio, con ese grupo -gli- que en italiano suena como una elle mojada; el error típico del hispanohablante es simplificarla a 'volio' o regularizarla a 'volo'. Fíjate además en que la tercera del plural es vogliono (no 'voliono') y comparte el grupo -gli- con la primera y la de noi (vogliamo). En español 'querer' también es irregular (yo quiero, tú quieres), así que la idea de raíz que cambia te suena; lo nuevo es la ortografía italiana con -gli-. Las distractoras son la regularización falsa (volo), la simplificación del grupo -gli- (volio/voliono) y otras personas: solo una concuerda con el sujeto.",
+      "variants": [
+        {
+          "prompt": "Io ___ un caffè, per favore. (en español: yo quiero)",
+          "options": [
+            "volo",
+            "voglio",
+            "volio",
+            "vuoi"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Loro ___ andare al mare. (en español: ellos quieren)",
+          "options": [
+            "voliono",
+            "vogliono",
+            "vogliamo",
+            "volete"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Tu ___ studiare medicina. (en español: tú quieres)",
+          "options": [
+            "voi",
+            "vuoi",
+            "vuole",
+            "voglio"
+          ],
+          "correctIndex": 1
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": [
+              "[D-37-03] distractoras cubren regularización falsa (volo), simplificación cross-verbo del grupo -gli- (volio/voliono) y otras personas; keys voglio/vogliono/vuoi correctas",
+              "[R1-R7] sin leak; gloss ES R7; explanation nombra la irregularidad y el grupo -gli- sin filtrar la forma objetivo; acentos ES corregidos tras C4",
+              "[disputed->rewrite] DeepSeek marco C1 (caffe sin acento -> corregido a caffè) y C4-accent (mas/tipico/Fijate/ademas/espanol/ortografia); ambos REALES; resueltos por REESCRITURA, no override"
+            ]
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "modali-dovere",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "modali"
+      ],
+      "explanation": "El verbo dovere (deber, tener que) es IRREGULAR en el presente indicativo: io devo, tu devi, lui/lei deve, noi dobbiamo, voi dovete, loro devono. Aquí hay dos raíces distintas: dev- en las personas del singular y en la tercera del plural (devo, devi, deve, devono), y dobb- en la primera del plural (dobbiamo). El error típico es regularizar la primera a 'dovo' o inventar 'doviamo' para noi en vez de la forma real dobbiamo. En español 'deber' es regular (yo debo), así que la tentación de conjugarlo regular en italiano es fuerte: resiste y usa la raíz dev-/dobb-. Las distractoras son la regularización falsa (dovo/doviamo), otras personas del mismo verbo y la contaminación con la raíz equivocada: solo una concuerda con el sujeto.",
+      "variants": [
+        {
+          "prompt": "Io ___ studiare per l'esame. (en español: yo tengo que / debo)",
+          "options": [
+            "dovo",
+            "devo",
+            "devi",
+            "dobbiamo"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Noi ___ partire presto domani. (en español: nosotros tenemos que / debemos)",
+          "options": [
+            "doviamo",
+            "dobbiamo",
+            "devono",
+            "dovete"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Loro ___ pagare il conto. (en español: ellos tienen que / deben)",
+          "options": [
+            "dovono",
+            "devono",
+            "dobbiamo",
+            "dovete"
+          ],
+          "correctIndex": 1
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": [
+              "[D-37-03] distractoras cubren regularización falsa (dovo/doviamo/dovono) y otras personas/raíces; keys devo/dobbiamo/devono correctas (doble raíz dev-/dobb-)",
+              "[R1-R7] sin leak; gloss ES R7; explanation nombra la doble raíz sin filtrar la forma objetivo; l'esame con apóstrofe ASCII; acentos ES corregidos tras C4",
+              "[disputed->rewrite] DeepSeek marco C4-accent REAL (Aqui/espanol/tipico/raices sin tilde); resuelto por REESCRITURA con tildes RAE, no override"
+            ]
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "modali-infinito",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "modali"
+      ],
+      "explanation": "Los verbos modales (potere, volere, dovere) se combinan con otro verbo en INFINITIVO, y ese infinitivo queda invariable: solo el modal se conjuga según el sujeto. Así se dice posso andare, vuoi mangiare, dobbiamo studiare: el modal lleva la persona y el segundo verbo se queda tal cual en su forma de diccionario (andare, mangiare, studiare, fare, leggere). El error típico del hispanohablante es conjugar también el segundo verbo (calcando estructuras) o cambiar el infinitivo; en italiano, como en español ('puedo ir', no 'puedo voy'), el verbo que sigue al modal va SIEMPRE en infinitivo. En este ejercicio el hueco es el MODAL conjugado y el infinitivo ya está puesto: elige la forma del modal que concuerda con el sujeto. Las distractoras son otras personas del modal y una forma conjugada colada donde debería ir el modal.",
+      "variants": [
+        {
+          "prompt": "Io ___ andare a casa adesso. (en español: yo puedo ir)",
+          "options": [
+            "posso",
+            "puoi",
+            "vado",
+            "può"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Tu ___ mangiare qualcosa? (en español: tú quieres comer)",
+          "options": [
+            "voglio",
+            "vuoi",
+            "vuole",
+            "mangi"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Noi ___ studiare stasera. (en español: nosotros tenemos que estudiar)",
+          "options": [
+            "devo",
+            "dobbiamo",
+            "devono",
+            "studiamo"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Loro ___ leggere il libro. (en español: ellos quieren leer)",
+          "options": [
+            "vogliono",
+            "vuole",
+            "leggono",
+            "vogliamo"
+          ],
+          "correctIndex": 0
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": [
+              "[D-37-04] el hueco = modal conjugado; el infinitivo (andare/mangiare/studiare/leggere) queda invariable y ya puesto; varios infinitivos distintos, no 3 memorizados",
+              "[R1-R7] sin leak; distractoras = otras personas del modal + una forma conjugada del verbo gobernado colada (vado/mangi/studiamo/leggono); gloss ES R7; acentos ES corregidos tras C4",
+              "[disputed->rewrite] DeepSeek marco C4-accent REAL (segun/Asi/tipico/tambien/espanol/esta/deberia) -> corregido por REESCRITURA. El C5-leak sobre el gloss (en español: ...) es FALSO POSITIVO de politica (canon R7, memoria gloss_es_desambiguacion_canon): el gloss desambigua la persona/significado, NO filtra la forma italiana objetivo -> se MANTIENE"
+            ]
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "modali-infinito-wb",
+      "type": "word-buttons",
+      "categoryIds": [
+        "modali"
+      ],
+      "explanation": "Construye la frase respetando el patrón modal + infinitivo: el verbo modal (posso, vuoi, deve) se conjuga según el sujeto y va PRIMERO; el segundo verbo lo sigue en INFINITIVO invariable (andare, mangiare), nunca conjugado. El orden correcto es sujeto + modal conjugado + infinitivo + complemento (io voglio mangiare la pizza). Los botones distractores ofrecen el segundo verbo YA conjugado (mangio, vado), que es el error de calco típico: si lo colocas rompes el patrón, porque tras el modal solo cabe el infinitivo. Elige el modal que concuerda con el sujeto y deja el otro verbo en su forma de diccionario.",
+      "variants": [
+        {
+          "prompt": "Yo quiero comer la pizza.",
+          "answer": [
+            "io",
+            "voglio",
+            "mangiare",
+            "la",
+            "pizza"
+          ],
+          "distractors": [
+            "mangio",
+            "vogliono"
+          ]
+        },
+        {
+          "prompt": "Nosotros podemos ir al cine.",
+          "answer": [
+            "noi",
+            "possiamo",
+            "andare",
+            "al",
+            "cinema"
+          ],
+          "distractors": [
+            "andiamo",
+            "posso"
+          ]
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": [
+              "[D-37-04 SC#2] slot word-buttons de POSICIÓN: el infinitivo invariable (mangiare/andare) sigue al modal conjugado; el banco incluye la forma conjugada del verbo gobernado (mangio/andiamo) como distractor de forma que fuerza el orden correcto",
+              "[R1-R7] sin leak; distractoras plausibles (calco conjugando el 2o verbo + otra persona del modal); acentos ES corregidos tras C4; answer/distractors como tokens",
+              "[disputed->rewrite] DeepSeek marco C4-accent REAL (patron/segun/tipico) + concordancia 'las botones-distractoras'; resueltos por REESCRITURA (tildes RAE + 'los botones distractores'), no override"
+            ]
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "modali-300",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "modali",
+        "presente-regolare"
+      ],
+      "explanation": "Este ejercicio junta dos reglas: el modal irregular conjugado (potere/volere/dovere) más el infinitivo de un verbo REGULAR que el modal gobierna. El modal lleva la persona del sujeto y se queda irregular (posso, vuoi, dobbiamo); el segundo verbo va en infinitivo, es decir en su forma de diccionario del grupo regular que le toca (-are como parlare/lavorare, -ere como prendere, -ire como dormire), y NO se conjuga. Es el enganche natural con el presente regular: el infinitivo regular que aquí queda quieto es el mismo verbo que en otras frases sí se conjuga. El error es conjugar el segundo verbo (poniendo el presente regular donde toca el infinitivo). En este hueco pedimos el MODAL: elige la forma que concuerda con el sujeto; las distractoras son otras personas del modal y una forma conjugada del verbo regular colada en el sitio del modal.",
+      "variants": [
+        {
+          "prompt": "Io ___ parlare con il direttore. (en español: yo tengo que / debo hablar)",
+          "options": [
+            "dovo",
+            "devo",
+            "devi",
+            "parlo"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Noi ___ prendere il treno delle otto. (en español: nosotros podemos coger)",
+          "options": [
+            "possiamo",
+            "possono",
+            "prendiamo",
+            "posso"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Tu ___ dormire ancora un po'. (en español: tú puedes dormir)",
+          "options": [
+            "dormi",
+            "puoi",
+            "può",
+            "posso"
+          ],
+          "correctIndex": 1
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": [
+              "[D-37-01 cruce] categoryIds modali+presente-regolare; modal conjugado + infinitivo de verbo REGULAR (parlare -are / prendere -ere / dormire -ire); enganche FEATURES; cascada D-54 sin call-site nuevo",
+              "[D-37-03] trampa del acento può/puoi presente (variante tu->puoi con può como distractor); regularización dovo; forma conjugada del verbo regular colada (parlo/prendiamo/dormi)",
+              "[R1-R7] sin leak; gloss ES R7; un po' con apóstrofe ASCII; acentos ES corregidos tras C4; pase DeepSeek de refuerzo cross-vendor en el acento y el cruce",
+              "[disputed->rewrite] DeepSeek marco C4-accent REAL (mas/aqui sin tilde); resuelto por REESCRITURA con tildes RAE (más/aquí), no override"
+            ]
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    }
+  ]
+}
