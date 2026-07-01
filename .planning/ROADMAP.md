@@ -142,70 +142,93 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
 ## Phase Details
 
 ### Phase 35: Migración `11→12` (reset selectivo preventivo de las 4 categorías nuevas)
+
 **Goal**: El state del proyecto sube a `schemaVersion 12` con un eslabón de migración que resetea selectivamente el progreso de las 4 categorías nuevas (efectivamente no-op al nacer sin progreso), dejando limpio el terreno para que Dimostrativi/Possessivi/Modali/Riflessivi nazcan sin estado espurio. Va PRIMERA (invariante v1.5/v1.6/v1.7).
 **Depends on**: Nothing (primera fase de v1.9; parte del state v11 shippeado en v1.7)
 **Requirements**: MIG-01, MIG-02
 **Success Criteria** (what must be TRUE):
+
   1. Al arrancar sobre un state migrado, las 4 categorías nuevas aparecen `no-hecha` con racha 0 (ninguna boota `hecha`/`dominada` por progreso espurio) — el reset por prefijo `startsWith` cubre los 4 slugs exactos sin colisión con las 10 categorías existentes.
   2. Las 10 categorías legacy + `songProgress` quedan byte-intactas tras la migración (fixture de no-regresión), y `migrate11to12`/`hydrateV12` son idempotentes y anti-prototype-pollution (deep-clone).
   3. El export/import de backup hace round-trip en v12, migra un backup `v11→v12` con el reset aplicado, y rechaza cualquier wrapper `> 12` con el mensaje existente — con `CURRENT_SCHEMA_VERSION=12` espejado en `storage.js` Y `backup.js`.
   4. La suite de tests de la cadena de migración pasa (bloque v12 en data-storage + backup) sin fails nuevos; el motor de re-verificación NO se toca.
+
 **Plans**: 1 plan
+
 - [x] 35-01-PLAN.md — Cadena de migración 11→12: RESET_PREFIXES_V12 + migrate11to12/hydrateV12 (storage.js), espejo en backup.js, y tests v12 (reset selectivo, no-regresión legacy, round-trip/import/reject)
 
 ### Phase 36: Dimostrativi + Possessivi (determinantes)
+
 **Goal**: El autor puede ser examinado sobre los dos determinantes que enganchan con el artículo: Dimostrativi (`questo`/`quello` con sus formas tipo-artículo + colapso ES 3-vías→IT 2-vías + `ciò`) y Possessivi (concordancia con la cosa poseída + artículo obligatorio + excepción de parentesco + `loro` invariable). Ambas nacen en slot+variantes, autoradas 1-por-1 por quórum cross-vendor R1-R7, y registradas en `categories.json` (order 11, 12).
 **Depends on**: Phase 35 (nacen sobre el state v12)
 **Requirements**: DEMOS-01, DEMOS-02, DEMOS-03, DEMOS-04, DEMOS-05, POSS-01, POSS-02, POSS-03, POSS-04, POSS-05
 **Success Criteria** (what must be TRUE):
+
   1. El autor, en Repaso/Examen, es examinado sobre la concordancia de `questo/questa/questi/queste`, la elisión `quest'` ante vocal, y las formas tipo-artículo de `quello` (`quel/quello/quell'/quei/quegli/quelle`) según el disparador fonético — incluido 1 slot `match` sustantivo→forma (análogo `articoli-049`) — con el `quei/quegli` split verificado noun-por-noun (DeepSeek-pass, magnet).
   2. El autor es examinado sobre el colapso de calco ES 3-vías (este/ese/aquel) → IT 2-vías (questo/quello) con anclas de distancia (`qui`/`là`) que fuerzan una sola lectura (sin doble-validez); `codesto` documentado OUT-OF-SCOPE en las notas de la categoría y ausente de keys/distractoras.
   3. El autor es examinado sobre el posesivo que concuerda con la COSA POSEÍDA (no el poseedor, con variantes donde género del poseedor ≠ género de lo poseído), EXIGE artículo determinado (`la mia casa` vs español `mi casa`), y la excepción de parentesco singular sin modificar que lo ELIMINA (`mia madre`) — con las 4 carve-outs verificadas (plural `le mie sorelle`, `loro` `il loro padre`, alterado `la mia mamma`; magnet DeepSeek-pass).
   4. Los cruces multi-cat `dimostrativi↔articoli`, `possessivi↔articoli` y `possessivi↔genero-numero` existen como contenido (`categoryIds` de 2), propagan la cascada D-54, y NO añaden call-sites de `applyImmediateFailure` (siguen EXACTAMENTE 2).
   5. Todas las variantes nuevas de ambas categorías quedan `validation.status: validated` (≥2 passes correcta, ≥2 `by` distintos); explanations en español acentuado (RAE), apóstrofe ASCII, plain text, gloss `(en español: …)` canónico donde desambigua; sin leak de regla en el prompt (R1).
+
 **Plans**: 4 plans
+
 - [x] 36-01-PLAN.md — Dimostrativi nucleo (questo, quest' elision, quello MC+match, colapso ES) por quorum R1-R7, magnet quei/quegli DeepSeek
 - [x] 36-02-PLAN.md — Dimostrativi A2 (cio single-variant, pronominales) + registro categories.json order 11 + cruce dimostrativi-300
 - [x] 36-03-PLAN.md — Possessivi nucleo (concordancia cosa-poseida, articulo obligatorio+calco, excepcion parentesco 4 carve-outs) MC-only, magnet DeepSeek
 - [x] 36-04-PLAN.md — Possessivi A2 (suo his/her, loro invariable) + registro categories.json order 12 + cruces possessivi-300/301
 
 ### Phase 37: Verbi modali
+
 **Goal**: El autor puede ser examinado sobre `potere/volere/dovere` en presente indicativo irregular (todas las personas) y sobre la construcción modal + infinitivo (`posso andare`, `voglio mangiare`, `devo studiare`). Categoría nueva en slot+variantes, order 13, autorada por quórum R1-R7, con scope gate duro: passato prossimo modal (auxiliar prestado) queda FUERA de v1.9.
 **Depends on**: Phase 35 (nace sobre el state v12); independiente de Phases 36/38
 **Requirements**: MODAL-01, MODAL-02
 **Success Criteria** (what must be TRUE):
+
   1. El autor es examinado sobre el presente irregular de `potere/volere/dovere` en las 6 personas (posso/puoi/può/possiamo/potete/possono y análogos) con distractoras plausibles de conjugación.
   2. El autor es examinado sobre la construcción modal + infinitivo (`posso andare`, `voglio mangiare`, `devo studiare`) — incluido al menos un word-buttons donde el infinitivo sigue al modal conjugado.
   3. NINGUNA variante contiene passato prossimo modal (`ho dovuto`/`sono dovuto` + participio); el scope gate está documentado OUT-OF-SCOPE en las notas de la categoría (magnet de doble-validez diferido a PASSPROX-01).
   4. Todas las variantes quedan `validation.status: validated` por quórum cross-vendor R1-R7 (≥2 `by` distintos); explanations con canon (español acentuado, ASCII apóstrofe, plain text, gloss donde desambigua); sin leak de regla (R1). La categoría carga en boot y aparece en home/picker/Repaso/Examen genéricamente.
+
 **Plans**: 1 plan
+
 - [x] 37-01-PLAN.md — Alta de `modali` (order 13): presente irregular de potere/volere/dovere (6 personas, 3 vectores de distractora) + modal+infinitivo con word-buttons de posición + cruce modali-300 (modali↔presente-regolare) + registro en categories.json; scope-gate PP OUT-OF-SCOPE + 0-match documentados; quórum R1-R7, D-54 = 2 call-sites
 
 ### Phase 38: Verbi riflessivi
+
 **Goal**: El autor puede ser examinado sobre los reflexivos: presente (`mi chiamo`/`ti chiami`/`si chiama`), colocación del pronombre ANTES del verbo conjugado, construcción sobre terminaciones regulares (engancha con `presente-regolare`), passato prossimo reflexivo con `essere` + concordancia del participio -o/-a/-i/-e (engancha con `essere`; IN scope decidido), y 2-3 desajustes reflexivos ES↔IT genuinos. Última de las 4 altas (la más layered); order 14; autorada por quórum R1-R7.
 **Depends on**: Phase 35 (nace sobre el state v12); apoya en `presente-regolare` (v1.7) + `essere` ya estables
 **Requirements**: REFLEX-01, REFLEX-02, REFLEX-03, REFLEX-04, REFLEX-05
 **Success Criteria** (what must be TRUE):
+
   1. El autor es examinado sobre el presente reflexivo (`mi chiamo`/`ti chiami`/`si chiama`) en todas las personas y sobre la colocación del pronombre reflexivo ANTES del verbo conjugado (word-buttons con banco que incluye el orden-distractor `*sveglio mi`).
   2. El autor es examinado sobre el reflexivo construido con terminaciones regulares (`si alza`, `ci laviamo`, `vi vestite`) — enganchado a `presente-regolare` — y sobre 2-3 desajustes reflexivos ES↔IT genuinos (p.ej. `ammalarsi`, `dimenticarsi (di)`, `salire`), sin fabricar trampas falsas.
   3. El autor es examinado sobre el passato prossimo reflexivo con `essere` + concordancia del participio -o/-a/-i/-e (`mi sono svegliato/a`, `si sono alzati/e`) — slot de concordancia dedicado con las 4 terminaciones como variantes contrastantes, cue de género/número del sujeto en cada prompt (sin doble-validez -o/-a), y CERO auxiliar `avere` (magnet DeepSeek-pass, análogo `presente-regolare-301`).
   4. Los cruces multi-cat `riflessivi↔essere` (passato prossimo) y `riflessivi↔presente-regolare` (presente) existen como contenido (`categoryIds` de 2), propagan la cascada D-54, y NO añaden call-sites (siguen EXACTAMENTE 2 de `applyImmediateFailure`).
   5. Todas las variantes quedan `validation.status: validated` por quórum cross-vendor R1-R7 (≥2 `by` distintos), con explanations acentuadas + gloss canónico donde desambigua + sin leak de regla (R1). La categoría carga en boot y aparece genéricamente en home/picker/Repaso/Examen.
+
 **Plans**: 2 plans
 Plans:
+**Wave 1**
+
 - [ ] 38-01-PLAN.md — Autorar riflessivi.json (5 slots REFLEX + word-buttons de colocación + 2 cruces -300/-301, quórum estructural) y registrar la categoría (order 14)
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
 - [ ] 38-02-PLAN.md — Sello canónico Opus+Sonnet + ronda EXTRA DeepSeek del MAGNET pp-concordanza y riflessivi-301 (top-level)
 
 ### Phase 39: PROV-01 + integración lockstep (cierre v1.9)
+
 **Goal**: El milestone cierra con la marca de procedencia (`origen`) aceptada por el schema-validator y estampada en las 4 categorías nuevas, y con los conteos re-sincronizados en lockstep — los 3 arrays hardcoded + `TOTAL_EXPECTED` + `TOTAL_EXPECTED_BASELINE` + +4 entradas en el smoke paramétrico — de modo que la suite completa (incl. `VAL_07_STRICT=1`) queda verde con las 14 categorías. Transversal y de bajo riesgo (metadata-only, cero motor); mirror de Phase 31 (v1.7).
 **Depends on**: Phases 36, 37, 38 (necesita los 4 JSON finales para sincronizar counts)
 **Requirements**: PROV-01, PROV-02, INT-01, INT-02, INT-03, INT-04
 **Success Criteria** (what must be TRUE):
+
   1. El schema-validator acepta un campo OPCIONAL `origen` (enum `ia-quorum` | `apuntes-profesora`) a nivel de categoría y valida el enum para cazar typos; las 10 categorías legacy sin el campo siguen validando (retrocompatible por construcción, absence = accepted) y `origen` queda AUSENTE en ellas (procedencia mixta, no se etiqueta en grueso).
   2. Las 4 categorías nuevas quedan registradas en `categories.json` (append, order 11–14 únicos, sin romper el display del home) con `origen: "ia-quorum"`.
   3. Los 3 arrays de conteo (`CATEGORIES_WITH_EXPLANATIONS`, `REAL_CATEGORIES`, `CATEGORIES` de run-validation) ganan +4 entradas con `expected` DINÁMICO (`slotCountOf`/`.exercises.length`, nunca número mágico), `TOTAL_EXPECTED` se re-suma solo, y la fórmula del `TOTAL_EXPECTED_BASELINE` de coherencia se extiende con los slots de las 4 nuevas (el item más fácil de olvidar).
   4. El smoke paramétrico cubre las 4 nuevas (readdir auto-descubre; +4 entradas explícitas donde el array es hardcoded), y la cascada D-54 permanece en EXACTAMENTE 2 call-sites de `applyImmediateFailure` (verificable por grep + tests en 4 archivos); `git diff src/screens/app.js src/domain/progress.js` vacío.
   5. La suite completa `node --test tests/*.test.js` (y `VAL_07_STRICT=1`) queda verde sobre las 14 categorías; todas las variantes de las 4 nuevas validadas 1-por-1 por quórum R1-R7 con rondas EXTRA en los 3 magnets de doble-validez (INT-04).
+
 **Plans**: TBD
 
 ## Progress
@@ -236,6 +259,7 @@ Plans:
 ### Tiempos verbales y categorías derivadas (post-v1.7)
 
 **Status:** Backlog. v1.7 entregó el presente regular (`presente-regolare`); v1.9 entrega Modali + Riflessivi. Diferidos a milestones futuros conforme la profesora entregue material:
+
 - **MODAL-PP-01** (NUEVO, diferido por decisión en v1.9): passato prossimo de los modales con auxiliar PRESTADO del infinitivo (`ho dovuto lavorare` vs `sono dovuto andare`) — A2 sutil, pantano de doble-validez; va al milestone de tiempos pesados, NO a v1.9.
 - **TENSE-X1..X4**: Pretérito imperfetto / Futuro semplice / Condizionale / Congiuntivo — milestone SEPARADO conforme la profesora entregue material.
 - **PASSPROX-01**: passato prossimo como categoría dedicada (elección de auxiliar + participio).

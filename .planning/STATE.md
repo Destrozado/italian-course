@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.9
 milestone_name: Determinantes + verbos A1/A2
 status: executing
-last_updated: "2026-07-01T14:10:00.000Z"
-last_activity: 2026-07-01 -- Phase 38 context gathered
+last_updated: "2026-07-01T18:02:08.976Z"
+last_activity: 2026-07-01 -- Phase 38 planning complete
 progress:
   total_phases: 5
   completed_phases: 3
-  total_plans: 6
+  total_plans: 8
   completed_plans: 6
   percent: 60
 ---
@@ -27,8 +27,8 @@ See: `.planning/PROJECT.md` (updated 2026-07-01 — Milestone v1.9 ACTIVE, Deter
 
 Phase: 38 (verbi-riflessivi) — CONTEXT GATHERED (ready for planning)
 Plan: none yet (0 plans)
-Status: Phase 38 context captured; Phase 37 shipped (verified 4/4 SC)
-Last activity: 2026-07-01 -- Phase 38 context gathered
+Status: Ready to execute
+Last activity: 2026-07-01 -- Phase 38 planning complete
 Resume file: .planning/phases/38-verbi-riflessivi/38-CONTEXT.md
 Next: /gsd:plan-phase 38
 
