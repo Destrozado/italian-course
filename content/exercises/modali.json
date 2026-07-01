@@ -140,7 +140,7 @@
       "categoryIds": [
         "modali"
       ],
-      "explanation": "El verbo dovere (deber, tener que) es IRREGULAR en el presente indicativo: io devo, tu devi, lui/lei deve, noi dobbiamo, voi dovete, loro devono. Aquí hay dos raíces distintas: dev- en las personas del singular y en la tercera del plural (devo, devi, deve, devono), y dobb- en la primera del plural (dobbiamo). El error típico es regularizar la primera a 'dovo' o inventar 'doviamo' para noi en vez de la forma real dobbiamo. En español 'deber' es regular (yo debo), así que la tentación de conjugarlo regular en italiano es fuerte: resiste y usa la raíz dev-/dobb-. Las distractoras son la regularización falsa (dovo/doviamo), otras personas del mismo verbo y la contaminación con la raíz equivocada: solo una concuerda con el sujeto.",
+      "explanation": "El verbo dovere (deber, tener que) es IRREGULAR en el presente indicativo: io devo, tu devi, lui/lei deve, noi dobbiamo, voi dovete, loro devono. Aquí conviven tres raíces: dev- en el singular y en la tercera del plural (devo, devi, deve, devono), dobb- en la primera del plural (dobbiamo), y la raíz regular dov- en la segunda del plural (dovete). El error típico es regularizar la primera a 'dovo' o inventar 'doviamo' para noi en vez de la forma real dobbiamo. En español 'deber' es regular (yo debo), así que la tentación de conjugarlo regular en italiano es fuerte: resiste y recuerda dev-/dobb- (y dov- solo en dovete). Las distractoras son la regularización falsa (dovo/doviamo), otras personas del mismo verbo y la contaminación con la raíz equivocada: solo una concuerda con el sujeto.",
       "variants": [
         {
           "prompt": "Io ___ studiare per l'esame. (en español: yo tengo que / debo)",
