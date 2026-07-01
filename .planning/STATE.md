@@ -3,10 +3,10 @@ gsd_state_version: 1.0
 milestone: v1.9
 milestone_name: Determinantes + verbos A1/A2
 status: planning
-last_updated: "2026-07-01T06:58:22.572Z"
+last_updated: "2026-07-01T00:00:00.000Z"
 last_activity: 2026-07-01
 progress:
-  total_phases: 0
+  total_phases: 5
   completed_phases: 0
   total_plans: 0
   completed_plans: 0
@@ -17,18 +17,20 @@ progress:
 
 ## Project Reference
 
-See: `.planning/PROJECT.md` (updated 2026-06-09 — Milestone v1.6 shipped, CONV-01 cerrado)
+See: `.planning/PROJECT.md` (updated 2026-07-01 — Milestone v1.9 ACTIVE, Determinantes + verbos A1/A2)
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Entre milestones — v1.8 "Editoriale" shipped 2026-06-30. Próximo vía `/gsd:new-milestone`.
+**Current Focus:** v1.9 — Determinantes + verbos A1/A2 (Phases 35-39). Roadmap fijado 2026-07-01. Siguiente: `/gsd:plan-phase 35` (migración `11→12`).
 
 ## Current Position
 
-Phase: Not started (defining requirements)
-Plan: —
-Status: Defining requirements
-Last activity: 2026-07-01 — Milestone v1.9 started
+Phase: 35 of 39 (Migración `11→12`) — READY TO PLAN
+Plan: — (0 plans planificados)
+Status: Roadmap fijado — listo para planificar Phase 35
+Last activity: 2026-07-01 — Roadmap v1.9 creado (5 fases 35-39, 25/25 requirements mapped, 0 orphans)
+
+Progress: [░░░░░░░░░░] 0% (0/5 fases v1.9)
 
 ## Deferred Items
 
@@ -113,6 +115,8 @@ NOTA: el bug **grave** de márgenes laterales en móvil (gutter UA de 40px en `<
 ## Accumulated Context
 
 ### Roadmap Evolution
+
+- **2026-07-01 — Milestone v1.9 abierto + roadmap fijado.** Determinantes + verbos A1/A2 (4 categorias nuevas + procedencia). Numeracion CONTINUA desde Phase 34 → **Phases 35-39, NO reset** (mismo criterio que v1.1-v1.8). **Brownfield PURO DE CONTENIDO:** el motor v1.4 (cascada D-54 con EXACTAMENTE 2 call-sites, sampler, slot-engine, promociones/racha, localStorage) NO se toca; las 4 categorias nacen en slot+variantes autoradas desde cero por quorum cross-vendor R1-R7 (patron D-85, no hay PDF de la profesora). 5 fases coarse (patron migracion→altas→lockstep de v1.7): **Phase 35 (Migracion `11→12`, reset selectivo preventivo de las 4 nuevas)** mapea MIG-01/02 — `migrate11to12`/`hydrateV12`/`RESET_PREFIXES_V12` (4 prefijos), `CURRENT_SCHEMA_VERSION=12` espejo storage+backup, round-trip v12 + reject >12; espejo de `migrate10to11` (v1.7); va PRIMERA para que las categorias nazcan limpias; **Phase 36 (Dimostrativi + Possessivi, determinantes)** mapea DEMOS-01..05 + POSS-01..05 — agrupadas por dependencia compartida de `articoli`/`genero-numero`; 2 MAGNETS de doble-validez (quello `quei/quegli` split como `articoli-049`; excepcion de parentesco possessivi con 4 carve-outs) → rondas EXTRA de DeepSeek; cruces `dimostrativi↔articoli`, `possessivi↔articoli/genero-numero`; **Phase 37 (Verbi modali)** mapea MODAL-01/02 — `potere/volere/dovere` presente irregular + infinitivo; scope gate DURO: modal passato prossimo (auxiliar prestado) DIFERIDO a MODAL-PP-01/PASSPROX-01, documentado OUT-OF-SCOPE en notes; independiente; **Phase 38 (Verbi riflessivi)** mapea REFLEX-01..05 — presente + colocacion del pronombre (word-buttons con orden-distractor) + terminaciones regulares (engancha `presente-regolare`) + passato prossimo con `essere`+concordancia -o/-a/-i/-e (REFLEX-04 IN scope, MAGNET, analogo `presente-regolare-301`, ronda extra) + desajustes ES↔IT; ultima de las altas (mas layered); cruces `riflessivi↔essere/presente-regolare`; **Phase 39 (PROV-01 + integracion lockstep, cierre)** mapea PROV-01/02 + INT-01..04 — `origen` opcional (enum `ia-quorum`|`apuntes-profesora`) ~5 lineas en schema-validator (retrocompat, absence=accepted, las 10 legacy AUSENTE por procedencia mixta) + estampar las 4 nuevas `ia-quorum` + append order 11-14 en categories.json + sync de los 3 count arrays + `TOTAL_EXPECTED` + `TOTAL_EXPECTED_BASELINE` (el mas facil de olvidar) + +4 smoke + suite verde estricta `VAL_07_STRICT=1`; mirror de Phase 31 (v1.7). **Cobertura: 25/25 mapped (5 DEMOS + 5 POSS + 2 MODAL + 5 REFLEX + 2 PROV + 2 MIG + 4 INT), 0 orphans, 0 duplicados, 0 gaps.** Phases 36/37/38 dependen de Phase 35 (nacen sobre state v12); Phase 39 depende de 36+37+38 (necesita los 4 JSON finales para sincronizar counts). **Invariante verificable:** `grep -c 'applyImmediateFailure(this.state' src/screens/app.js` = 2 al cierre; `git diff src/screens/app.js src/domain/progress.js` vacio. Estado del codebase: schemaVersion **11**, 10 categorias (orders 1-10), TOTAL_EXPECTED 195 (con genero-numero/preposiciones AJENOS en FAIL preexistente). Archivos escritos: `.planning/ROADMAP.md` (Milestones +fila v1.9 · Phases §🚧 v1.9 ACTIVE con checklist 35-39 · Phase Details 35-39 con 4-5 success criteria c/u · Progress table +5 filas v1.9 · Backlog PRESERVADO: candidato promovido a v1.9, MODAL-PP-01 diferido, PROV-X1 anadido, CONV-01/AUTHOR-01/CATPROC/MUSIC-X1/bridges+responsive intactos), `.planning/REQUIREMENTS.md` (Traceability 25 filas → Phases 35-39 + Coverage 25/25 + mapping rationale), `.planning/STATE.md` (este). Stopped at: roadmap creado. Resume file: None. Siguiente: `/gsd:plan-phase 35`.
 
 - **2026-06-30 — Plan 34-05 completado (Resultados/summary repintado Editoriale — SRP-03) — Phase 34 Plan 5/5, wave 5. FINAL del milestone v1.8.** 2 tasks, 2 commits de tarea (`401a6a0` feat anillo de score + X/Y hero, `b98b76d` feat cascada FALLÓ + error cards) + docs. **Task 1 (hero):** insertado `.summary-score-hero` tras el overline `.session-context` — anillo NET-NEW de 72px (exception verbatim handoff §5) con `conic-gradient(var(--ed-green) calc(var(--pct) * 3.6deg), var(--ed-ring-track) 0)`, `--pct` fijado inline desde `summaryScore.pct` (getter de 34-01), perforación central `::before` de `--ed-paper-elevated` que aloja el `%` en Space Grotesk 22/700 tabular-nums; al lado "{X}/{Y}" serif 30/600 (el "/Y" en `--ed-placeholder`) + "correctos" + cursiva "Sesión terminada" (literales hardcoded). El anillo aparece en TODAS las sesiones SIN rama por modo (D-09); Y = `summaryScore.total` = respondidas (D-10). El `<header>` se repinta a `.summary-title` serif 24/600 (espejo de `.home-title` escalado) conservando `x-text="summaryHeaderLabel"` VERBATIM (D-11). **Task 2 (cascada + errores):** overline `CATEGORÍAS AFECTADAS` + píldora `FALLÓ` (`--ed-red-tint`/`--ed-red-text`, Hanken 10/700 UPPER) gateada por `x-show="entry.failed"` (D-11) en columna fija de 54px (exception verbatim handoff §5); overline `ERRORES COMETIDOS · {N}` (N vía `x-text` espejando el filter de errores); cada `<li>` de error repintado a card `--ed-paper-elevated` radio 14, `.user-answer` → `--ed-red-text` + `line-through`, `<strong>` Correcta → `--ed-green-on-tint`, `.summary-error-explanation` → `--ed-muted` italic — TODO como overrides en `app.css` por orden de fuente de las reglas legacy `--pico-*` de `styles.css` (`.delta-regression`/`.delta-promotion`/`.user-answer`/`.summary-error-explanation`), que NO se borran. `summaryDelta`/`summaryVariantSurface`/los 3 sub-templates (multiple-choice/word-buttons/match)/el guard double-defense + filtro de slot preservados VERBATIM. **Decisiones:** la píldora FALLÓ ocupa la columna LOCKED de 54px (el `entry` no expone count de ejercicios → no se inventa "N ej."); D-46 truncado de cascada NO añadido (discreción del planner, `summaryDelta` lista todas); overrides por orden de fuente (idiom Phase 32-33), legacy intacto. **Desviaciones (auto-fix):** (1) Rule 3 — un comentario del hero contenía el literal "sessionMode" y tumbaba el guard `!/sessionMode/` de D-09; reescrito a "modo de sesión". (2) Rule 1 — las aserciones de banner sliceaban tras las citas SRP-03/D-09/D-10 (que viven en la línea de arriba del banner-frase); ancladas a `lastIndexOf('Phase 34 (SRP-03', banner)`. (3) Rule 1 — ventana de la aserción de la píldora ampliada 260→400 chars. **Verificación:** `node --test tests/screen-canciones.test.js` → 93/93 pass (+15 asserts nuevos); `node --test tests/*.test.js` → **574 pass / 1 fail** (único fail = preexistente AJENO genero-numero coverage; CERO fails nuevos). `grep -c 'x-html=' index.html` → 0 (T-02-01); 0 `var(--pico-*)`/`--pico-*:` reales en los bloques nuevos (6 menciones son comentarios de override). Brownfield UI-puro: motor sin tocar. SRP-03 completo. **Phase 34 CERRADA (5/5); los 12 planes de v1.8 ejecutados** (pendiente verificación/cierre formal del milestone). **UAT visual pendiente** (`npx serve`): anillo + píldoras FALLÓ + error cards con datos reales en repaso/test/examen. Stopped at: Plan 34-05 completo (fin de Phase 34). Resume file: None. Siguiente: `/gsd:verify-phase 34` → cierre del milestone v1.8.
 

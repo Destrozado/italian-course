@@ -89,41 +89,49 @@ Excluidos explícitamente. Documentado para evitar scope creep.
 
 ## Traceability
 
-Qué fases cubren qué requisitos. **Poblada por el roadmapper** (Step 10).
+Qué fases cubren qué requisitos. **Poblada por el roadmapper.**
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| DEMOS-01 | TBD | Pending |
-| DEMOS-02 | TBD | Pending |
-| DEMOS-03 | TBD | Pending |
-| DEMOS-04 | TBD | Pending |
-| DEMOS-05 | TBD | Pending |
-| POSS-01 | TBD | Pending |
-| POSS-02 | TBD | Pending |
-| POSS-03 | TBD | Pending |
-| POSS-04 | TBD | Pending |
-| POSS-05 | TBD | Pending |
-| MODAL-01 | TBD | Pending |
-| MODAL-02 | TBD | Pending |
-| REFLEX-01 | TBD | Pending |
-| REFLEX-02 | TBD | Pending |
-| REFLEX-03 | TBD | Pending |
-| REFLEX-04 | TBD | Pending |
-| REFLEX-05 | TBD | Pending |
-| PROV-01 | TBD | Pending |
-| PROV-02 | TBD | Pending |
-| MIG-01 | TBD | Pending |
-| MIG-02 | TBD | Pending |
-| INT-01 | TBD | Pending |
-| INT-02 | TBD | Pending |
-| INT-03 | TBD | Pending |
-| INT-04 | TBD | Pending |
+| DEMOS-01 | Phase 36 | Pending |
+| DEMOS-02 | Phase 36 | Pending |
+| DEMOS-03 | Phase 36 | Pending |
+| DEMOS-04 | Phase 36 | Pending |
+| DEMOS-05 | Phase 36 | Pending |
+| POSS-01 | Phase 36 | Pending |
+| POSS-02 | Phase 36 | Pending |
+| POSS-03 | Phase 36 | Pending |
+| POSS-04 | Phase 36 | Pending |
+| POSS-05 | Phase 36 | Pending |
+| MODAL-01 | Phase 37 | Pending |
+| MODAL-02 | Phase 37 | Pending |
+| REFLEX-01 | Phase 38 | Pending |
+| REFLEX-02 | Phase 38 | Pending |
+| REFLEX-03 | Phase 38 | Pending |
+| REFLEX-04 | Phase 38 | Pending |
+| REFLEX-05 | Phase 38 | Pending |
+| PROV-01 | Phase 39 | Pending |
+| PROV-02 | Phase 39 | Pending |
+| MIG-01 | Phase 35 | Pending |
+| MIG-02 | Phase 35 | Pending |
+| INT-01 | Phase 39 | Pending |
+| INT-02 | Phase 39 | Pending |
+| INT-03 | Phase 39 | Pending |
+| INT-04 | Phase 39 | Pending |
 
 **Coverage:**
 - v1.9 requirements: 25 total
-- Mapped to phases: 0 (roadmapper poblará)
-- Unmapped: 25 ⚠️ (se resuelve en Step 10)
+- Mapped to phases: 25 (100%) ✓
+- Unmapped: 0 (0 orphans, 0 duplicados)
+
+**Mapping rationale:**
+- **Phase 35 — Migración `11→12`** (MIG-01, MIG-02): va PRIMERA (invariante v1.5/v1.6/v1.7); el reset selectivo debe pre-existir antes de autorar contenido nuevo. Mirror de `migrate10to11`.
+- **Phase 36 — Dimostrativi + Possessivi** (DEMOS-01..05, POSS-01..05): agrupadas como "determinantes" por su dependencia compartida de `articoli`/`genero-numero`; 2 magnets de doble-validez (quello `quei/quegli`; excepción de parentesco possessivi) → rondas extra de quórum.
+- **Phase 37 — Verbi modali** (MODAL-01, MODAL-02): independiente; menor riesgo de quórum; scope gate duro (modal passato prossimo → MODAL-PP-01 diferido).
+- **Phase 38 — Verbi riflessivi** (REFLEX-01..05): última de las altas (la más layered); apoya en `presente-regolare`/`essere`; REFLEX-04 (PP con essere+concordancia) IN scope → 1 magnet, ronda extra.
+- **Phase 39 — PROV-01 + lockstep** (PROV-01, PROV-02, INT-01..04): transversal metadata + sync de counts/cruces/smoke en una fase de cierre; mirror de Phase 31 (v1.7). PROV-01 = ~5 líneas opcionales retrocompatibles; legacy `origen` AUSENTE.
 
 ---
 *Requirements defined: 2026-07-01*
+*Traceability poblada: 2026-07-01 (roadmapper — 25/25 mapped a Phases 35-39, 0 orphans, 0 duplicados)*
 *Last updated: 2026-07-01 after initial definition (scope decisions: MODAL passato prossimo DIFERIDO · REFLEX passato prossimo INCLUIDO · PROV legacy `origen` AUSENTE)*
