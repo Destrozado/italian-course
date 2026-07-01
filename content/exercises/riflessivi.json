@@ -56,6 +56,12 @@
             "date": "2026-07-01",
             "verdict": "correcta",
             "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
           }
         ]
       }
@@ -112,6 +118,12 @@
             "date": "2026-07-01",
             "verdict": "correcta",
             "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
           }
         ]
       }
@@ -161,6 +173,12 @@
             "date": "2026-07-01",
             "verdict": "correcta",
             "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
           }
         ]
       }
@@ -176,8 +194,8 @@
         {
           "prompt": "Ieri Marco ___ molto presto.",
           "options": [
-            "si e svegliato",
-            "si e svegliata",
+            "si è svegliato",
+            "si è svegliata",
             "si sono svegliato",
             "si ha svegliato"
           ],
@@ -186,9 +204,9 @@
         {
           "prompt": "Ieri Maria ___ tardi.",
           "options": [
-            "si e svegliato",
-            "si e svegliata",
-            "si e svegliate",
+            "si è svegliato",
+            "si è svegliata",
+            "si è svegliate",
             "si ha svegliata"
           ],
           "correctIndex": 1
@@ -198,7 +216,7 @@
           "options": [
             "si sono alzate",
             "si sono alzati",
-            "si e alzati",
+            "si è alzati",
             "si hanno alzati"
           ],
           "correctIndex": 1
@@ -208,7 +226,7 @@
           "options": [
             "si sono alzate",
             "si sono alzati",
-            "si e alzate",
+            "si è alzate",
             "si hanno alzate"
           ],
           "correctIndex": 0
@@ -229,6 +247,18 @@
           },
           {
             "by": "deepseek-chat",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
             "date": "2026-07-01",
             "verdict": "correcta",
             "concerns": []
@@ -293,6 +323,12 @@
             "date": "2026-07-01",
             "verdict": "correcta",
             "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
           }
         ]
       }
@@ -344,6 +380,12 @@
             "date": "2026-07-01",
             "verdict": "correcta",
             "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
           }
         ]
       }
@@ -360,8 +402,8 @@
         {
           "prompt": "Ieri Marco ___ molto tardi.",
           "options": [
-            "si e svegliato",
-            "si e svegliata",
+            "si è svegliato",
+            "si è svegliata",
             "si sono svegliati",
             "si ha svegliato"
           ],
@@ -370,9 +412,9 @@
         {
           "prompt": "Ieri Maria ___ presto per il lavoro.",
           "options": [
-            "si e alzato",
-            "si e alzata",
-            "si e alzate",
+            "si è alzato",
+            "si è alzata",
+            "si è alzate",
             "si ha alzata"
           ],
           "correctIndex": 1
@@ -382,7 +424,7 @@
           "options": [
             "si sono svegliate",
             "si sono svegliati",
-            "si e svegliati",
+            "si è svegliati",
             "si hanno svegliati"
           ],
           "correctIndex": 1
@@ -392,7 +434,7 @@
           "options": [
             "si sono alzate",
             "si sono alzati",
-            "si e alzate",
+            "si è alzate",
             "si hanno alzate"
           ],
           "correctIndex": 0
@@ -413,6 +455,18 @@
           },
           {
             "by": "deepseek-chat",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
             "date": "2026-07-01",
             "verdict": "correcta",
             "concerns": []
