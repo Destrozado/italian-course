@@ -1,0 +1,424 @@
+{
+  "notes": "Categoría riflessivi (order 14) nacida DIRECTAMENTE en slot+variantes (clon de presente-regolare/modali, patrón v1.7 + Phases 36/37), NUNCA legacy payload. 0-MATCH por decisión D-04/D-38-03: el pareo pronombre<->persona (mi<->io, ti<->tu, si<->lui) es una asociación MECÁNICA derivable en cuanto se conoce el paradigma; un match mi<->io sería 'arrastrar sin pensar' exactamente lo que D-04/R3 prohíben, y además la conjugación es derivable por raíz. Por eso la categoría queda deliberadamente en dos tipos que SÍ obligan a producir/elegir la forma aplicando la regla: multiple-choice + word-buttons. El 0-match aquí es decisión, no omisión. SCOPE-GATE (HARD, CONTEXT líneas 24-28): los reflexivos RECÍPROCOS ('si amano', 'ci scriviamo', 'each other') quedan FUERA de scope (semántica A2+/B1 distinta, diferida a un milestone de pronombres); NINGUNA variante los contiene. Tampoco clítico-como-contenido ni modal+clítico. El passato prossimo reflexivo SÍ es IN scope (REFLEX-04, el MAGNET riflessivi-pp-concordanza) y NO se confunde con el scope-gate de recíprocos. Nota de count-sync: la sincronización de los 3 arrays de conteo + TOTAL_EXPECTED + baseline y el campo origen/PROV-01 son de Phase 39 (rojo esperado hasta entonces).",
+  "exercises": [
+    {
+      "id": "riflessivi-presente",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "riflessivi"
+      ],
+      "explanation": "Los verbos reflexivos italianos (chiamarsi, svegliarsi) llevan un pronombre reflexivo que cambia con la persona y va SIEMPRE delante del verbo conjugado: io mi, tu ti, lui/lei si, noi ci, voi vi, loro si. Con chiamarsi ('llamarse') queda: io mi chiamo, tu ti chiami, lui si chiama, noi ci chiamiamo, voi vi chiamate, loro si chiamano. Fíjate en dos cosas: el pronombre concuerda con la persona (no vale 'si chiamo' para io, porque 'si' es de tercera persona) y va ANTES del verbo (no 'chiamo mi'). En español el paralelo es 'me llamo, te llamas, se llama': el pronombre también cambia con la persona y va delante. Las distractoras mezclan un pronombre de otra persona (si con io) o el orden invertido (verbo antes del pronombre), ambos errores típicos.",
+      "variants": [
+        {
+          "prompt": "Io ___ Marco. (en español: yo me llamo)",
+          "options": [
+            "mi chiamo",
+            "ti chiami",
+            "si chiama",
+            "chiamo mi"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Tu ___ presto ogni mattina. (en español: tú te despiertas)",
+          "options": [
+            "mi sveglio",
+            "ti svegli",
+            "si sveglia",
+            "svegli ti"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Noi ___ alle sette. (en español: nosotros nos levantamos)",
+          "options": [
+            "si alzano",
+            "vi alzate",
+            "ci alziamo",
+            "alziamo ci"
+          ],
+          "correctIndex": 2
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": [
+              "[R1-R7] sin leak: prompt = frase + hueco + gloss ES R7 (desambigua la persona); la regla del pronombre reflexivo vive en explanation. Distractoras plausibles: pronombre de otra persona (si con io) y orden invertido (chiamo mi/svegli ti). Acentos canon ES OK (espanol->español, Fijate->Fíjate ya acentuados). Nota: un pase deepseek-chat marco C4-accent sobre 'espanol'/'Fijate' pero fue FALSO POSITIVO (la explanation ya lleva 'español'/'Fíjate' acentuados, verificado por scan); resuelto por pase deepseek-reasoner correcta."
+            ]
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "riflessivi-collocazione-wb",
+      "type": "word-buttons",
+      "categoryIds": [
+        "riflessivi"
+      ],
+      "explanation": "En italiano el pronombre reflexivo (mi, ti, si, ci, vi, si) va SIEMPRE ANTES del verbo conjugado: se dice 'mi sveglio', nunca 'sveglio mi'. Es el orden opuesto al infinitivo (svegliarsi), donde el pronombre se pega al final. Al construir la frase coloca primero el sujeto (si aparece), luego el pronombre reflexivo, y después el verbo conjugado y el resto. Los botones-distractores incluyen el bloque en el orden invertido ('sveglio mi') justamente para forzar que elijas el pronombre suelto ANTES del verbo. En español también decimos 'me despierto', con el pronombre delante, así que el orden coincide y la trampa es no dejarse llevar por el infinitivo italiano.",
+      "variants": [
+        {
+          "prompt": "Yo me despierto temprano.",
+          "answer": [
+            "io",
+            "mi",
+            "sveglio",
+            "presto"
+          ],
+          "distractors": [
+            "sveglio mi",
+            "si"
+          ]
+        },
+        {
+          "prompt": "Nosotros nos lavamos las manos.",
+          "answer": [
+            "noi",
+            "ci",
+            "laviamo",
+            "le",
+            "mani"
+          ],
+          "distractors": [
+            "laviamo ci",
+            "vi"
+          ]
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": [
+              "[REFLEX-02][R1-R7] word-buttons con orden-distractor pronombre-tras-verbo en el banco ('sveglio mi', 'laviamo ci') para forzar mi sveglio / ci laviamo (pronombre ANTES del verbo). Distractor extra de persona mal casada (si/vi). answer[] arma frase italiana correcta; prompt en español. Sin recíprocos. Acentos ES OK (después/español/también acentuados). Nota: un pase deepseek-chat marco C4-accent sobre después/español/también pero fue FALSO POSITIVO (ya acentuados, verificado por scan); resuelto por pase deepseek-reasoner correcta."
+            ]
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "riflessivi-su-regolari",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "riflessivi"
+      ],
+      "explanation": "Un verbo reflexivo se conjuga como su verbo base regular: la terminación NO cambia por ser reflexivo, lo único nuevo es el pronombre pre-puesto. Así alzarsi usa el mismo presente que un verbo en -are (io mi alzo, lui si alza), lavarsi también en -are (noi ci laviamo) y vestirsi en -ire simple (voi vi vestite). Es decir: ya sabes la desinencia por el grupo del infinitivo (-are da -o/-i/-a/-iamo/-ate/-ano; -ire simple da -o/-i/-e/-iamo/-ite/-ono), y solo tienes que anteponer el pronombre que concuerda con la persona. Las distractoras ofrecen la desinencia de otra persona (si alzano para lui) o el pronombre mal casado, para comprobar que aplicas a la vez la terminación regular y el pronombre correcto.",
+      "variants": [
+        {
+          "prompt": "Lui ___ molto presto. (en español: él se levanta)",
+          "options": [
+            "mi alzo",
+            "si alza",
+            "si alzano",
+            "ti alzi"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Voi ___ con eleganza. (en español: vosotros os vestís)",
+          "options": [
+            "vi vestite",
+            "si veste",
+            "ci vestiamo",
+            "vi vestono"
+          ],
+          "correctIndex": 0
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": [
+              "[REFLEX-03][R1-R7] engancha con presente-regolare: si alza (-are como base regular), vi vestite (-ire simple, desinencia -ite). Distractoras = otra persona (si alzano/si veste) y pronombre mal casado (mi alzo para lui) o desinencia hibrida invalida (vi vestono). Gloss R7 desambigua persona. Sin leak. Acentos ES OK (terminación/único acentuados). Nota: un pase deepseek-chat marco C4-accent sobre terminación/único pero fue FALSO POSITIVO (ya acentuados, verificado por scan); resuelto por pase deepseek-reasoner correcta."
+            ]
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "riflessivi-pp-concordanza",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "riflessivi"
+      ],
+      "explanation": "El passato prossimo de un verbo reflexivo se forma SIEMPRE con el auxiliar essere (mi sono, ti sei, si è, ci siamo, vi siete, si sono) más el participio, y NUNCA con avere. Como el auxiliar es essere, el participio concuerda con el sujeto en género y número, igual que un adjetivo: termina en -o con sujeto masculino singular (Marco si è svegliato), en -a con femenino singular (Maria si è svegliata), en -i con masculino o mixto plural (i ragazzi si sono alzati) y en -e con femenino plural (le ragazze si sono alzate). Mira siempre el sujeto para elegir la vocal final. La trampa más grave para un hispanohablante es que en español el participio con haber no cambia ('me he despertado' sea quien sea), así que esta concordancia es propia del italiano; y la otra trampa es meter avere ('si ha svegliato'), que con reflexivos es siempre incorrecto.",
+      "variants": [
+        {
+          "prompt": "Ieri Marco ___ molto presto.",
+          "options": [
+            "si e svegliato",
+            "si e svegliata",
+            "si sono svegliato",
+            "si ha svegliato"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Ieri Maria ___ tardi.",
+          "options": [
+            "si e svegliato",
+            "si e svegliata",
+            "si e svegliate",
+            "si ha svegliata"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Ieri i ragazzi ___ insieme.",
+          "options": [
+            "si sono alzate",
+            "si sono alzati",
+            "si e alzati",
+            "si hanno alzati"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Stamattina le ragazze ___ presto.",
+          "options": [
+            "si sono alzate",
+            "si sono alzati",
+            "si e alzate",
+            "si hanno alzate"
+          ],
+          "correctIndex": 0
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": [
+              "[D-38-01 concordancia] las 4 terminaciones verificadas explicitamente: Marco m-sg -> si e svegliato (-o); Maria f-sg -> si e svegliata (-a); i ragazzi m-pl -> si sono alzati (-i); le ragazze f-pl -> si sono alzate (-e). Cada variante tiene UNA sola concordancia correcta segun el cue por nombre propio / sujeto explicito.",
+              "[D-38-01 CERO-avere] auxiliar SIEMPRE essere; distractora avere obligatoria y NUNCA key: si ha svegliato / si ha svegliata / si hanno alzati / si hanno alzate son todas distractoras. Otras distractoras = concordancia incorrecta (si e svegliata para Marco, si sono svegliato mal numero, si e alzati/alzate mal numero de auxiliar).",
+              "[D-38-01 NO-gloss] SIN gloss ES en este slot: el espanol (me he despertado) no concuerda el participio; un gloss confundiria. R1 sin leak (no se nombra la terminacion ni la regla). Acentos italianos literales preservados (si e svegliata)."
+            ]
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "riflessivi-mismatch",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "riflessivi"
+      ],
+      "explanation": "No todos los verbos son reflexivos en los dos idiomas a la vez: hay desajustes genuinos entre italiano y español que hay que memorizar uno a uno. Tres casos A1 clave: (1) ammalarsi es reflexivo en italiano (mi ammalo) mientras que en español 'enfermar / ponerse enfermo' no lleva un pronombre reflexivo directo equivalente; (2) dimenticarsi es reflexivo y además pide la preposición di (mi dimentico di), como el español 'olvidarse de'; (3) salire NO es reflexivo en italiano ('subo' = salgo, sin pronombre), aunque en español muchas veces decimos 'subirse'. La regla práctica: no traslades automáticamente el 'se' del español al italiano ni al revés; comprueba cada verbo. Por eso el gloss en español acompaña a cada frase, para que veas exactamente dónde la reflexividad difiere.",
+      "variants": [
+        {
+          "prompt": "Ogni inverno io ___ di influenza. (en español: yo enfermo / me pongo enfermo)",
+          "options": [
+            "mi ammalo",
+            "ammalo",
+            "sono ammalo",
+            "mi ammala"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Spesso tu ___ di comprare il pane. (en español: a menudo te olvidas de comprar el pan)",
+          "options": [
+            "dimentichi di",
+            "ti dimentichi di",
+            "ti dimentichi",
+            "si dimentica di"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Ogni giorno lui ___ sull'autobus. (en español: cada día él se sube / sube al autobús)",
+          "options": [
+            "si sale",
+            "sale",
+            "si sali",
+            "ti sali"
+          ],
+          "correctIndex": 1
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": [
+              "[D-38-02 trio] SOLO los 3 desajustes genuinos del research: ammalarsi (IT reflexivo mi ammalo vs ES enfermar/ponerse enfermo), dimenticarsi di (IT reflexivo + prep di, ti dimentichi di, vs ES olvidarse de), salire (IT NO-reflexivo 'sale' vs ES subirse). NO se fabrica mismatch con verbos que SI coinciden (chiamarsi/svegliarsi/alzarsi/arrabbiarsi).",
+              "[D-38-02 verificacion IT vs ES] ammalarsi es reflexivo en IT (correcta: mi ammalo; distractora 'ammalo' no-reflexivo = error). salire NO es reflexivo en IT (correcta: sale; distractora 'si sale' = error de anadir el 'se' espanol). dimenticarsi pide di (correcta: ti dimentichi di; distractora 'ti dimentichi' sin prep y 'dimentichi di' sin pronombre).",
+              "[R1-R7] gloss ES (en español: ...) OBLIGATORIO donde la reflexividad difiere (R7, desambiguador legitimo, NO leak). Acentos ES OK; apostrofe/acento italiano literal (sull'autobus)."
+            ]
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "riflessivi-300",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "riflessivi",
+        "presente-regolare"
+      ],
+      "explanation": "El reflexivo en presente se conjuga exactamente como su verbo base regular (mismas desinencias del grupo -are/-ere/-ire) y solo añade el pronombre reflexivo delante, concordado con la persona. Así svegliarsi da io mi sveglio (como un -are: sveglio), lavarsi da noi ci laviamo (como un -are: laviamo), vestirsi da voi vi vestite (como un -ire simple: vestite). La idea clave es que ya sabes la terminación del presente regular, y lo único nuevo es el pronombre pre-puesto que concuerda con la persona. Las distractoras mezclan el pronombre de otra persona con la desinencia correcta, o la desinencia de otra persona con el pronombre correcto: solo una junta bien pronombre y terminación.",
+      "variants": [
+        {
+          "prompt": "Io ___ alle sei ogni giorno. (en español: yo me despierto)",
+          "options": [
+            "mi sveglio",
+            "ti svegli",
+            "mi svegli",
+            "si sveglia"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Noi ___ le mani prima di cena. (en español: nosotros nos lavamos)",
+          "options": [
+            "ci lavo",
+            "vi lavate",
+            "ci laviamo",
+            "si lavano"
+          ],
+          "correctIndex": 2
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": [
+              "[D-38-04 cruce] categoryIds de 2 (riflessivi + presente-regolare); el motor cascadea a ambas via applyResultToSession, CERO call-site nuevo (D-54). Presente reflexivo sobre terminacion regular: mi sveglio (-are: sveglio), ci laviamo (-are: laviamo).",
+              "[R1-R7] distractoras = pronombre+desinencia descasados (mi svegli mezcla io-pron con tu-desin; ci lavo mezcla noi-pron con io-desin) u otra persona entera (ti svegli/si sveglia/vi lavate/si lavano). Gloss R7 permitido en el cruce presente. Sin leak. Acentos ES OK."
+            ]
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "riflessivi-301",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "riflessivi",
+        "essere"
+      ],
+      "explanation": "El passato prossimo reflexivo se forma SIEMPRE con essere como auxiliar (mi sono, ti sei, si è, ci siamo, vi siete, si sono) y, por ser essere, el participio concuerda con el sujeto en género y número, terminando en -o (masculino singular), -a (femenino singular), -i (masculino o mixto plural) o -e (femenino plural). Así Marco si è svegliato, Maria si è svegliata, i ragazzi si sono alzati, le ragazze si sono alzate. Mira el sujeto para elegir la vocal final. El auxiliar avere ('si ha svegliato') es siempre incorrecto con reflexivos: aquí se ponen a prueba a la vez la elección de essere y la concordancia del participio, las dos cosas que un hispanohablante tiende a olvidar porque en español el participio con haber no cambia.",
+      "variants": [
+        {
+          "prompt": "Ieri Marco ___ molto tardi.",
+          "options": [
+            "si e svegliato",
+            "si e svegliata",
+            "si sono svegliati",
+            "si ha svegliato"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Ieri Maria ___ presto per il lavoro.",
+          "options": [
+            "si e alzato",
+            "si e alzata",
+            "si e alzate",
+            "si ha alzata"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Ieri i ragazzi ___ insieme al parco.",
+          "options": [
+            "si sono svegliate",
+            "si sono svegliati",
+            "si e svegliati",
+            "si hanno svegliati"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Stamattina le ragazze ___ molto tardi.",
+          "options": [
+            "si sono alzate",
+            "si sono alzati",
+            "si e alzate",
+            "si hanno alzate"
+          ],
+          "correctIndex": 0
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": [
+              "[D-38-04 cruce][D-38-01 concordancia] categoryIds de 2 (riflessivi + essere); cascadea a ambas via applyResultToSession, CERO call-site nuevo (D-54). Las 4 terminaciones verificadas: Marco m-sg -> si e svegliato (-o); Maria f-sg -> si e alzata (-a); i ragazzi m-pl -> si sono svegliati (-i); le ragazze f-pl -> si sono alzate (-e).",
+              "[D-38-01 CERO-avere] auxiliar SIEMPRE essere; distractora avere (si ha svegliato / si ha alzata / si hanno svegliati / si hanno alzate) NUNCA key. Otras distractoras = concordancia o numero de auxiliar incorrectos (si e svegliata para Marco; si sono svegliati mal numero; si e svegliati/alzate auxiliar singular con sujeto plural).",
+              "[D-38-01 NO-gloss] SIN gloss ES (analogo directo de presente-regolare-301 pero aplicando D-38-01: el espanol no concuerda el participio). R1 sin leak. Acentos italianos literales (si e svegliato)."
+            ]
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    }
+  ]
+}
