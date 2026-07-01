@@ -178,7 +178,8 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
   2. El autor es examinado sobre la construcción modal + infinitivo (`posso andare`, `voglio mangiare`, `devo studiare`) — incluido al menos un word-buttons donde el infinitivo sigue al modal conjugado.
   3. NINGUNA variante contiene passato prossimo modal (`ho dovuto`/`sono dovuto` + participio); el scope gate está documentado OUT-OF-SCOPE en las notas de la categoría (magnet de doble-validez diferido a PASSPROX-01).
   4. Todas las variantes quedan `validation.status: validated` por quórum cross-vendor R1-R7 (≥2 `by` distintos); explanations con canon (español acentuado, ASCII apóstrofe, plain text, gloss donde desambigua); sin leak de regla (R1). La categoría carga en boot y aparece en home/picker/Repaso/Examen genéricamente.
-**Plans**: TBD
+**Plans**: 1 plan
+- [ ] 37-01-PLAN.md — Alta de `modali` (order 13): presente irregular de potere/volere/dovere (6 personas, 3 vectores de distractora) + modal+infinitivo con word-buttons de posición + cruce modali-300 (modali↔presente-regolare) + registro en categories.json; scope-gate PP OUT-OF-SCOPE + 0-match documentados; quórum R1-R7, D-54 = 2 call-sites
 
 ### Phase 38: Verbi riflessivi
 **Goal**: El autor puede ser examinado sobre los reflexivos: presente (`mi chiamo`/`ti chiami`/`si chiama`), colocación del pronombre ANTES del verbo conjugado, construcción sobre terminaciones regulares (engancha con `presente-regolare`), passato prossimo reflexivo con `essere` + concordancia del participio -o/-a/-i/-e (engancha con `essere`; IN scope decidido), y 2-3 desajustes reflexivos ES↔IT genuinos. Última de las 4 altas (la más layered); order 14; autorada por quórum R1-R7.
@@ -219,7 +220,7 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
 | 32-34 | v1.8 | 12/12 | Complete | 2026-06-30 |
 | 35. Migración `11→12` | v1.9 | 1/1 | Complete    | 2026-07-01 |
 | 36. Dimostrativi + Possessivi | v1.9 | 4/4 | Complete   | 2026-07-01 |
-| 37. Verbi modali | v1.9 | 0/? | Not started | - |
+| 37. Verbi modali | v1.9 | 0/1 | Planned | - |
 | 38. Verbi riflessivi | v1.9 | 0/? | Not started | - |
 | 39. PROV-01 + integración lockstep | v1.9 | 0/? | Not started | - |
 
