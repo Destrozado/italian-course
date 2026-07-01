@@ -2,13 +2,13 @@
 gsd_state_version: 1.0
 milestone: v1.9
 milestone_name: Determinantes + verbos A1/A2
-status: planning
-last_updated: "2026-07-01T10:01:05.423Z"
-last_activity: 2026-07-01
+status: executing
+last_updated: "2026-07-01T10:21:48.792Z"
+last_activity: 2026-07-01 -- Phase 36 planning complete
 progress:
   total_phases: 5
   completed_phases: 1
-  total_plans: 1
+  total_plans: 5
   completed_plans: 1
   percent: 20
 ---
@@ -28,7 +28,7 @@ See: `.planning/PROJECT.md` (updated 2026-07-01 — Milestone v1.9 ACTIVE, Deter
 Phase: 36
 Plan: Planned (4 plans, 3 waves)
 Status: Ready to execute
-Last activity: 2026-07-01
+Last activity: 2026-07-01 -- Phase 36 planning complete
 
 Progress: [██░░░░░░░░] 20% (1/5 fases v1.9)
 
