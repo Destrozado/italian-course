@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.9
 milestone_name: Determinantes + verbos A1/A2
 status: executing
-last_updated: "2026-07-01T10:21:48.792Z"
-last_activity: 2026-07-01 -- Phase 36 planning complete
+last_updated: "2026-07-01T10:38:34.825Z"
+last_activity: 2026-07-01 -- Phase 36 execution started
 progress:
   total_phases: 5
   completed_phases: 1
@@ -21,14 +21,14 @@ See: `.planning/PROJECT.md` (updated 2026-07-01 — Milestone v1.9 ACTIVE, Deter
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 36 — dimostrativi + possessivi (determinantes)
+**Current Focus:** Phase 36 — dimostrativi-possessivi-determinantes
 
 ## Current Position
 
-Phase: 36
-Plan: Planned (4 plans, 3 waves)
-Status: Ready to execute
-Last activity: 2026-07-01 -- Phase 36 planning complete
+Phase: 36 (dimostrativi-possessivi-determinantes) — EXECUTING
+Plan: 1 of 4
+Status: Executing Phase 36
+Last activity: 2026-07-01 -- Phase 36 execution started
 
 Progress: [██░░░░░░░░] 20% (1/5 fases v1.9)
 
