@@ -25,7 +25,7 @@
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { blankState, migrate1to2, hydrateV2, migrate2to3, hydrateV3, migrate3to4, hydrateV4, migrate4to5, hydrateV5, migrate5to6, hydrateV6, migrate6to7, hydrateV7, migrate7to8, hydrateV8, migrate8to9, hydrateV9, migrate9to10, hydrateV10, migrate10to11, hydrateV11 } from '../src/data/storage.js';
+import { blankState, migrate1to2, hydrateV2, migrate2to3, hydrateV3, migrate3to4, hydrateV4, migrate4to5, hydrateV5, migrate5to6, hydrateV6, migrate6to7, hydrateV7, migrate7to8, hydrateV8, migrate8to9, hydrateV9, migrate9to10, hydrateV10, migrate10to11, hydrateV11, migrate11to12, hydrateV12 } from '../src/data/storage.js';
 
 // Phase 4 (D-77/D-78): bumped schemaVersion from 2 → 3 con dos campos
 // nuevos (lastBackupAt, firstUsedAt). El "blankState v2" describe-name
@@ -33,10 +33,10 @@ import { blankState, migrate1to2, hydrateV2, migrate2to3, hydrateV3, migrate3to4
 // (la realidad actual). Tests adicionales de la cadena v1→v2→v3 viven
 // en `tests/backup.test.js` (co-located con backup.js Phase 4).
 
-describe('data/storage — blankState v11 (Phase 29 nominal bump)', () => {
-  test('blankState() devuelve shape v11 completo con el mismo set de sub-dicts + lastBackupAt/firstUsedAt null', () => {
+describe('data/storage — blankState v12 (Phase 35 nominal bump)', () => {
+  test('blankState() devuelve shape v12 completo con el mismo set de sub-dicts + lastBackupAt/firstUsedAt null', () => {
     const s = blankState();
-    assert.equal(s.schemaVersion, 11);
+    assert.equal(s.schemaVersion, 12);
     assert.deepEqual(s.exerciseStats, {});
     assert.deepEqual(s.categoryProgress, {});
     assert.deepEqual(s.dailyLog, {});
@@ -49,8 +49,8 @@ describe('data/storage — blankState v11 (Phase 29 nominal bump)', () => {
       'blankState() no debería incluir la clave `inFlightTest` (debe ser omitida)');
   });
 
-  test('blankState() codifica schemaVersion: 11 (Phase 29 bump nominal)', () => {
-    assert.equal(blankState().schemaVersion, 11);
+  test('blankState() codifica schemaVersion: 12 (Phase 35 bump nominal)', () => {
+    assert.equal(blankState().schemaVersion, 12);
   });
 });
 
@@ -634,9 +634,9 @@ describe('data/storage v6 — migrate5to6 chain + hydrateV6 (Phase 15)', () => {
     assert.deepEqual(out.songProgress, {});
   });
 
-  test('blankState() ahora schemaVersion 11 con el mismo set de sub-dicts', () => {
+  test('blankState() ahora schemaVersion 12 con el mismo set de sub-dicts', () => {
     const s = blankState();
-    assert.equal(s.schemaVersion, 11);
+    assert.equal(s.schemaVersion, 12);
     assert.deepEqual(s.exerciseStats, {});
     assert.deepEqual(s.categoryProgress, {});
     assert.deepEqual(s.dailyLog, {});
@@ -1491,8 +1491,8 @@ describe('data/storage v10 — migrate9to10 nominal (quick-260615-nzi)', () => {
       'preposiciones preservada a través de la cadena');
   });
 
-  test('blankState() devuelve schemaVersion 11', () => {
-    assert.equal(blankState().schemaVersion, 11);
+  test('blankState() devuelve schemaVersion 12', () => {
+    assert.equal(blankState().schemaVersion, 12);
   });
 });
 
@@ -1778,7 +1778,288 @@ describe('data/storage v11 — migrate10to11 reset selectivo de presente-regolar
     assert.deepEqual(v11.songProgress, beforeSong, 'songProgress byte-idéntico tras migrar');
   });
 
-  test('blankState() devuelve schemaVersion 11 (Phase 29)', () => {
-    assert.equal(blankState().schemaVersion, 11);
+  test('blankState() devuelve schemaVersion 12 (Phase 29 blankState now reflects CURRENT=12)', () => {
+    assert.equal(blankState().schemaVersion, 12);
+  });
+});
+
+// ────────────────────────────────────────────────────────────────────────────
+// data/storage v12 — migrate11to12 reset selectivo de las 4 categorías nuevas de
+// v1.9 (Phase 35)
+//
+// Clon literal del bloque v11 (migrate10to11) con UNA desviación funcional: el
+// reset opera sobre CUATRO prefijos de id de categoría (dimostrativi, possessivi,
+// modali, riflessivi) en vez de uno. El reset prepara las 4 categorías nuevas que
+// nacen en las Phases 36-38 (no se puede renumerar con progreso vivo) y aplica
+// forward-compat (un backup futuro que ya las contenga se resetea limpiamente al
+// re-importar). Hoy es un no-op (ningún state actual tiene esos prefijos). Las 10
+// categorías legacy + songProgress quedan byte-intactas (D-35 no-regresión (b)).
+// ────────────────────────────────────────────────────────────────────────────
+
+describe('data/storage v12 — migrate11to12 reset selectivo de las 4 categorías nuevas (Phase 35)', () => {
+  const RESET_NEW = ['dimostrativi', 'possessivi', 'modali', 'riflessivi'];
+  const DIEZ_LEGACY = ['avere', 'essere', 'verbos-movimiento', 'genero-numero', 'profesiones', 'sustantivos-irregulares', 'preposiciones', 'articoli', 'partitivos', 'presente-regolare'];
+
+  // Helper: un v11 con progreso ficticio bajo los 4 slugs nuevos (los reseteados)
+  // + las 10 categorías legacy (las preservadas).
+  function v11WithNewFour() {
+    const exerciseStats = {};
+    const categoryProgress = {};
+    let n = 1;
+    for (const cat of [...RESET_NEW, ...DIEZ_LEGACY]) {
+      exerciseStats[`${cat}-001`] = { timesShown: n, timesCorrect: n, timesFailed: 0 };
+      categoryProgress[cat] = { status: 'hecha', streakDays: n, clearedExerciseIds: [`${cat}-001`], lastSuccessDate: '2026-06-30' };
+      n++;
+    }
+    return {
+      schemaVersion: 11,
+      exerciseStats,
+      categoryProgress,
+      dailyLog: { '2026-06-30': { date: '2026-06-30', categoriesPracticed: ['avere', 'essere', 'articoli'], categoriesWithFailure: [] } },
+      songProgress: { 'equilibrio-mentale': { status: 'pasada', lastPlayedAt: '2026-06-02' } },
+      lastBackupAt: '2026-06-22T10:00:00.000Z',
+      firstUsedAt: '2026-04-01T08:00:00.000Z'
+    };
+  }
+
+  test('migrate11to12 borra categoryProgress de los 4 slugs nuevos y deja las 10 legacy intactas', () => {
+    const v11 = v11WithNewFour();
+    const v12 = migrate11to12(v11);
+    assert.equal(v12.schemaVersion, 12);
+    for (const cat of RESET_NEW) {
+      assert.equal(v12.categoryProgress[cat], undefined,
+        `categoryProgress.${cat} debe quedar ausente tras el reset`);
+      assert.equal(Object.prototype.hasOwnProperty.call(v12.categoryProgress, cat), false,
+        `la clave ${cat} no debe existir como own-property`);
+    }
+    for (const cat of DIEZ_LEGACY) {
+      assert.deepEqual(v12.categoryProgress[cat], v11.categoryProgress[cat],
+        `${cat} conserva su progreso byte-intacto`);
+    }
+  });
+
+  test('migrate11to12 poda exerciseStats con los 4 prefijos nuevos y preserva las 10 legacy', () => {
+    const v11 = v11WithNewFour();
+    const v12 = migrate11to12(v11);
+    for (const cat of RESET_NEW) {
+      assert.equal(v12.exerciseStats[`${cat}-001`], undefined, `exerciseStats.${cat}-001 debe estar podado`);
+      assert.equal(Object.prototype.hasOwnProperty.call(v12.exerciseStats, `${cat}-001`), false);
+    }
+    for (const cat of DIEZ_LEGACY) {
+      assert.deepEqual(v12.exerciseStats[`${cat}-001`], v11.exerciseStats[`${cat}-001`],
+        `exerciseStats.${cat}-001 preservado byte a byte`);
+    }
+  });
+
+  test('migrate11to12 invalida inFlightTest que referencia un id de slug nuevo mezclado con uno legacy', () => {
+    const v11 = v11WithNewFour();
+    v11.inFlightTest = {
+      categoryIds: ['dimostrativi'],
+      exerciseIds: ['dimostrativi-006', 'preposiciones-001'],
+      variantIndices: [0, 0],
+      cursor: 0,
+      answers: [],
+      startedAt: 1716480000000
+    };
+    assert.equal(migrate11to12(v11).inFlightTest, undefined,
+      'un Test en vuelo que toca un slug nuevo se invalida al migrar');
+  });
+
+  test('migrate11to12 preserva inFlightTest que SOLO toca categorías legacy', () => {
+    const v11 = v11WithNewFour();
+    v11.inFlightTest = {
+      categoryIds: ['preposiciones', 'articoli'],
+      exerciseIds: ['preposiciones-001', 'articoli-001', 'presente-regolare-001'],
+      variantIndices: [0, 0, 0],
+      cursor: 1,
+      answers: [],
+      startedAt: 1716480000000
+    };
+    const v12 = migrate11to12(v11);
+    assert.deepEqual(v12.inFlightTest, v11.inFlightTest,
+      'un Test en vuelo ajeno a los 4 slugs nuevos se preserva');
+  });
+
+  test('migrate11to12 sin inFlightTest no crashea y preserva undefined', () => {
+    const v11 = v11WithNewFour();
+    const v12 = migrate11to12(v11);
+    assert.equal(v12.inFlightTest, undefined);
+  });
+
+  test('migrate11to12 es idempotente (re-ejecutar sobre un v12 ya migrado da la misma shape)', () => {
+    const v11 = v11WithNewFour();
+    const once = migrate11to12(v11);
+    const twice = migrate11to12(once);
+    assert.deepEqual(twice, once,
+      'migrate11to12(migrate11to12(x)) deep-equals migrate11to12(x) — delete de clave ausente es no-op');
+  });
+
+  test('migrate11to12 es puro (no muta el input — los 4 slugs siguen presentes en el v11 original)', () => {
+    const v11 = v11WithNewFour();
+    migrate11to12(v11);
+    for (const cat of RESET_NEW) {
+      assert.ok(v11.categoryProgress[cat],
+        `el input v11 NO debe mutarse: categoryProgress.${cat} sigue presente`);
+      assert.ok(v11.exerciseStats[`${cat}-001`],
+        `el input v11 NO debe mutarse: exerciseStats[${cat}-001] sigue presente`);
+    }
+  });
+
+  test('migrate11to12 anti-prototype-pollution: __proto__ own-property no contamina el global', () => {
+    const malicious = JSON.parse('{"schemaVersion":11,"exerciseStats":{"__proto__":{"polluted":true},"preposiciones-001":{"timesShown":1}},"categoryProgress":{},"dailyLog":{},"songProgress":{},"lastBackupAt":null,"firstUsedAt":null}');
+    const v12 = migrate11to12(malicious);
+    assert.equal(({}).polluted, undefined, 'el prototipo global Object no debe quedar contaminado');
+    assert.equal(v12.schemaVersion, 12);
+  });
+
+  test('migrate11to12 con sub-dict no-objeto (corrupto) cae a {}', () => {
+    for (const bad of [null, 'x', 42]) {
+      const v11 = { schemaVersion: 11, exerciseStats: bad, categoryProgress: bad, dailyLog: bad, songProgress: bad, lastBackupAt: null, firstUsedAt: null };
+      const v12 = migrate11to12(v11);
+      for (const key of ['exerciseStats', 'categoryProgress', 'dailyLog', 'songProgress']) {
+        assert.equal(typeof v12[key], 'object');
+        assert.notEqual(v12[key], null);
+      }
+    }
+  });
+
+  test('hydrateV12 es espejo de hydrateV11 (versión 12) SIN poda — preserva un slug nuevo si está presente', () => {
+    const v12In = {
+      schemaVersion: 12,
+      exerciseStats: { 'dimostrativi-001': { timesShown: 2, timesCorrect: 2, timesFailed: 0 }, 'preposiciones-001': { timesShown: 1, timesCorrect: 1, timesFailed: 0 } },
+      categoryProgress: { dimostrativi: { status: 'hecha', streakDays: 1, clearedExerciseIds: ['dimostrativi-001'] } },
+      dailyLog: {},
+      songProgress: {},
+      lastBackupAt: null,
+      firstUsedAt: null,
+      inFlightTest: { categoryIds: ['preposiciones'], exerciseIds: ['preposiciones-001'], cursor: 0, answers: [], startedAt: 1716480000000 }
+    };
+    const out = hydrateV12(v12In);
+    assert.equal(out.schemaVersion, 12);
+    // hydrateV12 NO poda: un state v12-shaped llega íntegro (preserva dimostrativi).
+    assert.deepEqual(out.categoryProgress, v12In.categoryProgress,
+      'hydrateV12 NO repite la poda — preserva lo que llega');
+    assert.deepEqual(out.exerciseStats, v12In.exerciseStats);
+    assert.notEqual(out.exerciseStats, v12In.exerciseStats, 'deep-clone defensivo');
+    assert.deepEqual(out.inFlightTest, v12In.inFlightTest);
+  });
+
+  test('hydrateV12 sobre v12 con sub-dicts ausentes los normaliza a {}', () => {
+    const out = hydrateV12({ schemaVersion: 12, lastBackupAt: null, firstUsedAt: null });
+    assert.deepEqual(out.exerciseStats, {});
+    assert.deepEqual(out.categoryProgress, {});
+    assert.deepEqual(out.dailyLog, {});
+    assert.deepEqual(out.songProgress, {});
+  });
+
+  test('hydrateV12 anti-prototype-pollution: __proto__ own-property no contamina el global', () => {
+    const malicious = JSON.parse('{"schemaVersion":12,"exerciseStats":{"__proto__":{"polluted":true},"preposiciones-001":{"timesShown":1}},"categoryProgress":{},"dailyLog":{},"songProgress":{},"lastBackupAt":null,"firstUsedAt":null}');
+    const out = hydrateV12(malicious);
+    assert.equal(({}).polluted, undefined, 'el prototipo global Object no debe quedar contaminado');
+    assert.equal(out.schemaVersion, 12);
+  });
+
+  // Cadena: un v11 con progreso ficticio bajo los 4 slugs nuevos pasado por
+  // migrate11to12 → hydrateV12 sale v12 con los 4 reseteados y las 10 legacy
+  // preservadas intactas.
+  test('cadena v11 → v12: los 4 slugs nuevos reseteados, las 10 legacy preservadas, schemaVersion 12', () => {
+    const v11 = v11WithNewFour();
+    const v12 = hydrateV12(migrate11to12(v11));
+    assert.equal(v12.schemaVersion, 12);
+    for (const cat of RESET_NEW) {
+      assert.equal(v12.categoryProgress[cat], undefined,
+        `${cat} reseteada a través de la cadena v11 → v12`);
+      assert.equal(v12.exerciseStats[`${cat}-001`], undefined);
+    }
+    for (const cat of DIEZ_LEGACY) {
+      assert.deepEqual(v12.categoryProgress[cat], v11.categoryProgress[cat],
+        `${cat} preservada a través de la cadena`);
+      assert.deepEqual(v12.exerciseStats[`${cat}-001`], v11.exerciseStats[`${cat}-001`]);
+    }
+    assert.deepEqual(v12.songProgress, v11.songProgress, 'songProgress preservado byte a byte');
+    assert.equal(v12.firstUsedAt, v11.firstUsedAt);
+  });
+
+  // Cadena end-to-end: un blob v8 antiguo recorre toda la cadena hasta v12. Las 6
+  // categorías de Phase 21 las resetea migrate8to9; presente-regolare la resetea
+  // migrate10to11; los 4 slugs nuevos los resetea migrate11to12; preposiciones (ya
+  // convertida en v1.4) sobrevive todo el camino.
+  test('cadena end-to-end v8 → v12: preposiciones sobrevive, schemaVersion 12', () => {
+    const v8 = {
+      schemaVersion: 8,
+      exerciseStats: {
+        'avere-001': { timesShown: 5, timesCorrect: 4, timesFailed: 1 },
+        'preposiciones-001': { timesShown: 8, timesCorrect: 8, timesFailed: 0 }
+      },
+      categoryProgress: {
+        avere: { status: 'dominada', streakDays: 14, clearedExerciseIds: ['avere-001'], lastSuccessDate: '2026-05-31' },
+        preposiciones: { status: 'dominada', streakDays: 21, clearedExerciseIds: ['preposiciones-001'], lastSuccessDate: '2026-06-01' }
+      },
+      dailyLog: {},
+      songProgress: {},
+      lastBackupAt: null,
+      firstUsedAt: '2026-04-01T08:00:00.000Z'
+    };
+    const v12 = hydrateV12(migrate11to12(migrate10to11(migrate9to10(migrate8to9(v8)))));
+    assert.equal(v12.schemaVersion, 12);
+    assert.equal(v12.categoryProgress.avere, undefined, 'avere reseteada por migrate8to9 a través de la cadena');
+    assert.equal(v12.exerciseStats['avere-001'], undefined);
+    assert.deepEqual(v12.categoryProgress.preposiciones, v8.categoryProgress.preposiciones,
+      'preposiciones preservada a través de la cadena completa hasta v12');
+  });
+
+  // Test de NO-REGRESIÓN load-bearing (cobertura (b)): fixture con las 10 legacy +
+  // los 4 slugs nuevos → snapshot pre-migración → deep-equal byte a byte de las 10
+  // legacy + songProgress post-migración + los 4 slugs nuevos ausentes de AMBOS dicts.
+  test('no-regresión: las 10 legacy + songProgress quedan byte-idénticas, los 4 slugs nuevos ausentes', () => {
+    const categoryProgress = {};
+    const exerciseStats = {};
+    let n = 1;
+    for (const cat of [...RESET_NEW, ...DIEZ_LEGACY]) {
+      categoryProgress[cat] = { status: 'hecha', streakDays: n, clearedExerciseIds: [`${cat}-001`], lastSuccessDate: '2026-06-30' };
+      exerciseStats[`${cat}-001`] = { timesShown: n, timesCorrect: n, timesFailed: 0 };
+      exerciseStats[`${cat}-002`] = { timesShown: n + 1, timesCorrect: n, timesFailed: 1 };
+      n++;
+    }
+    const v11 = {
+      schemaVersion: 11,
+      exerciseStats,
+      categoryProgress,
+      dailyLog: { '2026-06-30': { date: '2026-06-30', categoriesPracticed: [...RESET_NEW, ...DIEZ_LEGACY], categoriesWithFailure: [] } },
+      songProgress: { 'equilibrio-mentale': { status: 'pasada', lastPlayedAt: '2026-06-02' } },
+      lastBackupAt: null,
+      firstUsedAt: '2026-04-01T08:00:00.000Z'
+    };
+
+    // Snapshot byte a byte ANTES de migrar.
+    const beforeCP = JSON.parse(JSON.stringify(categoryProgress));
+    const beforeES = JSON.parse(JSON.stringify(exerciseStats));
+    const beforeSong = JSON.parse(JSON.stringify(v11.songProgress));
+
+    const v12 = migrate11to12(v11);
+
+    // (a) los 4 slugs nuevos ausentes de ambos dicts.
+    for (const cat of RESET_NEW) {
+      assert.equal(v12.categoryProgress[cat], undefined, `categoryProgress.${cat} debe estar ausente`);
+      assert.equal(v12.exerciseStats[`${cat}-001`], undefined, `exerciseStats.${cat}-001 debe estar podado`);
+      assert.equal(v12.exerciseStats[`${cat}-002`], undefined, `exerciseStats.${cat}-002 debe estar podado`);
+    }
+
+    // (b) las 10 legacy byte a byte deep-equal pre/post (por categoría).
+    for (const cat of DIEZ_LEGACY) {
+      assert.deepEqual(v12.categoryProgress[cat], beforeCP[cat],
+        `categoryProgress.${cat} debe quedar byte-idéntico`);
+      assert.deepEqual(v12.exerciseStats[`${cat}-001`], beforeES[`${cat}-001`],
+        `exerciseStats.${cat}-001 debe quedar byte-idéntico`);
+      assert.deepEqual(v12.exerciseStats[`${cat}-002`], beforeES[`${cat}-002`],
+        `exerciseStats.${cat}-002 debe quedar byte-idéntico`);
+    }
+
+    // (c) songProgress byte-intacto.
+    assert.deepEqual(v12.songProgress, beforeSong, 'songProgress byte-idéntico tras migrar');
+  });
+
+  test('blankState() devuelve schemaVersion 12 (Phase 35)', () => {
+    assert.equal(blankState().schemaVersion, 12);
   });
 });
