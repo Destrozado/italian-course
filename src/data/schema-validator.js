@@ -86,6 +86,15 @@ export function validateContent({ categories, exercisesByFile }) {
     if (typeof cat.name !== 'string' || !cat.name.trim()) {
       push('categories.json', cat.id, `falta campo "name" o está vacío en categoría "${cat.id}"`);
     }
+    // PROV-01: campo OPCIONAL `origen` — enum whitelist. Ausencia = aceptada
+    // (retrocompat: las 10 cats legacy no lo tienen). Idiom clonado de
+    // validateValidationShape (VALID_STATUS): enum vía .includes(), mensaje ES.
+    if (cat.origen !== undefined) {
+      const VALID_ORIGEN = ['ia-quorum', 'apuntes-profesora'];
+      if (!VALID_ORIGEN.includes(cat.origen)) {
+        push('categories.json', cat.id, `"origen" inválido: ${JSON.stringify(cat.origen)} (esperado: ia-quorum|apuntes-profesora)`);
+      }
+    }
     knownCategoryIds.add(cat.id);
   }
 
