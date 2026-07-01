@@ -2,9 +2,9 @@
 gsd_state_version: 1.0
 milestone: v1.9
 milestone_name: Determinantes + verbos A1/A2
-status: planning
-last_updated: "2026-07-01T00:00:00.000Z"
-last_activity: 2026-07-01
+status: Roadmap fijado — listo para planificar Phase 35
+last_updated: "2026-07-01T08:40:27.901Z"
+last_activity: 2026-07-01 — Roadmap v1.9 creado (5 fases 35-39, 25/25 requirements mapped, 0 orphans)
 progress:
   total_phases: 5
   completed_phases: 0
