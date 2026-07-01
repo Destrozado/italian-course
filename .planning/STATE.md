@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.9
 milestone_name: Determinantes + verbos A1/A2
-status: executing
-last_updated: "2026-07-01T13:07:42.695Z"
-last_activity: 2026-07-01 -- Phase 37 planning complete
+status: verifying
+last_updated: "2026-07-01T13:33:56.135Z"
+last_activity: 2026-07-01
 progress:
   total_phases: 5
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 6
-  completed_plans: 5
-  percent: 40
+  completed_plans: 6
+  percent: 60
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -21,18 +21,18 @@ See: `.planning/PROJECT.md` (updated 2026-07-01 — Milestone v1.9 ACTIVE, Deter
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 37 — verbi-modali (categoría `modali`, order 13)
+**Current Focus:** Phase 37 — verbi-modali
 
 ## Current Position
 
-Phase: 37 (verbi-modali) — CONTEXT GATHERED (ready for planning)
-Plan: none yet (0 plans)
-Status: Ready to execute
-Last activity: 2026-07-01 -- Phase 37 planning complete
-Resume file: .planning/phases/37-verbi-modali/37-CONTEXT.md
+Phase: 37 (verbi-modali) — EXECUTING
+Plan: 1 of 1
+Status: Phase complete — ready for verification
+Last activity: 2026-07-01
+Resume file: None
 Next: /gsd:plan-phase 37
 
-Progress: [██░░░░░░░░] 20% (1/5 fases v1.9)
+Progress: [██████████] 100%
 
 ## Deferred Items
 
@@ -113,10 +113,13 @@ NOTA: el bug **grave** de márgenes laterales en móvil (gutter UA de 40px en `<
 | TOTAL_EXPECTED actual | 183 (9 categorías); v1.7 lo sube a 183 + N slots de `presente-regolare` |
 | Granularidad | coarse |
 | Mode | mixed — Phase 29 software (migración), Phase 30 contenido editorial (quórum R1-R7), Phase 31 cruces multi-cat + integración software |
+| Plan 37-01 | ✅ completado 2026-07-01 — modali (order 13): 6 slots (potere/volere/dovere + infinito MC + infinito-wb + cruce 300), 2 tasks, 2 commits (`f0a90d8` feat modali.json, `43d3cdc` feat categories.json), ~21 min. MODAL-01/02 completos |
 
 ## Accumulated Context
 
 ### Roadmap Evolution
+
+- **2026-07-01 — Plan 37-01 completado (Verbi modali — alta de `modali` order 13) — Phase 37 Plan 1/1, wave 1.** 2 tasks (Task 1 checkpoint:decision pre-resuelto por el autor: `approve-6slots`), 2 commits de tarea (`f0a90d8` feat modali.json 6 slots born-in-slots, `43d3cdc` feat categories.json append order 13). **CONTENT-ONLY brownfield** (clon presente-regolare/possessivi). Slots: `modali-potere/volere/dovere` (presente irregular 6 personas + 3 vectores de distractora D-37-03: regularización falsa, contaminación cross-verbo, trampa del acento può/puoi), `modali-infinito` (MC, modal gobernando varios infinitivos), `modali-infinito-wb` (word-buttons SC#2 duro, infinitivo invariable tras el modal + distractor de forma), `modali-300` (cruce modali+presente-regolare, D-54 sin call-site nuevo). **0-match (D-04/D-37-02) + scope-gate passato prossimo modal (SC#3, Pitfall 5) documentados en notes; acento `può` literal.** **Desviación (Rule 1):** las 6 explanations se autoraron sin acentos ES; DeepSeek marcó C4-accent REAL → REESCRITURA completa con tildes RAE (memoria explanations_must_be_accented), + `caffe`→`caffè` (C1) y "los botones distractores" (concordancia). **modali-potere disputed** por 3 falsos-positivos MISREAD cross-vendor (español/è possono/mecanismo, verificados por bytes) → resuelto por tiebreaker deepseek-chat temp 0.0 correcta (patrón possessivi-300). **Restricción de contexto:** el quórum base Opus+Sonnet (skill/Task) no estaba disponible en el executor; validación = claude-opus-4-8 (revisión C1-C5) + DeepSeek cross-vendor (validate-ai-pass.mjs); ≥2 by distintos correcta por slot, pase DeepSeek en el acento y el cruce; NO se fabricó el pase sonnet. **Verificación:** estructura/scope-gate/acento/D-54(2 call-sites)/engine-diff-vacío OK; content-fixture modali sale 0; smoke 597 pass / 1 fail (genero-numero 12→13 pre-existente ajeno). MODAL-01 + MODAL-02 completos. **Counts hardcoded + TOTAL_EXPECTED en rojo hasta Phase 39 (lockstep) = esperado.** Phase 37 CERRADA (1/1). Resume file: None. Siguiente: `/gsd:verify-phase 37` o `/gsd:plan-phase 38` (Verbi riflessivi).
 
 - **2026-07-01 — Plan 35-01 completado (Migración `11→12`, reset selectivo preventivo de las 4 categorías nuevas) — Phase 35 Plan 1/1, wave 1. PRIMERA del milestone v1.9.** 4 tasks, 4 commits de tarea (`6c7c1bc` feat storage.js cadena, `0db2d52` feat backup.js espejo, `1c5af95` test data-storage v12, `fa8811a` test backup v12) + docs. **BROWNFIELD VERBATIM MIRROR** del patrón v1.7 Phase 29 (`10→11`) una versión abajo. **Task 1 (storage.js):** bump `CURRENT_SCHEMA_VERSION` 11→12; `RESET_PREFIXES_V12 = ['dimostrativi','possessivi','modali','riflessivi']` con comentario de no-colisión `startsWith` (D-35-03); `migrate11to12` (3 pasos: 4 deletes bracket de categoryProgress, poda `.some(p => k.startsWith(p))` de exerciseStats, invalidación de inFlightTest — todo sobre deep-clones, anti-prototype-pollution); `hydrateV12` (espejo de hydrateV11, root-guard, sin poda); cadena del dispatcher `migrate()` extendida (eslabón 11→12 + terminal hydrateV12). **Task 2 (backup.js):** import de `migrate11to12, hydrateV12`; bump 11→12 lockstep + frase de doc Phase 35; cadena de `parseBackupFile` extendida; rechazo `>12` automático por el guard genérico (0 cambios de código). **Task 3 (data-storage.test.js):** bloque v12 clonado del v11 — reset de los 4 nuevos, 10 legacy + songProgress byte-intactas (test de no-regresión load-bearing con snapshot pre/post deepEqual), idempotencia + pureza, anti-prototype-pollution + hydrateV12 mirror + cadena v11→v12 + end-to-end v8→v12; 3 asserts de output de blankState bumpeados a 12. **Task 4 (backup.test.js):** bloque v12 (round-trip v12 con `stateV12()`, preserva legacy incl. presente-regolare, import v11→v12 reseteando dimostrativi con preposiciones byte-intacta); reject-future a `schemaVersion:13`; TODOS los asserts de output-migrado-a-CURRENT (bloques v1..v11 + blankState) bumpeados 11→12. **Desviaciones:** NINGUNA — plan ejecutado exactamente como escrito (mecánica LOCKED por precedente D-35-04/05). **Verificación:** `node --test tests/data-storage.test.js` → 112/112; `node --test tests/backup.test.js` → 47/47; `node --test tests/*.test.js` → **594 pass / 1 fail** (único fail = preexistente AJENO genero-numero coverage 12/12, D-35-08; CERO fails nuevos). `git diff HEAD src/screens/app.js src/domain/ src/data/schema-validator.js` vacío — motor v1.4 NO tocado; solo los 4 archivos declarados. **schemaVersion ahora 12.** MIG-01 + MIG-02 completos. Phase 35 CERRADA (1/1). Stopped at: Plan 35-01 completo. Resume file: None. Siguiente: `/gsd:verify-phase 35` o `/gsd:plan-phase 36` (Dimostrativi + Possessivi, nacen sobre state v12).
 

@@ -30,8 +30,8 @@ Requisitos comprometidos para este milestone. Cada uno mapea a una fase del road
 
 ### Verbi modali (MODAL)
 
-- [ ] **MODAL-01**: El autor es examinado sobre el presente irregular de `potere / volere / dovere` en todas las personas.
-- [ ] **MODAL-02**: El autor es examinado sobre la construcción modal + infinitivo (`posso andare`, `voglio mangiare`, `devo studiare`).
+- [x] **MODAL-01**: El autor es examinado sobre el presente irregular de `potere / volere / dovere` en todas las personas.
+- [x] **MODAL-02**: El autor es examinado sobre la construcción modal + infinitivo (`posso andare`, `voglio mangiare`, `devo studiare`).
 
 ### Verbi riflessivi (REFLEX)
 
@@ -103,8 +103,8 @@ Qué fases cubren qué requisitos. **Poblada por el roadmapper.**
 | POSS-03 | Phase 36 | Pending |
 | POSS-04 | Phase 36 | Pending |
 | POSS-05 | Phase 36 | Pending |
-| MODAL-01 | Phase 37 | Pending |
-| MODAL-02 | Phase 37 | Pending |
+| MODAL-01 | Phase 37 | Complete |
+| MODAL-02 | Phase 37 | Complete |
 | REFLEX-01 | Phase 38 | Pending |
 | REFLEX-02 | Phase 38 | Pending |
 | REFLEX-03 | Phase 38 | Pending |
