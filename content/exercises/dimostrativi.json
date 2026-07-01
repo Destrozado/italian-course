@@ -1,0 +1,353 @@
+{
+  "notes": "Categoria dimostrativi (order 11) nacida DIRECTAMENTE en slot+variantes (clon del patron v1.7 presente-regolare). NUCLEO autorado en 36-01: questo (concordancia), quest' (elision), quello (formas tipo-articulo, 1 MC + 1 match), colapso ES 3-vias->IT 2-vias. Los diferenciadores A2 (cio como slot LEXICO single-variant 'sin autoria de variantes' -patron PROF-01/SOST-01-, y las formas pronominales de questo/quello), el registro en categories.json y el cruce dimostrativi-300 los autora 36-02. la tercera forma demostrativa historica del italiano (grado intermedio, hoy arcaica/toscano-regional; el analogo del 'ese' espanol que reforzaria el modelo ES 3-vias equivocado) queda OUT-OF-SCOPE en A1-A2: NUNCA autorada como key ni distractora (SC#2). El slot dimostrativi-quello y dimostrativi-match-quello son el MAGNET quei/quegli (INT-04): pase DeepSeek obligatorio.",
+  "exercises": [
+    {
+      "id": "dimostrativi-questo",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "dimostrativi"
+      ],
+      "explanation": "El demostrativo 'questo' señala lo que está CERCA de quien habla y concuerda en género y número con el sustantivo: questo (masculino singular), questa (femenino singular), questi (masculino plural), queste (femenino plural). Así 'questo libro', 'questa casa', 'questi libri', 'queste case'. En español el paralelo es este/esta/estos/estas, que también concuerdan. La clave A1 es mirar el género y el número del sustantivo italiano y elegir la forma que concuerda; las distractoras son otras formas reales de 'questo' que no concuerdan con el sustantivo del enunciado.",
+      "variants": [
+        {
+          "prompt": "___ libro è molto interessante.",
+          "options": [
+            "questa",
+            "questo",
+            "questi",
+            "queste"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "___ macchina è nuova.",
+          "options": [
+            "questo",
+            "questa",
+            "questi",
+            "queste"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Conosci ___ studenti del primo anno?",
+          "options": [
+            "questo",
+            "questa",
+            "questi",
+            "queste"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "___ ragazze sono le mie amiche.",
+          "options": [
+            "questo",
+            "questa",
+            "questi",
+            "queste"
+          ],
+          "correctIndex": 3
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "dimostrativi-quest-elisione",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "dimostrativi"
+      ],
+      "explanation": "Ante un sustantivo singular que empieza por vocal, 'questo' y 'questa' se eliden en 'quest'' con apóstrofo: quest'anno (de questo anno), quest'amica (de questa amica), quest'estate. La elisión es obligatoria en el singular ante vocal; la forma sin elidir ('questo anno', 'questa amica') se considera incorrecta. En español no hacemos esta elisión ('este año', 'esta amiga'), por eso el hispanohablante tiende a olvidarla. En plural NO hay elisión: questi amici, queste amiche. La distractora es la forma plena sin apóstrofo.",
+      "variants": [
+        {
+          "prompt": "___ anno vado in vacanza in Sicilia.",
+          "options": [
+            "questo",
+            "quest'",
+            "questa",
+            "questi"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Conosco bene ___ amica di Luca.",
+          "options": [
+            "questa",
+            "quest'",
+            "questo",
+            "queste"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "___ estate fa molto caldo a Roma.",
+          "options": [
+            "questo",
+            "questa",
+            "quest'",
+            "queste"
+          ],
+          "correctIndex": 2
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "dimostrativi-quello",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "dimostrativi"
+      ],
+      "explanation": "El demostrativo 'quello' (lo que está LEJOS) toma formas distintas según el sonido que sigue, igual que el artículo determinado: quel ante consonante simple (quel libro, como 'il'), quello ante s+consonante, z, ps, gn, x (quello studente, como 'lo'), quell' ante vocal en singular (quell'albero, como 'l''), quei en el plural de quel (quei libri, como 'i') y quegli en el plural de quello y quell' (quegli studenti, quegli amici, como 'gli'), quelle en el femenino plural (quelle case, como 'le'). La trampa es escribir 'quei studenti' por calco del artículo equivocado: como el singular es 'quello studente', el plural es 'quegli studenti', no 'quei'. Pasa cada sustantivo por su clase fonética antes de elegir.",
+      "variants": [
+        {
+          "prompt": "Guarda ___ palazzo in fondo alla piazza.",
+          "options": [
+            "quello",
+            "quel",
+            "quei",
+            "quegli"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Non conosco ___ studente seduto là.",
+          "options": [
+            "quel",
+            "quello",
+            "quell'",
+            "quei"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Vedi ___ albero vicino al fiume?",
+          "options": [
+            "quello",
+            "quel",
+            "quell'",
+            "quegli"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "___ ragazzi giocano a calcio nel parco.",
+          "options": [
+            "quegli",
+            "quei",
+            "quelli",
+            "quelle"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Conosco ___ studenti del corso serale.",
+          "options": [
+            "quei",
+            "quegli",
+            "quelli",
+            "quelle"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "___ case sul colle sono molto antiche.",
+          "options": [
+            "quei",
+            "quegli",
+            "quella",
+            "quelle"
+          ],
+          "correctIndex": 3
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "dimostrativi-match-quello",
+      "type": "match",
+      "categoryIds": [
+        "dimostrativi"
+      ],
+      "explanation": "Este empareje agrupa las formas de 'quello' (demostrativo de lejanía) por su disparador fonético, igual que el artículo lo/gli. En singular: quel ante consonante simple (quel palazzo), quello ante s+consonante o z (quello studente, quello zio), quell' ante vocal (quell'albero, quell'amico). En plural: quei para lo que en singular llevaba quel (quei ragazzi), quegli para lo que llevaba quello o quell' (quegli studenti, quegli amici), y quelle para el femenino plural (quelle case). La regla es fonética, no derivable de la raíz: hay que clasificar el sonido inicial. El error típico del hispanohablante es usar 'quei' donde toca 'quegli'.",
+      "variants": [
+        {
+          "prompt": "Empareja cada sustantivo con la forma de 'quello' que le corresponde.",
+          "pairs": [
+            [
+              "palazzo",
+              "quel"
+            ],
+            [
+              "studente",
+              "quello"
+            ],
+            [
+              "zio",
+              "quello"
+            ],
+            [
+              "albero",
+              "quell'"
+            ],
+            [
+              "amico",
+              "quell'"
+            ],
+            [
+              "ragazzi",
+              "quei"
+            ],
+            [
+              "studenti",
+              "quegli"
+            ],
+            [
+              "amici",
+              "quegli"
+            ],
+            [
+              "case",
+              "quelle"
+            ]
+          ]
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "dimostrativi-collasso-es",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "dimostrativi"
+      ],
+      "explanation": "El español distingue TRES grados de distancia (este/ese/aquel), pero el italiano de nivel A1-A2 solo tiene DOS: 'questo' para lo cercano a quien habla y 'quello' para todo lo demás (lejos). Es decir, 'quello' absorbe tanto 'ese' como 'aquel'. La forma correcta la fija el contexto de distancia: un ancla como 'qui' o 'qua' (aquí) pide questo; un ancla como 'là', 'lì' o 'in fondo' (allí, al fondo) pide quello. El error del hispanohablante es buscar una tercera forma para 'ese': en italiano no existe, se traduce por quello. La forma masculina de quello varía por fonética (quel/quello/quell'), pero la elección questo-vs-quello depende solo de la distancia.",
+      "variants": [
+        {
+          "prompt": "Prendi ___ libro qui sul tavolo. (en español: este libro)",
+          "options": [
+            "quello",
+            "questo",
+            "quel",
+            "questa"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Vedi ___ montagna là in fondo? (en español: aquella montaña)",
+          "options": [
+            "questa",
+            "quella",
+            "quell'",
+            "queste"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Chi è ___ ragazzo lì vicino alla porta? (en español: ese chico)",
+          "options": [
+            "questo",
+            "quel",
+            "quello",
+            "questi"
+          ],
+          "correctIndex": 1
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    }
+  ]
+}
