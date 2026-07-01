@@ -348,6 +348,154 @@
           }
         ]
       }
+    },
+    {
+      "id": "dimostrativi-cio",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "dimostrativi"
+      ],
+      "explanation": "El pronombre 'ciò' es NEUTRO e invariable: se refiere a una idea, a una frase entera o a algo abstracto, no a un sustantivo concreto con género. Equivale a 'lo que' o 'eso' en español. En 'ripeti ciò che hai detto' (repite lo que has dicho), 'ciò' no tiene género porque no señala un objeto masculino o femenino, sino el contenido de lo dicho. Por eso las formas con género (quella, questi, queste) no encajan aquí: exigirían un sustantivo antecedente concreto.",
+      "variants": [
+        {
+          "prompt": "Ripeti ___ che hai detto, per favore. (en español: lo que has dicho)",
+          "options": [
+            "ciò",
+            "quella",
+            "questi",
+            "queste"
+          ],
+          "correctIndex": 0
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "dimostrativi-pronominali",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "dimostrativi"
+      ],
+      "explanation": "Cuando 'questo' y 'quello' funcionan como PRONOMBRE (sustituyen al sustantivo en vez de acompañarlo), 'quello' recupera sus formas regulares: quello/quella/quelli/quelle. Ojo: como pronombre el masculino plural es 'quelli', NO 'quegli' ni 'quei' (esas son formas de ADJETIVO, cuando quello va delante del sustantivo). Así en 'questi libri sono nuovi, quelli sono vecchi', 'quelli' sustituye a 'libri'. El mismo contraste vale en singular: 'preferisco quello' (pronombre) frente a 'quel gelato' (adjetivo).",
+      "variants": [
+        {
+          "prompt": "Questa borsa è mia, ___ è tua. (en español: aquella es tuya)",
+          "options": [
+            "quello",
+            "quella",
+            "quelli",
+            "quelle"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Questi libri sono nuovi, ___ sono vecchi. (en español: aquellos son viejos)",
+          "options": [
+            "quegli",
+            "quelli",
+            "quei",
+            "quelle"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Non voglio questo gelato, preferisco ___. (en español: aquel)",
+          "options": [
+            "quel",
+            "quello",
+            "quegli",
+            "questa"
+          ],
+          "correctIndex": 1
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "dimostrativi-300",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "dimostrativi",
+        "articoli"
+      ],
+      "explanation": "Las formas de 'quello' (demostrativo de lejanía) espejan al artículo determinado sonido por sonido: quel como il (quel quaderno / il quaderno), quello como lo, quell' como l' (quell'attore / l'attore), quei como i (quei quaderni / i quaderni), quegli como gli, quelle como le. Si ya sabes qué artículo lleva el sustantivo, sabes qué forma de quello usar. Fallar aquí afecta tanto a los demostrativos como a los artículos, porque comparten la misma regla fonética.",
+      "variants": [
+        {
+          "prompt": "Conosco lo scrittore e ___ attore famoso. (en español: aquel actor)",
+          "options": [
+            "quello",
+            "quel",
+            "quell'",
+            "quegli"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "I libri e ___ quaderni sono sul tavolo. (en español: aquellos cuadernos)",
+          "options": [
+            "quegli",
+            "quei",
+            "quelli",
+            "quelle"
+          ],
+          "correctIndex": 1
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
     }
   ]
 }
