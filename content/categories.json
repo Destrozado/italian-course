@@ -10,6 +10,7 @@
     { "id": "articoli",                "name": "Articoli (determinativi e indeterminativi)", "order": 8 },
     { "id": "partitivos",              "name": "Partitivi",                                 "order": 9 },
     { "id": "presente-regolare",       "name": "Presente indicativo (verbi regolari)",      "order": 10 },
-    { "id": "dimostrativi",            "name": "Dimostrativi (questo/quello)",              "order": 11 }
+    { "id": "dimostrativi",            "name": "Dimostrativi (questo/quello)",              "order": 11 },
+    { "id": "possessivi",              "name": "Possessivi (il mio/la tua)",                "order": 12 }
   ]
 }

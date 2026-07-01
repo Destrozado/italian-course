@@ -1,0 +1,200 @@
+{
+  "notes": "Categoria possessivi (order 12) nacida DIRECTAMENTE en slot+variantes (clon de presente-regolare). NUCLEO autorado en 36-03, MC-ONLY (D-36-03): la seleccion de forma posesiva es derivable por raiz (genero/numero de la cosa poseida) -> multiple-choice; el match familia-vs-comun se considero y DESCARTO (la presencia/ausencia de articulo se ensena con MC + la distractora del calco 'mi casa'->*mia casa). Espejo de como presente-regolare documenta su 0-match. Slots: possessivi-concordanza (concuerda con la COSA POSEIDA, con variante poseedor!=poseido), possessivi-articolo (articulo obligatorio + calco distractor), possessivi-parentela (MAGNET #2: excepcion de parentesco con las 4 carve-outs -> mia madre drop / la mia mamma alterado-keep / le mie sorelle plural-keep / il loro padre loro-keep; pase DeepSeek obligatorio). Los diferenciadores A2 (suo his/her ambiguo, loro invariable), el registro en categories.json y los cruces possessivi-300/301 los autora 36-04.",
+  "exercises": [
+    {
+      "id": "possessivi-concordanza",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "possessivi"
+      ],
+      "explanation": "El posesivo italiano concuerda en género y número con la COSA POSEÍDA, no con quien posee. Por eso 'la sua macchina' es 'su coche' aunque el dueño sea un hombre: 'sua' es femenino porque 'macchina' es femenino. Las formas son il mio/la mia/i miei/le mie (e igual con tuo y suo). El error del hispanohablante es fijarse en el poseedor; en italiano solo cuenta el objeto poseído, así que revisa el género y el número del sustantivo antes de elegir.",
+      "variants": [
+        {
+          "prompt": "Marco lava ___ macchina ogni domenica.",
+          "options": [
+            "il suo",
+            "la sua",
+            "i suoi",
+            "le sue"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Anna cerca ___ libri in biblioteca.",
+          "options": [
+            "le sue",
+            "i suoi",
+            "la sua",
+            "il suo"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Ho perso ___ chiavi di casa.",
+          "options": [
+            "i miei",
+            "le mie",
+            "il mio",
+            "la mia"
+          ],
+          "correctIndex": 1
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": [
+              "[C4-explanation] disputed en 1a ronda (Sonnet: nota de curador sobre distractoras); resuelto por REESCRITURA de la explanation; re-validado correcta por opus+sonnet"
+            ]
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "possessivi-articolo",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "possessivi"
+      ],
+      "explanation": "En italiano el posesivo casi siempre lleva el artículo determinado delante: 'la mia casa', 'il mio telefono', 'le mie chiavi'. Esto contrasta con el español, que NO usa artículo ('mi casa', nunca 'la mi casa'). El error típico del hispanohablante es calcar el español y omitir el artículo ('mia casa'), que en italiano es incorrecto. La forma correcta es artículo + posesivo + sustantivo, los tres concordando en género y número.",
+      "variants": [
+        {
+          "prompt": "___ casa è in centro. (en español: mi casa)",
+          "options": [
+            "Mia",
+            "La mia",
+            "Il mio",
+            "Le mie"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Ho dimenticato ___ telefono a casa. (en español: mi teléfono)",
+          "options": [
+            "mio",
+            "il mio",
+            "la mia",
+            "i miei"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "___ giacca è sulla sedia. (en español: tu chaqueta)",
+          "options": [
+            "Tua",
+            "La tua",
+            "Il tuo",
+            "Le tue"
+          ],
+          "correctIndex": 1
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "possessivi-parentela",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "possessivi"
+      ],
+      "explanation": "Excepción de A1-A2: con un miembro de la familia en SINGULAR y sin modificar, el posesivo NO lleva artículo: 'mia madre', 'tuo fratello', 'sua sorella'. Pero el artículo VUELVE en tres casos: en plural ('le mie sorelle'), con el posesivo 'loro' que siempre lo lleva ('il loro padre'), y cuando el nombre es alterado o afectivo ('la mia mamma', 'il mio fratellino'). La trampa es aplicar 'familia = sin artículo' a ciegas: solo vale para el singular sin modificar.",
+      "variants": [
+        {
+          "prompt": "Domani ___ viene a pranzo. (en español: mi madre)",
+          "options": [
+            "la mia madre",
+            "mia madre",
+            "le mie madri",
+            "mia la madre"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "___ prepara una torta squisita. (en español: mi mamá)",
+          "options": [
+            "mia mamma",
+            "la mia mamma",
+            "le mie mamme",
+            "mia la mamma"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "___ vivono a Milano. (en español: mis hermanas)",
+          "options": [
+            "mie sorelle",
+            "le mie sorelle",
+            "la mia sorella",
+            "mie le sorelle"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "___ lavora in banca. (en español: el padre de ellos)",
+          "options": [
+            "loro padre",
+            "il loro padre",
+            "i loro padri",
+            "loro il padre"
+          ],
+          "correctIndex": 1
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-4-6",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-01",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    }
+  ]
+}
