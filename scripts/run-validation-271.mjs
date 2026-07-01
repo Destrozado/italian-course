@@ -171,31 +171,42 @@ const slotCountOf = (file) =>
   JSON.parse(readFileSync(resolve(projectRoot, file), 'utf8')).exercises.length;
 
 const CATEGORIES = [
-  { slug: 'preposiciones',            file: 'content/exercises/preposiciones.json',            expected: 49 },
+  { slug: 'preposiciones',            file: 'content/exercises/preposiciones.json',            expected: 50 },
   { slug: 'articoli',                 file: 'content/exercises/articoli.json',                 expected: 34 },
   { slug: 'avere',                    file: 'content/exercises/avere.json',                    expected: 20 },
+  { slug: 'dimostrativi',             file: 'content/exercises/dimostrativi.json',             expected: slotCountOf('content/exercises/dimostrativi.json') },
   { slug: 'essere',                   file: 'content/exercises/essere.json',                   expected: 26 },
-  { slug: 'genero-numero',            file: 'content/exercises/genero-numero.json',            expected: 12 },
+  { slug: 'genero-numero',            file: 'content/exercises/genero-numero.json',            expected: 13 },
+  { slug: 'modali',                   file: 'content/exercises/modali.json',                   expected: slotCountOf('content/exercises/modali.json') },
   { slug: 'partitivos',               file: 'content/exercises/partitivos.json',               expected: 19 },
+  { slug: 'possessivi',               file: 'content/exercises/possessivi.json',               expected: slotCountOf('content/exercises/possessivi.json') },
   { slug: 'presente-regolare',        file: 'content/exercises/presente-regolare.json',        expected: slotCountOf('content/exercises/presente-regolare.json') },
   { slug: 'profesiones',              file: 'content/exercises/profesiones.json',              expected: 11 },
+  { slug: 'riflessivi',               file: 'content/exercises/riflessivi.json',               expected: slotCountOf('content/exercises/riflessivi.json') },
   { slug: 'sustantivos-irregulares',  file: 'content/exercises/sustantivos-irregulares.json',  expected: 5 },
   { slug: 'verbos-movimiento',        file: 'content/exercises/verbos-movimiento.json',        expected: 7 },
 ];
 
-// TOTAL_EXPECTED = suma de los expected por entrada (183 base + 12 de presente-regolare
-// derivado del JSON = 195). Computado para que NUNCA divirja de la suma de los literales.
+// TOTAL_EXPECTED = suma de los `expected` literales de CATEGORIES. Computado para que
+// NUNCA divirja de la suma escrita a mano; el guard de abajo lo confronta con el disco.
 const TOTAL_EXPECTED = CATEGORIES.reduce((s, c) => s + c.expected, 0);
 
-// Guard de coherencia (D-31-06): con presente-regolare en 12 slots, el total esperado
-// es TOTAL_EXPECTED = 195 (183 + 12). Si el JSON de presente-regolare cambia su nº de
-// slots, este assert salta y obliga a revisar el historial conscientemente.
+// Guard de coherencia (D-31-06, reframeado v1.9 Phase 39 / INT-02): baseline DINÁMICO
+// = Σ slotCountOf(c.file) sobre TODAS las categorías (lo que hay en disco AHORA); se
+// confronta con TOTAL_EXPECTED (Σ de los `expected` literales). Si divergen, algún
+// literal de CATEGORIES quedó desincronizado del JSON real. Sin número mágico: el
+// baseline sigue automáticamente a cualquier alta/cambio de contenido (D-31-06).
+// PROCEDENCIA (historial contable auditado, NO usado en el guard — solo memoria):
+//   v1.6 Phase 27 (SOST-01, CIERRE CONV-01): baseline llegó a 183 slots (9 cats).
+//   v1.7 Phase 31 (PRES-07/INT-01): 183 + presente-regolare(12) = 195 (10 cats).
+//   v1.9 Phase 39 (INT-02): + dimostrativi/possessivi/modali/riflessivi + genero-numero
+//   12→13 → el guard dinámico ya no cita 183; el total lo dicta el disco.
 {
-  const PRESENTE_REGOLARE_SLOTS = slotCountOf('content/exercises/presente-regolare.json');
-  const TOTAL_EXPECTED_BASELINE = 183 + PRESENTE_REGOLARE_SLOTS; // hoy 183 + 12 = 195
+  const TOTAL_EXPECTED_BASELINE = CATEGORIES.reduce((s, c) => s + slotCountOf(c.file), 0);
   if (TOTAL_EXPECTED !== TOTAL_EXPECTED_BASELINE) {
     console.error(
-      `Incoherencia de conteo: TOTAL_EXPECTED=${TOTAL_EXPECTED} != 183 + presente-regolare(${PRESENTE_REGOLARE_SLOTS})=${TOTAL_EXPECTED_BASELINE}. ` +
+      `Incoherencia de conteo: TOTAL_EXPECTED (Σ literales)=${TOTAL_EXPECTED} != ` +
+      `Σ slotCountOf(disco)=${TOTAL_EXPECTED_BASELINE}. ` +
       `Revisa los expected literales de CATEGORIES vs el JSON real.`
     );
     process.exit(1);

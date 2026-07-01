@@ -1272,7 +1272,7 @@ const slotCountOf = (relFile) =>
 
 const CATEGORIES_WITH_EXPLANATIONS = [
   { file: 'content/exercises/preposiciones.json', expected: 50 },
-  { file: 'content/exercises/genero-numero.json', expected: 12 },
+  { file: 'content/exercises/genero-numero.json', expected: 13 },
   { file: 'content/exercises/avere.json', expected: 20 },
   { file: 'content/exercises/sustantivos-irregulares.json', expected: 5 },
   { file: 'content/exercises/verbos-movimiento.json', expected: 7 },
@@ -1283,6 +1283,12 @@ const CATEGORIES_WITH_EXPLANATIONS = [
   // v1.7 Phase 31 (INT-01): 10ª categoría presente-regolare. expected DINÁMICO
   // (D-31-06) = exercises.length real (12 = 8 slots base Phase 30 + 4 cruces Plan 01).
   { file: 'content/exercises/presente-regolare.json', expected: slotCountOf('content/exercises/presente-regolare.json') },
+  // v1.9 Phase 39 (INT-02): 4 categorías nuevas (determinantes + verbos A1/A2).
+  // expected DINÁMICO (D-31-06) = exercises.length real en disco, NUNCA número mágico.
+  { file: 'content/exercises/dimostrativi.json', expected: slotCountOf('content/exercises/dimostrativi.json') },
+  { file: 'content/exercises/possessivi.json', expected: slotCountOf('content/exercises/possessivi.json') },
+  { file: 'content/exercises/modali.json', expected: slotCountOf('content/exercises/modali.json') },
+  { file: 'content/exercises/riflessivi.json', expected: slotCountOf('content/exercises/riflessivi.json') },
   // Cobertura editorial: 370 con explanation curada tras el piloto v1.4 (Phase 17): Preposiciones pasó de 52 ejercicios a 49 slots (explanation a nivel de slot); las otras 8 categorías por ejercicio.
 ];
 

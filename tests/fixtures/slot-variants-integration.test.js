@@ -168,14 +168,20 @@ describe('back-compat SLOT-06 — las 10 categorías reales validan con el valid
   const REAL_CATEGORIES = [
     { slug: 'avere', expected: 20 },
     { slug: 'essere', expected: 26 },
-    { slug: 'preposiciones', expected: 49 },
+    { slug: 'preposiciones', expected: 50 },
     { slug: 'verbos-movimiento', expected: 7 },
     { slug: 'sustantivos-irregulares', expected: 5 },
-    { slug: 'genero-numero', expected: 12 },
+    { slug: 'genero-numero', expected: 13 },
     { slug: 'profesiones', expected: 11 },
     { slug: 'articoli', expected: 34 },
     { slug: 'partitivos', expected: 19 },
-    { slug: 'presente-regolare', expected: readJson('content/exercises/presente-regolare.json').exercises.length }
+    { slug: 'presente-regolare', expected: readJson('content/exercises/presente-regolare.json').exercises.length },
+    // v1.9 Phase 39 (INT-02): 4 categorías nuevas con expected DINÁMICO (D-31-06)
+    // = exercises.length real del JSON, NO número mágico.
+    { slug: 'dimostrativi', expected: readJson('content/exercises/dimostrativi.json').exercises.length },
+    { slug: 'possessivi', expected: readJson('content/exercises/possessivi.json').exercises.length },
+    { slug: 'modali', expected: readJson('content/exercises/modali.json').exercises.length },
+    { slug: 'riflessivi', expected: readJson('content/exercises/riflessivi.json').exercises.length }
   ];
 
   for (const { slug, expected } of REAL_CATEGORIES) {
