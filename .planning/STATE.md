@@ -28,7 +28,7 @@ See: `.planning/PROJECT.md` (updated 2026-07-02 — Milestone v1.9 SHIPPED, pró
 Phase: Milestone v1.9 complete
 Plan: —
 Status: Awaiting next milestone
-Last activity: 2026-07-01 — Milestone v1.9 completed and archived
+Last activity: 2026-07-10 — Quick task 260710-w6y: criterio S6 (anti-calco / naturalidad idiomática) añadido al contrato de validación de canciones
 
 ## Deferred Items
 
@@ -106,6 +106,8 @@ Items reconocidos y diferidos en el cierre del milestone v1.9 (2026-07-02, ackno
 | 2026-06-29 | 260629-w7g | Eliminar la canción de prueba `mini-prueba` del bloque Canciones: borrado `content/songs/mini-prueba.json` (3 frases) + su entrada del índice `content/songs.json`. Refs restantes en tests (backup/data-storage) son fixtures de `songProgress` que usan la clave como ejemplo, no cargan contenido | Bloque pasa a **8 canciones reales**; suite 473 pass / 1 fail preexistente ajeno (genero-numero); las 8 canciones cargan y phraseCount coincide |
 | 2026-06-29 | 260629-whf | Añadir canción "Piccola stella — Ultimo" (9ª real): `content/songs/piccola-stella.json` (42 frases, **generada vía script** por repetición de estribillo + estribillo final x4) + índice (phraseCount 42) | **42/42 `validated`**, tras resolver 1 disputada (bug real, ambos vendors): FIX 009 `Sei risorsa`→`eres un recurso` (artículo requerido en español). Suite 473 pass / 1 fail preexistente ajeno |
 | 2026-06-30 | 260629-wya | Añadir canción "La stella più fragile dell'universo — Ultimo" (10ª real): `content/songs/la-stella-piu-fragile.json` (49 frases, **generada vía script**; marcadores `…` de sección fuera del prompt; variantes verbatim) + índice (phraseCount 49) | **49/49 `validated`**, tras resolver 4 disputadas: FIX real 010 `come si declina`→`como declina` (sin tilde); oráculo Opus en 3 falsos-positivos de DeepSeek-reasoner (013 `riniziasse` verbo válido, 018 `decirte` sin tilde, 029 `Che poi`→`además` marcador discursivo). Suite 473 pass / 1 fail preexistente ajeno |
+| 2026-07-10 | fast | Mostrar título de la canción en el playthrough (commit d1570eb) | ✅ |
+| 2026-07-10 | 260710-w6y | Añadir criterio **S6 (anti-calco / naturalidad idiomática, con guardia de fidelidad)** al contrato de validación de canciones `docs/SONG-VALIDATION-PROMPT.md`: nueva regla §2 (calco que un nativo no diría, aunque sea gramatical; guardia de fidelidad = la sugerencia natural no puede derivar el sentido, p.ej. `Mi vedo sbagliata`→NO "me veo mal" SÍ "me siento equivocada"), extensión §3 (sugerencia obligatoria también si falla S6), contrato §4 (6 booleanas, clave `s6_naturalidad`, tag `[S6-naturalidad]`, verdict `correcta` requiere las 6 en true), ambos few-shot §5. `scripts/validate-song-pass.mjs` y corpus intactos. Motivado por 2 calcos que el quórum aprobó (`-005` "me veo equivocada", `-010` "ver el mundo como declina"). **Re-auditoría del corpus (83 frases) = paso 2, pendiente** | Edit de 1 archivo; `<verify>` OK (S6 presente, rangos S1-S6, tag y clave presentes, 2 bloques JSON de output parseables); commit 083df62 |
 
 ## Performance Metrics
 
