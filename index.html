@@ -963,6 +963,12 @@
             <span class="session-counter" x-text="songProgressLabel"></span>
           </div>
 
+          <!-- 260710: título de la canción (dónde estás) — reutiliza el getter
+               sessionContextLabel ("Canción: <title>") y la clase .session-context
+               ya usadas en session/summary/cancion-summary. Faltaba SOLO aquí, así
+               que al volver tras un rato se ve qué canción estás haciendo. -->
+          <h2 class="session-context" x-text="sessionContextLabel"></h2>
+
           <!-- PLAY-02: la línea ITALIANA es el texto a traducir (x-text — T-02-01). -->
           <p class="session-prompt" x-text="songCurrentPhrase.payload.prompt"></p>
 
