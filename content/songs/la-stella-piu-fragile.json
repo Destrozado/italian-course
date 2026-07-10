@@ -137,26 +137,13 @@
         "me",
         "dices",
         "me",
-        "veo",
+        "siento",
         "equivocada"
       ],
       "categoryIds": [],
       "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -291,28 +278,16 @@
       "prompt": "Vedere il mondo come si declina",
       "answer": [
         "ver",
+        "cómo",
+        "se",
+        "manifiesta",
         "el",
-        "mundo",
-        "como",
-        "declina"
+        "mundo"
       ],
       "categoryIds": [],
       "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
