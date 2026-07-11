@@ -28,7 +28,7 @@ See: `.planning/PROJECT.md` (updated 2026-07-02 — Milestone v1.9 SHIPPED, pró
 Phase: Milestone v1.9 complete
 Plan: —
 Status: Awaiting next milestone
-Last activity: 2026-07-10 — Quick task 260710-w6y: criterio S6 (anti-calco / naturalidad idiomática) añadido al contrato de validación de canciones
+Last activity: 2026-07-11 — Re-auditoría S6 del corpus de canciones (~434 frases): 4 calcos corregidos y re-validados
 
 ## Deferred Items
 
@@ -108,6 +108,7 @@ Items reconocidos y diferidos en el cierre del milestone v1.9 (2026-07-02, ackno
 | 2026-06-30 | 260629-wya | Añadir canción "La stella più fragile dell'universo — Ultimo" (10ª real): `content/songs/la-stella-piu-fragile.json` (49 frases, **generada vía script**; marcadores `…` de sección fuera del prompt; variantes verbatim) + índice (phraseCount 49) | **49/49 `validated`**, tras resolver 4 disputadas: FIX real 010 `come si declina`→`como declina` (sin tilde); oráculo Opus en 3 falsos-positivos de DeepSeek-reasoner (013 `riniziasse` verbo válido, 018 `decirte` sin tilde, 029 `Che poi`→`además` marcador discursivo). Suite 473 pass / 1 fail preexistente ajeno |
 | 2026-07-10 | fast | Mostrar título de la canción en el playthrough (commit d1570eb) | ✅ |
 | 2026-07-10 | 260710-w6y | Añadir criterio **S6 (anti-calco / naturalidad idiomática, con guardia de fidelidad)** al contrato de validación de canciones `docs/SONG-VALIDATION-PROMPT.md`: nueva regla §2 (calco que un nativo no diría, aunque sea gramatical; guardia de fidelidad = la sugerencia natural no puede derivar el sentido, p.ej. `Mi vedo sbagliata`→NO "me veo mal" SÍ "me siento equivocada"), extensión §3 (sugerencia obligatoria también si falla S6), contrato §4 (6 booleanas, clave `s6_naturalidad`, tag `[S6-naturalidad]`, verdict `correcta` requiere las 6 en true), ambos few-shot §5. `scripts/validate-song-pass.mjs` y corpus intactos. Motivado por 2 calcos que el quórum aprobó (`-005` "me veo equivocada", `-010` "ver el mundo como declina"). **Re-auditoría del corpus (83 frases) = paso 2, pendiente** | Edit de 1 archivo; `<verify>` OK (S6 presente, rangos S1-S6, tag y clave presentes, 2 bloques JSON de output parseables); commit 083df62 |
+| 2026-07-11 | fast | **Paso 2 — re-auditoría S6 del corpus de canciones** (~434 frases, 10 canciones; triaje fan-out 1 subagente Opus/canción, alta precisión). 4 calcos reales, 2 canciones: `la-stella-005` "me veo equivocada"→"me siento equivocada", `la-stella-010` "ver el mundo como declina"→"ver cómo se manifiesta el mundo", `sogni-010`/`sogni-051` "desde cuando"→"desde que". Las otras 8 canciones limpias. Re-validadas por quórum (2 `by` distintos, 0 incorrecta → validated); `-010` fue disputed (DeepSeek-reasoner defendía el cognado `declina`=decae; ambigüedad real del original) → resuelto por el autor (lectura "se manifiesta") + quórum base Opus 4.8 + Sonnet 5 con desambiguación | commits 57d89bb (fix) + 627a40b (re-validación); song-validator 20/20; los 4 `validated`, deriveStatus coherente |
 
 ## Performance Metrics
 
