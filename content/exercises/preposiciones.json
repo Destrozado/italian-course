@@ -171,7 +171,7 @@
         }
       ],
       "validation": {
-        "status": "pending",
+        "status": "validated",
         "passes": [
           {
             "by": "claude-opus-4-7",
@@ -182,6 +182,18 @@
           {
             "by": "claude-sonnet-4-6",
             "date": "2026-05-26",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-opus-4-8",
+            "date": "2026-07-11",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-07-11",
             "verdict": "correcta",
             "concerns": []
           }
