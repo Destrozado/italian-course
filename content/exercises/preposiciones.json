@@ -137,7 +137,7 @@
       "categoryIds": [
         "preposiciones"
       ],
-      "explanation": "Con paesi y regioni el italiano usa la preposición In para indicar el lugar donde se vive o se está. Vivo in Italia significa 'vivo en Italia'. La regla contrasta con las ciudades, que llevan A (Vivo a Milano). ¡Atención!: el hispanohablante tiende a usar 'a' para ambos, pero el italiano distingue paese (In) vs città (A).",
+      "explanation": "Con paesi y regioni el italiano usa la preposición In, tanto para indicar dónde se vive o se está (stato in luogo) como adónde se va (moto a luogo). Vivo in Italia significa 'vivo en Italia', y Andrò in Italia significa 'iré a Italia'. La regla contrasta con las ciudades, que llevan A (Vivo a Milano, Vado a Roma). ¡Atención!: el hispanohablante tiende a usar 'a' para ambos —de ahí el calco 'andare a Italia'—, pero el italiano distingue paese/regione (In) vs città (A), y esa distinción vale igual con verbos de movimiento como andare.",
       "variants": [
         {
           "prompt": "Vivo ___ Italia.",
@@ -158,10 +158,20 @@
             "su"
           ],
           "correctIndex": 1
+        },
+        {
+          "prompt": "Andrò ___ Italia gratis.",
+          "options": [
+            "a",
+            "in",
+            "da",
+            "per"
+          ],
+          "correctIndex": 1
         }
       ],
       "validation": {
-        "status": "validated",
+        "status": "pending",
         "passes": [
           {
             "by": "claude-opus-4-7",
