@@ -1657,7 +1657,7 @@ th, td { padding: 8px 10px; text-align: left; }
  *     calc(var(--pct) * 3.6deg), var(--ed-ring-track) 0). El 72px y el track
  *     #e6ddcd son literales del handoff §5 (--ed-ring-track ya tokenizado en 34-01).
  *     El centro se "perfora" con un círculo --ed-paper-elevated que aloja el %.
- *   · .summary-score-ring-pct: "%" en Space Grotesk (--ed-font-mono) 22/700
+ *   · .summary-score-ring-pct: "%" en Space Grotesk (--ed-font-mono) 18/700
  *     tabular-nums (x-text desde summaryScore.pct; "%" hardcoded).
  *   · "X/Y": serif 30/600; el "/Y" en --ed-placeholder (muted). "correctos" +
  *     "Sesión terminada" literales (T-02-01: x-text solo para datos).
@@ -1707,7 +1707,7 @@ th, td { padding: 8px 10px; text-align: left; }
 .summary-score-ring-pct {
   position: relative;              /* sobre la perforación */
   font-family: var(--ed-font-mono);
-  font-size: 22px;                 /* % del anillo (handoff §Tipografía) */
+  font-size: 18px;                 /* % del anillo: 18px para que "100%" (4 chars) no toque los lados del círculo interior 52px */
   font-weight: 700;
   line-height: 1;
   font-variant-numeric: tabular-nums;
