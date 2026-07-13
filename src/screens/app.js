@@ -192,6 +192,17 @@ export function appShell(appDataReady) {
      */
     sessionExplanationRevealed: false,
 
+    /**
+     * quick-260713-ng7 (Repetir las falladas): guard ÚNICO que suprime TODA
+     * escritura a localStorage durante el reintento review-only de las falladas
+     * de la ronda recién terminada. Runtime-only (NO persistido, NO en
+     * inFlightTest). Cuando es `true`: los dos call-sites de
+     * `applyImmediateFailure`+`saveState` (applyResultToSession y matchPickRight)
+     * y el `completeSession()` de sessionAdvance quedan bypassados — esos fallos
+     * ya se contaron en la ronda original, este loop es puro repaso visual.
+     */
+    sessionReviewOnly: false,
+
     // ─── Sub-estado multi-choice (Phase quick-260525-pwq — D-181) ───────────
     /**
      * Permutación de índices `[0..N-1]` aplicada al `payload.options` del
@@ -822,6 +833,10 @@ export function appShell(appDataReady) {
       this.sessionSelectedIndex = null;
       this.sessionFeedback = null;
       this.sessionExplanationRevealed = false; // quick-260615-hr0
+      // quick-260713-ng7: reset simétrico del flag review-only. resetSession es
+      // el chokepoint de "volver al home"; sin esto el flag podría arrastrarse a
+      // la siguiente sesión REAL y suprimir su persistencia (bug de contabilidad).
+      this.sessionReviewOnly = false;
       // Phase 3 plan 01: limpiar también los sub-estados de los tipos nuevos.
       // Match queda con sus placeholders (plan 02 los activará); aquí solo
       // reset uniforme. Si en el futuro emergen más sub-estados por tipo,
@@ -1138,6 +1153,78 @@ export function appShell(appDataReady) {
       if (this.sessionMode === 'test-completo') {
         this.persistInFlightTest();
       }
+    },
+
+    // ════════════════════════════════════════════════════════════════════════
+    // Repetir las falladas — reintento REVIEW-ONLY (quick-260713-ng7)
+    // ════════════════════════════════════════════════════════════════════════
+
+    /**
+     * quick-260713-ng7: relanza una sesión IN-PLACE (reusa la pantalla de
+     * sesión existente) conteniendo SOLO los ejercicios fallados en la ronda
+     * recién terminada, con la MISMA variante fallada (D-16-09). Espeja el
+     * patrón de reset de `restartRepaso()`.
+     *
+     * REVIEW-ONLY: NO llama `saveState`, NO reasigna `this.state`, NO toca
+     * `summarySessionResults`/`summaryDelta` (para poder re-mostrar el resumen
+     * original al terminar). El flag `sessionReviewOnly=true` suprime la
+     * cascada D-54 en los dos call-sites de fallo y el `completeSession()` de
+     * `sessionAdvance` — esos fallos ya se contaron en la ronda original.
+     *
+     * Deriva las falladas del snapshot `summarySessionResults` con el predicado
+     * CANÓNICO usado en el HTML y en la sección "ERRORES COMETIDOS":
+     * `!r.correct && content.slotById[r.exerciseId]` (fallada con slot vivo).
+     * Si no hay falladas → no-op.
+     */
+    startFailedReview() {
+      // Derivar las falladas de la ronda terminada (predicado canónico).
+      const failed = this.summarySessionResults.filter(
+        r => !r.correct && this.content.slotById[r.exerciseId]
+      );
+      const ids = failed.map(r => r.exerciseId);
+      const vIdx = failed.map(r => r.variantIndex ?? 0);
+
+      // Guard de entrada: sin falladas con slot vivo → no-op.
+      if (ids.length === 0) return;
+
+      // Pattern S-2: cancelar timeouts antes de cualquier reset (espejo restartRepaso).
+      this.cancelAutoAdvance();
+      this.cancelMatchFlash();
+      this.cancelSessionTimer();
+
+      // Encender el modo review-only. sessionMode='repaso-fallidas' es distinto
+      // de 'repaso'/'test-completo' → restartRepaso sale temprano,
+      // persistInFlightTest nunca dispara, requestReturnToHome va directo a home.
+      this.sessionReviewOnly = true;
+      this.sessionMode = 'repaso-fallidas';
+
+      // Repoblar los arrays paralelos slot/variante (misma variante fallada).
+      this.sessionExerciseIds = ids;
+      this.sessionVariantIndices = vIdx;
+
+      // Reset de sub-estado de sesión (VERBATIM del bloque de restartRepaso).
+      this.sessionCursor = 0;
+      this.sessionResults = [];
+      this.sessionSelectedIndex = null;
+      this.sessionFeedback = null;
+      this.sessionExplanationRevealed = false;
+      this.wordButtonsBank = [];
+      this.wordButtonsPlacedIdx = [];
+      this.matchLeft = [];
+      this.matchRight = [];
+      this.matchSelectedLeftIdx = null;
+      this.matchPairsConsumed = [];
+      this.matchHadFailure = false;
+      this.matchFirstWrongPair = null;
+      this.matchFlashIdx = null;
+      this.matchFlashHandle = null;
+
+      // Inicializar sub-estado del PRIMER ejercicio (ids.length > 0 garantizado).
+      this.initSubStateForExercise(this.sessionCurrentExercise);
+
+      // Reusar la pantalla de sesión existente. NO saveState, NO this.state,
+      // NO tocar summary* (el resumen original sigue disponible al terminar).
+      this.currentScreen = 'session';
     },
 
     // ════════════════════════════════════════════════════════════════════════
@@ -1636,14 +1723,20 @@ export function appShell(appDataReady) {
           this.sessionAutoAdvanceHandle = setTimeout(() => this.songAdvance(), SESSION_AUTO_ADVANCE_MS);
         }
       } else {
-        // D-54: cascada inmediata + persist (single call-site para todos
-        // los tipos). Plan 02-03 UAT round 2 confirmó que este es el
-        // único patrón que cierra el exploit "fallo + cierra pestaña".
-        const newState = applyImmediateFailure(this.state, ex, this.content, todayLocal());
-        // Phase 4 D-78: marca firstUsedAt si null (inline guard, no helper).
-        newState.firstUsedAt = newState.firstUsedAt ?? new Date().toISOString();
-        saveState(newState);
-        this.state = newState;
+        // quick-260713-ng7: en el reintento REVIEW-ONLY el usuario ve la
+        // corrección roja/verde (sessionFeedback + push a sessionResults, ambos
+        // runtime-only, ya aplicados arriba SIN guard) pero NO se persiste la
+        // regresión — esos fallos ya se contaron en la ronda original.
+        if (!this.sessionReviewOnly) {
+          // D-54: cascada inmediata + persist (single call-site para todos
+          // los tipos). Plan 02-03 UAT round 2 confirmó que este es el
+          // único patrón que cierra el exploit "fallo + cierra pestaña".
+          const newState = applyImmediateFailure(this.state, ex, this.content, todayLocal());
+          // Phase 4 D-78: marca firstUsedAt si null (inline guard, no helper).
+          newState.firstUsedAt = newState.firstUsedAt ?? new Date().toISOString();
+          saveState(newState);
+          this.state = newState;
+        }
         // No schedule: el HTML expone "Siguiente" que llamará sessionAdvance()
         // cuando el usuario decida.
       }
@@ -1683,7 +1776,19 @@ export function appShell(appDataReady) {
       this.sessionExplanationRevealed = false;
 
       if (this.sessionCursor >= this.sessionExerciseIds.length) {
-        this.completeSession();
+        // quick-260713-ng7: en el reintento review-only NO se recomputa nada —
+        // NO completeSession (que aplicaría applySessionResult + saveState +
+        // computeSummaryDelta). Volvemos al resumen ORIGINAL sin tocar
+        // summaryDelta/summarySessionResults, así el botón "Repetir las falladas"
+        // vuelve a estar disponible. La racha, contadores y motor de repetición
+        // quedan intactos.
+        if (this.sessionReviewOnly) {
+          this.sessionReviewOnly = false;
+          this.sessionMode = null;
+          this.currentScreen = 'summary';
+        } else {
+          this.completeSession();
+        }
       } else {
         // Phase 3 plan 01: inicializar sub-estado del NUEVO ejercicio antes
         // de que Alpine reactive bindings lean el x-data (Pitfall #3: el
@@ -1966,11 +2071,17 @@ export function appShell(appDataReady) {
         // Pitfall #2 idempotencia: el guard `matchHadFailure` evita writes
         // redundantes a localStorage en fallos consecutivos del MISMO ejercicio.
         if (!this.matchHadFailure) {
-          const newState = applyImmediateFailure(this.state, ex, this.content, todayLocal());
-          // Phase 4 D-78: marca firstUsedAt si null (inline guard, no helper).
-          newState.firstUsedAt = newState.firstUsedAt ?? new Date().toISOString();
-          saveState(newState);
-          this.state = newState;
+          // quick-260713-ng7: en review-only NO persistimos la regresión (esos
+          // fallos ya se contaron en la ronda original). La captura de
+          // matchFirstWrongPair y el flip de matchHadFailure (runtime-only) SÍ
+          // se mantienen fuera de este guard — alimentan el feedback visual.
+          if (!this.sessionReviewOnly) {
+            const newState = applyImmediateFailure(this.state, ex, this.content, todayLocal());
+            // Phase 4 D-78: marca firstUsedAt si null (inline guard, no helper).
+            newState.firstUsedAt = newState.firstUsedAt ?? new Date().toISOString();
+            saveState(newState);
+            this.state = newState;
+          }
           // Phase 6 (D-107): capturar el primer pareo erróneo ANTES de flip
           // el guard `matchHadFailure`. Textos LITERALES (no índices) — robusto
           // frente a refactors de matchLeft/Right y muestra exactamente lo
@@ -2718,6 +2829,8 @@ export function appShell(appDataReady) {
         }
         case 'repaso':
           return `Repaso (${this.sessionExerciseIds.length} ejercicios)`;
+        case 'repaso-fallidas': // quick-260713-ng7
+          return `Repaso de falladas (${this.sessionExerciseIds.length} ejercicios)`;
         case 'cancion': {
           const title = this.content.songsById?.[this.songActiveId]?.title ?? this.songActiveId;
           return `Canción: ${title}`;
