@@ -1254,7 +1254,16 @@
             </section>
           </template>
 
-          <button type="button" @click="returnToHomeFromSummary">Volver al home</button>
+          <!-- quick-260713-ng7: acción-en-contexto ("Repetir las falladas") →
+               salir ("Volver al home"), patrón espejo de la línea ~886. El
+               x-show usa el predicado CANÓNICO de falladas-con-slot, idéntico
+               al de la sección "ERRORES COMETIDOS" (línea ~1183): el botón
+               aparece si y solo si hubo ≥1 fallada con slot vivo. Texto
+               hardcoded en español (sin x-html — T-02-01 anti-XSS). -->
+          <div class="button-row">
+            <button type="button" class="secondary" x-show="summarySessionResults.some(r => !r.correct && content.slotById[r.exerciseId])" @click="startFailedReview()">Repetir las falladas</button>
+            <button type="button" @click="returnToHomeFromSummary">Volver al home</button>
+          </div>
         </article>
       </template>
 
