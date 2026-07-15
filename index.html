@@ -987,8 +987,16 @@
               <span>Decoradores agrupados por tipo</span>
             </label>
 
-            <!-- MODO AGRUPADO: acordeón de grupos por categoría sintáctica. -->
-            <template x-if="bankGroups">
+            <!--
+              MODO AGRUPADO: acordeón de grupos por categoría sintáctica.
+              quick-260715-hf5 (fix): el x-for exterior itera [id-de-frase] (o []
+              en modo clásico) y KEYEA por el id de la frase → el subárbol de
+              grupos se RE-MONTA entero al cambiar de frase. Sin esto, el x-for
+              anidado (grupos → palabras) reutilizaba nodos DOM de la frase
+              anterior y dejaba botones con `:disabled` obsoleto (grises pero no
+              colocados) hasta que otra interacción forzaba el re-render.
+            -->
+            <template x-for="pid in (bankGroups && songCurrentPhrase ? [songCurrentPhrase.id] : [])" :key="pid">
               <div class="wb-groups">
                 <template x-for="group in bankGroups" :key="group.key">
                   <section class="wb-group" :class="{ 'wb-group-collapsed': group.collapsed }">

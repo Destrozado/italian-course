@@ -8,8 +8,14 @@
 
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { dirname, join } from 'node:path';
 
 import { appShell } from '../src/screens/app.js';
+
+const __dir = dirname(fileURLToPath(import.meta.url));
+const indexSrc = readFileSync(join(__dir, '..', 'index.html'), 'utf8');
 
 // App en modo canción con UNA frase que trae decoyBank.
 function songApp({ withDecoys = true } = {}) {
@@ -117,5 +123,22 @@ describe('canción — modo decoradores agrupados (quick-260715-hf5)', () => {
     app.setSongBankMode('classic');
     assert.equal(app.songBankMode, 'grouped', 'modo intacto durante feedback');
     assert.deepEqual(app.wordButtonsBank, before, 'banco intacto durante feedback');
+  });
+
+  // Regresión del bug de nodos DOM obsoletos entre frases (quick-260715-hf5):
+  // el subárbol agrupado debe RE-MONTARse al cambiar de frase, keyado por el id
+  // de la frase. Sin este remount, el x-for anidado reutilizaba botones y dejaba
+  // `:disabled` obsoleto (grises pero no colocados). Test estructural sobre el
+  // markup para que un refactor no reintroduzca el bug.
+  test('index.html: el banco agrupado se re-monta por frase (keyed by phrase id)', () => {
+    // x-for exterior sobre [id-de-frase] (vacío en clásico) keyado por pid.
+    assert.match(
+      indexSrc,
+      /x-for="pid in \(bankGroups && songCurrentPhrase \? \[songCurrentPhrase\.id\] : \[\]\)"[\s\S]*?:key="pid"/,
+      'el subárbol .wb-groups debe iterar [songCurrentPhrase.id] con :key="pid" para re-montar por frase'
+    );
+    // y sigue conteniendo el acordeón de grupos + banco de grupo
+    assert.ok(indexSrc.includes('class="wb-groups"'));
+    assert.ok(indexSrc.includes('class="wb-bank wb-group-bank"'));
   });
 });
