@@ -23,6 +23,45 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["me", "hueco", "escondo", "fuera"],
+        "pos": {
+          "te": "pronombre",
+          "regalo": "verbo",
+          "este": "determinante",
+          "vacío": "sustantivo",
+          "que": "pronombre",
+          "tengo": "verbo",
+          "dentro": "adverbio",
+          "me": "pronombre",
+          "hueco": "sustantivo",
+          "escondo": "verbo",
+          "fuera": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -46,6 +85,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["el", "derrota", "batalla", "venciendo"],
+        "pos": {
+          "es": "verbo",
+          "la": "articulo",
+          "victoria": "sustantivo",
+          "de": "preposicion",
+          "quien": "pronombre",
+          "ha": "verbo",
+          "ganado": "verbo",
+          "perdiendo": "verbo",
+          "el": "articulo",
+          "derrota": "sustantivo",
+          "batalla": "sustantivo",
+          "venciendo": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -69,6 +148,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["sois", "dos", "balas", "corazón"],
+        "pos": {
+          "somos": "verbo",
+          "niños": "sustantivo",
+          "con": "preposicion",
+          "tres": "determinante",
+          "disparos": "sustantivo",
+          "en": "preposicion",
+          "el": "articulo",
+          "pecho": "sustantivo",
+          "sois": "verbo",
+          "dos": "determinante",
+          "balas": "sustantivo",
+          "corazón": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -92,6 +211,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["nada", "dicho", "quitado", "se"],
+        "pos": {
+          "te": "pronombre",
+          "he": "verbo",
+          "dado": "verbo",
+          "todo": "pronombre",
+          "me": "pronombre",
+          "has": "verbo",
+          "respondido": "verbo",
+          "lo": "pronombre",
+          "aprecio": "verbo",
+          "nada": "pronombre",
+          "dicho": "verbo",
+          "quitado": "verbo",
+          "se": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -115,6 +269,45 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["me", "hueco", "escondo", "fuera"],
+        "pos": {
+          "te": "pronombre",
+          "regalo": "verbo",
+          "este": "determinante",
+          "vacío": "sustantivo",
+          "que": "pronombre",
+          "tengo": "verbo",
+          "dentro": "adverbio",
+          "me": "pronombre",
+          "hueco": "sustantivo",
+          "escondo": "verbo",
+          "fuera": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -138,6 +331,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["el", "derrota", "batalla", "venciendo"],
+        "pos": {
+          "es": "verbo",
+          "la": "articulo",
+          "victoria": "sustantivo",
+          "de": "preposicion",
+          "quien": "pronombre",
+          "ha": "verbo",
+          "ganado": "verbo",
+          "perdiendo": "verbo",
+          "el": "articulo",
+          "derrota": "sustantivo",
+          "batalla": "sustantivo",
+          "venciendo": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -161,6 +394,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["sois", "dos", "balas", "corazón"],
+        "pos": {
+          "somos": "verbo",
+          "niños": "sustantivo",
+          "con": "preposicion",
+          "tres": "determinante",
+          "disparos": "sustantivo",
+          "en": "preposicion",
+          "el": "articulo",
+          "pecho": "sustantivo",
+          "sois": "verbo",
+          "dos": "determinante",
+          "balas": "sustantivo",
+          "corazón": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -184,6 +457,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["nada", "dicho", "quitado", "se"],
+        "pos": {
+          "te": "pronombre",
+          "he": "verbo",
+          "dado": "verbo",
+          "todo": "pronombre",
+          "me": "pronombre",
+          "has": "verbo",
+          "respondido": "verbo",
+          "lo": "pronombre",
+          "aprecio": "verbo",
+          "nada": "pronombre",
+          "dicho": "verbo",
+          "quitado": "verbo",
+          "se": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -207,6 +515,42 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["nada", "dicho", "quitado", "pero"],
+        "pos": {
+          "te": "pronombre",
+          "he": "verbo",
+          "dado": "verbo",
+          "todo": "pronombre",
+          "y": "conjuncion",
+          "me": "pronombre",
+          "has": "verbo",
+          "respondido": "verbo",
+          "lo": "pronombre",
+          "aprecio": "verbo",
+          "nada": "pronombre",
+          "dicho": "verbo",
+          "quitado": "verbo",
+          "pero": "conjuncion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -230,6 +574,40 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["tu", "alma", "entero", "cien"],
+        "pos": {
+          "te": "pronombre",
+          "regalo": "verbo",
+          "mi": "determinante",
+          "corazón": "sustantivo",
+          "roto": "adjetivo",
+          "en": "preposicion",
+          "diez": "determinante",
+          "partes": "sustantivo",
+          "tu": "determinante",
+          "alma": "sustantivo",
+          "entero": "adjetivo",
+          "cien": "determinante"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -253,6 +631,42 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["mi", "valor", "escucharles", "ella"],
+        "pos": {
+          "cada": "determinante",
+          "una": "pronombre",
+          "tendrá": "verbo",
+          "su": "determinante",
+          "peso": "sustantivo",
+          "y": "conjuncion",
+          "tú": "pronombre",
+          "tendrás": "verbo",
+          "que": "conjuncion",
+          "hablarles": "verbo",
+          "mi": "determinante",
+          "valor": "sustantivo",
+          "escucharles": "verbo",
+          "ella": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -276,6 +690,40 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["solo", "gritabas", "debes", "ti"],
+        "pos": {
+          "decías": "verbo",
+          "estoy": "verbo",
+          "sola": "adjetivo",
+          "tú": "pronombre",
+          "puedes": "verbo",
+          "salvarme": "verbo",
+          "a": "preposicion",
+          "mí": "pronombre",
+          "solo": "adjetivo",
+          "gritabas": "verbo",
+          "debes": "verbo",
+          "ti": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -299,6 +747,44 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["subiste", "arriba", "golpes", "la"],
+        "pos": {
+          "luego": "adverbio",
+          "te": "pronombre",
+          "llevé": "verbo",
+          "a": "preposicion",
+          "lo": "articulo",
+          "alto": "adjetivo",
+          "y": "conjuncion",
+          "tú": "pronombre",
+          "me": "pronombre",
+          "tiraste": "verbo",
+          "abajo": "adverbio",
+          "patadas": "sustantivo",
+          "arriba": "adverbio",
+          "golpes": "sustantivo",
+          "la": "articulo",
+          "subiste": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -322,6 +808,39 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["siempre", "tú", "muerto", "respirar"],
+        "pos": {
+          "yo": "pronombre",
+          "nunca": "adverbio",
+          "he": "verbo",
+          "respirado": "verbo",
+          "para": "preposicion",
+          "seguir": "verbo",
+          "vivo": "adjetivo",
+          "siempre": "adverbio",
+          "tú": "pronombre",
+          "muerto": "adjetivo",
+          "respirar": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -345,6 +864,42 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["tan", "grité", "pecho", "sin"],
+        "pos": {
+          "tanto": "adverbio",
+          "es": "verbo",
+          "así": "adverbio",
+          "que": "conjuncion",
+          "te": "pronombre",
+          "dije": "verbo",
+          "respira": "verbo",
+          "con": "preposicion",
+          "mi": "determinante",
+          "respiro": "sustantivo",
+          "tan": "adverbio",
+          "grité": "verbo",
+          "pecho": "sustantivo",
+          "sin": "preposicion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -368,6 +923,40 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["esta", "olvidado", "deseo", "sin"],
+        "pos": {
+          "habría": "verbo",
+          "encerrado": "verbo",
+          "toda": "determinante",
+          "ambición": "sustantivo",
+          "por": "preposicion",
+          "tenerte": "verbo",
+          "al": "preposicion",
+          "lado": "sustantivo",
+          "deseo": "sustantivo",
+          "olvidado": "verbo",
+          "sin": "preposicion",
+          "esta": "determinante"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -391,6 +980,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["antes", "nacido", "vives", "su"],
+        "pos": {
+          "ahora": "adverbio",
+          "en": "preposicion",
+          "cambio": "sustantivo",
+          "has": "verbo",
+          "renacido": "verbo",
+          "yo": "pronombre",
+          "me": "pronombre",
+          "muero": "verbo",
+          "a": "preposicion",
+          "tu": "determinante",
+          "lado": "sustantivo",
+          "antes": "adverbio",
+          "nacido": "verbo",
+          "vives": "verbo",
+          "su": "determinante"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -414,6 +1040,38 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["tú", "guardo", "preguntas", "siempre"],
+        "pos": {
+          "yo": "pronombre",
+          "colecciono": "verbo",
+          "respuestas": "sustantivo",
+          "que": "pronombre",
+          "nunca": "adverbio",
+          "expreso": "verbo",
+          "tú": "pronombre",
+          "guardo": "verbo",
+          "preguntas": "sustantivo",
+          "siempre": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -437,6 +1095,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["tus", "beber", "pocas", "sí"],
+        "pos": {
+          "doy": "verbo",
+          "de": "preposicion",
+          "comer": "verbo",
+          "a": "preposicion",
+          "mis": "determinante",
+          "muchas": "determinante",
+          "partes": "sustantivo",
+          "que": "pronombre",
+          "tú": "pronombre",
+          "no": "adverbio",
+          "verás": "verbo",
+          "tus": "determinante",
+          "beber": "verbo",
+          "pocas": "determinante",
+          "sí": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -460,6 +1155,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["la", "público", "igual", "piensas"],
+        "pos": {
+          "en": "preposicion",
+          "el": "articulo",
+          "escenario": "sustantivo",
+          "luego": "adverbio",
+          "es": "verbo",
+          "diferente": "adjetivo",
+          "no": "adverbio",
+          "como": "conjuncion",
+          "crees": "verbo",
+          "la": "articulo",
+          "público": "sustantivo",
+          "igual": "adjetivo",
+          "piensas": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -483,6 +1213,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["el", "vergüenza", "bajo", "manos"],
+        "pos": {
+          "la": "articulo",
+          "timidez": "sustantivo",
+          "es": "verbo",
+          "un": "articulo",
+          "peso": "sustantivo",
+          "estable": "adjetivo",
+          "sobre": "preposicion",
+          "mis": "determinante",
+          "pies": "sustantivo",
+          "el": "articulo",
+          "vergüenza": "sustantivo",
+          "bajo": "preposicion",
+          "manos": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -506,6 +1271,45 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["me", "hueco", "escondo", "fuera"],
+        "pos": {
+          "te": "pronombre",
+          "regalo": "verbo",
+          "este": "determinante",
+          "vacío": "sustantivo",
+          "que": "pronombre",
+          "tengo": "verbo",
+          "dentro": "adverbio",
+          "me": "pronombre",
+          "hueco": "sustantivo",
+          "escondo": "verbo",
+          "fuera": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -529,6 +1333,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["el", "derrota", "batalla", "venciendo"],
+        "pos": {
+          "es": "verbo",
+          "la": "articulo",
+          "victoria": "sustantivo",
+          "de": "preposicion",
+          "quien": "pronombre",
+          "ha": "verbo",
+          "ganado": "verbo",
+          "perdiendo": "verbo",
+          "el": "articulo",
+          "derrota": "sustantivo",
+          "batalla": "sustantivo",
+          "venciendo": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -552,6 +1396,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["sois", "dos", "balas", "corazón"],
+        "pos": {
+          "somos": "verbo",
+          "niños": "sustantivo",
+          "con": "preposicion",
+          "tres": "determinante",
+          "disparos": "sustantivo",
+          "en": "preposicion",
+          "el": "articulo",
+          "pecho": "sustantivo",
+          "sois": "verbo",
+          "dos": "determinante",
+          "balas": "sustantivo",
+          "corazón": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -575,6 +1459,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["nada", "dicho", "quitado", "se"],
+        "pos": {
+          "te": "pronombre",
+          "he": "verbo",
+          "dado": "verbo",
+          "todo": "pronombre",
+          "me": "pronombre",
+          "has": "verbo",
+          "respondido": "verbo",
+          "lo": "pronombre",
+          "aprecio": "verbo",
+          "nada": "pronombre",
+          "dicho": "verbo",
+          "quitado": "verbo",
+          "se": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -598,6 +1517,45 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["me", "hueco", "escondo", "fuera"],
+        "pos": {
+          "te": "pronombre",
+          "regalo": "verbo",
+          "este": "determinante",
+          "vacío": "sustantivo",
+          "que": "pronombre",
+          "tengo": "verbo",
+          "dentro": "adverbio",
+          "me": "pronombre",
+          "hueco": "sustantivo",
+          "escondo": "verbo",
+          "fuera": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -621,6 +1579,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["el", "derrota", "batalla", "venciendo"],
+        "pos": {
+          "es": "verbo",
+          "la": "articulo",
+          "victoria": "sustantivo",
+          "de": "preposicion",
+          "quien": "pronombre",
+          "ha": "verbo",
+          "ganado": "verbo",
+          "perdiendo": "verbo",
+          "el": "articulo",
+          "derrota": "sustantivo",
+          "batalla": "sustantivo",
+          "venciendo": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -644,6 +1642,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["sois", "dos", "balas", "corazón"],
+        "pos": {
+          "somos": "verbo",
+          "niños": "sustantivo",
+          "con": "preposicion",
+          "tres": "determinante",
+          "disparos": "sustantivo",
+          "en": "preposicion",
+          "el": "articulo",
+          "pecho": "sustantivo",
+          "sois": "verbo",
+          "dos": "determinante",
+          "balas": "sustantivo",
+          "corazón": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -667,6 +1705,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["nada", "dicho", "quitado", "se"],
+        "pos": {
+          "te": "pronombre",
+          "he": "verbo",
+          "dado": "verbo",
+          "todo": "pronombre",
+          "me": "pronombre",
+          "has": "verbo",
+          "respondido": "verbo",
+          "lo": "pronombre",
+          "aprecio": "verbo",
+          "nada": "pronombre",
+          "dicho": "verbo",
+          "quitado": "verbo",
+          "se": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -690,6 +1763,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["nada", "dicho", "quitado", "se"],
+        "pos": {
+          "te": "pronombre",
+          "he": "verbo",
+          "dado": "verbo",
+          "todo": "pronombre",
+          "me": "pronombre",
+          "has": "verbo",
+          "respondido": "verbo",
+          "lo": "pronombre",
+          "aprecio": "verbo",
+          "nada": "pronombre",
+          "dicho": "verbo",
+          "quitado": "verbo",
+          "se": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -713,6 +1821,39 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["te", "aprieto", "cráneo", "mesa"],
+        "pos": {
+          "me": "pronombre",
+          "estrujo": "verbo",
+          "el": "articulo",
+          "cerebro": "sustantivo",
+          "sobre": "preposicion",
+          "esta": "determinante",
+          "hoja": "sustantivo",
+          "te": "pronombre",
+          "aprieto": "verbo",
+          "cráneo": "sustantivo",
+          "mesa": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -736,6 +1877,38 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["pero", "bajo", "mirada", "el"],
+        "pos": {
+          "y": "conjuncion",
+          "cuando": "conjuncion",
+          "luego": "adverbio",
+          "levanto": "verbo",
+          "la": "articulo",
+          "cabeza": "sustantivo",
+          "pero": "conjuncion",
+          "bajo": "verbo",
+          "mirada": "sustantivo",
+          "el": "articulo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -759,6 +1932,39 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["brilla", "blanco", "borde", "mancha"],
+        "pos": {
+          "queda": "verbo",
+          "un": "articulo",
+          "punto": "sustantivo",
+          "negro": "adjetivo",
+          "en": "preposicion",
+          "el": "articulo",
+          "centro": "sustantivo",
+          "brilla": "verbo",
+          "blanco": "adjetivo",
+          "borde": "sustantivo",
+          "mancha": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -782,6 +1988,39 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["el", "valor", "siento", "digo"],
+        "pos": {
+          "es": "verbo",
+          "la": "articulo",
+          "importancia": "sustantivo",
+          "de": "preposicion",
+          "lo": "articulo",
+          "que": "pronombre",
+          "pienso": "verbo",
+          "el": "articulo",
+          "valor": "sustantivo",
+          "siento": "verbo",
+          "digo": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -805,6 +2044,39 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["los", "dudas", "vuelan", "fuera"],
+        "pos": {
+          "las": "articulo",
+          "decisiones": "sustantivo",
+          "son": "verbo",
+          "flechas": "sustantivo",
+          "que": "pronombre",
+          "viajan": "verbo",
+          "dentro": "adverbio",
+          "los": "articulo",
+          "dudas": "sustantivo",
+          "vuelan": "verbo",
+          "fuera": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -828,6 +2100,40 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["los", "emociones", "fuertes", "con"],
+        "pos": {
+          "las": "articulo",
+          "sensaciones": "sustantivo",
+          "son": "verbo",
+          "leves": "adjetivo",
+          "pero": "conjuncion",
+          "sin": "preposicion",
+          "un": "articulo",
+          "maestro": "sustantivo",
+          "los": "articulo",
+          "emociones": "sustantivo",
+          "fuertes": "adjetivo",
+          "con": "preposicion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -851,6 +2157,40 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["limpio", "pequeño", "por", "puerta"],
+        "pos": {
+          "arreglo": "verbo",
+          "la": "articulo",
+          "casa": "sustantivo",
+          "para": "preposicion",
+          "acoger": "verbo",
+          "el": "articulo",
+          "gran": "adjetivo",
+          "regreso": "sustantivo",
+          "limpio": "verbo",
+          "pequeño": "adjetivo",
+          "por": "preposicion",
+          "puerta": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -874,6 +2214,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["esta", "gané", "buscando", "zona"],
+        "pos": {
+          "de": "preposicion",
+          "aquella": "determinante",
+          "parte": "sustantivo",
+          "mía": "adjetivo",
+          "que": "pronombre",
+          "perdí": "verbo",
+          "esperando": "verbo",
+          "un": "articulo",
+          "regreso": "sustantivo",
+          "esta": "determinante",
+          "gané": "verbo",
+          "buscando": "verbo",
+          "zona": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -897,6 +2272,40 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["un", "mancha", "concreta", "esa"],
+        "pos": {
+          "hay": "verbo",
+          "una": "articulo",
+          "pintura": "sustantivo",
+          "abstracta": "adjetivo",
+          "ves": "verbo",
+          "en": "preposicion",
+          "esta": "determinante",
+          "pared": "sustantivo",
+          "un": "articulo",
+          "mancha": "sustantivo",
+          "concreta": "adjetivo",
+          "esa": "determinante"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -920,6 +2329,42 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["la", "rojo", "verde", "antes"],
+        "pos": {
+          "he": "verbo",
+          "lanzado": "verbo",
+          "el": "articulo",
+          "amarillo": "sustantivo",
+          "con": "preposicion",
+          "azul": "sustantivo",
+          "y": "conjuncion",
+          "ahora": "adverbio",
+          "veo": "verbo",
+          "cometas": "sustantivo",
+          "la": "articulo",
+          "rojo": "sustantivo",
+          "verde": "sustantivo",
+          "antes": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -943,6 +2388,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["por", "deba", "pesadillas", "libre"],
+        "pos": {
+          "para": "preposicion",
+          "que": "conjuncion",
+          "pueda": "verbo",
+          "tener": "verbo",
+          "los": "articulo",
+          "sueños": "sustantivo",
+          "aunque": "conjuncion",
+          "esté": "verbo",
+          "encerrado": "verbo",
+          "por": "preposicion",
+          "deba": "verbo",
+          "pesadillas": "sustantivo",
+          "libre": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -966,6 +2446,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["por", "artista", "ti", "contento"],
+        "pos": {
+          "para": "preposicion",
+          "que": "conjuncion",
+          "el": "articulo",
+          "soñador": "sustantivo",
+          "en": "preposicion",
+          "mí": "pronombre",
+          "no": "adverbio",
+          "quede": "verbo",
+          "decepcionado": "adjetivo",
+          "por": "preposicion",
+          "artista": "sustantivo",
+          "ti": "pronombre",
+          "contento": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -989,6 +2504,45 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["me", "hueco", "escondo", "fuera"],
+        "pos": {
+          "te": "pronombre",
+          "regalo": "verbo",
+          "este": "determinante",
+          "vacío": "sustantivo",
+          "que": "pronombre",
+          "tengo": "verbo",
+          "dentro": "adverbio",
+          "me": "pronombre",
+          "hueco": "sustantivo",
+          "escondo": "verbo",
+          "fuera": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -1012,6 +2566,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["el", "derrota", "batalla", "venciendo"],
+        "pos": {
+          "es": "verbo",
+          "la": "articulo",
+          "victoria": "sustantivo",
+          "de": "preposicion",
+          "quien": "pronombre",
+          "ha": "verbo",
+          "ganado": "verbo",
+          "perdiendo": "verbo",
+          "el": "articulo",
+          "derrota": "sustantivo",
+          "batalla": "sustantivo",
+          "venciendo": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -1035,6 +2629,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["sois", "dos", "balas", "corazón"],
+        "pos": {
+          "somos": "verbo",
+          "niños": "sustantivo",
+          "con": "preposicion",
+          "tres": "determinante",
+          "disparos": "sustantivo",
+          "en": "preposicion",
+          "el": "articulo",
+          "pecho": "sustantivo",
+          "sois": "verbo",
+          "dos": "determinante",
+          "balas": "sustantivo",
+          "corazón": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -1058,6 +2692,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["nada", "dicho", "quitado", "se"],
+        "pos": {
+          "te": "pronombre",
+          "he": "verbo",
+          "dado": "verbo",
+          "todo": "pronombre",
+          "me": "pronombre",
+          "has": "verbo",
+          "respondido": "verbo",
+          "lo": "pronombre",
+          "aprecio": "verbo",
+          "nada": "pronombre",
+          "dicho": "verbo",
+          "quitado": "verbo",
+          "se": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -1081,6 +2750,45 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["me", "hueco", "escondo", "fuera"],
+        "pos": {
+          "te": "pronombre",
+          "regalo": "verbo",
+          "este": "determinante",
+          "vacío": "sustantivo",
+          "que": "pronombre",
+          "tengo": "verbo",
+          "dentro": "adverbio",
+          "me": "pronombre",
+          "hueco": "sustantivo",
+          "escondo": "verbo",
+          "fuera": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -1104,6 +2812,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["el", "derrota", "batalla", "venciendo"],
+        "pos": {
+          "es": "verbo",
+          "la": "articulo",
+          "victoria": "sustantivo",
+          "de": "preposicion",
+          "quien": "pronombre",
+          "ha": "verbo",
+          "ganado": "verbo",
+          "perdiendo": "verbo",
+          "el": "articulo",
+          "derrota": "sustantivo",
+          "batalla": "sustantivo",
+          "venciendo": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -1127,6 +2875,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["sois", "dos", "balas", "corazón"],
+        "pos": {
+          "somos": "verbo",
+          "niños": "sustantivo",
+          "con": "preposicion",
+          "tres": "determinante",
+          "disparos": "sustantivo",
+          "en": "preposicion",
+          "el": "articulo",
+          "pecho": "sustantivo",
+          "sois": "verbo",
+          "dos": "determinante",
+          "balas": "sustantivo",
+          "corazón": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -1150,6 +2938,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["nada", "dicho", "quitado", "se"],
+        "pos": {
+          "te": "pronombre",
+          "he": "verbo",
+          "dado": "verbo",
+          "todo": "pronombre",
+          "me": "pronombre",
+          "has": "verbo",
+          "respondido": "verbo",
+          "lo": "pronombre",
+          "aprecio": "verbo",
+          "nada": "pronombre",
+          "dicho": "verbo",
+          "quitado": "verbo",
+          "se": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -1173,6 +2996,42 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["nada", "dicho", "quitado", "pero"],
+        "pos": {
+          "te": "pronombre",
+          "he": "verbo",
+          "dado": "verbo",
+          "todo": "pronombre",
+          "y": "conjuncion",
+          "me": "pronombre",
+          "has": "verbo",
+          "respondido": "verbo",
+          "lo": "pronombre",
+          "aprecio": "verbo",
+          "nada": "pronombre",
+          "dicho": "verbo",
+          "quitado": "verbo",
+          "pero": "conjuncion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     }
   ]
