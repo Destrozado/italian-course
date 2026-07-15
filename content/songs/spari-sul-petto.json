@@ -1,0 +1,1179 @@
+{
+  "id": "spari-sul-petto",
+  "title": "Spari sul petto — Ultimo",
+  "phrases": [
+    {
+      "id": "spari-sul-petto-001",
+      "prompt": "Ti regalo questo vuoto che ho dentro",
+      "answer": ["te", "regalo", "este", "vacío", "que", "tengo", "dentro"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-002",
+      "prompt": "È la vittoria di chi ha vinto perdendo",
+      "answer": ["es", "la", "victoria", "de", "quien", "ha", "ganado", "perdiendo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-003",
+      "prompt": "Siamo bimbi con tre spari sul petto",
+      "answer": ["somos", "niños", "con", "tres", "disparos", "en", "el", "pecho"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-004",
+      "prompt": "Ti ho dato tutto, mi hai risposto: \"Lo apprezzo\"",
+      "answer": ["te", "he", "dado", "todo", "me", "has", "respondido", "lo", "aprecio"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-005",
+      "prompt": "Ti regalo questo vuoto che ho dentro",
+      "answer": ["te", "regalo", "este", "vacío", "que", "tengo", "dentro"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-006",
+      "prompt": "È la vittoria di chi ha vinto perdendo",
+      "answer": ["es", "la", "victoria", "de", "quien", "ha", "ganado", "perdiendo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-007",
+      "prompt": "Siamo bimbi con tre spari sul petto",
+      "answer": ["somos", "niños", "con", "tres", "disparos", "en", "el", "pecho"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-008",
+      "prompt": "Ti ho dato tutto, mi hai risposto: \"Lo apprezzo\"",
+      "answer": ["te", "he", "dado", "todo", "me", "has", "respondido", "lo", "aprecio"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-009",
+      "prompt": "Ti ho dato tutto e mi hai risposto: \"Lo apprezzo\"",
+      "answer": ["te", "he", "dado", "todo", "y", "me", "has", "respondido", "lo", "aprecio"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-010",
+      "prompt": "Ti regalo il mio cuore spezzato in dieci parti",
+      "answer": ["te", "regalo", "mi", "corazón", "roto", "en", "diez", "partes"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-011",
+      "prompt": "Ognuna avrà il suo peso e tu dovrai parlarci",
+      "answer": ["cada", "una", "tendrá", "su", "peso", "y", "tú", "tendrás", "que", "hablarles"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-012",
+      "prompt": "Dicevi: \"Sono sola, tu a me puoi salvarmi\"",
+      "answer": ["decías", "estoy", "sola", "tú", "puedes", "salvarme", "a", "mí"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-013",
+      "prompt": "Poi ti ho portato in alto e tu mi hai buttato giù a calci",
+      "answer": ["luego", "te", "llevé", "a", "lo", "alto", "y", "tú", "me", "tiraste", "abajo", "a", "patadas"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-014",
+      "prompt": "Io non ho mai respirato per rimanere vivo",
+      "answer": ["yo", "nunca", "he", "respirado", "para", "seguir", "vivo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-015",
+      "prompt": "Tant'è che ho detto a te: \"Respira dal mio respiro\"",
+      "answer": ["tanto", "es", "así", "que", "te", "dije", "respira", "con", "mi", "respiro"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-016",
+      "prompt": "Avrei rinchiuso ogni ambizione per averti accanto",
+      "answer": ["habría", "encerrado", "toda", "ambición", "por", "tenerte", "al", "lado"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-017",
+      "prompt": "Adesso invece sei rinata, io ti muoio a fianco",
+      "answer": ["ahora", "en", "cambio", "has", "renacido", "yo", "me", "muero", "a", "tu", "lado"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-018",
+      "prompt": "Io colleziono risposte che non esprimo mai",
+      "answer": ["yo", "colecciono", "respuestas", "que", "nunca", "expreso"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-019",
+      "prompt": "Do cibo alle mie tante parti che tu non vedrai",
+      "answer": ["doy", "de", "comer", "a", "mis", "muchas", "partes", "que", "tú", "no", "verás"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-020",
+      "prompt": "Sul palco poi è diverso, non è come credi",
+      "answer": ["en", "el", "escenario", "luego", "es", "diferente", "no", "es", "como", "crees"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-021",
+      "prompt": "La timidezza è un peso stabile sopra i miei piedi",
+      "answer": ["la", "timidez", "es", "un", "peso", "estable", "sobre", "mis", "pies"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-022",
+      "prompt": "Ti regalo questo vuoto che ho dentro",
+      "answer": ["te", "regalo", "este", "vacío", "que", "tengo", "dentro"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-023",
+      "prompt": "È la vittoria di chi ha vinto perdendo",
+      "answer": ["es", "la", "victoria", "de", "quien", "ha", "ganado", "perdiendo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-024",
+      "prompt": "Siamo bimbi con tre spari sul petto",
+      "answer": ["somos", "niños", "con", "tres", "disparos", "en", "el", "pecho"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-025",
+      "prompt": "Ti ho dato tutto, mi hai risposto: \"Lo apprezzo\"",
+      "answer": ["te", "he", "dado", "todo", "me", "has", "respondido", "lo", "aprecio"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-026",
+      "prompt": "Ti regalo questo vuoto che ho dentro",
+      "answer": ["te", "regalo", "este", "vacío", "que", "tengo", "dentro"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-027",
+      "prompt": "È la vittoria di chi ha vinto perdendo",
+      "answer": ["es", "la", "victoria", "de", "quien", "ha", "ganado", "perdiendo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-028",
+      "prompt": "Siamo bimbi con tre spari sul petto",
+      "answer": ["somos", "niños", "con", "tres", "disparos", "en", "el", "pecho"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-029",
+      "prompt": "Ti ho dato tutto, mi hai risposto: \"Lo apprezzo\"",
+      "answer": ["te", "he", "dado", "todo", "me", "has", "respondido", "lo", "aprecio"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-030",
+      "prompt": "Ti ho dato tutto, mi hai risposto: \"Lo apprezzo\"",
+      "answer": ["te", "he", "dado", "todo", "me", "has", "respondido", "lo", "aprecio"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-031",
+      "prompt": "Stringo il cervello sopra questo foglio",
+      "answer": ["me", "estrujo", "el", "cerebro", "sobre", "esta", "hoja"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-032",
+      "prompt": "E quando poi rialzo la testa",
+      "answer": ["y", "cuando", "luego", "levanto", "la", "cabeza"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-033",
+      "prompt": "Resta un punto nero nel centro",
+      "answer": ["queda", "un", "punto", "negro", "en", "el", "centro"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-034",
+      "prompt": "È l'importanza di quello che penso",
+      "answer": ["es", "la", "importancia", "de", "lo", "que", "pienso"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-035",
+      "prompt": "Le decisioni sono frecce che viaggiano dentro",
+      "answer": ["las", "decisiones", "son", "flechas", "que", "viajan", "dentro"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-036",
+      "prompt": "Le sensazioni sono lievi, ma senza un maestro",
+      "answer": ["las", "sensaciones", "son", "leves", "pero", "sin", "un", "maestro"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-037",
+      "prompt": "Sistemo casa per accogliere il grande ritorno",
+      "answer": ["arreglo", "la", "casa", "para", "acoger", "el", "gran", "regreso"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-038",
+      "prompt": "Di quella parte mia che ho perso aspettando un ritorno",
+      "answer": ["de", "aquella", "parte", "mía", "que", "perdí", "esperando", "un", "regreso"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-039",
+      "prompt": "C'è una pittura astratta, vedi, su questa parete",
+      "answer": ["hay", "una", "pintura", "abstracta", "ves", "en", "esta", "pared"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-040",
+      "prompt": "Ho lanciato il giallo con il blu e adesso vedo comete",
+      "answer": ["he", "lanzado", "el", "amarillo", "con", "el", "azul", "y", "ahora", "veo", "cometas"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-041",
+      "prompt": "Così che possa avere i sogni seppure rinchiuso",
+      "answer": ["para", "que", "pueda", "tener", "los", "sueños", "aunque", "esté", "encerrado"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-042",
+      "prompt": "Così che il sognatore in me non rimanga deluso",
+      "answer": ["para", "que", "el", "soñador", "en", "mí", "no", "quede", "decepcionado"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-14",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-043",
+      "prompt": "Ti regalo questo vuoto che ho dentro",
+      "answer": ["te", "regalo", "este", "vacío", "que", "tengo", "dentro"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-044",
+      "prompt": "È la vittoria di chi ha vinto perdendo",
+      "answer": ["es", "la", "victoria", "de", "quien", "ha", "ganado", "perdiendo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-045",
+      "prompt": "Siamo bimbi con tre spari sul petto",
+      "answer": ["somos", "niños", "con", "tres", "disparos", "en", "el", "pecho"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-046",
+      "prompt": "Ti ho dato tutto, mi hai risposto: \"Lo apprezzo\"",
+      "answer": ["te", "he", "dado", "todo", "me", "has", "respondido", "lo", "aprecio"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-047",
+      "prompt": "Ti regalo questo vuoto che ho dentro",
+      "answer": ["te", "regalo", "este", "vacío", "que", "tengo", "dentro"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-048",
+      "prompt": "È la vittoria di chi ha vinto perdendo",
+      "answer": ["es", "la", "victoria", "de", "quien", "ha", "ganado", "perdiendo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-049",
+      "prompt": "Siamo bimbi con tre spari sul petto",
+      "answer": ["somos", "niños", "con", "tres", "disparos", "en", "el", "pecho"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-050",
+      "prompt": "Ti ho dato tutto, mi hai risposto: \"Lo apprezzo\"",
+      "answer": ["te", "he", "dado", "todo", "me", "has", "respondido", "lo", "aprecio"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "spari-sul-petto-051",
+      "prompt": "Ti ho dato tutto e mi hai risposto: \"Lo apprezzo\"",
+      "answer": ["te", "he", "dado", "todo", "y", "me", "has", "respondido", "lo", "aprecio"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-15",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    }
+  ]
+}
