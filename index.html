@@ -973,20 +973,67 @@
           <p class="session-prompt" x-text="songCurrentPhrase.payload.prompt"></p>
 
           <div>
-            <!-- Banco de palabras españolas (con sufijo numérico ¹..⁹, D-69). -->
-            <div class="wb-bank">
-              <template x-for="(entry, idx) in bankWithKeys" :key="entry.idx">
-                <button type="button"
-                        @click="wordButtonsAddWord(entry.idx)"
-                        :class="{ 'wb-placed': entry.placed }"
-                        :disabled="sessionFeedback !== null || entry.placed"
-                        :tabindex="entry.placed ? -1 : 0"
-                        :aria-hidden="entry.placed"
-                        :aria-label="'Palabra ' + entry.key + ': ' + entry.word">
-                  <span x-text="entry.word"></span><sup class="kbd-hint" x-text="entry.key"></sup>
-                </button>
-              </template>
-            </div>
+            <!--
+              quick-260715-hf5 — Toggle de modo del banco. Visible SOLO si la
+              canción tiene decoyBank (songSupportsGrouped). Conmuta clásico
+              (solo answer) ↔ agrupado (answer ∪ decoys, por categoría). Se
+              deshabilita durante el feedback para no rebarajar a mitad.
+            -->
+            <label class="wb-mode-toggle" x-show="songSupportsGrouped">
+              <input type="checkbox"
+                     :checked="songBankMode === 'grouped'"
+                     :disabled="sessionFeedback !== null"
+                     @change="setSongBankMode($event.target.checked ? 'grouped' : 'classic')">
+              <span>Decoradores agrupados por tipo</span>
+            </label>
+
+            <!-- MODO AGRUPADO: acordeón de grupos por categoría sintáctica. -->
+            <template x-if="bankGroups">
+              <div class="wb-groups">
+                <template x-for="group in bankGroups" :key="group.key">
+                  <section class="wb-group" :class="{ 'wb-group-collapsed': group.collapsed }">
+                    <button type="button"
+                            class="wb-group-header"
+                            @click="toggleGroupCollapsed(group.key)"
+                            :aria-expanded="(!group.collapsed).toString()">
+                      <span class="wb-group-label" x-text="group.label"></span>
+                      <span class="wb-group-count" x-text="group.items.length"></span>
+                      <span class="wb-group-chevron" aria-hidden="true">▾</span>
+                    </button>
+                    <div class="wb-bank wb-group-bank" x-show="!group.collapsed">
+                      <template x-for="entry in group.items" :key="entry.idx">
+                        <button type="button"
+                                @click="wordButtonsAddWord(entry.idx)"
+                                :class="{ 'wb-placed': entry.placed }"
+                                :disabled="sessionFeedback !== null || entry.placed"
+                                :tabindex="entry.placed ? -1 : 0"
+                                :aria-hidden="entry.placed"
+                                :aria-label="'Palabra ' + entry.key + ': ' + entry.word">
+                          <span x-text="entry.word"></span><sup class="kbd-hint" x-text="entry.key"></sup>
+                        </button>
+                      </template>
+                    </div>
+                  </section>
+                </template>
+              </div>
+            </template>
+
+            <!-- MODO CLÁSICO: banco plano (con sufijo numérico ¹..⁹, D-69). -->
+            <template x-if="!bankGroups">
+              <div class="wb-bank">
+                <template x-for="(entry, idx) in bankWithKeys" :key="entry.idx">
+                  <button type="button"
+                          @click="wordButtonsAddWord(entry.idx)"
+                          :class="{ 'wb-placed': entry.placed }"
+                          :disabled="sessionFeedback !== null || entry.placed"
+                          :tabindex="entry.placed ? -1 : 0"
+                          :aria-hidden="entry.placed"
+                          :aria-label="'Palabra ' + entry.key + ': ' + entry.word">
+                    <span x-text="entry.word"></span><sup class="kbd-hint" x-text="entry.key"></sup>
+                  </button>
+                </template>
+              </div>
+            </template>
 
             <!-- Área respuesta (tokens colocados). -->
             <div class="wb-answer"

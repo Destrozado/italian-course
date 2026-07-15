@@ -63,6 +63,7 @@ import { todayLocal, daysSinceISO } from '../domain/dates.js';
 import { saveState } from '../data/storage.js';
 import { parseBackupFile, buildBackupWrapper } from '../data/backup.js';
 import { registry } from '../exercise-types/index.js';
+import { groupTokens } from '../domain/word-groups.js';
 
 // ─── Auto-avance al acertar ──────────────────────────────────────────────────
 // quick-260615-r3b (CAMBIO 1): el auto-avance al ACERTAR aplica SOLO a modo
@@ -326,6 +327,20 @@ export function appShell(appDataReady) {
      * resuelve el lookup aquí (no en exerciseById).
      */
     songPhraseById: {},
+    /**
+     * quick-260715-hf5 — Modo del banco de palabras en canciones:
+     *   - 'classic': banco = solo `answer` barajado (comportamiento histórico).
+     *   - 'grouped': banco = `answer ∪ decoyBank.distractors`, agrupado por
+     *     categoría sintáctica (POS) con etiqueta visible y grupos colapsables.
+     * `startSong` lo fija a 'grouped' si la canción tiene decoyBank (piloto),
+     * o 'classic' si no. El checkbox de la barra superior lo conmuta en vivo.
+     */
+    songBankMode: 'classic',
+    /**
+     * quick-260715-hf5 — Estado de colapso del acordeón de grupos, por clave
+     * POS: `{ [posKey]: true }` = grupo plegado. Solo presentacional.
+     */
+    songCollapsedGroups: {},
     /**
      * Deep-clone de `state.categoryProgress` capturado AL INICIO de la canción
      * (en `startSong`), ANTES del primer fallo. La cascada de canción es
@@ -631,7 +646,11 @@ export function appShell(appDataReady) {
           payload: {
             prompt: phrase.prompt,
             answer: phrase.answer ?? [],
-            distractors: phrase.distractors ?? []
+            distractors: phrase.distractors ?? [],
+            // quick-260715-hf5: decoyBank opcional (decoys + POS) para el modo
+            // agrupado. Se preserva a nivel de payload (no como `distractors`
+            // sueltos) para que el modo clásico NUNCA lo use.
+            decoyBank: phrase.decoyBank ?? null
           },
           categoryIds: phrase.categoryIds ?? []
         };
@@ -670,6 +689,13 @@ export function appShell(appDataReady) {
       // incremental — debe capturarse antes del primer fallo). Deep-clone
       // defensivo igual que completeSession.
       this.songBefore = JSON.parse(JSON.stringify(this.state.categoryProgress ?? {}));
+
+      // quick-260715-hf5: modo del banco. Si la canción trae decoyBank, entra
+      // por defecto en 'grouped' (la forma que se está pilotando); si no, solo
+      // existe el modo 'classic'. El checkbox de la barra superior lo conmuta.
+      const hasDecoys = song.phrases.some((p) => p && p.decoyBank && p.decoyBank.pos);
+      this.songBankMode = hasDecoys ? 'grouped' : 'classic';
+      this.songCollapsedGroups = {};
 
       // Init sub-estado de la PRIMERA frase (rama word-buttons:
       // bank = fisherYates(answer ∪ distractors) — shuffle del banco permitido D-05).
@@ -2231,9 +2257,19 @@ export function appShell(appDataReady) {
         // Math.random (no seedable aquí — el sampler ya usa seed determinista
         // para los IDs, pero el banco visual es non-deterministic intentional:
         // queremos que el autor vea órdenes distintos en cada session reload).
+        // quick-260715-hf5: en modo canción AGRUPADO los decoradores vienen de
+        // decoyBank.distractors (no de payload.distractors, que en canciones es
+        // []). En clásico o ejercicios normales, se mantiene payload.distractors.
+        const grouped = this.sessionMode === 'cancion'
+          && this.songBankMode === 'grouped'
+          && exercise.payload.decoyBank
+          && Array.isArray(exercise.payload.decoyBank.distractors);
+        const distractors = grouped
+          ? exercise.payload.decoyBank.distractors
+          : (exercise.payload.distractors ?? []);
         const all = [
           ...(exercise.payload.answer ?? []),
-          ...(exercise.payload.distractors ?? [])
+          ...distractors
         ];
         this.wordButtonsBank = fisherYates(all);
         this.wordButtonsPlacedIdx = [];
@@ -2782,6 +2818,62 @@ export function appShell(appDataReady) {
       const id = this.sessionExerciseIds[this.sessionCursor];
       if (!id) return null;
       return this.songPhraseById?.[id] ?? null;
+    },
+
+    /**
+     * quick-260715-hf5 — ¿la canción activa soporta el modo agrupado? (alguna
+     * frase tiene decoyBank con mapa POS). Gobierna la visibilidad del checkbox.
+     * @returns {boolean}
+     */
+    get songSupportsGrouped() {
+      const map = this.songPhraseById;
+      if (!map) return false;
+      for (const p of Object.values(map)) {
+        if (p?.payload?.decoyBank?.pos) return true;
+      }
+      return false;
+    },
+
+    /**
+     * quick-260715-hf5 — Vista AGRUPADA del banco por categoría sintáctica.
+     * Devuelve `null` fuera del modo canción-agrupado (el template cae al banco
+     * plano). Cada grupo: `{ key, label, items:[...bankWithKeys], collapsed }`.
+     * Es una VISTA de solo-lectura: reparte las MISMAS entradas de bankWithKeys
+     * (preserva idx/placed/key), así el grading y la colocación no cambian.
+     * @returns {Array<{key:string,label:string,items:Array,collapsed:boolean}>|null}
+     */
+    get bankGroups() {
+      if (this.sessionMode !== 'cancion' || this.songBankMode !== 'grouped') return null;
+      const pos = this.songCurrentPhrase?.payload?.decoyBank?.pos;
+      if (!pos) return null;
+      const groups = groupTokens(this.bankWithKeys, pos);
+      return groups.map((g) => ({ ...g, collapsed: !!this.songCollapsedGroups[g.key] }));
+    },
+
+    /**
+     * quick-260715-hf5 — Conmuta el modo del banco de la canción y re-inicializa
+     * el banco de la frase actual con el nuevo modo. No-op durante feedback
+     * (verde/rojo bloquean) para no alterar el banco a mitad de comprobación.
+     * @param {'classic'|'grouped'} mode
+     */
+    setSongBankMode(mode) {
+      if (mode !== 'classic' && mode !== 'grouped') return;
+      if (this.sessionFeedback !== null) return;
+      if (mode === this.songBankMode) return;
+      this.songBankMode = mode;
+      this.songCollapsedGroups = {};
+      this.initSubStateForExercise(this.songCurrentPhrase);
+    },
+
+    /**
+     * quick-260715-hf5 — Pliega/despliega un grupo del acordeón por clave POS.
+     * @param {string} key
+     */
+    toggleGroupCollapsed(key) {
+      this.songCollapsedGroups = {
+        ...this.songCollapsedGroups,
+        [key]: !this.songCollapsedGroups[key],
+      };
     },
 
     /** Phase 13 — indicador "Frase X / N" del playthrough de canción. */
