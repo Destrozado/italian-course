@@ -839,6 +839,15 @@ th, td { padding: 8px 10px; text-align: left; }
   color: var(--ed-ink);
   margin: 0 0 24px;                /* lg: prompt -> opciones */
 }
+/* Móvil: prompt más compacto — 22px + margen 12px hace que muchos prompts
+ * pasen de 2 líneas a 1, ganando alto (menos scroll). Va en app.css (carga
+ * DESPUÉS de styles.css) para ganar la cascada sobre la regla base de arriba. */
+@media (max-width: 640px) {
+  .session-prompt {
+    font-size: 22px;
+    margin-bottom: 12px;
+  }
+}
 /* Hueco `___` estilizado (D-08). Vacío pre-corrección = subrayado-placeholder
  * inline; relleno post-corrección con la respuesta + tinte de estado. */
 .session-gap {
