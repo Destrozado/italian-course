@@ -1,7 +1,7 @@
 ---
 name: it-add-song
-description: "Añade una canción nueva al corpus de ejercicios (bloque Canciones), traducida italiano→español troceada por palabras y VALIDADA por quórum cross-vendor (S1-S6). Opcionalmente añade el modo 'decoradores agrupados' (decoyBank, D1-D5). Un solo autor, calidad > tokens, sin override-atajo."
-argument-hint: "\"<Título> — <Artista>\"  (luego pega la letra italiana; flags: --no-repeats  --decoys  --dry-run)"
+description: "Añade una canción nueva al corpus de ejercicios (bloque Canciones), traducida italiano→español troceada por palabras y VALIDADA por quórum cross-vendor (S1-S6). Por defecto incluye el modo 'decoradores agrupados' (decoyBank, D1-D5); con --no-decoys se da de alta sin agrupar (solo answer). Un solo autor, calidad > tokens, sin override-atajo."
+argument-hint: "\"<Título> — <Artista>\"  (luego pega la letra italiana; flags: --no-repeats  --no-decoys  --dry-run)"
 allowed-tools:
   - Read
   - Write
@@ -26,8 +26,9 @@ y reconstruye la traducción arrastrando palabras (`answer`, troceada por tokens
 - `node --test tests/*.test.js` en verde.
 - Commits atómicos (feat de contenido + docs de STATE) y fila en la tabla
   "Quick Tasks Completed" de `.planning/STATE.md`.
-- (Opcional, flag `--decoys`) `decoyBank` por frase validado por su propio quórum
-  (D1-D5) para el modo "decoradores agrupados".
+- `decoyBank` por frase validado por su propio quórum (D1-D5) para el modo
+  "decoradores agrupados" — POR DEFECTO; el flag `--no-decoys` da de alta la
+  canción sin agrupar (solo `answer`, modo clásico).
 </objective>
 
 <critical_constraints>
@@ -92,8 +93,9 @@ Del argumento y del autor:
    `la-stella-piu-fragile`). `title` = `"<Título> — <Artista>"`.
 2. **Letra italiana completa** — pegada por el autor. Es la fuente de verdad del
    texto; NO inventar líneas.
-3. Flags: `--no-repeats` (desduplicar estribillos), `--decoys` (añadir decoyBank),
-   `--dry-run` (autorar JSON + registro pero NO validar ni commitear).
+3. Flags: `--no-repeats` (desduplicar estribillos), `--no-decoys` (OMITIR el
+   decoyBank, que por defecto SÍ se añade), `--dry-run` (autorar JSON + registro
+   pero NO validar ni commitear).
 
 Preguntar con AskUserQuestion SOLO si hay ambigüedad real (p.ej. líneas con
 artefactos de transcripción que cambian el sentido, o si el autor no pasó la letra).
@@ -200,7 +202,7 @@ for(const p of s.phrases){ if(p.validation) p.validation.status=deriveStatus(p.v
 ```
 Verificar: TODAS las frases con `validation.status === "validated"`.
 
-**Paso 8 — (Opcional, `--decoys`) decoyBank / modo agrupado**
+**Paso 8 — decoyBank / modo agrupado (POR DEFECTO; saltar solo si `--no-decoys`)**
 Mismo patrón con la otra tubería:
 ```
 Read: docs/DECOY-VALIDATION-PROMPT.md   (reglas D1-D5)
@@ -222,7 +224,7 @@ Read: docs/DECOY-VALIDATION-PROMPT.md   (reglas D1-D5)
 node --test tests/*.test.js        # verde
 ```
 - Commit atómico de contenido: `feat(quick-<qid>): añadir canción "<title>" — N frases it→es`.
-- (Si `--decoys`) commit separado del decoyBank.
+- (Si hay decoyBank, el caso por defecto) commit separado del decoyBank.
 - Actualizar `.planning/STATE.md`: fila en "Quick Tasks Completed" + "Last activity".
 - Commit docs.
 
@@ -244,17 +246,17 @@ node --test tests/*.test.js        # verde
 
 <example_invocations>
 
-Alta estándar (con letra pegada a continuación):
+Alta estándar (con letra pegada a continuación; incluye decoyBank por defecto):
 ```
 /it-add-song "Spari sul petto — Ultimo"
 # → id spari-sul-petto; trocea+traduce; content/songs/spari-sul-petto.json +
 #   registro; quórum DeepSeek+Gemini por representante único; resuelve disputes;
-#   propaga a duplicados; tests; commit; STATE.
+#   propaga a duplicados; decoyBank D1-D5 con su propio quórum; tests; commits; STATE.
 ```
 
-Alta con modo agrupado (decoradores) desde el principio:
+Alta SIN modo agrupado (solo answer, modo clásico):
 ```
-/it-add-song "Spari sul petto — Ultimo" --decoys
+/it-add-song "Spari sul petto — Ultimo" --no-decoys
 ```
 
 Solo autorar sin validar (para revisar antes):
@@ -269,7 +271,7 @@ Solo autorar sin validar (para revisar antes):
 1. `docs/SONG-VALIDATION-PROMPT.md` — reglas S1-S6 (fuente del prompt del quórum).
 2. `src/data/validation-state.js` — `deriveStatus` (regla sticky del status).
 3. Un song existente (p.ej. `content/songs/equilibrio-mentale.json`) — formato exacto.
-4. (Si `--decoys`) `docs/DECOY-VALIDATION-PROMPT.md` + `src/domain/word-groups.js`.
+4. (Salvo `--no-decoys`) `docs/DECOY-VALIDATION-PROMPT.md` + `src/domain/word-groups.js`.
 
 Memorias relevantes del autor (ya destiladas en `<critical_constraints>`):
 `exercise_authoring_rules`, `feedback_disputed_resolution`, `song_quorum_validator`,
