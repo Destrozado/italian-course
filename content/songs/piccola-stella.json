@@ -5,1308 +5,2536 @@
     {
       "id": "piccola-stella-001",
       "prompt": "Hai da sempre compreso la mia fantasia",
-      "answer": [
-        "desde",
-        "siempre",
-        "has",
-        "comprendido",
-        "mi",
-        "fantasía"
-      ],
+      "answer": ["desde", "siempre", "has", "comprendido", "mi", "fantasía"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
         "passes": [
           {
             "by": "deepseek-chat",
-            "date": "2026-06-29",
+            "date": "2026-07-22",
             "verdict": "correcta",
             "concerns": []
           },
           {
             "by": "gemini-2.5-flash",
-            "date": "2026-06-29",
+            "date": "2026-07-22",
             "verdict": "correcta",
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["hasta", "nunca", "tu", "sueño"],
+        "pos": {
+          "desde": "preposicion",
+          "siempre": "adverbio",
+          "has": "verbo",
+          "comprendido": "verbo",
+          "mi": "determinante",
+          "fantasía": "sustantivo",
+          "hasta": "preposicion",
+          "nunca": "adverbio",
+          "tu": "determinante",
+          "sueño": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "piccola-stella-002",
       "prompt": "L'hai accesa poi spenta, poi sei andata via",
-      "answer": [
-        "la",
-        "encendiste",
-        "luego",
-        "apagaste",
-        "luego",
-        "te",
-        "fuiste"
-      ],
+      "answer": ["la", "encendiste", "luego", "apagaste", "luego", "te", "fuiste"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
         "passes": [
           {
             "by": "deepseek-chat",
-            "date": "2026-06-29",
+            "date": "2026-07-22",
             "verdict": "correcta",
             "concerns": []
           },
           {
             "by": "gemini-2.5-flash",
-            "date": "2026-06-29",
+            "date": "2026-07-22",
             "verdict": "correcta",
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["lo", "antes", "me", "cerraste"],
+        "pos": {
+          "la": "pronombre",
+          "encendiste": "verbo",
+          "luego": "adverbio",
+          "apagaste": "verbo",
+          "te": "pronombre",
+          "fuiste": "verbo",
+          "lo": "pronombre",
+          "antes": "adverbio",
+          "me": "pronombre",
+          "cerraste": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "piccola-stella-003",
       "prompt": "Sei tornata più forte con un sasso nel cuore",
-      "answer": [
-        "volviste",
-        "más",
-        "fuerte",
-        "con",
-        "una",
-        "piedra",
-        "en",
-        "el",
-        "corazón"
-      ],
+      "answer": ["volviste", "más", "fuerte", "con", "una", "piedra", "en", "el", "corazón"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
         "passes": [
           {
-            "by": "deepseek-chat",
+            "by": "deepseek-reasoner",
             "date": "2026-06-29",
             "verdict": "correcta",
             "concerns": []
           },
           {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-22",
             "verdict": "correcta",
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["menos", "débil", "pecho", "sin"],
+        "pos": {
+          "volviste": "verbo",
+          "más": "adverbio",
+          "fuerte": "adjetivo",
+          "con": "preposicion",
+          "una": "articulo",
+          "piedra": "sustantivo",
+          "en": "preposicion",
+          "el": "articulo",
+          "corazón": "sustantivo",
+          "menos": "adverbio",
+          "débil": "adjetivo",
+          "pecho": "sustantivo",
+          "sin": "preposicion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "piccola-stella-004",
       "prompt": "Hai preso il mio giorno, lo hai reso migliore",
-      "answer": [
-        "tomaste",
-        "mi",
-        "día",
-        "lo",
-        "hiciste",
-        "mejor"
-      ],
+      "answer": ["tomaste", "mi", "día", "lo", "hiciste", "mejor"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
         "passes": [
           {
             "by": "deepseek-chat",
-            "date": "2026-06-29",
+            "date": "2026-07-22",
             "verdict": "correcta",
             "concerns": []
           },
           {
             "by": "gemini-2.5-flash",
-            "date": "2026-06-29",
+            "date": "2026-07-22",
             "verdict": "correcta",
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["tu", "noche", "peor", "diste"],
+        "pos": {
+          "tomaste": "verbo",
+          "mi": "determinante",
+          "día": "sustantivo",
+          "lo": "pronombre",
+          "hiciste": "verbo",
+          "mejor": "adjetivo",
+          "tu": "determinante",
+          "noche": "sustantivo",
+          "peor": "adjetivo",
+          "diste": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "piccola-stella-005",
       "prompt": "E ora scrivo qui in fretta per dirtelo ancora",
-      "answer": [
-        "y",
-        "ahora",
-        "escribo",
-        "aquí",
-        "deprisa",
-        "para",
-        "decírtelo",
-        "otra",
-        "vez"
-      ],
+      "answer": ["y", "ahora", "escribo", "aquí", "deprisa", "para", "decírtelo", "otra", "vez"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
         "passes": [
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          },
           {
             "by": "deepseek-reasoner",
             "date": "2026-06-29",
             "verdict": "correcta",
             "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "piccola-stella-006",
-      "prompt": "Che sei forte e fragile senza paura",
-      "answer": [
-        "que",
-        "eres",
-        "fuerte",
-        "y",
-        "frágil",
-        "sin",
-        "miedo"
-      ],
-      "categoryIds": [],
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
           },
           {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "piccola-stella-007",
-      "prompt": "Tu resta la stessa, la stessa di sempre",
-      "answer": [
-        "tú",
-        "sigue",
-        "siendo",
-        "la",
-        "misma",
-        "la",
-        "misma",
-        "de",
-        "siempre"
-      ],
-      "categoryIds": [],
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
             "by": "deepseek-chat",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "piccola-stella-008",
-      "prompt": "Sei la cosa più bella che indosso",
-      "answer": [
-        "eres",
-        "la",
-        "cosa",
-        "más",
-        "bella",
-        "que",
-        "llevo",
-        "puesta"
-      ],
-      "categoryIds": [],
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "piccola-stella-009",
-      "prompt": "Sei risorsa, sei il cielo e sei il mondo",
-      "answer": [
-        "eres",
-        "un",
-        "recurso",
-        "eres",
-        "el",
-        "cielo",
-        "y",
-        "eres",
-        "el",
-        "mundo"
-      ],
-      "categoryIds": [],
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "piccola-stella-010",
-      "prompt": "Sei la strada che porta alla vita",
-      "answer": [
-        "eres",
-        "el",
-        "camino",
-        "que",
-        "lleva",
-        "a",
-        "la",
-        "vida"
-      ],
-      "categoryIds": [],
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "piccola-stella-011",
-      "prompt": "Donna instabile, sei la mia sfida",
-      "answer": [
-        "mujer",
-        "inestable",
-        "eres",
-        "mi",
-        "desafío"
-      ],
-      "categoryIds": [],
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "piccola-stella-012",
-      "prompt": "Sei la piccola stella che porto",
-      "answer": [
-        "eres",
-        "la",
-        "pequeña",
-        "estrella",
-        "que",
-        "llevo"
-      ],
-      "categoryIds": [],
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "piccola-stella-013",
-      "prompt": "Nei momenti in cui non ho luce",
-      "answer": [
-        "en",
-        "los",
-        "momentos",
-        "en",
-        "que",
-        "no",
-        "tengo",
-        "luz"
-      ],
-      "categoryIds": [],
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "piccola-stella-014",
-      "prompt": "Sei la piccola stella che porto",
-      "answer": [
-        "eres",
-        "la",
-        "pequeña",
-        "estrella",
-        "que",
-        "llevo"
-      ],
-      "categoryIds": [],
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "piccola-stella-015",
-      "prompt": "Nei momenti in cui non ho luce",
-      "answer": [
-        "en",
-        "los",
-        "momentos",
-        "en",
-        "que",
-        "no",
-        "tengo",
-        "luz"
-      ],
-      "categoryIds": [],
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "piccola-stella-016",
-      "prompt": "Hai da sempre compreso la mia nostalgia",
-      "answer": [
-        "desde",
-        "siempre",
-        "has",
-        "comprendido",
-        "mi",
-        "nostalgia"
-      ],
-      "categoryIds": [],
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "piccola-stella-017",
-      "prompt": "Dei giorni ormai persi ed ormai andati via",
-      "answer": [
-        "de",
-        "los",
-        "días",
-        "ya",
-        "perdidos",
-        "y",
-        "ya",
-        "idos"
-      ],
-      "categoryIds": [],
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "piccola-stella-018",
-      "prompt": "Questo tempo trascorso non ne è mai abbastanza",
-      "answer": [
-        "este",
-        "tiempo",
-        "transcurrido",
-        "nunca",
-        "es",
-        "suficiente"
-      ],
-      "categoryIds": [],
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "piccola-stella-019",
-      "prompt": "Te che dei miei occhi ne sei la sostanza",
-      "answer": [
-        "tú",
-        "que",
-        "de",
-        "mis",
-        "ojos",
-        "eres",
-        "la",
-        "sustancia"
-      ],
-      "categoryIds": [],
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "piccola-stella-020",
-      "prompt": "Comunque poi adesso che ti ho davanti",
-      "answer": [
-        "de",
-        "todos",
-        "modos",
-        "ahora",
-        "que",
-        "te",
-        "tengo",
-        "delante"
-      ],
-      "categoryIds": [],
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "piccola-stella-021",
-      "prompt": "Prometto di restarti accanto per sempre",
-      "answer": [
-        "prometo",
-        "quedarme",
-        "a",
-        "tu",
-        "lado",
-        "para",
-        "siempre"
-      ],
-      "categoryIds": [],
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "piccola-stella-022",
-      "prompt": "Per sempre, per sempre",
-      "answer": [
-        "para",
-        "siempre",
-        "para",
-        "siempre"
-      ],
-      "categoryIds": [],
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "piccola-stella-023",
-      "prompt": "Sei la cosa più bella che indosso",
-      "answer": [
-        "eres",
-        "la",
-        "cosa",
-        "más",
-        "bella",
-        "que",
-        "llevo",
-        "puesta"
-      ],
-      "categoryIds": [],
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "piccola-stella-024",
-      "prompt": "Sei risorsa, sei il cielo e sei il mondo",
-      "answer": [
-        "eres",
-        "recurso",
-        "eres",
-        "el",
-        "cielo",
-        "y",
-        "eres",
-        "el",
-        "mundo"
-      ],
-      "categoryIds": [],
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "piccola-stella-025",
-      "prompt": "Sei la strada che porta alla vita",
-      "answer": [
-        "eres",
-        "el",
-        "camino",
-        "que",
-        "lleva",
-        "a",
-        "la",
-        "vida"
-      ],
-      "categoryIds": [],
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "piccola-stella-026",
-      "prompt": "Donna instabile, sei la mia sfida",
-      "answer": [
-        "mujer",
-        "inestable",
-        "eres",
-        "mi",
-        "desafío"
-      ],
-      "categoryIds": [],
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "piccola-stella-027",
-      "prompt": "Sei la piccola stella che porto",
-      "answer": [
-        "eres",
-        "la",
-        "pequeña",
-        "estrella",
-        "que",
-        "llevo"
-      ],
-      "categoryIds": [],
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "piccola-stella-028",
-      "prompt": "Nei momenti in cui non ho luce",
-      "answer": [
-        "en",
-        "los",
-        "momentos",
-        "en",
-        "que",
-        "no",
-        "tengo",
-        "luz"
-      ],
-      "categoryIds": [],
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "piccola-stella-029",
-      "prompt": "Sei la piccola stella che porto",
-      "answer": [
-        "eres",
-        "la",
-        "pequeña",
-        "estrella",
-        "que",
-        "llevo"
-      ],
-      "categoryIds": [],
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "piccola-stella-030",
-      "prompt": "Nei momenti in cui non ho luce",
-      "answer": [
-        "en",
-        "los",
-        "momentos",
-        "en",
-        "que",
-        "no",
-        "tengo",
-        "luz"
-      ],
-      "categoryIds": [],
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "piccola-stella-031",
-      "prompt": "Sei l'immenso di un attimo andato",
-      "answer": [
-        "eres",
-        "lo",
-        "inmenso",
-        "de",
-        "un",
-        "instante",
-        "pasado"
-      ],
-      "categoryIds": [],
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "piccola-stella-032",
-      "prompt": "Del mio sogno la parte migliore",
-      "answer": [
-        "de",
-        "mi",
-        "sueño",
-        "la",
-        "parte",
-        "mejor"
-      ],
-      "categoryIds": [],
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "piccola-stella-033",
-      "prompt": "Sei quel vento che soffia da sempre",
-      "answer": [
-        "eres",
-        "ese",
-        "viento",
-        "que",
-        "sopla",
-        "desde",
-        "siempre"
-      ],
-      "categoryIds": [],
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "piccola-stella-034",
-      "prompt": "Ma che riesce a non farmi cadere",
-      "answer": [
-        "pero",
-        "que",
-        "logra",
-        "no",
-        "hacerme",
-        "caer"
-      ],
-      "categoryIds": [],
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "piccola-stella-035",
-      "prompt": "Sei la piccola stella che porto",
-      "answer": [
-        "eres",
-        "la",
-        "pequeña",
-        "estrella",
-        "que",
-        "llevo"
-      ],
-      "categoryIds": [],
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "piccola-stella-036",
-      "prompt": "Nei momenti in cui non ho luce",
-      "answer": [
-        "en",
-        "los",
-        "momentos",
-        "en",
-        "que",
-        "no",
-        "tengo",
-        "luz"
-      ],
-      "categoryIds": [],
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "piccola-stella-037",
-      "prompt": "Sei la piccola stella che porto",
-      "answer": [
-        "eres",
-        "la",
-        "pequeña",
-        "estrella",
-        "que",
-        "llevo"
-      ],
-      "categoryIds": [],
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "piccola-stella-038",
-      "prompt": "Nei momenti in cui non ho luce",
-      "answer": [
-        "en",
-        "los",
-        "momentos",
-        "en",
-        "que",
-        "no",
-        "tengo",
-        "luz"
-      ],
-      "categoryIds": [],
-      "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "deepseek-chat",
-            "date": "2026-06-29",
+            "date": "2026-07-22",
             "verdict": "correcta",
             "concerns": []
           },
           {
             "by": "gemini-2.5-flash",
-            "date": "2026-06-29",
+            "date": "2026-07-22",
             "verdict": "correcta",
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["allí", "pero", "despacio", "leo"],
+        "pos": {
+          "y": "conjuncion",
+          "ahora": "adverbio",
+          "escribo": "verbo",
+          "aquí": "adverbio",
+          "deprisa": "adverbio",
+          "para": "preposicion",
+          "decírtelo": "verbo",
+          "otra": "determinante",
+          "vez": "sustantivo",
+          "allí": "adverbio",
+          "pero": "conjuncion",
+          "despacio": "adverbio",
+          "leo": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "piccola-stella-006",
+      "prompt": "Che sei forte e fragile senza paura",
+      "answer": ["que", "eres", "fuerte", "y", "frágil", "sin", "miedo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["débil", "con", "valor", "soy"],
+        "pos": {
+          "que": "conjuncion",
+          "eres": "verbo",
+          "fuerte": "adjetivo",
+          "y": "conjuncion",
+          "frágil": "adjetivo",
+          "sin": "preposicion",
+          "miedo": "sustantivo",
+          "débil": "adjetivo",
+          "con": "preposicion",
+          "valor": "sustantivo",
+          "soy": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "piccola-stella-007",
+      "prompt": "Tu resta la stessa, la stessa di sempre",
+      "answer": ["tú", "sigue", "siendo", "la", "misma", "la", "misma", "de", "siempre"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["yo", "nunca", "distinta", "en"],
+        "pos": {
+          "tú": "pronombre",
+          "sigue": "verbo",
+          "siendo": "verbo",
+          "la": "articulo",
+          "misma": "adjetivo",
+          "de": "preposicion",
+          "siempre": "adverbio",
+          "yo": "pronombre",
+          "nunca": "adverbio",
+          "distinta": "adjetivo",
+          "en": "preposicion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "piccola-stella-008",
+      "prompt": "Sei la cosa più bella che indosso",
+      "answer": ["eres", "la", "cosa", "más", "bella", "que", "llevo", "puesta"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["menos", "fea", "llevas", "el"],
+        "pos": {
+          "eres": "verbo",
+          "la": "articulo",
+          "cosa": "sustantivo",
+          "más": "adverbio",
+          "bella": "adjetivo",
+          "que": "conjuncion",
+          "llevo": "verbo",
+          "puesta": "adjetivo",
+          "menos": "adverbio",
+          "fea": "adjetivo",
+          "el": "articulo",
+          "llevas": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "piccola-stella-009",
+      "prompt": "Sei risorsa, sei il cielo e sei il mondo",
+      "answer": ["eres", "un", "apoyo", "eres", "el", "cielo", "y", "eres", "el", "mundo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["soy", "tierra", "mar", "pero"],
+        "pos": {
+          "eres": "verbo",
+          "un": "articulo",
+          "apoyo": "sustantivo",
+          "el": "articulo",
+          "cielo": "sustantivo",
+          "y": "conjuncion",
+          "mundo": "sustantivo",
+          "soy": "verbo",
+          "tierra": "sustantivo",
+          "mar": "sustantivo",
+          "pero": "conjuncion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "piccola-stella-010",
+      "prompt": "Sei la strada che porta alla vita",
+      "answer": ["eres", "el", "camino", "que", "lleva", "a", "la", "vida"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["muerte", "de", "trae", "soy"],
+        "pos": {
+          "eres": "verbo",
+          "el": "articulo",
+          "camino": "sustantivo",
+          "que": "pronombre",
+          "lleva": "verbo",
+          "a": "preposicion",
+          "la": "articulo",
+          "vida": "sustantivo",
+          "muerte": "sustantivo",
+          "de": "preposicion",
+          "trae": "verbo",
+          "soy": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "piccola-stella-011",
+      "prompt": "Donna instabile, sei la mia sfida",
+      "answer": ["mujer", "inestable", "eres", "mi", "desafío"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["hombre", "estable", "tu", "sueño"],
+        "pos": {
+          "mujer": "sustantivo",
+          "inestable": "adjetivo",
+          "eres": "verbo",
+          "mi": "determinante",
+          "desafío": "sustantivo",
+          "hombre": "sustantivo",
+          "estable": "adjetivo",
+          "tu": "determinante",
+          "sueño": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "piccola-stella-012",
+      "prompt": "Sei la piccola stella che porto",
+      "answer": ["eres", "la", "pequeña", "estrella", "que", "llevo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["grande", "luna", "el", "tengo"],
+        "pos": {
+          "eres": "verbo",
+          "la": "articulo",
+          "pequeña": "adjetivo",
+          "estrella": "sustantivo",
+          "que": "pronombre",
+          "llevo": "verbo",
+          "grande": "adjetivo",
+          "luna": "sustantivo",
+          "el": "articulo",
+          "tengo": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "piccola-stella-013",
+      "prompt": "Nei momenti in cui non ho luce",
+      "answer": ["en", "los", "momentos", "en", "que", "no", "tengo", "luz"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["las", "sí", "sombra", "días"],
+        "pos": {
+          "en": "preposicion",
+          "los": "articulo",
+          "momentos": "sustantivo",
+          "que": "pronombre",
+          "no": "adverbio",
+          "tengo": "verbo",
+          "luz": "sustantivo",
+          "las": "articulo",
+          "sí": "adverbio",
+          "sombra": "sustantivo",
+          "días": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "piccola-stella-014",
+      "prompt": "Sei la piccola stella che porto",
+      "answer": ["eres", "la", "pequeña", "estrella", "que", "llevo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["grande", "luna", "el", "tengo"],
+        "pos": {
+          "eres": "verbo",
+          "la": "articulo",
+          "pequeña": "adjetivo",
+          "estrella": "sustantivo",
+          "que": "pronombre",
+          "llevo": "verbo",
+          "grande": "adjetivo",
+          "luna": "sustantivo",
+          "el": "articulo",
+          "tengo": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "piccola-stella-015",
+      "prompt": "Nei momenti in cui non ho luce",
+      "answer": ["en", "los", "momentos", "en", "que", "no", "tengo", "luz"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["las", "sí", "sombra", "días"],
+        "pos": {
+          "en": "preposicion",
+          "los": "articulo",
+          "momentos": "sustantivo",
+          "que": "pronombre",
+          "no": "adverbio",
+          "tengo": "verbo",
+          "luz": "sustantivo",
+          "las": "articulo",
+          "sí": "adverbio",
+          "sombra": "sustantivo",
+          "días": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "piccola-stella-016",
+      "prompt": "Hai da sempre compreso la mia nostalgia",
+      "answer": ["desde", "siempre", "has", "comprendido", "mi", "nostalgia"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["hasta", "nunca", "tu", "tristeza"],
+        "pos": {
+          "desde": "preposicion",
+          "siempre": "adverbio",
+          "has": "verbo",
+          "comprendido": "verbo",
+          "mi": "determinante",
+          "nostalgia": "sustantivo",
+          "hasta": "preposicion",
+          "nunca": "adverbio",
+          "tu": "determinante",
+          "tristeza": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "piccola-stella-017",
+      "prompt": "Dei giorni ormai persi ed ormai andati via",
+      "answer": ["de", "los", "días", "ya", "perdidos", "y", "ya", "idos"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["las", "noches", "ganados", "pero"],
+        "pos": {
+          "de": "preposicion",
+          "los": "articulo",
+          "días": "sustantivo",
+          "ya": "adverbio",
+          "perdidos": "adjetivo",
+          "y": "conjuncion",
+          "idos": "adjetivo",
+          "las": "articulo",
+          "noches": "sustantivo",
+          "ganados": "adjetivo",
+          "pero": "conjuncion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "piccola-stella-018",
+      "prompt": "Questo tempo trascorso non ne è mai abbastanza",
+      "answer": ["este", "tiempo", "transcurrido", "nunca", "es", "suficiente"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["ese", "siempre", "escaso", "espacio"],
+        "pos": {
+          "este": "determinante",
+          "tiempo": "sustantivo",
+          "transcurrido": "adjetivo",
+          "nunca": "adverbio",
+          "es": "verbo",
+          "suficiente": "adjetivo",
+          "ese": "determinante",
+          "siempre": "adverbio",
+          "escaso": "adjetivo",
+          "espacio": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "piccola-stella-019",
+      "prompt": "Te che dei miei occhi ne sei la sostanza",
+      "answer": ["tú", "que", "de", "mis", "ojos", "eres", "la", "sustancia"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["yo", "tus", "en", "manos"],
+        "pos": {
+          "tú": "pronombre",
+          "que": "pronombre",
+          "de": "preposicion",
+          "mis": "determinante",
+          "ojos": "sustantivo",
+          "eres": "verbo",
+          "la": "articulo",
+          "sustancia": "sustantivo",
+          "yo": "pronombre",
+          "tus": "determinante",
+          "en": "preposicion",
+          "manos": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "piccola-stella-020",
+      "prompt": "Comunque poi adesso che ti ho davanti",
+      "answer": ["de", "todos", "modos", "ahora", "que", "te", "tengo", "delante"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["detrás", "luego", "me", "veo"],
+        "pos": {
+          "de": "preposicion",
+          "todos": "determinante",
+          "modos": "sustantivo",
+          "ahora": "adverbio",
+          "que": "conjuncion",
+          "te": "pronombre",
+          "tengo": "verbo",
+          "delante": "adverbio",
+          "detrás": "adverbio",
+          "luego": "adverbio",
+          "me": "pronombre",
+          "veo": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "piccola-stella-021",
+      "prompt": "Prometto di restarti accanto per sempre",
+      "answer": ["prometo", "quedarme", "a", "tu", "lado", "para", "siempre"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["quiero", "mi", "nunca", "de"],
+        "pos": {
+          "prometo": "verbo",
+          "quedarme": "verbo",
+          "a": "preposicion",
+          "tu": "determinante",
+          "lado": "sustantivo",
+          "para": "preposicion",
+          "siempre": "adverbio",
+          "quiero": "verbo",
+          "mi": "determinante",
+          "nunca": "adverbio",
+          "de": "preposicion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "piccola-stella-022",
+      "prompt": "Per sempre, per sempre",
+      "answer": ["para", "siempre", "para", "siempre"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["nunca", "por", "jamás"],
+        "pos": {
+          "para": "preposicion",
+          "siempre": "adverbio",
+          "nunca": "adverbio",
+          "por": "preposicion",
+          "jamás": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "piccola-stella-023",
+      "prompt": "Sei la cosa più bella che indosso",
+      "answer": ["eres", "la", "cosa", "más", "bella", "que", "llevo", "puesta"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["menos", "fea", "llevas", "el"],
+        "pos": {
+          "eres": "verbo",
+          "la": "articulo",
+          "cosa": "sustantivo",
+          "más": "adverbio",
+          "bella": "adjetivo",
+          "que": "conjuncion",
+          "llevo": "verbo",
+          "puesta": "adjetivo",
+          "menos": "adverbio",
+          "fea": "adjetivo",
+          "el": "articulo",
+          "llevas": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "piccola-stella-024",
+      "prompt": "Sei risorsa, sei il cielo e sei il mondo",
+      "answer": ["eres", "un", "apoyo", "eres", "el", "cielo", "y", "eres", "el", "mundo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["soy", "tierra", "mar", "pero"],
+        "pos": {
+          "eres": "verbo",
+          "un": "articulo",
+          "apoyo": "sustantivo",
+          "el": "articulo",
+          "cielo": "sustantivo",
+          "y": "conjuncion",
+          "mundo": "sustantivo",
+          "soy": "verbo",
+          "tierra": "sustantivo",
+          "mar": "sustantivo",
+          "pero": "conjuncion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "piccola-stella-025",
+      "prompt": "Sei la strada che porta alla vita",
+      "answer": ["eres", "el", "camino", "que", "lleva", "a", "la", "vida"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["muerte", "de", "trae", "soy"],
+        "pos": {
+          "eres": "verbo",
+          "el": "articulo",
+          "camino": "sustantivo",
+          "que": "pronombre",
+          "lleva": "verbo",
+          "a": "preposicion",
+          "la": "articulo",
+          "vida": "sustantivo",
+          "muerte": "sustantivo",
+          "de": "preposicion",
+          "trae": "verbo",
+          "soy": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "piccola-stella-026",
+      "prompt": "Donna instabile, sei la mia sfida",
+      "answer": ["mujer", "inestable", "eres", "mi", "desafío"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["hombre", "estable", "tu", "sueño"],
+        "pos": {
+          "mujer": "sustantivo",
+          "inestable": "adjetivo",
+          "eres": "verbo",
+          "mi": "determinante",
+          "desafío": "sustantivo",
+          "hombre": "sustantivo",
+          "estable": "adjetivo",
+          "tu": "determinante",
+          "sueño": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "piccola-stella-027",
+      "prompt": "Sei la piccola stella che porto",
+      "answer": ["eres", "la", "pequeña", "estrella", "que", "llevo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["grande", "luna", "el", "tengo"],
+        "pos": {
+          "eres": "verbo",
+          "la": "articulo",
+          "pequeña": "adjetivo",
+          "estrella": "sustantivo",
+          "que": "pronombre",
+          "llevo": "verbo",
+          "grande": "adjetivo",
+          "luna": "sustantivo",
+          "el": "articulo",
+          "tengo": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "piccola-stella-028",
+      "prompt": "Nei momenti in cui non ho luce",
+      "answer": ["en", "los", "momentos", "en", "que", "no", "tengo", "luz"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["las", "sí", "sombra", "días"],
+        "pos": {
+          "en": "preposicion",
+          "los": "articulo",
+          "momentos": "sustantivo",
+          "que": "pronombre",
+          "no": "adverbio",
+          "tengo": "verbo",
+          "luz": "sustantivo",
+          "las": "articulo",
+          "sí": "adverbio",
+          "sombra": "sustantivo",
+          "días": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "piccola-stella-029",
+      "prompt": "Sei la piccola stella che porto",
+      "answer": ["eres", "la", "pequeña", "estrella", "que", "llevo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["grande", "luna", "el", "tengo"],
+        "pos": {
+          "eres": "verbo",
+          "la": "articulo",
+          "pequeña": "adjetivo",
+          "estrella": "sustantivo",
+          "que": "pronombre",
+          "llevo": "verbo",
+          "grande": "adjetivo",
+          "luna": "sustantivo",
+          "el": "articulo",
+          "tengo": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "piccola-stella-030",
+      "prompt": "Nei momenti in cui non ho luce",
+      "answer": ["en", "los", "momentos", "en", "que", "no", "tengo", "luz"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["las", "sí", "sombra", "días"],
+        "pos": {
+          "en": "preposicion",
+          "los": "articulo",
+          "momentos": "sustantivo",
+          "que": "pronombre",
+          "no": "adverbio",
+          "tengo": "verbo",
+          "luz": "sustantivo",
+          "las": "articulo",
+          "sí": "adverbio",
+          "sombra": "sustantivo",
+          "días": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "piccola-stella-031",
+      "prompt": "Sei l'immenso di un attimo andato",
+      "answer": ["eres", "lo", "inmenso", "de", "un", "instante", "pasado"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["soy", "pequeño", "presente", "en"],
+        "pos": {
+          "eres": "verbo",
+          "lo": "articulo",
+          "inmenso": "adjetivo",
+          "de": "preposicion",
+          "un": "articulo",
+          "instante": "sustantivo",
+          "pasado": "adjetivo",
+          "soy": "verbo",
+          "pequeño": "adjetivo",
+          "presente": "sustantivo",
+          "en": "preposicion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "piccola-stella-032",
+      "prompt": "Del mio sogno la parte migliore",
+      "answer": ["de", "mi", "sueño", "la", "parte", "mejor"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["tu", "peor", "en", "final"],
+        "pos": {
+          "de": "preposicion",
+          "mi": "determinante",
+          "sueño": "sustantivo",
+          "la": "articulo",
+          "parte": "sustantivo",
+          "mejor": "adjetivo",
+          "tu": "determinante",
+          "peor": "adjetivo",
+          "en": "preposicion",
+          "final": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "piccola-stella-033",
+      "prompt": "Sei quel vento che soffia da sempre",
+      "answer": ["eres", "ese", "viento", "que", "sopla", "desde", "siempre"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["cada", "lluvia", "hasta", "nunca"],
+        "pos": {
+          "eres": "verbo",
+          "ese": "determinante",
+          "viento": "sustantivo",
+          "que": "pronombre",
+          "sopla": "verbo",
+          "desde": "preposicion",
+          "siempre": "adverbio",
+          "lluvia": "sustantivo",
+          "hasta": "preposicion",
+          "nunca": "adverbio",
+          "cada": "determinante"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "piccola-stella-034",
+      "prompt": "Ma che riesce a non farmi cadere",
+      "answer": ["pero", "que", "logra", "no", "hacerme", "caer"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["y", "sí", "puede", "subir"],
+        "pos": {
+          "pero": "conjuncion",
+          "que": "conjuncion",
+          "logra": "verbo",
+          "no": "adverbio",
+          "hacerme": "verbo",
+          "caer": "verbo",
+          "y": "conjuncion",
+          "sí": "adverbio",
+          "puede": "verbo",
+          "subir": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "piccola-stella-035",
+      "prompt": "Sei la piccola stella che porto",
+      "answer": ["eres", "la", "pequeña", "estrella", "que", "llevo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["grande", "luna", "el", "tengo"],
+        "pos": {
+          "eres": "verbo",
+          "la": "articulo",
+          "pequeña": "adjetivo",
+          "estrella": "sustantivo",
+          "que": "pronombre",
+          "llevo": "verbo",
+          "grande": "adjetivo",
+          "luna": "sustantivo",
+          "el": "articulo",
+          "tengo": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "piccola-stella-036",
+      "prompt": "Nei momenti in cui non ho luce",
+      "answer": ["en", "los", "momentos", "en", "que", "no", "tengo", "luz"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["las", "sí", "sombra", "días"],
+        "pos": {
+          "en": "preposicion",
+          "los": "articulo",
+          "momentos": "sustantivo",
+          "que": "pronombre",
+          "no": "adverbio",
+          "tengo": "verbo",
+          "luz": "sustantivo",
+          "las": "articulo",
+          "sí": "adverbio",
+          "sombra": "sustantivo",
+          "días": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "piccola-stella-037",
+      "prompt": "Sei la piccola stella che porto",
+      "answer": ["eres", "la", "pequeña", "estrella", "que", "llevo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["grande", "luna", "el", "tengo"],
+        "pos": {
+          "eres": "verbo",
+          "la": "articulo",
+          "pequeña": "adjetivo",
+          "estrella": "sustantivo",
+          "que": "pronombre",
+          "llevo": "verbo",
+          "grande": "adjetivo",
+          "luna": "sustantivo",
+          "el": "articulo",
+          "tengo": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "piccola-stella-038",
+      "prompt": "Nei momenti in cui non ho luce",
+      "answer": ["en", "los", "momentos", "en", "que", "no", "tengo", "luz"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-06-29",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["las", "sí", "sombra", "días"],
+        "pos": {
+          "en": "preposicion",
+          "los": "articulo",
+          "momentos": "sustantivo",
+          "que": "pronombre",
+          "no": "adverbio",
+          "tengo": "verbo",
+          "luz": "sustantivo",
+          "las": "articulo",
+          "sí": "adverbio",
+          "sombra": "sustantivo",
+          "días": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "piccola-stella-039",
       "prompt": "Sei la piccola stella che porto",
-      "answer": [
-        "eres",
-        "la",
-        "pequeña",
-        "estrella",
-        "que",
-        "llevo"
-      ],
+      "answer": ["eres", "la", "pequeña", "estrella", "que", "llevo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
         "passes": [
           {
-            "by": "deepseek-chat",
+            "by": "deepseek-reasoner",
             "date": "2026-06-29",
             "verdict": "correcta",
             "concerns": []
           },
           {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-22",
             "verdict": "correcta",
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["grande", "luna", "el", "tengo"],
+        "pos": {
+          "eres": "verbo",
+          "la": "articulo",
+          "pequeña": "adjetivo",
+          "estrella": "sustantivo",
+          "que": "pronombre",
+          "llevo": "verbo",
+          "grande": "adjetivo",
+          "luna": "sustantivo",
+          "el": "articulo",
+          "tengo": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "piccola-stella-040",
       "prompt": "Nei momenti in cui non ho luce",
-      "answer": [
-        "en",
-        "los",
-        "momentos",
-        "en",
-        "que",
-        "no",
-        "tengo",
-        "luz"
-      ],
+      "answer": ["en", "los", "momentos", "en", "que", "no", "tengo", "luz"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
         "passes": [
           {
-            "by": "deepseek-chat",
+            "by": "deepseek-reasoner",
             "date": "2026-06-29",
             "verdict": "correcta",
             "concerns": []
           },
           {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-22",
             "verdict": "correcta",
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["las", "sí", "sombra", "días"],
+        "pos": {
+          "en": "preposicion",
+          "los": "articulo",
+          "momentos": "sustantivo",
+          "que": "pronombre",
+          "no": "adverbio",
+          "tengo": "verbo",
+          "luz": "sustantivo",
+          "las": "articulo",
+          "sí": "adverbio",
+          "sombra": "sustantivo",
+          "días": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "piccola-stella-041",
       "prompt": "Sei la piccola stella che porto",
-      "answer": [
-        "eres",
-        "la",
-        "pequeña",
-        "estrella",
-        "que",
-        "llevo"
-      ],
+      "answer": ["eres", "la", "pequeña", "estrella", "que", "llevo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
         "passes": [
           {
-            "by": "deepseek-chat",
+            "by": "deepseek-reasoner",
             "date": "2026-06-29",
             "verdict": "correcta",
             "concerns": []
           },
           {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-22",
             "verdict": "correcta",
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["grande", "luna", "el", "tengo"],
+        "pos": {
+          "eres": "verbo",
+          "la": "articulo",
+          "pequeña": "adjetivo",
+          "estrella": "sustantivo",
+          "que": "pronombre",
+          "llevo": "verbo",
+          "grande": "adjetivo",
+          "luna": "sustantivo",
+          "el": "articulo",
+          "tengo": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "piccola-stella-042",
       "prompt": "Nei momenti in cui non ho luce",
-      "answer": [
-        "en",
-        "los",
-        "momentos",
-        "en",
-        "que",
-        "no",
-        "tengo",
-        "luz"
-      ],
+      "answer": ["en", "los", "momentos", "en", "que", "no", "tengo", "luz"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
         "passes": [
           {
-            "by": "deepseek-chat",
+            "by": "deepseek-reasoner",
             "date": "2026-06-29",
             "verdict": "correcta",
             "concerns": []
           },
           {
-            "by": "deepseek-reasoner",
-            "date": "2026-06-29",
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-22",
             "verdict": "correcta",
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["las", "sí", "sombra", "días"],
+        "pos": {
+          "en": "preposicion",
+          "los": "articulo",
+          "momentos": "sustantivo",
+          "que": "pronombre",
+          "no": "adverbio",
+          "tengo": "verbo",
+          "luz": "sustantivo",
+          "las": "articulo",
+          "sí": "adverbio",
+          "sombra": "sustantivo",
+          "días": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     }
   ]
