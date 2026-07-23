@@ -53,15 +53,19 @@ describe('Phase 32-02 Task 2 — copy del contrato editorial (index.html)', () =
     assert.ok(html.includes('Categorías'), 'título serif Categorías (HOME-01)');
   });
 
-  test('CTA `Repaso 20`, overline `CATEGORÍAS`, label `Contrarreloj`', () => {
-    assert.ok(html.includes('Repaso 20'), 'CTA primario (HOME-02)');
+  test('CTAs `Repaso` + `Canciones` al mismo nivel, overline `CATEGORÍAS`, label `Contrarreloj`', () => {
+    // quick-260723-hcs: "Repaso 20" -> "Repaso"; Canciones sube de ghost a CTA.
+    assert.ok(html.includes('>Repaso<'), 'CTA primario Repaso (HOME-02, sin "20")');
+    assert.ok(!html.includes('Repaso 20'), 'ya no debe existir el literal "Repaso 20"');
+    assert.ok(html.includes('home-cta-row'), 'los dos CTAs viven en .home-cta-row');
+    assert.ok(html.includes('home-cta-songs'), 'CTA Canciones con acento propio (.home-cta-songs)');
+    assert.ok(html.includes('Canta y rellena'), 'subtítulo del CTA Canciones');
     assert.ok(html.includes('CATEGORÍAS'), 'overline de sección (HOME-05)');
     assert.ok(html.includes('Contrarreloj'), 'label del switch (HOME-05)');
   });
 
-  test('ghost row: Test completo · Canciones · Backup', () => {
+  test('ghost row: Test completo · Backup (Canciones ya NO es ghost)', () => {
     assert.ok(html.includes('Test completo'), 'ghost Test completo (HOME-03)');
-    assert.ok(html.includes('Canciones'), 'ghost Canciones (HOME-03, D-04)');
     assert.ok(html.includes('Backup'), 'ghost Backup (HOME-03)');
   });
 });

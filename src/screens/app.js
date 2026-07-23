@@ -2835,6 +2835,19 @@ export function appShell(appDataReady) {
     },
 
     /**
+     * quick-260723-spo — URL del embed de Spotify de la canción activa, o null.
+     * La fuente es `spotifyTrackId` del índice `content/songs.json`, fusionado en
+     * `songsById` por el content-loader. Solo se acepta un id base62 (validación
+     * anti-inyección en `:src`); cualquier otra cosa → null (no se pinta iframe).
+     * @returns {string|null}
+     */
+    get songSpotifyEmbedUrl() {
+      const id = this.content?.songsById?.[this.songActiveId]?.spotifyTrackId;
+      if (typeof id !== 'string' || !/^[A-Za-z0-9]+$/.test(id)) return null;
+      return `https://open.spotify.com/embed/track/${id}`;
+    },
+
+    /**
      * quick-260715-hf5 — Vista AGRUPADA del banco por categoría sintáctica.
      * Devuelve `null` fuera del modo canción-agrupado (el template cae al banco
      * plano). Cada grupo: `{ key, label, items:[...bankWithKeys], collapsed }`.

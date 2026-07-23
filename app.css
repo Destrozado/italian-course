@@ -149,6 +149,8 @@
   --ed-green-dark: #296c4a;     /* Phase 34 (D-46/UI-SPEC §Color): stripe por defecto del tile de portada (repeating-linear-gradient) — net-new, verbatim handoff §4 */
   --ed-red: #b5412e;            /* error, tricolore derecho */
   --ed-amber: #b9852f;          /* dot "hecha" (en progreso) */
+  --ed-gold-cta: #966a1f;       /* quick-260723-hcs: fondo del CTA "Canciones" (ámbar oscurecido para contraste AA con texto claro) */
+  --ed-shadow-cta-gold: 0 10px 22px rgba(150, 106, 31, .26); /* sombra del CTA dorado (espejo de --ed-shadow-cta en verde) */
   --ed-neutral-dot: #c4bcab;    /* dot "no-hecha" (sin empezar) */
   --ed-placeholder: var(--ed-faint); /* Phase 34 (UI-SPEC Copywriting): color muted del "/Y" en el hero de score (familia muted, alias de --ed-faint) */
   --ed-ring-track: #e6ddcd;     /* Phase 34 (handoff §5, SRP-03): pista vacía del anillo de score conic-gradient — literal del handoff, DISTINTO de --ed-streak-track */
@@ -509,6 +511,28 @@ th, td { padding: 8px 10px; text-align: left; }
   line-height: 1;
 }
 
+/* quick-260723-hcs — Dos CTAs al mismo nivel (Repaso · Canciones) lado a lado.
+ * Cada uno flex:1 (mismo ancho); min-width:0 permite que el texto se ajuste. */
+.home-cta-row {
+  display: flex;
+  gap: 10px;
+}
+.home-cta-row .home-cta {
+  flex: 1;
+  min-width: 0;
+}
+/* CTA "Canciones": mismo peso/tamaño que Repaso pero acento dorado para que dos
+ * bloques no compitan en el mismo verde (igual de destacados, diferenciados). */
+.home-cta-songs {
+  background: var(--ed-gold-cta);
+  box-shadow: var(--ed-shadow-cta-gold);
+}
+/* Móvil: los dos CTAs se apilan a ancho completo (evita que título+subtítulo+
+ * flecha queden apretados en pantallas estrechas). */
+@media (max-width: 640px) {
+  .home-cta-row { flex-direction: column; }
+}
+
 /* ─── (3) Fila ghost de 3 (HOME-03) ─── */
 .home-ghost-row {
   display: flex;
@@ -838,6 +862,14 @@ th, td { padding: 8px 10px; text-align: left; }
   line-height: 1.3;
   color: var(--ed-ink);
   margin: 0 0 24px;                /* lg: prompt -> opciones */
+}
+/* quick-260723-spo — Player de Spotify (embed) en la pantalla de reproducción
+ * de canciones. Ancho completo, sin borde propio (el iframe ya redondea). */
+.song-spotify {
+  display: block;
+  width: 100%;
+  border: 0;
+  margin: 0 0 20px;                /* separa el player del prompt */
 }
 /* Móvil: prompt más compacto — 22px + margen 12px hace que muchos prompts
  * pasen de 2 líneas a 1, ganando alto (menos scroll). Va en app.css (carga

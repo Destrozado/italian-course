@@ -49,19 +49,23 @@ describe('Canciones — Task 1: boot wiring + home button + listado', () => {
       'songsById NUNCA debe mezclarse en exerciseById — standalone LINK-04');
   });
 
-  test('index.html: botón Canciones en la fila ghost editorial (Phase 32 D-04 supersede D-01)', () => {
-    // Phase 32 D-04: Canciones BAJA de protagonista a la fila ghost de 3
-    // (Test completo · Canciones · Backup). El comportamiento se preserva
-    // (abre currentScreen = 'canciones'); solo cambia su nivel visual.
-    const rowIdx = indexSrc.indexOf('home-ghost-row');
-    assert.ok(rowIdx > -1, 'debe existir la fila ghost editorial .home-ghost-row (Phase 32)');
-    const rowWindow = indexSrc.slice(rowIdx, rowIdx + 900);
-    const m = rowWindow.match(/<button[^>]*>Canciones<\/button>/);
-    assert.ok(m, 'debe existir un <button>...Canciones</button> en la fila ghost');
+  test('index.html: botón Canciones es un CTA al nivel de Repaso (quick-260723-hcs supersede D-04)', () => {
+    // quick-260723-hcs: el autor sube Canciones de ghost a CTA destacado, al
+    // mismo nivel que Repaso (dos CTAs en .home-cta-row, Canciones con acento
+    // dorado .home-cta-songs). El comportamiento se preserva (currentScreen =
+    // 'canciones'); ya NO vive en la fila ghost.
+    const rowIdx = indexSrc.indexOf('home-cta-row');
+    assert.ok(rowIdx > -1, 'debe existir la fila de CTAs .home-cta-row');
+    const rowWindow = indexSrc.slice(rowIdx, rowIdx + 1600);
+    const m = rowWindow.match(/<button[^>]*class="[^"]*home-cta-songs[^"]*"[^>]*>[\s\S]*?Canciones[\s\S]*?<\/button>/);
+    assert.ok(m, 'debe existir un <button class="...home-cta-songs...">...Canciones...</button>');
     assert.ok(/@click="currentScreen = 'canciones'"/.test(m[0]),
-      'el botón Canciones ghost debe abrir currentScreen = \'canciones\' (comportamiento preservado)');
-    assert.ok(/class\s*=\s*"[^"]*home-ghost[^"]*"/.test(m[0]),
-      'el botón Canciones debe llevar la clase home-ghost (nivel ghost, D-04)');
+      'el CTA Canciones debe abrir currentScreen = \'canciones\' (comportamiento preservado)');
+    // Y ya no debe estar dentro de la fila ghost.
+    const ghostIdx = indexSrc.indexOf('home-ghost-row');
+    const ghostWindow = indexSrc.slice(ghostIdx, ghostIdx + 600);
+    assert.ok(!/home-ghost[^>]*>Canciones</.test(ghostWindow),
+      'Canciones ya NO debe ser un botón ghost');
   });
 
   test('index.html tiene el template del listado currentScreen === \'canciones\'', () => {

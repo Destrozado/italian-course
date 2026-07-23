@@ -221,6 +221,19 @@ export async function loadSongs(songIds, knownCategoryIds) {
   const songsById = {};
   for (const doc of songDocs) songsById[doc.id] = doc;
 
+  // 6b. quick-260723-spo — Fusionar metadata del índice que NO vive en el
+  //     documento de la canción (p.ej. `spotifyTrackId`). La fuente de verdad
+  //     es `content/songs.json` (sobrevive a re-serializados con serializeSong,
+  //     que solo escribe id/title/phrases). Solo campos presentacionales; el id
+  //     de Spotify se valida en el getter del UI antes de pintarse.
+  const indexById = new Map(index.map(s => [s?.id, s]));
+  for (const doc of songDocs) {
+    const meta = indexById.get(doc.id);
+    if (meta && typeof meta.spotifyTrackId === 'string') {
+      doc.spotifyTrackId = meta.spotifyTrackId;
+    }
+  }
+
   return { songs: index, songsById };
 }
 

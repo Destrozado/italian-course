@@ -139,30 +139,36 @@
           </template>
 
           <!--
-            HOME-02 — CTA primario "Repaso 20" (D-04/D-05). Ancho completo, verde,
-            título + subtítulo + flecha + sombra verde (estilado en app.css).
-            COMPORTAMIENTO INTACTO (D-05): @click="openPicker('repaso')" VERBATIM —
-            abre el picker de selección de categorías, NO un lanzamiento directo.
-            El subtítulo es decorativo; se usa "Repaso rápido" (neutro) para no
-            prometer un lanzamiento de 20 directo que choque con el paso del picker.
+            HOME-02 — Dos CTAs al MISMO nivel (quick-260723-hcs, supersede D-04):
+            "Repaso" (verde) y "Canciones" (acento dorado). Antes Canciones era un
+            ghost; el autor la quiere igual de destacada que Repaso. Ambos misma
+            estructura (título + subtítulo + flecha), lado a lado (.home-cta-row),
+            se apilan en móvil. COMPORTAMIENTO INTACTO: Repaso → openPicker('repaso')
+            (D-05, NO lanzamiento directo); Canciones → currentScreen = 'canciones'.
           -->
-          <button type="button" class="home-cta" @click="openPicker('repaso')">
-            <span class="home-cta-text">
-              <span class="home-cta-title">Repaso 20</span>
-              <span class="home-cta-sub">Repaso rápido</span>
-            </span>
-            <span class="home-cta-arrow" aria-hidden="true">→</span>
-          </button>
+          <div class="home-cta-row">
+            <button type="button" class="home-cta" @click="openPicker('repaso')">
+              <span class="home-cta-text">
+                <span class="home-cta-title">Repaso</span>
+                <span class="home-cta-sub">Repaso rápido</span>
+              </span>
+              <span class="home-cta-arrow" aria-hidden="true">→</span>
+            </button>
+            <button type="button" class="home-cta home-cta-songs" @click="currentScreen = 'canciones'">
+              <span class="home-cta-text">
+                <span class="home-cta-title">Canciones</span>
+                <span class="home-cta-sub">Canta y rellena</span>
+              </span>
+              <span class="home-cta-arrow" aria-hidden="true">→</span>
+            </button>
+          </div>
 
           <!--
-            HOME-03 — Fila ghost de 3 (D-04): Test completo · Canciones · Backup.
-            Todos los @click VERBATIM del diseño anterior. Canciones BAJA de
-            protagonista a ghost (D-04, supersede del D-01 de Phase 13). Bordes
-            border-soft, equiespaciados (flex:1), estilado en app.css.
+            HOME-03 — Fila ghost (quick-260723-hcs): Test completo · Backup.
+            Canciones SALE de aquí y sube a CTA (arriba). @click VERBATIM.
           -->
           <div class="home-ghost-row">
             <button type="button" class="home-ghost" @click="openPicker('test-completo')">Test completo</button>
-            <button type="button" class="home-ghost" @click="currentScreen = 'canciones'">Canciones</button>
             <button type="button" class="home-ghost" @click="currentScreen = 'backup'">Backup</button>
           </div>
 
@@ -969,6 +975,21 @@
                que al volver tras un rato se ve qué canción estás haciendo. -->
           <h2 class="session-context" x-text="sessionContextLabel"></h2>
 
+          <!-- quick-260723-spo — Player de Spotify (embed) SOLO si la canción
+               tiene `spotifyTrackId` en content/songs.json. Enhancement ONLINE:
+               carga contenido externo de open.spotify.com; sin red sale en
+               blanco sin romper nada. `:src` viene del getter con id validado. -->
+          <template x-if="songSpotifyEmbedUrl">
+            <iframe class="song-spotify"
+                    :src="songSpotifyEmbedUrl"
+                    width="100%" height="80"
+                    style="border-radius:12px"
+                    frameborder="0"
+                    loading="lazy"
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    allowfullscreen></iframe>
+          </template>
+
           <!-- PLAY-02: la línea ITALIANA es el texto a traducir (x-text — T-02-01). -->
           <p class="session-prompt" x-text="songCurrentPhrase.payload.prompt"></p>
 
@@ -1194,7 +1215,7 @@
             Guard x-if `sessionResults.some(r => !r.correct)` (D-108): si la
             sesión termina con 0 fallos, la sección no se renderiza en
             absoluto (sin mensaje "sin errores", sin emoji — la ausencia es
-            la señal). Aplica a Repaso 20 + Test completo (D-110 hereda el
+            la señal). Aplica a Repaso + Test completo (D-110 hereda el
             shape extendido vía spread en persistInFlightTest, sin cambios
             al helper).
 
