@@ -1,0 +1,3696 @@
+{
+  "id": "niente",
+  "title": "Niente — Ultimo",
+  "phrases": [
+    {
+      "id": "niente-001",
+      "prompt": "È che da tempo non so dove andare",
+      "answer": ["es", "que", "hace", "tiempo", "no", "sé", "adónde", "ir"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["sí", "venir", "cuándo"],
+        "pos": {
+          "es": "verbo",
+          "que": "conjuncion",
+          "hace": "verbo",
+          "tiempo": "sustantivo",
+          "no": "adverbio",
+          "sé": "verbo",
+          "adónde": "adverbio",
+          "ir": "verbo",
+          "sí": "adverbio",
+          "venir": "verbo",
+          "cuándo": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-002",
+      "prompt": "Provo ad urlare ma non ho più voce",
+      "answer": ["intento", "gritar", "pero", "ya", "no", "tengo", "voz"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["callar", "y", "fuerza"],
+        "pos": {
+          "intento": "verbo",
+          "gritar": "verbo",
+          "pero": "conjuncion",
+          "ya": "adverbio",
+          "no": "adverbio",
+          "tengo": "verbo",
+          "voz": "sustantivo",
+          "callar": "verbo",
+          "y": "conjuncion",
+          "fuerza": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-003",
+      "prompt": "Tu dici: Dai, si può ricominciare",
+      "answer": ["tú", "dices", "venga", "se", "puede", "volver", "a", "empezar"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["yo", "callas", "terminar"],
+        "pos": {
+          "tú": "pronombre",
+          "dices": "verbo",
+          "venga": "verbo",
+          "se": "pronombre",
+          "puede": "verbo",
+          "volver": "verbo",
+          "a": "preposicion",
+          "empezar": "verbo",
+          "yo": "pronombre",
+          "callas": "verbo",
+          "terminar": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-004",
+      "prompt": "Ma io non ho da offrirti più parole",
+      "answer": ["pero", "yo", "ya", "no", "tengo", "más", "palabras", "que", "ofrecerte"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["y", "menos", "silencios"],
+        "pos": {
+          "pero": "conjuncion",
+          "yo": "pronombre",
+          "ya": "adverbio",
+          "no": "adverbio",
+          "tengo": "verbo",
+          "más": "determinante",
+          "palabras": "sustantivo",
+          "que": "pronombre",
+          "ofrecerte": "verbo",
+          "y": "conjuncion",
+          "menos": "determinante",
+          "silencios": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-005",
+      "prompt": "Si è vero tu mi incanti anche se non mi parli",
+      "answer": ["sí", "es", "verdad", "tú", "me", "encantas", "aunque", "no", "me", "hables"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["mentira", "te", "escuchas"],
+        "pos": {
+          "sí": "adverbio",
+          "es": "verbo",
+          "verdad": "sustantivo",
+          "tú": "pronombre",
+          "me": "pronombre",
+          "encantas": "verbo",
+          "aunque": "conjuncion",
+          "no": "adverbio",
+          "hables": "verbo",
+          "mentira": "sustantivo",
+          "te": "pronombre",
+          "escuchas": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-006",
+      "prompt": "Ma il sole è spento e non lo vedo più da queste parti",
+      "answer": ["pero", "el", "sol", "está", "apagado", "y", "ya", "no", "lo", "veo", "por", "aquí"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["luna", "encendido", "allí", "la"],
+        "pos": {
+          "pero": "conjuncion",
+          "el": "articulo",
+          "sol": "sustantivo",
+          "está": "verbo",
+          "apagado": "adjetivo",
+          "y": "conjuncion",
+          "ya": "adverbio",
+          "no": "adverbio",
+          "lo": "pronombre",
+          "veo": "verbo",
+          "por": "preposicion",
+          "aquí": "adverbio",
+          "luna": "sustantivo",
+          "encendido": "adjetivo",
+          "allí": "adverbio",
+          "la": "articulo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-007",
+      "prompt": "Si è vero avevo detto che sarà per sempre",
+      "answer": ["sí", "es", "verdad", "había", "dicho", "que", "será", "para", "siempre"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["mentira", "nunca", "sin"],
+        "pos": {
+          "sí": "adverbio",
+          "es": "verbo",
+          "verdad": "sustantivo",
+          "había": "verbo",
+          "dicho": "verbo",
+          "que": "conjuncion",
+          "será": "verbo",
+          "para": "preposicion",
+          "siempre": "adverbio",
+          "mentira": "sustantivo",
+          "nunca": "adverbio",
+          "sin": "preposicion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-008",
+      "prompt": "È triste, ma",
+      "answer": ["es", "triste", "pero"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["era", "alegre", "y"],
+        "pos": {
+          "es": "verbo",
+          "triste": "adjetivo",
+          "pero": "conjuncion",
+          "era": "verbo",
+          "alegre": "adjetivo",
+          "y": "conjuncion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-009",
+      "prompt": "Quando mi abbracci non sento più niente",
+      "answer": ["cuando", "me", "abrazas", "ya", "no", "siento", "nada"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["si", "te", "sueltas", "todo"],
+        "pos": {
+          "cuando": "conjuncion",
+          "me": "pronombre",
+          "abrazas": "verbo",
+          "ya": "adverbio",
+          "no": "adverbio",
+          "siento": "verbo",
+          "nada": "pronombre",
+          "si": "conjuncion",
+          "te": "pronombre",
+          "sueltas": "verbo",
+          "todo": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-010",
+      "prompt": "Quando mi siedo sopra il tetto del mondo",
+      "answer": ["cuando", "me", "siento", "sobre", "el", "techo", "del", "mundo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["si", "bajo", "suelo", "te"],
+        "pos": {
+          "cuando": "conjuncion",
+          "me": "pronombre",
+          "siento": "verbo",
+          "sobre": "preposicion",
+          "el": "articulo",
+          "techo": "sustantivo",
+          "del": "preposicion",
+          "mundo": "sustantivo",
+          "si": "conjuncion",
+          "bajo": "preposicion",
+          "suelo": "sustantivo",
+          "te": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-011",
+      "prompt": "Mi accorgo di essere il solito che si rifugia nel fondo",
+      "answer": ["me", "doy", "cuenta", "de", "que", "soy", "el", "de", "siempre", "que", "se", "refugia", "en", "el", "fondo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["te", "nunca", "cima"],
+        "pos": {
+          "me": "pronombre",
+          "doy": "verbo",
+          "cuenta": "sustantivo",
+          "de": "preposicion",
+          "que": "conjuncion",
+          "soy": "verbo",
+          "el": "articulo",
+          "siempre": "adverbio",
+          "se": "pronombre",
+          "refugia": "verbo",
+          "en": "preposicion",
+          "fondo": "sustantivo",
+          "te": "pronombre",
+          "nunca": "adverbio",
+          "cima": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-012",
+      "prompt": "Di questo stupido e fragile mio disonesto bicchiere",
+      "answer": ["de", "este", "estúpido", "y", "frágil", "deshonesto", "vaso", "mío"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["ese", "fuerte", "copa", "tuyo"],
+        "pos": {
+          "de": "preposicion",
+          "este": "determinante",
+          "estúpido": "adjetivo",
+          "y": "conjuncion",
+          "frágil": "adjetivo",
+          "deshonesto": "adjetivo",
+          "vaso": "sustantivo",
+          "mío": "adjetivo",
+          "ese": "determinante",
+          "fuerte": "adjetivo",
+          "copa": "sustantivo",
+          "tuyo": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-013",
+      "prompt": "Che bevo per mandare giù la parte mia che non si vede",
+      "answer": ["que", "bebo", "para", "tragar", "la", "parte", "mía", "que", "no", "se", "ve"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["sin", "tuya", "escupir"],
+        "pos": {
+          "que": "pronombre",
+          "bebo": "verbo",
+          "para": "preposicion",
+          "tragar": "verbo",
+          "la": "articulo",
+          "parte": "sustantivo",
+          "mía": "adjetivo",
+          "no": "adverbio",
+          "se": "pronombre",
+          "ve": "verbo",
+          "sin": "preposicion",
+          "tuya": "adjetivo",
+          "escupir": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-014",
+      "prompt": "Tu parli sempre di tutto",
+      "answer": ["tú", "hablas", "siempre", "de", "todo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["yo", "callas", "nunca", "nada"],
+        "pos": {
+          "tú": "pronombre",
+          "hablas": "verbo",
+          "siempre": "adverbio",
+          "de": "preposicion",
+          "todo": "pronombre",
+          "yo": "pronombre",
+          "callas": "verbo",
+          "nunca": "adverbio",
+          "nada": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-015",
+      "prompt": "Ma non hai mai una ragione",
+      "answer": ["pero", "nunca", "tienes", "una", "razón"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["y", "siempre", "duda"],
+        "pos": {
+          "pero": "conjuncion",
+          "nunca": "adverbio",
+          "tienes": "verbo",
+          "una": "articulo",
+          "razón": "sustantivo",
+          "y": "conjuncion",
+          "siempre": "adverbio",
+          "duda": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-016",
+      "prompt": "Io che sto zitto e subisco",
+      "answer": ["yo", "que", "me", "callo", "y", "aguanto"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["tú", "hablo", "pero"],
+        "pos": {
+          "yo": "pronombre",
+          "que": "pronombre",
+          "me": "pronombre",
+          "callo": "verbo",
+          "y": "conjuncion",
+          "aguanto": "verbo",
+          "tú": "pronombre",
+          "hablo": "verbo",
+          "pero": "conjuncion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-017",
+      "prompt": "Penso a un futuro migliore",
+      "answer": ["pienso", "en", "un", "futuro", "mejor"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["sueño", "a", "pasado", "peor"],
+        "pos": {
+          "pienso": "verbo",
+          "en": "preposicion",
+          "un": "articulo",
+          "futuro": "sustantivo",
+          "mejor": "adjetivo",
+          "sueño": "verbo",
+          "a": "preposicion",
+          "pasado": "sustantivo",
+          "peor": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-018",
+      "prompt": "Certo che cosa ti pensi che adesso io sia felice",
+      "answer": ["claro", "qué", "te", "crees", "que", "ahora", "yo", "sea", "feliz"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["quién", "me", "luego", "triste"],
+        "pos": {
+          "claro": "adverbio",
+          "qué": "pronombre",
+          "te": "pronombre",
+          "crees": "verbo",
+          "que": "conjuncion",
+          "ahora": "adverbio",
+          "yo": "pronombre",
+          "sea": "verbo",
+          "feliz": "adjetivo",
+          "quién": "pronombre",
+          "me": "pronombre",
+          "luego": "adverbio",
+          "triste": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-019",
+      "prompt": "Non vedi che uso il sorriso per mascherar le ferite",
+      "answer": ["no", "ves", "que", "uso", "la", "sonrisa", "para", "enmascarar", "las", "heridas"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["sí", "llanto", "mostrar", "por"],
+        "pos": {
+          "no": "adverbio",
+          "ves": "verbo",
+          "que": "conjuncion",
+          "uso": "verbo",
+          "la": "articulo",
+          "sonrisa": "sustantivo",
+          "para": "preposicion",
+          "enmascarar": "verbo",
+          "las": "articulo",
+          "heridas": "sustantivo",
+          "sí": "adverbio",
+          "llanto": "sustantivo",
+          "mostrar": "verbo",
+          "por": "preposicion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-020",
+      "prompt": "Io sono il solito stronzo che parla sempre di se",
+      "answer": ["yo", "soy", "el", "típico", "gilipollas", "que", "habla", "siempre", "de", "sí"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["tú", "raro", "calla", "nunca"],
+        "pos": {
+          "yo": "pronombre",
+          "soy": "verbo",
+          "el": "articulo",
+          "típico": "adjetivo",
+          "gilipollas": "sustantivo",
+          "que": "pronombre",
+          "habla": "verbo",
+          "siempre": "adverbio",
+          "de": "preposicion",
+          "sí": "pronombre",
+          "tú": "pronombre",
+          "raro": "adjetivo",
+          "calla": "verbo",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-021",
+      "prompt": "Ma lo faccio perché tu non veda la parte vera di me",
+      "answer": ["pero", "lo", "hago", "para", "que", "no", "veas", "la", "parte", "verdadera", "de", "mí"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["y", "falsa", "ti"],
+        "pos": {
+          "pero": "conjuncion",
+          "lo": "pronombre",
+          "hago": "verbo",
+          "para": "preposicion",
+          "que": "conjuncion",
+          "no": "adverbio",
+          "veas": "verbo",
+          "la": "articulo",
+          "parte": "sustantivo",
+          "verdadera": "adjetivo",
+          "de": "preposicion",
+          "mí": "pronombre",
+          "y": "conjuncion",
+          "falsa": "adjetivo",
+          "ti": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-022",
+      "prompt": "Per questo guardami bene che adesso cala il sipario",
+      "answer": ["por", "eso", "mírame", "bien", "que", "ahora", "cae", "el", "telón"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["mal", "sube", "luego", "la"],
+        "pos": {
+          "por": "preposicion",
+          "eso": "pronombre",
+          "mírame": "verbo",
+          "bien": "adverbio",
+          "que": "conjuncion",
+          "ahora": "adverbio",
+          "cae": "verbo",
+          "el": "articulo",
+          "telón": "sustantivo",
+          "mal": "adverbio",
+          "sube": "verbo",
+          "luego": "adverbio",
+          "la": "articulo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-023",
+      "prompt": "Sai se la gente si aprisse non esisterebbe il teatro",
+      "answer": ["sabes", "si", "la", "gente", "se", "abriera", "no", "existiría", "el", "teatro"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["ignoras", "cuando", "cerrara", "nunca"],
+        "pos": {
+          "sabes": "verbo",
+          "si": "conjuncion",
+          "la": "articulo",
+          "gente": "sustantivo",
+          "se": "pronombre",
+          "abriera": "verbo",
+          "no": "adverbio",
+          "existiría": "verbo",
+          "el": "articulo",
+          "teatro": "sustantivo",
+          "ignoras": "verbo",
+          "cuando": "conjuncion",
+          "cerrara": "verbo",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-024",
+      "prompt": "Sarà che devo mentire, mostrare ciò che non sono",
+      "answer": ["será", "que", "debo", "mentir", "mostrar", "lo", "que", "no", "soy"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["era", "puedo", "ocultar", "sí"],
+        "pos": {
+          "será": "verbo",
+          "que": "conjuncion",
+          "debo": "verbo",
+          "mentir": "verbo",
+          "mostrar": "verbo",
+          "lo": "pronombre",
+          "no": "adverbio",
+          "soy": "verbo",
+          "era": "verbo",
+          "puedo": "verbo",
+          "ocultar": "verbo",
+          "sí": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-025",
+      "prompt": "Vorrei riuscire ad amare eppure io non mi emoziono",
+      "answer": ["querría", "lograr", "amar", "y", "sin", "embargo", "yo", "no", "me", "emociono"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["odiar", "con", "tú", "sí"],
+        "pos": {
+          "querría": "verbo",
+          "lograr": "verbo",
+          "amar": "verbo",
+          "y": "conjuncion",
+          "sin": "preposicion",
+          "embargo": "sustantivo",
+          "yo": "pronombre",
+          "no": "adverbio",
+          "me": "pronombre",
+          "emociono": "verbo",
+          "odiar": "verbo",
+          "con": "preposicion",
+          "tú": "pronombre",
+          "sí": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-026",
+      "prompt": "Perché sognare m'ha reso una nuvola con i piedi",
+      "answer": ["porque", "soñar", "me", "ha", "convertido", "en", "una", "nube", "con", "pies"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["aunque", "te", "sin", "alas"],
+        "pos": {
+          "porque": "conjuncion",
+          "soñar": "verbo",
+          "me": "pronombre",
+          "ha": "verbo",
+          "convertido": "verbo",
+          "en": "preposicion",
+          "una": "articulo",
+          "nube": "sustantivo",
+          "con": "preposicion",
+          "pies": "sustantivo",
+          "aunque": "conjuncion",
+          "te": "pronombre",
+          "sin": "preposicion",
+          "alas": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-027",
+      "prompt": "Per questo siamo vicini ma con diversi pensieri",
+      "answer": ["por", "eso", "estamos", "cerca", "pero", "con", "pensamientos", "distintos"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["lejos", "y", "sin", "iguales"],
+        "pos": {
+          "por": "preposicion",
+          "eso": "pronombre",
+          "estamos": "verbo",
+          "cerca": "adverbio",
+          "pero": "conjuncion",
+          "con": "preposicion",
+          "pensamientos": "sustantivo",
+          "distintos": "adjetivo",
+          "lejos": "adverbio",
+          "y": "conjuncion",
+          "sin": "preposicion",
+          "iguales": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-028",
+      "prompt": "È che da tempo non so dove andare",
+      "answer": ["es", "que", "hace", "tiempo", "no", "sé", "adónde", "ir"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["sí", "venir", "cuándo"],
+        "pos": {
+          "es": "verbo",
+          "que": "conjuncion",
+          "hace": "verbo",
+          "tiempo": "sustantivo",
+          "no": "adverbio",
+          "sé": "verbo",
+          "adónde": "adverbio",
+          "ir": "verbo",
+          "sí": "adverbio",
+          "venir": "verbo",
+          "cuándo": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-029",
+      "prompt": "Provo ad urlare ma non ho più voce",
+      "answer": ["intento", "gritar", "pero", "ya", "no", "tengo", "voz"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["callar", "y", "fuerza"],
+        "pos": {
+          "intento": "verbo",
+          "gritar": "verbo",
+          "pero": "conjuncion",
+          "ya": "adverbio",
+          "no": "adverbio",
+          "tengo": "verbo",
+          "voz": "sustantivo",
+          "callar": "verbo",
+          "y": "conjuncion",
+          "fuerza": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-030",
+      "prompt": "Tu dici: Dai, si può ricominciare",
+      "answer": ["tú", "dices", "venga", "se", "puede", "volver", "a", "empezar"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["yo", "callas", "terminar"],
+        "pos": {
+          "tú": "pronombre",
+          "dices": "verbo",
+          "venga": "verbo",
+          "se": "pronombre",
+          "puede": "verbo",
+          "volver": "verbo",
+          "a": "preposicion",
+          "empezar": "verbo",
+          "yo": "pronombre",
+          "callas": "verbo",
+          "terminar": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-031",
+      "prompt": "Ma io non ho da offrirti più parole",
+      "answer": ["pero", "yo", "ya", "no", "tengo", "más", "palabras", "que", "ofrecerte"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["y", "menos", "silencios"],
+        "pos": {
+          "pero": "conjuncion",
+          "yo": "pronombre",
+          "ya": "adverbio",
+          "no": "adverbio",
+          "tengo": "verbo",
+          "más": "determinante",
+          "palabras": "sustantivo",
+          "que": "pronombre",
+          "ofrecerte": "verbo",
+          "y": "conjuncion",
+          "menos": "determinante",
+          "silencios": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-032",
+      "prompt": "Si è vero tu mi incanti anche se non mi parli",
+      "answer": ["sí", "es", "verdad", "tú", "me", "encantas", "aunque", "no", "me", "hables"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["mentira", "te", "escuchas"],
+        "pos": {
+          "sí": "adverbio",
+          "es": "verbo",
+          "verdad": "sustantivo",
+          "tú": "pronombre",
+          "me": "pronombre",
+          "encantas": "verbo",
+          "aunque": "conjuncion",
+          "no": "adverbio",
+          "hables": "verbo",
+          "mentira": "sustantivo",
+          "te": "pronombre",
+          "escuchas": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-033",
+      "prompt": "Ma il sole è spento e non lo vedo più da queste parti",
+      "answer": ["pero", "el", "sol", "está", "apagado", "y", "ya", "no", "lo", "veo", "por", "aquí"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["luna", "encendido", "allí", "la"],
+        "pos": {
+          "pero": "conjuncion",
+          "el": "articulo",
+          "sol": "sustantivo",
+          "está": "verbo",
+          "apagado": "adjetivo",
+          "y": "conjuncion",
+          "ya": "adverbio",
+          "no": "adverbio",
+          "lo": "pronombre",
+          "veo": "verbo",
+          "por": "preposicion",
+          "aquí": "adverbio",
+          "luna": "sustantivo",
+          "encendido": "adjetivo",
+          "allí": "adverbio",
+          "la": "articulo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-034",
+      "prompt": "Si è vero avevo detto che sarà per sempre",
+      "answer": ["sí", "es", "verdad", "había", "dicho", "que", "será", "para", "siempre"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["mentira", "nunca", "sin"],
+        "pos": {
+          "sí": "adverbio",
+          "es": "verbo",
+          "verdad": "sustantivo",
+          "había": "verbo",
+          "dicho": "verbo",
+          "que": "conjuncion",
+          "será": "verbo",
+          "para": "preposicion",
+          "siempre": "adverbio",
+          "mentira": "sustantivo",
+          "nunca": "adverbio",
+          "sin": "preposicion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-035",
+      "prompt": "È triste, ma",
+      "answer": ["es", "triste", "pero"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["era", "alegre", "y"],
+        "pos": {
+          "es": "verbo",
+          "triste": "adjetivo",
+          "pero": "conjuncion",
+          "era": "verbo",
+          "alegre": "adjetivo",
+          "y": "conjuncion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-036",
+      "prompt": "Quando mi abbracci non sento più niente",
+      "answer": ["cuando", "me", "abrazas", "ya", "no", "siento", "nada"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["si", "te", "sueltas", "todo"],
+        "pos": {
+          "cuando": "conjuncion",
+          "me": "pronombre",
+          "abrazas": "verbo",
+          "ya": "adverbio",
+          "no": "adverbio",
+          "siento": "verbo",
+          "nada": "pronombre",
+          "si": "conjuncion",
+          "te": "pronombre",
+          "sueltas": "verbo",
+          "todo": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-037",
+      "prompt": "Quando mi abbracci non sento più niente",
+      "answer": ["cuando", "me", "abrazas", "ya", "no", "siento", "nada"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["si", "te", "sueltas", "todo"],
+        "pos": {
+          "cuando": "conjuncion",
+          "me": "pronombre",
+          "abrazas": "verbo",
+          "ya": "adverbio",
+          "no": "adverbio",
+          "siento": "verbo",
+          "nada": "pronombre",
+          "si": "conjuncion",
+          "te": "pronombre",
+          "sueltas": "verbo",
+          "todo": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-038",
+      "prompt": "Vedi che non ci riesco non sento la stessa emozione di prima",
+      "answer": ["ves", "que", "no", "lo", "consigo", "no", "siento", "la", "misma", "emoción", "de", "antes"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["sí", "pierdo", "distinta", "después"],
+        "pos": {
+          "ves": "verbo",
+          "que": "conjuncion",
+          "no": "adverbio",
+          "lo": "pronombre",
+          "consigo": "verbo",
+          "siento": "verbo",
+          "la": "articulo",
+          "misma": "adjetivo",
+          "emoción": "sustantivo",
+          "de": "preposicion",
+          "antes": "adverbio",
+          "sí": "adverbio",
+          "pierdo": "verbo",
+          "distinta": "adjetivo",
+          "después": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-039",
+      "prompt": "Sento che parlo ma il corpo è diverso",
+      "answer": ["siento", "que", "hablo", "pero", "el", "cuerpo", "es", "distinto"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["callo", "y", "alma", "igual"],
+        "pos": {
+          "siento": "verbo",
+          "que": "conjuncion",
+          "hablo": "verbo",
+          "pero": "conjuncion",
+          "el": "articulo",
+          "cuerpo": "sustantivo",
+          "es": "verbo",
+          "distinto": "adjetivo",
+          "callo": "verbo",
+          "y": "conjuncion",
+          "alma": "sustantivo",
+          "igual": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-040",
+      "prompt": "E vedo persone che aspettano in fila",
+      "answer": ["y", "veo", "personas", "que", "esperan", "en", "fila"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["pero", "corren", "calle"],
+        "pos": {
+          "y": "conjuncion",
+          "veo": "verbo",
+          "personas": "sustantivo",
+          "que": "pronombre",
+          "esperan": "verbo",
+          "en": "preposicion",
+          "fila": "sustantivo",
+          "pero": "conjuncion",
+          "corren": "verbo",
+          "calle": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-041",
+      "prompt": "Sono lì fuori che aspettano tutti",
+      "answer": ["están", "ahí", "fuera", "esperando", "todos"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["aquí", "dentro", "nadie"],
+        "pos": {
+          "están": "verbo",
+          "ahí": "adverbio",
+          "fuera": "adverbio",
+          "esperando": "verbo",
+          "todos": "pronombre",
+          "aquí": "adverbio",
+          "dentro": "adverbio",
+          "nadie": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-042",
+      "prompt": "Gridano il nome che ho scelto anni fa",
+      "answer": ["gritan", "el", "nombre", "que", "elegí", "hace", "años"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["callan", "la", "rechacé", "días"],
+        "pos": {
+          "gritan": "verbo",
+          "el": "articulo",
+          "nombre": "sustantivo",
+          "que": "pronombre",
+          "elegí": "verbo",
+          "hace": "verbo",
+          "años": "sustantivo",
+          "callan": "verbo",
+          "la": "articulo",
+          "rechacé": "verbo",
+          "días": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-043",
+      "prompt": "Ma il mio non è un nome d'arte",
+      "answer": ["pero", "el", "mío", "no", "es", "un", "nombre", "artístico"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["y", "tuyo", "sí", "real"],
+        "pos": {
+          "pero": "conjuncion",
+          "el": "articulo",
+          "mío": "pronombre",
+          "no": "adverbio",
+          "es": "verbo",
+          "un": "articulo",
+          "nombre": "sustantivo",
+          "artístico": "adjetivo",
+          "y": "conjuncion",
+          "tuyo": "pronombre",
+          "sí": "adverbio",
+          "real": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-044",
+      "prompt": "È il nome che ha scelto quel giorno per me la realtà",
+      "answer": ["es", "el", "nombre", "que", "la", "realidad", "eligió", "aquel", "día", "para", "mí"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["era", "fantasía", "rechazó", "este"],
+        "pos": {
+          "es": "verbo",
+          "el": "articulo",
+          "nombre": "sustantivo",
+          "que": "pronombre",
+          "la": "articulo",
+          "realidad": "sustantivo",
+          "eligió": "verbo",
+          "aquel": "determinante",
+          "día": "sustantivo",
+          "para": "preposicion",
+          "mí": "pronombre",
+          "era": "verbo",
+          "fantasía": "sustantivo",
+          "rechazó": "verbo",
+          "este": "determinante"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-045",
+      "prompt": "Io che vivevo la vita mia tutta dentro un parcheggio",
+      "answer": ["yo", "que", "vivía", "mi", "vida", "entera", "dentro", "de", "un", "aparcamiento"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["tú", "tu", "fuera", "calle"],
+        "pos": {
+          "yo": "pronombre",
+          "que": "pronombre",
+          "vivía": "verbo",
+          "mi": "determinante",
+          "vida": "sustantivo",
+          "entera": "adjetivo",
+          "dentro": "adverbio",
+          "de": "preposicion",
+          "un": "articulo",
+          "aparcamiento": "sustantivo",
+          "tú": "pronombre",
+          "tu": "determinante",
+          "fuera": "adverbio",
+          "calle": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-046",
+      "prompt": "Passavo le ore a parlare coi sogni dentro me stesso",
+      "answer": ["pasaba", "las", "horas", "hablando", "con", "los", "sueños", "dentro", "de", "mí", "mismo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["perdía", "sin", "miedos", "fuera"],
+        "pos": {
+          "pasaba": "verbo",
+          "las": "articulo",
+          "horas": "sustantivo",
+          "hablando": "verbo",
+          "con": "preposicion",
+          "los": "articulo",
+          "sueños": "sustantivo",
+          "dentro": "adverbio",
+          "de": "preposicion",
+          "mí": "pronombre",
+          "mismo": "adjetivo",
+          "perdía": "verbo",
+          "sin": "preposicion",
+          "miedos": "sustantivo",
+          "fuera": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-047",
+      "prompt": "Adesso guardo lo specchio, vedo la stessa persona",
+      "answer": ["ahora", "miro", "el", "espejo", "veo", "a", "la", "misma", "persona"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["luego", "cristal", "de", "distinta"],
+        "pos": {
+          "ahora": "adverbio",
+          "miro": "verbo",
+          "el": "articulo",
+          "espejo": "sustantivo",
+          "veo": "verbo",
+          "a": "preposicion",
+          "la": "articulo",
+          "misma": "adjetivo",
+          "persona": "sustantivo",
+          "luego": "adverbio",
+          "cristal": "sustantivo",
+          "de": "preposicion",
+          "distinta": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-048",
+      "prompt": "Poi esco fuori di casa e qualcosa in me non funziona",
+      "answer": ["luego", "salgo", "de", "casa", "y", "algo", "en", "mí", "no", "funciona"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["antes", "entro", "nada", "sí"],
+        "pos": {
+          "luego": "adverbio",
+          "salgo": "verbo",
+          "de": "preposicion",
+          "casa": "sustantivo",
+          "y": "conjuncion",
+          "algo": "pronombre",
+          "en": "preposicion",
+          "mí": "pronombre",
+          "no": "adverbio",
+          "funciona": "verbo",
+          "antes": "adverbio",
+          "entro": "verbo",
+          "nada": "pronombre",
+          "sí": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-049",
+      "prompt": "La rabbia che avevo vive tutta dentro questa mia canzone",
+      "answer": ["la", "rabia", "que", "tenía", "vive", "entera", "dentro", "de", "esta", "canción", "mía"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["calma", "muere", "fuera", "esa"],
+        "pos": {
+          "la": "articulo",
+          "rabia": "sustantivo",
+          "que": "pronombre",
+          "tenía": "verbo",
+          "vive": "verbo",
+          "entera": "adjetivo",
+          "dentro": "adverbio",
+          "de": "preposicion",
+          "esta": "determinante",
+          "canción": "sustantivo",
+          "mía": "adjetivo",
+          "calma": "sustantivo",
+          "muere": "verbo",
+          "fuera": "adverbio",
+          "esa": "determinante"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-050",
+      "prompt": "La vita è un giro di giostra che inverte la direzione",
+      "answer": ["la", "vida", "es", "una", "vuelta", "de", "carrusel", "que", "invierte", "la", "dirección"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["muerte", "mantiene", "rotación", "el"],
+        "pos": {
+          "la": "articulo",
+          "vida": "sustantivo",
+          "es": "verbo",
+          "una": "articulo",
+          "vuelta": "sustantivo",
+          "de": "preposicion",
+          "carrusel": "sustantivo",
+          "que": "pronombre",
+          "invierte": "verbo",
+          "dirección": "sustantivo",
+          "muerte": "sustantivo",
+          "mantiene": "verbo",
+          "el": "articulo",
+          "rotación": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-051",
+      "prompt": "Poi il mondo è un posto sbagliato con le giuste intenzioni",
+      "answer": ["luego", "el", "mundo", "es", "un", "lugar", "equivocado", "con", "las", "intenciones", "correctas"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["antes", "erróneas", "sin"],
+        "pos": {
+          "luego": "adverbio",
+          "el": "articulo",
+          "mundo": "sustantivo",
+          "es": "verbo",
+          "un": "articulo",
+          "lugar": "sustantivo",
+          "equivocado": "adjetivo",
+          "con": "preposicion",
+          "las": "articulo",
+          "intenciones": "sustantivo",
+          "correctas": "adjetivo",
+          "antes": "adverbio",
+          "sin": "preposicion",
+          "erróneas": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-052",
+      "prompt": "Ma io sono quello che ha amato",
+      "answer": ["pero", "yo", "soy", "el", "que", "ha", "amado"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["y", "tú", "la", "odiado"],
+        "pos": {
+          "pero": "conjuncion",
+          "yo": "pronombre",
+          "soy": "verbo",
+          "el": "articulo",
+          "que": "pronombre",
+          "ha": "verbo",
+          "amado": "verbo",
+          "y": "conjuncion",
+          "tú": "pronombre",
+          "la": "articulo",
+          "odiado": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-053",
+      "prompt": "Io sono le mie canzoni",
+      "answer": ["yo", "soy", "mis", "canciones"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["tú", "eres", "tus", "versos"],
+        "pos": {
+          "yo": "pronombre",
+          "soy": "verbo",
+          "mis": "determinante",
+          "canciones": "sustantivo",
+          "tú": "pronombre",
+          "eres": "verbo",
+          "tus": "determinante",
+          "versos": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-054",
+      "prompt": "È che da tempo non so dove andare",
+      "answer": ["es", "que", "hace", "tiempo", "no", "sé", "adónde", "ir"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["sí", "venir", "cuándo"],
+        "pos": {
+          "es": "verbo",
+          "que": "conjuncion",
+          "hace": "verbo",
+          "tiempo": "sustantivo",
+          "no": "adverbio",
+          "sé": "verbo",
+          "adónde": "adverbio",
+          "ir": "verbo",
+          "sí": "adverbio",
+          "venir": "verbo",
+          "cuándo": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-055",
+      "prompt": "Provo ad urlare ma non ho più voce",
+      "answer": ["intento", "gritar", "pero", "ya", "no", "tengo", "voz"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["callar", "y", "fuerza"],
+        "pos": {
+          "intento": "verbo",
+          "gritar": "verbo",
+          "pero": "conjuncion",
+          "ya": "adverbio",
+          "no": "adverbio",
+          "tengo": "verbo",
+          "voz": "sustantivo",
+          "callar": "verbo",
+          "y": "conjuncion",
+          "fuerza": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-056",
+      "prompt": "Tu dici: Dai, si può ricominciare",
+      "answer": ["tú", "dices", "venga", "se", "puede", "volver", "a", "empezar"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["yo", "callas", "terminar"],
+        "pos": {
+          "tú": "pronombre",
+          "dices": "verbo",
+          "venga": "verbo",
+          "se": "pronombre",
+          "puede": "verbo",
+          "volver": "verbo",
+          "a": "preposicion",
+          "empezar": "verbo",
+          "yo": "pronombre",
+          "callas": "verbo",
+          "terminar": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-057",
+      "prompt": "Ma io non ho da offrirti più parole",
+      "answer": ["pero", "yo", "ya", "no", "tengo", "más", "palabras", "que", "ofrecerte"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["y", "menos", "silencios"],
+        "pos": {
+          "pero": "conjuncion",
+          "yo": "pronombre",
+          "ya": "adverbio",
+          "no": "adverbio",
+          "tengo": "verbo",
+          "más": "determinante",
+          "palabras": "sustantivo",
+          "que": "pronombre",
+          "ofrecerte": "verbo",
+          "y": "conjuncion",
+          "menos": "determinante",
+          "silencios": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-058",
+      "prompt": "Si è vero tu mi incanti anche se non mi parli",
+      "answer": ["sí", "es", "verdad", "tú", "me", "encantas", "aunque", "no", "me", "hables"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["mentira", "te", "escuchas"],
+        "pos": {
+          "sí": "adverbio",
+          "es": "verbo",
+          "verdad": "sustantivo",
+          "tú": "pronombre",
+          "me": "pronombre",
+          "encantas": "verbo",
+          "aunque": "conjuncion",
+          "no": "adverbio",
+          "hables": "verbo",
+          "mentira": "sustantivo",
+          "te": "pronombre",
+          "escuchas": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-059",
+      "prompt": "Ma il sole è spento e non lo vedo più da queste parti",
+      "answer": ["pero", "el", "sol", "está", "apagado", "y", "ya", "no", "lo", "veo", "por", "aquí"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["luna", "encendido", "allí", "la"],
+        "pos": {
+          "pero": "conjuncion",
+          "el": "articulo",
+          "sol": "sustantivo",
+          "está": "verbo",
+          "apagado": "adjetivo",
+          "y": "conjuncion",
+          "ya": "adverbio",
+          "no": "adverbio",
+          "lo": "pronombre",
+          "veo": "verbo",
+          "por": "preposicion",
+          "aquí": "adverbio",
+          "luna": "sustantivo",
+          "encendido": "adjetivo",
+          "allí": "adverbio",
+          "la": "articulo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-060",
+      "prompt": "Si è vero avevo detto che sarà per sempre",
+      "answer": ["sí", "es", "verdad", "había", "dicho", "que", "será", "para", "siempre"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["mentira", "nunca", "sin"],
+        "pos": {
+          "sí": "adverbio",
+          "es": "verbo",
+          "verdad": "sustantivo",
+          "había": "verbo",
+          "dicho": "verbo",
+          "que": "conjuncion",
+          "será": "verbo",
+          "para": "preposicion",
+          "siempre": "adverbio",
+          "mentira": "sustantivo",
+          "nunca": "adverbio",
+          "sin": "preposicion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-061",
+      "prompt": "È triste, ma",
+      "answer": ["es", "triste", "pero"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["era", "alegre", "y"],
+        "pos": {
+          "es": "verbo",
+          "triste": "adjetivo",
+          "pero": "conjuncion",
+          "era": "verbo",
+          "alegre": "adjetivo",
+          "y": "conjuncion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-062",
+      "prompt": "Quando mi abbracci non sento più niente",
+      "answer": ["cuando", "me", "abrazas", "ya", "no", "siento", "nada"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["si", "te", "sueltas", "todo"],
+        "pos": {
+          "cuando": "conjuncion",
+          "me": "pronombre",
+          "abrazas": "verbo",
+          "ya": "adverbio",
+          "no": "adverbio",
+          "siento": "verbo",
+          "nada": "pronombre",
+          "si": "conjuncion",
+          "te": "pronombre",
+          "sueltas": "verbo",
+          "todo": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-063",
+      "prompt": "Quando mi abbracci non sento più niente",
+      "answer": ["cuando", "me", "abrazas", "ya", "no", "siento", "nada"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["si", "te", "sueltas", "todo"],
+        "pos": {
+          "cuando": "conjuncion",
+          "me": "pronombre",
+          "abrazas": "verbo",
+          "ya": "adverbio",
+          "no": "adverbio",
+          "siento": "verbo",
+          "nada": "pronombre",
+          "si": "conjuncion",
+          "te": "pronombre",
+          "sueltas": "verbo",
+          "todo": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-064",
+      "prompt": "È triste, ma",
+      "answer": ["es", "triste", "pero"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["era", "alegre", "y"],
+        "pos": {
+          "es": "verbo",
+          "triste": "adjetivo",
+          "pero": "conjuncion",
+          "era": "verbo",
+          "alegre": "adjetivo",
+          "y": "conjuncion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "niente-065",
+      "prompt": "Quando mi abbracci non sento più niente",
+      "answer": ["cuando", "me", "abrazas", "ya", "no", "siento", "nada"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["si", "te", "sueltas", "todo"],
+        "pos": {
+          "cuando": "conjuncion",
+          "me": "pronombre",
+          "abrazas": "verbo",
+          "ya": "adverbio",
+          "no": "adverbio",
+          "siento": "verbo",
+          "nada": "pronombre",
+          "si": "conjuncion",
+          "te": "pronombre",
+          "sueltas": "verbo",
+          "todo": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    }
+  ]
+}
