@@ -1,0 +1,2166 @@
+{
+  "id": "stasera",
+  "title": "Stasera — Ultimo",
+  "phrases": [
+    {
+      "id": "stasera-001",
+      "prompt": "Voglio parlarti di me",
+      "answer": ["quiero", "hablarte", "de", "mí"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["escucharte", "sin", "ti"],
+        "pos": {
+          "quiero": "verbo",
+          "hablarte": "verbo",
+          "de": "preposicion",
+          "mí": "pronombre",
+          "escucharte": "verbo",
+          "sin": "preposicion",
+          "ti": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-002",
+      "prompt": "Tu cosa hai saputo di me",
+      "answer": ["tú", "qué", "supiste", "de", "mí"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["yo", "sabes", "ti"],
+        "pos": {
+          "tú": "pronombre",
+          "qué": "pronombre",
+          "supiste": "verbo",
+          "de": "preposicion",
+          "mí": "pronombre",
+          "yo": "pronombre",
+          "sabes": "verbo",
+          "ti": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-003",
+      "prompt": "Mi manca mancare a qualcuno, vieni!",
+      "answer": ["extraño", "que", "alguien", "me", "eche", "de", "menos", "ven"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["olvido", "nadie", "más"],
+        "pos": {
+          "extraño": "verbo",
+          "que": "conjuncion",
+          "alguien": "pronombre",
+          "me": "pronombre",
+          "eche": "verbo",
+          "de": "preposicion",
+          "menos": "adverbio",
+          "ven": "verbo",
+          "olvido": "verbo",
+          "nadie": "pronombre",
+          "más": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-004",
+      "prompt": "Ti porto dove",
+      "answer": ["te", "llevo", "adonde"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["me", "traigo", "cuando"],
+        "pos": {
+          "te": "pronombre",
+          "llevo": "verbo",
+          "adonde": "adverbio",
+          "me": "pronombre",
+          "traigo": "verbo",
+          "cuando": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-005",
+      "prompt": "Dove si parla di te",
+      "answer": ["donde", "se", "habla", "de", "ti"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["cuando", "calla", "mí"],
+        "pos": {
+          "donde": "adverbio",
+          "se": "pronombre",
+          "habla": "verbo",
+          "de": "preposicion",
+          "ti": "pronombre",
+          "cuando": "adverbio",
+          "calla": "verbo",
+          "mí": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-006",
+      "prompt": "Fiori che nascono soli",
+      "answer": ["flores", "que", "nacen", "solas"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["plantas", "mueren", "solos"],
+        "pos": {
+          "flores": "sustantivo",
+          "que": "pronombre",
+          "nacen": "verbo",
+          "solas": "adjetivo",
+          "plantas": "sustantivo",
+          "mueren": "verbo",
+          "solos": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-007",
+      "prompt": "Non hanno bisogno di un cielo",
+      "answer": ["no", "necesitan", "un", "cielo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["sí", "tienen", "suelo"],
+        "pos": {
+          "no": "adverbio",
+          "necesitan": "verbo",
+          "un": "articulo",
+          "cielo": "sustantivo",
+          "sí": "adverbio",
+          "tienen": "verbo",
+          "suelo": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-008",
+      "prompt": "Crescono, senza colori",
+      "answer": ["crecen", "sin", "colores"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["mueren", "con", "flores"],
+        "pos": {
+          "crecen": "verbo",
+          "sin": "preposicion",
+          "colores": "sustantivo",
+          "mueren": "verbo",
+          "con": "preposicion",
+          "flores": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-009",
+      "prompt": "Tu che rinchiudi in te stessa",
+      "answer": ["tú", "que", "encierras", "en", "ti", "misma"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["yo", "liberas", "mismo"],
+        "pos": {
+          "tú": "pronombre",
+          "que": "pronombre",
+          "encierras": "verbo",
+          "en": "preposicion",
+          "ti": "pronombre",
+          "misma": "adjetivo",
+          "yo": "pronombre",
+          "liberas": "verbo",
+          "mismo": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-010",
+      "prompt": "Ogni parola mancata",
+      "answer": ["cada", "palabra", "que", "faltó"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["toda", "silencio", "sobró"],
+        "pos": {
+          "cada": "determinante",
+          "palabra": "sustantivo",
+          "que": "pronombre",
+          "faltó": "verbo",
+          "toda": "determinante",
+          "silencio": "sustantivo",
+          "sobró": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-011",
+      "prompt": "Sai, mi manca la testa",
+      "answer": ["sabes", "me", "falta", "la", "cabeza"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["ignoras", "te", "cara"],
+        "pos": {
+          "sabes": "verbo",
+          "me": "pronombre",
+          "falta": "verbo",
+          "la": "articulo",
+          "cabeza": "sustantivo",
+          "ignoras": "verbo",
+          "te": "pronombre",
+          "cara": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-012",
+      "prompt": "La fine è una vita iniziata",
+      "answer": ["el", "final", "es", "una", "vida", "empezada"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["principio", "muerte", "terminada"],
+        "pos": {
+          "el": "articulo",
+          "final": "sustantivo",
+          "es": "verbo",
+          "una": "articulo",
+          "vida": "sustantivo",
+          "empezada": "adjetivo",
+          "principio": "sustantivo",
+          "muerte": "sustantivo",
+          "terminada": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-013",
+      "prompt": "E provaci ad essere vera",
+      "answer": ["y", "trata", "de", "ser", "verdadera"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["pero", "deja", "falsa"],
+        "pos": {
+          "y": "conjuncion",
+          "trata": "verbo",
+          "de": "preposicion",
+          "ser": "verbo",
+          "verdadera": "adjetivo",
+          "pero": "conjuncion",
+          "deja": "verbo",
+          "falsa": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-014",
+      "prompt": "Come i tuoi occhi al mattino",
+      "answer": ["como", "tus", "ojos", "por", "la", "mañana"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["mis", "labios", "noche"],
+        "pos": {
+          "como": "conjuncion",
+          "tus": "determinante",
+          "ojos": "sustantivo",
+          "por": "preposicion",
+          "la": "articulo",
+          "mañana": "sustantivo",
+          "mis": "determinante",
+          "labios": "sustantivo",
+          "noche": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-015",
+      "prompt": "Quando c'è il sole vicino",
+      "answer": ["cuando", "el", "sol", "está", "cerca"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["la", "luna", "lejos"],
+        "pos": {
+          "cuando": "conjuncion",
+          "el": "articulo",
+          "sol": "sustantivo",
+          "está": "verbo",
+          "cerca": "adverbio",
+          "la": "articulo",
+          "luna": "sustantivo",
+          "lejos": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-016",
+      "prompt": "Sul volto il segno del cuscino",
+      "answer": ["en", "el", "rostro", "la", "marca", "de", "la", "almohada"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["bajo", "cama", "pecho"],
+        "pos": {
+          "en": "preposicion",
+          "el": "articulo",
+          "rostro": "sustantivo",
+          "la": "articulo",
+          "marca": "sustantivo",
+          "de": "preposicion",
+          "almohada": "sustantivo",
+          "cama": "sustantivo",
+          "pecho": "sustantivo",
+          "bajo": "preposicion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-017",
+      "prompt": "Resti stasera, resti di sera",
+      "answer": ["te", "quedas", "esta", "noche", "te", "quedas", "de", "noche"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["me", "vas", "esa", "día"],
+        "pos": {
+          "te": "pronombre",
+          "quedas": "verbo",
+          "esta": "determinante",
+          "noche": "sustantivo",
+          "de": "preposicion",
+          "me": "pronombre",
+          "vas": "verbo",
+          "esa": "determinante",
+          "día": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-018",
+      "prompt": "Che fuori piove e non ho voglia di altro stasera",
+      "answer": ["que", "fuera", "llueve", "y", "no", "tengo", "ganas", "de", "nada", "más", "esta", "noche"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["dentro", "sí", "algo", "día"],
+        "pos": {
+          "que": "conjuncion",
+          "fuera": "adverbio",
+          "llueve": "verbo",
+          "y": "conjuncion",
+          "no": "adverbio",
+          "tengo": "verbo",
+          "ganas": "sustantivo",
+          "de": "preposicion",
+          "nada": "pronombre",
+          "más": "adverbio",
+          "esta": "determinante",
+          "noche": "sustantivo",
+          "dentro": "adverbio",
+          "sí": "adverbio",
+          "algo": "pronombre",
+          "día": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-019",
+      "prompt": "Resti stasera, resti di sera",
+      "answer": ["te", "quedas", "esta", "noche", "te", "quedas", "de", "noche"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["me", "vas", "esa", "día"],
+        "pos": {
+          "te": "pronombre",
+          "quedas": "verbo",
+          "esta": "determinante",
+          "noche": "sustantivo",
+          "de": "preposicion",
+          "me": "pronombre",
+          "vas": "verbo",
+          "esa": "determinante",
+          "día": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-020",
+      "prompt": "Che il mondo è strano e non lo voglio incontrare stasera",
+      "answer": ["que", "el", "mundo", "es", "extraño", "y", "no", "lo", "quiero", "encontrar", "esta", "noche"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["la", "familiar", "sí", "perder"],
+        "pos": {
+          "que": "conjuncion",
+          "el": "articulo",
+          "mundo": "sustantivo",
+          "es": "verbo",
+          "extraño": "adjetivo",
+          "y": "conjuncion",
+          "no": "adverbio",
+          "lo": "pronombre",
+          "quiero": "verbo",
+          "encontrar": "verbo",
+          "esta": "determinante",
+          "noche": "sustantivo",
+          "la": "articulo",
+          "familiar": "adjetivo",
+          "sí": "adverbio",
+          "perder": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-021",
+      "prompt": "Voglio sapere se c'è",
+      "answer": ["quiero", "saber", "si", "hay"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["puedo", "ignorar", "cuando"],
+        "pos": {
+          "quiero": "verbo",
+          "saber": "verbo",
+          "si": "conjuncion",
+          "hay": "verbo",
+          "puedo": "verbo",
+          "ignorar": "verbo",
+          "cuando": "conjuncion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-022",
+      "prompt": "Un posto in cui perdo una parte di me",
+      "answer": ["un", "lugar", "en", "el", "que", "pierdo", "una", "parte", "de", "mí"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["tiempo", "gano", "ti"],
+        "pos": {
+          "un": "articulo",
+          "lugar": "sustantivo",
+          "en": "preposicion",
+          "el": "articulo",
+          "que": "pronombre",
+          "pierdo": "verbo",
+          "una": "articulo",
+          "parte": "sustantivo",
+          "de": "preposicion",
+          "mí": "pronombre",
+          "tiempo": "sustantivo",
+          "gano": "verbo",
+          "ti": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-023",
+      "prompt": "Sciogli tutti i capelli",
+      "answer": ["suéltate", "todo", "el", "pelo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["átate", "poco", "rostro"],
+        "pos": {
+          "suéltate": "verbo",
+          "todo": "determinante",
+          "el": "articulo",
+          "pelo": "sustantivo",
+          "átate": "verbo",
+          "poco": "determinante",
+          "rostro": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-024",
+      "prompt": "Se il mondo si spara",
+      "answer": ["si", "el", "mundo", "se", "pega", "un", "tiro"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["cuando", "me", "arma"],
+        "pos": {
+          "si": "conjuncion",
+          "el": "articulo",
+          "mundo": "sustantivo",
+          "se": "pronombre",
+          "pega": "verbo",
+          "un": "articulo",
+          "tiro": "sustantivo",
+          "cuando": "conjuncion",
+          "me": "pronombre",
+          "arma": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-025",
+      "prompt": "Sono gli amanti i veri ribelli",
+      "answer": ["son", "los", "amantes", "los", "verdaderos", "rebeldes"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["las", "enemigos", "falsos"],
+        "pos": {
+          "son": "verbo",
+          "los": "articulo",
+          "amantes": "sustantivo",
+          "verdaderos": "adjetivo",
+          "rebeldes": "sustantivo",
+          "las": "articulo",
+          "enemigos": "sustantivo",
+          "falsos": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-026",
+      "prompt": "Scrivo, per non sentirmi solo",
+      "answer": ["escribo", "para", "no", "sentirme", "solo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["leo", "sin", "acompañado"],
+        "pos": {
+          "escribo": "verbo",
+          "para": "preposicion",
+          "no": "adverbio",
+          "sentirme": "verbo",
+          "solo": "adjetivo",
+          "leo": "verbo",
+          "sin": "preposicion",
+          "acompañado": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-027",
+      "prompt": "Sono un bambino col fuoco",
+      "answer": ["soy", "un", "niño", "con", "el", "fuego"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["eres", "hombre", "sin", "agua"],
+        "pos": {
+          "soy": "verbo",
+          "un": "articulo",
+          "niño": "sustantivo",
+          "con": "preposicion",
+          "el": "articulo",
+          "fuego": "sustantivo",
+          "eres": "verbo",
+          "hombre": "sustantivo",
+          "sin": "preposicion",
+          "agua": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-028",
+      "prompt": "Amo vederlo bruciare",
+      "answer": ["amo", "verlo", "arder"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["odio", "oírlo", "apagarse"],
+        "pos": {
+          "amo": "verbo",
+          "verlo": "verbo",
+          "arder": "verbo",
+          "odio": "verbo",
+          "oírlo": "verbo",
+          "apagarse": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-029",
+      "prompt": "Se intorno c'ho il vuoto",
+      "answer": ["si", "alrededor", "tengo", "el", "vacío"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["cuando", "dentro", "silencio"],
+        "pos": {
+          "si": "conjuncion",
+          "alrededor": "adverbio",
+          "tengo": "verbo",
+          "el": "articulo",
+          "vacío": "sustantivo",
+          "cuando": "conjuncion",
+          "dentro": "adverbio",
+          "silencio": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-030",
+      "prompt": "Senza senso scrivo",
+      "answer": ["sin", "sentido", "escribo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["con", "razón", "leo"],
+        "pos": {
+          "sin": "preposicion",
+          "sentido": "sustantivo",
+          "escribo": "verbo",
+          "con": "preposicion",
+          "razón": "sustantivo",
+          "leo": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-031",
+      "prompt": "Però mi sento vivo",
+      "answer": ["pero", "me", "siento", "vivo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["y", "te", "muerto"],
+        "pos": {
+          "pero": "conjuncion",
+          "me": "pronombre",
+          "siento": "verbo",
+          "vivo": "adjetivo",
+          "y": "conjuncion",
+          "te": "pronombre",
+          "muerto": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-032",
+      "prompt": "Parlo di cose che non ci sono, senza un motivo",
+      "answer": ["hablo", "de", "cosas", "que", "no", "existen", "sin", "un", "motivo"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["callo", "sí", "con"],
+        "pos": {
+          "hablo": "verbo",
+          "de": "preposicion",
+          "cosas": "sustantivo",
+          "que": "pronombre",
+          "no": "adverbio",
+          "existen": "verbo",
+          "sin": "preposicion",
+          "un": "articulo",
+          "motivo": "sustantivo",
+          "callo": "verbo",
+          "sí": "adverbio",
+          "con": "preposicion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-033",
+      "prompt": "E tutto quello che chiedo",
+      "answer": ["y", "todo", "lo", "que", "pido"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["pero", "nada", "doy"],
+        "pos": {
+          "y": "conjuncion",
+          "todo": "pronombre",
+          "lo": "pronombre",
+          "que": "pronombre",
+          "pido": "verbo",
+          "pero": "conjuncion",
+          "nada": "pronombre",
+          "doy": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-034",
+      "prompt": "È avere te che detesti",
+      "answer": ["es", "tenerte", "a", "ti", "que", "detestas"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["de", "mí", "adoras"],
+        "pos": {
+          "es": "verbo",
+          "tenerte": "verbo",
+          "a": "preposicion",
+          "ti": "pronombre",
+          "que": "pronombre",
+          "detestas": "verbo",
+          "de": "preposicion",
+          "mí": "pronombre",
+          "adoras": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-035",
+      "prompt": "Litigarci il cuscino",
+      "answer": ["disputarnos", "la", "almohada"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["compartir", "el", "cama"],
+        "pos": {
+          "disputarnos": "verbo",
+          "la": "articulo",
+          "almohada": "sustantivo",
+          "compartir": "verbo",
+          "el": "articulo",
+          "cama": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-036",
+      "prompt": "Mentre di notte calpesti",
+      "answer": ["mientras", "de", "noche", "pisoteas"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["aunque", "día", "acaricias"],
+        "pos": {
+          "mientras": "conjuncion",
+          "de": "preposicion",
+          "noche": "sustantivo",
+          "pisoteas": "verbo",
+          "día": "sustantivo",
+          "acaricias": "verbo",
+          "aunque": "conjuncion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-037",
+      "prompt": "Resti stasera, resti di sera",
+      "answer": ["te", "quedas", "esta", "noche", "te", "quedas", "de", "noche"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["me", "vas", "esa", "día"],
+        "pos": {
+          "te": "pronombre",
+          "quedas": "verbo",
+          "esta": "determinante",
+          "noche": "sustantivo",
+          "de": "preposicion",
+          "me": "pronombre",
+          "vas": "verbo",
+          "esa": "determinante",
+          "día": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-038",
+      "prompt": "Che fuori piove e non ho voglia di altro stasera",
+      "answer": ["que", "fuera", "llueve", "y", "no", "tengo", "ganas", "de", "nada", "más", "esta", "noche"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["dentro", "sí", "algo", "día"],
+        "pos": {
+          "que": "conjuncion",
+          "fuera": "adverbio",
+          "llueve": "verbo",
+          "y": "conjuncion",
+          "no": "adverbio",
+          "tengo": "verbo",
+          "ganas": "sustantivo",
+          "de": "preposicion",
+          "nada": "pronombre",
+          "más": "adverbio",
+          "esta": "determinante",
+          "noche": "sustantivo",
+          "dentro": "adverbio",
+          "sí": "adverbio",
+          "algo": "pronombre",
+          "día": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-039",
+      "prompt": "Resti stasera, resti di sera",
+      "answer": ["te", "quedas", "esta", "noche", "te", "quedas", "de", "noche"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["me", "vas", "esa", "día"],
+        "pos": {
+          "te": "pronombre",
+          "quedas": "verbo",
+          "esta": "determinante",
+          "noche": "sustantivo",
+          "de": "preposicion",
+          "me": "pronombre",
+          "vas": "verbo",
+          "esa": "determinante",
+          "día": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    },
+    {
+      "id": "stasera-040",
+      "prompt": "Che il mondo è strano e non lo voglio incontrare stasera",
+      "answer": ["que", "el", "mundo", "es", "extraño", "y", "no", "lo", "quiero", "encontrar", "esta", "noche"],
+      "categoryIds": [],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-22",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "decoyBank": {
+        "distractors": ["la", "familiar", "sí", "perder"],
+        "pos": {
+          "que": "conjuncion",
+          "el": "articulo",
+          "mundo": "sustantivo",
+          "es": "verbo",
+          "extraño": "adjetivo",
+          "y": "conjuncion",
+          "no": "adverbio",
+          "lo": "pronombre",
+          "quiero": "verbo",
+          "encontrar": "verbo",
+          "esta": "determinante",
+          "noche": "sustantivo",
+          "la": "articulo",
+          "familiar": "adjetivo",
+          "sí": "adverbio",
+          "perder": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-23",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
+      }
+    }
+  ]
+}
