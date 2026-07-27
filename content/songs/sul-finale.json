@@ -23,6 +23,39 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["actúas", "recuerdo", "palabras", "siempre"],
+        "pos": {
+          "yo": "pronombre",
+          "que": "pronombre",
+          "cuando": "conjuncion",
+          "actúo": "verbo",
+          "olvido": "verbo",
+          "las": "articulo",
+          "frases": "sustantivo",
+          "actúas": "verbo",
+          "recuerdo": "verbo",
+          "palabras": "sustantivo",
+          "siempre": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -46,6 +79,40 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["había", "sepas", "actor", "nunca"],
+        "pos": {
+          "porque": "conjuncion",
+          "no": "adverbio",
+          "hay": "verbo",
+          "un": "articulo",
+          "papel": "sustantivo",
+          "que": "pronombre",
+          "sepa": "verbo",
+          "llevar": "verbo",
+          "había": "verbo",
+          "sepas": "verbo",
+          "actor": "sustantivo",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -69,6 +136,40 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["elegiste", "otro", "ahora", "calle"],
+        "pos": {
+          "el": "articulo",
+          "camino": "sustantivo",
+          "que": "pronombre",
+          "elegí": "verbo",
+          "es": "verbo",
+          "mismo": "adjetivo",
+          "de": "preposicion",
+          "entonces": "adverbio",
+          "elegiste": "verbo",
+          "otro": "determinante",
+          "ahora": "adverbio",
+          "calle": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -92,6 +193,40 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["quieres", "difícil", "callo", "nunca"],
+        "pos": {
+          "no": "adverbio",
+          "quiero": "verbo",
+          "una": "articulo",
+          "vida": "sustantivo",
+          "sencilla": "adjetivo",
+          "lo": "pronombre",
+          "grito": "verbo",
+          "todavía": "adverbio",
+          "quieres": "verbo",
+          "difícil": "adjetivo",
+          "callo": "verbo",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -115,6 +250,40 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["sé", "me", "miras", "instante"],
+        "pos": {
+          "sabes": "verbo",
+          "mientras": "conjuncion",
+          "te": "pronombre",
+          "miro": "verbo",
+          "yo": "pronombre",
+          "detendría": "verbo",
+          "el": "articulo",
+          "tiempo": "sustantivo",
+          "sé": "verbo",
+          "me": "pronombre",
+          "miras": "verbo",
+          "instante": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -138,6 +307,42 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["soy", "llanto", "mujer", "ganado"],
+        "pos": {
+          "tú": "pronombre",
+          "eres": "verbo",
+          "la": "articulo",
+          "risa": "sustantivo",
+          "de": "preposicion",
+          "un": "articulo",
+          "hombre": "sustantivo",
+          "que": "pronombre",
+          "ha": "verbo",
+          "perdido": "verbo",
+          "soy": "verbo",
+          "llanto": "sustantivo",
+          "mujer": "sustantivo",
+          "ganado": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -161,6 +366,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["soy", "herida", "manos", "quedaba"],
+        "pos": {
+          "tú": "pronombre",
+          "eres": "verbo",
+          "la": "articulo",
+          "caricia": "sustantivo",
+          "que": "pronombre",
+          "queda": "verbo",
+          "en": "preposicion",
+          "el": "articulo",
+          "rostro": "sustantivo",
+          "soy": "verbo",
+          "herida": "sustantivo",
+          "manos": "sustantivo",
+          "quedaba": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -184,6 +424,42 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["acuesto", "día", "sobra", "te"],
+        "pos": {
+          "cuando": "conjuncion",
+          "por": "preposicion",
+          "la": "articulo",
+          "noche": "sustantivo",
+          "me": "pronombre",
+          "levanto": "verbo",
+          "y": "conjuncion",
+          "falta": "verbo",
+          "el": "articulo",
+          "aire": "sustantivo",
+          "acuesto": "verbo",
+          "día": "sustantivo",
+          "sobra": "verbo",
+          "te": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -207,6 +483,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["nunca", "eres", "arregla", "principio"],
+        "pos": {
+          "y": "conjuncion",
+          "siempre": "adverbio",
+          "soy": "verbo",
+          "yo": "pronombre",
+          "el": "articulo",
+          "que": "pronombre",
+          "lo": "pronombre",
+          "estropea": "verbo",
+          "todo": "pronombre",
+          "al": "preposicion",
+          "final": "sustantivo",
+          "nunca": "adverbio",
+          "eres": "verbo",
+          "arregla": "verbo",
+          "principio": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -230,6 +543,37 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["acerco", "alejas", "animales", "cerca"],
+        "pos": {
+          "que": "pronombre",
+          "alejo": "verbo",
+          "a": "preposicion",
+          "las": "articulo",
+          "personas": "sustantivo",
+          "acerco": "verbo",
+          "alejas": "verbo",
+          "animales": "sustantivo",
+          "cerca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -253,6 +597,38 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["antes", "consigues", "ser", "triste"],
+        "pos": {
+          "pero": "conjuncion",
+          "luego": "adverbio",
+          "no": "adverbio",
+          "consigo": "verbo",
+          "estar": "verbo",
+          "solo": "adjetivo",
+          "antes": "adverbio",
+          "consigues": "verbo",
+          "ser": "verbo",
+          "triste": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -276,6 +652,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["verano", "quieres", "cielo", "nunca"],
+        "pos": {
+          "y": "conjuncion",
+          "luego": "adverbio",
+          "en": "preposicion",
+          "invierno": "sustantivo",
+          "quiero": "verbo",
+          "de": "preposicion",
+          "vuelta": "sustantivo",
+          "el": "articulo",
+          "mar": "sustantivo",
+          "verano": "sustantivo",
+          "quieres": "verbo",
+          "cielo": "sustantivo",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -299,6 +710,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["invierno", "te", "sobra", "luna"],
+        "pos": {
+          "pero": "conjuncion",
+          "luego": "adverbio",
+          "en": "preposicion",
+          "verano": "sustantivo",
+          "no": "adverbio",
+          "me": "pronombre",
+          "basta": "verbo",
+          "el": "articulo",
+          "sol": "sustantivo",
+          "invierno": "sustantivo",
+          "te": "pronombre",
+          "sobra": "verbo",
+          "luna": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -322,6 +768,39 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["sabes", "distinto", "nunca", "sigo"],
+        "pos": {
+          "total": "adverbio",
+          "ya": "adverbio",
+          "sé": "verbo",
+          "que": "conjuncion",
+          "sigue": "verbo",
+          "siempre": "adverbio",
+          "igual": "adjetivo",
+          "sabes": "verbo",
+          "distinto": "adjetivo",
+          "nunca": "adverbio",
+          "sigo": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -345,6 +824,40 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["sigo", "fea", "te", "dolor"],
+        "pos": {
+          "tú": "pronombre",
+          "sigues": "verbo",
+          "siendo": "verbo",
+          "bella": "adjetivo",
+          "aunque": "conjuncion",
+          "me": "pronombre",
+          "hagas": "verbo",
+          "daño": "sustantivo",
+          "sigo": "verbo",
+          "fea": "adjetivo",
+          "te": "pronombre",
+          "dolor": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -368,6 +881,39 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["sabes", "morir", "con", "nunca"],
+        "pos": {
+          "yo": "pronombre",
+          "que": "pronombre",
+          "no": "adverbio",
+          "sé": "verbo",
+          "vivir": "verbo",
+          "sin": "preposicion",
+          "soñar": "verbo",
+          "sabes": "verbo",
+          "morir": "verbo",
+          "con": "preposicion",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -391,6 +937,38 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["mirarme", "cielo", "perderse", "cayendo"],
+        "pos": {
+          "mirarse": "verbo",
+          "al": "preposicion",
+          "espejo": "sustantivo",
+          "y": "conjuncion",
+          "encontrarse": "verbo",
+          "volando": "verbo",
+          "mirarme": "verbo",
+          "cielo": "sustantivo",
+          "perderse": "verbo",
+          "cayendo": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -414,6 +992,38 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["dadme", "camino", "correr", "cuando"],
+        "pos": {
+          "dejadme": "verbo",
+          "un": "articulo",
+          "hilo": "sustantivo",
+          "donde": "adverbio",
+          "poder": "verbo",
+          "caminar": "verbo",
+          "dadme": "verbo",
+          "camino": "sustantivo",
+          "correr": "verbo",
+          "cuando": "conjuncion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -437,6 +1047,39 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["dadme", "cielo", "sin", "quitadme"],
+        "pos": {
+          "quedaos": "verbo",
+          "con": "preposicion",
+          "el": "articulo",
+          "mundo": "sustantivo",
+          "y": "conjuncion",
+          "dejadme": "verbo",
+          "mar": "sustantivo",
+          "dadme": "verbo",
+          "cielo": "sustantivo",
+          "sin": "preposicion",
+          "quitadme": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -460,6 +1103,40 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["allí", "nieva", "escuchas", "nubes"],
+        "pos": {
+          "y": "conjuncion",
+          "mientras": "conjuncion",
+          "aquí": "adverbio",
+          "llueve": "verbo",
+          "luego": "adverbio",
+          "escucho": "verbo",
+          "las": "articulo",
+          "gotas": "sustantivo",
+          "allí": "adverbio",
+          "nieva": "verbo",
+          "escuchas": "verbo",
+          "nubes": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -483,6 +1160,39 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["llenas", "bajo", "plazas", "posarme"],
+        "pos": {
+          "posarse": "verbo",
+          "sobre": "preposicion",
+          "el": "articulo",
+          "lomo": "sustantivo",
+          "de": "preposicion",
+          "calles": "sustantivo",
+          "desiertas": "adjetivo",
+          "llenas": "adjetivo",
+          "bajo": "preposicion",
+          "plazas": "sustantivo",
+          "posarme": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -506,6 +1216,39 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["mar", "debo", "callar", "era"],
+        "pos": {
+          "el": "articulo",
+          "viento": "sustantivo",
+          "es": "verbo",
+          "consejo": "sustantivo",
+          "que": "pronombre",
+          "debes": "verbo",
+          "escuchar": "verbo",
+          "mar": "sustantivo",
+          "debo": "verbo",
+          "callar": "verbo",
+          "era": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -529,6 +1272,38 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["soy", "siempre", "mismos", "seré"],
+        "pos": {
+          "no": "adverbio",
+          "seas": "verbo",
+          "nunca": "adverbio",
+          "como": "conjuncion",
+          "los": "articulo",
+          "demás": "pronombre",
+          "soy": "verbo",
+          "siempre": "adverbio",
+          "mismos": "adjetivo",
+          "seré": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -552,6 +1327,34 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["sigo", "callándolo", "siempre", "nunca"],
+        "pos": {
+          "sigue": "verbo",
+          "diciéndolo": "verbo",
+          "sigo": "verbo",
+          "callándolo": "verbo",
+          "siempre": "adverbio",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -575,6 +1378,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["nunca", "eres", "arregla", "principio"],
+        "pos": {
+          "y": "conjuncion",
+          "siempre": "adverbio",
+          "soy": "verbo",
+          "yo": "pronombre",
+          "el": "articulo",
+          "que": "pronombre",
+          "lo": "pronombre",
+          "estropea": "verbo",
+          "todo": "pronombre",
+          "al": "preposicion",
+          "final": "sustantivo",
+          "nunca": "adverbio",
+          "eres": "verbo",
+          "arregla": "verbo",
+          "principio": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -598,6 +1438,37 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["acerco", "alejas", "animales", "cerca"],
+        "pos": {
+          "que": "pronombre",
+          "alejo": "verbo",
+          "a": "preposicion",
+          "las": "articulo",
+          "personas": "sustantivo",
+          "acerco": "verbo",
+          "alejas": "verbo",
+          "animales": "sustantivo",
+          "cerca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -621,6 +1492,38 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["antes", "consigues", "ser", "triste"],
+        "pos": {
+          "pero": "conjuncion",
+          "luego": "adverbio",
+          "no": "adverbio",
+          "consigo": "verbo",
+          "estar": "verbo",
+          "solo": "adjetivo",
+          "antes": "adverbio",
+          "consigues": "verbo",
+          "ser": "verbo",
+          "triste": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -644,6 +1547,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["verano", "quieres", "cielo", "nunca"],
+        "pos": {
+          "y": "conjuncion",
+          "luego": "adverbio",
+          "en": "preposicion",
+          "invierno": "sustantivo",
+          "quiero": "verbo",
+          "de": "preposicion",
+          "vuelta": "sustantivo",
+          "el": "articulo",
+          "mar": "sustantivo",
+          "verano": "sustantivo",
+          "quieres": "verbo",
+          "cielo": "sustantivo",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -667,6 +1605,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["invierno", "te", "sobra", "luna"],
+        "pos": {
+          "pero": "conjuncion",
+          "luego": "adverbio",
+          "en": "preposicion",
+          "verano": "sustantivo",
+          "no": "adverbio",
+          "me": "pronombre",
+          "basta": "verbo",
+          "el": "articulo",
+          "sol": "sustantivo",
+          "invierno": "sustantivo",
+          "te": "pronombre",
+          "sobra": "verbo",
+          "luna": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -690,6 +1663,39 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["sabes", "distinto", "nunca", "sigo"],
+        "pos": {
+          "total": "adverbio",
+          "ya": "adverbio",
+          "sé": "verbo",
+          "que": "conjuncion",
+          "sigue": "verbo",
+          "siempre": "adverbio",
+          "igual": "adjetivo",
+          "sabes": "verbo",
+          "distinto": "adjetivo",
+          "nunca": "adverbio",
+          "sigo": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -713,6 +1719,40 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["sigo", "fea", "te", "dolor"],
+        "pos": {
+          "tú": "pronombre",
+          "sigues": "verbo",
+          "siendo": "verbo",
+          "bella": "adjetivo",
+          "aunque": "conjuncion",
+          "me": "pronombre",
+          "hagas": "verbo",
+          "daño": "sustantivo",
+          "sigo": "verbo",
+          "fea": "adjetivo",
+          "te": "pronombre",
+          "dolor": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -736,6 +1776,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["estoy", "luna", "apaga", "nunca"],
+        "pos": {
+          "estás": "verbo",
+          "en": "preposicion",
+          "el": "articulo",
+          "sol": "sustantivo",
+          "que": "pronombre",
+          "quema": "verbo",
+          "pero": "conjuncion",
+          "busco": "verbo",
+          "todavía": "adverbio",
+          "estoy": "verbo",
+          "luna": "sustantivo",
+          "apaga": "verbo",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -759,6 +1834,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["estoy", "silencio", "vacía", "nada"],
+        "pos": {
+          "estás": "verbo",
+          "en": "preposicion",
+          "el": "articulo",
+          "vacío": "sustantivo",
+          "que": "pronombre",
+          "mata": "verbo",
+          "pero": "conjuncion",
+          "llena": "verbo",
+          "algo": "pronombre",
+          "estoy": "verbo",
+          "silencio": "sustantivo",
+          "vacía": "verbo",
+          "nada": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -782,6 +1892,42 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["estoy", "virtudes", "olvido", "tus"],
+        "pos": {
+          "estás": "verbo",
+          "entre": "preposicion",
+          "todos": "determinante",
+          "mis": "determinante",
+          "vicios": "sustantivo",
+          "que": "pronombre",
+          "añoro": "verbo",
+          "en": "preposicion",
+          "la": "articulo",
+          "cama": "sustantivo",
+          "estoy": "verbo",
+          "virtudes": "sustantivo",
+          "olvido": "verbo",
+          "tus": "determinante"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -805,6 +1951,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["despacio", "duermes", "día", "viene"],
+        "pos": {
+          "cuando": "conjuncion",
+          "el": "articulo",
+          "corazón": "sustantivo",
+          "va": "verbo",
+          "deprisa": "adverbio",
+          "y": "conjuncion",
+          "por": "preposicion",
+          "la": "articulo",
+          "noche": "sustantivo",
+          "no": "adverbio",
+          "duermo": "verbo",
+          "despacio": "adverbio",
+          "duermes": "verbo",
+          "día": "sustantivo",
+          "viene": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -828,6 +2011,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["estoy", "estas", "lágrimas", "vuelve"],
+        "pos": {
+          "y": "conjuncion",
+          "estás": "verbo",
+          "entre": "preposicion",
+          "esas": "determinante",
+          "risas": "sustantivo",
+          "que": "pronombre",
+          "ya": "adverbio",
+          "no": "adverbio",
+          "vuelven": "verbo",
+          "estoy": "verbo",
+          "estas": "determinante",
+          "lágrimas": "sustantivo",
+          "vuelve": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -851,6 +2069,40 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["te", "hago", "dolor", "nunca"],
+        "pos": {
+          "porque": "conjuncion",
+          "tú": "pronombre",
+          "me": "pronombre",
+          "haces": "verbo",
+          "daño": "sustantivo",
+          "pero": "conjuncion",
+          "eres": "verbo",
+          "siempre": "adverbio",
+          "te": "pronombre",
+          "hago": "verbo",
+          "nunca": "adverbio",
+          "dolor": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -874,6 +2126,38 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["prométele", "luego", "sabré", "mirarte"],
+        "pos": {
+          "y": "conjuncion",
+          "prométeme": "verbo",
+          "ahora": "adverbio",
+          "que": "conjuncion",
+          "sabrás": "verbo",
+          "escucharte": "verbo",
+          "prométele": "verbo",
+          "luego": "adverbio",
+          "sabré": "verbo",
+          "mirarte": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -897,6 +2181,38 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["soy", "siempre", "mismos", "seré"],
+        "pos": {
+          "no": "adverbio",
+          "seas": "verbo",
+          "nunca": "adverbio",
+          "como": "conjuncion",
+          "los": "articulo",
+          "demás": "pronombre",
+          "soy": "verbo",
+          "siempre": "adverbio",
+          "mismos": "adjetivo",
+          "seré": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -920,6 +2236,36 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["yo", "tengo", "intentarlo", "hacerlo"],
+        "pos": {
+          "tú": "pronombre",
+          "tienes": "verbo",
+          "que": "conjuncion",
+          "lograrlo": "verbo",
+          "yo": "pronombre",
+          "tengo": "verbo",
+          "intentarlo": "verbo",
+          "hacerlo": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -943,6 +2289,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["nunca", "eres", "arregla", "principio"],
+        "pos": {
+          "y": "conjuncion",
+          "siempre": "adverbio",
+          "soy": "verbo",
+          "yo": "pronombre",
+          "el": "articulo",
+          "que": "pronombre",
+          "lo": "pronombre",
+          "estropea": "verbo",
+          "todo": "pronombre",
+          "al": "preposicion",
+          "final": "sustantivo",
+          "nunca": "adverbio",
+          "eres": "verbo",
+          "arregla": "verbo",
+          "principio": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -966,6 +2349,37 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["acerco", "alejas", "animales", "cerca"],
+        "pos": {
+          "que": "pronombre",
+          "alejo": "verbo",
+          "a": "preposicion",
+          "las": "articulo",
+          "personas": "sustantivo",
+          "acerco": "verbo",
+          "alejas": "verbo",
+          "animales": "sustantivo",
+          "cerca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -989,6 +2403,38 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["antes", "consigues", "ser", "triste"],
+        "pos": {
+          "pero": "conjuncion",
+          "luego": "adverbio",
+          "no": "adverbio",
+          "consigo": "verbo",
+          "estar": "verbo",
+          "solo": "adjetivo",
+          "antes": "adverbio",
+          "consigues": "verbo",
+          "ser": "verbo",
+          "triste": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -1012,6 +2458,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["verano", "quieres", "cielo", "nunca"],
+        "pos": {
+          "y": "conjuncion",
+          "luego": "adverbio",
+          "en": "preposicion",
+          "invierno": "sustantivo",
+          "quiero": "verbo",
+          "de": "preposicion",
+          "vuelta": "sustantivo",
+          "el": "articulo",
+          "mar": "sustantivo",
+          "verano": "sustantivo",
+          "quieres": "verbo",
+          "cielo": "sustantivo",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -1035,6 +2516,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["invierno", "te", "sobra", "luna"],
+        "pos": {
+          "pero": "conjuncion",
+          "luego": "adverbio",
+          "en": "preposicion",
+          "verano": "sustantivo",
+          "no": "adverbio",
+          "me": "pronombre",
+          "basta": "verbo",
+          "el": "articulo",
+          "sol": "sustantivo",
+          "invierno": "sustantivo",
+          "te": "pronombre",
+          "sobra": "verbo",
+          "luna": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -1058,6 +2574,39 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["sabes", "distinto", "nunca", "sigo"],
+        "pos": {
+          "total": "adverbio",
+          "ya": "adverbio",
+          "sé": "verbo",
+          "que": "conjuncion",
+          "sigue": "verbo",
+          "siempre": "adverbio",
+          "igual": "adjetivo",
+          "sabes": "verbo",
+          "distinto": "adjetivo",
+          "nunca": "adverbio",
+          "sigo": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -1081,6 +2630,40 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["sigo", "fea", "te", "dolor"],
+        "pos": {
+          "tú": "pronombre",
+          "sigues": "verbo",
+          "siendo": "verbo",
+          "bella": "adjetivo",
+          "aunque": "conjuncion",
+          "me": "pronombre",
+          "hagas": "verbo",
+          "daño": "sustantivo",
+          "sigo": "verbo",
+          "fea": "adjetivo",
+          "te": "pronombre",
+          "dolor": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -1104,6 +2687,40 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["sigo", "fea", "te", "dolor"],
+        "pos": {
+          "tú": "pronombre",
+          "sigues": "verbo",
+          "siendo": "verbo",
+          "bella": "adjetivo",
+          "aunque": "conjuncion",
+          "me": "pronombre",
+          "hagas": "verbo",
+          "daño": "sustantivo",
+          "sigo": "verbo",
+          "fea": "adjetivo",
+          "te": "pronombre",
+          "dolor": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -1127,6 +2744,40 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["sigo", "fea", "te", "dolor"],
+        "pos": {
+          "tú": "pronombre",
+          "sigues": "verbo",
+          "siendo": "verbo",
+          "bella": "adjetivo",
+          "aunque": "conjuncion",
+          "me": "pronombre",
+          "hagas": "verbo",
+          "daño": "sustantivo",
+          "sigo": "verbo",
+          "fea": "adjetivo",
+          "te": "pronombre",
+          "dolor": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     }
   ]
