@@ -5,16 +5,7 @@
     {
       "id": "la-stella-piu-fragile-001",
       "prompt": "Che poi mi piace anche quando non parli",
-      "answer": [
-        "que",
-        "además",
-        "me",
-        "gusta",
-        "incluso",
-        "cuando",
-        "no",
-        "hablas"
-      ],
+      "answer": ["que", "además", "me", "gusta", "incluso", "cuando", "no", "hablas"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -32,21 +23,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["te", "gustas", "hablo", "nunca"],
+        "pos": {
+          "que": "conjuncion",
+          "además": "adverbio",
+          "me": "pronombre",
+          "gusta": "verbo",
+          "incluso": "adverbio",
+          "cuando": "conjuncion",
+          "no": "adverbio",
+          "hablas": "verbo",
+          "te": "pronombre",
+          "gustas": "verbo",
+          "hablo": "verbo",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-002",
       "prompt": "E canti sottovoce quei tuoi ritornelli",
-      "answer": [
-        "y",
-        "cantas",
-        "en",
-        "voz",
-        "baja",
-        "esos",
-        "estribillos",
-        "tuyos"
-      ],
+      "answer": ["y", "cantas", "en", "voz", "baja", "esos", "estribillos", "tuyos"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -64,20 +80,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["canto", "alta", "míos", "versos"],
+        "pos": {
+          "y": "conjuncion",
+          "cantas": "verbo",
+          "en": "preposicion",
+          "voz": "sustantivo",
+          "baja": "adjetivo",
+          "esos": "determinante",
+          "estribillos": "sustantivo",
+          "tuyos": "adjetivo",
+          "canto": "verbo",
+          "alta": "adjetivo",
+          "míos": "adjetivo",
+          "versos": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-003",
       "prompt": "Mentre tra le dita rinchiudi i capelli",
-      "answer": [
-        "mientras",
-        "entre",
-        "los",
-        "dedos",
-        "encierras",
-        "el",
-        "pelo"
-      ],
+      "answer": ["mientras", "entre", "los", "dedos", "encierras", "el", "pelo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -95,21 +137,45 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["manos", "sueltas", "encierro", "sobre"],
+        "pos": {
+          "mientras": "conjuncion",
+          "entre": "preposicion",
+          "los": "articulo",
+          "dedos": "sustantivo",
+          "encierras": "verbo",
+          "el": "articulo",
+          "pelo": "sustantivo",
+          "manos": "sustantivo",
+          "sueltas": "verbo",
+          "encierro": "verbo",
+          "sobre": "preposicion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-004",
       "prompt": "Comunque con te, comunque con te",
-      "answer": [
-        "de",
-        "todos",
-        "modos",
-        "contigo",
-        "de",
-        "todos",
-        "modos",
-        "contigo"
-      ],
+      "answer": ["de", "todos", "modos", "contigo", "de", "todos", "modos", "contigo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -127,19 +193,42 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["conmigo", "formas", "algunos", "sin"],
+        "pos": {
+          "de": "preposicion",
+          "todos": "determinante",
+          "modos": "sustantivo",
+          "contigo": "pronombre",
+          "conmigo": "pronombre",
+          "formas": "sustantivo",
+          "algunos": "determinante",
+          "sin": "preposicion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-005",
       "prompt": "Quando mi dici: \"Mi vedo sbagliata\"",
-      "answer": [
-        "cuando",
-        "me",
-        "dices",
-        "me",
-        "siento",
-        "equivocada"
-      ],
+      "answer": ["cuando", "me", "dices", "me", "siento", "equivocada"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -157,21 +246,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["te", "digo", "perfecta", "sientes"],
+        "pos": {
+          "cuando": "conjuncion",
+          "me": "pronombre",
+          "dices": "verbo",
+          "siento": "verbo",
+          "equivocada": "adjetivo",
+          "te": "pronombre",
+          "digo": "verbo",
+          "perfecta": "adjetivo",
+          "sientes": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-006",
       "prompt": "Invece sei come io ti ho disegnata",
-      "answer": [
-        "en",
-        "cambio",
-        "eres",
-        "como",
-        "yo",
-        "te",
-        "he",
-        "dibujado"
-      ],
+      "answer": ["en", "cambio", "eres", "como", "yo", "te", "he", "dibujado"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -189,22 +300,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["soy", "me", "pintado", "has"],
+        "pos": {
+          "en": "preposicion",
+          "cambio": "sustantivo",
+          "eres": "verbo",
+          "como": "conjuncion",
+          "yo": "pronombre",
+          "te": "pronombre",
+          "he": "verbo",
+          "dibujado": "verbo",
+          "soy": "verbo",
+          "me": "pronombre",
+          "pintado": "verbo",
+          "has": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-007",
       "prompt": "Tu che rimani anche appena sei andata",
-      "answer": [
-        "tú",
-        "que",
-        "te",
-        "quedas",
-        "incluso",
-        "apenas",
-        "te",
-        "has",
-        "ido"
-      ],
+      "answer": ["tú", "que", "te", "quedas", "incluso", "apenas", "te", "has", "ido"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -222,21 +357,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["me", "quedo", "siempre", "venido"],
+        "pos": {
+          "tú": "pronombre",
+          "que": "pronombre",
+          "te": "pronombre",
+          "quedas": "verbo",
+          "incluso": "adverbio",
+          "apenas": "adverbio",
+          "has": "verbo",
+          "ido": "verbo",
+          "me": "pronombre",
+          "quedo": "verbo",
+          "siempre": "adverbio",
+          "venido": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-008",
       "prompt": "Comunque con te, comunque con te",
-      "answer": [
-        "de",
-        "todos",
-        "modos",
-        "contigo",
-        "de",
-        "todos",
-        "modos",
-        "contigo"
-      ],
+      "answer": ["de", "todos", "modos", "contigo", "de", "todos", "modos", "contigo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -254,19 +414,42 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["conmigo", "formas", "algunos", "sin"],
+        "pos": {
+          "de": "preposicion",
+          "todos": "determinante",
+          "modos": "sustantivo",
+          "contigo": "pronombre",
+          "conmigo": "pronombre",
+          "formas": "sustantivo",
+          "algunos": "determinante",
+          "sin": "preposicion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-009",
       "prompt": "Mi piacerebbe portarti in collina",
-      "answer": [
-        "me",
-        "gustaría",
-        "llevarte",
-        "a",
-        "la",
-        "colina"
-      ],
+      "answer": ["me", "gustaría", "llevarte", "a", "la", "colina"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -284,19 +467,44 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["te", "gustaba", "dejarte", "montaña"],
+        "pos": {
+          "me": "pronombre",
+          "gustaría": "verbo",
+          "llevarte": "verbo",
+          "a": "preposicion",
+          "la": "articulo",
+          "colina": "sustantivo",
+          "te": "pronombre",
+          "gustaba": "verbo",
+          "dejarte": "verbo",
+          "montaña": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-010",
       "prompt": "Vedere il mondo come si declina",
-      "answer": [
-        "ver",
-        "cómo",
-        "se",
-        "manifiesta",
-        "el",
-        "mundo"
-      ],
+      "answer": ["ver", "cómo", "se", "manifiesta", "el", "mundo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -314,21 +522,44 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["veo", "cuándo", "esconde", "cielo"],
+        "pos": {
+          "ver": "verbo",
+          "cómo": "adverbio",
+          "se": "pronombre",
+          "manifiesta": "verbo",
+          "el": "articulo",
+          "mundo": "sustantivo",
+          "veo": "verbo",
+          "cuándo": "adverbio",
+          "esconde": "verbo",
+          "cielo": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-011",
       "prompt": "Portarti più in alto, più su delle nuvole",
-      "answer": [
-        "llevarte",
-        "más",
-        "alto",
-        "más",
-        "arriba",
-        "de",
-        "las",
-        "nubes"
-      ],
+      "answer": ["llevarte", "más", "alto", "más", "arriba", "de", "las", "nubes"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -346,21 +577,45 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["bajo", "abajo", "estrellas", "dejarte"],
+        "pos": {
+          "llevarte": "verbo",
+          "más": "adverbio",
+          "alto": "adverbio",
+          "arriba": "adverbio",
+          "de": "preposicion",
+          "las": "articulo",
+          "nubes": "sustantivo",
+          "bajo": "adverbio",
+          "abajo": "adverbio",
+          "estrellas": "sustantivo",
+          "dejarte": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-012",
       "prompt": "Tu che profumi di sogni e di fragole",
-      "answer": [
-        "tú",
-        "que",
-        "hueles",
-        "a",
-        "sueños",
-        "y",
-        "a",
-        "fresas"
-      ],
+      "answer": ["tú", "que", "hueles", "a", "sueños", "y", "a", "fresas"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -378,17 +633,45 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["huelo", "rosas", "flores", "sin"],
+        "pos": {
+          "tú": "pronombre",
+          "que": "pronombre",
+          "hueles": "verbo",
+          "a": "preposicion",
+          "sueños": "sustantivo",
+          "y": "conjuncion",
+          "fresas": "sustantivo",
+          "huelo": "verbo",
+          "flores": "sustantivo",
+          "sin": "preposicion",
+          "rosas": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-013",
       "prompt": "Se riniziasse un'altra vita",
-      "answer": [
-        "si",
-        "recomenzara",
-        "otra",
-        "vida"
-      ],
+      "answer": ["si", "recomenzara", "otra", "vida"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -408,18 +691,42 @@
             ]
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["acabara", "esta", "muerte", "cuando"],
+        "pos": {
+          "si": "conjuncion",
+          "recomenzara": "verbo",
+          "otra": "determinante",
+          "vida": "sustantivo",
+          "acabara": "verbo",
+          "esta": "determinante",
+          "muerte": "sustantivo",
+          "cuando": "conjuncion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-014",
       "prompt": "Non chiederei che fosse infinita",
-      "answer": [
-        "no",
-        "pediría",
-        "que",
-        "fuera",
-        "infinita"
-      ],
+      "answer": ["no", "pediría", "que", "fuera", "infinita"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -437,18 +744,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["pedirías", "corta", "era", "nunca"],
+        "pos": {
+          "no": "adverbio",
+          "pediría": "verbo",
+          "que": "conjuncion",
+          "fuera": "verbo",
+          "infinita": "adjetivo",
+          "pedirías": "verbo",
+          "corta": "adjetivo",
+          "era": "verbo",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-015",
       "prompt": "Mi basterebbe sapere che esisti",
-      "answer": [
-        "me",
-        "bastaría",
-        "saber",
-        "que",
-        "existes"
-      ],
+      "answer": ["me", "bastaría", "saber", "que", "existes"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -466,20 +798,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["te", "sobraría", "existo", "olvidar"],
+        "pos": {
+          "me": "pronombre",
+          "bastaría": "verbo",
+          "saber": "verbo",
+          "que": "conjuncion",
+          "existes": "verbo",
+          "te": "pronombre",
+          "sobraría": "verbo",
+          "existo": "verbo",
+          "olvidar": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-016",
       "prompt": "Che è lo stesso il profumo che indossi",
-      "answer": [
-        "que",
-        "es",
-        "el",
-        "mismo",
-        "perfume",
-        "que",
-        "llevas"
-      ],
+      "answer": ["que", "es", "el", "mismo", "perfume", "que", "llevas"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -497,21 +852,44 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["otro", "era", "llevo", "vestido"],
+        "pos": {
+          "que": "pronombre",
+          "es": "verbo",
+          "el": "articulo",
+          "mismo": "adjetivo",
+          "perfume": "sustantivo",
+          "llevas": "verbo",
+          "otro": "determinante",
+          "era": "verbo",
+          "llevo": "verbo",
+          "vestido": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-017",
       "prompt": "E se non mi conoscessi farei come ho fatto",
-      "answer": [
-        "y",
-        "si",
-        "no",
-        "me",
-        "conocieras",
-        "haría",
-        "como",
-        "hice"
-      ],
+      "answer": ["y", "si", "no", "me", "conocieras", "haría", "como", "hice"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -529,21 +907,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["te", "conociera", "haré", "nunca"],
+        "pos": {
+          "y": "conjuncion",
+          "si": "conjuncion",
+          "no": "adverbio",
+          "me": "pronombre",
+          "conocieras": "verbo",
+          "haría": "verbo",
+          "como": "conjuncion",
+          "hice": "verbo",
+          "te": "pronombre",
+          "conociera": "verbo",
+          "haré": "verbo",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-018",
       "prompt": "Dirti che ti aspetto in un posto perfetto",
-      "answer": [
-        "decirte",
-        "que",
-        "te",
-        "espero",
-        "en",
-        "un",
-        "lugar",
-        "perfecto"
-      ],
+      "answer": ["decirte", "que", "te", "espero", "en", "un", "lugar", "perfecto"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -563,23 +966,46 @@
             ]
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["decirme", "me", "esperas", "extraño"],
+        "pos": {
+          "decirte": "verbo",
+          "que": "conjuncion",
+          "te": "pronombre",
+          "espero": "verbo",
+          "en": "preposicion",
+          "un": "articulo",
+          "lugar": "sustantivo",
+          "perfecto": "adjetivo",
+          "decirme": "verbo",
+          "me": "pronombre",
+          "esperas": "verbo",
+          "extraño": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-019",
       "prompt": "Che poi io di perfetto non ho proprio niente",
-      "answer": [
-        "que",
-        "además",
-        "yo",
-        "de",
-        "perfecto",
-        "no",
-        "tengo",
-        "nada",
-        "en",
-        "absoluto"
-      ],
+      "answer": ["que", "además", "yo", "de", "perfecto", "no", "tengo", "nada", "en", "absoluto"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -597,22 +1023,48 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["tienes", "todo", "tú", "nunca"],
+        "pos": {
+          "que": "conjuncion",
+          "además": "adverbio",
+          "yo": "pronombre",
+          "de": "preposicion",
+          "perfecto": "adjetivo",
+          "no": "adverbio",
+          "tengo": "verbo",
+          "nada": "pronombre",
+          "en": "preposicion",
+          "absoluto": "adjetivo",
+          "tienes": "verbo",
+          "todo": "pronombre",
+          "tú": "pronombre",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-020",
       "prompt": "Divento perfetto se ti ho tra la gente",
-      "answer": [
-        "me",
-        "vuelvo",
-        "perfecto",
-        "si",
-        "te",
-        "tengo",
-        "entre",
-        "la",
-        "gente"
-      ],
+      "answer": ["me", "vuelvo", "perfecto", "si", "te", "tengo", "entre", "la", "gente"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -630,22 +1082,47 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["tienes", "sobre", "extraño", "multitud"],
+        "pos": {
+          "me": "pronombre",
+          "vuelvo": "verbo",
+          "perfecto": "adjetivo",
+          "si": "conjuncion",
+          "te": "pronombre",
+          "tengo": "verbo",
+          "entre": "preposicion",
+          "la": "articulo",
+          "gente": "sustantivo",
+          "tienes": "verbo",
+          "sobre": "preposicion",
+          "extraño": "adjetivo",
+          "multitud": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-021",
       "prompt": "Comunque con te, comunque vada con te",
-      "answer": [
-        "de",
-        "todos",
-        "modos",
-        "contigo",
-        "pase",
-        "lo",
-        "que",
-        "pase",
-        "contigo"
-      ],
+      "answer": ["de", "todos", "modos", "contigo", "pase", "lo", "que", "pase", "contigo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -663,18 +1140,45 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["conmigo", "formas", "paso", "sin"],
+        "pos": {
+          "de": "preposicion",
+          "todos": "determinante",
+          "modos": "sustantivo",
+          "contigo": "pronombre",
+          "pase": "verbo",
+          "lo": "pronombre",
+          "que": "pronombre",
+          "conmigo": "pronombre",
+          "formas": "sustantivo",
+          "paso": "verbo",
+          "sin": "preposicion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-022",
       "prompt": "Comunque vada con te",
-      "answer": [
-        "pase",
-        "lo",
-        "que",
-        "pase",
-        "contigo"
-      ],
+      "answer": ["pase", "lo", "que", "pase", "contigo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -692,18 +1196,42 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["conmigo", "paso", "algo", "pasa"],
+        "pos": {
+          "pase": "verbo",
+          "lo": "pronombre",
+          "que": "pronombre",
+          "contigo": "pronombre",
+          "conmigo": "pronombre",
+          "paso": "verbo",
+          "algo": "pronombre",
+          "pasa": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-023",
       "prompt": "Comunque vada con te",
-      "answer": [
-        "pase",
-        "lo",
-        "que",
-        "pase",
-        "contigo"
-      ],
+      "answer": ["pase", "lo", "que", "pase", "contigo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -721,18 +1249,42 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["conmigo", "paso", "algo", "pasa"],
+        "pos": {
+          "pase": "verbo",
+          "lo": "pronombre",
+          "que": "pronombre",
+          "contigo": "pronombre",
+          "conmigo": "pronombre",
+          "paso": "verbo",
+          "algo": "pronombre",
+          "pasa": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-024",
       "prompt": "Comunque vada con te",
-      "answer": [
-        "pase",
-        "lo",
-        "que",
-        "pase",
-        "contigo"
-      ],
+      "answer": ["pase", "lo", "que", "pase", "contigo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -750,21 +1302,42 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["conmigo", "paso", "algo", "pasa"],
+        "pos": {
+          "pase": "verbo",
+          "lo": "pronombre",
+          "que": "pronombre",
+          "contigo": "pronombre",
+          "conmigo": "pronombre",
+          "paso": "verbo",
+          "algo": "pronombre",
+          "pasa": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-025",
       "prompt": "Sono pesante, lo dico a me stesso",
-      "answer": [
-        "soy",
-        "pesado",
-        "me",
-        "lo",
-        "digo",
-        "a",
-        "mí",
-        "mismo"
-      ],
+      "answer": ["soy", "pesado", "me", "lo", "digo", "a", "mí", "mismo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -782,20 +1355,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["eres", "ligero", "dices", "ti"],
+        "pos": {
+          "soy": "verbo",
+          "pesado": "adjetivo",
+          "me": "pronombre",
+          "lo": "pronombre",
+          "digo": "verbo",
+          "a": "preposicion",
+          "mí": "pronombre",
+          "mismo": "adjetivo",
+          "eres": "verbo",
+          "ligero": "adjetivo",
+          "dices": "verbo",
+          "ti": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-026",
       "prompt": "Troppo romantico e prima o poi casco",
-      "answer": [
-        "demasiado",
-        "romántico",
-        "y",
-        "tarde",
-        "o",
-        "temprano",
-        "caigo"
-      ],
+      "answer": ["demasiado", "romántico", "y", "tarde", "o", "temprano", "caigo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -813,21 +1412,45 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["poco", "frío", "caes", "nunca"],
+        "pos": {
+          "demasiado": "adverbio",
+          "romántico": "adjetivo",
+          "y": "conjuncion",
+          "tarde": "adverbio",
+          "o": "conjuncion",
+          "temprano": "adverbio",
+          "caigo": "verbo",
+          "poco": "adverbio",
+          "frío": "adjetivo",
+          "caes": "verbo",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-027",
       "prompt": "Ma me ne sbatto di tutta sta gente",
-      "answer": [
-        "pero",
-        "me",
-        "importa",
-        "un",
-        "bledo",
-        "toda",
-        "esta",
-        "gente"
-      ],
+      "answer": ["pero", "me", "importa", "un", "bledo", "toda", "esta", "gente"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -845,21 +1468,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["te", "importan", "mucho", "aquella"],
+        "pos": {
+          "pero": "conjuncion",
+          "me": "pronombre",
+          "importa": "verbo",
+          "un": "articulo",
+          "bledo": "sustantivo",
+          "toda": "determinante",
+          "esta": "determinante",
+          "gente": "sustantivo",
+          "te": "pronombre",
+          "importan": "verbo",
+          "mucho": "adverbio",
+          "aquella": "determinante"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-028",
       "prompt": "Che non da peso alle cose importanti",
-      "answer": [
-        "que",
-        "no",
-        "da",
-        "peso",
-        "a",
-        "las",
-        "cosas",
-        "importantes"
-      ],
+      "answer": ["que", "no", "da", "peso", "a", "las", "cosas", "importantes"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -877,23 +1525,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["doy", "miedo", "inútiles", "quita"],
+        "pos": {
+          "que": "pronombre",
+          "no": "adverbio",
+          "da": "verbo",
+          "peso": "sustantivo",
+          "a": "preposicion",
+          "las": "articulo",
+          "cosas": "sustantivo",
+          "importantes": "adjetivo",
+          "doy": "verbo",
+          "miedo": "sustantivo",
+          "inútiles": "adjetivo",
+          "quita": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-029",
       "prompt": "Che poi l'amore se in fondo ci pensi",
-      "answer": [
-        "que",
-        "además",
-        "el",
-        "amor",
-        "si",
-        "en",
-        "el",
-        "fondo",
-        "lo",
-        "piensas"
-      ],
+      "answer": ["que", "además", "el", "amor", "si", "en", "el", "fondo", "lo", "piensas"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -913,22 +1584,47 @@
             ]
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["pienso", "odio", "cielo", "nunca"],
+        "pos": {
+          "que": "conjuncion",
+          "además": "adverbio",
+          "el": "articulo",
+          "amor": "sustantivo",
+          "si": "conjuncion",
+          "en": "preposicion",
+          "fondo": "sustantivo",
+          "lo": "pronombre",
+          "piensas": "verbo",
+          "pienso": "verbo",
+          "odio": "sustantivo",
+          "cielo": "sustantivo",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-030",
       "prompt": "È l'unico appiglio in un mondo di mostri",
-      "answer": [
-        "es",
-        "el",
-        "único",
-        "asidero",
-        "en",
-        "un",
-        "mundo",
-        "de",
-        "monstruos"
-      ],
+      "answer": ["es", "el", "único", "asidero", "en", "un", "mundo", "de", "monstruos"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -946,21 +1642,47 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["era", "último", "ángeles", "sin"],
+        "pos": {
+          "es": "verbo",
+          "el": "articulo",
+          "único": "adjetivo",
+          "asidero": "sustantivo",
+          "en": "preposicion",
+          "un": "articulo",
+          "mundo": "sustantivo",
+          "de": "preposicion",
+          "monstruos": "sustantivo",
+          "era": "verbo",
+          "último": "adjetivo",
+          "ángeles": "sustantivo",
+          "sin": "preposicion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-031",
       "prompt": "E tu lo descrivi in un modo pazzesco",
-      "answer": [
-        "y",
-        "tú",
-        "lo",
-        "describes",
-        "de",
-        "una",
-        "manera",
-        "alucinante"
-      ],
+      "answer": ["y", "tú", "lo", "describes", "de", "una", "manera", "alucinante"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -978,21 +1700,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["describo", "yo", "aburrida", "voz"],
+        "pos": {
+          "y": "conjuncion",
+          "tú": "pronombre",
+          "lo": "pronombre",
+          "describes": "verbo",
+          "de": "preposicion",
+          "una": "articulo",
+          "manera": "sustantivo",
+          "alucinante": "adjetivo",
+          "describo": "verbo",
+          "yo": "pronombre",
+          "aburrida": "adjetivo",
+          "voz": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-032",
       "prompt": "Tu lo rinchiudi in un solo tuo gesto",
-      "answer": [
-        "tú",
-        "lo",
-        "encierras",
-        "en",
-        "un",
-        "solo",
-        "gesto",
-        "tuyo"
-      ],
+      "answer": ["tú", "lo", "encierras", "en", "un", "solo", "gesto", "tuyo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1010,18 +1757,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["encierro", "mío", "doble", "beso"],
+        "pos": {
+          "tú": "pronombre",
+          "lo": "pronombre",
+          "encierras": "verbo",
+          "en": "preposicion",
+          "un": "articulo",
+          "solo": "adjetivo",
+          "gesto": "sustantivo",
+          "tuyo": "adjetivo",
+          "encierro": "verbo",
+          "mío": "adjetivo",
+          "doble": "adjetivo",
+          "beso": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-033",
       "prompt": "Mi piacerebbe lanciarti nel cielo",
-      "answer": [
-        "me",
-        "gustaría",
-        "lanzarte",
-        "al",
-        "cielo"
-      ],
+      "answer": ["me", "gustaría", "lanzarte", "al", "cielo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1039,21 +1814,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["te", "gustaba", "lanzarme", "mar"],
+        "pos": {
+          "me": "pronombre",
+          "gustaría": "verbo",
+          "lanzarte": "verbo",
+          "al": "preposicion",
+          "cielo": "sustantivo",
+          "te": "pronombre",
+          "gustaba": "verbo",
+          "lanzarme": "verbo",
+          "mar": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-034",
       "prompt": "Vedere il tuo corpo che pian piano sale",
-      "answer": [
-        "ver",
-        "tu",
-        "cuerpo",
-        "que",
-        "poco",
-        "a",
-        "poco",
-        "sube"
-      ],
+      "answer": ["ver", "tu", "cuerpo", "que", "poco", "a", "poco", "sube"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1071,19 +1868,45 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["mi", "alma", "baja", "veo"],
+        "pos": {
+          "ver": "verbo",
+          "tu": "determinante",
+          "cuerpo": "sustantivo",
+          "que": "pronombre",
+          "poco": "adverbio",
+          "a": "preposicion",
+          "sube": "verbo",
+          "mi": "determinante",
+          "alma": "sustantivo",
+          "baja": "verbo",
+          "veo": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-035",
       "prompt": "Collocarti nel posto più giusto",
-      "answer": [
-        "colocarte",
-        "en",
-        "el",
-        "lugar",
-        "más",
-        "justo"
-      ],
+      "answer": ["colocarte", "en", "el", "lugar", "más", "justo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1101,19 +1924,44 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["colocarme", "cielo", "menos", "lejano"],
+        "pos": {
+          "colocarte": "verbo",
+          "en": "preposicion",
+          "el": "articulo",
+          "lugar": "sustantivo",
+          "más": "adverbio",
+          "justo": "adjetivo",
+          "colocarme": "verbo",
+          "cielo": "sustantivo",
+          "menos": "adverbio",
+          "lejano": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-036",
       "prompt": "La stella più fragile dell'universo",
-      "answer": [
-        "la",
-        "estrella",
-        "más",
-        "frágil",
-        "del",
-        "universo"
-      ],
+      "answer": ["la", "estrella", "más", "frágil", "del", "universo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1131,18 +1979,44 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["luna", "fuerte", "menos", "cielo"],
+        "pos": {
+          "la": "articulo",
+          "estrella": "sustantivo",
+          "más": "adverbio",
+          "frágil": "adjetivo",
+          "del": "preposicion",
+          "universo": "sustantivo",
+          "luna": "sustantivo",
+          "fuerte": "adjetivo",
+          "menos": "adverbio",
+          "cielo": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-037",
       "prompt": "E se riniziasse un'altra vita",
-      "answer": [
-        "y",
-        "si",
-        "recomenzara",
-        "otra",
-        "vida"
-      ],
+      "answer": ["y", "si", "recomenzara", "otra", "vida"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1160,19 +2034,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["acabara", "esta", "muerte", "cuando"],
+        "pos": {
+          "y": "conjuncion",
+          "si": "conjuncion",
+          "recomenzara": "verbo",
+          "otra": "determinante",
+          "vida": "sustantivo",
+          "acabara": "verbo",
+          "esta": "determinante",
+          "muerte": "sustantivo",
+          "cuando": "conjuncion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-038",
       "prompt": "Io non chiederei che fosse infinita",
-      "answer": [
-        "yo",
-        "no",
-        "pediría",
-        "que",
-        "fuera",
-        "infinita"
-      ],
+      "answer": ["yo", "no", "pediría", "que", "fuera", "infinita"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1190,18 +2088,44 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["pedirías", "corta", "era", "tú"],
+        "pos": {
+          "yo": "pronombre",
+          "no": "adverbio",
+          "pediría": "verbo",
+          "que": "conjuncion",
+          "fuera": "verbo",
+          "infinita": "adjetivo",
+          "pedirías": "verbo",
+          "corta": "adjetivo",
+          "era": "verbo",
+          "tú": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-039",
       "prompt": "Mi basterebbe sapere che esisti",
-      "answer": [
-        "me",
-        "bastaría",
-        "saber",
-        "que",
-        "existes"
-      ],
+      "answer": ["me", "bastaría", "saber", "que", "existes"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1219,20 +2143,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["te", "sobraría", "existo", "olvidar"],
+        "pos": {
+          "me": "pronombre",
+          "bastaría": "verbo",
+          "saber": "verbo",
+          "que": "conjuncion",
+          "existes": "verbo",
+          "te": "pronombre",
+          "sobraría": "verbo",
+          "existo": "verbo",
+          "olvidar": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-040",
       "prompt": "Che è lo stesso il profumo che lasci",
-      "answer": [
-        "que",
-        "es",
-        "el",
-        "mismo",
-        "perfume",
-        "que",
-        "dejas"
-      ],
+      "answer": ["que", "es", "el", "mismo", "perfume", "que", "dejas"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1250,21 +2197,44 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["otro", "era", "dejo", "vestido"],
+        "pos": {
+          "que": "pronombre",
+          "es": "verbo",
+          "el": "articulo",
+          "mismo": "adjetivo",
+          "perfume": "sustantivo",
+          "dejas": "verbo",
+          "otro": "determinante",
+          "era": "verbo",
+          "dejo": "verbo",
+          "vestido": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-041",
       "prompt": "E se non mi conoscessi farei come ho fatto",
-      "answer": [
-        "y",
-        "si",
-        "no",
-        "me",
-        "conocieras",
-        "haría",
-        "como",
-        "hice"
-      ],
+      "answer": ["y", "si", "no", "me", "conocieras", "haría", "como", "hice"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1282,21 +2252,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["te", "conociera", "haré", "nunca"],
+        "pos": {
+          "y": "conjuncion",
+          "si": "conjuncion",
+          "no": "adverbio",
+          "me": "pronombre",
+          "conocieras": "verbo",
+          "haría": "verbo",
+          "como": "conjuncion",
+          "hice": "verbo",
+          "te": "pronombre",
+          "conociera": "verbo",
+          "haré": "verbo",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-042",
       "prompt": "Dirti che ti aspetto in un posto perfetto",
-      "answer": [
-        "decirte",
-        "que",
-        "te",
-        "espero",
-        "en",
-        "un",
-        "lugar",
-        "perfecto"
-      ],
+      "answer": ["decirte", "que", "te", "espero", "en", "un", "lugar", "perfecto"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1314,23 +2309,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["decirme", "me", "esperas", "extraño"],
+        "pos": {
+          "decirte": "verbo",
+          "que": "conjuncion",
+          "te": "pronombre",
+          "espero": "verbo",
+          "en": "preposicion",
+          "un": "articulo",
+          "lugar": "sustantivo",
+          "perfecto": "adjetivo",
+          "decirme": "verbo",
+          "me": "pronombre",
+          "esperas": "verbo",
+          "extraño": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-043",
       "prompt": "Che poi io di perfetto non ho proprio niente",
-      "answer": [
-        "que",
-        "además",
-        "yo",
-        "de",
-        "perfecto",
-        "no",
-        "tengo",
-        "nada",
-        "en",
-        "absoluto"
-      ],
+      "answer": ["que", "además", "yo", "de", "perfecto", "no", "tengo", "nada", "en", "absoluto"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1348,22 +2366,48 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["tienes", "todo", "tú", "nunca"],
+        "pos": {
+          "que": "conjuncion",
+          "además": "adverbio",
+          "yo": "pronombre",
+          "de": "preposicion",
+          "perfecto": "adjetivo",
+          "no": "adverbio",
+          "tengo": "verbo",
+          "nada": "pronombre",
+          "en": "preposicion",
+          "absoluto": "adjetivo",
+          "tienes": "verbo",
+          "todo": "pronombre",
+          "tú": "pronombre",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-044",
       "prompt": "Divento perfetto se ti ho tra la gente",
-      "answer": [
-        "me",
-        "vuelvo",
-        "perfecto",
-        "si",
-        "te",
-        "tengo",
-        "entre",
-        "la",
-        "gente"
-      ],
+      "answer": ["me", "vuelvo", "perfecto", "si", "te", "tengo", "entre", "la", "gente"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1381,22 +2425,47 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["tienes", "sobre", "extraño", "multitud"],
+        "pos": {
+          "me": "pronombre",
+          "vuelvo": "verbo",
+          "perfecto": "adjetivo",
+          "si": "conjuncion",
+          "te": "pronombre",
+          "tengo": "verbo",
+          "entre": "preposicion",
+          "la": "articulo",
+          "gente": "sustantivo",
+          "tienes": "verbo",
+          "sobre": "preposicion",
+          "extraño": "adjetivo",
+          "multitud": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-045",
       "prompt": "Comunque con te, comunque vada con te",
-      "answer": [
-        "de",
-        "todos",
-        "modos",
-        "contigo",
-        "pase",
-        "lo",
-        "que",
-        "pase",
-        "contigo"
-      ],
+      "answer": ["de", "todos", "modos", "contigo", "pase", "lo", "que", "pase", "contigo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1414,18 +2483,45 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["conmigo", "formas", "paso", "sin"],
+        "pos": {
+          "de": "preposicion",
+          "todos": "determinante",
+          "modos": "sustantivo",
+          "contigo": "pronombre",
+          "pase": "verbo",
+          "lo": "pronombre",
+          "que": "pronombre",
+          "conmigo": "pronombre",
+          "formas": "sustantivo",
+          "paso": "verbo",
+          "sin": "preposicion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-046",
       "prompt": "Comunque vada con te",
-      "answer": [
-        "pase",
-        "lo",
-        "que",
-        "pase",
-        "contigo"
-      ],
+      "answer": ["pase", "lo", "que", "pase", "contigo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1443,18 +2539,42 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["conmigo", "paso", "algo", "pasa"],
+        "pos": {
+          "pase": "verbo",
+          "lo": "pronombre",
+          "que": "pronombre",
+          "contigo": "pronombre",
+          "conmigo": "pronombre",
+          "paso": "verbo",
+          "algo": "pronombre",
+          "pasa": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-047",
       "prompt": "Comunque vada con te",
-      "answer": [
-        "pase",
-        "lo",
-        "que",
-        "pase",
-        "contigo"
-      ],
+      "answer": ["pase", "lo", "que", "pase", "contigo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1472,18 +2592,42 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["conmigo", "paso", "algo", "pasa"],
+        "pos": {
+          "pase": "verbo",
+          "lo": "pronombre",
+          "que": "pronombre",
+          "contigo": "pronombre",
+          "conmigo": "pronombre",
+          "paso": "verbo",
+          "algo": "pronombre",
+          "pasa": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-048",
       "prompt": "Comunque vada con te",
-      "answer": [
-        "pase",
-        "lo",
-        "que",
-        "pase",
-        "contigo"
-      ],
+      "answer": ["pase", "lo", "que", "pase", "contigo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1501,17 +2645,42 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["conmigo", "paso", "algo", "pasa"],
+        "pos": {
+          "pase": "verbo",
+          "lo": "pronombre",
+          "que": "pronombre",
+          "contigo": "pronombre",
+          "conmigo": "pronombre",
+          "paso": "verbo",
+          "algo": "pronombre",
+          "pasa": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "la-stella-piu-fragile-049",
       "prompt": "Comunque con te",
-      "answer": [
-        "de",
-        "todos",
-        "modos",
-        "contigo"
-      ],
+      "answer": ["de", "todos", "modos", "contigo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1529,6 +2698,36 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["conmigo", "formas", "algunos", "sin"],
+        "pos": {
+          "de": "preposicion",
+          "todos": "determinante",
+          "modos": "sustantivo",
+          "contigo": "pronombre",
+          "conmigo": "pronombre",
+          "formas": "sustantivo",
+          "algunos": "determinante",
+          "sin": "preposicion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     }
   ]
