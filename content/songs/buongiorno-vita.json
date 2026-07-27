@@ -5,15 +5,7 @@
     {
       "id": "buongiorno-vita-001",
       "prompt": "Buongiorno, vita che mi stai aspettando",
-      "answer": [
-        "buenos",
-        "días",
-        "vida",
-        "que",
-        "me",
-        "estás",
-        "esperando"
-      ],
+      "answer": ["buenos", "días", "vida", "que", "me", "estás", "esperando"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -31,20 +23,45 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["malos", "noches", "te", "estoy"],
+        "pos": {
+          "buenos": "adjetivo",
+          "días": "sustantivo",
+          "vida": "sustantivo",
+          "que": "pronombre",
+          "me": "pronombre",
+          "estás": "verbo",
+          "esperando": "verbo",
+          "malos": "adjetivo",
+          "noches": "sustantivo",
+          "te": "pronombre",
+          "estoy": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-002",
       "prompt": "Ho tutto pronto, passi per di qua?",
-      "answer": [
-        "lo",
-        "tengo",
-        "todo",
-        "listo",
-        "pasas",
-        "por",
-        "aquí"
-      ],
+      "answer": ["lo", "tengo", "todo", "listo", "pasas", "por", "aquí"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -62,21 +79,45 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["tienes", "nada", "paso", "allí"],
+        "pos": {
+          "lo": "pronombre",
+          "tengo": "verbo",
+          "todo": "pronombre",
+          "listo": "adjetivo",
+          "pasas": "verbo",
+          "por": "preposicion",
+          "aquí": "adverbio",
+          "tienes": "verbo",
+          "nada": "pronombre",
+          "paso": "verbo",
+          "allí": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-003",
       "prompt": "Su, dai, non vedi che mi sto perdendo?",
-      "answer": [
-        "venga",
-        "vamos",
-        "no",
-        "ves",
-        "que",
-        "me",
-        "estoy",
-        "perdiendo"
-      ],
+      "answer": ["venga", "vamos", "no", "ves", "que", "me", "estoy", "perdiendo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -96,20 +137,46 @@
             ]
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["veo", "te", "encontrando", "nunca"],
+        "pos": {
+          "venga": "verbo",
+          "vamos": "verbo",
+          "no": "adverbio",
+          "ves": "verbo",
+          "que": "conjuncion",
+          "me": "pronombre",
+          "estoy": "verbo",
+          "perdiendo": "verbo",
+          "veo": "verbo",
+          "te": "pronombre",
+          "encontrando": "verbo",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-004",
       "prompt": "Non è normale pure alla mia età",
-      "answer": [
-        "no",
-        "es",
-        "normal",
-        "incluso",
-        "a",
-        "mi",
-        "edad"
-      ],
+      "answer": ["no", "es", "normal", "incluso", "a", "mi", "edad"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -127,18 +194,45 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["era", "extraño", "tu", "vida"],
+        "pos": {
+          "no": "adverbio",
+          "es": "verbo",
+          "normal": "adjetivo",
+          "incluso": "adverbio",
+          "a": "preposicion",
+          "mi": "determinante",
+          "edad": "sustantivo",
+          "era": "verbo",
+          "extraño": "adjetivo",
+          "tu": "determinante",
+          "vida": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-005",
       "prompt": "Voglio sentirti, dammi una risposta",
-      "answer": [
-        "quiero",
-        "sentirte",
-        "dame",
-        "una",
-        "respuesta"
-      ],
+      "answer": ["quiero", "sentirte", "dame", "una", "respuesta"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -156,22 +250,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["quieres", "sentirme", "pregunta", "dime"],
+        "pos": {
+          "quiero": "verbo",
+          "sentirte": "verbo",
+          "dame": "verbo",
+          "una": "articulo",
+          "respuesta": "sustantivo",
+          "quieres": "verbo",
+          "sentirme": "verbo",
+          "pregunta": "sustantivo",
+          "dime": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-006",
       "prompt": "Che poi la sento e arriva dentro me",
-      "answer": [
-        "que",
-        "luego",
-        "la",
-        "siento",
-        "y",
-        "llega",
-        "dentro",
-        "de",
-        "mí"
-      ],
+      "answer": ["que", "luego", "la", "siento", "y", "llega", "dentro", "de", "mí"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -189,19 +304,47 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["lo", "sientes", "fuera", "ti"],
+        "pos": {
+          "que": "conjuncion",
+          "luego": "adverbio",
+          "la": "pronombre",
+          "siento": "verbo",
+          "y": "conjuncion",
+          "llega": "verbo",
+          "dentro": "adverbio",
+          "de": "preposicion",
+          "mí": "pronombre",
+          "lo": "pronombre",
+          "sientes": "verbo",
+          "fuera": "adverbio",
+          "ti": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-007",
       "prompt": "Per te che, vita, io sto resistendo",
-      "answer": [
-        "por",
-        "ti",
-        "vida",
-        "yo",
-        "estoy",
-        "resistiendo"
-      ],
+      "answer": ["por", "ti", "vida", "yo", "estoy", "resistiendo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -219,22 +362,44 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["mí", "tú", "estás", "muriendo"],
+        "pos": {
+          "por": "preposicion",
+          "ti": "pronombre",
+          "vida": "sustantivo",
+          "yo": "pronombre",
+          "estoy": "verbo",
+          "resistiendo": "verbo",
+          "mí": "pronombre",
+          "tú": "pronombre",
+          "estás": "verbo",
+          "muriendo": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-008",
       "prompt": "Perché non credo, eppure Dio qui c'è",
-      "answer": [
-        "porque",
-        "no",
-        "creo",
-        "y",
-        "sin",
-        "embargo",
-        "Dios",
-        "está",
-        "aquí"
-      ],
+      "answer": ["porque", "no", "creo", "y", "sin", "embargo", "Dios", "está", "aquí"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -252,15 +417,47 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["crees", "allí", "estaba", "nadie"],
+        "pos": {
+          "porque": "conjuncion",
+          "no": "adverbio",
+          "creo": "verbo",
+          "y": "conjuncion",
+          "sin": "preposicion",
+          "embargo": "sustantivo",
+          "Dios": "sustantivo",
+          "está": "verbo",
+          "aquí": "adverbio",
+          "crees": "verbo",
+          "allí": "adverbio",
+          "estaba": "verbo",
+          "nadie": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-009",
       "prompt": "T'abbraccerò",
-      "answer": [
-        "te",
-        "abrazaré"
-      ],
+      "answer": ["te", "abrazaré"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -278,18 +475,40 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["me", "abrazaste", "olvidaré", "siempre"],
+        "pos": {
+          "te": "pronombre",
+          "abrazaré": "verbo",
+          "me": "pronombre",
+          "abrazaste": "verbo",
+          "olvidaré": "verbo",
+          "siempre": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-010",
       "prompt": "Così che tu non possa andare via",
-      "answer": [
-        "para",
-        "que",
-        "no",
-        "puedas",
-        "irte"
-      ],
+      "answer": ["para", "que", "no", "puedas", "irte"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -307,18 +526,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["pueda", "irme", "quedarte", "sin"],
+        "pos": {
+          "para": "preposicion",
+          "que": "conjuncion",
+          "no": "adverbio",
+          "puedas": "verbo",
+          "irte": "verbo",
+          "pueda": "verbo",
+          "irme": "verbo",
+          "quedarte": "verbo",
+          "sin": "preposicion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-011",
       "prompt": "Non dirmi no",
-      "answer": [
-        "no",
-        "me",
-        "digas",
-        "que",
-        "no"
-      ],
+      "answer": ["no", "me", "digas", "que", "no"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -336,19 +580,42 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["te", "digo", "sí", "nunca"],
+        "pos": {
+          "no": "adverbio",
+          "me": "pronombre",
+          "digas": "verbo",
+          "que": "conjuncion",
+          "te": "pronombre",
+          "digo": "verbo",
+          "sí": "adverbio",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-012",
       "prompt": "Tanto saprei amarti pure come idea",
-      "answer": [
-        "total",
-        "sabría",
-        "amarte",
-        "incluso",
-        "como",
-        "idea"
-      ],
+      "answer": ["total", "sabría", "amarte", "incluso", "como", "idea"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -366,19 +633,44 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["sabrías", "amarme", "sueño", "casi"],
+        "pos": {
+          "total": "adverbio",
+          "sabría": "verbo",
+          "amarte": "verbo",
+          "incluso": "adverbio",
+          "como": "conjuncion",
+          "idea": "sustantivo",
+          "sabrías": "verbo",
+          "amarme": "verbo",
+          "sueño": "sustantivo",
+          "casi": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-013",
       "prompt": "In quei momenti sappi sempre",
-      "answer": [
-        "en",
-        "esos",
-        "momentos",
-        "ten",
-        "siempre",
-        "presente"
-      ],
+      "answer": ["en", "esos", "momentos", "ten", "siempre", "presente"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -396,17 +688,44 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["estos", "días", "nunca", "tengo"],
+        "pos": {
+          "en": "preposicion",
+          "esos": "determinante",
+          "momentos": "sustantivo",
+          "ten": "verbo",
+          "siempre": "adverbio",
+          "presente": "adjetivo",
+          "estos": "determinante",
+          "días": "sustantivo",
+          "nunca": "adverbio",
+          "tengo": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-014",
       "prompt": "Che l'estate arriverà",
-      "answer": [
-        "que",
-        "el",
-        "verano",
-        "llegará"
-      ],
+      "answer": ["que", "el", "verano", "llegará"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -424,21 +743,42 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["invierno", "llegó", "la", "nunca"],
+        "pos": {
+          "que": "conjuncion",
+          "el": "articulo",
+          "verano": "sustantivo",
+          "llegará": "verbo",
+          "invierno": "sustantivo",
+          "llegó": "verbo",
+          "la": "articulo",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-015",
       "prompt": "E se poi il caldo non si sente",
-      "answer": [
-        "y",
-        "si",
-        "luego",
-        "el",
-        "calor",
-        "no",
-        "se",
-        "siente"
-      ],
+      "answer": ["y", "si", "luego", "el", "calor", "no", "se", "siente"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -456,19 +796,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["frío", "antes", "sientes", "me"],
+        "pos": {
+          "y": "conjuncion",
+          "si": "conjuncion",
+          "luego": "adverbio",
+          "el": "articulo",
+          "calor": "sustantivo",
+          "no": "adverbio",
+          "se": "pronombre",
+          "siente": "verbo",
+          "frío": "sustantivo",
+          "antes": "adverbio",
+          "sientes": "verbo",
+          "me": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-016",
       "prompt": "È perché dentro ce l'hai già",
-      "answer": [
-        "es",
-        "porque",
-        "dentro",
-        "ya",
-        "lo",
-        "tienes"
-      ],
+      "answer": ["es", "porque", "dentro", "ya", "lo", "tienes"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -486,20 +853,44 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["fuera", "tengo", "nunca", "la"],
+        "pos": {
+          "es": "verbo",
+          "porque": "conjuncion",
+          "dentro": "adverbio",
+          "ya": "adverbio",
+          "lo": "pronombre",
+          "tienes": "verbo",
+          "fuera": "adverbio",
+          "tengo": "verbo",
+          "nunca": "adverbio",
+          "la": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-017",
       "prompt": "Buongiorno mondo, cosa vuoi che dica?",
-      "answer": [
-        "buenos",
-        "días",
-        "mundo",
-        "qué",
-        "quieres",
-        "que",
-        "diga"
-      ],
+      "answer": ["buenos", "días", "mundo", "qué", "quieres", "que", "diga"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -517,21 +908,45 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["malos", "noches", "quiero", "digo"],
+        "pos": {
+          "buenos": "adjetivo",
+          "días": "sustantivo",
+          "mundo": "sustantivo",
+          "qué": "pronombre",
+          "quieres": "verbo",
+          "que": "conjuncion",
+          "diga": "verbo",
+          "malos": "adjetivo",
+          "noches": "sustantivo",
+          "quiero": "verbo",
+          "digo": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-018",
       "prompt": "Da te ho cercato sempre e solo fuga",
-      "answer": [
-        "de",
-        "ti",
-        "he",
-        "buscado",
-        "siempre",
-        "y",
-        "solo",
-        "huida"
-      ],
+      "answer": ["de", "ti", "he", "buscado", "siempre", "y", "solo", "huida"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -549,19 +964,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["mí", "has", "nunca", "refugio"],
+        "pos": {
+          "de": "preposicion",
+          "ti": "pronombre",
+          "he": "verbo",
+          "buscado": "verbo",
+          "siempre": "adverbio",
+          "y": "conjuncion",
+          "solo": "adverbio",
+          "huida": "sustantivo",
+          "mí": "pronombre",
+          "has": "verbo",
+          "nunca": "adverbio",
+          "refugio": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-019",
       "prompt": "A volte ascolto una foglia cadere",
-      "answer": [
-        "a",
-        "veces",
-        "escucho",
-        "caer",
-        "una",
-        "hoja"
-      ],
+      "answer": ["a", "veces", "escucho", "caer", "una", "hoja"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -579,19 +1021,44 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["escuchas", "subir", "piedra", "nunca"],
+        "pos": {
+          "a": "preposicion",
+          "veces": "sustantivo",
+          "escucho": "verbo",
+          "caer": "verbo",
+          "una": "articulo",
+          "hoja": "sustantivo",
+          "escuchas": "verbo",
+          "subir": "verbo",
+          "piedra": "sustantivo",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-020",
       "prompt": "Ed il cemento che la sa aspettare",
-      "answer": [
-        "y",
-        "el",
-        "cemento",
-        "que",
-        "sabe",
-        "esperarla"
-      ],
+      "answer": ["y", "el", "cemento", "que", "sabe", "esperarla"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -609,20 +1076,44 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["sé", "esperarme", "asfalto", "suelo"],
+        "pos": {
+          "y": "conjuncion",
+          "el": "articulo",
+          "cemento": "sustantivo",
+          "que": "pronombre",
+          "sabe": "verbo",
+          "esperarla": "verbo",
+          "sé": "verbo",
+          "esperarme": "verbo",
+          "asfalto": "sustantivo",
+          "suelo": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-021",
       "prompt": "Come riposa il sole quando è inverno",
-      "answer": [
-        "como",
-        "descansa",
-        "el",
-        "sol",
-        "cuando",
-        "es",
-        "invierno"
-      ],
+      "answer": ["como", "descansa", "el", "sol", "cuando", "es", "invierno"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -640,21 +1131,45 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["descanso", "luna", "verano", "era"],
+        "pos": {
+          "como": "conjuncion",
+          "descansa": "verbo",
+          "el": "articulo",
+          "sol": "sustantivo",
+          "cuando": "conjuncion",
+          "es": "verbo",
+          "invierno": "sustantivo",
+          "descanso": "verbo",
+          "luna": "sustantivo",
+          "verano": "sustantivo",
+          "era": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-022",
       "prompt": "Col freddo addosso tu lo stai aspettando",
-      "answer": [
-        "con",
-        "el",
-        "frío",
-        "encima",
-        "tú",
-        "lo",
-        "estás",
-        "esperando"
-      ],
+      "answer": ["con", "el", "frío", "encima", "tú", "lo", "estás", "esperando"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -672,20 +1187,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["calor", "debajo", "yo", "estoy"],
+        "pos": {
+          "con": "preposicion",
+          "el": "articulo",
+          "frío": "sustantivo",
+          "encima": "adverbio",
+          "tú": "pronombre",
+          "lo": "pronombre",
+          "estás": "verbo",
+          "esperando": "verbo",
+          "calor": "sustantivo",
+          "debajo": "adverbio",
+          "yo": "pronombre",
+          "estoy": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-023",
       "prompt": "Scopri te stesso quando è primavera",
-      "answer": [
-        "descúbrete",
-        "a",
-        "ti",
-        "mismo",
-        "cuando",
-        "es",
-        "primavera"
-      ],
+      "answer": ["descúbrete", "a", "ti", "mismo", "cuando", "es", "primavera"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -703,22 +1244,45 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["descúbreme", "mí", "otoño", "era"],
+        "pos": {
+          "descúbrete": "verbo",
+          "a": "preposicion",
+          "ti": "pronombre",
+          "mismo": "adjetivo",
+          "cuando": "conjuncion",
+          "es": "verbo",
+          "primavera": "sustantivo",
+          "descúbreme": "verbo",
+          "mí": "pronombre",
+          "otoño": "sustantivo",
+          "era": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-024",
       "prompt": "Perché c'è un fiore e prima qui non c'era",
-      "answer": [
-        "porque",
-        "hay",
-        "una",
-        "flor",
-        "y",
-        "antes",
-        "aquí",
-        "no",
-        "había"
-      ],
+      "answer": ["porque", "hay", "una", "flor", "y", "antes", "aquí", "no", "había"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -736,16 +1300,47 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["luego", "árbol", "allí", "hubo"],
+        "pos": {
+          "porque": "conjuncion",
+          "hay": "verbo",
+          "una": "articulo",
+          "flor": "sustantivo",
+          "y": "conjuncion",
+          "antes": "adverbio",
+          "aquí": "adverbio",
+          "no": "adverbio",
+          "había": "verbo",
+          "luego": "adverbio",
+          "árbol": "sustantivo",
+          "allí": "adverbio",
+          "hubo": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-025",
       "prompt": "E t'abbraccerò",
-      "answer": [
-        "y",
-        "te",
-        "abrazaré"
-      ],
+      "answer": ["y", "te", "abrazaré"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -763,18 +1358,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["me", "abrazaste", "olvidaré", "nunca"],
+        "pos": {
+          "y": "conjuncion",
+          "te": "pronombre",
+          "abrazaré": "verbo",
+          "me": "pronombre",
+          "abrazaste": "verbo",
+          "olvidaré": "verbo",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-026",
       "prompt": "Così che tu non possa andare via",
-      "answer": [
-        "para",
-        "que",
-        "no",
-        "puedas",
-        "irte"
-      ],
+      "answer": ["para", "que", "no", "puedas", "irte"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -792,18 +1410,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["pueda", "irme", "quedarte", "sin"],
+        "pos": {
+          "para": "preposicion",
+          "que": "conjuncion",
+          "no": "adverbio",
+          "puedas": "verbo",
+          "irte": "verbo",
+          "pueda": "verbo",
+          "irme": "verbo",
+          "quedarte": "verbo",
+          "sin": "preposicion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-027",
       "prompt": "Non dirmi no",
-      "answer": [
-        "no",
-        "me",
-        "digas",
-        "que",
-        "no"
-      ],
+      "answer": ["no", "me", "digas", "que", "no"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -821,19 +1464,42 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["te", "digo", "sí", "nunca"],
+        "pos": {
+          "no": "adverbio",
+          "me": "pronombre",
+          "digas": "verbo",
+          "que": "conjuncion",
+          "te": "pronombre",
+          "digo": "verbo",
+          "sí": "adverbio",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-028",
       "prompt": "Tanto saprei amarti pure come idea",
-      "answer": [
-        "total",
-        "sabría",
-        "amarte",
-        "incluso",
-        "como",
-        "idea"
-      ],
+      "answer": ["total", "sabría", "amarte", "incluso", "como", "idea"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -851,19 +1517,44 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["sabrías", "amarme", "sueño", "casi"],
+        "pos": {
+          "total": "adverbio",
+          "sabría": "verbo",
+          "amarte": "verbo",
+          "incluso": "adverbio",
+          "como": "conjuncion",
+          "idea": "sustantivo",
+          "sabrías": "verbo",
+          "amarme": "verbo",
+          "sueño": "sustantivo",
+          "casi": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-029",
       "prompt": "In quei momenti sappi sempre",
-      "answer": [
-        "en",
-        "esos",
-        "momentos",
-        "ten",
-        "siempre",
-        "presente"
-      ],
+      "answer": ["en", "esos", "momentos", "ten", "siempre", "presente"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -881,17 +1572,44 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["estos", "días", "nunca", "tengo"],
+        "pos": {
+          "en": "preposicion",
+          "esos": "determinante",
+          "momentos": "sustantivo",
+          "ten": "verbo",
+          "siempre": "adverbio",
+          "presente": "adjetivo",
+          "estos": "determinante",
+          "días": "sustantivo",
+          "nunca": "adverbio",
+          "tengo": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-030",
       "prompt": "Che l'estate arriverà",
-      "answer": [
-        "que",
-        "el",
-        "verano",
-        "llegará"
-      ],
+      "answer": ["que", "el", "verano", "llegará"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -909,21 +1627,42 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["invierno", "llegó", "la", "nunca"],
+        "pos": {
+          "que": "conjuncion",
+          "el": "articulo",
+          "verano": "sustantivo",
+          "llegará": "verbo",
+          "invierno": "sustantivo",
+          "llegó": "verbo",
+          "la": "articulo",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-031",
       "prompt": "E se poi il caldo non si sente",
-      "answer": [
-        "y",
-        "si",
-        "luego",
-        "el",
-        "calor",
-        "no",
-        "se",
-        "siente"
-      ],
+      "answer": ["y", "si", "luego", "el", "calor", "no", "se", "siente"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -941,19 +1680,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["frío", "antes", "sientes", "me"],
+        "pos": {
+          "y": "conjuncion",
+          "si": "conjuncion",
+          "luego": "adverbio",
+          "el": "articulo",
+          "calor": "sustantivo",
+          "no": "adverbio",
+          "se": "pronombre",
+          "siente": "verbo",
+          "frío": "sustantivo",
+          "antes": "adverbio",
+          "sientes": "verbo",
+          "me": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-032",
       "prompt": "È perché dentro ce l'hai già",
-      "answer": [
-        "es",
-        "porque",
-        "dentro",
-        "ya",
-        "lo",
-        "tienes"
-      ],
+      "answer": ["es", "porque", "dentro", "ya", "lo", "tienes"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -971,23 +1737,44 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["fuera", "tengo", "nunca", "la"],
+        "pos": {
+          "es": "verbo",
+          "porque": "conjuncion",
+          "dentro": "adverbio",
+          "ya": "adverbio",
+          "lo": "pronombre",
+          "tienes": "verbo",
+          "fuera": "adverbio",
+          "tengo": "verbo",
+          "nunca": "adverbio",
+          "la": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-033",
       "prompt": "Quando avevo 15 anni, andavo al parco con le cuffie",
-      "answer": [
-        "cuando",
-        "tenía",
-        "15",
-        "años",
-        "iba",
-        "al",
-        "parque",
-        "con",
-        "los",
-        "auriculares"
-      ],
+      "answer": ["cuando", "tenía", "15", "años", "iba", "al", "parque", "con", "los", "auriculares"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1005,23 +1792,48 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["tengo", "voy", "jardín", "sin"],
+        "pos": {
+          "15": "determinante",
+          "cuando": "conjuncion",
+          "tenía": "verbo",
+          "años": "sustantivo",
+          "iba": "verbo",
+          "al": "preposicion",
+          "parque": "sustantivo",
+          "con": "preposicion",
+          "los": "articulo",
+          "auriculares": "sustantivo",
+          "tengo": "verbo",
+          "voy": "verbo",
+          "jardín": "sustantivo",
+          "sin": "preposicion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-034",
       "prompt": "Adesso ce ne ho 25 e vado al parco con le cuffie",
-      "answer": [
-        "ahora",
-        "tengo",
-        "25",
-        "y",
-        "voy",
-        "al",
-        "parque",
-        "con",
-        "los",
-        "auriculares"
-      ],
+      "answer": ["ahora", "tengo", "25", "y", "voy", "al", "parque", "con", "los", "auriculares"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1039,21 +1851,48 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["antes", "tenía", "iba", "jardín"],
+        "pos": {
+          "25": "determinante",
+          "ahora": "adverbio",
+          "tengo": "verbo",
+          "y": "conjuncion",
+          "voy": "verbo",
+          "al": "preposicion",
+          "parque": "sustantivo",
+          "con": "preposicion",
+          "los": "articulo",
+          "auriculares": "sustantivo",
+          "antes": "adverbio",
+          "tenía": "verbo",
+          "iba": "verbo",
+          "jardín": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-035",
       "prompt": "Mi piace ricominciare da dove sono partito",
-      "answer": [
-        "me",
-        "gusta",
-        "volver",
-        "a",
-        "empezar",
-        "desde",
-        "donde",
-        "partí"
-      ],
+      "answer": ["me", "gusta", "volver", "a", "empezar", "desde", "donde", "partí"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1071,22 +1910,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["te", "acabar", "hasta", "partiste"],
+        "pos": {
+          "me": "pronombre",
+          "gusta": "verbo",
+          "volver": "verbo",
+          "a": "preposicion",
+          "empezar": "verbo",
+          "desde": "preposicion",
+          "donde": "adverbio",
+          "partí": "verbo",
+          "te": "pronombre",
+          "acabar": "verbo",
+          "hasta": "preposicion",
+          "partiste": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-036",
       "prompt": "Per essere tale e quale al ricordo di me bambino",
-      "answer": [
-        "para",
-        "ser",
-        "idéntico",
-        "al",
-        "recuerdo",
-        "de",
-        "mí",
-        "de",
-        "niño"
-      ],
+      "answer": ["para", "ser", "idéntico", "al", "recuerdo", "de", "mí", "de", "niño"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1104,23 +1967,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["distinto", "olvido", "ti", "hombre"],
+        "pos": {
+          "para": "preposicion",
+          "ser": "verbo",
+          "idéntico": "adjetivo",
+          "al": "preposicion",
+          "recuerdo": "sustantivo",
+          "de": "preposicion",
+          "mí": "pronombre",
+          "niño": "sustantivo",
+          "distinto": "adjetivo",
+          "olvido": "sustantivo",
+          "ti": "pronombre",
+          "hombre": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-037",
       "prompt": "Mio padre mi disse: \"Svegliati e cercati un bel lavoro\"",
-      "answer": [
-        "mi",
-        "padre",
-        "me",
-        "dijo",
-        "despiértate",
-        "y",
-        "búscate",
-        "un",
-        "buen",
-        "trabajo"
-      ],
+      "answer": ["mi", "padre", "me", "dijo", "despiértate", "y", "búscate", "un", "buen", "trabajo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1138,23 +2024,48 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["madre", "te", "duérmete", "mal"],
+        "pos": {
+          "mi": "determinante",
+          "padre": "sustantivo",
+          "me": "pronombre",
+          "dijo": "verbo",
+          "despiértate": "verbo",
+          "y": "conjuncion",
+          "búscate": "verbo",
+          "un": "articulo",
+          "buen": "adjetivo",
+          "trabajo": "sustantivo",
+          "madre": "sustantivo",
+          "te": "pronombre",
+          "duérmete": "verbo",
+          "mal": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-038",
       "prompt": "In effetti lo cercai ma poi persi quello che sono",
-      "answer": [
-        "en",
-        "efecto",
-        "lo",
-        "busqué",
-        "pero",
-        "luego",
-        "perdí",
-        "lo",
-        "que",
-        "soy"
-      ],
+      "answer": ["en", "efecto", "lo", "busqué", "pero", "luego", "perdí", "lo", "que", "soy"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1172,24 +2083,47 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["busco", "gané", "antes", "eres"],
+        "pos": {
+          "en": "preposicion",
+          "efecto": "sustantivo",
+          "lo": "pronombre",
+          "busqué": "verbo",
+          "pero": "conjuncion",
+          "luego": "adverbio",
+          "perdí": "verbo",
+          "que": "pronombre",
+          "soy": "verbo",
+          "busco": "verbo",
+          "gané": "verbo",
+          "antes": "adverbio",
+          "eres": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-039",
       "prompt": "Mi sedetti al pianoforte e feci un patto con il sangue",
-      "answer": [
-        "me",
-        "senté",
-        "al",
-        "piano",
-        "e",
-        "hice",
-        "un",
-        "pacto",
-        "con",
-        "la",
-        "sangre"
-      ],
+      "answer": ["me", "senté", "al", "piano", "e", "hice", "un", "pacto", "con", "la", "sangre"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1207,25 +2141,49 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["te", "levanté", "guitarra", "alma"],
+        "pos": {
+          "me": "pronombre",
+          "senté": "verbo",
+          "al": "preposicion",
+          "piano": "sustantivo",
+          "e": "conjuncion",
+          "hice": "verbo",
+          "un": "articulo",
+          "pacto": "sustantivo",
+          "con": "preposicion",
+          "la": "articulo",
+          "sangre": "sustantivo",
+          "te": "pronombre",
+          "levanté": "verbo",
+          "guitarra": "sustantivo",
+          "alma": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-040",
       "prompt": "Per vincere avrò la musica, per lei che alzo le spalle, io",
-      "answer": [
-        "para",
-        "vencer",
-        "tendré",
-        "la",
-        "música",
-        "por",
-        "ella",
-        "me",
-        "encojo",
-        "de",
-        "hombros",
-        "yo"
-      ],
+      "answer": ["para", "vencer", "tendré", "la", "música", "por", "ella", "me", "encojo", "de", "hombros", "yo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1243,15 +2201,50 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["perder", "tengo", "él", "manos"],
+        "pos": {
+          "para": "preposicion",
+          "vencer": "verbo",
+          "tendré": "verbo",
+          "la": "articulo",
+          "música": "sustantivo",
+          "por": "preposicion",
+          "ella": "pronombre",
+          "me": "pronombre",
+          "encojo": "verbo",
+          "de": "preposicion",
+          "hombros": "sustantivo",
+          "yo": "pronombre",
+          "perder": "verbo",
+          "tengo": "verbo",
+          "él": "pronombre",
+          "manos": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-041",
       "prompt": "T'abbraccerò",
-      "answer": [
-        "te",
-        "abrazaré"
-      ],
+      "answer": ["te", "abrazaré"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1269,18 +2262,40 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["me", "abrazaste", "olvidaré", "siempre"],
+        "pos": {
+          "te": "pronombre",
+          "abrazaré": "verbo",
+          "me": "pronombre",
+          "abrazaste": "verbo",
+          "olvidaré": "verbo",
+          "siempre": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-042",
       "prompt": "Così che tu non possa andare via",
-      "answer": [
-        "para",
-        "que",
-        "no",
-        "puedas",
-        "irte"
-      ],
+      "answer": ["para", "que", "no", "puedas", "irte"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1298,19 +2313,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["pueda", "irme", "quedarte", "sin"],
+        "pos": {
+          "para": "preposicion",
+          "que": "conjuncion",
+          "no": "adverbio",
+          "puedas": "verbo",
+          "irte": "verbo",
+          "pueda": "verbo",
+          "irme": "verbo",
+          "quedarte": "verbo",
+          "sin": "preposicion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-043",
       "prompt": "E non dirmi no",
-      "answer": [
-        "y",
-        "no",
-        "me",
-        "digas",
-        "que",
-        "no"
-      ],
+      "answer": ["y", "no", "me", "digas", "que", "no"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1328,19 +2367,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["te", "digo", "sí", "nunca"],
+        "pos": {
+          "y": "conjuncion",
+          "no": "adverbio",
+          "me": "pronombre",
+          "digas": "verbo",
+          "que": "conjuncion",
+          "te": "pronombre",
+          "digo": "verbo",
+          "sí": "adverbio",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-044",
       "prompt": "Tanto saprei amarti pure come idea",
-      "answer": [
-        "total",
-        "sabría",
-        "amarte",
-        "incluso",
-        "como",
-        "idea"
-      ],
+      "answer": ["total", "sabría", "amarte", "incluso", "como", "idea"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1360,18 +2423,44 @@
             ]
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["sabrías", "amarme", "sueño", "casi"],
+        "pos": {
+          "total": "adverbio",
+          "sabría": "verbo",
+          "amarte": "verbo",
+          "incluso": "adverbio",
+          "como": "conjuncion",
+          "idea": "sustantivo",
+          "sabrías": "verbo",
+          "amarme": "verbo",
+          "sueño": "sustantivo",
+          "casi": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-045",
       "prompt": "In quei momenti sappi sempre",
-      "answer": [
-        "en",
-        "esos",
-        "momentos",
-        "sabe",
-        "siempre"
-      ],
+      "answer": ["en", "esos", "momentos", "sabe", "siempre"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1389,17 +2478,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["estos", "días", "nunca", "sé"],
+        "pos": {
+          "en": "preposicion",
+          "esos": "determinante",
+          "momentos": "sustantivo",
+          "sabe": "verbo",
+          "siempre": "adverbio",
+          "estos": "determinante",
+          "días": "sustantivo",
+          "nunca": "adverbio",
+          "sé": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-046",
       "prompt": "Che l'estate arriverà",
-      "answer": [
-        "que",
-        "el",
-        "verano",
-        "llegará"
-      ],
+      "answer": ["que", "el", "verano", "llegará"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1417,21 +2532,42 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["invierno", "llegó", "la", "nunca"],
+        "pos": {
+          "que": "conjuncion",
+          "el": "articulo",
+          "verano": "sustantivo",
+          "llegará": "verbo",
+          "invierno": "sustantivo",
+          "llegó": "verbo",
+          "la": "articulo",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-047",
       "prompt": "E se poi il caldo non si sente",
-      "answer": [
-        "y",
-        "si",
-        "luego",
-        "el",
-        "calor",
-        "no",
-        "se",
-        "siente"
-      ],
+      "answer": ["y", "si", "luego", "el", "calor", "no", "se", "siente"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1449,19 +2585,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["frío", "antes", "sientes", "me"],
+        "pos": {
+          "y": "conjuncion",
+          "si": "conjuncion",
+          "luego": "adverbio",
+          "el": "articulo",
+          "calor": "sustantivo",
+          "no": "adverbio",
+          "se": "pronombre",
+          "siente": "verbo",
+          "frío": "sustantivo",
+          "antes": "adverbio",
+          "sientes": "verbo",
+          "me": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-048",
       "prompt": "È perché dentro ce l'hai già",
-      "answer": [
-        "es",
-        "porque",
-        "dentro",
-        "ya",
-        "lo",
-        "tienes"
-      ],
+      "answer": ["es", "porque", "dentro", "ya", "lo", "tienes"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1479,18 +2642,44 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["fuera", "tengo", "nunca", "la"],
+        "pos": {
+          "es": "verbo",
+          "porque": "conjuncion",
+          "dentro": "adverbio",
+          "ya": "adverbio",
+          "lo": "pronombre",
+          "tienes": "verbo",
+          "fuera": "adverbio",
+          "tengo": "verbo",
+          "nunca": "adverbio",
+          "la": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-049",
       "prompt": "Quindi non essere delusa",
-      "answer": [
-        "así",
-        "que",
-        "no",
-        "estés",
-        "decepcionada"
-      ],
+      "answer": ["así", "que", "no", "estés", "decepcionada"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1508,18 +2697,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["estoy", "contenta", "nunca", "seas"],
+        "pos": {
+          "así": "adverbio",
+          "que": "conjuncion",
+          "no": "adverbio",
+          "estés": "verbo",
+          "decepcionada": "adjetivo",
+          "estoy": "verbo",
+          "contenta": "adjetivo",
+          "nunca": "adverbio",
+          "seas": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-050",
       "prompt": "Da te stessa, questo mai",
-      "answer": [
-        "de",
-        "ti",
-        "misma",
-        "esto",
-        "nunca"
-      ],
+      "answer": ["de", "ti", "misma", "esto", "nunca"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1539,18 +2753,43 @@
             ]
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["mí", "mismo", "eso", "siempre"],
+        "pos": {
+          "de": "preposicion",
+          "ti": "pronombre",
+          "misma": "adjetivo",
+          "esto": "pronombre",
+          "nunca": "adverbio",
+          "mí": "pronombre",
+          "mismo": "adjetivo",
+          "eso": "pronombre",
+          "siempre": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-051",
       "prompt": "Perché anche il mare si riposa",
-      "answer": [
-        "porque",
-        "también",
-        "el",
-        "mar",
-        "descansa"
-      ],
+      "answer": ["porque", "también", "el", "mar", "descansa"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1568,20 +2807,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["tampoco", "cielo", "descanso", "sol"],
+        "pos": {
+          "porque": "conjuncion",
+          "también": "adverbio",
+          "el": "articulo",
+          "mar": "sustantivo",
+          "descansa": "verbo",
+          "tampoco": "adverbio",
+          "cielo": "sustantivo",
+          "descanso": "verbo",
+          "sol": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "buongiorno-vita-052",
       "prompt": "È quando è calmo che godrai",
-      "answer": [
-        "es",
-        "cuando",
-        "está",
-        "en",
-        "calma",
-        "cuando",
-        "disfrutarás"
-      ],
+      "answer": ["es", "cuando", "está", "en", "calma", "cuando", "disfrutarás"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1599,6 +2861,38 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["era", "tormenta", "disfruté", "sin"],
+        "pos": {
+          "es": "verbo",
+          "cuando": "conjuncion",
+          "está": "verbo",
+          "en": "preposicion",
+          "calma": "sustantivo",
+          "disfrutarás": "verbo",
+          "era": "verbo",
+          "tormenta": "sustantivo",
+          "disfruté": "verbo",
+          "sin": "preposicion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     }
   ]
