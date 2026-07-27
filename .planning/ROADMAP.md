@@ -198,6 +198,10 @@ Verbos IRREGULARES en presente (andare/fare/venire/dire…) son categoría apart
 
 **Status:** Backlog post-v1.3. Añadir más canciones al bloque conforme el autor las quiera trabajar; el patrón de alta queda consolidado en v1.3. (Validador de frases ES por quórum S1-S5 ya disponible — quick task `260615-vkr`, 83/83 validated; 10 canciones reales ya en el bloque a 2026-06-30.)
 
+### decoyBank.pos multi-categoría por token (DECOY-X1 — diferido)
+
+**Status:** Backlog post-`260727-dcy`. **DECOY-X1**: `decoyBank.pos` está indexado por TEXTO de palabra, así que un token repetido en `answer` con función distinta solo admite UNA etiqueta POS (caso real y único del corpus: `22-settembre-009`, "Io la vita la prendo com'è" → `la` artículo + `la` pronombre). El autor decidió (2026-07-27) **aceptar el `disputed`** (opción A): la frase es jugable igual —el modo agrupado no lee `decoyBank.validation`— y es 1 de 311 frases únicas convertidas. La opción B (`pos` acepta `string | string[]`, `groupTokens` reparte por índice, D1 reescrita, round-trip de `serDecoyBank`) queda **diferida hasta que el patrón reaparezca** en una canción nueva. Detalle y plan de ataque en `.planning/todos/pending/decoybank-pos-multi-categoria.md`.
+
 ### Bridges multi-cat Partitivos + responsive móvil
 
 **Status:** Backlog. Bridges multi-categoría Partitivos↔género-número/sustantivos (PART-X1, diferido para acotar v1.2). Responsive móvil ya ejecutado parcialmente como trabajo huérfano (Phase 28, archivada) + capa `@media (max-width: 640px)` shippeada como quick tasks; el responsive completo de las pantallas Editoriale (tamaño de prompt + breakpoints) queda diferido de v1.8 (desktop-only por diseño) — re-evaluar si se reactiva como milestone formal.

@@ -80,8 +80,11 @@ atajo). Opciones para el autor:
 | **B. `pos` acepta array de categorías** | Cambio de esquema + `word-groups.js` + tests + re-validar | Resuelve la clase entera de casos, no solo este |
 | **C. Reformular la traducción** a "yo tomo la vida como es" | Cambia una traducción ya `validated` → re-validar S1-S6 | Elimina el `la` duplicado; español igual de natural |
 
-Recomendación: **A** ahora, **B** si vuelve a aparecer (es la única frase del
-corpus con este patrón).
+**Decisión del autor (2026-07-27): opción A.** Se acepta el `disputed`; la frase
+queda jugable y el corpus en 632/639 `validated`. La opción B queda anotada como
+**DECOY-X1** en `.planning/ROADMAP.md` §Backlog + plan de ataque detallado en
+`.planning/todos/pending/decoybank-pos-multi-categoria.md`, para reactivar si el
+patrón reaparece en una canción nueva.
 
 ## Ficheros
 
