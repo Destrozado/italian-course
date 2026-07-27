@@ -23,6 +23,40 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["prefieres", "con", "siempre", "morir"],
+        "pos": {
+          "prefiero": "verbo",
+          "vivir": "verbo",
+          "sin": "preposicion",
+          "volver": "verbo",
+          "a": "preposicion",
+          "pedir": "verbo",
+          "nunca": "adverbio",
+          "más": "adverbio",
+          "prefieres": "verbo",
+          "con": "preposicion",
+          "siempre": "adverbio",
+          "morir": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -46,6 +80,37 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["soltarme", "prefieres", "retenerme", "jamás"],
+        "pos": {
+          "prefiero": "verbo",
+          "aferrarme": "verbo",
+          "que": "conjuncion",
+          "dejarlo": "verbo",
+          "estar": "verbo",
+          "soltarme": "verbo",
+          "prefieres": "verbo",
+          "retenerme": "verbo",
+          "jamás": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -69,6 +134,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["minuto", "abismo", "vives", "sin"],
+        "pos": {
+          "vivo": "verbo",
+          "en": "preposicion",
+          "el": "articulo",
+          "contraste": "sustantivo",
+          "de": "preposicion",
+          "un": "articulo",
+          "siglo": "sustantivo",
+          "y": "conjuncion",
+          "segundo": "sustantivo",
+          "minuto": "sustantivo",
+          "abismo": "sustantivo",
+          "vives": "verbo",
+          "sin": "preposicion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -92,6 +192,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["encuentras", "lógico", "muy", "naturaleza"],
+        "pos": {
+          "y": "conjuncion",
+          "no": "adverbio",
+          "encuentro": "verbo",
+          "tan": "adverbio",
+          "absurdo": "adjetivo",
+          "que": "conjuncion",
+          "el": "articulo",
+          "mundo": "sustantivo",
+          "sea": "verbo",
+          "un": "articulo",
+          "instinto": "sustantivo",
+          "encuentras": "verbo",
+          "lógico": "adjetivo",
+          "muy": "adverbio",
+          "naturaleza": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -115,6 +252,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["me", "parecen", "miedo", "olvido"],
+        "pos": {
+          "te": "pronombre",
+          "parece": "verbo",
+          "si": "conjuncion",
+          "nos": "pronombre",
+          "dejamos": "verbo",
+          "que": "conjuncion",
+          "vuelve": "verbo",
+          "el": "articulo",
+          "deseo": "sustantivo",
+          "me": "pronombre",
+          "parecen": "verbo",
+          "miedo": "sustantivo",
+          "olvido": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -138,6 +310,40 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["antes", "vengo", "lejos", "mentira"],
+        "pos": {
+          "luego": "adverbio",
+          "ven": "verbo",
+          "aquí": "adverbio",
+          "cerca": "adverbio",
+          "y": "conjuncion",
+          "cuéntame": "verbo",
+          "un": "articulo",
+          "secreto": "sustantivo",
+          "antes": "adverbio",
+          "vengo": "verbo",
+          "lejos": "adverbio",
+          "mentira": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -161,6 +367,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["joven", "sabes", "hablaba", "amigos"],
+        "pos": {
+          "yo": "pronombre",
+          "sé": "verbo",
+          "de": "preposicion",
+          "un": "articulo",
+          "viejo": "adjetivo",
+          "loco": "adjetivo",
+          "que": "pronombre",
+          "habla": "verbo",
+          "a": "preposicion",
+          "las": "articulo",
+          "personas": "sustantivo",
+          "joven": "adjetivo",
+          "sabes": "verbo",
+          "hablaba": "verbo",
+          "amigos": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -184,6 +427,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["siempre", "olvidadas", "esta", "morir"],
+        "pos": {
+          "de": "preposicion",
+          "cosas": "sustantivo",
+          "nunca": "adverbio",
+          "sucedidas": "adjetivo",
+          "para": "preposicion",
+          "vivir": "verbo",
+          "un": "articulo",
+          "poco": "adverbio",
+          "en": "preposicion",
+          "otra": "determinante",
+          "parte": "sustantivo",
+          "siempre": "adverbio",
+          "olvidadas": "adjetivo",
+          "esta": "determinante",
+          "morir": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -207,6 +487,40 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["tomas", "muerte", "era", "mi"],
+        "pos": {
+          "yo": "pronombre",
+          "la": "articulo",
+          "vida": "sustantivo",
+          "tomo": "verbo",
+          "como": "conjuncion",
+          "es": "verbo",
+          "tomas": "verbo",
+          "muerte": "sustantivo",
+          "era": "verbo",
+          "mi": "determinante"
+        },
+        "validation": {
+          "status": "disputed",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[D2-pos] El token 'la' aparece dos veces en la respuesta: primero como artículo (correcto) y segundo como pronombre de objeto directo. La asignación única 'articulo' es incorrecta para la segunda aparición. Solución: si el mapa permite una sola entrada por texto, debe reetiquetarse 'la' como 'pronombre' (cubriendo el uso pronominal) o, idealmente, usar dos claves distintas (ej. 'la_art' y 'la_pro') o reformular la frase para evitar la ambigüedad. Sugerencia: etiqueta 'la' como 'pronombre' y agrega un decoy 'el' como artículo para la primera posición, o reestructura el banco."
+            ]
+          }
+          ]
+        }
       }
     },
     {
@@ -230,6 +544,39 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["aquel", "camino", "partía", "mí"],
+        "pos": {
+          "este": "determinante",
+          "viaje": "sustantivo",
+          "que": "pronombre",
+          "parte": "verbo",
+          "por": "preposicion",
+          "sí": "pronombre",
+          "solo": "adjetivo",
+          "aquel": "determinante",
+          "camino": "sustantivo",
+          "partía": "verbo",
+          "mí": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -253,6 +600,39 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["pido", "siempre", "ti", "perdón"],
+        "pos": {
+          "que": "pronombre",
+          "no": "adverbio",
+          "pide": "verbo",
+          "nunca": "adverbio",
+          "permiso": "sustantivo",
+          "a": "preposicion",
+          "mí": "pronombre",
+          "pido": "verbo",
+          "siempre": "adverbio",
+          "ti": "pronombre",
+          "perdón": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -276,6 +656,40 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["tomas", "muerte", "era", "mi"],
+        "pos": {
+          "yo": "pronombre",
+          "la": "articulo",
+          "vida": "sustantivo",
+          "tomo": "verbo",
+          "como": "conjuncion",
+          "es": "verbo",
+          "tomas": "verbo",
+          "muerte": "sustantivo",
+          "era": "verbo",
+          "mi": "determinante"
+        },
+        "validation": {
+          "status": "disputed",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[D2-pos] El token 'la' aparece dos veces en la respuesta: primero como artículo (correcto) y segundo como pronombre de objeto directo. La asignación única 'articulo' es incorrecta para la segunda aparición. Solución: si el mapa permite una sola entrada por texto, debe reetiquetarse 'la' como 'pronombre' (cubriendo el uso pronominal) o, idealmente, usar dos claves distintas (ej. 'la_art' y 'la_pro') o reformular la frase para evitar la ambigüedad. Sugerencia: etiqueta 'la' como 'pronombre' y agrega un decoy 'el' como artículo para la primera posición, o reestructura el banco."
+            ]
+          }
+          ]
+        }
       }
     },
     {
@@ -299,6 +713,38 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["puedo", "nuevas", "luego", "costumbres"],
+        "pos": {
+          "puedes": "verbo",
+          "dejar": "verbo",
+          "ahora": "adverbio",
+          "las": "articulo",
+          "viejas": "adjetivo",
+          "convicciones": "sustantivo",
+          "puedo": "verbo",
+          "nuevas": "adjetivo",
+          "luego": "adverbio",
+          "costumbres": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -322,6 +768,38 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["construimos", "tuyas", "viejas", "sin"],
+        "pos": {
+          "construiremos": "verbo",
+          "otras": "pronombre",
+          "con": "preposicion",
+          "nuevas": "adjetivo",
+          "palabras": "sustantivo",
+          "mías": "adjetivo",
+          "construimos": "verbo",
+          "tuyas": "adjetivo",
+          "viejas": "adjetivo",
+          "sin": "preposicion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -345,6 +823,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["nada", "tendré", "dudar", "mucho"],
+        "pos": {
+          "yo": "pronombre",
+          "me": "pronombre",
+          "ocuparé": "verbo",
+          "de": "preposicion",
+          "todo": "pronombre",
+          "tú": "pronombre",
+          "tendrás": "verbo",
+          "que": "conjuncion",
+          "confiar": "verbo",
+          "un": "articulo",
+          "poco": "adverbio",
+          "nada": "pronombre",
+          "tendré": "verbo",
+          "dudar": "verbo",
+          "mucho": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -368,6 +883,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["perdono", "ternura", "te", "salvas"],
+        "pos": {
+          "y": "conjuncion",
+          "perdona": "verbo",
+          "la": "articulo",
+          "frialdad": "sustantivo",
+          "pero": "conjuncion",
+          "espero": "verbo",
+          "que": "conjuncion",
+          "me": "pronombre",
+          "salves": "verbo",
+          "perdono": "verbo",
+          "ternura": "sustantivo",
+          "te": "pronombre",
+          "salvas": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -391,6 +941,39 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["irme", "ruido", "noches", "invernales"],
+        "pos": {
+          "para": "preposicion",
+          "quedarme": "verbo",
+          "en": "preposicion",
+          "silencio": "sustantivo",
+          "tardes": "sustantivo",
+          "más": "adverbio",
+          "otoñales": "adjetivo",
+          "irme": "verbo",
+          "ruido": "sustantivo",
+          "noches": "sustantivo",
+          "invernales": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -414,6 +997,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["te", "olvido", "jardín", "valgo"],
+        "pos": {
+          "me": "pronombre",
+          "recuerdo": "verbo",
+          "en": "preposicion",
+          "un": "articulo",
+          "parque": "sustantivo",
+          "diciendo": "verbo",
+          "demuestra": "verbo",
+          "cuánto": "adverbio",
+          "vales": "verbo",
+          "te": "pronombre",
+          "olvido": "verbo",
+          "jardín": "sustantivo",
+          "valgo": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -437,6 +1055,42 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["estoy", "alegre", "siempre", "oculta"],
+        "pos": {
+          "y": "conjuncion",
+          "no": "adverbio",
+          "estés": "verbo",
+          "nunca": "adverbio",
+          "abatido": "adjetivo",
+          "si": "conjuncion",
+          "un": "articulo",
+          "sueño": "sustantivo",
+          "se": "pronombre",
+          "revela": "verbo",
+          "estoy": "verbo",
+          "alegre": "adjetivo",
+          "siempre": "adverbio",
+          "oculta": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -460,6 +1114,39 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["has", "llorar", "incluida", "lágrimas"],
+        "pos": {
+          "he": "verbo",
+          "visto": "verbo",
+          "a": "preposicion",
+          "gente": "sustantivo",
+          "excluida": "adjetivo",
+          "reír": "verbo",
+          "carcajadas": "sustantivo",
+          "has": "verbo",
+          "llorar": "verbo",
+          "incluida": "adjetivo",
+          "lágrimas": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -483,6 +1170,40 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["tomas", "muerte", "era", "mi"],
+        "pos": {
+          "yo": "pronombre",
+          "la": "articulo",
+          "vida": "sustantivo",
+          "tomo": "verbo",
+          "como": "conjuncion",
+          "es": "verbo",
+          "tomas": "verbo",
+          "muerte": "sustantivo",
+          "era": "verbo",
+          "mi": "determinante"
+        },
+        "validation": {
+          "status": "disputed",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[D2-pos] El token 'la' aparece dos veces en la respuesta: primero como artículo (correcto) y segundo como pronombre de objeto directo. La asignación única 'articulo' es incorrecta para la segunda aparición. Solución: si el mapa permite una sola entrada por texto, debe reetiquetarse 'la' como 'pronombre' (cubriendo el uso pronominal) o, idealmente, usar dos claves distintas (ej. 'la_art' y 'la_pro') o reformular la frase para evitar la ambigüedad. Sugerencia: etiqueta 'la' como 'pronombre' y agrega un decoy 'el' como artículo para la primera posición, o reestructura el banco."
+            ]
+          }
+          ]
+        }
       }
     },
     {
@@ -506,6 +1227,39 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["aquel", "camino", "partía", "mí"],
+        "pos": {
+          "este": "determinante",
+          "viaje": "sustantivo",
+          "que": "pronombre",
+          "parte": "verbo",
+          "por": "preposicion",
+          "sí": "pronombre",
+          "solo": "adjetivo",
+          "aquel": "determinante",
+          "camino": "sustantivo",
+          "partía": "verbo",
+          "mí": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -529,6 +1283,39 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["pido", "siempre", "ti", "perdón"],
+        "pos": {
+          "que": "pronombre",
+          "no": "adverbio",
+          "pide": "verbo",
+          "nunca": "adverbio",
+          "permiso": "sustantivo",
+          "a": "preposicion",
+          "mí": "pronombre",
+          "pido": "verbo",
+          "siempre": "adverbio",
+          "ti": "pronombre",
+          "perdón": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -552,6 +1339,40 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["tomas", "muerte", "era", "mi"],
+        "pos": {
+          "yo": "pronombre",
+          "la": "articulo",
+          "vida": "sustantivo",
+          "tomo": "verbo",
+          "como": "conjuncion",
+          "es": "verbo",
+          "tomas": "verbo",
+          "muerte": "sustantivo",
+          "era": "verbo",
+          "mi": "determinante"
+        },
+        "validation": {
+          "status": "disputed",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[D2-pos] El token 'la' aparece dos veces en la respuesta: primero como artículo (correcto) y segundo como pronombre de objeto directo. La asignación única 'articulo' es incorrecta para la segunda aparición. Solución: si el mapa permite una sola entrada por texto, debe reetiquetarse 'la' como 'pronombre' (cubriendo el uso pronominal) o, idealmente, usar dos claves distintas (ej. 'la_art' y 'la_pro') o reformular la frase para evitar la ambigüedad. Sugerencia: etiqueta 'la' como 'pronombre' y agrega un decoy 'el' como artículo para la primera posición, o reestructura el banco."
+            ]
+          }
+          ]
+        }
       }
     },
     {
@@ -575,6 +1396,40 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["tomé", "este", "pasado", "trae"],
+        "pos": {
+          "no": "adverbio",
+          "tomaré": "verbo",
+          "ese": "determinante",
+          "tren": "sustantivo",
+          "que": "pronombre",
+          "lleva": "verbo",
+          "al": "preposicion",
+          "futuro": "sustantivo",
+          "tomé": "verbo",
+          "este": "determinante",
+          "pasado": "sustantivo",
+          "trae": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -598,6 +1453,40 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["quieres", "sufrir", "complejo", "segundo"],
+        "pos": {
+          "no": "adverbio",
+          "yo": "pronombre",
+          "quiero": "verbo",
+          "disfrutar": "verbo",
+          "incluso": "adverbio",
+          "un": "articulo",
+          "simple": "adjetivo",
+          "minuto": "sustantivo",
+          "quieres": "verbo",
+          "sufrir": "verbo",
+          "complejo": "adjetivo",
+          "segundo": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -621,6 +1510,42 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["octubre", "volví", "este", "ciudad"],
+        "pos": {
+          "22": "determinante",
+          "y": "conjuncion",
+          "el": "articulo",
+          "de": "preposicion",
+          "septiembre": "sustantivo",
+          "yo": "pronombre",
+          "volveré": "verbo",
+          "a": "preposicion",
+          "ese": "determinante",
+          "lugar": "sustantivo",
+          "octubre": "sustantivo",
+          "volví": "verbo",
+          "este": "determinante",
+          "ciudad": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -644,6 +1569,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["sé", "puedes", "luego", "callar"],
+        "pos": {
+          "tú": "pronombre",
+          "sabes": "verbo",
+          "lo": "pronombre",
+          "que": "pronombre",
+          "quiero": "verbo",
+          "decir": "verbo",
+          "pero": "conjuncion",
+          "ahora": "adverbio",
+          "yo": "pronombre",
+          "no": "adverbio",
+          "puedo": "verbo",
+          "sé": "verbo",
+          "puedes": "verbo",
+          "luego": "adverbio",
+          "callar": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -667,6 +1629,40 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["puedes", "sentarme", "subir", "nunca"],
+        "pos": {
+          "ya": "adverbio",
+          "no": "adverbio",
+          "puedo": "verbo",
+          "permitirlo": "verbo",
+          "debo": "verbo",
+          "levantarme": "verbo",
+          "y": "conjuncion",
+          "bajar": "verbo",
+          "puedes": "verbo",
+          "sentarme": "verbo",
+          "subir": "verbo",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -690,6 +1686,40 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["escribí", "pero", "muerte", "canción"],
+        "pos": {
+          "no": "adverbio",
+          "escribiré": "verbo",
+          "la": "articulo",
+          "música": "sustantivo",
+          "sino": "conjuncion",
+          "vida": "sustantivo",
+          "de": "preposicion",
+          "gente": "sustantivo",
+          "escribí": "verbo",
+          "pero": "conjuncion",
+          "muerte": "sustantivo",
+          "canción": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -713,6 +1743,44 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["sientes", "me", "llegué", "promesa"],
+        "pos": {
+          "yo": "pronombre",
+          "siento": "verbo",
+          "una": "articulo",
+          "misión": "sustantivo",
+          "y": "conjuncion",
+          "te": "pronombre",
+          "juro": "verbo",
+          "que": "conjuncion",
+          "llegaré": "verbo",
+          "a": "preposicion",
+          "la": "articulo",
+          "meta": "sustantivo",
+          "sientes": "verbo",
+          "me": "pronombre",
+          "llegué": "verbo",
+          "promesa": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -736,6 +1804,40 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["verano", "medio", "cantaré", "quitar"],
+        "pos": {
+          "cantar": "verbo",
+          "en": "preposicion",
+          "pleno": "adjetivo",
+          "invierno": "sustantivo",
+          "para": "preposicion",
+          "dar": "verbo",
+          "la": "articulo",
+          "primavera": "sustantivo",
+          "verano": "sustantivo",
+          "medio": "adjetivo",
+          "cantaré": "verbo",
+          "quitar": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -759,6 +1861,40 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["tomas", "muerte", "era", "mi"],
+        "pos": {
+          "yo": "pronombre",
+          "la": "articulo",
+          "vida": "sustantivo",
+          "tomo": "verbo",
+          "como": "conjuncion",
+          "es": "verbo",
+          "tomas": "verbo",
+          "muerte": "sustantivo",
+          "era": "verbo",
+          "mi": "determinante"
+        },
+        "validation": {
+          "status": "disputed",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[D2-pos] El token 'la' aparece dos veces en la respuesta: primero como artículo (correcto) y segundo como pronombre de objeto directo. La asignación única 'articulo' es incorrecta para la segunda aparición. Solución: si el mapa permite una sola entrada por texto, debe reetiquetarse 'la' como 'pronombre' (cubriendo el uso pronominal) o, idealmente, usar dos claves distintas (ej. 'la_art' y 'la_pro') o reformular la frase para evitar la ambigüedad. Sugerencia: etiqueta 'la' como 'pronombre' y agrega un decoy 'el' como artículo para la primera posición, o reestructura el banco."
+            ]
+          }
+          ]
+        }
       }
     },
     {
@@ -782,6 +1918,39 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["aquel", "camino", "partía", "mí"],
+        "pos": {
+          "este": "determinante",
+          "viaje": "sustantivo",
+          "que": "pronombre",
+          "parte": "verbo",
+          "por": "preposicion",
+          "sí": "pronombre",
+          "solo": "adjetivo",
+          "aquel": "determinante",
+          "camino": "sustantivo",
+          "partía": "verbo",
+          "mí": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -805,6 +1974,39 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["pido", "siempre", "ti", "perdón"],
+        "pos": {
+          "que": "pronombre",
+          "no": "adverbio",
+          "pide": "verbo",
+          "nunca": "adverbio",
+          "permiso": "sustantivo",
+          "a": "preposicion",
+          "mí": "pronombre",
+          "pido": "verbo",
+          "siempre": "adverbio",
+          "ti": "pronombre",
+          "perdón": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
@@ -828,6 +2030,40 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["tomas", "muerte", "era", "mi"],
+        "pos": {
+          "yo": "pronombre",
+          "la": "articulo",
+          "vida": "sustantivo",
+          "tomo": "verbo",
+          "como": "conjuncion",
+          "es": "verbo",
+          "tomas": "verbo",
+          "muerte": "sustantivo",
+          "era": "verbo",
+          "mi": "determinante"
+        },
+        "validation": {
+          "status": "disputed",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[D2-pos] El token 'la' aparece dos veces en la respuesta: primero como artículo (correcto) y segundo como pronombre de objeto directo. La asignación única 'articulo' es incorrecta para la segunda aparición. Solución: si el mapa permite una sola entrada por texto, debe reetiquetarse 'la' como 'pronombre' (cubriendo el uso pronominal) o, idealmente, usar dos claves distintas (ej. 'la_art' y 'la_pro') o reformular la frase para evitar la ambigüedad. Sugerencia: etiqueta 'la' como 'pronombre' y agrega un decoy 'el' como artículo para la primera posición, o reestructura el banco."
+            ]
+          }
+          ]
+        }
       }
     },
     {
@@ -851,6 +2087,40 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["tomas", "muerte", "era", "mi"],
+        "pos": {
+          "yo": "pronombre",
+          "la": "articulo",
+          "vida": "sustantivo",
+          "tomo": "verbo",
+          "como": "conjuncion",
+          "es": "verbo",
+          "tomas": "verbo",
+          "muerte": "sustantivo",
+          "era": "verbo",
+          "mi": "determinante"
+        },
+        "validation": {
+          "status": "disputed",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[D2-pos] El token 'la' aparece dos veces en la respuesta: primero como artículo (correcto) y segundo como pronombre de objeto directo. La asignación única 'articulo' es incorrecta para la segunda aparición. Solución: si el mapa permite una sola entrada por texto, debe reetiquetarse 'la' como 'pronombre' (cubriendo el uso pronominal) o, idealmente, usar dos claves distintas (ej. 'la_art' y 'la_pro') o reformular la frase para evitar la ambigüedad. Sugerencia: etiqueta 'la' como 'pronombre' y agrega un decoy 'el' como artículo para la primera posición, o reestructura el banco."
+            ]
+          }
+          ]
+        }
       }
     }
   ]
