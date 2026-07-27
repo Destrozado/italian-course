@@ -5,10 +5,7 @@
     {
       "id": "sogni-appesi-001",
       "prompt": "Provo a dimenticare",
-      "answer": [
-        "intento",
-        "olvidar"
-      ],
+      "answer": ["intento", "olvidar"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -26,17 +23,40 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["intentas", "recordar", "siempre", "nunca"],
+        "pos": {
+          "intento": "verbo",
+          "olvidar": "verbo",
+          "intentas": "verbo",
+          "recordar": "verbo",
+          "siempre": "adverbio",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-002",
       "prompt": "Scelte che fanno male",
-      "answer": [
-        "decisiones",
-        "que",
-        "hacen",
-        "daño"
-      ],
+      "answer": ["decisiones", "que", "hacen", "daño"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -54,16 +74,42 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["hago", "heridas", "dolor", "siempre"],
+        "pos": {
+          "decisiones": "sustantivo",
+          "que": "pronombre",
+          "hacen": "verbo",
+          "daño": "sustantivo",
+          "hago": "verbo",
+          "heridas": "sustantivo",
+          "siempre": "adverbio",
+          "dolor": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-003",
       "prompt": "Abbraccio le mie certezze",
-      "answer": [
-        "abrazo",
-        "mis",
-        "certezas"
-      ],
+      "answer": ["abrazo", "mis", "certezas"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -81,19 +127,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["abrazas", "tus", "dudas", "sueño"],
+        "pos": {
+          "abrazo": "verbo",
+          "mis": "determinante",
+          "certezas": "sustantivo",
+          "abrazas": "verbo",
+          "tus": "determinante",
+          "dudas": "sustantivo",
+          "sueño": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-004",
       "prompt": "Provo a darmi da fare",
-      "answer": [
-        "intento",
-        "ponerme",
-        "manos",
-        "a",
-        "la",
-        "obra"
-      ],
+      "answer": ["intento", "ponerme", "manos", "a", "la", "obra"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -111,18 +179,44 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["intentas", "ponerte", "pies", "sin"],
+        "pos": {
+          "intento": "verbo",
+          "ponerme": "verbo",
+          "manos": "sustantivo",
+          "a": "preposicion",
+          "la": "articulo",
+          "obra": "sustantivo",
+          "intentas": "verbo",
+          "ponerte": "verbo",
+          "pies": "sustantivo",
+          "sin": "preposicion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-005",
       "prompt": "Ma ancora non riesco a capire",
-      "answer": [
-        "pero",
-        "todavía",
-        "no",
-        "consigo",
-        "entender"
-      ],
+      "answer": ["pero", "todavía", "no", "consigo", "entender"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -140,21 +234,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["consigues", "olvidar", "ya", "nunca"],
+        "pos": {
+          "pero": "conjuncion",
+          "todavía": "adverbio",
+          "no": "adverbio",
+          "consigo": "verbo",
+          "entender": "verbo",
+          "consigues": "verbo",
+          "olvidar": "verbo",
+          "ya": "adverbio",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-006",
       "prompt": "Se il mondo un giorno io potrò amarlo",
-      "answer": [
-        "si",
-        "el",
-        "mundo",
-        "un",
-        "día",
-        "yo",
-        "podré",
-        "amarlo"
-      ],
+      "answer": ["si", "el", "mundo", "un", "día", "yo", "podré", "amarlo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -172,18 +288,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["noche", "puedo", "odiarlo", "tú"],
+        "pos": {
+          "si": "conjuncion",
+          "el": "articulo",
+          "mundo": "sustantivo",
+          "un": "articulo",
+          "día": "sustantivo",
+          "yo": "pronombre",
+          "podré": "verbo",
+          "amarlo": "verbo",
+          "noche": "sustantivo",
+          "puedo": "verbo",
+          "odiarlo": "verbo",
+          "tú": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-007",
       "prompt": "Se resto chiuso a dormire",
-      "answer": [
-        "si",
-        "me",
-        "quedo",
-        "encerrado",
-        "durmiendo"
-      ],
+      "answer": ["si", "me", "quedo", "encerrado", "durmiendo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -201,16 +345,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["te", "quedas", "abierto", "soñando"],
+        "pos": {
+          "si": "conjuncion",
+          "me": "pronombre",
+          "quedo": "verbo",
+          "encerrado": "adjetivo",
+          "durmiendo": "verbo",
+          "te": "pronombre",
+          "quedas": "verbo",
+          "abierto": "adjetivo",
+          "soñando": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-008",
       "prompt": "Quando dovrei incontrarlo",
-      "answer": [
-        "cuando",
-        "debería",
-        "encontrarlo"
-      ],
+      "answer": ["cuando", "debería", "encontrarlo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -228,17 +399,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["deberías", "perderlo", "siempre", "nunca"],
+        "pos": {
+          "cuando": "conjuncion",
+          "debería": "verbo",
+          "encontrarlo": "verbo",
+          "deberías": "verbo",
+          "perderlo": "verbo",
+          "siempre": "adverbio",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-009",
       "prompt": "Quello che cerco di dire",
-      "answer": [
-        "lo",
-        "que",
-        "intento",
-        "decir"
-      ],
+      "answer": ["lo", "que", "intento", "decir"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -256,18 +451,42 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["intentas", "callar", "nada", "siempre"],
+        "pos": {
+          "lo": "pronombre",
+          "que": "pronombre",
+          "intento": "verbo",
+          "decir": "verbo",
+          "intentas": "verbo",
+          "callar": "verbo",
+          "nada": "pronombre",
+          "siempre": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-010",
       "prompt": "Da quando scappavo da tutto",
-      "answer": [
-        "desde",
-        "que",
-        "escapaba",
-        "de",
-        "todo"
-      ],
+      "answer": ["desde", "que", "escapaba", "de", "todo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -285,18 +504,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["hasta", "escapo", "nada", "nunca"],
+        "pos": {
+          "desde": "preposicion",
+          "que": "conjuncion",
+          "escapaba": "verbo",
+          "de": "preposicion",
+          "todo": "pronombre",
+          "hasta": "preposicion",
+          "escapo": "verbo",
+          "nada": "pronombre",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-011",
       "prompt": "Quando ridevano in gruppo",
-      "answer": [
-        "cuando",
-        "se",
-        "reían",
-        "en",
-        "grupo"
-      ],
+      "answer": ["cuando", "se", "reían", "en", "grupo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -314,17 +558,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["me", "lloraban", "clase", "sin"],
+        "pos": {
+          "cuando": "conjuncion",
+          "se": "pronombre",
+          "reían": "verbo",
+          "en": "preposicion",
+          "grupo": "sustantivo",
+          "me": "pronombre",
+          "lloraban": "verbo",
+          "clase": "sustantivo",
+          "sin": "preposicion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-012",
       "prompt": "Tornavo e scrivevo distrutto",
-      "answer": [
-        "volvía",
-        "y",
-        "escribía",
-        "destrozado"
-      ],
+      "answer": ["volvía", "y", "escribía", "destrozado"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -342,18 +612,42 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["volvías", "leía", "entero", "entonces"],
+        "pos": {
+          "volvía": "verbo",
+          "y": "conjuncion",
+          "escribía": "verbo",
+          "destrozado": "adjetivo",
+          "volvías": "verbo",
+          "leía": "verbo",
+          "entonces": "adverbio",
+          "entero": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-013",
       "prompt": "È che ho gridato tanto",
-      "answer": [
-        "es",
-        "que",
-        "he",
-        "gritado",
-        "tanto"
-      ],
+      "answer": ["es", "que", "he", "gritado", "tanto"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -371,18 +665,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["era", "has", "callado", "poco"],
+        "pos": {
+          "es": "verbo",
+          "que": "conjuncion",
+          "he": "verbo",
+          "gritado": "verbo",
+          "tanto": "adverbio",
+          "era": "verbo",
+          "has": "verbo",
+          "callado": "verbo",
+          "poco": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-014",
       "prompt": "In classe non ero presente",
-      "answer": [
-        "en",
-        "clase",
-        "no",
-        "estaba",
-        "presente"
-      ],
+      "answer": ["en", "clase", "no", "estaba", "presente"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -400,19 +719,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["aula", "estabas", "ausente", "siempre"],
+        "pos": {
+          "en": "preposicion",
+          "clase": "sustantivo",
+          "no": "adverbio",
+          "estaba": "verbo",
+          "presente": "adjetivo",
+          "estabas": "verbo",
+          "ausente": "adjetivo",
+          "siempre": "adverbio",
+          "aula": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-015",
       "prompt": "Sognavo di vivere in alto",
-      "answer": [
-        "soñaba",
-        "con",
-        "vivir",
-        "en",
-        "lo",
-        "alto"
-      ],
+      "answer": ["soñaba", "con", "vivir", "en", "lo", "alto"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -430,18 +773,44 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["soñabas", "morir", "bajo", "sin"],
+        "pos": {
+          "soñaba": "verbo",
+          "con": "preposicion",
+          "vivir": "verbo",
+          "en": "preposicion",
+          "lo": "articulo",
+          "alto": "adjetivo",
+          "soñabas": "verbo",
+          "morir": "verbo",
+          "bajo": "adjetivo",
+          "sin": "preposicion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-016",
       "prompt": "Dimostrare che ero un vincente",
-      "answer": [
-        "demostrar",
-        "que",
-        "era",
-        "un",
-        "ganador"
-      ],
+      "answer": ["demostrar", "que", "era", "un", "ganador"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -459,20 +828,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["demostrarte", "eras", "perdedor", "fracaso"],
+        "pos": {
+          "demostrar": "verbo",
+          "que": "conjuncion",
+          "era": "verbo",
+          "un": "articulo",
+          "ganador": "sustantivo",
+          "demostrarte": "verbo",
+          "eras": "verbo",
+          "perdedor": "sustantivo",
+          "fracaso": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-017",
       "prompt": "E quando ho incontrato me stesso",
-      "answer": [
-        "y",
-        "cuando",
-        "me",
-        "encontré",
-        "a",
-        "mí",
-        "mismo"
-      ],
+      "answer": ["y", "cuando", "me", "encontré", "a", "mí", "mismo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -490,17 +882,45 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["te", "perdí", "ti", "misma"],
+        "pos": {
+          "y": "conjuncion",
+          "cuando": "conjuncion",
+          "me": "pronombre",
+          "encontré": "verbo",
+          "a": "preposicion",
+          "mí": "pronombre",
+          "mismo": "adjetivo",
+          "te": "pronombre",
+          "perdí": "verbo",
+          "ti": "pronombre",
+          "misma": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-018",
       "prompt": "Mentre correvo di notte",
-      "answer": [
-        "mientras",
-        "corría",
-        "de",
-        "noche"
-      ],
+      "answer": ["mientras", "corría", "de", "noche"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -518,18 +938,42 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["corrías", "día", "andaba", "sin"],
+        "pos": {
+          "mientras": "conjuncion",
+          "corría": "verbo",
+          "de": "preposicion",
+          "noche": "sustantivo",
+          "corrías": "verbo",
+          "día": "sustantivo",
+          "andaba": "verbo",
+          "sin": "preposicion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-019",
       "prompt": "Gli ho urlato di odiarlo contro",
-      "answer": [
-        "le",
-        "grité",
-        "que",
-        "lo",
-        "odiara"
-      ],
+      "answer": ["le", "grité", "que", "lo", "odiara"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -547,18 +991,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["me", "dije", "amara", "ya"],
+        "pos": {
+          "le": "pronombre",
+          "grité": "verbo",
+          "que": "conjuncion",
+          "lo": "pronombre",
+          "odiara": "verbo",
+          "me": "pronombre",
+          "dije": "verbo",
+          "amara": "verbo",
+          "ya": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-020",
       "prompt": "E lui ha diviso le rotte",
-      "answer": [
-        "y",
-        "él",
-        "dividió",
-        "las",
-        "rutas"
-      ],
+      "answer": ["y", "él", "dividió", "las", "rutas"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -576,19 +1045,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["ella", "unió", "calles", "divide"],
+        "pos": {
+          "y": "conjuncion",
+          "él": "pronombre",
+          "dividió": "verbo",
+          "las": "articulo",
+          "rutas": "sustantivo",
+          "ella": "pronombre",
+          "unió": "verbo",
+          "calles": "sustantivo",
+          "divide": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-021",
       "prompt": "Ma guarda che strana la sorte",
-      "answer": [
-        "pero",
-        "mira",
-        "qué",
-        "extraña",
-        "la",
-        "suerte"
-      ],
+      "answer": ["pero", "mira", "qué", "extraña", "la", "suerte"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -606,18 +1099,44 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["miro", "normal", "vida", "nunca"],
+        "pos": {
+          "pero": "conjuncion",
+          "mira": "verbo",
+          "qué": "adverbio",
+          "extraña": "adjetivo",
+          "la": "articulo",
+          "suerte": "sustantivo",
+          "miro": "verbo",
+          "normal": "adjetivo",
+          "vida": "sustantivo",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-022",
       "prompt": "Oggi che mi sento bene",
-      "answer": [
-        "hoy",
-        "que",
-        "me",
-        "siento",
-        "bien"
-      ],
+      "answer": ["hoy", "que", "me", "siento", "bien"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -635,19 +1154,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["ayer", "te", "sientes", "mal"],
+        "pos": {
+          "hoy": "adverbio",
+          "que": "conjuncion",
+          "me": "pronombre",
+          "siento": "verbo",
+          "bien": "adverbio",
+          "ayer": "adverbio",
+          "te": "pronombre",
+          "sientes": "verbo",
+          "mal": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-023",
       "prompt": "Io lo rincontro per strada",
-      "answer": [
-        "yo",
-        "lo",
-        "reencuentro",
-        "por",
-        "la",
-        "calle"
-      ],
+      "answer": ["yo", "lo", "reencuentro", "por", "la", "calle"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -665,18 +1208,44 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["tú", "pierdo", "plaza", "sin"],
+        "pos": {
+          "yo": "pronombre",
+          "lo": "pronombre",
+          "reencuentro": "verbo",
+          "por": "preposicion",
+          "la": "articulo",
+          "calle": "sustantivo",
+          "tú": "pronombre",
+          "pierdo": "verbo",
+          "plaza": "sustantivo",
+          "sin": "preposicion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-024",
       "prompt": "Gli chiedo di ridere insieme",
-      "answer": [
-        "le",
-        "pido",
-        "que",
-        "riamos",
-        "juntos"
-      ],
+      "answer": ["le", "pido", "que", "riamos", "juntos"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -696,17 +1265,43 @@
             ]
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["me", "pide", "lloremos", "solos"],
+        "pos": {
+          "le": "pronombre",
+          "pido": "verbo",
+          "que": "conjuncion",
+          "riamos": "verbo",
+          "juntos": "adjetivo",
+          "me": "pronombre",
+          "pide": "verbo",
+          "lloremos": "verbo",
+          "solos": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-025",
       "prompt": "E dimmi che cosa resta",
-      "answer": [
-        "y",
-        "dime",
-        "qué",
-        "queda"
-      ],
+      "answer": ["y", "dime", "qué", "queda"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -724,17 +1319,42 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["dile", "quedo", "nada", "siempre"],
+        "pos": {
+          "y": "conjuncion",
+          "dime": "verbo",
+          "qué": "pronombre",
+          "queda": "verbo",
+          "dile": "verbo",
+          "quedo": "verbo",
+          "nada": "pronombre",
+          "siempre": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-026",
       "prompt": "Se vivi senza memoria",
-      "answer": [
-        "si",
-        "vives",
-        "sin",
-        "memoria"
-      ],
+      "answer": ["si", "vives", "sin", "memoria"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -752,19 +1372,42 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["vivo", "con", "olvido", "nunca"],
+        "pos": {
+          "si": "conjuncion",
+          "vives": "verbo",
+          "sin": "preposicion",
+          "memoria": "sustantivo",
+          "vivo": "verbo",
+          "con": "preposicion",
+          "olvido": "sustantivo",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-027",
       "prompt": "Perdo la voce, cerco la pace",
-      "answer": [
-        "pierdo",
-        "la",
-        "voz",
-        "busco",
-        "la",
-        "paz"
-      ],
+      "answer": ["pierdo", "la", "voz", "busco", "la", "paz"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -782,21 +1425,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["pierdes", "encuentro", "guerra", "silencio"],
+        "pos": {
+          "pierdo": "verbo",
+          "la": "articulo",
+          "voz": "sustantivo",
+          "busco": "verbo",
+          "paz": "sustantivo",
+          "pierdes": "verbo",
+          "encuentro": "verbo",
+          "guerra": "sustantivo",
+          "silencio": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-028",
       "prompt": "E lascio che la vita viva per me",
-      "answer": [
-        "y",
-        "dejo",
-        "que",
-        "la",
-        "vida",
-        "viva",
-        "por",
-        "mí"
-      ],
+      "answer": ["y", "dejo", "que", "la", "vida", "viva", "por", "mí"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -814,17 +1479,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["dejas", "muerte", "ti", "vive"],
+        "pos": {
+          "y": "conjuncion",
+          "dejo": "verbo",
+          "que": "conjuncion",
+          "la": "articulo",
+          "vida": "sustantivo",
+          "viva": "verbo",
+          "por": "preposicion",
+          "mí": "pronombre",
+          "dejas": "verbo",
+          "muerte": "sustantivo",
+          "ti": "pronombre",
+          "vive": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-029",
       "prompt": "E dimmi che cosa senti",
-      "answer": [
-        "y",
-        "dime",
-        "qué",
-        "sientes"
-      ],
+      "answer": ["y", "dime", "qué", "sientes"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -842,18 +1536,42 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["dile", "siento", "nada", "nunca"],
+        "pos": {
+          "y": "conjuncion",
+          "dime": "verbo",
+          "qué": "pronombre",
+          "sientes": "verbo",
+          "dile": "verbo",
+          "siento": "verbo",
+          "nada": "pronombre",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-030",
       "prompt": "Se scopri di avere paura",
-      "answer": [
-        "si",
-        "descubres",
-        "que",
-        "tienes",
-        "miedo"
-      ],
+      "answer": ["si", "descubres", "que", "tienes", "miedo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -871,19 +1589,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["descubro", "tengo", "valor", "pánico"],
+        "pos": {
+          "si": "conjuncion",
+          "descubres": "verbo",
+          "que": "conjuncion",
+          "tienes": "verbo",
+          "miedo": "sustantivo",
+          "descubro": "verbo",
+          "tengo": "verbo",
+          "valor": "sustantivo",
+          "pánico": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-031",
       "prompt": "Brucio i consigli, alzo il volume",
-      "answer": [
-        "quemo",
-        "los",
-        "consejos",
-        "subo",
-        "el",
-        "volumen"
-      ],
+      "answer": ["quemo", "los", "consejos", "subo", "el", "volumen"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -901,20 +1643,44 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["quemas", "bajo", "gritos", "silencio"],
+        "pos": {
+          "quemo": "verbo",
+          "los": "articulo",
+          "consejos": "sustantivo",
+          "subo": "verbo",
+          "el": "articulo",
+          "volumen": "sustantivo",
+          "quemas": "verbo",
+          "bajo": "verbo",
+          "gritos": "sustantivo",
+          "silencio": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-032",
       "prompt": "L'ansia nasconde i sorrisi che ho",
-      "answer": [
-        "la",
-        "ansiedad",
-        "esconde",
-        "las",
-        "sonrisas",
-        "que",
-        "tengo"
-      ],
+      "answer": ["la", "ansiedad", "esconde", "las", "sonrisas", "que", "tengo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -932,17 +1698,45 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["muestra", "lágrimas", "tienes", "calma"],
+        "pos": {
+          "la": "articulo",
+          "ansiedad": "sustantivo",
+          "esconde": "verbo",
+          "las": "articulo",
+          "sonrisas": "sustantivo",
+          "que": "pronombre",
+          "tengo": "verbo",
+          "muestra": "verbo",
+          "lágrimas": "sustantivo",
+          "tienes": "verbo",
+          "calma": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-033",
       "prompt": "E dimmi che cosa vedi",
-      "answer": [
-        "y",
-        "dime",
-        "qué",
-        "ves"
-      ],
+      "answer": ["y", "dime", "qué", "ves"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -960,20 +1754,42 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["dile", "veo", "nada", "nunca"],
+        "pos": {
+          "y": "conjuncion",
+          "dime": "verbo",
+          "qué": "pronombre",
+          "ves": "verbo",
+          "dile": "verbo",
+          "veo": "verbo",
+          "nada": "pronombre",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-034",
       "prompt": "Quando ripensi al domani",
-      "answer": [
-        "cuando",
-        "vuelves",
-        "a",
-        "pensar",
-        "en",
-        "el",
-        "mañana"
-      ],
+      "answer": ["cuando", "vuelves", "a", "pensar", "en", "el", "mañana"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -991,17 +1807,45 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["vuelvo", "olvidar", "ayer", "sin"],
+        "pos": {
+          "cuando": "conjuncion",
+          "vuelves": "verbo",
+          "a": "preposicion",
+          "pensar": "verbo",
+          "en": "preposicion",
+          "el": "articulo",
+          "mañana": "sustantivo",
+          "vuelvo": "verbo",
+          "olvidar": "verbo",
+          "ayer": "sustantivo",
+          "sin": "preposicion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-035",
       "prompt": "Quali domande? Quante risposte?",
-      "answer": [
-        "qué",
-        "preguntas",
-        "cuántas",
-        "respuestas"
-      ],
+      "answer": ["qué", "preguntas", "cuántas", "respuestas"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1019,17 +1863,42 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["cuánto", "dudas", "palabras", "cómo"],
+        "pos": {
+          "qué": "determinante",
+          "preguntas": "sustantivo",
+          "cuántas": "determinante",
+          "respuestas": "sustantivo",
+          "cuánto": "determinante",
+          "dudas": "sustantivo",
+          "palabras": "sustantivo",
+          "cómo": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-036",
       "prompt": "\"Forse domani\" ripeti, \"Forse\"",
-      "answer": [
-        "quizás",
-        "mañana",
-        "repites",
-        "quizás"
-      ],
+      "answer": ["quizás", "mañana", "repites", "quizás"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1047,19 +1916,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["nunca", "repito", "ayer", "siempre"],
+        "pos": {
+          "quizás": "adverbio",
+          "mañana": "adverbio",
+          "repites": "verbo",
+          "nunca": "adverbio",
+          "repito": "verbo",
+          "ayer": "adverbio",
+          "siempre": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-037",
       "prompt": "E vivo coi sogni appesi",
-      "answer": [
-        "y",
-        "vivo",
-        "con",
-        "los",
-        "sueños",
-        "colgados"
-      ],
+      "answer": ["y", "vivo", "con", "los", "sueños", "colgados"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1077,18 +1968,44 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["vives", "sin", "miedos", "rotos"],
+        "pos": {
+          "y": "conjuncion",
+          "vivo": "verbo",
+          "con": "preposicion",
+          "los": "articulo",
+          "sueños": "sustantivo",
+          "colgados": "adjetivo",
+          "vives": "verbo",
+          "sin": "preposicion",
+          "miedos": "sustantivo",
+          "rotos": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-038",
       "prompt": "Vivo coi sogni appesi",
-      "answer": [
-        "vivo",
-        "con",
-        "los",
-        "sueños",
-        "colgados"
-      ],
+      "answer": ["vivo", "con", "los", "sueños", "colgados"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1106,16 +2023,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["vives", "sin", "miedos", "rotos"],
+        "pos": {
+          "vivo": "verbo",
+          "con": "preposicion",
+          "los": "articulo",
+          "sueños": "sustantivo",
+          "colgados": "adjetivo",
+          "vives": "verbo",
+          "sin": "preposicion",
+          "miedos": "sustantivo",
+          "rotos": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-039",
       "prompt": "Girano le pareti",
-      "answer": [
-        "giran",
-        "las",
-        "paredes"
-      ],
+      "answer": ["giran", "las", "paredes"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1133,19 +2077,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["gira", "caen", "puertas", "siempre"],
+        "pos": {
+          "giran": "verbo",
+          "las": "articulo",
+          "paredes": "sustantivo",
+          "gira": "verbo",
+          "caen": "verbo",
+          "puertas": "sustantivo",
+          "siempre": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-040",
       "prompt": "Vivo, vivo coi sogni appesi",
-      "answer": [
-        "vivo",
-        "vivo",
-        "con",
-        "los",
-        "sueños",
-        "colgados"
-      ],
+      "answer": ["vivo", "vivo", "con", "los", "sueños", "colgados"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1163,22 +2129,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["vives", "sin", "miedos", "rotos"],
+        "pos": {
+          "vivo": "verbo",
+          "con": "preposicion",
+          "los": "articulo",
+          "sueños": "sustantivo",
+          "colgados": "adjetivo",
+          "vives": "verbo",
+          "sin": "preposicion",
+          "miedos": "sustantivo",
+          "rotos": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-041",
       "prompt": "Quando ascoltavo la gente parlare mentre dava lezioni",
-      "answer": [
-        "cuando",
-        "escuchaba",
-        "a",
-        "la",
-        "gente",
-        "hablar",
-        "mientras",
-        "daba",
-        "lecciones"
-      ],
+      "answer": ["cuando", "escuchaba", "a", "la", "gente", "hablar", "mientras", "daba", "lecciones"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1196,23 +2183,47 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["escuchabas", "callar", "daban", "consejos"],
+        "pos": {
+          "cuando": "conjuncion",
+          "escuchaba": "verbo",
+          "a": "preposicion",
+          "la": "articulo",
+          "gente": "sustantivo",
+          "hablar": "verbo",
+          "mientras": "conjuncion",
+          "daba": "verbo",
+          "lecciones": "sustantivo",
+          "escuchabas": "verbo",
+          "callar": "verbo",
+          "daban": "verbo",
+          "consejos": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-042",
       "prompt": "Non ho saputo imparare ed ora disegno le delusioni, le conclusioni",
-      "answer": [
-        "no",
-        "supe",
-        "aprender",
-        "y",
-        "ahora",
-        "dibujo",
-        "las",
-        "decepciones",
-        "las",
-        "conclusiones"
-      ],
+      "answer": ["no", "supe", "aprender", "y", "ahora", "dibujo", "las", "decepciones", "las", "conclusiones"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1230,21 +2241,47 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["sabes", "olvidar", "antes", "ilusiones"],
+        "pos": {
+          "no": "adverbio",
+          "supe": "verbo",
+          "aprender": "verbo",
+          "y": "conjuncion",
+          "ahora": "adverbio",
+          "dibujo": "verbo",
+          "las": "articulo",
+          "decepciones": "sustantivo",
+          "conclusiones": "sustantivo",
+          "sabes": "verbo",
+          "olvidar": "verbo",
+          "antes": "adverbio",
+          "ilusiones": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-043",
       "prompt": "È facile avere ambizioni, un po' meno concretizzarle",
-      "answer": [
-        "es",
-        "fácil",
-        "tener",
-        "ambiciones",
-        "un",
-        "poco",
-        "menos",
-        "concretarlas"
-      ],
+      "answer": ["es", "fácil", "tener", "ambiciones", "un", "poco", "menos", "concretarlas"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1262,25 +2299,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["difícil", "era", "más", "olvidarlas"],
+        "pos": {
+          "es": "verbo",
+          "fácil": "adjetivo",
+          "tener": "verbo",
+          "ambiciones": "sustantivo",
+          "un": "articulo",
+          "poco": "adverbio",
+          "menos": "adverbio",
+          "concretarlas": "verbo",
+          "difícil": "adjetivo",
+          "era": "verbo",
+          "más": "adverbio",
+          "olvidarlas": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-044",
       "prompt": "Ero un bambino diverso, odiavo chi amava e aspettavo l'inverno",
-      "answer": [
-        "era",
-        "un",
-        "niño",
-        "diferente",
-        "odiaba",
-        "a",
-        "quien",
-        "amaba",
-        "y",
-        "esperaba",
-        "el",
-        "invierno"
-      ],
+      "answer": ["era", "un", "niño", "diferente", "odiaba", "a", "quien", "amaba", "y", "esperaba", "el", "invierno"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1298,21 +2356,50 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["eras", "igual", "verano", "odiabas"],
+        "pos": {
+          "era": "verbo",
+          "un": "articulo",
+          "niño": "sustantivo",
+          "diferente": "adjetivo",
+          "odiaba": "verbo",
+          "a": "preposicion",
+          "quien": "pronombre",
+          "amaba": "verbo",
+          "y": "conjuncion",
+          "esperaba": "verbo",
+          "el": "articulo",
+          "invierno": "sustantivo",
+          "eras": "verbo",
+          "igual": "adjetivo",
+          "verano": "sustantivo",
+          "odiabas": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-045",
       "prompt": "Sempre collocato nel gruppo dei perdenti",
-      "answer": [
-        "siempre",
-        "colocado",
-        "en",
-        "el",
-        "grupo",
-        "de",
-        "los",
-        "perdedores"
-      ],
+      "answer": ["siempre", "colocado", "en", "el", "grupo", "de", "los", "perdedores"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1330,28 +2417,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["nunca", "ganadores", "clase", "perdido"],
+        "pos": {
+          "siempre": "adverbio",
+          "colocado": "adjetivo",
+          "en": "preposicion",
+          "el": "articulo",
+          "grupo": "sustantivo",
+          "de": "preposicion",
+          "los": "articulo",
+          "perdedores": "sustantivo",
+          "nunca": "adverbio",
+          "ganadores": "sustantivo",
+          "clase": "sustantivo",
+          "perdido": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-046",
       "prompt": "In questo percorso a chi c'ho intorno ho dato un sorriso e mille incidenti",
-      "answer": [
-        "en",
-        "este",
-        "camino",
-        "a",
-        "quien",
-        "tengo",
-        "alrededor",
-        "le",
-        "he",
-        "dado",
-        "una",
-        "sonrisa",
-        "y",
-        "mil",
-        "incidentes"
-      ],
+      "answer": ["en", "este", "camino", "a", "quien", "tengo", "alrededor", "le", "he", "dado", "una", "sonrisa", "y", "mil", "incidentes"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1369,24 +2474,53 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["aquel", "dentro", "me", "lágrima"],
+        "pos": {
+          "en": "preposicion",
+          "este": "determinante",
+          "camino": "sustantivo",
+          "a": "preposicion",
+          "quien": "pronombre",
+          "tengo": "verbo",
+          "alrededor": "adverbio",
+          "le": "pronombre",
+          "he": "verbo",
+          "dado": "verbo",
+          "una": "articulo",
+          "sonrisa": "sustantivo",
+          "y": "conjuncion",
+          "mil": "determinante",
+          "incidentes": "sustantivo",
+          "aquel": "determinante",
+          "dentro": "adverbio",
+          "me": "pronombre",
+          "lágrima": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-047",
       "prompt": "Ma mando avanti la ruota, lascio che giri da sé",
-      "answer": [
-        "pero",
-        "hago",
-        "avanzar",
-        "la",
-        "rueda",
-        "dejo",
-        "que",
-        "gire",
-        "por",
-        "sí",
-        "sola"
-      ],
+      "answer": ["pero", "hago", "avanzar", "la", "rueda", "dejo", "que", "gire", "por", "sí", "sola"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1404,24 +2538,49 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["haces", "parar", "giro", "mí"],
+        "pos": {
+          "pero": "conjuncion",
+          "hago": "verbo",
+          "avanzar": "verbo",
+          "la": "articulo",
+          "rueda": "sustantivo",
+          "dejo": "verbo",
+          "que": "conjuncion",
+          "gire": "verbo",
+          "por": "preposicion",
+          "sí": "pronombre",
+          "sola": "adjetivo",
+          "haces": "verbo",
+          "parar": "verbo",
+          "giro": "verbo",
+          "mí": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-048",
       "prompt": "Riesci a capirmi solo se hai sempre voluto qualcosa che non c'è",
-      "answer": [
-        "consigues",
-        "entenderme",
-        "solo",
-        "si",
-        "siempre",
-        "has",
-        "querido",
-        "algo",
-        "que",
-        "no",
-        "existe"
-      ],
+      "answer": ["consigues", "entenderme", "solo", "si", "siempre", "has", "querido", "algo", "que", "no", "existe"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1439,22 +2598,49 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["consigo", "entenderte", "nunca", "nada"],
+        "pos": {
+          "consigues": "verbo",
+          "entenderme": "verbo",
+          "solo": "adverbio",
+          "si": "conjuncion",
+          "siempre": "adverbio",
+          "has": "verbo",
+          "querido": "verbo",
+          "algo": "pronombre",
+          "que": "pronombre",
+          "no": "adverbio",
+          "existe": "verbo",
+          "consigo": "verbo",
+          "entenderte": "verbo",
+          "nunca": "adverbio",
+          "nada": "pronombre"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-049",
       "prompt": "E adesso tirando le somme non sto vivendo come volevo",
-      "answer": [
-        "y",
-        "ahora",
-        "haciendo",
-        "balance",
-        "no",
-        "estoy",
-        "viviendo",
-        "como",
-        "quería"
-      ],
+      "answer": ["y", "ahora", "haciendo", "balance", "no", "estoy", "viviendo", "como", "quería"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1472,23 +2658,47 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["antes", "estás", "muriendo", "querías"],
+        "pos": {
+          "y": "conjuncion",
+          "ahora": "adverbio",
+          "haciendo": "verbo",
+          "balance": "sustantivo",
+          "no": "adverbio",
+          "estoy": "verbo",
+          "viviendo": "verbo",
+          "como": "conjuncion",
+          "quería": "verbo",
+          "antes": "adverbio",
+          "estás": "verbo",
+          "muriendo": "verbo",
+          "querías": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-050",
       "prompt": "Ma posso essere fiero di portare avanti quello che credo",
-      "answer": [
-        "pero",
-        "puedo",
-        "estar",
-        "orgulloso",
-        "de",
-        "sacar",
-        "adelante",
-        "lo",
-        "que",
-        "creo"
-      ],
+      "answer": ["pero", "puedo", "estar", "orgulloso", "de", "sacar", "adelante", "lo", "que", "creo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1506,20 +2716,48 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["puedes", "triste", "atrás", "crees"],
+        "pos": {
+          "pero": "conjuncion",
+          "puedo": "verbo",
+          "estar": "verbo",
+          "orgulloso": "adjetivo",
+          "de": "preposicion",
+          "sacar": "verbo",
+          "adelante": "adverbio",
+          "lo": "pronombre",
+          "que": "pronombre",
+          "creo": "verbo",
+          "puedes": "verbo",
+          "triste": "adjetivo",
+          "atrás": "adverbio",
+          "crees": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-051",
       "prompt": "Da quando ero bambino, solo un obiettivo",
-      "answer": [
-        "desde",
-        "que",
-        "era",
-        "niño",
-        "solo",
-        "un",
-        "objetivo"
-      ],
+      "answer": ["desde", "que", "era", "niño", "solo", "un", "objetivo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1537,21 +2775,45 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["hasta", "eras", "hombre", "sueño"],
+        "pos": {
+          "desde": "preposicion",
+          "que": "conjuncion",
+          "era": "verbo",
+          "niño": "sustantivo",
+          "solo": "adverbio",
+          "un": "articulo",
+          "objetivo": "sustantivo",
+          "hasta": "preposicion",
+          "eras": "verbo",
+          "hombre": "sustantivo",
+          "sueño": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-052",
       "prompt": "Dalla parte degli ultimi, per sentirmi primo",
-      "answer": [
-        "del",
-        "lado",
-        "de",
-        "los",
-        "últimos",
-        "para",
-        "sentirme",
-        "primero"
-      ],
+      "answer": ["del", "lado", "de", "los", "últimos", "para", "sentirme", "primero"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1569,16 +2831,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["primeros", "sentirte", "último", "desde"],
+        "pos": {
+          "del": "preposicion",
+          "lado": "sustantivo",
+          "de": "preposicion",
+          "los": "articulo",
+          "últimos": "adjetivo",
+          "para": "preposicion",
+          "sentirme": "verbo",
+          "primero": "adjetivo",
+          "primeros": "adjetivo",
+          "sentirte": "verbo",
+          "último": "adjetivo",
+          "desde": "preposicion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-053",
       "prompt": "Dimmi che cosa resta",
-      "answer": [
-        "dime",
-        "qué",
-        "queda"
-      ],
+      "answer": ["dime", "qué", "queda"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1596,17 +2888,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["dile", "quedo", "algo", "todavía"],
+        "pos": {
+          "dime": "verbo",
+          "qué": "pronombre",
+          "queda": "verbo",
+          "dile": "verbo",
+          "quedo": "verbo",
+          "algo": "pronombre",
+          "todavía": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-054",
       "prompt": "Se vivi senza memoria",
-      "answer": [
-        "si",
-        "vives",
-        "sin",
-        "memoria"
-      ],
+      "answer": ["si", "vives", "sin", "memoria"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1624,19 +2940,42 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["vivo", "con", "olvido", "nunca"],
+        "pos": {
+          "si": "conjuncion",
+          "vives": "verbo",
+          "sin": "preposicion",
+          "memoria": "sustantivo",
+          "vivo": "verbo",
+          "con": "preposicion",
+          "olvido": "sustantivo",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-055",
       "prompt": "Perdo la voce, cerco la pace",
-      "answer": [
-        "pierdo",
-        "la",
-        "voz",
-        "busco",
-        "la",
-        "paz"
-      ],
+      "answer": ["pierdo", "la", "voz", "busco", "la", "paz"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1654,21 +2993,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["pierdes", "encuentro", "guerra", "silencio"],
+        "pos": {
+          "pierdo": "verbo",
+          "la": "articulo",
+          "voz": "sustantivo",
+          "busco": "verbo",
+          "paz": "sustantivo",
+          "pierdes": "verbo",
+          "encuentro": "verbo",
+          "guerra": "sustantivo",
+          "silencio": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-056",
       "prompt": "E lascio che la vita viva per me",
-      "answer": [
-        "y",
-        "dejo",
-        "que",
-        "la",
-        "vida",
-        "viva",
-        "por",
-        "mí"
-      ],
+      "answer": ["y", "dejo", "que", "la", "vida", "viva", "por", "mí"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1686,16 +3047,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["dejas", "muerte", "ti", "vive"],
+        "pos": {
+          "y": "conjuncion",
+          "dejo": "verbo",
+          "que": "conjuncion",
+          "la": "articulo",
+          "vida": "sustantivo",
+          "viva": "verbo",
+          "por": "preposicion",
+          "mí": "pronombre",
+          "dejas": "verbo",
+          "muerte": "sustantivo",
+          "ti": "pronombre",
+          "vive": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-057",
       "prompt": "Dimmi che cosa senti",
-      "answer": [
-        "dime",
-        "qué",
-        "sientes"
-      ],
+      "answer": ["dime", "qué", "sientes"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1713,18 +3104,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["dile", "siento", "nada", "nunca"],
+        "pos": {
+          "dime": "verbo",
+          "qué": "pronombre",
+          "sientes": "verbo",
+          "dile": "verbo",
+          "siento": "verbo",
+          "nada": "pronombre",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-058",
       "prompt": "Se scopri di avere paura",
-      "answer": [
-        "si",
-        "descubres",
-        "que",
-        "tienes",
-        "miedo"
-      ],
+      "answer": ["si", "descubres", "que", "tienes", "miedo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1742,19 +3156,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["descubro", "tengo", "valor", "pánico"],
+        "pos": {
+          "si": "conjuncion",
+          "descubres": "verbo",
+          "que": "conjuncion",
+          "tienes": "verbo",
+          "miedo": "sustantivo",
+          "descubro": "verbo",
+          "tengo": "verbo",
+          "valor": "sustantivo",
+          "pánico": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-059",
       "prompt": "Brucio i consigli, alzo il volume",
-      "answer": [
-        "quemo",
-        "los",
-        "consejos",
-        "subo",
-        "el",
-        "volumen"
-      ],
+      "answer": ["quemo", "los", "consejos", "subo", "el", "volumen"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1772,20 +3210,44 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["quemas", "bajo", "gritos", "silencio"],
+        "pos": {
+          "quemo": "verbo",
+          "los": "articulo",
+          "consejos": "sustantivo",
+          "subo": "verbo",
+          "el": "articulo",
+          "volumen": "sustantivo",
+          "quemas": "verbo",
+          "bajo": "verbo",
+          "gritos": "sustantivo",
+          "silencio": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-060",
       "prompt": "L'ansia nasconde i sorrisi che ho",
-      "answer": [
-        "la",
-        "ansiedad",
-        "esconde",
-        "las",
-        "sonrisas",
-        "que",
-        "tengo"
-      ],
+      "answer": ["la", "ansiedad", "esconde", "las", "sonrisas", "que", "tengo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1803,17 +3265,45 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["muestra", "lágrimas", "tienes", "calma"],
+        "pos": {
+          "la": "articulo",
+          "ansiedad": "sustantivo",
+          "esconde": "verbo",
+          "las": "articulo",
+          "sonrisas": "sustantivo",
+          "que": "pronombre",
+          "tengo": "verbo",
+          "muestra": "verbo",
+          "lágrimas": "sustantivo",
+          "tienes": "verbo",
+          "calma": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-061",
       "prompt": "E dimmi che cosa vedi",
-      "answer": [
-        "y",
-        "dime",
-        "qué",
-        "ves"
-      ],
+      "answer": ["y", "dime", "qué", "ves"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1831,20 +3321,42 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["dile", "veo", "nada", "nunca"],
+        "pos": {
+          "y": "conjuncion",
+          "dime": "verbo",
+          "qué": "pronombre",
+          "ves": "verbo",
+          "dile": "verbo",
+          "veo": "verbo",
+          "nada": "pronombre",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-062",
       "prompt": "Quando ripensi al domani",
-      "answer": [
-        "cuando",
-        "vuelves",
-        "a",
-        "pensar",
-        "en",
-        "el",
-        "mañana"
-      ],
+      "answer": ["cuando", "vuelves", "a", "pensar", "en", "el", "mañana"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1862,17 +3374,45 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["vuelvo", "olvidar", "ayer", "sin"],
+        "pos": {
+          "cuando": "conjuncion",
+          "vuelves": "verbo",
+          "a": "preposicion",
+          "pensar": "verbo",
+          "en": "preposicion",
+          "el": "articulo",
+          "mañana": "sustantivo",
+          "vuelvo": "verbo",
+          "olvidar": "verbo",
+          "ayer": "sustantivo",
+          "sin": "preposicion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-063",
       "prompt": "Quali domande? Quante risposte?",
-      "answer": [
-        "qué",
-        "preguntas",
-        "cuántas",
-        "respuestas"
-      ],
+      "answer": ["qué", "preguntas", "cuántas", "respuestas"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1890,17 +3430,42 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["cuánto", "dudas", "palabras", "cómo"],
+        "pos": {
+          "qué": "determinante",
+          "preguntas": "sustantivo",
+          "cuántas": "determinante",
+          "respuestas": "sustantivo",
+          "cuánto": "determinante",
+          "dudas": "sustantivo",
+          "palabras": "sustantivo",
+          "cómo": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-064",
       "prompt": "\"Forse domani\" ripeti, \"Forse\"",
-      "answer": [
-        "quizás",
-        "mañana",
-        "repites",
-        "quizás"
-      ],
+      "answer": ["quizás", "mañana", "repites", "quizás"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1918,19 +3483,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["nunca", "repito", "ayer", "siempre"],
+        "pos": {
+          "quizás": "adverbio",
+          "mañana": "adverbio",
+          "repites": "verbo",
+          "nunca": "adverbio",
+          "repito": "verbo",
+          "ayer": "adverbio",
+          "siempre": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-065",
       "prompt": "E vivo coi sogni appesi",
-      "answer": [
-        "y",
-        "vivo",
-        "con",
-        "los",
-        "sueños",
-        "colgados"
-      ],
+      "answer": ["y", "vivo", "con", "los", "sueños", "colgados"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1948,18 +3535,44 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["vives", "sin", "miedos", "rotos"],
+        "pos": {
+          "y": "conjuncion",
+          "vivo": "verbo",
+          "con": "preposicion",
+          "los": "articulo",
+          "sueños": "sustantivo",
+          "colgados": "adjetivo",
+          "vives": "verbo",
+          "sin": "preposicion",
+          "miedos": "sustantivo",
+          "rotos": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-066",
       "prompt": "Vivo coi sogni appesi",
-      "answer": [
-        "vivo",
-        "con",
-        "los",
-        "sueños",
-        "colgados"
-      ],
+      "answer": ["vivo", "con", "los", "sueños", "colgados"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -1977,16 +3590,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["vives", "sin", "miedos", "rotos"],
+        "pos": {
+          "vivo": "verbo",
+          "con": "preposicion",
+          "los": "articulo",
+          "sueños": "sustantivo",
+          "colgados": "adjetivo",
+          "vives": "verbo",
+          "sin": "preposicion",
+          "miedos": "sustantivo",
+          "rotos": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-067",
       "prompt": "Girano le pareti",
-      "answer": [
-        "giran",
-        "las",
-        "paredes"
-      ],
+      "answer": ["giran", "las", "paredes"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -2004,19 +3644,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["gira", "caen", "puertas", "siempre"],
+        "pos": {
+          "giran": "verbo",
+          "las": "articulo",
+          "paredes": "sustantivo",
+          "gira": "verbo",
+          "caen": "verbo",
+          "puertas": "sustantivo",
+          "siempre": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-068",
       "prompt": "Io vivo coi sogni appesi",
-      "answer": [
-        "yo",
-        "vivo",
-        "con",
-        "los",
-        "sueños",
-        "colgados"
-      ],
+      "answer": ["yo", "vivo", "con", "los", "sueños", "colgados"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -2034,16 +3696,44 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["tú", "vives", "miedos", "rotos"],
+        "pos": {
+          "yo": "pronombre",
+          "vivo": "verbo",
+          "con": "preposicion",
+          "los": "articulo",
+          "sueños": "sustantivo",
+          "colgados": "adjetivo",
+          "tú": "pronombre",
+          "vives": "verbo",
+          "miedos": "sustantivo",
+          "rotos": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-069",
       "prompt": "Dimmi che cosa resta",
-      "answer": [
-        "dime",
-        "qué",
-        "queda"
-      ],
+      "answer": ["dime", "qué", "queda"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -2061,17 +3751,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["dile", "quedo", "algo", "todavía"],
+        "pos": {
+          "dime": "verbo",
+          "qué": "pronombre",
+          "queda": "verbo",
+          "dile": "verbo",
+          "quedo": "verbo",
+          "algo": "pronombre",
+          "todavía": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-070",
       "prompt": "Se vivi senza memoria",
-      "answer": [
-        "si",
-        "vives",
-        "sin",
-        "memoria"
-      ],
+      "answer": ["si", "vives", "sin", "memoria"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -2089,19 +3803,42 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["vivo", "con", "olvido", "nunca"],
+        "pos": {
+          "si": "conjuncion",
+          "vives": "verbo",
+          "sin": "preposicion",
+          "memoria": "sustantivo",
+          "vivo": "verbo",
+          "con": "preposicion",
+          "olvido": "sustantivo",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-071",
       "prompt": "Perdo la voce, cerco la pace",
-      "answer": [
-        "pierdo",
-        "la",
-        "voz",
-        "busco",
-        "la",
-        "paz"
-      ],
+      "answer": ["pierdo", "la", "voz", "busco", "la", "paz"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -2119,21 +3856,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["pierdes", "encuentro", "guerra", "silencio"],
+        "pos": {
+          "pierdo": "verbo",
+          "la": "articulo",
+          "voz": "sustantivo",
+          "busco": "verbo",
+          "paz": "sustantivo",
+          "pierdes": "verbo",
+          "encuentro": "verbo",
+          "guerra": "sustantivo",
+          "silencio": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-072",
       "prompt": "E lascio che la vita viva per me",
-      "answer": [
-        "y",
-        "dejo",
-        "que",
-        "la",
-        "vida",
-        "viva",
-        "por",
-        "mí"
-      ],
+      "answer": ["y", "dejo", "que", "la", "vida", "viva", "por", "mí"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -2151,16 +3910,46 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["dejas", "muerte", "ti", "vive"],
+        "pos": {
+          "y": "conjuncion",
+          "dejo": "verbo",
+          "que": "conjuncion",
+          "la": "articulo",
+          "vida": "sustantivo",
+          "viva": "verbo",
+          "por": "preposicion",
+          "mí": "pronombre",
+          "dejas": "verbo",
+          "muerte": "sustantivo",
+          "ti": "pronombre",
+          "vive": "verbo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-073",
       "prompt": "Dimmi che cosa senti",
-      "answer": [
-        "dime",
-        "qué",
-        "sientes"
-      ],
+      "answer": ["dime", "qué", "sientes"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -2178,18 +3967,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["dile", "siento", "nada", "nunca"],
+        "pos": {
+          "dime": "verbo",
+          "qué": "pronombre",
+          "sientes": "verbo",
+          "dile": "verbo",
+          "siento": "verbo",
+          "nada": "pronombre",
+          "nunca": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-074",
       "prompt": "Se scopri di avere paura",
-      "answer": [
-        "si",
-        "descubres",
-        "que",
-        "tienes",
-        "miedo"
-      ],
+      "answer": ["si", "descubres", "que", "tienes", "miedo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -2207,19 +4019,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["descubro", "tengo", "valor", "pánico"],
+        "pos": {
+          "si": "conjuncion",
+          "descubres": "verbo",
+          "que": "conjuncion",
+          "tienes": "verbo",
+          "miedo": "sustantivo",
+          "descubro": "verbo",
+          "tengo": "verbo",
+          "valor": "sustantivo",
+          "pánico": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-075",
       "prompt": "Brucio i consigli, alzo il volume",
-      "answer": [
-        "quemo",
-        "los",
-        "consejos",
-        "subo",
-        "el",
-        "volumen"
-      ],
+      "answer": ["quemo", "los", "consejos", "subo", "el", "volumen"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -2237,20 +4073,44 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["quemas", "bajo", "gritos", "silencio"],
+        "pos": {
+          "quemo": "verbo",
+          "los": "articulo",
+          "consejos": "sustantivo",
+          "subo": "verbo",
+          "el": "articulo",
+          "volumen": "sustantivo",
+          "quemas": "verbo",
+          "bajo": "verbo",
+          "gritos": "sustantivo",
+          "silencio": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-076",
       "prompt": "L'ansia nasconde i sorrisi che ho",
-      "answer": [
-        "la",
-        "ansiedad",
-        "esconde",
-        "las",
-        "sonrisas",
-        "que",
-        "tengo"
-      ],
+      "answer": ["la", "ansiedad", "esconde", "las", "sonrisas", "que", "tengo"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -2268,16 +4128,45 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["muestra", "lágrimas", "tienes", "calma"],
+        "pos": {
+          "la": "articulo",
+          "ansiedad": "sustantivo",
+          "esconde": "verbo",
+          "las": "articulo",
+          "sonrisas": "sustantivo",
+          "que": "pronombre",
+          "tengo": "verbo",
+          "muestra": "verbo",
+          "lágrimas": "sustantivo",
+          "tienes": "verbo",
+          "calma": "sustantivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-077",
       "prompt": "Dimmi che cosa vedi",
-      "answer": [
-        "dime",
-        "qué",
-        "ves"
-      ],
+      "answer": ["dime", "qué", "ves"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -2295,20 +4184,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["dile", "veo", "nada", "todavía"],
+        "pos": {
+          "dime": "verbo",
+          "qué": "pronombre",
+          "ves": "verbo",
+          "dile": "verbo",
+          "veo": "verbo",
+          "nada": "pronombre",
+          "todavía": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-078",
       "prompt": "Quando ripensi al domani",
-      "answer": [
-        "cuando",
-        "vuelves",
-        "a",
-        "pensar",
-        "en",
-        "el",
-        "mañana"
-      ],
+      "answer": ["cuando", "vuelves", "a", "pensar", "en", "el", "mañana"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -2326,17 +4236,45 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["vuelvo", "olvidar", "ayer", "sin"],
+        "pos": {
+          "cuando": "conjuncion",
+          "vuelves": "verbo",
+          "a": "preposicion",
+          "pensar": "verbo",
+          "en": "preposicion",
+          "el": "articulo",
+          "mañana": "sustantivo",
+          "vuelvo": "verbo",
+          "olvidar": "verbo",
+          "ayer": "sustantivo",
+          "sin": "preposicion"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-079",
       "prompt": "Quali domande? Quante risposte?",
-      "answer": [
-        "qué",
-        "preguntas",
-        "cuántas",
-        "respuestas"
-      ],
+      "answer": ["qué", "preguntas", "cuántas", "respuestas"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -2354,17 +4292,42 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["cuánto", "dudas", "palabras", "cómo"],
+        "pos": {
+          "qué": "determinante",
+          "preguntas": "sustantivo",
+          "cuántas": "determinante",
+          "respuestas": "sustantivo",
+          "cuánto": "determinante",
+          "dudas": "sustantivo",
+          "palabras": "sustantivo",
+          "cómo": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-080",
       "prompt": "\"Forse domani\" ripeti, \"Forse\"",
-      "answer": [
-        "quizás",
-        "mañana",
-        "repites",
-        "quizás"
-      ],
+      "answer": ["quizás", "mañana", "repites", "quizás"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -2382,19 +4345,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["nunca", "repito", "ayer", "siempre"],
+        "pos": {
+          "quizás": "adverbio",
+          "mañana": "adverbio",
+          "repites": "verbo",
+          "nunca": "adverbio",
+          "repito": "verbo",
+          "ayer": "adverbio",
+          "siempre": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-081",
       "prompt": "E vivo coi sogni appesi",
-      "answer": [
-        "y",
-        "vivo",
-        "con",
-        "los",
-        "sueños",
-        "colgados"
-      ],
+      "answer": ["y", "vivo", "con", "los", "sueños", "colgados"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -2412,18 +4397,44 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["vives", "sin", "miedos", "rotos"],
+        "pos": {
+          "y": "conjuncion",
+          "vivo": "verbo",
+          "con": "preposicion",
+          "los": "articulo",
+          "sueños": "sustantivo",
+          "colgados": "adjetivo",
+          "vives": "verbo",
+          "sin": "preposicion",
+          "miedos": "sustantivo",
+          "rotos": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-082",
       "prompt": "Vivo coi sogni appesi",
-      "answer": [
-        "vivo",
-        "con",
-        "los",
-        "sueños",
-        "colgados"
-      ],
+      "answer": ["vivo", "con", "los", "sueños", "colgados"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -2441,16 +4452,43 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["vives", "sin", "miedos", "rotos"],
+        "pos": {
+          "vivo": "verbo",
+          "con": "preposicion",
+          "los": "articulo",
+          "sueños": "sustantivo",
+          "colgados": "adjetivo",
+          "vives": "verbo",
+          "sin": "preposicion",
+          "miedos": "sustantivo",
+          "rotos": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-083",
       "prompt": "Girano le pareti",
-      "answer": [
-        "giran",
-        "las",
-        "paredes"
-      ],
+      "answer": ["giran", "las", "paredes"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -2468,19 +4506,41 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["gira", "caen", "puertas", "siempre"],
+        "pos": {
+          "giran": "verbo",
+          "las": "articulo",
+          "paredes": "sustantivo",
+          "gira": "verbo",
+          "caen": "verbo",
+          "puertas": "sustantivo",
+          "siempre": "adverbio"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     },
     {
       "id": "sogni-appesi-084",
       "prompt": "Vivo, vivo coi sogni appesi",
-      "answer": [
-        "vivo",
-        "vivo",
-        "con",
-        "los",
-        "sueños",
-        "colgados"
-      ],
+      "answer": ["vivo", "vivo", "con", "los", "sueños", "colgados"],
       "categoryIds": [],
       "validation": {
         "status": "validated",
@@ -2498,6 +4558,37 @@
             "concerns": []
           }
         ]
+      },
+      "decoyBank": {
+        "distractors": ["vives", "sin", "miedos", "rotos"],
+        "pos": {
+          "vivo": "verbo",
+          "con": "preposicion",
+          "los": "articulo",
+          "sueños": "sustantivo",
+          "colgados": "adjetivo",
+          "vives": "verbo",
+          "sin": "preposicion",
+          "miedos": "sustantivo",
+          "rotos": "adjetivo"
+        },
+        "validation": {
+          "status": "validated",
+          "passes": [
+          {
+            "by": "deepseek-chat",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-07-27",
+            "verdict": "correcta",
+            "concerns": []
+          }
+          ]
+        }
       }
     }
   ]
