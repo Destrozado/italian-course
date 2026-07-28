@@ -78,4 +78,47 @@ Requisitos comprometidos para este milestone. Cada uno mapea a una fase del road
 
 ## Traceability
 
-<!-- Rellenado por el roadmapper: REQ-ID → fase. -->
+<!-- Rellenado por el roadmapper 2026-07-28: REQ-ID → fase. Numeración CONTINÚA desde Phase 39 (v1.9). -->
+
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| MIG-01 | Phase 40 — Migración `12→13` | Pending |
+| MIG-02 | Phase 40 — Migración `12→13` | Pending |
+| IND-01 | Phase 41 — `fare-indicativo` | Pending |
+| IND-02 | Phase 41 — `fare-indicativo` | Pending |
+| IND-03 | Phase 41 — `fare-indicativo` | Pending |
+| IND-04 | Phase 41 — `fare-indicativo` | Pending |
+| IND-05 | Phase 41 — `fare-indicativo` | Pending |
+| IND-06 | Phase 41 — `fare-indicativo` | Pending |
+| CONG-01 | Phase 42 — `fare-congiuntivo` | Pending |
+| CONG-02 | Phase 42 — `fare-congiuntivo` | Pending |
+| CONG-03 | Phase 42 — `fare-congiuntivo` | Pending |
+| CONG-04 | Phase 42 — `fare-congiuntivo` | Pending |
+| CI-01 | Phase 43 — `fare-cond-imperativo` + `fare-indefiniti` | Pending |
+| CI-02 | Phase 43 — `fare-cond-imperativo` + `fare-indefiniti` | Pending |
+| CI-03 | Phase 43 — `fare-cond-imperativo` + `fare-indefiniti` | Pending |
+| INDEF-01 | Phase 43 — `fare-cond-imperativo` + `fare-indefiniti` | Pending |
+| INDEF-02 | Phase 43 — `fare-cond-imperativo` + `fare-indefiniti` | Pending |
+| INDEF-03 | Phase 43 — `fare-cond-imperativo` + `fare-indefiniti` | Pending |
+| INDEF-04 | Phase 43 — `fare-cond-imperativo` + `fare-indefiniti` | Pending |
+| INT-01 | Phase 44 — Integración lockstep + cierre | Pending |
+| INT-02 | Phase 44 — Integración lockstep + cierre | Pending |
+| INT-03 | Phase 44 — Integración lockstep + cierre | Pending |
+| INT-04 | Phase 44 — Integración lockstep + cierre | Pending |
+
+**Coverage: 23/23 requisitos mapeados — 0 huérfanos, 0 duplicados, 0 gaps.**
+Cada requisito vive en EXACTAMENTE una fase; cada criterio de éxito del ROADMAP está respaldado por ≥1 requisito.
+
+### Mapping rationale
+
+- **MIG-01/02 → Phase 40 (PRIMERA).** Invariante del proyecto desde v1.5: la migración con reset selectivo va antes de dar de alta contenido, para que las categorías nuevas nazcan sin estado espurio y sin renumerar ids con progreso vivo. Espejo verbatim de `migrate11to12` (Phase 35, v1.9) una versión más arriba. Trampa de plan-time: `fare-indicativo` y `fare-indefiniti` comparten el prefijo `fare-ind` — los prefijos del predicado se declaran completos, nunca truncados.
+- **IND-01..06 → Phase 41.** Una categoría = una fase: `fare-indicativo` es la unidad de reset más grande (8 slots ≈ 48 variantes, casi la mitad del volumen de quórum del milestone). IND-05 cubre 3 slots de una (los compuestos con `avere`, que comparten regla: el auxiliar se conjuga y `fatto` no cambia); IND-06 aísla el trapassato remoto porque su marco sintáctico es parte del ejercicio.
+- **CONG-01..04 → Phase 42.** Categoría propia (unidad de reset separada del indicativo, decisión de diseño FARE-X1). ≈24 variantes. CONG-04 no es una casilla del paradigma sino el disparador — vive aquí porque sin él las casillas se responden por reconocimiento de forma.
+- **CI-01..03 + INDEF-01..04 → Phase 43.** DOS categorías en una fase (siguen siendo dos unidades de reset independientes). Criterio: el cuello de botella real es la validación 1-por-1 por quórum con fresh context, y ≈17 + ≈18 = ≈35 variantes es del orden de `fare-congiuntivo` sola (≈24) y menor que `fare-indicativo` (≈48). Separarlas daría dos fases finas contra la granularidad `coarse` del proyecto; fundirlas en una categoría rompería la unidad de reset. Comparten además el hecho de ser "la cola del paradigma" (formas de baja frecuencia o fijas) y los dos magnets restantes.
+- **INT-01..04 → Phase 44 (ÚLTIMA).** Los counts solo pueden derivarse del disco cuando los 4 JSON son definitivos (patrón Phase 31 de v1.7 y Phase 39 de v1.9). El registro operativo en `categories.json` puede ocurrir dentro de cada fase de contenido; INT-01 se cierra y verifica aquí. INT-03 (cruces multi-cat) va al final porque cruza con categorías que se autoran en 41/42/43. INT-04 es el gate de calidad transversal del milestone.
+
+### Estado del codebase al fijar el roadmap (2026-07-28)
+
+- `CURRENT_SCHEMA_VERSION` = **12** (`src/data/storage.js:35`, `src/data/backup.js:56`) → la migración de v2.0 es **`12→13`**.
+- **14 categorías** registradas (orders 1-14) / **225 slots** en disco → las 4 nuevas van a **order 15-18** y `TOTAL_EXPECTED` pasa de 225 a 225 + los 21 slots nuevos.
+- `grep -c 'applyImmediateFailure(this.state' src/screens/app.js` = **2** — invariante D-54 verificable al cierre.
