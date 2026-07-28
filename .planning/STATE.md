@@ -17,7 +17,7 @@ progress:
 
 ## Project Reference
 
-See: `.planning/PROJECT.md` (updated 2026-07-02 — Milestone v1.9 SHIPPED, próximo = responsive móvil)
+See: `.planning/PROJECT.md` (updated 2026-07-28 — Milestone v2.0 ABIERTO: paradigma completo de `fare`, 4 categorías)
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
