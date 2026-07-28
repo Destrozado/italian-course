@@ -63,6 +63,15 @@ y reconstruye la traducción arrastrando palabras (`answer`, troceada por tokens
   `scripts/validate-song-pass.mjs` (DeepSeek/Gemini vía HTTP), que sí corre desde
   aquí. Claves en `.env` (GEMINI_API_KEY, DEEPSEEK_API_KEY).
 
+- **Claude SOLO evalúa lo que no ha autorado.** Si la traducción viene de una
+  FUENTE EXTERNA (borrador del autor, letras.com…) y Claude se limitó a revisarla,
+  un pase Claude vía Task cuenta como `by` distinto y **refuerza** el quórum como
+  3er evaluador (decisión del autor 2026-07-27). Si Claude autoró la traducción
+  desde cero, NO puede ser evaluador: sería autoevaluación. Ojo al matiz: si al
+  revisar el borrador Claude acaba reescribiendo la frase, vuelve a ser autor de
+  ESA frase y pierde la independencia — el 3er pase solo vale en las que entraron
+  casi verbatim. En ningún caso sustituye al cross-vendor: lo añade.
+
 - **S1 IGNORA la puntuación.** El evaluador reconstruye la frase con la puntuación
   implícita; NO penalizar "run-on" por faltar comas — solo error a nivel de palabra.
 
@@ -93,6 +102,9 @@ Del argumento y del autor:
    `la-stella-piu-fragile`). `title` = `"<Título> — <Artista>"`.
 2. **Letra italiana completa** — pegada por el autor. Es la fuente de verdad del
    texto; NO inventar líneas.
+2-bis. **(Opcional) Traducción española de partida** — si el autor pega también una
+   traducción (letras.com o similar), se usa como BORRADOR y se aplica el Paso 1-bis.
+   Habilita el 3er pase Claude en el quórum (ver `<critical_constraints>`).
 3. Flags: `--no-repeats` (desduplicar estribillos), `--no-decoys` (OMITIR el
    decoyBank, que por defecto SÍ se añade), `--dry-run` (autorar JSON + registro
    pero NO validar ni commitear).
@@ -118,6 +130,29 @@ Read: un song existente, p.ej. content/songs/equilibrio-mentale.json  (formato)
 - Por frase: `prompt` = italiano limpio; `answer` = tokens español (una palabra por
   token, SIN puntuación), traducción natural/fiel/anti-calco con acentos RAE.
 - Ids secuenciales `"<id>-001"`, `"<id>-002"`, … (3 dígitos).
+
+**Paso 1-bis — Si el autor aporta una traducción de partida (borrador externo)**
+Aceptada como **borrador, nunca como fuente** (precedente `260727-isl`, Islanda).
+Ahorra la pasada desde cero y ancla el sentido, pero las traducciones de sitios de
+letras son de usuario y NO cumplen la barra del corpus. Revisar SIEMPRE, en este
+orden, antes de validar:
+1. **Registro peninsular.** El autor es de España. Comprobar contra el corpus antes
+   de aceptar un término: `coche` (no *auto*/*carro*), `bonito` (no *lindo*),
+   `billetes` (no *boletos*), `estudio` (no *monoambiente*). Grep de control:
+   `grep -roh '"<palabra>"' content/songs/*.json | wc -l`.
+   **El quórum NO detecta esto** — "boletos" es español correcto y pasa S1-S6; la
+   deriva de registro solo la ve un humano (o esta checklist).
+2. **Topónimos y nombres**: traducir el topónimo (`Islanda`→`Islandia`); los nombres
+   propios y títulos se dejan como en el original salvo criterio explícito.
+3. **Errores del borrador**: agramaticalidades, sujetos elididos que en español hay
+   que recuperar, idioms calcados.
+4. **Consistencia intra-canción**: el MISMO verso italiano debe traducirse igual en
+   todas sus apariciones. El quórum evalúa frase a frase y no ve la incoherencia.
+- Riesgo medido en `260727-isl`: 36/42 pasaron a la primera y **4 de las 6 disputas
+  fueron errores de la revisión, no heredados del borrador**. El borrador no baja la
+  calidad; revisarlo con prisa sí.
+- **NO** construir scrapers de sitios de letras (ToS + copyright + fragilidad): el
+  autor pega el texto.
 
 **Paso 2 — Escribir content/songs/<id>.json (generador, formato corpus)**
 Usar un generador `node` (zero-deps) para garantizar JSON válido y formato del
@@ -168,6 +203,10 @@ node scripts/validate-song-pass.mjs <phrase-id> --model=deepseek-chat --fallback
 # Pase 2 — Gemini (evitando DeepSeek para garantizar 2º by distinto):
 node scripts/validate-song-pass.mjs <phrase-id> --model=gemini-2.5-flash --avoid=deepseek-chat,deepseek-reasoner --write
 ```
+- **Pase 3 (SOLO si la traducción vino de fuente externa, Paso 1-bis):** subagent
+  Claude vía Task con `docs/SONG-VALIDATION-PROMPT.md` verbatim + la frase, como
+  `by: "claude-<modelo>"`. Refuerza el quórum; NO sustituye a los dos anteriores.
+  Sáltalo en las frases que Claude acabó reescribiendo en la revisión (ahí es autor).
 - Gemini rate-limitea con frecuencia (429). Si el Pase 2 no entra tras reintentos,
   usar `deepseek-reasoner` como 2º `by`:
   `--model=deepseek-reasoner --avoid=gemini-2.5-flash --write` (2 `by` DeepSeek
