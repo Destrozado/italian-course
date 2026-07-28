@@ -26,6 +26,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { deriveStatus } from '../src/data/validation-state.js';
+import { withFileLock } from './lib/file-lock.mjs'; // exclusión mutua del read-modify-write
 
 const PROMPT_PATH = 'docs/DECOY-VALIDATION-PROMPT.md';
 
@@ -249,17 +250,29 @@ function main() {
     try { return JSON.parse(last); } catch { return null; }
   }
 
-  function writePass(pass) {
-    const { file, data, idx } = found;
-    const phrase = data.phrases[idx];
-    const cur = phrase.decoyBank.validation && Array.isArray(phrase.decoyBank.validation.passes)
-      ? phrase.decoyBank.validation.passes : [];
-    const passes = cur.filter((p) => p.by !== pass.by);
-    passes.push(pass);
-    const status = deriveStatus(passes);
-    phrase.decoyBank.validation = { status, passes };
-    fs.writeFileSync(file, serializeSong(data));
-    console.error(`✔ decoyBank.validation ${pass.by} → ${phrase.id} (status: ${status})`);
+  // `found.data` se parseó al arrancar, ANTES de una llamada HTTP de hasta 120s:
+  // reescribir ese objeto en memoria pisaría cualquier pase que otro proceso haya
+  // insertado mientras esperábamos al modelo. Por eso la LECTURA se hace de nuevo
+  // aquí dentro, ya en la región crítica. `found.data`/`found.idx` siguen sirviendo
+  // para construir el prompt; sólo el camino de escritura deja de depender de ellos.
+  async function writePass(pass) {
+    const { file } = found;
+    return withFileLock(file, () => {
+      const data = JSON.parse(fs.readFileSync(file, 'utf8'));
+      const phrase = Array.isArray(data.phrases)
+        ? data.phrases.find((p) => p && p.id === phraseId)
+        : null;
+      if (!phrase) throw new Error(`la frase '${phraseId}' ya no está en ${file} (¿editado durante la corrida?)`);
+      if (!phrase.decoyBank) throw new Error(`la frase '${phraseId}' ya no tiene decoyBank en ${file}`);
+      const cur = phrase.decoyBank.validation && Array.isArray(phrase.decoyBank.validation.passes)
+        ? phrase.decoyBank.validation.passes : [];
+      const passes = cur.filter((p) => p.by !== pass.by);
+      passes.push(pass);
+      const status = deriveStatus(passes);
+      phrase.decoyBank.validation = { status, passes };
+      fs.writeFileSync(file, serializeSong(data));
+      console.error(`✔ decoyBank.validation ${pass.by} → ${phrase.id} (status: ${status})`);
+    });
   }
 
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -284,7 +297,7 @@ function main() {
             verdict: verdict.verdict,
             concerns: Array.isArray(verdict.concerns) ? verdict.concerns : [],
           };
-          if (WRITE) writePass(pass);
+          if (WRITE) await writePass(pass);
           console.log(JSON.stringify(pass, null, 2));
           return;
         }

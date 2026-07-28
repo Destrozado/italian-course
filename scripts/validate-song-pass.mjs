@@ -45,6 +45,7 @@ import https from 'node:https';
 import fs from 'node:fs';
 import path from 'node:path';
 import { deriveStatus } from '../src/data/validation-state.js'; // fuente única (WR-01)
+import { withFileLock } from './lib/file-lock.mjs'; // exclusión mutua del read-modify-write
 
 const PROMPT_PATH = 'docs/SONG-VALIDATION-PROMPT.md';
 
@@ -214,7 +215,7 @@ async function run() {
           verdict: verdict.verdict,
           concerns: Array.isArray(verdict.concerns) ? verdict.concerns : [],
         };
-        if (WRITE) writePass(found.file, phraseId, pass);
+        if (WRITE) await writePass(found.file, phraseId, pass);
         console.log(JSON.stringify(pass, null, 2));
         return;
       }
@@ -289,55 +290,60 @@ function findEnclosingBraceStart(text, anchorIdx) {
   return braceStart;
 }
 
-function writePass(file, id, pass) {
-  const text = fs.readFileSync(file, 'utf8');
-  // anchor con quote de cierre → "...-1" no colisiona con "...-10"
-  const idIdx = text.indexOf(`"id": "${id}"`);
-  if (idIdx === -1) throw new Error(`anchor de id no encontrado: ${id}`);
+// La región crítica es el read-modify-write COMPLETO, y las DOS ramas (UPDATE e
+// INSERT) van dentro: comparten el mismo readFileSync inicial. El `return` de la
+// rama UPDATE sale del callback, que es exactamente lo que queremos.
+async function writePass(file, id, pass) {
+  return withFileLock(file, () => {
+    const text = fs.readFileSync(file, 'utf8');
+    // anchor con quote de cierre → "...-1" no colisiona con "...-10"
+    const idIdx = text.indexOf(`"id": "${id}"`);
+    if (idIdx === -1) throw new Error(`anchor de id no encontrado: ${id}`);
 
-  // Acotar el OBJETO-FRASE que contiene este id, para distinguir su `validation`
-  // del de otras frases del mismo archivo.
-  const objStart = findEnclosingBraceStart(text, idIdx);
-  const objEnd = matchBraceEnd(text, objStart);
-  const objSlice = text.slice(objStart, objEnd + 1);
+    // Acotar el OBJETO-FRASE que contiene este id, para distinguir su `validation`
+    // del de otras frases del mismo archivo.
+    const objStart = findEnclosingBraceStart(text, idIdx);
+    const objEnd = matchBraceEnd(text, objStart);
+    const objSlice = text.slice(objStart, objEnd + 1);
 
-  if (objSlice.includes('"validation"')) {
-    // CASO EXISTE: comportarse como el de ejercicios (reemplazar pase del mismo by).
-    const vRel = objSlice.indexOf('"validation":');
-    const vIdx = objStart + vRel;
-    const braceStart = text.indexOf('{', vIdx);
-    const braceEnd = matchBraceEnd(text, braceStart);
-    const cur = JSON.parse(text.slice(braceStart, braceEnd + 1));
-    const passes = (Array.isArray(cur.passes) ? cur.passes : []).filter((p) => p.by !== pass.by);
-    passes.push(pass);
+    if (objSlice.includes('"validation"')) {
+      // CASO EXISTE: comportarse como el de ejercicios (reemplazar pase del mismo by).
+      const vRel = objSlice.indexOf('"validation":');
+      const vIdx = objStart + vRel;
+      const braceStart = text.indexOf('{', vIdx);
+      const braceEnd = matchBraceEnd(text, braceStart);
+      const cur = JSON.parse(text.slice(braceStart, braceEnd + 1));
+      const passes = (Array.isArray(cur.passes) ? cur.passes : []).filter((p) => p.by !== pass.by);
+      passes.push(pass);
+      const status = deriveStatus(passes);
+      const ind = '      ';
+      const body = JSON.stringify({ status, passes }, null, 2)
+        .split('\n').map((l, idx) => (idx === 0 ? l : ind + l)).join('\n');
+      fs.writeFileSync(file, text.slice(0, vIdx) + `"validation": ${body}` + text.slice(braceEnd + 1));
+      console.error(`✔ actualizado pase ${pass.by} → ${id} (status: ${status})`);
+      return;
+    }
+
+    // CASO INSERT: la frase no tiene validation. Insertar el bloque justo antes
+    // del `}` de cierre del objeto-frase, preservando el resto del archivo.
+    const passes = [pass];
     const status = deriveStatus(passes);
     const ind = '      ';
     const body = JSON.stringify({ status, passes }, null, 2)
       .split('\n').map((l, idx) => (idx === 0 ? l : ind + l)).join('\n');
-    fs.writeFileSync(file, text.slice(0, vIdx) + `"validation": ${body}` + text.slice(braceEnd + 1));
-    console.error(`✔ actualizado pase ${pass.by} → ${id} (status: ${status})`);
-    return;
-  }
-
-  // CASO INSERT: la frase no tiene validation. Insertar el bloque justo antes
-  // del `}` de cierre del objeto-frase, preservando el resto del archivo.
-  const passes = [pass];
-  const status = deriveStatus(passes);
-  const ind = '      ';
-  const body = JSON.stringify({ status, passes }, null, 2)
-    .split('\n').map((l, idx) => (idx === 0 ? l : ind + l)).join('\n');
-  // detectar la indentación del cierre (espacios antes del `}` final)
-  const before = text.slice(0, objEnd);
-  const lastNl = before.lastIndexOf('\n');
-  const closingIndent = before.slice(lastNl + 1).match(/^\s*/)[0];
-  const fieldIndent = closingIndent + '  ';
-  // El `,` que separa el último campo del nuevo debe quedar PEGADO al cierre de
-  // ese último campo (no en línea propia). Recortamos el whitespace/newline que
-  // precede al `}` de cierre y reinsertamos: <último-campo>,\n<field>"validation"…
-  const headTrimmed = before.replace(/\s+$/, '');
-  const insertion = `,\n${fieldIndent}"validation": ${body}\n${closingIndent}`;
-  fs.writeFileSync(file, headTrimmed + insertion + text.slice(objEnd));
-  console.error(`✔ INSERTADO bloque validation (pase ${pass.by}) → ${id} (status: ${status})`);
+    // detectar la indentación del cierre (espacios antes del `}` final)
+    const before = text.slice(0, objEnd);
+    const lastNl = before.lastIndexOf('\n');
+    const closingIndent = before.slice(lastNl + 1).match(/^\s*/)[0];
+    const fieldIndent = closingIndent + '  ';
+    // El `,` que separa el último campo del nuevo debe quedar PEGADO al cierre de
+    // ese último campo (no en línea propia). Recortamos el whitespace/newline que
+    // precede al `}` de cierre y reinsertamos: <último-campo>,\n<field>"validation"…
+    const headTrimmed = before.replace(/\s+$/, '');
+    const insertion = `,\n${fieldIndent}"validation": ${body}\n${closingIndent}`;
+    fs.writeFileSync(file, headTrimmed + insertion + text.slice(objEnd));
+    console.error(`✔ INSERTADO bloque validation (pase ${pass.by}) → ${id} (status: ${status})`);
+  });
 }
 
 run();
