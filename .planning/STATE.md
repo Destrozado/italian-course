@@ -1,16 +1,16 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.9
-milestone_name: Determinantes + verbos A1/A2
-status: Awaiting next milestone
-last_updated: "2026-07-28T12:00:00.000Z"
-last_activity: 2026-07-28 — quick-260728-8pg: lockfile de exclusión mutua (scripts/lib/file-lock.mjs) cableado en los 3 scripts de pase; 672 tests PASS
+milestone: v2.0
+milestone_name: Paradigma completo de fare (4 categorías)
+status: planning
+last_updated: "2026-07-28T05:40:35.443Z"
+last_activity: 2026-07-28
 progress:
-  total_phases: 5
-  completed_phases: 5
-  total_plans: 10
-  completed_plans: 10
-  percent: 100
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -25,12 +25,10 @@ See: `.planning/PROJECT.md` (updated 2026-07-02 — Milestone v1.9 SHIPPED, pró
 
 ## Current Position
 
-Phase: Milestone v1.9 complete
+Phase: Not started (defining requirements)
 Plan: —
-Status: Awaiting next milestone
-Last activity: 2026-07-28 — Quick task 260728-8pg: `scripts/lib/file-lock.mjs` (`withFileLock`, zero-deps) + cableado en `validate-ai-pass` / `validate-song-pass` / `validate-decoy-pass`. La región crítica read-modify-write queda serializada entre procesos; en decoy la lectura se mueve dentro del lock. Exclusión cross-process verificada con procesos reales; SIGINT/SIGTERM/crash liberan el lock. 672 tests PASS (665 baseline + 7)
-
-Actividad previa: 2026-07-23 — Quick task 260723-nte: añadida canción "Niente — Ultimo" (14ª real, 65 frases / 43 únicas) vía `/it-add-song` con decoradores agrupados. 65/65 frase + 65/65 decoyBank validated. S1-S6 sin disputas (cross-vendor DeepSeek+Gemini); 6 disputas D1-D5 resueltas por juicio (incl. decoy 012 confirmado por Claude Sonnet vía Task al re-saturarse Gemini). 665 tests PASS
+Status: Defining requirements
+Last activity: 2026-07-28 — Milestone v2.0 started
 
 ## Deferred Items
 
