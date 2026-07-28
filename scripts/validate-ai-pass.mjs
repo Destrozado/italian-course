@@ -33,6 +33,7 @@ import https from 'node:https';
 import fs from 'node:fs';
 import path from 'node:path';
 import { deriveStatus } from '../src/data/validation-state.js'; // fuente única (WR-01)
+import { withFileLock } from './lib/file-lock.mjs'; // exclusión mutua del read-modify-write
 
 const PROMPT_PATH =
   '.planning/milestones/v1.1-phases/09-infraestructura-de-validaci-n/09-VALIDATION-PROMPT.md';
@@ -201,7 +202,7 @@ async function run() {
           verdict: verdict.verdict,
           concerns: Array.isArray(verdict.concerns) ? verdict.concerns : [],
         };
-        if (WRITE) writePass(found.file, exId, pass);
+        if (WRITE) await writePass(found.file, exId, pass);
         console.log(JSON.stringify(pass, null, 2));
         return;
       }
@@ -254,24 +255,28 @@ function matchBraceEnd(text, braceStart) {
   throw new Error('bloque { } sin cierre balanceado');
 }
 
-function writePass(file, id, pass) {
-  const text = fs.readFileSync(file, 'utf8');
-  // anchor con quote de cierre → "articoli-1" no colisiona con "articoli-10"
-  const idIdx = text.indexOf(`"id": "${id}"`);
-  if (idIdx === -1) throw new Error(`anchor de id no encontrado: ${id}`);
-  const vIdx = text.indexOf('"validation":', idIdx);
-  if (vIdx === -1) throw new Error(`bloque validation no encontrado para ${id}`);
-  const braceStart = text.indexOf('{', vIdx);
-  const braceEnd = matchBraceEnd(text, braceStart);
-  const cur = JSON.parse(text.slice(braceStart, braceEnd + 1));
-  const passes = (Array.isArray(cur.passes) ? cur.passes : []).filter((p) => p.by !== pass.by);
-  passes.push(pass);
-  const status = deriveStatus(passes);
-  const ind = '      ';
-  const body = JSON.stringify({ status, passes }, null, 2)
-    .split('\n').map((l, idx) => (idx === 0 ? l : ind + l)).join('\n');
-  fs.writeFileSync(file, text.slice(0, vIdx) + `"validation": ${body}` + text.slice(braceEnd + 1));
-  console.error(`✔ escrito pase ${pass.by} → ${id} (status: ${status})`);
+// La región crítica es el read-modify-write COMPLETO: si otro proceso escribe
+// entre nuestro readFileSync y nuestro writeFileSync, su pase se pierde.
+async function writePass(file, id, pass) {
+  return withFileLock(file, () => {
+    const text = fs.readFileSync(file, 'utf8');
+    // anchor con quote de cierre → "articoli-1" no colisiona con "articoli-10"
+    const idIdx = text.indexOf(`"id": "${id}"`);
+    if (idIdx === -1) throw new Error(`anchor de id no encontrado: ${id}`);
+    const vIdx = text.indexOf('"validation":', idIdx);
+    if (vIdx === -1) throw new Error(`bloque validation no encontrado para ${id}`);
+    const braceStart = text.indexOf('{', vIdx);
+    const braceEnd = matchBraceEnd(text, braceStart);
+    const cur = JSON.parse(text.slice(braceStart, braceEnd + 1));
+    const passes = (Array.isArray(cur.passes) ? cur.passes : []).filter((p) => p.by !== pass.by);
+    passes.push(pass);
+    const status = deriveStatus(passes);
+    const ind = '      ';
+    const body = JSON.stringify({ status, passes }, null, 2)
+      .split('\n').map((l, idx) => (idx === 0 ? l : ind + l)).join('\n');
+    fs.writeFileSync(file, text.slice(0, vIdx) + `"validation": ${body}` + text.slice(braceEnd + 1));
+    console.error(`✔ escrito pase ${pass.by} → ${id} (status: ${status})`);
+  });
 }
 
 run();

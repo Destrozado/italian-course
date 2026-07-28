@@ -12,3 +12,8 @@ material-profesora/
 
 # Alternate Data Streams de WSL/Windows (basura de descargas) — nunca commitear
 *:Zone.Identifier
+
+# Lockfiles efímeros de scripts/lib/file-lock.mjs (exclusión mutua de los pases
+# de validación). Se crean y se borran solos en cada escritura; un `.lock` en el
+# árbol es residuo de una corrida muerta, nunca contenido. NO commitear.
+*.lock

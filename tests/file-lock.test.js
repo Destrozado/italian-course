@@ -26,7 +26,7 @@ function tmpFile(initial = '0') {
 }
 
 // opts cortos: la suite entera debe correr en menos de 3s
-const FAST = { timeoutMs: 2000, staleMs: 50, retryMinMs: 2, retryMaxMs: 15 };
+const FAST = { timeoutMs: 2000, staleMs: 5000, retryMinMs: 2, retryMaxMs: 15 };
 
 describe('scripts/lib/file-lock', () => {
   test('exclusión real: dos titulares concurrentes no pierden escrituras', async () => {
