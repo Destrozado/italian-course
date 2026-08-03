@@ -2,13 +2,13 @@
 gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Paradigma completo de `fare` (4 categorías por modo)
-current_phase: 40
-current_phase_name: Migración `12→13` (reset selectivo preventivo de las 4 categorías de `fare`)
-status: verifying
+current_phase: 41
+current_phase_name: "`fare-indicativo` — 8 slots (el bloque grande)"
+status: planning
 stopped_at: Completed 40-01-PLAN.md
-last_updated: "2026-08-03T10:47:01.658Z"
+last_updated: "2026-08-03T11:01:53.103Z"
 last_activity: 2026-08-03
-last_activity_desc: Phase 40 execution started
+last_activity_desc: Phase 40 complete, transitioned to Phase 41
 progress:
   total_phases: 5
   completed_phases: 1
@@ -29,10 +29,10 @@ See: `.planning/PROJECT.md` (updated 2026-07-28 — Milestone v2.0 ABIERTO: para
 
 ## Current Position
 
-Phase: 40 (Migración `12→13` (reset selectivo preventivo de las 4 categorías de `fare`)) — EXECUTING
-Plan: 1 of 1
-Status: Phase complete — ready for verification
-Last activity: 2026-08-03 — Phase 40 execution started
+Phase: 41 — `fare-indicativo` — 8 slots (el bloque grande)
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-08-03 — Phase 40 complete, transitioned to Phase 41
 
 Progress: [██████████] 100%
 

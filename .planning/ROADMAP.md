@@ -146,7 +146,7 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
 
 ### 🚧 v2.0 — ACTIVE (Phases 40-44) — Paradigma completo de `fare`
 
-- [ ] **Phase 40: Migración `12→13` (reset selectivo preventivo de las 4 categorías de `fare`)** — el eslabón de state que deja nacer limpias a las 4 nuevas; espejo de `migrate11to12` (v1.9). Va PRIMERA.
+- [x] **Phase 40: Migración `12→13` (reset selectivo preventivo de las 4 categorías de `fare`)** — el eslabón de state que deja nacer limpias a las 4 nuevas; espejo de `migrate11to12` (v1.9). Va PRIMERA. (completed 2026-08-03)
 - [ ] **Phase 41: `fare-indicativo` — 8 slots (el bloque grande)** — 4 tiempos simples + 3 compuestos con `avere` + trapassato remoto enmarcado; ≈48 variantes por quórum (casi la mitad del milestone).
 - [ ] **Phase 42: `fare-congiuntivo` — 4 slots (homógrafas + disparador)** — presente/imperfetto/passato/trapassato con sujeto explícito obligatorio y un slot de disparador; ≈24 variantes.
 - [ ] **Phase 43: `fare-cond-imperativo` + `fare-indefiniti` — 3 + 6 slots** — condizionale pres/pass + imperativo de 5 variantes (MAGNET `fa'`/`fai`) y las 6 indefinidas con eje de variante = contexto; ≈35 variantes.
@@ -249,7 +249,7 @@ Plans:
 | 37. Verbi modali | v1.9 | 1/1 | Complete   | 2026-07-01 |
 | 38. Verbi riflessivi | v1.9 | 2/2 | Complete   | 2026-07-01 |
 | 39. PROV-01 + integración lockstep | v1.9 | 2/2 | Complete   | 2026-07-02 |
-| 40. Migración `12→13` | v2.0 | 1/1 | In Progress|  |
+| 40. Migración `12→13` | v2.0 | 1/1 | Complete    | 2026-08-03 |
 | 41. `fare-indicativo` (8 slots) | v2.0 | 0/? | Not started | - |
 | 42. `fare-congiuntivo` (4 slots) | v2.0 | 0/? | Not started | - |
 | 43. `fare-cond-imperativo` + `fare-indefiniti` (3+6 slots) | v2.0 | 0/? | Not started | - |
