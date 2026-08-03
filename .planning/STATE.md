@@ -5,8 +5,8 @@ milestone_name: Paradigma completo de `fare` (4 categorías por modo)
 current_phase: 41
 current_phase_name: "`fare-indicativo` — 8 slots (el bloque grande)"
 status: planning
-stopped_at: Completed 40-01-PLAN.md
-last_updated: "2026-08-03T11:01:53.103Z"
+stopped_at: Phase 41 context gathered
+last_updated: "2026-08-03T13:39:03.645Z"
 last_activity: 2026-08-03
 last_activity_desc: Phase 40 complete, transitioned to Phase 41
 progress:
@@ -312,9 +312,9 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Session Continuity
 
-**Last session:** 2026-08-03T10:47:01.633Z
-**Stopped at:** Completed 40-01-PLAN.md
-**Resume file:** None
+**Last session:** 2026-08-03T13:39:03.615Z
+**Stopped at:** Phase 41 context gathered
+**Resume file:** .planning/phases/41-fare-indicativo-8-slots-el-bloque-grande/41-CONTEXT.md
 
 ### Last Session
 
