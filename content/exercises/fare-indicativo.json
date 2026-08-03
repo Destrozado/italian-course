@@ -74,6 +74,154 @@
         "status": "pending",
         "passes": []
       }
+    },
+    {
+      "id": "fare-indicativo-imperfetto",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "fare-indicativo"
+      ],
+      "explanation": "El imperfetto de indicativo de fare es el tiempo más regular de todo el paradigma, y lo es en cuanto se acepta que la raíz de este verbo no es la que se ve en el infinitivo: el latín facere dejó en italiano una raíz fac- que el infinitivo contrajo hasta fare, pero que el imperfetto conserva entera en las seis personas: io facevo, tu facevi, lui/lei faceva, noi facevamo, voi facevate, loro facevano. Sobre esa raíz caen las desinencias normales del imperfetto, -evo, -evi, -eva, -evamo, -evate, -evano, así que quien reconoce la raíz ya tiene el tiempo completo y no hay ninguna persona que se salga del molde, al contrario de lo que pasa en el presente y en el passato remoto. El castellano ayuda aquí más que en ningún otro tiempo de fare: hacía, hacías, hacía, hacíamos, hacíais, hacían también conserva la c que el infinitivo hacer mantiene a la vista, así que la intuición del hispanohablante apunta por una vez en la dirección correcta. Leyendo poesía o textos antiguos el autor puede ENCONTRAR 'facea' por faceva: es una forma atestiguada y conviene reconocerla al leer, pero no se PRODUCE en italiano estándar y por eso no aparece nunca entre las opciones de este ejercicio. Las distractoras de aquí tienen dos trampas: la primera importa la raíz contracta del futuro y del condizionale, far-, y le pega las desinencias del imperfetto, con lo que sale una forma que suena italiana y no existe; la segunda trata fare como un verbo regular en -are y le pega las desinencias de la primera conjugación sobre la raíz fac-, que es el mismo reflejo que hace escribir el presente con una sola c.",
+      "variants": [
+        {
+          "prompt": "Da bambino io ___ i compiti ogni pomeriggio.",
+          "options": [
+            "facavo",
+            "facevo",
+            "farevo",
+            "facevano"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Ogni estate tu ___ una torta.",
+          "options": [
+            "farevi",
+            "facavi",
+            "facevi",
+            "facevate"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "A quei tempi lui ___ il lavoro.",
+          "options": [
+            "faceva",
+            "fareva",
+            "facava",
+            "facevo"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Quando abitavamo a Roma noi ___ tutto.",
+          "options": [
+            "facavamo",
+            "farevamo",
+            "facevate",
+            "facevamo"
+          ],
+          "correctIndex": 3
+        },
+        {
+          "prompt": "L'anno scorso voi ___ sempre il letto.",
+          "options": [
+            "farevate",
+            "facevate",
+            "facavate",
+            "faceva"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Da piccoli loro ___ spesso un errore.",
+          "options": [
+            "facavano",
+            "farevano",
+            "facevano",
+            "faceva"
+          ],
+          "correctIndex": 2
+        }
+      ],
+      "validation": {
+        "status": "pending",
+        "passes": []
+      }
+    },
+    {
+      "id": "fare-indicativo-futuro-semplice",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "fare-indicativo"
+      ],
+      "explanation": "El futuro semplice de fare no pasa por la raíz latina: se construye sobre la raíz contracta far-, la misma que el infinitivo deja a la vista y la misma que reaparece en el condizionale, y sobre ella caen las desinencias de futuro comunes a las tres conjugaciones: io farò, tu farai, lui/lei farà, noi faremo, voi farete, loro faranno. Conviene fijarse en los acentos, que en italiano son ortografía y no adorno: farò y farà llevan acento grave porque el acento cae en la última sílaba, mientras farai, faremo, farete y faranno no lo llevan. Aquí el castellano ayuda de verdad y por el mismo motivo histórico: haré, harás, hará, haremos, haréis, harán también contrae el infinitivo antes de añadir la desinencia, así que el hispanohablante que sepa que el futuro italiano se forma sobre el infinitivo acierta en las seis personas. La trampa principal es justo el paso siguiente de ese razonamiento: quien traduce hacer conservando la raíz larga escribe 'facerò', que no existe, porque el infinitivo italiano ya viene contraído antes de que llegue la desinencia. La segunda trampa aplica la contracción a la raíz equivocada y produce formas como 'facrò', igual de inexistentes: la síncopa no se inventa sobre fac-, viene ya hecha en far-. Las dos son el mismo error visto desde dos lados, y las dos se descartan sabiendo que el futuro de este verbo empieza siempre por far-.",
+      "variants": [
+        {
+          "prompt": "Domani io ___ i compiti.",
+          "options": [
+            "facerò",
+            "farò",
+            "facrò",
+            "faranno"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Stasera tu ___ il letto.",
+          "options": [
+            "facrai",
+            "facerai",
+            "farai",
+            "farà"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "La settimana prossima lui ___ il lavoro.",
+          "options": [
+            "farà",
+            "facerà",
+            "facrà",
+            "farò"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Il mese prossimo noi ___ una torta.",
+          "options": [
+            "faceremo",
+            "facremo",
+            "farete",
+            "faremo"
+          ],
+          "correctIndex": 3
+        },
+        {
+          "prompt": "L'anno prossimo voi ___ tutto.",
+          "options": [
+            "facerete",
+            "farete",
+            "facrete",
+            "faremo"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Dopodomani loro ___ una foto.",
+          "options": [
+            "facranno",
+            "faceranno",
+            "faranno",
+            "farà"
+          ],
+          "correctIndex": 2
+        }
+      ],
+      "validation": {
+        "status": "pending",
+        "passes": []
+      }
     }
   ]
 }
