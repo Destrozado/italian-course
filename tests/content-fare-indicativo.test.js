@@ -87,6 +87,37 @@ const OTHER_MOODS = [
   "fa'", 'facci', 'facce', 'fava', 'faro',
 ];
 
+// D-41-08 (blacklist COMPLETA, el audit trail del `notes` hecho ejecutable).
+// POR QUE ESTE SET EXISTE aunque ya haya un conteo de "inexistentes" en el
+// bloque 7: ese conteo decide que una opcion es inexistente por AUSENCIA de la
+// tabla CANON de este fichero, es decir por no ser una de las 48 keys, y no
+// tiene ninguna vista del italiano que hay fuera del fichero. Por esa via una
+// forma ATESTIGUADA que el autor descarto una a una — `festi`, `fero`,
+// `facette`, la faccia del congiuntivo — contaria como distractora "inexistente"
+// legitima y la suite seguiria verde, que es exactamente la clase de bug injusto
+// que D-41-08 existe para prevenir. Este set la nombra y la prohibe.
+//
+// SE ESCANEA SOLO SOBRE `variants[].options[]`, NUNCA sobre el fichero
+// completo: el `notes` NOMBRA a proposito cada una de estas formas con su audit
+// trail, asi que un grep de fichero entero se auto-invalidaria (ver la
+// ADVERTENCIA DE ESCANEO de la cabecera).
+const ATESTIGUADAS = new Set([
+  // Las 5 canonicas de D-41-08.
+  'fo', 'fé', 'fenno', 'facea', 'fan',
+  // Anadidas por la autoria de 41-01: poetica de `fa` y su plural nominal.
+  'face', 'faci',
+  // Homografas italianas: existen con otro significado o son otra forma real.
+  'faro', 'fava', 'facce', 'facci',
+  // Passato remoto arcaico / poetico / dialectal, descartado una a una.
+  'fei', 'festi', 'femmo', 'feste', 'fero', 'feciono',
+  'fici', 'facisti', 'facette', 'facettero', 'facero',
+  // Otros modos, que son casillas de las Phases 42 y 43: congiuntivo,
+  // imperativo apostrofado y condizionale.
+  'faccia', 'facciate', 'facciano',
+  "fa'",
+  'farei', 'faresti', 'farebbe', 'faremmo', 'fareste', 'farebbero',
+]);
+
 // D-41-06 (SCOPE-GATE HARD): marcadores lexicos de las perifrasis y modismos
 // que quedan fuera de la fase, y el conjunto CERRADO de objetos permitidos.
 const PERIPHRASIS = ['colazione', 'spesa', 'freddo', 'farcel'];
@@ -306,6 +337,23 @@ describe('fare-indicativo — blacklist de formas atestiguadas (D-41-08)', () =>
     for (const { slot, v, k } of allVariants()) {
       const sucio = v.options.filter((o) => BLACKLIST.includes(o));
       assert.deepEqual(sucio, [], `D-41-08: ${slot.id}#${k} ofrece una forma atestiguada: ${sucio.join(', ')}`);
+    }
+  });
+
+  test('ninguna palabra de ninguna opcion de las 48 variantes es una forma italiana atestiguada de la blacklist completa (D-41-08)', () => {
+    // Garantiza lo que el conteo de "inexistentes" del bloque 7 NO puede
+    // garantizar: que ninguna distractora sea una forma que exista de verdad en
+    // italiano — arcaica, poetica, dialectal, homografa o de otro modo. Una
+    // opcion compuesta son dos palabras, asi que se miran las DOS.
+    for (const { slot, v, k } of allVariants()) {
+      for (const o of v.options) {
+        const sucio = o.split(' ').filter((p) => ATESTIGUADAS.has(p));
+        assert.deepEqual(
+          sucio,
+          [],
+          `D-41-08: ${slot.id}#${k} ofrece la opcion "${o}", que contiene la forma atestiguada ${sucio.join(', ')} — no puede ser distractora, va a la blacklist del notes`
+        );
+      }
     }
   });
 
