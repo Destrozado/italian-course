@@ -4,15 +4,15 @@ milestone: v2.0
 milestone_name: Paradigma completo de `fare` (4 categorías por modo)
 current_phase: 0
 current_phase_name: roadmap fijado, ninguna fase iniciada
-status: planning
+status: executing
 stopped_at: Phase 40 context gathered
-last_updated: "2026-08-03T09:43:11.351Z"
+last_updated: "2026-08-03T10:21:01.899Z"
 last_activity: 2026-07-28
 last_activity_desc: Roadmap del milestone v2.0 creado (5 fases, 23/23 requisitos mapeados)
 progress:
   total_phases: 5
   completed_phases: 0
-  total_plans: 0
+  total_plans: 1
   completed_plans: 0
   percent: 0
 ---
@@ -31,7 +31,7 @@ See: `.planning/PROJECT.md` (updated 2026-07-28 — Milestone v2.0 ABIERTO: para
 
 Phase: 0 of 5 — roadmap fijado, ninguna fase iniciada (siguiente: Phase 40, migración `12→13`)
 Plan: —
-Status: Ready to plan
+Status: Ready to execute
 Last activity: 2026-07-28 — Roadmap del milestone v2.0 creado (5 fases, 23/23 requisitos mapeados)
 
 Progress: [░░░░░░░░░░] 0%
