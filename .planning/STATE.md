@@ -4,17 +4,17 @@ milestone: v2.0
 milestone_name: Paradigma completo de `fare` (4 categorías por modo)
 current_phase: 41
 current_phase_name: "`fare-indicativo` — 8 slots (el bloque grande)"
-status: executing
-stopped_at: Completed 41-01-PLAN.md
-last_updated: "2026-08-03T18:15:04.335Z"
+status: verifying
+stopped_at: Completed 41-02-PLAN.md
+last_updated: "2026-08-03T18:34:05.859Z"
 last_activity: 2026-08-03
 last_activity_desc: Phase 41 execution started
 progress:
   total_phases: 5
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 3
-  completed_plans: 2
-  percent: 20
+  completed_plans: 3
+  percent: 40
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -31,10 +31,10 @@ See: `.planning/PROJECT.md` (updated 2026-07-28 — Milestone v2.0 ABIERTO: para
 
 Phase: 41 (`fare-indicativo` — 8 slots (el bloque grande)) — EXECUTING
 Plan: 2 of 2
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-08-03 — Phase 41 execution started
 
-Progress: [███████░░░] 67%
+Progress: [██████████] 100%
 
 ## Deferred Items
 
@@ -170,6 +170,7 @@ Items reconocidos y diferidos en el cierre del milestone v1.9 (2026-07-02, ackno
 |------|----------|-------|-------|
 | Phase 40 P01 | 24min | 3 tasks | 4 files |
 | Phase 41 P01 | 3h 27m | 4 tasks | 3 files |
+| Phase 41 P02 | 46m | 3 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -260,6 +261,11 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - [Phase 41]: 41-01: los 4 slots simples de fare-indicativo cierran en validation pending con passes vacio — el quorum canonico Opus+Sonnet no corre dentro del executor y un pase fabricado destruiria el audit trail
 - [Phase 41]: 41-01: regla ratificada por el autor — una distractora candidata que resulte ser forma italiana atestiguada (arcaica, poetica, dialectal u homografa) no entra en options, entra en la blacklist del notes con audit trail. Blacklist de fare-indicativo: 16 formas
 - [Phase 41]: 41-01: donde la prosa del plan y la gramatica italiana discrepan, gana la gramatica y la discrepancia se documenta (caso fanno: raiz corta fa- + terminacion en doble n, NO facc-)
+- [Phase ?]: Los 4 compuestos cierran en pending con passes vacio: el quorum Opus+Sonnet no corre dentro del executor y un pase fabricado destruiria el unico audit trail del autor
+- [Phase ?]: La familia de essere como distractora malformada se retira de las 6 variantes del trapassato remoto: fui fatto esta atestiguada como pasivo y ese slot es el de mayor exigencia de unicidad de lectura
+- [Phase ?]: El auxiliar en imperfetto queda prohibido como distractora en el trapassato remoto (desviacion declarada de D-41-10): es el competidor casi sinonimo tras quando y dopo che
+- [Phase ?]: Los 6 prompts del passato prossimo llevan una consecuencia en presente que bloquea la lectura defendible de trapassato
+- [Phase ?]: El orden del array de exercises de 41-01 se preserva en lugar del orden de paradigma del plan: el orden no tiene efecto funcional y reordenarlo reescribiria trabajo commiteado
 
 ### Pending Todos
 
@@ -316,8 +322,8 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Session Continuity
 
-**Last session:** 2026-08-03T18:14:51.511Z
-**Stopped at:** Completed 41-01-PLAN.md
+**Last session:** 2026-08-03T18:33:51.739Z
+**Stopped at:** Completed 41-02-PLAN.md
 **Resume file:** None
 
 ### Last Session

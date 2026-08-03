@@ -185,7 +185,7 @@ Plans:
   4. Todas las variantes quedan `validation.status: validated` (≥2 passes `correcta`, ≥2 `by` distintos, 1-por-1 con fresh context, NUNCA batched) con canon editorial heredado (español acentuado RAE, italianismos en ortografía italiana, apóstrofe ASCII, plain text, gloss `(en español: …)` donde desambigua) y sin leak de regla en el prompt (R1).
   5. La categoría carga en boot y aparece genéricamente en home/picker/Repaso/Examen sin una línea de motor nueva: "una persona distinta cada pasada" sale de `pickVariantIndex`, no de código añadido.
 
-**Plans**: 1/2 plans executed
+**Plans**: 2/2 plans executed
 
 Plans:
 **Wave 1**
@@ -194,7 +194,7 @@ Plans:
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 41-02-PLAN.md — Los 4 tiempos COMPUESTOS: passato prossimo, trapassato prossimo, futuro anteriore y trapassato remoto (24 variantes), más `tests/content-fare-indicativo.test.js` con los 8 gates de la categoría como invariantes permanentes
+- [x] 41-02-PLAN.md — Los 4 tiempos COMPUESTOS: passato prossimo, trapassato prossimo, futuro anteriore y trapassato remoto (24 variantes), más `tests/content-fare-indicativo.test.js` con los 8 gates de la categoría como invariantes permanentes
 
 ### Phase 42: `fare-congiuntivo` — 4 slots (homógrafas + disparador)
 
@@ -259,7 +259,7 @@ Plans:
 | 38. Verbi riflessivi | v1.9 | 2/2 | Complete   | 2026-07-01 |
 | 39. PROV-01 + integración lockstep | v1.9 | 2/2 | Complete   | 2026-07-02 |
 | 40. Migración `12→13` | v2.0 | 1/1 | Complete    | 2026-08-03 |
-| 41. `fare-indicativo` (8 slots) | v2.0 | 1/2 | In Progress|  |
+| 41. `fare-indicativo` (8 slots) | v2.0 | 2/2 | In Progress|  |
 | 42. `fare-congiuntivo` (4 slots) | v2.0 | 0/? | Not started | - |
 | 43. `fare-cond-imperativo` + `fare-indefiniti` (3+6 slots) | v2.0 | 0/? | Not started | - |
 | 44. Integración lockstep + cierre v2.0 | v2.0 | 0/? | Not started | - |
