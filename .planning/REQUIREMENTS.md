@@ -49,8 +49,8 @@ Requisitos comprometidos para este milestone. Cada uno mapea a una fase del road
 
 ### Migración (MIG)
 
-- [ ] **MIG-01**: `migrate12to13` + `hydrateV13` idempotentes con deep-clone anti-prototype-pollution y `CURRENT_SCHEMA_VERSION=13`, con reset selectivo del progreso por prefijo SOLO de las 4 categorías nuevas (efectivamente no-op al nacer sin progreso; mirror del patrón `migrate11to12` de v1.9).
-- [ ] **MIG-02**: `backup.js` hace round-trip v13 (export/import), migra import `v12→v13` y rechaza wrappers `> 13`.
+- [x] **MIG-01**: `migrate12to13` + `hydrateV13` idempotentes con deep-clone anti-prototype-pollution y `CURRENT_SCHEMA_VERSION=13`, con reset selectivo del progreso por prefijo SOLO de las 4 categorías nuevas (efectivamente no-op al nacer sin progreso; mirror del patrón `migrate11to12` de v1.9).
+- [x] **MIG-02**: `backup.js` hace round-trip v13 (export/import), migra import `v12→v13` y rechaza wrappers `> 13`.
 
 ### Integración lockstep (INT)
 
@@ -82,8 +82,8 @@ Requisitos comprometidos para este milestone. Cada uno mapea a una fase del road
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| MIG-01 | Phase 40 — Migración `12→13` | Pending |
-| MIG-02 | Phase 40 — Migración `12→13` | Pending |
+| MIG-01 | Phase 40 — Migración `12→13` | Complete |
+| MIG-02 | Phase 40 — Migración `12→13` | Complete |
 | IND-01 | Phase 41 — `fare-indicativo` | Pending |
 | IND-02 | Phase 41 — `fare-indicativo` | Pending |
 | IND-03 | Phase 41 — `fare-indicativo` | Pending |

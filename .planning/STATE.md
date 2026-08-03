@@ -2,19 +2,19 @@
 gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Paradigma completo de `fare` (4 categorías por modo)
-current_phase: 0
-current_phase_name: roadmap fijado, ninguna fase iniciada
-status: executing
-stopped_at: Phase 40 context gathered
-last_updated: "2026-08-03T10:21:01.899Z"
-last_activity: 2026-07-28
-last_activity_desc: Roadmap del milestone v2.0 creado (5 fases, 23/23 requisitos mapeados)
+current_phase: 40
+current_phase_name: Migración `12→13` (reset selectivo preventivo de las 4 categorías de `fare`)
+status: verifying
+stopped_at: Completed 40-01-PLAN.md
+last_updated: "2026-08-03T10:47:01.658Z"
+last_activity: 2026-08-03
+last_activity_desc: Phase 40 execution started
 progress:
   total_phases: 5
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 1
-  completed_plans: 0
-  percent: 0
+  completed_plans: 1
+  percent: 20
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -25,16 +25,16 @@ See: `.planning/PROJECT.md` (updated 2026-07-28 — Milestone v2.0 ABIERTO: para
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** v2.0 — Paradigma completo de `fare` (4 categorías por modo). Roadmap fijado: **Phases 40-44** (numeración CONTINÚA desde Phase 39).
+**Current Focus:** Phase 40 — Migración `12→13` (reset selectivo preventivo de las 4 categorías de `fare`)
 
 ## Current Position
 
-Phase: 0 of 5 — roadmap fijado, ninguna fase iniciada (siguiente: Phase 40, migración `12→13`)
-Plan: —
-Status: Ready to execute
-Last activity: 2026-07-28 — Roadmap del milestone v2.0 creado (5 fases, 23/23 requisitos mapeados)
+Phase: 40 (Migración `12→13` (reset selectivo preventivo de las 4 categorías de `fare`)) — EXECUTING
+Plan: 1 of 1
+Status: Phase complete — ready for verification
+Last activity: 2026-08-03 — Phase 40 execution started
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [██████████] 100%
 
 ## Deferred Items
 
@@ -164,6 +164,11 @@ Items reconocidos y diferidos en el cierre del milestone v1.9 (2026-07-02, ackno
 | Granularidad | coarse |
 | Mode (v2.0) | mixed — Phase 40 software (migración TDD), Phases 41-43 contenido editorial (quórum R1-R7, ≈107 variantes 1-por-1), Phase 44 cruces multi-cat + integración software |
 | Plan 37-01 | ✅ completado 2026-07-01 — modali (order 13): 6 slots (potere/volere/dovere + infinito MC + infinito-wb + cruce 300), 2 tasks, 2 commits (`f0a90d8` feat modali.json, `43d3cdc` feat categories.json), ~21 min. MODAL-01/02 completos |
+**Per-Plan Metrics:**
+
+| Plan | Duration | Tasks | Files |
+|------|----------|-------|-------|
+| Phase 40 P01 | 24min | 3 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -247,6 +252,10 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - **Contenido pasa el quórum estricto R1-R7** — las variantes nuevas usan el quórum cross-vendor gramatical, NO la validación ligera autor-oráculo de canciones; son ejercicios gramaticales reales.
 - **Explicación a nivel de slot, NO por variante (SLOT-02 heredado de v1.4)** — variantes intercambiables comparten regla y explicación; más simple de autorar/validar.
 - **Canon editorial heredado** — explanations de slot en español acentuado correcto + italianismos preservados, plain text sin markdown, apóstrofes ASCII U+0027 (D-129/D-135/D-137). Gloss ES "(en español: ...)" en prompts es canon R7 del autor (MEMORY.md). Explanations rule-first (lideran con el disparador, no con un sustantivo) — lección D-19-07.
+- **[Phase 40]** D-40-01 confirmado: los 4 slugs de fare quedan verbatim (fare-indicativo, fare-congiuntivo, fare-cond-imperativo, fare-indefiniti); la abreviatura cond es intencional
+- **[Phase 40]** El fixture de no-regresión cubre 14 categorías legacy (CATORCE_LEGACY), no 10 — las 4 de v1.9 ya son legacy para v2.0
+- **[Phase 40]** Los bloques de tests de versión intermedia conservan su propio schemaVersion en fixture y wrapper; solo bumpean las aserciones de fin-de-cadena
+- **[Phase 40]** NaN como schemaVersion se verifica en el guard de tipo (JSON.stringify(NaN) emite null); el no-finito alcanzable por JSON es 1e999 → Infinity
 
 ### Pending Todos
 
@@ -303,9 +312,9 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Session Continuity
 
-**Last session:** 2026-08-03T09:43:11.320Z
-**Stopped at:** Phase 40 context gathered
-**Resume file:** .planning/phases/40-migraci-n-12-13-reset-selectivo-preventivo-de-las-4-categor-/40-CONTEXT.md
+**Last session:** 2026-08-03T10:47:01.633Z
+**Stopped at:** Completed 40-01-PLAN.md
+**Resume file:** None
 
 ### Last Session
 

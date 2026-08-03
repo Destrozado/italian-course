@@ -166,10 +166,11 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
   3. El backup hace round-trip en v13, migra un wrapper `v12→v13` aplicando el reset, y rechaza cualquier wrapper `> 13` con el mensaje existente — con `CURRENT_SCHEMA_VERSION=13` espejado en `storage.js` Y `backup.js`.
   4. La suite de la cadena de migración (`data-storage` + `backup`) pasa sin fails nuevos y `git diff` sobre el motor (`src/screens/app.js`, `src/domain/`) queda vacío.
 
-**Plans**: 1 plan
+**Plans**: 1/1 plans executed
 
 Plans:
-- [ ] 40-01-PLAN.md — Eslabón `12→13` completo: `RESET_PREFIXES_V13` + `migrate12to13` + `hydrateV13` en `storage.js`, espejo en `backup.js`, y los bloques de tests v13 de migración y de backup
+
+- [x] 40-01-PLAN.md — Eslabón `12→13` completo: `RESET_PREFIXES_V13` + `migrate12to13` + `hydrateV13` en `storage.js`, espejo en `backup.js`, y los bloques de tests v13 de migración y de backup
 
 ### Phase 41: `fare-indicativo` — 8 slots (el bloque grande)
 
@@ -248,7 +249,7 @@ Plans:
 | 37. Verbi modali | v1.9 | 1/1 | Complete   | 2026-07-01 |
 | 38. Verbi riflessivi | v1.9 | 2/2 | Complete   | 2026-07-01 |
 | 39. PROV-01 + integración lockstep | v1.9 | 2/2 | Complete   | 2026-07-02 |
-| 40. Migración `12→13` | v2.0 | 0/? | Not started | - |
+| 40. Migración `12→13` | v2.0 | 1/1 | In Progress|  |
 | 41. `fare-indicativo` (8 slots) | v2.0 | 0/? | Not started | - |
 | 42. `fare-congiuntivo` (4 slots) | v2.0 | 0/? | Not started | - |
 | 43. `fare-cond-imperativo` + `fare-indefiniti` (3+6 slots) | v2.0 | 0/? | Not started | - |
