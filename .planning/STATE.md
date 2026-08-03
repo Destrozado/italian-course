@@ -1,10 +1,14 @@
 ---
 gsd_state_version: 1.0
 milestone: v2.0
-milestone_name: Paradigma completo de fare (4 categorías)
+milestone_name: Paradigma completo de `fare` (4 categorías por modo)
+current_phase: 0
+current_phase_name: roadmap fijado, ninguna fase iniciada
 status: planning
-last_updated: "2026-07-28T00:00:00.000Z"
+stopped_at: Phase 40 context gathered
+last_updated: "2026-08-03T09:43:11.351Z"
 last_activity: 2026-07-28
+last_activity_desc: Roadmap del milestone v2.0 creado (5 fases, 23/23 requisitos mapeados)
 progress:
   total_phases: 5
   completed_phases: 0
@@ -298,6 +302,10 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 | Quick task (tracking) | `260615-vkr` validador de frases de canción ES (infra, S1-S5, 83/83 validated) | Acknowledged (status 'missing') | v1.7 close |
 
 ## Session Continuity
+
+**Last session:** 2026-08-03T09:43:11.320Z
+**Stopped at:** Phase 40 context gathered
+**Resume file:** .planning/phases/40-migraci-n-12-13-reset-selectivo-preventivo-de-las-4-categor-/40-CONTEXT.md
 
 ### Last Session
 
