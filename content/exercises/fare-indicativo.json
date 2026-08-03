@@ -518,6 +518,80 @@
         "status": "pending",
         "passes": []
       }
+    },
+    {
+      "id": "fare-indicativo-trapassato-remoto",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "fare-indicativo"
+      ],
+      "explanation": "El trapassato remoto de fare se forma con el passato remoto de avere más el participio fatto, y su auxiliar arrastra la misma alternancia que tiene el verbo avere por su cuenta: la raíz ebb- sale en io ebbi fatto, en lui/lei ebbe fatto y en loro ebbero fatto, que son las tres personas donde el acento cae dentro de la raíz, y la raíz av- vuelve en tu avesti fatto, en noi avemmo fatto y en voi aveste fatto. El participio fatto sigue invariable, como en todos los compuestos con avere. Esta forma tiene un único marco vivo, y conviene ser honesto sobre su registro: está prácticamente extinta en el italiano hablado y sobrevive solo en la narración escrita, dentro de una subordinada temporal introducida por dopo che, quando o appena cuya oración principal va en passato remoto. Fuera de ese marco la forma no se usa: no aparece en frase suelta, no se combina con una principal en presente ni en passato prossimo, y un italiano de hoy diría el passato remoto simple o el passato prossimo. El castellano ofrece un paralelo igual de marginal: hube hecho existe, se construye igual y suena igual de literario, y lo normal es decir hice. La primera trampa de este ejercicio es poner el auxiliar en el tiempo equivocado, ho fatto o avrò fatto, que chocan de frente con una principal en passato remoto; la segunda es construir mal el compuesto y dejar el infinitivo donde va el participio, es decir ho fare.",
+      "variants": [
+        {
+          "prompt": "Dopo che io ___ i compiti, uscii di casa.",
+          "options": [
+            "ho fatto",
+            "ebbi fatto",
+            "avrò fatto",
+            "ho fare"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Quando tu ___ il letto, tua madre tornò.",
+          "options": [
+            "avesti fatto",
+            "hai fatto",
+            "avrai fatto",
+            "hai fare"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Appena lui ___ il lavoro, telefonò a suo padre.",
+          "options": [
+            "ha fatto",
+            "avrà fatto",
+            "ebbe fatto",
+            "ha fare"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Dopo che noi ___ una torta, arrivarono gli ospiti.",
+          "options": [
+            "abbiamo fatto",
+            "avremo fatto",
+            "avemmo fatto",
+            "abbiamo fare"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Quando voi ___ una foto, il treno partì.",
+          "options": [
+            "avete fare",
+            "avete fatto",
+            "avrete fatto",
+            "aveste fatto"
+          ],
+          "correctIndex": 3
+        },
+        {
+          "prompt": "Appena loro ___ tutto, uscirono dall'aula.",
+          "options": [
+            "hanno fare",
+            "hanno fatto",
+            "ebbero fatto",
+            "avranno fatto"
+          ],
+          "correctIndex": 2
+        }
+      ],
+      "validation": {
+        "status": "pending",
+        "passes": []
+      }
     }
   ]
 }
