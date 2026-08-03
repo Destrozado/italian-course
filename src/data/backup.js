@@ -23,7 +23,7 @@
 // schema-validator) — la primera guard que dispara aborta el parse y
 // devuelve el reason específico.
 
-import { migrate1to2, migrate2to3, migrate3to4, migrate4to5, migrate5to6, migrate6to7, hydrateV7, migrate7to8, hydrateV8, migrate8to9, hydrateV9, migrate9to10, migrate10to11, hydrateV11, migrate11to12, hydrateV12 } from './storage.js';
+import { migrate1to2, migrate2to3, migrate3to4, migrate4to5, migrate5to6, migrate6to7, hydrateV7, migrate7to8, hydrateV8, migrate8to9, hydrateV9, migrate9to10, migrate10to11, hydrateV11, migrate11to12, hydrateV12, migrate12to13, hydrateV13 } from './storage.js';
 
 /** Espejo de la constante en storage.js — mantener inline para que el
  *  módulo sea testeable independiente sin importar storage.CURRENT_SCHEMA_VERSION.
@@ -52,8 +52,13 @@ import { migrate1to2, migrate2to3, migrate3to4, migrate4to5, migrate5to6, migrat
  *  bump 11 a 12 — `migrate11to12` resetea el progreso de las CUATRO categorías
  *  nuevas de v1.9 (dimostrativi, possessivi, modali, riflessivi), que nacen en
  *  las Phases 36-38 (no-op hoy; forward-compat de un backup futuro que ya las
- *  contenga); el set de sub-dicts sigue sin cambiar. */
-const CURRENT_SCHEMA_VERSION = 12;
+ *  contenga); el set de sub-dicts sigue sin cambiar. Phase 40 (D-40 / MIG-02):
+ *  bump 12 a 13 — `migrate12to13` resetea el progreso de las CUATRO categorías
+ *  nuevas de v2.0 (fare-indicativo, fare-congiuntivo, fare-cond-imperativo,
+ *  fare-indefiniti), que nacen en las Phases 41-43 (no-op hoy; forward-compat de
+ *  un backup futuro que ya las contenga); el set de sub-dicts sigue sin
+ *  cambiar. */
+const CURRENT_SCHEMA_VERSION = 13;
 
 /**
  * Parse + valida + migra un string JSON proveniente de un archivo backup.
@@ -143,7 +148,8 @@ export function parseBackupFile(rawStr) {
   if (migrated.schemaVersion === 9) migrated = migrate9to10(migrated);
   if (migrated.schemaVersion === 10) migrated = migrate10to11(migrated);
   if (migrated.schemaVersion === 11) migrated = migrate11to12(migrated);
-  migrated = hydrateV12(migrated);
+  if (migrated.schemaVersion === 12) migrated = migrate12to13(migrated);
+  migrated = hydrateV13(migrated);
 
   // 6. Summary para el confirm inline (D-76).
   const summary = {

@@ -25,7 +25,7 @@
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { blankState, migrate1to2, hydrateV2, migrate2to3, hydrateV3, migrate3to4, hydrateV4, migrate4to5, hydrateV5, migrate5to6, hydrateV6, migrate6to7, hydrateV7, migrate7to8, hydrateV8, migrate8to9, hydrateV9, migrate9to10, hydrateV10, migrate10to11, hydrateV11, migrate11to12, hydrateV12 } from '../src/data/storage.js';
+import { blankState, migrate1to2, hydrateV2, migrate2to3, hydrateV3, migrate3to4, hydrateV4, migrate4to5, hydrateV5, migrate5to6, hydrateV6, migrate6to7, hydrateV7, migrate7to8, hydrateV8, migrate8to9, hydrateV9, migrate9to10, hydrateV10, migrate10to11, hydrateV11, migrate11to12, hydrateV12, migrate12to13, hydrateV13 } from '../src/data/storage.js';
 
 // Phase 4 (D-77/D-78): bumped schemaVersion from 2 → 3 con dos campos
 // nuevos (lastBackupAt, firstUsedAt). El "blankState v2" describe-name
@@ -33,10 +33,10 @@ import { blankState, migrate1to2, hydrateV2, migrate2to3, hydrateV3, migrate3to4
 // (la realidad actual). Tests adicionales de la cadena v1→v2→v3 viven
 // en `tests/backup.test.js` (co-located con backup.js Phase 4).
 
-describe('data/storage — blankState v12 (Phase 35 nominal bump)', () => {
-  test('blankState() devuelve shape v12 completo con el mismo set de sub-dicts + lastBackupAt/firstUsedAt null', () => {
+describe('data/storage — blankState v13 (Phase 40 nominal bump)', () => {
+  test('blankState() devuelve shape v13 completo con el mismo set de sub-dicts + lastBackupAt/firstUsedAt null', () => {
     const s = blankState();
-    assert.equal(s.schemaVersion, 12);
+    assert.equal(s.schemaVersion, 13);
     assert.deepEqual(s.exerciseStats, {});
     assert.deepEqual(s.categoryProgress, {});
     assert.deepEqual(s.dailyLog, {});
@@ -49,8 +49,8 @@ describe('data/storage — blankState v12 (Phase 35 nominal bump)', () => {
       'blankState() no debería incluir la clave `inFlightTest` (debe ser omitida)');
   });
 
-  test('blankState() codifica schemaVersion: 12 (Phase 35 bump nominal)', () => {
-    assert.equal(blankState().schemaVersion, 12);
+  test('blankState() codifica schemaVersion: 13 (Phase 40 bump nominal)', () => {
+    assert.equal(blankState().schemaVersion, 13);
   });
 });
 
@@ -634,9 +634,9 @@ describe('data/storage v6 — migrate5to6 chain + hydrateV6 (Phase 15)', () => {
     assert.deepEqual(out.songProgress, {});
   });
 
-  test('blankState() ahora schemaVersion 12 con el mismo set de sub-dicts', () => {
+  test('blankState() ahora schemaVersion 13 con el mismo set de sub-dicts', () => {
     const s = blankState();
-    assert.equal(s.schemaVersion, 12);
+    assert.equal(s.schemaVersion, 13);
     assert.deepEqual(s.exerciseStats, {});
     assert.deepEqual(s.categoryProgress, {});
     assert.deepEqual(s.dailyLog, {});
@@ -1491,8 +1491,8 @@ describe('data/storage v10 — migrate9to10 nominal (quick-260615-nzi)', () => {
       'preposiciones preservada a través de la cadena');
   });
 
-  test('blankState() devuelve schemaVersion 12', () => {
-    assert.equal(blankState().schemaVersion, 12);
+  test('blankState() devuelve schemaVersion 13', () => {
+    assert.equal(blankState().schemaVersion, 13);
   });
 });
 
@@ -1778,8 +1778,8 @@ describe('data/storage v11 — migrate10to11 reset selectivo de presente-regolar
     assert.deepEqual(v11.songProgress, beforeSong, 'songProgress byte-idéntico tras migrar');
   });
 
-  test('blankState() devuelve schemaVersion 12 (Phase 29 blankState now reflects CURRENT=12)', () => {
-    assert.equal(blankState().schemaVersion, 12);
+  test('blankState() devuelve schemaVersion 13 (Phase 29 blankState now reflects CURRENT=13)', () => {
+    assert.equal(blankState().schemaVersion, 13);
   });
 });
 
@@ -2059,7 +2059,7 @@ describe('data/storage v12 — migrate11to12 reset selectivo de las 4 categoría
     assert.deepEqual(v12.songProgress, beforeSong, 'songProgress byte-idéntico tras migrar');
   });
 
-  test('blankState() devuelve schemaVersion 12 (Phase 35)', () => {
-    assert.equal(blankState().schemaVersion, 12);
+  test('blankState() devuelve schemaVersion 13 (Phase 35 → CURRENT=13 tras Phase 40)', () => {
+    assert.equal(blankState().schemaVersion, 13);
   });
 });
