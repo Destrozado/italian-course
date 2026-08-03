@@ -185,7 +185,12 @@ Plans:
   4. Todas las variantes quedan `validation.status: validated` (≥2 passes `correcta`, ≥2 `by` distintos, 1-por-1 con fresh context, NUNCA batched) con canon editorial heredado (español acentuado RAE, italianismos en ortografía italiana, apóstrofe ASCII, plain text, gloss `(en español: …)` donde desambigua) y sin leak de regla en el prompt (R1).
   5. La categoría carga en boot y aparece genéricamente en home/picker/Repaso/Examen sin una línea de motor nueva: "una persona distinta cada pasada" sale de `pickVariantIndex`, no de código añadido.
 
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+
+- [ ] 41-01-PLAN.md — Alta de la categoría (`categories.json` order 15 + línea del smoke) y los 4 tiempos SIMPLES: presente, imperfetto, passato remoto y futuro semplice, 24 variantes, tracer sobre el presente verificado antes de expandir
+- [ ] 41-02-PLAN.md — Los 4 tiempos COMPUESTOS: passato prossimo, trapassato prossimo, futuro anteriore y trapassato remoto (24 variantes), más `tests/content-fare-indicativo.test.js` con los 8 gates de la categoría como invariantes permanentes
 
 ### Phase 42: `fare-congiuntivo` — 4 slots (homógrafas + disparador)
 
