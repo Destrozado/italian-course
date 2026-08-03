@@ -166,7 +166,10 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
   3. El backup hace round-trip en v13, migra un wrapper `v12→v13` aplicando el reset, y rechaza cualquier wrapper `> 13` con el mensaje existente — con `CURRENT_SCHEMA_VERSION=13` espejado en `storage.js` Y `backup.js`.
   4. La suite de la cadena de migración (`data-storage` + `backup`) pasa sin fails nuevos y `git diff` sobre el motor (`src/screens/app.js`, `src/domain/`) queda vacío.
 
-**Plans**: TBD
+**Plans**: 1 plan
+
+Plans:
+- [ ] 40-01-PLAN.md — Eslabón `12→13` completo: `RESET_PREFIXES_V13` + `migrate12to13` + `hydrateV13` en `storage.js`, espejo en `backup.js`, y los bloques de tests v13 de migración y de backup
 
 ### Phase 41: `fare-indicativo` — 8 slots (el bloque grande)
 
