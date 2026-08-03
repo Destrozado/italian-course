@@ -188,8 +188,12 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
+**Wave 1**
 
 - [ ] 41-01-PLAN.md — Alta de la categoría (`categories.json` order 15 + línea del smoke) y los 4 tiempos SIMPLES: presente, imperfetto, passato remoto y futuro semplice, 24 variantes, tracer sobre el presente verificado antes de expandir
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
 - [ ] 41-02-PLAN.md — Los 4 tiempos COMPUESTOS: passato prossimo, trapassato prossimo, futuro anteriore y trapassato remoto (24 variantes), más `tests/content-fare-indicativo.test.js` con los 8 gates de la categoría como invariantes permanentes
 
 ### Phase 42: `fare-congiuntivo` — 4 slots (homógrafas + disparador)
