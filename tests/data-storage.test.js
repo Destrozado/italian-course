@@ -2063,3 +2063,318 @@ describe('data/storage v12 — migrate11to12 reset selectivo de las 4 categoría
     assert.equal(blankState().schemaVersion, 13);
   });
 });
+
+// ────────────────────────────────────────────────────────────────────────────
+// data/storage v13 — migrate12to13 reset selectivo de las 4 categorías nuevas de
+// v2.0 (Phase 40)
+//
+// Clon literal del bloque v12 (migrate11to12) con UNA desviación de contenido: el
+// reset opera sobre los CUATRO prefijos de `fare` (fare-indicativo,
+// fare-congiuntivo, fare-cond-imperativo, fare-indefiniti) en vez de sobre los 4
+// slugs de v1.9. El reset prepara las 4 categorías nuevas que nacen en las Phases
+// 41-43 (no se puede renumerar con progreso vivo) y aplica forward-compat (un
+// backup futuro que ya las contenga se resetea limpiamente al re-importar). Hoy es
+// un no-op (ningún state actual tiene esos prefijos).
+//
+// Desviación propia de v2.0: `fare-indicativo` y `fare-indefiniti` comparten el
+// prefijo textual `fare-ind` (D-40-05). El fixture los siembra a los dos en el
+// mismo state, así que el solape queda ejercitado por construcción.
+//
+// Obligación de NO-REGRESIÓN: son CATORCE las categorías legacy que deben quedar
+// byte-intactas (Phase 35 verificaba 10; las 4 de v1.9 ya son legacy para v2.0),
+// más songProgress (D-40-03 / SC-2).
+// ────────────────────────────────────────────────────────────────────────────
+
+describe('data/storage v13 — migrate12to13 reset selectivo de las 4 categorías nuevas (Phase 40)', () => {
+  const RESET_NEW_V13 = ['fare-indicativo', 'fare-congiuntivo', 'fare-cond-imperativo', 'fare-indefiniti'];
+  const CATORCE_LEGACY = ['avere', 'essere', 'preposiciones', 'verbos-movimiento', 'sustantivos-irregulares', 'genero-numero', 'profesiones', 'articoli', 'partitivos', 'presente-regolare', 'dimostrativi', 'possessivi', 'modali', 'riflessivi'];
+
+  // Helper: un v12 con progreso ficticio bajo los 4 slugs nuevos (los reseteados)
+  // + las 14 categorías legacy (las preservadas). Al recorrer los 4 slugs en
+  // bucle, `fare-indicativo-001` y `fare-indefiniti-001` — el par que solapa en
+  // `fare-ind` — conviven siempre en el mismo fixture.
+  function v12WithNewFour() {
+    const exerciseStats = {};
+    const categoryProgress = {};
+    let n = 1;
+    for (const cat of [...RESET_NEW_V13, ...CATORCE_LEGACY]) {
+      exerciseStats[`${cat}-001`] = { timesShown: n, timesCorrect: n, timesFailed: 0 };
+      categoryProgress[cat] = { status: 'hecha', streakDays: n, clearedExerciseIds: [`${cat}-001`], lastSuccessDate: '2026-08-01' };
+      n++;
+    }
+    return {
+      schemaVersion: 12,
+      exerciseStats,
+      categoryProgress,
+      dailyLog: { '2026-08-01': { date: '2026-08-01', categoriesPracticed: ['avere', 'essere', 'articoli'], categoriesWithFailure: [] } },
+      songProgress: { 'equilibrio-mentale': { status: 'pasada', lastPlayedAt: '2026-06-02' } },
+      lastBackupAt: '2026-07-22T10:00:00.000Z',
+      firstUsedAt: '2026-04-01T08:00:00.000Z'
+    };
+  }
+
+  test('migrate12to13 borra categoryProgress de los 4 slugs nuevos y deja las 14 legacy intactas', () => {
+    const v12 = v12WithNewFour();
+    const v13 = migrate12to13(v12);
+    assert.equal(v13.schemaVersion, 13);
+    for (const cat of RESET_NEW_V13) {
+      assert.equal(v13.categoryProgress[cat], undefined,
+        `categoryProgress.${cat} debe quedar ausente tras el reset`);
+      assert.equal(Object.prototype.hasOwnProperty.call(v13.categoryProgress, cat), false,
+        `la clave ${cat} no debe existir como own-property`);
+    }
+    for (const cat of CATORCE_LEGACY) {
+      assert.deepEqual(v13.categoryProgress[cat], v12.categoryProgress[cat],
+        `${cat} conserva su progreso byte-intacto`);
+    }
+  });
+
+  test('migrate12to13 poda exerciseStats con los 4 prefijos nuevos y preserva las 14 legacy', () => {
+    const v12 = v12WithNewFour();
+    const v13 = migrate12to13(v12);
+    for (const cat of RESET_NEW_V13) {
+      assert.equal(v13.exerciseStats[`${cat}-001`], undefined, `exerciseStats.${cat}-001 debe estar podado`);
+      assert.equal(Object.prototype.hasOwnProperty.call(v13.exerciseStats, `${cat}-001`), false);
+    }
+    for (const cat of CATORCE_LEGACY) {
+      assert.deepEqual(v13.exerciseStats[`${cat}-001`], v12.exerciseStats[`${cat}-001`],
+        `exerciseStats.${cat}-001 preservado byte a byte`);
+    }
+  });
+
+  test('migrate12to13 resetea AMBOS slugs del solape `fare-ind` (fare-indicativo y fare-indefiniti) sin tocar ninguna legacy', () => {
+    const v12 = v12WithNewFour();
+    // Precondición del caso: los dos ids del solape conviven en el fixture.
+    assert.ok(v12.exerciseStats['fare-indicativo-001'], 'el fixture siembra fare-indicativo-001');
+    assert.ok(v12.exerciseStats['fare-indefiniti-001'], 'el fixture siembra fare-indefiniti-001');
+
+    const v13 = migrate12to13(v12);
+    for (const cat of ['fare-indicativo', 'fare-indefiniti']) {
+      assert.equal(Object.prototype.hasOwnProperty.call(v13.categoryProgress, cat), false,
+        `${cat} debe quedar ausente — el solape \`fare-ind\` es inocuo porque AMBOS se resetean`);
+      assert.equal(Object.prototype.hasOwnProperty.call(v13.exerciseStats, `${cat}-001`), false,
+        `${cat}-001 debe quedar podado — el solape \`fare-ind\` no altera el resultado del filtro`);
+    }
+    // Ninguna legacy desaparece como efecto colateral del solape.
+    for (const cat of CATORCE_LEGACY) {
+      assert.ok(Object.prototype.hasOwnProperty.call(v13.categoryProgress, cat),
+        `${cat} NO debe borrarse como efecto colateral del solape \`fare-ind\``);
+      assert.ok(Object.prototype.hasOwnProperty.call(v13.exerciseStats, `${cat}-001`),
+        `${cat}-001 NO debe podarse como efecto colateral del solape \`fare-ind\``);
+    }
+  });
+
+  test('migrate12to13 invalida inFlightTest que referencia un id de slug nuevo mezclado con uno legacy', () => {
+    const v12 = v12WithNewFour();
+    v12.inFlightTest = {
+      categoryIds: ['fare-indicativo'],
+      exerciseIds: ['fare-indicativo-006', 'preposiciones-001'],
+      variantIndices: [0, 0],
+      cursor: 0,
+      answers: [],
+      startedAt: 1716480000000
+    };
+    assert.equal(migrate12to13(v12).inFlightTest, undefined,
+      'un Test en vuelo que toca un slug nuevo se invalida al migrar');
+  });
+
+  test('migrate12to13 preserva inFlightTest que SOLO toca categorías legacy', () => {
+    const v12 = v12WithNewFour();
+    v12.inFlightTest = {
+      categoryIds: ['preposiciones', 'articoli'],
+      exerciseIds: ['preposiciones-001', 'articoli-001', 'presente-regolare-001'],
+      variantIndices: [0, 0, 0],
+      cursor: 1,
+      answers: [],
+      startedAt: 1716480000000
+    };
+    const v13 = migrate12to13(v12);
+    assert.deepEqual(v13.inFlightTest, v12.inFlightTest,
+      'un Test en vuelo ajeno a los 4 slugs nuevos se preserva');
+  });
+
+  test('migrate12to13 sin inFlightTest no crashea y preserva undefined', () => {
+    const v12 = v12WithNewFour();
+    const v13 = migrate12to13(v12);
+    assert.equal(v13.inFlightTest, undefined);
+  });
+
+  test('migrate12to13 es idempotente (re-ejecutar sobre un v13 ya migrado da la misma shape)', () => {
+    const v12 = v12WithNewFour();
+    const once = migrate12to13(v12);
+    const twice = migrate12to13(once);
+    assert.deepEqual(twice, once,
+      'migrate12to13(migrate12to13(x)) deep-equals migrate12to13(x) — delete de clave ausente es no-op');
+    assert.deepEqual(Object.keys(twice), Object.keys(once),
+      'el root devuelto tiene el mismo key set en las dos pasadas');
+  });
+
+  test('migrate12to13 es puro (no muta el input — los 4 slugs siguen presentes en el v12 original)', () => {
+    const v12 = v12WithNewFour();
+    migrate12to13(v12);
+    for (const cat of RESET_NEW_V13) {
+      assert.ok(v12.categoryProgress[cat],
+        `el input v12 NO debe mutarse: categoryProgress.${cat} sigue presente`);
+      assert.ok(v12.exerciseStats[`${cat}-001`],
+        `el input v12 NO debe mutarse: exerciseStats[${cat}-001] sigue presente`);
+    }
+  });
+
+  test('migrate12to13 anti-prototype-pollution: __proto__ own-property no contamina el global', () => {
+    const malicious = JSON.parse('{"schemaVersion":12,"exerciseStats":{"__proto__":{"polluted":true},"preposiciones-001":{"timesShown":1}},"categoryProgress":{},"dailyLog":{},"songProgress":{},"lastBackupAt":null,"firstUsedAt":null}');
+    const v13 = migrate12to13(malicious);
+    assert.equal(({}).polluted, undefined, 'el prototipo global Object no debe quedar contaminado');
+    assert.equal(v13.schemaVersion, 13);
+  });
+
+  test('migrate12to13 con sub-dict no-objeto (corrupto) cae a {}', () => {
+    for (const bad of [null, 'x', 42]) {
+      const v12 = { schemaVersion: 12, exerciseStats: bad, categoryProgress: bad, dailyLog: bad, songProgress: bad, lastBackupAt: null, firstUsedAt: null };
+      const v13 = migrate12to13(v12);
+      for (const key of ['exerciseStats', 'categoryProgress', 'dailyLog', 'songProgress']) {
+        assert.deepEqual(v13[key], {}, `${key} corrupto (${JSON.stringify(bad)}) debe caer a {}`);
+      }
+      assert.equal(v13.inFlightTest, undefined, 'un input sin inFlightTest devuelve undefined');
+      assert.equal(v13.schemaVersion, 13);
+    }
+  });
+
+  test('hydrateV13 es espejo de hydrateV12 (versión 13) SIN poda — preserva un slug nuevo si está presente', () => {
+    const v13In = {
+      schemaVersion: 13,
+      exerciseStats: { 'fare-indicativo-001': { timesShown: 2, timesCorrect: 2, timesFailed: 0 }, 'preposiciones-001': { timesShown: 1, timesCorrect: 1, timesFailed: 0 } },
+      categoryProgress: { 'fare-indicativo': { status: 'hecha', streakDays: 1, clearedExerciseIds: ['fare-indicativo-001'] } },
+      dailyLog: {},
+      songProgress: {},
+      lastBackupAt: null,
+      firstUsedAt: null,
+      inFlightTest: { categoryIds: ['preposiciones'], exerciseIds: ['preposiciones-001'], cursor: 0, answers: [], startedAt: 1716480000000 }
+    };
+    const out = hydrateV13(v13In);
+    assert.equal(out.schemaVersion, 13);
+    // hydrateV13 NO poda: un state v13-shaped llega íntegro (preserva fare-indicativo).
+    assert.deepEqual(out.categoryProgress, v13In.categoryProgress,
+      'hydrateV13 NO repite la poda — preserva lo que llega');
+    assert.deepEqual(out.exerciseStats, v13In.exerciseStats);
+    assert.notEqual(out.exerciseStats, v13In.exerciseStats, 'deep-clone defensivo');
+    assert.notEqual(out.categoryProgress, v13In.categoryProgress, 'deep-clone defensivo');
+    assert.deepEqual(out.inFlightTest, v13In.inFlightTest);
+  });
+
+  test('hydrateV13 sobre v13 con sub-dicts ausentes los normaliza a {}', () => {
+    const out = hydrateV13({ schemaVersion: 13, lastBackupAt: null, firstUsedAt: null });
+    assert.deepEqual(out.exerciseStats, {});
+    assert.deepEqual(out.categoryProgress, {});
+    assert.deepEqual(out.dailyLog, {});
+    assert.deepEqual(out.songProgress, {});
+  });
+
+  test('hydrateV13 anti-prototype-pollution: __proto__ own-property no contamina el global', () => {
+    const malicious = JSON.parse('{"schemaVersion":13,"exerciseStats":{"__proto__":{"polluted":true},"preposiciones-001":{"timesShown":1}},"categoryProgress":{},"dailyLog":{},"songProgress":{},"lastBackupAt":null,"firstUsedAt":null}');
+    const out = hydrateV13(malicious);
+    assert.equal(({}).polluted, undefined, 'el prototipo global Object no debe quedar contaminado');
+    assert.equal(out.schemaVersion, 13);
+  });
+
+  // Cadena: un v12 con progreso ficticio bajo los 4 slugs nuevos pasado por
+  // migrate12to13 → hydrateV13 sale v13 con los 4 reseteados y las 14 legacy
+  // preservadas intactas.
+  test('cadena v12 → v13: los 4 slugs nuevos reseteados, las 14 legacy preservadas, schemaVersion 13', () => {
+    const v12 = v12WithNewFour();
+    const v13 = hydrateV13(migrate12to13(v12));
+    assert.equal(v13.schemaVersion, 13);
+    for (const cat of RESET_NEW_V13) {
+      assert.equal(v13.categoryProgress[cat], undefined,
+        `${cat} reseteada a través de la cadena v12 → v13`);
+      assert.equal(v13.exerciseStats[`${cat}-001`], undefined);
+    }
+    for (const cat of CATORCE_LEGACY) {
+      assert.deepEqual(v13.categoryProgress[cat], v12.categoryProgress[cat],
+        `${cat} preservada a través de la cadena`);
+      assert.deepEqual(v13.exerciseStats[`${cat}-001`], v12.exerciseStats[`${cat}-001`]);
+    }
+    assert.deepEqual(v13.songProgress, v12.songProgress, 'songProgress preservado byte a byte');
+    assert.equal(v13.firstUsedAt, v12.firstUsedAt);
+  });
+
+  // Cadena end-to-end: un blob v8 antiguo recorre toda la cadena hasta v13.
+  test('cadena end-to-end v8 → v13: preposiciones sobrevive, schemaVersion 13', () => {
+    const v8 = {
+      schemaVersion: 8,
+      exerciseStats: {
+        'avere-001': { timesShown: 5, timesCorrect: 4, timesFailed: 1 },
+        'preposiciones-001': { timesShown: 8, timesCorrect: 8, timesFailed: 0 }
+      },
+      categoryProgress: {
+        avere: { status: 'dominada', streakDays: 14, clearedExerciseIds: ['avere-001'], lastSuccessDate: '2026-05-31' },
+        preposiciones: { status: 'dominada', streakDays: 21, clearedExerciseIds: ['preposiciones-001'], lastSuccessDate: '2026-06-01' }
+      },
+      dailyLog: {},
+      songProgress: {},
+      lastBackupAt: null,
+      firstUsedAt: '2026-04-01T08:00:00.000Z'
+    };
+    const v13 = hydrateV13(migrate12to13(migrate11to12(migrate10to11(migrate9to10(migrate8to9(v8))))));
+    assert.equal(v13.schemaVersion, 13);
+    assert.equal(v13.categoryProgress.avere, undefined, 'avere reseteada por migrate8to9 a través de la cadena');
+    assert.equal(v13.exerciseStats['avere-001'], undefined);
+    assert.deepEqual(v13.categoryProgress.preposiciones, v8.categoryProgress.preposiciones,
+      'preposiciones preservada a través de la cadena completa hasta v13');
+  });
+
+  // Test de NO-REGRESIÓN load-bearing (cobertura (b) / SC-2): fixture con las 14
+  // legacy + los 4 slugs nuevos → snapshot pre-migración → deep-equal byte a byte
+  // de las 14 legacy + songProgress post-migración + los 4 slugs nuevos ausentes
+  // de AMBOS dicts. Este fixture siembra DOS claves de stats por categoría.
+  test('no-regresión: las 14 legacy + songProgress quedan byte-idénticas, los 4 slugs nuevos ausentes', () => {
+    const categoryProgress = {};
+    const exerciseStats = {};
+    let n = 1;
+    for (const cat of [...RESET_NEW_V13, ...CATORCE_LEGACY]) {
+      categoryProgress[cat] = { status: 'hecha', streakDays: n, clearedExerciseIds: [`${cat}-001`], lastSuccessDate: '2026-08-01' };
+      exerciseStats[`${cat}-001`] = { timesShown: n, timesCorrect: n, timesFailed: 0 };
+      exerciseStats[`${cat}-002`] = { timesShown: n + 1, timesCorrect: n, timesFailed: 1 };
+      n++;
+    }
+    const v12 = {
+      schemaVersion: 12,
+      exerciseStats,
+      categoryProgress,
+      dailyLog: { '2026-08-01': { date: '2026-08-01', categoriesPracticed: [...RESET_NEW_V13, ...CATORCE_LEGACY], categoriesWithFailure: [] } },
+      songProgress: { 'equilibrio-mentale': { status: 'pasada', lastPlayedAt: '2026-06-02' } },
+      lastBackupAt: null,
+      firstUsedAt: '2026-04-01T08:00:00.000Z'
+    };
+
+    // Snapshot byte a byte ANTES de migrar.
+    const beforeCP = JSON.parse(JSON.stringify(categoryProgress));
+    const beforeES = JSON.parse(JSON.stringify(exerciseStats));
+    const beforeSong = JSON.parse(JSON.stringify(v12.songProgress));
+
+    const v13 = migrate12to13(v12);
+
+    // (a) los 4 slugs nuevos ausentes de ambos dicts.
+    for (const cat of RESET_NEW_V13) {
+      assert.equal(v13.categoryProgress[cat], undefined, `categoryProgress.${cat} debe estar ausente`);
+      assert.equal(v13.exerciseStats[`${cat}-001`], undefined, `exerciseStats.${cat}-001 debe estar podado`);
+      assert.equal(v13.exerciseStats[`${cat}-002`], undefined, `exerciseStats.${cat}-002 debe estar podado`);
+    }
+
+    // (b) las 14 legacy byte a byte deep-equal pre/post (por categoría).
+    for (const cat of CATORCE_LEGACY) {
+      assert.deepEqual(v13.categoryProgress[cat], beforeCP[cat],
+        `categoryProgress.${cat} debe quedar byte-idéntico`);
+      assert.deepEqual(v13.exerciseStats[`${cat}-001`], beforeES[`${cat}-001`],
+        `exerciseStats.${cat}-001 debe quedar byte-idéntico`);
+      assert.deepEqual(v13.exerciseStats[`${cat}-002`], beforeES[`${cat}-002`],
+        `exerciseStats.${cat}-002 debe quedar byte-idéntico`);
+    }
+
+    // (c) songProgress byte-intacto.
+    assert.deepEqual(v13.songProgress, beforeSong, 'songProgress byte-idéntico tras migrar');
+  });
+
+  test('blankState() devuelve schemaVersion 13 (Phase 40)', () => {
+    assert.equal(blankState().schemaVersion, 13);
+  });
+});
