@@ -18,10 +18,10 @@ Requisitos comprometidos para este milestone. Cada uno mapea a una fase del road
 
 ### Fare — Indicativo (IND) · categoría `fare-indicativo`, 8 slots
 
-- [ ] **IND-01**: El autor es examinado sobre el **presente** irregular de `fare` en todas las personas (`faccio / fai / fa / facciamo / fate / fanno`), incluida la trampa de la raíz doble `facc-` vs `fa-`.
-- [ ] **IND-02**: El autor es examinado sobre el **imperfetto** (`facevo / facevi / faceva / facevamo / facevate / facevano`), donde reaparece la raíz latina `fac-` que el infinitivo esconde.
-- [ ] **IND-03**: El autor es examinado sobre el **passato remoto** (`feci / facesti / fece / facemmo / faceste / fecero`), con su alternancia radical `fec-` / `fac-` en 1ª-3ª singular y 3ª plural frente al resto.
-- [ ] **IND-04**: El autor es examinado sobre el **futuro semplice** (`farò / farai / farà / faremo / farete / faranno`), con raíz contracta `far-` (nunca `*facerò`).
+- [x] **IND-01**: El autor es examinado sobre el **presente** irregular de `fare` en todas las personas (`faccio / fai / fa / facciamo / fate / fanno`), incluida la trampa de la raíz doble `facc-` vs `fa-`.
+- [x] **IND-02**: El autor es examinado sobre el **imperfetto** (`facevo / facevi / faceva / facevamo / facevate / facevano`), donde reaparece la raíz latina `fac-` que el infinitivo esconde.
+- [x] **IND-03**: El autor es examinado sobre el **passato remoto** (`feci / facesti / fece / facemmo / faceste / fecero`), con su alternancia radical `fec-` / `fac-` en 1ª-3ª singular y 3ª plural frente al resto.
+- [x] **IND-04**: El autor es examinado sobre el **futuro semplice** (`farò / farai / farà / faremo / farete / faranno`), con raíz contracta `far-` (nunca `*facerò`).
 - [ ] **IND-05**: El autor es examinado sobre los **tiempos compuestos con `avere` + `fatto`** — passato prossimo (`ho fatto`), trapassato prossimo (`avevo fatto`) y futuro anteriore (`avrò fatto`) — eligiendo el auxiliar y el tiempo del auxiliar según el marco temporal de la frase.
 - [ ] **IND-06**: El autor es examinado sobre el **trapassato remoto** (`ebbi fatto`) DENTRO de su único marco vivo: subordinada temporal (`dopo che / quando / appena`) con la principal en passato remoto. El marco es parte del ejercicio — sin él la frase es artificial.
 
@@ -84,10 +84,10 @@ Requisitos comprometidos para este milestone. Cada uno mapea a una fase del road
 |-------------|-------|--------|
 | MIG-01 | Phase 40 — Migración `12→13` | Complete |
 | MIG-02 | Phase 40 — Migración `12→13` | Complete |
-| IND-01 | Phase 41 — `fare-indicativo` | Pending |
-| IND-02 | Phase 41 — `fare-indicativo` | Pending |
-| IND-03 | Phase 41 — `fare-indicativo` | Pending |
-| IND-04 | Phase 41 — `fare-indicativo` | Pending |
+| IND-01 | Phase 41 — `fare-indicativo` | Complete |
+| IND-02 | Phase 41 — `fare-indicativo` | Complete |
+| IND-03 | Phase 41 — `fare-indicativo` | Complete |
+| IND-04 | Phase 41 — `fare-indicativo` | Complete |
 | IND-05 | Phase 41 — `fare-indicativo` | Pending |
 | IND-06 | Phase 41 — `fare-indicativo` | Pending |
 | CONG-01 | Phase 42 — `fare-congiuntivo` | Pending |

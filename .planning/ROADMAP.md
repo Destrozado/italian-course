@@ -185,12 +185,12 @@ Plans:
   4. Todas las variantes quedan `validation.status: validated` (≥2 passes `correcta`, ≥2 `by` distintos, 1-por-1 con fresh context, NUNCA batched) con canon editorial heredado (español acentuado RAE, italianismos en ortografía italiana, apóstrofe ASCII, plain text, gloss `(en español: …)` donde desambigua) y sin leak de regla en el prompt (R1).
   5. La categoría carga en boot y aparece genéricamente en home/picker/Repaso/Examen sin una línea de motor nueva: "una persona distinta cada pasada" sale de `pickVariantIndex`, no de código añadido.
 
-**Plans**: 2 plans
+**Plans**: 1/2 plans executed
 
 Plans:
 **Wave 1**
 
-- [ ] 41-01-PLAN.md — Alta de la categoría (`categories.json` order 15 + línea del smoke) y los 4 tiempos SIMPLES: presente, imperfetto, passato remoto y futuro semplice, 24 variantes, tracer sobre el presente verificado antes de expandir
+- [x] 41-01-PLAN.md — Alta de la categoría (`categories.json` order 15 + línea del smoke) y los 4 tiempos SIMPLES: presente, imperfetto, passato remoto y futuro semplice, 24 variantes, tracer sobre el presente verificado antes de expandir
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
@@ -259,7 +259,7 @@ Plans:
 | 38. Verbi riflessivi | v1.9 | 2/2 | Complete   | 2026-07-01 |
 | 39. PROV-01 + integración lockstep | v1.9 | 2/2 | Complete   | 2026-07-02 |
 | 40. Migración `12→13` | v2.0 | 1/1 | Complete    | 2026-08-03 |
-| 41. `fare-indicativo` (8 slots) | v2.0 | 0/? | Not started | - |
+| 41. `fare-indicativo` (8 slots) | v2.0 | 1/2 | In Progress|  |
 | 42. `fare-congiuntivo` (4 slots) | v2.0 | 0/? | Not started | - |
 | 43. `fare-cond-imperativo` + `fare-indefiniti` (3+6 slots) | v2.0 | 0/? | Not started | - |
 | 44. Integración lockstep + cierre v2.0 | v2.0 | 0/? | Not started | - |

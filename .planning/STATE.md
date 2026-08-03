@@ -5,15 +5,15 @@ milestone_name: Paradigma completo de `fare` (4 categorías por modo)
 current_phase: 41
 current_phase_name: "`fare-indicativo` — 8 slots (el bloque grande)"
 status: executing
-stopped_at: Phase 41 context gathered
-last_updated: "2026-08-03T14:36:37.258Z"
+stopped_at: Completed 41-01-PLAN.md
+last_updated: "2026-08-03T18:15:04.335Z"
 last_activity: 2026-08-03
-last_activity_desc: Phase 40 complete, transitioned to Phase 41
+last_activity_desc: Phase 41 execution started
 progress:
   total_phases: 5
   completed_phases: 1
   total_plans: 3
-  completed_plans: 1
+  completed_plans: 2
   percent: 20
 ---
 
@@ -25,16 +25,16 @@ See: `.planning/PROJECT.md` (updated 2026-07-28 — Milestone v2.0 ABIERTO: para
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 40 — Migración `12→13` (reset selectivo preventivo de las 4 categorías de `fare`)
+**Current Focus:** Phase 41 — `fare-indicativo` — 8 slots (el bloque grande)
 
 ## Current Position
 
-Phase: 41 — `fare-indicativo` — 8 slots (el bloque grande)
-Plan: Not started
+Phase: 41 (`fare-indicativo` — 8 slots (el bloque grande)) — EXECUTING
+Plan: 2 of 2
 Status: Ready to execute
-Last activity: 2026-08-03 — Phase 40 complete, transitioned to Phase 41
+Last activity: 2026-08-03 — Phase 41 execution started
 
-Progress: [██████████] 100%
+Progress: [███████░░░] 67%
 
 ## Deferred Items
 
@@ -169,6 +169,7 @@ Items reconocidos y diferidos en el cierre del milestone v1.9 (2026-07-02, ackno
 | Plan | Duration | Tasks | Files |
 |------|----------|-------|-------|
 | Phase 40 P01 | 24min | 3 tasks | 4 files |
+| Phase 41 P01 | 3h 27m | 4 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -256,6 +257,9 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - **[Phase 40]** El fixture de no-regresión cubre 14 categorías legacy (CATORCE_LEGACY), no 10 — las 4 de v1.9 ya son legacy para v2.0
 - **[Phase 40]** Los bloques de tests de versión intermedia conservan su propio schemaVersion en fixture y wrapper; solo bumpean las aserciones de fin-de-cadena
 - **[Phase 40]** NaN como schemaVersion se verifica en el guard de tipo (JSON.stringify(NaN) emite null); el no-finito alcanzable por JSON es 1e999 → Infinity
+- [Phase 41]: 41-01: los 4 slots simples de fare-indicativo cierran en validation pending con passes vacio — el quorum canonico Opus+Sonnet no corre dentro del executor y un pase fabricado destruiria el audit trail
+- [Phase 41]: 41-01: regla ratificada por el autor — una distractora candidata que resulte ser forma italiana atestiguada (arcaica, poetica, dialectal u homografa) no entra en options, entra en la blacklist del notes con audit trail. Blacklist de fare-indicativo: 16 formas
+- [Phase 41]: 41-01: donde la prosa del plan y la gramatica italiana discrepan, gana la gramatica y la discrepancia se documenta (caso fanno: raiz corta fa- + terminacion en doble n, NO facc-)
 
 ### Pending Todos
 
@@ -312,9 +316,9 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Session Continuity
 
-**Last session:** 2026-08-03T13:39:03.615Z
-**Stopped at:** Phase 41 context gathered
-**Resume file:** .planning/phases/41-fare-indicativo-8-slots-el-bloque-grande/41-CONTEXT.md
+**Last session:** 2026-08-03T18:14:51.511Z
+**Stopped at:** Completed 41-01-PLAN.md
+**Resume file:** None
 
 ### Last Session
 
