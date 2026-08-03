@@ -1,0 +1,79 @@
+{
+  "notes": "Categoría fare-indicativo (order 15) nacida DIRECTAMENTE en slot+variantes, clon del patrón v1.7/v1.9 de presente-regolare, modali, possessivi y riflessivi, NUNCA legacy payload. Los 8 slots son las 8 casillas del indicativo de fare y las 6 variantes de cada slot son las 6 personas io, tu, lui/lei, noi, voi, loro: el eje de variante es la persona y lo sirve pickVariantIndex sin una sola línea de motor nueva (D-41-01, y por D-41-02 cada variante lleva además su propio marco temporal, así que persona y marco covarían sobre ese único eje). 0-GLOSS por decisión D-41-05: cero gloss de traducción al castellano entre paréntesis en los 48 prompts, que es el desambiguador R7 que el resto de las categorías sí usa. Razón: el castellano mapea casi 1:1 en 7 de las 8 casillas, hacía, hice, haré, he hecho, había hecho, habré hecho, así que un gloss sobre el verbo REGALA el tiempo, y eso es leak R1 directo en una categoría cuyo ejercicio es justamente elegir el tiempo. El único desambiguador es el marco temporal del prompt. Esto NO contradice el canon R7 del proyecto: el gloss es legítimo DONDE desambigua; aquí no desambigua, filtra. El 0-gloss aquí es decisión, no omisión. 0-MATCH por decisión D-41-13 y DESIGN RULE D-04: ningún slot match, porque el pareo de persona a forma es una asociación MECÁNICA derivable en cuanto se conoce la raíz, es decir arrastrar sin pensar, exactamente lo que D-04 y R3 prohíben. El 0-match aquí es decisión, no omisión. 0-WORD-BUTTONS por decisión D-41-13: ningún slot word-buttons, porque lo que se examina siempre es elegir una forma o elegir un tiempo, nunca construir el orden de las palabras. Se consideraron y se rechazaron los dos únicos candidatos: construir el marco del trapassato remoto, con un banco de palabras demasiado largo y con el multiple-choice ya obligando a leer el marco, y la colocación adverbial del compuesto, que es sintaxis del compuesto y no una casilla del paradigma. El 0-word-buttons aquí es decisión, no omisión. BLACKLIST DE FORMAS ATESTIGUADAS (D-41-08) con audit trail: 'fo' es toscano-arcaico por faccio, 'fé' es poético por fece, 'fenno' es poético por fecero, 'facea' es poético por faceva y 'fan' es truncamiento poético de fanno. Las cinco están atestiguadas en textos reales y NINGUNA aparece como key ni como distractora en las 48 variantes. El riesgo real no es que el autor las escriba: es que la autoría las genere como distractora obviamente mala siendo formas válidas, lo que produciría un ejercicio injusto, que es el daño exacto que esta herramienta existe para evitar. La misma lógica se extiende a tres grupos más, que tampoco se usan como distractora aquí: primero, las formas de otros modos que sí existen, el congiuntivo faccia, facciate, facciano y familia, el imperativo con apóstrofe y el condizionale farei, farebbe y familia, que son casillas de las Phases 42 y 43; segundo, las palabras italianas homógrafas, faro, fava, facce y facci, que existen con otro significado o son otra forma verbal real; y tercero, dos formas que la autoría de este plan detectó y añadió a la blacklist por el mismo motivo que 'facea', a saber 'face', poético por fa, y su plural nominal 'faci', ambas atestiguadas y por tanto descartadas como distractoras del presente pese a ser el calco más obvio del castellano hace y haces. SCOPE-GATE (HARD, D-41-06) de perífrasis y modismos: el objeto de fare es SIEMPRE literal y transparente, del conjunto cerrado i compiti, un errore, il lavoro, una torta, il letto, tutto, una foto. Quedan FUERA las perífrasis y los modismos, es decir desayunar, la compra, el tiempo meteorológico, arreglárselas y el causativo con infinitivo: son vocabulario y sintaxis, no paradigma, y tendrán categoría propia el día que el autor los eche en falta. NINGUNA de las 48 variantes los cruza. La frontera es esta: lo que SÍ es in-scope es el objeto literal, y el efecto colateral buscado es que sin perífrasis no queda léxico que glosar, lo que refuerza el 0-gloss. MARCOS DISJUNTOS (D-41-11): el slot de passato remoto usa SOLO marcos narrativos remotos, un año concreto, un demostrativo remoto de periodo y un cuantificador de lejanía; el de passato prossimo usa SOLO marcos recientes o conectados con el presente. Nunca se ofrecen mutuamente como distractora, ni en un sentido ni en el otro. Razón: en el italiano real del norte el passato prossimo cubre lo que el sur expresa con passato remoto, así que una distractora cruzada sería válida para media Italia. El contraste de uso entre los dos es registro y variación regional, no una casilla del paradigma, así que queda fuera de esta fase por diseño y no por olvido. Nota de escaneo: todas las comprobaciones de ausencia de estas formas y de estas perífrasis se hacen SIEMPRE por campo, sobre prompt y sobre options, y NUNCA sobre el fichero completo, porque este notes las nombra a propósito y un grep de fichero entero se auto-invalidaría. Nota de count-sync: la sincronización de CATEGORIES en scripts/run-validation-271.mjs y de REAL_CATEGORIES en tests/fixtures/slot-variants-integration.test.js, más la fórmula del baseline-guard, son de Phase 44 e INT-02. Consecuencia verificada el 2026-08-03: mientras fare-indicativo falte de esos dos arrays el reporter NO se pone rojo, se queda CIEGO al fichero y sigue reportando su total anterior en PASS, lo que es peor que un rojo porque parece verde. El marcador honesto del trabajo pendiente de esta fase es VAL_07_STRICT=1 node --test tests/*.test.js, que sí ve el fichero gracias a la entrada nueva del smoke paramétrico CATEGORIES_WITH_EXPLANATIONS. El campo origen se estampa ya, PROV-01, porque existe en schema desde v1.9. Y la entrada de la categoría en content/categories.json (D-41-16) no es cosmética sino prerequisito de schema: schema-validator.js exige que todo valor de categoryIds referencie una categoría conocida, así que el fichero de contenido nunca puede estar en disco sin ella.",
+  "exercises": [
+    {
+      "id": "fare-indicativo-presente",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "fare-indicativo"
+      ],
+      "explanation": "El presente de indicativo de fare es irregular y reparte dos raíces entre las seis personas: io faccio, tu fai, lui/lei fa, noi facciamo, voi fate, loro fanno. La raíz larga con doble c, facc-, sale en io faccio y en noi facciamo; la raíz corta fa- sale en tu fai, en lui/lei fa y en voi fate; y la tercera del plural, fanno, va con la raíz corta más una terminación en doble n que comparte con hanno, danno y stanno. Nada de ese reparto se puede predecir mirando el infinitivo, así que se memoriza como un bloque, y merece la pena fijarse en que la doble c aparece justo en las dos personas donde el castellano también hace algo raro. El paralelo ayuda a medias: hago, haces, hace, hacemos, hacéis, hacen tiene una raíz propia en la primera persona, así que la idea de que una persona se salga del molde ya le resulta familiar al hispanohablante; lo nuevo es que aquí se salgan dos y que la tercera del plural cambie la terminación. Leyendo poesía o textos antiguos el autor puede ENCONTRAR 'fo' por faccio, 'fan' por fanno, 'facea' por faceva, 'fé' por fece y 'fenno' por fecero: son formas atestiguadas, arcaicas, dialectales o poéticas, y conviene reconocerlas al leer, pero no se PRODUCEN en italiano estándar y por eso no aparecen nunca entre las opciones de este ejercicio. Las distractoras de aquí tienen dos trampas: la primera es la raíz regularizada, la que resulta de aplicar la fac- que se ve en el imperfetto y en el gerundio a las desinencias del presente, y produce formas que no existen; la segunda es una forma REAL del paradigma pero de otra persona, que solo se descarta leyendo el pronombre sujeto del enunciado.",
+      "variants": [
+        {
+          "prompt": "Io ___ i compiti ogni giorno.",
+          "options": [
+            "faco",
+            "faccio",
+            "facio",
+            "fanno"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Di solito tu ___ il letto.",
+          "options": [
+            "fachi",
+            "facisci",
+            "fai",
+            "fate"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Adesso lui ___ una foto.",
+          "options": [
+            "fa",
+            "faca",
+            "facisce",
+            "facciamo"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Noi ___ sempre una torta.",
+          "options": [
+            "faciamo",
+            "fachiamo",
+            "fate",
+            "facciamo"
+          ],
+          "correctIndex": 3
+        },
+        {
+          "prompt": "Ogni mattina voi ___ il lavoro.",
+          "options": [
+            "facete",
+            "fate",
+            "facate",
+            "facciamo"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "In questo momento loro ___ un errore.",
+          "options": [
+            "facono",
+            "facano",
+            "fanno",
+            "faccio"
+          ],
+          "correctIndex": 2
+        }
+      ],
+      "validation": {
+        "status": "pending",
+        "passes": []
+      }
+    }
+  ]
+}
