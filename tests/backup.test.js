@@ -784,6 +784,187 @@ describe('data/backup v13 — tracer end-to-end 12→13 (Phase 40)', () => {
 });
 
 // ────────────────────────────────────────────────────────────────────────────
+// data/backup v13 — round-trip + import v12→v13 con reset de las 4 categorías
+// nuevas de v2.0 (Phase 40)
+//
+// Tras Phase 40 (D-40 / MIG-02) la cadena de backup llega hasta v13. Un export
+// del state v13 actual debe reimportarse sin "versión más nueva"; un backup v12
+// importado migra a v13 reseteando las 4 categorías nuevas (fare-indicativo,
+// fare-congiuntivo, fare-cond-imperativo, fare-indefiniti) — no-op hoy salvo
+// forward-compat: un backup futuro que ya las contenga se resetea al re-importar;
+// las 14 categorías legacy conservan su progreso byte-intacto.
+//
+// Incluye además las fronteras de versión (12 / 13 / 14, un paso a cada lado del
+// nuevo máximo) y los guards preexistentes de `schemaVersion`, que el bump NO
+// debe esquivar.
+// ────────────────────────────────────────────────────────────────────────────
+
+describe('data/backup v13 — round-trip + import v12→v13 (Phase 40)', () => {
+  // Un state v13 con progreso SOLO en categorías legacy (las preservadas).
+  function stateV13() {
+    return {
+      schemaVersion: 13,
+      exerciseStats: {
+        'preposiciones-001': { timesShown: 8, timesCorrect: 8, timesFailed: 0 },
+        'articoli-001': { timesShown: 5, timesCorrect: 4, timesFailed: 1 },
+        'presente-regolare-001': { timesShown: 3, timesCorrect: 3, timesFailed: 0 },
+        'riflessivi-001': { timesShown: 4, timesCorrect: 2, timesFailed: 2 },
+        'avere-001': { timesShown: 6, timesCorrect: 5, timesFailed: 1 }
+      },
+      categoryProgress: {
+        preposiciones: { status: 'dominada', streakDays: 21, clearedExerciseIds: ['preposiciones-001'], lastSuccessDate: '2026-06-01' },
+        articoli: { status: 'hecha', streakDays: 9, clearedExerciseIds: ['articoli-001'], lastSuccessDate: '2026-05-30' },
+        'presente-regolare': { status: 'dominada', streakDays: 11, clearedExerciseIds: ['presente-regolare-001'], lastSuccessDate: '2026-06-15' },
+        riflessivi: { status: 'hecha', streakDays: 4, clearedExerciseIds: ['riflessivi-001'], lastSuccessDate: '2026-07-20' },
+        avere: { status: 'hecha', streakDays: 6, clearedExerciseIds: ['avere-001'], lastSuccessDate: '2026-06-02' }
+      },
+      dailyLog: { '2026-08-01': { date: '2026-08-01', categoriesPracticed: ['preposiciones'], categoriesWithFailure: [] } },
+      songProgress: { 'equilibrio-mentale': { status: 'pasada', lastPlayedAt: '2026-06-02' } },
+      lastBackupAt: '2026-08-01T10:00:00.000Z',
+      firstUsedAt: '2026-04-01T08:00:00.000Z'
+    };
+  }
+
+  // Un state v12 con progreso bajo DOS de los slugs de `fare` (el par que solapa
+  // en `fare-ind`) además de una categoría legacy.
+  function stateV12WithFare() {
+    return {
+      schemaVersion: 12,
+      exerciseStats: {
+        'fare-indicativo-001': { timesShown: 5, timesCorrect: 4, timesFailed: 1 },
+        'fare-indefiniti-001': { timesShown: 3, timesCorrect: 1, timesFailed: 2 },
+        'preposiciones-001': { timesShown: 7, timesCorrect: 7, timesFailed: 0 }
+      },
+      categoryProgress: {
+        'fare-indicativo': { status: 'hecha', streakDays: 3, clearedExerciseIds: ['fare-indicativo-001'], lastSuccessDate: '2026-08-01' },
+        'fare-indefiniti': { status: 'hecha', streakDays: 2, clearedExerciseIds: ['fare-indefiniti-001'], lastSuccessDate: '2026-08-01' },
+        preposiciones: { status: 'dominada', streakDays: 21, clearedExerciseIds: ['preposiciones-001'], lastSuccessDate: '2026-06-01' }
+      },
+      dailyLog: {},
+      songProgress: {},
+      lastBackupAt: null,
+      firstUsedAt: '2026-04-01T08:00:00.000Z'
+    };
+  }
+
+  test('round-trip v13: export (buildBackupWrapper) → import (parseBackupFile) sin "versión más nueva"', () => {
+    const state = stateV13();
+    const wrapper = buildBackupWrapper(state, '2026-08-02T12:00:00.000Z');
+    assert.equal(wrapper.schemaVersion, 13, 'el wrapper espeja state.schemaVersion=13');
+    const r = parseBackupFile(JSON.stringify(wrapper));
+    assert.equal(r.ok, true, `no debe rechazarse (reason: ${r.reason})`);
+    assert.equal(r.state.schemaVersion, 13);
+    assert.equal(r.reason, undefined, 'un export propio nunca se auto-rechaza como "versión más nueva"');
+  });
+
+  test('round-trip v13 preserva el progreso de las categorías legacy intacto', () => {
+    const state = stateV13();
+    const wrapper = buildBackupWrapper(state, '2026-08-02T12:00:00.000Z');
+    const r = parseBackupFile(JSON.stringify(wrapper));
+    assert.equal(r.ok, true);
+    for (const cat of ['preposiciones', 'articoli', 'presente-regolare', 'riflessivi', 'avere']) {
+      assert.deepEqual(r.state.categoryProgress[cat], state.categoryProgress[cat],
+        `${cat} preservada byte a byte en el round-trip v13`);
+      assert.deepEqual(r.state.exerciseStats[`${cat}-001`], state.exerciseStats[`${cat}-001`]);
+    }
+    assert.deepEqual(r.state.songProgress, state.songProgress, 'songProgress byte-intacto');
+  });
+
+  test('import de backup v12 → state v13 con fare-indicativo/fare-indefiniti reseteadas (D-40-11 / MIG-02)', () => {
+    const stateIn = stateV12WithFare();
+    const wrapper = {
+      kind: 'italian-course-backup',
+      exportedAt: '2026-08-01T09:00:00.000Z',
+      schemaVersion: 12,
+      state: stateIn
+    };
+    const r = parseBackupFile(JSON.stringify(wrapper));
+    assert.equal(r.ok, true, `no debe rechazarse (reason: ${r.reason})`);
+    assert.equal(r.state.schemaVersion, 13);
+    for (const cat of ['fare-indicativo', 'fare-indefiniti']) {
+      assert.equal(r.state.categoryProgress[cat], undefined,
+        `el import v12→v13 resetea ${cat} (migrate12to13 corre en la cadena)`);
+      assert.equal(r.state.exerciseStats[`${cat}-001`], undefined,
+        `las stats de ${cat} se podan en el import`);
+    }
+    // preposiciones (categoría legacy) → byte-intacta.
+    assert.deepEqual(r.state.categoryProgress.preposiciones, stateIn.categoryProgress.preposiciones,
+      'preposiciones se preserva a través del import v12→v13');
+    assert.deepEqual(r.state.exerciseStats['preposiciones-001'], stateIn.exerciseStats['preposiciones-001']);
+  });
+
+  // Frontera de versión (edge: boundary) — un paso a cada lado del nuevo máximo.
+  test('frontera de versión: wrappers 12 y 13 se aceptan (salen en 13), 14 se rechaza con "versión más nueva"', () => {
+    for (const v of [12, 13]) {
+      const r = parseBackupFile(JSON.stringify({
+        kind: 'italian-course-backup',
+        exportedAt: '2026-08-02T12:00:00.000Z',
+        schemaVersion: v,
+        state: { schemaVersion: v, exerciseStats: {}, categoryProgress: {}, dailyLog: {}, songProgress: {}, lastBackupAt: null, firstUsedAt: null }
+      }));
+      assert.equal(r.ok, true, `schemaVersion=${v} debe aceptarse (reason: ${r.reason})`);
+      assert.equal(r.state.schemaVersion, 13, `schemaVersion=${v} debe salir hidratado en 13`);
+    }
+    const rFuturo = parseBackupFile(JSON.stringify({
+      kind: 'italian-course-backup',
+      exportedAt: '2026-08-02T12:00:00.000Z',
+      schemaVersion: 14,
+      state: { schemaVersion: 14 }
+    }));
+    assert.equal(rFuturo.ok, false, 'schemaVersion=14 está un paso por encima del nuevo máximo');
+    assert.match(rFuturo.reason, /versión más nueva/i);
+  });
+
+  // edge: empty — el guard `typeof state.schemaVersion !== 'number'` sigue
+  // disparando después del bump. `NaN` entra aquí y no en el guard de entero
+  // porque `JSON.stringify(NaN)` emite `null`: NaN no sobrevive a JSON.
+  test('schemaVersion ausente, null, cadena o NaN → "falta o no es número"', () => {
+    const casos = [
+      { nombre: 'ausente', state: { exerciseStats: {} } },
+      { nombre: 'null', state: { schemaVersion: null } },
+      { nombre: 'cadena "13"', state: { schemaVersion: '13' } },
+      { nombre: 'NaN (serializado a null por JSON.stringify)', state: { schemaVersion: NaN } }
+    ];
+    for (const caso of casos) {
+      const r = parseBackupFile(JSON.stringify({
+        kind: 'italian-course-backup',
+        exportedAt: '2026-08-02T12:00:00.000Z',
+        schemaVersion: 13,
+        state: caso.state
+      }));
+      assert.equal(r.ok, false, `${caso.nombre} debe rechazarse`);
+      assert.match(r.reason, /falta o no es número/, `${caso.nombre} → guard de tipo`);
+    }
+  });
+
+  // edge: precision — no entero o fuera de rango bajo. Sin este guard, un 12.5 no
+  // casaría ninguna rama del dispatcher y saldría hidratado a 13 como si fuera un
+  // backup válido.
+  test('schemaVersion no entero o < 1 (12.5, 13.5, 0, -1) → "schemaVersion inválido", nunca alcanza el dispatcher', () => {
+    for (const v of [12.5, 13.5, 0, -1]) {
+      const r = parseBackupFile(JSON.stringify({
+        kind: 'italian-course-backup',
+        exportedAt: '2026-08-02T12:00:00.000Z',
+        schemaVersion: v,
+        state: { schemaVersion: v, exerciseStats: {}, categoryProgress: {} }
+      }));
+      assert.equal(r.ok, false, `schemaVersion=${v} debe rechazarse`);
+      assert.match(r.reason, /schemaVersion inválido/, `schemaVersion=${v} → guard de entero`);
+      assert.equal(r.state, undefined, `schemaVersion=${v} no debe hidratarse silenciosamente a 13`);
+    }
+  });
+
+  // El único no-finito alcanzable a través de JSON: `1e999` parsea a Infinity
+  // (NaN e Infinity no son literales JSON válidos, pero un exponente enorme sí).
+  test('schemaVersion no finito (1e999 → Infinity) → "schemaVersion inválido"', () => {
+    const raw = '{"kind":"italian-course-backup","exportedAt":"2026-08-02T12:00:00.000Z","schemaVersion":1e999,"state":{"schemaVersion":1e999}}';
+    const r = parseBackupFile(raw);
+    assert.equal(r.ok, false);
+    assert.match(r.reason, /schemaVersion inválido/);
+  });
+});
+
+// ────────────────────────────────────────────────────────────────────────────
 // data/backup — parseBackupFile error paths (los 6 rejects + prototype pollution)
 // ────────────────────────────────────────────────────────────────────────────
 
