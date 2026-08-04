@@ -71,8 +71,23 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-04",
+            "verdict": "correcta",
+            "concerns": [
+              "[D-41-05 NO-gloss] SIN gloss ES en este slot: el espanol mapea 1:1 la casilla (hago / haces / hace), asi que cualquier gloss sobre el verbo regala el tiempo — leak R1 directo en una categoria cuyo ejercicio ES elegir el tiempo. El marco temporal del prompt es el unico desambiguador. Decision razonada D-41-05, no omision."
+            ]
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-04",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
@@ -145,8 +160,23 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-04",
+            "verdict": "correcta",
+            "concerns": [
+              "[D-41-05 NO-gloss] SIN gloss ES en este slot: el espanol mapea 1:1 la casilla (hacia), asi que cualquier gloss sobre el verbo regala el tiempo — leak R1 directo en una categoria cuyo ejercicio ES elegir el tiempo. El marco temporal del prompt es el unico desambiguador. Decision razonada D-41-05, no omision."
+            ]
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-04",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
@@ -308,8 +338,29 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-04",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[D-41-05 NO-gloss] SIN gloss ES en este slot: el espanol mapea 1:1 la casilla (hice), asi que cualquier gloss sobre el verbo regala el tiempo — leak R1 directo en una categoria cuyo ejercicio ES elegir el tiempo. El marco temporal del prompt es el unico desambiguador. Decision razonada D-41-05, no omision.",
+              "[C4-explanation] afirmacion falsa sobre el castellano: dice que 'hice, hiciste, hizo, hicimos, hicisteis, hicieron ... tambien la reparte por personas'. El preterito de 'hacer' tiene una sola raiz hic- en las seis personas ('hizo' es la misma raiz con ajuste ortografico z/c ante o), no reparte dos raices por persona. La conclusion 'la idea de que un mismo tiempo cambie de raiz no le resulta nueva al hispanohablante' se apoya en una premisa falsa y ademas invierte la realidad pedagogica: precisamente porque el castellano mantiene raiz uniforme, la alternancia fec-/fac- resulta ajena al alumno.",
+              "[C4-explanation] atajo autocontradictorio: 'el atajo util es que las personas de raiz corta son justo las que en cualquier verbo llevan desinencia tonica'. Si 'raiz corta' designa las formas breves (feci/fece/fecero), contradice la frase anterior, que dice que en esas tres el acento cae DENTRO de la raiz; si designa fac-, la etiqueta es incorrecta porque fac- es la raiz plena heredada de facere. En ninguna lectura el alumno obtiene una regla utilizable.",
+              "[C4-explanation] descripcion inexacta de las distractoras: dice que la segunda trampa 'conjuga fare como si fuera un verbo regular en -are', pero 'facetti' (variante io) y 'facerono' (variante loro) siguen patrones regulares de -ere (tipo credetti / venderono), no de -are."
+            ]
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-04",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] La explanation afirma que el preterito espanol de 'hacer' (hice, hiciste, hizo, hicimos, hicisteis, hicieron) 'tambien la reparte por personas', sugiriendo una alternancia de raiz por persona analoga a fec-/fac-. Es falso: el preterito espanol usa UNA SOLA raiz ('hic-') en las seis personas ('hizo' es la misma raiz con ajuste ortografico c/z ante o). El paralelismo presentado como 'apoyo casi exacto' es inexacto y puede confundir al alumno sobre el fenomeno concreto que esta aprendiendo.",
+              "[C4-explanation] La taxonomia de 'dos trampas' es incompleta: varios distractores no encajan en ninguna de las dos. 'fecero' (variante io) y 'fecero' (variante lui) SI existen como forma real de fare (es la de loro), igual que 'fece' (variante loro) es la real de lui — ni cruzan fec-/fac- ni son invenciones '-are regular'. Son un tercer tipo de trampa (forma real de OTRA persona) que la descripcion no reconoce."
+            ]
+          }
+        ]
       }
     },
     {
@@ -382,8 +433,26 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-04",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[D-41-05 NO-gloss] SIN gloss ES en este slot: el espanol mapea 1:1 la casilla (he hecho), asi que cualquier gloss sobre el verbo regala el tiempo — leak R1 directo en una categoria cuyo ejercicio ES elegir el tiempo. El marco temporal del prompt es el unico desambiguador. Decision razonada D-41-05, no omision.",
+              "[C4-explanation] la explanation afirma en absoluto 'y sono fatto no es italiano', lo cual es falso y contradice la clausula inmediatamente anterior ('fare con objeto directo pide avere siempre'): 'sono fatto' es italiano corriente en lectura copulativa/pasiva ('sono fatto cosi', 'e fatto di legno'). Lo que invalida el distractor en las variantes 1, 4 y 6 no es que la secuencia no exista, sino que el objeto directo (i compiti / una torta / un errore) impide leerla como pasiva, mas la discordancia de 'siamo fatto'. Tal como esta redactada ensena un dato falso; deberia limitarse a la condicion correcta (con objeto directo el auxiliar es avere, nunca essere)."
+            ]
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-04",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] la explanation afirma sin matizar 'sono fatto no es italiano', pero 'sono fatto' SI existe como expresion coloquial italiana valida; lo invalido es su uso como passato prossimo transitivo de fare con objeto directo, no la locucion en si. La afirmacion absoluta es una inexactitud que puede contradecir lo que el alumno encuentre despues en italiano real. Fix sugerido: acotar a 'sono fatto + objeto directo no es italiano (essere no se combina con fare transitivo)'."
+            ]
+          }
+        ]
       }
     },
     {
@@ -634,8 +703,29 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-04",
+            "verdict": "correcta",
+            "concerns": [
+              "[D-41-05 NO-gloss] SIN gloss ES en este slot: el espanol mapea 1:1 la casilla (hube hecho), asi que cualquier gloss sobre el verbo regala el tiempo — leak R1 directo en una categoria cuyo ejercicio ES elegir el tiempo. El marco temporal del prompt es el unico desambiguador. Decision razonada D-41-05, no omision."
+            ]
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-04",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-08-04",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     }
   ]
