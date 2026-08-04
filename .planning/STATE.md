@@ -2,13 +2,13 @@
 gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Paradigma completo de `fare` (4 categorías por modo)
-current_phase: 41
-current_phase_name: "`fare-indicativo` — 8 slots (el bloque grande)"
-status: verifying
+current_phase: 42
+current_phase_name: "`fare-congiuntivo` — 4 slots (homógrafas + disparador)"
+status: planning
 stopped_at: Completed 41-02-PLAN.md
-last_updated: "2026-08-03T18:34:05.859Z"
-last_activity: 2026-08-03
-last_activity_desc: Phase 41 execution started
+last_updated: "2026-08-04T11:06:46.788Z"
+last_activity: 2026-08-04
+last_activity_desc: Phase 41 complete, transitioned to Phase 42
 progress:
   total_phases: 5
   completed_phases: 2
@@ -25,14 +25,14 @@ See: `.planning/PROJECT.md` (updated 2026-07-28 — Milestone v2.0 ABIERTO: para
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 41 — `fare-indicativo` — 8 slots (el bloque grande)
+**Current Focus:** Phase 42 — `fare-congiuntivo` — 4 slots (homógrafas + disparador)
 
 ## Current Position
 
-Phase: 41 (`fare-indicativo` — 8 slots (el bloque grande)) — EXECUTING
-Plan: 2 of 2
-Status: Phase complete — ready for verification
-Last activity: 2026-08-03 — Phase 41 execution started
+Phase: 42 — `fare-congiuntivo` — 4 slots (homógrafas + disparador)
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-08-04 — Phase 41 complete, transitioned to Phase 42
 
 Progress: [██████████] 100%
 
@@ -322,11 +322,13 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Session Continuity
 
-**Last session:** 2026-08-03T18:33:51.739Z
-**Stopped at:** Completed 41-02-PLAN.md
+**Last session:** 2026-08-04
+**Stopped at:** Phase 41 complete (UAT 2/2 pass, 8/8 validated), ready to plan Phase 42
 **Resume file:** None
 
 ### Last Session
+
+- **Fecha:** 2026-08-04 — **Phase 41 (`fare-indicativo`, 8 slots) VERIFICADA Y COMPLETA.** UAT 2/2 pass, gap G-41-1 resuelto, `41-VERIFICATION.md` canonizado a `passed`, ROADMAP/STATE avanzados a Phase 42. **La pasada TOP-LEVEL de quórum base se corrió en esta sesión** (era la mitad mecánica de SC-4 que D-41-15 dejó fuera del executor: el quórum canónico spawnea Task subagents y no está disponible dentro de `gsd-executor` ni del verificador). `claude-opus-5` + `claude-sonnet-5`, **un subagent por ejercicio con contexto fresco y aislado — nunca batched (VAL-03)**, más la ronda EXTRA `deepseek-reasoner` obligatoria (D-41-12) sobre `passato-remoto` y `trapassato-remoto`. **NO pasó a la primera: 5/8 → 6/8 → 8/8, con 3 rondas de accept-fix y 6 defectos editoriales reales corregidos, TODOS en `explanation`, ninguno en las 48 variantes ni en las keys.** Ronda 1: `presente` [C4] (afirmación falsa — "la doble c sale en las dos personas donde el castellano también hace algo raro", pero `hacemos` es regular y el propio párrafo lo desmentía dos líneas después — + registro de curador), `passato-remoto` [C4] cazado SOLO por la ronda EXTRA DeepSeek (Opus y Sonnet lo habían dado correcta), `trapassato-remoto` [C2] por las 2 variantes con `quando` (disputa 2-vs-1). **Hallazgo sistémico:** el registro de curador ("el autor puede ENCONTRAR", "no aparecen nunca entre las opciones de este ejercicio") estaba en **5 de las 8** explanations, e `imperfetto` lo arrastraba **con status `validated`** — falso negativo de los 2 pases Claude sobre el mismo defecto que otro vendor marcó en sus hermanos. Ronda 2 (tras el fix): 2 hallazgos NUEVOS **por unanimidad Opus+Sonnet**, no disputas 1-vs-1 — `passato-remoto` [C4] "el pretérito castellano reparte la raíz por personas" es falso (`hacer` tiene raíz única `hic-`), el atajo de la raíz corta era autocontradictorio y la taxonomía de "dos trampas" no cubría la distractora que es forma real de otra persona; `passato-prossimo` [C4] "y sono fatto no es italiano" es falso en absoluto (existe en lectura copulativa; lo que lo invalida es el objeto directo). Ronda 3: la apertura de `passato-remoto` afirmaba por exclusividad ser "la casilla donde la raíz alterna dentro de un mismo tiempo", pero el presente ya alterna `facc-`/`fa-`. **La objeción C2 del `quando` NO reapareció** tras el re-pase: Opus, Sonnet y `deepseek-reasoner` coinciden en que C2/R7 se juega sobre las opciones OFRECIDAS y ninguna forma válida alternativa está entre ellas → el override del autor quedó innecesario y se conserva el reparto deliberado 2 `dopo che` + 2 `appena` + 2 `quando`. Las 5 adjudicaciones del backstop lingüístico (test 2) quedan registradas como **concerns declarativas** en el pase Opus de los slots afectados (mirror de `content/exercises/riflessivi.json:245`): `quando`, `facetti`/`facerono` (los 3 pases coinciden en que NO son atestiguadas para esas personas — la autoría las había marcado como no descartadas con certeza), colocación preverbal de `già` (atestiguada y enfática, estructuralmente necesaria porque el hueco absorbe el compuesto entero), `essere + fatto` (bloqueo estructural por objeto directo, doble en noi/loro por discordancia), y la **ratificación de CR-01**. Gate final: **`VAL_07_STRICT=1 node --test tests/*.test.js` → 781/781, 0 fallos**; `tests/content-fare-indicativo.test.js` 62/62 con `status === deriveStatus(passes)` en los 8. **WR-01 / WR-04 / WR-05 del code review SIGUEN ABIERTOS** y el UAT declara explícitamente que no los cierra: son juicios de diseño del ejercicio (colapso de discriminación efectiva, explanations que no nombran la familia de distractora), no de validez lingüística. Commits: `60453b7` (quórum ronda 1) · `02d4ae2` (UAT issue) · `419f2e4` (fix C4 curador) · `fd663a8` (ronda 2) · `6437756` (fix C4 afirmaciones falsas) · `ef7bb4f` (ronda 3, 8/8) · UAT completo + backstop. Stopped at: Phase 41 completa. Resume file: None. Siguiente: `/gsd-discuss-phase 42`.
 
 - **Fecha:** 2026-07-28 — **Roadmap del milestone v2.0 (Paradigma completo de `fare`, 4 categorías por modo) creado por el roadmapper.** Numeración CONTINÚA desde Phase 39 → **Phases 40-44, NO reset**. Sin research (el autor la saltó: diseño ya cerrado en FARE-X1). 5 fases coarse siguiendo el patrón validado en v1.5/v1.6/v1.7/v1.9 (**migración → contenido por bloques de categorías → integración lockstep**): **Phase 40** migración `12→13` con reset selectivo preventivo de las 4 nuevas (MIG-01/02, TDD, sin contenido, VA PRIMERA); **Phase 41** `fare-indicativo` 8 slots ≈48 variantes (IND-01..06); **Phase 42** `fare-congiuntivo` 4 slots ≈24 variantes (CONG-01..04); **Phase 43** `fare-cond-imperativo` + `fare-indefiniti` 3+6 slots ≈35 variantes (CI-01..03 + INDEF-01..04) — dos categorías en una fase por volumen de quórum, sin fusionar unidades de reset; **Phase 44** integración lockstep + cierre (INT-01..04). **Cobertura 23/23 mapped, 0 orphans, 0 duplicados.** Dependencias: 41/42/43 dependen solo de 40 y son independientes entre sí; 44 depende de las tres. Estado del codebase verificado en disco: schemaVersion 12, 14 categorías, 225 slots, D-54 = 2 call-sites. Archivos escritos: `.planning/ROADMAP.md` (histórico v1.0-v1.9 PRESERVADO + sección v2.0 ACTIVE + Phase Details 40-44 + 5 filas de Progress + Backlog actualizado), `.planning/REQUIREMENTS.md` (Traceability 23 filas + Coverage + mapping rationale), `.planning/STATE.md` (este). Stopped at: roadmap creado. Resume file: None. Siguiente: `/gsd-plan-phase 40`.
 
