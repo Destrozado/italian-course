@@ -1,10 +1,12 @@
 ---
 phase: 41-fare-indicativo-8-slots-el-bloque-grande
 verified: 2026-08-03T19:19:03Z
-status: human_needed
-score: 12/13 must-haves verified (1 routed to human_needed by design — SC-4's quorum closure)
+status: passed
+score: 13/13 must-haves verified (SC-4's quorum closure resolved top-level on 2026-08-04 — see 41-UAT.md)
 behavior_unverified: 0
 overrides_applied: 0
+human_verification_resolved: 2026-08-04
+human_verification_outcome: "Ambos items PASS. La pasada top-level de quórum (claude-opus-5 + claude-sonnet-5, 1 subagent por ejercicio, nunca batched, más la ronda EXTRA deepseek-reasoner sobre los 2 slots remotos) dejó los 8 slots en validated y VAL_07_STRICT en 781/781. NO pasó a la primera: 5/8 → 6/8 → 8/8, con 3 rondas de accept-fix sobre 6 defectos editoriales reales, todos en explanation y ninguno en las 48 variantes ni en las keys (commits 60453b7, 419f2e4, fd663a8, 6437756, ef7bb4f). El backstop lingüístico se pronunció sobre los 5 puntos señalados y quedan registrados como concerns declarativas en el pase Opus. WR-01/WR-04/WR-05 siguen abiertos: son juicios de diseño del ejercicio, no de validez lingüística, y este UAT declara que no los cierra."
 human_verification:
   - test: "Correr la pasada TOP-LEVEL de quórum base (Opus+Sonnet vía gsd-validate-exercise) sobre los 8 slots de fare-indicativo.json, 1 ejercicio por contexto (VAL-03), más la ronda EXTRA DeepSeek obligatoria (D-41-12) sobre fare-indicativo-passato-remoto y fare-indicativo-trapassato-remoto, y la re-declaración local del 0-gloss en concerns de cada pase Opus."
     expected: "Los 8 slots quedan validation.status: 'validated' con >=2 passes 'correcta' de 'by' distintos y 0 'incorrecta'; VAL_07_STRICT=1 node --test tests/*.test.js pasa a verde; tests/content-fare-indicativo.test.js sigue verde con status === deriveStatus(passes)."
@@ -19,8 +21,8 @@ human_verification:
 **Phase Goal:** El autor puede ser examinado sobre el indicativo completo de `fare` — 4 tiempos simples (presente, imperfetto, passato remoto, futuro semplice) y 4 compuestos (passato prossimo, trapassato prossimo, trapassato remoto, futuro anteriore) — como UNA sola categoría nacida en slot+variantes, con la persona como eje de variante (la rota `pickVariantIndex`, sin código nuevo) y todas las variantes validadas 1-por-1 por quórum cross-vendor R1-R7.
 
 **Verified:** 2026-08-03T19:19:03Z
-**Status:** human_needed
-**Re-verification:** No — initial verification
+**Status:** passed — human verification resuelta el 2026-08-04 (ver `41-UAT.md`)
+**Re-verification:** No — initial verification, cerrada tras la pasada top-level de quórum
 
 ## Goal Achievement
 
@@ -32,7 +34,7 @@ human_verification:
 | 2 | SC-2: 3 compuestos vivos con `avere`+`fatto`, TIEMPO DEL AUXILIAR según marco, sin doble lectura (R7) | ✓ VERIFIED (backstop parcial, ver ítem 13) | Invariante de 2 palabras con `fatto`/`fare` como segunda confirmada en las 96 opciones compuestas; CR-01 (doble validez epistémica de `avrà fatto`/`avranno fatto` en 4 variantes de `passato-prossimo`/`trapassato-prossimo`) encontrada por code review y corregida en `a613252`/`cc212ff` — confirmado en disco: las 4 variantes ahora usan `ebbe fatto`/`ebbero fatto`, inequívocamente bloqueadas por el marco reciente/de-anterioridad-pasada de cada slot |
 | 3 | SC-3: trapassato remoto SIEMPRE en su marco (subordinada + principal en passato remoto), explanation explícita | ✓ VERIFIED | Los 6 prompts reparten `dopo che`/`quando`/`appena` 2+2+2 exactamente; los 6 verbos principales están en passato remoto y ninguno es forma de `fare`; explanation contiene literalmente "Fuera de ese marco la forma no se usa"; las 2 variantes `quando` no ofrecen auxiliar en imperfetto ni forma simple, así que la lectura queda única por los 2 mecanismos declarados |
 | 4a | SC-4 (mitad mecánica): canon editorial heredado + 0 leak R1 | ✓ VERIFIED | `node --test tests/*.test.js` → 766/766 (821/821 con fixtures); sub-tests editoriales de `CATEGORIES_WITH_EXPLANATIONS` en verde; 0 `<`/`>`/`&#`/`javascript:`/smart-quotes/`__proto__` en el fichero (comprobado directamente) |
-| 4b | SC-4 (mitad de fondo): las 48 variantes quedan `validation.status: validated` por quórum Opus+Sonnet | ✗ NOT MET — **outstanding by design, no fabricado** | Los 8 slots están en `status: "pending"` con `passes: []`; `VAL_07_STRICT=1 node --test tests/*.test.js` falla nombrando exactamente los 8 slots `(pending)` — el marcador honesto declarado en ambos SUMMARY. El quórum canónico corre TOP-LEVEL, fuera del alcance del executor y de este verificador (D-41-15). Routed a Human Verification #1 |
+| 4b | SC-4 (mitad de fondo): las 48 variantes quedan `validation.status: validated` por quórum Opus+Sonnet | ✓ VERIFIED **el 2026-08-04, no en la verificación inicial** | En la verificación inicial: ✗ NOT MET, outstanding by design y no fabricado — los 8 slots en `status: "pending"` con `passes: []`, con `VAL_07_STRICT` fallando y nombrándolos, el marcador honesto declarado en ambos SUMMARY. El quórum canónico corre TOP-LEVEL, fuera del alcance del executor y de este verificador (D-41-15), así que se enrutó a Human Verification #1. **Cerrado el 2026-08-04:** pasada top-level `claude-opus-5` + `claude-sonnet-5` (1 subagent por ejercicio, contexto fresco, nunca batched — VAL-03) + ronda EXTRA `deepseek-reasoner` (D-41-12) → 8/8 `validated`, `VAL_07_STRICT` 781/781. Requirió 3 rondas de accept-fix sobre 6 defectos editoriales reales en `explanation` (ninguno en las 48 variantes ni en las keys); ver `41-UAT.md` para el recorrido y los commits |
 | 5 | SC-5: la categoría carga en boot y aparece en home/picker/Repaso/Examen sin una línea de motor nueva | ✓ VERIFIED | `git diff --stat src/screens/app.js src/domain/ src/data/` → vacío; `categoriesForDisplay` (`src/screens/app.js:3238-3248`) mapea `content.categories` 1:1 genéricamente; `pickVariantIndex` (`src/domain/session.js:232`) inalterado y sirve cualquier `N` de variantes por construcción; entrada de `fare-indicativo` presente y correcta en `categories.json` (15ª, `order:15`, `origen:"ia-quorum"`) |
 | 6 | D-41-01: 48 = 8 slots × 6 variantes exactas, sin repetir persona | ✓ VERIFIED | `exercises.length === 8`, `Σ variants.length === 48`, las 8 keys-sets coinciden exactamente con `CANON` del test, sin duplicados |
 | 7 | D-41-05: 0-gloss — cero `(`/`)` ni `espa` en los 48 prompts | ✓ VERIFIED | Escaneo directo sobre los 48 `prompt`: 0 coincidencias con `(`, `)`, `espa` |
@@ -102,6 +104,7 @@ Ninguno de nivel BLOQUEANTE. 0 marcadores de deuda (`TBD`/`FIXME`/`XXX`) en los 
 | Varios | IN-01..04: audit-trail vacuo mientras `pending`, higiene no cubre `categories.json`, SCOPE-GATE cubre 4/5 familias, blacklist solo sobre `options` | ℹ️ INFO (abierto, conocido) | Cosméticos, no afectan el goal de esta fase |
 
 **Hallazgos ya cerrados y confirmados en disco durante esta verificación:**
+
 - **CR-01 (crítico)** — doble validez epistémica de `avrà fatto`/`avranno fatto` en 4 variantes: confirmado corregido en `a613252` + `cc212ff`, verificado leyendo el JSON resultante y razonando sobre el marco de cada variante afectada.
 - **WR-03 (warning)** — blacklist de "inexistentes" cubría solo 5/16 formas: confirmado cerrado en `eb086d8`, verificado leyendo el `Set ATESTIGUADAS` (27 formas) y su uso en el bloque 6 del test.
 
