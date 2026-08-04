@@ -71,8 +71,25 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-04",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[D-41-05 NO-gloss] SIN gloss ES en este slot: el espanol mapea 1:1 la casilla (hago / haces / hace), asi que cualquier gloss sobre el verbo regala el tiempo — leak R1 directo en una categoria cuyo ejercicio ES elegir el tiempo. El marco temporal del prompt es el unico desambiguador. Decision razonada D-41-05, no omision.",
+              "[C4-explanation] la explanation se contradice y afirma algo falso sobre el castellano: dice 'la doble c aparece justo en las dos personas donde el castellano tambien hace algo raro' (io faccio / noi facciamo), pero en castellano solo la primera persona es irregular ('hago'); 'hacemos' es regular. La frase siguiente lo desmiente ('tiene una raiz propia en la primera persona... lo nuevo es que aqui se salgan dos'), asi que el alumno que acaba de fallar lee una regla y su refutacion en el mismo parrafo.",
+              "[C4-explanation] registro de curador dentro de la explanation (R4): 'Leyendo poesia o textos antiguos el autor puede ENCONTRAR fo por faccio...' habla del autor en tercera persona en vez de dirigirse al alumno, y 'por eso no aparecen nunca entre las opciones de este ejercicio' explica la politica editorial de construccion del pool de opciones. Ese rationale de curaduria pertenece a notes, no a la explanation que se renderiza tras fallar."
+            ]
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-04",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
@@ -145,8 +162,23 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-04",
+            "verdict": "correcta",
+            "concerns": [
+              "[D-41-05 NO-gloss] SIN gloss ES en este slot: el espanol mapea 1:1 la casilla (hacia), asi que cualquier gloss sobre el verbo regala el tiempo — leak R1 directo en una categoria cuyo ejercicio ES elegir el tiempo. El marco temporal del prompt es el unico desambiguador. Decision razonada D-41-05, no omision."
+            ]
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-04",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
@@ -219,8 +251,23 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-04",
+            "verdict": "correcta",
+            "concerns": [
+              "[D-41-05 NO-gloss] SIN gloss ES en este slot: el espanol mapea 1:1 la casilla (hare), asi que cualquier gloss sobre el verbo regala el tiempo — leak R1 directo en una categoria cuyo ejercicio ES elegir el tiempo. El marco temporal del prompt es el unico desambiguador. Decision razonada D-41-05, no omision."
+            ]
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-04",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
@@ -293,8 +340,31 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-04",
+            "verdict": "correcta",
+            "concerns": [
+              "[D-41-05 NO-gloss] SIN gloss ES en este slot: el espanol mapea 1:1 la casilla (hice), asi que cualquier gloss sobre el verbo regala el tiempo — leak R1 directo en una categoria cuyo ejercicio ES elegir el tiempo. El marco temporal del prompt es el unico desambiguador. Decision razonada D-41-05, no omision."
+            ]
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-04",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-08-04",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] la explanation no está enfocada al alumno: habla del autor en tercera persona ('que es el registro en el que el autor lo va a encontrar', 'el autor puede ENCONTRAR...') e incluye meta-comentario de curaduría sobre el diseño del ejercicio ('por eso no aparecen nunca entre las opciones de este ejercicio', 'las distractoras de aquí...'). Eso es material de notas internas, no explicación pedagógica para quien acaba de fallar; viola R4."
+            ]
+          }
+        ]
       }
     },
     {
@@ -367,8 +437,23 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-04",
+            "verdict": "correcta",
+            "concerns": [
+              "[D-41-05 NO-gloss] SIN gloss ES en este slot: el espanol mapea 1:1 la casilla (he hecho), asi que cualquier gloss sobre el verbo regala el tiempo — leak R1 directo en una categoria cuyo ejercicio ES elegir el tiempo. El marco temporal del prompt es el unico desambiguador. Decision razonada D-41-05, no omision."
+            ]
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-04",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
@@ -441,8 +526,23 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-04",
+            "verdict": "correcta",
+            "concerns": [
+              "[D-41-05 NO-gloss] SIN gloss ES en este slot: el espanol mapea 1:1 la casilla (habia hecho), asi que cualquier gloss sobre el verbo regala el tiempo — leak R1 directo en una categoria cuyo ejercicio ES elegir el tiempo. El marco temporal del prompt es el unico desambiguador. Decision razonada D-41-05, no omision."
+            ]
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-04",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
@@ -515,8 +615,23 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-04",
+            "verdict": "correcta",
+            "concerns": [
+              "[D-41-05 NO-gloss] SIN gloss ES en este slot: el espanol mapea 1:1 la casilla (habre hecho), asi que cualquier gloss sobre el verbo regala el tiempo — leak R1 directo en una categoria cuyo ejercicio ES elegir el tiempo. El marco temporal del prompt es el unico desambiguador. Decision razonada D-41-05, no omision."
+            ]
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-04",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
@@ -589,8 +704,31 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-04",
+            "verdict": "correcta",
+            "concerns": [
+              "[D-41-05 NO-gloss] SIN gloss ES en este slot: el espanol mapea 1:1 la casilla (hube hecho), asi que cualquier gloss sobre el verbo regala el tiempo — leak R1 directo en una categoria cuyo ejercicio ES elegir el tiempo. El marco temporal del prompt es el unico desambiguador. Decision razonada D-41-05, no omision."
+            ]
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-04",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C2-una_opcion] Las variantes 2 y 5 usan 'quando' como conjuncion temporal, pero a diferencia de 'dopo che' (variantes 1 y 4, que fuerza anterioridad explicita) y 'appena' (variantes 3 y 6, que implica sucesion inmediata), 'quando' no exige marcar anterioridad estricta: un hablante nativo completaria igual de naturalmente 'Quando tu facesti il letto, tua madre torno' o 'Quando voi faceste una foto, il treno parti' con el passato remoto simple, sin que la frase se vuelva agramatical ni rara. Esa forma no esta entre las opciones ofrecidas, asi que no genera ambiguedad dentro del MC en si, pero si revela que el marco 'quando + passato remoto' no aisla de forma univoca el trapassato remoto como unica lectura defendible del hueco (a diferencia de dopo che/appena), lo que debilita la premisa pedagogica de que solo hay un tiempo verbal correcto para ese contexto temporal. Sugerencia: sustituir 'quando' por 'dopo che' o 'appena' en esas dos variantes, o reforzar el marco con un adverbio de inmediatez que refuerce la anterioridad estricta."
+            ]
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-08-04",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     }
   ]
