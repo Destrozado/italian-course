@@ -7,7 +7,7 @@
       "categoryIds": [
         "fare-indicativo"
       ],
-      "explanation": "El presente de indicativo de fare es irregular y reparte dos raíces entre las seis personas: io faccio, tu fai, lui/lei fa, noi facciamo, voi fate, loro fanno. La raíz larga con doble c, facc-, sale en io faccio y en noi facciamo; la raíz corta fa- sale en tu fai, en lui/lei fa y en voi fate; y la tercera del plural, fanno, va con la raíz corta más una terminación en doble n que comparte con hanno, danno y stanno. Nada de ese reparto se puede predecir mirando el infinitivo, así que se memoriza como un bloque, y merece la pena fijarse en que la doble c aparece justo en las dos personas donde el castellano también hace algo raro. El paralelo ayuda a medias: hago, haces, hace, hacemos, hacéis, hacen tiene una raíz propia en la primera persona, así que la idea de que una persona se salga del molde ya le resulta familiar al hispanohablante; lo nuevo es que aquí se salgan dos y que la tercera del plural cambie la terminación. Leyendo poesía o textos antiguos el autor puede ENCONTRAR 'fo' por faccio, 'fan' por fanno, 'facea' por faceva, 'fé' por fece y 'fenno' por fecero: son formas atestiguadas, arcaicas, dialectales o poéticas, y conviene reconocerlas al leer, pero no se PRODUCEN en italiano estándar y por eso no aparecen nunca entre las opciones de este ejercicio. Las distractoras de aquí tienen dos trampas: la primera es la raíz regularizada, la que resulta de aplicar la fac- que se ve en el imperfetto y en el gerundio a las desinencias del presente, y produce formas que no existen; la segunda es una forma REAL del paradigma pero de otra persona, que solo se descarta leyendo el pronombre sujeto del enunciado.",
+      "explanation": "El presente de indicativo de fare es irregular y reparte dos raíces entre las seis personas: io faccio, tu fai, lui/lei fa, noi facciamo, voi fate, loro fanno. La raíz larga con doble c, facc-, sale en io faccio y en noi facciamo; la raíz corta fa- sale en tu fai, en lui/lei fa y en voi fate; y la tercera del plural, fanno, va con la raíz corta más una terminación en doble n que comparte con hanno, danno y stanno. Nada de ese reparto se puede predecir mirando el infinitivo, así que se memoriza como un bloque. El paralelo con el castellano ayuda a medias: hago, haces, hace, hacemos, hacéis, hacen tiene una raíz propia en la primera persona, así que la idea de que una persona se salga del molde ya le resulta familiar al hispanohablante; lo nuevo es que aquí se salgan dos y que la tercera del plural cambie la terminación. Leyendo poesía o textos antiguos vas a encontrar 'fo' por faccio, 'fan' por fanno, 'facea' por faceva, 'fé' por fece y 'fenno' por fecero: son formas atestiguadas, arcaicas, dialectales o poéticas, y conviene reconocerlas al leer, pero no se PRODUCEN en italiano estándar. Las distractoras tienen dos trampas: la primera es la raíz regularizada, la que resulta de aplicar la fac- que se ve en el imperfetto y en el gerundio a las desinencias del presente, y produce formas que no existen; la segunda es una forma REAL del paradigma pero de otra persona, que solo se descarta leyendo el pronombre sujeto del enunciado.",
       "variants": [
         {
           "prompt": "Io ___ i compiti ogni giorno.",
@@ -71,25 +71,8 @@
         }
       ],
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "claude-opus-5",
-            "date": "2026-08-04",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[D-41-05 NO-gloss] SIN gloss ES en este slot: el espanol mapea 1:1 la casilla (hago / haces / hace), asi que cualquier gloss sobre el verbo regala el tiempo — leak R1 directo en una categoria cuyo ejercicio ES elegir el tiempo. El marco temporal del prompt es el unico desambiguador. Decision razonada D-41-05, no omision.",
-              "[C4-explanation] la explanation se contradice y afirma algo falso sobre el castellano: dice 'la doble c aparece justo en las dos personas donde el castellano tambien hace algo raro' (io faccio / noi facciamo), pero en castellano solo la primera persona es irregular ('hago'); 'hacemos' es regular. La frase siguiente lo desmiente ('tiene una raiz propia en la primera persona... lo nuevo es que aqui se salgan dos'), asi que el alumno que acaba de fallar lee una regla y su refutacion en el mismo parrafo.",
-              "[C4-explanation] registro de curador dentro de la explanation (R4): 'Leyendo poesia o textos antiguos el autor puede ENCONTRAR fo por faccio...' habla del autor en tercera persona en vez de dirigirse al alumno, y 'por eso no aparecen nunca entre las opciones de este ejercicio' explica la politica editorial de construccion del pool de opciones. Ese rationale de curaduria pertenece a notes, no a la explanation que se renderiza tras fallar."
-            ]
-          },
-          {
-            "by": "claude-sonnet-5",
-            "date": "2026-08-04",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -98,7 +81,7 @@
       "categoryIds": [
         "fare-indicativo"
       ],
-      "explanation": "El imperfetto de indicativo de fare es el tiempo más regular de todo el paradigma, y lo es en cuanto se acepta que la raíz de este verbo no es la que se ve en el infinitivo: el latín facere dejó en italiano una raíz fac- que el infinitivo contrajo hasta fare, pero que el imperfetto conserva entera en las seis personas: io facevo, tu facevi, lui/lei faceva, noi facevamo, voi facevate, loro facevano. Sobre esa raíz caen las desinencias normales del imperfetto, -evo, -evi, -eva, -evamo, -evate, -evano, así que quien reconoce la raíz ya tiene el tiempo completo y no hay ninguna persona que se salga del molde, al contrario de lo que pasa en el presente y en el passato remoto. El castellano ayuda aquí más que en ningún otro tiempo de fare: hacía, hacías, hacía, hacíamos, hacíais, hacían también conserva la c que el infinitivo hacer mantiene a la vista, así que la intuición del hispanohablante apunta por una vez en la dirección correcta. Leyendo poesía o textos antiguos el autor puede ENCONTRAR 'facea' por faceva: es una forma atestiguada y conviene reconocerla al leer, pero no se PRODUCE en italiano estándar y por eso no aparece nunca entre las opciones de este ejercicio. Las distractoras de aquí tienen dos trampas: la primera importa la raíz contracta del futuro y del condizionale, far-, y le pega las desinencias del imperfetto, con lo que sale una forma que suena italiana y no existe; la segunda trata fare como un verbo regular en -are y le pega las desinencias de la primera conjugación sobre la raíz fac-, que es el mismo reflejo que hace escribir el presente con una sola c.",
+      "explanation": "El imperfetto de indicativo de fare es el tiempo más regular de todo el paradigma, y lo es en cuanto se acepta que la raíz de este verbo no es la que se ve en el infinitivo: el latín facere dejó en italiano una raíz fac- que el infinitivo contrajo hasta fare, pero que el imperfetto conserva entera en las seis personas: io facevo, tu facevi, lui/lei faceva, noi facevamo, voi facevate, loro facevano. Sobre esa raíz caen las desinencias normales del imperfetto, -evo, -evi, -eva, -evamo, -evate, -evano, así que quien reconoce la raíz ya tiene el tiempo completo y no hay ninguna persona que se salga del molde, al contrario de lo que pasa en el presente y en el passato remoto. El castellano ayuda aquí más que en ningún otro tiempo de fare: hacía, hacías, hacía, hacíamos, hacíais, hacían también conserva la c que el infinitivo hacer mantiene a la vista, así que la intuición del hispanohablante apunta por una vez en la dirección correcta. Leyendo poesía o textos antiguos vas a encontrar 'facea' por faceva: es una forma atestiguada y conviene reconocerla al leer, pero no se PRODUCE en italiano estándar. Las distractoras tienen dos trampas: la primera importa la raíz contracta del futuro y del condizionale, far-, y le pega las desinencias del imperfetto, con lo que sale una forma que suena italiana y no existe; la segunda trata fare como un verbo regular en -are y le pega las desinencias de la primera conjugación sobre la raíz fac-, que es el mismo reflejo que hace escribir el presente con una sola c.",
       "variants": [
         {
           "prompt": "Da bambino io ___ i compiti ogni pomeriggio.",
@@ -162,23 +145,8 @@
         }
       ],
       "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-5",
-            "date": "2026-08-04",
-            "verdict": "correcta",
-            "concerns": [
-              "[D-41-05 NO-gloss] SIN gloss ES en este slot: el espanol mapea 1:1 la casilla (hacia), asi que cualquier gloss sobre el verbo regala el tiempo — leak R1 directo en una categoria cuyo ejercicio ES elegir el tiempo. El marco temporal del prompt es el unico desambiguador. Decision razonada D-41-05, no omision."
-            ]
-          },
-          {
-            "by": "claude-sonnet-5",
-            "date": "2026-08-04",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -276,7 +244,7 @@
       "categoryIds": [
         "fare-indicativo"
       ],
-      "explanation": "El passato remoto de fare es la casilla donde la raíz alterna dentro de un mismo tiempo, y esa alternancia es exactamente lo que este ejercicio examina: la raíz fuerte fec-, heredada del perfecto latino, sale en io feci, en lui/lei fece y en loro fecero, que son las tres personas donde el acento cae dentro de la raíz; y la raíz fac- vuelve en tu facesti, en noi facemmo y en voi faceste, las tres donde el acento cae en la desinencia. No hay forma de deducir el reparto mirando el infinitivo: se aprende como un bloque de seis, y el atajo útil es que las personas de raíz corta son justo las que en cualquier verbo llevan desinencia tónica. El tiempo sirve para narrar hechos acabados y lejanos, y vive sobre todo en la lengua escrita, en el relato, en la biografía y en la historia, que es el registro en el que el autor lo va a encontrar. El castellano da aquí un apoyo casi exacto: hice, hiciste, hizo, hicimos, hicisteis, hicieron también tiene raíz propia frente a la de hacía, y también la reparte por personas, así que la idea de que un mismo tiempo cambie de raíz no le resulta nueva al hispanohablante. Leyendo poesía o textos antiguos el autor puede ENCONTRAR 'fé' por fece y 'fenno' por fecero: son formas atestiguadas y conviene reconocerlas al leer, pero no se PRODUCEN en italiano estándar y por eso no aparecen nunca entre las opciones de este ejercicio. Las distractoras de aquí tienen dos trampas: la primera cruza la alternancia, poniendo fec- donde el paradigma pide fac- o al revés, que es el error real de esta casilla y solo se descarta sabiendo qué persona lleva cada raíz; la segunda conjuga fare como si fuera un verbo regular en -are y produce formas que no existen en ninguna persona.",
+      "explanation": "El passato remoto de fare es la casilla donde la raíz alterna dentro de un mismo tiempo, y esa alternancia es exactamente lo que este ejercicio examina: la raíz fuerte fec-, heredada del perfecto latino, sale en io feci, en lui/lei fece y en loro fecero, que son las tres personas donde el acento cae dentro de la raíz; y la raíz fac- vuelve en tu facesti, en noi facemmo y en voi faceste, las tres donde el acento cae en la desinencia. No hay forma de deducir el reparto mirando el infinitivo: se aprende como un bloque de seis, y el atajo útil es que las personas de raíz corta son justo las que en cualquier verbo llevan desinencia tónica. El tiempo sirve para narrar hechos acabados y lejanos, y vive sobre todo en la lengua escrita, en el relato, en la biografía y en la historia, que es el registro en el que lo vas a encontrar. El castellano da aquí un apoyo casi exacto: hice, hiciste, hizo, hicimos, hicisteis, hicieron también tiene raíz propia frente a la de hacía, y también la reparte por personas, así que la idea de que un mismo tiempo cambie de raíz no le resulta nueva al hispanohablante. Leyendo poesía o textos antiguos vas a encontrar 'fé' por fece y 'fenno' por fecero: son formas atestiguadas y conviene reconocerlas al leer, pero no se PRODUCEN en italiano estándar. Las distractoras tienen dos trampas: la primera cruza la alternancia, poniendo fec- donde el paradigma pide fac- o al revés, que es el error real de esta casilla y solo se descarta sabiendo qué persona lleva cada raíz; la segunda conjuga fare como si fuera un verbo regular en -are y produce formas que no existen en ninguna persona.",
       "variants": [
         {
           "prompt": "Nel 1990 io ___ un errore.",
@@ -340,31 +308,8 @@
         }
       ],
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "claude-opus-5",
-            "date": "2026-08-04",
-            "verdict": "correcta",
-            "concerns": [
-              "[D-41-05 NO-gloss] SIN gloss ES en este slot: el espanol mapea 1:1 la casilla (hice), asi que cualquier gloss sobre el verbo regala el tiempo — leak R1 directo en una categoria cuyo ejercicio ES elegir el tiempo. El marco temporal del prompt es el unico desambiguador. Decision razonada D-41-05, no omision."
-            ]
-          },
-          {
-            "by": "claude-sonnet-5",
-            "date": "2026-08-04",
-            "verdict": "correcta",
-            "concerns": []
-          },
-          {
-            "by": "deepseek-reasoner",
-            "date": "2026-08-04",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C4-explanation] la explanation no está enfocada al alumno: habla del autor en tercera persona ('que es el registro en el que el autor lo va a encontrar', 'el autor puede ENCONTRAR...') e incluye meta-comentario de curaduría sobre el diseño del ejercicio ('por eso no aparecen nunca entre las opciones de este ejercicio', 'las distractoras de aquí...'). Eso es material de notas internas, no explicación pedagógica para quien acaba de fallar; viola R4."
-            ]
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -373,7 +318,7 @@
       "categoryIds": [
         "fare-indicativo"
       ],
-      "explanation": "El passato prossimo de fare se forma con el presente de avere más el participio fatto, y lo primero que hay que interiorizar es que el participio no se mueve: con avere, fatto es INVARIABLE, así que el tiempo lo lleva siempre el auxiliar y nunca la segunda palabra. Las seis formas son io ho fatto, tu hai fatto, lui/lei ha fatto, noi abbiamo fatto, voi avete fatto, loro hanno fatto. Lo que selecciona este tiempo es el marco temporal: un momento reciente o conectado con el presente, del tipo stamattina, ieri, questa settimana, oggi, poco fa o questo mese, y muy a menudo con una consecuencia que sigue viva ahora. El castellano ayuda de verdad aquí, porque he hecho, has hecho, ha hecho, hemos hecho, habéis hecho, han hecho también deja el participio quieto y también pone el tiempo en el auxiliar haber. La primera trampa de este ejercicio es poner el auxiliar en el tiempo equivocado: avevo fatto sirve para lo que ya estaba hecho antes de otro momento pasado, y ebbi fatto es el trapassato remoto, que solo se usa dentro de una subordinada temporal con dopo che, quando o appena cuya oración principal va en passato remoto, así que ninguna de las dos encaja en un marco reciente conectado con el presente. La segunda trampa es sobre-generalizar essere, el auxiliar que sí piden los verbos reflexivos y los de movimiento: fare con objeto directo pide avere siempre, y sono fatto no es italiano. La tercera, más pequeña pero muy frecuente al principio, es dejar el infinitivo donde va el participio y escribir ho fare.",
+      "explanation": "El passato prossimo de fare se forma con el presente de avere más el participio fatto, y lo primero que hay que interiorizar es que el participio no se mueve: con avere, fatto es INVARIABLE, así que el tiempo lo lleva siempre el auxiliar y nunca la segunda palabra. Las seis formas son io ho fatto, tu hai fatto, lui/lei ha fatto, noi abbiamo fatto, voi avete fatto, loro hanno fatto. Lo que selecciona este tiempo es el marco temporal: un momento reciente o conectado con el presente, del tipo stamattina, ieri, questa settimana, oggi, poco fa o questo mese, y muy a menudo con una consecuencia que sigue viva ahora. El castellano ayuda de verdad aquí, porque he hecho, has hecho, ha hecho, hemos hecho, habéis hecho, han hecho también deja el participio quieto y también pone el tiempo en el auxiliar haber. La primera trampa es poner el auxiliar en el tiempo equivocado: avevo fatto sirve para lo que ya estaba hecho antes de otro momento pasado, y ebbi fatto es el trapassato remoto, que solo se usa dentro de una subordinada temporal con dopo che, quando o appena cuya oración principal va en passato remoto, así que ninguna de las dos encaja en un marco reciente conectado con el presente. La segunda trampa es sobre-generalizar essere, el auxiliar que sí piden los verbos reflexivos y los de movimiento: fare con objeto directo pide avere siempre, y sono fatto no es italiano. La tercera, más pequeña pero muy frecuente al principio, es dejar el infinitivo donde va el participio y escribir ho fare.",
       "variants": [
         {
           "prompt": "Stamattina io ___ i compiti e adesso sono libero.",
@@ -437,23 +382,8 @@
         }
       ],
       "validation": {
-        "status": "validated",
-        "passes": [
-          {
-            "by": "claude-opus-5",
-            "date": "2026-08-04",
-            "verdict": "correcta",
-            "concerns": [
-              "[D-41-05 NO-gloss] SIN gloss ES en este slot: el espanol mapea 1:1 la casilla (he hecho), asi que cualquier gloss sobre el verbo regala el tiempo — leak R1 directo en una categoria cuyo ejercicio ES elegir el tiempo. El marco temporal del prompt es el unico desambiguador. Decision razonada D-41-05, no omision."
-            ]
-          },
-          {
-            "by": "claude-sonnet-5",
-            "date": "2026-08-04",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     },
     {
@@ -640,7 +570,7 @@
       "categoryIds": [
         "fare-indicativo"
       ],
-      "explanation": "El trapassato remoto de fare se forma con el passato remoto de avere más el participio fatto, y su auxiliar arrastra la misma alternancia que tiene el verbo avere por su cuenta: la raíz ebb- sale en io ebbi fatto, en lui/lei ebbe fatto y en loro ebbero fatto, que son las tres personas donde el acento cae dentro de la raíz, y la raíz av- vuelve en tu avesti fatto, en noi avemmo fatto y en voi aveste fatto. El participio fatto sigue invariable, como en todos los compuestos con avere. Esta forma tiene un único marco vivo, y conviene ser honesto sobre su registro: está prácticamente extinta en el italiano hablado y sobrevive solo en la narración escrita, dentro de una subordinada temporal introducida por dopo che, quando o appena cuya oración principal va en passato remoto. Fuera de ese marco la forma no se usa: no aparece en frase suelta, no se combina con una principal en presente ni en passato prossimo, y un italiano de hoy diría el passato remoto simple o el passato prossimo. El castellano ofrece un paralelo igual de marginal: hube hecho existe, se construye igual y suena igual de literario, y lo normal es decir hice. La primera trampa de este ejercicio es poner el auxiliar en el tiempo equivocado, ho fatto o avrò fatto, que chocan de frente con una principal en passato remoto; la segunda es construir mal el compuesto y dejar el infinitivo donde va el participio, es decir ho fare.",
+      "explanation": "El trapassato remoto de fare se forma con el passato remoto de avere más el participio fatto, y su auxiliar arrastra la misma alternancia que tiene el verbo avere por su cuenta: la raíz ebb- sale en io ebbi fatto, en lui/lei ebbe fatto y en loro ebbero fatto, que son las tres personas donde el acento cae dentro de la raíz, y la raíz av- vuelve en tu avesti fatto, en noi avemmo fatto y en voi aveste fatto. El participio fatto sigue invariable, como en todos los compuestos con avere. Esta forma tiene un único marco vivo, y conviene ser honesto sobre su registro: está prácticamente extinta en el italiano hablado y sobrevive solo en la narración escrita, dentro de una subordinada temporal introducida por dopo che, quando o appena cuya oración principal va en passato remoto. Fuera de ese marco la forma no se usa: no aparece en frase suelta, no se combina con una principal en presente ni en passato prossimo, y un italiano de hoy diría el passato remoto simple o el passato prossimo. El castellano ofrece un paralelo igual de marginal: hube hecho existe, se construye igual y suena igual de literario, y lo normal es decir hice. La primera trampa es poner el auxiliar en el tiempo equivocado, ho fatto o avrò fatto, que chocan de frente con una principal en passato remoto; la segunda es construir mal el compuesto y dejar el infinitivo donde va el participio, es decir ho fare.",
       "variants": [
         {
           "prompt": "Dopo che io ___ i compiti, uscii di casa.",
@@ -704,31 +634,8 @@
         }
       ],
       "validation": {
-        "status": "disputed",
-        "passes": [
-          {
-            "by": "claude-opus-5",
-            "date": "2026-08-04",
-            "verdict": "correcta",
-            "concerns": [
-              "[D-41-05 NO-gloss] SIN gloss ES en este slot: el espanol mapea 1:1 la casilla (hube hecho), asi que cualquier gloss sobre el verbo regala el tiempo — leak R1 directo en una categoria cuyo ejercicio ES elegir el tiempo. El marco temporal del prompt es el unico desambiguador. Decision razonada D-41-05, no omision."
-            ]
-          },
-          {
-            "by": "claude-sonnet-5",
-            "date": "2026-08-04",
-            "verdict": "incorrecta",
-            "concerns": [
-              "[C2-una_opcion] Las variantes 2 y 5 usan 'quando' como conjuncion temporal, pero a diferencia de 'dopo che' (variantes 1 y 4, que fuerza anterioridad explicita) y 'appena' (variantes 3 y 6, que implica sucesion inmediata), 'quando' no exige marcar anterioridad estricta: un hablante nativo completaria igual de naturalmente 'Quando tu facesti il letto, tua madre torno' o 'Quando voi faceste una foto, il treno parti' con el passato remoto simple, sin que la frase se vuelva agramatical ni rara. Esa forma no esta entre las opciones ofrecidas, asi que no genera ambiguedad dentro del MC en si, pero si revela que el marco 'quando + passato remoto' no aisla de forma univoca el trapassato remoto como unica lectura defendible del hueco (a diferencia de dopo che/appena), lo que debilita la premisa pedagogica de que solo hay un tiempo verbal correcto para ese contexto temporal. Sugerencia: sustituir 'quando' por 'dopo che' o 'appena' en esas dos variantes, o reforzar el marco con un adverbio de inmediatez que refuerce la anterioridad estricta."
-            ]
-          },
-          {
-            "by": "deepseek-reasoner",
-            "date": "2026-08-04",
-            "verdict": "correcta",
-            "concerns": []
-          }
-        ]
+        "status": "pending",
+        "passes": []
       }
     }
   ]
