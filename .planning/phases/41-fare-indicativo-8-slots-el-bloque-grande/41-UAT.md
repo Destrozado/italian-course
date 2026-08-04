@@ -3,17 +3,17 @@ status: testing
 phase: 41-fare-indicativo-8-slots-el-bloque-grande
 source: [41-VERIFICATION.md]
 started: 2026-08-03T19:21:05Z
-updated: 2026-08-03T19:21:05Z
+updated: 2026-08-04T00:00:00Z
 ---
 
 ## Current Test
 
-number: 1
-name: Pasada TOP-LEVEL de quórum base sobre los 8 slots + ronda EXTRA DeepSeek
+number: 2
+name: Confirmar que ninguna de las 48 variantes admite una segunda lectura defendible del marco
 expected: |
-  Los 8 slots quedan `validation.status: "validated"` con ≥2 passes `correcta` de `by`
-  distintos y 0 `incorrecta`; `VAL_07_STRICT=1 node --test tests/*.test.js` pasa a verde;
-  `tests/content-fare-indicativo.test.js` sigue verde con `status === deriveStatus(passes)`.
+  El pase de quórum se pronuncia explícitamente sobre esos puntos en
+  `validation.passes[].concerns`, y ninguna variante queda con una opción defendiblemente
+  correcta además de la key.
 awaiting: user response
 
 ## Tests
@@ -21,7 +21,33 @@ awaiting: user response
 ### 1. Pasada TOP-LEVEL de quórum base sobre los 8 slots + ronda EXTRA DeepSeek
 
 expected: Los 8 slots quedan `validation.status: "validated"` con ≥2 passes `correcta` de `by` distintos y 0 `incorrecta`; `VAL_07_STRICT=1 node --test tests/*.test.js` pasa a verde; el gate file sigue verde con `status === deriveStatus(passes)`.
-result: [pending]
+result: issue
+reported: "Pasada corrida top-level el 2026-08-04 (commit 60453b7): 5/8 validated, 3/8 disputed. VAL-07 sigue rojo. `tests/content-fare-indicativo.test.js` 62/62 verde."
+severity: major
+pases: |
+  claude-opus-5 + claude-sonnet-5 sobre los 8 slots (1 subagent por ejercicio, contexto
+  fresco, VAL-03) + ronda EXTRA deepseek-reasoner (D-41-12) sobre passato-remoto y
+  trapassato-remoto. Cada pase Opus re-declara el 0-gloss local (D-41-05).
+disputed:
+  - fare-indicativo-presente — [C4-explanation] ×2 (Opus): (a) la explanation afirma que la
+    doble c sale "en las dos personas donde el castellano también hace algo raro", pero
+    `hacemos` es regular y el propio párrafo lo desmiente dos líneas después; (b) registro de
+    curador ("el autor puede ENCONTRAR", "no aparecen nunca entre las opciones de este
+    ejercicio").
+  - fare-indicativo-passato-remoto — [C4-explanation] (deepseek-reasoner): mismo registro de
+    curador. Opus y Sonnet lo dieron correcta aquí; la ronda EXTRA lo cazó.
+  - fare-indicativo-trapassato-remoto — [C2-una_opcion] (Sonnet): las variantes 2 y 5 usan
+    `quando`, que no fuerza anterioridad estricta como `dopo che` / `appena`; el passato remoto
+    simple completaría la frase igual de natural. Opus y deepseek-reasoner defienden el
+    ejercicio (la forma alternativa no está entre las options, así que no hay ambigüedad
+    dentro del MC). Disputa genuina 2-vs-1.
+hallazgo_sistemico: |
+  El registro de curador NO está solo en los slots marcados. Escaneo de los 8 `explanation`:
+  `presente`, `imperfetto`, `passato-remoto` llevan los 4 patrones ("el autor", "de este
+  ejercicio", "entre las opciones", "las distractoras de aquí"); `passato-prossimo` y
+  `trapassato-remoto` llevan "de este ejercicio". `imperfetto` salió validated con ese
+  texto — falso negativo de los 2 pases Claude sobre el mismo defecto que otro vendor
+  marcó en sus hermanos.
 
 Correr el quórum base canónico (Opus + Sonnet vía el skill `gsd-validate-exercise`) sobre los
 8 slots de `content/exercises/fare-indicativo.json`, **1 ejercicio por contexto — NUNCA batched**
@@ -63,9 +89,27 @@ hipotético.
 
 total: 2
 passed: 0
-issues: 0
-pending: 2
+issues: 1
+pending: 1
 skipped: 0
 blocked: 0
 
 ## Gaps
+
+- gap_id: G-41-1
+  truth: "Los 8 slots de fare-indicativo.json quedan validation.status validated con >=2 passes correcta de by distintos y 0 incorrecta, y VAL_07_STRICT pasa a verde"
+  status: failed
+  reason: "Pasada de quórum corrida top-level (commit 60453b7): 5/8 validated, 3/8 disputed. presente y passato-remoto por [C4-explanation] (registro de curador + una afirmación falsa sobre el castellano); trapassato-remoto por [C2-una_opcion] sobre las 2 variantes con quando (2-vs-1: Opus y deepseek-reasoner defienden, Sonnet objeta)."
+  severity: major
+  test: 1
+  artifacts:
+    - path: "content/exercises/fare-indicativo.json"
+      issue: "4 de las 8 explanations contienen registro de curador ('el autor', 'de este ejercicio', 'entre las opciones', 'las distractoras de aquí') — viola R4/C4. imperfetto lo lleva y salió validated (falso negativo del quórum Claude)."
+    - path: "content/exercises/fare-indicativo.json"
+      issue: "La explanation de presente afirma que la doble c aparece 'en las dos personas donde el castellano también hace algo raro'; 'hacemos' es regular y el propio párrafo lo desmiente después."
+    - path: "content/exercises/fare-indicativo.json"
+      issue: "trapassato-remoto variantes 2 y 5 usan 'quando' en vez de 'dopo che' / 'appena' — no fuerza anterioridad estricta. Disputa abierta, decisión del autor."
+  missing:
+    - "Reescribir las explanations afectadas quitando el registro de curador (el rationale editorial va a notes) y corregir la afirmación falsa sobre el castellano en presente"
+    - "Decidir la disputa C2 de trapassato-remoto: sustituir quando por dopo che/appena en las variantes 2 y 5, u override razonado del autor"
+    - "Re-pasar el quórum sobre los slots tocados (reset de passes[] antes del re-pase) incluido imperfetto, que arrastra el mismo defecto con status validated"
