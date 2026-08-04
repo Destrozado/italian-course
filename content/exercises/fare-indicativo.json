@@ -345,7 +345,9 @@
             "date": "2026-08-04",
             "verdict": "correcta",
             "concerns": [
-              "[D-41-05 NO-gloss] SIN gloss ES en este slot: el espanol mapea 1:1 la casilla (hice), asi que cualquier gloss sobre el verbo regala el tiempo — leak R1 directo en una categoria cuyo ejercicio ES elegir el tiempo. El marco temporal del prompt es el unico desambiguador. Decision razonada D-41-05, no omision."
+              "[D-41-05 NO-gloss] SIN gloss ES en este slot: el espanol mapea 1:1 la casilla (hice), asi que cualquier gloss sobre el verbo regala el tiempo — leak R1 directo en una categoria cuyo ejercicio ES elegir el tiempo. El marco temporal del prompt es el unico desambiguador. Decision razonada D-41-05, no omision.",
+              "[D-41-08 backstop atestiguadas] 'facetti' (variante io) y 'facerono' (variante loro) revisadas explicitamente contra el criterio de forma atestiguada: los tres pases coinciden en que NO son atestiguadas para esas personas. Las debiles reales del tipo meridional son de la familia 'facette' / 'facettero', ya blacklisteadas en notes, y las toscano-arcaicas ('fei', 'festi', 'femmo', 'feste', 'fero', 'feciono') tampoco coinciden con estas dos. Quedan como distractoras legitimas del tipo debil en -ere. La autoria las habia marcado como no descartadas con certeza; el quorum las descarta.",
+              "[R7 backstop] 'fe' y 'fenno', las dos unicas formas atestiguadas de esta casilla, verificadas ausentes de las 24 options del slot. Ninguna distractora admite una segunda lectura defendible del marco temporal."
             ]
           },
           {
@@ -440,7 +442,9 @@
             "date": "2026-08-04",
             "verdict": "correcta",
             "concerns": [
-              "[D-41-05 NO-gloss] SIN gloss ES en este slot: el espanol mapea 1:1 la casilla (he hecho), asi que cualquier gloss sobre el verbo regala el tiempo — leak R1 directo en una categoria cuyo ejercicio ES elegir el tiempo. El marco temporal del prompt es el unico desambiguador. Decision razonada D-41-05, no omision."
+              "[D-41-05 NO-gloss] SIN gloss ES en este slot: el espanol mapea 1:1 la casilla (he hecho), asi que cualquier gloss sobre el verbo regala el tiempo — leak R1 directo en una categoria cuyo ejercicio ES elegir el tiempo. El marco temporal del prompt es el unico desambiguador. Decision razonada D-41-05, no omision.",
+              "[C2 backstop essere + fatto] 'sono fatto' / 'siamo fatto' revisadas a proposito. La secuencia existe en italiano en lectura copulativa ('sono fatto cosi'), pero el objeto directo que sigue al hueco ('i compiti' / 'una torta' / 'un errore') la bloquea por completo, y en noi y loro falla ademas la concordancia. Es bloqueo estructural, no ambiguedad. La explanation se corrigio para no negar la existencia de la forma.",
+              "[C2 backstop CR-01] Verificado que no queda ningun auxiliar de futuro anteriore entre las options, que es el caso que abria doble validez epistemica y motivo su retirada en CR-01."
             ]
           },
           {
@@ -529,7 +533,9 @@
             "date": "2026-08-04",
             "verdict": "correcta",
             "concerns": [
-              "[D-41-05 NO-gloss] SIN gloss ES en este slot: el espanol mapea 1:1 la casilla (habia hecho), asi que cualquier gloss sobre el verbo regala el tiempo — leak R1 directo en una categoria cuyo ejercicio ES elegir el tiempo. El marco temporal del prompt es el unico desambiguador. Decision razonada D-41-05, no omision."
+              "[D-41-05 NO-gloss] SIN gloss ES en este slot: el espanol mapea 1:1 la casilla (habia hecho), asi que cualquier gloss sobre el verbo regala el tiempo — leak R1 directo en una categoria cuyo ejercicio ES elegir el tiempo. El marco temporal del prompt es el unico desambiguador. Decision razonada D-41-05, no omision.",
+              "[C1 backstop colocacion de gia] La colocacion preverbal de 'gia' delante del hueco ('io gia avevo fatto'), declarada en notes como eleccion deliberada, revisada explicitamente: es uso atestiguado y frecuente con valor enfatico o contrastivo ('io gia lo sapevo'), no un error. El orden canonico de manual seria 'avevo gia fatto', pero el hueco absorbe el verbo compuesto completo, asi que la anteposicion es estructuralmente necesaria. Matiz de registro, no violacion de C1.",
+              "[C2 backstop essere + fatto] Las secuencias 'ero / eravamo / erano fatto' quedan bloqueadas por el objeto directo: 'fare' transitivo pide 'avere' siempre. En las variantes de noi y loro hay bloqueo doble, porque ademas falla la concordancia de numero. Ninguna admite lectura pasiva o copulativa con el objeto directo presente."
             ]
           },
           {
@@ -618,7 +624,9 @@
             "date": "2026-08-04",
             "verdict": "correcta",
             "concerns": [
-              "[D-41-05 NO-gloss] SIN gloss ES en este slot: el espanol mapea 1:1 la casilla (habre hecho), asi que cualquier gloss sobre el verbo regala el tiempo — leak R1 directo en una categoria cuyo ejercicio ES elegir el tiempo. El marco temporal del prompt es el unico desambiguador. Decision razonada D-41-05, no omision."
+              "[D-41-05 NO-gloss] SIN gloss ES en este slot: el espanol mapea 1:1 la casilla (habre hecho), asi que cualquier gloss sobre el verbo regala el tiempo — leak R1 directo en una categoria cuyo ejercicio ES elegir el tiempo. El marco temporal del prompt es el unico desambiguador. Decision razonada D-41-05, no omision.",
+              "[C2 backstop futuro semplice] Verificado que el futuro semplice ('faro' / 'farai' / 'fara' / 'faremo' / 'farete' / 'faranno') NO aparece entre las options de ninguna de las 6 variantes, que es lo que evitaria la competencia 'el futuro simple tambien completa la frase'. El subordinado en futuro semplice del enunciado mas 'gia' fijan la anterioridad.",
+              "[C1 backstop colocacion de gia] Misma anteposicion de 'gia' que en el trapassato prossimo, revisada y aceptada por el mismo motivo: atestiguada, enfatica, y estructuralmente necesaria porque el hueco absorbe el compuesto entero."
             ]
           },
           {
@@ -707,7 +715,9 @@
             "date": "2026-08-04",
             "verdict": "correcta",
             "concerns": [
-              "[D-41-05 NO-gloss] SIN gloss ES en este slot: el espanol mapea 1:1 la casilla (hube hecho), asi que cualquier gloss sobre el verbo regala el tiempo — leak R1 directo en una categoria cuyo ejercicio ES elegir el tiempo. El marco temporal del prompt es el unico desambiguador. Decision razonada D-41-05, no omision."
+              "[D-41-05 NO-gloss] SIN gloss ES en este slot: el espanol mapea 1:1 la casilla (hube hecho), asi que cualquier gloss sobre el verbo regala el tiempo — leak R1 directo en una categoria cuyo ejercicio ES elegir el tiempo. El marco temporal del prompt es el unico desambiguador. Decision razonada D-41-05, no omision.",
+              "[C2 backstop quando] Las 2 variantes con 'quando' (tu / voi) revisadas a proposito. Es cierto que 'quando' no fuerza anterioridad estricta como 'dopo che' y 'appena', y que un nativo completaria igual de natural con el passato remoto simple ('facesti' / 'faceste'). Pero ninguna de esas formas esta entre las options ofrecidas, y C2/R7 se juega sobre el conjunto ofrecido: el dano que R7 previene es marcar como fallo una eleccion valida del alumno, y aqui el alumno no puede elegir nada valido distinto de la key. Opus, Sonnet y deepseek-reasoner coinciden en este encuadre tras revisarlo dos veces; una primera pasada de Sonnet lo habia marcado como violacion. Se conserva el reparto deliberado 2 dopo che + 2 appena + 2 quando.",
+              "[C2 backstop futuro anteriore] El distractor de futuro anteriore ('avro fatto' y compania) NO abre aqui la doble validez epistemica que motivo su retirada en passato prossimo y trapassato prossimo (CR-01), porque las 6 principales van en passato remoto y ninguna en presente ni en passato prossimo. La retirada de CR-01 queda ratificada: ningun pase reabrio el tema en los slots donde se aplico."
             ]
           },
           {
