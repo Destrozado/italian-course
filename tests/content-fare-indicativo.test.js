@@ -667,8 +667,15 @@ describe('fare-indicativo — registro de la categoria (D-41-16, SC-5)', () => {
     assert.ok(cat.name.trim().length > 0, 'D-41-16: name no vacio');
   });
 
-  test('es la ultima del array, que es el orden de display', () => {
-    assert.equal(entradas[entradas.length - 1].id, 'fare-indicativo', 'D-41-16: el array define el display');
+  // v2.0 Phase 42: este assert exigia que fare-indicativo fuese la ULTIMA
+  // entrada del array. Era cierto mientras fuese la categoria mas reciente, pero
+  // no es el invariante: el invariante es que el ARRAY define el display y que su
+  // posicion es coherente con el order documental. Phase 42 apende
+  // fare-congiuntivo (order 16) y Phase 43 apendera la 17a, asi que la version
+  // "ultima" caduca cada fase. Se reescribe a la forma estable: indice = order-1.
+  test('ocupa en el array la posicion que dice su order, que es el orden de display', () => {
+    const idx = entradas.findIndex((c) => c.id === 'fare-indicativo');
+    assert.equal(idx, 14, 'D-41-16: el array define el display (order 15 -> indice 14)');
   });
 
   test('los 8 slots referencian el slug de la categoria en categoryIds (SC-5)', () => {
