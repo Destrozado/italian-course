@@ -5,8 +5,8 @@ milestone_name: Paradigma completo de `fare` (4 categorías por modo)
 current_phase: 42
 current_phase_name: "`fare-congiuntivo` — 4 slots (homógrafas + disparador)"
 status: planning
-stopped_at: Completed 41-02-PLAN.md
-last_updated: "2026-08-04T11:06:46.788Z"
+stopped_at: Phase 42 context gathered
+last_updated: "2026-08-05T22:00:03.976Z"
 last_activity: 2026-08-04
 last_activity_desc: Phase 41 complete, transitioned to Phase 42
 progress:
@@ -322,9 +322,9 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Session Continuity
 
-**Last session:** 2026-08-04
-**Stopped at:** Phase 41 complete (UAT 2/2 pass, 8/8 validated), ready to plan Phase 42
-**Resume file:** None
+**Last session:** 2026-08-05T22:00:03.942Z
+**Stopped at:** Phase 42 context gathered
+**Resume file:** .planning/phases/42-fare-congiuntivo-4-slots-hom-grafas-disparador/42-CONTEXT.md
 
 ### Last Session
 
