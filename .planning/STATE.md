@@ -4,15 +4,15 @@ milestone: v2.0
 milestone_name: Paradigma completo de `fare` (4 categorías por modo)
 current_phase: 42
 current_phase_name: "`fare-congiuntivo` — 4 slots (homógrafas + disparador)"
-status: planning
+status: executing
 stopped_at: Phase 42 context gathered
-last_updated: "2026-08-05T22:00:03.976Z"
+last_updated: "2026-08-05T22:37:06.668Z"
 last_activity: 2026-08-04
 last_activity_desc: Phase 41 complete, transitioned to Phase 42
 progress:
   total_phases: 5
   completed_phases: 2
-  total_plans: 3
+  total_plans: 5
   completed_plans: 3
   percent: 40
 ---
@@ -31,7 +31,7 @@ See: `.planning/PROJECT.md` (updated 2026-07-28 — Milestone v2.0 ABIERTO: para
 
 Phase: 42 — `fare-congiuntivo` — 4 slots (homógrafas + disparador)
 Plan: Not started
-Status: Ready to plan
+Status: Ready to execute
 Last activity: 2026-08-04 — Phase 41 complete, transitioned to Phase 42
 
 Progress: [██████████] 100%
