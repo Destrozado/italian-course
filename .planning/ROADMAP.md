@@ -209,7 +209,18 @@ Plans:
   4. Al menos un slot testea el DISPARADOR (`penso che`, `benché`, `prima che`, `se` hipotético): el autor tiene que reconocer que el contexto exige subjuntivo, incluida al menos una variante de contraste donde lo correcto es el indicativo (`so che fa`).
   5. Todas las variantes quedan `validated` por quórum cross-vendor R1-R7 con canon editorial y sin leak R1; la categoría carga en boot y funciona como unidad de reset independiente de las otras 3 de `fare`.
 
-**Plans**: TBD
+> **Nota de planificación (D-42-01):** la discusión resolvió la tensión interna del título — SC#4 exige un slot para el DISPARADOR con una variante de contraste cuya respuesta correcta es el indicativo, y esa variante no cabe en el slot de presente sin romper la enumeración de 6 personas de SC#1. El volumen real de la fase es **5 slots x 6 variantes = 30 variantes**, no las «4 slots / ≈24» del título. Knock-on para Phase 44 / INT-02: el milestone pasa de 21 slots y ≈107 variantes a **22 slots y ≈113**. El bloque homógrafo real de SC#2 son **10 variantes**, no las 5 que nombra su paréntesis ilustrativo (`abbia` es io/tu/lui-lei y `avessi` es io/tu, igual que `faccia` y `facessi`).
+
+**Plans**: 2 plans
+
+Plans:
+**Wave 1**
+
+- [ ] 42-01-PLAN.md — Alta de la categoría (`categories.json` order 16 + línea del smoke) y los 2 tiempos SIMPLES: congiuntivo presente e imperfetto, 12 variantes, tracer sobre el presente verificado antes de expandir
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
+- [ ] 42-02-PLAN.md — Los 2 COMPUESTOS `passato` y `trapassato` (12 variantes, cero indicativo entre las distractoras por SC-3) más el 5º slot del DISPARADOR (6 variantes, eje = el disparador, con la variante de contraste en indicativo), y `tests/content-fare-congiuntivo.test.js` con los gates de la categoría como invariantes permanentes
 
 ### Phase 43: `fare-cond-imperativo` + `fare-indefiniti` — 3 + 6 slots
 
