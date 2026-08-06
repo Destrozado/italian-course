@@ -74,64 +74,43 @@ const allVariants = () => SLOTS.flatMap((s) => s.variants.map((v, k) => ({ slot:
 // mano con \p{L}. Es lo que impide que `so che` haga match dentro de
 // `penso che`, que es una colision real entre dos disparadores de este fichero.
 //
-// WR-10 (revision de codigo del 2026-08-06): llevaba el flag `u` y NO el `i`, y
-// todos los conjuntos que se escanean con el —BLACKLIST, PHASE43_FORMS— estan en
-// minuscula. La consecuencia es que la misma forma pasaba o no segun su
-// capitalizacion, y justo la posicion en la que una forma prohibida aparece de
-// verdad en un prompt es la que el gate no veia: INICIO DE ORACION. `facci` caia
-// y `Facci` no; `Fatta la torta, ...` —el participio absoluto, que es el MAGNET
-// de Phase 43 en su construccion mas natural y empieza oracion por definicion—
-// pasaba entero. Se normaliza en el matcher y no en cada llamada, que es lo que
-// evita que el proximo escaneo nazca con el mismo agujero.
+// WR-10 (2026-08-06): llevaba `u` y NO `i`, y BLACKLIST y PHASE43_FORMS estan en
+// minuscula, asi que la posicion donde una forma prohibida aparece de verdad en
+// un prompt era justo la que no se veia: INICIO DE ORACION. `facci` caia y
+// `Facci` no; `Fatta la torta, ...` pasaba entero. Se normaliza en el matcher y
+// no en cada llamada, para que el proximo escaneo no nazca con el mismo agujero.
 const wordish = (s) =>
   new RegExp(`(^|[^\\p{L}])${s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}([^\\p{L}]|$)`, 'iu');
 
-// WR-07 / WR-08 / WR-11 (revisiones de codigo del 2026-08-06) — LA CLAUSULA QUE
-// GOBIERNA EL HUECO.
+// WR-07 / WR-08 / WR-11 (2026-08-06) — LA CLAUSULA QUE GOBIERNA EL HUECO.
 //
-// EL DEFECTO ORIGINAL, para que nadie lo reintroduzca: los dos gates que blindan
-// el TIEMPO de una variante —el ancla deictica del slot del disparador y el marco
-// de concordancia de los dos compuestos— se reducian a
-// `v.prompt.includes(literal)`. Presencia en el prompt, no AMBITO sobre el hueco.
-// Un literal desplazado a otra clausula del MISMO prompt deja de situar la accion
-// del subordinado y devuelve la doble respuesta:
-//   `Io penso che lui ___ il lavoro, e in questo momento io sono stanco.`
-//   `Mia madre non crede che io ___ i compiti, ieri sera lei dormiva.`
+// EL DEFECTO, para que nadie lo reintroduzca: los dos gates que blindan el TIEMPO
+// —el ancla deictica del disparador y el marco de los compuestos— eran
+// `prompt.includes(literal)`, presencia y no AMBITO. Un literal desplazado a otra
+// clausula del MISMO prompt deja al subordinado sin marcador y devuelve la doble
+// respuesta. WR-11: el primer arreglo partia SOLO por `[,;.]`, sobreajustado a la
+// coma de la mutacion que lo motivo, y fallaba en las DOS direcciones — quitar la
+// coma, poner dos puntos o raya, o incrustar una relativa devolvia el hueco
+// entero, y ademas ponia ROJO italiano correcto (`lui, in questo momento, ___`).
+// Un gate que rechaza la redaccion correcta empuja a redactar para el test.
 //
-// WR-11: el primer arreglo partia el prompt SOLO por `[,;.]`, o sea que estaba
-// sobreajustado a la coma de esas dos mutaciones y fallaba en las DOS
-// direcciones. Quitar la coma, poner dos puntos, poner raya o incrustar una
-// relativa devolvia el hueco entero —las cuatro son ediciones de autoria
-// plausibles, el italiano no exige coma delante de `e`— y ademas ponia ROJO
-// italiano correcto: `Io penso che lui, in questo momento, ___ il lavoro.` lleva
-// el ancla en inciso DENTRO de la clausula del hueco y se rechazaba. Un gate que
-// rechaza la redaccion correcta empuja al autor a redactar para el test.
-//
-// LO QUE HAY AHORA Y HASTA DONDE LLEGA, dicho sin adornos: dos cortes toscos, no
-// un analisis sintactico.
-//   CORTE_FUERTE       — solo puntuacion. Es la unidad correcta para contar
-//                        OBJETOS: el objeto de la PRINCIPAL es legitimo y vive
-//                        tras la coma (`___ un errore, il capo controlla tutto`).
-//   CORTE_DE_CLAUSULA  — puntuacion MAS coordinante y MAS el `che` subordinante,
-//                        que son las dos formas de abrir una predicacion nueva
-//                        sin puntuacion de por medio.
-// Las dos fallan cerrado: si el hueco no aparece, devuelven cadena vacia.
-// LO QUE NO CUBREN, declarado para que una pasada futura no lea de mas: un
-// adjunto colocado tras el hueco en un segmento que ademas contenga otro verbo
-// finito sin coordinante, sin `che` y sin puntuacion de por medio. El ambito no
-// se puede aproximar por puntuacion y lexico; esto acota el riesgo, no lo cierra.
+// LO QUE HAY: dos cortes toscos, no analisis sintactico. CORTE_FUERTE es solo
+// puntuacion y es la unidad para contar OBJETOS (el objeto de la principal es
+// legitimo tras la coma); CORTE_DE_CLAUSULA anade coordinante y `che`
+// subordinante, las dos formas de abrir predicacion sin puntuacion de por medio.
+// Los dos fallan cerrado. LO QUE NO CUBREN: un adjunto tras el hueco en un
+// segmento que ademas lleve otro verbo finito sin coordinante, sin `che` y sin
+// puntuacion. Esto acota el riesgo, no lo cierra.
 const CORTE_FUERTE = /[,;.:—–]+/u;
 const CORTE_DE_CLAUSULA = /[,;.:—–]+|(?:^|[^\p{L}])(?:e|ed|o|od|ma|però|mentre|che)(?=[^\p{L}]|$)/u;
 const segmentoDelHueco = (p, corte) => p.split(corte).find((s) => s.includes('___')) || '';
 
-// El ancla o el marco gobiernan el hueco si viven en su misma clausula, o si
-// viven en un segmento CONTIGUO que no contiene nada mas que el literal: un
-// segmento sin resto es un adjunto y no una predicacion, asi que sigue
-// modificando al verbo del hueco. Es lo que distingue el inciso y la
-// dislocacion, que son italiano correcto —`lui, in questo momento, ___` y
-// `___ i compiti, ieri sera.`— de la mutacion que abre la doble respuesta,
-// `___ i compiti, ieri sera lei dormiva`, donde el resto `lei dormiva` delata
-// que el adjunto ya esta modificando a OTRO verbo.
+// El literal gobierna el hueco si vive en su clausula, o en un segmento CONTIGUO
+// sin mas resto que el literal: un segmento sin resto es adjunto y no
+// predicacion. Es lo que separa el inciso y la dislocacion, italiano correcto
+// (`lui, in questo momento, ___`, `___ i compiti, ieri sera.`), de la mutacion
+// que abre la doble respuesta (`___ i compiti, ieri sera lei dormiva`), donde el
+// resto `lei dormiva` delata que el adjunto ya modifica a OTRO verbo.
 const gobiernaElHueco = (p, lit) => {
   const segs = p.split(CORTE_DE_CLAUSULA);
   const i = segs.findIndex((s) => s.includes('___'));
@@ -156,13 +135,10 @@ const CONG_TRAP = ['avessi fatto', 'avessi fatto', 'avesse fatto', 'avessimo fat
 // 6 keys EN ORDEN y CON LAS REPETICIONES. Las repeticiones son parte de la
 // especificacion (D-42-05), no un accidente: ver la desviacion 1 de la cabecera.
 //
-// IN-01 (revision de codigo del 2026-08-06): las 4 filas del paradigma eran
-// copias LITERALES de CONG_PRES, CONG_IMPF, CONG_PASS y CONG_TRAP, declaradas 17
-// lineas mas abajo. Editar una copia y no la otra desincronizaba la
-// especificacion en silencio, con el bloque 2 comparando contra una tabla y los
-// bloques 7-9 contra otra. Ahora se REFERENCIAN, que es lo unico que hace
-// imposible la desincronia. La fila del disparador si es literal, y a proposito:
-// su eje no es la persona, asi que no es ningun paradigma.
+// IN-01 (2026-08-06): las 4 filas del paradigma eran copias LITERALES de las
+// cuatro constantes de arriba, asi que editar una copia y no la otra
+// desincronizaba la especificacion en silencio. Ahora se REFERENCIAN. La fila del
+// disparador si es literal, y a proposito: su eje no es la persona.
 const CANON = {
   'fare-congiuntivo-presente': CONG_PRES,
   'fare-congiuntivo-imperfetto': CONG_IMPF,
@@ -290,20 +266,15 @@ const deriveBlankSubject = (prompt) => {
 // en vez de leerla. Fallar cerrado es el comportamiento correcto: si una pasada
 // futura quiere coordinacion, que la declare y amplie el gate a proposito.
 //
-// WR-12 (revision de codigo del 2026-08-06): el rechazo iba por la FORMA de los
-// dos conjuntos —pronombre, conector, pronombre— y por tanto solo cubria esa
-// forma. Con el primer conjunto NOMINAL o con un correlativo, la derivacion se
-// quedaba con el ultimo pronombre, la persona cuadraba con la tabla y el gate
-// entero daba verde: `Io penso che mia madre e lui ___ il lavoro ...` pasaba en
-// 64/0 con la key declarada `faccia` ya incorrecta (el sujeto real es 3pl y
-// tocaria `facciano`), y con el mismo material lexico que ya usan las 30
-// variantes —`mia madre`, `il professore`, `il capo` son sujetos de principal de
-// este fichero—. Va ahora por el CONECTOR QUE PRECEDE al pronombre del hueco, que
-// es total: sea cual sea el primer conjunto, si delante del pronombre hay
-// coordinante o correlativo, el sujeto es compuesto. El otro lado, `io e mia
-// madre ___`, ya falla cerrado por `BLANK_SUBJECT_RE` (no hay pronombre delante
-// del hueco). LO QUE NO CUBRE: un coordinante escondido dentro del inciso
-// (`lui, e mia madre, ___`), que no es italiano para un sujeto compuesto.
+// WR-12 (2026-08-06): el rechazo iba por la FORMA de los dos conjuntos
+// —pronombre, conector, pronombre— asi que con el primer conjunto NOMINAL o con
+// un correlativo la derivacion se quedaba con el ultimo pronombre, la persona
+// cuadraba con la tabla y el gate daba verde: `che mia madre e lui ___` pasaba en
+// 64/0 con la key `faccia` ya incorrecta (el sujeto es 3pl) y con el mismo
+// material lexico de las 30 variantes. Va ahora por el CONECTOR QUE PRECEDE al
+// pronombre del hueco, que es total sea cual sea el primer conjunto; el otro
+// lado, `io e mia madre ___`, ya falla cerrado por `BLANK_SUBJECT_RE`. NO CUBRE
+// un coordinante dentro del inciso, que no es italiano para sujeto compuesto.
 const COORD_SUBJECT_RE = new RegExp(
   String.raw`(?:^|[^\p{L}])(?:e|ed|o|od|né|sia)\s+(?:${PRON})${HASTA_EL_HUECO}`, 'iu');
 
@@ -571,10 +542,10 @@ describe('fare-congiuntivo — sujeto explicito y no-correferencia (D-42-06, D-4
   // mismo prompt (`Io penso che lui ___`). Contar pronombres pondria en rojo
   // contenido correcto, asi que el gate correcto es la tabla declarativa.
   test('los 30 prompts contienen EXACTAMENTE un hueco literal ___', () => {
-    // IN-07 (revision de codigo del 2026-08-06): el gate era `includes('___')`,
-    // presencia y no conteo. El motor sustituye UN hueco, asi que dos rompen el
-    // render; y ademas `segmentoDelHueco` se queda con el primero, con lo que el
-    // gate de ambito de WR-11 pasaria a mirar la clausula equivocada.
+    // IN-05 (2026-08-06): era `includes('___')`, presencia y no conteo. El motor
+    // sustituye UN hueco, asi que dos rompen el render, y ademas
+    // `segmentoDelHueco` se queda con el primero y el gate de ambito de WR-11
+    // pasaria a mirar la clausula equivocada.
     const sucio = allVariants()
       .filter(({ v }) => v.prompt.split('___').length !== 2)
       .map(({ slot, k, v }) => `${slot.id}#${k}: ${v.prompt.split('___').length - 1} huecos`);
@@ -744,15 +715,12 @@ describe('fare-congiuntivo — 0-gloss del verbo con gloss lexico de conjuncion 
   });
 
   test('ninguna forma castellana de `hacer` aparece en un prompt, ESTE DONDE ESTE (D-42-13)', () => {
-    // IN-08 (revision de codigo del 2026-08-06): los dos tests de arriba iteran
-    // `matchAll(/\(([^)]*)\)/g)`, o sea que el 0-gloss del VERBO que el comentario
-    // declara «PROHIBIDO y absoluto» era en realidad «prohibido entre
-    // parentesis». Un gloss en corchetes, entre comillas o tras coma no lo veia
-    // ninguno, y el `/espa/i` solo caza la palabra «español»: `Bisogna che io ___
-    // [haga] i compiti stasera.` pasaba entero. El riesgo es bajo —el canon R7
-    // del proyecto usa siempre parentesis— pero un gate que promete mas de lo que
-    // da es peor que uno honesto. Se escanea la FORMA, no el delimitador. Va por
-    // palabra (`wordish`) porque `hace` es prefijo de `haces` y de `hacemos`.
+    // IN-08 (2026-08-06): los dos tests de arriba iteran parentesis, asi que el
+    // 0-gloss del VERBO que el comentario declara «PROHIBIDO y absoluto» era en
+    // realidad «prohibido entre parentesis»; en corchetes, entre comillas o tras
+    // coma no lo veia nadie. Riesgo bajo —el canon R7 usa siempre parentesis—
+    // pero un gate que promete mas de lo que da es peor que uno honesto. Se
+    // escanea la FORMA y no el delimitador, por palabra porque `hace` es prefijo.
     const HACER_ES = [
       'hacer', 'hago', 'haces', 'hace', 'hacemos', 'haceis', 'hacéis', 'hacen',
       'haga', 'hagas', 'hagamos', 'hagais', 'hagáis', 'hagan',
@@ -785,13 +753,11 @@ describe('fare-congiuntivo — SCOPE-GATE lexico del objeto literal (D-42-18)', 
   });
 
   test('cada prompt lleva el objeto de la tabla, del conjunto CERRADO de 7, y es el UNICO de su clausula', () => {
-    // IN-07 (revision de codigo del 2026-08-06): el gate era `includes(obj)`,
-    // presencia y no exclusividad, asi que `___ i compiti e una torta stasera`
-    // pasaba entero pese a dar DOS objetos al mismo `fare`. Se cuenta en la
-    // clausula del hueco y NO en el prompt entero, y por CORTE_FUERTE y no por
-    // CORTE_DE_CLAUSULA: el objeto de la PRINCIPAL es legitimo y vive tras la
-    // coma (`Prima che loro ___ un errore, il capo controlla tutto`), mientras
-    // que dos objetos coordinados por `e` son el defecto que hay que cazar.
+    // IN-07 (2026-08-06): era `includes(obj)`, presencia y no exclusividad, asi
+    // que `___ i compiti e una torta stasera` pasaba pese a dar DOS objetos al
+    // mismo `fare`. Se cuenta en la clausula del hueco y por CORTE_FUERTE, no por
+    // CORTE_DE_CLAUSULA: el objeto de la PRINCIPAL es legitimo tras la coma
+    // (`___ un errore, il capo controlla tutto`) y dos objetos coordinados no.
     const sucio = [];
     for (const id of IDS) {
       eachVariant(id, (v, k) => {
@@ -951,19 +917,13 @@ describe('fare-congiuntivo — distractoras de passato y trapassato, cero indica
   // congiuntivo de la persona de esa variante: eso implica cero indicativo por
   // construccion y comprueba el patron completo de D-42-09 en una sola asercion.
   //
-  // IN-02 (revision de codigo del 2026-08-06) — AQUI HABIA UN SEGUNDO TEST,
-  // «RED de seguridad: ninguna distractora de los compuestos es un compuesto de
-  // INDICATIVO», sobre una constante IND_COMPOUND, y SE BORRA. No es que fuese
-  // debil: es que NO PODIA FALLAR. El test de aqui arriba fija las 3 distractoras
-  // a un conjunto CERRADO por igualdad ordenada, y la interseccion de ese
-  // universo cerrado —12 variantes x 3 formas— con los compuestos de indicativo
-  // es VACIA, comprobado forma a forma. Si este test pasa, aquel no podia
-  // fallar; si este falla, aquel sobra. Cero cobertura, coste de mantenimiento
-  // real y, peor, aspecto de gate independiente. La invariante SC-3 la sostiene
-  // el conjunto cerrado, que ademas es mas fuerte: cero indicativo por
-  // construccion. La razon por la que un gate de ausencia de indicativo sobre
-  // `options` completo seria insatisfacible (`abbiamo fatto` y `aveste fatto` son
-  // keys legitimas y homografas) sigue documentada en el `notes` con su fecha.
+  // IN-02 (2026-08-06) — AQUI HABIA UN SEGUNDO TEST, «RED de seguridad: ninguna
+  // distractora es un compuesto de INDICATIVO», sobre una constante
+  // IND_COMPOUND, y SE BORRA porque NO PODIA FALLAR: el test de aqui arriba fija
+  // las 3 distractoras a un conjunto CERRADO por igualdad ordenada, y la
+  // interseccion de ese universo —12 variantes x 3 formas— con los compuestos de
+  // indicativo es VACIA, comprobado forma a forma. SC-3 la sostiene el conjunto
+  // cerrado, que ademas es mas fuerte: cero indicativo por construccion.
   //
   // Y POR QUE EL GATE DEL BLOQUE 7 NO SE APLICA AQUI: como D-42-09 determina las
   // 3 distractoras por completo a partir de la persona, y io y tu comparten las
@@ -1090,14 +1050,12 @@ describe('fare-congiuntivo — slot del disparador, 4 casillas modo x tiempo (D-
   const BARE_HABITUALS = ['ogni giorno', 'ogni mattina', 'sempre', 'di solito'];
 
   test('ninguna variante del disparador deja el TIEMPO sin fijar (CR-01, CR-02, D-41-11)', () => {
-    // IN-09 (revision de codigo del 2026-08-06): los dos asserts que siguen son
-    // SELF-CHECK de VARIANT_TABLE y NO leen CONTENT. Su sujeto —`TENSE_FIX`,
-    // derivado de la tabla— es una constante de este fichero, asi que ningun
-    // cambio del JSON puede ponerlos rojos. No son un defecto: su proposito es
-    // legitimo y distinto, proteger la tabla de una edicion futura incoherente, y
-    // muerden cuando se edita. Se etiquetan porque, leidos dentro de un bloque
-    // cuyo tema es «el JSON cumple X», se leen como cobertura de contenido y no
-    // lo son. El gate que SI lee el JSON es el de ambito, mas abajo.
+    // IN-09 (2026-08-06): los dos asserts que siguen son SELF-CHECK de
+    // VARIANT_TABLE y NO leen CONTENT, asi que ningun cambio del JSON puede
+    // ponerlos rojos. No es un defecto —protegen la tabla de una edicion futura
+    // incoherente, y ahi si muerden— pero dentro de un bloque cuyo tema es «el
+    // JSON cumple X» se leen como cobertura de contenido. El gate que SI lee el
+    // JSON es el de ambito, mas abajo.
     assert.equal(TENSE_FIX.length, 6, 'las 6 variantes del disparador declaran su mecanismo');
     assert.deepEqual(
       TENSE_FIX.filter((r) => !['ancla', 'concordancia'].includes(r.how) || !r.lit).map((r) => r.k),
@@ -1122,50 +1080,19 @@ describe('fare-congiuntivo — slot del disparador, 4 casillas modo x tiempo (D-
           `CR-01/CR-02: ${TRIGGER_SLOT}#${k} lleva el ancla "${lit}" FUERA de la clausula del hueco: "${v.prompt}"`
         );
       }
-      // WR-13 (revision de codigo del 2026-08-06) — AQUI HABIA UN `else` PARA LA
-      // RAMA `concordancia`, Y SE BORRA. NO SE REINTRODUZCA SIN CERRAR ANTES LA
-      // DECISION DE CONTENIDO QUE HAY DEBAJO.
-      //
-      // Que hacia: `assert.ok(wordish(lit).test(v.prompt))` para k=2,3,4. Los
-      // literales declarados (`È necessario`, `controlla`, `sarebbe`) son los
-      // verbos de la principal, asi que lo unico que exigia era que el verbo
-      // apareciese como palabra. Dos razones para borrarlo, acumulativas y las
-      // dos medidas:
-      //
-      //   1. NO COMPROBABA EL TIEMPO, que es lo unico para lo que la rama
-      //      existia. Editando prompt, tabla y lexico de forma coherente —que es
-      //      justo lo que el comentario de MAIN_CLAUSE_VERBS invita a hacer— la
-      //      principal se va al pasado y el gate no se entera: con
-      //      `... il capo controllava tutto`, `lit` a `controllava` y
-      //      `controllava: '3sg'` en el lexico, la suite daba 64 pass / 0 fail,
-      //      y sin embargo `facessero` pasa a ser la respuesta estandar y la key
-      //      declarada `facciano` pasa a ser incorrecta. Es CR-01/CR-02 en su
-      //      forma pura.
-      //   2. NO APORTABA COBERTURA INDEPENDIENTE. Neutralizada (`true || ...`) y
-      //      repetidas las tres mutaciones que si deberia cazar —quitar
-      //      `È necessario`, `controlla` y `sarebbe` de su prompt—, las tres
-      //      seguian rojas por otras vias: el test de disparador unico,
-      //      `deriveMainPerson` fallando cerrado, y el `assert.match(/\bsarebbe\b/)`
-      //      del `se` hipotetico. 62/2 con la rama, 63/1 sin ella: la rama solo
-      //      anadia un rojo redundante.
-      //
-      // O sea: tres asserts que afirmaban en su mensaje que fijaban el TIEMPO,
-      // no lo fijaban, y no cubrian nada que no cubriese ya otro. Cobertura
-      // aparente, cero cobertura real, y ademas un comentario que decia lo
-      // contrario, que es lo que hace que una pasada futura deje de mirar.
-      //
-      // QUE HACE FALTA PARA CERRARLO DE VERDAD, y por que no se hace aqui: es una
-      // DECISION DE CONTENIDO, no un fix de test. Hay que decidir QUE TIEMPOS DE
-      // PRINCIPAL son admisibles en cada variante de rama `concordancia` —el
-      // `notes` razona una a una por que las tres no necesitan ancla, pero no
-      // declara la lista— y despues derivar el tiempo del prompt con un mapa
-      // `verbo -> tiempo`, igual que `deriveMainPerson` deriva la persona. Sin esa
-      // decision, cualquier assert que se ponga aqui vuelve a ser declarativo.
-      //
-      // MIENTRAS TANTO, EL ESTADO HONESTO: el INVARIANTE que el `notes` congela
-      // —«ninguna de las seis variantes puede quedarse con el TIEMPO sin fijar»—
-      // lo sostiene este fichero para las 3 variantes de rama `ancla` y NO lo
-      // sostiene para las 3 de rama `concordancia`. Queda ABIERTO y declarado.
+      // WR-13 (2026-08-06) — AQUI HABIA UN `else` PARA LA RAMA `concordancia`, Y
+      // SE BORRA. NO SE REINTRODUZCA SIN CERRAR ANTES LA DECISION DE CONTENIDO.
+      // Exigia el verbo de la principal como palabra, y (1) NO comprobaba el
+      // TIEMPO, que es lo unico para lo que existia: con la principal movida al
+      // pasado de forma coherente en prompt, tabla y lexico (`controllava`), la
+      // suite daba 64/0 con la key declarada ya incorrecta; (2) NO aportaba
+      // cobertura independiente: neutralizada, las tres mutaciones que deberia
+      // cazar seguian rojas por otras vias. CERRARLO ES DECISION DE CONTENIDO:
+      // declarar que tiempos de principal admite cada variante de esta rama y
+      // derivar el tiempo del prompt con un mapa `verbo -> tiempo`, como
+      // `deriveMainPerson` deriva la persona. HASTA ENTONCES el invariante del
+      // `notes` lo sostiene este fichero para las 3 de `ancla` y NO para las 3 de
+      // `concordancia`; queda ABIERTO, y el `notes` lo dice tambien.
     }
   });
 
@@ -1263,11 +1190,10 @@ describe('fare-congiuntivo — disparadores, marcos y objetos por variante (D-42
     // son disjuntas por construccion: los compuestos fijan el tiempo por marco de
     // concordancia, el disparador por ancla o por concordancia con la principal, y
     // los dos simples no lo fijan por ninguno porque su tiempo lo da el slot.
-    // IN-09: los dos asserts de este test son SELF-CHECK de VARIANT_TABLE y no
-    // leen CONTENT; ningun cambio del JSON puede ponerlos rojos. Es el proposito,
-    // no un descuido: son la unica red contra una edicion incoherente de la
-    // tabla, y muerden —declarar `frame` y `tenseFix` en la misma fila, o
-    // reordenar las filas del disparador, los pone rojos—.
+    // IN-09: los dos asserts son SELF-CHECK de VARIANT_TABLE y no leen CONTENT.
+    // Es el proposito, no un descuido: son la unica red contra una edicion
+    // incoherente de la tabla y ahi muerden (declarar `frame` y `tenseFix` en la
+    // misma fila, o reordenar las filas del disparador, los pone rojos).
     for (const id of IDS) {
       const conFix = VARIANT_TABLE[id].filter((r) => r.tenseFix !== null).length;
       assert.equal(conFix, id === TRIGGER_SLOT ? 6 : 0, `WR-03: ${id} declara ${conFix} tenseFix`);
@@ -1351,12 +1277,10 @@ describe('fare-congiuntivo — canon editorial e higiene del JSON (D-42-17, T-42
     assert.ok(d.length > 600, `D-42-14: la explanation del disparador es la mas desarrollada de la fase (${d.length} caracteres)`);
     const sucio = COMPOUND_SLOTS.filter((id) => byId(id).explanation.includes('pienso que'));
     assert.deepEqual(sucio, [], 'D-42-14: passato y trapassato NO repiten la linea de interferencia');
-    // IN-06 (revision de codigo del 2026-08-06): la dosificacion tiene TRES
-    // tramos y solo se comprobaban dos, el que DESARROLLA y el que NO repite.
-    // Faltaba el del medio, y borrar la linea de recordatorio de los dos slots
-    // simples pasaba entero. El tramo importa: el motor sirve un slot por sesion
-    // y por presente e imperfetto se pasa muchas veces sin volver a leer la
-    // advertencia que explica por que se fallo.
+    // IN-06 (2026-08-06): la dosificacion tiene TRES tramos y solo se
+    // comprobaban dos, el que DESARROLLA y el que NO repite; borrar la linea de
+    // recordatorio de los dos simples pasaba entero. El tramo importa porque el
+    // motor sirve un slot por sesion y por esos dos se pasa muchas veces.
     for (const id of SIMPLE_SLOTS) {
       assert.match(byId(id).explanation, /penso che pide subjuntivo/,
         `D-42-14: ${id} debe llevar la linea de recordatorio de la interferencia`);

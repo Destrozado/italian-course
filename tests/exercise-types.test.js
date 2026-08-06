@@ -1267,16 +1267,13 @@ describe('validation-state — deriveStatus (Phase 9 D-VAL-07)', () => {
 // `presente-regolare` (v1.7 Phase 31, INT-01): 8 slots base + 4 cruces = 12 hoy.
 const __explCountFile = fileURLToPath(import.meta.url);
 const __explCountDir = dirname(__explCountFile);
-// IN-03 (revision de codigo de Phase 42, 2026-08-06): en las entradas que usan
-// `slotCountOf` el assert de conteo de mas abajo es TAUTOLOGICO y conviene saberlo:
-// `expected` y `data` resuelven a la misma ruta y se leen en el mismo momento, asi
-// que `assert.equal(data.exercises.length, expected)` es una identidad. La forma
-// que D-31-06 pide —derivado, nunca numero magico— se cumple; lo que se pierde es
-// el gate de conteo, que para esas categorias vive en su test de contenido
-// dedicado (p. ej. las 5 x 6 = 30 variantes de fare-congiuntivo). Para las 9
-// entradas con numero literal el assert SI es cobertura real. El resto del
-// describe —explanation no vacia, apostrofes, markdown, R1, R2— es cobertura real
-// en las dos formas.
+// IN-03 (revision de Phase 42, 2026-08-06): en las entradas que usan `slotCountOf`
+// el assert de conteo de mas abajo es TAUTOLOGICO — `expected` y `data` resuelven a
+// la misma ruta y se leen en el mismo momento. La forma que D-31-06 pide (derivado,
+// nunca numero magico) se cumple; lo que se pierde es el gate de conteo, que para
+// esas categorias vive en su test de contenido dedicado (p. ej. 5 x 6 = 30 en
+// fare-congiuntivo). Para las 9 entradas con numero literal el assert SI muerde, y
+// el resto del describe es cobertura real en las dos formas.
 const slotCountOf = (relFile) =>
   JSON.parse(readFileSync(resolve(__explCountDir, '..', relFile), 'utf-8')).exercises.length;
 
