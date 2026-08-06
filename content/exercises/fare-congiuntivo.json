@@ -74,6 +74,80 @@
         "status": "pending",
         "passes": []
       }
+    },
+    {
+      "id": "fare-congiuntivo-imperfetto",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "fare-congiuntivo"
+      ],
+      "explanation": "El congiuntivo imperfetto de fare se construye sobre la raíz fac-, la misma que el passato remoto conserva en tu, noi y voi, y sobre ella caen las desinencias del imperfetto de subjuntivo, de modo que el paradigma completo es io facessi, tu facessi, lui/lei facesse, noi facessimo, voi faceste, loro facessero. Lo primero que hay que interiorizar es que io y tu comparten EXACTAMENTE la misma forma, facessi: la desinencia no distingue quién realiza la acción, así que el sujeto tiene que estar en la frase y hay que leerlo, porque es el único dato que decide la respuesta. Las otras cuatro personas sí se distinguen entre sí, facesse, facessimo, faceste y facessero, y conviene fijarse en que faceste es idéntica a la forma de passato remoto de indicativo de voi, de manera que en esa persona la cadena por sí sola no dice ni el modo ni el tiempo y solo lo dice el disparador. El castellano funciona igual en la parte que importa: hiciera, hicieras, hiciera, hiciéramos, hicierais, hicieran también hace que dos personas compartan desinencia, así que la idea ya le resulta familiar al hispanohablante; lo que cambia es cuáles se solapan, la primera y la tercera del singular en castellano, la primera y la segunda en italiano. El disparador de este tiempo tampoco es cualquiera: pide una oración principal en pasado o en condicional, del tipo bisognava che, era necessario che, non credevo che o il professore voleva che, o una conjunción concesiva como nonostante, y por eso una principal en presente no admite esta forma. La trampa que sí es específica del italiano conviene recordarla en una línea: penso che pide subjuntivo en italiano mientras que su equivalente castellano pide indicativo, y ese desajuste es la causa más frecuente de fallo en esta categoría. Las distractoras tienen tres trampas: la primera es la forma de imperfetto de indicativo de esa misma persona, facevo frente a facessi y así el resto del paradigma, que solo se descarta reconociendo que el disparador exige subjuntivo; la segunda es una forma REAL del congiuntivo imperfetto pero de otra persona, que solo se descarta leyendo el pronombre sujeto del enunciado; y la tercera es una raíz que no existe en italiano, la que resulta de conjugar fare como un verbo regular de la primera conjugación o de llevar a las desinencias del subjuntivo la raíz contracta far-, que solo vive en el infinitivo.",
+      "variants": [
+        {
+          "prompt": "Il professore voleva che io ___ i compiti a casa.",
+          "options": [
+            "facevo",
+            "facassi",
+            "facessi",
+            "facesse"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Mia madre sperava che tu ___ il letto prima di uscire.",
+          "options": [
+            "facessero",
+            "facevi",
+            "facessi",
+            "faressi"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Non credevo che lui ___ il lavoro da solo.",
+          "options": [
+            "facesse",
+            "faceva",
+            "faresse",
+            "facessimo"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Nonostante (a pesar de que) noi ___ una torta ogni domenica, nessuno la mangiava mai.",
+          "options": [
+            "facevamo",
+            "facassimo",
+            "faceste",
+            "facessimo"
+          ],
+          "correctIndex": 3
+        },
+        {
+          "prompt": "Era necessario che voi ___ una foto per il documento.",
+          "options": [
+            "facaste",
+            "faceste",
+            "facevate",
+            "facessero"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Bisognava che loro non ___ un errore in quel momento.",
+          "options": [
+            "facevano",
+            "faressero",
+            "facessero",
+            "facessi"
+          ],
+          "correctIndex": 2
+        }
+      ],
+      "validation": {
+        "status": "pending",
+        "passes": []
+      }
     }
   ]
 }
