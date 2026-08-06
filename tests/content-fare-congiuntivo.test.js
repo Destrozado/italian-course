@@ -1043,11 +1043,25 @@ describe('fare-congiuntivo — slot del disparador, 4 casillas modo x tiempo (D-
   });
 
   test('el `se` hipotetico lleva la principal en condizionale de un verbo que NO es fare (D-42-16)', () => {
+    // WR-02 (revision de codigo del 2026-08-06): el mensaje de este assert decia
+    // «ninguna casilla de Phase 43 puede entrar EN EL FICHERO, ni en el prompt»,
+    // pero el sujeto escaneado es UN prompt de los 30 — el de `Se io`. El claim
+    // global no lo sostenia nadie: el escaneo del bloque 6 recorria solo
+    // `options`. El gate GLOBAL sobre los 30 prompts y las 120 opciones vive
+    // ahora en el bloque 6 (ver WR-01), y lo que queda aqui es lo que este test
+    // si puede afirmar y ademas es lo que D-42-16 razona: esta variante concreta
+    // es la UNICA cuya principal va en condizionale, asi que es la unica donde
+    // `farei` es la palabra que la sintaxis esta pidiendo a gritos. Es el punto
+    // de presion, no la cobertura.
     const k = VARIANT_TABLE[TRIGGER_SLOT].findIndex((r) => r.trigger === 'Se io');
     const v = D().variants[k];
     assert.match(v.prompt, /\bsarebbe\b/, 'D-42-16: la principal debe ir en condizionale de `essere`');
     const sucio = PHASE43_FORMS.filter((f) => wordish(f).test(v.prompt));
-    assert.deepEqual(sucio, [], 'D-42-16: ninguna casilla de Phase 43 puede entrar en el fichero, ni en el prompt');
+    assert.deepEqual(
+      sucio,
+      [],
+      `D-42-16: la principal en condizionale del \`se\` hipotetico (${TRIGGER_SLOT}#${k}) tiene que ir en un verbo que NO es fare; el gate global de los 30 prompts esta en el bloque 6`
+    );
   });
 });
 
