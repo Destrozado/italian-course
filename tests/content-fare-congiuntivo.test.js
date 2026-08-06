@@ -293,8 +293,23 @@ const deriveBlankSubject = (prompt) => {
 // sujeto explicito, y un sujeto coordinado obliga al autor a componer la persona
 // en vez de leerla. Fallar cerrado es el comportamiento correcto: si una pasada
 // futura quiere coordinacion, que la declare y amplie el gate a proposito.
-const COORD_SUBJECT_RE =
-  /(?:^|[^\p{L}])(io|tu|lui|lei|noi|voi|loro)\s+(?:e|ed|o|od)\s+(?:io|tu|lui|lei|noi|voi|loro)(?:\s+non)?\s+___/iu;
+//
+// WR-12 (revision de codigo del 2026-08-06): el rechazo iba por la FORMA de los
+// dos conjuntos —pronombre, conector, pronombre— y por tanto solo cubria esa
+// forma. Con el primer conjunto NOMINAL o con un correlativo, la derivacion se
+// quedaba con el ultimo pronombre, la persona cuadraba con la tabla y el gate
+// entero daba verde: `Io penso che mia madre e lui ___ il lavoro ...` pasaba en
+// 64/0 con la key declarada `faccia` ya incorrecta (el sujeto real es 3pl y
+// tocaria `facciano`), y con el mismo material lexico que ya usan las 30
+// variantes —`mia madre`, `il professore`, `il capo` son sujetos de principal de
+// este fichero—. Va ahora por el CONECTOR QUE PRECEDE al pronombre del hueco, que
+// es total: sea cual sea el primer conjunto, si delante del pronombre hay
+// coordinante o correlativo, el sujeto es compuesto. El otro lado, `io e mia
+// madre ___`, ya falla cerrado por `BLANK_SUBJECT_RE` (no hay pronombre delante
+// del hueco). LO QUE NO CUBRE: un coordinante escondido dentro del inciso
+// (`lui, e mia madre, ___`), que no es italiano para un sujeto compuesto.
+const COORD_SUBJECT_RE = new RegExp(
+  String.raw`(?:^|[^\p{L}])(?:e|ed|o|od|né|sia)\s+(?:${PRON})${HASTA_EL_HUECO}`, 'iu');
 
 // La persona de la PRINCIPAL: lexico verbal explicito. Las expresiones
 // impersonales van como sintagma (`è necessario`) y no como verbo suelto, y la
