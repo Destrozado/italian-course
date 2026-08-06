@@ -71,8 +71,31 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-06",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-06",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C5-leak] La variante 4 (\"Benché (aunque) noi ___ tutto, il professore non è mai contento.\") incluye el paréntesis de traducción '(aunque)' dentro del prompt. R1 establece que lo PERMITIDO en el prompt es 'la frase del ejercicio + el blank. Punto', con una única excepción declarada (etiquetas neutras (masc)/(fem) para desambiguar elisión); una glosa de vocabulario como '(aunque)' no entra en esa excepción, así que es contenido añadido no permitido. Además el gloss es pedagógicamente delicado: 'aunque + subjuntivo' es un patrón explícito y muy conocido por el hispanohablante, así que traducir 'benché' como 'aunque' telegrafía directamente que la frase exige subjuntivo antes de que el alumno tenga que reconocer por sí mismo que 'benché' es un disparador de congiuntivo — exactamente el tipo de fuga que R1 busca evitar (leer la pista en vez de recordarla). Fix: quitar '(aunque)' del prompt; si 'benché' es vocabulario todavía no consolidado, mover la traducción a 'notes' (autor-internal) o a la explanation (se renderiza solo tras fallar), o sustituir por un conector ya conocido por el alumno (ej. 'anche se')."
+            ]
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-08-06",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C5-leak] La variante 4 incluye en el prompt la glosa '(aunque)' junto a 'Benché': el enunciado no es solo frase italiana + blank, y traduce el conector que dispara el subjuntivo, dando al alumno la pista de que debe elegir congiuntivo. Viola R1."
+            ]
+          }
+        ]
       }
     },
     {
@@ -145,8 +168,27 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-06",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-06",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-08-06",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
@@ -219,8 +261,29 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-06",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-06",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-08-06",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C2-una_opcion] En la variante 'Il professore dubita che tu ___ il lavoro stamattina.', la opción 'faccia' completa válidamente la frase con valor de futuro/contemporaneidad: 'il professore dubita che tu faccia il lavoro stamattina' es italiano correcto si 'stamattina' se interpreta como la mañana de hoy aún no terminada. El contexto no fuerza inequívocamente la lectura de anterioridad, por lo que no hay UNA sola opción válida y un alumno que elija 'faccia' sería marcado incorrectamente pese a elegir una lectura gramaticalmente posible."
+            ]
+          }
+        ]
       }
     },
     {
@@ -293,8 +356,27 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-06",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-06",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-08-06",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
@@ -367,8 +449,21 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-06",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-06",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     }
   ]
