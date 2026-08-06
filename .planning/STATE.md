@@ -2,39 +2,39 @@
 gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Paradigma completo de `fare` (4 categorías por modo)
-current_phase: 42
-current_phase_name: "`fare-congiuntivo` — 4 slots (homógrafas + disparador)"
-status: verifying
-stopped_at: Completed 42-02-PLAN.md
-last_updated: "2026-08-06T07:46:19.634Z"
+current_phase: 43
+current_phase_name: "`fare-cond-imperativo` + `fare-indefiniti` — 3 + 6 slots"
+status: planning
+stopped_at: Phase 42 verificada y completa (UAT 3/3)
+last_updated: "2026-08-06T19:19:38.618Z"
 last_activity: 2026-08-06
-last_activity_desc: 42-01 complete — fare-congiuntivo alta + presente + imperfetto (12 variantes, pending quorum)
+last_activity_desc: Phase 42 complete, transitioned to Phase 43
 progress:
   total_phases: 5
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 5
   completed_plans: 5
-  percent: 60
+  percent: 80
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
 
 ## Project Reference
 
-See: `.planning/PROJECT.md` (updated 2026-07-28 — Milestone v2.0 ABIERTO: paradigma completo de `fare`, 4 categorías)
+See: `.planning/PROJECT.md` (updated 2026-08-06 — Phase 42 `fare-congiuntivo` verificada y completa: UAT 3/3, 5/5 slots validated, VAL_07_STRICT 858/858)
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 42 — `fare-congiuntivo` — 4 slots (homógrafas + disparador)
+**Current Focus:** Phase 43 — `fare-cond-imperativo` + `fare-indefiniti` — 3 + 6 slots
 
 ## Current Position
 
-Phase: 42 (`fare-congiuntivo` — 4 slots (homógrafas + disparador)) — EXECUTING
-Plan: 2 of 2
-Status: Phase complete — ready for verification
-Last activity: 2026-08-06 — 42-01 complete — fare-congiuntivo alta + presente + imperfetto (12 variantes, pending quorum)
+Phase: 43 — `fare-cond-imperativo` + `fare-indefiniti` — 3 + 6 slots
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-08-06 — Phase 42 complete, transitioned to Phase 43
 
-Progress: [██████████] 100%
+Progress: [████████████████████] 5/5 plans (100%) · 4/5 fases (80%)
 
 ## Deferred Items
 
@@ -283,6 +283,9 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 ### Blockers/Concerns
 
 - **Sin bloqueos para v2.0.** Verificado en disco el 2026-07-28: `CURRENT_SCHEMA_VERSION` = **12** (la migración de Phase 40 es `12→13`, sin la discrepancia que sí hubo en v1.7), 14 categorías registradas (orders 1-14), 225 slots, D-54 con 2 call-sites. Toda la maquinaria necesaria existe y es reutilizable (slot-engine, `pickVariantIndex`, sampler por slot, smoke bifurcado por shape, infra de quórum cross-vendor, `origen` PROV-01 del v1.9).
+- **⚠️ [Phase 42] Deuda de overrides legacy sin flag — 3 categorías.** `deriveStatus` ya soporta el override del autor de primera clase (`by: "autor"` + `verdict: "correcta"` + `override: true`), pero los 3 overrides que se hicieron a mano ANTES siguen sin el flag: `partitivos-negativa`, `avere-passato-prossimo` y `profesiones-invariabili`. El grave es `avere-passato-prossimo`, que vive con `status: "validated"` y un pase `incorrecta` dentro, es decir con el invariante `status === deriveStatus(passes)` roto — hoy no lo caza nadie porque `avere` no tiene el assert T-42-03 que sí tienen `fare-congiuntivo` y `fare-indicativo`. Retrofitear `override: true` en los 3 lo cierra y es mecánico. NO se hizo en Phase 42 por no ampliar alcance a otras categorías.
+- **⚠️ [Phase 42] El assert gemelo de `content-fare-indicativo.test.js` no admite override.** Sigue exigiendo 0 `incorrecta` sin excepción, a diferencia del de `fare-congiuntivo`. Se dejó intacto a propósito: su contenido no tiene overrides y, si algún día los tiene, el test saltará y dirá por qué en vez de dejarlo pasar. Alinearlo cuando haga falta, no antes.
+- **⚠️ [Phase 42] 3 INFO del code review abiertos.** IN-04 (`slot-variants-integration.test.js` sigue ciego a la categoría nueva) es **de Phase 44 por diseño** — el `notes` avisa de que mientras la categoría falte de esos arrays el reporter no se pone rojo, se queda CIEGO, que es peor que un rojo porque parece verde; el marcador honesto entretanto es `VAL_07_STRICT=1`. IN-05 (no se comprueba que cada prompt tenga EXACTAMENTE un hueco) e IN-07 (el SCOPE-GATE del objeto comprueba presencia, no exclusividad) son gaps de test reales y baratos.
 - **⚠️ Riesgo de contenido aceptado (vigilar en uso real):** `fare-indicativo` mete *presente* (diario) y *trapassato remoto* (extinto en el habla) en la MISMA unidad de reset. Si la categoría se atasca y nunca se pone verde → partirla en semplici/composti (barato, precedente `260614-hxn`). Anotado en REQUIREMENTS.md §Future.
 
 - **⚠️ Discrepancia de schemaVersion (REQUIREMENTS vs codebase) — resolver en plan-time Phase 29.** MIG-05/06 asumen `schemaVersion 9` y migración `9→10`, pero `CURRENT_SCHEMA_VERSION` YA está en **10** (`src/data/storage.js:35` y `src/data/backup.js:49`) por el quick task `260615-nzi` (migrate9to10/hydrateV10 nominal del contador `vecesFallada`). La migración de reset selectivo de v1.7 va realmente **`10→11`** (`migrate10to11`/`hydrateV11`/`CURRENT_SCHEMA_VERSION=11`; round-trip v11 + import v10→v11 + rechazo `>11`). Verificar el valor REAL antes de hardcodear el número de migración. Documentado en ROADMAP §v1.7 nota de numeración + REQUIREMENTS MIG-05/06 nota de implementación.
@@ -330,8 +333,8 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Session Continuity
 
-**Last session:** 2026-08-06T07:46:10.592Z
-**Stopped at:** Completed 42-02-PLAN.md
+**Last session:** 2026-08-06T19:20:00.000Z
+**Stopped at:** Phase 42 verificada y completa (UAT 3/3 pass), lista para planificar Phase 43
 **Resume file:** None
 
 ### Last Session
