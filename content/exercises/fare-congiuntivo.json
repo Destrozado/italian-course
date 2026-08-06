@@ -71,8 +71,27 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-06",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-06",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-08-06",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
@@ -238,8 +257,29 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-06",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-06",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-reasoner",
+            "date": "2026-08-06",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C2-una_opcion] Las variantes no fuerzan el aspecto perfectivo: por ejemplo, en 'Mia madre non crede che io ___ i compiti ieri sera', 'facessi' es válido con lectura imperfectiva ('que yo estuviera haciendo los deberes'), de modo que no hay UNA SOLA opción válida. El prompt necesita contexto adicional que elimine la lectura no-perfectiva para que solo 'abbia fatto' (u otra forma compuesta) sea aceptable."
+            ]
+          }
+        ]
       }
     },
     {
