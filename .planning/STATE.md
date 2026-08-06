@@ -4,15 +4,15 @@ milestone: v2.0
 milestone_name: Paradigma completo de `fare` (4 categorías por modo)
 current_phase: 43
 current_phase_name: "`fare-cond-imperativo` + `fare-indefiniti` — 3 + 6 slots"
-status: planning
+status: executing
 stopped_at: Phase 43 context gathered
-last_updated: "2026-08-06T22:22:20.566Z"
+last_updated: "2026-08-06T23:22:58.895Z"
 last_activity: 2026-08-06
 last_activity_desc: Phase 42 complete, transitioned to Phase 43
 progress:
   total_phases: 5
   completed_phases: 3
-  total_plans: 5
+  total_plans: 7
   completed_plans: 5
   percent: 60
 ---
@@ -31,7 +31,7 @@ See: `.planning/PROJECT.md` (updated 2026-08-06 — Phase 42 `fare-congiuntivo` 
 
 Phase: 43 — `fare-cond-imperativo` + `fare-indefiniti` — 3 + 6 slots
 Plan: Not started
-Status: Ready to plan
+Status: Ready to execute
 Last activity: 2026-08-06 — Phase 42 complete, transitioned to Phase 43
 
 Progress: [████████████████████] 5/5 plans (100%) · 4/5 fases (80%)
