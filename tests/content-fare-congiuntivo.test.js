@@ -1163,9 +1163,24 @@ describe('fare-congiuntivo — canon editorial e higiene del JSON (D-42-17, T-42
   test('ninguna clave propia del objeto parseado se llama __proto__, constructor ni prototype', () => {
     // T-42-02: JSON.parse crea `__proto__` como own-property si el literal la
     // declara. El fichero declara UNICAMENTE el key set del schema.
+    //
+    // WR-04 (revision de codigo del 2026-08-06): aqui habia una segunda linea,
+    // `assert.equal(({}).polluted, undefined)`, y se ELIMINA porque no podia
+    // fallar por ningun contenido posible del JSON. `JSON.parse` crea `__proto__`
+    // como own property y NUNCA escribe en `Object.prototype`; comprobado con el
+    // literal mas hostil posible, `{"__proto__": {"polluted": 1}}`, tras el cual
+    // `({}).polluted` sigue siendo undefined y `Object.getPrototypeOf` del objeto
+    // parseado sigue siendo `Object.prototype`. Se leia como un gate
+    // anti-prototype-pollution y no lo era: cobertura aparente, cero cobertura
+    // real. NO se sustituye por un recorrido de `Object.getPrototypeOf`, que es
+    // vacuo por la misma razon.
+    //
+    // EL GATE REAL ES EL DE ABAJO y es el unico que hace falta: el riesgo de
+    // verdad no es que este `JSON.parse` contamine —no puede— sino que un
+    // consumidor haga un deep-merge ingenuo del contenido parseado, y para eso lo
+    // que hay que impedir es que la clave peligrosa EXISTA en el fichero.
     const sucias = claves.filter((k) => ['__proto__', 'constructor', 'prototype'].includes(k));
     assert.deepEqual(sucias, [], 'T-42-02: clave peligrosa en el JSON de contenido');
-    assert.equal(({}).polluted, undefined, 'T-42-02: prototype pollution tras el parse');
   });
 
   test('las 5 explanations estan en espanol acentuado, no estan vacias y no adelantan Phase 43', () => {
