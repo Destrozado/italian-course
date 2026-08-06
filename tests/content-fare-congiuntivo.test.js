@@ -73,8 +73,18 @@ const allVariants = () => SLOTS.flatMap((s) => s.variants.map((v, k) => ({ slot:
 // disparadores que empiezan por `È` y por `B`+`enché`, asi que se construye a
 // mano con \p{L}. Es lo que impide que `so che` haga match dentro de
 // `penso che`, que es una colision real entre dos disparadores de este fichero.
+//
+// WR-10 (revision de codigo del 2026-08-06): llevaba el flag `u` y NO el `i`, y
+// todos los conjuntos que se escanean con el —BLACKLIST, PHASE43_FORMS— estan en
+// minuscula. La consecuencia es que la misma forma pasaba o no segun su
+// capitalizacion, y justo la posicion en la que una forma prohibida aparece de
+// verdad en un prompt es la que el gate no veia: INICIO DE ORACION. `facci` caia
+// y `Facci` no; `Fatta la torta, ...` —el participio absoluto, que es el MAGNET
+// de Phase 43 en su construccion mas natural y empieza oracion por definicion—
+// pasaba entero. Se normaliza en el matcher y no en cada llamada, que es lo que
+// evita que el proximo escaneo nazca con el mismo agujero.
 const wordish = (s) =>
-  new RegExp(`(^|[^\\p{L}])${s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}([^\\p{L}]|$)`, 'u');
+  new RegExp(`(^|[^\\p{L}])${s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}([^\\p{L}]|$)`, 'iu');
 
 // WR-07 / WR-08 (revision de codigo del 2026-08-06) — LA CLAUSULA QUE GOBIERNA
 // EL HUECO.
@@ -178,7 +188,9 @@ const BLACKLIST = [
 // PHASE43_FORMS — casillas declaradas de Phase 43. No son errores, pero no
 // entran en `options` para no adelantar el magnet de esa fase (D-42-15, D-42-16).
 const PHASE43_FORMS = ['farei', 'faresti', 'farebbe', 'faremmo', 'fareste', 'farebbero', "fa'"];
-const PARTICIPIO_CONCORDADO = /\bfatt[aie]\b/;
+// WR-10: con el flag `i`, por la misma razon que `wordish`. `Fatta la torta, ...`
+// es la construccion mas natural del participio absoluto y empieza oracion.
+const PARTICIPIO_CONCORDADO = /\bfatt[aie]\b/i;
 
 // SCOPE-GATE lexico HARD heredado de D-41-06 por D-42-18.
 const PERIPHRASIS = ['colazione', 'spesa', 'freddo', 'farcel', 'far fare'];
