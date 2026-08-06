@@ -15,6 +15,7 @@
     { "id": "modali",                  "name": "Verbi modali (potere/volere/dovere)",       "order": 13, "origen": "ia-quorum" },
     { "id": "riflessivi",              "name": "Verbi riflessivi (mi chiamo/si alza)",      "order": 14, "origen": "ia-quorum" },
     { "id": "fare-indicativo",         "name": "Fare — indicativo (faccio/feci/ho fatto)",  "order": 15, "origen": "ia-quorum" },
-    { "id": "fare-congiuntivo",        "name": "Fare — congiuntivo (faccia/facessi/abbia fatto)", "order": 16, "origen": "ia-quorum" }
+    { "id": "fare-congiuntivo",        "name": "Fare — congiuntivo (faccia/facessi/abbia fatto)", "order": 16, "origen": "ia-quorum" },
+    { "id": "fare-cond-imperativo",    "name": "Fare — condizionale e imperativo (farei/avrei fatto/fa')", "order": 17, "origen": "ia-quorum" }
   ]
 }
