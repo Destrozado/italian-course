@@ -1086,18 +1086,51 @@ describe('fare-congiuntivo — slot del disparador, 4 casillas modo x tiempo (D-
           gobiernaElHueco(v.prompt, lit),
           `CR-01/CR-02: ${TRIGGER_SLOT}#${k} lleva el ancla "${lit}" FUERA de la clausula del hueco: "${v.prompt}"`
         );
-      } else {
-        // WR-07, la otra mitad: el mecanismo de CONCORDANCIA es el TIEMPO del
-        // verbo de la principal, que por definicion vive en la OTRA clausula, asi
-        // que aqui no se pide ambito — se pide coincidencia de PALABRA, que es lo
-        // que `includes` no daba: `'controllava'.includes('controlla')` es true,
-        // asi que una principal pasada a imperfetto pasaba el gate temporal
-        // intacta, y es exactamente la edicion que haria defendible `facessero`.
-        assert.ok(
-          wordish(lit).test(v.prompt),
-          `CR-01/CR-02: ${TRIGGER_SLOT}#${k} deberia fijar el tiempo por concordancia con "${lit}" y el prompt no lo lleva como PALABRA: "${v.prompt}"`
-        );
       }
+      // WR-13 (revision de codigo del 2026-08-06) — AQUI HABIA UN `else` PARA LA
+      // RAMA `concordancia`, Y SE BORRA. NO SE REINTRODUZCA SIN CERRAR ANTES LA
+      // DECISION DE CONTENIDO QUE HAY DEBAJO.
+      //
+      // Que hacia: `assert.ok(wordish(lit).test(v.prompt))` para k=2,3,4. Los
+      // literales declarados (`È necessario`, `controlla`, `sarebbe`) son los
+      // verbos de la principal, asi que lo unico que exigia era que el verbo
+      // apareciese como palabra. Dos razones para borrarlo, acumulativas y las
+      // dos medidas:
+      //
+      //   1. NO COMPROBABA EL TIEMPO, que es lo unico para lo que la rama
+      //      existia. Editando prompt, tabla y lexico de forma coherente —que es
+      //      justo lo que el comentario de MAIN_CLAUSE_VERBS invita a hacer— la
+      //      principal se va al pasado y el gate no se entera: con
+      //      `... il capo controllava tutto`, `lit` a `controllava` y
+      //      `controllava: '3sg'` en el lexico, la suite daba 64 pass / 0 fail,
+      //      y sin embargo `facessero` pasa a ser la respuesta estandar y la key
+      //      declarada `facciano` pasa a ser incorrecta. Es CR-01/CR-02 en su
+      //      forma pura.
+      //   2. NO APORTABA COBERTURA INDEPENDIENTE. Neutralizada (`true || ...`) y
+      //      repetidas las tres mutaciones que si deberia cazar —quitar
+      //      `È necessario`, `controlla` y `sarebbe` de su prompt—, las tres
+      //      seguian rojas por otras vias: el test de disparador unico,
+      //      `deriveMainPerson` fallando cerrado, y el `assert.match(/\bsarebbe\b/)`
+      //      del `se` hipotetico. 62/2 con la rama, 63/1 sin ella: la rama solo
+      //      anadia un rojo redundante.
+      //
+      // O sea: tres asserts que afirmaban en su mensaje que fijaban el TIEMPO,
+      // no lo fijaban, y no cubrian nada que no cubriese ya otro. Cobertura
+      // aparente, cero cobertura real, y ademas un comentario que decia lo
+      // contrario, que es lo que hace que una pasada futura deje de mirar.
+      //
+      // QUE HACE FALTA PARA CERRARLO DE VERDAD, y por que no se hace aqui: es una
+      // DECISION DE CONTENIDO, no un fix de test. Hay que decidir QUE TIEMPOS DE
+      // PRINCIPAL son admisibles en cada variante de rama `concordancia` —el
+      // `notes` razona una a una por que las tres no necesitan ancla, pero no
+      // declara la lista— y despues derivar el tiempo del prompt con un mapa
+      // `verbo -> tiempo`, igual que `deriveMainPerson` deriva la persona. Sin esa
+      // decision, cualquier assert que se ponga aqui vuelve a ser declarativo.
+      //
+      // MIENTRAS TANTO, EL ESTADO HONESTO: el INVARIANTE que el `notes` congela
+      // —«ninguna de las seis variantes puede quedarse con el TIEMPO sin fijar»—
+      // lo sostiene este fichero para las 3 variantes de rama `ancla` y NO lo
+      // sostiene para las 3 de rama `concordancia`. Queda ABIERTO y declarado.
     }
   });
 
