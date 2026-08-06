@@ -742,6 +742,31 @@ describe('fare-congiuntivo — 0-gloss del verbo con gloss lexico de conjuncion 
     }
     assert.deepEqual(sucio, [], 'D-42-13: el gloss lexico solo es admisible sobre la conjuncion');
   });
+
+  test('ninguna forma castellana de `hacer` aparece en un prompt, ESTE DONDE ESTE (D-42-13)', () => {
+    // IN-08 (revision de codigo del 2026-08-06): los dos tests de arriba iteran
+    // `matchAll(/\(([^)]*)\)/g)`, o sea que el 0-gloss del VERBO que el comentario
+    // declara «PROHIBIDO y absoluto» era en realidad «prohibido entre
+    // parentesis». Un gloss en corchetes, entre comillas o tras coma no lo veia
+    // ninguno, y el `/espa/i` solo caza la palabra «español»: `Bisogna che io ___
+    // [haga] i compiti stasera.` pasaba entero. El riesgo es bajo —el canon R7
+    // del proyecto usa siempre parentesis— pero un gate que promete mas de lo que
+    // da es peor que uno honesto. Se escanea la FORMA, no el delimitador. Va por
+    // palabra (`wordish`) porque `hace` es prefijo de `haces` y de `hacemos`.
+    const HACER_ES = [
+      'hacer', 'hago', 'haces', 'hace', 'hacemos', 'haceis', 'hacéis', 'hacen',
+      'haga', 'hagas', 'hagamos', 'hagais', 'hagáis', 'hagan',
+      'hacia', 'hacía', 'hacias', 'hacías', 'haciamos', 'hacíamos', 'hacian', 'hacían',
+      'hice', 'hiciste', 'hizo', 'hicimos', 'hicieron',
+      'hiciera', 'hicieras', 'hicieramos', 'hiciéramos', 'hicieran', 'hecho',
+    ];
+    const sucio = [];
+    for (const { slot, v, k } of allVariants()) {
+      const hits = HACER_ES.filter((f) => wordish(f).test(v.prompt));
+      if (hits.length) sucio.push(`${slot.id}#${k}: ${hits.join(', ')} en "${v.prompt}"`);
+    }
+    assert.deepEqual(sucio, [], 'D-42-13: gloss del VERBO; regala MODO y TIEMPO a la vez, que es exactamente el ejercicio');
+  });
 });
 
 // ───────────────────────────────────────────────────────────────────────────
@@ -1311,6 +1336,16 @@ describe('fare-congiuntivo — canon editorial e higiene del JSON (D-42-17, T-42
     assert.ok(d.length > 600, `D-42-14: la explanation del disparador es la mas desarrollada de la fase (${d.length} caracteres)`);
     const sucio = COMPOUND_SLOTS.filter((id) => byId(id).explanation.includes('pienso que'));
     assert.deepEqual(sucio, [], 'D-42-14: passato y trapassato NO repiten la linea de interferencia');
+    // IN-06 (revision de codigo del 2026-08-06): la dosificacion tiene TRES
+    // tramos y solo se comprobaban dos, el que DESARROLLA y el que NO repite.
+    // Faltaba el del medio, y borrar la linea de recordatorio de los dos slots
+    // simples pasaba entero. El tramo importa: el motor sirve un slot por sesion
+    // y por presente e imperfetto se pasa muchas veces sin volver a leer la
+    // advertencia que explica por que se fallo.
+    for (const id of SIMPLE_SLOTS) {
+      assert.match(byId(id).explanation, /penso che pide subjuntivo/,
+        `D-42-14: ${id} debe llevar la linea de recordatorio de la interferencia`);
+    }
   });
 
   test('las explanations de los compuestos citan su paradigma y nombran la anterioridad', () => {
