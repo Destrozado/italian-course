@@ -1,6 +1,6 @@
 ---
 phase: 42-fare-congiuntivo-4-slots-hom-grafas-disparador
-reviewed: 2026-08-06T07:56:54Z
+reviewed: 2026-08-06T09:26:47Z
 depth: standard
 files_reviewed: 5
 files_reviewed_list:
@@ -10,53 +10,105 @@ files_reviewed_list:
   - tests/content-fare-indicativo.test.js
   - tests/exercise-types.test.js
 findings:
-  critical: 3
-  warning: 6
-  info: 6
-  total: 15
+  critical: 0
+  warning: 8
+  info: 8
+  total: 16
 status: issues_found
 ---
 
-# Phase 42: Code Review Report
+# Phase 42: Code Review Report (re-revisión)
 
-**Reviewed:** 2026-08-06T07:56:54Z
+**Reviewed:** 2026-08-06T09:26:47Z
 **Depth:** standard
 **Files Reviewed:** 5
 **Status:** issues_found
 
 ## Summary
 
-Revisión adversarial de la alta de contenido `fare-congiuntivo` (5 slots x 6 variantes = 30), su
-gate de tests nuevo (`tests/content-fare-congiuntivo.test.js`, 13 describes / 59 tests), la reescritura
-de un assert en `tests/content-fare-indicativo.test.js` y la línea añadida a `CATEGORIES_WITH_EXPLANATIONS`.
+Segunda pasada sobre los mismos 5 ficheros, mismo rango de commits, tras los tres fixes de
+blocker (`2c089c3`, `9619fd5`, `99fc184`).
 
-Baseline verificado en local: `node --test tests/*.test.js` → **832/832 pass, 0 fail**.
-`node --test tests/content-fare-congiuntivo.test.js` → **59/59 pass**.
+Baseline reverificado en local: `node --test tests/*.test.js` → **835 pass / 0 fail**.
+`node --test tests/content-fare-congiuntivo.test.js` → **62 pass / 0 fail** (eran 59 antes de los
+fixes: los tres tests nuevos son los de CR-01/CR-02). Árbol de trabajo devuelto limpio tras las 22
+mutaciones experimentales.
 
-**Lo que está limpio y se ha comprobado mecánicamente** (no hace falta volver a mirarlo):
+**Los tres blockers están cerrados y verificados de forma independiente**, no por lectura del
+commit sino por mutación fail-first. El detalle está en la sección siguiente. Lo importante: el gate
+de CR-03 ya NO es inerte — se pone rojo en 4 de las 4 formas de correferencia que le probé, incluida
+una que el fixer no anticipó (principal pospuesta con verbo fuera del léxico, que falla cerrado y con
+mensaje correcto).
 
-- Estructura: 5 slots, 6 variantes cada uno, 30 en total; 4 opciones por variante; cero duplicados
-  internos; `correctIndex` entero en rango y no constante en ningún slot; `categoryIds` exactamente
-  `["fare-congiuntivo"]` en los 5; ningún id con sufijo `-\d{3}`; `validation.status: "pending"` con
-  `passes: []` coherente con `deriveStatus([])`.
-- Paradigma: las 30 keys se han verificado una a una contra el paradigma real del congiuntivo de
-  `fare`; los patrones de distractora de los 2 simples (3 ejes), de los 2 compuestos (conjunto cerrado
-  de 3 formas de congiuntivo de la persona) y del disparador (cuarteto completo modo x tiempo) se
-  cumplen en las 30. La excepción declarada de `noi` del presente (`facciamo` homógrafa) es correcta.
-- Encoding: inventario completo de los 13 caracteres no-ASCII del fichero — solo vocales acentuadas
-  RAE/italianas y una `ü`. **Cero** smart quotes, cero NBSP, cero em-dash, cero backticks, cero markdown,
-  cero `<`/`>`/`&#`. Todos los apóstrofes son U+0027.
-- `content/categories.json`: el diff es exactamente una entrada apendida; las 15 previas intactas.
-  Se ha comprobado por mutación que la suite SÍ se pone roja si se toca una entrada previa (C2) o si
-  se duplica un id (C3) — lo caza el bundle completo de `tests/domain.test.js`.
-- La línea añadida a `CATEGORIES_WITH_EXPLANATIONS` tiene la forma correcta de sus vecinas y su
-  `expected` es derivado (`slotCountOf`), no un número mágico. El fichero se auto-descubre por
-  `content/exercises/${cid}.json` en `src/data/content-loader.js`, así que la entrada de
-  `categories.json` es suficiente para que la categoría exista en runtime.
+**Lo que sigue abierto.** De las 6 WARNING previas, **5 reproducen** y **1 (WR-06) está cerrada como
+efecto colateral del `PERSON_OF_PRONOUN`** — confirmado por mutación de la tabla, no por lectura. Las
+6 INFO reproducen las 6.
 
-**Lo que no está bien.** Dos defectos de contenido con doble respuesta válida en el slot del
-disparador, y el gate declarado como HARD de la fase (no-correferencia de sujetos) es inerte: no puede
-ponerse rojo por ningún cambio de contenido. Los tres se sustancian abajo con mutación reproducible.
+**Lo que los fixes introdujeron.** Tres WARNING nuevas (WR-07, WR-08, WR-09) y dos INFO nuevas. La
+más sustantiva: el gate de ancla temporal que nació con CR-01/CR-02 comprueba que el literal esté
+**en el prompt**, no que esté **en la cláusula que gobierna el hueco**. Mover `in questo momento` a
+otra oración del mismo prompt reabre la doble respuesta y la suite se queda en 62/0. El mismo defecto
+existe, y es anterior a los fixes, en el gate de marco de concordancia de los dos compuestos — que el
+`notes` llama literalmente «el ÚNICO mecanismo que hace que `faccia` y `facessi` no sean defendibles».
+
+## Re-auditoría de los tres blockers cerrados
+
+### CR-01 — CERRADO (contenido correcto y gate real)
+
+`content/exercises/fare-congiuntivo.json:359-366`. El prompt es ahora
+`Io so che lui ___ il lavoro in questo momento.`
+
+- **Mata el imperfecto**: sí. `so che` ya descartaba `faccia`/`facesse` por modo; `in questo momento`
+  sitúa la acción en el instante de la enunciación y `faceva` pierde su punto de anclaje pasado. Con
+  el cuarteto `facesse / fa / faceva / faccia` sobrevive exactamente `fa`.
+- **¿Ambigüedad nueva?** No. `in questo momento` no habilita ninguna de las otras tres casillas.
+- **¿Italiano natural?** Sí. El presente simple italiano cubre la acción en curso sin necesidad de
+  perífrasis (`Cosa fai in questo momento?` — `Faccio i compiti`). `sta facendo` sería más marcado,
+  pero es progresivo y queda fuera del scope-gate de la categoría; su ausencia es coherente, no un
+  descuido. La colocación `fare il lavoro` es preexistente y viene del conjunto cerrado de 7 objetos.
+- **Regresión congelada**: mutación `M-G` (volver a `ogni giorno` en la variante 0) → **59/3**;
+  mutación `M-M` (quitar el ancla de la variante 5) → **60/2**. El gate existe y muerde.
+
+### CR-02 — CERRADO (las dos variantes, incluida la que el informe previo dejó como colateral)
+
+`:309-316` → `Io penso che lui ___ il lavoro in questo momento.`
+`:319-326` → `Benché (aunque) tu ___ i compiti adesso, il professore non è contento.`
+
+- **Variante 0**: `penso che` fija el modo, `in questo momento` fija el tiempo; `facesse` deja de ser
+  defendible porque el imperfecto de subjuntivo con principal en presente necesita referencia pasada
+  y aquí no la hay. Sobrevive `faccia`.
+- **Variante 1**: `adesso` cumple lo mismo. Comprobé además la lectura contrafactual, que es la única
+  por la que `facessi` podría volver: `Benché tu facessi i compiti adesso...` exigiría apódosis en
+  condicional, y la principal es `il professore non è contento`, indicativo presente. La lectura
+  queda bloqueada. Frase natural.
+- **El par pedagógico sobrevive**: la 0 y la 5 comparten ancla literal (`in questo momento`) y difieren
+  solo en el disparador; hay test dedicado que lo congela (`:913-922`).
+
+### CR-03 — CERRADO en su núcleo, con dos huecos residuales (ver WR-09)
+
+`tests/content-fare-congiuntivo.test.js:490-539`. El gate deriva ahora los dos sujetos del `prompt`
+(`deriveBlankSubject` :200-203, `deriveMainPerson` :230-234) y usa `VARIANT_TABLE` solo como contraste.
+Lo probé con **6 mutaciones fail-first, todas rojas**:
+
+| Mutación | Forma | Resultado |
+|---|---|---|
+| M-A | correferencia 1sg/1sg (`Io penso che io ___`), la forma que el `notes` cita como incorrecta | **60/2** |
+| M-B | verbo de principal fuera del léxico (`Io immagino che...`) | **60/2** (falla cerrado, mensaje correcto) |
+| M-C | principal POSPUESTA correferente (`Benché noi ___ tutto, noi non siamo mai contenti`) | **60/2** |
+| M-F | correferencia 3sg/3sg con verbo SÍ presente en el léxico (`Lui crede che lui ___`) | **59/3** |
+| N-C | concordancia rota (`controlla` → `controllava` en el disparador#3) | **61/1** |
+| N-G | `correctIndex` movido a una distractora | **60/2** |
+
+Verificaciones de diseño que confirmo como sólidas:
+
+- El paso 3 del gate (`:533`) opera sobre los valores **derivados**, no sobre la tabla. Eso significa
+  que una edición *coherente* de contenido + tabla que introdujera correferencia también se pone roja
+  — no solo la divergencia. Ese es el punto que hacía inerte al gate anterior y está bien resuelto.
+- `deriveMainPerson` devolviendo `null` → `assert.ok` rojo es fail-closed deliberado y funciona (M-B).
+- El matcher `wordish` con frontera `\p{L}` impide efectivamente que `so` haga match dentro de
+  `penso che`, que es una colisión real entre dos disparadores de este fichero. Verificado.
+
+Lo que **no** cubre: sujetos coordinados delante del hueco (WR-09) y ámbito del ancla (WR-07).
 
 ## Structural Findings (fallow)
 
@@ -66,168 +118,28 @@ No se aportó bloque `<structural_findings>` en esta invocación.
 
 ## Critical Issues
 
-### CR-01: `fare-congiuntivo-disparador` variante 5 tiene DOS respuestas correctas (`fa` y `faceva`)
-
-**BLOCKER**
-**File:** `content/exercises/fare-congiuntivo.json:359-366`
-
-**Issue:**
-```
-"prompt": "Io so che lui ___ il lavoro ogni giorno."
-"options": ["facesse", "fa", "faceva", "faccia"]   correctIndex: 1 -> "fa"
-```
-`so che` es un verbo de certeza: rige INDICATIVO, y eso descarta `faccia` y `facesse`. Pero no
-restringe el TIEMPO del indicativo. `Io so che lui faceva il lavoro ogni giorno.` («Sé que él hacía el
-trabajo todos los días») es italiano estándar, perfectamente gramatical y semánticamente coherente.
-El único anclaje temporal del prompt es `ogni giorno`, que es compatible con habitual presente y con
-habitual pasado por igual; el verbo de la principal (`so`) no impone concordancia sobre un subordinado
-en indicativo.
-
-El precedente del propio proyecto lo confirma: en `tests/content-fare-indicativo.test.js:135-136` la
-tabla `FRAMES` asigna `ogni giorno` al slot de PRESENTE y reserva marcos propios y disjuntos
-(`Da bambino`, `Ogni estate`, `A quei tempi`…) para el imperfetto, precisamente porque un marcador
-habitual pelado no separa los dos tiempos. Phase 42 mete presente e imperfetto en el mismo cuarteto de
-opciones y quita el marco.
-
-Impacto real: por la cascada de fallo inmediato del motor, elegir `faceva` — que es correcto — resetea
-la categoría entera. Es exactamente el «ejercicio injusto» que el `notes` del fichero declara querer
-evitar.
-
-Ningún test lo detecta: el bloque 9 solo comprueba la FORMA del cuarteto y el reparto modal de las
-keys, nunca la unicidad de lectura.
-
-**Fix:** anclar el tiempo en el prompt, igual que hacen los dos slots compuestos. Por ejemplo:
-```json
-{
-  "prompt": "Io so che lui ___ il lavoro in questo momento.",
-  "options": ["facesse", "fa", "faceva", "faccia"],
-  "correctIndex": 1
-}
-```
-(`in questo momento` / `adesso` excluyen `faceva` sin tocar el par pedagógico con la variante 0.)
-Y añadir el gate que falta al bloque 9, en la línea del que ya existe para los compuestos:
-
-```js
-// Cada variante del disparador declara un ancla temporal que fija el TIEMPO,
-// no solo el MODO. Sin ella, el cuarteto modo x tiempo tiene dos lecturas.
-const TRIGGER_TIME_ANCHORS = ['in questo momento', 'adesso', 'ieri', 'da bambino', 'prima di uscire', 'sarebbe'];
-D().variants.forEach((v, k) => {
-  assert.ok(
-    TRIGGER_TIME_ANCHORS.some((a) => v.prompt.toLowerCase().includes(a)),
-    `SC-4: ${TRIGGER_SLOT}#${k} no ancla el tiempo: "${v.prompt}"`
-  );
-});
-```
-
----
-
-### CR-02: `fare-congiuntivo-disparador` variante 0 admite `facesse` además de `faccia`
-
-**BLOCKER**
-**File:** `content/exercises/fare-congiuntivo.json:309-316`
-
-**Issue:**
-```
-"prompt": "Io penso che lui ___ il lavoro ogni giorno."
-"options": ["faceva", "faccia", "fa", "facesse"]   correctIndex: 1 -> "faccia"
-```
-Misma raíz que CR-01, la otra mitad del «par pedagógico» que el `notes` declara deliberado (variantes
-0 y 5 comparten cuarteto). `penso che` fija el MODO (subjuntivo, y esa es la interferencia que la fase
-quiere enseñar), pero no fija el TIEMPO: `Penso che lui facesse il lavoro ogni giorno.` («Creo que él
-hacía el trabajo todos los días») es congiuntivo imperfetto con principal en presente y referencia
-pasada — construcción estándar en italiano. `ogni giorno` no lo excluye.
-
-Es más débil que CR-01 (la lectura presente es la de defecto), pero el coste de equivocarse es el
-mismo reset de categoría, y la explanation del slot dice literalmente «con la oración principal en
-presente el subjuntivo va en presente», afirmación que un hablante puede rebatir con este mismo prompt.
-
-**Fix:** el mismo ancla temporal que CR-01, manteniendo la colisión de cuartetos que da valor al par:
-```json
-{ "prompt": "Io penso che lui ___ il lavoro in questo momento.", "correctIndex": 1 }
-```
-Colateral: la variante 1 (`Benché (aunque) tu ___ i compiti ogni giorno, il professore non è contento.`,
-cuarteto `faccia/fai/facessi/facevi`) sufre la misma exposición en menor grado — conviene revisarla en
-la misma pasada.
-
----
-
-### CR-03: el «GATE HARD de no-correferencia» (D-42-06) no puede fallar por un cambio de contenido
-
-**BLOCKER**
-**File:** `tests/content-fare-congiuntivo.test.js:421-432`
-
-**Issue:** el test que el plan declara como el gate más duro de la fase compara dos campos escritos a
-mano de la MISMA fila de `VARIANT_TABLE`, una constante del propio fichero de test:
-
-```js
-if (row.mainPerson !== 'impersonal' && row.mainPerson === row.blankPerson) { sucio.push(...) }
-```
-
-`row.blankPerson` sí está anclado al contenido (en los 4 slots del paradigma se exige
-`blankPerson === PERSON_CODES[k]` y `PRONOUNS[k].includes(blankSubject)`, líneas 410-416), pero
-`row.mainPerson` **no se deriva ni se contrasta con el prompt en ningún punto del fichero**. El único
-anclaje del sujeto de la principal es `prompt.includes(row.mainSubject)` (línea 439), que no dice nada
-de su persona y que se salta entero cuando `mainSubject` es `null`.
-
-Consecuencia: el gate solo detecta una errata en la tabla del test. Una violación real de
-correferencia introducida en el JSON pasa en verde.
-
-**Sustanciado por mutación** (M5, reproducible): sustituyendo el prompt de la variante 0 del disparador por
-
-```
-"Io penso che io ___ il lavoro che lui ha visto ogni giorno."
-```
-
-—que es, palabra por palabra, la forma que el `notes` del fichero cita como LA incorrecta
-(«la forma correcta es Penso di fare i compiti y la incorrecta es Penso che io faccia i compiti»)—
-la suite da **59 pass / 0 fail**. Se conservaron todos los literales declarados (`Io`, `lui`,
-`penso che`, `il lavoro`), que es exactamente lo que un error de autoría real haría.
-
-Contraste: la mutación M1, que sí rompía un literal declarado, dio 2 fails — es decir, lo que hoy
-protege el fichero son los asserts de literalidad, no el gate.
-
-**Fix:** derivar la persona de la principal del prompt en vez de declararla suelta. Mínimo viable:
-exigir que el sujeto declarado de la principal y el pronombre del hueco no sean la misma cadena en el
-texto, y anclar `mainPerson` a un léxico verbal:
-
-```js
-// La persona de la principal se DERIVA del prompt: el segmento anterior al
-// disparador no puede contener el pronombre sujeto del hueco como sujeto.
-const MAIN_VERB_PERSON = { penso: '1sg', so: '1sg', credevo: '1sg', sapeva: '3sg', /* ... */ };
-eachVariant(id, (v, k) => {
-  const row = VARIANT_TABLE[id][k];
-  const antes = v.prompt.slice(0, v.prompt.search(new RegExp(row.blankSubject + '\\s+___', 'i')));
-  const verbo = Object.keys(MAIN_VERB_PERSON).find((w) => new RegExp(`\\b${w}\\b`, 'i').test(antes));
-  const derivada = verbo ? MAIN_VERB_PERSON[verbo] : 'impersonal';
-  assert.equal(derivada, row.mainPerson,
-    `D-42-06: ${id}#${k} la tabla declara mainPerson=${row.mainPerson} y el prompt deriva ${derivada}`);
-  assert.notEqual(derivada === 'impersonal' ? null : derivada, row.blankPerson,
-    `D-42-06: ${id}#${k} sujetos correferentes: "${v.prompt}"`);
-});
-```
+Ninguna. Los tres blockers previos están cerrados y no he podido sustanciar ninguno nuevo.
 
 ## Warnings
 
-### WR-01: los escaneos de blacklist / Phase-43 / participio concordado solo miran `options`, nunca `prompt`
+### WR-01: los escaneos de blacklist / Phase-43 / participio concordado siguen mirando solo `options`
 
-**File:** `tests/content-fare-congiuntivo.test.js:538-560`
-**Issue:** la cabecera del fichero (líneas 14-19) declara, en mayúsculas y como «no negociable», que
-los escaneos de ausencia van «SIEMPRE por campo — `variants[].prompt` y `variants[].options[]`». Los
-tres tests del bloque 6 recorren únicamente `v.options`. La documentación describe una cobertura que
-el código no tiene.
+**REPRODUCE** — sin cambios respecto del informe previo.
 
-Sustanciado por mutación, todas con 59 pass / 0 fail:
-- **M2** — `'facci'` (blacklist D-42-11) inyectado en un prompt: verde.
-- **M3** — `'farei'` (casilla de Phase 43) inyectado en un prompt: verde.
-- **M4** — `'fatta'` (participio concordado, MAGNET de Phase 43) inyectado en un prompt: verde.
+**File:** `tests/content-fare-congiuntivo.test.js:645-667`
+**Issue:** la cabecera del fichero (`:14-23`) declara «no negociable» que los escaneos de ausencia van
+«SIEMPRE por campo — `variants[].prompt` y `variants[].options[]`». Los tres tests del bloque 6
+recorren únicamente `v.options`. Reverificado por mutación, las tres en **62 pass / 0 fail**:
 
-El riesgo no es teórico: los prompts de esta categoría contienen prosa italiana libre alrededor del
-hueco (`il capo non disse niente`, `il professore non è mai contento`), que es justo donde una pasada
-futura puede colar una forma prohibida sin darse cuenta.
+- **M-I** — `'facci'` (blacklist D-42-11) inyectado en un prompt: verde.
+- **M-J** — `'farei'` (casilla de Phase 43) inyectado en un prompt: verde.
+- **M-K** — `'fatta'` (participio concordado, MAGNET de Phase 43) inyectado en un prompt: verde.
 
-**Fix:** recorrer `[v.prompt, ...v.options]` con coincidencia por palabra (no por subcadena — la
-cabecera ya avisa de por qué), reutilizando el `wordish()` que ya existe en el fichero:
+Comprobado además que la suite COMPLETA tampoco los caza: el `leakPattern` R1 de
+`tests/exercise-types.test.js:1377` es una lista cerrada de marcas editoriales y no contiene ninguna
+forma de `fare`.
 
+**Fix:** recorrer `[v.prompt, ...v.options]` con `wordish()`, que ya existe en el fichero:
 ```js
 for (const { slot, v, k } of allVariants()) {
   const campos = [v.prompt, ...v.options];
@@ -238,14 +150,15 @@ for (const { slot, v, k } of allVariants()) {
 
 ### WR-02: el chequeo de Phase-43 en prompt dice «en el fichero» pero recorre 1 de 30 prompts
 
-**File:** `tests/content-fare-congiuntivo.test.js:746-752`
-**Issue:** el mensaje del assert es
-`'D-42-16: ninguna casilla de Phase 43 puede entrar en el fichero, ni en el prompt'`, pero el sujeto
-escaneado es `D().variants[k]` — un único prompt, el de `Se io`. Es el caso concreto del patrón
-general de WR-01: el mensaje describe algo estrictamente más fuerte que lo aseverado, y quien lea el
-nombre del test creerá que el fichero está cubierto.
+**REPRODUCE** — sin cambios.
 
-**Fix:** sacar el escaneo del test del `se` hipotético a un test propio sobre `allVariants()`:
+**File:** `tests/content-fare-congiuntivo.test.js:924-930`
+**Issue:** el mensaje del assert (`:929`) es
+`'D-42-16: ninguna casilla de Phase 43 puede entrar en el fichero, ni en el prompt'`, pero el sujeto
+escaneado es `D().variants[k]` con `k` = índice de `Se io` — un único prompt de los 30. Es el caso
+concreto del patrón de WR-01; M-J lo confirma.
+
+**Fix:** sacar el escaneo a un test propio sobre `allVariants()`:
 ```js
 test('ninguna casilla de Phase 43 aparece en ninguno de los 30 prompts (D-42-16)', () => {
   const sucio = allVariants()
@@ -255,37 +168,40 @@ test('ninguna casilla de Phase 43 aparece en ninguno de los 30 prompts (D-42-16)
 });
 ```
 
-### WR-03: el bloque 10 congela la ausencia del desambiguador temporal del slot del disparador
+### WR-03: la información de fijación temporal del slot del disparador vive ahora en DOS tablas
 
-**File:** `tests/content-fare-congiuntivo.test.js:780-785`
-**Issue:**
-```js
-assert.equal(conMarco, COMPOUND_SLOTS.includes(id) ? 6 : 0, `D-42-02: ${id} declara ${conMarco} marcos`);
-```
-El test exige activamente que el slot del disparador declare **cero** marcos. Los compuestos recibieron
-un gate de marco (`frame`, bloque 8, líneas 679-690) precisamente porque su cuarteto de distractoras
-abarca varios tiempos y sin marco «faccia y facessi serían defendibles» (palabras del `notes`). El
-cuarteto del disparador abarca DOS tiempos y DOS modos y no lleva marco — y el test lo blinda. Es la
-causa estructural de CR-01 y CR-02, y hace que arreglarlas obligue a tocar también este assert.
+**CAMBIA** — el defecto de contenido que motivaba esta WARNING está cerrado; lo que queda es el
+problema de duplicación que el fixer anticipó, y es real.
 
-**Fix:** cambiar la aserción de «cero marcos» a «marco o ancla temporal equivalente», o introducir un
-campo `timeAnchor` en las filas de `VARIANT_TABLE[TRIGGER_SLOT]` y exigirlo igual que `frame` en los
-compuestos.
+**File:** `tests/content-fare-congiuntivo.test.js:866-874` (TENSE_FIX) y `:958-963` (bloque 10)
+**Issue:** el bloque 10 sigue exigiendo activamente que el slot del disparador declare **cero**
+`frame` (`assert.equal(conMarco, COMPOUND_SLOTS.includes(id) ? 6 : 0, ...)`), así que el fix de
+CR-01/CR-02 tuvo que crear una segunda tabla paralela, `TENSE_FIX`, indexada por `k` igual que
+`VARIANT_TABLE[TRIGGER_SLOT]` pero declarada 578 líneas más abajo y con su propio comentario
+explicando por qué no es una columna `frame`. Dos tablas por variante para el mismo slot, sin ningún
+assert que las cruce: nada impide que una fila de `TENSE_FIX` quede desalineada con la de
+`VARIANT_TABLE` si alguien reordena las variantes del disparador.
 
-### WR-04: `assert.equal(({}).polluted, undefined)` es una aserción vacua
+El informe previo pedía «cambiar la aserción de cero marcos a marco o ancla equivalente»; eso NO se
+hizo, se eligió la tabla separada. Es una elección defendible, pero deja el riesgo de desincronía.
 
-**File:** `tests/content-fare-congiuntivo.test.js:822`
+**Fix (mínimo):** cruzar las dos tablas al menos por longitud e índice, o mover `TENSE_FIX` a una
+columna `tenseFix` de `VARIANT_TABLE[TRIGGER_SLOT]` y relajar el assert de `:961` a
+`frame === null` solamente (que es lo que de verdad quiere decir: el marco de CONCORDANCIA de los
+compuestos no aplica aquí).
+
+### WR-04: `assert.equal(({}).polluted, undefined)` sigue siendo una aserción vacua
+
+**REPRODUCE** — sin cambios.
+
+**File:** `tests/content-fare-congiuntivo.test.js:1000`
 **Issue:** `JSON.parse` crea `__proto__` como **own property**; nunca escribe en `Object.prototype`.
-Verificado:
-```
-JSON.parse('{"__proto__":{"polluted":1}}')  ->  own keys: ['__proto__'],  ({}).polluted === undefined
-```
-La aserción no puede fallar por ningún contenido posible del JSON, y `polluted` no es una propiedad que
-ningún módulo del proyecto escriba. Se lee como un gate anti-prototype-pollution y no lo es. El assert
-que la precede (`claves.filter(...)` sobre `__proto__`/`constructor`/`prototype`) sí es real y basta.
+La aserción no puede fallar por ningún contenido posible del JSON, y `polluted` no es una propiedad
+que ningún módulo del proyecto escriba. Se lee como un gate anti-prototype-pollution y no lo es. El
+assert que la precede (`:998`, `claves.filter(...)` sobre `__proto__`/`constructor`/`prototype`) sí
+es real y basta.
 
-**Fix:** eliminar la línea 822, o convertirla en algo con contenido, p. ej. comprobar que ningún objeto
-parseado tiene un prototipo distinto de `Object.prototype`:
+**Fix:** eliminar la línea 1000, o darle contenido:
 ```js
 const objetos = [];
 (function walkObj(n){ if (Array.isArray(n)) n.forEach(walkObj);
@@ -295,114 +211,232 @@ assert.deepEqual(objetos.filter((o) => Object.getPrototypeOf(o) !== Object.proto
 
 ### WR-05: el índice en `categories.json` se codifica a mano cuando el comentario promete derivarlo
 
-**File:** `tests/content-fare-indicativo.test.js:670-679` y `tests/content-fare-congiuntivo.test.js:934-941`
-**Issue:** el comentario de la reescritura dice literalmente *«Se reescribe a la forma estable:
-indice = order-1»*, pero el código aserta `assert.equal(idx, 14)` (y `assert.equal(idx, 15)` en el
-análogo). El invariante enunciado no está codificado: son dos constantes independientes que casualmente
-coinciden hoy. El mensaje del assert (`'order 15 -> indice 14'`) refuerza esa lectura falsa.
+**REPRODUCE** — sin cambios.
 
-Nadie asserta además que el array esté globalmente ordenado por `order`, ni que los `order` sean únicos.
+**File:** `tests/content-fare-indicativo.test.js:670-680` y `tests/content-fare-congiuntivo.test.js:1112-1119`
+**Issue:** el comentario de la reescritura dice literalmente *«Se reescribe a la forma estable:
+indice = order-1»* (`content-fare-indicativo.test.js:675`), pero el código aserta
+`assert.equal(idx, 14)` y el análogo `assert.equal(idx, 15)`. El invariante enunciado no está
+codificado: son dos constantes independientes que hoy coinciden. Los mensajes
+(`'order 15 -> indice 14'`, `'order 16 -> indice 15'`) refuerzan una lectura falsa.
+
+Comprobado además que **nadie** aserta el invariante global: ni orders únicos, ni contiguos, ni array
+ordenado por `order`. Hoy se cumplen los tres (`1..16`, únicos, ordenados) — por casualidad, no por
+gate. `tests/domain.test.js` solo usa `order` en un fixture.
 
 **Fix:** derivar de verdad, en los dos ficheros:
 ```js
-const cat = entradas.find((c) => c.id === 'fare-indicativo');
-const idx = entradas.indexOf(cat);
-assert.equal(idx, cat.order - 1, 'D-41-16: el array define el display (indice = order - 1)');
+const cat = entradas.find((c) => c.id === 'fare-congiuntivo');
+assert.equal(entradas.indexOf(cat), cat.order - 1, 'el array define el display (indice = order - 1)');
 ```
-Y, en uno solo de los dos, añadir el invariante global que hoy no cubre nadie:
+Y, en uno solo de los dos, el invariante global que hoy no cubre nadie:
 ```js
 test('categories.json: orders únicos, contiguos desde 1, y array ordenado por order', () => {
-  const orders = entradas.map((c) => c.order);
-  assert.deepEqual(orders, entradas.map((_, i) => i + 1));
+  assert.deepEqual(entradas.map((c) => c.order), entradas.map((_, i) => i + 1));
 });
 ```
 
-### WR-06: en el slot del disparador, `blankSubject` y `blankPerson` no están cruzados
+### WR-07 (NUEVA): el gate de ancla temporal comprueba PRESENCIA del literal, no su ÁMBITO
 
-**File:** `tests/content-fare-congiuntivo.test.js:401-419`
-**Issue:** el assert `PRONOUNS[k].includes(row.blankSubject)` está gateado a
-`if (PARADIGM_SLOTS.includes(id))`. Para `fare-congiuntivo-disparador` — cuyo eje NO es la persona, así
-que `PERSON_CODES[k]` no aplica — no queda ninguna comprobación de que el pronombre que aparece en el
-prompt sea el de la persona declarada. `blankPerson` es la entrada del cuarteto en el bloque 9
-(`PERSON_INDEX[...blankPerson]`), así que una declaración incoherente desplaza silenciosamente el
-criterio de todo el bloque 9.
+**File:** `tests/content-fare-congiuntivo.test.js:883-911` (y `TENSE_FIX` en `:866-874`)
+**Issue:** el gate que nació con el fix de CR-01/CR-02 se reduce, en su rama útil, a
+`assert.ok(v.prompt.includes(lit))`. No verifica que el ancla esté en la cláusula que gobierna el
+hueco. Tres agujeros, los tres sustanciados y los tres en **62 pass / 0 fail**:
 
-**Fix:** sustituir el gate por un mapa pronombre→persona aplicable a los 5 slots:
+- **N-A** — ancla desplazada a otra oración del mismo prompt:
+  `"Io penso che lui ___ il lavoro, e in questo momento io sono stanco."` El ancla ya no sitúa la
+  acción del subordinado, así que `facesse` vuelve a ser defendible y con ella la doble respuesta que
+  CR-02 cerró. **Verde.**
+- **N-B** — lo mismo en la variante de contraste (`so che`), reabriendo CR-01. **Verde.**
+- **M-H** — `ogni giorno` reintroducido en una variante de rama `'concordancia'`
+  (`È necessario che voi ___ il letto ogni giorno prima di uscire`). El chequeo de `BARE_HABITUALS`
+  (`:904`) está filtrado a `r.how === 'ancla'`, así que las tres variantes de concordancia pueden
+  recibir un habitual pelado sin rojo. **Verde.**
+
+Y un cuarto punto, menor pero de la misma raíz: `includes` es subcadena, no palabra. En N-C cambié
+`controlla` por `controllava` (que rompe de verdad la concordancia del disparador#3, porque una
+principal en pasado hace defendible `facessero`) y el assert del ancla siguió verde —
+`'controllava'.includes('controlla')` es `true`. La mutación se puso roja, pero por
+`deriveMainPerson` devolviendo `null`, no por el gate temporal. El gate que la fase declara como
+guardián del invariante no fue el que la cazó.
+
+Nótese además que la rama `'concordancia'` no comprueba **nada** sobre el mecanismo: acepta cualquier
+literal presente en el prompt. Para `k=2,3,4` los literales declarados (`È necessario`, `controlla`,
+`sarebbe`) son simplemente los verbos de la principal, sin ninguna aserción de que su tiempo fije el
+del subordinado. El `notes` del fichero declara como INVARIANTE congelado que «ninguna de las seis
+variantes puede quedarse con el TIEMPO sin fijar»; el gate lo sostiene para 3 de 6.
+
+**Fix:** anclar por ámbito, no por presencia. Mínimo viable: exigir que el ancla esté en el mismo
+segmento que el hueco (entre el disparador y el siguiente signo de puntuación fuerte), y extender el
+chequeo de habituales pelados a las 6 variantes:
 ```js
-const PERSON_OF = { io: '1sg', tu: '2sg', lui: '3sg', lei: '3sg', noi: '1pl', voi: '2pl', loro: '3pl' };
-assert.equal(PERSON_OF[row.blankSubject], row.blankPerson,
-  `${id}#${k}: blankSubject "${row.blankSubject}" no es de la persona ${row.blankPerson}`);
+const segmentoDelHueco = (p) => (p.split(/[,;.]/).find((s) => s.includes('___')) || '');
+for (const { k, how, lit } of TENSE_FIX) {
+  const p = D().variants[k].prompt;
+  if (how === 'ancla') {
+    assert.ok(segmentoDelHueco(p).includes(lit),
+      `CR-01/CR-02: ${TRIGGER_SLOT}#${k} lleva el ancla "${lit}" fuera de la clausula del hueco: "${p}"`);
+  } else {
+    assert.ok(wordish(lit).test(p.toLowerCase()),
+      `CR-01/CR-02: ${TRIGGER_SLOT}#${k} no lleva "${lit}" como palabra: "${p}"`);
+  }
+  // Habitual pelado: prohibido en las SEIS, no solo en las ancladas.
+  const h = BARE_HABITUALS.filter((x) => p.toLowerCase().includes(x));
+  assert.deepEqual(h, [], `CR-01/CR-02: ${TRIGGER_SLOT}#${k} usa un habitual pelado: ${h.join(', ')}`);
+}
+```
+
+### WR-08 (NUEVA): el gate de marco de concordancia de los compuestos tiene el mismo defecto de ámbito
+
+**File:** `tests/content-fare-congiuntivo.test.js:786-797`, concretamente `:794`
+**Issue:** `assert.ok(v.prompt.includes(marcos[k]), ...)`. El comentario que lo precede (`:787-789`)
+dice que es «el ÚNICO mecanismo que hace que `faccia` y `facessi` no sean defendibles» y que «si el
+marco no fija el punto temporal de la principal y la anterioridad del subordinado, la variante tiene
+dos respuestas correctas». El assert no comprueba nada de eso: solo que la cadena aparezca.
+
+Sustanciado, **62 pass / 0 fail**:
+
+- **N-D** — marco desplazado a una cláusula ajena:
+  `"Mia madre non crede che io ___ i compiti, ieri sera lei dormiva."`
+  `ieri sera` pasa a modificar `dormiva`, el subordinado se queda sin marcador de acción terminada y
+  `faccia` (congiuntivo presente, que está en las opciones) vuelve a ser defendible. **Verde.**
+
+Es un defecto anterior a los tres fixes de blocker, pero es código de esta fase y la corrección de
+WR-07 debería aplicarse aquí en el mismo movimiento — si no, se arregla el gate del slot 5 y se deja
+sin arreglar el de los slots 3 y 4, que es exactamente el mismo bug.
+
+**Fix:** el mismo `segmentoDelHueco()` de WR-07 aplicado a `marcos[k]`.
+
+### WR-09 (NUEVA): `deriveBlankSubject` toma el ÚLTIMO pronombre, así que un sujeto coordinado pasa
+
+**File:** `tests/content-fare-congiuntivo.test.js:198-203`, usado en `:503`
+**Issue:** `BLANK_SUBJECT_RE` captura el pronombre inmediatamente anterior al hueco (con `non`
+opcional). Con un sujeto coordinado captura solo el segundo miembro, y el resto del gate queda
+satisfecho. Es el hueco residual del fix de CR-03. Sustanciado, ambas en **62 pass / 0 fail**:
+
+- **M-D** — `"Io penso che io e lui ___ il lavoro in questo momento."`
+  Deriva `blankSubject = 'lui'` (3sg), que coincide con la tabla, así que el gate da verde. Pero el
+  sujeto real es `io e lui` = `noi` (1pl): la key `faccia` pasa a ser **incorrecta** (tocaría
+  `facciamo`), y además hay correferencia parcial con el `Io` de la principal, que es justo lo que
+  D-42-06 declara HARD. Ni el gate de correferencia ni el de cuarteto de `PERSON_INDEX` lo ven,
+  porque los dos leen la persona de la tabla.
+- **M-E** — `"Io penso che tu e lui ___ ..."`: idéntico, con sujeto real de 2pl.
+
+**Fix:** rechazar la coordinación explícitamente antes de derivar:
+```js
+const COORD_RE = /(?:^|[^\p{L}])(io|tu|lui|lei|noi|voi|loro)\s+(?:e|o|ed|od)\s+(?:io|tu|lui|lei|noi|voi|loro)(?:\s+non)?\s+___/iu;
+assert.ok(!COORD_RE.test(v.prompt),
+  `D-42-06: ${id}#${k} el hueco lleva sujeto coordinado; la persona derivada seria falsa: "${v.prompt}"`);
 ```
 
 ## Info
 
 ### IN-01: `CANON` duplica verbatim los cuatro paradigmas
 
-**File:** `tests/content-fare-congiuntivo.test.js:82-88` vs `99-102`
+**REPRODUCE.**
+**File:** `tests/content-fare-congiuntivo.test.js:86-92` vs `:103-106`
 **Issue:** las cuatro filas del paradigma de `CANON` son copias literales de `CONG_PRES`, `CONG_IMPF`,
 `CONG_PASS` y `CONG_TRAP`, declaradas 17 líneas más abajo. Editar una copia y no la otra desincroniza
 la especificación en silencio: el bloque 2 compararía contra una tabla y los bloques 7-9 contra otra.
-**Fix:** `const CANON = { 'fare-congiuntivo-presente': CONG_PRES, ... }` moviendo las cuatro constantes
-por encima, y dejando solo la fila del disparador como literal (que sí es específica).
+**Fix:** `const CANON = { 'fare-congiuntivo-presente': CONG_PRES, ... }`, moviendo las cuatro
+constantes por encima y dejando solo la fila del disparador como literal.
 
 ### IN-02: la «RED de seguridad» de indicativo compuesto no puede fallar de forma independiente
 
-**File:** `tests/content-fare-congiuntivo.test.js:669-677`
-**Issue:** el test anterior (líneas 653-667) fija las 3 distractoras a un conjunto CERRADO por igualdad
-exacta. La intersección de `IND_COMPOUND` con ese universo cerrado es vacía (verificado), así que si el
-test de conjunto cerrado pasa, este no puede fallar nunca. Es defensa en profundidad inofensiva pero
-infla el conteo de tests sin añadir cobertura.
+**REPRODUCE.**
+**File:** `tests/content-fare-congiuntivo.test.js:776-784`
+**Issue:** el test anterior (`:760-774`) fija las 3 distractoras a un conjunto CERRADO por igualdad
+exacta. La intersección de `IND_COMPOUND` con ese universo cerrado es vacía, así que si el test de
+conjunto cerrado pasa, este no puede fallar nunca.
 **Fix:** ninguna acción obligatoria; si se conserva, documentar en el comentario que es redundante por
 construcción y no un gate independiente.
 
 ### IN-03: el `expected` dinámico hace tautológica la aserción de conteo
 
-**File:** `tests/exercise-types.test.js:1295` y `1321-1327`
+**REPRODUCE.**
+**File:** `tests/exercise-types.test.js:1295` y `:1321-1327`
 **Issue:** `expected: slotCountOf('content/exercises/fare-congiuntivo.json')` lee el conteo del mismo
 fichero que después vuelve a leer y comparar (`assert.equal(data.exercises.length, expected)`). Para
-todas las entradas dinámicas (desde `presente-regolare` hacia abajo) esa aserción no puede fallar.
-La forma pedida por la fase (derivado, no mágico) se cumple; lo que se pierde es el gate de conteo.
-El resto del describe (explanation no vacía, smart quotes, markdown, R1, R2) sí es cobertura real y sí
-se aplica al fichero nuevo.
-**Fix:** si el gate de conteo importa, el número de slots vive ya en
-`tests/content-fare-congiuntivo.test.js:257-262` (`5 x 6 = 30`); dejarlo ahí y quitar la ilusión de
-cobertura aquí, o comentar la vacuidad junto a la línea.
+todas las entradas dinámicas esa aserción no puede fallar. La forma pedida por la fase (derivado, no
+mágico) se cumple; lo que se pierde es el gate de conteo. El resto del describe (explanation no vacía,
+smart quotes, markdown, R1, R2) sí es cobertura real y sí se aplica al fichero nuevo.
+**Fix:** el número de slots ya vive en `tests/content-fare-congiuntivo.test.js:326-331` (`5 x 6 = 30`);
+dejarlo ahí y comentar la vacuidad aquí.
 
 ### IN-04: `slot-variants-integration.test.js` sigue ciego a la categoría nueva
 
-**File:** `tests/fixtures/slot-variants-integration.test.js:168-184`
-**Issue:** `REAL_CATEGORIES` termina en `riflessivi`; ni `fare-indicativo` ni `fare-congiuntivo` están.
-Además el fichero vive en `tests/fixtures/`, así que el glob `node --test tests/*.test.js` no lo
-ejecuta. El `notes` del contenido declara este count-sync diferido a Phase 44 / INT-02 y advierte que
-el efecto es «ciego, no rojo», que es peor que un rojo. Se registra aquí para que no se pierda: la
-fase 42 añade una categoría más a la lista de invisibles.
-**Fix:** ninguna en esta fase (diferido por decisión). Al llegar a Phase 44, añadir las 4 categorías de
-`fare` y mover el fichero al glob o documentar su comando de ejecución.
+**REPRODUCE.**
+**File:** `tests/fixtures/slot-variants-integration.test.js:168-185`
+**Issue:** reverificado: `REAL_CATEGORIES` termina en `riflessivi`; ni `fare-indicativo` ni
+`fare-congiuntivo` están. Además el fichero vive en `tests/fixtures/`, así que el glob
+`node --test tests/*.test.js` no lo ejecuta. El `notes` declara este count-sync diferido a Phase 44 /
+INT-02 y advierte que el efecto es «ciego, no rojo», que es peor que un rojo.
+**Fix:** ninguna en esta fase (diferido por decisión). En Phase 44, añadir las 4 categorías de `fare`
+y mover el fichero al glob o documentar su comando de ejecución.
 
 ### IN-05: no se comprueba que cada prompt tenga EXACTAMENTE un hueco
 
-**File:** `tests/content-fare-congiuntivo.test.js:382-385`
-**Issue:** el test usa `v.prompt.includes('___')`. Un prompt con dos huecos (o con `______` por un
-typo) pasa en verde y rompería el render, ya que el motor sustituye un único hueco.
+**REPRODUCE** — confirmado por mutación.
+**File:** `tests/content-fare-congiuntivo.test.js:451-454`
+**Issue:** el test usa `v.prompt.includes('___')`. Mutación **M-L**
+(`"Bisogna che io ___ i compiti ___ stasera."`) → **62 pass / 0 fail**. Un prompt con dos huecos
+rompería el render, ya que el motor sustituye un único hueco.
 **Fix:** `assert.equal(v.prompt.split('___').length - 1, 1, ...)`.
 
 ### IN-06: la dosificación D-42-14 solo se comprueba en negativo
 
-**File:** `tests/content-fare-congiuntivo.test.js:833-844`
+**REPRODUCE.**
+**File:** `tests/content-fare-congiuntivo.test.js:1011-1022`
 **Issue:** el test verifica que el disparador DESARROLLE la interferencia y que los compuestos NO la
-repitan, pero no verifica el tercer tramo de la decisión: que presente e imperfetto lleven la línea de
-recordatorio. Hoy ambas explanations sí la llevan (`penso che pide subjuntivo en italiano mientras que
-su equivalente castellano pide indicativo`), así que el contenido es correcto; lo que falta es el gate.
+repitan, pero no el tercer tramo de la decisión: que presente e imperfetto lleven la línea de
+recordatorio. Hoy ambas explanations sí la llevan, así que el contenido es correcto; falta el gate.
 **Fix:**
 ```js
 for (const id of SIMPLE_SLOTS) {
   assert.match(byId(id).explanation, /penso che pide subjuntivo/,
-    `D-42-14: ${id} debe llevar la línea de recordatorio de interferencia`);
+    `D-42-14: ${id} debe llevar la linea de recordatorio de interferencia`);
 }
 ```
 
+### IN-07 (NUEVA): el SCOPE-GATE del objeto solo comprueba presencia, no exclusividad
+
+**File:** `tests/content-fare-congiuntivo.test.js:625-635`, línea `:631`
+**Issue:** `if (!v.prompt.includes(obj))`. Verifica que el objeto declarado esté, no que sea el único.
+Mutación **N-F** (`"Bisogna che io ___ i compiti e una torta stasera."`) → **62 pass / 0 fail**, pese
+a que el prompt pasa a tener dos objetos y a que el sujeto/objeto del hueco deja de ser unívoco.
+**Fix:** contar cuántos objetos del conjunto cerrado aparecen y exigir exactamente 1.
+
+### IN-08 (NUEVA): el gate de 0-gloss del verbo solo escanea paréntesis
+
+**File:** `tests/content-fare-congiuntivo.test.js:581-607`
+**Issue:** los dos tests que acotan el gloss iteran `v.prompt.matchAll(/\(([^)]*)\)/g)`. Un gloss del
+VERBO en corchetes, en comillas o tras coma no lo ve ninguno; el `/espa/i` de `:576` solo caza la
+palabra «español». Mutación **N-E** (`"Bisogna che io ___ [haga] i compiti stasera."`) →
+**62 pass / 0 fail**, y también verde en la suite completa (el `leakPattern` R1 de
+`tests/exercise-types.test.js:1377` es una lista cerrada de marcas editoriales que no incluye
+castellano suelto).
+Riesgo bajo — el canon R7 del proyecto usa siempre paréntesis — pero el test declara «0-gloss del
+VERBO: PROHIBIDO y absoluto» (`:564-567`) y lo que cubre es «prohibido entre paréntesis».
+**Fix:** añadir un escaneo por palabra de un set corto de formas castellanas de `hacer`
+(`haga`, `hagas`, `hiciera`, `hicieras`, `haces`, `hace`, `hacía`…) sobre los 30 prompts.
+
+## Hallazgos previos que NO reproducen (cerrados)
+
+- **CR-01** — cerrado. Contenido corregido + gate de regresión real (M-G, M-M rojas).
+- **CR-02** — cerrado en las dos variantes, incluida la colateral que el informe previo dejó abierta.
+- **CR-03** — cerrado en su núcleo. El gate ya no compara la tabla consigo misma; deriva del `prompt`
+  y se pone rojo en las 4 formas de correferencia probadas. Quedan dos huecos de forma, registrados
+  como WR-07 y WR-09, no como reapertura del blocker.
+- **WR-06** — cerrado, y verificado, no asumido. `PERSON_OF_PRONOUN` (`:191-193`) se aplica en
+  `:513-518` a los **5** slots, no solo a `PARADIGM_SLOTS`. Mutando la tabla del slot del disparador
+  (`blankSubject: 'voi'` con `blankPerson: '3pl'`, que es exactamente la incoherencia que desplazaba
+  el criterio del bloque 9) la suite pasa a **60 pass / 2 fail**. El efecto colateral que el fixer
+  reportó es real.
+
 ---
 
-_Reviewed: 2026-08-06T07:56:54Z_
+_Reviewed: 2026-08-06T09:26:47Z_
 _Reviewer: Claude (gsd-code-reviewer)_
 _Depth: standard_
+_Mutaciones ejecutadas: 22 (M-A..M-N, N-A..N-H). Árbol de trabajo revertido y verificado limpio;_
+_`node --test tests/*.test.js` → 835 pass / 0 fail tras la revisión._
