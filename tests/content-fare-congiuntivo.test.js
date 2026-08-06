@@ -1090,6 +1090,14 @@ describe('fare-congiuntivo — slot del disparador, 4 casillas modo x tiempo (D-
   const BARE_HABITUALS = ['ogni giorno', 'ogni mattina', 'sempre', 'di solito'];
 
   test('ninguna variante del disparador deja el TIEMPO sin fijar (CR-01, CR-02, D-41-11)', () => {
+    // IN-09 (revision de codigo del 2026-08-06): los dos asserts que siguen son
+    // SELF-CHECK de VARIANT_TABLE y NO leen CONTENT. Su sujeto —`TENSE_FIX`,
+    // derivado de la tabla— es una constante de este fichero, asi que ningun
+    // cambio del JSON puede ponerlos rojos. No son un defecto: su proposito es
+    // legitimo y distinto, proteger la tabla de una edicion futura incoherente, y
+    // muerden cuando se edita. Se etiquetan porque, leidos dentro de un bloque
+    // cuyo tema es «el JSON cumple X», se leen como cobertura de contenido y no
+    // lo son. El gate que SI lee el JSON es el de ambito, mas abajo.
     assert.equal(TENSE_FIX.length, 6, 'las 6 variantes del disparador declaran su mecanismo');
     assert.deepEqual(
       TENSE_FIX.filter((r) => !['ancla', 'concordancia'].includes(r.how) || !r.lit).map((r) => r.k),
@@ -1099,6 +1107,8 @@ describe('fare-congiuntivo — slot del disparador, 4 casillas modo x tiempo (D-
     for (const { k, how, lit } of TENSE_FIX) {
       const v = D().variants[k];
       if (how === 'ancla') {
+        // IN-09: self-check de VARIANT_TABLE contra PRESENT_DEICTICS; las dos son
+        // constantes de este fichero y no lee el JSON.
         assert.ok(
           PRESENT_DEICTICS.includes(lit),
           `CR-01/CR-02: ${TRIGGER_SLOT}#${k} declara un ancla "${lit}" que no es un deictico de presente`
@@ -1253,6 +1263,11 @@ describe('fare-congiuntivo — disparadores, marcos y objetos por variante (D-42
     // son disjuntas por construccion: los compuestos fijan el tiempo por marco de
     // concordancia, el disparador por ancla o por concordancia con la principal, y
     // los dos simples no lo fijan por ninguno porque su tiempo lo da el slot.
+    // IN-09: los dos asserts de este test son SELF-CHECK de VARIANT_TABLE y no
+    // leen CONTENT; ningun cambio del JSON puede ponerlos rojos. Es el proposito,
+    // no un descuido: son la unica red contra una edicion incoherente de la
+    // tabla, y muerden —declarar `frame` y `tenseFix` en la misma fila, o
+    // reordenar las filas del disparador, los pone rojos—.
     for (const id of IDS) {
       const conFix = VARIANT_TABLE[id].filter((r) => r.tenseFix !== null).length;
       assert.equal(conFix, id === TRIGGER_SLOT ? 6 : 0, `WR-03: ${id} declara ${conFix} tenseFix`);
