@@ -185,18 +185,6 @@ const PARADIGM_SLOTS = [...SIMPLE_SLOTS, ...COMPOUND_SLOTS];
 const IND_PRES = ['faccio', 'fai', 'fa', 'facciamo', 'fate', 'fanno'];
 const IND_IMPF = ['facevo', 'facevi', 'faceva', 'facevamo', 'facevate', 'facevano'];
 
-// IND_COMPOUND — los compuestos de INDICATIVO, prohibidos como distractora en
-// COMPOUND_SLOTS (SC-3). Se acota A PROPOSITO al passato prossimo y al
-// trapassato prossimo, y dentro del passato prossimo se EXCLUYE `abbiamo fatto`:
-// es la MISMA cadena que la key de `noi` del congiuntivo passato (homografia
-// declarada en el `notes`), asi que incluirla haria el gate insatisfacible. El
-// trapassato remoto queda fuera por la misma razon: `aveste fatto` es a la vez
-// congiuntivo trapassato de voi y trapassato remoto de indicativo de voi.
-const IND_COMPOUND = [
-  'ho fatto', 'hai fatto', 'ha fatto', 'avete fatto', 'hanno fatto',
-  'avevo fatto', 'avevi fatto', 'aveva fatto', 'avevamo fatto', 'avevate fatto', 'avevano fatto',
-];
-
 // REAL_FORMS — TODAS las formas reales de `fare` en cualquier modo y tiempo,
 // incluidos el passato remoto, el futuro, el condizionale y el imperativo.
 // Contra este set se comprueba que una distractora «inexistente» lo sea DE
@@ -938,6 +926,20 @@ describe('fare-congiuntivo — distractoras de passato y trapassato, cero indica
   // congiuntivo de la persona de esa variante: eso implica cero indicativo por
   // construccion y comprueba el patron completo de D-42-09 en una sola asercion.
   //
+  // IN-02 (revision de codigo del 2026-08-06) — AQUI HABIA UN SEGUNDO TEST,
+  // «RED de seguridad: ninguna distractora de los compuestos es un compuesto de
+  // INDICATIVO», sobre una constante IND_COMPOUND, y SE BORRA. No es que fuese
+  // debil: es que NO PODIA FALLAR. El test de aqui arriba fija las 3 distractoras
+  // a un conjunto CERRADO por igualdad ordenada, y la interseccion de ese
+  // universo cerrado —12 variantes x 3 formas— con los compuestos de indicativo
+  // es VACIA, comprobado forma a forma. Si este test pasa, aquel no podia
+  // fallar; si este falla, aquel sobra. Cero cobertura, coste de mantenimiento
+  // real y, peor, aspecto de gate independiente. La invariante SC-3 la sostiene
+  // el conjunto cerrado, que ademas es mas fuerte: cero indicativo por
+  // construccion. La razon por la que un gate de ausencia de indicativo sobre
+  // `options` completo seria insatisfacible (`abbiamo fatto` y `aveste fatto` son
+  // keys legitimas y homografas) sigue documentada en el `notes` con su fecha.
+  //
   // Y POR QUE EL GATE DEL BLOQUE 7 NO SE APLICA AQUI: como D-42-09 determina las
   // 3 distractoras por completo a partir de la persona, y io y tu comparten las
   // cuatro formas implicadas, las variantes de io y de tu tienen NECESARIAMENTE
@@ -964,16 +966,6 @@ describe('fare-congiuntivo — distractoras de passato y trapassato, cero indica
       });
     });
   }
-
-  test('RED de seguridad: ninguna distractora de los compuestos es un compuesto de INDICATIVO', () => {
-    for (const id of COMPOUND_SLOTS) {
-      eachVariant(id, (v, k) => {
-        const key = keyOf(v);
-        const sucio = v.options.filter((o) => o !== key && IND_COMPOUND.includes(o));
-        assert.deepEqual(sucio, [], `SC-3: ${id}#${k} ofrece un compuesto de indicativo como distractora: ${sucio.join(', ')}`);
-      });
-    }
-  });
 
   test('el marco de concordancia de cada variante compuesta esta en la CLAUSULA DEL HUECO y los 6 son distintos', () => {
     // Es el UNICO mecanismo que hace que `faccia` y `facessi` no sean
