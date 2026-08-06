@@ -699,26 +699,59 @@ describe('fare-congiuntivo — SCOPE-GATE lexico del objeto literal (D-42-18)', 
 describe('fare-congiuntivo — blacklist de formas atestiguadas y defendibles (D-42-11)', () => {
   // ESCANEO POR CAMPO Y POR COINCIDENCIA EXACTA. Ver la ADVERTENCIA DE ESCANEO
   // de la cabecera: el `notes` nombra a proposito cada una de estas formas.
-  test('ninguna opcion de las 30 variantes coincide EXACTAMENTE con una forma de la blacklist', () => {
+  //
+  // WR-01 (revision de codigo del 2026-08-06): los tres escaneos de este bloque
+  // recorrian UNICAMENTE `v.options`, aunque la cabecera declara «no negociable»
+  // que van SIEMPRE por campo, `variants[].prompt` Y `variants[].options[]`.
+  // Sustanciado por mutacion sobre la suite COMPLETA, las tres en 835 pass / 0
+  // fail: `facci`, `farei` y `fatta` inyectadas en un PROMPT pasaban enteras
+  // (el `leakPattern` R1 de tests/exercise-types.test.js es una lista cerrada de
+  // marcas editoriales y no contiene ninguna forma de `fare`). Un prompt que
+  // MENCIONA una forma atestiguada la legitima igual que ofrecerla, y en el caso
+  // del participio concordado ademas adelanta el MAGNET de Phase 43.
+  //
+  // EL ESCANEO SIGUE SIENDO POR CAMPO Y NUNCA DE FICHERO ENTERO: el `notes`
+  // nombra a proposito cada forma de la blacklist con su audit trail, asi que un
+  // grep global se auto-invalidaria — fallaria justo por el texto que D-42-11
+  // exige que exista. Y en `prompt` la coincidencia va por PALABRA (`wordish`) y
+  // no por igualdad de cadena, que es lo correcto para texto corrido y ademas lo
+  // unico seguro: `face` es prefijo de `facesse`, `facesti` y `faceva`.
+  const camposDe = (v) => [{ campo: 'prompt', texto: v.prompt }, ...v.options.map((o) => ({ campo: 'option', texto: o }))];
+
+  test('ni una opcion ni un prompt de las 30 variantes lleva una forma de la blacklist', () => {
     // El riesgo real no es que el autor escriba `facci`: es que la AUTORIA la
     // genere como distractora "obviamente mala" de `faccia` siendo la forma
     // corta de 2a persona con `ci` aglutinado, atestiguada y corriente.
     for (const { slot, v, k } of allVariants()) {
-      const sucio = v.options.filter((o) => BLACKLIST.includes(o));
-      assert.deepEqual(sucio, [], `D-42-11: ${slot.id}#${k} ofrece una forma atestiguada: ${sucio.join(', ')}`);
+      const sucio = [];
+      for (const { campo, texto } of camposDe(v)) {
+        for (const f of BLACKLIST) {
+          const hit = campo === 'option' ? texto === f : wordish(f).test(texto);
+          if (hit) sucio.push(`${f} (${campo}: "${texto}")`);
+        }
+      }
+      assert.deepEqual(sucio, [], `D-42-11: ${slot.id}#${k} ofrece o menciona una forma atestiguada: ${sucio.join(', ')}`);
     }
   });
 
-  test('ninguna opcion es una casilla declarada de Phase 43 (condizionale o imperativo apostrofado)', () => {
+  test('ni una opcion ni un prompt es una casilla declarada de Phase 43 (condizionale o imperativo apostrofado)', () => {
     for (const { slot, v, k } of allVariants()) {
-      const sucio = v.options.filter((o) => PHASE43_FORMS.includes(o));
+      const sucio = [];
+      for (const { campo, texto } of camposDe(v)) {
+        for (const f of PHASE43_FORMS) {
+          const hit = campo === 'option' ? texto === f : wordish(f).test(texto);
+          if (hit) sucio.push(`${f} (${campo}: "${texto}")`);
+        }
+      }
       assert.deepEqual(sucio, [], `D-42-16: ${slot.id}#${k} adelanta una casilla de Phase 43: ${sucio.join(', ')}`);
     }
   });
 
-  test('ninguna opcion lleva el participio concordado: es el MAGNET de Phase 43', () => {
+  test('ni una opcion ni un prompt lleva el participio concordado: es el MAGNET de Phase 43', () => {
     for (const { slot, v, k } of allVariants()) {
-      const sucio = v.options.filter((o) => PARTICIPIO_CONCORDADO.test(o));
+      const sucio = camposDe(v)
+        .filter(({ texto }) => PARTICIPIO_CONCORDADO.test(texto))
+        .map(({ campo, texto }) => `${campo}: "${texto}"`);
       assert.deepEqual(sucio, [], `D-42-15: ${slot.id}#${k} adelanta la concordancia del participio: ${sucio.join(', ')}`);
     }
   });
