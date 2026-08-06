@@ -1,20 +1,14 @@
 ---
-status: testing
+status: complete
 phase: 42-fare-congiuntivo-4-slots-hom-grafas-disparador
 source: [42-VERIFICATION.md]
 started: 2026-08-06T10:00:00Z
-updated: 2026-08-06T14:55:00Z
+updated: 2026-08-06T16:40:00Z
 ---
 
 ## Current Test
 
-number: 3
-name: Ojo humano sobre los 18 variantes de 42-02
-expected: |
-  Jugar la categoría en http://localhost:3000 y confirmar que las 5 casillas se sienten como el
-  `presente` ya aprobado — rotación de variante entre pasadas, sujeto siempre presente en las
-  homógrafas, disparador que descarta el otro modo sin dudar.
-awaiting: user response
+[testing complete]
 
 ## Tests
 
@@ -119,14 +113,17 @@ marcados `human_judgment: true` en `coverage.D1` y `coverage.D3` de los SUMMARY.
 expected: jugar la categoría en http://localhost:3000 y confirmar que las 5 casillas se sienten como el
 `presente` ya aprobado — rotación de variante entre pasadas, sujeto siempre presente en las homógrafas,
 disparador que descarta el otro modo sin dudar.
-result: [pending]
+result: pass
+reported: "El autor jugó la categoría en http://localhost:3000 y confirmó las 5 casillas. Es la primera
+vez que ve los 18 de `passato`, `trapassato` y `disparador`, autorados con `autonomous: true` y sin gate
+humano de wave."
 
 ## Summary
 
 total: 3
-passed: 2
+passed: 3
 issues: 0
-pending: 1
+pending: 0
 skipped: 0
 blocked: 0
 
