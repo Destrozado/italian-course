@@ -146,14 +146,28 @@ const gobiernaElHueco = (p, lit) => {
 // Constantes de datos: la especificacion EJECUTABLE de la categoria.
 // ───────────────────────────────────────────────────────────────────────────
 
+// Los 4 paradigmas de SUBJUNTIVO por persona (io, tu, lui/lei, noi, voi, loro).
+const CONG_PRES = ['faccia', 'faccia', 'faccia', 'facciamo', 'facciate', 'facciano'];
+const CONG_IMPF = ['facessi', 'facessi', 'facesse', 'facessimo', 'faceste', 'facessero'];
+const CONG_PASS = ['abbia fatto', 'abbia fatto', 'abbia fatto', 'abbiamo fatto', 'abbiate fatto', 'abbiano fatto'];
+const CONG_TRAP = ['avessi fatto', 'avessi fatto', 'avesse fatto', 'avessimo fatto', 'aveste fatto', 'avessero fatto'];
+
 // CANON — los 5 ids de slot en el orden en que viven en disco, cada uno con sus
 // 6 keys EN ORDEN y CON LAS REPETICIONES. Las repeticiones son parte de la
 // especificacion (D-42-05), no un accidente: ver la desviacion 1 de la cabecera.
+//
+// IN-01 (revision de codigo del 2026-08-06): las 4 filas del paradigma eran
+// copias LITERALES de CONG_PRES, CONG_IMPF, CONG_PASS y CONG_TRAP, declaradas 17
+// lineas mas abajo. Editar una copia y no la otra desincronizaba la
+// especificacion en silencio, con el bloque 2 comparando contra una tabla y los
+// bloques 7-9 contra otra. Ahora se REFERENCIAN, que es lo unico que hace
+// imposible la desincronia. La fila del disparador si es literal, y a proposito:
+// su eje no es la persona, asi que no es ningun paradigma.
 const CANON = {
-  'fare-congiuntivo-presente': ['faccia', 'faccia', 'faccia', 'facciamo', 'facciate', 'facciano'],
-  'fare-congiuntivo-imperfetto': ['facessi', 'facessi', 'facesse', 'facessimo', 'faceste', 'facessero'],
-  'fare-congiuntivo-passato': ['abbia fatto', 'abbia fatto', 'abbia fatto', 'abbiamo fatto', 'abbiate fatto', 'abbiano fatto'],
-  'fare-congiuntivo-trapassato': ['avessi fatto', 'avessi fatto', 'avesse fatto', 'avessimo fatto', 'aveste fatto', 'avessero fatto'],
+  'fare-congiuntivo-presente': CONG_PRES,
+  'fare-congiuntivo-imperfetto': CONG_IMPF,
+  'fare-congiuntivo-passato': CONG_PASS,
+  'fare-congiuntivo-trapassato': CONG_TRAP,
   'fare-congiuntivo-disparador': ['faccia', 'faccia', 'facciate', 'facciano', 'facessi', 'fa'],
 };
 const IDS = Object.keys(CANON);
@@ -164,12 +178,6 @@ const SIMPLE_SLOTS = ['fare-congiuntivo-presente', 'fare-congiuntivo-imperfetto'
 const COMPOUND_SLOTS = ['fare-congiuntivo-passato', 'fare-congiuntivo-trapassato'];
 const TRIGGER_SLOT = 'fare-congiuntivo-disparador';
 const PARADIGM_SLOTS = [...SIMPLE_SLOTS, ...COMPOUND_SLOTS];
-
-// Los 4 paradigmas de SUBJUNTIVO por persona (io, tu, lui/lei, noi, voi, loro).
-const CONG_PRES = ['faccia', 'faccia', 'faccia', 'facciamo', 'facciate', 'facciano'];
-const CONG_IMPF = ['facessi', 'facessi', 'facesse', 'facessimo', 'faceste', 'facessero'];
-const CONG_PASS = ['abbia fatto', 'abbia fatto', 'abbia fatto', 'abbiamo fatto', 'abbiate fatto', 'abbiano fatto'];
-const CONG_TRAP = ['avessi fatto', 'avessi fatto', 'avesse fatto', 'avessimo fatto', 'aveste fatto', 'avessero fatto'];
 
 // Los 2 paradigmas de INDICATIVO que el slot del disparador ofrece como
 // opciones legitimas (D-42-12) y que en los 2 simples son la distractora de
