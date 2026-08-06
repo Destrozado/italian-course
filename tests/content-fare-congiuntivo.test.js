@@ -291,7 +291,24 @@ const deriveMainPerson = (prompt) => {
 //   blankPerson  — su persona; en los 4 slots del paradigma tiene que ser la
 //                  persona del indice de variante
 //   object       — el objeto literal del conjunto cerrado de 7
+//   tenseFix     — QUE fija el TIEMPO de la variante (solo en TRIGGER_SLOT):
+//                  `{ how, lit }` con how = 'ancla' | 'concordancia' y lit = el
+//                  literal que lo materializa en el prompt
 //   frame        — el marco de concordancia (solo en COMPOUND_SLOTS)
+//
+// LAS DOS ULTIMAS COLUMNAS SON DISJUNTAS Y ESO ES EL DISENO, no un descuido: los
+// dos compuestos fijan el tiempo por `frame` y el slot del disparador por
+// `tenseFix`; los dos simples no lo fijan por ninguno de los dos porque su eje es
+// la persona y su tiempo lo da el propio slot. El bloque 10 lo congela con dos
+// asserts simetricos.
+//
+// WR-03 (revision de codigo del 2026-08-06): `tenseFix` nacio como una constante
+// SEPARADA, `TENSE_FIX`, declarada 578 lineas mas abajo e indexada por `k` igual
+// que estas filas, porque el bloque 10 exige que el slot del disparador declare
+// CERO `frame`. Eran dos tablas por variante para el mismo slot sin ningun assert
+// que las cruzase: reordenar las variantes del disparador desalineaba una de las
+// dos en silencio. Se consolida aqui como columna, que es la unica fuente de
+// verdad sobre que fija el tiempo, y la constante de abajo pasa a DERIVARSE.
 //
 // El gate HARD de D-42-06 es la ultima columna util: mainPerson impersonal, o
 // mainPerson distinto de blankPerson. Cuando el sujeto de la principal coincide
@@ -299,46 +316,46 @@ const deriveMainPerson = (prompt) => {
 // construccion con `che` mas subjuntivo queda defectuosa.
 const VARIANT_TABLE = {
   'fare-congiuntivo-presente': [
-    { trigger: 'Bisogna che', mainSubject: null, mainPerson: 'impersonal', blankSubject: 'io', blankPerson: '1sg', object: 'i compiti', frame: null },
-    { trigger: 'È necessario che', mainSubject: null, mainPerson: 'impersonal', blankSubject: 'tu', blankPerson: '2sg', object: 'il letto', frame: null },
-    { trigger: 'Sembra che', mainSubject: null, mainPerson: 'impersonal', blankSubject: 'lui', blankPerson: '3sg', object: 'una foto', frame: null },
-    { trigger: 'Benché', mainSubject: 'il professore', mainPerson: '3sg', blankSubject: 'noi', blankPerson: '1pl', object: 'tutto', frame: null },
-    { trigger: 'Mia madre vuole che', mainSubject: 'Mia madre', mainPerson: '3sg', blankSubject: 'voi', blankPerson: '2pl', object: 'una torta', frame: null },
-    { trigger: 'È importante che', mainSubject: null, mainPerson: 'impersonal', blankSubject: 'loro', blankPerson: '3pl', object: 'un errore', frame: null },
+    { trigger: 'Bisogna che', mainSubject: null, mainPerson: 'impersonal', blankSubject: 'io', blankPerson: '1sg', object: 'i compiti', tenseFix: null, frame: null },
+    { trigger: 'È necessario che', mainSubject: null, mainPerson: 'impersonal', blankSubject: 'tu', blankPerson: '2sg', object: 'il letto', tenseFix: null, frame: null },
+    { trigger: 'Sembra che', mainSubject: null, mainPerson: 'impersonal', blankSubject: 'lui', blankPerson: '3sg', object: 'una foto', tenseFix: null, frame: null },
+    { trigger: 'Benché', mainSubject: 'il professore', mainPerson: '3sg', blankSubject: 'noi', blankPerson: '1pl', object: 'tutto', tenseFix: null, frame: null },
+    { trigger: 'Mia madre vuole che', mainSubject: 'Mia madre', mainPerson: '3sg', blankSubject: 'voi', blankPerson: '2pl', object: 'una torta', tenseFix: null, frame: null },
+    { trigger: 'È importante che', mainSubject: null, mainPerson: 'impersonal', blankSubject: 'loro', blankPerson: '3pl', object: 'un errore', tenseFix: null, frame: null },
   ],
   'fare-congiuntivo-imperfetto': [
-    { trigger: 'Il professore voleva che', mainSubject: 'Il professore', mainPerson: '3sg', blankSubject: 'io', blankPerson: '1sg', object: 'i compiti', frame: null },
-    { trigger: 'Mia madre sperava che', mainSubject: 'Mia madre', mainPerson: '3sg', blankSubject: 'tu', blankPerson: '2sg', object: 'il letto', frame: null },
-    { trigger: 'Non credevo che', mainSubject: null, mainPerson: '1sg', blankSubject: 'lui', blankPerson: '3sg', object: 'il lavoro', frame: null },
-    { trigger: 'Nonostante', mainSubject: 'nessuno', mainPerson: '3sg', blankSubject: 'noi', blankPerson: '1pl', object: 'una torta', frame: null },
-    { trigger: 'Era necessario che', mainSubject: null, mainPerson: 'impersonal', blankSubject: 'voi', blankPerson: '2pl', object: 'una foto', frame: null },
-    { trigger: 'Bisognava che', mainSubject: null, mainPerson: 'impersonal', blankSubject: 'loro', blankPerson: '3pl', object: 'un errore', frame: null },
+    { trigger: 'Il professore voleva che', mainSubject: 'Il professore', mainPerson: '3sg', blankSubject: 'io', blankPerson: '1sg', object: 'i compiti', tenseFix: null, frame: null },
+    { trigger: 'Mia madre sperava che', mainSubject: 'Mia madre', mainPerson: '3sg', blankSubject: 'tu', blankPerson: '2sg', object: 'il letto', tenseFix: null, frame: null },
+    { trigger: 'Non credevo che', mainSubject: null, mainPerson: '1sg', blankSubject: 'lui', blankPerson: '3sg', object: 'il lavoro', tenseFix: null, frame: null },
+    { trigger: 'Nonostante', mainSubject: 'nessuno', mainPerson: '3sg', blankSubject: 'noi', blankPerson: '1pl', object: 'una torta', tenseFix: null, frame: null },
+    { trigger: 'Era necessario che', mainSubject: null, mainPerson: 'impersonal', blankSubject: 'voi', blankPerson: '2pl', object: 'una foto', tenseFix: null, frame: null },
+    { trigger: 'Bisognava che', mainSubject: null, mainPerson: 'impersonal', blankSubject: 'loro', blankPerson: '3pl', object: 'un errore', tenseFix: null, frame: null },
   ],
   'fare-congiuntivo-passato': [
-    { trigger: 'Mia madre non crede che', mainSubject: 'Mia madre', mainPerson: '3sg', blankSubject: 'io', blankPerson: '1sg', object: 'i compiti', frame: 'ieri sera' },
-    { trigger: 'Il professore dubita che', mainSubject: 'Il professore', mainPerson: '3sg', blankSubject: 'tu', blankPerson: '2sg', object: 'il lavoro', frame: 'stamattina' },
-    { trigger: 'Mi sembra che', mainSubject: null, mainPerson: 'impersonal', blankSubject: 'lui', blankPerson: '3sg', object: 'una foto', frame: 'la settimana scorsa' },
-    { trigger: 'È strano che', mainSubject: null, mainPerson: 'impersonal', blankSubject: 'noi', blankPerson: '1pl', object: 'un errore', frame: 'domenica scorsa' },
-    { trigger: 'Mio fratello spera che', mainSubject: 'Mio fratello', mainPerson: '3sg', blankSubject: 'voi', blankPerson: '2pl', object: 'una torta', frame: 'sabato scorso' },
-    { trigger: 'Benché', mainSubject: 'il capo', mainPerson: '3sg', blankSubject: 'loro', blankPerson: '3pl', object: 'il lavoro', frame: 'il mese scorso' },
+    { trigger: 'Mia madre non crede che', mainSubject: 'Mia madre', mainPerson: '3sg', blankSubject: 'io', blankPerson: '1sg', object: 'i compiti', tenseFix: null, frame: 'ieri sera' },
+    { trigger: 'Il professore dubita che', mainSubject: 'Il professore', mainPerson: '3sg', blankSubject: 'tu', blankPerson: '2sg', object: 'il lavoro', tenseFix: null, frame: 'stamattina' },
+    { trigger: 'Mi sembra che', mainSubject: null, mainPerson: 'impersonal', blankSubject: 'lui', blankPerson: '3sg', object: 'una foto', tenseFix: null, frame: 'la settimana scorsa' },
+    { trigger: 'È strano che', mainSubject: null, mainPerson: 'impersonal', blankSubject: 'noi', blankPerson: '1pl', object: 'un errore', tenseFix: null, frame: 'domenica scorsa' },
+    { trigger: 'Mio fratello spera che', mainSubject: 'Mio fratello', mainPerson: '3sg', blankSubject: 'voi', blankPerson: '2pl', object: 'una torta', tenseFix: null, frame: 'sabato scorso' },
+    { trigger: 'Benché', mainSubject: 'il capo', mainPerson: '3sg', blankSubject: 'loro', blankPerson: '3pl', object: 'il lavoro', tenseFix: null, frame: 'il mese scorso' },
   ],
   'fare-congiuntivo-trapassato': [
-    { trigger: 'Il professore non sapeva che', mainSubject: 'Il professore', mainPerson: '3sg', blankSubject: 'io', blankPerson: '1sg', object: 'il lavoro', frame: 'il giorno prima' },
-    { trigger: 'Mia madre credeva che', mainSubject: 'Mia madre', mainPerson: '3sg', blankSubject: 'tu', blankPerson: '2sg', object: 'i compiti', frame: 'la settimana precedente' },
-    { trigger: 'Sembrava che', mainSubject: null, mainPerson: 'impersonal', blankSubject: 'lui', blankPerson: '3sg', object: 'tutto', frame: 'molto tempo prima' },
-    { trigger: 'Era strano che', mainSubject: null, mainPerson: 'impersonal', blankSubject: 'noi', blankPerson: '1pl', object: 'una torta', frame: "l'anno prima" },
-    { trigger: 'Non credevo che', mainSubject: null, mainPerson: '1sg', blankSubject: 'voi', blankPerson: '2pl', object: 'una foto', frame: 'il mese precedente' },
-    { trigger: 'Nonostante', mainSubject: 'il capo', mainPerson: '3sg', blankSubject: 'loro', blankPerson: '3pl', object: 'un errore', frame: 'la sera prima' },
+    { trigger: 'Il professore non sapeva che', mainSubject: 'Il professore', mainPerson: '3sg', blankSubject: 'io', blankPerson: '1sg', object: 'il lavoro', tenseFix: null, frame: 'il giorno prima' },
+    { trigger: 'Mia madre credeva che', mainSubject: 'Mia madre', mainPerson: '3sg', blankSubject: 'tu', blankPerson: '2sg', object: 'i compiti', tenseFix: null, frame: 'la settimana precedente' },
+    { trigger: 'Sembrava che', mainSubject: null, mainPerson: 'impersonal', blankSubject: 'lui', blankPerson: '3sg', object: 'tutto', tenseFix: null, frame: 'molto tempo prima' },
+    { trigger: 'Era strano che', mainSubject: null, mainPerson: 'impersonal', blankSubject: 'noi', blankPerson: '1pl', object: 'una torta', tenseFix: null, frame: "l'anno prima" },
+    { trigger: 'Non credevo che', mainSubject: null, mainPerson: '1sg', blankSubject: 'voi', blankPerson: '2pl', object: 'una foto', tenseFix: null, frame: 'il mese precedente' },
+    { trigger: 'Nonostante', mainSubject: 'il capo', mainPerson: '3sg', blankSubject: 'loro', blankPerson: '3pl', object: 'un errore', tenseFix: null, frame: 'la sera prima' },
   ],
   // El 5o slot: el eje de variante es el DISPARADOR, asi que `blankPerson` NO
   // sigue el indice — es la persona cuyas 4 casillas forman las `options`.
   'fare-congiuntivo-disparador': [
-    { trigger: 'penso che', mainSubject: 'Io', mainPerson: '1sg', blankSubject: 'lui', blankPerson: '3sg', object: 'il lavoro', frame: null },
-    { trigger: 'Benché', mainSubject: 'il professore', mainPerson: '3sg', blankSubject: 'tu', blankPerson: '2sg', object: 'i compiti', frame: null },
-    { trigger: 'È necessario che', mainSubject: null, mainPerson: 'impersonal', blankSubject: 'voi', blankPerson: '2pl', object: 'il letto', frame: null },
-    { trigger: 'Prima che', mainSubject: 'il capo', mainPerson: '3sg', blankSubject: 'loro', blankPerson: '3pl', object: 'un errore', frame: null },
-    { trigger: 'Se io', mainSubject: 'mia madre', mainPerson: '3sg', blankSubject: 'io', blankPerson: '1sg', object: 'i compiti', frame: null },
-    { trigger: 'so che', mainSubject: 'Io', mainPerson: '1sg', blankSubject: 'lui', blankPerson: '3sg', object: 'il lavoro', frame: null },
+    { trigger: 'penso che', mainSubject: 'Io', mainPerson: '1sg', blankSubject: 'lui', blankPerson: '3sg', object: 'il lavoro', tenseFix: { how: 'ancla', lit: 'in questo momento' }, frame: null },
+    { trigger: 'Benché', mainSubject: 'il professore', mainPerson: '3sg', blankSubject: 'tu', blankPerson: '2sg', object: 'i compiti', tenseFix: { how: 'ancla', lit: 'adesso' }, frame: null },
+    { trigger: 'È necessario che', mainSubject: null, mainPerson: 'impersonal', blankSubject: 'voi', blankPerson: '2pl', object: 'il letto', tenseFix: { how: 'concordancia', lit: 'È necessario' }, frame: null },
+    { trigger: 'Prima che', mainSubject: 'il capo', mainPerson: '3sg', blankSubject: 'loro', blankPerson: '3pl', object: 'un errore', tenseFix: { how: 'concordancia', lit: 'controlla' }, frame: null },
+    { trigger: 'Se io', mainSubject: 'mia madre', mainPerson: '3sg', blankSubject: 'io', blankPerson: '1sg', object: 'i compiti', tenseFix: { how: 'concordancia', lit: 'sarebbe' }, frame: null },
+    { trigger: 'so che', mainSubject: 'Io', mainPerson: '1sg', blankSubject: 'lui', blankPerson: '3sg', object: 'il lavoro', tenseFix: { how: 'ancla', lit: 'in questo momento' }, frame: null },
   ],
 };
 
@@ -956,18 +973,12 @@ describe('fare-congiuntivo — slot del disparador, 4 casillas modo x tiempo (D-
   // precedente D-41-11 (marcos DISJUNTOS) aplicado a este slot.
   //
   // Las 6 variantes fijan el tiempo por UNO de dos mecanismos, y el gate exige
-  // que cada una declare el suyo. No se declara como columna `frame` de
-  // VARIANT_TABLE a proposito: `frame` es el marco de CONCORDANCIA de los dos
-  // compuestos y el bloque 10 exige que solo ellos lo declaren.
-  const TENSE_FIX = [
-    // k, mecanismo, literal que lo materializa en el prompt
-    { k: 0, how: 'ancla', lit: 'in questo momento' }, // penso che  — CR-02
-    { k: 1, how: 'ancla', lit: 'adesso' },            // benché     — CR-02
-    { k: 2, how: 'concordancia', lit: 'È necessario' }, // principal en presente
-    { k: 3, how: 'concordancia', lit: 'controlla' },    // principal en presente
-    { k: 4, how: 'concordancia', lit: 'sarebbe' },      // periodo ipotetico
-    { k: 5, how: 'ancla', lit: 'in questo momento' }, // so che     — CR-01
-  ];
+  // que cada una declare el suyo. WR-03: el mecanismo se DERIVA de la columna
+  // `tenseFix` de VARIANT_TABLE y no de una tabla paralela — hay exactamente un
+  // sitio en el fichero que dice que fija el tiempo de cada variante. La columna
+  // es distinta de `frame` a proposito y las dos son disjuntas: ver el comentario
+  // de VARIANT_TABLE y los dos asserts simetricos del bloque 10.
+  const TENSE_FIX = VARIANT_TABLE[TRIGGER_SLOT].map((r, k) => ({ k, ...r.tenseFix }));
   // Deicticos de presente admitidos: excluyen el imperfetto porque anclan la
   // accion al instante de la enunciacion, que es justo el punto de apoyo que
   // el imperfetto necesita en el pasado.
@@ -978,6 +989,11 @@ describe('fare-congiuntivo — slot del disparador, 4 casillas modo x tiempo (D-
 
   test('ninguna variante del disparador deja el TIEMPO sin fijar (CR-01, CR-02, D-41-11)', () => {
     assert.equal(TENSE_FIX.length, 6, 'las 6 variantes del disparador declaran su mecanismo');
+    assert.deepEqual(
+      TENSE_FIX.filter((r) => !['ancla', 'concordancia'].includes(r.how) || !r.lit).map((r) => r.k),
+      [],
+      'CR-01/CR-02: toda fila del disparador declara tenseFix con un `how` conocido y su `lit`'
+    );
     for (const { k, how, lit } of TENSE_FIX) {
       const v = D().variants[k];
       if (how === 'ancla') {
@@ -1094,6 +1110,23 @@ describe('fare-congiuntivo — disparadores, marcos y objetos por variante (D-42
     for (const id of IDS) {
       const conMarco = VARIANT_TABLE[id].filter((r) => r.frame !== null).length;
       assert.equal(conMarco, COMPOUND_SLOTS.includes(id) ? 6 : 0, `D-42-02: ${id} declara ${conMarco} marcos`);
+    }
+  });
+
+  test('solo TRIGGER_SLOT declara tenseFix; los otros 4 slots lo dejan en null', () => {
+    // WR-03: el simetrico del assert anterior, y la razon por la que `tenseFix`
+    // puede vivir en VARIANT_TABLE sin colisionar con `frame`. Las dos columnas
+    // son disjuntas por construccion: los compuestos fijan el tiempo por marco de
+    // concordancia, el disparador por ancla o por concordancia con la principal, y
+    // los dos simples no lo fijan por ninguno porque su tiempo lo da el slot.
+    for (const id of IDS) {
+      const conFix = VARIANT_TABLE[id].filter((r) => r.tenseFix !== null).length;
+      assert.equal(conFix, id === TRIGGER_SLOT ? 6 : 0, `WR-03: ${id} declara ${conFix} tenseFix`);
+      assert.equal(
+        VARIANT_TABLE[id].filter((r) => r.tenseFix !== null && r.frame !== null).length,
+        0,
+        `WR-03: ${id} declara las dos columnas en la misma fila; son disjuntas por diseno`
+      );
     }
   });
 });
