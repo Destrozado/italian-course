@@ -227,6 +227,29 @@ const deriveBlankSubject = (prompt) => {
   return m ? m[1].toLowerCase() : null;
 };
 
+// WR-09 (revision de codigo del 2026-08-06) — SUJETO COORDINADO: se RECHAZA, no
+// se deriva.
+//
+// EL DEFECTO QUE ESTO ARREGLA: `BLANK_SUBJECT_RE` toma el pronombre inmediatamente
+// anterior al hueco, asi que de un sujeto coordinado captura solo el SEGUNDO
+// miembro. En `Io penso che io e lui ___ il lavoro in questo momento.` deriva
+// `lui` (3sg), que coincide con la tabla, y el gate entero da verde — pero el
+// sujeto real es `io e lui`, o sea `noi` (1pl): la key `faccia` pasa a ser
+// INCORRECTA (tocaria `facciamo`) y ademas hay correferencia parcial con el `Io`
+// de la principal, que es justo lo que D-42-06 declara HARD. Sustanciado por
+// mutacion en 62 pass / 0 fail, tanto con `io e lui` como con `tu e lui`.
+//
+// POR QUE RECHAZAR Y NO DERIVAR LA PERSONA DE LA COORDINACION: la persona de un
+// sujeto coordinado se resuelve por jerarquia (1a gana a 2a, 2a gana a 3a) y eso
+// es derivable, pero derivarla legitimaria una construccion que esta categoria no
+// usa en ninguna de sus 30 variantes y que rompe el mecanismo de D-42-05: la
+// unicidad de la respuesta en las 10 homografas la da EXCLUSIVAMENTE el pronombre
+// sujeto explicito, y un sujeto coordinado obliga al autor a componer la persona
+// en vez de leerla. Fallar cerrado es el comportamiento correcto: si una pasada
+// futura quiere coordinacion, que la declare y amplie el gate a proposito.
+const COORD_SUBJECT_RE =
+  /(?:^|[^\p{L}])(io|tu|lui|lei|noi|voi|loro)\s+(?:e|ed|o|od)\s+(?:io|tu|lui|lei|noi|voi|loro)(?:\s+non)?\s+___/iu;
+
 // La persona de la PRINCIPAL: lexico verbal explicito. Las expresiones
 // impersonales van como sintagma (`è necessario`) y no como verbo suelto, y la
 // derivacion resuelve por coincidencia MAS LARGA, que es lo que hace que
@@ -523,6 +546,15 @@ describe('fare-congiuntivo — sujeto explicito y no-correferencia (D-42-06, D-4
     for (const id of IDS) {
       eachVariant(id, (v, k) => {
         const row = VARIANT_TABLE[id][k];
+
+        // 0. Sujeto COORDINADO: se rechaza antes de derivar nada, porque la
+        // derivacion se quedaria con el segundo miembro y daria una persona
+        // FALSA que ademas cuadra con la tabla. Ver el comentario de
+        // COORD_SUBJECT_RE (WR-09).
+        assert.ok(
+          !COORD_SUBJECT_RE.test(v.prompt),
+          `D-42-06: ${id}#${k} el hueco lleva sujeto COORDINADO; la persona derivada seria falsa y la key dejaria de ser unica: "${v.prompt}"`
+        );
 
         // 1. Sujeto del hueco, DERIVADO del texto.
         const blankSubject = deriveBlankSubject(v.prompt);
