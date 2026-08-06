@@ -38,7 +38,11 @@
 //   3. D-42-06 — el assert de «exactamente un pronombre por prompt» se
 //      reescribe: el gate HARD de no-correferencia obliga a DOS sujetos
 //      explicitos en varias variantes, asi que contar pronombres seria falso
-//      por diseno. Se sustituye por la tabla declarativa VARIANT_TABLE.
+//      por diseno. Se sustituye por la tabla declarativa VARIANT_TABLE, que
+//      declara la INTENCION — pero el gate NO la cree: desde el fix de CR-03
+//      deriva los dos sujetos del `prompt` del JSON y usa la tabla solo como
+//      contraste, para que una divergencia entre contenido e intencion se
+//      ponga roja. Ver el comentario largo junto a PERSON_OF_PRONOUN.
 //
 // Este fichero NO duplica lo que ya cubren otros tests: la validacion de schema
 // del bundle auto-descubierto vive en tests/domain.test.js, y el coverage de
@@ -163,6 +167,71 @@ const GLOSSABLE = ['Benché', 'benché', 'Purché', 'purché', 'Prima che', 'pri
 // D-42-07 / D-42-18 — el pronombre sujeto por persona. 3a singular admite las dos.
 const PRONOUNS = [['io'], ['tu'], ['lui', 'lei'], ['noi'], ['voi'], ['loro']];
 const PERSON_CODES = ['1sg', '2sg', '3sg', '1pl', '2pl', '3pl'];
+
+// ───────────────────────────────────────────────────────────────────────────
+// CR-03 (revision de codigo del 2026-08-06) — DERIVACION DE LOS DOS SUJETOS
+// DESDE EL PROMPT.
+//
+// EL DEFECTO QUE ESTO ARREGLA, para que nadie lo reintroduzca: el gate HARD de
+// no-correferencia comparaba `row.mainPerson` con `row.blankPerson`, y las DOS
+// son columnas escritas a mano de la MISMA fila de VARIANT_TABLE, una constante
+// de este fichero. La asercion comparaba la tabla consigo misma y no leia el
+// JSON en ningun punto: `blankPerson` si estaba anclado al contenido en los 4
+// slots del paradigma, pero `mainPerson` no se derivaba ni se contrastaba con
+// el prompt en ninguna parte. Sustanciado por mutacion: inyectando
+// `Io penso che io ___ il lavoro che lui ha visto in questo momento.` —que es,
+// palabra por palabra, la forma que el `notes` cita como LA incorrecta— la
+// suite daba 62 pass / 0 fail, conservando todos los literales declarados
+// (`Io`, `lui`, `penso che`, `il lavoro`), que es exactamente lo que un error
+// de autoria real haria.
+//
+// LA TABLA SE CONSERVA como INTENCION DECLARADA, pero ya no es la fuente: el
+// gate deriva los dos sujetos del texto del prompt y usa la tabla como
+// contraste. Si el JSON y la intencion divergen, el test se pone rojo.
+const PERSON_OF_PRONOUN = {
+  io: '1sg', tu: '2sg', lui: '3sg', lei: '3sg', noi: '1pl', voi: '2pl', loro: '3pl',
+};
+
+// El sujeto del HUECO: el pronombre que gobierna el hueco es el que lo precede
+// inmediatamente, con una negacion opcional en medio (`loro non ___`). Frontera
+// de palabra unicode por la misma razon que `wordish`.
+const BLANK_SUBJECT_RE =
+  /(?:^|[^\p{L}])(io|tu|lui|lei|noi|voi|loro)(?:\s+non)?\s+___/iu;
+const deriveBlankSubject = (prompt) => {
+  const m = prompt.match(BLANK_SUBJECT_RE);
+  return m ? m[1].toLowerCase() : null;
+};
+
+// La persona de la PRINCIPAL: lexico verbal explicito. Las expresiones
+// impersonales van como sintagma (`è necessario`) y no como verbo suelto, y la
+// derivacion resuelve por coincidencia MAS LARGA, que es lo que hace que
+// `È necessario che` derive `impersonal` y no el `è` de 3a persona. El lexico
+// tiene que estar COMPLETO: si un prompt usa un verbo de principal que no esta
+// aqui, la derivacion devuelve null y el gate se pone rojo a proposito, para
+// que una pasada futura amplie el lexico en vez de colar una principal que
+// nadie clasifica. Cubre tambien las principales POSPUESTAS al hueco, que es el
+// caso de las concesivas y de `prima che`, donde el sujeto de la principal
+// aparece despues del subordinado.
+const MAIN_CLAUSE_VERBS = {
+  // Impersonales: no tienen sujeto que pueda correferir con el del hueco.
+  bisogna: 'impersonal', bisognava: 'impersonal',
+  sembra: 'impersonal', sembrava: 'impersonal',
+  'è necessario': 'impersonal', 'era necessario': 'impersonal',
+  'è importante': 'impersonal', 'è strano': 'impersonal', 'era strano': 'impersonal',
+  // 1a del singular.
+  penso: '1sg', so: '1sg', credevo: '1sg',
+  // 3a del singular.
+  vuole: '3sg', voleva: '3sg', spera: '3sg', sperava: '3sg',
+  crede: '3sg', credeva: '3sg', dubita: '3sg', sapeva: '3sg',
+  mangiava: '3sg', disse: '3sg', controlla: '3sg', sarebbe: '3sg',
+  è: '3sg',
+};
+const MAIN_CLAUSE_KEYS = Object.keys(MAIN_CLAUSE_VERBS).sort((a, b) => b.length - a.length);
+const deriveMainPerson = (prompt) => {
+  const p = prompt.toLowerCase();
+  const hit = MAIN_CLAUSE_KEYS.find((w) => wordish(w).test(p));
+  return hit ? MAIN_CLAUSE_VERBS[hit] : null;
+};
 
 // VARIANT_TABLE — la tabla declarativa por variante que SUSTITUYE al conteo de
 // pronombres del analogo (desviacion 3, D-42-06). Por variante:
@@ -419,12 +488,50 @@ describe('fare-congiuntivo — sujeto explicito y no-correferencia (D-42-06, D-4
   });
 
   test('GATE HARD: el sujeto de la principal NUNCA coincide con el del hueco en las 30', () => {
+    // CR-03: los DOS sujetos se DERIVAN del `prompt` del JSON. La tabla se usa
+    // solo como intencion declarada y se cruza contra lo derivado, asi que una
+    // divergencia entre el contenido y la tabla pone el test en rojo. Antes de
+    // este fix la asercion comparaba dos columnas de la misma fila de
+    // VARIANT_TABLE y no podia fallar por ningun cambio del JSON — ver el
+    // comentario largo junto a PERSON_OF_PRONOUN.
     const sucio = [];
     for (const id of IDS) {
       eachVariant(id, (v, k) => {
         const row = VARIANT_TABLE[id][k];
-        if (row.mainPerson !== 'impersonal' && row.mainPerson === row.blankPerson) {
-          sucio.push(`${id}#${k} (${row.mainPerson} == ${row.blankPerson}): "${v.prompt}"`);
+
+        // 1. Sujeto del hueco, DERIVADO del texto.
+        const blankSubject = deriveBlankSubject(v.prompt);
+        assert.ok(
+          blankSubject,
+          `D-42-18: ${id}#${k} el hueco no va precedido de un pronombre sujeto explicito: "${v.prompt}"`
+        );
+        assert.equal(
+          blankSubject,
+          row.blankSubject,
+          `D-42-06: ${id}#${k} la tabla declara blankSubject="${row.blankSubject}" y el prompt pone "${blankSubject}" delante del hueco: "${v.prompt}"`
+        );
+        const blankPerson = PERSON_OF_PRONOUN[blankSubject];
+        assert.equal(
+          blankPerson,
+          row.blankPerson,
+          `D-42-06: ${id}#${k} el pronombre "${blankSubject}" es ${blankPerson} y la tabla declara ${row.blankPerson}`
+        );
+
+        // 2. Persona de la principal, DERIVADA del texto via lexico verbal.
+        const mainPerson = deriveMainPerson(v.prompt);
+        assert.ok(
+          mainPerson,
+          `D-42-06: ${id}#${k} ningun verbo de MAIN_CLAUSE_VERBS aparece en el prompt, asi que la persona de la principal no es clasificable: "${v.prompt}"`
+        );
+        assert.equal(
+          mainPerson,
+          row.mainPerson,
+          `D-42-06: ${id}#${k} la tabla declara mainPerson=${row.mainPerson} y el prompt deriva ${mainPerson}: "${v.prompt}"`
+        );
+
+        // 3. El gate propiamente dicho, sobre los dos valores DERIVADOS.
+        if (mainPerson !== 'impersonal' && mainPerson === blankPerson) {
+          sucio.push(`${id}#${k} (${mainPerson} == ${blankPerson}): "${v.prompt}"`);
         }
       });
     }
