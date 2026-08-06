@@ -33,8 +33,10 @@ Correr el quórum base canónico vía el skill `gsd-validate-exercise` (Opus + S
 | `fare-congiuntivo-trapassato` | io, tu | `avessi fatto` |
 
 expected: los 5 slots en `validated`, `VAL_07_STRICT=1` en verde, gates de categoría sin romperse.
-result: issue
-reported: "Pasada corrida 2026-08-06 en top-level, 1 subagent fresh por ejercicio (VAL-03). La pasada
+result: pass
+cerrado: "Los 5 slots en `validated` y `VAL_07_STRICT=1 node --test tests/*.test.js` en verde, 858/858.
+Se llegó en tres tramos y ninguno fue un pase silencioso — ver la traza de G-42-1/2/3 más abajo."
+reported_durante_el_proceso: "Pasada corrida 2026-08-06 en top-level, 1 subagent fresh por ejercicio (VAL-03). La pasada
 base dejó 3/5 (`presente` y `passato` disputed); tras arreglar las dos causas y re-pasar, quedan 4/5:
 `presente` cerrado en la causa, `passato` reabierto por una objeción NUEVA (G-42-3) que la adjudicación
 adversarial desmonta pero que el sticky D-VAL-07 no deja limpiar sin decisión de autor. Los 4 slots del
@@ -86,8 +88,12 @@ Foco, por orden de riesgo demostrado:
 
 expected: el pase de quórum se pronuncia explícitamente sobre esos dos bloques; cero variantes con una
 opción defendiblemente correcta además de la key.
-result: issue
-reported: "El quórum SÍ se pronunció sobre los dos bloques, y el balance es: un defecto real
+result: pass
+cerrado: "El bloque del disparador limpio con Opus y Sonnet, el blindaje de concordancia con un defecto
+real encontrado y arreglado (G-42-2) y una objeción residual desmontada por adjudicación adversarial y
+resuelta con override documentado (G-42-3). Cero variantes con una opción defendiblemente correcta
+además de la key."
+reported_durante_el_proceso: "El quórum SÍ se pronunció sobre los dos bloques, y el balance es: un defecto real
 encontrado y arreglado, y una objeción residual que no se sostiene pero que bloquea el gate.
 Disparador: las 6 variantes pasan limpias con Opus y Sonnet, `c2_una_opcion: true` en los dos, así que
 el ancla deíctica que corrigió CR-01 y CR-02 aguanta el quórum — ese bloque queda cerrado.
@@ -118,8 +124,8 @@ result: [pending]
 ## Summary
 
 total: 3
-passed: 0
-issues: 2
+passed: 2
+issues: 0
 pending: 1
 skipped: 0
 blocked: 0
@@ -136,6 +142,16 @@ blocked: 0
     slot entero, no de una variante — los seis prompts no forzarían el aspecto perfectivo."
   severity: major
   test: 2
+  status_final: resolved
+  resolved_by: "7b2f515 — el override del autor pasa a ser de primera clase en `deriveStatus`, más la
+    entry de override sobre `fare-congiuntivo-passato` con su motivo de 2493 caracteres"
+  resolved_at: 2026-08-06
+  resolved_note: "No se aceptó la objeción, y no por autoridad: la adjudicación adversarial de abajo es
+    la evidencia. El `incorrecta` de deepseek-reasoner SE QUEDA en `passes[]` a propósito — el override
+    resuelve el disenso, no lo borra. Y se arregló la deuda que había detrás: el caso ya se había dado
+    en `partitivos`, `avere` y `profesiones`, y en `avere-passato-prossimo` el invariante
+    `status === deriveStatus(passes)` estaba roto en silencio desde entonces. `VAL_07_STRICT=1` pasa a
+    858/858 con los 5 slots en `validated`."
   artifacts:
     - path: "content/exercises/fare-congiuntivo.json"
       issue: "`fare-congiuntivo-passato` — las 6 variantes, según la objeción; la 0 como ejemplo"
