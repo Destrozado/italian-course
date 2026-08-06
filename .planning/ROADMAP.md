@@ -235,12 +235,12 @@ Plans:
   4. El participio passato `fatto` se examina en su doble comportamiento — invariable con `avere` frente a la concordancia cuando lo rige un pronombre objeto (`li ho fatti`) — con ronda EXTRA de quórum sobre ese par; y `facente` entra en el paradigma CON nota de registro explícita en la explanation (burocrático/fosilizado, vive en compuestos tipo `facente funzione`), sin mentir sobre su uso real.
   5. Ambas categorías cargan en boot como unidades de reset SEPARADAS y todas sus variantes quedan `validated` por quórum cross-vendor R1-R7 con canon editorial y sin leak R1.
 
-**Plans**: 2 plans
+**Plans**: 1/2 plans executed
 
 Plans:
 **Wave 1**
 
-- [ ] 43-01-PLAN.md — `fare-cond-imperativo` de punta a punta: alta de la categoría (`categories.json` order 17 + línea del smoke) y los 3 slots (condizionale presente 6 + condizionale passato 6 + imperativo **5**, 17 variantes), con tracer sobre el condizionale presente verificado antes de expandir, más `tests/content-fare-cond-imperativo.test.js` con los gates de la categoría como invariantes permanentes
+- [x] 43-01-PLAN.md — `fare-cond-imperativo` de punta a punta: alta de la categoría (`categories.json` order 17 + línea del smoke) y los 3 slots (condizionale presente 6 + condizionale passato 6 + imperativo **5**, 17 variantes), con tracer sobre el condizionale presente verificado antes de expandir, más `tests/content-fare-cond-imperativo.test.js` con los gates de la categoría como invariantes permanentes
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
@@ -283,7 +283,7 @@ Plans:
 | 40. Migración `12→13` | v2.0 | 1/1 | Complete    | 2026-08-03 |
 | 41. `fare-indicativo` (8 slots) | v2.0 | 2/2 | Complete    | 2026-08-04 |
 | 42. `fare-congiuntivo` (4 slots) | v2.0 | 2/2 | Complete    | 2026-08-06 |
-| 43. `fare-cond-imperativo` + `fare-indefiniti` (3+6 slots) | v2.0 | 0/? | Not started | - |
+| 43. `fare-cond-imperativo` + `fare-indefiniti` (3+6 slots) | v2.0 | 1/2 | In Progress|  |
 | 44. Integración lockstep + cierre v2.0 | v2.0 | 0/? | Not started | - |
 
 ## Backlog

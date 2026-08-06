@@ -3,17 +3,17 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Paradigma completo de `fare` (4 categorías por modo)
 current_phase: 43
-current_phase_name: "`fare-cond-imperativo` + `fare-indefiniti` — 3 + 6 slots"
+current_phase_name: fare-cond-imperativo-fare-indefiniti-3-6-slots
 status: executing
-stopped_at: Phase 43 context gathered
-last_updated: "2026-08-06T23:22:58.895Z"
-last_activity: 2026-08-06
-last_activity_desc: Phase 42 complete, transitioned to Phase 43
+stopped_at: Completed 43-01-PLAN.md
+last_updated: "2026-08-06T23:51:52.283Z"
+last_activity: 2026-08-07
+last_activity_desc: Phase 43 execution started
 progress:
   total_phases: 5
   completed_phases: 3
   total_plans: 7
-  completed_plans: 5
+  completed_plans: 6
   percent: 60
 ---
 
@@ -25,16 +25,16 @@ See: `.planning/PROJECT.md` (updated 2026-08-06 — Phase 42 `fare-congiuntivo` 
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 43 — `fare-cond-imperativo` + `fare-indefiniti` — 3 + 6 slots
+**Current Focus:** Phase 43 — fare-cond-imperativo-fare-indefiniti-3-6-slots
 
 ## Current Position
 
-Phase: 43 — `fare-cond-imperativo` + `fare-indefiniti` — 3 + 6 slots
-Plan: Not started
+Phase: 43 (fare-cond-imperativo-fare-indefiniti-3-6-slots) — EXECUTING
+Plan: 2 of 2
 Status: Ready to execute
-Last activity: 2026-08-06 — Phase 42 complete, transitioned to Phase 43
+Last activity: 2026-08-07 — Phase 43 execution started
 
-Progress: [████████████████████] 5/5 plans (100%) · 4/5 fases (80%)
+Progress: [████████████████████] 5/5 plans ([█████████░] 86%) · 4/5 fases (80%)
 
 ## Deferred Items
 
@@ -173,6 +173,7 @@ Items reconocidos y diferidos en el cierre del milestone v1.9 (2026-07-02, ackno
 | Phase 41 P02 | 46m | 3 tasks | 2 files |
 | Phase 42 P01 | 8h 32m | 3 tasks | 4 files |
 | Phase 42 P02 | 20m | 3 tasks | 2 files |
+| Phase 43 P01 | 24min | 4 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -274,6 +275,10 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - [Phase ?]: El blindaje que excluye los dos simples en los compuestos es el marco de concordancia (principal en presente + acción terminada / principal en pasado + anterioridad), declarado en `notes` y exigido variante a variante por el test (42-02).
 - [Phase ?]: La persona `noi` es estructuralmente imposible en el slot del disparador: su cuarteto duplicaría `facciamo` (42-02, D-42-12).
 - [Phase ?]: Los 5 slots cierran en `pending` con `passes: []`; el quórum base Opus+Sonnet y la ronda EXTRA DeepSeek corren en pasada top-level (42-02, D-42-04, VAL-03).
+- [Phase ?]: 43-01: la distractora mal construida del condizionale passato es 'avrei fare' (auxiliar + infinitivo) y no 'sarei fatto': 'sarebbe fatto' es una PASIVA gramatical del italiano, asi que ofrecerla como distractora incorrecta violaria el criterio operativo de la blacklist
+- [Phase ?]: 43-01: una key con apostrofe ASCII exige un matcher hermano con lookahead negativo — wordish() cierra palabra contra el apostrofe y pondria roja la variante correcta; el escaneo positivo del notes se ancla con el literal 'la forma fa' en vez de envolver entre comillas
+- [Phase ?]: 43-01: gobiernaElHueco no puede comprobar un ancla que contenga 'che' (CORTE_DE_CLAUSULA lo consume al partir): el ancla se declara como par {lit, head} y se comprueba el literal por presencia y el head por ambito
+- [Phase ?]: 43-01: los gates de doble validez se cierran por AUSENCIA grep-verificable (cero 'se' suelto en el condizionale passato, cero deicticos de futuro en el presente) en vez de por matiz sintactico no comprobable
 
 ### Pending Todos
 
@@ -333,9 +338,9 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Session Continuity
 
-**Last session:** 2026-08-06T22:22:20.534Z
-**Stopped at:** Phase 43 context gathered
-**Resume file:** .planning/phases/43-fare-cond-imperativo-fare-indefiniti-3-6-slots/43-CONTEXT.md
+**Last session:** 2026-08-06T23:51:40.931Z
+**Stopped at:** Completed 43-01-PLAN.md
+**Resume file:** None
 
 ### Last Session
 

@@ -34,9 +34,9 @@ Requisitos comprometidos para este milestone. Cada uno mapea a una fase del road
 
 ### Fare — Condizionale + Imperativo (CI) · categoría `fare-cond-imperativo`, 3 slots
 
-- [ ] **CI-01**: El autor es examinado sobre el **condizionale presente** (`farei / faresti / farebbe / faremmo / fareste / farebbero`), con la misma raíz contracta `far-` del futuro.
-- [ ] **CI-02**: El autor es examinado sobre el **condizionale passato** (`avrei fatto`), incluido su uso italiano para el futuro en el pasado (`ha detto che avrebbe fatto`), que el español resuelve distinto.
-- [ ] **CI-03**: El autor es examinado sobre el **imperativo presente** (`fa' / faccia / facciamo / fate / facciano`) — **5 variantes, no 6: el imperativo no tiene `io`**. La 2ª singular es un MAGNET de doble validez (`fa'`, `fai` y `fa` están todas atestiguadas) y requiere rondas extra de quórum.
+- [x] **CI-01**: El autor es examinado sobre el **condizionale presente** (`farei / faresti / farebbe / faremmo / fareste / farebbero`), con la misma raíz contracta `far-` del futuro.
+- [x] **CI-02**: El autor es examinado sobre el **condizionale passato** (`avrei fatto`), incluido su uso italiano para el futuro en el pasado (`ha detto che avrebbe fatto`), que el español resuelve distinto.
+- [x] **CI-03**: El autor es examinado sobre el **imperativo presente** (`fa' / faccia / facciamo / fate / facciano`) — **5 variantes, no 6: el imperativo no tiene `io`**. La 2ª singular es un MAGNET de doble validez (`fa'`, `fai` y `fa` están todas atestiguadas) y requiere rondas extra de quórum.
 
 ### Fare — Formas indefinidas (INDEF) · categoría `fare-indefiniti`, 6 slots
 
@@ -94,9 +94,9 @@ Requisitos comprometidos para este milestone. Cada uno mapea a una fase del road
 | CONG-02 | Phase 42 — `fare-congiuntivo` | Complete |
 | CONG-03 | Phase 42 — `fare-congiuntivo` | Complete |
 | CONG-04 | Phase 42 — `fare-congiuntivo` | Complete |
-| CI-01 | Phase 43 — `fare-cond-imperativo` + `fare-indefiniti` | Pending |
-| CI-02 | Phase 43 — `fare-cond-imperativo` + `fare-indefiniti` | Pending |
-| CI-03 | Phase 43 — `fare-cond-imperativo` + `fare-indefiniti` | Pending |
+| CI-01 | Phase 43 — `fare-cond-imperativo` + `fare-indefiniti` | Complete |
+| CI-02 | Phase 43 — `fare-cond-imperativo` + `fare-indefiniti` | Complete |
+| CI-03 | Phase 43 — `fare-cond-imperativo` + `fare-indefiniti` | Complete |
 | INDEF-01 | Phase 43 — `fare-cond-imperativo` + `fare-indefiniti` | Pending |
 | INDEF-02 | Phase 43 — `fare-cond-imperativo` + `fare-indefiniti` | Pending |
 | INDEF-03 | Phase 43 — `fare-cond-imperativo` + `fare-indefiniti` | Pending |
