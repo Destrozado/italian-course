@@ -29,8 +29,8 @@ Requisitos comprometidos para este milestone. Cada uno mapea a una fase del road
 
 - [x] **CONG-01**: El autor es examinado sobre el **congiuntivo presente** (`faccia / faccia / faccia / facciamo / facciate / facciano`). Las tres primeras personas son homógrafas: el pronombre sujeto (o un sujeto explícito) DEBE estar en la frase o el ejercicio es irresoluble.
 - [x] **CONG-02**: El autor es examinado sobre el **congiuntivo imperfetto** (`facessi / facessi / facesse / facessimo / faceste / facessero`), con la misma exigencia de sujeto explícito en `io`/`tu` (`facessi` homógrafa).
-- [ ] **CONG-03**: El autor es examinado sobre el **congiuntivo passato** (`abbia fatto`) y el **trapassato** (`avessi fatto`), incluida la elección del tiempo según la concordancia con la principal.
-- [ ] **CONG-04**: El autor es examinado sobre el disparador del subjuntivo — qué verbos y conjunciones (`penso che`, `benché`, `prima che`, `se` hipotético) lo exigen — para que la casilla no se responda por reconocimiento de forma sin entender el contexto.
+- [x] **CONG-03**: El autor es examinado sobre el **congiuntivo passato** (`abbia fatto`) y el **trapassato** (`avessi fatto`), incluida la elección del tiempo según la concordancia con la principal.
+- [x] **CONG-04**: El autor es examinado sobre el disparador del subjuntivo — qué verbos y conjunciones (`penso che`, `benché`, `prima che`, `se` hipotético) lo exigen — para que la casilla no se responda por reconocimiento de forma sin entender el contexto.
 
 ### Fare — Condizionale + Imperativo (CI) · categoría `fare-cond-imperativo`, 3 slots
 
@@ -92,8 +92,8 @@ Requisitos comprometidos para este milestone. Cada uno mapea a una fase del road
 | IND-06 | Phase 41 — `fare-indicativo` | Complete |
 | CONG-01 | Phase 42 — `fare-congiuntivo` | Complete |
 | CONG-02 | Phase 42 — `fare-congiuntivo` | Complete |
-| CONG-03 | Phase 42 — `fare-congiuntivo` | Pending |
-| CONG-04 | Phase 42 — `fare-congiuntivo` | Pending |
+| CONG-03 | Phase 42 — `fare-congiuntivo` | Complete |
+| CONG-04 | Phase 42 — `fare-congiuntivo` | Complete |
 | CI-01 | Phase 43 — `fare-cond-imperativo` + `fare-indefiniti` | Pending |
 | CI-02 | Phase 43 — `fare-cond-imperativo` + `fare-indefiniti` | Pending |
 | CI-03 | Phase 43 — `fare-cond-imperativo` + `fare-indefiniti` | Pending |

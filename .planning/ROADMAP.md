@@ -211,7 +211,7 @@ Plans:
 
 > **Nota de planificación (D-42-01):** la discusión resolvió la tensión interna del título — SC#4 exige un slot para el DISPARADOR con una variante de contraste cuya respuesta correcta es el indicativo, y esa variante no cabe en el slot de presente sin romper la enumeración de 6 personas de SC#1. El volumen real de la fase es **5 slots x 6 variantes = 30 variantes**, no las «4 slots / ≈24» del título. Knock-on para Phase 44 / INT-02: el milestone pasa de 21 slots y ≈107 variantes a **22 slots y ≈113**. El bloque homógrafo real de SC#2 son **10 variantes**, no las 5 que nombra su paréntesis ilustrativo (`abbia` es io/tu/lui-lei y `avessi` es io/tu, igual que `faccia` y `facessi`).
 
-**Plans**: 1/2 plans executed
+**Plans**: 2/2 plans executed
 
 Plans:
 **Wave 1**
@@ -220,7 +220,7 @@ Plans:
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 42-02-PLAN.md — Los 2 COMPUESTOS `passato` y `trapassato` (12 variantes, cero indicativo entre las distractoras por SC-3) más el 5º slot del DISPARADOR (6 variantes, eje = el disparador, con la variante de contraste en indicativo), y `tests/content-fare-congiuntivo.test.js` con los gates de la categoría como invariantes permanentes
+- [x] 42-02-PLAN.md — Los 2 COMPUESTOS `passato` y `trapassato` (12 variantes, cero indicativo entre las distractoras por SC-3) más el 5º slot del DISPARADOR (6 variantes, eje = el disparador, con la variante de contraste en indicativo), y `tests/content-fare-congiuntivo.test.js` con los gates de la categoría como invariantes permanentes
 
 ### Phase 43: `fare-cond-imperativo` + `fare-indefiniti` — 3 + 6 slots
 
@@ -271,7 +271,7 @@ Plans:
 | 39. PROV-01 + integración lockstep | v1.9 | 2/2 | Complete   | 2026-07-02 |
 | 40. Migración `12→13` | v2.0 | 1/1 | Complete    | 2026-08-03 |
 | 41. `fare-indicativo` (8 slots) | v2.0 | 2/2 | Complete    | 2026-08-04 |
-| 42. `fare-congiuntivo` (4 slots) | v2.0 | 1/2 | In Progress | - |
+| 42. `fare-congiuntivo` (4 slots) | v2.0 | 2/2 | In Progress|  |
 | 43. `fare-cond-imperativo` + `fare-indefiniti` (3+6 slots) | v2.0 | 0/? | Not started | - |
 | 44. Integración lockstep + cierre v2.0 | v2.0 | 0/? | Not started | - |
 
