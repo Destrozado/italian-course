@@ -86,30 +86,61 @@ const allVariants = () => SLOTS.flatMap((s) => s.variants.map((v, k) => ({ slot:
 const wordish = (s) =>
   new RegExp(`(^|[^\\p{L}])${s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}([^\\p{L}]|$)`, 'iu');
 
-// WR-07 / WR-08 (revision de codigo del 2026-08-06) — LA CLAUSULA QUE GOBIERNA
-// EL HUECO.
+// WR-07 / WR-08 / WR-11 (revisiones de codigo del 2026-08-06) — LA CLAUSULA QUE
+// GOBIERNA EL HUECO.
 //
-// EL DEFECTO QUE ESTO ARREGLA, para que nadie lo reintroduzca: los dos gates que
-// blindan el TIEMPO de una variante —el ancla deictica del slot del disparador y
-// el marco de concordancia de los dos compuestos— se reducian a
+// EL DEFECTO ORIGINAL, para que nadie lo reintroduzca: los dos gates que blindan
+// el TIEMPO de una variante —el ancla deictica del slot del disparador y el marco
+// de concordancia de los dos compuestos— se reducian a
 // `v.prompt.includes(literal)`. Presencia en el prompt, no AMBITO sobre el hueco.
 // Un literal desplazado a otra clausula del MISMO prompt deja de situar la accion
-// del subordinado y devuelve la doble respuesta, pero el `includes` sigue verde.
-// Sustanciado por mutacion, las dos en 62 pass / 0 fail:
+// del subordinado y devuelve la doble respuesta:
 //   `Io penso che lui ___ il lavoro, e in questo momento io sono stanco.`
 //   `Mia madre non crede che io ___ i compiti, ieri sera lei dormiva.`
-// En la primera `in questo momento` pasa a modificar `sono stanco` y `facesse`
-// vuelve a ser defendible; en la segunda `ieri sera` pasa a modificar `dormiva`,
-// el subordinado se queda sin marcador de accion terminada y `faccia` vuelve a
-// ser defendible. Las dos reabren un blocker ya cerrado.
 //
-// La clausula del hueco se aproxima por el segmento delimitado por puntuacion
-// fuerte que CONTIENE el hueco. Es una aproximacion deliberadamente tosca y
-// deliberadamente ESTRECHA: si el hueco no aparece devuelve cadena vacia, asi que
-// falla cerrado. No sirve para el mecanismo de CONCORDANCIA, cuyo literal es el
-// verbo de la principal y por definicion vive en la OTRA clausula — ahi el gate
-// correcto es de palabra, no de ambito.
-const segmentoDelHueco = (p) => p.split(/[,;.]/).find((s) => s.includes('___')) || '';
+// WR-11: el primer arreglo partia el prompt SOLO por `[,;.]`, o sea que estaba
+// sobreajustado a la coma de esas dos mutaciones y fallaba en las DOS
+// direcciones. Quitar la coma, poner dos puntos, poner raya o incrustar una
+// relativa devolvia el hueco entero —las cuatro son ediciones de autoria
+// plausibles, el italiano no exige coma delante de `e`— y ademas ponia ROJO
+// italiano correcto: `Io penso che lui, in questo momento, ___ il lavoro.` lleva
+// el ancla en inciso DENTRO de la clausula del hueco y se rechazaba. Un gate que
+// rechaza la redaccion correcta empuja al autor a redactar para el test.
+//
+// LO QUE HAY AHORA Y HASTA DONDE LLEGA, dicho sin adornos: dos cortes toscos, no
+// un analisis sintactico.
+//   CORTE_FUERTE       — solo puntuacion. Es la unidad correcta para contar
+//                        OBJETOS: el objeto de la PRINCIPAL es legitimo y vive
+//                        tras la coma (`___ un errore, il capo controlla tutto`).
+//   CORTE_DE_CLAUSULA  — puntuacion MAS coordinante y MAS el `che` subordinante,
+//                        que son las dos formas de abrir una predicacion nueva
+//                        sin puntuacion de por medio.
+// Las dos fallan cerrado: si el hueco no aparece, devuelven cadena vacia.
+// LO QUE NO CUBREN, declarado para que una pasada futura no lea de mas: un
+// adjunto colocado tras el hueco en un segmento que ademas contenga otro verbo
+// finito sin coordinante, sin `che` y sin puntuacion de por medio. El ambito no
+// se puede aproximar por puntuacion y lexico; esto acota el riesgo, no lo cierra.
+const CORTE_FUERTE = /[,;.:—–]+/u;
+const CORTE_DE_CLAUSULA = /[,;.:—–]+|(?:^|[^\p{L}])(?:e|ed|o|od|ma|però|mentre|che)(?=[^\p{L}]|$)/u;
+const segmentoDelHueco = (p, corte) => p.split(corte).find((s) => s.includes('___')) || '';
+
+// El ancla o el marco gobiernan el hueco si viven en su misma clausula, o si
+// viven en un segmento CONTIGUO que no contiene nada mas que el literal: un
+// segmento sin resto es un adjunto y no una predicacion, asi que sigue
+// modificando al verbo del hueco. Es lo que distingue el inciso y la
+// dislocacion, que son italiano correcto —`lui, in questo momento, ___` y
+// `___ i compiti, ieri sera.`— de la mutacion que abre la doble respuesta,
+// `___ i compiti, ieri sera lei dormiva`, donde el resto `lei dormiva` delata
+// que el adjunto ya esta modificando a OTRO verbo.
+const gobiernaElHueco = (p, lit) => {
+  const segs = p.split(CORTE_DE_CLAUSULA);
+  const i = segs.findIndex((s) => s.includes('___'));
+  if (i < 0) return false;
+  if (segs[i].includes(lit)) return true;
+  return [segs[i - 1], segs[i + 1]].some(
+    (s) => s !== undefined && s.includes(lit) && s.replace(lit, '').trim() === ''
+  );
+};
 
 // ───────────────────────────────────────────────────────────────────────────
 // Constantes de datos: la especificacion EJECUTABLE de la categoria.
@@ -229,11 +260,14 @@ const PERSON_OF_PRONOUN = {
   io: '1sg', tu: '2sg', lui: '3sg', lei: '3sg', noi: '1pl', voi: '2pl', loro: '3pl',
 };
 
-// El sujeto del HUECO: el pronombre que gobierna el hueco es el que lo precede
-// inmediatamente, con una negacion opcional en medio (`loro non ___`). Frontera
-// de palabra unicode por la misma razon que `wordish`.
-const BLANK_SUBJECT_RE =
-  /(?:^|[^\p{L}])(io|tu|lui|lei|noi|voi|loro)(?:\s+non)?\s+___/iu;
+// El sujeto del HUECO: el pronombre que gobierna el hueco es el que lo precede.
+// Entre los dos solo caben una negacion (`loro non ___`) y UN inciso entre comas
+// (`lui, in questo momento, ___`), que es italiano idiomatico y no cambia el
+// sujeto. WR-11: sin admitir el inciso, el gate ponia rojo redaccion correcta.
+// Frontera de palabra unicode por la misma razon que `wordish`.
+const PRON = 'io|tu|lui|lei|noi|voi|loro';
+const HASTA_EL_HUECO = String.raw`(?:\s+non)?(?:\s*,[^,;.:]*,)?\s+___`;
+const BLANK_SUBJECT_RE = new RegExp(String.raw`(?:^|[^\p{L}])(${PRON})${HASTA_EL_HUECO}`, 'iu');
 const deriveBlankSubject = (prompt) => {
   const m = prompt.match(BLANK_SUBJECT_RE);
   return m ? m[1].toLowerCase() : null;
@@ -914,7 +948,7 @@ describe('fare-congiuntivo — distractoras de passato y trapassato, cero indica
       assert.equal(new Set(marcos).size, 6, `D-42-02: los 6 marcos de ${id} deben ser distintos entre si`);
       eachVariant(id, (v, k) => {
         assert.ok(
-          segmentoDelHueco(v.prompt).includes(marcos[k]),
+          gobiernaElHueco(v.prompt, marcos[k]),
           `D-42-09: ${id}#${k} lleva su marco "${marcos[k]}" FUERA de la clausula del hueco: "${v.prompt}"`
         );
       });
@@ -1018,7 +1052,7 @@ describe('fare-congiuntivo — slot del disparador, 4 casillas modo x tiempo (D-
         // prompt modifica al verbo de esa otra oracion y el imperfetto vuelve a
         // ser defendible. Ver el comentario de `segmentoDelHueco`.
         assert.ok(
-          segmentoDelHueco(v.prompt).includes(lit),
+          gobiernaElHueco(v.prompt, lit),
           `CR-01/CR-02: ${TRIGGER_SLOT}#${k} lleva el ancla "${lit}" FUERA de la clausula del hueco: "${v.prompt}"`
         );
       } else {
@@ -1064,8 +1098,7 @@ describe('fare-congiuntivo — slot del disparador, 4 casillas modo x tiempo (D-
     // WR-07: y las dos lo llevan en la clausula del hueco, no en cualquier parte
     // del prompt — si no, el par comparte la CADENA pero no el MECANISMO.
     assert.ok(
-      segmentoDelHueco(D().variants[0].prompt).includes(a.lit) &&
-      segmentoDelHueco(D().variants[5].prompt).includes(b.lit),
+      gobiernaElHueco(D().variants[0].prompt, a.lit) && gobiernaElHueco(D().variants[5].prompt, b.lit),
       'CR-01: el ancla compartida tiene que estar en la clausula del hueco en las dos'
     );
   });
