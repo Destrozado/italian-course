@@ -35,6 +35,8 @@ Eres un **evaluador editorial** de ejercicios de italiano A1/A2 para una herrami
 - **PERMITIDO en `payload.prompt`**: La frase del ejercicio + el blank. Punto.
 - **El "rationale" pedagógico** vive en `payload.explanation` (se renderiza SOLO tras fallar) y en `notes` (autor-internal).
 - **Etiquetas neutras tipo `(masc)` / `(fem)`** son aceptables solo cuando son estructuralmente necesarias para desambiguar (ej. casos con elisión `l'X → l' ___` donde ambos géneros elidirían). En el resto (artículos `il`/`la` distintos), se eliminan porque son redundantes con la estructura visible.
+- **PERMITIDO: el gloss léxico de una CONJUNCIÓN o locución subordinante** por encima del nivel A1/A2 que el autor prepara — `Benché (aunque)`, `Prima che (antes de que)`, `Nonostante (a pesar de que)`, `Purché (siempre que)` y equivalentes. **No es leak, y marcarlo como tal es un falso positivo.** La razón es que el gloss traduce el CONECTOR, no la forma que ocupa el blank, y la traducción no transfiere el régimen: «aunque» rige indicativo y subjuntivo en castellano, así que saber que `benché` significa «aunque» no dice qué modo exige el italiano. Es el canon R7 aplicado al léxico — sin el gloss el alumno falla por no conocer la conjunción y no por no saber la gramática que el ejercicio examina, y en un motor con cascada de fallo inmediato ese fallo injusto resetea la categoría entera.
+- **PROHIBIDO, y la excepción anterior NO lo cubre: cualquier gloss sobre la forma verbal o sobre la palabra que ocupa el blank** (ej. `___ (hacer, subjuntivo)`, `___ (hicimos)`, `___ (nosotros)`). Ese sí regala la respuesta, y con más motivo cuando el castellano tiene la misma categoría gramatical que se examina (el castellano también tiene subjuntivo, así que un gloss sobre el verbo entrega modo y tiempo a la vez). La excepción es del conector subordinante y de nada más.
 
 ## R2 — Las explanations NUNCA pueden referenciar otros ejercicios por ID interno
 
@@ -140,6 +142,8 @@ La `payload.explanation` (si existe) está enfocada al alumno, no al curador. Si
 ### C5 leak
 
 **Cero leak** de regla o solución en `payload.prompt`. Si encuentras `(refuerzo regla §N)`, `(combina §N)`, `(grupo -X→-Y)`, `(familia §N)`, `(D-NN ...)`, `§\d+`, transformaciones `-x→-y`, anotaciones tipo `— atención: NO sigue el patrón`, marcas etiquetas neutras genero-redundantes (`(masc)` cuando el artículo ya lo desambigua) → C5 false. Si el prompt es solo la frase italiana + el blank → C5 true.
+
+**Las dos excepciones declaradas en R1, que NO son leak** (marcarlas es un falso positivo y hace fallar C5 sin motivo): las etiquetas neutras `(masc)` / `(fem)` cuando son estructuralmente necesarias, y **el gloss léxico de una conjunción o locución subordinante** — `Benché (aunque)`, `Prima che (antes de que)`, `Nonostante (a pesar de que)`, `Purché (siempre que)`. El gloss del conector traduce el conector y no transfiere el régimen, así que no resuelve el ejercicio. Lo que SÍ es leak, y aquí no hay excepción, es el gloss sobre la forma verbal o sobre la palabra del blank.
 
 ---
 

@@ -361,7 +361,9 @@ const VARIANT_TABLE = {
   ],
   'fare-congiuntivo-passato': [
     { trigger: 'Mia madre non crede che', mainSubject: 'Mia madre', mainPerson: '3sg', blankSubject: 'io', blankPerson: '1sg', object: 'i compiti', tenseFix: null, frame: 'ieri sera' },
-    { trigger: 'Il professore dubita che', mainSubject: 'Il professore', mainPerson: '3sg', blankSubject: 'tu', blankPerson: '2sg', object: 'il lavoro', tenseFix: null, frame: 'stamattina' },
+    // G-42-2: era `stamattina`, el unico de los 6 marcos deictico a HOY y por tanto
+    // aspectualmente abierto, que dejaba `faccia` defendible. Ver el notes del JSON.
+    { trigger: 'Il professore dubita che', mainSubject: 'Il professore', mainPerson: '3sg', blankSubject: 'tu', blankPerson: '2sg', object: 'il lavoro', tenseFix: null, frame: 'ieri mattina' },
     { trigger: 'Mi sembra che', mainSubject: null, mainPerson: 'impersonal', blankSubject: 'lui', blankPerson: '3sg', object: 'una foto', tenseFix: null, frame: 'la settimana scorsa' },
     { trigger: 'È strano che', mainSubject: null, mainPerson: 'impersonal', blankSubject: 'noi', blankPerson: '1pl', object: 'un errore', tenseFix: null, frame: 'domenica scorsa' },
     { trigger: 'Mio fratello spera che', mainSubject: 'Mio fratello', mainPerson: '3sg', blankSubject: 'voi', blankPerson: '2pl', object: 'una torta', tenseFix: null, frame: 'sabato scorso' },
