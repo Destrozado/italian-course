@@ -559,9 +559,15 @@ describe('fare-congiuntivo — sujeto explicito y no-correferencia (D-42-06, D-4
   // opinion o de certeza eso significa DOS sujetos explicitos distintos en el
   // mismo prompt (`Io penso che lui ___`). Contar pronombres pondria en rojo
   // contenido correcto, asi que el gate correcto es la tabla declarativa.
-  test('los 30 prompts contienen el hueco literal ___', () => {
-    const sucio = allVariants().filter(({ v }) => !v.prompt.includes('___')).map(({ slot, k }) => `${slot.id}#${k}`);
-    assert.deepEqual(sucio, [], 'D-42-18: falta el hueco ___');
+  test('los 30 prompts contienen EXACTAMENTE un hueco literal ___', () => {
+    // IN-07 (revision de codigo del 2026-08-06): el gate era `includes('___')`,
+    // presencia y no conteo. El motor sustituye UN hueco, asi que dos rompen el
+    // render; y ademas `segmentoDelHueco` se queda con el primero, con lo que el
+    // gate de ambito de WR-11 pasaria a mirar la clausula equivocada.
+    const sucio = allVariants()
+      .filter(({ v }) => v.prompt.split('___').length !== 2)
+      .map(({ slot, k, v }) => `${slot.id}#${k}: ${v.prompt.split('___').length - 1} huecos`);
+    assert.deepEqual(sucio, [], 'D-42-18: cada prompt lleva exactamente un hueco ___');
   });
 
   test('el disparador declarado aparece en el prompt y es el UNICO de su slot', () => {
@@ -742,16 +748,26 @@ describe('fare-congiuntivo — SCOPE-GATE lexico del objeto literal (D-42-18)', 
     }
   });
 
-  test('cada prompt lleva el objeto literal que declara la tabla, del conjunto CERRADO de 7', () => {
+  test('cada prompt lleva el objeto de la tabla, del conjunto CERRADO de 7, y es el UNICO de su clausula', () => {
+    // IN-07 (revision de codigo del 2026-08-06): el gate era `includes(obj)`,
+    // presencia y no exclusividad, asi que `___ i compiti e una torta stasera`
+    // pasaba entero pese a dar DOS objetos al mismo `fare`. Se cuenta en la
+    // clausula del hueco y NO en el prompt entero, y por CORTE_FUERTE y no por
+    // CORTE_DE_CLAUSULA: el objeto de la PRINCIPAL es legitimo y vive tras la
+    // coma (`Prima che loro ___ un errore, il capo controlla tutto`), mientras
+    // que dos objetos coordinados por `e` son el defecto que hay que cazar.
     const sucio = [];
     for (const id of IDS) {
       eachVariant(id, (v, k) => {
         const obj = VARIANT_TABLE[id][k].object;
-        if (!OBJECTS.includes(obj)) sucio.push(`${id}#${k}: "${obj}" no esta en el conjunto cerrado`);
-        else if (!v.prompt.includes(obj)) sucio.push(`${id}#${k}: el prompt no lleva "${obj}"`);
+        if (!OBJECTS.includes(obj)) { sucio.push(`${id}#${k}: "${obj}" no esta en el conjunto cerrado`); return; }
+        if (!v.prompt.includes(obj)) { sucio.push(`${id}#${k}: el prompt no lleva "${obj}"`); return; }
+        const clausula = segmentoDelHueco(v.prompt, CORTE_FUERTE);
+        const enClausula = OBJECTS.filter((o) => clausula.includes(o));
+        if (enClausula.length !== 1) sucio.push(`${id}#${k}: ${enClausula.length} objetos en la clausula del hueco (${enClausula.join(', ')})`);
       });
     }
-    assert.deepEqual(sucio, [], 'D-42-18: el objeto de `fare` es SIEMPRE literal y del conjunto cerrado de 7');
+    assert.deepEqual(sucio, [], 'D-42-18: el objeto de `fare` es SIEMPRE literal, del conjunto cerrado de 7, y uno solo por clausula');
   });
 });
 
