@@ -5,15 +5,15 @@ milestone_name: Paradigma completo de `fare` (4 categorías por modo)
 current_phase: 42
 current_phase_name: "`fare-congiuntivo` — 4 slots (homógrafas + disparador)"
 status: executing
-stopped_at: Phase 42 context gathered
-last_updated: "2026-08-05T22:37:06.668Z"
-last_activity: 2026-08-04
-last_activity_desc: Phase 41 complete, transitioned to Phase 42
+stopped_at: Completed 42-01-PLAN.md
+last_updated: "2026-08-06T07:22:54.550Z"
+last_activity: 2026-08-06
+last_activity_desc: 42-01 complete — fare-congiuntivo alta + presente + imperfetto (12 variantes, pending quorum)
 progress:
   total_phases: 5
   completed_phases: 2
   total_plans: 5
-  completed_plans: 3
+  completed_plans: 4
   percent: 40
 ---
 
@@ -29,12 +29,12 @@ See: `.planning/PROJECT.md` (updated 2026-07-28 — Milestone v2.0 ABIERTO: para
 
 ## Current Position
 
-Phase: 42 — `fare-congiuntivo` — 4 slots (homógrafas + disparador)
-Plan: Not started
+Phase: 42 (`fare-congiuntivo` — 4 slots (homógrafas + disparador)) — EXECUTING
+Plan: 2 of 2
 Status: Ready to execute
-Last activity: 2026-08-04 — Phase 41 complete, transitioned to Phase 42
+Last activity: 2026-08-06 — 42-01 complete — fare-congiuntivo alta + presente + imperfetto (12 variantes, pending quorum)
 
-Progress: [██████████] 100%
+Progress: [████████░░] 80%
 
 ## Deferred Items
 
@@ -171,6 +171,7 @@ Items reconocidos y diferidos en el cierre del milestone v1.9 (2026-07-02, ackno
 | Phase 40 P01 | 24min | 3 tasks | 4 files |
 | Phase 41 P01 | 3h 27m | 4 tasks | 3 files |
 | Phase 41 P02 | 46m | 3 tasks | 2 files |
+| Phase 42 P01 | 8h 32m | 3 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -266,6 +267,8 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - [Phase ?]: El auxiliar en imperfetto queda prohibido como distractora en el trapassato remoto (desviacion declarada de D-41-10): es el competidor casi sinonimo tras quando y dopo che
 - [Phase ?]: Los 6 prompts del passato prossimo llevan una consecuencia en presente que bloquea la lectura defendible de trapassato
 - [Phase ?]: El orden del array de exercises de 41-01 se preserva en lugar del orden de paradigma del plan: el orden no tiene efecto funcional y reordenarlo reescribiria trabajo commiteado
+- [Phase 42]: 42-01: en la variante de noi del presente el eje de distractora de indicativo se sustituye por una segunda forma real de congiuntivo de otra persona, porque facciamo es la misma cadena en los dos modos y duplicaria la key (D-42-10, declarado en notes)
+- [Phase 42]: 42-01: los 2 slots simples cierran en validation.status pending con passes vacio; el quorum base Opus+Sonnet corre en pasada top-level, un ejercicio por contexto (D-42-04, VAL-03)
 
 ### Pending Todos
 
@@ -322,9 +325,9 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Session Continuity
 
-**Last session:** 2026-08-05T22:00:03.942Z
-**Stopped at:** Phase 42 context gathered
-**Resume file:** .planning/phases/42-fare-congiuntivo-4-slots-hom-grafas-disparador/42-CONTEXT.md
+**Last session:** 2026-08-06T07:22:54.523Z
+**Stopped at:** Completed 42-01-PLAN.md
+**Resume file:** None
 
 ### Last Session
 
