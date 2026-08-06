@@ -76,6 +76,31 @@ const allVariants = () => SLOTS.flatMap((s) => s.variants.map((v, k) => ({ slot:
 const wordish = (s) =>
   new RegExp(`(^|[^\\p{L}])${s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}([^\\p{L}]|$)`, 'u');
 
+// WR-07 / WR-08 (revision de codigo del 2026-08-06) — LA CLAUSULA QUE GOBIERNA
+// EL HUECO.
+//
+// EL DEFECTO QUE ESTO ARREGLA, para que nadie lo reintroduzca: los dos gates que
+// blindan el TIEMPO de una variante —el ancla deictica del slot del disparador y
+// el marco de concordancia de los dos compuestos— se reducian a
+// `v.prompt.includes(literal)`. Presencia en el prompt, no AMBITO sobre el hueco.
+// Un literal desplazado a otra clausula del MISMO prompt deja de situar la accion
+// del subordinado y devuelve la doble respuesta, pero el `includes` sigue verde.
+// Sustanciado por mutacion, las dos en 62 pass / 0 fail:
+//   `Io penso che lui ___ il lavoro, e in questo momento io sono stanco.`
+//   `Mia madre non crede che io ___ i compiti, ieri sera lei dormiva.`
+// En la primera `in questo momento` pasa a modificar `sono stanco` y `facesse`
+// vuelve a ser defendible; en la segunda `ieri sera` pasa a modificar `dormiva`,
+// el subordinado se queda sin marcador de accion terminada y `faccia` vuelve a
+// ser defendible. Las dos reabren un blocker ya cerrado.
+//
+// La clausula del hueco se aproxima por el segmento delimitado por puntuacion
+// fuerte que CONTIENE el hueco. Es una aproximacion deliberadamente tosca y
+// deliberadamente ESTRECHA: si el hueco no aparece devuelve cadena vacia, asi que
+// falla cerrado. No sirve para el mecanismo de CONCORDANCIA, cuyo literal es el
+// verbo de la principal y por definicion vive en la OTRA clausula — ahi el gate
+// correcto es de palabra, no de ambito.
+const segmentoDelHueco = (p) => p.split(/[,;.]/).find((s) => s.includes('___')) || '';
+
 // ───────────────────────────────────────────────────────────────────────────
 // Constantes de datos: la especificacion EJECUTABLE de la categoria.
 // ───────────────────────────────────────────────────────────────────────────
@@ -783,15 +808,21 @@ describe('fare-congiuntivo — distractoras de passato y trapassato, cero indica
     }
   });
 
-  test('el marco de concordancia de cada variante compuesta esta en el prompt y los 6 son distintos', () => {
+  test('el marco de concordancia de cada variante compuesta esta en la CLAUSULA DEL HUECO y los 6 son distintos', () => {
     // Es el UNICO mecanismo que hace que `faccia` y `facessi` no sean
     // defendibles. Si el marco no fija el punto temporal de la principal y la
     // anterioridad del subordinado, la variante tiene dos respuestas correctas.
+    // WR-08: y por eso el gate es de AMBITO y no de presencia — un marco que vive
+    // en otra clausula del mismo prompt modifica al verbo de esa clausula y deja
+    // al subordinado sin marcador. Ver el comentario de `segmentoDelHueco`.
     for (const id of COMPOUND_SLOTS) {
       const marcos = VARIANT_TABLE[id].map((r) => r.frame);
       assert.equal(new Set(marcos).size, 6, `D-42-02: los 6 marcos de ${id} deben ser distintos entre si`);
       eachVariant(id, (v, k) => {
-        assert.ok(v.prompt.includes(marcos[k]), `D-42-09: ${id}#${k} no lleva su marco "${marcos[k]}": "${v.prompt}"`);
+        assert.ok(
+          segmentoDelHueco(v.prompt).includes(marcos[k]),
+          `D-42-09: ${id}#${k} lleva su marco "${marcos[k]}" FUERA de la clausula del hueco: "${v.prompt}"`
+        );
       });
     }
   });
@@ -889,19 +920,38 @@ describe('fare-congiuntivo — slot del disparador, 4 casillas modo x tiempo (D-
           PRESENT_DEICTICS.includes(lit),
           `CR-01/CR-02: ${TRIGGER_SLOT}#${k} declara un ancla "${lit}" que no es un deictico de presente`
         );
+        // WR-07: AMBITO, no presencia. El ancla solo sitúa la accion del hueco si
+        // esta en la clausula del hueco; desplazada a otra oracion del mismo
+        // prompt modifica al verbo de esa otra oracion y el imperfetto vuelve a
+        // ser defendible. Ver el comentario de `segmentoDelHueco`.
+        assert.ok(
+          segmentoDelHueco(v.prompt).includes(lit),
+          `CR-01/CR-02: ${TRIGGER_SLOT}#${k} lleva el ancla "${lit}" FUERA de la clausula del hueco: "${v.prompt}"`
+        );
+      } else {
+        // WR-07, la otra mitad: el mecanismo de CONCORDANCIA es el TIEMPO del
+        // verbo de la principal, que por definicion vive en la OTRA clausula, asi
+        // que aqui no se pide ambito — se pide coincidencia de PALABRA, que es lo
+        // que `includes` no daba: `'controllava'.includes('controlla')` es true,
+        // asi que una principal pasada a imperfetto pasaba el gate temporal
+        // intacta, y es exactamente la edicion que haria defendible `facessero`.
+        assert.ok(
+          wordish(lit).test(v.prompt),
+          `CR-01/CR-02: ${TRIGGER_SLOT}#${k} deberia fijar el tiempo por concordancia con "${lit}" y el prompt no lo lleva como PALABRA: "${v.prompt}"`
+        );
       }
-      assert.ok(
-        v.prompt.includes(lit),
-        `CR-01/CR-02: ${TRIGGER_SLOT}#${k} deberia fijar el tiempo por ${how} con "${lit}" y el prompt no lo lleva: "${v.prompt}"`
-      );
     }
   });
 
-  test('las 3 variantes ancladas no pueden volver a un marcador habitual pelado (CR-01, CR-02)', () => {
+  test('ninguna de las 6 variantes del disparador vuelve a un marcador habitual pelado (CR-01, CR-02)', () => {
     // El defecto exacto que la revision cazo: `ogni giorno` junto al cuarteto
     // modo x tiempo hace defendibles DOS opciones. Se congela la regresion.
+    // WR-07: se comprueba en las SEIS y no solo en las tres ancladas. Un habitual
+    // pelado en una variante de rama `concordancia` reabre la doble respuesta
+    // igual de bien: `È necessario che voi ___ il letto ogni giorno prima di
+    // uscire` compite entre habito presente y habito pasado exactamente igual.
     const sucio = [];
-    for (const { k, how } of TENSE_FIX.filter((r) => r.how === 'ancla')) {
+    for (const { k, how } of TENSE_FIX) {
       const p = D().variants[k].prompt.toLowerCase();
       for (const h of BARE_HABITUALS) {
         if (p.includes(h)) sucio.push(`${TRIGGER_SLOT}#${k} (${how}) vuelve a "${h}": "${D().variants[k].prompt}"`);
@@ -918,7 +968,13 @@ describe('fare-congiuntivo — slot del disparador, 4 casillas modo x tiempo (D-
     assert.equal(a.how, 'ancla');
     assert.equal(b.how, 'ancla');
     assert.equal(a.lit, b.lit, 'CR-01: el par opinion/certeza tiene que compartir el ancla temporal');
-    assert.ok(D().variants[0].prompt.includes(a.lit) && D().variants[5].prompt.includes(b.lit));
+    // WR-07: y las dos lo llevan en la clausula del hueco, no en cualquier parte
+    // del prompt — si no, el par comparte la CADENA pero no el MECANISMO.
+    assert.ok(
+      segmentoDelHueco(D().variants[0].prompt).includes(a.lit) &&
+      segmentoDelHueco(D().variants[5].prompt).includes(b.lit),
+      'CR-01: el ancla compartida tiene que estar en la clausula del hueco en las dos'
+    );
   });
 
   test('el `se` hipotetico lleva la principal en condizionale de un verbo que NO es fare (D-42-16)', () => {
