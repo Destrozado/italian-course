@@ -74,6 +74,144 @@
         "status": "pending",
         "passes": []
       }
+    },
+    {
+      "id": "fare-cond-imperativo-cond-passato",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "fare-cond-imperativo"
+      ],
+      "explanation": "El condizionale passato de fare se forma con el condizionale presente del auxiliar de posesión más el participio fatto, que aquí es invariable y no concuerda con nada. El paradigma completo es io avrei fatto, tu avresti fatto, lui o lei avrebbe fatto, noi avremmo fatto, voi avreste fatto, loro avrebbero fatto: lo único que cambia de una persona a otra es el auxiliar, porque el participio se queda fijo. Sirve para dos cosas distintas y conviene no confundirlas. La primera es la acción que se habría hecho y no se hizo, del tipo lo habría hecho pero no tuve tiempo. La segunda, y es la que le cuesta a un hispanohablante, es el FUTURO EN EL PASADO: cuando se cuenta desde el pasado algo que entonces estaba por venir, el italiano dice ha detto che avrebbe fatto il lavoro, con el condizionale COMPUESTO, mientras que el español dice dijo que haría el trabajo, con el condicional SIMPLE. La traducción literal del español lleva por eso a farebbe, que en ese marco es sencillamente incorrecto en italiano estándar: no es un matiz de estilo, es que el italiano exige el compuesto siempre que la referencia temporal es un pasado. De ahí que la distractora más difícil de descartar sea justo esa, el condizionale presente de la misma persona. Las otras dos siguen un esquema fijo: una repite el participio pero cambia el tiempo del auxiliar, que es el error de marco de quien sitúa mal el punto de referencia, y la otra pone el infinitivo en lugar del participio, que no es italiano en ningún contexto.",
+      "variants": [
+        {
+          "prompt": "Io ___ il lavoro volentieri, ma non ho avuto tempo.",
+          "options": [
+            "avrei fare",
+            "avrei fatto",
+            "farei",
+            "avevo fatto"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Sapevo che tu ___ i compiti da solo.",
+          "options": [
+            "faresti",
+            "avevi fatto",
+            "avresti fatto",
+            "avresti fare"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Ha detto che lui ___ tutto entro venerdì.",
+          "options": [
+            "aveva fatto",
+            "avrebbe fare",
+            "farebbe",
+            "avrebbe fatto"
+          ],
+          "correctIndex": 3
+        },
+        {
+          "prompt": "A quanto pare noi ___ un errore nel conteggio.",
+          "options": [
+            "avremmo fatto",
+            "faremmo",
+            "avevamo fatto",
+            "avremmo fare"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Voi ___ una torta volentieri, ma alla fine non è successo.",
+          "options": [
+            "avreste fare",
+            "fareste",
+            "avreste fatto",
+            "avevate fatto"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Secondo il giornale loro ___ una foto proibita.",
+          "options": [
+            "avevano fatto",
+            "avrebbero fatto",
+            "farebbero",
+            "avrebbero fare"
+          ],
+          "correctIndex": 1
+        }
+      ],
+      "validation": {
+        "status": "pending",
+        "passes": []
+      }
+    },
+    {
+      "id": "fare-cond-imperativo-imperativo",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "fare-cond-imperativo"
+      ],
+      "explanation": "El imperativo de fare tiene CINCO casillas y no seis, y la que falta no es un olvido de este material: el italiano no tiene primera persona del singular en este modo, sencillamente porque no se dan órdenes a uno mismo. El paradigma completo es, por destinatario, fa' para el tú informal, faccia para el usted de cortesía, facciamo para el exhortativo de nosotros, fate para el vosotros informal y facciano para el ustedes de cortesía. Como las cinco formas son regulares una vez sabida la raíz, lo que de verdad se examina aquí no es la morfología sino el REGISTRO: a quién se le habla. Por eso cada frase marca el destinatario de forma inequívoca, con un nombre propio, un título de cortesía, un sujeto inclusivo o el pronombre de cortesía en plural, y las otras tres opciones son siempre formas reales del imperativo dirigidas a otra persona. Sobre la segunda persona del singular conviene ser explícito, porque es el punto donde más se falla por buenas razones: las tres formas fa', fai y fa están atestiguadas como orden informal en italiano. Aquí se pide siempre la apostrofada, fa', porque es la que los manuales dan como canónica y porque su apóstrofe es la elisión de la forma larga, que es justo lo que hay que aprender a escribir; las otras dos son correctas y no aparecen entre las opciones precisamente por eso, para que nunca se marquen como error. Se reconocen al leerlas, no se producen aquí. Lo mismo vale para las formas con el pronombre pegado, del tipo fallo, fammi o fatelo, que son el imperativo apostrofado más el clítico aglutinado con duplicación de la consonante: son italiano corriente, pero no se piden en este bloque. Y un último hecho que conviene entender en lugar de sufrirlo: faccia, facciamo y facciano coinciden letra por letra con el congiuntivo presente de fare, y fate coincide con el presente de indicativo de vosotros. No es una incoherencia del material sino una regla de la lengua, porque el imperativo formal italiano toma prestadas las formas del congiuntivo y el de vosotros coincide con el indicativo; lo único que distingue el modo es el contexto, y solo fa' es exclusiva del imperativo.",
+      "variants": [
+        {
+          "prompt": "Marco, ___ una foto al gruppo!",
+          "options": [
+            "faccia",
+            "fa'",
+            "fate",
+            "facciano"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Signor Rossi, ___ il lavoro con calma.",
+          "options": [
+            "facciamo",
+            "fate",
+            "faccia",
+            "facciano"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Dai, noi due ___ una torta per la festa!",
+          "options": [
+            "facciamo",
+            "faccia",
+            "fate",
+            "facciano"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Bambini, ___ i compiti prima di cena!",
+          "options": [
+            "facciano",
+            "facciamo",
+            "faccia",
+            "fate"
+          ],
+          "correctIndex": 3
+        },
+        {
+          "prompt": "Signori, ___ tutto con comodo, come preferiscono Loro.",
+          "options": [
+            "fate",
+            "facciano",
+            "faccia",
+            "facciamo"
+          ],
+          "correctIndex": 1
+        }
+      ],
+      "validation": {
+        "status": "pending",
+        "passes": []
+      }
     }
   ]
 }
