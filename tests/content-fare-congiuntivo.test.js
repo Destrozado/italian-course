@@ -743,6 +743,77 @@ describe('fare-congiuntivo — slot del disparador, 4 casillas modo x tiempo (D-
     assert.notEqual(keyOf(opinion), keyOf(contraste), 'SC-4: el par debe tener respuestas distintas');
   });
 
+  // ───────────────────────────────────────────────────────────────────────
+  // CR-01 / CR-02 (revision de codigo del 2026-08-06): el disparador fija el
+  // MODO pero NO el TIEMPO, y el cuarteto de D-42-12 ofrece presente e
+  // imperfetto de LOS DOS modos. Un marcador habitual pelado (`ogni giorno`)
+  // es compatible por igual con el habito presente y con el pasado, asi que
+  // sin ancla la variante tiene DOS respuestas defendibles — y por la cascada
+  // de fallo inmediato eso cuesta el reset de la categoria entera. Es el
+  // precedente D-41-11 (marcos DISJUNTOS) aplicado a este slot.
+  //
+  // Las 6 variantes fijan el tiempo por UNO de dos mecanismos, y el gate exige
+  // que cada una declare el suyo. No se declara como columna `frame` de
+  // VARIANT_TABLE a proposito: `frame` es el marco de CONCORDANCIA de los dos
+  // compuestos y el bloque 10 exige que solo ellos lo declaren.
+  const TENSE_FIX = [
+    // k, mecanismo, literal que lo materializa en el prompt
+    { k: 0, how: 'ancla', lit: 'in questo momento' }, // penso che  — CR-02
+    { k: 1, how: 'ancla', lit: 'adesso' },            // benché     — CR-02
+    { k: 2, how: 'concordancia', lit: 'È necessario' }, // principal en presente
+    { k: 3, how: 'concordancia', lit: 'controlla' },    // principal en presente
+    { k: 4, how: 'concordancia', lit: 'sarebbe' },      // periodo ipotetico
+    { k: 5, how: 'ancla', lit: 'in questo momento' }, // so che     — CR-01
+  ];
+  // Deicticos de presente admitidos: excluyen el imperfetto porque anclan la
+  // accion al instante de la enunciacion, que es justo el punto de apoyo que
+  // el imperfetto necesita en el pasado.
+  const PRESENT_DEICTICS = ['in questo momento', 'adesso'];
+  // Marcadores habituales PELADOS: son los que abrieron CR-01 y CR-02. No
+  // fijan el tiempo por si solos y no pueden ser el unico anclaje temporal.
+  const BARE_HABITUALS = ['ogni giorno', 'ogni mattina', 'sempre', 'di solito'];
+
+  test('ninguna variante del disparador deja el TIEMPO sin fijar (CR-01, CR-02, D-41-11)', () => {
+    assert.equal(TENSE_FIX.length, 6, 'las 6 variantes del disparador declaran su mecanismo');
+    for (const { k, how, lit } of TENSE_FIX) {
+      const v = D().variants[k];
+      if (how === 'ancla') {
+        assert.ok(
+          PRESENT_DEICTICS.includes(lit),
+          `CR-01/CR-02: ${TRIGGER_SLOT}#${k} declara un ancla "${lit}" que no es un deictico de presente`
+        );
+      }
+      assert.ok(
+        v.prompt.includes(lit),
+        `CR-01/CR-02: ${TRIGGER_SLOT}#${k} deberia fijar el tiempo por ${how} con "${lit}" y el prompt no lo lleva: "${v.prompt}"`
+      );
+    }
+  });
+
+  test('las 3 variantes ancladas no pueden volver a un marcador habitual pelado (CR-01, CR-02)', () => {
+    // El defecto exacto que la revision cazo: `ogni giorno` junto al cuarteto
+    // modo x tiempo hace defendibles DOS opciones. Se congela la regresion.
+    const sucio = [];
+    for (const { k, how } of TENSE_FIX.filter((r) => r.how === 'ancla')) {
+      const p = D().variants[k].prompt.toLowerCase();
+      for (const h of BARE_HABITUALS) {
+        if (p.includes(h)) sucio.push(`${TRIGGER_SLOT}#${k} (${how}) vuelve a "${h}": "${D().variants[k].prompt}"`);
+      }
+    }
+    assert.deepEqual(sucio, [], 'CR-01/CR-02: un habitual pelado no fija el tiempo y reabre la doble respuesta');
+  });
+
+  test('el par pedagogico comparte el ancla literal, no solo el conjunto de options (CR-01)', () => {
+    // Si la de opinion y la de contraste no llevan el MISMO ancla, el par deja
+    // de aislar el disparador como unica variable y pasa a tener dos.
+    const a = TENSE_FIX[0];
+    const b = TENSE_FIX[5];
+    assert.equal(a.how, 'ancla');
+    assert.equal(b.how, 'ancla');
+    assert.equal(a.lit, b.lit, 'CR-01: el par opinion/certeza tiene que compartir el ancla temporal');
+    assert.ok(D().variants[0].prompt.includes(a.lit) && D().variants[5].prompt.includes(b.lit));
+  });
+
   test('el `se` hipotetico lleva la principal en condizionale de un verbo que NO es fare (D-42-16)', () => {
     const k = VARIANT_TABLE[TRIGGER_SLOT].findIndex((r) => r.trigger === 'Se io');
     const v = D().variants[k];
