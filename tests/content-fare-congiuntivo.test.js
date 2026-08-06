@@ -1332,13 +1332,40 @@ describe('fare-congiuntivo — audit trail de validacion y ronda EXTRA (D-42-08,
     }
   });
 
-  test('si un slot esta validated, sus pases cumplen el quorum: >=2 correcta, >=2 by distintos, 0 incorrecta', () => {
+  // G-42-3: la 3a asercion pasa de «0 incorrecta SIEMPRE» a «0 incorrecta SALVO
+  // override explicito del autor». No es un aflojamiento del gate: lo que
+  // protegia era que un `validated` no ocultase un disenso, y con el override el
+  // disenso NO se oculta —el `incorrecta` se queda en `passes[]` y hay una entry
+  // `by: "autor"` con `override: true` que dice quien lo resolvio—. Lo que sigue
+  // siendo imposible, y es la propiedad que de verdad importa, es un `validated`
+  // sin >=2 `correcta` de `by` distintos: el override no fabrica quorum.
+  test('si un slot esta validated, sus pases cumplen el quorum: >=2 correcta, >=2 by distintos, 0 incorrecta salvo override del autor', () => {
     for (const s of SLOTS.filter((x) => x.validation.status === 'validated')) {
       const passes = s.validation.passes;
       const correctas = passes.filter((p) => p.verdict === 'correcta');
       assert.ok(correctas.length >= 2, `${s.id}: validated con ${correctas.length} pases correcta`);
       assert.ok(new Set(correctas.map((p) => p.by)).size >= 2, `${s.id}: validated sin 2 by distintos`);
-      assert.equal(passes.filter((p) => p.verdict === 'incorrecta').length, 0, `${s.id}: validated con un pase incorrecta`);
+
+      const override = passes.find((p) => p.by === 'autor' && p.verdict === 'correcta' && p.override === true);
+      const incorrectas = passes.filter((p) => p.verdict === 'incorrecta');
+      if (incorrectas.length > 0) {
+        assert.ok(
+          override,
+          `${s.id}: validated con ${incorrectas.length} pase(s) incorrecta y SIN entry de override del autor`
+        );
+        // Un override sin motivo escrito es indistinguible de un descuido: el
+        // audit trail es la unica evidencia de que la objecion se miro de verdad.
+        assert.ok(
+          Array.isArray(override.concerns) && override.concerns.some((c) => c.trim().length > 0),
+          `${s.id}: el override del autor no documenta por que se resolvio el disenso`
+        );
+        // Y el override tiene que apoyarse en al menos un pase de MODELO: si las
+        // 2 correctas fuesen del autor, seria un validated forjado.
+        assert.ok(
+          correctas.some((p) => p.by !== 'autor'),
+          `${s.id}: validated por override sin ningun pase correcta de un modelo`
+        );
+      }
     }
   });
 

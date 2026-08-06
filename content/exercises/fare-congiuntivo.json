@@ -257,7 +257,7 @@
         }
       ],
       "validation": {
-        "status": "disputed",
+        "status": "validated",
         "passes": [
           {
             "by": "claude-opus-5",
@@ -277,6 +277,15 @@
             "verdict": "incorrecta",
             "concerns": [
               "[C2-una_opcion] Las variantes no fuerzan el aspecto perfectivo: por ejemplo, en 'Mia madre non crede che io ___ i compiti ieri sera', 'facessi' es válido con lectura imperfectiva ('que yo estuviera haciendo los deberes'), de modo que no hay UNA SOLA opción válida. El prompt necesita contexto adicional que elimine la lectura no-perfectiva para que solo 'abbia fatto' (u otra forma compuesta) sea aceptable."
+            ]
+          },
+          {
+            "by": "autor",
+            "date": "2026-08-06",
+            "verdict": "correcta",
+            "override": true,
+            "concerns": [
+              "[override] G-42-3. Resuelve la objecion [C2-una_opcion] de deepseek-reasoner sobre la variante 0 («Mia madre non crede che io ___ i compiti ieri sera»), que sostenia que 'facessi' es defendible con lectura imperfectiva y que el defecto era del slot entero. NO se acepta, y la razon no es de autoridad sino de evidencia: sometida a 2 adjudicadores fresh-context (Opus 5 y Sonnet 5) con instruccion ADVERSARIAL de defender la lectura alternativa, los dos convergen en que el hueco es UNICO, por dos vias independientes. Una, el mecanismo que la objecion invoca —la concordanza libera anclada por el adverbial, 'Non credo che fosse a casa ieri sera', documentada en Serianni y Renzi— opera sobre predicados ESTATIVOS, y 'fare i compiti' es telico con objeto definido: el imperfetto sobre un telico no genera fondo estativo por si solo, exige un punto de observacion ('quando sei entrata', 'mentre...') que el prompt no da. Y dos, la que zanja: 'facessi' no significa lo mismo que 'abbia fatto' —se puede haber estado haciendo los deberes toda la tarde y no haberlos hecho—, asi que es otra proposicion y no una segunda respuesta al hueco; el criterio del proyecto es «defendiblemente correcta como respuesta al prompt», no «sobrevive en alguna frase vecina». Se anade el dato empirico de que para el progresivo explicito el italiano usa 'stessi facendo', que NO esta entre las opciones. Y la reductio: si esto contase como ambiguedad, ningun hueco de congiuntivo passato seria valido nunca y el contraste passato/imperfetto seria inensenable. Alcance real medido: la objecion no es uniforme, 'spera che' es inmune ('*spera che io facessi' es agramatical), 'e strano che ... domenica scorsa' lo bloquea por deictico de ocasion unica, y el eslabon mas debil es 'mi sembra che', que ninguno de los dos considera roto. Pesan ademas 4 pases 'correcta' de Opus y Sonnet sobre este slot, 2 en la pasada base y 2 en el re-pase. DESCARTADO del blindaje que los adjudicadores proponian, 'tutti i compiti': solo encaja en 2 de los 6 objetos del slot y cambiar el objeto literal toca el SCOPE-GATE y la tabla CANON, es decir mas superficie que el riesgo que cubre. Y DESCARTADO tambien anadir el gloss espanol al prompt, porque choca con el 0-gloss del verbo de D-42-13. El disenso se queda en passes[] a proposito: la primera objecion de este mismo vendor sobre este mismo slot ('stamattina', G-42-2) SI era real y se arreglo, asi que su voz no se descarta por vendor, se descarta por argumento y solo aqui."
             ]
           }
         ]

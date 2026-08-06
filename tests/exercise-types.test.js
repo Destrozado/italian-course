@@ -1247,6 +1247,64 @@ describe('validation-state — deriveStatus (Phase 9 D-VAL-07)', () => {
       'validated'
     );
   });
+
+  // G-42-3 — override explícito del autor. El sticky de D-VAL-07 sigue intacto
+  // por defecto; lo único que lo levanta es una entry `by: "autor"` con
+  // `override: true`, y solo si detrás hay un quórum real.
+  test('12. override del autor sobre 2 correctas + 1 incorrecta → validated (el incorrecta se queda)', () => {
+    const passes = [
+      { by: 'claude-opus-5', date: '2026-08-06', verdict: 'correcta' },
+      { by: 'claude-sonnet-5', date: '2026-08-06', verdict: 'correcta' },
+      { by: 'deepseek-reasoner', date: '2026-08-06', verdict: 'incorrecta' },
+      { by: 'autor', date: '2026-08-06', verdict: 'correcta', override: true, concerns: ['[override] motivo'] }
+    ];
+    assert.equal(deriveStatus(passes), 'validated');
+    assert.equal(passes.filter(p => p.verdict === 'incorrecta').length, 1, 'el disenso NO se borra del audit trail');
+  });
+
+  test('13. pase del autor SIN override: true → sigue disputed (el flag es obligatorio y explícito)', () => {
+    assert.equal(
+      deriveStatus([
+        { by: 'claude-opus-5', date: '2026-08-06', verdict: 'correcta' },
+        { by: 'claude-sonnet-5', date: '2026-08-06', verdict: 'correcta' },
+        { by: 'deepseek-reasoner', date: '2026-08-06', verdict: 'incorrecta' },
+        { by: 'autor', date: '2026-08-06', verdict: 'correcta' }
+      ]),
+      'disputed'
+    );
+  });
+
+  test('14. el override NO fabrica quorum: 1 correcta de modelo + override → disputed', () => {
+    assert.equal(
+      deriveStatus([
+        { by: 'deepseek-reasoner', date: '2026-08-06', verdict: 'incorrecta' },
+        { by: 'autor', date: '2026-08-06', verdict: 'correcta', override: true }
+      ]),
+      'disputed'
+    );
+  });
+
+  test('15. override solo, sin ningun pase de modelo → pending (no se puede forjar un validated)', () => {
+    assert.equal(
+      deriveStatus([
+        { by: 'autor', date: '2026-08-06', verdict: 'correcta', override: true }
+      ]),
+      'pending'
+    );
+  });
+
+  test('16. el override no altera el camino sin incorrecta: sigue mandando el quorum', () => {
+    // Un override sobre un ejercicio que nadie objetó es inocuo, no un atajo:
+    // el `validated` lo dan igualmente los 2 pases de modelo.
+    assert.equal(
+      deriveStatus([
+        { by: 'claude-opus-5', date: '2026-08-06', verdict: 'correcta' },
+        { by: 'claude-sonnet-5', date: '2026-08-06', verdict: 'correcta' },
+        { by: 'autor', date: '2026-08-06', verdict: 'correcta', override: true }
+      ]),
+      'validated'
+    );
+  });
 });
 
 // ────────────────────────────────────────────────────────────────────────────
