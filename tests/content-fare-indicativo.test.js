@@ -673,9 +673,20 @@ describe('fare-indicativo — registro de la categoria (D-41-16, SC-5)', () => {
   // posicion es coherente con el order documental. Phase 42 apende
   // fare-congiuntivo (order 16) y Phase 43 apendera la 17a, asi que la version
   // "ultima" caduca cada fase. Se reescribe a la forma estable: indice = order-1.
+  // WR-05 (revision de codigo del 2026-08-06): el comentario de arriba promete
+  // «la forma estable: indice = order-1» y el codigo asertaba `idx === 14`, una
+  // constante independiente que hoy coincide con `order - 1` por casualidad y no
+  // por gate. El invariante enunciado no estaba codificado en ninguna parte y el
+  // mensaje ('order 15 -> indice 14') reforzaba una lectura falsa. Ahora se
+  // deriva de verdad: el numero magico desaparece y el assert dice lo que el
+  // comentario dice.
   test('ocupa en el array la posicion que dice su order, que es el orden de display', () => {
-    const idx = entradas.findIndex((c) => c.id === 'fare-indicativo');
-    assert.equal(idx, 14, 'D-41-16: el array define el display (order 15 -> indice 14)');
+    const cat = entradas.find((c) => c.id === 'fare-indicativo');
+    assert.equal(
+      entradas.indexOf(cat),
+      cat.order - 1,
+      `D-41-16: el array define el display (indice = order - 1); order ${cat.order} pide indice ${cat.order - 1}`
+    );
   });
 
   test('los 8 slots referencian el slug de la categoria en categoryIds (SC-5)', () => {

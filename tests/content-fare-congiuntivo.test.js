@@ -1293,12 +1293,31 @@ describe('fare-congiuntivo — registro de la categoria (D-42-18, SC-5)', () => 
   });
 
   test('ocupa en el array la posicion que dice su order, que es el orden de display', () => {
-    // Este assert es correcto HOY y se pondra rojo cuando Phase 43 apende la 17a
-    // entrada solo si alguien la inserta antes. Es el patron heredado del
-    // analogo (indice = order - 1) y se mantiene a proposito: es la red de
-    // regresion del registro.
-    const idx = entradas.findIndex((c) => c.id === 'fare-congiuntivo');
-    assert.equal(idx, 15, 'D-42-18: el array define el display (order 16 -> indice 15)');
+    // Es el patron heredado del analogo (indice = order - 1) y se mantiene a
+    // proposito: es la red de regresion del registro. WR-05: se DERIVA en vez de
+    // codificar el 15 a mano — el numero magico y el `order` eran dos constantes
+    // independientes que coincidian por casualidad, asi que el invariante que el
+    // comentario enunciaba no lo asertaba nadie.
+    const cat = entradas.find((c) => c.id === 'fare-congiuntivo');
+    assert.equal(
+      entradas.indexOf(cat),
+      cat.order - 1,
+      `D-42-18: el array define el display (indice = order - 1); order ${cat.order} pide indice ${cat.order - 1}`
+    );
+  });
+
+  test('categories.json: orders unicos, contiguos desde 1, y array ordenado por order', () => {
+    // WR-05: el invariante GLOBAL que hasta ahora no cubria nadie — ni orders
+    // unicos, ni contiguos, ni array ordenado. Los tres se cumplian por
+    // casualidad. Es lo que hace que `indice = order - 1` sea un invariante de la
+    // estructura y no una coincidencia de dos entradas concretas, asi que sin el
+    // los dos asserts derivados de arriba se sostienen solos. Vive aqui y no en el
+    // analogo para no duplicarlo: es de las 16 entradas, no de una categoria.
+    assert.deepEqual(
+      entradas.map((c) => c.order),
+      entradas.map((_, i) => i + 1),
+      'SC-5: content/categories.json define el display por posicion de array; order tiene que ir 1..n en ese mismo orden'
+    );
   });
 
   test('los 5 slots referencian el slug de la categoria en categoryIds (SC-5)', () => {
