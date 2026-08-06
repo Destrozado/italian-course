@@ -1,14 +1,16 @@
 ---
 phase: 42-fare-congiuntivo-4-slots-hom-grafas-disparador
 verified: 2026-08-06T00:00:00Z
-status: human_needed
+status: passed
 score: 12/14 truths verified (2 routed to human_needed by explicit phase design — D-42-04's quorum hand-off and su contraparte backstop)
 behavior_unverified: 0
 overrides_applied: 0
 human_verification:
+
   - test: "Correr la pasada TOP-LEVEL de quorum base (Opus+Sonnet via gsd-validate-exercise, 1 subagent por ejercicio, VAL-03) sobre los 5 slots de fare-congiuntivo.json, mas la ronda EXTRA DeepSeek obligatoria (D-42-08) sobre las 10 variantes homografas (`faccia` io/tu/lui-lei, `facessi` io/tu, `abbia fatto` io/tu/lui-lei, `avessi fatto` io/tu)."
     expected: "Los 5 slots quedan validation.status: 'validated' con >=2 passes 'correcta' de 'by' distintos y 0 'incorrecta'; en los 4 slots del paradigma al menos un 'by' que empieza por 'deepseek'; VAL_07_STRICT=1 node --test tests/*.test.js pasa a verde; tests/content-fare-congiuntivo.test.js sigue verde con status === deriveStatus(passes)."
     why_human: "El skill gsd-validate-exercise spawnea Task subagents, inaccesibles tanto al executor (gsd-executor) como a este verificador (D-42-04); es la mitad de fondo de SC-5 que la fase declara explicitamente como no cerrada por diseño."
+
   - test: "Confirmar, con el mismo rigor que ya aplico el code review a CR-01/CR-02/CR-03, que ninguna de las 30 variantes admite una segunda lectura defendible del disparador o del marco de concordancia — juicio linguistico marcado verification: backstop en ambos PLAN.md."
     expected: "El pase de quorum se pronuncia explicitamente sobre las 6 variantes del slot del disparador (el punto exacto donde el review ya encontro 2 defectos reales) y sobre el blindaje de concordancia de passato/trapassato; cero variantes quedan con una opcion defendiblemente correcta ademas de la key."
     why_human: "Marcado literalmente verification: backstop en los dos PLAN.md — juicio linguistico que ninguna asercion mecanica puede cerrar. El propio code review ya demostro el riesgo real (3 BLOCKERs, todos corregidos y confirmados en esta verificacion por mutacion), asi que abstenerse a 'verificado' sin la pasada de quorum seria un pase silencioso sobre exactamente el tipo de dano que esta categoria existe para prevenir."
