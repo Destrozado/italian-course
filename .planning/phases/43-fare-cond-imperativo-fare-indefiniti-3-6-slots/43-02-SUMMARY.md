@@ -20,15 +20,16 @@ provides:
   - "el CUARTO MAGNET del milestone resuelto con audit trail: key `aver fatto`, `avere fatto` a blacklist declarada y nombrada en la explanation"
   - "el gate HARD de pronombre del participio passato en su forma satisfacible: solo 3a plural antepuesta, 0 pronombres de concordancia opcional o partitiva, 0 bigramas de singular elidido"
   - "la EXCEPCION ACOTADA de D-43-18 escrita en los DOS sitios que la hacen efectiva: el `notes` del fichero y la seccion 7 de 09-VALIDATION-PROMPT.md"
-  - "tests/content-fare-indefiniti.test.js — 13 describe / 76 tests de invariantes permanentes, con 5 desviaciones declaradas y 15 pruebas negativas ejecutadas (12 de autoria + 3 de CR-02)"
+  - "WR-01 declarado: la concordancia del participio con objeto POSPUESTO es italiano literario/antiguo, se mantiene como distractora (el pool cerrado de D-43-16 no deja alternativa) y va documentada en notes + explanation + seccion 7.4 del prompt de quorum, con gate que congela la decision"
+  - "tests/content-fare-indefiniti.test.js — 13 describe / 78 tests de invariantes permanentes, con 5 desviaciones declaradas y 19 pruebas negativas ejecutadas (12 de autoria + 3 de CR-02 + 4 de WR-01)"
   - "la ruta del prompt de validacion arreglada en los dos skills del quorum (defecto preexistente del archivado de v1.1)"
 affects: [44-integracion-counts-cruces, INT-02, INT-03, INT-04, quorum-top-level]
 
 # Actuals (#2632)
 actuals:
-  tokens: 30300
+  tokens: 33249
   tasks: 5
-  commits: 5
+  commits: 6
 
 # Tech tracking
 tech-stack:
@@ -63,6 +64,8 @@ patterns-established:
   - "Excepcion acotada bidireccional: la exencion va por id de slot Y el literal exento se prohibe explicitamente en las variantes no exentas. Sin la segunda mitad la exencion es global de facto."
   - "Interferencia de USO frente a interferencia de FORMA: cuando el hispanohablante construye bien pero usa de mas (stare + gerundio), la explanation tiene que decir eso y no explicar la formacion, que no es donde esta el error."
   - "Excepcion que el quorum tiene que ver: se escribe en 09-VALIDATION-PROMPT.md ANTES de la linea de cierre y con puntero desde el criterio afectado, porque el subagent evalua criterio a criterio y una seccion al final puede pasarle desapercibida."
+  - "Forma atestiguada como distractora: NO siempre se veta. Si compite en el MISMO registro contemporaneo que la key, se blacklistea (cuarto magnet). Si pertenece a otro registro historico y el pool cerrado del slot hace imposible retirarla, se DECLARA — notes + explanation + prompt de quorum — y se congela con un gate A LA CONTRA, que exige que siga ofreciendose para que un re-pase futuro no la retire y rompa el eje (WR-01)."
+  - "Excepcion nueva en un fichero con criterio de cero borrados: se anade como subseccion NUEVA al final de las existentes, aunque una anterior diga 'las dos excepciones'. Reescribir ese numero produciria un borrado; la subseccion nueva se autodeclara respecto al criterio que la anterior cerraba y remite a ella (WR-01, 7.4 tras 7.3)."
   - "Un gate de PRESENCIA matcheado por subcadena no falla: deja de morder. La disciplina de frontera de palabra que el proyecto aplicaba a los escaneos de ausencia vale igual para los de presencia y adyacencia, porque en italiano los cues cortos son sufijos y prefijos de palabras corrientes (`Michele`/`le`, `questa`/`sta`, `Purche`/`Pur`, `partenza`/`parte`). Una prueba por mutacion solo lo demuestra si se compara el gate ANTES y DESPUES: la mutacion puede saltar por otro gate y dar la falsa impresion de que el gate auditado funciona (CR-02)."
 
 requirements-completed: [INDEF-01, INDEF-02, INDEF-03, INDEF-04]
@@ -167,7 +170,7 @@ status: complete
 - **Completed:** 2026-08-07T02:20:30Z
 - **Tasks:** 5 (4 de ejecucion + 1 checkpoint)
 - **Files modified:** 7 (2 creados, 5 modificados)
-- **Suite:** 912 pass / 0 fail (baseline) -> **995 pass / 0 fail**; 998 tras CR-02 y el fix de 43-01
+- **Suite:** 912 pass / 0 fail (baseline) -> **995 pass / 0 fail**; 1001 tras CR-02, WR-01 y los fixes de 43-01
 
 ## Accomplishments
 
@@ -186,14 +189,14 @@ status: complete
 4. **Task 4: participio presente, gerundio presente y gerundio passato** — `85a7a97` (feat)
 5. **Task 5: `tests/content-fare-indefiniti.test.js` (13 describe) + prompt de validacion + rutas de skills** — `ff7d800` (test)
 
-**Post-review:** `20a5cc6` (fix) — CR-02, ver seccion propia mas abajo.
+**Post-review:** `20a5cc6` (fix) — CR-02, y `6495443` (fix) — WR-01. Ver sus secciones propias mas abajo.
 
 **Plan metadata:** ver commit `docs(43-02)` al cierre.
 
 ## Files Created/Modified
 
 - `content/exercises/fare-indefiniti.json` — **creado**, 269 lineas. 2 claves top-level; `notes` de 20.109 caracteres con las 13 declaraciones (identidad y volumen, EJE = CONTEXTO, REPARTO DESIGUAL justificado slot a slot, CONJUNTO CERRADO DE TIPOS DE CONTEXTO con su reparto por variante, POOL CERRADO, CUARTO MAGNET, blacklist de 25 formas, GATE HARD DE PRONOMBRE, EXCEPCION ACOTADA AL SCOPE-GATE, RECONOCER NO PRODUCIR, NOTA DE REGISTRO, imperativo negativo como contexto, marco progresivo como uso, conjuntos cerrados de marcadores, decisiones de omision, nota de escaneo y nota de count-sync); 6 slots / 18 variantes en `pending`.
-- `tests/content-fare-indefiniti.test.js` — **creado**, 1.298 lineas tras CR-02, 13 `describe` / 76 tests. Las CINCO desviaciones respecto del analogo declaradas en la cabecera, mas el COROLARIO de frontera de palabra que anade CR-02.
+- `tests/content-fare-indefiniti.test.js` — **creado**, 1.298 lineas tras CR-02, 13 `describe` / 78 tests tras WR-01. Las CINCO desviaciones respecto del analogo declaradas en la cabecera, mas el COROLARIO de frontera de palabra que anade CR-02.
 - `content/categories.json` — **modificado**, 1 linea eliminada (la 17a reescrita con coma) y 2 anadidas. 18 entradas, `order` contiguos 1..18.
 - `tests/exercise-types.test.js` — **modificado**, 1 linea + 1 comentario en `CATEGORIES_WITH_EXPLANATIONS`, con `expected` dinamico via `slotCountOf`.
 - `.planning/milestones/v1.1-phases/09-infraestructura-de-validaci-n/09-VALIDATION-PROMPT.md` — **modificado**, 33 insertions / **0 deletions**. Seccion 7 (7.1 participio presente fosilizado, 7.2 RECONOCER NO PRODUCIR, 7.3 lo que NO se relaja) mas los 3 punteros desde C1, C2 y C3.
@@ -293,6 +296,46 @@ Se documenta el porque en la cabecera del fichero (COROLARIO DE LA ADVERTENCIA) 
 4. **Fuera de alcance respetado:** `content/exercises/fare-indefiniti.json` sin tocar, los ficheros de 43-01 sin tocar (su `32b2eab` leido antes de correr la suite), `src/` byte-intacto, counts y `TOTAL_EXPECTED` sin tocar, los 9 slots siguen en `pending` con `passes: []`.
 
 Total de pruebas por mutacion de este plan: **15** (12 originales + 3 de CR-02).
+
+## WR-01 (UAT de la fase) — la concordancia con objeto pospuesto, declarada y no blacklisteada
+
+Adjudicado por el autor en el UAT. Resuelto en `6495443`, **sin tocar el contenido de las variantes**: prompts, `options`, `correctIndex`, ids y `validation` quedan byte a byte identicos; solo cambian el `notes` y una `explanation`.
+
+**El hallazgo.** En las 2 variantes INVARIABLES de `fare-indefiniti-participio-passato` (objeto POSPUESTO) una de las tres distractoras es la forma concordada con ese objeto, y esa concordancia esta **atestiguada** en italiano literario y antiguo:
+
+| Variante | Objeto pospuesto | Key (moderna) | Distractora atestiguada | Las otras dos |
+|---|---|---|---|---|
+| `Ieri io ho ___ i compiti con Anna.` | `i compiti` (m. pl.) | `fatto` | **`fatti`** (`ho fatti i compiti`) | `fatta`, `fatte` — no concuerdan con nada |
+| `Maria ha ___ una torta per la festa.` | `una torta` (f. sg.) | `fatto` | **`fatta`** (`ha fatta una torta`) | `fatti`, `fatte` — idem |
+
+Es **una** distractora por variante, no las tres: la precision importa porque es exactamente la opcion que el quorum va a mirar.
+
+**Confirmado que no habia audit trail.** El `notes` mencionaba «objeto pospuesto» solo como tipo de contexto del conjunto cerrado de D-43-12 (donde cae el hueco), y «arcaicas y literarias» se referia a la blacklist de conjugadas de D-41-08 (`fo`, `fé`, `fenno`). Ninguna de las dos decia que la distractora concordada fuera ella misma atestiguada.
+
+**Por que la salida es documental y no la blacklist.** Dos razones, y la primera es la que cierra el debate:
+
+1. **Estructural.** D-43-16 fija el pool de las 4 variantes en las cuatro terminaciones como **eje unico**. Si en las 2 invariables se blacklistean las concordadas, no queda nada que ofrecer: el slot deja de existir. La resolucion documental era la unica posible desde el principio.
+2. **De registro.** No es el caso del cuarto magnet. Con `aver fatto` / `avere fatto` las dos formas compiten en el **mismo registro contemporaneo**, asi que la no elegida se veta. Aqui la concordancia pospuesta pertenece a **otro registro historico**, y en italiano moderno estandar la invariable es inequivocamente la unica corriente en un material A1/A2. Aplica por tanto D-43-19 (RECONOCER, NO PRODUCIR) en su **cuarto caso**: se nombra, se explica, no se pide producirla, y puede seguir en `options` porque hoy es la respuesta incorrecta sin discusion.
+
+**Escrito en los cuatro sitios.**
+
+1. **`notes`** — bloque `CONCORDANCIA CON OBJETO POSPUESTO: DECLARADA Y NO BLACKLISTEADA (WR-01, adjudicado por el autor en el UAT de la fase 43)` con las dos razones, la forma atestiguada por variante, el contraste explicito con el cuarto magnet y la frontera.
+2. **`09-VALIDATION-PROMPT.md` subseccion 7.4** — **la parte critica**. Contenido: que la concordancia pospuesta existe en italiano literario/antiguo; que **marcarla como segunda respuesta defendible es un FALSO POSITIVO de C2** (y de C3 si se plantea ahi); por que se ofrece y no se retira (el pool cerrado destruiria el slot); y la frontera en negrita — con **pronombre objeto ANTEPUESTO** la concordancia es **OBLIGATORIA**, la invariable **SI** es error, y ahi C2 debe seguir mordiendo con todo. Cierra remitiendo a 7.3 para el criterio de leak. Mas un **puntero nuevo desde C2**, como parrafo independiente.
+   - Insertada **antes** de `*Fin del prompt…*`, guard de la seccion 6 intacto, **`12 insertions(+)` y `0 deletions`** verificado con `git diff --stat` y con `git diff -U0 | grep -c '^-[^-]'`.
+   - Va **despues** de 7.3 a proposito: 7.3 dice «ninguna de las **dos** excepciones nuevas toca el criterio de leak», y reescribir ese «dos» habria producido un borrado. 7.4 se autodeclara respecto a C5 y remite a 7.3, asi que no queda ninguna afirmacion falsa en el fichero y el diff sigue siendo solo adiciones.
+3. **`explanation` del slot** — apunte de registro en tono D-127 (3a impersonal, regla + ejemplo): cita `ho fatti i compiti` y `ha fatta una torta` como formas de textos clasicos que no son erratas, y cierra con que en la norma moderna la invariable es la unica corriente y la unica que se pide.
+4. **Gates de test** — dos nuevos en el bloque 8. El primero es **un gate a la contra**, y por eso lleva su comentario: lo normal en esta categoria es *prohibir* la forma atestiguada en `options` (el cuarto magnet, las arcaicas, las formas con clitico), asi que aqui se congela lo **opuesto** —que la concordada SIGA ofreciendose— para que un re-pase futuro que lea el criterio operativo de la blacklist no lo «arregle» y rompa el eje. El segundo exige que la decision este en el `notes` **y** en la 7.4, con la 7.4 antes de la linea de cierre.
+
+**Verificacion por mutacion** (4 nuevas, restauracion byte a byte verificada con `cmp` en el JSON y en el prompt):
+
+| Mutacion | Resultado | Test que salta |
+|---|---|---|
+| un re-pase «arregla» WR-01 sacando `fatti` del pool | fail 3 | pool cerrado + las 4 terminaciones + **WR-01** |
+| el `notes` pierde el bloque de audit trail | fail 1 | **WR-01** (notes y prompt) |
+| la 7.4 se mueve **detras** de la linea de cierre | fail 1 | **WR-01** (notes y prompt) |
+| la 7.4 desaparece del prompt (excepcion solo en el `notes`) | fail 1 | **WR-01** (notes y prompt) |
+
+Suite **999 → 1001 pass / 0 fail** (78 tests en el fichero de la categoria). Total de pruebas por mutacion de este plan: **19** (12 de autoria + 3 de CR-02 + 4 de WR-01).
 
 ## Threat Flags
 
