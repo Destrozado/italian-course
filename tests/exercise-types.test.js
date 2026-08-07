@@ -1360,6 +1360,8 @@ const CATEGORIES_WITH_EXPLANATIONS = [
   { file: 'content/exercises/fare-congiuntivo.json', expected: slotCountOf('content/exercises/fare-congiuntivo.json') },
   // v2.0 Phase 43 (CI-01..CI-03): fare-cond-imperativo, 3 slots (cond. presente + cond. passato + imperativo).
   { file: 'content/exercises/fare-cond-imperativo.json', expected: slotCountOf('content/exercises/fare-cond-imperativo.json') },
+  // v2.0 Phase 43 (INDEF-01..INDEF-04): fare-indefiniti, 6 slots de formas no personales (infinito, participio y gerundio).
+  { file: 'content/exercises/fare-indefiniti.json', expected: slotCountOf('content/exercises/fare-indefiniti.json') },
   // Cobertura editorial: 370 con explanation curada tras el piloto v1.4 (Phase 17): Preposiciones pasó de 52 ejercicios a 49 slots (explanation a nivel de slot); las otras 8 categorías por ejercicio.
 ];
 
