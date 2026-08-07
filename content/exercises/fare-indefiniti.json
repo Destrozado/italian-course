@@ -142,6 +142,128 @@
         "status": "pending",
         "passes": []
       }
+    },
+    {
+      "id": "fare-indefiniti-participio-presente",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "fare-indefiniti"
+      ],
+      "explanation": "El participio presente italiano se forma cambiando la terminación del infinitivo, y el del verbo fare es facente en singular y facenti en plural; concuerda en número con el sintagma que lo rige, igual que un adjetivo, aunque no distingue género. Antes de usarlo hace falta una advertencia de registro, porque este material no quiere dar una idea falsa de la lengua: facente es una forma real y viva en italiano escrito, pero pertenece al registro burocrático y administrativo, está fosilizada y no se emplea en la conversación corriente. Vive sobre todo dentro de dos compuestos que funcionan como bloques hechos: facente funzione, que designa a quien sustituye a otra persona en su cargo, y facente parte, que dice que alguien o algo pertenece a un conjunto. Entra en este bloque para que el paradigma de las formas no personales esté completo, no porque haga falta producirla al hablar: lo útil es reconocerla al leer un documento oficial y saber que en el segundo compuesto el plural es facenti parte, porque la concordancia con el sintagma plural que lo rige es obligatoria y es justo donde se falla.",
+      "variants": [
+        {
+          "prompt": "Il direttore ___ funzione ha firmato il documento oggi.",
+          "options": [
+            "facendo",
+            "facente",
+            "facenti",
+            "fatto"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "I paesi ___ parte dell'accordo devono rispettare le nuove regole.",
+          "options": [
+            "facente",
+            "fatti",
+            "facenti",
+            "facendo"
+          ],
+          "correctIndex": 2
+        }
+      ],
+      "validation": {
+        "status": "pending",
+        "passes": []
+      }
+    },
+    {
+      "id": "fare-indefiniti-gerundio-presente",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "fare-indefiniti"
+      ],
+      "explanation": "El gerundio simple de fare es facendo, es invariable y expresa una acción contemporánea a la del verbo principal. Este bloque examina tres encajes suyos. El primero es el marco progresivo con el verbo de estado, que en italiano se construye igual que en español y que por eso no da ningún problema de forma. El segundo es la subordinada implícita modal, que dice de qué manera ocurre lo que expresa el verbo principal. Y el tercero es la subordinada implícita causal, que dice por qué ocurre; en las dos, el gerundio sustituye a una oración entera, y por eso no lleva ni sujeto propio ni conjunción delante. La advertencia importante de este bloque no es de formación sino de USO, y conviene tenerla muy presente porque es donde el hispanohablante se delata. El progresivo italiano está restringido a la acción que se está desarrollando EN ESTE MOMENTO, mientras que la perífrasis española equivalente se ha extendido muchísimo más: se usa también para lo habitual, para lo programado y hasta para el futuro próximo. Quien traduce literalmente acaba empleándolo de más, y el resultado suena forzado aunque no tenga ningún error de gramática. La regla práctica va justo en contra de la intuición: si la acción no está ocurriendo ahora mismo, el italiano prefiere el presente simple y no el progresivo.",
+      "variants": [
+        {
+          "prompt": "Adesso io sto ___ i compiti, non posso uscire.",
+          "options": [
+            "fare",
+            "facendo",
+            "avendo fatto",
+            "fatto"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Si impara l'italiano ___ un errore dopo l'altro.",
+          "options": [
+            "fatte",
+            "fare",
+            "facendo",
+            "facente"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "___ tutto in fretta, lei ha rotto un piatto.",
+          "options": [
+            "facendo",
+            "fare",
+            "facente",
+            "fatta"
+          ],
+          "correctIndex": 0
+        }
+      ],
+      "validation": {
+        "status": "pending",
+        "passes": []
+      }
+    },
+    {
+      "id": "fare-indefiniti-gerundio-passato",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "fare-indefiniti"
+      ],
+      "explanation": "El gerundio compuesto se forma con el gerundio del auxiliar de posesión más el participio invariable: avendo fatto. Su valor es la anterioridad, y ahí está toda la diferencia con el gerundio simple, que expresa contemporaneidad con el verbo principal. Dicho de otro modo: facendo dice que las dos acciones ocurren a la vez, y avendo fatto dice que la del gerundio ya estaba terminada cuando empezó la otra. Este bloque examina tres encajes en los que el italiano exige el compuesto. El primero es la subordinada implícita temporal con un adverbial que sitúa la acción antes, del tipo la sera prima o il giorno prima: con un adverbial así el gerundio simple deja de ser posible, porque contradice la contemporaneidad que él mismo impone. El segundo es la subordinada implícita causal, que explica por qué el sujeto está en la situación que describe la oración principal. Y el tercero es la subordinada implícita concesiva, introducida por la partícula pur, que concede un hecho y a continuación lo contrasta. Regla práctica para decidir en una frase concreta: busca alguna marca de que la acción del hueco es previa a la principal, y si la encuentras, el gerundio simple queda descartado por muy natural que suene la traducción literal.",
+      "variants": [
+        {
+          "prompt": "___ i compiti la sera prima, io ho potuto dormire fino a tardi.",
+          "options": [
+            "facendo",
+            "avendo fatto",
+            "fare",
+            "fatte"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "___ il lavoro il giorno prima, lei era già libera.",
+          "options": [
+            "fare",
+            "facente",
+            "fatta",
+            "avendo fatto"
+          ],
+          "correctIndex": 3
+        },
+        {
+          "prompt": "Pur ___ una torta per tutti, lui non è stato ringraziato.",
+          "options": [
+            "avendo fatto",
+            "fare",
+            "fatte",
+            "facente"
+          ],
+          "correctIndex": 0
+        }
+      ],
+      "validation": {
+        "status": "pending",
+        "passes": []
+      }
     }
   ]
 }
