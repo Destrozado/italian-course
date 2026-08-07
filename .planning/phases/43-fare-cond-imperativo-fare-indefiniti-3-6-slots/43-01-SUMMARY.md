@@ -22,9 +22,9 @@ affects: [43-02-fare-indefiniti, 44-integracion-counts-cruces, INT-02, INT-03, I
 
 # Actuals (#2632)
 actuals:
-  tokens: 24733
+  tokens: 27200
   tasks: 4
-  commits: 4
+  commits: 5
 
 # Tech tracking
 tech-stack:
@@ -70,11 +70,14 @@ coverage:
         status: pass
     human_judgment: false
   - id: D2
-    description: "Condizionale passato en las 6 personas, con el condizionale presente como distractora del calco espanol, >=2 marcos de futuro-nel-passato que gobiernan la clausula del hueco, y cero protasis condicional"
+    description: "Condizionale passato en las 6 personas, con el condizionale presente como distractora del calco espanol, >=2 marcos de futuro-nel-passato que gobiernan la clausula del hueco, cero protasis condicional, y el exclusor de la lectura anterior en las 6 (CR-01)"
     requirement: CI-02
     verification:
       - kind: unit
         ref: "tests/content-fare-cond-imperativo.test.js#fare-cond-imperativo — distractoras del condizionale passato, el calco espanol (D-43-10, SC-1)"
+        status: pass
+      - kind: unit
+        ref: "tests/content-fare-cond-imperativo.test.js#GATE HARD (CR-01): toda variante con trapassato en options lleva su EXCLUSOR de la lectura anterior"
         status: pass
       - kind: unit
         ref: "tests/content-fare-cond-imperativo.test.js#la explanation del passato desarrolla el par explicito del futuro en el pasado (D-43-11, SC-1)"
@@ -146,8 +149,9 @@ status: complete
 2. **Task 2: checkpoint del tracer** — sin commit; auto-aprobado por el orquestador en `--auto` (`gate="blocking"`, no `blocking-human`), con revision explicita del backstop
 3. **Task 3: condizionale passato (CI-02) e imperativo con el MAGNET (CI-03)** — `e0278ba` (feat)
 4. **Task 4: `tests/content-fare-cond-imperativo.test.js`, 13 describe / 63 tests** — `6c00cb5` (test)
+5. **CR-01 del code review: doble validez del trapassato en el condizionale passato** — `32b2eab` (fix)
 
-**Plan metadata:** ver commit `docs(43-01)` al cierre.
+**Plan metadata:** `f0e81b0` (docs: complete plan).
 
 ## Files Created/Modified
 
@@ -207,6 +211,56 @@ Las 12 mutaciones del JSON real, con restauracion byte a byte verificada (`git d
 
 **Prueba positiva del matcher:** con el fichero real intacto el gate de blacklist **no** marca la variante cuya key es `fa'` (fail 0), y tres asserts dedicados congelan que la trampa existe con el matcher heredado, que el hermano no cae en ella, y que el hermano **sigue** mordiendo la forma corta suelta — es decir, que esta resuelta y no desactivada.
 
+## Correccion post-review: CR-01 (`32b2eab`)
+
+El code review de la fase (`43-REVIEW.md`, `ea10408`) encontro **1 critico real** en el slot de condizionale passato, verificado forma por forma antes de arreglarlo.
+
+**El defecto.** El gate HARD que escribi para D-43-10 (cero `se` suelto) neutraliza la distractora de condizionale **presente** — la que el gate miraba — y **ninguna otra**. Con el trapassato prossimo de la misma persona en las 6 variantes, solo estaban blindadas las **2** que llevan cola adversativa de no realizacion, porque la cola contradice que la accion ocurriera. En las otras 4 la lectura anterior era defendible, y en dos era la lectura **por defecto**: `Sapevo che tu avevi fatto i compiti da solo` es italiano perfecto y significa otra cosa. Dos respuestas defendibles es `disputed` sticky, y por la cascada D-54 eso habria reseteado las 17 variantes — el dano exacto que la fase existe para evitar.
+
+**La leccion transferible**, que es lo que hay que retener y no el arreglo puntual: **un gate de doble validez cubre la familia de distractoras que mira, y ninguna otra.** Cada familia necesita su propio exclusor declarado. Afirmar que un slot esta controlado porque una de sus familias lo esta es una promesa que un `notes` no puede hacer — y es exactamente lo que el mio hacia.
+
+**Via elegida: la 1 (blindar el marco) en las 4 variantes**, no la 2 (sacar la distractora). La familia del auxiliar en otro tiempo es la que examina el error de marco; sacarla habria dejado el slot sin ese eje. Las 4 redacciones:
+
+| # | persona | antes | ahora | exclusor |
+|---|---------|-------|-------|----------|
+| 1 | tu | `Sapevo che tu ___ i compiti da solo.` | `Sapevo che tu ___ i compiti il giorno dopo.` | adverbial prospectivo |
+| 2 | lui | `Ha detto che lui ___ tutto entro venerdì.` | `Ha detto che lui ___ tutto la settimana successiva.` | adverbial prospectivo |
+| 3 | noi | `A quanto pare noi ___ un errore nel conteggio.` | `Era sicuro che noi ___ un errore più tardi.` | marco (a) + adverbial prospectivo |
+| 5 | loro | `Secondo il giornale loro ___ una foto proibita.` | `Mi ha promesso che loro ___ una foto al gruppo il giorno seguente.` | marco (a) + adverbial prospectivo |
+
+Las variantes 0 y 4 no se tocaron: su cola adversativa ya era exclusor valido.
+
+**El marco de diceria se RETIRA del conjunto cerrado de anclas.** Es la unica de las tres familias que no puede excluir la lectura anterior por ningun medio, porque el rumor lee igual de bien en condizionale passato y en trapassato. Dejarlo con una nota de cuidado habria sido una invitacion a reintroducir el fallo. Quedan dos grupos (futuro-nel-passato y no realizacion) y un gate congela que no vuelva un tercero.
+
+**SC#1 no se sacrifico:** ahora son **4 de 6** con marco de futuro-nel-passato (antes 2, minimo exigido 2), y la distractora estrella del calco espanol sigue intacta en las 6.
+
+**Sobre D-43-20 — declarado, no decidido por mi cuenta.** La frase del `notes` que justificaba dejar este slot fuera de la ronda extra ("su riesgo es de redaccion de marco, no de doble validez de forma") queda **falsada**: la redaccion del marco era justo lo que fallaba. Reescrita entera con audit trail. Pero el **presupuesto de quorum no se cambia aqui**: extender la ronda extra a este slot llevaria la fase a 18 de 35 variantes, que es exactamente la proporcion que D-42-08 y D-43-20 **rechazaron de forma explicita y razonada**, y una correccion de autoria no basta para revertir una decision cerrada con argumento. Queda escrito el disparador para el pase top-level: **si el quorum base marca cualquiera de las 6 variantes de este slot, el slot entra en la ronda extra y la decision se revisa con el dato delante.**
+
+### Warnings del review resueltos en el mismo pase
+
+- **WR-04** — `PERIPHRASIS` llevaba el literal `causativo`, una palabra **espanola de metalenguaje** que no puede aparecer dentro de una frase italiana: cobertura real **cero**, y un comentario que prometia un gate inexistente. Se retira, y se detecta el **patron real**: en esta categoria la forma de `fare` **es** el hueco, asi que un causativo solo puede materializarse como hueco seguido de infinitivo (`___ riparare il lavoro`). `far fare` se queda en la lista porque es el causativo lexicalizado, que si aparece como cadena.
+- **WR-03** — `DEITTICI_FUTURO` era una lista de literales que dejaba fuera familias abiertas enteras (`entro X`, `tra/fra X`, `più tardi`, adjetivo pospuesto). Se anaden como **patrones**, porque enumerar complementos no termina nunca. La prueba de que importaba estaba en mi propio contenido: la redaccion original del slot 2 usaba `entro venerdì`. Queda escrita la simetria: en el slot 1 el adverbial prospectivo esta **prohibido** (haria defendible el futuro) y en el slot 2 es **obligatorio** (es lo unico que excluye la lectura anterior) — mismo fenomeno, signo opuesto.
+- **WR-05 — NO corregido, y a proposito.** `CONCORD_CUES` con `includes()` crudo sobre bigramas de dos letras vive en `tests/content-fare-indefiniti.test.js`, que es **propiedad exclusiva del plan 43-02**; las prohibiciones de este plan lo declaran intocable. El hallazgo es real (`'le ha'` hace match dentro de `Michele ha`) y **queda transferido a 43-02**: el arreglo es usar el matcher con frontera de palabra que ese fichero ya tiene.
+
+### Pruebas negativas del arreglo
+
+10 mutaciones nuevas, **incluidas las dos regresiones literales** de los prompts que shipparon defectuosos, mas las 12 anteriores re-ejecutadas. Las 22 muerden y el JSON queda restaurado byte a byte.
+
+| Mutacion | Resultado | Decision nombrada |
+|---|---|---|
+| **regresion**: el prompt exacto que shippeo defectuoso (`da solo`) | fail 1 | CR-01 |
+| **regresion**: el segundo prompt defectuoso (`entro venerdì`) | fail 1 | CR-01 |
+| quitar la cola adversativa de la variante que se apoyaba en ella | fail 3 | CR-01 |
+| reintroducir el marco de diceria retirado | fail 3 | CR-01 |
+| el adverbial prospectivo fuera de la clausula del hueco | fail 1 | CR-01 |
+| causativo `fare + infinito` tras el hueco | fail 1 | WR-04 |
+| `entro X` en un prompt del presente | fail 1 | D-43-09 |
+| `tra X` en un prompt del presente | fail 1 | D-43-09 |
+| `la settimana prossima` en un prompt del presente | fail 1 | D-43-09 |
+| `più tardi` en un prompt del presente | fail 1 | D-43-09 |
+
+Suite tras el arreglo: **998 pass / 0 fail**. `src/` byte-intacto.
+
 ## Threat Flags
 
 Ninguna. El escaneo de superficie no encontro endpoints, rutas de auth, accesos a fichero ni cambios de esquema en frontera de confianza que no estuvieran ya en el `<threat_model>` del plan. Las dos amenazas `high` quedan mitigadas y verificadas: **T-43-05** (slug byte a byte) por el `describe` 13 y por el gate del slug COMPLETO en los 3 ids, y **T-43-06** (doble validez / cascada D-54) por los 4 gates HARD, el checkpoint del tracer y la ronda EXTRA ya escrita en `EXTRA_ROUND_SLOTS`.
@@ -239,6 +293,8 @@ None — no external service configuration required.
 5. Un flag C4-accent sobre espanol sin tildes es bug **REAL**: se arreglan los acentos, nunca override.
 
 **Para Phase 44 / INT-02, numeros cerrados:** con esta categoria el milestone va por 20 slots / 95 variantes; con `fare-indefiniti` quedara en **22 slots / 113 variantes** y `TOTAL_EXPECTED` en **247**. El rojo de `VAL_07_STRICT=1` y la ceguera del reporter (`PASS (225/225)`) son el estado **esperado** al cerrar esta fase, no fallos que perseguir. **Para INT-04:** sigue vivo el hallazgo de 43-CONTEXT.md de que los magnets son **cuatro** y no tres — el cuarto (`aver fatto` frente a `avere fatto`) es de 43-02.
+
+**Transferido al plan 43-02:** WR-05 del code review (`CONCORD_CUES` con `includes()` crudo sobre bigramas de dos letras en `tests/content-fare-indefiniti.test.js`, que hace match dentro de `Michele ha`). Es un hallazgo real y barato, pero ese fichero es propiedad exclusiva de 43-02 y este plan lo tiene prohibido tocar. El arreglo es usar el matcher con frontera de palabra que el propio fichero ya declara en su cabecera.
 
 ## Self-Check: PASSED
 
