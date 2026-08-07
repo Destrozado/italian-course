@@ -4,17 +4,17 @@ milestone: v2.0
 milestone_name: Paradigma completo de `fare` (4 categorías por modo)
 current_phase: 43
 current_phase_name: fare-cond-imperativo-fare-indefiniti-3-6-slots
-status: executing
-stopped_at: Completed 43-01-PLAN.md
-last_updated: "2026-08-06T23:51:52.283Z"
+status: verifying
+stopped_at: Completed 43-02-PLAN.md
+last_updated: "2026-08-07T00:19:55.906Z"
 last_activity: 2026-08-07
 last_activity_desc: Phase 43 execution started
 progress:
   total_phases: 5
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 7
-  completed_plans: 6
-  percent: 60
+  completed_plans: 7
+  percent: 80
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -31,10 +31,10 @@ See: `.planning/PROJECT.md` (updated 2026-08-06 — Phase 42 `fare-congiuntivo` 
 
 Phase: 43 (fare-cond-imperativo-fare-indefiniti-3-6-slots) — EXECUTING
 Plan: 2 of 2
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-08-07 — Phase 43 execution started
 
-Progress: [████████████████████] 5/5 plans ([█████████░] 86%) · 4/5 fases (80%)
+Progress: [████████████████████] 5/5 plans ([██████████] 100%) · 4/5 fases (80%)
 
 ## Deferred Items
 
@@ -174,6 +174,7 @@ Items reconocidos y diferidos en el cierre del milestone v1.9 (2026-07-02, ackno
 | Phase 42 P01 | 8h 32m | 3 tasks | 4 files |
 | Phase 42 P02 | 20m | 3 tasks | 2 files |
 | Phase 43 P01 | 24min | 4 tasks | 4 files |
+| Phase 43 P02 | 26min | 5 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -279,6 +280,10 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - [Phase ?]: 43-01: una key con apostrofe ASCII exige un matcher hermano con lookahead negativo — wordish() cierra palabra contra el apostrofe y pondria roja la variante correcta; el escaneo positivo del notes se ancla con el literal 'la forma fa' en vez de envolver entre comillas
 - [Phase ?]: 43-01: gobiernaElHueco no puede comprobar un ancla que contenga 'che' (CORTE_DE_CLAUSULA lo consume al partir): el ancla se declara como par {lit, head} y se comprueba el literal por presencia y el head por ambito
 - [Phase ?]: 43-01: los gates de doble validez se cierran por AUSENCIA grep-verificable (cero 'se' suelto en el condizionale passato, cero deicticos de futuro en el presente) en vez de por matiz sintactico no comprobable
+- [Phase ?]: 43-02: el participio invariable fatto queda FUERA de las options en las 3 variantes donde el hueco abre oracion o sigue a un adverbial de anterioridad — Fatto i compiti la sera prima / Fatto tutto in fretta son participios absolutos GRAMATICALES y serian una segunda respuesta defendible
+- [Phase ?]: 43-02: las variantes de concordancia usan dislocacion sin puntuacion fuerte (Marco ha preso i compiti e li ha ___) en vez de tematizacion interrogativa: con ? o : el antecedente sale de la clausula del hueco o queda en mayuscula y el gate del objeto literal no lo ve
+- [Phase ?]: 43-02: CUARTO MAGNET del milestone resuelto — key aver fatto, avere fatto a blacklist con audit trail y nombrada en la explanation; INT-04 declara solo TRES magnets y tiene que recogerlo
+- [Phase ?]: 43-02: la excepcion acotada de facente va escrita en los DOS sitios que la hacen efectiva — el notes del fichero y la seccion 7 de 09-VALIDATION-PROMPT.md, antes de la linea de cierre y con punteros desde C1/C2/C3 — mas la ruta arreglada en los 2 skills del quorum
 
 ### Pending Todos
 
@@ -338,8 +343,8 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Session Continuity
 
-**Last session:** 2026-08-06T23:51:40.931Z
-**Stopped at:** Completed 43-01-PLAN.md
+**Last session:** 2026-08-07T00:19:43.374Z
+**Stopped at:** Completed 43-02-PLAN.md
 **Resume file:** None
 
 ### Last Session

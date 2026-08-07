@@ -235,7 +235,7 @@ Plans:
   4. El participio passato `fatto` se examina en su doble comportamiento — invariable con `avere` frente a la concordancia cuando lo rige un pronombre objeto (`li ho fatti`) — con ronda EXTRA de quórum sobre ese par; y `facente` entra en el paradigma CON nota de registro explícita en la explanation (burocrático/fosilizado, vive en compuestos tipo `facente funzione`), sin mentir sobre su uso real.
   5. Ambas categorías cargan en boot como unidades de reset SEPARADAS y todas sus variantes quedan `validated` por quórum cross-vendor R1-R7 con canon editorial y sin leak R1.
 
-**Plans**: 1/2 plans executed
+**Plans**: 2/2 plans executed
 
 Plans:
 **Wave 1**
@@ -244,7 +244,7 @@ Plans:
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 43-02-PLAN.md — `fare-indefiniti` de punta a punta: alta de la categoría (order 18 + línea del smoke) y los 6 slots de formas no personales (3+3+4+2+3+3 = 18 variantes, eje CONTEXTO), con tracer sobre el infinito presente, más `tests/content-fare-indefiniti.test.js` y la edición única de la fase del prompt de validación por quórum (excepción de `facente funzione` y principio «reconocer, no producir»)
+- [x] 43-02-PLAN.md — `fare-indefiniti` de punta a punta: alta de la categoría (order 18 + línea del smoke) y los 6 slots de formas no personales (3+3+4+2+3+3 = 18 variantes, eje CONTEXTO), con tracer sobre el infinito presente, más `tests/content-fare-indefiniti.test.js` y la edición única de la fase del prompt de validación por quórum (excepción de `facente funzione` y principio «reconocer, no producir»)
 
 > **Nota de planificación (D-43-02):** las dos categorías van en **waves distintas y no en paralelo** porque los dos plans escriben en `content/categories.json` y en el array del smoke paramétrico. El quórum base canónico Opus+Sonnet **no corre dentro del executor** (`[[executor_cannot_run_task_quorum]]`): los 9 slots cierran en `validation.status: "pending"` y el quórum se estampa en una pasada TOP-LEVEL posterior, un ejercicio por contexto (VAL-03), con la ronda EXTRA DeepSeek de D-43-20 sobre 12 de las 35 variantes (imperativo 5 + `participio-passato` 4 + `infinito-passato` 3). El rojo de `VAL_07_STRICT=1` y la ceguera del reporter al cerrar la fase son el estado ESPERADO hasta Phase 44 / INT-02.
 
@@ -283,7 +283,7 @@ Plans:
 | 40. Migración `12→13` | v2.0 | 1/1 | Complete    | 2026-08-03 |
 | 41. `fare-indicativo` (8 slots) | v2.0 | 2/2 | Complete    | 2026-08-04 |
 | 42. `fare-congiuntivo` (4 slots) | v2.0 | 2/2 | Complete    | 2026-08-06 |
-| 43. `fare-cond-imperativo` + `fare-indefiniti` (3+6 slots) | v2.0 | 1/2 | In Progress|  |
+| 43. `fare-cond-imperativo` + `fare-indefiniti` (3+6 slots) | v2.0 | 2/2 | In Progress|  |
 | 44. Integración lockstep + cierre v2.0 | v2.0 | 0/? | Not started | - |
 
 ## Backlog

@@ -42,10 +42,10 @@ Requisitos comprometidos para este milestone. Cada uno mapea a una fase del road
 
 > En estos 6 slots las formas son fijas: el eje de variante es el **contexto** (~3 frases distintas por slot que exijan esa forma), no la persona.
 
-- [ ] **INDEF-01**: El autor es examinado sobre el **infinito presente** (`fare`) y el **infinito passato** (`aver(e) fatto`), incluida la elección entre ambos según la anterioridad respecto a la principal.
-- [ ] **INDEF-02**: El autor es examinado sobre el **participio passato** (`fatto`) como forma léxica y su comportamiento con `avere` (invariable) frente a la concordancia cuando la rige un pronombre objeto.
-- [ ] **INDEF-03**: El autor es examinado sobre el **participio presente** (`facente`) **con nota de registro explícita**: la explanation avisa de que es burocrático/fosilizado y vive sobre todo en compuestos (`facente funzione`). Entra para que el paradigma esté completo, sin mentir sobre su uso real.
-- [ ] **INDEF-04**: El autor es examinado sobre el **gerundio presente** (`facendo`) y el **gerundio passato** (`avendo fatto`), incluido `stare + gerundio` como progresivo.
+- [x] **INDEF-01**: El autor es examinado sobre el **infinito presente** (`fare`) y el **infinito passato** (`aver(e) fatto`), incluida la elección entre ambos según la anterioridad respecto a la principal.
+- [x] **INDEF-02**: El autor es examinado sobre el **participio passato** (`fatto`) como forma léxica y su comportamiento con `avere` (invariable) frente a la concordancia cuando la rige un pronombre objeto.
+- [x] **INDEF-03**: El autor es examinado sobre el **participio presente** (`facente`) **con nota de registro explícita**: la explanation avisa de que es burocrático/fosilizado y vive sobre todo en compuestos (`facente funzione`). Entra para que el paradigma esté completo, sin mentir sobre su uso real.
+- [x] **INDEF-04**: El autor es examinado sobre el **gerundio presente** (`facendo`) y el **gerundio passato** (`avendo fatto`), incluido `stare + gerundio` como progresivo.
 
 ### Migración (MIG)
 
@@ -97,10 +97,10 @@ Requisitos comprometidos para este milestone. Cada uno mapea a una fase del road
 | CI-01 | Phase 43 — `fare-cond-imperativo` + `fare-indefiniti` | Complete |
 | CI-02 | Phase 43 — `fare-cond-imperativo` + `fare-indefiniti` | Complete |
 | CI-03 | Phase 43 — `fare-cond-imperativo` + `fare-indefiniti` | Complete |
-| INDEF-01 | Phase 43 — `fare-cond-imperativo` + `fare-indefiniti` | Pending |
-| INDEF-02 | Phase 43 — `fare-cond-imperativo` + `fare-indefiniti` | Pending |
-| INDEF-03 | Phase 43 — `fare-cond-imperativo` + `fare-indefiniti` | Pending |
-| INDEF-04 | Phase 43 — `fare-cond-imperativo` + `fare-indefiniti` | Pending |
+| INDEF-01 | Phase 43 — `fare-cond-imperativo` + `fare-indefiniti` | Complete |
+| INDEF-02 | Phase 43 — `fare-cond-imperativo` + `fare-indefiniti` | Complete |
+| INDEF-03 | Phase 43 — `fare-cond-imperativo` + `fare-indefiniti` | Complete |
+| INDEF-04 | Phase 43 — `fare-cond-imperativo` + `fare-indefiniti` | Complete |
 | INT-01 | Phase 44 — Integración lockstep + cierre | Pending |
 | INT-02 | Phase 44 — Integración lockstep + cierre | Pending |
 | INT-03 | Phase 44 — Integración lockstep + cierre | Pending |
