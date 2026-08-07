@@ -44,6 +44,104 @@
         "status": "pending",
         "passes": []
       }
+    },
+    {
+      "id": "fare-indefiniti-infinito-passato",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "fare-indefiniti"
+      ],
+      "explanation": "El infinito compuesto se forma con el infinitivo del auxiliar de posesión más el participio invariable, y su forma corriente en italiano es la elidida, aver fatto. Lo que aporta frente al infinitivo simple es la anterioridad: dice que la acción del hueco ocurrió ANTES que la del verbo principal, y esa es exactamente la decisión que este bloque examina, porque las dos formas compiten por el mismo sitio y solo el marco temporal decide cuál cabe. La interferencia con el español es directa y muy frecuente: el español dice después de hacer los deberes, con infinitivo SIMPLE, mientras que el italiano exige el COMPUESTO detrás de la preposición de posterioridad, dopo aver fatto i compiti. Traducir literalmente lleva por eso al infinitivo simple, que en ese marco es sencillamente incorrecto y no un matiz de estilo. La pista está siempre en la frase, y es de dos clases: o bien una preposición que ya sitúa la acción del hueco antes que la principal, o bien un adverbial de pasado dentro de la propia cláusula del hueco, del tipo ieri o la settimana scorsa. Con cualquiera de los dos, el infinitivo simple deja de ser posible. Un apunte de lectura que conviene tener claro para no confundirse fuera de este material: la forma no elidida, avere fatto, también es CORRECTA y está atestiguada en italiano estándar; simplemente es la menos frecuente, y aquí se pide siempre la elidida porque es la normal. No aparece entre las opciones precisamente por eso, para que nunca se marque como error.",
+      "variants": [
+        {
+          "prompt": "Dopo ___ i compiti, io sono uscito con Anna.",
+          "options": [
+            "fare",
+            "aver fatto",
+            "facendo",
+            "fatta"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Maria è contenta di ___ il lavoro la settimana scorsa.",
+          "options": [
+            "avendo fatto",
+            "fare",
+            "aver fatto",
+            "fatta"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Per ___ un errore ieri, lui ha perso tutto.",
+          "options": [
+            "fare",
+            "fatti",
+            "avendo fatto",
+            "aver fatto"
+          ],
+          "correctIndex": 3
+        }
+      ],
+      "validation": {
+        "status": "pending",
+        "passes": []
+      }
+    },
+    {
+      "id": "fare-indefiniti-participio-passato",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "fare-indefiniti"
+      ],
+      "explanation": "El participio pasado de fare es fatto, y tiene cuatro terminaciones posibles: fatto para el masculino singular, fatta para el femenino singular, fatti para el masculino plural y fatte para el femenino plural. Lo difícil no es formarlas sino saber CUÁNDO cambian, porque el italiano tiene aquí un doble comportamiento que hay que distinguir. Con el auxiliar de posesión y el objeto colocado DESPUÉS del participio, el participio no cambia nunca: se queda en la forma invariable fatto aunque el objeto sea femenino o plural, y por eso se dice ho fatto i compiti igual que se dice ho fatto una torta. En cambio, cuando el objeto directo se adelanta en forma de pronombre delante del auxiliar, la concordancia pasa a ser OBLIGATORIA y el participio se comporta como un adjetivo: concuerda en género y en número con ese pronombre, de modo que se dice li ho fatti con un antecedente masculino plural y le ho fatte con uno femenino plural. Ahí está la trampa más seria para un hispanohablante, y conviene verla escrita al lado: el español no concuerda nunca el participio con el auxiliar haber y dice las he hecho sea cual sea el objeto, mientras que el italiano exige le ho fatte. Regla práctica para decidir en una frase concreta: si delante del auxiliar hay un pronombre de objeto directo, mira ese pronombre y ajusta la vocal final del participio; si no lo hay y el objeto va detrás, deja el participio en su forma invariable y no lo toques.",
+      "variants": [
+        {
+          "prompt": "Ieri io ho ___ i compiti con Anna.",
+          "options": [
+            "fatta",
+            "fatto",
+            "fatte",
+            "fatti"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Maria ha ___ una torta per la festa.",
+          "options": [
+            "fatte",
+            "fatti",
+            "fatta",
+            "fatto"
+          ],
+          "correctIndex": 3
+        },
+        {
+          "prompt": "Marco ha preso i compiti e li ha ___ ieri sera.",
+          "options": [
+            "fatte",
+            "fatti",
+            "fatto",
+            "fatta"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Anna vuole vedere le foto e noi le abbiamo ___ in montagna.",
+          "options": [
+            "fatti",
+            "fatta",
+            "fatte",
+            "fatto"
+          ],
+          "correctIndex": 2
+        }
+      ],
+      "validation": {
+        "status": "pending",
+        "passes": []
+      }
     }
   ]
 }
