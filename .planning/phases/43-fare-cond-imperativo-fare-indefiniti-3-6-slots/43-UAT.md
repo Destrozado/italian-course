@@ -55,7 +55,31 @@ expected: |
   Salidas posibles: (a) aceptar el riesgo y declararlo en `notes` con audit
   trail; (b) mandar las formas concordadas a la blacklist en esas 2 variantes y
   sustituirlas; (c) dejar que lo adjudique el quórum del test 1.
-result: [pending]
+result: pass
+adjudicated_by: autor
+adjudicated_at: 2026-08-07
+decision: |
+  Salida (a) — DECLARARLO. El autor mantiene el pool tal cual y exige el audit
+  trail en LOS DOS sitios: `notes` de `fare-indefiniti.json` Y la seccion 7 de
+  `09-VALIDATION-PROMPT.md`.
+
+  Constatacion que el enunciado original del test no recogia: la salida (b) es
+  ESTRUCTURALMENTE IMPOSIBLE aqui. D-43-16 fija el pool de las 4 variantes en
+  `fatto`/`fatta`/`fatti`/`fatte` como eje unico del slot; mandar las formas
+  concordadas a la blacklist en las 2 variantes invariables dejaria el slot sin
+  nada que ofrecer. La resolucion correcta era documental desde el principio.
+
+  Verificado ademas que el hallazgo del review era exacto: `notes` menciona
+  "objeto pospuesto" SOLO como tipo de contexto del conjunto cerrado de D-43-12
+  (donde cae el hueco), y "arcaicas y literarias" se refiere a la blacklist de
+  conjugadas de D-41-08 (`fo`, `fe`, `fenno`...). Ninguna de las dos dice que la
+  forma concordada ofrecida como distractora sea ella misma atestiguada en
+  registro literario. No habia audit trail.
+
+  La edicion del prompt de validacion NO es opcional: el subagent del quorum
+  nunca ve `notes` ([[exception_belongs_in_validation_prompt]]), asi que sin ella
+  Opus y Sonnet marcarian estas 2 variantes como violacion de C2 y produzirian un
+  `disputed` FALSO — que por la cascada D-54 resetea la categoria entera.
 
 ### 6. WR-10 (code review, ABIERTO) — refuerzo de registro en los vocativos SINGULARES
 expected: |
@@ -70,14 +94,34 @@ expected: |
   cortesia regional/histórico hacia un solo destinatario. El gate existente solo
   verifica PRESENCIA de un marcador del conjunto cerrado, no que ese marcador
   DESAMBIGÜE el registro.
-result: [pending]
+result: pass
+adjudicated_by: autor
+adjudicated_at: 2026-08-07
+decision: |
+  REFORZAR SOLO `Marco`. Asimetria deliberada, no olvido.
+
+  - `Signor Rossi, ___ il lavoro con calma.` (key `faccia`) NO se toca: el titulo
+    de cortesia selecciona `Lei` de forma inequivoca en italiano estandar
+    moderno. `fate` (voi di cortesia a un solo destinatario) es meridional o
+    arcaico y ya lo cubre el principio "reconocer, no producir" (D-43-19);
+    `facciano` hacia una sola persona no es lectura.
+  - `Marco, ___ una foto al gruppo!` (key `fa'`) SI se refuerza: `Marco, faccia
+    pure` es italiano real en un entorno profesional donde uno se trata por
+    nombre de pila pero con `Lei`. Ese registro existe, asi que la variante
+    admitia `faccia` como segunda lectura defendible — mismo modo de fallo que
+    CR-01, en menor grado.
+
+  El `notes` debe dejar escrito POR QUE la asimetria es deliberada, o un re-pase
+  futuro la "arreglara" por inercia. Y el gate nuevo tiene que comprobar que el
+  marcador DESAMBIGUA el registro, no solo que este PRESENTE — esa era la brecha
+  exacta que el review senalo.
 
 ## Summary
 
 total: 6
-passed: 0
+passed: 2
 issues: 0
-pending: 6
+pending: 4
 skipped: 0
 blocked: 0
 
