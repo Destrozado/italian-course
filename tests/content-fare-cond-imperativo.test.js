@@ -217,6 +217,52 @@ const DEITTICI_FUTURO = [
   'fra poco', 'la prossima settimana', "l'anno prossimo", 'il mese prossimo',
 ];
 
+// WR-03 (revision de codigo del 2026-08-07): la lista de literales de arriba
+// dejaba fuera FAMILIAS ENTERAS que apuntan al futuro con la misma fuerza y que
+// harian igual de defendible la distractora de futuro — el complemento de
+// termino (`entro venerdi`), el de distancia (`tra due giorni`), el comparativo
+// (`piu tardi`) y el adjetivo pospuesto (`la settimana prossima`, que la lista
+// solo cubria en DOS de sus combinaciones). Son abiertos por naturaleza, asi que
+// van como PATRONES y no como literales: enumerar complementos no termina nunca.
+//
+// SIMETRIA QUE CONVIENE VER, porque es el mismo fenomeno con signo opuesto: en el
+// slot 1 el adverbial prospectivo esta PROHIBIDO, porque haria defendible el
+// futuro; en el slot 2 es OBLIGATORIO en las variantes con trapassato, porque es
+// lo unico que excluye la lectura anterior (ver CR-01, bloque 8).
+const DEITTICI_FUTURO_RE = [
+  /(^|[^\p{L}])entro(?=[^\p{L}])/iu,
+  /(^|[^\p{L}])(?:tra|fra)\s+\p{L}/iu,
+  /(^|[^\p{L}])più\s+tardi(?=[^\p{L}]|$)/iu,
+  /(^|[^\p{L}])prossim[oa](?=[^\p{L}]|$)/iu,
+  /(^|[^\p{L}])(?:il\s+giorno|la\s+settimana|la\s+volta|il\s+mese|l'anno)\s+(?:dopo|seguente|successiv[ao])(?=[^\p{L}]|$)/iu,
+];
+
+// CR-01 (revision de codigo del 2026-08-07) — LA FAMILIA DE AUX-SWAP Y SU
+// EXCLUSOR. El gate de ausencia de protasis del slot 2 neutraliza la distractora
+// de condizionale PRESENTE, que es la que mira, y NINGUNA otra: con el trapassato
+// prossimo de la misma persona en las 6 variantes, solo quedaban blindadas las 2
+// que llevan cola adversativa. En las otras 4 la lectura anterior era defendible
+// —y en dos de ellas era la lectura por defecto—, o sea DOS respuestas correctas
+// y, por la cascada D-54, el reset de las 17 variantes.
+//
+// LA LECCION, para que nadie la repita: un gate de doble validez cubre la familia
+// de distractoras que mira y ninguna otra. Cada familia necesita su exclusor.
+const TRAPASSATO = [
+  'avevo fatto', 'avevi fatto', 'aveva fatto', 'avevamo fatto', 'avevate fatto', 'avevano fatto',
+];
+// Los DOS exclusores admitidos, conjunto CERRADO. El adverbial prospectivo hace
+// INCOHERENTE el trapassato (nada puede haberse hecho ya en un momento posterior
+// al punto de referencia); la cola de no realizacion lo CONTRADICE (la accion no
+// llego a ocurrir). El primero se exige por AMBITO, el segundo por presencia:
+// una cola adversativa vive por definicion en otra clausula.
+const AVVERBIALI_PROSPETTIVI = [
+  'il giorno dopo', 'il giorno seguente', 'la settimana successiva', 'la settimana dopo',
+  'la volta dopo', 'più tardi', 'poco dopo',
+];
+const CODE_DI_NON_REALIZZAZIONE = [
+  'ma non ho avuto tempo', 'ma non ho potuto', 'ma alla fine non è successo',
+];
+
 // Disparadores de condizionale del slot 1: conjunto CERRADO, uno por prompt.
 const DISPARADORI = [
   'Se fosse necessario,', 'Se ci fosse più tempo,', 'Se non fosse così tardi,',
@@ -236,10 +282,16 @@ const ANCLE_FUTURO_NEL_PASSATO = [
   { lit: 'Era sicuro che', head: 'Era sicuro' },
   { lit: 'Aveva giurato che', head: 'Aveva giurato' },
 ];
+// CR-01: el conjunto cerrado tenia un TERCER grupo, el de rumor o atenuacion en
+// pasado (`Secondo il giornale`, `A quanto pare`), y se RETIRA. Es la unica de
+// las tres familias de marco que no puede excluir la lectura anterior por ningun
+// medio: la diceria lee igual de bien en condizionale passato y en trapassato,
+// por naturaleza. Dejarlo con una nota de cuidado habria sido una invitacion a
+// reintroducir el fallo, asi que sale del conjunto y un gate del bloque 8 congela
+// que no vuelva un tercer grupo.
 const ANCLE_PASSATO = [
   ...ANCLE_FUTURO_NEL_PASSATO.map((a) => a.lit),
-  'ma non ho avuto tempo', 'ma non ho potuto', 'ma alla fine non è successo',
-  'Secondo il giornale', 'A quanto pare',
+  ...CODE_DI_NON_REALIZZAZIONE,
 ];
 
 // MARCADORES — el conjunto CERRADO de los cinco marcadores de destinatario del
@@ -248,9 +300,22 @@ const ANCLE_PASSATO = [
 // el UNICO desambiguador entre las cinco formas es a quien se le habla.
 const MARCADORES = ['Marco,', 'Signor Rossi,', 'Dai, noi due', 'Bambini,', 'Signori,'];
 
-// SCOPE-GATE lexico HARD heredado de D-41-06 por D-43-22. `causativo` se anade a
-// la lista del analogo para cubrir `fare + infinito` mas alla de `far fare`.
-const PERIPHRASIS = ['colazione', 'spesa', 'freddo', 'farcel', 'far fare', 'causativo'];
+// SCOPE-GATE lexico HARD heredado de D-41-06 por D-43-22.
+//
+// WR-04 (revision de codigo del 2026-08-07): esta lista llevaba ademas el literal
+// `causativo`, anadido «para cubrir fare + infinito mas alla de far fare», y se
+// RETIRA. Es una palabra ESPANOLA de metalenguaje: no puede aparecer dentro de
+// una frase italiana en ningun caso, asi que su cobertura real era CERO y el
+// comentario prometia un gate que no existia. Un gate que promete mas de lo que
+// da es peor que uno honesto.
+//
+// En su lugar se detecta el PATRON, que aqui si es detectable y con precision:
+// en esta categoria la forma de `fare` ES el hueco, asi que un causativo se
+// materializaria como el hueco seguido de un INFINITIVO (`___ fare i compiti`,
+// `___ riparare il lavoro`). `far fare` se queda en PERIPHRASIS porque es el
+// causativo ya lexicalizado, que si aparece como cadena literal.
+const PERIPHRASIS = ['colazione', 'spesa', 'freddo', 'farcel', 'far fare'];
+const CAUSATIVO_TRAS_HUECO = /___\s+\p{L}+(?:are|ere|ire)(?=[^\p{L}]|$)/u;
 const OBJECTS = ['i compiti', 'un errore', 'il lavoro', 'una torta', 'il letto', 'tutto', 'una foto'];
 
 // D-41-07 / D-43-22 — el pronombre sujeto por persona en los 12 prompts de
@@ -284,9 +349,12 @@ const VARIANT_TABLE = {
     { who: '1sg', marca: 'ma non ho avuto tempo', object: 'il lavoro' },
     { who: '2sg', marca: 'Sapevo che', object: 'i compiti' },
     { who: '3sg', marca: 'Ha detto che', object: 'tutto' },
-    { who: '1pl', marca: 'A quanto pare', object: 'un errore' },
+    // CR-01: 1pl y 3pl usaban el marco de diceria (`A quanto pare`,
+    // `Secondo il giornale`), que lee igual de bien en trapassato. Pasan a
+    // futuro-nel-passato con adverbial prospectivo.
+    { who: '1pl', marca: 'Era sicuro che', object: 'un errore' },
     { who: '2pl', marca: 'ma alla fine non è successo', object: 'una torta' },
-    { who: '3pl', marca: 'Secondo il giornale', object: 'una foto' },
+    { who: '3pl', marca: 'Mi ha promesso che', object: 'una foto' },
   ],
   [IMPERATIVO]: [
     { who: 'tu-informal', marca: 'Marco,', object: 'una foto' },
@@ -543,6 +611,16 @@ describe('fare-cond-imperativo — SCOPE-GATE lexico del objeto literal (D-41-06
     }
   });
 
+  test('ningun hueco va seguido de un infinitivo: el causativo fare + infinito no entra (WR-04)', () => {
+    // El gate REAL que sustituye al literal `causativo`, que no cubria nada. Ver
+    // el comentario de PERIPHRASIS: la forma de `fare` es el hueco, asi que un
+    // causativo solo puede materializarse aqui como hueco mas infinitivo.
+    const sucio = allVariants()
+      .filter(({ v }) => CAUSATIVO_TRAS_HUECO.test(v.prompt))
+      .map(({ slot, k, v }) => `${slot.id}#${k}: "${v.prompt}"`);
+    assert.deepEqual(sucio, [], 'D-41-06 / WR-04: el causativo fare + infinito esta fuera de scope del milestone');
+  });
+
   test('cada prompt lleva el objeto de la tabla, del conjunto CERRADO de 7, y es el UNICO de su clausula', () => {
     // Se cuenta en la clausula del hueco y por CORTE_FUERTE, no por
     // CORTE_DE_CLAUSULA: el objeto de la principal es legitimo tras la coma y dos
@@ -679,9 +757,16 @@ describe('fare-cond-imperativo — distractoras del condizionale presente, el fu
     // haria DEFENDIBLE y la variante tendria dos respuestas correctas: es el
     // mismo modo de fallo que D-43-10 declara del otro slot, por la puerta de al
     // lado, y por la cascada D-54 cuesta el reset de las 17 variantes.
+    // WR-03: se escanean los literales Y las familias abiertas (complemento de
+    // termino, de distancia, comparativo y adjetivo pospuesto). La prueba de que
+    // los patrones hacen falta esta en el propio contenido: la redaccion original
+    // del slot 2 usaba `entro venerdi`, que la lista de literales no habria visto.
     const sucio = [];
     eachVariant(PRESENTE, (v, k) => {
-      const hits = DEITTICI_FUTURO.filter((x) => wordish(x).test(v.prompt));
+      const hits = [
+        ...DEITTICI_FUTURO.filter((x) => wordish(x).test(v.prompt)),
+        ...DEITTICI_FUTURO_RE.filter((re) => re.test(v.prompt)).map((re) => String(re)),
+      ];
       if (hits.length) sucio.push(`${PRESENTE}#${k}: ${hits.join(', ')} en "${v.prompt}"`);
     });
     assert.deepEqual(sucio, [], 'D-43-09: un deictico de futuro hace defendible la distractora de futuro');
@@ -736,6 +821,59 @@ describe('fare-cond-imperativo — distractoras del condizionale passato, el cal
       if (wordish('se').test(v.prompt)) sucio.push(`${PASSATO}#${k}: "${v.prompt}"`);
     });
     assert.deepEqual(sucio, [], 'D-43-10: una protasis condicional reabre la lectura hipotetica presente');
+  });
+
+  test('GATE HARD (CR-01): toda variante con trapassato en options lleva su EXCLUSOR de la lectura anterior', () => {
+    // EL DEFECTO QUE ESTO ARREGLA, para que nadie lo reintroduzca: el gate de
+    // ausencia de protasis de aqui arriba neutraliza la distractora de
+    // condizionale PRESENTE, que es la que mira, y NINGUNA otra. Con el trapassato
+    // de la misma persona en las 6 variantes, solo estaban blindadas las 2 con
+    // cola adversativa; en las otras 4 la lectura anterior era defendible y en
+    // dos era la lectura POR DEFECTO (`Sapevo che tu avevi fatto i compiti da
+    // solo` es italiano perfecto y significa otra cosa). Dos respuestas
+    // defendibles es `disputed` sticky, y por la cascada D-54 el reset de las 17.
+    //
+    // El exclusor es uno de dos, y el gate acepta cualquiera de los dos:
+    //   - adverbial PROSPECTIVO que GOBIERNE la clausula del hueco: hace
+    //     INCOHERENTE el trapassato, porque nada puede haberse hecho ya en un
+    //     momento posterior al punto de referencia. Va por ambito y no por
+    //     presencia, por la misma razon que el marco de D-43-11: desplazado a
+    //     otra clausula modifica al verbo de esa clausula.
+    //   - cola de NO REALIZACION: contradice que la accion ocurriera. Va por
+    //     presencia, porque una cola adversativa vive por definicion en otra
+    //     clausula y exigirle ambito seria insatisfacible.
+    const sucio = [];
+    eachVariant(PASSATO, (v, k) => {
+      const trapassati = v.options.filter((o) => TRAPASSATO.includes(o));
+      if (trapassati.length === 0) return;
+      const prospettivo = AVVERBIALI_PROSPETTIVI.filter((a) => gobiernaElHueco(v.prompt, a));
+      const coda = CODE_DI_NON_REALIZZAZIONE.filter((c) => v.prompt.includes(c));
+      if (prospettivo.length === 0 && coda.length === 0) {
+        sucio.push(`${PASSATO}#${k} ofrece "${trapassati.join(', ')}" sin exclusor: "${v.prompt}"`);
+      }
+    });
+    assert.deepEqual(
+      sucio,
+      [],
+      'CR-01 / D-43-10: con el trapassato en options y sin adverbial prospectivo ni cola de no realizacion, la lectura anterior es DEFENDIBLE y la variante tiene dos respuestas correctas'
+    );
+  });
+
+  test('CR-01: el conjunto cerrado de anclas NO admite un tercer grupo, y menos el de diceria', () => {
+    // Self-check de constantes a proposito, como los de WR-03/IN-09 del analogo:
+    // no lee el JSON y no puede ponerse rojo por contenido. Su funcion es impedir
+    // que una pasada futura reintroduzca el marco de rumor o atenuacion en pasado
+    // —`Secondo il giornale`, `A quanto pare`—, que es la UNICA familia que no
+    // puede excluir la lectura anterior por ningun medio, porque la diceria lee
+    // igual de bien en condizionale passato y en trapassato. Se retiro en CR-01.
+    const huerfanas = ANCLE_PASSATO.filter(
+      (a) => !ANCLE_FUTURO_NEL_PASSATO.some((x) => x.lit === a) && !CODE_DI_NON_REALIZZAZIONE.includes(a)
+    );
+    assert.deepEqual(
+      huerfanas,
+      [],
+      'CR-01: las anclas de este slot solo pueden ser de futuro-nel-passato o de no realizacion; cualquier otra familia reabre la doble lectura'
+    );
   });
 
   test('cada prompt del passato lleva EXACTAMENTE un ancla del conjunto cerrado, y las 6 son distintas', () => {
