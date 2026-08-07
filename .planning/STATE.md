@@ -6,7 +6,7 @@ current_phase: 43
 current_phase_name: fare-cond-imperativo-fare-indefiniti-3-6-slots
 status: verifying
 stopped_at: Completed 43-02-PLAN.md
-last_updated: "2026-08-07T00:48:25.458Z"
+last_updated: "2026-08-07T09:06:55.430Z"
 last_activity: 2026-08-07
 last_activity_desc: Phase 43 execution started
 progress:
@@ -286,6 +286,7 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - [Phase ?]: 43-02: la excepcion acotada de facente va escrita en los DOS sitios que la hacen efectiva — el notes del fichero y la seccion 7 de 09-VALIDATION-PROMPT.md, antes de la linea de cierre y con punteros desde C1/C2/C3 — mas la ruta arreglada en los 2 skills del quorum
 - [Phase ?]: 43-01 CR-01: un gate de doble validez cubre SOLO la familia de distractoras que mira — el gate de ausencia de protasis neutralizaba el calco de condizionale presente pero dejaba el trapassato defendible en 4 de 6 variantes; cada familia de distractoras necesita su propio exclusor declarado
 - [Phase ?]: 43-01 CR-01: el marco de diceria (Secondo il giornale / A quanto pare) se retira del conjunto cerrado de anclas del condizionale passato — es la unica familia de marco que no puede excluir la lectura anterior por ningun medio
+- [Phase ?]: 43-01 WR-10: un vocativo de nombre propio NO fija el registro (convive con el trato de cortesia en italiano profesional); se cierra con un posesivo de 2a singular, que desambigua por concordancia sin leak R1. Asimetria deliberada con 'Signor Rossi', que no lleva refuerzo porque el titulo de cortesia ya selecciona Lei
 
 ### Pending Todos
 

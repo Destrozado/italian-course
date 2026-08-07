@@ -22,9 +22,9 @@ affects: [43-02-fare-indefiniti, 44-integracion-counts-cruces, INT-02, INT-03, I
 
 # Actuals (#2632)
 actuals:
-  tokens: 27200
+  tokens: 28100
   tasks: 4
-  commits: 5
+  commits: 6
 
 # Tech tracking
 tech-stack:
@@ -93,6 +93,9 @@ coverage:
       - kind: unit
         ref: "tests/content-fare-cond-imperativo.test.js#fare-cond-imperativo — blacklist de formas atestiguadas y defendibles (D-43-04, D-43-07)"
         status: pass
+      - kind: unit
+        ref: "tests/content-fare-cond-imperativo.test.js#las 5 del imperativo llevan su REFUERZO DE REGISTRO declarado, tambien las singulares (WR-10)"
+        status: pass
       - kind: other
         ref: "12 pruebas negativas por mutacion del JSON real (conteo x2, MAGNET x3, audit trail x2, ronda EXTRA, protasis, deictico, vocativo, ambito): las 12 ponen el gate en rojo nombrando su decision"
         status: pass
@@ -150,6 +153,7 @@ status: complete
 3. **Task 3: condizionale passato (CI-02) e imperativo con el MAGNET (CI-03)** — `e0278ba` (feat)
 4. **Task 4: `tests/content-fare-cond-imperativo.test.js`, 13 describe / 63 tests** — `6c00cb5` (test)
 5. **CR-01 del code review: doble validez del trapassato en el condizionale passato** — `32b2eab` (fix)
+6. **WR-10 del UAT: refuerzo de registro en la variante de `Marco`** — `660fa9d` (fix)
 
 **Plan metadata:** `f0e81b0` (docs: complete plan).
 
@@ -293,6 +297,29 @@ None — no external service configuration required.
 5. Un flag C4-accent sobre espanol sin tildes es bug **REAL**: se arreglan los acentos, nunca override.
 
 **Para Phase 44 / INT-02, numeros cerrados:** con esta categoria el milestone va por 20 slots / 95 variantes; con `fare-indefiniti` quedara en **22 slots / 113 variantes** y `TOTAL_EXPECTED` en **247**. El rojo de `VAL_07_STRICT=1` y la ceguera del reporter (`PASS (225/225)`) son el estado **esperado** al cerrar esta fase, no fallos que perseguir. **Para INT-04:** sigue vivo el hallazgo de 43-CONTEXT.md de que los magnets son **cuatro** y no tres — el cuarto (`aver fatto` frente a `avere fatto`) es de 43-02.
+
+## Correccion post-UAT: WR-10 (`660fa9d`)
+
+El autor adjudicó WR-10 en el UAT de la fase: las dos variantes **plurales** del imperativo recibieron refuerzo explícito de registro (`noi due`, `Loro`) y las dos **singulares** no. Decisión: reforzar solo la de `Marco`, dejar `Signor Rossi` como está.
+
+**Por qué solo una.** Las dos singulares no corren el mismo riesgo:
+
+- **`Signor Rossi, ___ il lavoro con calma.` — no se toca.** El título de cortesía más apellido selecciona `Lei` de forma inequívoca en italiano estándar moderno. El `voi` de cortesía hacia un solo destinatario es meridional o arcaico, y esta categoría ya lo trata bajo RECONOCER, NO PRODUCIR; `facciano` hacia una sola persona no es lectura. **El título es el refuerzo.**
+- **`Marco, ___ una foto al gruppo!` — sí se refuerza.** Un vocativo de nombre propio no fija nada por sí solo: en un entorno profesional italiano es corriente tratarse por el nombre de pila y seguir usando el usted, así que `Marco, faccia pure una foto` es italiano real y la variante admitía `faccia` como segunda lectura defendible. Es el modo de fallo de CR-01 en menor grado.
+
+**Vía elegida: posesivo de 2ª singular.**
+
+`Marco, ___ una foto al gruppo!` → **`Marco, ___ una foto con il tuo telefono!`**
+
+Fija el registro por **concordancia** y no por glosa: en el trato de cortesía sería el posesivo de 3ª con mayúscula, así que `il tuo` excluye esa lectura **sin nombrar en ningún momento la persona gramatical ni la desinencia** — R1 intacto. Es el mecanismo del pronombre sujeto explícito de D-41-07 aplicado al posesivo.
+
+Descartadas: el marcador de confianza `Dai` (ya encabeza el marcador de la variante de `noi`, y reusarlo enturbiaría el conjunto cerrado) y `per favore` (neutro entre los dos registros, no cierra nada). El objeto `una foto` se mantiene — el SCOPE-GATE no se relaja.
+
+**Gate nuevo.** El review señaló la brecha exacta: el gate de `MARCADORES` comprobaba **presencia** de un vocativo del conjunto cerrado, no que ese vocativo **desambiguara**. `RINFORZO_DI_REGISTRO` declara por variante el literal que cierra el registro **y la vía por la que lo cierra**, y el bloque 3 exige que esté en el prompt. La tabla lleva la vía y no solo el literal precisamente para que la asimetría adjudicada sea legible y no se iguale por inercia.
+
+**Notes actualizado:** el párrafo del gate de vocativo pasa de «DOS PRECISIONES» a «TRES», y la tercera declara la **asimetría deliberada** entre las dos singulares con su razonamiento entero. Sin esa línea escrita, un re-pase futuro «arreglaría» la asimetría y perdería la adjudicación del autor.
+
+**5 mutaciones nuevas**, incluida la **regresión literal** del prompt que shippeó sin refuerzo y el caso invertido (posesivo de cortesía en la variante de tú, que es el registro al revés). Las 22 anteriores siguen mordiendo; el JSON queda restaurado byte a byte en las 27. Suite: **999 pass / 0 fail**.
 
 **Transferido al plan 43-02:** WR-05 del code review (`CONCORD_CUES` con `includes()` crudo sobre bigramas de dos letras en `tests/content-fare-indefiniti.test.js`, que hace match dentro de `Michele ha`). Es un hallazgo real y barato, pero ese fichero es propiedad exclusiva de 43-02 y este plan lo tiene prohibido tocar. El arreglo es usar el matcher con frontera de palabra que el propio fichero ya declara en su cabecera.
 
