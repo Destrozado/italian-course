@@ -300,6 +300,40 @@ const ANCLE_PASSATO = [
 // el UNICO desambiguador entre las cinco formas es a quien se le habla.
 const MARCADORES = ['Marco,', 'Signor Rossi,', 'Dai, noi due', 'Bambini,', 'Signori,'];
 
+// WR-10 (revision de codigo del 2026-08-07, adjudicado por el autor en el UAT) —
+// EL REFUERZO DE REGISTRO, y la ASIMETRIA DELIBERADA entre las dos singulares.
+//
+// EL DEFECTO QUE ESTO ARREGLA: el gate de MARCADORES comprueba PRESENCIA de un
+// vocativo del conjunto cerrado, no que ese vocativo DESAMBIGUE el registro. Las
+// dos variantes PLURALES si recibieron refuerzo explicito (`noi due`, `Loro`);
+// las dos SINGULARES no. Y no corren el mismo riesgo:
+//
+//   - `Signor Rossi,` — NO lleva refuerzo, y es DECISION ADJUDICADA, no olvido.
+//     El titulo de cortesia mas apellido selecciona `Lei` de forma inequivoca en
+//     italiano estandar moderno. El `voi` de cortesia hacia un solo destinatario
+//     es meridional o arcaico y esta cubierto por RECONOCER, NO PRODUCIR;
+//     `facciano` hacia una sola persona no es lectura. El titulo ES el refuerzo.
+//   - `Marco,` — SI lo lleva. Un vocativo de NOMBRE PROPIO no fija nada por si
+//     solo: en un entorno profesional italiano es corriente tratarse por el
+//     nombre de pila y seguir usando el usted, asi que `Marco, faccia pure una
+//     foto` es italiano real y la variante admitia DOS respuestas defendibles.
+//     Es el modo de fallo de CR-01 en menor grado, y se cierra igual.
+//
+// El refuerzo fija el registro por CONCORDANCIA y nunca por glosa: el posesivo de
+// 2a singular seria el de cortesia con mayuscula en el trato formal, asi que su
+// presencia excluye esa lectura sin nombrar la persona ni la desinencia (R1). Es
+// el pronombre sujeto explicito de D-41-07 aplicado al posesivo.
+//
+// SI SE IGUALA LA ASIMETRIA POR INERCIA, se pierde la adjudicacion: por eso la
+// tabla declara la VIA de cada variante y no solo el literal.
+const RINFORZO_DI_REGISTRO = [
+  { lit: 'il tuo', via: 'possessivo di 2a singolare (WR-10: cierra el nombre propio)' },
+  { lit: 'Signor Rossi', via: 'titolo di cortesia (adjudicado: NO lleva refuerzo anadido)' },
+  { lit: 'noi due', via: 'soggetto inclusivo esplicito' },
+  { lit: 'Bambini', via: 'vocativo di plurale informale' },
+  { lit: 'Loro', via: 'pronome di cortesia con maiuscola' },
+];
+
 // SCOPE-GATE lexico HARD heredado de D-41-06 por D-43-22.
 //
 // WR-04 (revision de codigo del 2026-08-07): esta lista llevaba ademas el literal
@@ -531,6 +565,26 @@ describe('fare-cond-imperativo — pronombre explicito y vocativo inequivoco (D-
       }
     });
     assert.deepEqual(sucio, [], 'D-43-05: gate HARD de vocativo inequivoco');
+  });
+
+  test('las 5 del imperativo llevan su REFUERZO DE REGISTRO declarado, tambien las singulares (WR-10)', () => {
+    // El gate que el review pedia: hoy MARCADORES comprueba PRESENCIA de un
+    // vocativo, no que el vocativo DESAMBIGUE. Esto congela, variante a variante,
+    // el elemento lexico que cierra el registro — y con el, la asimetria
+    // adjudicada entre las dos singulares. Ver el comentario de
+    // RINFORZO_DI_REGISTRO: `Signor Rossi` no lleva refuerzo anadido a proposito.
+    const sucio = [];
+    eachVariant(IMPERATIVO, (v, k) => {
+      const { lit, via } = RINFORZO_DI_REGISTRO[k];
+      if (!v.prompt.includes(lit)) {
+        sucio.push(`${IMPERATIVO}#${k} (${CANON[IMPERATIVO][k]}) pierde su refuerzo "${lit}" [${via}]: "${v.prompt}"`);
+      }
+    });
+    assert.deepEqual(
+      sucio,
+      [],
+      'WR-10 / D-43-05: sin su refuerzo de registro la variante admite una segunda lectura defendible; la del nombre propio es la que lo necesita porque un vocativo de nombre de pila convive con el trato de cortesia'
+    );
   });
 
   test('los DOS plurales del imperativo llevan su desambiguador extra, que es el gate y no un adorno', () => {
