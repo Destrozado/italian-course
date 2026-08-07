@@ -47,7 +47,7 @@ Pasos 1-9 del workflow (pseudocódigo + tools concretos):
 **Paso 1 — Leer VALIDATION-PROMPT.md (la fuente de verdad del prompt)**
 
 ```
-Read tool: .planning/phases/09-infraestructura-de-validaci-n/09-VALIDATION-PROMPT.md
+Read tool: .planning/milestones/v1.1-phases/09-infraestructura-de-validaci-n/09-VALIDATION-PROMPT.md
 → guarda el contenido completo en variable VALIDATION_PROMPT
 ```
 
@@ -228,7 +228,7 @@ Bajo batched-curation, el LLM perdía atención sobre ejercicios individuales �
 
 Antes de cada invocación, este skill DEBE leer (con Read tool):
 
-1. `.planning/phases/09-infraestructura-de-validaci-n/09-VALIDATION-PROMPT.md` — el prompt R1-R7 + C1-C5 + contrato JSON output (D-VAL-09/10/11). Self-contained — es lo único que se manda al subagent.
+1. `.planning/milestones/v1.1-phases/09-infraestructura-de-validaci-n/09-VALIDATION-PROMPT.md` — el prompt R1-R7 + C1-C5 + contrato JSON output (D-VAL-09/10/11). Self-contained — es lo único que se manda al subagent.
 
 2. `src/data/validation-state.js` — para usar `deriveStatus(passes[])` en el Paso 7 (regla D-VAL-07 sticky disputed).
 

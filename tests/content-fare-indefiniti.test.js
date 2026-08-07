@@ -1,0 +1,1225 @@
+// tests/content-fare-indefiniti.test.js
+//
+// v2.0 Phase 43 (INDEF-01..INDEF-04) — invariantes PERMANENTES de la categoria
+// `fare-indefiniti`: los 6 slots del paradigma NO PERSONAL de `fare` (infinito
+// presente, infinito passato, participio passato, participio presente, gerundio
+// presente y gerundio passato) con 3, 3, 4, 2, 3 y 3 variantes = 18. Se ejecuta:
+//
+//     node --test tests/content-fare-indefiniti.test.js
+//
+// y entra tambien en el glob de la suite completa:
+//
+//     node --test tests/*.test.js
+//
+// ADVERTENCIA DE ESCANEO (heredada de 41-01, 42-01 y 43-01, no negociable):
+// todos los escaneos de AUSENCIA de este fichero van SIEMPRE por campo —
+// `variants[].prompt` y `variants[].options[]`, sobre el JSON parseado — y NUNCA
+// sobre el fichero completo, ni sobre `notes`, ni sobre `explanation`. El `notes`
+// de la categoria NOMBRA a proposito la grafia no elidida del infinito compuesto,
+// los cinco pronombres prohibidos y las perifrasis excluidas, con su audit trail,
+// y las explanations TIENEN que nombrar la no elidida (D-43-17) y el registro
+// burocratico del participio presente (INDEF-03); un grep de fichero entero se
+// auto-invalidaria y un escaneo que incluyera `explanation` pondria rojo justo el
+// texto que el requisito pide. En `options` la coincidencia es EXACTA; en
+// `prompt` va por palabra Unicode. Ojo particular de esta categoria: `ne` y `ci`
+// son subcadenas de decenas de palabras italianas, asi que su escaneo va por
+// palabra suelta y ACOTADO al slot del participio passato.
+//
+// LAS CINCO DESVIACIONES DELIBERADAS respecto del analogo
+// `tests/content-fare-congiuntivo.test.js` y del hermano
+// `tests/content-fare-cond-imperativo.test.js`, declaradas aqui para que quien
+// compare los tres ficheros no las lea como descuidos:
+//
+//   1. D-43-03 — el conteo de variantes por slot es DESIGUAL: 3, 3, 4, 2, 3 y 3.
+//      El `equal(variants.length, N)` uniforme del analogo NO se clona; se
+//      sustituye por la tabla EXPECTED_VARIANTS. El 2 del participio presente NO
+//      es un recorte: la forma es fosilizada y sus contextos reales estan
+//      contados, y forzar un tercero seria inventarlo, que es literalmente lo que
+//      INDEF-03 prohibe. El minimo del motor son 2 variantes por slot.
+//   2. INDEF-01..INDEF-04 — las keys se REPITEN por diseno. El
+//      `new Set(keys).size === n` del molde de Phase 41 NO se clona: en estos
+//      slots las formas son FIJAS, asi que cinco de los seis repiten su key en
+//      todas sus variantes. El sustituto de la unicidad es el gate de TIPO DE
+//      CONTEXTO distinto por variante (bloque 3), no un pronombre.
+//   3. D-41-07 — NO hay gate de pronombre sujeto explicito, y la ausencia es
+//      deliberada. El eje de variante de esta categoria es el CONTEXTO y no la
+//      persona (nota de cabecera del bloque INDEF de REQUIREMENTS.md), asi que el
+//      pronombre no desambigua nada aqui. Declarado para que un re-pase futuro no
+//      lo eche en falta como omision.
+//   4. D-43-18 — EXCEPCION ENUMERADA POR ID DE SLOT al gate del objeto literal.
+//      El gate del analogo es global sobre todas las variantes; aqui las 2 de
+//      `fare-indefiniti-participio-presente` quedan exentas y a cambio DEBEN
+//      llevar el sustantivo de su compuesto declarado inmediatamente despues del
+//      hueco. La exencion va por id, nunca como relajacion global, y el gate de
+//      PERIPHRASIS sigue mordiendo en las 18.
+//   5. D-43-16 — EXCEPCION ENUMERADA al gate de tipos de contexto distintos.
+//      `fare-indefiniti-participio-passato` repite dos veces cada uno de sus dos
+//      tipos porque su eje es la TERMINACION y no el encaje; es la unica
+//      excepcion, va por id, y se comprueba como patron 2 + 2.
+//
+// PRECISION DE PLAN-TIME sobre el conjunto de objetos (Correcciones 4 del plan
+// 43-02): el conjunto cerrado heredado de D-41-06 tiene siete miembros y NINGUN
+// femenino plural, pero la variante de concordancia femenina plural necesita un
+// antecedente femenino plural. Se amplia con las INFLEXIONES EN PLURAL de dos de
+// sus propios miembros (`le foto` y `le torte`): no se anade ningun objeto lexico
+// nuevo, es el mismo conjunto flexionado donde la sintaxis lo exige.
+//
+// Este fichero NO duplica lo que ya cubren otros tests: la validacion de schema
+// del bundle auto-descubierto vive en tests/domain.test.js, y el coverage de
+// explanations, los apostrofes ASCII, el no-markdown, el leak R1, los cross-refs
+// R2 y el gate VAL_07_STRICT viven en el smoke parametrico de
+// tests/exercise-types.test.js.
+
+import { test, describe } from 'node:test';
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+
+import { deriveStatus } from '../src/data/validation-state.js';
+
+const CONTENT = JSON.parse(
+  readFileSync(new URL('../content/exercises/fare-indefiniti.json', import.meta.url), 'utf-8')
+);
+const CATEGORIES = JSON.parse(
+  readFileSync(new URL('../content/categories.json', import.meta.url), 'utf-8')
+);
+
+const SLUG = 'fare-indefiniti';
+const SLOTS = CONTENT.exercises;
+const byId = (id) => SLOTS.find((s) => s.id === id);
+const keyOf = (v) => v.options[v.correctIndex];
+const eachVariant = (slotId, fn) => byId(slotId).variants.forEach((v, k) => fn(v, k));
+const allVariants = () => SLOTS.flatMap((s) => s.variants.map((v, k) => ({ slot: s, v, k })));
+
+// Matcher con frontera de PALABRA UNICODE. `\b` de JS es ASCII-only y aqui hay
+// prompts con `è` y con `già`. Lleva `iu` y no solo `u` por WR-10: sin la `i`, la
+// posicion donde una forma prohibida aparece de verdad —INICIO DE ORACION— era
+// justo la que no se veia.
+const wordish = (s) =>
+  new RegExp(`(^|[^\\p{L}])${s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}([^\\p{L}]|$)`, 'iu');
+
+const APOSTROFE = String.fromCharCode(39);
+
+// WR-07 / WR-08, clonados del analogo — LA CLAUSULA QUE GOBIERNA EL HUECO. Corte
+// tosco por puntuacion, no analisis sintactico, y falla cerrado. Es la unidad
+// para contar OBJETOS: el objeto de la otra clausula es legitimo tras la coma,
+// pero dos objetos coordinados en la MISMA clausula le darian dos complementos al
+// mismo verbo y enturbiarian lo que se examina.
+const CORTE_FUERTE = /[,;.:—–]+/u;
+const segmentoDelHueco = (p) => p.split(CORTE_FUERTE).find((s) => s.includes('___')) || '';
+const antesDelHueco = (p) => p.split('___')[0].trimEnd();
+const despuesDelHueco = (p) => p.split('___')[1].trimStart();
+
+// ───────────────────────────────────────────────────────────────────────────
+// Constantes de datos: la especificacion EJECUTABLE de la categoria.
+// ───────────────────────────────────────────────────────────────────────────
+
+const INF_PRES = 'fare-indefiniti-infinito-presente';
+const INF_PASS = 'fare-indefiniti-infinito-passato';
+const PART_PASS = 'fare-indefiniti-participio-passato';
+const PART_PRES = 'fare-indefiniti-participio-presente';
+const GER_PRES = 'fare-indefiniti-gerundio-presente';
+const GER_PASS = 'fare-indefiniti-gerundio-passato';
+
+// DESVIACION 2 — las keys se REPITEN a proposito: la forma es fija y el eje es el
+// contexto. La unica excepcion es el participio passato, cuyo eje SI es la forma.
+const CANON = {
+  [INF_PRES]: ['fare', 'fare', 'fare'],
+  [INF_PASS]: ['aver fatto', 'aver fatto', 'aver fatto'],
+  [PART_PASS]: ['fatto', 'fatto', 'fatti', 'fatte'],
+  [PART_PRES]: ['facente', 'facenti'],
+  [GER_PRES]: ['facendo', 'facendo', 'facendo'],
+  [GER_PASS]: ['avendo fatto', 'avendo fatto', 'avendo fatto'],
+};
+const IDS = Object.keys(CANON);
+
+// DESVIACION 1 — el conteo es DESIGUAL y cada desviacion del reparto uniforme
+// esta justificada en el `notes` por su nombre (D-43-03).
+const EXPECTED_VARIANTS = {
+  [INF_PRES]: 3,
+  [INF_PASS]: 3,
+  [PART_PASS]: 4,
+  [PART_PRES]: 2,
+  [GER_PRES]: 3,
+  [GER_PASS]: 3,
+};
+const TOTAL_VARIANTES = 18;
+
+// POOL — el universo CERRADO de todas las options de la categoria (D-43-13). Son
+// las 10 formas del paradigma NO PERSONAL y nada mas. Es el gate mas barato de la
+// fase y el que impide que casillas de las otras tres categorias de `fare` entren
+// en el examen de esta.
+const POOL = [
+  'fare', 'aver fatto',
+  'fatto', 'fatta', 'fatti', 'fatte',
+  'facendo', 'avendo fatto',
+  'facente', 'facenti',
+];
+
+// LAS CUATRO TERMINACIONES — el pool fijo del slot de participio passato, el
+// mismo conjunto en sus 4 variantes con el orden variado (D-43-16).
+const TERMINAZIONI = ['fatta', 'fatte', 'fatti', 'fatto'];
+
+// CONJUGATE — la union de las formas conjugadas de `fare` que viven en las OTRAS
+// TRES categorias, leida de sus JSON reales y no declarada a mano, para que siga
+// al contenido. Se usa como gate de AUSENCIA: ninguna de ellas puede entrar en
+// las options de esta categoria. Verificado en plan-time que la interseccion con
+// POOL es vacia, asi que no hace falta restarlo (si algun dia dejara de serlo,
+// este gate se pondria rojo y habria que revisar la frontera, no relajarlo).
+const CONJUGATE = (() => {
+  const set = new Set();
+  for (const f of ['fare-indicativo', 'fare-congiuntivo', 'fare-cond-imperativo']) {
+    const c = JSON.parse(
+      readFileSync(new URL(`../content/exercises/${f}.json`, import.meta.url), 'utf-8')
+    );
+    for (const s of c.exercises) for (const v of s.variants) for (const o of v.options) set.add(o);
+  }
+  return set;
+})();
+
+// BLACKLIST (D-43-17, D-43-07, heredada de D-41-08 y D-42-11). La primera es la
+// grafia NO ELIDIDA del infinito compuesto, que es el CUARTO MAGNET: es correcta
+// y atestiguada, asi que ofrecerla como distractora incorrecta daria por erroneo
+// un italiano bueno. Las cuatro siguientes son las formas con clitico; el resto,
+// las arcaicas heredadas.
+const BLACKLIST = [
+  'avere fatto',
+  'fallo', 'fammi', 'fatelo', 'facci',
+  'facciam', 'facce',
+  'fo', 'fé', 'fenno', 'facea', 'fan', 'face', 'faci',
+  'fei', 'festi', 'femmo', 'feste', 'fero', 'feciono',
+  'fici', 'facisti', 'facette', 'facettero', 'facero',
+];
+
+// CONTEXT_TYPES — la lista CERRADA de tipos de encaje sintactico (D-43-12). El
+// eje de variante de esta categoria es el contexto, asi que este conjunto es el
+// analogo funcional del paradigma de personas de las otras tres categorias.
+const CONTEXT_TYPES = [
+  'tras-preposicion',
+  'tras-regente-de-infinitivo',
+  'sujeto-o-nominal',
+  'imperativo-negativo-2sg',
+  'implicita-causal',
+  'implicita-temporal',
+  'implicita-modal',
+  'implicita-concesiva',
+  'marco-progresivo',
+  'compuesto-lexicalizado-singular',
+  'compuesto-lexicalizado-plural',
+  'objeto-pospuesto-auxiliar-posesion',
+  'pronombre-antepuesto-concordancia',
+];
+
+// PRONOMBRES_PROHIBIDOS — los cuatro de 1a y 2a persona (concordancia OPCIONAL en
+// italiano estandar) y el partitivo (reglas propias). Cualquiera de ellos en un
+// prompt del participio passato abriria DOS respuestas defendibles y, por la
+// cascada D-54, costaria el reset de las 18 variantes (D-43-16).
+const PRONOMBRES_PROHIBIDOS = ['mi', 'ti', 'ci', 'vi', 'ne'];
+
+// CONCORD_CUES — los bigramas ADMITIDOS: pronombre de 3a PLURAL antepuesto mas
+// una forma del auxiliar de posesion. Solo el plural, porque con el singular el
+// auxiliar se elide y la vocal elidida no dice el genero (Correcciones 5).
+const CONCORD_CUES = [
+  'li ha', 'le ha', 'li ho', 'le ho', 'li hai', 'le hai',
+  'li abbiamo', 'le abbiamo', 'li avete', 'le avete', 'li hanno', 'le hanno',
+];
+// CONCORD_PROHIBIDOS — los bigramas de 3a SINGULAR antepuesto, elididos o no.
+const CONCORD_PROHIBIDOS = [
+  'lo ha', 'la ha', 'lo ho', 'la ho',
+  `l${APOSTROFE}ho`, `l${APOSTROFE}ha`, `l${APOSTROFE}hai`,
+  `l${APOSTROFE}abbiamo`, `l${APOSTROFE}avete`, `l${APOSTROFE}hanno`,
+];
+
+// DEITTICI_PASSATO — conjunto CERRADO de adverbiales de pasado admitidos en el
+// infinito passato. Con la preposicion de posterioridad que gobierna el hueco son
+// las dos UNICAS maneras de forzar la anterioridad; sin una de las dos, el
+// infinito simple seria igualmente defendible (INDEF-01).
+const DEITTICI_PASSATO = [
+  'ieri', 'la settimana scorsa', `l${APOSTROFE}anno scorso`, 'stamattina', 'il mese scorso',
+];
+const PREP_POSTERIORIDAD = 'Dopo';
+
+// MARCADORES_GERUNDIO_PASSATO — conjunto CERRADO del slot de gerundio passato:
+// tres adverbiales de anterioridad mas la particula concesiva.
+const ADVERBIALI_ANTERIORITA = ['la sera prima', 'il giorno prima', 'poco prima'];
+const PARTICELLA_CONCESSIVA = 'Pur';
+const MARCADORES_GERUNDIO_PASSATO = [...ADVERBIALI_ANTERIORITA, PARTICELLA_CONCESSIVA];
+
+// STARE — las formas del verbo de estado admitidas como cabeza del marco
+// progresivo (D-43-15).
+const STARE = ['sto', 'stai', 'sta', 'stiamo', 'state', 'stanno'];
+
+// COMPUESTOS_FACENTE — los DOS sustantivos de los dos compuestos fosilizados que
+// D-43-18 admite, y ninguno mas. Su presencia es OBLIGATORIA en las 2 variantes
+// del participio presente y PROHIBIDA en las otras 16: la excepcion esta
+// enumerada por id de slot, no es una relajacion global.
+const COMPUESTOS_FACENTE = ['funzione', 'parte'];
+
+// SCOPE-GATE lexico HARD heredado de D-41-06 por D-43-22.
+const PERIPHRASIS = ['colazione', 'spesa', 'freddo', 'farcel', 'far fare', 'causativo'];
+// DESVIACION 4 / Correcciones 4: los 7 heredados mas las 2 inflexiones en plural.
+const OBJECTS = [
+  'i compiti', 'un errore', 'il lavoro', 'una torta', 'il letto', 'tutto', 'una foto',
+  'le foto', 'le torte',
+];
+
+// D-43-20 — la ronda EXTRA de deepseek cubre los DOS slots de doble validez de
+// esta categoria: el participio passato completo (4 variantes, el par
+// invariable-frente-a-concordado que SC-4 exige literalmente) y el infinito
+// passato completo (3 variantes, por el CUARTO MAGNET). Son 7 de las 18.
+const EXTRA_ROUND_SLOTS = [PART_PASS, INF_PASS];
+
+// Indices DECLARADOS de las dos variantes que rompen la simetria de options de su
+// slot. Se declaran por indice y no se descubren por conteo ciego, para que el
+// gate compare intencion contra contenido y no contenido contra si mismo.
+const GER_PRES_CON_COMPUESTO = 0; // la del marco progresivo
+const GER_PASS_CON_SIMPLE = 0; // la temporal, con adverbial de anterioridad
+
+// VARIANT_TABLE — la tabla declarativa por variante. Por variante:
+//   tipo   — el tipo de contexto sintactico, del conjunto CERRADO CONTEXT_TYPES
+//   object — el objeto literal del conjunto cerrado, o null en las 2 EXENTAS
+//   cue    — el literal que materializa el tipo en el prompt
+//   pos    — 'antes' / 'despues' / 'libre': donde tiene que estar el cue respecto
+//            al hueco. `antes` y `despues` son ADYACENCIA, no presencia: es lo que
+//            distingue un encaje real de un literal suelto en otra clausula.
+const VARIANT_TABLE = {
+  [INF_PRES]: [
+    { tipo: 'imperativo-negativo-2sg', object: 'un errore', cue: 'non', pos: 'antes' },
+    { tipo: 'tras-preposicion', object: 'i compiti', cue: 'Prima di', pos: 'antes' },
+    { tipo: 'tras-regente-de-infinitivo', object: 'il letto', cue: 'devo', pos: 'antes' },
+  ],
+  [INF_PASS]: [
+    { tipo: 'tras-preposicion', object: 'i compiti', cue: 'Dopo', pos: 'antes' },
+    { tipo: 'tras-regente-de-infinitivo', object: 'il lavoro', cue: 'contenta di', pos: 'antes' },
+    { tipo: 'implicita-causal', object: 'un errore', cue: 'Per', pos: 'antes' },
+  ],
+  [PART_PASS]: [
+    { tipo: 'objeto-pospuesto-auxiliar-posesion', object: 'i compiti', cue: 'ho', pos: 'antes' },
+    { tipo: 'objeto-pospuesto-auxiliar-posesion', object: 'una torta', cue: 'ha', pos: 'antes' },
+    { tipo: 'pronombre-antepuesto-concordancia', object: 'i compiti', cue: 'li ha', pos: 'antes' },
+    { tipo: 'pronombre-antepuesto-concordancia', object: 'le foto', cue: 'le abbiamo', pos: 'antes' },
+  ],
+  [PART_PRES]: [
+    { tipo: 'compuesto-lexicalizado-singular', object: null, cue: 'funzione', pos: 'despues' },
+    { tipo: 'compuesto-lexicalizado-plural', object: null, cue: 'parte', pos: 'despues' },
+  ],
+  [GER_PRES]: [
+    { tipo: 'marco-progresivo', object: 'i compiti', cue: 'sto', pos: 'antes' },
+    { tipo: 'implicita-modal', object: 'un errore', cue: 'Si impara', pos: 'libre' },
+    { tipo: 'implicita-causal', object: 'tutto', cue: 'in fretta', pos: 'libre' },
+  ],
+  [GER_PASS]: [
+    { tipo: 'implicita-temporal', object: 'i compiti', cue: 'la sera prima', pos: 'libre' },
+    { tipo: 'implicita-causal', object: 'il lavoro', cue: 'il giorno prima', pos: 'libre' },
+    { tipo: 'implicita-concesiva', object: 'una torta', cue: 'Pur', pos: 'antes' },
+  ],
+};
+
+const filaDe = (slotId, k) => VARIANT_TABLE[slotId][k];
+const esExento = (slotId) => slotId === PART_PRES;
+
+// ───────────────────────────────────────────────────────────────────────────
+// 1. Estructura y conteos (D-43-03)
+// ───────────────────────────────────────────────────────────────────────────
+
+describe('fare-indefiniti — estructura y conteos (D-43-03)', () => {
+  test('el fichero tiene exactamente 2 claves top-level: notes y exercises', () => {
+    assert.deepEqual(Object.keys(CONTENT).sort(), ['exercises', 'notes']);
+  });
+
+  test('6 slots con los ids exactos, en el orden en que viven en disco', () => {
+    assert.deepEqual(SLOTS.map((s) => s.id), IDS, 'D-43-22: los 6 ids del paradigma no personal');
+  });
+
+  test('los 6 slots son multiple-choice: 0 match y 0 word-buttons (D-43-22)', () => {
+    const otros = SLOTS.filter((s) => s.type !== 'multiple-choice').map((s) => `${s.id}(${s.type})`);
+    assert.deepEqual(otros, [], 'D-43-22: MC-only, el 0-match y el 0-wb son decision razonada (DESIGN RULE D-04)');
+  });
+
+  test('CONTEO DESIGUAL 3/3/4/2/3/3 y 18 en total, con el 2 y el 4 justificados (D-43-03)', () => {
+    // DESVIACION 1. El 2 del participio presente va PRIMERO y con mensaje propio:
+    // es la desviacion que un re-pase futuro podria leer como recorte, y lo que
+    // tiene que ver en el diff es INDEF-03, no un aviso generico de conteo.
+    assert.equal(
+      byId(PART_PRES).variants.length,
+      2,
+      'INDEF-03 / D-43-03: el participio presente lleva EXACTAMENTE 2 variantes porque la forma es fosilizada y sus contextos reales estan contados; forzar un tercero seria inventarlo, que es literalmente lo que el requisito prohibe. El minimo del motor son 2, asi que es legal.'
+    );
+    assert.equal(
+      byId(PART_PASS).variants.length,
+      4,
+      'INDEF-02 / SC-4 / D-43-03: el participio passato lleva EXACTAMENTE 4 porque tiene que alojar 2 invariables + 2 concordadas; con menos no hay contraste'
+    );
+    for (const id of IDS) {
+      assert.equal(
+        byId(id).variants.length,
+        EXPECTED_VARIANTS[id],
+        `D-43-03: ${id} debe tener ${EXPECTED_VARIANTS[id]} variantes`
+      );
+    }
+    assert.equal(
+      SLOTS.reduce((a, s) => a + s.variants.length, 0),
+      TOTAL_VARIANTES,
+      'D-43-03: 3 + 3 + 4 + 2 + 3 + 3 = 18 variantes'
+    );
+  });
+
+  test('categoryIds de longitud 1 con el slug COMPLETO en los 6 (D-43-22, D-40-03)', () => {
+    const sucio = SLOTS
+      .filter((s) => !Array.isArray(s.categoryIds) || s.categoryIds.length !== 1 || s.categoryIds[0] !== SLUG)
+      .map((s) => `${s.id}(${JSON.stringify(s.categoryIds)})`);
+    assert.deepEqual(sucio, [], `D-43-22: categoryIds debe ser exactamente ["${SLUG}"]`);
+  });
+
+  test('el key set de cada slot y de cada variante es el del schema (T-43-02)', () => {
+    for (const s of SLOTS) {
+      assert.deepEqual(
+        Object.keys(s).sort(),
+        ['categoryIds', 'explanation', 'id', 'type', 'validation', 'variants'],
+        `key set del slot ${s.id}`
+      );
+      s.variants.forEach((v, k) => {
+        assert.deepEqual(Object.keys(v).sort(), ['correctIndex', 'options', 'prompt'], `key set de ${s.id}#${k}`);
+      });
+    }
+  });
+
+  test('options de 4 sin duplicados y correctIndex entero en rango y no constante por slot', () => {
+    for (const s of SLOTS) {
+      s.variants.forEach((v, k) => {
+        assert.equal(v.options.length, 4, `${s.id}#${k}: 4 opciones`);
+        assert.equal(new Set(v.options).size, 4, `${s.id}#${k}: opciones sin duplicados internos`);
+        assert.ok(
+          Number.isInteger(v.correctIndex) && v.correctIndex >= 0 && v.correctIndex < 4,
+          `${s.id}#${k}: correctIndex fuera de rango: ${v.correctIndex}`
+        );
+      });
+      assert.ok(
+        new Set(s.variants.map((v) => v.correctIndex)).size > 1,
+        `${s.id}: correctIndex constante — el autor aprenderia la posicion y no la forma`
+      );
+    }
+  });
+
+  test('ningun id lleva sufijo numerico de 3 cifras: el espacio -300+ queda libre (D-41-14, D-40-07)', () => {
+    const usados = SLOTS.map((s) => s.id).filter((id) => /-\d{3}$/.test(id));
+    assert.deepEqual(usados, [], 'D-43-22: fare-indefiniti-300+ es espacio reservado para Phase 44 / INT-03');
+  });
+});
+
+// ───────────────────────────────────────────────────────────────────────────
+// 2. Paradigma no personal, 18 keys con repeticion deliberada (INDEF-01..04)
+// ───────────────────────────────────────────────────────────────────────────
+
+describe('fare-indefiniti — paradigma no personal, 18 keys con repeticion deliberada (INDEF-01..INDEF-04)', () => {
+  for (const id of IDS) {
+    test(`${id}: las keys son las de CANON, en orden`, () => {
+      assert.deepEqual(byId(id).variants.map(keyOf), CANON[id], `paradigma de ${id}`);
+    });
+  }
+
+  test('DESVIACION 2: cinco de los seis slots REPITEN su key, y eso es correcto', () => {
+    // NO se clona el `new Set(keys).size === n` del molde de Phase 41. En estos
+    // slots la forma es FIJA, asi que la unicidad de la respuesta NO puede
+    // apoyarse en que las keys sean distintas: se apoya en el encaje sintactico,
+    // que es lo que congela el bloque 3. Este assert existe para que la
+    // repeticion sea INTENCIONAL y comprobada, no un efecto colateral.
+    const conRepeticion = IDS.filter((id) => new Set(CANON[id]).size < CANON[id].length);
+    assert.equal(
+      conRepeticion.length,
+      5,
+      `INDEF-01..INDEF-04: cinco de los seis slots repiten alguna key por diseno, y repiten ${conRepeticion.length}: ${conRepeticion.join(', ')}`
+    );
+    const todasIguales = IDS.filter((id) => new Set(CANON[id]).size === 1 && CANON[id].length > 1);
+    assert.equal(
+      todasIguales.length,
+      4,
+      `INDEF-01..INDEF-04: cuatro slots tienen la MISMA key en todas sus variantes porque la forma no cambia nunca, y son ${todasIguales.length}: ${todasIguales.join(', ')}`
+    );
+    assert.ok(
+      !todasIguales.includes(PART_PASS),
+      'D-43-16: el participio passato es el UNICO cuyo eje es la forma, asi que sus keys no pueden ser todas iguales; repite `fatto` dos veces por el reparto 2 + 2'
+    );
+    assert.equal(
+      new Set(CANON[PART_PRES]).size,
+      2,
+      'INDEF-03: el participio presente es el unico slot SIN repeticion: sus 2 variantes contrastan singular y plural'
+    );
+  });
+
+  test('las 18 keys salen del POOL no personal y ninguna es una forma conjugada', () => {
+    const sucio = [];
+    for (const { slot, v, k } of allVariants()) {
+      const key = keyOf(v);
+      if (!POOL.includes(key)) sucio.push(`${slot.id}#${k}: "${key}"`);
+      if (CONJUGATE.has(key)) sucio.push(`${slot.id}#${k}: "${key}" es forma conjugada de otra categoria`);
+    }
+    assert.deepEqual(sucio, [], 'D-43-13: la key de cada variante es una forma NO PERSONAL de fare');
+  });
+
+  test('la key de cada variante aparece EXACTAMENTE una vez en sus options', () => {
+    for (const { slot, v, k } of allVariants()) {
+      assert.equal(
+        v.options.filter((o) => o === keyOf(v)).length,
+        1,
+        `${slot.id}#${k}: la key aparece una sola vez`
+      );
+    }
+  });
+});
+
+// ───────────────────────────────────────────────────────────────────────────
+// 3. Tipos de contexto sintactico, conjunto cerrado y distintos por slot (D-43-12)
+// ───────────────────────────────────────────────────────────────────────────
+
+describe('fare-indefiniti — tipos de contexto sintactico, conjunto cerrado y distintos por slot (D-43-12)', () => {
+  test('la tabla declara las 18 filas, una por variante en disco', () => {
+    for (const id of IDS) {
+      assert.equal(
+        VARIANT_TABLE[id].length,
+        EXPECTED_VARIANTS[id],
+        `${id}: la tabla y el disco tienen que declarar el mismo numero de variantes`
+      );
+    }
+  });
+
+  test('cada variante declara un tipo del conjunto CERRADO CONTEXT_TYPES', () => {
+    const sucio = [];
+    for (const id of IDS) {
+      VARIANT_TABLE[id].forEach((f, k) => {
+        if (!CONTEXT_TYPES.includes(f.tipo)) sucio.push(`${id}#${k}: "${f.tipo}"`);
+      });
+    }
+    assert.deepEqual(sucio, [], 'D-43-12: tipo de contexto fuera del conjunto cerrado');
+  });
+
+  test('el cue declarado de cada variante esta en su prompt Y en la POSICION que la tabla dice', () => {
+    // La tabla declara la INTENCION y el gate NO se la cree: `antes` y `despues`
+    // son ADYACENCIA al hueco, no presencia en cualquier punto del prompt. Es lo
+    // que distingue un encaje sintactico real de un literal suelto en otra
+    // clausula, que es exactamente como vuelve la doble respuesta.
+    const sucio = [];
+    for (const id of IDS) {
+      eachVariant(id, (v, k) => {
+        const { cue, pos } = filaDe(id, k);
+        if (!v.prompt.includes(cue)) { sucio.push(`${id}#${k}: falta el cue "${cue}" en "${v.prompt}"`); return; }
+        if (pos === 'antes' && !antesDelHueco(v.prompt).endsWith(cue)) {
+          sucio.push(`${id}#${k}: "${cue}" no es la palabra inmediatamente ANTERIOR al hueco: "${v.prompt}"`);
+        }
+        if (pos === 'despues' && !despuesDelHueco(v.prompt).startsWith(cue)) {
+          sucio.push(`${id}#${k}: "${cue}" no es la palabra inmediatamente POSTERIOR al hueco: "${v.prompt}"`);
+        }
+      });
+    }
+    assert.deepEqual(sucio, [], 'D-43-12: el cue declarado no materializa el tipo en la posicion declarada');
+  });
+
+  test('dentro de cada slot los tipos son TODOS DISTINTOS, salvo la excepcion enumerada del participio passato', () => {
+    // DESVIACION 5. En un slot de forma fija, tres frases que no examinan tres
+    // encajes distintos son el mismo ejercicio tres veces, y con 18 variantes
+    // dejarlo al quorum se paga dieciocho veces.
+    for (const id of IDS) {
+      if (id === PART_PASS) continue;
+      const tipos = VARIANT_TABLE[id].map((f) => f.tipo);
+      assert.equal(
+        new Set(tipos).size,
+        tipos.length,
+        `D-43-12: ${id} repite tipo de contexto: ${tipos.join(' | ')}`
+      );
+    }
+  });
+
+  test('EXCEPCION ENUMERADA: el participio passato repite 2 + 2 porque su eje es la TERMINACION (D-43-16)', () => {
+    const tipos = VARIANT_TABLE[PART_PASS].map((f) => f.tipo);
+    const cuenta = tipos.reduce((a, t) => ({ ...a, [t]: (a[t] || 0) + 1 }), {});
+    assert.deepEqual(
+      Object.values(cuenta).sort(),
+      [2, 2],
+      `D-43-16: el patron declarado de ${PART_PASS} es 2 invariables + 2 concordadas, y es: ${tipos.join(' | ')}`
+    );
+    assert.equal(new Set(tipos).size, 2, 'D-43-16: exactamente dos tipos, no tres');
+  });
+});
+
+// ───────────────────────────────────────────────────────────────────────────
+// 4. 0-gloss del VERBO (D-41-05, D-43-22)
+// ───────────────────────────────────────────────────────────────────────────
+
+describe('fare-indefiniti — 0-gloss del verbo (D-41-05, D-43-22)', () => {
+  // GATE ESTRICTO Y SIN LA EXCEPCION LEXICA DE PHASE 42: aqui no hay ninguna
+  // conjuncion por encima de A1 que glosar, y el unico candidato de gloss habria
+  // sido la forma del verbo, que es exactamente lo que se pregunta.
+  test('ningun prompt menciona el espanol en ninguna capitalizacion', () => {
+    const sucio = allVariants()
+      .filter(({ v }) => /espa/i.test(v.prompt))
+      .map(({ slot, k, v }) => `${slot.id}#${k}: "${v.prompt}"`);
+    assert.deepEqual(sucio, [], 'D-41-05: gloss explicito de traduccion en un prompt');
+  });
+
+  test('ningun prompt lleva parentesis: en esta categoria no hay ningun gloss admitido', () => {
+    const sucio = allVariants()
+      .filter(({ v }) => v.prompt.includes('(') || v.prompt.includes(')'))
+      .map(({ slot, k, v }) => `${slot.id}#${k}: "${v.prompt}"`);
+    assert.deepEqual(sucio, [], 'D-43-22: 0-gloss estricto, sin la excepcion de conjuncion de Phase 42');
+  });
+
+  test('ninguna forma castellana de `hacer` aparece en un prompt, ESTE DONDE ESTE', () => {
+    const HACER_ES = [
+      'hacer', 'hago', 'haces', 'hace', 'hacemos', 'haceis', 'hacéis', 'hacen',
+      'haciendo', 'haga', 'hagas', 'hagamos', 'hagais', 'hagáis', 'hagan',
+      'haria', 'haría', 'harias', 'harías', 'hariamos', 'haríamos', 'harian', 'harían',
+      'hacia', 'hacía', 'hice', 'hiciste', 'hizo', 'hicimos', 'hicieron', 'hecho', 'hechos',
+    ];
+    const sucio = [];
+    for (const { slot, v, k } of allVariants()) {
+      const hits = HACER_ES.filter((f) => wordish(f).test(v.prompt));
+      if (hits.length) sucio.push(`${slot.id}#${k}: ${hits.join(', ')} en "${v.prompt}"`);
+    }
+    assert.deepEqual(sucio, [], 'D-41-05: gloss del VERBO; en este bloque regalaria la casilla entera del paradigma');
+  });
+
+  test('los 18 prompts contienen EXACTAMENTE un hueco literal ___', () => {
+    // Conteo y no presencia (IN-05): el motor sustituye UN hueco, asi que dos
+    // rompen el render, y ademas `segmentoDelHueco` se quedaria con el primero.
+    const sucio = allVariants()
+      .filter(({ v }) => v.prompt.split('___').length !== 2)
+      .map(({ slot, k, v }) => `${slot.id}#${k}: ${v.prompt.split('___').length - 1} huecos`);
+    assert.deepEqual(sucio, [], 'D-43-22: cada prompt lleva exactamente un hueco ___');
+  });
+});
+
+// ───────────────────────────────────────────────────────────────────────────
+// 5. SCOPE-GATE lexico con la excepcion acotada del participio presente
+//    (D-41-06, D-43-18)
+// ───────────────────────────────────────────────────────────────────────────
+
+describe('fare-indefiniti — SCOPE-GATE lexico con la excepcion acotada del participio presente (D-41-06, D-43-18)', () => {
+  test('ninguna de las 18 variantes cruza una perifrasis o el causativo, tampoco las 2 EXENTAS', () => {
+    // La exencion de D-43-18 es del OBJETO LITERAL, no de este gate: el escaneo
+    // de perifrasis muerde igual en las 18. Declarado aqui para que un re-pase
+    // futuro no ensanche la excepcion por inercia.
+    for (const { slot, v, k } of allVariants()) {
+      const campos = [v.prompt, ...v.options];
+      for (const m of PERIPHRASIS) {
+        const sucio = campos.filter((c) => c.toLowerCase().includes(m));
+        assert.deepEqual(sucio, [], `D-41-06: ${slot.id}#${k} cruza la perifrasis "${m}": ${sucio.join(' | ')}`);
+      }
+    }
+  });
+
+  test('las 16 variantes NO exentas llevan el objeto de la tabla, del conjunto cerrado ampliado, y UNO solo por clausula', () => {
+    const sucio = [];
+    let contadas = 0;
+    for (const id of IDS) {
+      if (esExento(id)) continue;
+      eachVariant(id, (v, k) => {
+        contadas += 1;
+        const obj = filaDe(id, k).object;
+        if (!OBJECTS.includes(obj)) { sucio.push(`${id}#${k}: "${obj}" no esta en el conjunto cerrado`); return; }
+        const clausula = segmentoDelHueco(v.prompt);
+        if (!clausula.includes(obj)) { sucio.push(`${id}#${k}: la clausula del hueco no lleva "${obj}"`); return; }
+        const enClausula = OBJECTS.filter((o) => clausula.includes(o));
+        if (enClausula.length !== 1) {
+          sucio.push(`${id}#${k}: ${enClausula.length} objetos en la clausula del hueco (${enClausula.join(', ')})`);
+        }
+      });
+    }
+    assert.equal(contadas, 16, 'D-43-18: son 16 las variantes NO exentas (18 menos las 2 del participio presente)');
+    assert.deepEqual(sucio, [], 'D-41-06: el objeto de `fare` es literal, del conjunto cerrado ampliado, y uno solo por clausula');
+  });
+
+  test('EXCEPCION ACOTADA (D-43-18): las 2 variantes exentas NO declaran objeto y SI llevan su compuesto', () => {
+    // La exencion va enumerada POR ID DE SLOT y a cambio de una obligacion: el
+    // sustantivo del compuesto declarado, inmediatamente despues del hueco. No es
+    // una relajacion, es un cambio de gate.
+    VARIANT_TABLE[PART_PRES].forEach((f, k) => {
+      assert.equal(f.object, null, `D-43-18: ${PART_PRES}#${k} esta EXENTO del objeto literal y no debe declarar ninguno`);
+      assert.equal(
+        f.cue,
+        COMPUESTOS_FACENTE[k],
+        `D-43-18: ${PART_PRES}#${k} tiene que usar el compuesto declarado "${COMPUESTOS_FACENTE[k]}"`
+      );
+      assert.ok(
+        despuesDelHueco(byId(PART_PRES).variants[k].prompt).startsWith(COMPUESTOS_FACENTE[k]),
+        `D-43-18 / INDEF-03: el sustantivo del compuesto va inmediatamente DESPUES del hueco: "${byId(PART_PRES).variants[k].prompt}"`
+      );
+    });
+  });
+
+  test('los dos sustantivos del compuesto NO aparecen en ninguna de las otras 16 variantes', () => {
+    // Es la mitad que hace que la excepcion sea ACOTADA: si el literal pudiera
+    // aparecer en cualquier sitio, la exencion seria global de facto.
+    const sucio = [];
+    for (const { slot, v, k } of allVariants()) {
+      if (esExento(slot.id)) continue;
+      const hits = COMPUESTOS_FACENTE.filter((c) => v.prompt.includes(c));
+      if (hits.length) sucio.push(`${slot.id}#${k}: ${hits.join(', ')} en "${v.prompt}"`);
+    }
+    assert.deepEqual(sucio, [], `D-43-18: la excepcion esta enumerada por id de slot; fuera de ${PART_PRES} el compuesto no entra`);
+  });
+});
+
+// ───────────────────────────────────────────────────────────────────────────
+// 6. Blacklist de formas atestiguadas y defendibles (D-43-16, D-43-17, D-43-07)
+// ───────────────────────────────────────────────────────────────────────────
+
+describe('fare-indefiniti — blacklist de formas atestiguadas y defendibles (D-43-16, D-43-17, D-43-07)', () => {
+  // ESCANEO POR CAMPO. Ver la advertencia de escaneo de la cabecera, que es la
+  // unica declaracion en mayusculas del invariante: el `notes` nombra a proposito
+  // cada una de estas formas y las explanations tienen que nombrar la primera,
+  // asi que nunca se escanea el fichero entero ni `explanation`.
+  const camposDe = (v) => [
+    { campo: 'prompt', texto: v.prompt },
+    ...v.options.map((o) => ({ campo: 'option', texto: o })),
+  ];
+
+  test('ni una opcion ni un prompt de las 18 variantes lleva una forma de la blacklist', () => {
+    // El riesgo real no es que el autor escriba una arcaica: es que la AUTORIA
+    // genere la grafia NO ELIDIDA del infinito compuesto como distractora
+    // "obviamente mala" de la elidida, siendo las dos correctas y atestiguadas.
+    for (const { slot, v, k } of allVariants()) {
+      const sucio = [];
+      for (const { campo, texto } of camposDe(v)) {
+        for (const f of BLACKLIST) {
+          const hit = campo === 'option' ? texto === f || wordish(f).test(texto) : wordish(f).test(texto);
+          if (hit) sucio.push(`${f} (${campo}: "${texto}")`);
+        }
+      }
+      assert.deepEqual(sucio, [], `D-43-17 / D-43-07: ${slot.id}#${k} ofrece o menciona una forma atestiguada: ${sucio.join(', ')}`);
+    }
+  });
+
+  test('ninguna opcion ni prompt lleva una forma CONJUGADA de las otras tres categorias de fare', () => {
+    for (const { slot, v, k } of allVariants()) {
+      const sucio = v.options.filter((o) => CONJUGATE.has(o));
+      assert.deepEqual(sucio, [], `D-43-13: ${slot.id}#${k} invade el paradigma personal de otra categoria: ${sucio.join(', ')}`);
+      const enPrompt = [...CONJUGATE].filter((f) => wordish(f).test(v.prompt));
+      assert.deepEqual(enPrompt, [], `D-43-13: ${slot.id}#${k} menciona una forma conjugada en el prompt: ${enPrompt.join(', ')}`);
+    }
+  });
+
+  test('EN POSITIVO: el notes documenta cada forma de la blacklist entre apostrofes ASCII', () => {
+    const faltan = BLACKLIST.filter((f) => !CONTENT.notes.includes(`${APOSTROFE}${f}${APOSTROFE}`));
+    assert.deepEqual(faltan, [], 'D-43-17 / D-43-07: el notes no documenta estas formas de la blacklist');
+  });
+
+  test('EN POSITIVO: el notes declara los marcadores en MAYUSCULAS de esta categoria', () => {
+    for (const marca of [
+      'EJE = CONTEXTO', 'REPARTO DESIGUAL', 'CONJUNTO CERRADO DE TIPOS DE CONTEXTO',
+      'POOL CERRADO', 'CUARTO MAGNET', 'GATE HARD DE PRONOMBRE',
+      'EXCEPCIÓN ACOTADA AL SCOPE-GATE', 'RECONOCER, NO PRODUCIR', 'NOTA DE REGISTRO',
+    ]) {
+      assert.ok(CONTENT.notes.includes(marca), `D-43-22: el notes no declara "${marca}"`);
+    }
+  });
+
+  test('EN POSITIVO: el notes declara el knock-on aritmetico que Phase 44 / INT-02 necesita', () => {
+    for (const n of ['22 slots', '113', '247']) {
+      assert.ok(CONTENT.notes.includes(n), `INT-02: el notes no declara "${n}"`);
+    }
+  });
+});
+
+// ───────────────────────────────────────────────────────────────────────────
+// 7. Pool CERRADO de options, cero formas conjugadas (D-43-13, SC-3)
+// ───────────────────────────────────────────────────────────────────────────
+
+describe('fare-indefiniti — pool CERRADO de options, cero formas conjugadas (D-43-13, SC-3)', () => {
+  test('la union de las options de las 18 variantes esta contenida en el POOL no personal', () => {
+    // El gate mas barato de la fase: mientras ninguna conjugada entre en options,
+    // este fichero no puede meter casillas de fare-indicativo, fare-congiuntivo ni
+    // fare-cond-imperativo en el examen, que es lo que las tres fases anteriores
+    // evitaron entre si.
+    const union = [...new Set(allVariants().flatMap(({ v }) => v.options))].sort();
+    const ofensoras = union.filter((o) => !POOL.includes(o));
+    assert.deepEqual(ofensoras, [], `D-43-13: options fuera del paradigma no personal: ${ofensoras.join(', ')}`);
+  });
+
+  test('la interseccion de las options con las formas conjugadas de las otras 3 categorias es VACIA', () => {
+    const union = [...new Set(allVariants().flatMap(({ v }) => v.options))];
+    const cruce = union.filter((o) => CONJUGATE.has(o));
+    assert.deepEqual(cruce, [], `SC-3: una conjugada en options bajaria el poder discriminante y cruzaria categorias: ${cruce.join(', ')}`);
+  });
+
+  test('el POOL y el conjunto de formas conjugadas son disjuntos: el gate anterior es satisfacible', () => {
+    // Sin este assert el gate de arriba podria ser verde por vacuidad o rojo por
+    // construccion sin que nadie supiera cual de las dos cosas pasa.
+    const solape = POOL.filter((p) => CONJUGATE.has(p));
+    assert.deepEqual(solape, [], 'D-43-13: si una forma no personal apareciera como option de otra categoria, la frontera habria que revisarla, no relajar el gate');
+  });
+
+  test('el infinito simple esta entre las options de las 3 variantes del infinito passato (INDEF-01)', () => {
+    // Es la distractora del CALCO: el espanol dice despues de hacer con infinitivo
+    // SIMPLE donde el italiano exige el COMPUESTO.
+    const sucio = [];
+    eachVariant(INF_PASS, (v, k) => {
+      if (!v.options.includes('fare')) sucio.push(`${INF_PASS}#${k}: ${v.options.join(', ')}`);
+    });
+    assert.deepEqual(sucio, [], 'INDEF-01: la distractora del calco espanol es obligatoria en las 3');
+  });
+
+  test('la variante de tipo modal NO ofrece el infinito compuesto: seria una segunda respuesta (D-43-13)', () => {
+    // La forma modal con el infinito compuesto es gramatical en italiano con
+    // lectura epistemica, asi que ahi la distractora seria defendible.
+    const modal = VARIANT_TABLE[INF_PRES].findIndex((f) => f.tipo === 'tras-regente-de-infinitivo');
+    assert.ok(modal >= 0, 'la tabla tiene que declarar la variante de tipo modal del infinito presente');
+    assert.ok(
+      !byId(INF_PRES).variants[modal].options.includes('aver fatto'),
+      `D-43-13: ${INF_PRES}#${modal} no puede ofrecer el infinito compuesto tras la forma modal`
+    );
+  });
+});
+
+// ───────────────────────────────────────────────────────────────────────────
+// 8. Participio passato: las 4 terminaciones y el gate HARD de pronombre
+//    (D-43-16, SC-4)
+// ───────────────────────────────────────────────────────────────────────────
+
+describe('fare-indefiniti — participio passato, las 4 terminaciones y el gate HARD de pronombre (D-43-16, SC-4)', () => {
+  const P = () => byId(PART_PASS);
+  const conCue = () => P().variants.map((v) => CONCORD_CUES.some((c) => v.prompt.toLowerCase().includes(c)));
+
+  test('las 4 variantes ofrecen SIEMPRE el mismo conjunto de las cuatro terminaciones', () => {
+    P().variants.forEach((v, k) => {
+      assert.deepEqual(
+        [...v.options].sort(),
+        TERMINAZIONI,
+        `D-43-16: ${PART_PASS}#${k} tiene que ofrecer las cuatro terminaciones y nada mas`
+      );
+    });
+  });
+
+  test('las 4 keys son invariable, invariable, masculino plural y femenino plural, en ese orden', () => {
+    assert.deepEqual(P().variants.map(keyOf), CANON[PART_PASS], 'INDEF-02 / SC-4: el reparto 2 + 2 se lee en las keys');
+  });
+
+  test('GATE HARD: 0 apariciones como palabra suelta de los pronombres de concordancia OPCIONAL o partitiva', () => {
+    // Con los de 1a y 2a persona la concordancia es OPCIONAL en italiano estandar
+    // y con el partitivo tiene reglas propias: cualquiera de ellos abriria DOS
+    // respuestas defendibles, y por la cascada D-54 eso resetea las 18 variantes.
+    // El escaneo va por PALABRA SUELTA y acotado a este slot, porque `ne` y `ci`
+    // son subcadenas de decenas de palabras italianas.
+    const sucio = [];
+    eachVariant(PART_PASS, (v, k) => {
+      const hits = PRONOMBRES_PROHIBIDOS.filter((p) => wordish(p).test(v.prompt));
+      if (hits.length) sucio.push(`${PART_PASS}#${k}: ${hits.join(', ')} en "${v.prompt}"`);
+    });
+    assert.deepEqual(sucio, [], 'D-43-16: pronombre de concordancia opcional o partitiva en el slot del participio passato');
+  });
+
+  test('GATE HARD: 0 bigramas de pronombre SINGULAR antepuesto, elididos o no (Correcciones 5)', () => {
+    // Con el singular el auxiliar se elide y la vocal elidida no dice el genero:
+    // el autor tendria que deducirlo solo del antecedente y la forma invariable
+    // volveria a ser defendible. No es una reduccion del gate de D-43-16: es su
+    // forma satisfacible.
+    const sucio = [];
+    eachVariant(PART_PASS, (v, k) => {
+      const hits = CONCORD_PROHIBIDOS.filter((b) => v.prompt.toLowerCase().includes(b));
+      if (hits.length) sucio.push(`${PART_PASS}#${k}: ${hits.join(', ')} en "${v.prompt}"`);
+    });
+    assert.deepEqual(sucio, [], 'D-43-16: el pronombre singular antepuesto esconde el genero tras el auxiliar elidido');
+  });
+
+  test('EXACTAMENTE 2 prompts llevan un cue de concordancia y EXACTAMENTE 2 no llevan ninguno', () => {
+    const flags = conCue();
+    assert.equal(flags.filter(Boolean).length, 2, `D-43-16 / SC-4: el reparto es 2 + 2, y hay ${flags.filter(Boolean).length} con cue: ${flags}`);
+  });
+
+  test('el reparto 2 + 2 es COHERENTE con las keys, no solo con la tabla', () => {
+    // Las 2 con cue de concordancia son exactamente las 2 cuya key no es la forma
+    // invariable, y al reves. Sin este assert, un prompt y su key podrian
+    // divergir sin que nada se pusiera rojo.
+    const flags = conCue();
+    const sucio = [];
+    P().variants.forEach((v, k) => {
+      const invariable = keyOf(v) === 'fatto';
+      if (invariable === flags[k]) {
+        sucio.push(`${PART_PASS}#${k}: key "${keyOf(v)}" con cue de concordancia = ${flags[k]}`);
+      }
+    });
+    assert.deepEqual(sucio, [], 'D-43-16: la key y el cue del prompt tienen que decir lo mismo');
+  });
+
+  test('las 2 variantes de concordancia usan el cue declarado en la tabla, adyacente al hueco', () => {
+    VARIANT_TABLE[PART_PASS].forEach((f, k) => {
+      if (f.tipo !== 'pronombre-antepuesto-concordancia') return;
+      assert.ok(
+        CONCORD_CUES.includes(f.cue),
+        `D-43-16: "${f.cue}" no esta en el conjunto cerrado de bigramas de concordancia admitidos`
+      );
+    });
+  });
+});
+
+// ───────────────────────────────────────────────────────────────────────────
+// 9. Infinito passato, el cuarto magnet, e imperativo negativo `non fare`
+//    (D-43-17, D-43-14)
+// ───────────────────────────────────────────────────────────────────────────
+
+describe('fare-indefiniti — infinito passato, el cuarto magnet, e imperativo negativo non fare (D-43-17, D-43-14)', () => {
+  test('CUARTO MAGNET: la grafia NO ELIDIDA no aparece en NINGUN campo de las 18 variantes', () => {
+    // Las dos grafias son correctas y atestiguadas. Ofrecer la no elidida como
+    // distractora "incorrecta" produciria un ejercicio injusto, un disputed
+    // STICKY y el reset de la categoria entera por la cascada D-54.
+    const sucio = [];
+    for (const { slot, v, k } of allVariants()) {
+      if (wordish('avere fatto').test(v.prompt)) sucio.push(`${slot.id}#${k} (prompt)`);
+      if (v.options.includes('avere fatto')) sucio.push(`${slot.id}#${k} (option)`);
+    }
+    assert.deepEqual(sucio, [], 'D-43-17: la grafia no elidida es correcta; su sitio es la explanation y la blacklist, nunca options');
+  });
+
+  test('la key de las 3 variantes del infinito passato es la forma ELIDIDA', () => {
+    assert.deepEqual(byId(INF_PASS).variants.map(keyOf), CANON[INF_PASS], 'INDEF-01 / D-43-17: key elidida en las 3');
+  });
+
+  test('GATE de ANTERIORIDAD: cada prompt del infinito passato la fuerza de forma comprobable (INDEF-01)', () => {
+    // O la preposicion de posterioridad gobierna la clausula del hueco, o esa
+    // clausula lleva un deictico del conjunto CERRADO. Sin una de las dos, el
+    // infinito SIMPLE seria igualmente defendible y la variante tendria dos
+    // respuestas: la diferencia entre las dos formas es exactamente la
+    // anterioridad.
+    const sucio = [];
+    eachVariant(INF_PASS, (v, k) => {
+      const clausula = segmentoDelHueco(v.prompt);
+      const prep = wordish(PREP_POSTERIORIDAD).test(clausula.split('___')[0] || '');
+      const deittico = DEITTICI_PASSATO.some((d) => clausula.toLowerCase().includes(d));
+      if (!prep && !deittico) sucio.push(`${INF_PASS}#${k}: "${v.prompt}"`);
+    });
+    assert.deepEqual(sucio, [], 'INDEF-01: sin marcador de anterioridad, el infinito simple es defendible');
+  });
+
+  test('IMPERATIVO NEGATIVO (D-43-14): la variante declarada lleva la negacion inmediatamente antes del hueco', () => {
+    // El imperativo negativo de 2a singular no es la forma apostrofada negada
+    // sino la negacion mas INFINITIVO, y no cabia en el slot de imperativo de la
+    // categoria hermana porque SC-2 fija exactamente 5 variantes. Es cruce
+    // CONCEPTUAL y no tecnico: categoryIds sigue siendo de longitud 1.
+    const k = VARIANT_TABLE[INF_PRES].findIndex((f) => f.tipo === 'imperativo-negativo-2sg');
+    assert.ok(k >= 0, 'D-43-14: el slot de infinito presente tiene que declarar la variante de imperativo negativo');
+    const v = byId(INF_PRES).variants[k];
+    assert.ok(
+      antesDelHueco(v.prompt).endsWith('non'),
+      `D-43-14: la negacion tiene que ir inmediatamente antes del hueco: "${v.prompt}"`
+    );
+    assert.equal(keyOf(v), 'fare', 'D-43-14: la respuesta del imperativo negativo es el INFINITIVO');
+    assert.equal(
+      byId(INF_PRES).categoryIds.length,
+      1,
+      'D-43-14: el cruce con el imperativo es conceptual; categoryIds sigue siendo de longitud 1'
+    );
+  });
+});
+
+// ───────────────────────────────────────────────────────────────────────────
+// 10. Contextos, objetos y marco progresivo por variante (D-43-12, D-43-15)
+// ───────────────────────────────────────────────────────────────────────────
+
+describe('fare-indefiniti — contextos, objetos y marco progresivo por variante (D-43-12, D-43-15)', () => {
+  test('MARCO PROGRESIVO: la variante declarada lleva una forma del verbo de estado antes del hueco (D-43-15)', () => {
+    const k = VARIANT_TABLE[GER_PRES].findIndex((f) => f.tipo === 'marco-progresivo');
+    assert.equal(k, GER_PRES_CON_COMPUESTO, 'D-43-15: la variante progresiva es la declarada por indice');
+    const v = byId(GER_PRES).variants[k];
+    assert.ok(
+      STARE.some((x) => antesDelHueco(v.prompt).endsWith(x)),
+      `D-43-15 / INDEF-04: stare + gerundio se EXAMINA, no solo se menciona: "${v.prompt}"`
+    );
+  });
+
+  test('el gerundio COMPUESTO solo entra en las options de la variante progresiva del gerundio presente', () => {
+    // En una subordinada implicita modal o causal el gerundio compuesto es
+    // igualmente gramatical con lectura de anterioridad, asi que alli seria una
+    // segunda respuesta defendible. Se identifica por INDICE DECLARADO y no por
+    // conteo ciego.
+    const flags = byId(GER_PRES).variants.map((v) => v.options.includes('avendo fatto'));
+    assert.equal(flags.filter(Boolean).length, 1, `D-43-15: exactamente 1 variante, y hay ${flags.filter(Boolean).length}: ${flags}`);
+    assert.ok(flags[GER_PRES_CON_COMPUESTO], `D-43-15: tiene que ser la del marco progresivo (#${GER_PRES_CON_COMPUESTO})`);
+  });
+
+  test('el gerundio SIMPLE solo entra en las options de la variante temporal del gerundio passato', () => {
+    // El adverbial de anterioridad lo hace agramatical porque el gerundio simple
+    // exige contemporaneidad con el verbo principal. En la causal y en la
+    // concesiva no entra: alli la lectura de contemporaneidad es posible.
+    const flags = byId(GER_PASS).variants.map((v) => v.options.includes('facendo'));
+    assert.equal(flags.filter(Boolean).length, 1, `INDEF-04: exactamente 1 variante, y hay ${flags.filter(Boolean).length}: ${flags}`);
+    assert.ok(flags[GER_PASS_CON_SIMPLE], `INDEF-04: tiene que ser la temporal (#${GER_PASS_CON_SIMPLE})`);
+    assert.ok(
+      ADVERBIALI_ANTERIORITA.some((a) => byId(GER_PASS).variants[GER_PASS_CON_SIMPLE].prompt.includes(a)),
+      'INDEF-04: y esa variante tiene que llevar un adverbial de anterioridad del conjunto cerrado'
+    );
+  });
+
+  test('los 3 prompts del gerundio passato llevan EXACTAMENTE un marcador del conjunto cerrado', () => {
+    const sucio = [];
+    eachVariant(GER_PASS, (v, k) => {
+      const hits = MARCADORES_GERUNDIO_PASSATO.filter((m) => v.prompt.includes(m));
+      if (hits.length !== 1) sucio.push(`${GER_PASS}#${k}: ${hits.length} marcadores [${hits.join(' | ')}]: "${v.prompt}"`);
+    });
+    assert.deepEqual(sucio, [], 'INDEF-04: un marcador de anterioridad o de concesion por prompt, del conjunto cerrado');
+  });
+
+  test('los deicticos del infinito passato y los adverbiales del gerundio passato son conjuntos CERRADOS y no se mezclan', () => {
+    // Cada slot tiene el suyo: si un adverbial del gerundio passato apareciera en
+    // el infinito passato, el gate de anterioridad del bloque 9 no lo veria.
+    const sucio = [];
+    eachVariant(INF_PASS, (v, k) => {
+      const hits = ADVERBIALI_ANTERIORITA.filter((a) => v.prompt.includes(a));
+      if (hits.length) sucio.push(`${INF_PASS}#${k}: ${hits.join(', ')}`);
+    });
+    eachVariant(GER_PASS, (v, k) => {
+      const hits = DEITTICI_PASSATO.filter((d) => wordish(d).test(v.prompt));
+      if (hits.length) sucio.push(`${GER_PASS}#${k}: ${hits.join(', ')}`);
+    });
+    assert.deepEqual(sucio, [], 'D-43-12: cada slot usa SU conjunto cerrado de marcadores');
+  });
+
+  test('los objetos declarados en la tabla se reparten sin que ninguna clausula lleve dos', () => {
+    // Complemento del bloque 5: alli se comprueba que el objeto DECLARADO esta;
+    // aqui, que el conjunto de objetos usados sale entero del conjunto cerrado y
+    // que ninguno esta declarado fuera de el.
+    const usados = [...new Set(
+      IDS.filter((id) => !esExento(id)).flatMap((id) => VARIANT_TABLE[id].map((f) => f.object))
+    )];
+    const fuera = usados.filter((o) => !OBJECTS.includes(o));
+    assert.deepEqual(fuera, [], `D-41-06: objeto declarado fuera del conjunto cerrado ampliado: ${fuera.join(', ')}`);
+    assert.ok(
+      usados.includes('le foto'),
+      'Correcciones 4: la variante de concordancia femenina plural necesita la inflexion en plural declarada; sin ella el gate seria insatisfacible'
+    );
+  });
+});
+
+// ───────────────────────────────────────────────────────────────────────────
+// 11. Canon editorial e higiene del JSON (D-43-21, T-43-01, T-43-02)
+// ───────────────────────────────────────────────────────────────────────────
+
+describe('fare-indefiniti — canon editorial e higiene del JSON (D-43-21, T-43-01, T-43-02)', () => {
+  const strings = [];
+  const claves = [];
+  (function walk(node) {
+    if (typeof node === 'string') { strings.push(node); return; }
+    if (Array.isArray(node)) { node.forEach(walk); return; }
+    if (node && typeof node === 'object') {
+      for (const k of Object.keys(node)) { claves.push(k); walk(node[k]); }
+    }
+  })(CONTENT);
+
+  test('ningun string del fichero lleva corchetes angulares, entidades, javascript: ni backticks', () => {
+    for (const marca of ['<', '>', '&#', 'javascript:', '`']) {
+      const sucio = strings.filter((s) => s.includes(marca)).map((s) => s.slice(0, 60));
+      assert.deepEqual(sucio, [], `T-43-01: aparece ${marca} en el contenido`);
+    }
+  });
+
+  test('ningun string lleva comillas ni apostrofes tipograficos: solo ASCII U+0027 (D-43-21)', () => {
+    const sucio = strings.filter((s) => /[‘’“”]/.test(s)).map((s) => s.slice(0, 60));
+    assert.deepEqual(sucio, [], 'D-43-21: smart quotes en el contenido');
+  });
+
+  test('ninguna clave propia del objeto parseado se llama __proto__, constructor ni prototype', () => {
+    const sucias = claves.filter((k) => ['__proto__', 'constructor', 'prototype'].includes(k));
+    assert.deepEqual(sucias, [], 'T-43-02: clave peligrosa en el JSON de contenido');
+    assert.equal(({}).polluted, undefined, 'T-43-02: el parse no puede contaminar Object.prototype');
+  });
+
+  test('las 6 explanations estan en espanol acentuado RAE, no vacias y sin cross-ref R2', () => {
+    // Un flag C4-accent del quorum sobre espanol sin tildes es bug REAL: se
+    // arreglan los acentos, NUNCA se hace override.
+    for (const s of SLOTS) {
+      assert.ok(s.explanation.trim().length > 0, `D-43-21: ${s.id} sin explanation`);
+      assert.match(s.explanation, /[áéíóúñÁÉÍÓÚÑ]/, `D-43-21: la explanation de ${s.id} no lleva ningun acento RAE`);
+      assert.ok(!/#\d{3}|mc-\d+/.test(s.explanation), `R2: la explanation de ${s.id} referencia un ejercicio por id`);
+    }
+  });
+
+  test('EN POSITIVO: la explanation del infinito presente desarrolla el imperativo negativo (D-43-14)', () => {
+    const e = byId(INF_PRES).explanation;
+    assert.ok(e.includes('infinitivo'), 'D-43-14: la explanation tiene que nombrar el infinitivo');
+    assert.ok(e.includes('negativ') && e.includes('orden'), 'D-43-14: falta el desarrollo de la orden negativa');
+    assert.ok(e.length > 500, `D-43-14: la explanation del infinito presente enumera los tres encajes (${e.length} caracteres)`);
+  });
+
+  test('EN POSITIVO: la explanation del infinito passato NOMBRA la grafia no elidida (D-43-17, D-43-19)', () => {
+    // Escaneo en POSITIVO y es lo CONTRARIO del gate de ausencia del bloque 9:
+    // la forma tiene que estar NOMBRADA aqui; lo que no puede es estar en options.
+    // Es la linea concreta del principio RECONOCER, NO PRODUCIR.
+    const e = byId(INF_PASS).explanation;
+    assert.ok(e.includes('avere fatto'), 'D-43-17 / D-43-19: la explanation tiene que decir que la no elidida tambien es correcta');
+    assert.ok(e.includes('anterioridad'), 'INDEF-01: falta la decision que el slot examina');
+    assert.ok(e.length > 600, `D-43-17: la explanation del infinito passato desarrolla el magnet (${e.length} caracteres)`);
+  });
+
+  test('EN POSITIVO: la explanation del participio passato lleva el par de la interferencia (D-43-16, SC-4)', () => {
+    const e = byId(PART_PASS).explanation;
+    for (const t of TERMINAZIONI) assert.ok(e.includes(t), `INDEF-02: la explanation no cita la terminacion ${t}`);
+    assert.ok(e.includes('las he hecho'), 'SC-4: falta la forma espanola INVARIABLE del par');
+    assert.ok(e.includes('le ho fatte'), 'SC-4: falta la forma italiana CONCORDADA del par');
+    assert.ok(e.length > 700, `D-43-16: es la explanation mas cargada del fichero (${e.length} caracteres)`);
+  });
+
+  test('EN POSITIVO: la explanation del participio presente lleva la NOTA DE REGISTRO (INDEF-03, SC-4)', () => {
+    const e = byId(PART_PRES).explanation;
+    assert.ok(e.includes('burocrátic'), 'INDEF-03: la explanation tiene que avisar de que la forma es burocratica');
+    assert.ok(e.includes('fosiliz'), 'INDEF-03: la explanation tiene que avisar de que la forma esta fosilizada');
+    for (const c of COMPUESTOS_FACENTE) assert.ok(e.includes(c), `INDEF-03: la explanation no cita el compuesto con "${c}"`);
+    assert.ok(e.length > 500, `INDEF-03: la nota de registro necesita desarrollo (${e.length} caracteres)`);
+  });
+
+  test('EN POSITIVO: la explanation del gerundio presente dice que el error es usarlo DE MAS (D-43-15)', () => {
+    const e = byId(GER_PRES).explanation;
+    assert.ok(e.includes('progresiv'), 'INDEF-04: la explanation tiene que nombrar el progresivo');
+    assert.ok(
+      e.includes('de más') || e.includes('en exceso'),
+      'D-43-15: la interferencia real es de USO y no de formacion; falta la formulacion del uso excesivo'
+    );
+    assert.ok(e.length > 600, `D-43-15: la explanation del gerundio presente desarrolla la interferencia (${e.length} caracteres)`);
+  });
+
+  test('EN POSITIVO: la explanation del gerundio passato opone anterioridad y contemporaneidad (INDEF-04)', () => {
+    const e = byId(GER_PASS).explanation;
+    assert.ok(e.includes('anterioridad'), 'INDEF-04: falta el valor del gerundio compuesto');
+    assert.ok(e.includes('contemporane'), 'INDEF-04: falta el contraste con el gerundio simple');
+    assert.ok(e.length > 500, `INDEF-04: la explanation del gerundio passato enumera los tres encajes (${e.length} caracteres)`);
+  });
+});
+
+// ───────────────────────────────────────────────────────────────────────────
+// 12. Audit trail de validacion y ronda EXTRA condicionada (D-43-20, T-43-03)
+// ───────────────────────────────────────────────────────────────────────────
+
+describe('fare-indefiniti — audit trail de validacion y ronda EXTRA (D-43-20, T-43-03)', () => {
+  // ESTOS ASSERTS SON VERDES CON passes: [] — deriveStatus([]) devuelve 'pending',
+  // asi que la igualdad se cumple ANTES de que corra el quorum. Su funcion NO es
+  // exigir que la categoria este validada (eso lo hace el gate VAL_07_STRICT del
+  // smoke parametrico, que al cerrar Phase 43 esta en rojo a proposito, nombrando
+  // los 9 slots de las dos categorias nuevas): es impedir que un `validated`
+  // escrito a mano, sin pases reales, pase por bueno. El audit trail es la unica
+  // evidencia que el autor tiene de que una variante fue revisada, y falsificarlo
+  // es indetectable a ojo. Es tambien lo que permite que `execute-phase` cierre en
+  // verde y que el quorum base Opus+Sonnet vaya despues, en pasada TOP-LEVEL.
+  test('los 6 slots tienen validation con status string y passes array', () => {
+    for (const s of SLOTS) {
+      assert.ok(s.validation && typeof s.validation === 'object', `${s.id}: falta validation`);
+      assert.equal(typeof s.validation.status, 'string', `${s.id}: validation.status debe ser string`);
+      assert.ok(Array.isArray(s.validation.passes), `${s.id}: validation.passes debe ser array`);
+    }
+  });
+
+  test('status coincide con deriveStatus(passes) en los 6 slots: no se puede forjar un validated', () => {
+    // `deriveStatus` se importa del codigo real (WR-01: fuente unica) y NUNCA se
+    // reimplementa aqui, para que este gate no pueda divergir de lo que el motor y
+    // el reporter consideran validado.
+    for (const s of SLOTS) {
+      assert.equal(
+        s.validation.status,
+        deriveStatus(s.validation.passes),
+        `T-43-03: ${s.id} declara "${s.validation.status}" pero sus ${s.validation.passes.length} pases derivan "${deriveStatus(s.validation.passes)}"`
+      );
+    }
+  });
+
+  test('si un slot esta validated, sus pases cumplen el quorum: >=2 correcta, >=2 by distintos, 0 incorrecta salvo override del autor', () => {
+    for (const s of SLOTS.filter((x) => x.validation.status === 'validated')) {
+      const passes = s.validation.passes;
+      const correctas = passes.filter((p) => p.verdict === 'correcta');
+      assert.ok(correctas.length >= 2, `${s.id}: validated con ${correctas.length} pases correcta`);
+      assert.ok(new Set(correctas.map((p) => p.by)).size >= 2, `${s.id}: validated sin 2 by distintos`);
+
+      const override = passes.find((p) => p.by === 'autor' && p.verdict === 'correcta' && p.override === true);
+      const incorrectas = passes.filter((p) => p.verdict === 'incorrecta');
+      if (incorrectas.length > 0) {
+        assert.ok(override, `${s.id}: validated con ${incorrectas.length} pase(s) incorrecta y SIN entry de override del autor`);
+        assert.ok(
+          Array.isArray(override.concerns) && override.concerns.some((c) => c.trim().length > 0),
+          `${s.id}: el override del autor no documenta por que se resolvio el disenso`
+        );
+        assert.ok(correctas.some((p) => p.by !== 'autor'), `${s.id}: validated por override sin ningun pase correcta de un modelo`);
+      }
+    }
+  });
+
+  test('los DOS slots de ronda EXTRA llevan un pase deepseek cuando pasan a validated (D-43-20)', () => {
+    // La ronda EXTRA cubre 7 de las 18 variantes: el participio passato completo
+    // (el par invariable-frente-a-concordado que SC-4 exige literalmente) y el
+    // infinito passato completo (el CUARTO MAGNET). Los otros cuatro slots NO la
+    // llevan: su riesgo es de redaccion de encaje y se controla con los gates de
+    // los bloques 3, 5 y 10, no con presupuesto de quorum.
+    assert.deepEqual(
+      [...EXTRA_ROUND_SLOTS].sort(),
+      [INF_PASS, PART_PASS].sort(),
+      'D-43-20: la ronda EXTRA cubre exactamente el participio passato y el infinito passato, ni uno mas ni uno menos'
+    );
+    for (const id of EXTRA_ROUND_SLOTS) {
+      const s = byId(id);
+      if (s.validation.status !== 'validated') continue;
+      const bys = s.validation.passes.map((p) => String(p.by || '').toLowerCase());
+      assert.ok(
+        bys.some((b) => b.startsWith('deepseek')),
+        `D-43-20: ${id} esta validated sin la ronda EXTRA obligatoria (ningun by empieza por deepseek): ${bys.join(', ')}`
+      );
+    }
+  });
+});
+
+// ───────────────────────────────────────────────────────────────────────────
+// 13. Registro de la categoria (D-43-22, SC-5)
+// ───────────────────────────────────────────────────────────────────────────
+
+describe('fare-indefiniti — registro de la categoria (D-43-22, SC-5)', () => {
+  // Red de regresion del registro: la entrada de content/categories.json no es
+  // cosmetica. Es prerequisito de SCHEMA (schema-validator.js exige que todo
+  // categoryIds referencie una categoria conocida) Y es lo que hace que la fila
+  // aparezca en home, picker, Repaso y Examen, porque categoriesForDisplay itera
+  // content.categories. Sin ella el fichero de contenido queda invalido en disco.
+  const entradas = CATEGORIES.categories;
+
+  test('existe la entrada fare-indefiniti con las 4 claves exactas, order 18 y origen ia-quorum', () => {
+    const cat = entradas.find((c) => c.id === SLUG);
+    assert.ok(cat, `D-43-22: no existe la entrada ${SLUG}`);
+    assert.deepEqual(Object.keys(cat).sort(), ['id', 'name', 'order', 'origen'], 'D-43-22: key set de la entrada');
+    assert.equal(cat.order, 18, 'D-43-22: order documental');
+    assert.equal(cat.origen, 'ia-quorum', 'D-43-22: origen (PROV-01)');
+    assert.ok(cat.name.trim().length > 0, 'D-43-22: name no vacio');
+  });
+
+  test('ocupa en el array la posicion que dice su order, que es el orden de display', () => {
+    // WR-05: se DERIVA en vez de codificar el indice a mano.
+    const cat = entradas.find((c) => c.id === SLUG);
+    assert.equal(
+      entradas.indexOf(cat),
+      cat.order - 1,
+      `D-43-22: el array define el display (indice = order - 1); order ${cat.order} pide indice ${cat.order - 1}`
+    );
+  });
+
+  test('categories.json: orders unicos, contiguos desde 1, y array ordenado por order', () => {
+    assert.deepEqual(
+      entradas.map((c) => c.order),
+      entradas.map((_, i) => i + 1),
+      'SC-5: content/categories.json define el display por posicion de array; order tiene que ir 1..n en ese mismo orden'
+    );
+  });
+
+  test('fare-indicativo y fare-indefiniti son DOS entradas distintas pese a compartir el prefijo fare-ind (D-40-03)', () => {
+    // SC-5: son dos unidades de reset SEPARADAS, no una fusion. Y el agravante de
+    // esta categoria: una comprobacion de prefijo truncada a la parte compartida
+    // cruzaria las dos y dejaria el progreso del autor huerfano en silencio.
+    const conPrefijo = entradas.filter((c) => c.id.startsWith('fare-ind')).map((c) => c.id);
+    assert.deepEqual(
+      conPrefijo.sort(),
+      ['fare-indefiniti', 'fare-indicativo'],
+      'D-40-03: el prefijo fare-ind es COMPARTIDO; toda comprobacion declara el slug COMPLETO'
+    );
+  });
+
+  test('los 6 slots referencian el slug COMPLETO de la categoria, nunca una version truncada (D-40-03)', () => {
+    for (const s of SLOTS) {
+      assert.ok(
+        Array.isArray(s.categoryIds) && s.categoryIds.includes(SLUG),
+        `SC-5: ${s.id} no referencia la categoria ${SLUG}`
+      );
+      assert.ok(
+        s.id.startsWith(`${SLUG}-`),
+        `D-40-03: el id ${s.id} tiene que empezar por el slug COMPLETO "${SLUG}-"`
+      );
+    }
+  });
+});

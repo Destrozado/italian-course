@@ -542,7 +542,7 @@ Antes de cada invocación, este sub-skill DEBE leer (con Read tool o equivalente
 
 NO leer:
 
-- **`.planning/phases/09-infraestructura-de-validaci-n/09-VALIDATION-PROMPT.md`** — eso lo hace el skill hijo `gsd-validate-exercise` internamente. El batch NO necesita ver el prompt; sólo orquesta invocaciones.
+- **`.planning/milestones/v1.1-phases/09-infraestructura-de-validaci-n/09-VALIDATION-PROMPT.md`** — eso lo hace el skill hijo `gsd-validate-exercise` internamente. El batch NO necesita ver el prompt; sólo orquesta invocaciones.
 - **`~/.claude/projects/.../memory/exercise_authoring_rules.md`** — las reglas R1-R7 viven inline en el VALIDATION-PROMPT.md que el skill hijo ya consume.
 - **`src/data/schema-validator.js`** — el shape del `validation` field se enforça al boot vía content-loader. El sub-skill confía en que los Edits que aplica (paths a/b/c) respetan el shape; el smoke-test post-categoría (Paso 2.7) defiende contra corrupción.
 
