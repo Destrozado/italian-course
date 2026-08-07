@@ -133,6 +133,8 @@ La frase italiana suena a nativo: gramática correcta + semántica plausible. Si
 
 **Excepción declarada (ver sección 7.2):** en las categorías de v2.0 Phase 43, la ausencia deliberada de las tres formas atestiguadas del principio RECONOCER NO PRODUCIR es lo que GARANTIZA la opción única — C2 se cumple gracias a ellas, no a pesar de ellas.
 
+**Excepción declarada (ver sección 7.4):** en `fare-indefiniti-participio-passato`, la concordancia del participio con objeto POSPUESTO es italiano literario/antiguo y NO una segunda respuesta válida en la norma moderna — marcarla bajo C2 es un falso positivo. Con pronombre objeto ANTEPUESTO, en cambio, C2 sigue mordiendo entera.
+
 ### C3 distractoras
 
 Distractoras plausibles (errores típicos hispanohablante) y, en match exercises, al menos 3 valores distintos en la columna derecha de los 4 pares (UN duplicado intencional permitido D-66, NO 3 ni 4 duplicados). Si todos los pares resuelven al mismo valor el ejercicio es trivial y viola C3.
@@ -303,6 +305,16 @@ Su ausencia es una decisión de autoría declarada, no un olvido: ofrecerlas com
 ### 7.3 Lo que estas excepciones NO relajan
 
 El gloss léxico de conjunción o locución subordinante declarado en R1 y en C5 **sigue vigente y sin cambios**. Ninguna de las dos excepciones nuevas toca el criterio de leak: el gloss sobre la **forma verbal** o sobre la **palabra del blank** sigue prohibido sin excepción alguna.
+
+### 7.4 Concordancia del participio con objeto POSPUESTO — categoría `fare-indefiniti`, slot `fare-indefiniti-participio-passato` (v2.0 Phase 43)
+
+**Qué es.** En italiano **literario y antiguo** el participio pasado podía concordar en género y número también con un objeto directo **POSPUESTO** bajo el auxiliar de posesión: `ho fatti i compiti`, `ha fatta una torta` están atestiguados en textos clásicos. En **italiano moderno estándar** esa concordancia ha desaparecido: con el objeto detrás del participio la forma corriente es siempre la **invariable** (`ho fatto i compiti`, `ha fatto una torta`).
+
+**Qué NO es un fallo.** Las dos variantes de ese slot cuyo objeto va **pospuesto** tienen como respuesta correcta la forma invariable `fatto`, y entre sus distractoras aparece la forma concordada con ese objeto (`fatti` con `i compiti`, `fatta` con `una torta`). **Marcar esa distractora como segunda respuesta defendible es un FALSO POSITIVO de C2**, y lo mismo vale si se plantea bajo C3. El ejercicio es de nivel A1/A2 y evalúa la norma moderna, en la que la respuesta es inequívocamente la invariable.
+
+**Por qué se ofrece y no se retira.** El slot examina **la terminación** como eje único, así que sus cuatro variantes ofrecen siempre el mismo pool cerrado —`fatto`, `fatta`, `fatti`, `fatte`— y nada más. Retirar la forma concordada de las dos variantes de objeto pospuesto dejaría el slot sin distractoras y lo destruiría. La decisión está declarada con su audit trail en el `notes` del fichero de contenido, que tú no ves, y en la `explanation` del slot, que avisa al alumno de que la concordancia pospuesta pertenece a otro registro y no se le pide producirla.
+
+**La frontera, y aquí NO hay indulgencia.** Esto **no** relaja el caso inverso. Cuando el objeto directo va **ANTEPUESTO como pronombre** (`li ha ___`, `le abbiamo ___`), la concordancia es **OBLIGATORIA** en italiano moderno y la forma invariable **SÍ es un error**. En esas variantes C2 debe seguir mordiendo con todo: si detectas que la invariable sería defendible con un clítico antepuesto, márcalo. Y como las anteriores, esta excepción no toca C5 ni ningún otro criterio — ver 7.3.
 
 ---
 

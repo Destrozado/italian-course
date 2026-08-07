@@ -277,6 +277,48 @@ const CONCORD_PROHIBIDOS = [
   `l${APOSTROFE}abbiamo`, `l${APOSTROFE}avete`, `l${APOSTROFE}hanno`,
 ];
 
+// CONCORDANCIA_POSPUESTA_ATESTIGUADA (WR-01, adjudicado por el autor en el UAT).
+// En las 2 variantes de objeto POSPUESTO, una de las tres distractoras es la
+// forma concordada con ese objeto, y esa concordancia esta ATESTIGUADA en
+// italiano literario y antiguo (`ho fatti i compiti`, `ha fatta una torta`). El
+// mapa dice, por objeto, cual es esa forma: las otras dos distractoras de cada
+// variante no concuerdan con nada y no son defendibles en ningun registro.
+//
+// La resolucion es DOCUMENTAL y no la blacklist, por dos razones que el gate de
+// mas abajo congela para que un re-pase futuro no las «arregle»:
+//   1. ESTRUCTURAL — D-43-16 fija el pool de las 4 variantes en las cuatro
+//      terminaciones como EJE UNICO. Blacklistear la concordada en las 2
+//      invariables deja el slot SIN distractoras y lo destruye.
+//   2. DE REGISTRO — no es el caso del cuarto magnet. Alli las dos grafias del
+//      infinito compuesto compiten en el MISMO registro contemporaneo, asi que la
+//      no elegida se veta. Aqui la concordancia pospuesta es de otro registro
+//      HISTORICO y en la norma moderna la invariable es la unica corriente, asi
+//      que aplica D-43-19 (RECONOCER, NO PRODUCIR): se nombra, se explica y se
+//      puede seguir ofreciendo, porque hoy es la respuesta incorrecta sin
+//      discusion.
+const CONCORDANCIA_POSPUESTA_ATESTIGUADA = {
+  'i compiti': 'fatti', // masculino plural
+  'una torta': 'fatta', // femenino singular
+};
+
+// Ruta del prompt de validacion por quorum. Se lee desde aqui porque el subagent
+// NO ve el `notes` del fichero de contenido: una excepcion que viva solo en el
+// `notes` produce un disputed FALSO y, por la cascada D-54, el reset de las 18
+// variantes. Es la ruta REAL tras el archivado del milestone v1.1.
+const VALIDATION_PROMPT = (() => {
+  const url = new URL(
+    '../.planning/milestones/v1.1-phases/09-infraestructura-de-validaci-n/09-VALIDATION-PROMPT.md',
+    import.meta.url
+  );
+  try {
+    return readFileSync(url, 'utf-8');
+  } catch (e) {
+    throw new Error(
+      `No se puede leer el prompt de validacion por quorum (${url.pathname}): es la UNICA fuente de reglas que ve el subagent, asi que su ausencia no puede pasar en silencio. Causa: ${e.message}`
+    );
+  }
+})();
+
 // DEITTICI_PASSATO — conjunto CERRADO de adverbiales de pasado admitidos en el
 // infinito passato. Con la preposicion de posterioridad que gobierna el hueco son
 // las dos UNICAS maneras de forzar la anterioridad; sin una de las dos, el
@@ -917,6 +959,81 @@ describe('fare-indefiniti — participio passato, las 4 terminaciones y el gate 
       );
     });
     assert.equal(comprobadas, 2, 'D-43-16 / SC-4: son exactamente 2 las variantes de concordancia');
+  });
+
+  test('WR-01: las 2 variantes de objeto POSPUESTO SIGUEN ofreciendo la concordada, que es forma atestiguada', () => {
+    // Gate a la CONTRA, y por eso existe: lo normal en esta categoria es prohibir
+    // la forma atestiguada en `options` (el cuarto magnet, las arcaicas, las
+    // formas con clitico). Aqui se congela lo OPUESTO — que la concordada SIGA
+    // ofreciendose — porque el pool cerrado de D-43-16 no deja alternativa:
+    // retirarla dejaria las 2 variantes invariables sin distractoras y destruiria
+    // el slot. Un re-pase futuro que lea el criterio operativo de la blacklist y
+    // «arregle» esto romperia el eje entero.
+    let comprobadas = 0;
+    VARIANT_TABLE[PART_PASS].forEach((f, k) => {
+      if (f.tipo !== 'objeto-pospuesto-auxiliar-posesion') return;
+      comprobadas += 1;
+      const v = P().variants[k];
+      const concordada = CONCORDANCIA_POSPUESTA_ATESTIGUADA[f.object];
+      assert.ok(
+        concordada,
+        `WR-01: el objeto pospuesto "${f.object}" no declara cual es su forma concordada atestiguada`
+      );
+      assert.equal(
+        keyOf(v),
+        'fatto',
+        `WR-01: con el objeto POSPUESTO la respuesta en italiano moderno es la INVARIABLE, no "${keyOf(v)}"`
+      );
+      assert.ok(
+        v.options.includes(concordada),
+        `WR-01: ${PART_PASS}#${k} tiene que SEGUIR ofreciendo "${concordada}" — es la concordada atestiguada con "${f.object}", y retirarla dejaria el slot sin distractoras (D-43-16 fija el pool en las cuatro terminaciones)`
+      );
+      assert.notEqual(
+        concordada,
+        keyOf(v),
+        'WR-01: la concordada atestiguada es DISTRACTORA, nunca la key'
+      );
+    });
+    assert.equal(comprobadas, 2, 'WR-01 / D-43-16: son exactamente 2 las variantes de objeto pospuesto');
+  });
+
+  test('WR-01: la decision esta declarada en el notes Y en el prompt del quorum, no solo en uno', () => {
+    // Las dos mitades son necesarias y ninguna sustituye a la otra: el `notes` es
+    // el audit trail para un lector futuro del repo, y la seccion 7.4 del prompt
+    // es lo unico que ve el subagent. Sin la segunda, Opus y Sonnet reconocerian
+    // la concordancia pospuesta como italiano real, marcarian C2 violado y
+    // produciran un disputed FALSO que resetea la categoria entera por D-54.
+    assert.ok(
+      CONTENT.notes.includes('CONCORDANCIA CON OBJETO POSPUESTO'),
+      'WR-01: el notes no declara la decision con su marcador en MAYUSCULAS'
+    );
+    assert.ok(
+      CONTENT.notes.includes('WR-01'),
+      'WR-01: el notes no lleva el audit trail del hallazgo'
+    );
+    const cierre = VALIDATION_PROMPT.indexOf('Fin del prompt');
+    const s74 = VALIDATION_PROMPT.indexOf('### 7.4');
+    assert.ok(s74 !== -1, 'WR-01: falta la subseccion 7.4 en el prompt de validacion por quorum');
+    assert.ok(
+      s74 < cierre,
+      'WR-01: la 7.4 esta DESPUES de la linea de cierre; el subagent la leeria como parte del ejercicio y no como regla'
+    );
+    const s74Texto = VALIDATION_PROMPT.slice(s74, cierre);
+    assert.ok(
+      /FALSO POSITIVO de C2/.test(s74Texto),
+      'WR-01: la 7.4 tiene que decir explicitamente que marcarlo bajo C2 es un falso positivo'
+    );
+    assert.ok(
+      s74Texto.includes('ANTEPUESTO') && s74Texto.includes('OBLIGATORIA'),
+      'WR-01: la 7.4 tiene que declarar la FRONTERA: con pronombre antepuesto la concordancia es obligatoria y C2 sigue mordiendo'
+    );
+    // La explanation del slot es la mitad que ve el AUTOR (el notes no se muestra
+    // en la interfaz): D-43-19 exige que la forma se nombre y se explique.
+    const e = byId(PART_PASS).explanation;
+    assert.ok(
+      e.includes('literario'),
+      'D-43-19 / WR-01: la explanation tiene que avisar de que la concordancia pospuesta es de otro registro'
+    );
   });
 });
 
