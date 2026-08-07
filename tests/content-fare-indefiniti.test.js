@@ -25,6 +25,19 @@
 // son subcadenas de decenas de palabras italianas, asi que su escaneo va por
 // palabra suelta y ACOTADO al slot del participio passato.
 //
+// COROLARIO DE LA ADVERTENCIA (CR-02, code review de la fase): la frontera de
+// palabra no es solo para los escaneos de AUSENCIA. Vale igual para los de
+// PRESENCIA y para los de ADYACENCIA, y por el mismo motivo: en italiano los
+// cues de este fichero son subcadenas de palabras corrientes (`Michele` acaba en
+// `le`, `Martha` en `ha`, `questa` y `basta` en `sta`, `Purché` empieza por
+// `Pur`, `partenza` por `parte`). Un gate de presencia matcheado por subcadena
+// no se pone rojo: deja de morder, que es peor, porque aprueba en silencio la
+// variante futura que existia para cazar. Por eso en este fichero NINGUN cue se
+// compara con `includes`, `endsWith` ni `startsWith` a pelo — la presencia va por
+// `wordish` y la adyacencia por `terminaEnPalabra` / `empiezaPorPalabra`. La
+// unica excepcion legitima es `Array.prototype.includes` sobre un array de
+// strings, que es pertenencia a un conjunto y no escaneo de texto.
+//
 // LAS CINCO DESVIACIONES DELIBERADAS respecto del analogo
 // `tests/content-fare-congiuntivo.test.js` y del hermano
 // `tests/content-fare-cond-imperativo.test.js`, declaradas aqui para que quien
@@ -96,6 +109,29 @@ const allVariants = () => SLOTS.flatMap((s) => s.variants.map((v, k) => ({ slot:
 // justo la que no se veia.
 const wordish = (s) =>
   new RegExp(`(^|[^\\p{L}])${s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}([^\\p{L}]|$)`, 'iu');
+
+// ADYACENCIA CON FRONTERA DE PALABRA (CR-02, code review de la fase).
+//
+// `endsWith` / `startsWith` / `includes` crudos casan el cue como SUFIJO o
+// PREFIJO de otra palabra, y en italiano eso NO es una posibilidad teorica:
+// `Questa` y `basta` terminan en `sta`, `Michele` termina en `le`, `Martha`
+// termina en `ha`, `partenza` empieza por `parte` y `Purché` empieza por `Pur`.
+// Con el matcher crudo, un prompt futuro del tipo `Michele ha ___ i compiti`
+// contaria como «lleva clitico antepuesto» SIN llevarlo, y el gate de D-43-16
+// aprobaria una concordancia injustificada. El gate seguiria verde: solo dejaria
+// de morder. Es el modo de fallo que las pruebas por mutacion existen para
+// descartar, y ademas contradice la disciplina de frontera de palabra que la
+// cabecera de este fichero declara en mayusculas.
+//
+// Por eso NINGUN cue de este fichero se compara con `includes`, `endsWith` ni
+// `startsWith` a pelo: la presencia va por `wordish` y la adyacencia por estos
+// dos helpers, que exigen ademas que el caracter contiguo por el lado interior
+// no sea letra.
+const esLetra = (c) => c !== '' && /\p{L}/u.test(c);
+const terminaEnPalabra = (texto, cue) =>
+  texto.endsWith(cue) && !esLetra(texto.slice(0, texto.length - cue.length).slice(-1));
+const empiezaPorPalabra = (texto, cue) =>
+  texto.startsWith(cue) && !esLetra(texto.slice(cue.length, cue.length + 1));
 
 const APOSTROFE = String.fromCharCode(39);
 
@@ -218,11 +254,23 @@ const PRONOMBRES_PROHIBIDOS = ['mi', 'ti', 'ci', 'vi', 'ne'];
 // CONCORD_CUES — los bigramas ADMITIDOS: pronombre de 3a PLURAL antepuesto mas
 // una forma del auxiliar de posesion. Solo el plural, porque con el singular el
 // auxiliar se elide y la vocal elidida no dice el genero (Correcciones 5).
+//
+// SE COMPARAN SIEMPRE CON `wordish`, NUNCA CON `includes` (CR-02). El bigrama
+// empieza por un clitico de DOS LETRAS, asi que como subcadena lo satisface
+// cualquier palabra acabada en `-li` / `-le` seguida del auxiliar:
+// `Michele ha fatto` contiene literalmente `le ha`. Quien lea `'le ha'` aqui y
+// piense en compararlo como string tiene que saber que eso convierte el gate en
+// decorativo: aceptaria como «con clitico antepuesto» una variante que solo
+// tiene un nombre propio delante del auxiliar.
 const CONCORD_CUES = [
   'li ha', 'le ha', 'li ho', 'le ho', 'li hai', 'le hai',
   'li abbiamo', 'le abbiamo', 'li avete', 'le avete', 'li hanno', 'le hanno',
 ];
 // CONCORD_PROHIBIDOS — los bigramas de 3a SINGULAR antepuesto, elididos o no.
+// Mismo tratamiento que CONCORD_CUES y por el mismo motivo (CR-02), aunque aqui
+// el dano del matcher crudo es el contrario: como es un gate de PROHIBICION, la
+// subcadena lo vuelve SOBRE-estricto y pondria roja una variante legitima cuyo
+// sujeto fuera `Michela` o `Paolo` (`Michela ha` contiene `la ha`).
 const CONCORD_PROHIBIDOS = [
   'lo ha', 'la ha', 'lo ho', 'la ho',
   `l${APOSTROFE}ho`, `l${APOSTROFE}ha`, `l${APOSTROFE}hai`,
@@ -245,7 +293,10 @@ const PARTICELLA_CONCESSIVA = 'Pur';
 const MARCADORES_GERUNDIO_PASSATO = [...ADVERBIALI_ANTERIORITA, PARTICELLA_CONCESSIVA];
 
 // STARE — las formas del verbo de estado admitidas como cabeza del marco
-// progresivo (D-43-15).
+// progresivo (D-43-15). Se comprueban con `terminaEnPalabra` y nunca con
+// `endsWith` a pelo (CR-02): `sta` es sufijo de palabras italianas corrientisimas
+// —`questa`, `basta`, `vista`— asi que con el matcher crudo un prompt como
+// `Questa ___ i compiti` pasaria por marco progresivo sin llevar el auxiliar.
 const STARE = ['sto', 'stai', 'sta', 'stiamo', 'state', 'stanno'];
 
 // COMPUESTOS_FACENTE — los DOS sustantivos de los dos compuestos fosilizados que
@@ -501,11 +552,11 @@ describe('fare-indefiniti — tipos de contexto sintactico, conjunto cerrado y d
     for (const id of IDS) {
       eachVariant(id, (v, k) => {
         const { cue, pos } = filaDe(id, k);
-        if (!v.prompt.includes(cue)) { sucio.push(`${id}#${k}: falta el cue "${cue}" en "${v.prompt}"`); return; }
-        if (pos === 'antes' && !antesDelHueco(v.prompt).endsWith(cue)) {
+        if (!wordish(cue).test(v.prompt)) { sucio.push(`${id}#${k}: falta el cue "${cue}" en "${v.prompt}"`); return; }
+        if (pos === 'antes' && !terminaEnPalabra(antesDelHueco(v.prompt), cue)) {
           sucio.push(`${id}#${k}: "${cue}" no es la palabra inmediatamente ANTERIOR al hueco: "${v.prompt}"`);
         }
-        if (pos === 'despues' && !despuesDelHueco(v.prompt).startsWith(cue)) {
+        if (pos === 'despues' && !empiezaPorPalabra(despuesDelHueco(v.prompt), cue)) {
           sucio.push(`${id}#${k}: "${cue}" no es la palabra inmediatamente POSTERIOR al hueco: "${v.prompt}"`);
         }
       });
@@ -556,6 +607,10 @@ describe('fare-indefiniti — 0-gloss del verbo (D-41-05, D-43-22)', () => {
   });
 
   test('ningun prompt lleva parentesis: en esta categoria no hay ningun gloss admitido', () => {
+    // UNICO `includes` crudo sobre un prompt que sobrevive a CR-02, y es correcto:
+    // se busca un CARACTER, no una palabra. Una frontera de palabra aqui seria
+    // absurda —el parentesis es por definicion un no-letra— y ademas apagaria el
+    // gate, porque `(` pegado a una palabra es justamente el caso a cazar.
     const sucio = allVariants()
       .filter(({ v }) => v.prompt.includes('(') || v.prompt.includes(')'))
       .map(({ slot, k, v }) => `${slot.id}#${k}: "${v.prompt}"`);
@@ -639,7 +694,7 @@ describe('fare-indefiniti — SCOPE-GATE lexico con la excepcion acotada del par
         `D-43-18: ${PART_PRES}#${k} tiene que usar el compuesto declarado "${COMPUESTOS_FACENTE[k]}"`
       );
       assert.ok(
-        despuesDelHueco(byId(PART_PRES).variants[k].prompt).startsWith(COMPUESTOS_FACENTE[k]),
+        empiezaPorPalabra(despuesDelHueco(byId(PART_PRES).variants[k].prompt), COMPUESTOS_FACENTE[k]),
         `D-43-18 / INDEF-03: el sustantivo del compuesto va inmediatamente DESPUES del hueco: "${byId(PART_PRES).variants[k].prompt}"`
       );
     });
@@ -651,7 +706,7 @@ describe('fare-indefiniti — SCOPE-GATE lexico con la excepcion acotada del par
     const sucio = [];
     for (const { slot, v, k } of allVariants()) {
       if (esExento(slot.id)) continue;
-      const hits = COMPUESTOS_FACENTE.filter((c) => v.prompt.includes(c));
+      const hits = COMPUESTOS_FACENTE.filter((c) => wordish(c).test(v.prompt));
       if (hits.length) sucio.push(`${slot.id}#${k}: ${hits.join(', ')} en "${v.prompt}"`);
     }
     assert.deepEqual(sucio, [], `D-43-18: la excepcion esta enumerada por id de slot; fuera de ${PART_PRES} el compuesto no entra`);
@@ -776,7 +831,10 @@ describe('fare-indefiniti — pool CERRADO de options, cero formas conjugadas (D
 
 describe('fare-indefiniti — participio passato, las 4 terminaciones y el gate HARD de pronombre (D-43-16, SC-4)', () => {
   const P = () => byId(PART_PASS);
-  const conCue = () => P().variants.map((v) => CONCORD_CUES.some((c) => v.prompt.toLowerCase().includes(c)));
+  // CR-02: `wordish` y NUNCA `includes`. Con el matcher crudo, `Michele ha ___`
+  // contaria como clitico antepuesto y el gate aprobaria una concordancia
+  // injustificada. `wordish` ya lleva la `i`, asi que no hace falta lowercasear.
+  const conCue = () => P().variants.map((v) => CONCORD_CUES.some((c) => wordish(c).test(v.prompt)));
 
   test('las 4 variantes ofrecen SIEMPRE el mismo conjunto de las cuatro terminaciones', () => {
     P().variants.forEach((v, k) => {
@@ -813,7 +871,7 @@ describe('fare-indefiniti — participio passato, las 4 terminaciones y el gate 
     // forma satisfacible.
     const sucio = [];
     eachVariant(PART_PASS, (v, k) => {
-      const hits = CONCORD_PROHIBIDOS.filter((b) => v.prompt.toLowerCase().includes(b));
+      const hits = CONCORD_PROHIBIDOS.filter((b) => wordish(b).test(v.prompt));
       if (hits.length) sucio.push(`${PART_PASS}#${k}: ${hits.join(', ')} en "${v.prompt}"`);
     });
     assert.deepEqual(sucio, [], 'D-43-16: el pronombre singular antepuesto esconde el genero tras el auxiliar elidido');
@@ -840,13 +898,25 @@ describe('fare-indefiniti — participio passato, las 4 terminaciones y el gate 
   });
 
   test('las 2 variantes de concordancia usan el cue declarado en la tabla, adyacente al hueco', () => {
+    // `CONCORD_CUES.includes(f.cue)` es pertenencia a un array de strings, no un
+    // escaneo de texto: ahi `includes` es exactamente lo que se quiere y CR-02 no
+    // aplica. Lo que SI faltaba era la ADYACENCIA que el nombre del test promete;
+    // vivia solo en el bloque 3, asi que este nombre describia algo que este test
+    // no comprobaba. Se anade aqui, con frontera de palabra.
+    let comprobadas = 0;
     VARIANT_TABLE[PART_PASS].forEach((f, k) => {
       if (f.tipo !== 'pronombre-antepuesto-concordancia') return;
+      comprobadas += 1;
       assert.ok(
         CONCORD_CUES.includes(f.cue),
         `D-43-16: "${f.cue}" no esta en el conjunto cerrado de bigramas de concordancia admitidos`
       );
+      assert.ok(
+        terminaEnPalabra(antesDelHueco(P().variants[k].prompt), f.cue),
+        `D-43-16: el clitico antepuesto tiene que ser adyacente al hueco, y como PALABRA: "${P().variants[k].prompt}"`
+      );
     });
+    assert.equal(comprobadas, 2, 'D-43-16 / SC-4: son exactamente 2 las variantes de concordancia');
   });
 });
 
@@ -897,7 +967,7 @@ describe('fare-indefiniti — infinito passato, el cuarto magnet, e imperativo n
     assert.ok(k >= 0, 'D-43-14: el slot de infinito presente tiene que declarar la variante de imperativo negativo');
     const v = byId(INF_PRES).variants[k];
     assert.ok(
-      antesDelHueco(v.prompt).endsWith('non'),
+      terminaEnPalabra(antesDelHueco(v.prompt), 'non'),
       `D-43-14: la negacion tiene que ir inmediatamente antes del hueco: "${v.prompt}"`
     );
     assert.equal(keyOf(v), 'fare', 'D-43-14: la respuesta del imperativo negativo es el INFINITIVO');
@@ -919,7 +989,7 @@ describe('fare-indefiniti — contextos, objetos y marco progresivo por variante
     assert.equal(k, GER_PRES_CON_COMPUESTO, 'D-43-15: la variante progresiva es la declarada por indice');
     const v = byId(GER_PRES).variants[k];
     assert.ok(
-      STARE.some((x) => antesDelHueco(v.prompt).endsWith(x)),
+      STARE.some((x) => terminaEnPalabra(antesDelHueco(v.prompt), x)),
       `D-43-15 / INDEF-04: stare + gerundio se EXAMINA, no solo se menciona: "${v.prompt}"`
     );
   });
@@ -942,7 +1012,7 @@ describe('fare-indefiniti — contextos, objetos y marco progresivo por variante
     assert.equal(flags.filter(Boolean).length, 1, `INDEF-04: exactamente 1 variante, y hay ${flags.filter(Boolean).length}: ${flags}`);
     assert.ok(flags[GER_PASS_CON_SIMPLE], `INDEF-04: tiene que ser la temporal (#${GER_PASS_CON_SIMPLE})`);
     assert.ok(
-      ADVERBIALI_ANTERIORITA.some((a) => byId(GER_PASS).variants[GER_PASS_CON_SIMPLE].prompt.includes(a)),
+      ADVERBIALI_ANTERIORITA.some((a) => wordish(a).test(byId(GER_PASS).variants[GER_PASS_CON_SIMPLE].prompt)),
       'INDEF-04: y esa variante tiene que llevar un adverbial de anterioridad del conjunto cerrado'
     );
   });
@@ -950,7 +1020,10 @@ describe('fare-indefiniti — contextos, objetos y marco progresivo por variante
   test('los 3 prompts del gerundio passato llevan EXACTAMENTE un marcador del conjunto cerrado', () => {
     const sucio = [];
     eachVariant(GER_PASS, (v, k) => {
-      const hits = MARCADORES_GERUNDIO_PASSATO.filter((m) => v.prompt.includes(m));
+      // CR-02: `Pur` es prefijo de `Purché`, `Purtroppo` y `puro`, asi que con
+      // `includes` el conteo de marcadores seria falseable por cualquiera de las
+      // tres. Va por `wordish` como todo lo demas.
+      const hits = MARCADORES_GERUNDIO_PASSATO.filter((m) => wordish(m).test(v.prompt));
       if (hits.length !== 1) sucio.push(`${GER_PASS}#${k}: ${hits.length} marcadores [${hits.join(' | ')}]: "${v.prompt}"`);
     });
     assert.deepEqual(sucio, [], 'INDEF-04: un marcador de anterioridad o de concesion por prompt, del conjunto cerrado');
@@ -961,7 +1034,7 @@ describe('fare-indefiniti — contextos, objetos y marco progresivo por variante
     // el infinito passato, el gate de anterioridad del bloque 9 no lo veria.
     const sucio = [];
     eachVariant(INF_PASS, (v, k) => {
-      const hits = ADVERBIALI_ANTERIORITA.filter((a) => v.prompt.includes(a));
+      const hits = ADVERBIALI_ANTERIORITA.filter((a) => wordish(a).test(v.prompt));
       if (hits.length) sucio.push(`${INF_PASS}#${k}: ${hits.join(', ')}`);
     });
     eachVariant(GER_PASS, (v, k) => {
