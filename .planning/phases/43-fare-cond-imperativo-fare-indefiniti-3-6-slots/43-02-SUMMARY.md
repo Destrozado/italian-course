@@ -20,15 +20,15 @@ provides:
   - "el CUARTO MAGNET del milestone resuelto con audit trail: key `aver fatto`, `avere fatto` a blacklist declarada y nombrada en la explanation"
   - "el gate HARD de pronombre del participio passato en su forma satisfacible: solo 3a plural antepuesta, 0 pronombres de concordancia opcional o partitiva, 0 bigramas de singular elidido"
   - "la EXCEPCION ACOTADA de D-43-18 escrita en los DOS sitios que la hacen efectiva: el `notes` del fichero y la seccion 7 de 09-VALIDATION-PROMPT.md"
-  - "tests/content-fare-indefiniti.test.js — 13 describe / 76 tests de invariantes permanentes, con 5 desviaciones declaradas y 12 pruebas negativas ejecutadas"
+  - "tests/content-fare-indefiniti.test.js — 13 describe / 76 tests de invariantes permanentes, con 5 desviaciones declaradas y 15 pruebas negativas ejecutadas (12 de autoria + 3 de CR-02)"
   - "la ruta del prompt de validacion arreglada en los dos skills del quorum (defecto preexistente del archivado de v1.1)"
 affects: [44-integracion-counts-cruces, INT-02, INT-03, INT-04, quorum-top-level]
 
 # Actuals (#2632)
 actuals:
-  tokens: 29021
+  tokens: 30300
   tasks: 5
-  commits: 4
+  commits: 5
 
 # Tech tracking
 tech-stack:
@@ -38,6 +38,7 @@ tech-stack:
     - "gate de doble validez cerrado por exclusion de la distractora en la variante concreta donde seria defendible (participio invariable fuera de las options con hueco inicial o adverbial de anterioridad; infinito compuesto fuera de la variante modal)"
     - "excepcion a un gate global enumerada POR ID DE SLOT y con obligacion sustitutoria, mas su reciproco: el literal exento prohibido en las variantes no exentas"
     - "assert de satisfacibilidad: POOL y CONJUGATE disjuntos, para que el gate de interseccion vacia no sea verde por vacuidad"
+    - "frontera de palabra en los escaneos de PRESENCIA y de ADYACENCIA, no solo en los de ausencia: `terminaEnPalabra` / `empiezaPorPalabra` mas `wordish`, porque un gate de presencia matcheado por subcadena no se pone rojo, deja de morder (CR-02)"
 
 key-files:
   created:
@@ -58,10 +59,11 @@ key-decisions:
   - "`fare-indefiniti-participio-presente` es el UNICO slot sin ninguna key repetida (facente / facenti). La cabecera del test lo declara y el bloque 2 lo congela con tres asserts (5 slots con alguna repeticion, 4 con todas iguales, el participio presente con 2 distintas)."
 
 patterns-established:
-  - "Adyacencia declarada: cuando lo que hace unica la respuesta es la palabra pegada al hueco (negacion, preposicion, modal, verbo de estado, particula concesiva, sustantivo del compuesto), el gate comprueba `antesDelHueco().endsWith(cue)` / `despuesDelHueco().startsWith(cue)`, nunca `prompt.includes(cue)`."
+  - "Adyacencia declarada: cuando lo que hace unica la respuesta es la palabra pegada al hueco (negacion, preposicion, modal, verbo de estado, particula concesiva, sustantivo del compuesto), el gate comprueba la ADYACENCIA y no la presencia. Pero con frontera de palabra en los dos extremos (`terminaEnPalabra` / `empiezaPorPalabra`), nunca con `endsWith` / `startsWith` a pelo: `Martha` termina en `ha` y `questa` en `sta`, asi que el matcher crudo aceptaria un nombre propio como auxiliar (corregido en CR-02)."
   - "Excepcion acotada bidireccional: la exencion va por id de slot Y el literal exento se prohibe explicitamente en las variantes no exentas. Sin la segunda mitad la exencion es global de facto."
   - "Interferencia de USO frente a interferencia de FORMA: cuando el hispanohablante construye bien pero usa de mas (stare + gerundio), la explanation tiene que decir eso y no explicar la formacion, que no es donde esta el error."
   - "Excepcion que el quorum tiene que ver: se escribe en 09-VALIDATION-PROMPT.md ANTES de la linea de cierre y con puntero desde el criterio afectado, porque el subagent evalua criterio a criterio y una seccion al final puede pasarle desapercibida."
+  - "Un gate de PRESENCIA matcheado por subcadena no falla: deja de morder. La disciplina de frontera de palabra que el proyecto aplicaba a los escaneos de ausencia vale igual para los de presencia y adyacencia, porque en italiano los cues cortos son sufijos y prefijos de palabras corrientes (`Michele`/`le`, `questa`/`sta`, `Purche`/`Pur`, `partenza`/`parte`). Una prueba por mutacion solo lo demuestra si se compara el gate ANTES y DESPUES: la mutacion puede saltar por otro gate y dar la falsa impresion de que el gate auditado funciona (CR-02)."
 
 requirements-completed: [INDEF-01, INDEF-02, INDEF-03, INDEF-04]
 
@@ -165,7 +167,7 @@ status: complete
 - **Completed:** 2026-08-07T02:20:30Z
 - **Tasks:** 5 (4 de ejecucion + 1 checkpoint)
 - **Files modified:** 7 (2 creados, 5 modificados)
-- **Suite:** 912 pass / 0 fail (baseline) -> **995 pass / 0 fail**
+- **Suite:** 912 pass / 0 fail (baseline) -> **995 pass / 0 fail**; 998 tras CR-02 y el fix de 43-01
 
 ## Accomplishments
 
@@ -184,12 +186,14 @@ status: complete
 4. **Task 4: participio presente, gerundio presente y gerundio passato** — `85a7a97` (feat)
 5. **Task 5: `tests/content-fare-indefiniti.test.js` (13 describe) + prompt de validacion + rutas de skills** — `ff7d800` (test)
 
+**Post-review:** `20a5cc6` (fix) — CR-02, ver seccion propia mas abajo.
+
 **Plan metadata:** ver commit `docs(43-02)` al cierre.
 
 ## Files Created/Modified
 
 - `content/exercises/fare-indefiniti.json` — **creado**, 269 lineas. 2 claves top-level; `notes` de 20.109 caracteres con las 13 declaraciones (identidad y volumen, EJE = CONTEXTO, REPARTO DESIGUAL justificado slot a slot, CONJUNTO CERRADO DE TIPOS DE CONTEXTO con su reparto por variante, POOL CERRADO, CUARTO MAGNET, blacklist de 25 formas, GATE HARD DE PRONOMBRE, EXCEPCION ACOTADA AL SCOPE-GATE, RECONOCER NO PRODUCIR, NOTA DE REGISTRO, imperativo negativo como contexto, marco progresivo como uso, conjuntos cerrados de marcadores, decisiones de omision, nota de escaneo y nota de count-sync); 6 slots / 18 variantes en `pending`.
-- `tests/content-fare-indefiniti.test.js` — **creado**, 1.225 lineas, 13 `describe` / 76 tests. Las CINCO desviaciones respecto del analogo declaradas en la cabecera.
+- `tests/content-fare-indefiniti.test.js` — **creado**, 1.298 lineas tras CR-02, 13 `describe` / 76 tests. Las CINCO desviaciones respecto del analogo declaradas en la cabecera, mas el COROLARIO de frontera de palabra que anade CR-02.
 - `content/categories.json` — **modificado**, 1 linea eliminada (la 17a reescrita con coma) y 2 anadidas. 18 entradas, `order` contiguos 1..18.
 - `tests/exercise-types.test.js` — **modificado**, 1 linea + 1 comentario en `CATEGORIES_WITH_EXPLANATIONS`, con `expected` dinamico via `slotCountOf`.
 - `.planning/milestones/v1.1-phases/09-infraestructura-de-validaci-n/09-VALIDATION-PROMPT.md` — **modificado**, 33 insertions / **0 deletions**. Seccion 7 (7.1 participio presente fosilizado, 7.2 RECONOCER NO PRODUCIR, 7.3 lo que NO se relaja) mas los 3 punteros desde C1, C2 y C3.
@@ -231,7 +235,7 @@ Las cinco decisiones de la seccion anterior son ejercicio de la discrecion que e
 - **`grep -c 'slotCountOf'` da 11 y no 9.** El plan estimaba 9 (5 previas + 3 categorias de `fare` + esta). El conteo real previo era 10 y ahora 11, porque el helper aparece tambien en su definicion y en el comentario IN-03. El criterio se cumple en su forma robusta —«el de antes mas uno»— y el gate exacto que si muerde es `grep -c "slotCountOf('content/exercises/fare-indefiniti.json')" == 1`.
 - **Nada mas.** El baseline se re-midio antes de tocar nada (912 pass / 0 fail, precondicion de la Task 1 cumplida) y la suite nunca estuvo en rojo entre commits.
 
-## Pruebas negativas ejecutadas (Task 5)
+## Pruebas negativas ejecutadas (Task 5, mas las 3 de CR-02 en su seccion propia)
 
 Las 12 mutaciones del JSON real, con restauracion byte a byte verificada (`cmp` contra la copia original, y `git diff` limpio al terminar):
 
@@ -249,6 +253,46 @@ Las 12 mutaciones del JSON real, con restauracion byte a byte verificada (`cmp` 
 | gerundio simple entre las opciones de la variante concesiva | fail 1 | INDEF-04 |
 | un tercer contexto inventado de `facente` | fail 3 | INDEF-03 / D-43-03 |
 | marco progresivo sin el verbo de estado antes del hueco | fail 2 | D-43-15 |
+
+## CR-02 (code review de la fase) — los gates casaban por subcadena y no mordian
+
+`43-REVIEW.md` (`ea10408`) dejo un warning WR-05 sobre `tests/content-fare-indefiniti.test.js`. El ejecutor de 43-01 lo detecto y lo transfirio correctamente sin tocarlo, porque el fichero es propiedad exclusiva de este plan. Resuelto en `20a5cc6`, **sin tocar `content/exercises/fare-indefiniti.json`**: el review no encontro doble validez en las 18 variantes, el defecto era del gate.
+
+**El hallazgo.** `CONCORD_CUES` se comparaba con `includes()` crudo. Los cues son bigramas que empiezan por un clitico de dos letras, asi que `"Michele ha fatto".includes("le ha")` es `true`: cualquier sujeto acabado en `-le` seguido del auxiliar satisfacia el cue sin que hubiera ningun clitico antepuesto. El gate estaba verde porque el contenido actual (`li ha fatti`, `le abbiamo fatte`) no dispara el falso positivo — pero existe para cazar una variante FUTURA que rompa D-43-16, y la habria aprobado.
+
+**La auditoria encontro la misma clase de defecto en otros seis sitios**, todos con colision real en italiano y no teorica:
+
+| Sitio | Colision | Efecto |
+|---|---|---|
+| `CONCORD_CUES` (bloque 8) | `Michele ha` contiene `le ha` | gate INFRA-estricto: aprueba concordancia injustificada |
+| `CONCORD_PROHIBIDOS` (bloque 8) | `Michela ha` contiene `la ha` | gate SOBRE-estricto: bloquearia un prompt legitimo |
+| `STARE` (bloque 10) | `questa`, `basta`, `vista` acaban en `sta` | el marco progresivo de D-43-15 aceptaba cualquier palabra acabada en -sta |
+| `MARCADORES_GERUNDIO_PASSATO` (bloque 10) | `Purché`, `Purtroppo` empiezan por `Pur` | el conteo de marcadores era falseable |
+| `COMPUESTOS_FACENTE` (bloque 5) | `partenza` empieza por `parte` | la exencion de D-43-18 era falseable |
+| adyacencia de `VARIANT_TABLE` (bloque 3) | `Martha` acaba en `ha` | el cue podia ser sufijo de otra palabra |
+| `ADVERBIALI_ANTERIORITA` (bloque 10) | escaneos cruzados | idem |
+
+**El arreglo.** Dos helpers, `terminaEnPalabra()` y `empiezaPorPalabra()`, que exigen que el caracter contiguo por el lado interior no sea letra; la presencia pasa a `wordish()`, que el fichero ya declaraba en su cabecera. Ningun cue se compara ya con `includes` / `endsWith` / `startsWith` a pelo. Sobrevive **un solo** `includes` crudo sobre un prompt —el de los parentesis— y va con su comentario: busca un CARACTER, no una palabra, y una frontera ahi apagaria el gate.
+
+Se documenta el porque en la cabecera del fichero (COROLARIO DE LA ADVERTENCIA) y en el comentario de cada constante afectada, con el ejemplo concreto de colision, para que quien lea `'le ha'` como string entienda por que ya no se compara asi.
+
+**Un segundo hallazgo, de la misma auditoria:** el test *las 2 variantes de concordancia usan el cue declarado en la tabla, adyacente al hueco* **no comprobaba la adyacencia que su nombre promete** — vivia solo en el bloque 3. Anadida, con frontera de palabra, mas un assert de que son exactamente 2.
+
+**Verificacion.**
+
+1. **La clasificacion no cambia** (requisito del coordinador): el reparto del participio passato es `[false, false, true, true]` **identico** antes y despues — 2 sin clitico antepuesto (invariables) y 2 con clitico (concordancia). Suite **998 pass / 0 fail**.
+2. **Prueba por mutacion, comparando el gate ANTES y DESPUES.** Es la unica forma honesta de demostrarlo: la mutacion puede saltar por OTRO gate y dar la falsa impresion de que el auditado funciona. Con el matcher viejo, en los tres casos saltaba `fail 1` — y ese unico fallo era siempre el bloque 3 (la tabla de cues, D-43-12), por accidente; el gate auditado tenia **0** tests en rojo.
+
+| Mutacion | Gate auditado | tests del gate en rojo, VIEJO | tests del gate en rojo, NUEVO |
+|---|---|---|---|
+| `Michele ha ___ i compiti.` con key `fatti` (concordancia sin clitico) | concordancia, bloque 8 | **0** (fail 1 total, solo bloque 3) | **3** (fail 4 total) |
+| `Questa ___ i compiti, non posso uscire.` (falso `stare`) | marco progresivo, bloque 10 | **0** (fail 1 total) | **1** (fail 2 total) |
+| `Purché ___ una torta per tutti, ...` (falso `Pur`) | marcadores, bloque 10 | **0** (fail 1 total) | **1** (fail 2 total) |
+
+3. **Sin regresion:** las 12 pruebas por mutacion originales siguen mordiendo, y dos de ellas mas fuerte que antes (el pronombre opcional pasa de fail 4 a fail 5 y el singular elidido de fail 5 a fail 6, por el assert de adyacencia nuevo). Restauracion byte a byte verificada con `cmp` y con `git diff --quiet` en cada iteracion.
+4. **Fuera de alcance respetado:** `content/exercises/fare-indefiniti.json` sin tocar, los ficheros de 43-01 sin tocar (su `32b2eab` leido antes de correr la suite), `src/` byte-intacto, counts y `TOTAL_EXPECTED` sin tocar, los 9 slots siguen en `pending` con `passes: []`.
+
+Total de pruebas por mutacion de este plan: **15** (12 originales + 3 de CR-02).
 
 ## Threat Flags
 
