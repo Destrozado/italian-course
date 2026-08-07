@@ -149,7 +149,7 @@ coverage:
     rationale: "Es juicio linguistico que ninguna asercion mecanica puede cerrar. Los gates automatizados (anterioridad, pronombre, adyacencia del cue, exclusion por variante) acotan los cuatro vectores conocidos, pero no demuestran la unicidad. El plan lo marca `backstop` para la variante causal del gerundio passato; la red real es el quorum base Opus+Sonnet mas la ronda EXTRA DeepSeek sobre las 7 variantes de los dos slots mas delicados."
 
 # Metrics
-duration: 26min
+duration: 30min
 completed: 2026-08-07
 status: complete
 ---
@@ -160,9 +160,9 @@ status: complete
 
 ## Performance
 
-- **Duration:** 26 min
+- **Duration:** 30 min
 - **Started:** 2026-08-07T01:50:00Z
-- **Completed:** 2026-08-07T02:16:17Z
+- **Completed:** 2026-08-07T02:20:30Z
 - **Tasks:** 5 (4 de ejecucion + 1 checkpoint)
 - **Files modified:** 7 (2 creados, 5 modificados)
 - **Suite:** 912 pass / 0 fail (baseline) -> **995 pass / 0 fail**
