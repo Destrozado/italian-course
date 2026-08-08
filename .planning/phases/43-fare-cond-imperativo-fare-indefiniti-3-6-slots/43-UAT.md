@@ -14,7 +14,50 @@ expected: |
   Los 9 slots pasan a `validated` (>=2 passes `correcta`, `by` distintos, cero
   `incorrecta`; `status === deriveStatus(passes)`). Hoy los 9 están en
   `validation.status: "pending"` con `passes: []`.
-awaiting: user response
+awaiting: sesión nueva — decisión del autor 2026-08-07
+
+<!--
+ESTADO DE LA SESIÓN (para retomar sin releer nada más)
+
+Tests 5 y 6 ADJUDICADOS por el autor y ya aplicados en disco (ver `decision:`
+de cada uno). El CONTENIDO DE LA FASE ESTÁ CERRADO: ninguna variante, key,
+option ni id cambia a partir de aquí. Suite en 1001 pass / 0 fail, `src/`
+byte-intacto, árbol de git limpio.
+
+Quedan los tests 1-4, y los cuatro se cierran con el MISMO pase de quórum:
+
+  - Test 1 — quórum base Opus+Sonnet sobre los 9 slots (VAL-03: un subagent
+    fresh context por ejercicio, NUNCA batched → 9 x 2 = 18 spawns).
+  - Test 2 — ronda EXTRA DeepSeek sobre 12 de 35 variantes (D-43-20):
+    `fare-cond-imperativo-imperativo` (5), `fare-indefiniti-participio-passato`
+    (4), `fare-indefiniti-infinito-passato` (3). Vía
+    `scripts/validate-ai-pass.mjs`, claves en `.env`.
+  - Tests 3 y 4 — los dos backstops declarados. NO se resuelven a ojo: son la
+    pregunta «¿hay una segunda lectura defendible?», que es literalmente lo que
+    decide C2. El veredicto del quórum del test 1 los cierra.
+
+POR QUÉ SE PUEDE CORRER AHORA Y NO SE PUDO EN EJECUCIÓN: el límite
+`[[executor_cannot_run_task_quorum]]` es específico de `gsd-executor`, que no
+puede spawnear los Task subagents del skill. Un orquestador top-level sí puede.
+Además el skill apuntaba a una ruta muerta (`.planning/phases/09-...`), corregida
+en 43-02 — hoy resuelve el `09-VALIDATION-PROMPT.md` real.
+
+ANTES DE CORRER, comprobar que el prompt de validación lleva las CUATRO
+excepciones (secciones 7.1 a 7.4). La 7.4 es la más reciente y la más frágil:
+sin ella, Opus y Sonnet marcan las 2 variantes de objeto pospuesto del
+participio como violación de C2 y producen un `disputed` FALSO — que por la
+cascada D-54 resetea `fare-indefiniti` entera.
+
+AL ESCRIBIR LOS PASES ([[top_level_quorum_mechanics.md]]):
+  - un pase `correcta` SÍ admite `concerns[]` declarativas (audit trail);
+  - en `by` va el modelo REAL resuelto, no el id pinneado de la skill;
+  - los subagents devuelven solo el verdict y el orquestador escribe.
+
+CUANDO LOS 9 ESTÉN `validated`: `VAL_07_STRICT=1 node --test tests/*.test.js`
+pasa de 2 fails a 0 — ese es el marcador honesto de que SC#4 y SC#5 se cierran.
+Entonces `/gsd-verify-work 43` marca los tests 1-4 y transiciona la fase.
+-->
+
 
 ## Tests
 
