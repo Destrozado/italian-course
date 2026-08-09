@@ -173,7 +173,7 @@
         }
       ],
       "validation": {
-        "status": "disputed",
+        "status": "validated",
         "passes": [
           {
             "by": "claude-opus-5",
@@ -193,6 +193,28 @@
             "verdict": "incorrecta",
             "concerns": [
               "[C5-leak] El prompt de la variante 3 ('Marco ha preso i compiti e li ha ___ ieri sera.') contiene el pronombre de objeto directo 'li' ANTEPUESTO al auxiliar, lo que filtra la regla de concordancia obligatoria que el ejercicio examina. El alumno no necesita recordar la regla: ve 'li' (masculino plural) y deduce que la respuesta debe ser 'fatti'. Esto viola R1 porque el prompt revela la solución a través de la estructura sintáctica. Para corregir: eliminar el pronombre antepuesto y reformular la frase para que el objeto vaya pospuesto (ej. 'Marco ha preso i compiti e ha ___ i compiti ieri sera.'), manteniendo la invariable 'fatto' como respuesta correcta."
+            ]
+          },
+          {
+            "by": "gemini-2.5-flash",
+            "date": "2026-08-09",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C5-leak] En la variante 3, el prompt \"Marco ha preso i compiti e li ha ___ ieri sera.\" contiene el pronombre de objeto directo 'li' (masculino plural) antepuesto al auxiliar. Esto revela directamente el género y número requeridos para el participio ('fatti'), filtrando la solución y violando R1. El alumno no necesita recordar la regla de concordancia, solo leer el pronombre.",
+              "[C5-leak] En la variante 4, el prompt \"Anna vuole vedere le foto e noi le abbiamo ___ in montagna.\" contiene el pronombre de objeto directo 'le' (femenino plural) antepuesto al auxiliar. Esto revela directamente el género y número requeridos para el participio ('fatte'), filtrando la solución y violando R1. El alumno no necesita recordar la regla de concordancia, solo leer el pronombre."
+            ]
+          },
+          {
+            "by": "autor",
+            "date": "2026-08-09",
+            "verdict": "correcta",
+            "override": true,
+            "concerns": [
+              "[override-autor] Adjudicacion adversarial cerrada 2-2: claude-opus-5 y claude-sonnet-5 dan correcta; deepseek-chat y gemini-2.5-flash marcan C5-leak sobre las dos variantes de clitico ANTEPUESTO (li ha ___ -> fatti, le abbiamo ___ -> fatte).",
+              "[override-autor] El flag NO es descartado como falso positivo trivial: su version fuerte es real. La vocal final del clitico coincide con la del participio (li/fatti, le/fatte), asi que un alumno puede acertar copiando la ultima letra sin saber que existe la regla de concordancia. Eso lo distingue del pronombre sujeto explicito de D-41-07, donde no hay parecido de superficie entre pista (Lui) y respuesta (ha).",
+              "[override-autor] Motivo del override: NO EXISTE ARREGLO DE CONTENIDO. La regla que el slot ensena es literalmente \"con el pronombre objeto directo antepuesto el participio concuerda\"; el clitico antepuesto no es una pista anadida sino el disparador gramatical examinado, y sin el no queda ejercicio. Tampoco cabe elegir otro clitico: los cuatro admitidos (lo/la/li/le) riman con su participio por la morfologia italiana, y D-43-16 prohibe mi/ti/ci/vi porque con esos la concordancia es OPCIONAL y se abriria doble validez, que es peor.",
+              "[override-autor] Coste de la alternativa: retirar las 2 variantes de concordancia incumpliria SC#4 del ROADMAP, que exige literalmente examinar el DOBLE comportamiento de fatto (invariable con avere frente a concordancia regida por pronombre objeto). Dejarlo disputed es sticky y por la cascada D-54 resetearia fare-indefiniti entera en cada fallo de cualquiera de sus 6 slots.",
+              "[override-autor] Riesgo aceptado explicitamente por el autor: el atajo de copiar la vocal existe y se asume. Mitigacion parcial ya presente: las 2 variantes de objeto POSPUESTO del mismo slot exigen la invariable, asi que el alumno que copie terminaciones por sistema falla la mitad del slot. Adjudicado 2026-08-09 tras desempate cross-vendor pedido por el autor."
             ]
           }
         ]
