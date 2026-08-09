@@ -6,7 +6,7 @@ current_phase: 43
 current_phase_name: fare-cond-imperativo-fare-indefiniti-3-6-slots
 status: verifying
 stopped_at: Completed 43-02-PLAN.md
-last_updated: "2026-08-07T09:06:55.430Z"
+last_updated: "2026-08-09T21:06:38.275Z"
 last_activity: 2026-08-07
 last_activity_desc: Phase 43 execution started
 progress:
@@ -287,6 +287,9 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - [Phase ?]: 43-01 CR-01: un gate de doble validez cubre SOLO la familia de distractoras que mira — el gate de ausencia de protasis neutralizaba el calco de condizionale presente pero dejaba el trapassato defendible en 4 de 6 variantes; cada familia de distractoras necesita su propio exclusor declarado
 - [Phase ?]: 43-01 CR-01: el marco de diceria (Secondo il giornale / A quanto pare) se retira del conjunto cerrado de anclas del condizionale passato — es la unica familia de marco que no puede excluir la lectura anterior por ningun medio
 - [Phase ?]: 43-01 WR-10: un vocativo de nombre propio NO fija el registro (convive con el trato de cortesia en italiano profesional); se cierra con un posesivo de 2a singular, que desambigua por concordancia sin leak R1. Asimetria deliberada con 'Signor Rossi', que no lleva refuerzo porque el titulo de cortesia ya selecciona Lei
+- [Phase ?]: 43-01 quorum: el exhortativo facciamo es INCLUSIVO y ningun vocativo puede excluirlo — un slot de imperativo tiene DOS ejes de ambiguedad (trato e inclusion) y cerrar el primero no cierra el segundo; el exclusor del inclusivo es una clausula que deja al hablante FUERA de la accion
+- [Phase ?]: 43-01 quorum: una cola adversativa de IMPEDIMENTO (ma non ho avuto tempo) no cierra el evento y deja defendible el condizionale presente; solo la que declara el evento cerrado en pasado lo excluye
+- [Phase ?]: 43-01 quorum: un marco que excluye la distractora por IDIOMATISMO no es un gate (Al posto tuo admite la lectura de sustitucion literal, que acepta futuro); solo la protasis con congiuntivo imperfetto lo excluye por gramatica
 
 ### Pending Todos
 

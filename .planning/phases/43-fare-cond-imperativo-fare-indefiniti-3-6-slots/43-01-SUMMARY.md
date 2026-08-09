@@ -22,9 +22,9 @@ affects: [43-02-fare-indefiniti, 44-integracion-counts-cruces, INT-02, INT-03, I
 
 # Actuals (#2632)
 actuals:
-  tokens: 28100
+  tokens: 30400
   tasks: 4
-  commits: 6
+  commits: 7
 
 # Tech tracking
 tech-stack:
@@ -154,6 +154,7 @@ status: complete
 4. **Task 4: `tests/content-fare-cond-imperativo.test.js`, 13 describe / 63 tests** — `6c00cb5` (test)
 5. **CR-01 del code review: doble validez del trapassato en el condizionale passato** — `32b2eab` (fix)
 6. **WR-10 del UAT: refuerzo de registro en la variante de `Marco`** — `660fa9d` (fix)
+7. **Los 3 hallazgos del quórum base top-level** — `877f3fc` (fix)
 
 **Plan metadata:** `f0e81b0` (docs: complete plan).
 
@@ -320,6 +321,60 @@ Descartadas: el marcador de confianza `Dai` (ya encabeza el marcador de la varia
 **Notes actualizado:** el párrafo del gate de vocativo pasa de «DOS PRECISIONES» a «TRES», y la tercera declara la **asimetría deliberada** entre las dos singulares con su razonamiento entero. Sin esa línea escrita, un re-pase futuro «arreglaría» la asimetría y perdería la adjudicación del autor.
 
 **5 mutaciones nuevas**, incluida la **regresión literal** del prompt que shippeó sin refuerzo y el caso invertido (posesivo de cortesía en la variante de tú, que es el registro al revés). Las 22 anteriores siguen mordiendo; el JSON queda restaurado byte a byte en las 27. Suite: **999 pass / 0 fail**.
+
+## Correccion post-quorum: los 3 slots salieron `disputed` (`877f3fc`)
+
+El quórum base top-level (Opus + Sonnet, 1 ejercicio por contexto fresco) marcó los **3 slots** como `disputed`. Los tres hallazgos son reales. Tras arreglar el contenido, los `validation.passes[]` quedaron **vaciados** (`status: "pending"`, `passes: []`): juzgaban contenido que ya no existe, y dejarlos habría sido un audit trail mentiroso.
+
+### 1. El exhortativo INCLUSIVO — imperativo v1 y v3 (unánime: Opus y Sonnet por separado)
+
+El hallazgo más profundo, y **reencuadra WR-10 entero**.
+
+El vocativo y el refuerzo de registro cierran **quién** es el destinatario y con qué trato. Eso **no** cierra `facciamo`, porque el exhortativo es **inclusivo**: mete al hablante *dentro* del grupo del destinatario en vez de contraponerlo a él. Por construcción, **ningún vocativo puede excluirlo**, por inequívoco que sea. Hay **dos ejes de ambigüedad** en el slot —el del **trato** y el de la **inclusión**— y hasta esta corrección solo estaba cerrado el primero:
+
+- `Signor Rossi, facciamo il lavoro con calma` — invitación normal.
+- `Bambini, facciamo i compiti prima di cena!` — la fórmula parental de toda la vida.
+
+| # | antes | ahora |
+|---|-------|-------|
+| 1 | `Signor Rossi, ___ il lavoro con calma.` | `Signor Rossi, ___ il lavoro con calma: io intanto aspetto qui.` |
+| 3 | `Bambini, ___ i compiti prima di cena!` | `Bambini, ___ i compiti prima di cena: io intanto preparo la tavola.` |
+
+**Mecanismo: excluir al hablante de la acción**, que es lo único que mata al inclusivo. La cláusula usa otro verbo y un complemento ajeno a `OBJECTS`, para no meter un segundo objeto en la casilla ni un segundo uso del verbo examinado.
+
+**Lo incómodo:** la variante que reforcé en WR-10 (`Marco`) resultó ser **la única que no corría peligro por esta vía**, porque no ofrece `facciamo` entre sus opciones. El refuerzo de WR-10 sigue siendo correcto y necesario para su propio eje (el trato), pero el diagnóstico que lo motivó estaba incompleto — y yo lo acepté sin buscar el segundo eje.
+
+### 2. La cola era un IMPEDIMENTO, no un cierre de evento — cond-passato v0 (Opus)
+
+`ma non ho avuto tempo` es pretérito perfecto con lectura de **presente perfecto** («no he tenido tiempo», el trabajo sigue pendiente), y bajo esa lectura `Io farei il lavoro volentieri, ma non ho avuto tempo` es italiano corriente: el calco de condizionale **presente** seguía defendible.
+
+`Io ___ il lavoro volentieri, ma non ho avuto tempo.` → **`Aveva giurato che io ___ il lavoro la settimana dopo.`**
+
+Las colas de **impedimento** salen del conjunto cerrado; queda solo la que **cierra el evento** (`ma alla fine non è successo`, la de v4). Un hecho que ya no puede ocurrir no admite hipotetizarlo en presente; un impedimento abierto sí.
+
+**Es la segunda corrección de esta misma familia, y por el mismo error.** CR-01 revisó el aux-swap sobre estas dos variantes y las dio por buenas «porque ya tenían cola adversativa», **sin revisar la otra familia sobre ellas** — que es exactamente la lección que CR-01 declaraba. Queda escrito en `notes` como nota de honestidad: *un gate cubre la familia que mira y ninguna otra, y eso vale también para el gate que uno acaba de escribir.*
+
+### 3. `Al posto tuo` es doblemente válido — cond-presente v0 (Sonnet)
+
+Además del sentido hipotético de consejo (que exige condizionale), tiene el de **sustitución literal** —ocupar el puesto de otro, `vado io al posto tuo`— y en esa lectura el futuro entra sin anomalía. Era la única de las 6 sin prótasis explícita: las otras cinco excluyen el futuro **gramaticalmente**.
+
+`Al posto tuo, io ___ tutto in un altro modo.` → **`Se fossi in te, io ___ tutto in un altro modo.`**
+
+Las locuciones salen del conjunto cerrado. **Los 6 disparadores son ahora prótasis con congiuntivo imperfetto**, y la uniformidad queda declarada en `notes` como decisión y no como falta de imaginación: lo que tiene que variar entre las 6 es la **persona**, que es el eje del slot. La lección es la de CR-01 por otra puerta: **un marco que excluye la distractora por idiomatismo no es un gate, porque el idiomatismo admite excepciones y la gramática no.**
+
+### Gates nuevos
+
+Los tres con mensaje que nombra el hallazgo:
+
+- toda variante del imperativo que **ofrezca** el exhortativo sin serlo lleva su exclusor del hablante — la tabla declara `null` **con su razón** donde no aplica, para que la exención sea visible en vez de estar escondida en la ausencia de un assert;
+- toda variante del passato cierra la lectura de condizionale presente, por principal en pasado que gobierne el hueco o por evento cerrado;
+- los 6 disparadores del presente son prótasis del conjunto cerrado.
+
+**10 mutaciones nuevas**, incluidas las **4 regresiones literales** de los prompts que salieron `disputed`. Las 27 anteriores siguen mordiendo — **37 en total**, JSON restaurado byte a byte en todas. Suite: **1004 pass / 0 fail**.
+
+### Punto a vigilar, declarado y no enterrado
+
+La variante de `Loro` (imperativo v4) es la única de las tres exentas del gate del inclusivo que se apoya en un **mecanismo distinto** —la concordancia verbal de `come preferiscono Loro`— en vez de en la ausencia del problema. El quórum no la marcó y el coordinador la analizó como cerrada, así que no la toqué; pero queda marcada en el `notes` y en la tabla del test como **el punto a revisar si el quórum vuelve a señalar este slot**. No me convence del todo que `Signori, facciamo tutto con comodo, come preferiscono Loro` sea imposible.
 
 **Transferido al plan 43-02:** WR-05 del code review (`CONCORD_CUES` con `includes()` crudo sobre bigramas de dos letras en `tests/content-fare-indefiniti.test.js`, que hace match dentro de `Michele ha`). Es un hallazgo real y barato, pero ese fichero es propiedad exclusiva de 43-02 y este plan lo tiene prohibido tocar. El arreglo es usar el matcher con frontera de palabra que el propio fichero ya declara en su cabecera.
 
