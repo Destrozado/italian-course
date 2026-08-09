@@ -365,7 +365,25 @@ const EXTRA_ROUND_SLOTS = [PART_PASS, INF_PASS];
 // slot. Se declaran por indice y no se descubren por conteo ciego, para que el
 // gate compare intencion contra contenido y no contenido contra si mismo.
 const GER_PRES_CON_COMPUESTO = 0; // la del marco progresivo
-const GER_PASS_CON_SIMPLE = 0; // la temporal, con adverbial de anterioridad
+
+// PREMISA CORREGIDA DEL GERUNDIO PASSATO (hallazgo de Sonnet en el quorum base,
+// criterio de opcion unica, adjudicado en el UAT).
+//
+// La primera version de este fichero declaraba `GER_PASS_CON_SIMPLE = 0`: el
+// gerundio simple entraba en las options de la variante temporal porque el
+// adverbial de anterioridad lo haria agramatical. Es FALSO. El italiano ADMITE
+// el gerundio simple en las subordinadas implicitas —tambien en la concesiva con
+// `pur` y tambien con la accion ya concluida—, y el imperfecto de la principal de
+// la causal es ademas el tiempo que empareja canonicamente con el simple para la
+// simultaneidad. La constante desaparece a proposito: ya no hay ninguna variante
+// de este slot que ofrezca el gerundio simple, y la razon es la INVERSA de la que
+// se escribio — no es agramatical, es DEFENDIBLE, y una distractora defendible es
+// justo lo que el criterio operativo de la blacklist prohibe.
+//
+// A cambio, la distractora plausible de las 3 variantes pasa a ser el INFINITO
+// compuesto, que es el calco espanol real (a pesar de HABER HECHO, por HABER
+// TERMINADO) y que si es agramatical en una subordinada implicita de este tipo.
+const CALCO_GERUNDIO_PASSATO = 'aver fatto';
 
 // VARIANT_TABLE — la tabla declarativa por variante. Por variante:
 //   tipo   — el tipo de contexto sintactico, del conjunto CERRADO CONTEXT_TYPES
@@ -809,6 +827,27 @@ describe('fare-indefiniti — blacklist de formas atestiguadas y defendibles (D-
     }
   });
 
+  test('EN POSITIVO: el notes declara las DOS adjudicaciones post-quorum con su audit trail', () => {
+    // Ninguna de las dos vive solo en `passes[]`. Un veredicto en `passes[]` dice
+    // QUE se adjudico; el `notes` es lo unico que dice POR QUE, y es lo que lee
+    // un re-pase futuro que se plantee «arreglar» cualquiera de las dos.
+    assert.ok(
+      CONTENT.notes.includes('PREMISA CORREGIDA DEL GERUNDIO PASSATO'),
+      'el notes no declara la premisa corregida del gerundio passato (hallazgo C2 del quorum base)'
+    );
+    assert.ok(
+      CONTENT.notes.includes('OVERRIDE DE AUTOR SOBRE EL PARTICIPIO PASSATO'),
+      'el notes no declara el override del autor sobre el atajo de la vocal (desempate cross-vendor)'
+    );
+    // El override no puede quedar como una afirmacion desnuda: tiene que llevar
+    // escrito que el riesgo se ASUME y cual es la mitigacion, porque es lo unico
+    // que distingue una adjudicacion razonada de un descarte.
+    assert.ok(
+      /MITIGACIÓN/.test(CONTENT.notes),
+      'el override tiene que declarar su MITIGACION: las 2 variantes de objeto pospuesto exigen la invariable, asi que copiar terminaciones por sistema falla la mitad del slot'
+    );
+  });
+
   test('EN POSITIVO: el notes declara el knock-on aritmetico que Phase 44 / INT-02 necesita', () => {
     for (const n of ['22 slots', '113', '247']) {
       assert.ok(CONTENT.notes.includes(n), `INT-02: el notes no declara "${n}"`);
@@ -1121,16 +1160,57 @@ describe('fare-indefiniti — contextos, objetos y marco progresivo por variante
     assert.ok(flags[GER_PRES_CON_COMPUESTO], `D-43-15: tiene que ser la del marco progresivo (#${GER_PRES_CON_COMPUESTO})`);
   });
 
-  test('el gerundio SIMPLE solo entra en las options de la variante temporal del gerundio passato', () => {
-    // El adverbial de anterioridad lo hace agramatical porque el gerundio simple
-    // exige contemporaneidad con el verbo principal. En la causal y en la
-    // concesiva no entra: alli la lectura de contemporaneidad es posible.
-    const flags = byId(GER_PASS).variants.map((v) => v.options.includes('facendo'));
-    assert.equal(flags.filter(Boolean).length, 1, `INDEF-04: exactamente 1 variante, y hay ${flags.filter(Boolean).length}: ${flags}`);
-    assert.ok(flags[GER_PASS_CON_SIMPLE], `INDEF-04: tiene que ser la temporal (#${GER_PASS_CON_SIMPLE})`);
+  test('PREMISA CORREGIDA: el gerundio SIMPLE no entra en NINGUNA variante del gerundio passato', () => {
+    // Gate invertido respecto a la primera version, y por eso lleva su porque.
+    // Antes se exigia que la variante temporal SI lo ofreciera, con el argumento
+    // de que el adverbial de anterioridad lo hacia agramatical. El quorum base
+    // tumbo esa premisa: el italiano admite el gerundio simple en las
+    // subordinadas implicitas aunque la accion sea anterior y este concluida, asi
+    // que ofrecerlo en cualquiera de las tres seria una SEGUNDA RESPUESTA
+    // DEFENDIBLE, no una distractora. Si alguien vuelve a meterlo, lo que tiene
+    // que leer en el diff es esto y no un aviso de conteo.
+    const sucio = [];
+    eachVariant(GER_PASS, (v, k) => {
+      if (v.options.includes('facendo')) sucio.push(`${GER_PASS}#${k}: ${v.options.join(', ')}`);
+    });
+    assert.deepEqual(
+      sucio,
+      [],
+      'PREMISA CORREGIDA (quorum base, C2): el gerundio simple es DEFENDIBLE en una subordinada implicita concesiva o causal, tambien con la accion ya concluida; ofrecerlo abre dos respuestas'
+    );
+  });
+
+  test('PREMISA CORREGIDA: las 3 variantes del gerundio passato ofrecen el CALCO, que es el infinito compuesto', () => {
+    // La contrapartida del gate anterior: al quitar el gerundio simple, el slot
+    // se quedaria sin ninguna distractora plausible y el criterio de distractoras
+    // se resentiria. La que entra en su lugar es la interferencia REAL del
+    // hispanohablante —el espanol dice a pesar de haber hecho con INFINITIVO— y
+    // esa si es agramatical en una subordinada implicita de este tipo.
+    const sucio = [];
+    eachVariant(GER_PASS, (v, k) => {
+      if (!v.options.includes(CALCO_GERUNDIO_PASSATO)) sucio.push(`${GER_PASS}#${k}: ${v.options.join(', ')}`);
+    });
+    assert.deepEqual(
+      sucio,
+      [],
+      `INDEF-04 / C3: sin "${CALCO_GERUNDIO_PASSATO}" el slot se queda sin distractora plausible y solo ofrece formas descartables de un vistazo`
+    );
+  });
+
+  test('el contraste mecanico simple-frente-a-compuesto se examina en el marco PROGRESIVO, no en el gerundio passato', () => {
+    // Consecuencia declarada de la premisa corregida, congelada para que no se
+    // lea como perdida: el par se sigue examinando de forma dura, pero donde el
+    // contraste NO es interpretable — tras el verbo de estado, donde el compuesto
+    // es categoricamente agramatical.
+    const k = VARIANT_TABLE[GER_PRES].findIndex((f) => f.tipo === 'marco-progresivo');
     assert.ok(
-      ADVERBIALI_ANTERIORITA.some((a) => wordish(a).test(byId(GER_PASS).variants[GER_PASS_CON_SIMPLE].prompt)),
-      'INDEF-04: y esa variante tiene que llevar un adverbial de anterioridad del conjunto cerrado'
+      byId(GER_PRES).variants[k].options.includes('avendo fatto'),
+      'INDEF-04: si el marco progresivo deja de ofrecer el gerundio compuesto, el contraste simple/compuesto no se examina en NINGUN sitio del fichero'
+    );
+    assert.equal(
+      keyOf(byId(GER_PRES).variants[k]),
+      'facendo',
+      'D-43-15: y la respuesta ahi es el simple, que es lo que hace el contraste'
     );
   });
 
@@ -1268,6 +1348,50 @@ describe('fare-indefiniti — canon editorial e higiene del JSON (D-43-21, T-43-
     assert.ok(e.includes('anterioridad'), 'INDEF-04: falta el valor del gerundio compuesto');
     assert.ok(e.includes('contemporane'), 'INDEF-04: falta el contraste con el gerundio simple');
     assert.ok(e.length > 500, `INDEF-04: la explanation del gerundio passato enumera los tres encajes (${e.length} caracteres)`);
+  });
+
+  test('PREMISA CORREGIDA: la explanation del gerundio passato NO afirma que el simple sea imposible', () => {
+    // El defecto que el quorum base encontro NO estaba en la key ni en las
+    // options: estaba aqui. La explanation decia que estos tres encajes EXIGEN el
+    // compuesto y que el adverbial deja el simple fuera, y eso ensena una regla
+    // mas rigida que el italiano real. Este gate congela la version honesta.
+    const e = byId(GER_PASS).explanation;
+    assert.ok(
+      /ADMITE/.test(e),
+      'PREMISA CORREGIDA: la explanation tiene que reconocer que el italiano ADMITE el gerundio simple en estas subordinadas'
+    );
+    for (const falsa of ['exige el compuesto', 'deja de ser posible', 'queda descartado']) {
+      assert.ok(
+        !e.includes(falsa),
+        `PREMISA CORREGIDA (quorum base, C2): la explanation vuelve a afirmar "${falsa}", que es mas rigido que el italiano real`
+      );
+    }
+    assert.ok(
+      e.includes(CALCO_GERUNDIO_PASSATO),
+      'INDEF-04: la explanation tiene que nombrar el calco del infinitivo, que es la trampa real de estos tres encajes'
+    );
+  });
+
+  test('la explanation del infinito presente usa el pronombre preposicional correcto (C4, errata de espanol)', () => {
+    // Errata real de gramatica espanola que marco Sonnet: tras la preposicion `a`
+    // el espanol normativo pide `ti`, no `tu`. Resuelto con la formula
+    // metalinguistica que el propio parrafo ya usaba dos lineas mas abajo.
+    //
+    // OJO, y va escrito porque la primera version de ESTE MISMO gate cayo en la
+    // trampa: se escribio con `\b`, que en JS es ASCII-only. La `u` acentuada no
+    // es un word-char para `\b`, asi que `/\ba tú\b/` NO casa nunca y el gate
+    // nacio muerto — la mutacion que lo probaba daba fail 0. Es exactamente el
+    // defecto de CR-02, cometido otra vez. Por eso va con `wordish`, que es
+    // Unicode-aware, como todo lo demas de este fichero.
+    //
+    // Se comprueba solo la forma ACENTUADA: `a tú` es inequivocamente el error,
+    // mientras que `a tu` sin tilde es el posesivo y es espanol correcto (`a tu
+    // casa`), asi que gatearlo produciria un falso positivo.
+    const e = byId(INF_PRES).explanation;
+    assert.ok(
+      !wordish('a tú').test(e),
+      'C4: tras la preposicion `a` el espanol pide el pronombre preposicional `ti`, no `tú`. Usar `a ti` o la formula metalinguistica `de tú` que el propio parrafo ya emplea'
+    );
   });
 });
 
