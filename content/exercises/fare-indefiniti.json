@@ -41,8 +41,23 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-09",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-09",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] La explanation del slot dice 'El primero es la orden negativa dirigida a tu' — tras la preposicion 'a' el espanol normativo exige el pronombre preposicional 'ti', no el pronombre sujeto 'tu' (debe ser 'dirigida a ti', o la formula metalinguistica 'de tu' que el propio texto usa dos lineas despues). Es un error gramatical real, no una tilde, y degrada la calidad del espanol pedagogico dirigido al alumno."
+            ]
+          }
+        ]
       }
     },
     {
@@ -85,8 +100,21 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-09",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-09",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
@@ -139,8 +167,21 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-09",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-09",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
@@ -173,8 +214,21 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-09",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-09",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
@@ -217,8 +271,21 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-09",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-09",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
@@ -261,8 +328,26 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-09",
+            "verdict": "correcta",
+            "concerns": [
+              "[declarativa, no degrada el verdict] Variante 0: 'Facendo i compiti la sera prima, io ho potuto dormire fino a tardi' es marcado pero no del todo imposible — el gerundio semplice admite valor instrumental-causal con accion previa. Lo que lo bloquea aqui es la suma del adverbial 'la sera prima' y la principal perfectiva. Observacion de precision emitida en prosa por el evaluador y recogida por el orquestador."
+            ]
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-09",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C2-una_opcion] Variante indice 2 ('Pur ___ una torta per tutti, lui non e stato ringraziato.'): 'pur + gerundio semplice' es construccion concesiva estandar usada habitualmente incluso cuando la accion es anterior y ya concluida (uso nativo: 'Pur perdendo la partita, ha giocato bene'). 'Pur facendo una torta per tutti...' es tambien italiano natural con lectura concesiva valida, asi que la premisa de la explanation de que este encaje 'exige' el compuesto no esta bien fundamentada. 'facendo' no esta entre las options, luego mecanicamente solo 'avendo fatto' es seleccionable, pero el fundamento pedagogico es debil.",
+              "[C2-una_opcion] Variante indice 1 ('___ il lavoro il giorno prima, lei era gia libera.'), evidencia secundaria: el imperfecto de la principal empareja canonicamente con gerundio simple para simultaneidad, asi que 'il giorno prima' no excluye por si solo esa lectura. Nota factual: DOS variantes (indices 1 y 2) omiten 'facendo' de las options, no una sola como afirmaba el encuadre de la revision."
+            ]
+          }
+        ]
       }
     }
   ]

@@ -71,8 +71,23 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-09",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-09",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C2-una_opcion] Variante 0 (\"Al posto tuo, io ___ tutto in un altro modo.\"): 'al posto tuo' es doblemente valido — ademas del sentido hipotetico/consejo ('si yo fuera tu', que exige condizionale), tiene el sentido de sustitucion real ('en tu lugar, te sustituyo'), que admite futuro sin anomalia: 'Al posto tuo, faro tutto in un altro modo'. Las variantes 1-5 fijan la lectura hipotetica con protasis 'Se + congiuntivo imperfetto' que excluye el futuro gramaticalmente; esta no tiene ningun marcador que descarte la lectura de sustitucion, asi que 'faro' es una segunda respuesta defendible."
+            ]
+          }
+        ]
       }
     },
     {
@@ -145,8 +160,23 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-09",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C2-una_opcion] Variante 0 ('Io ___ il lavoro volentieri, ma non ho avuto tempo.'): la distractora 'farei' (condizionale presente) sigue siendo defendible. La cola 'ma non ho avuto tempo' es passato prossimo y admite lectura de presente perfecto ('no he tenido tiempo', el trabajo sigue pendiente), con la que 'Io farei il lavoro volentieri, ma non ho avuto tempo' es italiano corriente. A diferencia de la variante 4, cuya cola 'ma alla fine non e successo' afirma que el hecho NO ocurrio y cierra el evento, aqui la cola solo enuncia un obstaculo. El trapassato 'avevo fatto' si queda excluido, y en las variantes 1, 2, 3 y 5 los adverbiales prospectivos excluyen ambas distractoras."
+            ]
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-09",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
@@ -209,8 +239,27 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-09",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C2-una_opcion] Variante 1 ('Signor Rossi, ___ il lavoro con calma.'): el vocativo identifica al destinatario pero no excluye 'facciamo', que esta entre las opciones. 'Signor Rossi, facciamo il lavoro con calma' es italiano correcto (exhortativo inclusivo de 1a plural, que incluye al propio Signor Rossi). Contrasta con las variantes 0, 2 y 4, donde una segunda marca ('il tuo', 'noi due', 'come preferiscono Loro') si cierra el registro.",
+              "[C2-una_opcion] Variante 3 ('Bambini, ___ i compiti prima di cena!'): mismo defecto. 'Bambini, facciamo i compiti prima di cena!' es la formula corriente del nosotros inclusivo en registro de aula o de casa. El vocativo plural informal no la excluye, porque el exhortativo de 1a plural engloba al destinatario en lugar de contraponerse a el."
+            ]
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-09",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C2-una_opcion] Variante indice 1 ('Signor Rossi, ___ il lavoro con calma.'): la distractora 'facciamo' completa validamente la frase con lectura defendible (propuesta inclusiva 'hagamoslo con calma'). Nada excluye la lectura nosotros-inclusivo del vocativo, a diferencia de la variante 2 (bloqueada por 'noi due') o la 4 (bloqueada por la concordancia 'preferiscono Loro'). Doble validez real, mismo patron que R7 essere/venire+ciudad.",
+              "[C2-una_opcion] Variante indice 3 ('Bambini, ___ i compiti prima di cena!'): 'Bambini, facciamo i compiti prima di cena!' es formula parental inclusiva muy comun. El vocativo fija el destinatario pero no excluye que el hablante se incluya en la accion; no hay sujeto explicito ni concordancia verbal que bloquee esta lectura."
+            ]
+          }
+        ]
       }
     }
   ]
