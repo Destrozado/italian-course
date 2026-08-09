@@ -71,8 +71,25 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-09",
+            "verdict": "correcta",
+            "concerns": [
+              "[declarativa, no degrada el verdict] El explanation aun menciona 'cortesia o sustitucion del tipo en tu lugar', eco del marco 'Al posto tuo' retirado. Sigue siendo gramatica cierta y no referencia a otro ejercicio, asi que no se computa como violacion de C4."
+            ]
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-09",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] La frase '...o cuando expresa cortesia o sustitucion del tipo en tu lugar, lo que pide el italiano es el condizionale y nunca el futuro' quedo huerfana tras sustituir la variante idiomatica por marcos gramaticales: ninguna de las 6 variantes usa ya esa construccion. Y es peor que irrelevante — reafirma como regla absoluta ('nunca el futuro') justo la generalizacion cuyo error causo el bug anterior, porque 'al posto tuo' admite lectura de sustitucion literal donde el futuro SI es defendible. Correccion: eliminar la clausula de sustitucion (dejando la cortesia, que si es correcta) o sustituirla por la protasis hipotetica, que es lo que las 6 variantes ejemplifican."
+            ]
+          }
+        ]
       }
     },
     {
@@ -145,8 +162,21 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-09",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-09",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
@@ -209,8 +239,27 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-09",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C2-una_opcion] variante 4 ('Signori, ___ tutto con comodo, come preferiscono Loro.'): 'facciamo' es segunda respuesta plenamente valida. El cierre descansa en la concordancia de 'preferiscono Loro', que identifica quien DECIDE el modo, no quien EJECUTA. 'Signori, facciamo tutto con comodo, come preferiscono Loro' es el 'noi' inclusivo de registro de servicio y es italiano corriente.",
+              "[C2-una_opcion] variante 3 ('Bambini, ___ i compiti prima di cena: io intanto preparo la tavola.'): la clausula no cierra 'facciamo'. El 'noi' exhortativo-paternal italiano se define precisamente por un hablante que NO ejecuta la accion, asi que declarar que hace otra cosa es COMPATIBLE con esa lectura, no incompatible. El mecanismo elegido (excluir al hablante) es inefectivo contra la 1a plural exhortativa.",
+              "[C2-una_opcion] variante 1 ('Signor Rossi, ___ il lavoro con calma: io intanto aspetto qui.'): cierre debil, no hermetico. 'facciamo con calma' funciona como formula de 'no corramos' aplicada a una empresa compartida; queda residualmente abierta."
+            ]
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-09",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C2-una_opcion] variante indice 4 ('Signori, ___ tutto con comodo, come preferiscono Loro.'): la clausula cierra por concordancia verbal, no por exclusion del hablante. Eso certifica que 'facciano' es valida, pero no excluye que 'Signori, facciamo tutto con comodo, come preferiscono Loro' sea tambien italiano corriente — registro de anfitrion donde el hablante se incluye sin contradiccion. A diferencia de las variantes 1 y 3, aqui no hay nada que contraponga al hablante frente a la accion."
+            ]
+          }
+        ]
       }
     }
   ]

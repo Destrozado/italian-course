@@ -41,8 +41,23 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-09",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] Error de concordancia de genero en el cierre: 'porque la negacion, la preposicion o el modal son la pista que decide, y ninguna de las demas formas no personales del verbo encaja detras de ellas'. El antecedente es una coordinacion de genero mixto que incluye un masculino ('el modal'), asi que el plural debe ir en masculino: 'detras de ellos'. Tampoco lo salva la concordancia por proximidad, porque el elemento contiguo es igualmente masculino, y no hay otro antecedente femenino plural ('la palabra' y 'la pista' son singulares). El resto del texto esta correcto: acentuacion integra y regimenes preposicionales bien."
+            ]
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-09",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
@@ -349,8 +364,24 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-09",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] La frase final afirma que 'el italiano exige aqui el gerundio y nunca aver fatto, que en una subordinada implicita de este tipo es agramatical'. Es demasiado rigida en los mismos encajes que el bloque examina: 'per aver fatto' es causal implicita estandar y 'dopo aver fatto' es la temporal de anterioridad mas frecuente del nivel; ambas son subordinadas implicitas con infinitivo compuesto. Lo agramatical no es el infinitivo compuesto sino el infinitivo compuesto SIN introductor, que es lo unico que ofrecen las options. Ademas el contraste no es paralelo: los ejemplos espanoles citados llevan subordinante y su calco italiano con preposicion es correcto.",
+              "[C4-explanation] El criterio de seleccion enunciado ('se pide siempre que la frase lleva una marca de que la accion del hueco es previa') no justifica la clave de la variante 2 ('Pur ___ una torta per tutti'), que no lleva ninguna marca de anterioridad. El ejercicio se sostiene ahi porque el gerundio simple se retiro de las options, no porque la explanation explique por que se pide el compuesto en ese encaje."
+            ]
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-09",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     }
   ]
