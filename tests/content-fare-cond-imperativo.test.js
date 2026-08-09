@@ -259,15 +259,42 @@ const AVVERBIALI_PROSPETTIVI = [
   'il giorno dopo', 'il giorno seguente', 'la settimana successiva', 'la settimana dopo',
   'la volta dopo', 'più tardi', 'poco dopo',
 ];
-const CODE_DI_NON_REALIZZAZIONE = [
-  'ma non ho avuto tempo', 'ma non ho potuto', 'ma alla fine non è successo',
-];
+// QUORUM 2026-08-09 (Opus) — SEGUNDA CORRECCION DE ESTA MISMA FAMILIA. El conjunto
+// admitia dos cosas que no son la misma: la cola que declara el evento CERRADO
+// (`ma alla fine non è successo`) y la que enuncia un IMPEDIMENTO abierto
+// (`ma non ho avuto tempo`, `ma non ho potuto`). Una cola de impedimento en
+// pretérito perfecto se lee como presente perfecto —el asunto sigue pendiente— y
+// bajo esa lectura la distractora de condizionale PRESENTE vuelve a ser
+// defendible: `Io farei il lavoro volentieri, ma non ho avuto tempo` es italiano
+// corriente. Solo el evento cerrado excluye la hipotesis en presente, porque un
+// hecho que ya no puede ocurrir no admite hipotetizarlo ahora.
+//
+// NOTA DE HONESTIDAD, porque es el mismo error dos veces: CR-01 reviso la familia
+// del aux-swap sobre estas dos variantes y las dio por buenas «porque ya tenian
+// cola adversativa», sin revisar la OTRA familia sobre ellas — que es EXACTAMENTE
+// la leccion que CR-01 declaraba. Un gate cubre la familia que mira y ninguna
+// otra, y eso vale tambien para el gate que uno acaba de escribir.
+const CODE_DI_NON_REALIZZAZIONE = ['ma alla fine non è successo'];
 
 // Disparadores de condizionale del slot 1: conjunto CERRADO, uno por prompt.
+//
+// QUORUM 2026-08-09 (Sonnet) — las LOCUCIONES quedan RETIRADAS del conjunto. La de
+// sustitucion (`Al posto tuo`) es DOBLEMENTE valida: ademas del sentido hipotetico
+// de consejo, que es el que exige condizionale, tiene el de sustitucion LITERAL
+// —ocupar el puesto de otro, como en `vado io al posto tuo`— y en esa lectura el
+// futuro entra sin ninguna anomalia. Era la unica de las 6 variantes sin protasis
+// explicita y la unica que dependia de que el lector eligiera la lectura
+// idiomatica; las otras 5 excluyen el futuro por GRAMATICA.
+//
+// LA LECCION, que es la misma que la de CR-01 por otra puerta: un marco que
+// excluye la distractora por IDIOMATISMO no es un gate, porque el idiomatismo
+// admite excepciones y la gramatica no. Los 6 disparadores son ahora protasis con
+// congiuntivo imperfetto — uniformidad DECLARADA, no falta de imaginacion: lo que
+// tiene que variar entre las 6 es la PERSONA, que es el eje del slot.
 const DISPARADORI = [
   'Se fosse necessario,', 'Se ci fosse più tempo,', 'Se non fosse così tardi,',
   'Se avessimo un forno,', 'Se ne avessi voglia,', 'Se potessi,', 'Se avessi tempo,',
-  'Al posto tuo,', 'Al posto loro,', 'Con più calma,',
+  'Se fossi in te,',
 ];
 
 // ANCLE_PASSATO — conjunto CERRADO de anclas del slot 2, en 3 grupos. El primero
@@ -326,6 +353,39 @@ const MARCADORES = ['Marco,', 'Signor Rossi,', 'Dai, noi due', 'Bambini,', 'Sign
 //
 // SI SE IGUALA LA ASIMETRIA POR INERCIA, se pierde la adjudicacion: por eso la
 // tabla declara la VIA de cada variante y no solo el literal.
+// QUORUM 2026-08-09 (Opus Y Sonnet, por separado, mismo diagnostico) — EL SEGUNDO
+// EJE DE AMBIGUEDAD DE ESTE SLOT, y el que reencuadra WR-10 entero.
+//
+// El vocativo y el refuerzo de registro cierran QUIEN es el destinatario y con que
+// trato. Eso NO cierra el exhortativo de 1a plural, porque el exhortativo es
+// INCLUSIVO: mete al hablante DENTRO del grupo del destinatario en vez de
+// contraponerlo a el. Por construccion ningun vocativo puede excluirlo, por
+// inequivoco que sea. Hay por tanto DOS ejes —el del TRATO y el de la INCLUSION—
+// y hasta esta correccion solo estaba cerrado el primero:
+//   `Signor Rossi, facciamo il lavoro con calma`  = invitacion normal
+//   `Bambini, facciamo i compiti prima di cena!`  = la formula parental de siempre
+//
+// Lo unico que mata al inclusivo es EXCLUIR AL HABLANTE DE LA ACCION: una clausula
+// posterior que lo muestra haciendo otra cosa mientras el destinatario hace la del
+// hueco. Usa siempre otro verbo y un complemento ajeno a OBJECTS, para no meter un
+// segundo objeto en la casilla ni un segundo uso del verbo examinado.
+//
+// La tabla declara `null` donde NO hace falta, y por que, para que la exencion sea
+// visible en vez de estar escondida en la ausencia de un assert:
+//   - variante de tu: no ofrece siquiera la forma de nosotros entre sus opciones
+//   - variante de nosotros: la forma de nosotros ES su respuesta correcta
+//   - variante de ustedes: se apoya en un mecanismo DISTINTO, la concordancia
+//     verbal en 3a plural que ata el imperativo a ese destinatario. Es la unica de
+//     las tres que descansa en un cierre y no en la ausencia del problema, asi que
+//     queda marcada como EL PUNTO A VIGILAR si el quorum vuelve a senalar el slot.
+const ESCLUSORE_DELL_INCLUSIVO = [
+  null,                       // 0 tu     — `facciamo` no esta en sus options
+  'io intanto',               // 1 Lei
+  null,                       // 2 noi    — `facciamo` es la key
+  'io intanto',               // 3 voi
+  'come preferiscono Loro',   // 4 Loro   — cierre por concordancia verbal
+];
+
 const RINFORZO_DI_REGISTRO = [
   { lit: 'il tuo', via: 'possessivo di 2a singolare (WR-10: cierra el nombre propio)' },
   { lit: 'Signor Rossi', via: 'titolo di cortesia (adjudicado: NO lleva refuerzo anadido)' },
@@ -372,7 +432,8 @@ const EXTRA_ROUND_SLOTS = [IMPERATIVO];
 // modo que una divergencia entre contenido e intencion se pone roja.
 const VARIANT_TABLE = {
   [PRESENTE]: [
-    { who: '1sg', marca: 'Al posto tuo,', object: 'tutto' },
+    // QUORUM 2026-08-09: era la locucion `Al posto tuo,`, doblemente valida.
+    { who: '1sg', marca: 'Se fossi in te,', object: 'tutto' },
     { who: '2sg', marca: 'Se potessi,', object: 'il lavoro' },
     { who: '3sg', marca: 'Se non fosse così tardi,', object: 'una foto' },
     { who: '1pl', marca: 'Se avessimo un forno,', object: 'una torta' },
@@ -380,7 +441,9 @@ const VARIANT_TABLE = {
     { who: '3pl', marca: 'Se ci fosse più tempo,', object: 'il letto' },
   ],
   [PASSATO]: [
-    { who: '1sg', marca: 'ma non ho avuto tempo', object: 'il lavoro' },
+    // QUORUM 2026-08-09: era la cola de IMPEDIMENTO `ma non ho avuto tempo`, que
+    // no cierra el evento y dejaba defendible el calco de condizionale presente.
+    { who: '1sg', marca: 'Aveva giurato che', object: 'il lavoro' },
     { who: '2sg', marca: 'Sapevo che', object: 'i compiti' },
     { who: '3sg', marca: 'Ha detto che', object: 'tutto' },
     // CR-01: 1pl y 3pl usaban el marco de diceria (`A quanto pare`,
@@ -584,6 +647,38 @@ describe('fare-cond-imperativo — pronombre explicito y vocativo inequivoco (D-
       sucio,
       [],
       'WR-10 / D-43-05: sin su refuerzo de registro la variante admite una segunda lectura defendible; la del nombre propio es la que lo necesita porque un vocativo de nombre de pila convive con el trato de cortesia'
+    );
+  });
+
+  test('GATE HARD (quorum 2026-08-09): toda variante que OFREZCA el exhortativo excluye al hablante', () => {
+    // El segundo eje de ambiguedad del slot. Ver el comentario de
+    // ESCLUSORE_DELL_INCLUSIVO: un vocativo fija el destinatario y NO puede
+    // excluir el inclusivo, porque el inclusivo se lo traga. El gate se aplica
+    // exactamente donde el problema existe — la forma de nosotros esta entre las
+    // opciones y NO es la respuesta — y la tabla declara `null` con su razon donde
+    // no aplica, para que la exencion sea legible.
+    const sucio = [];
+    eachVariant(IMPERATIVO, (v, k) => {
+      const ofreceInclusivo = v.options.includes('facciamo') && keyOf(v) !== 'facciamo';
+      const declarado = ESCLUSORE_DELL_INCLUSIVO[k];
+      if (!ofreceInclusivo) {
+        // Simetria: donde no hace falta, la tabla tiene que decirlo con null. Si
+        // alguien anade `facciamo` a las options de la variante de tu, esta rama
+        // deja de aplicarse y la de abajo lo caza.
+        return;
+      }
+      if (!declarado) {
+        sucio.push(`${IMPERATIVO}#${k} ofrece el exhortativo y la tabla no declara ningun exclusor`);
+        return;
+      }
+      if (!v.prompt.includes(declarado)) {
+        sucio.push(`${IMPERATIVO}#${k} (${CANON[IMPERATIVO][k]}) pierde su exclusor "${declarado}": "${v.prompt}"`);
+      }
+    });
+    assert.deepEqual(
+      sucio,
+      [],
+      'QUORUM 2026-08-09: `facciamo` es el exhortativo INCLUSIVO y ningun vocativo lo excluye; sin una clausula que deje al hablante FUERA de la accion, la variante tiene dos respuestas defendibles'
     );
   });
 
@@ -826,6 +921,30 @@ describe('fare-cond-imperativo — distractoras del condizionale presente, el fu
     assert.deepEqual(sucio, [], 'D-43-09: un deictico de futuro hace defendible la distractora de futuro');
   });
 
+  test('GATE HARD (quorum 2026-08-09): los 6 excluyen el futuro por GRAMATICA, con protasis explicita', () => {
+    // Ver el comentario de DISPARADORI: la locucion de sustitucion excluia el
+    // futuro solo por IDIOMATISMO, y admitia una segunda lectura —la de ocupar el
+    // puesto de otro— en la que el futuro entra sin anomalia. Una protasis con
+    // congiuntivo imperfetto lo excluye gramaticalmente, que es lo que un gate
+    // necesita. Los 6 disparadores del conjunto cerrado son ahora protasis.
+    const noProtasi = DISPARADORI.filter((t) => !/^Se\s/.test(t));
+    assert.deepEqual(
+      noProtasi,
+      [],
+      'QUORUM 2026-08-09: el conjunto cerrado de disparadores solo admite protasis con congiuntivo imperfetto; una locucion excluye el futuro por idiomatismo y el idiomatismo se rompe'
+    );
+    const sucio = [];
+    eachVariant(PRESENTE, (v, k) => {
+      const hits = DISPARADORI.filter((t) => v.prompt.includes(t));
+      if (hits.length !== 1) sucio.push(`${PRESENTE}#${k} lleva ${hits.length} disparadores [${hits.join(' | ')}]: "${v.prompt}"`);
+    });
+    assert.deepEqual(
+      sucio,
+      [],
+      'QUORUM 2026-08-09 / D-43-09: cada prompt necesita EXACTAMENTE una protasis del conjunto cerrado; sin ella el futuro solo queda excluido por idiomatismo y una locucion de sustitucion admite la lectura literal, en la que el futuro entra sin anomalia'
+    );
+  });
+
   test('los 6 conjuntos de options del presente son distintos dos a dos', () => {
     const sets = byId(PRESENTE).variants.map((v) => [...v.options].sort().join('|'));
     assert.equal(new Set(sets).size, 6, `D-43-09: el condizionale de OTRA persona se elige distinto en cada variante: ${sets.join(' // ')}`);
@@ -910,6 +1029,33 @@ describe('fare-cond-imperativo — distractoras del condizionale passato, el cal
       sucio,
       [],
       'CR-01 / D-43-10: con el trapassato en options y sin adverbial prospectivo ni cola de no realizacion, la lectura anterior es DEFENDIBLE y la variante tiene dos respuestas correctas'
+    );
+  });
+
+  test('GATE HARD (quorum 2026-08-09): toda variante del passato excluye la lectura de condizionale PRESENTE', () => {
+    // El GEMELO del gate de CR-01, para la OTRA familia de distractoras. CR-01
+    // blindo el trapassato y dio por buenas las 2 variantes con cola adversativa
+    // sin mirar el calco de condizionale presente sobre ellas — el mismo error que
+    // CR-01 declaraba como leccion. Aqui esta cerrado por los dos lados:
+    //   - un ancla de futuro-nel-passato que GOBIERNE la clausula del hueco pone
+    //     la principal en pasado, y despues de una principal en pasado el
+    //     condizionale presente es AGRAMATICAL. Cierre por gramatica.
+    //   - una cola que declara el EVENTO CERRADO en el pasado: un hecho que ya no
+    //     puede ocurrir no admite hipotetizarlo en presente. Cierre por semantica.
+    // Una cola de IMPEDIMENTO no vale y por eso salio del conjunto: se lee como
+    // presente perfecto, el asunto sigue pendiente, y el calco vuelve a entrar.
+    const sucio = [];
+    eachVariant(PASSATO, (v, k) => {
+      const ancla = ANCLE_FUTURO_NEL_PASSATO.find((a) => v.prompt.includes(a.lit) && gobiernaElHueco(v.prompt, a.head));
+      const coda = CODE_DI_NON_REALIZZAZIONE.filter((c) => v.prompt.includes(c));
+      if (!ancla && coda.length === 0) {
+        sucio.push(`${PASSATO}#${k} ofrece "${COND_PRES[k]}" sin cierre de la lectura presente: "${v.prompt}"`);
+      }
+    });
+    assert.deepEqual(
+      sucio,
+      [],
+      'QUORUM 2026-08-09 / D-43-10: sin principal en pasado que gobierne el hueco ni evento cerrado, el condizionale PRESENTE sigue siendo defendible y la variante tiene dos respuestas correctas'
     );
   });
 
