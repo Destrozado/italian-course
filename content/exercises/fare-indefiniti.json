@@ -113,6 +113,12 @@
             "date": "2026-08-09",
             "verdict": "correcta",
             "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-08-09",
+            "verdict": "correcta",
+            "concerns": []
           }
         ]
       }
@@ -167,7 +173,7 @@
         }
       ],
       "validation": {
-        "status": "validated",
+        "status": "disputed",
         "passes": [
           {
             "by": "claude-opus-5",
@@ -180,6 +186,14 @@
             "date": "2026-08-09",
             "verdict": "correcta",
             "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-08-09",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C5-leak] El prompt de la variante 3 ('Marco ha preso i compiti e li ha ___ ieri sera.') contiene el pronombre de objeto directo 'li' ANTEPUESTO al auxiliar, lo que filtra la regla de concordancia obligatoria que el ejercicio examina. El alumno no necesita recordar la regla: ve 'li' (masculino plural) y deduce que la respuesta debe ser 'fatti'. Esto viola R1 porque el prompt revela la solución a través de la estructura sintáctica. Para corregir: eliminar el pronombre antepuesto y reformular la frase para que el objeto vaya pospuesto (ej. 'Marco ha preso i compiti e ha ___ i compiti ieri sera.'), manteniendo la invariable 'fatto' como respuesta correcta."
+            ]
           }
         ]
       }
