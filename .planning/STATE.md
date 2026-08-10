@@ -6,7 +6,7 @@ current_phase: 43
 current_phase_name: fare-cond-imperativo-fare-indefiniti-3-6-slots
 status: verifying
 stopped_at: Completed 43-02-PLAN.md
-last_updated: "2026-08-10T07:33:57.104Z"
+last_updated: "2026-08-10T08:00:41.363Z"
 last_activity: 2026-08-07
 last_activity_desc: Phase 43 execution started
 progress:
@@ -295,6 +295,8 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - [Phase ?]: 43-01 regla de fase congelada como gate: ninguna explanation escribe nunca/siempre/es agramatical sobre una forma italiana sin comprobarlo contexto por contexto; si la regla lleva condicion, se escribe la condicion
 - [Phase ?]: 43-01 C1-CONTEO: el tamano del pool NO se afirma en prosa — vive en el JSON y en EXPECTED_OPTIONS, que son lo unico que un cambio de pool actualiza; el gate es DERIVADO del fichero (prohibe el numeral que no corresponde, todos si el conteo no es uniforme) para que una cifra huerfana se ponga roja sola
 - [Phase ?]: 43-01 C2/C3: la duplicacion consonantica solo ocurre al pegar el clitico a la forma APOSTROFADA (fallo, fammi); con la plena solo hay concatenacion (fatelo). Y fa' es troncamento, no elision — se describe sin nombrar la categoria
+- [Phase ?]: 43-01 regla estructural del explanation (4 rondas de quorum): tres prohibiciones congeladas por gate — (1) ninguna afirmacion sobre el italiano mas alla de lo que el slot examina, porque cada regla compra una excepcion; (2) ninguna descripcion de la estructura del ejercicio, porque caduca al tocar el contenido; (3) ninguna explicacion de por que falla cada distractora. Mas tope de longitud, porque el mecanismo del defecto era el CRECIMIENTO del texto
+- [Phase ?]: 43-01: la salida a la tension entre las prohibiciones y D-43-19/D-43-08 es NOMBRAR sin teorizar — nombrar cumple el requisito, explicar la morfologia compra la excepcion (metio fatelo mal agrupado en una ronda y *faggli en la siguiente)
 
 ### Pending Todos
 

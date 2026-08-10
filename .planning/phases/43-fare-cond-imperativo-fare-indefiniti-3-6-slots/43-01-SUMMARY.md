@@ -22,9 +22,9 @@ affects: [43-02-fare-indefiniti, 44-integracion-counts-cruces, INT-02, INT-03, I
 
 # Actuals (#2632)
 actuals:
-  tokens: 34600
+  tokens: 36200
   tasks: 4
-  commits: 9
+  commits: 10
 
 # Tech tracking
 tech-stack:
@@ -157,6 +157,7 @@ status: complete
 7. **Los 3 hallazgos del quórum base top-level** — `877f3fc` (fix)
 8. **2ª ronda de quórum: el inclusivo a la blacklist por contexto** — `6de4066` (fix)
 9. **3ª ronda de quórum: el `explanation` del imperativo** — `e657aea` (fix)
+10. **4ª ronda: reescritura bajo tres prohibiciones** — `308eb6d` (fix)
 
 **Plan metadata:** `f0e81b0` (docs: complete plan).
 
@@ -457,6 +458,47 @@ Ahora se distinguen los dos mecanismos: apostrofada de una sílaba + clítico do
 ### El pool de 3 no se toco
 
 Sonnet levantó un C3 diciendo que `fa'` estaba disponible como tercera distractora y que la justificación del pool de 3 era falsa. Era **falso positivo por hueco de contexto del prompt de validación**: la §7.2 solo declaraba las dos formas que compiten con la key, así que el evaluador no podía saber que `fa'` también está vetada por SC#2. El coordinador amplió §7.2 (`8d00b4a`) y la desviación queda respaldada en el documento que el validador lee. **Sigue necesitando firma como desviación del must_have de longitud 4.**
+
+## Correccion post-quorum, 4a ronda (`308eb6d`) — la reescritura estructural
+
+**La mecánica del slot está cerrada:** C1/C2/C3/C5 pasan en ambos modelos por **cuarta ronda consecutiva**. Opus verificó que los vetos de §7.2 se cumplen en los datos y que los pools de 3 siguen exigiendo decidir. El ejercicio es correcto. Lo único que no convergía era el `explanation`.
+
+Y el patrón que anticipé al cerrar la ronda 3 se confirmó: el hallazgo volvió a ser una afirmación sobre gramática general que el slot no examina, y la respuesta fue **recortar**, no parchear. De 2.612 a **1.399 caracteres**.
+
+### Los cuatro hallazgos, y de donde venian
+
+1. **UNÁNIME** — la enumeración de mecanismos de marcado daba **cuatro** para **cinco** casillas: la de `Bambini` usa un sustantivo común en vocativo, ausente de la lista.
+2. **Opus** — la duplicación consonántica enunciada sin excepción. Con el clítico de 3ª persona el italiano **no** dobla (`fagli`, como `dagli`, `digli`), así que un alumno que aplicara la regla produciría justo la forma inexistente que el párrafo decía prevenir. **Lo introdujo mi arreglo de la ronda 3**: al distinguir los dos mecanismos, enuncié el primero como universal.
+3. **Sonnet** — `sólo` con tilde en una frase y `solo` sin ella en otra, mismo adverbio. Normalizado en el `explanation` y en el `notes` (7 apariciones).
+4. **Sonnet** — «las cinco formas son regulares una vez sabida la raíz» contradecía al propio texto dos párrafos después, que presenta `fa'` como la única que no viene de otro modo.
+
+### Las tres prohibiciones, congeladas por gate
+
+En vez de corregir el cuarto defecto, el autor eligió prohibir las **categorías** donde han caído los cuatro:
+
+| Gate | Prohibición |
+|---|---|
+| **P1-SCOPE** | ninguna afirmación sobre el italiano más allá de lo que el slot examina (qué forma corresponde a qué destinatario). Nada de raddoppiamento, morfología del apóstrofe, derivación de modos ni regularidad del paradigma — **cada regla compra una excepción** |
+| **P2-ESTRUCTURA** | ninguna descripción del propio ejercicio: ni conteos, ni enumeraciones de mecanismos de marcado, ni taxonomías de variantes |
+| **P4-LONGITUD** | tope por slot, porque el mecanismo del defecto era el **crecimiento** del texto: añadir algo obliga a quitar algo |
+| **P3-RAE** | cero diacrítica de `solo` en las 3 explanations |
+
+La tercera prohibición del autor —nada de explicar por qué falla cada distractora— **no tiene gate propio y lo declaro**: no es comprobable sin leer intención. La aproxima P2, porque para referirse a una opción hay que nombrarla.
+
+Las listas de P1 y P2 son **del imperativo y no globales**, a propósito: la raíz contracta sí es lo que examina `cond-presente`, y su «las tres opciones descartables» es cierto y está guardado por el gate derivado C1-CONTEO.
+
+### La tension con D-43-19 y D-43-08, resuelta y probada
+
+Las prohibiciones chocan aparentemente con dos requisitos que exigen que el texto **nombre** las formas alternativas y las de clítico, y documente la ausencia de `io`. La salida: **nombrar cumple el requisito; explicar la morfología compra la excepción.** Se dice que existen, que son italiano real y que el material no las pide producir, y ahí se para.
+
+Lo verifiqué en las dos direcciones: **dos mutaciones nuevas recortan de más** —quitan la frase de los clíticos, quitan la de los dos imperativos vivos— y ponen **D-43-19 en rojo**. Las prohibiciones no se han llevado el requisito.
+
+### Podas, con nota
+
+- El gate estructural **C2-CLITICO** se poda: P1-SCOPE veta el tema entero, así que aquel gate ya no podía fallar y leerlo sugeriría que el texto sigue explicando morfología. P1-SCOPE es estrictamente más fuerte. Queda la parte que sí importa (que las formas se nombren).
+- **5 mutaciones de la ronda 3** eran no-ops: reemplazaban frases que la reescritura eliminó, así que daban `fail 0` por mutación vacía y no por gate flojo. Sus escenarios están recubiertos en la ronda 4 por gates que muerden **por tema y no por cadena**, que es lo que los hace inmunes a la redacción.
+
+12 mutaciones nuevas con las 4 regresiones de las 4 rondas. **54 gates probados por mutación** en total, JSON restaurado byte a byte en todas. Suite: **1025 pass / 0 fail**.
 
 **Transferido al plan 43-02:** WR-05 del code review (`CONCORD_CUES` con `includes()` crudo sobre bigramas de dos letras en `tests/content-fare-indefiniti.test.js`, que hace match dentro de `Michele ha`). Es un hallazgo real y barato, pero ese fichero es propiedad exclusiva de 43-02 y este plan lo tiene prohibido tocar. El arreglo es usar el matcher con frontera de palabra que el propio fichero ya declara en su cabecera.
 
