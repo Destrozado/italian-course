@@ -232,8 +232,42 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-09",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-09",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "deepseek-chat",
+            "date": "2026-08-10",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C5-leak] El prompt de la variante 1 ('Marco, ___ una foto con il tuo telefono!') contiene la forma 'fa'' como opción correcta, pero la explanation revela la solución al declarar explícitamente 'aquí se pide siempre fa''. Aunque la explanation se renderiza solo tras fallar, la regla R1 prohíbe que el prompt contenga la solución; sin embargo, el problema real es que la explanation filtra la respuesta correcta de TODAS las variantes, lo que viola el espíritu de R1 al hacer que el alumno, tras un fallo, sepa que la respuesta es siempre 'fa'' sin necesidad de razonar cada caso. Además, la explanation menciona 'fai y fa' como alternativas correctas, lo que contradice la premisa de opción única del ejercicio y podría confundir al alumno sobre cuál es la respuesta esperada."
+            ]
+          },
+          {
+            "by": "autor",
+            "date": "2026-08-10",
+            "verdict": "correcta",
+            "override": true,
+            "concerns": [
+              "[override-autor] Ronda EXTRA de D-43-20: deepseek-chat emite incorrecta por C5-leak; claude-opus-5 y claude-sonnet-5 lo dieron correcta en la misma ronda tras una reescritura completa del explanation.",
+              "[override-autor] El pase se apoya en una afirmacion FACTUALMENTE FALSA, verificada contra el fichero: sostiene que el explanation filtra la respuesta de TODAS las variantes porque la respuesta seria siempre la forma apostrofada. Las cinco keys son DISTINTAS, una por destinatario. La frase citada pertenece a los dos avisos de lectura de D-43-19 y dice que para el tu de confianza el italiano admite tambien otras dos formas pero que en este material se pide la apostrofada; no afirma nada sobre las otras cuatro variantes.",
+              "[override-autor] Segundo defecto del pase: aplica C5 al campo equivocado. R1 y C5 hablan del prompt, y el propio pase lo reconoce antes de pivotar al espiritu de R1 para juzgar el explanation, que por diseno se renderiza SOLO tras fallar y es donde R1 situa expresamente el rationale pedagogico. Verificado ademas que ningun prompt del slot contiene su key.",
+              "[override-autor] Tercer defecto: la objecion de que nombrar las dos formas alternativas contradice la opcion unica es exactamente el falso positivo que la seccion 7.2 del prompt de validacion declara, y que D-43-19 obliga a cometer — el material tiene que nombrarlas para que el autor no las tome por errores al encontrarlas fuera del ejercicio.",
+              "[override-autor] Diferencia con el override de fare-indefiniti-participio-passato: alli el flag era REAL y no admitia arreglo sin destruir lo que el slot ensena. Aqui el flag es demostrablemente erroneo. Riesgo aceptado: ninguno identificado; la ronda EXTRA queda cumplida con un pase cuyo contenido se descarta razonado y se conserva entero. Adjudicado 2026-08-10."
+            ]
+          }
+        ]
       }
     }
   ]

@@ -41,8 +41,24 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-09",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] la segunda frase afirma como condicion general 'Aparece cuando otro elemento de la frase ya aporta esa informacion' (persona y numero), y el italiano no sostiene ese absoluto: el infinitivo aparece nominalizado ('Fumare fa male') y en instruccion impersonal ('Vietato fumare', 'Non calpestare l'erba') sin ningun elemento que aporte persona ni numero. Ademas se contradice con el punto pedagogico que el propio texto declara el mas importante: en el imperativo negativo de 2a singular la persona la aporta la CONSTRUCCION, no otro elemento de la frase; en la variante 0 el vocativo Anna es prescindible y la construccion funciona igual sin el. La generalizacion solo describe las variantes 1 (por control del sujeto io) y 2 (por devo), y deja fuera precisamente la que el slot examina como interferencia central.",
+              "[meta] El bloque JSON de este pase se emitio con c5_leak:false contradiciendo su propio razonamiento, que argumentaba C5=true y no aportaba concern de C5. El orquestador NO lo corrigio por su cuenta: pidio al evaluador que resolviera la contradiccion, y este confirmo el caso (a) — lapsus de transcripcion, c5_leak es true, el unico criterio violado es C4. Registrado el JSON reemitido."
+            ]
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-09",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
@@ -349,8 +365,21 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-09",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-09",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     }
   ]
