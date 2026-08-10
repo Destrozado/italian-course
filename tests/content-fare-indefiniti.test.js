@@ -236,6 +236,10 @@ const CONTEXT_TYPES = [
   'imperativo-negativo-2sg',
   'implicita-causal',
   'implicita-temporal',
+  // 3a ronda: los dos tipos REALES del gerundio passato. El absoluto desnudo no
+  // se subdivide en temporal y causal, porque formalmente es el mismo encaje.
+  'absoluta-con-adverbial-de-anterioridad',
+  'concesiva-con-pur',
   'implicita-modal',
   'implicita-concesiva',
   'marco-progresivo',
@@ -296,9 +300,25 @@ const CONCORD_PROHIBIDOS = [
 //      que aplica D-43-19 (RECONOCER, NO PRODUCIR): se nombra, se explica y se
 //      puede seguir ofreciendo, porque hoy es la respuesta incorrecta sin
 //      discusion.
+// CONCORDANCIA_DEL_OBJETO — para cada objeto del conjunto cerrado, la forma del
+// participio que concordaria con el. Se declara COMPLETO (los 9) porque lo usan
+// dos gates de signo CONTRARIO: el de WR-01, que exige que la concordada este
+// entre las options del participio passato, y el del gerundio passato, que exige
+// que NO este.
+const CONCORDANCIA_DEL_OBJETO = {
+  'i compiti': 'fatti', // m. pl.
+  'un errore': 'fatto', // m. sg.
+  'il lavoro': 'fatto', // m. sg.
+  'una torta': 'fatta', // f. sg.
+  'il letto': 'fatto', // m. sg.
+  tutto: 'fatto', // m. sg.
+  'una foto': 'fatta', // f. sg.
+  'le foto': 'fatte', // f. pl.
+  'le torte': 'fatte', // f. pl.
+};
 const CONCORDANCIA_POSPUESTA_ATESTIGUADA = {
-  'i compiti': 'fatti', // masculino plural
-  'una torta': 'fatta', // femenino singular
+  'i compiti': CONCORDANCIA_DEL_OBJETO['i compiti'],
+  'una torta': CONCORDANCIA_DEL_OBJETO['una torta'],
 };
 
 // Ruta del prompt de validacion por quorum. Se lee desde aqui porque el subagent
@@ -454,9 +474,17 @@ const VARIANT_TABLE = {
     { tipo: 'implicita-causal', object: 'tutto', cue: 'in fretta', pos: 'libre' },
   ],
   [GER_PASS]: [
-    { tipo: 'implicita-temporal', object: 'i compiti', cue: 'la sera prima', pos: 'libre' },
-    { tipo: 'implicita-causal', object: 'il lavoro', cue: 'il giorno prima', pos: 'libre' },
-    { tipo: 'implicita-concesiva', object: 'una torta', cue: 'Pur', pos: 'antes' },
+    // 3a ronda de quorum (Opus Y Sonnet, de forma independiente): estas dos
+    // variantes se declaraban `implicita-temporal` e `implicita-causal`, y esa
+    // distincion NO EXISTE en el contenido. Las dos son estructuralmente
+    // identicas: gerundio + objeto + adverbial de anterioridad, sin ningun
+    // conector. Un gerundio absoluto desnudo no viene formalmente diferenciado en
+    // temporal o causal —la lectura es inferencial—, asi que etiquetarlas distinto
+    // era inventar un patron. El eje REAL de este slot es la presencia de la
+    // particula concesiva, y con esa etiqueta el reparto es 2 + 1.
+    { tipo: 'absoluta-con-adverbial-de-anterioridad', object: 'i compiti', cue: 'la sera prima', pos: 'libre' },
+    { tipo: 'absoluta-con-adverbial-de-anterioridad', object: 'il lavoro', cue: 'il giorno prima', pos: 'libre' },
+    { tipo: 'concesiva-con-pur', object: 'una torta', cue: 'Pur', pos: 'antes' },
   ],
 };
 
@@ -664,7 +692,7 @@ describe('fare-indefiniti — tipos de contexto sintactico, conjunto cerrado y d
     // encajes distintos son el mismo ejercicio tres veces, y con 18 variantes
     // dejarlo al quorum se paga dieciocho veces.
     for (const id of IDS) {
-      if (id === PART_PASS) continue;
+      if (id === PART_PASS || id === GER_PASS) continue;
       const tipos = VARIANT_TABLE[id].map((f) => f.tipo);
       assert.equal(
         new Set(tipos).size,
@@ -672,6 +700,36 @@ describe('fare-indefiniti — tipos de contexto sintactico, conjunto cerrado y d
         `D-43-12: ${id} repite tipo de contexto: ${tipos.join(' | ')}`
       );
     }
+  });
+
+  test('EXCEPCION ENUMERADA 2: el gerundio passato reparte 2 + 1 porque el absoluto desnudo no se subdivide', () => {
+    // 3a ronda de quorum, el unico hallazgo que las DOS IAs alcanzaron por
+    // separado. Este gate estaba VERDE sobre una etiqueta falsa: la tabla
+    // declaraba `implicita-temporal` e `implicita-causal` para dos variantes
+    // estructuralmente identicas (gerundio + objeto + adverbial de anterioridad,
+    // sin conector), asi que la distincion existia en la tabla y no en el
+    // contenido. Es el patron de CR-02 otra vez: un gate que no muerde porque el
+    // dato que compara ya venia falseado.
+    //
+    // La correccion es declarar el eje REAL —la particula concesiva— y enumerar la
+    // excepcion, en vez de mantener una etiqueta inventada para que el gate de
+    // tipos distintos siguiera pasando.
+    const tipos = VARIANT_TABLE[GER_PASS].map((f) => f.tipo);
+    const cuenta = tipos.reduce((a, t) => ({ ...a, [t]: (a[t] || 0) + 1 }), {});
+    assert.deepEqual(
+      Object.values(cuenta).sort(),
+      [1, 2],
+      `3a ronda: el patron declarado de ${GER_PASS} es 2 absolutos + 1 concesiva, y es: ${tipos.join(' | ')}`
+    );
+    assert.equal(
+      cuenta['concesiva-con-pur'],
+      1,
+      'el eje de este slot es la presencia de la particula concesiva; si deja de haber exactamente una, el reparto declarado ya no describe el contenido'
+    );
+    assert.ok(
+      !tipos.includes('implicita-causal'),
+      '3a ronda: ninguna de las tres variantes es causal — no hay conector ni marca causal en el slot, y etiquetarla asi le enseña al autor un patron que el ejercicio no tiene'
+    );
   });
 
   test('EXCEPCION ENUMERADA: el participio passato repite 2 + 2 porque su eje es la TERMINACION (D-43-16)', () => {
@@ -1414,51 +1472,116 @@ describe('fare-indefiniti — canon editorial e higiene del JSON (D-43-21, T-43-
     );
   });
 
-  test('PREMISA CORREGIDA: la explanation del gerundio passato escribe la CONDICION del infinitivo compuesto', () => {
-    // 2a ronda de quorum (Opus, C4). La version anterior decia que el italiano
-    // «exige aqui el gerundio y nunca aver fatto, que en una subordinada implicita
-    // de este tipo es agramatical». Falso en los mismos encajes que el bloque
-    // examina: `per aver fatto` es causal implicita estandar y `dopo aver fatto`
-    // es la temporal de anterioridad mas frecuente de A2; en terminologia italiana
-    // «subordinata implicita» incluye por definicion las infinitivas, asi que la
-    // etiqueta no acotaba nada. Lo agramatical NO es el infinitivo compuesto: es
-    // el infinitivo compuesto SIN INTRODUCTOR, que es justo lo que ofrecen las
-    // options. El alumno se llevaba la regla de evitar `dopo aver fatto`, que es
-    // un error caro.
+  test('DI MENOS: la explanation del gerundio passato esta ACOTADA a las tres frases del slot', () => {
+    // Gate ESTRUCTURAL de la decision de recorte, tras TRES rondas de quorum con
+    // tres motivos distintos y dos de los tres introducidos al arreglar el
+    // anterior. El diagnostico no era «esta frase esta mal» sino que el texto
+    // intentaba enunciar la gramatica general de la subordinacion implicita
+    // italiana, que tiene excepciones en cada casilla: cada vez que se completaba
+    // un poco mas, entraba una falsedad. Todo lo que afirme sobre casos que el slot
+    // NO presenta es superficie de error sin valor pedagogico.
+    //
+    // El tope de longitud es el gate porque el mecanismo del defecto era el
+    // CRECIMIENTO del texto, no una frase concreta. No impide escribir una
+    // falsedad; impide que el texto vuelva a crecer hacia la regla general.
     const e = byId(GER_PASS).explanation;
     assert.ok(
-      e.includes('introductor'),
-      'la explanation tiene que escribir la CONDICION (el infinitivo compuesto necesita introductor), no la prohibicion'
-    );
-    assert.ok(
-      e.includes('dopo aver fatto') && e.includes('per aver fatto'),
-      'y tiene que citar los dos introductores CORRECTOS y corrientes, para que el alumno no salga evitandolos'
-    );
-    assert.ok(
-      e.includes('pur admite los dos gerundios'),
-      'y tiene que justificar la key de la variante concesiva, que no lleva ninguna marca de anterioridad: el criterio de seleccion anterior no la cubria'
+      e.length < 1200,
+      `DI MENOS (3a ronda): la explanation del gerundio passato tiene ${e.length} caracteres y el tope es 1200. Antes del recorte pasaba de 2000, y en ese margen caben las cuatro afirmaciones falsas que se retiraron`
     );
   });
 
-  test('PREMISA CORREGIDA: la explanation del gerundio passato NO afirma que el simple sea imposible', () => {
-    // El defecto que el quorum base encontro NO estaba en la key ni en las
-    // options: estaba aqui. La explanation decia que estos tres encajes EXIGEN el
-    // compuesto y que el adverbial deja el simple fuera, y eso ensena una regla
-    // mas rigida que el italiano real. Este gate congela la version honesta.
+  test('DI MENOS: la explanation del gerundio passato NO enuncia una taxonomia de encajes', () => {
+    // El hallazgo que las DOS IAs alcanzaron por separado: el texto declaraba
+    // temporal / causal / concesiva y el slot contiene absoluta / absoluta /
+    // concesiva. Le ensenaba al autor un patron que el ejercicio no tiene, y de
+    // paso dejaba la key de una variante justificada bajo una etiqueta equivocada.
+    // La taxonomia se retira entera: no hace falta para resolver estas tres frases.
+    const e = byId(GER_PASS).explanation;
+    const sucio = ['causal', 'concesiva', 'temporal'].filter((t) => e.includes(t));
+    assert.deepEqual(
+      sucio,
+      [],
+      `3a ronda: la explanation vuelve a etiquetar los encajes (${sucio.join(', ')}). El slot es absoluta + absoluta + concesiva, no temporal + causal + concesiva, y la taxonomia no hace falta para elegir la respuesta`
+    );
+  });
+
+  test('DI MENOS: la explanation del gerundio passato NO compara con el espanol', () => {
+    // La comparacion con el espanol de ESTE slot fallo dos veces seguidas: primero
+    // afirmando que el infinitivo compuesto era agramatical, y despues que su calco
+    // con preposicion seria «igualmente correcto» (falso para la concesiva:
+    // `nonostante aver fatto` no es norma moderna). Se retira entera. El contraste
+    // con el espanol sigue vivo donde es exacto y verificado, como el par
+    // «las he hecho» / «le ho fatte» del participio passato.
     const e = byId(GER_PASS).explanation;
     assert.ok(
-      /ADMITE/.test(e),
-      'PREMISA CORREGIDA: la explanation tiene que reconocer que el italiano ADMITE el gerundio simple en estas subordinadas'
+      !/espa/i.test(e),
+      '3a ronda: la comparacion con el espanol de este slot ha producido dos afirmaciones falsas; no se repone'
     );
-    for (const falsa of ['exige el compuesto', 'deja de ser posible', 'queda descartado']) {
-      assert.ok(
-        !e.includes(falsa),
-        `PREMISA CORREGIDA (quorum base, C2): la explanation vuelve a afirmar "${falsa}", que es mas rigido que el italiano real`
-      );
-    }
+  });
+
+  test('DI MENOS: los participios ofrecidos estan DESCORDADOS con el objeto de su frase (lo que blinda el slot)', () => {
+    // Gate estructural, y el mas valioso de esta ronda: es lo que Opus identifico
+    // como el blindaje real del slot. Si el participio distractor CONCORDARA con el
+    // objeto, `Fatti i compiti la sera prima, ho potuto dormire` seria un participio
+    // absoluto perfectamente valido en italiano y habria doble validez. La
+    // discordancia era deliberada pero NO estaba declarada en ningun sitio, asi que
+    // un re-pase futuro podia «arreglar» la concordancia y romper el slot sin que
+    // nada se pusiera rojo.
+    const sucio = [];
+    VARIANT_TABLE[GER_PASS].forEach((f, k) => {
+      const concordada = CONCORDANCIA_DEL_OBJETO[f.object];
+      assert.ok(concordada, `el objeto "${f.object}" no declara su forma concordada`);
+      const v = byId(GER_PASS).variants[k];
+      if (v.options.includes(concordada)) {
+        sucio.push(`${GER_PASS}#${k}: ofrece "${concordada}", que CONCUERDA con "${f.object}"`);
+      }
+    });
+    assert.deepEqual(
+      sucio,
+      [],
+      '3a ronda: un participio concordado con el objeto abre la lectura de participio absoluto y con ella una segunda respuesta defendible'
+    );
+  });
+
+  test('las afirmaciones falsas retiradas del gerundio passato no vuelven (rondas 1, 2 y 3)', () => {
+    // Guardia de regresion acumulada. Cada literal estuvo en la explanation de este
+    // slot y fue retirado por una ronda distinta; dos de los tres motivos los
+    // introdujo el arreglo de la ronda anterior. Se listan juntos porque el patron
+    // —sustituir una afirmacion falsa por otra— es mas instructivo que cada caso.
+    const e = byId(GER_PASS).explanation;
+    const RETIRADAS = [
+      'exige el compuesto', // 1a: el simple SI es posible en estos encajes
+      'deja de ser posible', // 1a, misma familia
+      'queda descartado', // 1a, misma familia
+      'es agramatical', // 2a: lo agramatical era el infinitivo SIN introductor
+      'introductor', // 3a: la regla general sobra y licenciaba `pur aver fatto`
+      'igualmente correcto', // 3a: falso para la concesiva (`nonostante aver fatto`)
+      'participio invariable', // 3a: la invariabilidad solo se sostiene con objeto pospuesto
+    ];
+    const sucio = RETIRADAS.filter((f) => e.includes(f));
+    assert.deepEqual(
+      sucio,
+      [],
+      `cada uno de estos literales fue una afirmacion FALSA retirada por una ronda de quorum: ${sucio.join(', ')}. Antes de reponer cualquiera, comprobar la afirmacion contexto por contexto`
+    );
+  });
+
+  test('la explanation del gerundio passato nombra las dos familias de opciones que hay que descartar', () => {
+    // Lo que SI tiene que hacer, y es todo lo que tiene que hacer: decir por que no
+    // encajan las opciones que se ofrecen en ESTAS tres frases. Sin teoria.
+    const e = byId(GER_PASS).explanation;
     assert.ok(
-      e.includes(CALCO_GERUNDIO_PASSATO),
-      'INDEF-04: la explanation tiene que nombrar el calco del infinitivo, que es la trampa real de estos tres encajes'
+      e.includes(CALCO_GERUNDIO_PASSATO) && e.includes('fare'),
+      'INDEF-04: tiene que nombrar el infinitivo, simple y compuesto, que es la familia de distractoras del slot'
+    );
+    assert.ok(
+      e.includes('concuerdan'),
+      'y tiene que decir por que las terminaciones del participio no entran: no concuerdan con nada de la frase'
+    );
+    assert.ok(
+      e.includes('pur'),
+      'y tiene que cubrir la tercera variante, cuya particula solo admite gerundio'
     );
   });
 
