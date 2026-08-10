@@ -447,6 +447,58 @@ const OBJECTS = ['i compiti', 'un errore', 'il lavoro', 'una torta', 'il letto',
 const PRONOUNS = [['io'], ['tu'], ['lui', 'lei'], ['noi'], ['voi'], ['loro']];
 const PERSON_CODES = ['1sg', '2sg', '3sg', '1pl', '2pl', '3pl'];
 
+// QUORUM 2026-08-10, 4a RONDA — LAS TRES PROHIBICIONES DEL EXPLANATION, y el gate
+// de longitud. Es la leccion mas transferible de la fase entera.
+//
+// Cuatro rondas marcaron el MISMO slot y el defecto cayo SIEMPRE en una de estas
+// tres categorias, asi que las tres quedan prohibidas en vez de corregidas una a
+// una. El historial, que es lo que sostiene las prohibiciones:
+//   - ronda 2: metio una forma con clitico MAL AGRUPADA por explicar como se
+//     construyen (`fatelo` no es apostrofada ni dobla consonante);
+//   - ronda 3: arreglo eso y, al enunciar la duplicacion como UNIVERSAL, produjo
+//     una regla que falla con el clitico de 3a persona, donde el italiano NO dobla
+//     (`fagli`, como `dagli`, `digli`). El arreglo introdujo el defecto siguiente;
+//   - ronda 4: la enumeracion de los mecanismos de marcado daba CUATRO para CINCO
+//     casillas (hallazgo unanime), y la afirmacion de que las formas son regulares
+//     contradecia al propio texto dos parrafos despues.
+//
+// (1) TEMAS FUERA DE SCOPE. Este slot examina QUE FORMA CORRESPONDE A QUE
+// DESTINATARIO. No examina el raddoppiamento, ni la morfologia del apostrofe, ni de
+// que modo deriva cada forma, ni si el paradigma es regular. Cada una de esas
+// reglas COMPRA UNA EXCEPCION. La lista es del imperativo y NO global: la raiz
+// contracta si es lo que examina el slot de condizionale presente, y ahi hablar de
+// ella es correcto.
+const TEMAS_FUERA_DEL_IMPERATIVO = [
+  'raddoppiamento', 'duplicación', 'duplicacion', 'se dobla', 'doblar', 'doble consonante',
+  'apócope', 'apocope', 'troncamento',
+  'deriva', 'derivan', 'regular', 'regulares', 'raíz',
+];
+
+// (2) ESTRUCTURA DEL PROPIO EJERCICIO. Conteos de opciones, enumeraciones de
+// mecanismos de marcado, taxonomias de variantes: caducaron tres veces al tocar el
+// contenido. Tambien es del imperativo y no global — la explanation del presente
+// dice «las tres opciones descartables», que es CIERTO en ese slot y esta guardado
+// por el gate derivado C1-CONTEO.
+const ESTRUCTURA_DEL_EJERCICIO = [
+  'opciones', 'opción', 'opcion', 'distractora', 'distractoras', 'alternativas',
+  'variante', 'variantes', 'cada frase marca',
+];
+
+// (3) La tercera prohibicion —ninguna explicacion de por que falla cada
+// distractora— NO tiene gate propio y se declara: no es mecanicamente comprobable
+// sin leer intencion. Lo que la aproxima es (2), porque una explicacion de ese tipo
+// necesita nombrar las opciones para referirse a ellas.
+//
+// GATE DE LONGITUD. El mecanismo del defecto era el CRECIMIENTO del texto: el
+// explanation del imperativo llego a 2.612 caracteres acumulando parches, y cada
+// parrafo nuevo era superficie de error nueva. Los topes se declaran por slot y con
+// holgura sobre lo que hay hoy; el minimo de 900 del bloque 11 sigue vigente.
+const MAX_EXPLANATION = {
+  [PRESENTE]: 2100,
+  [PASSATO]: 1800,
+  [IMPERATIVO]: 1600,
+};
+
 // D-43-20 — la ronda EXTRA de deepseek cubre las 5 variantes del imperativo, que
 // es el bloque de doble validez de esta categoria, y se agrega a nivel de SLOT.
 // El condizionale passato NO la lleva: su riesgo es de redaccion de marco, no de
@@ -1370,35 +1422,67 @@ describe('fare-cond-imperativo — canon editorial e higiene del JSON (D-43-21, 
     );
   });
 
-  test('la explanation del imperativo no agrupa el clitico de forma plena con la duplicacion (C2-CLITICO)', () => {
-    // ERROR DE MORFOLOGIA PREEXISTENTE, que tres pases anteriores no vieron: el
-    // texto daba `fallo`, `fammi` y `fatelo` como ejemplos de «imperativo
-    // apostrofado mas clitico con duplicacion de la consonante», y el tercero no es
-    // ninguna de las dos cosas: `fatelo` es `fate` + `lo`, forma PLENA y simple
-    // concatenacion. La duplicacion solo ocurre con los monosilabos apostrofados.
-    // La regla enunciada fallaba en el tercero de sus propios tres ejemplos.
-    //
-    // El gate es ESTRUCTURAL y no de literal: busca la frase que menciona la forma
-    // de plena mas clitico y exige que la marca de duplicacion no viva en ella.
-    const e = byId(IMPERATIVO).explanation;
-    const DUPLICACION = ['duplicación', 'se dobla', 'doblar'];
-    const frases = e.split(/(?<=[.;:])\s+/u);
-    const conFatelo = frases.filter((f) => wordish('fatelo').test(f));
-    assert.ok(conFatelo.length > 0, 'D-43-07: la explanation tiene que seguir nombrando la forma de plena mas clitico');
-    const sucio = [];
-    for (const f of conFatelo) {
-      // En la MISMA frase pueden convivir los dos mecanismos solo si el texto los
-      // CONTRAPONE explicitamente; el marcador de contraposicion es lo que
-      // distingue «los dos se doblan» de «este no, aquel si».
-      const contrapone = /en cambio|mientras|frente a|sin doblar|sin duplicar/iu.test(f);
-      const marca = DUPLICACION.find((m) => f.toLowerCase().includes(m.toLowerCase()));
-      if (marca && !contrapone) sucio.push(`"${marca}" en la misma frase que la forma plena, sin contraponerlas: "${f.trim().slice(0, 120)}"`);
-    }
+  test('la explanation del imperativo no habla de temas que el slot NO examina (P1-SCOPE)', () => {
+    // Ver el comentario de TEMAS_FUERA_DEL_IMPERATIVO: cada regla sobre morfologia
+    // del apostrofe, raddoppiamento o derivacion de modos COMPRA UNA EXCEPCION, y
+    // las cuatro rondas lo demostraron. Este gate es lo que convierte «no lo
+    // vuelvas a escribir» en algo que muerde.
+    const e = byId(IMPERATIVO).explanation.toLowerCase();
+    const sucio = TEMAS_FUERA_DEL_IMPERATIVO.filter((t) => e.includes(t.toLowerCase()));
     assert.deepEqual(
       sucio,
       [],
-      'C2-CLITICO: la duplicacion consonantica solo ocurre al pegar el clitico a la forma APOSTROFADA; con la forma plena solo hay concatenacion. Agruparlas enuncia una regla que falla en su propio ejemplo'
+      'P1-SCOPE: este slot examina que forma corresponde a que destinatario y nada mas; toda regla sobre otro tema compra una excepcion que tarde o temprano aparece'
     );
+  });
+
+  test('la explanation del imperativo no describe la estructura del ejercicio (P2-ESTRUCTURA)', () => {
+    // Conteos, enumeraciones de mecanismos de marcado, taxonomias de variantes: han
+    // caducado tres veces al tocar el contenido. Lo que el texto no afirma no puede
+    // quedarse huerfano.
+    const e = byId(IMPERATIVO).explanation.toLowerCase();
+    const sucio = ESTRUCTURA_DEL_EJERCICIO.filter((t) => e.includes(t.toLowerCase()));
+    assert.deepEqual(
+      sucio,
+      [],
+      'P2-ESTRUCTURA: la explanation no describe el ejercicio, solo la gramatica que el ejercicio examina; una descripcion de la estructura caduca cada vez que el contenido cambia'
+    );
+  });
+
+  test('ninguna explanation supera su tope de longitud (P4-LONGITUD)', () => {
+    // El mecanismo del defecto era el CRECIMIENTO: cuatro rondas de parches llevaron
+    // esta explanation a 2.612 caracteres, y cada parrafo nuevo era superficie de
+    // error nueva. El tope obliga a que anadir algo signifique quitar algo.
+    for (const s of SLOTS) {
+      assert.ok(
+        s.explanation.length <= MAX_EXPLANATION[s.id],
+        `P4-LONGITUD: la explanation de ${s.id} tiene ${s.explanation.length} caracteres y el tope es ${MAX_EXPLANATION[s.id]}; si hay que anadir algo, hay que quitar algo`
+      );
+    }
+  });
+
+  test('ninguna explanation usa la diacritica de solo, retirada por la RAE en 2010 (P3-RAE)', () => {
+    const sucio = SLOTS.filter((s) => /[sS]ólo/.test(s.explanation)).map((s) => s.id);
+    assert.deepEqual(sucio, [], 'P3-RAE: `solo` adverbial va sin tilde, y sobre todo va IGUAL en todo el texto');
+  });
+
+  test('la explanation del imperativo NOMBRA las formas que D-43-19 exige, sin teorizar sobre ellas (C2-CLITICO)', () => {
+    // AQUI HABIA UN GATE ESTRUCTURAL que partia el texto en frases y exigia que la
+    // marca de duplicacion no conviviera con la forma plena salvo contraponiendolas.
+    // SE PODA: la prohibicion P1-SCOPE veta ahora el tema entero —la duplicacion no
+    // se menciona en absoluto— asi que aquel gate ya no puede fallar y leerlo
+    // sugeriria que el texto sigue explicando morfologia. NO es perdida de
+    // cobertura: P1-SCOPE es estrictamente mas fuerte que el.
+    //
+    // LO QUE QUEDA, y es lo que de verdad hay que congelar, porque es la tension
+    // entre D-43-19 y la prohibicion (1): las formas se NOMBRAN. Nombrar cumple el
+    // requisito; explicar como se construyen es lo que compro la excepcion dos
+    // rondas seguidas.
+    const e = byId(IMPERATIVO).explanation;
+    const cliticos = ['fallo', 'fammi', 'fatelo', 'facci'].filter((f) => wordish(f).test(e));
+    assert.ok(cliticos.length >= 2, `D-43-19: la explanation debe NOMBRAR al menos 2 formas con clitico, nombra ${cliticos.length}`);
+    assert.ok(wordish('fai').test(e), 'D-43-19: y el imperativo vivo de 2a singular en -i');
+    assert.ok(matcherDe('fa').test(e), 'D-43-19: y la forma corta, como palabra suelta y no dentro de la key apostrofada');
   });
 
   test('ninguna explanation llama elision al apostrofe de la 2a singular (C3-TERMINOLOGIA)', () => {
