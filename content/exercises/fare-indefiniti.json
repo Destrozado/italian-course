@@ -368,8 +368,27 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-09",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C1/C2/C3/C5 PASAN — cuarta ronda consecutiva. Opus verifica las 12 combinaciones y confirma que el infinitivo compuesto desnudo es indefendible en las tres y que la descordancia del participio cierra el participio absoluto.]",
+              "[C4-explanation] absoluto falso introducido por el recorte: 'pur... la propia particula, que solo admite gerundio'. pur admite tambien infinitivo regido por di (pur di vincere, pur di fare una torta), adjetivo o participio (pur stanco, continuo; pur invitato, non venne) y verbo finito (pur se, pur quando). En la variante concesiva el infinitivo desnudo se descarta por falta del regente di, no porque pur solo admita gerundio; el alumno se lleva una regla inventada sobre una particula cuyo uso con infinitivo es frecuentisimo.",
+              "[C4-explanation] imprecision verificable contra el JSON, tambien introducida por el recorte: 'las terminaciones del participio que aparecen no concuerdan con ningun elemento de su frase' es falso en la variante 1 ('___ il lavoro il giorno prima, lei era gia libera'), donde fatta concuerda en genero y numero con lei. Lo que la cierra es que en el participio absoluto la concordancia va con el OBJETO (il lavoro, masc sing), no con el sujeto."
+            ]
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-09",
+            "verdict": "correcta",
+            "concerns": [
+              "[declarativa — el orquestador verifico los dos puntos donde este pase contradice a Opus y Opus tiene razon en ambos] Este pase avala 'en la de pur lo pide ademas la propia particula' (falso: pur di vincere) y afirma que la no-concordancia del participio es 'correcto en los tres' (falso en la variante 1: fatta concuerda con lei). El verdict correcta se apoya por tanto en aceptar dos afirmaciones falsas; se registra tal cual por integridad del audit trail, sin corregirlo."
+            ]
+          }
+        ]
       }
     }
   ]

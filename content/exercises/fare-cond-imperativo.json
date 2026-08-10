@@ -232,8 +232,29 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-09",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C1/C2/C3/C5 PASAN — cuarta ronda consecutiva. Opus verifica que los vetos de 7.2 se cumplen en los datos y que los pools de 3 siguen exigiendo decidir: cada uno tiene una distractora que falla por numero y otra por registro.]",
+              "[C4-explanation] la regla del raddoppiamento se enuncia sin excepcion y es mas rigida que la lengua: con el clitico gli el italiano NO dobla (fagli, como dagli/digli/vagli), asi que el alumno que la aplique tal cual produce *faggli — justo la forma inexistente que el parrafo dice prevenir. Introducido por el arreglo de la ronda 3, que al distinguir apostrofada-con-duplicacion de forma-plena-por-concatenacion enuncio la primera como universal.",
+              "[C4-explanation] la descripcion del propio ejercicio no corresponde al JSON: el texto dice que cada frase marca el destinatario 'con un nombre propio, un titulo de cortesia, un sujeto inclusivo o el pronombre de cortesia en plural', cuatro mecanismos que cubren las variantes 0, 1, 2 y 4, pero la 3 ('Bambini, ___ i compiti prima di cena!') usa un vocativo comun en plural informal, ausente de la enumeracion."
+            ]
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-09",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] CONFIRMA EL SEGUNDO HALLAZGO DE OPUS DE FORMA INDEPENDIENTE: la enumeracion de cuatro mecanismos de marcado no cubre la variante 3, que usa el sustantivo comun 'bambini' en vocativo informal. La afirmacion sobre el propio ejercicio no cuadra con los datos.",
+              "[C4-explanation] inconsistencia ortografica interna: 'solo' CON tilde en 'la excepcion y solo aparece cuando es la respuesta' frente a 'solo' SIN tilde en 'y solo fa' es exclusiva del imperativo' — mismo adverbio, mismo significado, dos grafias en el mismo texto. La RAE vigente desde 2010 no usa la tilde diacritica.",
+              "[C4-explanation] contradiccion interna: el texto afirma que 'las cinco formas son regulares una vez sabida la raiz', pero dos parrafos despues explica que fa' es 'exclusiva del imperativo' precisamente porque no deriva de ningun otro modo — es la apocopacion irregular clasica (va', da', sta', di') que el propio texto presenta como lo que hay que aprender."
+            ]
+          }
+        ]
       }
     }
   ]
