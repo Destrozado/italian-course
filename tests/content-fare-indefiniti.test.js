@@ -1409,6 +1409,16 @@ describe('fare-indefiniti — canon editorial e higiene del JSON (D-43-21, T-43-
     const e = byId(INF_PRES).explanation;
     assert.ok(e.includes('infinitivo'), 'D-43-14: la explanation tiene que nombrar el infinitivo');
     assert.ok(e.includes('negativ') && e.includes('orden'), 'D-43-14: falta el desarrollo de la orden negativa');
+    // 5a ronda: el PAR de la interferencia, explicitamente. Estaba exigido por el
+    // requisito y confirmado por los dos evaluadores desde la primera ronda, pero
+    // NO estaba gateado: una mutacion que borraba `no hagas` dejaba la suite verde,
+    // porque los tres literales de arriba sobrevivian. Es el punto pedagogico del
+    // slot —lo unico que las cinco rondas nunca discutieron— y las tres
+    // prohibiciones preservan expresamente la interferencia real con la L1.
+    assert.ok(
+      e.includes('non fare') && e.includes('no hagas'),
+      'D-43-14: la interferencia tiene que estar con LAS DOS FORMAS citadas (`non fare` frente a `no hagas`); sin el par, el alumno no ve donde calca el espanol'
+    );
     // 4a ronda: el mensaje decia «enumera los tres encajes», y enumerarlos es
     // justo lo que la prohibicion 2 veta. El suelo sigue, porque una explanation
     // que baje de ahi ya no desarrolla la interferencia del imperativo negativo,
@@ -1555,7 +1565,7 @@ describe('fare-indefiniti — canon editorial e higiene del JSON (D-43-21, T-43-
     );
   });
 
-  test('las afirmaciones falsas retiradas no vuelven, POR SLOT (rondas 1 a 4)', () => {
+  test('las afirmaciones falsas retiradas no vuelven, POR SLOT (rondas 1 a 5)', () => {
     // Guardia de regresion acumulada, y va POR SLOT y no global a proposito: lo que
     // un slot no examina, otro si. `participio invariable` es falso en el gerundio
     // passato y correcto de decir en el participio passato con objeto pospuesto;
@@ -1581,6 +1591,7 @@ describe('fare-indefiniti — canon editorial e higiene del JSON (D-43-21, T-43-
         'ninguna de las demás formas', // 4a: tras un modal encaja `aver fatto` (`deve aver fatto`) y tras `non` encaja el gerundio
         'nunca otra forma no personal', // 4a: `dopo mangiato`, `dopo finito` son italiano corriente
         'igual que el español', // 4a: amplificaba el absoluto, y el espanol SI excluye el participio ahi
+        'ya aporta esa información', // 5a: el infinitivo aparece nominalizado (`Fumare fa male`) y en instruccion impersonal (`Vietato fumare`) sin ningun elemento que aporte persona ni numero; y en el imperativo negativo la persona la da la CONSTRUCCION, no otro elemento — el vocativo es prescindible (`Non fare rumore!`)
       ],
     };
     const sucio = [];
@@ -1622,6 +1633,47 @@ describe('fare-indefiniti — canon editorial e higiene del JSON (D-43-21, T-43-
       sucio,
       [],
       'P1: cada regla general compra una excepcion y el quorum la encuentra. El slot examina su forma frente a su alternativa, no el inventario de la subordinacion italiana'
+    );
+  });
+
+  test('P1 por TEMA: ninguna explanation enuncia una CONDICION GENERAL DE APARICION de su forma', () => {
+    // 5a ronda, el ultimo hallazgo de la fase, y es tematico y no de literal: la
+    // frase retirada («aparece cuando otro elemento de la frase ya aporta esa
+    // informacion») no usaba ninguna formula absoluta de las que ya se vigilan.
+    // Su defecto era de TIPO: enunciaba en que CONDICIONES aparece la forma, que es
+    // una afirmacion sobre toda la lengua y no sobre lo que el slot examina.
+    //
+    // Falla dos veces. Primero en el italiano real —el infinitivo aparece
+    // nominalizado (`Fumare fa male`) y en instruccion impersonal (`Vietato
+    // fumare`) sin ningun elemento que aporte persona ni numero—. Y segundo, peor,
+    // en la variante que el propio texto declara la mas importante: en el
+    // imperativo negativo la persona la aporta la CONSTRUCCION, no otro elemento,
+    // porque el vocativo es prescindible (`Non fare rumore!` funciona solo).
+    //
+    // El gate va POR TEMA: caza la familia de aperturas que enuncian condicion de
+    // aparicion, no una frase concreta. Y va por slot, como todas las de este
+    // fichero: si algun dia una explanation necesita decir cuando aparece su forma
+    // porque ESO es lo que su slot examina, se le declara la excepcion aqui.
+    const CONDICIONES_DE_APARICION = [
+      'Aparece cuando',
+      'aparece cuando',
+      'Aparece siempre que',
+      'aparece siempre que',
+      'Se usa cuando',
+      'se usa cuando',
+      'solo aparece',
+      'Solo aparece',
+    ];
+    const sucio = [];
+    for (const s of SLOTS) {
+      for (const f of CONDICIONES_DE_APARICION) {
+        if (s.explanation.includes(f)) sucio.push(`${s.id}: "${f}"`);
+      }
+    }
+    assert.deepEqual(
+      sucio,
+      [],
+      'P1 (5a ronda): decir en que condiciones aparece una forma es una afirmacion sobre toda la lengua, y el italiano la desmiente por arriba (usos nominalizados e impersonales) y por abajo (la construccion que el propio slot examina)'
     );
   });
 
