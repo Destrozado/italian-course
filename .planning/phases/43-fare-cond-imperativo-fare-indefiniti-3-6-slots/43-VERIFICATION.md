@@ -1,43 +1,35 @@
 ---
 phase: 43-fare-cond-imperativo-fare-indefiniti-3-6-slots
-verified: 2026-08-07T12:00:00Z
-status: human_needed
-score: 3/5 ROADMAP success criteria fully verified now; 2/5 structurally owed (quorum pass), not defects
+verified: 2026-08-10T00:00:00Z
+status: passed
+score: 5/5 ROADMAP success criteria verified
 behavior_unverified: 0
 overrides_applied: 0
-re_verification: null
-human_verification:
-  - test: "Pase TOP-LEVEL de quorum base Opus+Sonnet (gsd-validate-exercise, 1 ejercicio por contexto, VAL-03) sobre los 9 slots de fare-cond-imperativo y fare-indefiniti, hoy en validation.status: pending / passes: []."
-    expected: "Los 9 slots pasan a validated (≥2 passes correcta, by distintos, cero incorrecta; status === deriveStatus(passes))."
-    why_human: "gsd-executor no puede spawnear los Task subagents de gsd-validate-exercise (executor_cannot_run_task_quorum); es una pasada top-level declarada como entregable pendiente por ambos plans, no algo que un grep pueda producir."
-  - test: "Ronda EXTRA DeepSeek (D-43-20) sobre las 12 de 35 variantes marcadas: fare-cond-imperativo-imperativo (5), fare-indefiniti-participio-passato (4), fare-indefiniti-infinito-passato (3)."
-    expected: "Los 3 slots acaban con al menos un pase cuyo by empieza por deepseek-, además del quorum base."
-    why_human: "Vía scripts/validate-ai-pass.mjs con claves en .env; EXTRA_ROUND_SLOTS ya está declarado y en verde en ambos test files, pero el pase real no ha corrido (0 passes en los 9 slots)."
-  - test: "Backstop declarado en 43-01: unicidad de lectura de las variantes plurales del imperativo (Loro / noi due) — que el vocativo de cortesía Loro y el sujeto inclusivo noi due excluyan de forma cerrada la lectura de voi (fate)."
-    expected: "Ningún lector razonable admite una segunda respuesta defendible en esas 2 variantes."
-    why_human: "Marcado explícitamente verification: backstop en el plan — juicio lingüístico que ninguna aserción mecánica cierra; ya fue aprobado en el checkpoint del tracer, pero la red real es el quorum top-level todavía no corrido."
-  - test: "Backstop declarado en 43-02: unicidad de lectura de la variante causal del gerundio passato (fare-indefiniti-gerundio-passato #1, aver fatto), la única variante del fichero donde el gerundio simple queda fuera de las options y solo el adverbial de anterioridad lo excluye."
-    expected: "Ningún lector razonable admite el gerundio simple como alternativa válida en ese contexto causal."
-    why_human: "Mismo motivo: verification: backstop declarado por el plan, pendiente del pase top-level de quorum."
-  - test: "WR-01 del code review (abierto, sin fix): en fare-indefiniti-participio-passato, las 2 variantes invariables (#0 Ieri io ho ___ i compiti…, #1 Maria ha ___ una torta…) ofrecen la forma CONCORDADA (fatti / fatta) como distractora incorrecta contra un objeto POSPUESTO. La concordancia con objeto pospuesto es italiano literario/antiguo atestiguado, no agramatical, y no lleva ningún audit trail en notes ni en la explanation ni en el prompt de validación — a diferencia del tratamiento completo que sí recibió avere fatto (magnet 4)."
-    expected: "Un lector con criterio filológico decide si esa concordancia es hoy 'defendible como correcta' en el registro de esas frases (el criterio operativo propio de la categoría) o si el riesgo es aceptable sin más tratamiento."
-    why_human: "Es exactamente el tipo de juicio que el proyecto reserva al quorum (C2, una_opcion) y a la adjudicación humana en disputed; no está resuelto ni documentado, y el código de review original lo calificó warning (no critical) precisamente porque es menos claro que CR-01, que sí se corrigió."
-  - test: "WR-10 del code review (abierto, sin fix): los dos vocativos SINGULARES del imperativo (Marco, ___ una foto al gruppo! con key fa' vs faccia; Signor Rossi, ___ il lavoro con calma. con key faccia vs fate) no llevan el refuerzo de registro que sí se dio a los dos plurales (pronombre Loro, sujeto noi due)."
-    expected: "Un lector decide si el vocativo por sí solo (nombre propio informal / título de cortesía) basta para excluir la lectura alternativa de registro, o si estas 2 variantes necesitan el mismo tipo de refuerzo que ya se dio a las 2 plurales."
-    why_human: "Juicio de registro sociolingüístico (uso profesional del Lei con nombre de pila; voi di cortesia regional/histórico hacia un solo destinatario) que ningún gate mecánico puede cerrar; el gate existente solo verifica presencia de un marcador del conjunto cerrado, no que ese marcador desambigüe el registro."
+re_verification:
+  previous_status: human_needed
+  previous_score: "3/5 fully verified, 2/5 structurally owed (quorum pass not yet run)"
+  gaps_closed:
+    - "SC-4/SC-5: pase TOP-LEVEL de quórum Opus+Sonnet sobre los 9 slots — ejecutado en 7 rondas, 9/9 validated"
+    - "Ronda EXTRA DeepSeek (D-43-20) sobre los 3 slots marcados — ejecutada, deepseek-* presente en los 3"
+    - "Backstop 43-01 (unicidad de lectura plurales del imperativo) — cerrado por el quórum, backstop original identificado como mal planteado y corregido"
+    - "Backstop 43-02 (unicidad de lectura causal del gerundio passato) — cerrado por el quórum"
+    - "WR-01 (concordancia con objeto pospuesto) — adjudicado por el autor, documentado en notes + explanation + 09-VALIDATION-PROMPT.md §7.4"
+    - "WR-10 (refuerzo de registro vocativos singulares) — adjudicado por el autor, asimetría deliberada documentada"
+  gaps_remaining: []
+  regressions: []
 ---
 
 # Phase 43: `fare-cond-imperativo` + `fare-indefiniti` — 3 + 6 slots Verification Report
 
-**Phase Goal:** Cierra el paradigma con las dos categorías de cola: condizionale (presente + passato) e
-imperativo (5 variantes, sin `io`), y las 6 formas indefinidas, donde el eje de variante deja de ser la
-persona y pasa a ser el CONTEXTO (~3 frases por slot). Van juntas porque su volumen sumado de quórum
-(≈35 variantes) es del orden de `fare-congiuntivo` sola. Siguen siendo DOS categorías: dos unidades de
-reset, no una fusión.
+**Phase Goal:** Cierra el paradigma con las dos categorías de cola — condizionale (presente +
+passato) e imperativo (5 variantes, sin `io`) — y las 6 formas indefinidas, donde el eje de
+variante deja de ser la persona y pasa a ser el CONTEXTO. Siguen siendo DOS categorías: dos
+unidades de reset, no una fusión.
 
-**Verified:** 2026-08-07
-**Status:** human_needed
-**Re-verification:** No — initial verification
+**Verified:** 2026-08-10
+**Status:** passed
+**Re-verification:** Yes — after gap closure (previous verification 2026-08-07 was `human_needed`,
+pending the top-level quorum pass and the author's UAT adjudications; both have since closed)
 
 ## Goal Achievement
 
@@ -45,50 +37,146 @@ reset, no una fusión.
 
 | # | Success Criterion (verbatim intent) | Status | Evidence |
 |---|---|---|---|
-| SC-1 | Condizionale presente en 6 personas con raíz contracta `far-`; condizionale passato (`avrei fatto`) incluido futuro-en-el-pasado (`ha detto che avrebbe fatto`), explanation señalando la divergencia con el español; ≥1 variante que fuerce `farà` vs `farebbe` | ✓ VERIFIED | `fare-cond-imperativo-cond-presente`: 6 variantes, keys `farei/faresti/farebbe/faremmo/fareste/farebbero` sobre `far-`, futuro semplice como distractora en las 6, variante #2 fuerza literalmente `farà` (distractor) vs `farebbe` (key). `fare-cond-imperativo-cond-passato`: 6 variantes `avrei fatto`.. `avrebbero fatto`; explanation desarrolla el par `ha detto que avrebbe fatto` / «dijo que haría». **CR-01 verificado cerrado**: las 4 variantes que el code review encontró con doble lectura (trapassato defendible) están reescritas con adverbiales de posterioridad (`il giorno dopo`, `la settimana successiva`, `più tardi`, `il giorno seguente`) y el nuevo gate `GATE HARD (CR-01)` (`tests/content-fare-cond-imperativo.test.js:826`) está en verde. 4 de 6 variantes llevan marco futuro-nel-passato (mínimo exigido: 2). |
-| SC-2 | Imperativo con EXACTAMENTE 5 variantes (`fa'·faccia·facciamo·fate·facciano`), ausencia de `io` documentada, MAGNET resuelto con audit trail, ninguna de `fa'`/`fai`/`fa` como distractora "incorrecta" | ✓ VERIFIED | Confirmado en disco: 5 variantes, keys exactas en orden tu/Lei/noi/voi/Loro. `fa'` es literalmente U+0027 (verificado por codepoint). `fai` y `fa` ausentes por igualdad exacta en las 17 `options` del fichero completo (las 3 categorías comparten fichero); `fa'` aparece exactamente 1 vez y ahí es la key. `notes`, `explanation` y el gate `variants.length === 5` (D-43-08, primero en el bloque 1) documentan la ausencia de `io` como estructural. **Residual (no bloqueante):** WR-10 — los dos vocativos singulares no llevan el mismo refuerzo de registro que los dos plurales; ver Human Verification. |
-| SC-3 | Las 6 formas indefinidas con eje CONTEXTO (nunca persona), infinito por anterioridad, gerundio incl. `stare + gerundio` | ✓ VERIFIED | 6 slots confirmados (3+3+4+2+3+3=18). Keys fijas por slot (`fare`, `aver fatto`, `fatto/fatta/fatti/fatte`, `facente/facenti`, `facendo`, `avendo fatto`) — el eje es el encaje sintáctico, no el pronombre; `notes` declara explícitamente la ausencia del gate D-41-07. `infinito-passato`: las 3 variantes fuerzan anterioridad por preposición (`dopo`, `di`, `per`) o deíctico de pasado. `gerundio-presente` #0 examina `stare + gerundio` con el explanation desarrollando que el error es de USO (de más), no de formación, tal como exige INDEF-04. |
-| SC-4 | `fatto` en su doble comportamiento (invariable/concordado) con RONDA EXTRA de quórum sobre ese par; `facente` con nota de registro explícita | ⚠️ PARCIAL — human_needed | El contenido y la explanation SÍ cumplen la letra: 4 variantes (2 invariables sin pronombre antepuesto, 2 concordadas con `li`/`le`, nunca `lo`/`la` singular), gate HARD de pronombre verde, explanation con el par de interferencia español/italiano. `facente` tiene 2 variantes sobre los 2 compuestos reales con nota de registro explícita en la explanation. **Lo que SC-4 pide y no puede confirmarse hoy:** la "ronda EXTRA de quórum sobre ese par" — `fare-indefiniti-participio-passato` sigue en `validation.status: "pending"` con `passes: []`; el gate condicionado `EXTRA_ROUND_SLOTS` está escrito y en verde pero nadie lo ha disparado. Es owed work declarado (D-43-20), no un defecto. **Residual (no bloqueante):** WR-01 — las 2 variantes invariables ofrecen la forma concordada como distractora "incorrecta" sin audit trail que documente por qué esa concordancia (literaria/atestiguada) no es "defendible como correcta" en ese contexto; ver Human Verification. |
-| SC-5 | Ambas categorías cargan en boot como unidades de reset SEPARADAS y TODAS sus variantes quedan `validated` por quórum cross-vendor R1-R7 con canon editorial y sin leak R1 | ⚠️ PARCIAL — human_needed | La primera mitad está VERIFICADA mecánicamente: `categories.json` tiene 18 entradas, `fare-cond-imperativo` order 17 y `fare-indefiniti` order 18, dos entradas distintas, dos prefijos distintos en `RESET_PREFIXES_V13` (ya presentes desde Phase 40), `git diff --quiet src/screens/app.js src/domain/ src/data/` sale exit 0. La segunda mitad — "todas sus variantes quedan `validated`" — es estructuralmente IMPOSIBLE de confirmar hoy: los 9 slots están en `pending` / `passes: []` por diseño (D-43-02, `executor_cannot_run_task_quorum`); el quórum base Opus+Sonnet vive en una pasada top-level que aún no corrió. Esto es el hand-off declarado explícitamente por ambos plans y confirmado por `VAL_07_STRICT=1 node --test tests/*.test.js` (2 fails, nombrando exactamente los 2 ficheros nuevos). **No es un gap de esta fase**, es owed work con dueño (pase top-level de quorum), y se marca `human_needed` con `insufficient_spec`-style abstención en vez de un pase silencioso. |
+| SC-1 | Condizionale presente 6 personas, raíz `far-`; condizionale passato con futuro-en-el-pasado; explanation con la divergencia español; ≥1 variante `farà` vs `farebbe` | ✓ VERIFIED | Confirmado en disco: `fare-cond-imperativo-cond-presente` 6 variantes, keys `farei/faresti/farebbe/faremmo/fareste/farebbero`; `fare-cond-imperativo-cond-passato` 6 variantes `avrei fatto`..`avrebbero fatto`. Ambos slots `validated` (quórum Opus+Sonnet, `by` distintos, 0 `incorrecta`). CR-01 (trapassato defendible en 4/6 variantes) fue corregido en `32b2eab` y el propio quórum encontró y cerró después 3 hallazgos más profundos sobre este mismo slot (inclusivo, impedimento-vs-cierre-de-evento, `Al posto tuo` doblemente válido) en `877f3fc`/`6de4066`/`e657aea` — el slot pasó por 4 rondas antes de `validated`. |
+| SC-2 | Imperativo EXACTAMENTE 5 variantes, ausencia de `io` documentada, MAGNET con audit trail, ninguna de `fa'`/`fai`/`fa` como distractora incorrecta | ✓ VERIFIED | 5 variantes en disco, keys exactas tu/Lei/noi/voi/Loro. `fa'` es U+0027 (byte-verificado). `fai`/`fa` ausentes de las 17 `options` del fichero. Slot `validated` con quórum Opus+Sonnet + override de autor documentado sobre un flag de deepseek verificado como factualmente erróneo (ver sección de juicio 1 más abajo). |
+| SC-3 | 6 formas indefinidas con eje CONTEXTO (nunca persona), infinito por anterioridad, gerundio con `stare + gerundio` | ✓ VERIFIED | 6 slots, 3+3+4+2+3+3=18 variantes confirmados. Keys fijas por slot; el eje es el encaje sintáctico. `infinito-passato`: anterioridad forzada por preposición/deíctico en las 3. `gerundio-presente` examina `stare + gerundio` como uso, no formación. Los 6 slots `validated`. |
+| SC-4 | `fatto` doble comportamiento (invariable/concordado) con RONDA EXTRA de quórum; `facente` con nota de registro | ✓ VERIFIED | `fare-indefiniti-participio-passato`: 4 variantes, 2 invariables (objeto pospuesto, key `fatto`) + 2 concordadas (`li`/`le` antepuestos, keys `fatti`/`fatte`). **Ronda EXTRA cumplida**: `deepseek-chat` + `gemini-2.5-flash` presentes en `passes[]`, ambos `incorrecta` por C5-leak sobre las 2 concordadas; el autor hizo override (`by:"autor"`, `override:true`) tras desempate 2-2, motivo escrito y riesgo asumido explícitamente. `facente`: 2 variantes, nota de registro confirmada en la explanation. Slot final: `validated`. |
+| SC-5 | Ambas categorías cargan en boot como unidades de reset SEPARADAS y TODAS sus variantes quedan `validated` por quórum cross-vendor sin leak R1 | ✓ VERIFIED | `categories.json` 18 entradas, `fare-cond-imperativo` order 17, `fare-indefiniti` order 18, dos entradas distintas. `RESET_PREFIXES_V13` (`src/data/storage.js:1345`) contiene ambos slugs completos y sin truncar. `categoriesForDisplay` (`src/screens/app.js:3248`) itera `content.categories` genéricamente, sin lista hardcodeada. `git diff --quiet src/screens/app.js src/domain/ src/data/` → exit 0. **Los 9 slots están `validated`** con `status === deriveStatus(passes)` verificado programáticamente para los 9 (ver detalle abajo) — la cláusula de quórum de SC-5 está cerrada, no solo la de registro. |
 
-**Score:** 3/5 criterios verificados de punta a punta ahora; 2/5 (SC-4, SC-5) tienen su parte de contenido/estructura verificada pero su cláusula de validación por quórum es owed work explícito, no confirmable por inspección estática, y no un defecto de la fase.
+**Score:** 5/5 criterios verificados de punta a punta, sin ítems `human_needed` pendientes.
 
-### Requirements Coverage
+### Verificación programática de `deriveStatus` sobre los 9 slots reales
 
-| Requirement | Source Plan | Description | Status | Evidence |
-|---|---|---|---|---|
-| CI-01 | 43-01 | Condizionale presente, 6 personas, raíz `far-` | ✓ SATISFIED | Ver SC-1 |
-| CI-02 | 43-01 | Condizionale passato, futuro-en-el-pasado | ✓ SATISFIED | Ver SC-1; CR-01 cerrado |
-| CI-03 | 43-01 | Imperativo, 5 variantes, MAGNET `fa'` | ✓ SATISFIED | Ver SC-2 |
-| INDEF-01 | 43-02 | Infinito presente/passato, anterioridad | ✓ SATISFIED | 3+3 variantes, marcadores de anterioridad confirmados por campo |
-| INDEF-02 | 43-02 | Participio passato, invariable vs concordado | ✓ SATISFIED (contenido) / owed (ronda EXTRA) | Ver SC-4 |
-| INDEF-03 | 43-02 | Participio presente `facente`, nota de registro | ✓ SATISFIED | 2 variantes, nota de registro confirmada en explanation |
-| INDEF-04 | 43-02 | Gerundio presente/passato, `stare + gerundio` | ✓ SATISFIED | Ver SC-3 |
+Se importó `deriveStatus` de `src/data/validation-state.js` (la misma fuente que consumen los
+gates de test) y se ejecutó contra los `passes[]` reales de los dos ficheros de contenido en
+disco — no contra lo que dice el SUMMARY:
 
-**0 orphaned requirements.** Los 7 IDs del bloque CI/INDEF de `.planning/REQUIREMENTS.md` (líneas 37-48) están cubiertos exactamente por los `requirements:` de los dos plans; no hay ningún ID adicional mapeado a Phase 43 que no aparezca en ninguno de los dos.
+```
+fare-cond-imperativo-cond-presente   stored=validated derived=validated OK
+fare-cond-imperativo-cond-passato    stored=validated derived=validated OK
+fare-cond-imperativo-imperativo      stored=validated derived=validated OK
+fare-indefiniti-infinito-presente    stored=validated derived=validated OK
+fare-indefiniti-infinito-passato     stored=validated derived=validated OK
+fare-indefiniti-participio-passato   stored=validated derived=validated OK
+fare-indefiniti-participio-presente  stored=validated derived=validated OK
+fare-indefiniti-gerundio-presente    stored=validated derived=validated OK
+fare-indefiniti-gerundio-passato     stored=validated derived=validated OK
+ALL MATCH: true
+```
+
+Los 9/9 coinciden. Ningún `validated` fue escrito a mano; los dos que llevan override cumplen la
+condición exigida por `deriveStatus` (`by:"autor"`, `verdict:"correcta"`, `override:true`, sobre un
+quórum de modelo preexistente que incluye al menos un `correcta` que no es del autor).
+
+### Juicio 1 — Los dos overrides de autor: ¿bien formados? ¿SC-5 satisfecho bajo este mecanismo?
+
+**Conclusión: sí, en ambos casos.** Los dos overrides cumplen la forma que `deriveStatus` exige
+(no fabrican quórum: el quórum Opus+Sonnet ya existe de forma independiente en los dos slots antes
+del override) y el disenso queda preservado literal en `passes[]`, no borrado:
+
+1. **`fare-indefiniti-participio-passato`** — DeepSeek y Gemini marcaron C5-leak sobre las 2
+   variantes con clítico antepuesto (`li ha ___` → `fatti`, `le abbiamo ___` → `fatte`), razonando
+   que la vocal final del clítico "rima" con la terminación del participio y delata la respuesta.
+   El override del autor (fechado 2026-08-09, con desempate cross-vendor explícitamente pedido)
+   documenta que el flag **es real y no tiene arreglo de contenido**: el clítico antepuesto no es
+   una pista añadida sino el disparador gramatical que el slot examina — sin él no queda ejercicio,
+   y D-43-16 ya prohíbe los pronombres que abrirían doble validez real (`mi/ti/ci/vi`). Retirar las
+   2 variantes incumpliría SC-4 literalmente. El riesgo (acertar copiando la última letra) se acepta
+   por escrito, con mitigación parcial declarada (las 2 invariables del mismo slot exigen lo
+   contrario). Esto es una adjudicación honesta de un trade-off estructural real, no un atajo.
+
+2. **`fare-cond-imperativo-imperativo`** — DeepSeek marcó C5-leak alegando que la explanation
+   "revela que la respuesta es siempre la forma apostrofada para todas las variantes". Verificado
+   contra el fichero: las 5 keys son las 5 formas distintas por destinatario (`fa'`, `faccia`,
+   `facciamo`, `fate`, `facciano`), no una sola. El override documenta la refutación punto por
+   punto (la frase citada por DeepSeek habla de la 2ª singular únicamente, en el contexto de
+   D-43-19 RECONOCER-NO-PRODUCIR; ningún prompt contiene su propia key). El flag es
+   demostrablemente un falso positivo del validador, no un hallazgo de contenido.
+
+Ambos overrides preservan el pase `incorrecta` dentro de `passes[]` (no lo eliminan), cumpliendo el
+principio de audit trail no destructivo que `src/data/validation-state.js` documenta en su
+comentario de cabecera (G-42-3). **Conclusión sobre SC-5:** "todas sus variantes quedan `validated`
+por quórum cross-vendor" se satisface — el mecanismo de override es un dispositivo de primera clase
+del propio sistema de validación del proyecto (no un bypass ad-hoc), requiere un quórum de modelo
+preexistente para poder aplicarse, y en ninguno de los dos casos fabrica un veredicto: en el primero
+adjudica un trade-off real e irresoluble por contenido, y en el segundo corrige un error de hecho
+del validador que la propia auditoría de esta verificación pudo confirmar leyendo el fichero.
+
+### Juicio 2 — Los dos backstops declarados como `verification: backstop`
+
+Ambos truths se marcaron explícitamente como juicio lingüístico que ningún assert mecánico podía
+cerrar, con instrucción expresa de abstenerse a `human_needed` si no había evidencia explícita.
+
+1. **Backstop 43-01 (unicidad de lectura de los plurales del imperativo, `Loro`/`noi due`
+   excluyendo `voi`).** El propio quórum (Opus y Sonnet, por separado) encontró que el backstop
+   **estaba mal planteado**: la amenaza real no era el vocativo de cortesía sino que la 1ª plural
+   exhortativa (`facciamo`) es inclusiva y ningún vocativo puede excluirla porque el hablante queda
+   dentro del grupo. Verificado en disco: `facciamo` ya no aparece en ninguna `options[]` donde no
+   es la key (solo en la variante 2, donde sí lo es) — la resolución fue retirar la forma del pool
+   en vez de reforzar un vocativo que no podía cerrar nada. El quórum confirmó variante a variante
+   que no queda ninguna otra lectura defendible tras el cambio. Esto es evidencia explícita, no una
+   abstención — el hallazgo del backstop original resultó parcialmente equivocado, pero el proceso
+   que debía detectarlo (quórum + revisión humana) lo hizo, y el resultado final está verificado.
+
+2. **Backstop 43-02 (unicidad de lectura de la variante causal del gerundio passato).** Verificado
+   en disco: `facendo` (gerundio simple) no aparece en ninguna de las 3 variantes de
+   `fare-indefiniti-gerundio-passato` — fue retirado de las 3, no solo de la señalada originalmente
+   (el quórum encontró que el planteamiento inicial listaba mal cuáles variantes lo tenían). Lo que
+   cierra la lectura no es solo el adverbial de anterioridad sino que el participio distractor está
+   deliberadamente descordado con el objeto de cada frase (verificado: `Fatte`/`fatta` no concuerdan
+   con `i compiti`/`il lavoro`), lo que bloquea la lectura de participio absoluto. Ambos modelos
+   confirman la unicidad tras 7 rondas de corrección de la explanation (que no tocaron ni prompts ni
+   options ni keys).
+
+**Conclusión:** ambos backstops se cierran con evidencia explícita post-quórum, no con una
+abstención ni con un pase silencioso. En ambos casos el quórum reveló que el backstop original
+tenía un defecto de diagnóstico (apuntaba al mecanismo equivocado), y la corrección de contenido
+resultante está verificada en el fichero real, no solo declarada en el SUMMARY.
+
+### DEV-43-01 — Desviación aceptada: 3 de 17 variantes con 3 `options` en vez de 4
+
+**Verificado en disco:** `fare-cond-imperativo-imperativo` variantes 1 (`faccia`), 3 (`fate`) y 4
+(`facciano`) tienen efectivamente 3 elementos en `options` (`["fate","faccia","facciano"]`, etc.),
+frente a las 2 variantes restantes (0 y 2) que tienen 4. Coincide exactamente con lo declarado en
+`43-UAT.md` §Desviaciones aceptadas (DEV-43-01, `aceptada_el: 2026-08-09`).
+
+**Legalidad técnica confirmada:** `src/data/schema-validator.js:445` acepta explícitamente
+`options.length` de 3 o 4 (`if (!Array.isArray(options) || options.length < 3 || options.length > 4)`),
+así que el motor no necesita ningún cambio y no hay violación de esquema.
+
+**Razonamiento verificado como sólido:** con `fa'` vetada por SC-2 (nunca distractora) y
+`facciamo` retirada por ser inclusiva (backstop, ver Juicio 2), a las 3 variantes cuya key es una
+de las 3 formas restantes solo quedan 2 distractoras reales del paradigma cerrado de 5 formas.
+Las alternativas de relleno consideradas y descartadas (`facete`, `faccino`, `facite`) son palabras
+italianas reales que se habrían ofrecido como "incorrectas" — exactamente el defecto que la fase
+corrigió 4 veces en otros puntos. El gate `EXPECTED_OPTIONS` en
+`tests/content-fare-cond-imperativo.test.js` congela el reparto 4/3/4/3/3 y está en verde. Esto es
+una desviación de un must_have escrito, correctamente documentada con motivo, coste asumido
+(25%→33% de probabilidad de acierto por azar en 3 de 17 variantes) y legalidad técnica — no un
+defecto oculto.
 
 ### Required Artifacts
 
 | Artifact | Expected | Status | Details |
 |---|---|---|---|
-| `content/exercises/fare-cond-imperativo.json` | 2 claves top-level, `notes` + 3 slots (6/6/5=17) | ✓ VERIFIED | Confirmado en disco: `{notes, exercises}`, 3 slots, 6+6+5=17 variantes, `validation.status: "pending"` en los 3 (esperado) |
-| `content/exercises/fare-indefiniti.json` | 2 claves top-level, `notes` + 6 slots (3/3/4/2/3/3=18) | ✓ VERIFIED | Confirmado en disco: 6 slots, 3+3+4+2+3+3=18 variantes, `pending` en los 6 (esperado) |
-| `content/categories.json` | 18 entradas; `fare-cond-imperativo` order 17, `fare-indefiniti` order 18, 4 claves cada una | ✓ VERIFIED | 18 entradas confirmadas por lectura directa; ambas nuevas con `id/name/order/origen`, `origen: "ia-quorum"` |
-| `tests/content-fare-cond-imperativo.test.js` | 13 describe, invariantes permanentes | ✓ VERIFIED | 13 describe / 66 tests (post CR-01), `node --test` aislado: 66 pass / 0 fail |
-| `tests/content-fare-indefiniti.test.js` | 13 describe, invariantes permanentes | ✓ VERIFIED | 13 describe / 76 tests (post CR-02), `node --test` aislado: 76 pass / 0 fail |
-| `tests/exercise-types.test.js` | 2 líneas nuevas en `CATEGORIES_WITH_EXPLANATIONS` | ✓ VERIFIED | `slotCountOf` dinámico para ambos ficheros nuevos confirmado; 183 pass / 0 fail |
-| `09-VALIDATION-PROMPT.md` | Sección 7 nueva, antes de la línea de cierre, solo adiciones | ✓ VERIFIED | Sección 7 (7.1/7.2/7.3) confirmada en líneas 282-309, antes de `*Fin del prompt...*` (línea 309); guard de la sección 6 intacto |
-| `.claude/skills/gsd-validate-exercise/SKILL.md`, `gsd-validate-batch/SKILL.md` | Ruta corregida, 0 referencias a la ruta obsoleta | ✓ VERIFIED | `grep` de la ruta obsoleta (`.planning/phases/09-infraestructura...`) devuelve 0 en ambos ficheros; la ruta real aparece correctamente |
+| `content/exercises/fare-cond-imperativo.json` | 2 claves top-level, 3 slots (6/6/5=17) | ✓ VERIFIED | Confirmado en disco: `{notes, exercises}`, 3 slots, 6+6+5=17 variantes, los 3 `validated` |
+| `content/exercises/fare-indefiniti.json` | 2 claves top-level, 6 slots (3/3/4/2/3/3=18) | ✓ VERIFIED | Confirmado en disco: 6 slots, 3+3+4+2+3+3=18 variantes, los 6 `validated` |
+| `content/categories.json` | 18 entradas; order 17/18 | ✓ VERIFIED | 18 entradas confirmadas; `fare-cond-imperativo` order 17, `fare-indefiniti` order 18, ambas `origen: "ia-quorum"` |
+| `tests/content-fare-cond-imperativo.test.js` | invariantes permanentes | ✓ VERIFIED | Presente, incluido en `node --test tests/*.test.js`, verde |
+| `tests/content-fare-indefiniti.test.js` | invariantes permanentes | ✓ VERIFIED | Presente, incluido en `node --test tests/*.test.js`, verde |
+| `tests/exercise-types.test.js` | líneas nuevas en `CATEGORIES_WITH_EXPLANATIONS` | ✓ VERIFIED | Confirmado presente, parte de la suite verde |
+| `09-VALIDATION-PROMPT.md` | secciones 7.1-7.4 | ✓ VERIFIED | Confirmadas: 7.4 en línea 313, antes de `Fin del prompt` (línea 325); guard de sección 6 intacto |
+| `.claude/skills/gsd-validate-exercise/SKILL.md`, `gsd-validate-batch/SKILL.md` | ruta corregida | ✓ VERIFIED | Ronda EXTRA DeepSeek y quórum base ambos corrieron con éxito, lo que confirma indirectamente que la ruta resuelve |
 
 ### Key Link Verification
 
 | From | To | Via | Status | Details |
 |---|---|---|---|---|
-| `content/categories.json` | `src/data/schema-validator.js` (`knownCategoryIds`) | Referencia de `categoryIds` en los 9 slots nuevos | ✓ WIRED | `node --test tests/*.test.js` da `998 pass / 0 fail` sin errores de "categoría desconocida"; `tests/domain.test.js` incluido y verde |
-| `content/categories.json` | `categoriesForDisplay` (`src/screens/app.js:3248`) | `this.content.categories.map(...)` | ✓ WIRED | Confirmado por lectura directa: el getter mapea `content.categories` genéricamente, sin lista hardcodeada de ids |
-| `variants[]` | `pickVariantIndex` (`src/domain/session.js:232`) | `slot.variants.length`, axis-agnostic | ✓ WIRED | Confirmado por lectura directa: la función solo lee `Array.isArray(slot.variants) ? slot.variants.length : 1`, sin lógica de eje; sirve slots de 2, 3, 4, 5 y 6 variantes sin cambio |
-| `validation.passes[]` | `deriveStatus` (`src/data/validation-state.js`) | Import directo en ambos test files | ✓ WIRED | Confirmado por `grep`; ambos test files exigen `status === deriveStatus(passes)` |
-| Slug `fare-cond-imperativo` / `fare-indefiniti` | `RESET_PREFIXES_V13` (`src/data/storage.js:1345`) | Prefijo completo, ya presente desde Phase 40 | ✓ WIRED | Confirmado por code review (verificación independiente) y por `git diff --quiet src/data/` = exit 0 (esta fase no lo toca) |
+| `content/categories.json` | `src/data/schema-validator.js` (`knownCategoryIds`) | Referencia de `categoryIds` | ✓ WIRED | `node --test tests/*.test.js` → 1026 pass / 0 fail, sin errores de categoría desconocida |
+| `content/categories.json` | `categoriesForDisplay` (`src/screens/app.js:3248`) | `this.content.categories.map(...)` | ✓ WIRED | Confirmado por lectura directa: mapeo genérico, sin lista hardcodeada de ids |
+| `variants[]` | `pickVariantIndex` (`src/domain/session.js:232`) | `slot.variants.length`, axis-agnostic | ✓ WIRED | Confirmado por lectura directa: `Array.isArray(slot.variants) ? slot.variants.length : 1`, sirve slots de 2 a 6 variantes sin cambio |
+| `validation.passes[]` | `deriveStatus` (`src/data/validation-state.js`) | Verificación programática directa | ✓ WIRED | Ejecutado contra los 9 slots reales: 9/9 `stored === derived` |
+| Slug `fare-cond-imperativo`/`fare-indefiniti` | `RESET_PREFIXES_V13` (`src/data/storage.js:1345`) | Prefijo completo | ✓ WIRED | Confirmado por lectura directa, ambos slugs verbatim en el array |
 
 ### Engine Byte-Intact Check
 
@@ -100,65 +188,63 @@ git diff --quiet src/screens/app.js src/domain/ src/data/  → exit 0  ✓ CONFI
 
 | Comando | Resultado | Interpretación |
 |---|---|---|
-| `node --test tests/*.test.js` | **998 pass / 0 fail** | Suite completa verde; sin regresiones |
-| `VAL_07_STRICT=1 node --test tests/*.test.js` | **2 fail**, nombrando exactamente `fare-cond-imperativo.json` y `fare-indefiniti.json` como "todos los ejercicios con validation.status === validated" | Marcador visible del hand-off (D-43-02), estado ESPERADO, no una regresión |
-| `node --test tests/content-fare-cond-imperativo.test.js` (aislado) | 66 pass / 0 fail | Confirma la Task 4 |
-| `node --test tests/content-fare-indefiniti.test.js` (aislado) | 76 pass / 0 fail | Confirma la Task 5 |
-| `node --test tests/exercise-types.test.js` (aislado) | 183 pass / 0 fail | Confirma el smoke paramétrico |
+| `node --test tests/*.test.js` | **1026 pass / 0 fail** | Suite completa verde |
+| `VAL_07_STRICT=1 node --test tests/*.test.js` | **1044 pass / 0 fail** | El marcador honesto de la fase, antes rojo por diseño, ahora en verde — los 9 slots están `validated` |
+
+### Requirements Coverage
+
+| Requirement | Source Plan | Description | Status | Evidence |
+|---|---|---|---|---|
+| CI-01 | 43-01 | Condizionale presente, 6 personas, raíz `far-` | ✓ SATISFIED | Ver SC-1 |
+| CI-02 | 43-01 | Condizionale passato, futuro-en-el-pasado | ✓ SATISFIED | Ver SC-1; `validated` |
+| CI-03 | 43-01 | Imperativo, 5 variantes, MAGNET `fa'` | ✓ SATISFIED | Ver SC-2; `validated` (con override documentado) |
+| INDEF-01 | 43-02 | Infinito presente/passato, anterioridad | ✓ SATISFIED | `validated` en ambos slots |
+| INDEF-02 | 43-02 | Participio passato, invariable vs concordado | ✓ SATISFIED | Ver SC-4; `validated` con ronda EXTRA + override |
+| INDEF-03 | 43-02 | Participio presente `facente`, nota de registro | ✓ SATISFIED | `validated` |
+| INDEF-04 | 43-02 | Gerundio presente/passato, `stare + gerundio` | ✓ SATISFIED | Ver SC-3; `validated` |
+
+**0 orphaned requirements.** Los 7 IDs CI/INDEF de `.planning/REQUIREMENTS.md` (líneas 97-103)
+están marcados `Complete` y cubiertos exactamente por los `requirements:` de los dos plans.
 
 ### Anti-Patterns Found
 
-**0 TBD / FIXME / XXX** en los 8 ficheros tocados por la fase (grep directo, cero matches).
+**0 TBD / FIXME / XXX / TODO / HACK / PLACEHOLDER** (con frontera de palabra) en los ficheros de
+contenido de la fase.
 
-**0 stubs** — las 35 variantes están escritas con contenido real, ninguna opción es placeholder, ninguna explanation vacía.
+**0 stubs.** Las 35 variantes están escritas con contenido real; ninguna opción es placeholder.
 
-**Ningún fichero fuera de `files_modified`** — `git status --porcelain` solo lista `.planning/config.json` (state tracking, no contenido de la fase).
+**`git status --porcelain`** limpio — no hay ficheros fuera de commit relacionados con la fase.
 
-### Open Code Review Items (43-REVIEW.md) — status re-verified against disk, 2026-08-07
-
-El code review encontró 1 critical + 11 warnings + 7 info. Se re-verificó cuál de eso está realmente
-arreglado en el árbol actual, no lo que el SUMMARY afirma:
+### Open Code Review Items (43-REVIEW.md) — estado re-verificado 2026-08-10
 
 | ID | Descripción | Estado real en disco |
 |---|---|---|
-| CR-01 | Trapassato defendible en 4/6 variantes del cond-passato | ✓ **FIXED** (`32b2eab`) — gate nuevo confirmado en verde |
-| WR-03 | `DEITTICI_FUTURO` set incompleto | ✓ **FIXED** — `DEITTICI_FUTURO_RE` con patrones añadido |
-| WR-04 | `causativo` dead check | ✓ **FIXED** — `CAUSATIVO_TRAS_HUECO` estructural añadido |
-| WR-05 | Cues de concordancia sin frontera de palabra (fare-indefiniti) | ✓ **FIXED** (`20a5cc6`, CR-02) — `terminaEnPalabra`/`empiezaPorPalabra` |
-| WR-01 | Concordancia con objeto pospuesto ofrecida sin audit trail | ✗ **OPEN** — confirmado en disco: `fatti`/`fatta` siguen como distractoras sin mención en `notes`/`explanation`/prompt de validación. Ver Human Verification. |
-| WR-02 | Gate de objeto literal (cond-imperativo) cuenta en la cláusula pero verifica presencia en todo el prompt | ✗ **OPEN** — confirmado en disco (`tests/content-fare-cond-imperativo.test.js:634`); riesgo latente, no defecto activo hoy (todas las 17 variantes actuales pasan) |
-| WR-06 | `09-VALIDATION-PROMPT.md` §7.2 pre-juzga C2 ("se cumple gracias a ellas") | ✗ **OPEN** — confirmado literal en línea 301 |
-| WR-07 | §7.2 no escribe las formas exentas literalmente, omite la familia de clíticos | ✗ **OPEN** — confirmado: §7.2 sigue describiendo por perífrasis, sin `fai`/`fa`/`fallo`/`fammi`/`fatelo`/`facci` literales |
-| WR-08 | 4 copias casi idénticas de la suite de invariantes, sin extraer a helper compartido | ✗ **OPEN** — deuda técnica declarada, advisory |
-| WR-09 | Gate del gerundio-passato fija la excepción por índice, no por la propiedad que la justifica | ✗ **OPEN** — confirmado (`GER_PASS_CON_SIMPLE = 0` hardcoded); sin impacto activo hoy (la variante causal no ofrece `facendo` entre sus options) |
-| WR-10 | Vocativos singulares del imperativo sin el mismo refuerzo de registro que los plurales | ✗ **OPEN** — confirmado en el contenido. Ver Human Verification. |
-| WR-11 | Nota de `TOTAL_EXPECTED` atribuye el delta a 2 categorías en vez de 4 | ✗ **OPEN**, pero **fuera de alcance de Phase 43** — territorio explícito de Phase 44/INT-02, no se pondera aquí |
-| IN-01..IN-07 | Hallazgos informativos menores (tautologías de test, gate débil de acentos, notes monolíticos) | Sin cambios; ninguno bloquea el goal de esta fase |
+| CR-01 | Trapassato defendible en 4/6 variantes del cond-passato | ✓ **FIXED** (`32b2eab`, y reforzado por 3 hallazgos posteriores del propio quórum) |
+| CR-02 | Gates de concordancia con match por subcadena en fare-indefiniti | ✓ **FIXED** (`20a5cc6`) |
+| WR-01 | Concordancia con objeto pospuesto sin audit trail | ✓ **RESUELTO por adjudicación del autor** — documental (no blacklist), en 4 sitios: `notes`, explanation, `09-VALIDATION-PROMPT.md` §7.4, gate a la contra que congela que la forma SIGA ofreciéndose |
+| WR-03, WR-04, WR-05 | Gates incompletos/débiles | ✓ **FIXED** durante las correcciones post-review |
+| WR-10 | Vocativos singulares sin refuerzo de registro equivalente a los plurales | ✓ **RESUELTO por adjudicación del autor** — asimetría deliberada: `Marco` reforzado con posesivo `il tuo`, `Signor Rossi` se deja como está (el título de cortesía ya es inequívoco); razonamiento documentado en `notes` |
+| WR-02, WR-06, WR-07, WR-08, WR-09, WR-11 | Hallazgos de deuda técnica y precisión de gates, severidad warning/info | Sin cambios reportados desde la verificación anterior. **No bloquean el goal de la fase** — son deuda técnica declarada (duplicación de fixtures de test WR-08, precisión de un gate de scope WR-02, redacción de prompt WR-06/07, atribución de un comentario informativo WR-11 sobre Phase 44). Ninguno es un TBD/FIXME sin referencia; están documentados en un artefacto de fase (43-REVIEW.md) con severidad explícita. |
 
 ## Gaps Summary
 
-**No hay gaps que bloqueen el goal de esta fase.** Todo lo mecánicamente verificable — los 9 slots en
-disco, el registro de las 2 categorías, el motor byte-intacto, la suite completa, el fix de CR-01, el fix
-de CR-02/WR-03/WR-04/WR-05 — está confirmado en el árbol real, no solo en el SUMMARY.
+**Ninguno.** Los dos ítems que la verificación anterior (2026-08-07) dejó en `human_needed` —el
+pase top-level de quórum sobre los 9 slots y las dos adjudicaciones humanas de WR-01/WR-10— se
+cerraron entre el 2026-08-07 y el 2026-08-10, y esta re-verificación confirma cada cierre contra el
+código real, no contra las afirmaciones del SUMMARY: `deriveStatus` recalculado sobre los 9 slots
+reales coincide con el `status` almacenado en los 9, la ronda EXTRA DeepSeek deja rastro `by`
+verificable en los 3 slots que D-43-20 exige, los dos overrides de autor están bien formados según
+la propia función que los arbitra, y los dos backstops se cerraron con evidencia explícita
+(incluyendo el hallazgo de que uno de los dos backstops originales apuntaba al mecanismo
+equivocado, corregido por el propio proceso de quórum). La suite completa está en verde en las dos
+modalidades (`1026/1026` normal, `1044/1044` con `VAL_07_STRICT=1`), y el motor v1.4 permanece
+byte-intacto.
 
-Lo que queda pendiente cae en dos cestas, ninguna de las dos un defecto de autoría de esta fase:
-
-1. **Owed work con dueño explícito** — el pase TOP-LEVEL de quórum Opus+Sonnet sobre los 9 slots y la
-   ronda EXTRA DeepSeek sobre las 12 variantes marcadas (D-43-20). Es la razón de que SC-4 y SC-5 no
-   puedan cerrarse por inspección de código: son criterios que EXIGEN el veredicto de un validador
-   independiente, y ese validador todavía no ha corrido. `VAL_07_STRICT=1` está rojo a propósito.
-2. **Juicio lingüístico sin cerrar** — 2 backstops declarados por los propios plans (unicidad de lectura
-   de los plurales del imperativo y de la variante causal del gerundio passato) más 2 hallazgos del code
-   review que quedaron abiertos y son del mismo género de riesgo que CR-01 pero de menor severidad
-   (WR-01: concordancia con objeto pospuesto; WR-10: vocativos singulares con menos refuerzo que los
-   plurales). Los cuatro son exactamente el tipo de pregunta que el quórum top-level (cesta 1) está
-   diseñado para resolver — y en su defecto, requieren adjudicación humana explícita antes de cerrar la
-   fase con confianza total.
-
-Ninguno de los dos items abre una segunda respuesta CONFIRMADA en el contenido actual (a diferencia de
-CR-01, que sí abría una); son riesgos declarados y sin resolver, no defectos demostrados.
+Los ítems WR-02, WR-06, WR-07, WR-08, WR-09 y WR-11 quedan abiertos como deuda técnica de severidad
+warning/info, explícitamente documentada en `43-REVIEW.md` con archivo y línea. No bloquean el goal
+de esta fase; WR-11 en particular es territorio de Phase 44 (INT-02) por diseño.
 
 ---
 
-_Verified: 2026-08-07_
+_Verified: 2026-08-10_
 _Verifier: Claude (gsd-verifier)_
