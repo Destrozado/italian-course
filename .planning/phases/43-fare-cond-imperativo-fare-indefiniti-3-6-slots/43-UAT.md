@@ -168,4 +168,40 @@ pending: 4
 skipped: 0
 blocked: 0
 
+## Desviaciones aceptadas
+
+- deviation_id: DEV-43-01
+  must_have: "Los 3 slots tienen `type: \"multiple-choice\"` con `options` de longitud 4 y sin duplicados dentro de una misma variante (43-01-PLAN.md, D-43-22)"
+  slot: fare-cond-imperativo-imperativo
+  alcance: 3 de las 17 variantes de fare-cond-imperativo (las de key `faccia`, `fate` y `facciano`)
+  desviacion: "esas 3 variantes tienen 3 `options` en lugar de 4"
+  aceptada_por: autor
+  aceptada_el: 2026-08-09
+  motivo: |
+    El paradigma del imperativo de `fare` tiene 5 formas. Dos quedan vetadas como
+    distractora: la apostrofada de 2a singular por SC#2 del ROADMAP («ninguna de
+    `fa'`/`fai`/`fa` aparece como distractora incorrecta»), y la de 1a plural porque
+    es un exhortativo INCLUSIVO que engloba al destinatario, de modo que ningun
+    vocativo puede excluirla y seria defendible en cualquier hueco (hallazgo
+    unanime del quorum, rondas 2 y 3).
+
+    Con las dos fuera, a las 3 variantes cuya key es una de las 3 restantes solo
+    les quedan DOS distractoras reales. La alternativa era rellenar con una cuarta
+    forma inventada, y las candidatas obvias son palabras italianas reales:
+    `facete` es adjetivo (femenino de `faceto`), `faccino` sustantivo coloquial,
+    `facite` napolitano. Ofrecer una palabra real como respuesta «incorrecta» es
+    la clase de defecto que esta fase corrigio cuatro veces.
+
+    Rellenar con una forma de otro modo (p. ej. un futuro) seria seguro pero
+    regalaria la opcion: no discrimina, solo infla el conteo. Con 3 opciones las
+    dos distractoras que quedan fallan una por numero y otra por cortesia, asi que
+    acertar sigue exigiendo fijar los dos ejes.
+  coste_asumido: "la probabilidad de acierto por azar sube de 25% a 33% en esas 3 variantes"
+  legalidad_tecnica: "`schema-validator.js` admite `options` de 3 o 4 (src/data/schema-validator.js:445), asi que el motor no se toca"
+  declarada_en:
+    - "`notes` de content/exercises/fare-cond-imperativo.json"
+    - "tests/content-fare-cond-imperativo.test.js (gate)"
+    - "43-01-SUMMARY.md"
+    - "seccion 7.2 de 09-VALIDATION-PROMPT.md (commit 8d00b4a), para que el quorum no lo marque como carencia de C3"
+
 ## Gaps
