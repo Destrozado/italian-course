@@ -353,8 +353,54 @@ const MARCADORES = ['Marco,', 'Signor Rossi,', 'Dai, noi due', 'Bambini,', 'Sign
 //
 // SI SE IGUALA LA ASIMETRIA POR INERCIA, se pierde la adjudicacion: por eso la
 // tabla declara la VIA de cada variante y no solo el literal.
-// QUORUM 2026-08-09 (Opus Y Sonnet, por separado, mismo diagnostico) — EL SEGUNDO
-// EJE DE AMBIGUEDAD DE ESTE SLOT, y el que reencuadra WR-10 entero.
+// QUORUM 2026-08-10 — `facciamo` EN LA BLACKLIST POR CONTEXTO, y la via DESCARTADA.
+//
+// EL SEGUNDO EJE DE AMBIGUEDAD DE ESTE SLOT: hay dos, el del TRATO (a quien se le
+// habla, con que registro) y el de la INCLUSION (quien ejecuta). El vocativo cierra
+// el primero y NO PUEDE cerrar el segundo, porque el exhortativo de 1a plural es
+// INCLUSIVO y engloba al destinatario en vez de contraponerse a el.
+//
+// LA VIA DESCARTADA, escrita porque es lo mas util que deja esta correccion: se
+// intento cerrarlo con una clausula que mostraba al hablante haciendo OTRA cosa
+// (`io intanto aspetto qui`). NO FUNCIONA, y es inefectiva POR NATURALEZA y no por
+// mala ejecucion. El quorum lo explico asi: el exhortativo paternal o de anfitrion
+// se define PRECISAMENTE por un hablante que no ejecuta la accion, de modo que
+// declarar que el hablante hace otra cosa es COMPATIBLE con esa lectura, no
+// incompatible. `Bambini, facciamo i compiti: io intanto preparo la tavola` se lee
+// sin friccion como reparto de tareas. Es el mismo mecanismo del espanol, donde
+// «vamos a hacer los deberes» lo dice justo quien no piensa hacerlos. Una clausula
+// asi solo PARECE que cierra, que es peor que no cerrar, porque un re-pase futuro
+// la leeria como un gate. NO SE REINTRODUZCA.
+//
+// LO QUE SI FUNCIONA: sacar la forma de `options` donde no es la key. Es el
+// criterio operativo de la categoria aplicado al pie de la letra — si una forma es
+// defendible como correcta en ese contexto, no entra como distractora — y es la
+// PRIMERA forma del milestone vetada por ser INCLUSIVA y no por ser arcaica,
+// dialectal o atestiguada en otro registro.
+const INCLUSIVO = 'facciamo';
+
+// CONSECUENCIA ARITMETICA, declarada porque cambia el conteo de opciones y NO es un
+// descuido. El paradigma tiene 5 formas; la apostrofada esta vetada como distractora
+// por SC-2 y la inclusiva lo esta ahora, asi que para las 3 variantes cuya key es
+// una de las 3 restantes solo quedan DOS distractoras reales del imperativo de otro
+// destinatario. Esas 3 llevan TRES opciones, no cuatro.
+//
+// POR QUE NO SE RELLENO CON UNA CUARTA INVENTADA: el eje de este slot es el
+// REGISTRO, no la morfologia, y una forma inventada convierte una de cada cuatro
+// casillas en un ejercicio de otra cosa. Ademas las candidatas examinadas eran
+// todas malas: `facete` es adjetivo real (femenino plural de `faceto`), `faccino`
+// es sustantivo coloquial (diminutivo de `faccia`) y `facite` es dialectal. Tres
+// opciones REALES que contrastan destinatario examinan mejor lo que hay que
+// examinar que cuatro con una falsa. `schema-validator.js` admite 3 o 4 opciones,
+// asi que no hace falta tocar el motor.
+//
+// DESVIACION DECLARADA del must_have «options de longitud 4»: afecta a 3 de las 17
+// variantes, y viene forzada por un hallazgo de quorum POSTERIOR al plan.
+const EXPECTED_OPTIONS = {
+  [PRESENTE]: [4, 4, 4, 4, 4, 4],
+  [PASSATO]: [4, 4, 4, 4, 4, 4],
+  [IMPERATIVO]: [4, 3, 4, 3, 3],
+};
 //
 // El vocativo y el refuerzo de registro cierran QUIEN es el destinatario y con que
 // trato. Eso NO cierra el exhortativo de 1a plural, porque el exhortativo es
@@ -370,22 +416,6 @@ const MARCADORES = ['Marco,', 'Signor Rossi,', 'Dai, noi due', 'Bambini,', 'Sign
 // hueco. Usa siempre otro verbo y un complemento ajeno a OBJECTS, para no meter un
 // segundo objeto en la casilla ni un segundo uso del verbo examinado.
 //
-// La tabla declara `null` donde NO hace falta, y por que, para que la exencion sea
-// visible en vez de estar escondida en la ausencia de un assert:
-//   - variante de tu: no ofrece siquiera la forma de nosotros entre sus opciones
-//   - variante de nosotros: la forma de nosotros ES su respuesta correcta
-//   - variante de ustedes: se apoya en un mecanismo DISTINTO, la concordancia
-//     verbal en 3a plural que ata el imperativo a ese destinatario. Es la unica de
-//     las tres que descansa en un cierre y no en la ausencia del problema, asi que
-//     queda marcada como EL PUNTO A VIGILAR si el quorum vuelve a senalar el slot.
-const ESCLUSORE_DELL_INCLUSIVO = [
-  null,                       // 0 tu     — `facciamo` no esta en sus options
-  'io intanto',               // 1 Lei
-  null,                       // 2 noi    — `facciamo` es la key
-  'io intanto',               // 3 voi
-  'come preferiscono Loro',   // 4 Loro   — cierre por concordancia verbal
-];
-
 const RINFORZO_DI_REGISTRO = [
   { lit: 'il tuo', via: 'possessivo di 2a singolare (WR-10: cierra el nombre propio)' },
   { lit: 'Signor Rossi', via: 'titolo di cortesia (adjudicado: NO lleva refuerzo anadido)' },
@@ -529,13 +559,20 @@ describe('fare-cond-imperativo — estructura y conteos (D-43-01, D-43-03, D-43-
     }
   });
 
-  test('options de 4 sin duplicados y correctIndex entero en rango y no constante', () => {
+  test('options con la longitud que declara EXPECTED_OPTIONS, sin duplicados, correctIndex en rango y no constante', () => {
+    // 4 en 14 de las 17 variantes; 3 en las tres del imperativo cuya key es una de
+    // las formas para las que solo quedan DOS distractoras reales, porque la
+    // apostrofada y la inclusiva estan vetadas como distractora. Ver el comentario
+    // de EXPECTED_OPTIONS: es desviacion DECLARADA del must_have de longitud 4,
+    // forzada por un hallazgo de quorum posterior al plan, y el validador de
+    // esquema admite 3 o 4 sin tocar el motor.
     for (const s of SLOTS) {
       s.variants.forEach((v, k) => {
-        assert.equal(v.options.length, 4, `${s.id}#${k}: 4 opciones`);
-        assert.equal(new Set(v.options).size, 4, `${s.id}#${k}: opciones sin duplicados internos`);
+        const n = EXPECTED_OPTIONS[s.id][k];
+        assert.equal(v.options.length, n, `${s.id}#${k}: ${n} opciones`);
+        assert.equal(new Set(v.options).size, n, `${s.id}#${k}: opciones sin duplicados internos`);
         assert.ok(
-          Number.isInteger(v.correctIndex) && v.correctIndex >= 0 && v.correctIndex < 4,
+          Number.isInteger(v.correctIndex) && v.correctIndex >= 0 && v.correctIndex < n,
           `${s.id}#${k}: correctIndex fuera de rango: ${v.correctIndex}`
         );
       });
@@ -650,35 +687,31 @@ describe('fare-cond-imperativo — pronombre explicito y vocativo inequivoco (D-
     );
   });
 
-  test('GATE HARD (quorum 2026-08-09): toda variante que OFREZCA el exhortativo excluye al hablante', () => {
-    // El segundo eje de ambiguedad del slot. Ver el comentario de
-    // ESCLUSORE_DELL_INCLUSIVO: un vocativo fija el destinatario y NO puede
-    // excluir el inclusivo, porque el inclusivo se lo traga. El gate se aplica
-    // exactamente donde el problema existe — la forma de nosotros esta entre las
-    // opciones y NO es la respuesta — y la tabla declara `null` con su razon donde
-    // no aplica, para que la exencion sea legible.
+  test('GATE HARD (quorum 2026-08-10): el exhortativo INCLUSIVO solo aparece donde es la key', () => {
+    // Ver el comentario de INCLUSIVO. Ningun marcador que apunte al destinatario
+    // puede excluir una forma que ENGLOBA al destinatario, asi que el cierre no es
+    // de redaccion sino de POOL: la forma sale de `options` donde no es la
+    // respuesta. Es el criterio operativo de la categoria, el mismo con el que se
+    // vetaron los dos imperativos vivos de 2a singular.
     const sucio = [];
     eachVariant(IMPERATIVO, (v, k) => {
-      const ofreceInclusivo = v.options.includes('facciamo') && keyOf(v) !== 'facciamo';
-      const declarado = ESCLUSORE_DELL_INCLUSIVO[k];
-      if (!ofreceInclusivo) {
-        // Simetria: donde no hace falta, la tabla tiene que decirlo con null. Si
-        // alguien anade `facciamo` a las options de la variante de tu, esta rama
-        // deja de aplicarse y la de abajo lo caza.
-        return;
-      }
-      if (!declarado) {
-        sucio.push(`${IMPERATIVO}#${k} ofrece el exhortativo y la tabla no declara ningun exclusor`);
-        return;
-      }
-      if (!v.prompt.includes(declarado)) {
-        sucio.push(`${IMPERATIVO}#${k} (${CANON[IMPERATIVO][k]}) pierde su exclusor "${declarado}": "${v.prompt}"`);
+      if (v.options.includes(INCLUSIVO) && keyOf(v) !== INCLUSIVO) {
+        sucio.push(`${IMPERATIVO}#${k} (key ${CANON[IMPERATIVO][k]}) ofrece "${INCLUSIVO}" como distractora: "${v.prompt}"`);
       }
     });
     assert.deepEqual(
       sucio,
       [],
-      'QUORUM 2026-08-09: `facciamo` es el exhortativo INCLUSIVO y ningun vocativo lo excluye; sin una clausula que deje al hablante FUERA de la accion, la variante tiene dos respuestas defendibles'
+      'QUORUM 2026-08-10: `facciamo` es el exhortativo INCLUSIVO y es defendible ante CUALQUIER vocativo, porque lo engloba; no puede ser distractora "incorrecta" en ninguna variante que no sea la suya (criterio operativo de la blacklist)'
+    );
+    // Y en positivo: sigue siendo la key de su propia variante, que es lo que
+    // distingue un veto POR CONTEXTO de una forma prohibida.
+    const suya = byId(IMPERATIVO).variants[2];
+    assert.equal(keyOf(suya), INCLUSIVO, 'QUORUM 2026-08-10: el veto es por contexto; la forma sigue siendo la respuesta de su variante');
+    assert.equal(
+      byId(IMPERATIVO).variants.filter((v) => v.options.includes(INCLUSIVO)).length,
+      1,
+      'QUORUM 2026-08-10: y aparece en options en EXACTAMENTE una variante'
     );
   });
 
@@ -1145,28 +1178,39 @@ describe('fare-cond-imperativo — slot del imperativo, 5 variantes y registro (
     assert.equal(keyOf(I().variants[0]), fa, `SC-2: en esa variante "${fa}" tiene que ser la KEY, nunca una distractora`);
   });
 
-  test('las 3 distractoras de cada variante son formas reales de OTRO destinatario, y nunca la apostrofada', () => {
+  test('las distractoras de cada variante son formas reales de OTRO destinatario, nunca la apostrofada ni la inclusiva', () => {
+    // El conteo lo declara EXPECTED_OPTIONS y NO se hardcodea a 3: con la
+    // apostrofada y la inclusiva vetadas como distractora, tres variantes solo
+    // tienen DOS distractoras reales disponibles. Ver el comentario de
+    // EXPECTED_OPTIONS.
     const fa = IMPERATIVO_5[0];
     I().variants.forEach((v, k) => {
       const key = keyOf(v);
       const distractoras = v.options.filter((o) => o !== key);
-      assert.equal(distractoras.length, 3, `${IMPERATIVO}#${k}: deberia haber 3 distractoras y hay ${distractoras.length}`);
-      const sucio = distractoras.filter((o) => !PARADIGMA.has(o) || o === key || o === fa);
+      assert.equal(
+        distractoras.length,
+        EXPECTED_OPTIONS[IMPERATIVO][k] - 1,
+        `${IMPERATIVO}#${k}: deberia haber ${EXPECTED_OPTIONS[IMPERATIVO][k] - 1} distractoras y hay ${distractoras.length}`
+      );
+      const sucio = distractoras.filter((o) => !PARADIGMA.has(o) || o === key || o === fa || o === INCLUSIVO);
       assert.deepEqual(sucio, [], `D-43-05: ${IMPERATIVO}#${k} distractora invalida: ${sucio.join(', ')}`);
     });
   });
 
-  test('las 4 variantes que no son la de tu tienen el conjunto de options DETERMINADO por el paradigma menos la apostrofada', () => {
-    // Con la apostrofada vetada como distractora quedan exactamente 4 candidatas
-    // para 4 casillas, asi que el cuarteto de esas variantes es unico.
-    const cuarteto = IMPERATIVO_5.slice(1).sort();
-    for (let k = 1; k < 5; k += 1) {
+  test('el pool de cada variante es el paradigma menos las dos formas vetadas como distractora, mas su key', () => {
+    // El pool esta DETERMINADO por completo, asi que no hay margen de autoria: es
+    // la key mas todas las formas del paradigma que no son la apostrofada (SC-2) ni
+    // la inclusiva (quorum 2026-08-10) ni la key misma. Eso da 4 opciones cuando la
+    // key es una de las dos vetadas y 3 cuando no lo es.
+    I().variants.forEach((v, k) => {
+      const key = CANON[IMPERATIVO][k];
+      const esperado = [key, ...IMPERATIVO_5.filter((f) => f !== key && f !== IMPERATIVO_5[0] && f !== INCLUSIVO)].sort();
       assert.deepEqual(
-        [...I().variants[k].options].sort(),
-        cuarteto,
-        `D-43-05: ${IMPERATIVO}#${k} no es el cuarteto del paradigma sin la forma apostrofada`
+        [...v.options].sort(),
+        esperado,
+        `D-43-05 / QUORUM 2026-08-10: ${IMPERATIVO}#${k} no es el pool determinado por el paradigma menos las vetadas`
       );
-    }
+    });
   });
 });
 
@@ -1272,6 +1316,38 @@ describe('fare-cond-imperativo — canon editorial e higiene del JSON (D-43-21, 
     for (const f of COND_PRES) assert.ok(e.includes(f), `CI-01: la explanation del presente no cita ${f}`);
     assert.ok(e.includes('faremo') && e.includes('faremmo'), 'D-43-09: falta el par minimo futuro / condizionale de la 1a plural');
     assert.ok(!e.includes('imperativo'), 'D-43-22: la explanation del presente no adelanta el slot de imperativo');
+  });
+
+  test('ninguna explanation ensena una regla ABSOLUTA sobre una forma italiana (C4-SUSTITUCION)', () => {
+    // LA REGLA DE LA FASE, aprendida a base de corregirla tres veces: no se escribe
+    // «nunca», «siempre» ni «es agramatical» sobre una forma italiana sin haber
+    // comprobado la afirmacion contexto por contexto. Si la regla real lleva una
+    // condicion, se escribe la condicion — casi siempre es mas corta que la
+    // excepcion que se ahorra.
+    //
+    // EL CASO CONCRETO que congela este gate: la explanation del presente decia que
+    // con una locucion de sustitucion «lo que pide el italiano es el condizionale y
+    // nunca el futuro». Era FALSO —esa locucion admite la lectura de sustitucion
+    // literal, donde el futuro entra sin anomalia— y ademas quedo HUERFANA cuando la
+    // locucion salio del conjunto cerrado: el texto reafirmaba como regla absoluta
+    // justo la generalizacion que habia causado el bug.
+    const ABSOLUTOS = ['nunca el futuro', 'sustitución', 'es agramatical', 'nunca se usa'];
+    const sucio = [];
+    for (const s of SLOTS) {
+      for (const f of ABSOLUTOS) {
+        if (s.explanation.toLowerCase().includes(f.toLowerCase())) sucio.push(`${s.id}: "${f}"`);
+      }
+    }
+    assert.deepEqual(
+      sucio,
+      [],
+      'C4-SUSTITUCION: una explanation no puede afirmar en absoluto lo que solo es cierto bajo una condicion; se escribe la condicion'
+    );
+  });
+
+  test('EN POSITIVO: la explanation del presente ancla la regla en la protasis, que es lo que las 6 ejemplifican', () => {
+    const e = byId(PRESENTE).explanation;
+    assert.ok(e.includes('prótasis'), 'C4-SUSTITUCION: la explanation tiene que nombrar la construccion que las 6 variantes usan de verdad');
   });
 
   test('la explanation del passato desarrolla el par explicito del futuro en el pasado (D-43-11, SC-1)', () => {
