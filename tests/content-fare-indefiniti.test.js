@@ -1409,7 +1409,16 @@ describe('fare-indefiniti — canon editorial e higiene del JSON (D-43-21, T-43-
     const e = byId(INF_PRES).explanation;
     assert.ok(e.includes('infinitivo'), 'D-43-14: la explanation tiene que nombrar el infinitivo');
     assert.ok(e.includes('negativ') && e.includes('orden'), 'D-43-14: falta el desarrollo de la orden negativa');
-    assert.ok(e.length > 500, `D-43-14: la explanation del infinito presente enumera los tres encajes (${e.length} caracteres)`);
+    // 4a ronda: el mensaje decia «enumera los tres encajes», y enumerarlos es
+    // justo lo que la prohibicion 2 veta. El suelo sigue, porque una explanation
+    // que baje de ahi ya no desarrolla la interferencia del imperativo negativo,
+    // que es lo unico que este slot tiene que dejar claro.
+    assert.ok(e.length > 500, `D-43-14: la explanation del infinito presente desarrolla la interferencia del imperativo negativo (${e.length} caracteres)`);
+    // TOPE por slot (4a ronda). El mecanismo del defecto en esta fase no ha sido
+    // una frase concreta sino el CRECIMIENTO del texto: cada ronda anadia precision
+    // y con ella una excepcion. El tope es el unico gate que ataca eso, y va por
+    // SLOT y no global porque cada uno tiene su propio margen legitimo.
+    assert.ok(e.length < 1100, `4a ronda: la explanation del infinito presente tiene ${e.length} caracteres y el tope es 1100. Antes de la reescritura pasaba de 1300 y en ese margen vivian los tres absolutos falsos`);
   });
 
   test('EN POSITIVO: la explanation del infinito passato NOMBRA la grafia no elidida (D-43-17, D-43-19)', () => {
@@ -1452,7 +1461,9 @@ describe('fare-indefiniti — canon editorial e higiene del JSON (D-43-21, T-43-
     const e = byId(GER_PASS).explanation;
     assert.ok(e.includes('anterioridad'), 'INDEF-04: falta el valor del gerundio compuesto');
     assert.ok(e.includes('contemporane'), 'INDEF-04: falta el contraste con el gerundio simple');
-    assert.ok(e.length > 500, `INDEF-04: la explanation del gerundio passato enumera los tres encajes (${e.length} caracteres)`);
+    // 4a ronda: mismo caso que el mensaje del infinito presente — «enumera los tres
+    // encajes» describia contenido que la prohibicion 2 veta. El suelo se mantiene.
+    assert.ok(e.length > 500, `INDEF-04: la explanation del gerundio passato desarrolla el contraste entre el compuesto y el simple (${e.length} caracteres)`);
   });
 
   test('ninguna de las 6 explanations predica imposibilidad DESNUDA sobre una forma italiana', () => {
@@ -1544,22 +1555,39 @@ describe('fare-indefiniti — canon editorial e higiene del JSON (D-43-21, T-43-
     );
   });
 
-  test('las afirmaciones falsas retiradas del gerundio passato no vuelven (rondas 1, 2 y 3)', () => {
-    // Guardia de regresion acumulada. Cada literal estuvo en la explanation de este
-    // slot y fue retirado por una ronda distinta; dos de los tres motivos los
-    // introdujo el arreglo de la ronda anterior. Se listan juntos porque el patron
-    // —sustituir una afirmacion falsa por otra— es mas instructivo que cada caso.
-    const e = byId(GER_PASS).explanation;
-    const RETIRADAS = [
-      'exige el compuesto', // 1a: el simple SI es posible en estos encajes
-      'deja de ser posible', // 1a, misma familia
-      'queda descartado', // 1a, misma familia
-      'es agramatical', // 2a: lo agramatical era el infinitivo SIN introductor
-      'introductor', // 3a: la regla general sobra y licenciaba `pur aver fatto`
-      'igualmente correcto', // 3a: falso para la concesiva (`nonostante aver fatto`)
-      'participio invariable', // 3a: la invariabilidad solo se sostiene con objeto pospuesto
-    ];
-    const sucio = RETIRADAS.filter((f) => e.includes(f));
+  test('las afirmaciones falsas retiradas no vuelven, POR SLOT (rondas 1 a 4)', () => {
+    // Guardia de regresion acumulada, y va POR SLOT y no global a proposito: lo que
+    // un slot no examina, otro si. `participio invariable` es falso en el gerundio
+    // passato y correcto de decir en el participio passato con objeto pospuesto;
+    // una lista global prohibiria la verdad en el slot de al lado.
+    //
+    // Cada literal estuvo en la explanation de su slot y fue retirado por una ronda
+    // de quorum. El patron —sustituir una afirmacion falsa por otra— se repitio en
+    // TRES de las cuatro rondas, y dos de los defectos los introdujo el arreglo del
+    // anterior; por eso se listan juntos.
+    const AFIRMACIONES_RETIRADAS = {
+      [GER_PASS]: [
+        'exige el compuesto', // 1a: el simple SI es posible en estos encajes
+        'deja de ser posible', // 1a, misma familia
+        'queda descartado', // 1a, misma familia
+        'es agramatical', // 2a: lo agramatical era el infinitivo SIN introductor
+        'introductor', // 3a: la regla general sobra y licenciaba `pur aver fatto`
+        'igualmente correcto', // 3a: falso para la concesiva (`nonostante aver fatto`)
+        'participio invariable', // 3a: la invariabilidad solo se sostiene con objeto pospuesto
+        'solo admite gerundio', // 4a: `pur` admite infinitivo regido por `di` (`pur di vincere`), adjetivo, participio y verbo finito
+        'ningún elemento', // 4a: `fatta` CONCUERDA con `lei` en la variante 1; lo que cierra el absoluto es que la concordancia va con el OBJETO
+      ],
+      [INF_PRES]: [
+        'ninguna de las demás formas', // 4a: tras un modal encaja `aver fatto` (`deve aver fatto`) y tras `non` encaja el gerundio
+        'nunca otra forma no personal', // 4a: `dopo mangiato`, `dopo finito` son italiano corriente
+        'igual que el español', // 4a: amplificaba el absoluto, y el espanol SI excluye el participio ahi
+      ],
+    };
+    const sucio = [];
+    for (const [id, retiradas] of Object.entries(AFIRMACIONES_RETIRADAS)) {
+      const e = byId(id).explanation;
+      for (const f of retiradas) if (e.includes(f)) sucio.push(`${id}: "${f}"`);
+    }
     assert.deepEqual(
       sucio,
       [],
@@ -1567,21 +1595,33 @@ describe('fare-indefiniti — canon editorial e higiene del JSON (D-43-21, T-43-
     );
   });
 
-  test('la explanation del gerundio passato nombra las dos familias de opciones que hay que descartar', () => {
-    // Lo que SI tiene que hacer, y es todo lo que tiene que hacer: decir por que no
-    // encajan las opciones que se ofrecen en ESTAS tres frases. Sin teoria.
-    const e = byId(GER_PASS).explanation;
-    assert.ok(
-      e.includes(CALCO_GERUNDIO_PASSATO) && e.includes('fare'),
-      'INDEF-04: tiene que nombrar el infinitivo, simple y compuesto, que es la familia de distractoras del slot'
-    );
-    assert.ok(
-      e.includes('concuerdan'),
-      'y tiene que decir por que las terminaciones del participio no entran: no concuerdan con nada de la frase'
-    );
-    assert.ok(
-      e.includes('pur'),
-      'y tiene que cubrir la tercera variante, cuya particula solo admite gerundio'
+  // PODA DECLARADA (4a ronda), para que no parezca perdida de cobertura: aqui vivia
+  // el gate `la explanation del gerundio passato nombra las dos familias de opciones
+  // que hay que descartar`, que exigia nombrar `aver fatto`, `fare`, `concuerdan` y
+  // `pur`. Se retira porque MANDABA escribir contenido que la prohibicion 3 veta: la
+  // explicacion de por que falla cada distractora. Ahi murieron exactamente los dos
+  // hallazgos de esta ronda —el absoluto de `pur` y el «no concuerdan con ningun
+  // elemento»—, asi que el gate no solo permitia el defecto: lo exigia. Lo que
+  // cubria de verdad (que las opciones ofrecidas sean descartables) lo cubren los
+  // gates estructurales de options y el de discordancia del participio, que siguen
+  // vivos y son mas fuertes porque miran el CONTENIDO y no la prosa.
+
+  test('P1: ninguna de las 2 explanations reescritas afirma nada fuera de lo que su slot examina', () => {
+    // Cierre estructural de la prohibicion 1, por slot. No se puede comprobar
+    // mecanicamente «no afirma nada de mas», asi que se comprueba lo que si es
+    // mecanizable: que no reaparezcan las familias de afirmacion general que el
+    // quorum tumbo cuatro veces —inventarios de que forma cabe tras que palabra, y
+    // reglas sobre la sintaxis de una particula que el slot no examina.
+    const INVENTARIOS = ['formas no personales del verbo encaja', 'solo admite', 'nunca otra forma'];
+    const sucio = [];
+    for (const id of [GER_PASS, INF_PRES]) {
+      const e = byId(id).explanation;
+      for (const f of INVENTARIOS) if (e.includes(f)) sucio.push(`${id}: "${f}"`);
+    }
+    assert.deepEqual(
+      sucio,
+      [],
+      'P1: cada regla general compra una excepcion y el quorum la encuentra. El slot examina su forma frente a su alternativa, no el inventario de la subordinacion italiana'
     );
   });
 
