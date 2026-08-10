@@ -1,81 +1,67 @@
 ---
-status: testing
+status: complete
 phase: 43-fare-cond-imperativo-fare-indefiniti-3-6-slots
 source: [43-VERIFICATION.md]
 started: 2026-08-07T00:00:00Z
-updated: 2026-08-07T00:00:00Z
+updated: 2026-08-10T00:00:00Z
 ---
 
 ## Current Test
 
-number: 1
-name: Pase TOP-LEVEL de quórum base Opus+Sonnet sobre los 9 slots
-expected: |
-  Los 9 slots pasan a `validated` (>=2 passes `correcta`, `by` distintos, cero
-  `incorrecta`; `status === deriveStatus(passes)`). Hoy los 9 están en
-  `validation.status: "pending"` con `passes: []`.
-awaiting: sesión nueva — decisión del autor 2026-08-07
-
-<!--
-ESTADO DE LA SESIÓN (para retomar sin releer nada más)
-
-Tests 5 y 6 ADJUDICADOS por el autor y ya aplicados en disco (ver `decision:`
-de cada uno). El CONTENIDO DE LA FASE ESTÁ CERRADO: ninguna variante, key,
-option ni id cambia a partir de aquí. Suite en 1001 pass / 0 fail, `src/`
-byte-intacto, árbol de git limpio.
-
-Quedan los tests 1-4, y los cuatro se cierran con el MISMO pase de quórum:
-
-  - Test 1 — quórum base Opus+Sonnet sobre los 9 slots (VAL-03: un subagent
-    fresh context por ejercicio, NUNCA batched → 9 x 2 = 18 spawns).
-  - Test 2 — ronda EXTRA DeepSeek sobre 12 de 35 variantes (D-43-20):
-    `fare-cond-imperativo-imperativo` (5), `fare-indefiniti-participio-passato`
-    (4), `fare-indefiniti-infinito-passato` (3). Vía
-    `scripts/validate-ai-pass.mjs`, claves en `.env`.
-  - Tests 3 y 4 — los dos backstops declarados. NO se resuelven a ojo: son la
-    pregunta «¿hay una segunda lectura defendible?», que es literalmente lo que
-    decide C2. El veredicto del quórum del test 1 los cierra.
-
-POR QUÉ SE PUEDE CORRER AHORA Y NO SE PUDO EN EJECUCIÓN: el límite
-`[[executor_cannot_run_task_quorum]]` es específico de `gsd-executor`, que no
-puede spawnear los Task subagents del skill. Un orquestador top-level sí puede.
-Además el skill apuntaba a una ruta muerta (`.planning/phases/09-...`), corregida
-en 43-02 — hoy resuelve el `09-VALIDATION-PROMPT.md` real.
-
-ANTES DE CORRER, comprobar que el prompt de validación lleva las CUATRO
-excepciones (secciones 7.1 a 7.4). La 7.4 es la más reciente y la más frágil:
-sin ella, Opus y Sonnet marcan las 2 variantes de objeto pospuesto del
-participio como violación de C2 y producen un `disputed` FALSO — que por la
-cascada D-54 resetea `fare-indefiniti` entera.
-
-AL ESCRIBIR LOS PASES ([[top_level_quorum_mechanics.md]]):
-  - un pase `correcta` SÍ admite `concerns[]` declarativas (audit trail);
-  - en `by` va el modelo REAL resuelto, no el id pinneado de la skill;
-  - los subagents devuelven solo el verdict y el orquestador escribe.
-
-CUANDO LOS 9 ESTÉN `validated`: `VAL_07_STRICT=1 node --test tests/*.test.js`
-pasa de 2 fails a 0 — ese es el marcador honesto de que SC#4 y SC#5 se cierran.
-Entonces `/gsd-verify-work 43` marca los tests 1-4 y transiciona la fase.
--->
-
+[testing complete]
 
 ## Tests
 
 ### 1. Pase TOP-LEVEL de quórum base Opus+Sonnet (VAL-03, 1 ejercicio por contexto)
 expected: Los 9 slots de `fare-cond-imperativo` y `fare-indefiniti` pasan a `validated` (>=2 passes `correcta` con `by` distintos, cero `incorrecta`). NUNCA batched — un subagent fresh context por ejercicio.
-result: [pending]
+result: pass
+closed_at: 2026-08-10
+evidencia: |
+  Los 9 slots en validated. Quorum base claude-opus-5 + claude-sonnet-5, un subagent con
+  contexto fresco por ejercicio (VAL-03, nunca batched). Hicieron falta SIETE rondas: la
+  primera cazo 5 slots con doble validez (C2) y las siguientes fueron cerrando defectos de
+  prosa (C4). deriveStatus confirma validated en los 9, y VAL_07_STRICT pasa a verde
+  (1044 pass / 0 fail), que era el marcador honesto de la fase.
+  Dos slots llevan override de autor con los pases incorrecta conservados dentro:
+  participio-passato (flag real sin arreglo posible, tras desempate cross-vendor 2-2) e
+  imperativo (flag de deepseek demostrablemente erroneo, verificado contra el fichero).
 
 ### 2. Ronda EXTRA DeepSeek (D-43-20) sobre 12 de 35 variantes
 expected: `fare-cond-imperativo-imperativo` (5), `fare-indefiniti-participio-passato` (4) y `fare-indefiniti-infinito-passato` (3) acaban con al menos un pase cuyo `by` empieza por `deepseek-`, además del quórum base. Vía `scripts/validate-ai-pass.mjs`, claves en `.env`.
-result: [pending]
+result: pass
+closed_at: 2026-08-10
+evidencia: |
+  Ronda EXTRA de D-43-20 cumplida en los 3 slots y sus 12 variantes:
+  fare-cond-imperativo-imperativo (5) con deepseek-chat; fare-indefiniti-participio-passato
+  (4) con deepseek-chat y gemini-2.5-flash; fare-indefiniti-infinito-passato (3) con
+  deepseek-chat. Via scripts/validate-ai-pass.mjs.
+  El gate condicional del test lo verifica: exige el pase cross-vendor en cuanto un slot de
+  ese bloque pasa a validated, y salto dos veces durante el proceso antes de quedar verde.
 
 ### 3. Backstop 43-01 — unicidad de lectura de las variantes PLURALES del imperativo
 expected: El vocativo de cortesía `Loro` y el sujeto inclusivo `noi due` excluyen de forma cerrada la lectura de `voi` (`fate`). Ningún lector razonable admite una segunda respuesta defendible en esas 2 variantes.
-result: [pending]
+result: pass
+closed_at: 2026-08-10
+evidencia: |
+  Cerrado por el quorum, que es mejor evidencia que una lectura humana: la pregunta era
+  «hay una segunda lectura defendible», que es literalmente lo que decide C2.
+  Y el backstop estaba MAL PLANTEADO: la amenaza no era el vocativo de cortesia sino que la
+  1a plural exhortativa (facciamo) ENGLOBA al destinatario, de modo que ningun vocativo
+  puede excluirla. Opus y Sonnet lo detectaron por separado con el mismo diagnostico.
+  Resuelto retirando esa forma de las options donde no es la key. Las 5 variantes validated
+  por ambos modelos mas la ronda deepseek.
 
 ### 4. Backstop 43-02 — unicidad de lectura de la variante causal del gerundio passato
 expected: En `fare-indefiniti-gerundio-passato` #1 (`aver fatto`), única variante donde el gerundio simple queda fuera de `options` y solo el adverbial de anterioridad lo excluye, ningún lector razonable admite el gerundio simple como alternativa válida.
-result: [pending]
+result: pass
+closed_at: 2026-08-10
+evidencia: |
+  Cerrado por el quorum. El slot resulto correcto en mecanica desde el principio (C1, C2,
+  C3 y C5 en verde las cinco rondas): lo que fallaba era la explanation, que afirmaba reglas
+  mas rigidas que la lengua. La unicidad de lectura de la concesiva la confirman ambos
+  modelos, y lo que la garantiza es que el gerundio simple se retiro de las options por ser
+  DEFENDIBLE (no agramatical) y que el participio distractor esta deliberadamente descordado
+  con el OBJETO de cada frase, lo que cierra la lectura de participio absoluto.
 
 ### 5. WR-01 (code review, ABIERTO) — concordancia con objeto POSPUESTO como distractora
 expected: |
@@ -162,9 +148,9 @@ decision: |
 ## Summary
 
 total: 6
-passed: 2
+passed: 6
 issues: 0
-pending: 4
+pending: 0
 skipped: 0
 blocked: 0
 
