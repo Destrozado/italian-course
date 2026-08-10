@@ -1591,6 +1591,7 @@ describe('fare-indefiniti — canon editorial e higiene del JSON (D-43-21, T-43-
         'ninguna de las demás formas', // 4a: tras un modal encaja `aver fatto` (`deve aver fatto`) y tras `non` encaja el gerundio
         'nunca otra forma no personal', // 4a: `dopo mangiato`, `dopo finito` son italiano corriente
         'igual que el español', // 4a: amplificaba el absoluto, y el espanol SI excluye el participio ahi
+        'una preposición o un verbo modal delante', // 6a: enumeracion INCOMPLETA — dejaba fuera la orden negativa, que es la variante estrella del slot; bajo lectura exhaustiva («siempre», articulo determinado) la frase era falsa en V0, donde lo que precede al hueco es `non`
         'ya aporta esa información', // 5a: el infinitivo aparece nominalizado (`Fumare fa male`) y en instruccion impersonal (`Vietato fumare`) sin ningun elemento que aporte persona ni numero; y en el imperativo negativo la persona la da la CONSTRUCCION, no otro elemento — el vocativo es prescindible (`Non fare rumore!`)
       ],
     };
@@ -1654,7 +1655,26 @@ describe('fare-indefiniti — canon editorial e higiene del JSON (D-43-21, T-43-
     // aparicion, no una frase concreta. Y va por slot, como todas las de este
     // fichero: si algun dia una explanation necesita decir cuando aparece su forma
     // porque ESO es lo que su slot examina, se le declara la excepcion aqui.
+    // AMPLIACION DE LA 6a RONDA, y la razon importa mas que la lista. La version
+    // anterior de este gate solo cubria la familia de APERTURAS (`Aparece
+    // cuando`...), es decir la superficie con la que el defecto se habia
+    // manifestado la ultima vez. La frase que Sonnet marco a continuacion decia
+    // «es la señal de que...», que es el MISMO tipo de generalizacion con otra
+    // superficie, y el gate no la habria cazado. Ese es el patron que toda la fase
+    // ha estado cerrando: el gate mira la forma del ultimo defecto, no el defecto.
+    //
+    // Se anade por tanto la segunda familia: los PREDICADOS CON ARTICULO
+    // DETERMINADO tras una enumeracion de disparadores, que son los que la
+    // convierten en lista COMPLETA a ojos del lector (`es la señal de`, `es la
+    // pista`, `es lo que indica`, `basta con que haya`). Con `una señal` o con un
+    // verbo pleno la enumeracion se lee como suficiente y no como exhaustiva, que
+    // es la lectura que el italiano sostiene.
+    //
+    // Verificado que las 6 explanations pasan sin falsos positivos, asi que la
+    // lista puede ir global; si alguna la necesitara, se acota por slot como P1 y
+    // P2.
     const CONDICIONES_DE_APARICION = [
+      // familia 1: aperturas que enuncian condicion de aparicion (5a ronda)
       'Aparece cuando',
       'aparece cuando',
       'Aparece siempre que',
@@ -1663,17 +1683,69 @@ describe('fare-indefiniti — canon editorial e higiene del JSON (D-43-21, T-43-
       'se usa cuando',
       'solo aparece',
       'Solo aparece',
+      // familia 2: predicados con articulo determinado que cierran una
+      // enumeracion de disparadores como si fuera completa (6a ronda)
+      'es la señal',
+      'son la señal',
+      'es la pista',
+      'son la pista',
+      'es la marca de',
+      'es lo que indica',
+      'es lo que decide',
+      'basta con que haya',
     ];
+    // Comparacion INSENSIBLE A MAYUSCULAS: la primera version de este gate
+    // comparaba con `includes` a secas y la mutacion `Basta con que haya un modal
+    // delante.` —con la B inicial de comienzo de frase— pasaba limpia. Es el mismo
+    // agujero que WR-10 documento para `wordish`: la posicion donde la formula
+    // aparece de verdad es el INICIO DE ORACION, que era justo la que no se veia.
     const sucio = [];
     for (const s of SLOTS) {
+      const e = s.explanation.toLowerCase();
       for (const f of CONDICIONES_DE_APARICION) {
-        if (s.explanation.includes(f)) sucio.push(`${s.id}: "${f}"`);
+        if (e.includes(f.toLowerCase())) sucio.push(`${s.id}: "${f}"`);
       }
     }
     assert.deepEqual(
       sucio,
       [],
-      'P1 (5a ronda): decir en que condiciones aparece una forma es una afirmacion sobre toda la lengua, y el italiano la desmiente por arriba (usos nominalizados e impersonales) y por abajo (la construccion que el propio slot examina)'
+      'P1 (5a y 6a ronda): decir en que condiciones aparece una forma, o cerrar una enumeracion de disparadores con un predicado de articulo determinado, es una afirmacion sobre toda la lengua'
+    );
+  });
+
+  test('P1 en POSITIVO: la enumeracion de disparadores cubre los tres encajes del slot (6a ronda)', () => {
+    // El complemento necesario del gate de ausencia, y lo descubrio una mutacion:
+    // acortar la enumeracion a dos elementos no lo cazaba NADA. Y esa era
+    // exactamente la forma del defecto que Sonnet marco — la lista se dejaba fuera
+    // la orden negativa, que es la variante estrella del slot, asi que bajo lectura
+    // exhaustiva la frase era falsa en V0.
+    //
+    // El gate es POSITIVO y se deriva de VARIANT_TABLE, no de una lista suelta: por
+    // cada tipo de contexto que el slot examina, la explanation tiene que nombrar su
+    // disparador. Si algun dia cambia un tipo de variante, este mapa hay que
+    // actualizarlo a mano, y eso es lo que se quiere: que el cambio sea deliberado.
+    const DISPARADOR_DE = {
+      'imperativo-negativo-2sg': 'orden negativa',
+      'tras-preposicion': 'preposición',
+      'tras-regente-de-infinitivo': 'modal',
+    };
+    // Y se exige que los tres esten EN LA MISMA FRASE, no en cualquier punto del
+    // texto. La primera version comprobaba `explanation.includes(lit)` y la
+    // mutacion que borraba la orden negativa DE LA ENUMERACION pasaba limpia,
+    // porque el literal seguia apareciendo mas arriba, donde se desarrolla la
+    // interferencia. Comprobar presencia en el texto entero no dice nada sobre si
+    // la LISTA esta completa: la unidad que hay que mirar es la frase.
+    const e = byId(INF_PRES).explanation;
+    const requeridos = VARIANT_TABLE[INF_PRES].map((f) => {
+      const lit = DISPARADOR_DE[f.tipo];
+      assert.ok(lit, `6a ronda: el tipo "${f.tipo}" no declara su disparador; el mapa hay que actualizarlo a mano a proposito`);
+      return lit;
+    });
+    const frases = e.split(/(?<=\.)\s+/);
+    const enumeracion = frases.find((f) => requeridos.every((lit) => f.includes(lit)));
+    assert.ok(
+      enumeracion,
+      `6a ronda: ninguna frase de la explanation enumera los ${requeridos.length} disparadores juntos (${requeridos.join(', ')}). Una lista incompleta se lee como exhaustiva, y entonces es FALSA en la variante que se deja fuera — que es justo lo que marco el quorum`
     );
   });
 
