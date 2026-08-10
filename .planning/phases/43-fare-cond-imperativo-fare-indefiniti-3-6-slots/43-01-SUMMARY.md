@@ -22,9 +22,9 @@ affects: [43-02-fare-indefiniti, 44-integracion-counts-cruces, INT-02, INT-03, I
 
 # Actuals (#2632)
 actuals:
-  tokens: 32900
+  tokens: 34600
   tasks: 4
-  commits: 8
+  commits: 9
 
 # Tech tracking
 tech-stack:
@@ -156,6 +156,7 @@ status: complete
 6. **WR-10 del UAT: refuerzo de registro en la variante de `Marco`** — `660fa9d` (fix)
 7. **Los 3 hallazgos del quórum base top-level** — `877f3fc` (fix)
 8. **2ª ronda de quórum: el inclusivo a la blacklist por contexto** — `6de4066` (fix)
+9. **3ª ronda de quórum: el `explanation` del imperativo** — `e657aea` (fix)
 
 **Plan metadata:** `f0e81b0` (docs: complete plan).
 
@@ -420,6 +421,42 @@ La frase afirmaba que con una locución de sustitución el italiano pide condizi
 - **ninguna explanation enseña una regla absoluta** sobre una forma italiana (`nunca el futuro`, `sustitución`, `es agramatical`, `nunca se usa`) — la regla de la fase, aprendida a base de corregirla tres veces, congelada como gate.
 
 7 mutaciones nuevas, incluidas las **3 regresiones** de los pools que salieron `disputed` y una que prueba que rellenar con una inventada se pone rojo. Podé 4 mutaciones obsoletas que probaban el mecanismo retirado, con nota en el fichero. Suite: **1011 pass / 0 fail**.
+
+## Correccion post-quorum, 3a ronda (`e657aea`)
+
+`cond-presente` pasó a **`validated`** (los dos `correcta`; Opus verificó que la frase huérfana ya no está y que el texto condiciona la regla en vez de enunciarla como absoluto). Con `cond-passato` ya validado, quedaban dos de tres.
+
+**Y el cambio de mecanismo del imperativo funcionó: C2 pasa en ambos modelos.** Retirar el inclusivo eliminó la única forma que englobaba al destinatario, y los dos verifican variante a variante que no queda ninguna otra defendible. Lo que quedaba era solo el `explanation`.
+
+### 1. C1-CONTEO — el defecto lo introdujo nuestro propio arreglo
+
+El texto decía «las otras **tres** opciones son siempre formas reales…». Al retirar el inclusivo, 3 de las 5 variantes se quedaron con **dos** distractoras: el alumno que falla `Bambini, ___ i compiti` leía una descripción del pool que su propio ejercicio contradice.
+
+Reformulado en términos **no numéricos** («las demás opciones de cada frase»), más una frase nueva que explica por qué la forma de nosotros solo aparece cuando es la respuesta — al incluir a quien escucha, encaja con cualquier destinatario, así que ofrecerla como opción falsa sería injusto.
+
+**La regla general es más amplia que «al retirar una variante revisa el texto»:** cuando cambia **cualquier cosa** que el `explanation` describa —variantes, pools, conteos, mecanismos— el texto **miente hasta que se actualiza**. Y la forma de no volver a tropezar no es acordarse: es que el número **no viva en la prosa**.
+
+### 2. C2-CLITICO — error de morfologia preexistente que tres pases no vieron
+
+El texto daba `fallo`, `fammi` y `fatelo` como ejemplos de «imperativo apostrofado más clítico con duplicación de la consonante». `fatelo` no es ninguna de las dos cosas: es `fate` + `lo`, forma **plena** y simple concatenación. **La regla fallaba en el tercero de sus propios tres ejemplos.**
+
+Ahora se distinguen los dos mecanismos: apostrofada de una sílaba + clítico dobla la consonante (`fallo`, `fammi`); forma plena + clítico solo concatena (`fatelo`). Sigue nombrando las tres, que es lo que D-43-07 y D-43-19 piden.
+
+### 3. C3-TERMINOLOGIA — `elision` por `troncamento`
+
+`fa'` es un **troncamento** (apócope) de `fai`; en italiano la *elisión* es la pérdida de vocal final ante vocal (`l'amico`). Se describe **sin nombrar la categoría** («su apóstrofe marca que la forma se ha acortado»), porque el autor no necesita el término y nombrarlo mal le enseña algo falso. Corregido también en el `notes`, con nota terminológica para que un re-pase no lo reintroduzca.
+
+### Gates nuevos
+
+- **C1-CONTEO, y es derivado del fichero, no literal** — calcula por slot los conteos reales de distractoras y prohíbe todo numeral junto a un sustantivo de pool que **no** corresponda; si el conteo no es uniforme, prohíbe todos. Sustanciado con una mutación que cambia un pool de `cond-presente` —cuya cifra **hoy es cierta**— y verifica que la frase se pone roja **sola**. Eso es exactamente lo que no ocurrió esta vez.
+- **C2-CLITICO, estructural** — parte el texto en frases y exige que la marca de duplicación no conviva con la forma plena salvo que las contraponga explícitamente.
+- **C3-TERMINOLOGIA** — cero `elisión`/`elidida`/`elide` en las 3 explanations.
+
+8 mutaciones nuevas con las 3 regresiones literales. Las 40 anteriores siguen mordiendo: **48 en total**, JSON restaurado byte a byte en todas. Suite: **1016 pass / 0 fail**.
+
+### El pool de 3 no se toco
+
+Sonnet levantó un C3 diciendo que `fa'` estaba disponible como tercera distractora y que la justificación del pool de 3 era falsa. Era **falso positivo por hueco de contexto del prompt de validación**: la §7.2 solo declaraba las dos formas que compiten con la key, así que el evaluador no podía saber que `fa'` también está vetada por SC#2. El coordinador amplió §7.2 (`8d00b4a`) y la desviación queda respaldada en el documento que el validador lee. **Sigue necesitando firma como desviación del must_have de longitud 4.**
 
 **Transferido al plan 43-02:** WR-05 del code review (`CONCORD_CUES` con `includes()` crudo sobre bigramas de dos letras en `tests/content-fare-indefiniti.test.js`, que hace match dentro de `Michele ha`). Es un hallazgo real y barato, pero ese fichero es propiedad exclusiva de 43-02 y este plan lo tiene prohibido tocar. El arreglo es usar el matcher con frontera de palabra que el propio fichero ya declara en su cabecera.
 

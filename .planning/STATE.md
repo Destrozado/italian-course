@@ -6,7 +6,7 @@ current_phase: 43
 current_phase_name: fare-cond-imperativo-fare-indefiniti-3-6-slots
 status: verifying
 stopped_at: Completed 43-02-PLAN.md
-last_updated: "2026-08-10T06:59:28.044Z"
+last_updated: "2026-08-10T07:33:57.104Z"
 last_activity: 2026-08-07
 last_activity_desc: Phase 43 execution started
 progress:
@@ -293,6 +293,8 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - [Phase ?]: 43-01 quorum 2a ronda: el exhortativo inclusivo no se puede cerrar con redaccion — una clausula que muestra al hablante haciendo otra cosa es COMPATIBLE con el exhortativo paternal, que se define por un hablante que no ejecuta; el cierre es de POOL (facciamo fuera de options donde no es key), primera forma vetada por INCLUSIVA
 - [Phase ?]: 43-01 desviacion firmada del must_have 'options de longitud 4': 3 de las 17 variantes llevan 3 opciones porque fa' y facciamo estan vetadas como distractora y solo quedan 2 reales; se prefirio 3 opciones REALES a 4 con una inventada porque el eje del slot es el registro y no la morfologia (schema admite 3 o 4)
 - [Phase ?]: 43-01 regla de fase congelada como gate: ninguna explanation escribe nunca/siempre/es agramatical sobre una forma italiana sin comprobarlo contexto por contexto; si la regla lleva condicion, se escribe la condicion
+- [Phase ?]: 43-01 C1-CONTEO: el tamano del pool NO se afirma en prosa — vive en el JSON y en EXPECTED_OPTIONS, que son lo unico que un cambio de pool actualiza; el gate es DERIVADO del fichero (prohibe el numeral que no corresponde, todos si el conteo no es uniforme) para que una cifra huerfana se ponga roja sola
+- [Phase ?]: 43-01 C2/C3: la duplicacion consonantica solo ocurre al pegar el clitico a la forma APOSTROFADA (fallo, fammi); con la plena solo hay concatenacion (fatelo). Y fa' es troncamento, no elision — se describe sin nombrar la categoria
 
 ### Pending Todos
 
