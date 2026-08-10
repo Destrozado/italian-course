@@ -41,8 +41,27 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-09",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] regla mas rigida que la lengua: 'la negacion, la preposicion o el modal son la pista que decide, y ninguna de las demas formas no personales del verbo encaja detras de ellos'. Detras de un modal el infinito compuesto SI encaja (Anna deve aver fatto un errore) y detras de la negacion encaja el gerundio (Non facendo i compiti non impari). El absoluto solo vale para el encaje concreto de cada variante.",
+              "[C4-explanation] misma rigidez: 'detras de una preposicion el italiano pone infinitivo y nunca otra forma no personal, igual que el espanol'. El participio pospuesto a preposicion es italiano corriente (dopo mangiato, dopo finito), y el 'igual que el espanol' amplifica el absoluto porque el espanol si excluye el participio ahi.",
+              "[C4-explanation] concordancia de numero: 'la negacion, la preposicion o el modal SON la pista que decide'. Disyuncion excluyente con atributo singular: pide 'es la pista que decide'."
+            ]
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-09",
+            "verdict": "correcta",
+            "concerns": [
+              "[declarativa, no degrada el verdict] Sonnet evaluo explicitamente el eje de rigidez y concedio exencion pedagogica: considera las afirmaciones 'reglas categoricas correctas para el nivel A1/A2, sin sobre-generalizacion'. No niega los contraejemplos; discrepa de que apliquen a este nivel. Es el punto exacto de desacuerdo con Opus."
+            ]
+          }
+        ]
       }
     },
     {
@@ -349,8 +368,30 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-09",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] el criterio no justifica la clave de la concesiva: el texto dice que el infinitivo compuesto 'sin ninguna preposicion NI PARTICULA que lo introduzca' no puede abrir la subordinada, y unas lineas antes llama a pur 'la particula pur'. Aplicado a esa variante el criterio no excluye 'pur aver fatto': lo LICENCIA. Lo exacto es que el infinitivo compuesto necesita una PREPOSICION que lo rija y que pur no lo rige porque selecciona gerundio.",
+              "[C4-explanation] afirmacion falsa: 'su calco italiano con preposicion seria igualmente correcto'. Vale para la causal (per aver finito) pero NO para la concesiva: 'nonostante aver fatto' no es norma moderna; el italiano es 'pur avendo fatto' o 'nonostante + congiuntivo'. El texto autoriza la produccion agramatical que representa la distractora.",
+              "[C4-explanation] 'se forma con el gerundio del auxiliar de posesion mas el participio invariable': la invariabilidad solo se sostiene con objeto pospuesto; con pronombre antepuesto la concordancia es obligatoria (avendoli fatti), doctrina que la propia categoria ensena en el slot de participio.",
+              "[C4-explanation] el inventario de encajes no cuadra con las variantes: adscribe dos al encaje temporal y deja la causal sin ejemplo entre las tres frases."
+            ]
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-09",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C4-explanation] CONFIRMA EL CUARTO HALLAZGO DE OPUS DE FORMA INDEPENDIENTE. La taxonomia que ensena el texto (temporal / causal / concesiva) no corresponde al contenido real (temporal / temporal / concesiva): la variante indice 1 ('___ il lavoro il giorno prima, lei era gia libera.') NO es causal — es estructuralmente identica a la 0, marcada por el adverbial 'il giorno prima', paralelo a 'la sera prima'. No hay conector ni marca causal en ninguna de las tres variantes. Y deja sin justificar por que su clave es avendo fatto bajo la etiqueta erronea.",
+              "[C4-explanation] preposicion mal regida: 'Ahi esta la interferencia con el espanol' debe ser 'la interferencia DEL espanol' — el termino estandar para la interferencia L1 hacia L2 rige con 'de', y 'con' sugiere relacion mutua en vez de la direccion espanol hacia italiano que el propio texto describe.",
+              "[declarativa] Sonnet da C4 falso pero senala que la rigidez de la ronda 2 SI quedo corregida: el texto ya cita dopo aver fatto y per aver fatto como usos validos con introductor, y justifica la anterioridad de la concesiva por semantica y no por marca sintactica."
+            ]
+          }
+        ]
       }
     }
   ]

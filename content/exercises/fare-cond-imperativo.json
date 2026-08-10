@@ -71,8 +71,21 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "validated",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-09",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-09",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
       }
     },
     {
@@ -219,8 +232,30 @@
         }
       ],
       "validation": {
-        "status": "pending",
-        "passes": []
+        "status": "disputed",
+        "passes": [
+          {
+            "by": "claude-opus-5",
+            "date": "2026-08-09",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C2 PASA — el cambio de mecanismo funciono] Retirar facciamo elimino la unica forma que englobaba al destinatario; no queda ninguna otra defendible en ningun hueco.",
+              "[C4-explanation] 'las otras tres opciones son siempre formas reales del imperativo dirigidas a otra persona' es falso tras retirar facciamo: tres de las cinco variantes tienen solo dos distractoras. El alumno lee una descripcion del pool que su propio ejercicio contradice. Reformular en terminos no numericos.",
+              "[C4-explanation] 'fallo, fammi o fatelo, que son el imperativo apostrofado mas el clitico aglutinado con duplicacion de la consonante': fatelo es fate + lo, ni apostrofado ni con consonante doblada. La duplicacion solo se da con los monosilabos apostrofados (fa', da', di', sta', va'), asi que la regla falla en el tercero de sus propios ejemplos.",
+              "[C4-explanation] imprecision terminologica: 'su apostrofe es la elision de la forma larga'. fa' es troncamento (apocope) de fai; elision designa en italiano la perdida de vocal final ante vocal (l'amico)."
+            ]
+          },
+          {
+            "by": "claude-sonnet-5",
+            "date": "2026-08-09",
+            "verdict": "incorrecta",
+            "concerns": [
+              "[C3-distractoras] FALSO POSITIVO POR HUECO DE LA SECCION 7.2, NO DEFECTO DE CONTENIDO — resuelto ampliando el prompt de validacion. Sonnet objeta que fa' no se usa como distractora en las otras cuatro variantes pese a no estar vetada por 7.2, y concluye que la justificacion de los pools de 3 es falsa. Pero SC#2 del ROADMAP veta literalmente 'ninguna de fa'/fai/fa aparece como distractora incorrecta'. La 7.2 solo declara las DOS formas que compiten con la key, asi que el evaluador no podia saber que fa' tambien esta vetada: la restriccion vive en un documento que no ve.",
+              "[C4-explanation] 'las otras tres opciones son siempre formas reales del imperativo dirigidas a otra persona' es falso para las tres variantes con pool de 3. Contradice los datos del propio ejercicio.",
+              "[C4-explanation] 'fallo, fammi o fatelo' agrupados como imperativo apostrofado mas clitico con duplicacion de consonante: fatelo es fate + lo, simple concatenacion sin duplicacion y sin relacion con el mecanismo de apostrofe que si ilustran fallo y fammi. Error de morfologia italiana en texto dirigido al alumno."
+            ]
+          }
+        ]
       }
     }
   ]
