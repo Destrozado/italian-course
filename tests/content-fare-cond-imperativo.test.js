@@ -1318,6 +1318,107 @@ describe('fare-cond-imperativo — canon editorial e higiene del JSON (D-43-21, 
     assert.ok(!e.includes('imperativo'), 'D-43-22: la explanation del presente no adelanta el slot de imperativo');
   });
 
+  test('ninguna explanation AFIRMA el tamano del pool en prosa: el conteo vive en el JSON (C1-CONTEO)', () => {
+    // EL DEFECTO QUE ESTO ARREGLA, y es un defecto que introdujo nuestro PROPIO
+    // arreglo: la explanation del imperativo decia «las otras TRES opciones son
+    // siempre formas reales...», y al retirar el inclusivo tres de las cinco
+    // variantes se quedaron con DOS distractoras. El alumno que falla
+    // `Bambini, ___ i compiti` leia una descripcion del pool que su propio
+    // ejercicio contradice.
+    //
+    // LA REGLA GENERAL, mas amplia que «al retirar una variante revisa el texto»:
+    // cuando cambia CUALQUIER cosa que la explanation describa —variantes, pools,
+    // conteos, mecanismos— el texto MIENTE hasta que se actualice. La forma de no
+    // volver a tropezar no es acordarse, es que el numero no este en la prosa.
+    //
+    // GATE DERIVADO, no literal. La lista de numerales PROHIBIDOS se calcula desde
+    // el disco, variante a variante:
+    //   - si el conteo de distractoras es UNIFORME en el slot, el unico numeral
+    //     admitido es el que corresponde a ese conteo (la afirmacion es cierta);
+    //   - si NO es uniforme, no hay ningun numeral que pueda ser cierto para todas
+    //     las variantes, asi que se prohiben todos.
+    // Si manana cambia un pool, el gate cambia con el y la frase que se queda
+    // huerfana se pone roja sola. Eso es lo que no ocurrio esta vez.
+    const NUM_DE = { 1: ['un', 'una', '1'], 2: ['dos', '2'], 3: ['tres', '3'], 4: ['cuatro', '4'], 5: ['cinco', '5'] };
+    const TODOS = Object.values(NUM_DE).flat();
+    const POOL = ['opciones', 'opción', 'opcion', 'distractoras', 'distractora', 'alternativas'];
+    const sucio = [];
+    for (const s of SLOTS) {
+      // Los conteos REALES de distractoras de este slot, derivados del disco.
+      const reales = new Set(s.variants.map((v) => v.options.length - 1));
+      const permitidos = reales.size === 1 ? (NUM_DE[[...reales][0]] || []) : [];
+      const NUMERALES = TODOS.filter((n) => !permitidos.includes(n));
+      for (const num of NUMERALES) {
+        for (const noun of POOL) {
+          // numeral y sustantivo de pool a menos de 3 palabras de distancia, en
+          // cualquiera de los dos ordenes.
+          const re = new RegExp(
+            `(?:^|[^\\p{L}])${num}\\s+(?:\\p{L}+\\s+){0,2}${noun}(?=[^\\p{L}]|$)` +
+            `|(?:^|[^\\p{L}])${noun}\\s+(?:\\p{L}+\\s+){0,2}${num}(?=[^\\p{L}]|$)`,
+            'iu'
+          );
+          if (re.test(s.explanation)) {
+            sucio.push(`${s.id}: "${num} ... ${noun}" (conteos reales del slot: ${[...reales].join('/')})`);
+          }
+        }
+      }
+    }
+    assert.deepEqual(
+      sucio,
+      [],
+      'C1-CONTEO: el tamano del pool NO se afirma en prosa. Vive en el JSON y en EXPECTED_OPTIONS, que son lo unico que un cambio de pool actualiza; una cifra en la explanation queda huerfana en silencio y le describe al autor un ejercicio que no es el suyo'
+    );
+  });
+
+  test('la explanation del imperativo no agrupa el clitico de forma plena con la duplicacion (C2-CLITICO)', () => {
+    // ERROR DE MORFOLOGIA PREEXISTENTE, que tres pases anteriores no vieron: el
+    // texto daba `fallo`, `fammi` y `fatelo` como ejemplos de «imperativo
+    // apostrofado mas clitico con duplicacion de la consonante», y el tercero no es
+    // ninguna de las dos cosas: `fatelo` es `fate` + `lo`, forma PLENA y simple
+    // concatenacion. La duplicacion solo ocurre con los monosilabos apostrofados.
+    // La regla enunciada fallaba en el tercero de sus propios tres ejemplos.
+    //
+    // El gate es ESTRUCTURAL y no de literal: busca la frase que menciona la forma
+    // de plena mas clitico y exige que la marca de duplicacion no viva en ella.
+    const e = byId(IMPERATIVO).explanation;
+    const DUPLICACION = ['duplicación', 'se dobla', 'doblar'];
+    const frases = e.split(/(?<=[.;:])\s+/u);
+    const conFatelo = frases.filter((f) => wordish('fatelo').test(f));
+    assert.ok(conFatelo.length > 0, 'D-43-07: la explanation tiene que seguir nombrando la forma de plena mas clitico');
+    const sucio = [];
+    for (const f of conFatelo) {
+      // En la MISMA frase pueden convivir los dos mecanismos solo si el texto los
+      // CONTRAPONE explicitamente; el marcador de contraposicion es lo que
+      // distingue «los dos se doblan» de «este no, aquel si».
+      const contrapone = /en cambio|mientras|frente a|sin doblar|sin duplicar/iu.test(f);
+      const marca = DUPLICACION.find((m) => f.toLowerCase().includes(m.toLowerCase()));
+      if (marca && !contrapone) sucio.push(`"${marca}" en la misma frase que la forma plena, sin contraponerlas: "${f.trim().slice(0, 120)}"`);
+    }
+    assert.deepEqual(
+      sucio,
+      [],
+      'C2-CLITICO: la duplicacion consonantica solo ocurre al pegar el clitico a la forma APOSTROFADA; con la forma plena solo hay concatenacion. Agruparlas enuncia una regla que falla en su propio ejemplo'
+    );
+  });
+
+  test('ninguna explanation llama elision al apostrofe de la 2a singular (C3-TERMINOLOGIA)', () => {
+    // `fa'` es un TRONCAMENTO (apocope) de `fai`. En italiano la elision es la
+    // perdida de vocal final ante vocal (`l'amico`), que es otro fenomeno. El
+    // material lo describe sin nombrar la categoria: el autor no necesita el
+    // termino y nombrarlo mal le ensena algo falso.
+    const sucio = [];
+    for (const s of SLOTS) {
+      for (const t of ['elisión', 'elision', 'elidida', 'elide']) {
+        if (s.explanation.toLowerCase().includes(t)) sucio.push(`${s.id}: "${t}"`);
+      }
+    }
+    assert.deepEqual(
+      sucio,
+      [],
+      'C3-TERMINOLOGIA: el apostrofe de la 2a singular es troncamento, no elision; se describe sin nombrar la categoria'
+    );
+  });
+
   test('ninguna explanation ensena una regla ABSOLUTA sobre una forma italiana (C4-SUSTITUCION)', () => {
     // LA REGLA DE LA FASE, aprendida a base de corregirla tres veces: no se escribe
     // «nunca», «siempre» ni «es agramatical» sobre una forma italiana sin haber
