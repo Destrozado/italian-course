@@ -385,6 +385,41 @@ const GER_PRES_CON_COMPUESTO = 0; // la del marco progresivo
 // TERMINADO) y que si es agramatical en una subordinada implicita de este tipo.
 const CALCO_GERUNDIO_PASSATO = 'aver fatto';
 
+// ABSOLUTOS_DESNUDOS — tripwire contra el defecto mas repetido de esta fase.
+//
+// Se han corregido TRES explanations que afirmaban que una forma italiana era
+// imposible cuando no lo era, y dos de las tres las introdujo el arreglo de la
+// anterior: se sustituyo una afirmacion falsa por otra. En este fichero paso dos
+// veces (el gerundio simple en las subordinadas implicitas, y despues el infinito
+// compuesto «agramatical» cuando lo agramatical es el infinito compuesto SIN
+// INTRODUCTOR — `dopo aver fatto` y `per aver fatto` son A2 corriente).
+//
+// La regla de autoria es: no escribir que algo es imposible sin haberlo
+// comprobado forma por forma y contexto por contexto, y si la regla real lleva
+// una CONDICION, escribir la condicion en vez de la prohibicion. Sale mas corto
+// que la excepcion que evita.
+//
+// LIMITE HONESTO DE ESTE GATE, y va escrito para que nadie lo tome por lo que no
+// es: es un TRIPWIRE, no una demostracion. Caza la predicacion DESNUDA de
+// imposibilidad, que es la forma que tomaron los tres defectos, y NO puede cazar
+// una condicional falsa. Por eso la lista es corta y solo lleva formulas que
+// ninguna frase condicional correcta necesita: `deja de ser posible` NO esta en
+// ella, porque en el infinito passato aparece dentro de una condicional
+// verificada («con cualquiera de los dos, ...») y banearla seria cargo-culting
+// sobre prosa correcta.
+//
+// Y se aplica SOLO a las explanations, nunca al `notes`, por la misma razon que
+// el escaneo de blacklist: el `notes` tiene que NOMBRAR las afirmaciones falsas
+// que se corrigieron, con su audit trail, asi que un gate de ausencia sobre el
+// `notes` pondria rojo precisamente el texto que documenta la correccion.
+const ABSOLUTOS_DESNUDOS = [
+  'es agramatical',
+  'nunca se usa',
+  'no se usa nunca',
+  'no existe en italiano',
+  'es imposible en italiano',
+];
+
 // VARIANT_TABLE — la tabla declarativa por variante. Por variante:
 //   tipo   — el tipo de contexto sintactico, del conjunto CERRADO CONTEXT_TYPES
 //   object — el objeto literal del conjunto cerrado, o null en las 2 EXENTAS
@@ -842,6 +877,18 @@ describe('fare-indefiniti — blacklist de formas atestiguadas y defendibles (D-
     // El override no puede quedar como una afirmacion desnuda: tiene que llevar
     // escrito que el riesgo se ASUME y cual es la mitigacion, porque es lo unico
     // que distingue una adjudicacion razonada de un descarte.
+    // 2a ronda: el propio bloque de la premisa corregida repetia la afirmacion
+    // falsa por otra via (decia que el infinitivo compuesto era agramatical en una
+    // subordinada implicita). El notes tiene que llevar la CONDICION escrita,
+    // porque es lo que lee un re-pase futuro.
+    assert.ok(
+      CONTENT.notes.includes('SIN INTRODUCTOR'),
+      'el notes tiene que declarar que lo agramatical es el infinitivo compuesto SIN INTRODUCTOR, no el infinitivo compuesto'
+    );
+    assert.ok(
+      CONTENT.notes.includes('dopo aver fatto'),
+      'y tiene que citar el introductor correcto y corriente que la version anterior invitaba a evitar'
+    );
     assert.ok(
       /MITIGACIÓN/.test(CONTENT.notes),
       'el override tiene que declarar su MITIGACION: las 2 variantes de objeto pospuesto exigen la invariable, asi que copiar terminaciones por sistema falla la mitad del slot'
@@ -1350,6 +1397,49 @@ describe('fare-indefiniti — canon editorial e higiene del JSON (D-43-21, T-43-
     assert.ok(e.length > 500, `INDEF-04: la explanation del gerundio passato enumera los tres encajes (${e.length} caracteres)`);
   });
 
+  test('ninguna de las 6 explanations predica imposibilidad DESNUDA sobre una forma italiana', () => {
+    // Tripwire de la regla de fondo. Ver el comentario de ABSOLUTOS_DESNUDOS: caza
+    // la formula, no la falsedad, asi que su valor es recordar la disciplina en el
+    // diff — no certifica que las explanations sean verdaderas.
+    const sucio = [];
+    for (const s of SLOTS) {
+      for (const a of ABSOLUTOS_DESNUDOS) {
+        if (s.explanation.includes(a)) sucio.push(`${s.id}: "${a}"`);
+      }
+    }
+    assert.deepEqual(
+      sucio,
+      [],
+      'si la regla real lleva una CONDICION, escribe la condicion en vez de la prohibicion: en esta fase tres explanations afirmaron imposibilidad en falso, y dos las introdujo el arreglo de la anterior'
+    );
+  });
+
+  test('PREMISA CORREGIDA: la explanation del gerundio passato escribe la CONDICION del infinitivo compuesto', () => {
+    // 2a ronda de quorum (Opus, C4). La version anterior decia que el italiano
+    // «exige aqui el gerundio y nunca aver fatto, que en una subordinada implicita
+    // de este tipo es agramatical». Falso en los mismos encajes que el bloque
+    // examina: `per aver fatto` es causal implicita estandar y `dopo aver fatto`
+    // es la temporal de anterioridad mas frecuente de A2; en terminologia italiana
+    // «subordinata implicita» incluye por definicion las infinitivas, asi que la
+    // etiqueta no acotaba nada. Lo agramatical NO es el infinitivo compuesto: es
+    // el infinitivo compuesto SIN INTRODUCTOR, que es justo lo que ofrecen las
+    // options. El alumno se llevaba la regla de evitar `dopo aver fatto`, que es
+    // un error caro.
+    const e = byId(GER_PASS).explanation;
+    assert.ok(
+      e.includes('introductor'),
+      'la explanation tiene que escribir la CONDICION (el infinitivo compuesto necesita introductor), no la prohibicion'
+    );
+    assert.ok(
+      e.includes('dopo aver fatto') && e.includes('per aver fatto'),
+      'y tiene que citar los dos introductores CORRECTOS y corrientes, para que el alumno no salga evitandolos'
+    );
+    assert.ok(
+      e.includes('pur admite los dos gerundios'),
+      'y tiene que justificar la key de la variante concesiva, que no lleva ninguna marca de anterioridad: el criterio de seleccion anterior no la cubria'
+    );
+  });
+
   test('PREMISA CORREGIDA: la explanation del gerundio passato NO afirma que el simple sea imposible', () => {
     // El defecto que el quorum base encontro NO estaba en la key ni en las
     // options: estaba aqui. La explanation decia que estos tres encajes EXIGEN el
@@ -1391,6 +1481,17 @@ describe('fare-indefiniti — canon editorial e higiene del JSON (D-43-21, T-43-
     assert.ok(
       !wordish('a tú').test(e),
       'C4: tras la preposicion `a` el espanol pide el pronombre preposicional `ti`, no `tú`. Usar `a ti` o la formula metalinguistica `de tú` que el propio parrafo ya emplea'
+    );
+    // 2a ronda de quorum (Opus, C4): el cierre del parrafo remitia con `de ellas`
+    // a la coordinacion «la negacion, la preposicion o el modal», que es de genero
+    // MIXTO con un masculino dentro, asi que el plural va en masculino. Tampoco lo
+    // salvaba la concordancia por proximidad, porque el elemento contiguo (`el
+    // modal`) es masculino tambien. En este texto no hay ningun antecedente
+    // femenino plural —`la palabra` y `la pista` son singulares—, asi que el
+    // literal se puede gatear sin falsos positivos.
+    assert.ok(
+      !wordish('de ellas').test(e),
+      'C4: `de ellas` no tiene antecedente femenino plural en esta explanation; la coordinacion es de genero mixto y pide `de ellos`'
     );
   });
 });
