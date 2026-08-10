@@ -6,7 +6,7 @@ current_phase: 43
 current_phase_name: fare-cond-imperativo-fare-indefiniti-3-6-slots
 status: verifying
 stopped_at: Completed 43-02-PLAN.md
-last_updated: "2026-08-09T21:06:38.275Z"
+last_updated: "2026-08-10T06:59:28.044Z"
 last_activity: 2026-08-07
 last_activity_desc: Phase 43 execution started
 progress:
@@ -290,6 +290,9 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - [Phase ?]: 43-01 quorum: el exhortativo facciamo es INCLUSIVO y ningun vocativo puede excluirlo — un slot de imperativo tiene DOS ejes de ambiguedad (trato e inclusion) y cerrar el primero no cierra el segundo; el exclusor del inclusivo es una clausula que deja al hablante FUERA de la accion
 - [Phase ?]: 43-01 quorum: una cola adversativa de IMPEDIMENTO (ma non ho avuto tempo) no cierra el evento y deja defendible el condizionale presente; solo la que declara el evento cerrado en pasado lo excluye
 - [Phase ?]: 43-01 quorum: un marco que excluye la distractora por IDIOMATISMO no es un gate (Al posto tuo admite la lectura de sustitucion literal, que acepta futuro); solo la protasis con congiuntivo imperfetto lo excluye por gramatica
+- [Phase ?]: 43-01 quorum 2a ronda: el exhortativo inclusivo no se puede cerrar con redaccion — una clausula que muestra al hablante haciendo otra cosa es COMPATIBLE con el exhortativo paternal, que se define por un hablante que no ejecuta; el cierre es de POOL (facciamo fuera de options donde no es key), primera forma vetada por INCLUSIVA
+- [Phase ?]: 43-01 desviacion firmada del must_have 'options de longitud 4': 3 de las 17 variantes llevan 3 opciones porque fa' y facciamo estan vetadas como distractora y solo quedan 2 reales; se prefirio 3 opciones REALES a 4 con una inventada porque el eje del slot es el registro y no la morfologia (schema admite 3 o 4)
+- [Phase ?]: 43-01 regla de fase congelada como gate: ninguna explanation escribe nunca/siempre/es agramatical sobre una forma italiana sin comprobarlo contexto por contexto; si la regla lleva condicion, se escribe la condicion
 
 ### Pending Todos
 

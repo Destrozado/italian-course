@@ -22,9 +22,9 @@ affects: [43-02-fare-indefiniti, 44-integracion-counts-cruces, INT-02, INT-03, I
 
 # Actuals (#2632)
 actuals:
-  tokens: 30400
+  tokens: 32900
   tasks: 4
-  commits: 7
+  commits: 8
 
 # Tech tracking
 tech-stack:
@@ -155,6 +155,7 @@ status: complete
 5. **CR-01 del code review: doble validez del trapassato en el condizionale passato** — `32b2eab` (fix)
 6. **WR-10 del UAT: refuerzo de registro en la variante de `Marco`** — `660fa9d` (fix)
 7. **Los 3 hallazgos del quórum base top-level** — `877f3fc` (fix)
+8. **2ª ronda de quórum: el inclusivo a la blacklist por contexto** — `6de4066` (fix)
 
 **Plan metadata:** `f0e81b0` (docs: complete plan).
 
@@ -372,9 +373,53 @@ Los tres con mensaje que nombra el hallazgo:
 
 **10 mutaciones nuevas**, incluidas las **4 regresiones literales** de los prompts que salieron `disputed`. Las 27 anteriores siguen mordiendo — **37 en total**, JSON restaurado byte a byte en todas. Suite: **1004 pass / 0 fail**.
 
-### Punto a vigilar, declarado y no enterrado
+### Punto a vigilar — CONFIRMADO por el quorum, y ya resuelto
 
-La variante de `Loro` (imperativo v4) es la única de las tres exentas del gate del inclusivo que se apoya en un **mecanismo distinto** —la concordancia verbal de `come preferiscono Loro`— en vez de en la ausencia del problema. El quórum no la marcó y el coordinador la analizó como cerrada, así que no la toqué; pero queda marcada en el `notes` y en la tabla del test como **el punto a revisar si el quórum vuelve a señalar este slot**. No me convence del todo que `Signori, facciamo tutto con comodo, come preferiscono Loro` sea imposible.
+En esta ronda dejé escrito que no me convencía la variante de `Loro`, la única exenta del gate del inclusivo que se apoyaba en un mecanismo distinto (`come preferiscono Loro`) en vez de en la ausencia del problema. **La 2ª ronda de quórum la marcó, y las dos IAs a la vez** — fue la única en la que Opus y Sonnet coincidieron sin discusión. Queda resuelta por el cambio de pool: `facciamo` ya no está entre sus opciones. Registrado aquí porque la duda estaba escrita antes del veredicto y sirve de calibración: cuando un cierre descansa en un mecanismo distinto al del resto, conviene mirarlo dos veces.
+
+## Correccion post-quorum, 2a ronda (`6de4066`)
+
+`cond-passato` pasó a **`validated`** (Opus y Sonnet, ambos `correcta`, los dos verificando explícitamente que la cola cierra el evento) y no se tocó. Los otros dos siguieron `disputed`.
+
+### 1. El mecanismo del inclusivo era inefectivo POR NATURALEZA
+
+Opus marcó v1/v3/v4, Sonnet v4. Su diagnóstico es decisivo y me lo apunto:
+
+> el «noi» exhortativo-paternal **se define precisamente por un hablante que NO ejecuta la acción**, de modo que declarar que el hablante hace otra cosa es **compatible** con esa lectura.
+
+`Bambini, facciamo i compiti: io intanto preparo la tavola` se lee sin fricción como reparto de tareas. Es el mecanismo del español: «vamos a hacer los deberes» lo dice justo quien no piensa hacerlos. Mi cláusula **solo parecía cerrar**, que es peor que no cerrar — un re-pase futuro la habría leído como un gate.
+
+**Resolución: `facciamo` a la blacklist POR CONTEXTO.** Fuera de `options` donde no es la key, legítima como key en la suya. Es el criterio operativo de la categoría al pie de la letra, y es la **primera forma del milestone vetada por ser inclusiva** y no por arcaica, dialectal o atestiguada en otro registro. El criterio general que queda escrito: *una forma que engloba al destinatario no puede excluirse con un marcador que apunta al destinatario, porque el marcador cae dentro de ella.*
+
+Retiré los dos `io intanto`: ya no cierran nada, así que eran peso muerto en el prompt. Los prompts volvieron a su forma corta.
+
+### 2. Los pools del imperativo, y una desviacion que hay que firmar
+
+**La aritmética que me diste no cierra.** Contabas `fa'` entre las formas disponibles para rellenar, pero SC-2 la veta como distractora. Con `fa'` **y** `facciamo` vetadas, para las tres variantes cuya key es una de las tres restantes solo quedan **dos** distractoras reales:
+
+| # | destinatario | key | opciones | n |
+|---|---|---|---|---|
+| 0 | tú informal | `fa'` | faccia, **fa'**, fate, facciano | 4 |
+| 1 | Lei formal | `faccia` | fate, **faccia**, facciano | **3** |
+| 2 | noi exhortativo | `facciamo` | **facciamo**, faccia, fate, facciano | 4 |
+| 3 | voi informal | `fate` | facciano, faccia, **fate** | **3** |
+| 4 | Loro formal | `facciano` | fate, **facciano**, faccia | **3** |
+
+Los prompts: v1 `Signor Rossi, ___ il lavoro con calma.` · v3 `Bambini, ___ i compiti prima di cena!` · v0, v2 y v4 sin cambios.
+
+**Esto desvía del must_have «options de longitud 4»** en 3 de las 17 variantes. Lo elegí frente a rellenar con una cuarta **inventada** porque el eje de este slot es el **registro**, no la morfología: una forma falsa convierte una de cada cuatro casillas en un ejercicio de otra cosa. Y las candidatas que examiné eran todas malas — `facete` es adjetivo real (femenino plural de `faceto`), `faccino` es sustantivo coloquial (diminutivo de `faccia`) y `facite` es dialectal napolitano. Tres opciones **reales** que contrastan destinatario examinan mejor lo que hay que examinar que cuatro con una falsa. `schema-validator.js` admite 3 o 4, así que el motor no se toca. **Necesita tu firma**: es desviación de un must_have escrito, forzada por un hallazgo posterior al plan.
+
+### 3. La regla falsa de la explanation (Sonnet C4)
+
+La frase afirmaba que con una locución de sustitución el italiano pide condizionale «y **nunca** el futuro». Quedó **huérfana** al retirar esa locución, y era peor que irrelevante: **reafirmaba como absoluto justo la generalización que causó el bug**. Reescrita anclando la regla en la **prótasis** —lo que las 6 variantes ejemplifican de verdad— y **con su condición** en vez de como absoluto.
+
+### Gates nuevos
+
+- el inclusivo solo aparece en `options` donde es la key, **más el positivo** de que sigue siendo la key de la suya (lo que distingue un veto por contexto de una forma prohibida);
+- el pool de cada variante está **determinado** por el paradigma menos las dos vetadas, con `EXPECTED_OPTIONS` declarando 4/3/4/3/3;
+- **ninguna explanation enseña una regla absoluta** sobre una forma italiana (`nunca el futuro`, `sustitución`, `es agramatical`, `nunca se usa`) — la regla de la fase, aprendida a base de corregirla tres veces, congelada como gate.
+
+7 mutaciones nuevas, incluidas las **3 regresiones** de los pools que salieron `disputed` y una que prueba que rellenar con una inventada se pone rojo. Podé 4 mutaciones obsoletas que probaban el mecanismo retirado, con nota en el fichero. Suite: **1011 pass / 0 fail**.
 
 **Transferido al plan 43-02:** WR-05 del code review (`CONCORD_CUES` con `includes()` crudo sobre bigramas de dos letras en `tests/content-fare-indefiniti.test.js`, que hace match dentro de `Michele ha`). Es un hallazgo real y barato, pero ese fichero es propiedad exclusiva de 43-02 y este plan lo tiene prohibido tocar. El arreglo es usar el matcher con frontera de palabra que el propio fichero ya declara en su cabecera.
 
