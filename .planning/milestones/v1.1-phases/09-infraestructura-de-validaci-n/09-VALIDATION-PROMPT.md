@@ -302,6 +302,10 @@ Su ausencia es una decisión de autoría declarada, no un olvido: ofrecerlas com
 
 **Marcar como distractora plausible ausente cualquiera de esas tres es un FALSO POSITIVO** de C3. Y al revés: su ausencia es precisamente lo que garantiza que hay UNA sola opción defendible, así que **C2 se cumple gracias a ellas y no a pesar de ellas**.
 
+**Y una restricción más del mismo slot, que no es «reconocer no producir» pero se confunde con ella.** En el slot de imperativo de `fare-cond-imperativo`, la forma apostrofada de 2ª singular **sí se produce**: es la key de su propia variante. Lo que además está vetado es que aparezca **como distractora en las otras variantes**. Es exigencia literal del criterio de éxito de la fase, que prohíbe que *cualquiera* de las tres formas de 2ª singular —la apostrofada incluida— figure como distractora «incorrecta»; el motivo es que el slot examina el registro y no la morfología del apóstrofe, y una key reciclada como distractora ajena enseñaría a descartarla. Lo mismo vale para la forma de 1ª persona del plural, vetada como distractora por razón distinta: es un exhortativo **inclusivo** que engloba al destinatario, así que ningún vocativo puede excluirla y sería defendible en cualquier hueco.
+
+Consecuencia visible en el fichero, y **deliberada**: con esas dos formas fuera del pool, tres variantes de ese slot tienen **3 `options` en lugar de 4**. El autor lo aceptó explícitamente frente a la alternativa de rellenar con una forma inventada (las candidatas obvias son palabras italianas reales: `facete` es adjetivo, `faccino` sustantivo, `facite` napolitano). El validador de esquema del proyecto admite 3 o 4. **Marcar como carencia de C3 el pool de 3, o la ausencia de esas dos formas entre las distractoras, es un FALSO POSITIVO.**
+
 ### 7.3 Lo que estas excepciones NO relajan
 
 El gloss léxico de conjunción o locución subordinante declarado en R1 y en C5 **sigue vigente y sin cambios**. Ninguna de las dos excepciones nuevas toca el criterio de leak: el gloss sobre la **forma verbal** o sobre la **palabra del blank** sigue prohibido sin excepción alguna.
