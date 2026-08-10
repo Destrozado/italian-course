@@ -2,13 +2,13 @@
 gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Paradigma completo de `fare` (4 categorías por modo)
-current_phase: 43
-current_phase_name: fare-cond-imperativo-fare-indefiniti-3-6-slots
-status: verifying
+current_phase: 44
+current_phase_name: Integración lockstep + cierre v2.0
+status: planning
 stopped_at: Completed 43-02-PLAN.md
-last_updated: "2026-08-10T08:00:41.363Z"
-last_activity: 2026-08-07
-last_activity_desc: Phase 43 execution started
+last_updated: "2026-08-10T13:30:34.246Z"
+last_activity: 2026-08-10
+last_activity_desc: Phase 43 complete, transitioned to Phase 44
 progress:
   total_phases: 5
   completed_phases: 4
@@ -29,10 +29,10 @@ See: `.planning/PROJECT.md` (updated 2026-08-06 — Phase 42 `fare-congiuntivo` 
 
 ## Current Position
 
-Phase: 43 (fare-cond-imperativo-fare-indefiniti-3-6-slots) — EXECUTING
-Plan: 2 of 2
-Status: Phase complete — ready for verification
-Last activity: 2026-08-07 — Phase 43 execution started
+Phase: 44 — Integración lockstep + cierre v2.0
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-08-10 — Phase 43 complete, transitioned to Phase 44
 
 Progress: [████████████████████] 5/5 plans ([██████████] 100%) · 4/5 fases (80%)
 
