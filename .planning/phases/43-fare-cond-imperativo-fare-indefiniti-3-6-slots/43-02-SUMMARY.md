@@ -21,15 +21,15 @@ provides:
   - "el gate HARD de pronombre del participio passato en su forma satisfacible: solo 3a plural antepuesta, 0 pronombres de concordancia opcional o partitiva, 0 bigramas de singular elidido"
   - "la EXCEPCION ACOTADA de D-43-18 escrita en los DOS sitios que la hacen efectiva: el `notes` del fichero y la seccion 7 de 09-VALIDATION-PROMPT.md"
   - "WR-01 declarado: la concordancia del participio con objeto POSPUESTO es italiano literario/antiguo, se mantiene como distractora (el pool cerrado de D-43-16 no deja alternativa) y va documentada en notes + explanation + seccion 7.4 del prompt de quorum, con gate que congela la decision"
-  - "tests/content-fare-indefiniti.test.js — 13 describe / 83 tests de invariantes permanentes, con 5 desviaciones declaradas y 26 pruebas negativas ejecutadas (12 de autoria + 3 de CR-02 + 4 de WR-01 + 7 post-quorum)"
+  - "tests/content-fare-indefiniti.test.js — 13 describe / 85 tests de invariantes permanentes, con 5 desviaciones declaradas y 32 pruebas negativas ejecutadas (12 de autoria + 3 de CR-02 + 4 de WR-01 + 13 post-quorum)"
   - "la ruta del prompt de validacion arreglada en los dos skills del quorum (defecto preexistente del archivado de v1.1)"
 affects: [44-integracion-counts-cruces, INT-02, INT-03, INT-04, quorum-top-level]
 
 # Actuals (#2632)
 actuals:
-  tokens: 37354
+  tokens: 39186
   tasks: 5
-  commits: 7
+  commits: 8
 
 # Tech tracking
 tech-stack:
@@ -64,6 +64,8 @@ patterns-established:
   - "Excepcion acotada bidireccional: la exencion va por id de slot Y el literal exento se prohibe explicitamente en las variantes no exentas. Sin la segunda mitad la exencion es global de facto."
   - "Interferencia de USO frente a interferencia de FORMA: cuando el hispanohablante construye bien pero usa de mas (stare + gerundio), la explanation tiene que decir eso y no explicar la formacion, que no es donde esta el error."
   - "Excepcion que el quorum tiene que ver: se escribe en 09-VALIDATION-PROMPT.md ANTES de la linea de cierre y con puntero desde el criterio afectado, porque el subagent evalua criterio a criterio y una seccion al final puede pasarle desapercibida."
+  - "No afirmar que una forma italiana es imposible sin haberlo comprobado forma por forma y CONTEXTO por contexto; si la regla real lleva una condicion, escribir la condicion, que sale mas corta que la excepcion que evita. En esta fase tres explanations afirmaron imposibilidad en falso y DOS de las tres las introdujo el arreglo de la anterior: al reencuadrar una variante hay que releer el explanation del slot, porque las frases que la describian quedan huerfanas y una frase huerfana que generaliza es peor que una irrelevante."
+  - "Mecanizar esa regla como TRIPWIRE y decirlo: un gate de literales caza la formula (`es agramatical`, `nunca se usa`), no la falsedad, y no puede cazar una condicional falsa. Corolario: no meter en la lista un literal que aparece dentro de una condicional verificada (`deja de ser posible` en el infinito passato) — seria cargo-culting sobre prosa correcta. Y no aplicarlo al `notes`, que tiene que NOMBRAR las afirmaciones corregidas."
   - "Una premisa lingüistica floja no se arregla endureciendo el material, se arregla rebajando la afirmacion. Ante un encaje que NO impone lo que la explanation decia, reformularlo para que si lo imponga significa fabricar una rigidez que la lengua no tiene — el mismo defecto otra vez, con una explanation nueva y mas segura de si misma. Se rebaja la afirmacion y se retira la distractora que era defendible (quorum base, gerundio passato)."
   - "Retirar una distractora por defendible deja un agujero en el criterio de distractoras: hay que reponerla con otra que sea PLAUSIBLE y honestamente incorrecta, no dejar el slot con opciones descartables de un vistazo. Aqui el sustituto es el calco espanol real (infinitivo donde el italiano pide gerundio)."
   - "Cuando un gate se invierte (antes exigia presencia, ahora exige ausencia), el mensaje del assert tiene que contar la premisa corregida, no el conteo: lo que un re-pase futuro debe leer en el diff es por que cambio, no que cambio."
@@ -151,7 +153,7 @@ coverage:
     description: "Los 6 slots pasan el quorum base Opus+Sonnet, mas la ronda EXTRA DeepSeek de D-43-20 sobre infinito passato y participio passato"
     verification:
       - kind: other
-        ref: "quorum base top-level, 1 ejercicio por contexto (VAL-03): 3 slots validated a la primera, 1 validated por override del autor con los 4 pases de modelo preservados, y 2 disputed arreglados en dc2450a (errata C4 del infinito presente y premisa falsa del gerundio passato). Los 2 arreglados quedan en pending con passes vacio, a la espera del re-pase"
+        ref: "quorum base top-level, 1 ejercicio por contexto (VAL-03), DOS rondas. 1a ronda: 3 validated a la primera (los 3 con excepcion declarada en el prompt), 1 validated por override del autor con los 4 pases de modelo preservados, 2 disputed arreglados en dc2450a. 2a ronda: 4 validated, y los 2 restantes eran de PROSA espanola del explanation (C1/C2/C3/C5 pasan en los dos segun ambas IAs), arreglados en b83f11a — concordancia de genero del pronombre y la condicion del introductor del infinitivo compuesto. Los 2 quedan en pending con passes vacio, a la espera del re-pase"
         status: pass
       - kind: unit
         ref: "tests/content-fare-indefiniti.test.js#PREMISA CORREGIDA: el gerundio SIMPLE no entra en NINGUNA variante del gerundio passato + #PREMISA CORREGIDA: las 3 variantes del gerundio passato ofrecen el CALCO + #la explanation del infinito presente usa el pronombre preposicional correcto (C4, errata de espanol)"
@@ -183,7 +185,7 @@ status: complete
 - **Completed:** 2026-08-07T02:20:30Z
 - **Tasks:** 5 (4 de ejecucion + 1 checkpoint)
 - **Files modified:** 7 (2 creados, 5 modificados)
-- **Suite:** 912 pass / 0 fail (baseline) -> **995 pass / 0 fail**; **1009** tras CR-02, WR-01, el quorum base y los fixes de 43-01
+- **Suite:** 912 pass / 0 fail (baseline) -> **995 pass / 0 fail**; **1013** tras CR-02, WR-01, las dos rondas de quorum y los fixes de 43-01
 
 ## Accomplishments
 
@@ -202,14 +204,14 @@ status: complete
 4. **Task 4: participio presente, gerundio presente y gerundio passato** — `85a7a97` (feat)
 5. **Task 5: `tests/content-fare-indefiniti.test.js` (13 describe) + prompt de validacion + rutas de skills** — `ff7d800` (test)
 
-**Post-review:** `20a5cc6` (fix) — CR-02, `6495443` (fix) — WR-01, y `dc2450a` (fix) — los 2 `disputed` del quorum base. Ver sus secciones propias mas abajo.
+**Post-review:** `20a5cc6` (fix) — CR-02, `6495443` (fix) — WR-01, y `dc2450a` y `b83f11a` (fix) — las dos rondas de quorum. Ver sus secciones propias mas abajo.
 
 **Plan metadata:** ver commit `docs(43-02)` al cierre.
 
 ## Files Created/Modified
 
 - `content/exercises/fare-indefiniti.json` — **creado**, 269 lineas. 2 claves top-level; `notes` de 20.109 caracteres con las 13 declaraciones (identidad y volumen, EJE = CONTEXTO, REPARTO DESIGUAL justificado slot a slot, CONJUNTO CERRADO DE TIPOS DE CONTEXTO con su reparto por variante, POOL CERRADO, CUARTO MAGNET, blacklist de 25 formas, GATE HARD DE PRONOMBRE, EXCEPCION ACOTADA AL SCOPE-GATE, RECONOCER NO PRODUCIR, NOTA DE REGISTRO, imperativo negativo como contexto, marco progresivo como uso, conjuntos cerrados de marcadores, decisiones de omision, nota de escaneo y nota de count-sync); 6 slots / 18 variantes en `pending`.
-- `tests/content-fare-indefiniti.test.js` — **creado**, 1.539 lineas al cierre, 13 `describe` / 83 tests. Las CINCO desviaciones respecto del analogo declaradas en la cabecera, mas el COROLARIO de frontera de palabra de CR-02 y los gates de WR-01 y de la premisa corregida del gerundio passato.
+- `tests/content-fare-indefiniti.test.js` — **creado**, 1.640 lineas al cierre, 13 `describe` / 85 tests. Las CINCO desviaciones respecto del analogo declaradas en la cabecera, mas el COROLARIO de frontera de palabra de CR-02 y los gates de WR-01 y de la premisa corregida del gerundio passato.
 - `content/categories.json` — **modificado**, 1 linea eliminada (la 17a reescrita con coma) y 2 anadidas. 18 entradas, `order` contiguos 1..18.
 - `tests/exercise-types.test.js` — **modificado**, 1 linea + 1 comentario en `CATEGORIES_WITH_EXPLANATIONS`, con `expected` dinamico via `slotCountOf`.
 - `.planning/milestones/v1.1-phases/09-infraestructura-de-validaci-n/09-VALIDATION-PROMPT.md` — **modificado**, 33 insertions / **0 deletions**. Seccion 7 (7.1 participio presente fosilizado, 7.2 RECONOCER NO PRODUCIR, 7.3 lo que NO se relaja) mas los 3 punteros desde C1, C2 y C3.
@@ -386,11 +388,35 @@ DeepSeek y Gemini (desempate) marcaron `C5-leak` en las 2 variantes de clitico a
 
 Lo que si hice es **sacarlo de `passes[]` y escribirlo en el `notes`** con su audit trail: el riesgo es real y queda **asumido, no negado**; las tres razones (el clitico antepuesto ES la regla examinada y los cuatro clitcos de 3a riman por morfologia, retirar las variantes incumpliria SC-4, y `mi`/`ti`/`ci`/`vi` estan prohibidos por D-43-16 porque abren doble validez, que es peor); y la **mitigacion**: las 2 variantes de objeto pospuesto exigen la invariable, asi que copiar terminaciones por sistema falla la mitad del slot y la cascada D-54 devuelve a repetir la categoria entera. El atajo no sobrevive a las cuatro variantes.
 
+### Segunda ronda de quorum — los 2 restantes, los dos de PROSA
+
+Tras `dc2450a` volvieron 4 slots `validated`. Los 2 que quedaban eran de **prosa espanola del `explanation`**, no de mecanica: en los dos, Opus y Sonnet coinciden en que C1, C2, C3 y C5 pasan. Arreglados en `b83f11a`.
+
+**El rediseno del `gerundio-passato` funciono.** Las dos IAs confirman que el infinito compuesto desnudo es agramatical en las tres variantes. Opus anade el dato que conviene no perder: lo que blinda el slot es que el participio distractor esta **deliberadamente descordado** (`fatte` con `i compiti`, `fatta` con `il lavoro`) — si estuviera concordado, `Fatti i compiti la sera prima, ho potuto dormire` seria italiano valido y habria doble validez. No se toca.
+
+**1. `infinito-presente` — concordancia de genero (Opus, C4).** El cierre remitia con `de ellas` a la coordinacion «la negacion, la preposicion **o el modal**», de genero mixto con un masculino dentro: el plural va en masculino, `de ellos`. Tampoco lo salvaba la concordancia por proximidad, porque el elemento contiguo (`el modal`) es masculino, y no hay ningun antecedente femenino plural en el texto (`la palabra` y `la pista` son singulares). Sonnet dio `correcta`: venia avisado de la errata anterior, que era de regimen preposicional, reviso los regimenes —correctos— y no miro el genero del pronombre. Caso limpio de por que el quorum son dos.
+
+**2. `gerundio-passato` — la afirmacion seguia siendo demasiado rigida (Opus, C4).** Decia que el italiano exige aqui el gerundio «y **nunca** `aver fatto`, que en una subordinada implicita de este tipo **es agramatical**». Falso en los mismos encajes que el bloque examina: `per aver fatto` es causal implicita estandar y `dopo aver fatto` es la temporal de anterioridad mas frecuente de A2; en terminologia italiana «subordinata implicita» **incluye por definicion las infinitivas**, asi que la etiqueta no acotaba nada. Lo agramatical **no es** el infinitivo compuesto: es el infinitivo compuesto **SIN INTRODUCTOR**, que es lo unico que ofrecen las `options`. Tal como estaba, el alumno salia con la regla de evitar `dopo aver fatto`, que es un error caro. Y el contraste tampoco era paralelo: las dos formulas espanolas citadas llevan subordinante delante, y su calco italiano con preposicion es correcto.
+
+Resuelto **escribiendo la condicion en vez de la prohibicion**, que es mas corto que la excepcion que evita: el gerundio se basta solo para encabezar la subordinada, el infinitivo compuesto necesita introductor delante, y con introductor es correcto y corriente — se citan `dopo aver fatto i compiti` y `per aver fatto un errore` **para que el alumno no salga evitandolos**. Cerrado tambien el hueco del criterio de seleccion, que no justificaba la key de la concesiva (`Pur ___ una torta`, sin ninguna marca de anterioridad): `pur` admite los dos gerundios, asi que elegir el compuesto es ahi una decision de precision y no una obligacion gramatical.
+
+**El mismo bloque del `notes` repetia la afirmacion falsa por otra via**, y lo corregi tambien alli. El `notes` es el audit trail que lee un re-pase futuro; dejar ahi una afirmacion linguistica falsa es exactamente el mecanismo que produjo toda esta cadena.
+
+### La regla de fondo, y su mecanizacion honesta
+
+En esta fase se corrigieron **tres** explanations que afirmaban imposibilidad en falso, y **dos de las tres las introdujo el arreglo de la anterior** — se sustituyo una afirmacion falsa por otra. En este fichero paso **dos veces**. La regla, ahora escrita: **no afirmar que una forma italiana es imposible sin haberlo comprobado forma por forma y contexto por contexto; y si la regla real lleva una condicion, escribir la condicion.** Ademas, al retirar o reencuadrar una variante hay que revisar el `explanation` del slot: las frases que la describian quedan huerfanas, y una frase huerfana que generaliza es peor que una irrelevante.
+
+Mecanizada como gate file-wide que prohibe la predicacion **desnuda** de imposibilidad en las 6 explanations (`es agramatical`, `nunca se usa`, `no se usa nunca`, `no existe en italiano`, `es imposible en italiano`). Va con **su limite escrito**, que importa tanto como el gate:
+
+- Es un **tripwire, no una demostracion**: caza la formula, no la falsedad, y **no puede cazar una condicional falsa**. Su valor es recordar la disciplina en el diff.
+- **NO incluye `deja de ser posible`**, aunque fue una de las formulas defectuosas: en `infinito-passato` aparece dentro de una condicional **verificada** («con cualquiera de los dos, …», donde `dopo fare` no es italiano estandar y un adverbial de pasado si bloquea el infinitivo simple). Banear el literal habria puesto rojo prosa correcta — cargo-culting sobre la forma en vez de sobre el defecto.
+- Se aplica **solo a las explanations, nunca al `notes`**, por la misma razon que el escaneo de blacklist: el `notes` tiene que **nombrar** las afirmaciones falsas que se corrigieron, con su audit trail, asi que un gate de ausencia ahi pondria rojo el texto que documenta la correccion.
+
 ### Estado y verificacion
 
-- `passes[]` vaciado **solo** en los 2 slots tocados (`pending`). Los otros 4 intactos, incluido el override, que no se re-deriva.
-- **5 gates nuevos**, cada uno con mensaje que nombra el hallazgo, y **7 mutaciones** verificadas con restauracion byte a byte: reintroducir `facendo` (fail 2), quitar el calco (fail 1), volver a afirmar que el encaje exige el compuesto (fail 1), volver a la errata `a tú` (fail 1), borrar el override del `notes` (fail 1), borrar la premisa corregida (fail 1), y quitar el compuesto del marco progresivo (fail 2).
-- Prompts y keys **sin tocar**; solo cambian 3 listas de `options`, 2 explanations y el `notes`. `src/` byte-intacto, counts sin tocar. Suite **1009 pass / 0 fail**.
+- `passes[]` vaciado **solo** en los 2 slots tocados en cada ronda (`pending`). Los otros intactos, incluido el override del `participio-passato` con sus 4 pases de modelo, que no se re-deriva ni se limpia.
+- **8 gates nuevos** entre las dos rondas, cada uno con mensaje que nombra el hallazgo, y **13 mutaciones** verificadas con restauracion byte a byte. Primera ronda (7): reintroducir `facendo` (fail 2), quitar el calco (fail 1), volver a afirmar que el encaje exige el compuesto (fail 1), volver a la errata `a tú` (fail 1), borrar el override del `notes` (fail 1), borrar la premisa corregida (fail 1), quitar el compuesto del marco progresivo (fail 2). Segunda ronda (6): volver a `de ellas` (fail 1), volver a la prohibicion desnuda (fail 2), quitar los dos introductores correctos (fail 2), quitar la justificacion de la key concesiva (fail 1), un absoluto desnudo en otra explanation cualquiera (fail 1), y borrar la condicion del `notes` (fail 1).
+- Prompts y keys **sin tocar en ninguna de las dos rondas**: las 18 variantes quedan byte a byte identicas. Solo cambian 3 listas de `options` (1a ronda), 3 explanations y el `notes`. `src/` byte-intacto, counts sin tocar. Suite **1013 pass / 0 fail**, 85 tests en el fichero de la categoria.
 
 **Un fallo propio que conviene dejar escrito.** La primera version del gate de la errata C4 la escribi con `/\ba t[uú]\b/`. `\b` en JS es **ASCII-only**, asi que no casa tras `ú`: el gate nacia muerto y su mutacion daba `fail 0`. Es **el defecto de CR-02 cometido otra vez**, en el mismo fichero y dos dias despues de arreglarlo. Lo cazo la prueba por mutacion, no la lectura — que es justamente para lo que existen. Rehecho con `wordish` y documentado en el propio test.
 
