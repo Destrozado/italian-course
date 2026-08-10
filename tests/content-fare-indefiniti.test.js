@@ -947,6 +947,18 @@ describe('fare-indefiniti — blacklist de formas atestiguadas y defendibles (D-
       CONTENT.notes.includes('dopo aver fatto'),
       'y tiene que citar el introductor correcto y corriente que la version anterior invitaba a evitar'
     );
+    // 7a ronda: el porque del BORRADO de la frase de cierre del infinito presente.
+    // Una supresion no deja rastro en el contenido —ese es el punto—, asi que si el
+    // motivo no vive en el `notes`, dentro de seis meses alguien la repone para
+    // redondear el parrafo y el ciclo de cuatro rondas empieza otra vez.
+    assert.ok(
+      CONTENT.notes.includes('LA FRASE DE RESUMEN SE BORRÓ, NO SE ARREGLÓ'),
+      '7a ronda: el notes no declara por que se borro la frase de cierre del infinito presente'
+    );
+    assert.ok(
+      /NO DISCRIMINA NADA/.test(CONTENT.notes),
+      '7a ronda: falta la razon que decide y que sobrevive a cualquier acotacion — el predicado eliminaba 0 de 4 opciones, porque las 4 ya son formas no personales por el POOL CERRADO'
+    );
     assert.ok(
       /MITIGACIÓN/.test(CONTENT.notes),
       'el override tiene que declarar su MITIGACION: las 2 variantes de objeto pospuesto exigen la invariable, asi que copiar terminaciones por sistema falla la mitad del slot'
@@ -1419,6 +1431,17 @@ describe('fare-indefiniti — canon editorial e higiene del JSON (D-43-21, T-43-
       e.includes('non fare') && e.includes('no hagas'),
       'D-43-14: la interferencia tiene que estar con LAS DOS FORMAS citadas (`non fare` frente a `no hagas`); sin el par, el alumno no ve donde calca el espanol'
     );
+    // 7a ronda: la ACOTACION DE PERSONA, que es lo que hace verdadera la frase que
+    // queda. El italiano usa el infinitivo en la orden negativa SOLO en la 2a del
+    // singular: con las formas de cortesia, la de vosotros y la exhortativa
+    // conserva forma conjugada (`non faccia`, `non fate`, `non facciamo`), que es el
+    // paradigma de cinco casillas que enseña la categoria hermana. Sin esta
+    // acotacion, la explanation afirma sin querer lo mismo que acaba de borrarse:
+    // una mutacion que la quitaba dejaba la suite verde.
+    assert.ok(
+      e.includes('segunda persona del singular'),
+      'D-43-14 / 7a ronda: sin la acotacion de persona la regla del imperativo negativo es FALSA para Lei, voi y noi, que conservan forma conjugada'
+    );
     // 4a ronda: el mensaje decia «enumera los tres encajes», y enumerarlos es
     // justo lo que la prohibicion 2 veta. El suelo sigue, porque una explanation
     // que baje de ahi ya no desarrolla la interferencia del imperativo negativo,
@@ -1565,7 +1588,7 @@ describe('fare-indefiniti — canon editorial e higiene del JSON (D-43-21, T-43-
     );
   });
 
-  test('las afirmaciones falsas retiradas no vuelven, POR SLOT (rondas 1 a 5)', () => {
+  test('las afirmaciones falsas retiradas no vuelven, POR SLOT (rondas 1 a 7)', () => {
     // Guardia de regresion acumulada, y va POR SLOT y no global a proposito: lo que
     // un slot no examina, otro si. `participio invariable` es falso en el gerundio
     // passato y correcto de decir en el participio passato con objeto pospuesto;
@@ -1591,6 +1614,7 @@ describe('fare-indefiniti — canon editorial e higiene del JSON (D-43-21, T-43-
         'ninguna de las demás formas', // 4a: tras un modal encaja `aver fatto` (`deve aver fatto`) y tras `non` encaja el gerundio
         'nunca otra forma no personal', // 4a: `dopo mangiato`, `dopo finito` son italiano corriente
         'igual que el español', // 4a: amplificaba el absoluto, y el espanol SI excluye el participio ahi
+        'una forma no personal y no una conjugada', // 7a: BORRADA, no acotada. Falsa (la orden negativa usa infinitivo solo en 2a sg; `non faccia`/`non fate`/`non facciamo` son conjugadas) y ademas VACIA, porque las 4 options de cada variante ya son no personales por el gate del POOL: el predicado eliminaba 0 de 4
         'una preposición o un verbo modal delante', // 6a: enumeracion INCOMPLETA — dejaba fuera la orden negativa, que es la variante estrella del slot; bajo lectura exhaustiva («siempre», articulo determinado) la frase era falsa en V0, donde lo que precede al hueco es `non`
         'ya aporta esa información', // 5a: el infinitivo aparece nominalizado (`Fumare fa male`) y en instruccion impersonal (`Vietato fumare`) sin ningun elemento que aporte persona ni numero; y en el imperativo negativo la persona la da la CONSTRUCCION, no otro elemento — el vocativo es prescindible (`Non fare rumore!`)
       ],
@@ -1713,41 +1737,29 @@ describe('fare-indefiniti — canon editorial e higiene del JSON (D-43-21, T-43-
     );
   });
 
-  test('P1 en POSITIVO: la enumeracion de disparadores cubre los tres encajes del slot (6a ronda)', () => {
-    // El complemento necesario del gate de ausencia, y lo descubrio una mutacion:
-    // acortar la enumeracion a dos elementos no lo cazaba NADA. Y esa era
-    // exactamente la forma del defecto que Sonnet marco — la lista se dejaba fuera
-    // la orden negativa, que es la variante estrella del slot, asi que bajo lectura
-    // exhaustiva la frase era falsa en V0.
-    //
-    // El gate es POSITIVO y se deriva de VARIANT_TABLE, no de una lista suelta: por
-    // cada tipo de contexto que el slot examina, la explanation tiene que nombrar su
-    // disparador. Si algun dia cambia un tipo de variante, este mapa hay que
-    // actualizarlo a mano, y eso es lo que se quiere: que el cambio sea deliberado.
-    const DISPARADOR_DE = {
-      'imperativo-negativo-2sg': 'orden negativa',
-      'tras-preposicion': 'preposición',
-      'tras-regente-de-infinitivo': 'modal',
-    };
-    // Y se exige que los tres esten EN LA MISMA FRASE, no en cualquier punto del
-    // texto. La primera version comprobaba `explanation.includes(lit)` y la
-    // mutacion que borraba la orden negativa DE LA ENUMERACION pasaba limpia,
-    // porque el literal seguia apareciendo mas arriba, donde se desarrolla la
-    // interferencia. Comprobar presencia en el texto entero no dice nada sobre si
-    // la LISTA esta completa: la unidad que hay que mirar es la frase.
-    const e = byId(INF_PRES).explanation;
-    const requeridos = VARIANT_TABLE[INF_PRES].map((f) => {
-      const lit = DISPARADOR_DE[f.tipo];
-      assert.ok(lit, `6a ronda: el tipo "${f.tipo}" no declara su disparador; el mapa hay que actualizarlo a mano a proposito`);
-      return lit;
-    });
-    const frases = e.split(/(?<=\.)\s+/);
-    const enumeracion = frases.find((f) => requeridos.every((lit) => f.includes(lit)));
-    assert.ok(
-      enumeracion,
-      `6a ronda: ninguna frase de la explanation enumera los ${requeridos.length} disparadores juntos (${requeridos.join(', ')}). Una lista incompleta se lee como exhaustiva, y entonces es FALSA en la variante que se deja fuera — que es justo lo que marco el quorum`
-    );
-  });
+  // PODA DECLARADA (7a ronda), y es la SEGUNDA vez que un gate mio exige contenido
+  // que despues hubo que borrar. Aqui vivia `P1 en POSITIVO: la enumeracion de
+  // disparadores cubre los tres encajes del slot`, que obligaba a que la
+  // explanation del infinito presente cerrara con una enumeracion completa de
+  // disparadores. Lo escribi en la 6a ronda para impedir que la lista se quedara
+  // corta — y la respuesta correcta resulto ser que la lista NO DEBIA EXISTIR:
+  //
+  //   - era FALSA al nivel de generalidad que intentaba: la orden negativa usa
+  //     infinitivo solo en la 2a del singular, y con `Lei`, `voi` y `noi` conserva
+  //     forma conjugada (`non faccia`, `non fate`, `non facciamo`), que es
+  //     justamente el paradigma de cinco casillas que enseña la categoria hermana
+  //   - y su predicado NO DISCRIMINABA NADA: las 4 options de cada variante de esta
+  //     categoria son formas no personales por el gate del POOL (D-43-13), asi que
+  //     decir que lo que va ahi es una forma no personal elimina 0 de 4 opciones.
+  //     Ni siquiera acotada a la 2a del singular aportaria algo — seria una frase
+  //     verdadera y vacia, con superficie de error a cambio de nada
+  //
+  // La leccion, que es la misma que la poda de la 4a ronda: un gate de PRESENCIA
+  // sobre prosa fija la forma que el texto tenia el dia que se escribio, y si esa
+  // forma era el defecto, el gate lo perpetua. Los gates que miran el CONTENIDO
+  // (POOL, options, concordancia) no tienen ese problema. Lo que este cubria de
+  // verdad —que el alumno sepa donde mirar— ya lo cubre el desarrollo acotado de la
+  // interferencia, que sigue exigido por el gate de D-43-14.
 
   test('la explanation del infinito presente usa el pronombre preposicional correcto (C4, errata de espanol)', () => {
     // Errata real de gramatica espanola que marco Sonnet: tras la preposicion `a`
