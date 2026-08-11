@@ -1051,10 +1051,47 @@ describe('fare-indefiniti — blacklist de formas atestiguadas y defendibles (D-
     );
   });
 
-  test('EN POSITIVO: el notes declara el knock-on aritmetico que Phase 44 / INT-02 necesita', () => {
+  test('EN POSITIVO: el notes declara la aritmetica VIGENTE (Phase 44) y no solo la de Phase 43', () => {
+    // CR-01 (code review de Phase 44). Este gate congelaba SOLO los literales de
+    // Phase 43 — '22 slots', '113' y '247' — y por tanto certificaba en verde un
+    // TOTAL_EXPECTED de 247 mientras el reporter ya imprimia 250. Un test que
+    // firma un numero obsoleto es peor que no tener test: es exactamente la
+    // mentira de lockstep que esta fase existio para matar, con la suite de parte
+    // de la mentira. Ahora se exigen los DOS estados, cada uno fechado en el
+    // notes, y ademas se comprueba contra el DISCO para que el literal no pueda
+    // divergir otra vez sin ponerse rojo.
     for (const n of ['22 slots', '113', '247']) {
-      assert.ok(CONTENT.notes.includes(n), `INT-02: el notes no declara "${n}"`);
+      assert.ok(CONTENT.notes.includes(n), `INT-02: el notes no declara el estado de Phase 43 "${n}"`);
     }
+    for (const n of ['25 slots', '122', '250']) {
+      assert.ok(CONTENT.notes.includes(n), `INT-02: el notes no declara el estado VIGENTE de Phase 44 "${n}"`);
+    }
+
+    // Ancla contra el disco: los 4 ficheros del paradigma de `fare` mas sus
+    // cruces. Si alguien anade un slot y no toca el notes, este assert cae.
+    const FARE_FILES = [
+      'fare-indicativo',
+      'fare-congiuntivo',
+      'fare-cond-imperativo',
+      'fare-indefiniti',
+    ];
+    let slots = 0;
+    let variantes = 0;
+    for (const f of FARE_FILES) {
+      const data = JSON.parse(
+        readFileSync(new URL(`../content/exercises/${f}.json`, import.meta.url), 'utf-8')
+      );
+      slots += data.exercises.length;
+      variantes += data.exercises.reduce((a, e) => a + e.variants.length, 0);
+    }
+    assert.ok(
+      CONTENT.notes.includes(`${slots} slots`),
+      `INT-02: el disco tiene ${slots} slots de fare y el notes no lo declara — el literal quedo obsoleto`
+    );
+    assert.ok(
+      CONTENT.notes.includes(String(variantes)),
+      `INT-02: el disco tiene ${variantes} variantes de fare y el notes no lo declara`
+    );
   });
 });
 

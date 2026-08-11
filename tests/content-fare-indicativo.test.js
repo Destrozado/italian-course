@@ -788,12 +788,90 @@ describe('fare-indicativo — invariantes de los cruces multi-categoria -300+ (I
     }
   });
 
+  // CR-02 (code review de Phase 44). El gate de abajo tomaba el PRIMER pronombre
+  // del prompt, que en `fare-indicativo-301` es el sujeto de la clausula de
+  // CONTEXTO y no el del hueco: medía {tu, io, noi} cuando las personas
+  // examinadas son {noi, lui, voi}. Estaba verde por casualidad, porque los dos
+  // conjuntos tienen 3 elementos distintos. El sujeto del hueco es el ULTIMO
+  // pronombre que aparece ANTES del hueco, asi que se recorta el prompt en `___`
+  // y se busca ahi. Con un solo pronombre (los 3 prompts de -300) el resultado es
+  // identico al anterior; con dos (los 3 de -301) deja de mentir.
+  const personaDelHueco = (prompt) => {
+    const antes = prompt.split('___')[0];
+    const hits = antes.match(PRONOUN_RE) || [];
+    return hits.length ? hits[hits.length - 1].toLowerCase() : '';
+  };
+
   test('cada cruce tiene EXACTAMENTE 3 variantes y el eje es la persona: 3 personas distintas (D-44-03)', () => {
     for (const s of CROSS_SLOTS) {
       assert.equal(s.variants.length, 3, `D-44-03: ${s.id} debe tener 3 variantes, el volumen medio de los cruces del proyecto`);
-      const personas = s.variants.map((v) => (v.prompt.match(PRONOUN_RE) || [''])[0].toLowerCase());
-      assert.ok(personas.every((p) => p.length > 0), `D-44-04: ${s.id} tiene una variante sin sujeto pronominal explicito`);
+      const personas = s.variants.map((v) => personaDelHueco(v.prompt));
+      assert.ok(
+        personas.every((p) => p.length > 0),
+        `D-44-04: ${s.id} tiene una variante sin sujeto pronominal explicito ANTES del hueco`
+      );
       assert.equal(new Set(personas).size, 3, `D-44-03: ${s.id} repite persona entre sus variantes: ${personas.join(', ')}`);
+    }
+  });
+
+  // CR-02, segunda mitad. El gate que ataba `options[correctIndex]` a la persona
+  // del sujeto vivia en el bloque del paradigma y la particion lo re-apunto a
+  // BASE_SLOTS, asi que los cruces se quedaron SIN el: un correctIndex movido a
+  // `commetti` bajo `lui` pasaba los 12 gates de cruce. Este lo cierra. Es el
+  // gate mas importante de los cruces: el eje que examinan ES la persona, asi que
+  // si la key no concuerda con el sujeto del hueco el ejercicio ensena lo
+  // contrario de lo que dice ensenar, y por la cascada D-54 el fallo se lleva la
+  // categoria vecina entera.
+  test('CR-02 — en los 2 cruces la KEY concuerda con la persona del sujeto DEL HUECO (D-44-02, D-44-04)', () => {
+    // fare-indicativo-300: el hueco pide el auxiliar `avere`, un mapeo cerrado.
+    const AVERE = { io: 'ho', tu: 'hai', lui: 'ha', lei: 'ha', noi: 'abbiamo', voi: 'avete', loro: 'hanno' };
+    for (const [k, v] of byId('fare-indicativo-300').variants.entries()) {
+      const p = personaDelHueco(v.prompt);
+      const key = v.options[v.correctIndex];
+      assert.equal(
+        key,
+        AVERE[p],
+        `CR-02: fare-indicativo-300#${k} tiene sujeto "${p}" y su key es "${key}", pero el auxiliar de esa persona es "${AVERE[p]}": "${v.prompt}"`
+      );
+    }
+
+    // fare-indicativo-301: el hueco pide el presente de un verbo REGULAR, asi que
+    // se comprueba la DESINENCIA. Las 4 options comparten raiz por G2, de modo que
+    // la raiz sale del prefijo comun y la desinencia es lo que sobra. Se admiten
+    // las dos series, -are y -ere, sin exigir saber a cual pertenece el verbo.
+    const DESINENCIAS = {
+      io: ['o'], tu: ['i'], lui: ['a', 'e'], lei: ['a', 'e'],
+      noi: ['iamo'], voi: ['ate', 'ete'], loro: ['ano', 'ono'],
+    };
+    const raizComunDe = (opts) => {
+      const [primero, ...resto] = opts.map((o) => o.toLowerCase());
+      let n = primero.length;
+      for (const o of resto) {
+        let i = 0;
+        while (i < n && i < o.length && primero[i] === o[i]) i += 1;
+        n = i;
+      }
+      return primero.slice(0, n);
+    };
+    for (const [k, v] of byId('fare-indicativo-301').variants.entries()) {
+      const p = personaDelHueco(v.prompt);
+      const key = v.options[v.correctIndex].toLowerCase();
+      const raiz = raizComunDe(v.options);
+      const desinencia = key.slice(raiz.length);
+      assert.ok(
+        DESINENCIAS[p].includes(desinencia),
+        `CR-02: fare-indicativo-301#${k} tiene sujeto "${p}" y su key "${key}" termina en "-${desinencia}", que no es desinencia de esa persona (esperadas: ${DESINENCIAS[p].map((d) => `-${d}`).join(' o ')}): "${v.prompt}"`
+      );
+      // Y ninguna DISTRACTORA puede llevar tambien una desinencia valida de esa
+      // persona, o habria dos respuestas defendibles.
+      const tambienValidas = v.options
+        .filter((o) => o.toLowerCase() !== key)
+        .filter((o) => DESINENCIAS[p].includes(o.toLowerCase().slice(raiz.length)));
+      assert.deepEqual(
+        tambienValidas,
+        [],
+        `CR-02: fare-indicativo-301#${k} tiene distractoras con desinencia valida para "${p}": ${tambienValidas.join(', ')}`
+      );
     }
   });
 
