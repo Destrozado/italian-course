@@ -2,7 +2,7 @@
 phase: 44-integraci-n-lockstep-cierre-v2-0
 plan: 02
 subsystem: contenido — cruces multi-categoría de `fare` + partición de gates
-tags: [cruces, multi-categoria, cascada-D-54, particion-base-cruce, G1, G2, G3, INT-03, INT-04, quorum-pendiente]
+tags: [cruces, multi-categoria, cascada-D-54, particion-base-cruce, G1, G2, G3, INT-03, INT-04, quorum-top-level, 250-250-validated]
 status: complete
 
 requires:
@@ -10,7 +10,8 @@ requires:
   - "content/categories.json con avere (1), presente-regolare (10) y modali (13) registradas"
   - "los 22 slots del paradigma de `fare` cerrados desde Phase 43"
 provides:
-  - "los 3 cruces multi-categoría de `fare`: 3 slots / 9 variantes, todos `pending`"
+  - "los 3 cruces multi-categoría de `fare`: 3 slots / 9 variantes, los 3 `validated` por quórum Opus + Sonnet"
+  - "el milestone gate en verde: `VAL-06 (250/250 validated): PASS` y `VAL_07_STRICT` en 1081/0"
   - "la partición BASE_SLOTS / CROSS_SLOTS en los dos ficheros de test de `fare`"
   - "G1, G2 y G3 como gates mecánicos y permanentes, un assert por cruce"
   - "### 7.6 del prompt del quórum — los 3 gates declarados para el subagent"
@@ -46,20 +47,25 @@ decisions:
   - "`PRONOUN_RE` vive DENTRO del bloque del cruce en `fare-indefiniti`: el eje de esa categoría es el contexto y no la persona, así que no es constante de la categoría."
   - "El gloss ES del cruce hacia `modali` glosa el COMPLEMENTO y nunca el modal: traducirlo sería leak C5, porque ahí la key ES el modal. Es la divergencia consciente respecto a `modali-300`, que sí lo traduce."
   - "El criterio `git diff -U0 ... | grep -c '^-[^-]'` = 0 es inalcanzable para un append a `notes`, que es un string JSON de una sola línea. Se sustituye por la prueba equivalente y más fuerte: `notes.startsWith(notes_anterior)` byte a byte (desviación 2)."
+  - "El gloss ES del cruce NO es una decisión de plan, es una decisión POR SLOT: el quórum obligó a `fare-indicativo-301` al 0-gloss de su categoría (el gloss conjugaba el verbo del hueco = leak C5) mientras `fare-indicativo-300` lo conserva (allí el hueco pide el AUXILIAR y el gloss usa pretérito simple castellano, que no exhibe auxiliar español espejo). La asimetría es deliberada y está declarada en el `notes`."
+  - "Un gate de lista cerrada comprueba que el marcador ESTÉ, nunca que EXCLUYA: es condición necesaria y no suficiente. G3 pasó verde dos veces sobre un complemento que no ejercía fuerza excluyente, y lo cazó Sonnet, no el test. La lección va escrita en el `notes` porque el gate no puede expresarla por sí mismo."
+  - "La cláusula `altrimenti` de `fare-indefiniti-300#0` queda vestigial tras el 3er intento pero NO se borra: es el marcador de la lista cerrada del gate G3 y quitarlo lo dejaría a cero hits."
 
 metrics:
-  duration: "~55 min"
+  duration: "~55 min (Tareas 1-3) + ~40 min (quórum top-level de la Tarea 4, 6 rondas)"
   completed: 2026-08-11
 
 actuals:
   tokens: 83638
-  tasks: 3
-  commits: 6
+  tasks: 4
+  commits: 8
 ---
 
 # Phase 44 Plan 02: los 3 cruces multi-categoría de `fare` Summary
 
-Los 3 cruces de sentido invertido en disco con 9 variantes `pending` —la key en la categoría vecina y la forma de `fare` escrita como contexto—, con G1/G2/G3 convertidos en gates mecánicos y los dos ficheros de test particionados en base/cruce sin que ningún gate pierda mordida.
+Los 3 cruces de sentido invertido en disco con 9 variantes, los 3 `validated` por quórum top-level Opus + Sonnet tras 6 rondas —la key en la categoría vecina y la forma de `fare` escrita como contexto—, con G1/G2/G3 convertidos en gates mecánicos y los dos ficheros de test particionados en base/cruce sin que ningún gate pierda mordida.
+
+El milestone gate cierra en verde: `VAL-06 (250/250 validated): PASS`, `VAL_07_STRICT` en `1081 pass / 0 fail`, y **INT-03 e INT-04 satisfechos por este plan**.
 
 ## Los 3 cruces, sus 9 variantes y su gate
 
@@ -79,21 +85,27 @@ El participio `fatto` va escrito e invariable; el hueco es **solo el auxiliar**.
 
 Dos cláusulas: en la primera va escrita una forma de `fare` en presente, en la segunda el hueco pide el presente de un verbo **regular**.
 
+Texto **vigente** tras la corrección de la 2ª ronda del quórum (los 3 prompts pasaron al **0-gloss** y la variante 1 cambió de marco — ver «El quórum top-level» más abajo):
+
 | # | prompt | pool | key | sujetos |
 |---|---|---|---|---|
-| 0 | `Tu fai i compiti da solo, ma noi ___ tutto insieme. (en español: pero repasamos todo juntos)` | ripasso / ripassi / ripassiamo / ripassano | **ripassiamo** | tu → noi |
-| 1 | `Io faccio una foto al monumento, e lui ___ un errore ogni volta. (en español: y comete un error cada vez)` | commetti / commette / commetto / commettono | **commette** | io → lui |
-| 2 | `Noi facciamo il letto ogni mattina, e voi ___ il lavoro con calma. (en español: y revisáis el trabajo con calma)` | controllo / controlla / controllano / controllate | **controllate** | noi → voi |
+| 0 | `Tu fai i compiti da solo, ma noi ___ tutto insieme.` | ripasso / ripassi / ripassiamo / ripassano | **ripassiamo** | tu → noi |
+| 1 | `Io faccio una foto senza problemi, ma lui ___ un errore ogni volta.` | commetti / commette / commetto / commettono | **commette** | io → lui |
+| 2 | `Noi facciamo il letto ogni mattina, e voi ___ il lavoro con calma.` | controllo / controlla / controllano / controllate | **controllate** | noi → voi |
 
 `correctIndex` = 2 / 1 / 3. Los 3 prompts llevan **exactamente 2** sujetos pronominales y de **personas distintas**; los 4 pools son 4 personas del **mismo** verbo regular (raíz común `rip` / `com` / `con`), y el verbo candidato queda fijado por el objeto literal de la cláusula del hueco (`tutto`, `un errore`, `il lavoro`).
+
+Este es el único cruce **sin** gloss ES, y no por olvido: aquí el hueco pide la forma conjugada de un verbo regular, así que glosarla en español entregaba persona y tiempo —todo lo que el slot examina—. La asimetría con `-300`, que sí lo conserva, está declarada en el `notes`.
 
 ### `fare-indefiniti-300` — `["fare-indefiniti", "modali"]` · gate **G3** (el más delicado)
 
 `fare` va escrito en infinitivo, gobernado por el modal; el hueco es **el modal conjugado**.
 
+Texto **vigente** tras el 3er intento de la variante 0, que es el que Sonnet aceptó (ver «El quórum top-level»):
+
 | # | prompt | complemento que excluye | pool | key | persona |
 |---|---|---|---|---|---|
-| 0 | `Domani io ___ fare i compiti, altrimenti prendo un brutto voto. (en español: si no, saco mala nota)` | `altrimenti` → obligación | devo / devi / dovete / posso | **devo** | io |
+| 0 | `Domani io ___ fare i compiti: è un obbligo della scuola, non ho scelta, altrimenti prendo un brutto voto. (en español: es una obligación del colegio, no tengo elección; si no, saco mala nota)` | `non ho scelta` → obligación (y `altrimenti` sostiene el gate) | devo / devi / dovete / posso | **devo** | io |
 | 1 | `Qui tu ___ fare una foto, perché il museo dà il permesso. (en español: porque el museo da su autorización)` | `permesso` → permiso | devi / vuoi / puoi / possono | **puoi** | tu |
 | 2 | `Sabato noi ___ fare una torta per il compleanno di Marco: è un desiderio nostro, nessuno ce lo ha chiesto. (en español: es un deseo nuestro, nadie nos lo ha pedido)` | `desiderio` → voluntad | dovete / vogliamo / vogliono / possiamo | **vogliamo** | noi |
 
@@ -108,7 +120,7 @@ El gloss ES de este cruce glosa el **complemento** y nunca el modal. Traducirlo 
 | `tests/content-fare-indicativo.test.js` | **42** | **58** | +16 |
 | `tests/content-fare-indefiniti.test.js` | **86** | **97** | +11 |
 
-Suite completa: **1036 → 1063 pass**, `fail 0`. Estricta: **1054 → 1081 tests**, con los 2 fallos esperados.
+Suite completa: **1036 → 1063 pass**, `fail 0`. Estricta: **1054 → 1081 tests**, que tras el quórum cierran en **1081 pass / 0 fail** (durante las Tareas 1-3 fueron 1079/2, los 2 fallos esperados).
 
 ## Gates re-apuntados, invertidos y añadidos
 
@@ -137,7 +149,9 @@ Bloque 13 nuevo (13 tests): existencia exacta de `CROSS_IDS`, 3 variantes con 3 
 
 Bloque 14 nuevo (9 tests) con los predicados de **G3**, más un sub-gate en el bloque 6 que hace auditable la acotación de `CONJUGATE` (ver desviación 1).
 
-## Salida literal del reporter al cerrar — el rojo es el entregable
+## Salida literal del reporter — el rojo intermedio y el verde final
+
+Durante las Tareas 1-3 el reporter estuvo **rojo a propósito**, y ese rojo era su entregable: el marcador diciendo la verdad entre que los cruces aterrizan y el quórum termina.
 
 ```
 Milestone v1.1 — gate Phase 10 (VAL-04 + VAL-06 + VAL-08)
@@ -150,23 +164,83 @@ Milestone gate FAIL — itera /gsd-validate-batch antes de cerrar.
 
 Código de salida **1**. `TOTAL_EXPECTED` subió de 247 a 250 **solo** porque los `expected` de las 4 entradas de `fare` son dinámicos: este plan no tocó `scripts/run-validation-271.mjs` (`git diff --stat` de los ficheros de 44-01 → sin salida).
 
-`VAL_07_STRICT=1 node --test tests/*.test.js` falla en **exactamente 2** tests, los de los dos ficheros de contenido tocados, nombrando los 3 ids:
+Tras la pasada del quórum de la Tarea 4, el estado **vigente y reverificado el 2026-08-11**:
 
 ```
-fare-indicativo-300(pending)
-fare-indicativo-301(pending)
-fare-indefiniti-300(pending)
+Sub-gates:
+  VAL-06 (250/250 validated): PASS (250/250)
+  VAL-08 (cero disputed): PASS
+  VAL-04 (≥2 distinct AIs por validated): PASS
+
+Milestone gate PASS.
 ```
 
-**Nadie debe «arreglar» ese rojo tocando contenido ni relajando un gate.** Se cierra estampando el quórum top-level.
-
-## Estado del hand-off
+Código de salida **0**. Y `VAL_07_STRICT=1 node --test tests/*.test.js` pasó de `1079 pass / 2 fail` —los 2 tests de los ficheros de contenido tocados, nombrando los 3 ids `pending`— a **`1081 pass / 0 fail`**: los mismos 2 tests, ahora verdes, sin que se tocara el gate.
 
 ```
-node -e "...['fare-indicativo-300','fare-indicativo-301','fare-indefiniti-300']..."  →  3 true 9
+fare-indicativo-300(pending)      →  validated
+fare-indicativo-301(pending)      →  validated
+fare-indefiniti-300(pending)      →  validated
 ```
 
-3 cruces, los 3 con `validation.status: "pending"` y `passes: []`, 9 variantes en total. Cero pases fabricados.
+Nadie «arregló» ese rojo tocando contenido para que cupiera ni relajando un gate. Se cerró estampando el quórum — y el contenido que sí cambió lo cambió el quórum al rechazarlo, que es la dirección correcta.
+
+## Estado final de los 3 cruces
+
+```
+fare-indicativo-300  validated  passes=2  claude-opus-5:correcta ; claude-sonnet-5:correcta
+fare-indicativo-301  validated  passes=2  claude-opus-5:correcta ; claude-sonnet-5:correcta
+fare-indefiniti-300  validated  passes=2  claude-opus-5:correcta ; claude-sonnet-5:correcta
+total variantes 9
+```
+
+Los 3 con `deriveStatus(passes) === status` verificado contra el disco (`coincide=true` los tres), 2 pases de `by` **distintos** cada uno y cero `incorrecta` en `passes[]`. Cero pases fabricados: los 6 que hay salieron de 6 llamadas reales.
+
+## El quórum TOP-LEVEL — la Tarea 4, resuelta
+
+El checkpoint bloqueante de la Tarea 4 pedía la pasada Opus + Sonnet sobre los 3 cruces, **un ejercicio por contexto fresco y nunca en lote** (VAL-03). Corrió desde el nivel superior, no dentro de un executor (D-44-11). Resultado: los 3 acabaron `validated` y **ninguno necesitó override de autor** — los dos modelos convergieron en `correcta` en los tres.
+
+Pero **hicieron falta 6 rondas para 3 ejercicios**, y el valor de este registro está en las 3 que salieron mal:
+
+| Cruce | Rondas | Opus | Sonnet | Veredicto |
+|---|---|---|---|---|
+| `fare-indicativo-300` | **1** | `correcta` | `correcta` | `validated` a la primera, 0 concerns de defecto |
+| `fare-indicativo-301` | **2** | `incorrecta` → `correcta` | — → `correcta` | `validated` tras reescribir prompts y explanation |
+| `fare-indefiniti-300` | **3** | `correcta` ×3 | `incorrecta` ×2 → `correcta` | `validated` tras dos marcos rechazados |
+
+### `fare-indicativo-300` — limpio, con 2 concerns declarativas
+
+Opus y Sonnet dieron `correcta` a la primera. Se le escribieron **2 concerns declarativas de audit trail** —no de defecto—: por qué su gloss ES es seguro (el hueco pide el **auxiliar**, y los glosses usan pretérito simple castellano `hice` / `hicimos` / `hicieron`, así que no exhiben ningún auxiliar español espejo del hueco) y la verificación de G1 en sus dos mitades. Precedente vivo del proyecto: un pase `correcta` sí admite concerns declarativas (`riflessivi.json:245`).
+
+### `fare-indicativo-301` — DOS defectos reales en la 1ª ronda (`incorrecta` de Opus)
+
+**C5-leak.** Los 3 glosses ES conjugaban el verbo del hueco y por tanto entregaban **persona y tiempo**, que es exactamente todo lo que el slot examina: `repasamos` → `ripassiamo`, `comete` → `commette` (casi homógrafas), `revisáis` → `controllate`. El gloss no aportaba nada legítimo, porque el **lexema** ya lo fijan las 4 `options` del mismo verbo y la **persona** el pronombre explícito que G2 obliga. Un gloss que no desambigua nada y sí filtra la forma es leak puro.
+
+**C4 en la explanation.** Abría describiendo la **anatomía del propio ejercicio** y cerraba explicando **por qué fallan las distractoras**: dos de las tres prohibiciones de una explanation en este proyecto, cometidas en el mismo párrafo. Y con agravante: la frase de cierre era el «contrato del pool» que el propio `<action>` del plan pedía clonar de `presente-regolare-302`. El molde traía el defecto dentro.
+
+**Corrección (commit `3295320`).** Los 3 prompts de `-301` vuelven al **0-gloss** de la categoría; la explanation se reescribió abriendo por la regla; y la variante 1 pasó a `Io faccio una foto senza problemi, ma lui ___ un errore ogni volta` para resolver un **non sequitur** que ambos modelos habían señalado (hacer una foto a un monumento y cometer un error no se contrastan). Tras la corrección: Opus `correcta`, Sonnet `correcta`.
+
+Nota de granularidad: 1 commit para los 2 ejercicios de `fare-indicativo` en vez de 1 por ejercicio, porque las correcciones tocaron prosa **compartida** del campo `notes`, que no se puede partir por slot.
+
+### `fare-indefiniti-300` — G3 falló como gate, y lo cazó Sonnet
+
+Opus dio `correcta` las tres veces. Sonnet dio **`incorrecta` por C2 en la variante 1** las dos primeras. El defecto es el más instructivo de la fase:
+
+> **G3 exige un complemento que EXCLUYA dos de los tres modales. El gate solo comprobaba que el marcador de la lista cerrada ESTUVIERA.**
+
+`altrimenti prendo un brutto voto` cumplía el gate por **presencia** de la palabra, sin ejercer fuerza excluyente: una consecuencia negativa genérica admite también `posso`, con `potere` leído como «tener la ocasión». El gate estaba verde y el ejercicio tenía dos respuestas defendibles — que es precisamente el daño que G3 existía para prevenir.
+
+**Intento 2, rechazado también:** `i compiti che la maestra ha assegnato` es un dato descriptivo del **objeto**, no un ancla de modalidad sobre el **sujeto**; los deberes siempre los asigna alguien.
+
+**Intento 3, el vigente (commit `5b9640a`):** `Domani io ___ fare i compiti: è un obbligo della scuola, non ho scelta, altrimenti prendo un brutto voto`. Cierra el hueco porque `posso` **presupone** que hay elección y `non ho scelta` la niega de frente: colisión semántica, no inferencial. Usa el mismo dispositivo —dos puntos más aposición declarativa— que la variante 2 ya empleaba y que había pasado el criterio a la primera.
+
+**Efecto secundario aceptado y declarado en el `notes`:** la cláusula `altrimenti` queda **vestigial** pero NO se puede borrar, porque es el marcador de la lista cerrada del gate y quitarlo lo dejaría a cero hits.
+
+**Lección escrita en el `notes`, porque el gate no puede expresarla por sí mismo:** una lista cerrada comprueba que el complemento **esté**, nunca que **excluya**. Es condición necesaria y no suficiente, y quien herede G3 tiene que leer el complemento, no confiar en el verde.
+
+### Por qué `passes[]` no tiene ningún `incorrecta`
+
+Los 3 pases `incorrecta` juzgaban **textos que ya no existen**, y `disputed` es **sticky**: arrastrarlos habría dejado los 3 cruces en `disputed` para siempre por defectos ya corregidos. El audit trail completo de las 6 rondas vive en el campo `notes` de los dos ficheros de contenido y en los dos mensajes de commit, que es donde un lector futuro lo encuentra sin tener que creerse el `status`.
 
 ## Deviations from Plan
 
@@ -203,29 +277,34 @@ Ninguna tarea requirió autenticación. Cero instalaciones de paquetes, cero dep
 
 ## Verificación de cierre — los 9 puntos
 
+Reverificados contra el disco el **2026-08-11**, después de la pasada del quórum. Los números de esta tabla son los del **estado final**, no los del hand-off:
+
 | # | Comprobación | Resultado |
 |---|---|---|
 | 1 | `node --test tests/*.test.js` | **1063 pass / 0 fail** ✅ |
 | 2 | `node --test` de los dos ficheros por separado | `fail 0` cada uno, con `test(` **crecido** (42→58, 86→97) ✅ |
-| 3 | `node scripts/run-validation-271.mjs` | `VAL-06 (250/250 validated): FAIL (247/250 — pending=3, missing=0, disputed=0)` + `Milestone gate FAIL`, exit **1** — **ROJO ESPERADO** ✅ |
-| 4 | `VAL_07_STRICT=1 node --test tests/*.test.js` | rojo en **exactamente** los 2 ficheros tocados, nombrando los 3 ids `pending` — **ROJO ESPERADO** ✅ |
-| 5 | los 3 cruces, 9 variantes, ningún pase | `3 true 9` ✅ |
+| 3 | `node scripts/run-validation-271.mjs` | `VAL-06 (250/250 validated): PASS (250/250)`, `VAL-08 PASS`, `VAL-04 PASS`, `Milestone gate PASS`, exit **0** ✅ |
+| 4 | `VAL_07_STRICT=1 node --test tests/*.test.js` | **1081 pass / 0 fail** (era 1079/2 con los 3 cruces `pending`) ✅ |
+| 5 | los 3 cruces, 9 variantes, `deriveStatus(passes)` == `status` | los 3 `validated`, 2 pases de `by` distintos cada uno, `coincide=true` ✅ |
 | 6 | `git diff 0a9a2e5..HEAD -- src/screens/app.js src/domain/` | **sin salida** (`src/data/` NO incluido, D-44-09) ✅ |
 | 7 | `grep -c 'applyImmediateFailure(this.state' src/screens/app.js` | **2** ✅ |
 | 8 | `git diff --stat` de los ficheros propiedad de 44-01 | **sin salida** ✅ |
-| 9 | checkpoint de la Tarea 4 | **registrado como hand-off; NO ejecutado y NO fabricado** ⏸️ |
+| 9 | checkpoint de la Tarea 4 | **RESUELTO**: quórum top-level ejecutado, 6 rondas, 3/3 `validated`, sin override ✅ |
 
-Extra: `ls docs/09-VALIDATION-PROMPT.md` → **0**. El huérfano no se creó; `### 7.6` vive en la ruta real (`grep -c '### 7.6'` = 1, y nombra los 3 ids y remite a `7.3`).
+Extra: 250 slots en disco y 18 categorías registradas. `ls docs/09-VALIDATION-PROMPT.md` → **0**: el huérfano no se creó; `### 7.6` vive en la ruta real (`grep -c '### 7.6'` = 1, y nombra los 3 ids y remite a `7.3`).
 
 ## Known Stubs
 
-Ninguno en el sentido de código: este plan no crea código de producción, no cablea valores vacíos y no deja componentes sin fuente de datos.
+**Ninguno.** Este plan no crea código de producción, no cablea valores vacíos y no deja componentes sin fuente de datos.
 
-Lo que queda pendiente **por diseño y declarado** es una sola cosa, y es el objeto del checkpoint de la Tarea 4:
+Lo único que quedaba pendiente por diseño —los 3 cruces en `pending` con `passes: []`— **está cerrado**: era el objeto del checkpoint de la Tarea 4 y el quórum top-level lo resolvió. Las 3 entradas del ledger `.planning/WINDOWS.md` que registraban ese rojo honesto (`#9` deviation de traceability, `#11` y `#12` unrun-verify de los dos ficheros de contenido) quedan marcadas `fixed`.
 
-- **Los 3 cruces están en `validation.status: "pending"` con `passes: []`.** No es un stub que rellenar desde aquí: el quórum base canónico Opus + Sonnet corre en una pasada **TOP-LEVEL**, un ejercicio por contexto fresco y nunca en lote (VAL-03), porque `gsd-executor` no puede spawnear los Task subagents del skill `gsd-validate-exercise` (D-44-11). Fabricar un pase destruiría la única evidencia que el autor tiene de que una variante fue revisada, y el gate `status === deriveStatus(passes)` de los dos ficheros lo hace además imposible de commitear.
-- **Por tanto INT-04 NO queda cumplido al cerrar 44-02**, y así está dicho: su mitad documental se cerró en 44-01 y su mitad activa depende del quórum top-level. Quien verifique la fase debe contarlo como parte del cierre, no como trabajo posterior opcional.
-- **INT-03 sí queda entregado** en su forma decidida: 3 cruces, 9 variantes, `categoryIds` de 2 con las parejas exactas y el slug `modali`.
+**INT-03 e INT-04 quedan ya satisfechos por este plan**, y el disco lo respalda:
+
+- **INT-03** — los 3 cruces en su forma decidida: 3 slots, 9 variantes, `categoryIds` de 2 con las parejas exactas y el slug `modali` (nunca `verbi-modali`), la key en la categoría vecina y la forma de `fare` escrita como contexto. La cascada D-54 sigue en **exactamente 2** call-sites de `applyImmediateFailure` y el diff del motor está vacío: cero líneas de `src/` tocadas.
+- **INT-04** — «todas las variantes nuevas validadas 1-por-1 por quórum»: las 9 variantes de los 3 cruces están `validated` con 2 pases de `by` distintos cada uno, y las rondas EXTRA de los 4 magnets estaban ya ejecutadas en disco y declaradas en `### 7.5` por el plan 44-01. **Ya NO hay mitad pendiente.** El `Pending` con el que 44-01 y las Tareas 1-3 lo dejaron era correcto entonces y sería falso ahora.
+
+Los dos requisitos pasan a `Complete` en `.planning/REQUIREMENTS.md`, en el checkbox y en la tabla de Traceability, con la nota de cierre que registra las rondas fallidas.
 
 ## Threat Flags
 
@@ -233,11 +312,11 @@ Ninguno nuevo. Este plan no añade endpoint, ruta de auth, patrón de acceso a f
 
 | Threat ID | Disposición | Estado |
 |---|---|---|
-| T-44-07 (repudiation — `passes[]` de los 3 cruces) | mitigate | **cerrado en su parte de este plan**: los 3 cierran en `pending` con `passes: []`; el gate `status === deriveStatus(passes)` hace imposible un `validated` fabricado. El pase real se estampa en el checkpoint de la Tarea 4 |
+| T-44-07 (repudiation — `passes[]` de los 3 cruces) | mitigate | **cerrado por completo**: las Tareas 1-3 los dejaron en `pending` con `passes: []` y el gate `status === deriveStatus(passes)` hizo imposible un `validated` fabricado; el checkpoint de la Tarea 4 estampó los 6 pases **reales** (2 por cruce, `by` distintos). Los 3 `incorrecta` de las rondas fallidas no se arrastraron a `passes[]` porque juzgaban textos que ya no existen, y el audit trail de las 6 rondas vive en el `notes` y en los mensajes de commit |
 | T-44-08 (tampering — los gates verdes existentes) | mitigate | **cerrado**: `test(` creció en los dos ficheros (+16, +11), cada gate re-apuntado a la partición que gobierna, y los cruces con bloque propio que re-asierta lo que sigue rigiendo sobre ellos. Ninguno debilitado ni borrado |
 | T-44-09 (tampering — DOM: markdown y smart-quotes) | mitigate | **cerrado**: los 3 cruces entran solos en el smoke de `tests/exercise-types.test.js`; verificado `false` para smart-quotes y para corchetes angulares en los dos `notes` y en el contenido |
 | T-44-10 (tampering — claves peligrosas del JSON) | mitigate | **cerrado**: el gate itera `SLOTS` completo y por tanto cubre los cruces sin edición |
-| T-44-11 (DoS — más de una respuesta defendible → `disputed` sticky → reset de 2 categorías) | mitigate | **cerrado en su parte mecánica**: G1 (cero pronombres objeto antepuestos, pool de auxiliares), G2 (2 sujetos distintos, 4 personas del mismo verbo), G3 (complemento del conjunto cerrado, 1 por prompt y los 3 distintos). La red del quórum va después, como red y no como mecanismo |
+| T-44-11 (DoS — más de una respuesta defendible → `disputed` sticky → reset de 2 categorías) | mitigate | **cerrado, y la red hizo falta**: G1, G2 y G3 quedaron como gates mecánicos, pero **G3 no bastó** — pasó verde dos veces sobre un complemento que cumplía la lista cerrada por presencia sin excluir nada, y la variante 1 de `fare-indefiniti-300` tuvo de hecho dos respuestas defendibles hasta el 3er intento. Lo cazó Sonnet, no el test. La amenaza queda cerrada por el quórum (3/3 `validated`, cero `disputed`), no por el mecanismo, y la limitación de G3 está escrita en el `notes` para quien lo herede |
 | T-44-12, T-44-13, T-44-SC | accept | no aplican: sin datos personales, sin red, sin backend, sin instalaciones |
 
 ## Self-Check: PASSED
@@ -252,7 +331,7 @@ FOUND: tests/content-fare-indefiniti.test.js
 FOUND: .planning/milestones/v1.1-phases/09-infraestructura-de-validaci-n/09-VALIDATION-PROMPT.md
 ```
 
-**Commits declarados — los 6 en el historial:**
+**Commits declarados — los 8 en el historial:**
 
 ```
 FOUND: 98e43ca  test(44-02): particion base/cruce de fare-indicativo y los invariantes de G1
@@ -261,9 +340,11 @@ FOUND: 57aa29f  test(44-02): los invariantes de G2 para fare-indicativo-301
 FOUND: 0f64cf3  feat(44-02): fare-indicativo-301 hacia presente-regolare — el cruce con G2
 FOUND: 76b06dd  test(44-02): particion base/cruce de fare-indefiniti y los invariantes de G3
 FOUND: b281678  feat(44-02): fare-indefiniti-300 hacia modali — el cruce con G3, el gate mas delicado
+FOUND: 3295320  validate(fare-indicativo): fare-indicativo-300 y -301 → validated (Opus + Sonnet)
+FOUND: 5b9640a  validate(fare-indefiniti): fare-indefiniti-300 → validated (Opus + Sonnet)
 ```
 
-Sin elementos ausentes.
+Los dos últimos son del checkpoint de la Tarea 4, resuelto por el orquestador en la pasada top-level. Sin elementos ausentes.
 
 ## TDD Gate Compliance
 
@@ -277,26 +358,29 @@ Las 3 tareas llevaban `tdd="true"` y las 3 respetaron la secuencia, con el RED v
 
 Ningún test pasó inesperadamente en RED. No hubo fase REFACTOR: no había nada que limpiar sin cambiar comportamiento.
 
-## El hand-off al quórum TOP-LEVEL
+## El hand-off al quórum TOP-LEVEL — EJECUTADO
 
-Los 3 comandos exactos a lanzar, **desde el nivel superior y nunca dentro de un executor**, **un ejercicio por contexto fresco y NUNCA en lote** (VAL-03), Opus + Sonnet:
-
-```
-/gsd-validate-exercise fare-indicativo-300
-/gsd-validate-exercise fare-indicativo-301
-/gsd-validate-exercise fare-indefiniti-300
-```
-
-`deriveStatus` exige ≥2 pases `correcta` con `by` **distintos** y cero `incorrecta` para `validated`; cualquier `incorrecta` da `disputed` **STICKY**. No hay ronda extra cross-vendor prevista (D-44-04 pone la red en los gates), pero `scripts/validate-ai-pass.mjs` está disponible si algo queda `disputed`.
-
-**Lo que conviene mirar antes de gastar quórum:** `fare-indefiniti-300`. La pregunta es si el complemento de cada frase excluye **de verdad** dos de los tres modales, o si los tres siguen siendo defendibles. Es G3, el gate más delicado de la fase, y el que un quórum caro no debería tener que descubrir.
-
-Gate de cierre del milestone, cuando los 3 estén `validated`:
+Los 3 comandos se lanzaron **desde el nivel superior y no dentro de un executor**, **un ejercicio por contexto fresco y nunca en lote** (VAL-03), Opus + Sonnet:
 
 ```
-node --test tests/*.test.js                                    # fail 0
-VAL_07_STRICT=1 node --test tests/*.test.js                     # fail 0
-node scripts/run-validation-271.mjs                             # VAL-06 (250/250): PASS + Milestone gate PASS
-git diff 0a9a2e5..HEAD -- src/screens/app.js src/domain/        # sin salida  (NO añadir src/data/)
-grep -c 'applyImmediateFailure(this.state' src/screens/app.js   # 2
+/gsd-validate-exercise fare-indicativo-300     →  validated  (1 ronda)
+/gsd-validate-exercise fare-indicativo-301     →  validated  (2 rondas)
+/gsd-validate-exercise fare-indefiniti-300     →  validated  (3 rondas)
 ```
+
+`deriveStatus` exige ≥2 pases `correcta` con `by` **distintos** y cero `incorrecta` para `validated`; cualquier `incorrecta` da `disputed` **STICKY**. Ninguno quedó `disputed`, así que la ronda cross-vendor de `scripts/validate-ai-pass.mjs` no hizo falta.
+
+**El aviso de las Tareas 1-3 acertó.** Decía literalmente: «lo que conviene mirar antes de gastar quórum es `fare-indefiniti-300`; la pregunta es si el complemento excluye **de verdad** dos de los tres modales, o si los tres siguen siendo defendibles». Fue exactamente el que costó 3 rondas, y por exactamente ese motivo. El hand-off señaló el punto débil correcto; lo que no pudo hacer fue arreglarlo, porque G3 estaba verde.
+
+Gate de cierre del milestone, verificado el 2026-08-11 con los 3 `validated`:
+
+```
+node --test tests/*.test.js                                    # 1063 pass / 0 fail          ✅
+VAL_07_STRICT=1 node --test tests/*.test.js                     # 1081 pass / 0 fail          ✅
+node scripts/run-validation-271.mjs                             # VAL-06 (250/250): PASS      ✅
+                                                                #   + Milestone gate PASS, exit 0
+git diff 0a9a2e5..HEAD -- src/screens/app.js src/domain/        # sin salida  (NO añadir src/data/)  ✅
+grep -c 'applyImmediateFailure(this.state' src/screens/app.js   # 2                            ✅
+```
+
+Siguiente paso, ya fuera de este plan: verificación de la fase 44 y después `/gsd-complete-milestone v2.0`.

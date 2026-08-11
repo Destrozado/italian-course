@@ -5,10 +5,10 @@ milestone_name: Paradigma completo de `fare` (4 categorías por modo)
 current_phase: 44
 current_phase_name: Integración lockstep + cierre v2.0
 status: verifying
-stopped_at: "Checkpoint Tarea 4 de 44-02: hand-off del quorum TOP-LEVEL sobre los 3 cruces (pending)"
-last_updated: "2026-08-11T14:17:37.694Z"
+stopped_at: "44-02 completo: los 3 cruces validated por quorum top-level (Opus + Sonnet); milestone gate PASS 250/250"
+last_updated: "2026-08-11T14:50:59.100Z"
 last_activity: 2026-08-11
-last_activity_desc: Phase 44 execution started
+last_activity_desc: "44-02 completo — quórum top-level cerrado: 3/3 cruces validated, INT-03 e INT-04 Complete"
 progress:
   total_phases: 5
   completed_phases: 5
@@ -29,10 +29,10 @@ See: `.planning/PROJECT.md` (updated 2026-08-06 — Phase 42 `fare-congiuntivo` 
 
 ## Current Position
 
-Phase: 44 (Integración lockstep + cierre v2.0) — EXECUTING
-Plan: 2 of 2
-Status: Phase complete — ready for verification
-Last activity: 2026-08-11 — Phase 44 execution started
+Phase: 44 (Integración lockstep + cierre v2.0) — EXECUTED, ready for verification
+Plan: 2 of 2 — **44-02 COMPLETO** (checkpoint de la Tarea 4 resuelto)
+Status: los 2 planes cerrados. Quórum top-level ejecutado: `fare-indicativo-300`, `fare-indicativo-301` y `fare-indefiniti-300` los 3 `validated` (Opus + Sonnet, 2 pases de `by` distintos cada uno, cero `disputed`). Milestone gate en verde: `VAL-06 (250/250 validated): PASS`, `VAL_07_STRICT` 1081/0, suite 1063/0. INT-03 e INT-04 → `Complete`.
+Last activity: 2026-08-11 — 44-02 cerrado tras 6 rondas de quórum sobre los 3 cruces (2 rechazos reales: C5-leak + C4 en `-301`, C2 ×2 en `fare-indefiniti-300`)
 
 Progress: [████████████████████] 5/5 plans ([██████████] 100%) · 4/5 fases (80%)
 
@@ -308,6 +308,8 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - [Phase ?]: CONJUGATE de content-fare-indefiniti.test.js acotado a los slots de PARADIGMA de las otras tres categorias: las options de un cruce ajeno NO son formas de fare por diseno, e incluirlas contaminaba el gate
 - [Phase ?]: El gloss ES del cruce hacia modali glosa el COMPLEMENTO y nunca el modal: traducirlo seria leak C5 porque ahi la key ES el modal (divergencia consciente respecto a modali-300)
 - [Phase ?]: El criterio grep -c '^-[^-]' = 0 es inalcanzable para un append a notes (string JSON de una linea); se sustituye por notes.startsWith(anterior) byte a byte, que es mas fuerte
+- [Phase ?]: D-44-13 (44-02, quórum): el gloss ES de un cruce es decisión POR SLOT y no por plan — el quórum forzó a fare-indicativo-301 al 0-gloss (glosar el verbo del hueco entrega persona y tiempo = leak C5) mientras fare-indicativo-300 lo conserva (allí el hueco pide el AUXILIAR y el gloss usa pretérito simple castellano). La asimetría está declarada en el notes
+- [Phase ?]: D-44-14 (44-02, quórum): un gate de lista cerrada comprueba que el marcador ESTÉ, nunca que EXCLUYA — condición necesaria y no suficiente. G3 pasó verde dos veces sobre un complemento sin fuerza excluyente; lo cazó Sonnet, no el test. Quien herede G3 tiene que LEER el complemento, no confiar en el verde
 
 ### Pending Todos
 
@@ -367,9 +369,9 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Session Continuity
 
-**Last session:** 2026-08-11T14:17:37.665Z
-**Stopped at:** Checkpoint Tarea 4 de 44-02: hand-off del quorum TOP-LEVEL sobre los 3 cruces (pending)
-**Resume file:** .planning/phases/44-integraci-n-lockstep-cierre-v2-0/44-02-SUMMARY.md
+**Last session:** 2026-08-11T14:49:53.319Z
+**Stopped at:** 44-02 completo: los 3 cruces validated por quorum top-level (Opus + Sonnet); milestone gate PASS 250/250
+**Resume file:** None
 
 ### Last Session
 
