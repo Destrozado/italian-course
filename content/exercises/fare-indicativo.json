@@ -779,6 +779,51 @@
         "status": "pending",
         "passes": []
       }
+    },
+    {
+      "id": "fare-indicativo-301",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "fare-indicativo",
+        "presente-regolare"
+      ],
+      "explanation": "El enunciado ya trae escrita la forma del presente de fare, que es irregular y sirve solo como contexto de la primera parte de la frase; el hueco pide el presente de un verbo REGULAR en la segunda parte. La regla del presente regular sigue intacta: se quita la terminación del infinitivo y se añade la desinencia de la persona, es decir -o, -i, -a, -iamo, -ate, -ano en los verbos en -are y -o, -i, -e, -iamo, -ete, -ono en los verbos en -ere. Cada parte de la frase lleva su propio sujeto, así que para acertar hay que mirar el sujeto de la parte donde está el hueco y no el de la otra. Las distractoras son otras personas del presente del mismo verbo: solo una concuerda con ese sujeto.",
+      "variants": [
+        {
+          "prompt": "Tu fai i compiti da solo, ma noi ___ tutto insieme. (en español: pero repasamos todo juntos)",
+          "options": [
+            "ripasso",
+            "ripassi",
+            "ripassiamo",
+            "ripassano"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "prompt": "Io faccio una foto al monumento, e lui ___ un errore ogni volta. (en español: y comete un error cada vez)",
+          "options": [
+            "commetti",
+            "commette",
+            "commetto",
+            "commettono"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "prompt": "Noi facciamo il letto ogni mattina, e voi ___ il lavoro con calma. (en español: y revisáis el trabajo con calma)",
+          "options": [
+            "controllo",
+            "controlla",
+            "controllano",
+            "controllate"
+          ],
+          "correctIndex": 3
+        }
+      ],
+      "validation": {
+        "status": "pending",
+        "passes": []
+      }
     }
   ]
 }
