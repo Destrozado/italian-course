@@ -278,8 +278,12 @@ describe('fare-indicativo — estructura y conteos (D-41-01, D-41-13, D-41-14)',
     // no se borra: sigue mordiendo con la misma fuerza, ahora en la direccion
     // util. Es rojo si alguien apende un `-302` no declarado, que es el escenario
     // que de verdad hay que impedir ahora que el espacio esta abierto.
+    // D-40-07: el espacio -300+ aloja EXACTAMENTE los cruces declarados. El
+    // assert va sin mensaje a proposito: el diff de arrays que imprime `assert`
+    // ya nombra el id intruso o el que falta, que es toda la diagnosis que hace
+    // falta aqui, y el porque vive en el comentario de arriba.
     const usados = SLOTS.map((s) => s.id).filter((id) => /-\d{3}$/.test(id));
-    assert.deepEqual(usados, CROSS_IDS, 'D-40-07: el espacio -300+ aloja EXACTAMENTE los cruces declarados de Phase 44');
+    assert.deepEqual(usados, CROSS_IDS);
   });
 });
 

@@ -201,16 +201,45 @@ const TERMINAZIONI = ['fatta', 'fatte', 'fatti', 'fatto'];
 // las options de esta categoria. Verificado en plan-time que la interseccion con
 // POOL es vacia, asi que no hace falta restarlo (si algun dia dejara de serlo,
 // este gate se pondria rojo y habria que revisar la frontera, no relajarlo).
+//
+// v2.0 Phase 44 (INT-03): se leen SOLO los slots de PARADIGMA de esas tres
+// categorias, excluyendo sus cruces multi-categoria `-300`+. Motivo: en un cruce
+// la key vive en la categoria VECINA y la forma de `fare` va ESCRITA en el
+// enunciado (D-44-02), asi que sus `options` NO son formas de `fare` sino
+// auxiliares de `avere`/`essere`, personas de un verbo regular o modales
+// conjugados — G1/G2/G3 lo prohiben explicitamente por el otro lado. Meterlas
+// aqui no reforzaba el gate: lo CONTAMINABA con palabras ajenas a `fare`, y con
+// ellas dentro el gate empezaba a prohibir en esta categoria un `sono` que ya
+// vivia legitimamente en el prompt de `fare-indefiniti-infinito-passato` desde
+// Phase 43. La exclusion no le baja la barra: CONJUGATE sigue conteniendo TODAS
+// las formas conjugadas de `fare` de las tres categorias, que es lo unico que
+// este gate dice gobernar. El sub-gate `CRUCES_AJENOS` de mas abajo demuestra
+// mecanicamente que lo excluido no contenia ninguna forma de `fare`.
+const esCruce = (id) => /-\d{3}$/.test(id);
+const OTRAS_TRES = ['fare-indicativo', 'fare-congiuntivo', 'fare-cond-imperativo'].map((f) => ({
+  slug: f,
+  data: JSON.parse(readFileSync(new URL(`../content/exercises/${f}.json`, import.meta.url), 'utf-8')),
+}));
 const CONJUGATE = (() => {
   const set = new Set();
-  for (const f of ['fare-indicativo', 'fare-congiuntivo', 'fare-cond-imperativo']) {
-    const c = JSON.parse(
-      readFileSync(new URL(`../content/exercises/${f}.json`, import.meta.url), 'utf-8')
-    );
-    for (const s of c.exercises) for (const v of s.variants) for (const o of v.options) set.add(o);
+  for (const { data } of OTRAS_TRES) {
+    for (const s of data.exercises) {
+      if (esCruce(s.id)) continue;
+      for (const v of s.variants) for (const o of v.options) set.add(o);
+    }
   }
   return set;
 })();
+
+// Las options de los cruces de las otras tres categorias, es decir EXACTAMENTE lo
+// que CONJUGATE deja fuera. Existe para que la exclusion sea auditable y no un
+// acto de fe: el gate de mas abajo exige que ninguna de ellas sea una forma de
+// `fare`, que es la razon por la que quedan fuera.
+const CRUCES_AJENOS = OTRAS_TRES.flatMap(({ slug, data }) =>
+  data.exercises
+    .filter((s) => esCruce(s.id))
+    .flatMap((s) => s.variants.flatMap((v, k) => v.options.map((o) => ({ slug, id: s.id, k, o }))))
+);
 
 // BLACKLIST (D-43-17, D-43-07, heredada de D-41-08 y D-42-11). La primera es la
 // grafia NO ELIDIDA del infinito compuesto, que es el CUARTO MAGNET: es correcta
@@ -903,6 +932,20 @@ describe('fare-indefiniti — blacklist de formas atestiguadas y defendibles (D-
       const enPrompt = [...CONJUGATE].filter((f) => wordish(f).test(v.prompt));
       assert.deepEqual(enPrompt, [], `D-43-13: ${slot.id}#${k} menciona una forma conjugada en el prompt: ${enPrompt.join(', ')}`);
     }
+  });
+
+  test('EN POSITIVO: lo que CONJUGATE excluye —las options de los cruces ajenos— no contiene ninguna forma de fare (D-44-02)', () => {
+    // Es la contrapartida auditable de la exclusion de los cruces `-300`+ al
+    // construir CONJUGATE: si alguna de esas options fuera una forma de `fare`,
+    // la exclusion SI le estaria bajando la barra al gate de arriba y habria que
+    // revisar la frontera en vez de mantenerla. Toda forma de `fare` empieza por
+    // f-, y en los pools de los cruces (auxiliares, personas de un verbo regular,
+    // modales) no hay ninguna palabra legitima con esa inicial, asi que la
+    // prohibicion de la inicial es la comprobacion robusta.
+    const sucio = CRUCES_AJENOS
+      .filter(({ o }) => o.split(/\s+/).some((w) => /^f/i.test(w)))
+      .map(({ slug, id, k, o }) => `${slug}/${id}#${k}: "${o}"`);
+    assert.deepEqual(sucio, [], 'D-44-02: un cruce ajeno mete una forma de fare en options — la exclusion de CONJUGATE dejaria de ser inocua');
   });
 
   test('EN POSITIVO: el notes documenta cada forma de la blacklist entre apostrofes ASCII', () => {

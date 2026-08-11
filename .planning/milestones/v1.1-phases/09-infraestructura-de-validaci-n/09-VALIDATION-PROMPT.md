@@ -337,6 +337,36 @@ El gloss léxico de conjunción o locución subordinante declarado en R1 y en C5
 - El **participio** sigue siendo invariable en este contexto: `aver fatta` / `aver fatti` son error, no variante de registro.
 - **C5 intacto.** Un gloss sobre la forma verbal del blank o sobre la palabra del hueco sigue prohibido sin excepción — ver 7.3.
 
+### 7.6 Cruces multi-categoría `-300`+ de `fare`: la key vive en la categoría VECINA — slots `fare-indicativo-300`, `fare-indicativo-301` y `fare-indefiniti-300` (v2.0 Phase 44)
+
+**Qué es.** Estos tres slots son **cruces multi-categoría**: declaran dos categorías a la vez y su hueco **NO examina una forma de `fare`**. La forma de `fare` va **ESCRITA en el enunciado, como contexto**, y lo que se pregunta es la casilla de la categoría vecina. Son los tres únicos, y la lista está cerrada:
+
+| slot | categorías que cruza | lo que examina el hueco | lo que va escrito en el enunciado |
+|---|---|---|---|
+| `fare-indicativo-300` | `fare-indicativo` + `avere` | el **auxiliar `avere`** conjugado | el participio `fatto` |
+| `fare-indicativo-301` | `fare-indicativo` + `presente-regolare` | el **presente de un verbo REGULAR** | una forma de `fare` en presente |
+| `fare-indefiniti-300` | `fare-indefiniti` + `modali` | el **modal conjugado** | el infinitivo `fare` |
+
+El sentido está invertido a propósito. El sentido contrario duplicaría slots que ya existen en el corpus —hay ya un `Io devo ___ il letto` con key `fare`—, así que un cruce que preguntara la forma de `fare` sería el mismo ejercicio con otra etiqueta.
+
+**Qué NO es un fallo.**
+
+1. **Que el hueco no examine `fare` en un slot que declara una categoría de `fare` NO es un fuera de tema ni una incoherencia de C1.** Es el diseño del cruce. El segundo `categoryId` es precisamente lo que hace que el ejercicio pertenezca también a la casilla que sí examina.
+2. **Que la forma de `fare` vaya escrita en el enunciado NO es un leak de C5.** No filtra nada del hueco: la respuesta está en otra categoría. `Stamattina io ___ fatto i compiti` no regala el auxiliar por llevar `fatto` escrito, igual que `Io faccio i compiti, ma tu ___ il lavoro` no regala la persona del verbo regular por llevar `faccio`.
+3. **El gloss ES entre paréntesis en el prompt de estos tres slots es canon R7 y NO es leak.** Aquí desambigua el sentido del enunciado sin regalar la forma del hueco, que es la condición del canon. Y **no es una incoherencia con el 0-gloss** de la categoría `fare-indicativo`: ese 0-gloss existe porque en las 48 variantes del paradigma el gloss regalaría el tiempo del verbo examinado, y en los cruces el verbo examinado no es `fare`. Ver dos glosas conviviendo con dos políticas distintas en el mismo fichero no es materia de C1 ni de C4.
+4. **Que el pool de `options` no contenga NINGUNA forma de `fare` no es una carencia de C3.** Es exigencia de los tres gates: una forma de `fare` en `options` convertiría el ejercicio en otro.
+
+**La frontera, y aquí NO hay indulgencia.** La indulgencia es **solo sobre el sentido invertido y sobre el gloss**, y nada más. Estos tres slots llevan gates HARD declarados por el autor ANTES de escribirlos, y lo que esos gates protegen sigue mordiendo con todo:
+
+- **G1 — `fare-indicativo-300`.** El participio `fatto` es **invariable** aquí, así que el enunciado **no puede llevar un pronombre objeto antepuesto** (`lo`, `la`, `li`, `le`): con un clítico antepuesto la concordancia sería obligatoria (`li ho fatti`) y la frase abriría una segunda lectura defendible — es el caso inverso de 7.4, donde sí muerde. Si ves un clítico antepuesto en uno de esos prompts, **márcalo**. Las cuatro `options` son formas conjugadas de `avere` más una de `essere` como distractora de auxiliar, cada una de una sola palabra: si alguna trae participio dentro, márcalo.
+- **G2 — `fare-indicativo-301`.** Las cuatro `options` tienen que ser **cuatro personas del MISMO verbo regular**. Si el pool mezclara verbos distintos, más de una opción sería defendible y es fallo de C2. Y el enunciado tiene que llevar **sujeto pronominal explícito en las DOS cláusulas, con personas distintas**: si la persona del hueco no queda fijada sin ambigüedad, márcalo.
+- **G3 — `fare-indefiniti-300`, el más delicado de los tres.** `devo`, `posso` y `voglio` son **intercambiables en una frase genérica**. El enunciado tiene que llevar un **complemento explícito que excluya dos de los tres**, dejando solo obligación, permiso o voluntad. Si al leer la frase te parece que dos de los tres modales seguirían siendo defendibles, **es fallo de C2 y hay que marcarlo**: el gloss por sí solo no basta como red. Las cuatro `options` son modales conjugados y nada más.
+- **C5 sobre la forma verbal del hueco sigue intacto.** El gloss puede traducir el sentido del enunciado y el complemento; **no** puede nombrar la regla, la persona ni la terminación que el hueco examina. En `fare-indefiniti-300` en particular, un gloss que traduzca el modal (del tipo «tengo que», «puedo», «quiero») **sí es leak de C5** y hay que marcarlo.
+- **El SCOPE-GATE del objeto literal no tiene excepción en los cruces.** El objeto de `fare` sigue siendo uno del conjunto cerrado (`i compiti`, `un errore`, `il lavoro`, `una torta`, `il letto`, `tutto`, `una foto`), y las perífrasis y modismos de `fare` siguen fuera.
+- Como las anteriores, esta excepción no relaja ningún otro criterio — ver 7.3.
+
+**Nota sobre la cascada.** Un cruce declara dos categorías, y en esta herramienta fallar un ejercicio resetea **todas** las categorías que nombra. Una variante con dos respuestas defendibles aquí no cuesta un ejercicio: cuesta la categoría vecina entera. Si dudas entre marcar y no marcar en uno de estos tres slots, **marca**.
+
 ---
 
 *Fin del prompt. A continuación se adjunta el ejercicio bajo evaluación.*
