@@ -74,6 +74,10 @@ const CANON = {
 };
 const IDS = Object.keys(CANON);
 const ALL_CANON_FORMS = new Set(Object.values(CANON).flat());
+// Las formas de UNA sola palabra del paradigma: son las que un cruce puede traer
+// ESCRITAS en el enunciado como contexto (D-44-02). Los compuestos quedan fuera
+// porque el gate los buscaria como palabra suelta y no como secuencia.
+const ALL_CANON_FORMS_SIMPLES = [...ALL_CANON_FORMS].filter((f) => !f.includes(' '));
 
 // D-41-14: los 4 simples son de 41-01 y los 4 compuestos de 41-02. El patron
 // de distractoras es DISTINTO en cada grupo (D-41-09 frente a D-41-10), asi
@@ -86,7 +90,7 @@ const COMPOUND_SLOTS = IDS.slice(4);
 // CERRADA (D-44-05) y el id va SIEMPRE con el slug COMPLETO: `fare-ind` es
 // prefijo ambiguo entre `fare-indicativo` y `fare-indefiniti` (D-40-03), asi que
 // ninguna comprobacion de este fichero se apoya en la forma truncada.
-const CROSS_IDS = ['fare-indicativo-300'];
+const CROSS_IDS = ['fare-indicativo-300', 'fare-indicativo-301'];
 
 // La pareja de `categoryIds` que le toca a CADA cruce, congelada por id: el
 // segundo slug es el de la categoria VECINA donde vive la key. Un mapa y no una
@@ -94,6 +98,7 @@ const CROSS_IDS = ['fare-indicativo-300'];
 // DISTINTAS (`avere` y `presente-regolare`).
 const CROSS_PAIRS = {
   'fare-indicativo-300': ['fare-indicativo', 'avere'],
+  'fare-indicativo-301': ['fare-indicativo', 'presente-regolare'],
 };
 
 const BASE_SLOTS = SLOTS.filter((s) => !CROSS_IDS.includes(s.id));
@@ -866,6 +871,63 @@ describe('fare-indicativo — invariantes de los cruces multi-categoria -300+ (I
     for (const { slot, v, k } of crossVariants()) {
       const sucio = v.options.filter((o) => o.split(/\s+/).some((w) => FARE_INITIAL_RE.test(w)));
       assert.deepEqual(sucio, [], `D-44-02: ${slot.id}#${k} mete una forma de fare en options: ${sucio.join(' | ')} — el hueco es de la categoria VECINA`);
+    }
+  });
+
+  test('G2 — fare-indicativo-301: sujeto pronominal explicito en las DOS clausulas, y las dos personas DISTINTAS (D-44-04, D-41-07)', () => {
+    // El cruce es una frase de dos clausulas: una trae ESCRITA la forma de
+    // `fare` y la otra tiene el hueco. Si solo una lleva sujeto explicito, o si
+    // las dos llevan la MISMA persona, la persona del hueco deja de estar fijada
+    // y mas de una opcion del pool se vuelve defendible — que con la cascada
+    // D-54 no cuesta un ejercicio sino la categoria vecina entera.
+    for (const [k, v] of byId('fare-indicativo-301').variants.entries()) {
+      const hits = (v.prompt.match(PRONOUN_RE) || []).map((x) => x.toLowerCase());
+      assert.equal(hits.length, 2, `G2: #${k} tiene ${hits.length} sujetos pronominales (${hits.join(', ')}) y necesita 2, uno por clausula: "${v.prompt}"`);
+      assert.notEqual(hits[0], hits[1], `G2: #${k} repite la persona en las dos clausulas (${hits.join(', ')}): la del hueco no queda fijada`);
+    }
+  });
+
+  test('G2 — fare-indicativo-301: las 4 options son 4 personas del MISMO verbo regular (D-44-04)', () => {
+    // Si el pool mezclara verbos distintos, mas de una opcion seria defendible
+    // por la regla de las LECTURAS que el autor ratifico el 2026-08-03. Compartir
+    // raiz y diferir solo en la desinencia es la forma mecanica de exigirlo: se
+    // pide un prefijo comun de al menos 3 caracteres, que es lo que distingue
+    // `parlo/parli/parla/parlano` de un pool con dos verbos dentro.
+    const raizComun = (opts) => {
+      const [primero, ...resto] = opts.map((o) => o.toLowerCase());
+      let n = primero.length;
+      for (const o of resto) {
+        let i = 0;
+        while (i < n && i < o.length && primero[i] === o[i]) i += 1;
+        n = i;
+      }
+      return primero.slice(0, n);
+    };
+    for (const [k, v] of byId('fare-indicativo-301').variants.entries()) {
+      const raiz = raizComun(v.options);
+      assert.ok(
+        raiz.length >= 3,
+        `G2: #${k} las 4 options no comparten raiz (comun: "${raiz}"), asi que no son 4 personas del mismo verbo: ${v.options.join(' | ')}`
+      );
+      assert.equal(
+        new Set(v.options.map((o) => o.slice(0, 3).toLowerCase())).size,
+        1,
+        `G2: #${k} el pool mezcla verbos distintos: ${v.options.join(' | ')}`
+      );
+      assert.ok(
+        v.options.every((o) => o.toLowerCase().length > raiz.length),
+        `G2: #${k} una option es la raiz desnuda y no una forma conjugada: ${v.options.join(' | ')}`
+      );
+    }
+  });
+
+  test('G2 — fare-indicativo-301: la forma de fare va ESCRITA en los 3 prompts como contexto (D-44-02)', () => {
+    for (const [k, v] of byId('fare-indicativo-301').variants.entries()) {
+      const escritas = ALL_CANON_FORMS_SIMPLES.filter((f) => new RegExp(`(^|\\W)${f}(\\W|$)`).test(v.prompt));
+      assert.ok(
+        escritas.length >= 1,
+        `D-44-02: #${k} no trae escrita ninguna forma de fare como contexto: "${v.prompt}"`
+      );
     }
   });
 
