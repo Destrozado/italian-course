@@ -105,10 +105,12 @@ Requisitos comprometidos para este milestone. Cada uno mapea a una fase del road
 | INDEF-04 | Phase 43 — `fare-cond-imperativo` + `fare-indefiniti` | Complete |
 | INT-01 | Phase 44 — Integración lockstep + cierre | Complete |
 | INT-02 | Phase 44 — Integración lockstep + cierre | Complete |
-| INT-03 | Phase 44 — Integración lockstep + cierre | Pending (plan 44-02) |
-| INT-04 | Phase 44 — Integración lockstep + cierre | Pending (mitad documental hecha en 44-01; el quórum de los 3 cruces es de 44-02) |
+| INT-03 | Phase 44 — Integración lockstep + cierre | Pending (los 3 cruces en disco tras 44-02; falta el quórum top-level) |
+| INT-04 | Phase 44 — Integración lockstep + cierre | Pending (mitad documental hecha en 44-01; el quórum de los 3 cruces es TOP-LEVEL, posterior a 44-02) |
 
 > **INT-03 e INT-04 siguen `Pending` a propósito al cerrar el plan 44-01.** El plan 44-01 solo cubre la mitad mecánica y documental: INT-01 verificado y congelado por gate, INT-02 cerrado con los 2 arrays y el gate anti-ceguera, e INT-04 declarado (los 4 magnets verificados en disco y escritos en `### 7.5` del prompt de validación). Los 3 cruces multi-categoría de INT-03 nacen en 44-02 con `status: pending` y `passes: []`, y hasta que su quórum corra, INT-04 —«TODAS las variantes nuevas validadas»— sería falso en verde. Marcarlos completos aquí es exactamente la clase de mentira que el reporter llevaba tres fases contando.
+>
+> **Actualización al cerrar el plan 44-02.** Los 3 cruces YA están en disco: `fare-indicativo-300` (`↔ avere`), `fare-indicativo-301` (`↔ presente-regolare`) y `fare-indefiniti-300` (`↔ modali`), 9 variantes, `categoryIds` de 2 con el slug `modali`, y la cascada D-54 sigue en EXACTAMENTE 2 call-sites de `applyImmediateFailure` con el diff del motor vacío. Aun así **INT-03 se queda `Pending`, y por la misma razón que en 44-01**: las 9 variantes tienen `validation.status: "pending"` con `passes: []`, así que su contenido no está revisado y una sola de ellas puede resultar `disputed` en el quórum y tener que reescribirse. Poner `Complete` sobre contenido sin revisar es exactamente el verde que el disco no respalda. Los dos requisitos se cierran juntos cuando termine la pasada TOP-LEVEL (`/gsd-validate-exercise` sobre los 3, un contexto fresco cada uno, VAL-03) y el reporter pase de `VAL-06 (250/250): FAIL (247/250 — pending=3)` a `PASS`.
 
 **Coverage: 23/23 requisitos mapeados — 0 huérfanos, 0 duplicados, 0 gaps.**
 Cada requisito vive en EXACTAMENTE una fase; cada criterio de éxito del ROADMAP está respaldado por ≥1 requisito.

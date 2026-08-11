@@ -1,15 +1,15 @@
 ---
 schema_version: 1
-open_count: 8
+open_count: 12
 waived_count: 0
 fixed_count: 0
-total_count: 8
-last_updated: 2026-08-07T00:20:30.038Z
+total_count: 12
+last_updated: 2026-08-11T14:18:24.730Z
 ---
 
 # Broken Windows Ledger
 
-> Cross-phase defect register. `/gsd-ship` blocks while `open_count > 0`.
+> Cross-phase defect register. With `workflow.windows_enforce` enabled, `/gsd-ship` blocks while `open_count > 0`.
 > Waive with `gsd-tools windows waive <id> "<reason>"` (reason required).
 > Mark fixed with `gsd-tools windows fixed <id>`.
 
@@ -23,6 +23,10 @@ last_updated: 2026-08-07T00:20:30.038Z
 | 6 | 43 | unrun-verify | content/exercises/fare-cond-imperativo.json |  | Los 3 slots quedan en validation.status pending con passes vacio: el quorum base Opus+Sonnet y la ronda EXTRA DeepSeek (D-43-20) corren en pasada TOP-LEVEL posterior, no dentro del executor (D-43-02, VAL-03) | open |  | 2026-08-06T23:51:40.597Z |  |
 | 7 | 43 | unrun-verify | content/exercises/fare-indefiniti.json |  | Los 6 slots quedan en validation.status pending con passes vacio: el quorum base Opus+Sonnet y la ronda EXTRA DeepSeek sobre las 7 variantes de participio passato e infinito passato (D-43-20) corren en pasada TOP-LEVEL posterior, no dentro del executor (D-43-02, VAL-03) | open |  | 2026-08-07T00:20:29.978Z |  |
 | 8 | 43 | deviation | content/exercises/fare-indefiniti.json |  | BACKSTOP declarado del plan: en la variante temporal de fare-indefiniti-gerundio-passato el gerundio simple facendo queda entre las opciones y lo unico que lo excluye es el adverbial de anterioridad (la sera prima). Es juicio linguistico, no asercion mecanica: el quorum debe pronunciarse explicitamente o abstenerse a human_needed, nunca dar pase silencioso | open |  | 2026-08-07T00:20:30.038Z |  |
+| 9 | 44 | deviation | .planning/REQUIREMENTS.md |  | INT-03 e INT-04 quedan Pending en Traceability: los 3 cruces de 44-02 nacen pending y marcar 'TODAS las variantes validadas' seria un verde que el disco no respalda | open |  | 2026-08-11T13:53:03.991Z |  |
+| 10 | 44 | deviation | .planning/ROADMAP.md | 17 | §Milestones (lineas 17, 308, 360) corregido por reemplazo de 3 lineas y no por el skill gsd-phase: el skill solo opera sobre secciones de fase y no cubre la entrada de milestone | open |  | 2026-08-11T13:53:04.059Z |  |
+| 11 | 44 | unrun-verify | content/exercises/fare-indicativo.json |  | fare-indicativo-300 y -301 quedan en validation.status pending con passes vacio: el quorum base Opus+Sonnet corre en pasada TOP-LEVEL posterior, no dentro del executor (D-44-11, VAL-03) | open |  | 2026-08-11T14:18:24.665Z |  |
+| 12 | 44 | unrun-verify | content/exercises/fare-indefiniti.json |  | fare-indefiniti-300 queda en validation.status pending con passes vacio; G3 (el complemento que excluye dos de los tres modales) es el gate mas delicado de la fase y el quorum top-level debe pronunciarse explicitamente sobre las 3 variantes (D-44-04, D-44-11, VAL-03) | open |  | 2026-08-11T14:18:24.730Z |  |
 
 ````json
 [
@@ -120,6 +124,54 @@ last_updated: 2026-08-07T00:20:30.038Z
     "status": "open",
     "reason": "",
     "recorded_at": "2026-08-07T00:20:30.038Z",
+    "resolved_at": null
+  },
+  {
+    "id": 9,
+    "kind": "deviation",
+    "phase": "44",
+    "file": ".planning/REQUIREMENTS.md",
+    "line": null,
+    "description": "INT-03 e INT-04 quedan Pending en Traceability: los 3 cruces de 44-02 nacen pending y marcar 'TODAS las variantes validadas' seria un verde que el disco no respalda",
+    "status": "open",
+    "reason": "",
+    "recorded_at": "2026-08-11T13:53:03.991Z",
+    "resolved_at": null
+  },
+  {
+    "id": 10,
+    "kind": "deviation",
+    "phase": "44",
+    "file": ".planning/ROADMAP.md",
+    "line": 17,
+    "description": "§Milestones (lineas 17, 308, 360) corregido por reemplazo de 3 lineas y no por el skill gsd-phase: el skill solo opera sobre secciones de fase y no cubre la entrada de milestone",
+    "status": "open",
+    "reason": "",
+    "recorded_at": "2026-08-11T13:53:04.059Z",
+    "resolved_at": null
+  },
+  {
+    "id": 11,
+    "kind": "unrun-verify",
+    "phase": "44",
+    "file": "content/exercises/fare-indicativo.json",
+    "line": null,
+    "description": "fare-indicativo-300 y -301 quedan en validation.status pending con passes vacio: el quorum base Opus+Sonnet corre en pasada TOP-LEVEL posterior, no dentro del executor (D-44-11, VAL-03)",
+    "status": "open",
+    "reason": "",
+    "recorded_at": "2026-08-11T14:18:24.665Z",
+    "resolved_at": null
+  },
+  {
+    "id": 12,
+    "kind": "unrun-verify",
+    "phase": "44",
+    "file": "content/exercises/fare-indefiniti.json",
+    "line": null,
+    "description": "fare-indefiniti-300 queda en validation.status pending con passes vacio; G3 (el complemento que excluye dos de los tres modales) es el gate mas delicado de la fase y el quorum top-level debe pronunciarse explicitamente sobre las 3 variantes (D-44-04, D-44-11, VAL-03)",
+    "status": "open",
+    "reason": "",
+    "recorded_at": "2026-08-11T14:18:24.730Z",
     "resolved_at": null
   }
 ]
