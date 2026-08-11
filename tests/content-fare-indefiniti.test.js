@@ -101,7 +101,40 @@ const SLOTS = CONTENT.exercises;
 const byId = (id) => SLOTS.find((s) => s.id === id);
 const keyOf = (v) => v.options[v.correctIndex];
 const eachVariant = (slotId, fn) => byId(slotId).variants.forEach((v, k) => fn(v, k));
-const allVariants = () => SLOTS.flatMap((s) => s.variants.map((v, k) => ({ slot: s, v, k })));
+
+// PARTICION BASE / CRUCE (v2.0 Phase 44, INT-03 — leer antes de tocar un gate).
+// Desde Phase 44 el array `exercises` contiene DOS clases de slot: los 6 del
+// PARADIGMA NO PERSONAL (18 variantes) y el cruce multi-categoria `-300`
+// (`categoryIds` de 2, key en `modali` y el infinitivo `fare` escrito en el
+// enunciado como contexto, D-44-02). El cruce viola POR DISENO los gates de esta
+// categoria que son especificos del paradigma no personal —el POOL CERRADO de
+// las 10 formas, el conteo desigual, `categoryIds` de longitud 1—, porque su key
+// es un MODAL CONJUGADO y no una forma no personal de `fare`. Por eso los gates
+// de paradigma iteran `BASE_SLOTS` a traves de `allVariants()`, y el cruce tiene
+// su propio bloque al final del fichero que RE-ASERTA lo que sigue rigiendo
+// sobre el mas los predicados de G3. Re-apuntar un gate a la particion que de
+// verdad gobierna es legitimo; bajarle la barra no lo es.
+//
+// El id va SIEMPRE con el slug COMPLETO: `fare-ind` es prefijo ambiguo entre
+// `fare-indefiniti` y `fare-indicativo` (D-40-03).
+const CROSS_IDS = ['fare-indefiniti-300'];
+
+// La pareja de `categoryIds` del cruce, congelada por id. El segundo slug es
+// `modali` byte a byte y NUNCA la version con prefijo, que no esta registrada en
+// `content/categories.json` y haria rechazar el fichero ENTERO por
+// `src/data/schema-validator.js`.
+const CROSS_PAIRS = {
+  'fare-indefiniti-300': ['fare-indefiniti', 'modali'],
+};
+
+const BASE_SLOTS = SLOTS.filter((s) => !CROSS_IDS.includes(s.id));
+const CROSS_SLOTS = SLOTS.filter((s) => CROSS_IDS.includes(s.id));
+
+// `allVariants()` itera la BASE y no `SLOTS`: es UNA edicion que acota de golpe
+// los 13 call-sites de los gates de paradigma a las 18 variantes que de verdad
+// gobiernan. El cruce se recorre con `crossVariants()`, su gemelo.
+const allVariants = () => BASE_SLOTS.flatMap((s) => s.variants.map((v, k) => ({ slot: s, v, k })));
+const crossVariants = () => CROSS_SLOTS.flatMap((s) => s.variants.map((v, k) => ({ slot: s, v, k })));
 
 // Matcher con frontera de PALABRA UNICODE. `\b` de JS es ASCII-only y aqui hay
 // prompts con `è` y con `già`. Lleva `iu` y no solo `u` por WR-10: sin la `i`, la
@@ -529,8 +562,8 @@ describe('fare-indefiniti — estructura y conteos (D-43-03)', () => {
     assert.deepEqual(Object.keys(CONTENT).sort(), ['exercises', 'notes']);
   });
 
-  test('6 slots con los ids exactos, en el orden en que viven en disco', () => {
-    assert.deepEqual(SLOTS.map((s) => s.id), IDS, 'D-43-22: los 6 ids del paradigma no personal');
+  test('6 slots de PARADIGMA con los ids exactos, en el orden en que viven en disco', () => {
+    assert.deepEqual(BASE_SLOTS.map((s) => s.id), IDS, 'D-43-22: los 6 ids del paradigma no personal');
   });
 
   test('los 6 slots son multiple-choice: 0 match y 0 word-buttons (D-43-22)', () => {
@@ -560,14 +593,17 @@ describe('fare-indefiniti — estructura y conteos (D-43-03)', () => {
       );
     }
     assert.equal(
-      SLOTS.reduce((a, s) => a + s.variants.length, 0),
+      BASE_SLOTS.reduce((a, s) => a + s.variants.length, 0),
       TOTAL_VARIANTES,
       'D-43-03: 3 + 3 + 4 + 2 + 3 + 3 = 18 variantes'
     );
   });
 
-  test('categoryIds de longitud 1 con el slug COMPLETO en los 6 (D-43-22, D-40-03)', () => {
-    const sucio = SLOTS
+  test('categoryIds de longitud 1 con el slug COMPLETO en los 6 slots de PARADIGMA (D-43-22, D-40-03)', () => {
+    // El cruce `-300` tiene su espejo en el bloque 14: longitud EXACTAMENTE 2 con
+    // la pareja congelada. Un cruce es por definicion de longitud 2, asi que este
+    // gate gobierna la base; no se relaja, se re-apunta y gana su contraparte.
+    const sucio = BASE_SLOTS
       .filter((s) => !Array.isArray(s.categoryIds) || s.categoryIds.length !== 1 || s.categoryIds[0] !== SLUG)
       .map((s) => `${s.id}(${JSON.stringify(s.categoryIds)})`);
     assert.deepEqual(sucio, [], `D-43-22: categoryIds debe ser exactamente ["${SLUG}"]`);
@@ -603,9 +639,16 @@ describe('fare-indefiniti — estructura y conteos (D-43-03)', () => {
     }
   });
 
-  test('ningun id lleva sufijo numerico de 3 cifras: el espacio -300+ queda libre (D-41-14, D-40-07)', () => {
+  test('los unicos ids con sufijo numerico de 3 cifras son los cruces declarados (D-41-14, D-40-07, INT-03)', () => {
+    // Hasta Phase 43 este gate exigia que NINGUN id llevara sufijo de 3 cifras,
+    // porque el espacio -300+ estaba RESERVADO para el cruce multi-categoria de
+    // Phase 44 / INT-03. Phase 44 lo aterriza, asi que el gate se INVIERTE y no se
+    // borra: sigue mordiendo, ahora en la direccion util. Es rojo si alguien
+    // apende un `-301` no declarado, que es el escenario que de verdad hay que
+    // impedir ahora que el espacio esta abierto. El diff de arrays que imprime
+    // `assert` ya nombra el id intruso, que es toda la diagnosis que hace falta.
     const usados = SLOTS.map((s) => s.id).filter((id) => /-\d{3}$/.test(id));
-    assert.deepEqual(usados, [], 'D-43-22: fare-indefiniti-300+ es espacio reservado para Phase 44 / INT-03');
+    assert.deepEqual(usados, CROSS_IDS);
   });
 });
 
@@ -1450,7 +1493,7 @@ describe('fare-indefiniti — canon editorial e higiene del JSON (D-43-21, T-43-
     assert.equal(({}).polluted, undefined, 'T-43-02: el parse no puede contaminar Object.prototype');
   });
 
-  test('las 6 explanations estan en espanol acentuado RAE, no vacias y sin cross-ref R2', () => {
+  test('todas las explanations, paradigma y cruce, estan en espanol acentuado RAE, no vacias y sin cross-ref R2', () => {
     // Un flag C4-accent del quorum sobre espanol sin tildes es bug REAL: se
     // arreglan los acentos, NUNCA se hace override.
     for (const s of SLOTS) {
@@ -1542,7 +1585,7 @@ describe('fare-indefiniti — canon editorial e higiene del JSON (D-43-21, T-43-
     assert.ok(e.length > 500, `INDEF-04: la explanation del gerundio passato desarrolla el contraste entre el compuesto y el simple (${e.length} caracteres)`);
   });
 
-  test('ninguna de las 6 explanations predica imposibilidad DESNUDA sobre una forma italiana', () => {
+  test('ninguna explanation, paradigma o cruce, predica imposibilidad DESNUDA sobre una forma italiana', () => {
     // Tripwire de la regla de fondo. Ver el comentario de ABSOLUTOS_DESNUDOS: caza
     // la formula, no la falsedad, asi que su valor es recordar la disciplina en el
     // diff — no certifica que las explanations sean verdaderas.
@@ -1852,7 +1895,7 @@ describe('fare-indefiniti — audit trail de validacion y ronda EXTRA (D-43-20, 
   // evidencia que el autor tiene de que una variante fue revisada, y falsificarlo
   // es indetectable a ojo. Es tambien lo que permite que `execute-phase` cierre en
   // verde y que el quorum base Opus+Sonnet vaya despues, en pasada TOP-LEVEL.
-  test('los 6 slots tienen validation con status string y passes array', () => {
+  test('todos los slots, paradigma y cruce, tienen validation con status string y passes array', () => {
     for (const s of SLOTS) {
       assert.ok(s.validation && typeof s.validation === 'object', `${s.id}: falta validation`);
       assert.equal(typeof s.validation.status, 'string', `${s.id}: validation.status debe ser string`);
@@ -1860,7 +1903,7 @@ describe('fare-indefiniti — audit trail de validacion y ronda EXTRA (D-43-20, 
     }
   });
 
-  test('status coincide con deriveStatus(passes) en los 6 slots: no se puede forjar un validated', () => {
+  test('status coincide con deriveStatus(passes) en TODOS los slots, paradigma y cruce: no se puede forjar un validated', () => {
     // `deriveStatus` se importa del codigo real (WR-01: fuente unica) y NUNCA se
     // reimplementa aqui, para que este gate no pueda divergir de lo que el motor y
     // el reporter consideran validado.
@@ -1967,7 +2010,7 @@ describe('fare-indefiniti — registro de la categoria (D-43-22, SC-5)', () => {
     );
   });
 
-  test('los 6 slots referencian el slug COMPLETO de la categoria, nunca una version truncada (D-40-03)', () => {
+  test('todos los slots, paradigma y cruce, referencian el slug COMPLETO de la categoria, nunca una version truncada (D-40-03)', () => {
     for (const s of SLOTS) {
       assert.ok(
         Array.isArray(s.categoryIds) && s.categoryIds.includes(SLUG),
@@ -1978,5 +2021,161 @@ describe('fare-indefiniti — registro de la categoria (D-43-22, SC-5)', () => {
         `D-40-03: el id ${s.id} tiene que empezar por el slug COMPLETO "${SLUG}-"`
       );
     }
+  });
+});
+
+// ───────────────────────────────────────────────────────────────────────────
+// 14. Cruce multi-categoria -300 hacia `modali` (INT-03, D-44-01..D-44-04) — G3
+// ───────────────────────────────────────────────────────────────────────────
+
+describe('fare-indefiniti — invariantes del cruce multi-categoria -300 (INT-03, G3, D-44-04)', () => {
+  // POR QUE ESTE BLOQUE EXISTE: el cruce sale de `allVariants()` porque los gates
+  // de esta categoria son especificos del PARADIGMA NO PERSONAL — el POOL CERRADO
+  // de las 10 formas, el conteo desigual 3/3/4/2/3/3, los tipos de contexto
+  // sintactico, el 0-gloss del verbo—, y el cruce los viola por diseno: su key es
+  // un MODAL CONJUGADO y no una forma no personal de `fare`. Salir de la base NO
+  // es salir de cobertura: aqui se re-asertan los gates que siguen rigiendo sobre
+  // el y se añaden los predicados de G3, que es el mas delicado de la fase.
+
+  // El conjunto CERRADO de marcadores de complemento desambiguador de G3. `devo`,
+  // `posso` y `voglio` son INTERCAMBIABLES en una frase generica, asi que cada
+  // prompt necesita un complemento explicito que EXCLUYA dos de los tres dejando
+  // solo obligacion, permiso o voluntad. Es el analogo exacto del vocativo de
+  // D-43-05, que desambigua el destinatario. Se declara como constante para que
+  // el gate sea MECANICO y no un juicio a ojo: sin lista cerrada, «el complemento
+  // esta ahi» es una opinion, y lo que hay en juego es que el marco flojo no
+  // produce un ejercicio mediocre sino tres respuestas defendibles, `disputed`
+  // sticky y el reset de `fare-indefiniti` y `modali` a la vez por la cascada D-54.
+  const COMPLEMENTOS_QUE_EXCLUYEN = [
+    'altrimenti',  // consecuencia negativa -> obligacion; excluye permiso y voluntad
+    'permesso',    // autorizacion explicita -> permiso; excluye obligacion y voluntad
+    'desiderio',   // deseo explicito -> voluntad; excluye obligacion y permiso
+  ];
+
+  // Los 3 modales del paradigma de `modali`, por raiz. El pool de un cruce hacia
+  // `modali` son formas conjugadas de estos y nada mas.
+  const MODAL_STEM_RE = /^(dev|dov|dobb|poss|pu|pot|vogl|vuo|vol)/i;
+
+  test('el cruce en disco es EXACTAMENTE el declarado en CROSS_IDS', () => {
+    assert.deepEqual(CROSS_SLOTS.map((s) => s.id), CROSS_IDS, 'D-44-05: la lista de cruces esta CERRADA');
+    assert.ok(byId('fare-indefiniti-300'), 'INT-03: el cruce declarado no esta en disco');
+  });
+
+  test('3 variantes y 3 personas DISTINTAS con sujeto pronominal explicito (D-44-03)', () => {
+    const s = byId('fare-indefiniti-300');
+    assert.equal(s.variants.length, 3, 'D-44-03: 3 variantes, el volumen medio de los cruces del proyecto');
+    const personas = s.variants.map((v) => (v.prompt.match(PRONOUN_RE) || [''])[0].toLowerCase());
+    assert.ok(personas.every((p) => p.length > 0), `D-44-04: una variante no lleva sujeto pronominal explicito: ${personas.join(', ')}`);
+    assert.equal(new Set(personas).size, 3, `D-44-03: el cruce repite persona: ${personas.join(', ')}`);
+  });
+
+  test('categoryIds de longitud EXACTAMENTE 2 con la pareja congelada, y el slug vecino registrado (D-44-01)', () => {
+    // La cascada D-54 resetea TODAS las categorias que nombra `categoryIds`, asi
+    // que la pareja no es metadato: es el radio de daño del ejercicio. Y el slug
+    // vecino tiene que estar REGISTRADO, porque `schema-validator.js` rechaza el
+    // fichero entero si `categoryIds` referencia una categoria desconocida.
+    const registradas = CATEGORIES.categories.map((c) => c.id);
+    for (const s of CROSS_SLOTS) {
+      assert.deepEqual(s.categoryIds, CROSS_PAIRS[s.id], `D-44-01: la pareja de categoryIds de ${s.id}`);
+      assert.equal(s.categoryIds.length, 2, `D-44-01: ${s.id} debe cruzar EXACTAMENTE 2 categorias`);
+      for (const cid of s.categoryIds) {
+        assert.ok(registradas.includes(cid), `D-44-01: ${s.id} referencia la categoria ${cid}, que NO esta registrada en content/categories.json`);
+      }
+    }
+  });
+
+  test('el hueco ___ esta en los 3 prompts, con 4 options sin duplicados y correctIndex variable', () => {
+    for (const { slot, v, k } of crossVariants()) {
+      assert.ok(v.prompt.includes('___'), `${slot.id}#${k}: falta el hueco ___`);
+      assert.equal(v.options.length, 4, `${slot.id}#${k}: 4 opciones`);
+      assert.equal(new Set(v.options).size, 4, `${slot.id}#${k}: opciones sin duplicados internos`);
+      assert.ok(
+        Number.isInteger(v.correctIndex) && v.correctIndex >= 0 && v.correctIndex < 4,
+        `${slot.id}#${k}: correctIndex fuera de rango: ${v.correctIndex}`
+      );
+    }
+    for (const s of CROSS_SLOTS) {
+      assert.ok(
+        new Set(s.variants.map((v) => v.correctIndex)).size > 1,
+        `${s.id}: correctIndex constante — el autor aprenderia la posicion y no la forma`
+      );
+    }
+  });
+
+  test('SCOPE-GATE de perifrasis por campo: el cruce no tiene excepcion, ni far fare ni causativo (D-41-06)', () => {
+    for (const { slot, v, k } of crossVariants()) {
+      const campos = [v.prompt, ...v.options];
+      for (const m of PERIPHRASIS) {
+        const sucio = campos.filter((c) => c.toLowerCase().includes(m));
+        assert.deepEqual(sucio, [], `D-41-06: ${slot.id}#${k} cruza la perifrasis "${m}": ${sucio.join(' | ')}`);
+      }
+    }
+  });
+
+  test('cada prompt del cruce lleva un objeto del conjunto CERRADO (D-41-06)', () => {
+    // La excepcion enumerada de D-43-18 (`facente funzione`) es LOCAL al slot de
+    // participio presente y NO se extiende al cruce.
+    for (const { slot, v, k } of crossVariants()) {
+      assert.ok(
+        OBJECTS.some((o) => v.prompt.includes(o)),
+        `D-41-06: ${slot.id}#${k} no usa ningun objeto del conjunto cerrado: "${v.prompt}"`
+      );
+    }
+  });
+
+  test('ninguna option ni prompt del cruce lleva una forma de la blacklist de atestiguadas (D-43-17)', () => {
+    for (const { slot, v, k } of crossVariants()) {
+      const sucio = [];
+      for (const texto of [v.prompt, ...v.options]) {
+        for (const f of BLACKLIST) if (wordish(f).test(texto)) sucio.push(`${f} en "${texto}"`);
+      }
+      assert.deepEqual(sucio, [], `D-43-17: ${slot.id}#${k} ofrece o menciona una forma atestiguada: ${sucio.join(', ')}`);
+    }
+  });
+
+  test('G3 — el infinitivo fare va ESCRITO en los 3 prompts y ninguna option contiene una forma de fare (D-44-02)', () => {
+    // Es la DIVERGENCIA OBLIGATORIA respecto al molde `modali-300`, que si mete la
+    // forma conjugada del verbo GOBERNADO (`parlo`, `prendiamo`, `dormi`) como
+    // distractora: clonarlo literalmente pondria un `fare` en `options`, y aqui el
+    // hueco es el MODAL. Se prohibe la inicial f- entera y no una lista de formas,
+    // porque toda forma de `fare` empieza por f- y en un pool de modales
+    // conjugados no hay ninguna palabra legitima con esa inicial.
+    for (const [k, v] of byId('fare-indefiniti-300').variants.entries()) {
+      assert.match(v.prompt, /(^|\W)fare(\W|$)/, `G3: #${k} no trae escrito el infinitivo fare como contexto: "${v.prompt}"`);
+      const sucio = v.options.filter((o) => o.split(/\s+/).some((w) => /^f/i.test(w)));
+      assert.deepEqual(sucio, [], `G3: #${k} mete una forma de fare en options: ${sucio.join(' | ')} — el hueco es el modal`);
+    }
+  });
+
+  test('G3 — las 4 options de cada variante son formas conjugadas de un MODAL y nada mas (D-44-04)', () => {
+    for (const [k, v] of byId('fare-indefiniti-300').variants.entries()) {
+      const sucio = v.options.filter((o) => !MODAL_STEM_RE.test(o) || o.includes(' '));
+      assert.deepEqual(sucio, [], `G3: #${k} ofrece una option que no es un modal conjugado de una palabra: ${sucio.join(' | ')}`);
+    }
+  });
+
+  test('G3 — cada prompt lleva un COMPLEMENTO del conjunto cerrado que EXCLUYE dos de los tres modales (D-44-04)', () => {
+    // El gate mas importante del cruce. Sin complemento explicito, `devo`, `posso`
+    // y `voglio` son las tres defendibles en la misma frase, la variante tiene tres
+    // respuestas correctas, el quorum la marca `disputed`, `disputed` es STICKY y
+    // por la cascada D-54 el fallo resetea `fare-indefiniti` Y `modali` enteras. El
+    // gloss ES por si solo NO basta como red: es exactamente el punto donde el
+    // molde `modali-300` se queda corto, porque usa marcos genericos.
+    for (const [k, v] of byId('fare-indefiniti-300').variants.entries()) {
+      const hits = COMPLEMENTOS_QUE_EXCLUYEN.filter((m) => v.prompt.toLowerCase().includes(m));
+      assert.equal(
+        hits.length,
+        1,
+        `G3: #${k} lleva ${hits.length} marcadores de complemento desambiguador (${hits.join(', ')}) y necesita EXACTAMENTE 1: "${v.prompt}"`
+      );
+    }
+    const usados = byId('fare-indefiniti-300').variants.map(
+      (v) => COMPLEMENTOS_QUE_EXCLUYEN.find((m) => v.prompt.toLowerCase().includes(m))
+    );
+    assert.equal(
+      new Set(usados).size,
+      3,
+      `G3: las 3 variantes tienen que apuntar a los TRES modales distintos, y apuntan a ${usados.join(', ')}`
+    );
   });
 });
