@@ -2056,6 +2056,14 @@ describe('fare-indefiniti — invariantes del cruce multi-categoria -300 (INT-03
   // `modali` son formas conjugadas de estos y nada mas.
   const MODAL_STEM_RE = /^(dev|dov|dobb|poss|pu|pot|vogl|vuo|vol)/i;
 
+  // El eje de variante de ESTA categoria es el contexto sintactico y no la
+  // persona, asi que el fichero no tenia matcher de pronombre sujeto. El cruce si
+  // lo necesita: su key es un modal CONJUGADO, asi que la persona tiene que
+  // quedar fijada por un sujeto explicito (D-44-04) y las 3 variantes muestrean
+  // 3 personas distintas (D-44-03). Vive dentro de este bloque a proposito: no es
+  // una constante de la categoria, es una del cruce.
+  const PRONOUN_RE = /\b(io|tu|lui|lei|noi|voi|loro)\b/gi;
+
   test('el cruce en disco es EXACTAMENTE el declarado en CROSS_IDS', () => {
     assert.deepEqual(CROSS_SLOTS.map((s) => s.id), CROSS_IDS, 'D-44-05: la lista de cruces esta CERRADA');
     assert.ok(byId('fare-indefiniti-300'), 'INT-03: el cruce declarado no esta en disco');
