@@ -4,17 +4,17 @@ milestone: v2.0
 milestone_name: Paradigma completo de `fare` (4 categorías por modo)
 current_phase: 44
 current_phase_name: Integración lockstep + cierre v2.0
-status: executing
-stopped_at: Completed 44-01-PLAN.md
-last_updated: "2026-08-11T13:52:33.798Z"
+status: verifying
+stopped_at: "Checkpoint Tarea 4 de 44-02: hand-off del quorum TOP-LEVEL sobre los 3 cruces (pending)"
+last_updated: "2026-08-11T14:17:37.694Z"
 last_activity: 2026-08-11
 last_activity_desc: Phase 44 execution started
 progress:
   total_phases: 5
-  completed_phases: 4
+  completed_phases: 5
   total_plans: 9
-  completed_plans: 8
-  percent: 80
+  completed_plans: 9
+  percent: 100
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -31,10 +31,10 @@ See: `.planning/PROJECT.md` (updated 2026-08-06 — Phase 42 `fare-congiuntivo` 
 
 Phase: 44 (Integración lockstep + cierre v2.0) — EXECUTING
 Plan: 2 of 2
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-08-11 — Phase 44 execution started
 
-Progress: [████████████████████] 5/5 plans ([█████████░] 89%) · 4/5 fases (80%)
+Progress: [████████████████████] 5/5 plans ([██████████] 100%) · 4/5 fases (80%)
 
 ## Deferred Items
 
@@ -176,6 +176,7 @@ Items reconocidos y diferidos en el cierre del milestone v1.9 (2026-07-02, ackno
 | Phase 43 P01 | 24min | 4 tasks | 4 files |
 | Phase 43 P02 | 26min | 5 tasks | 7 files |
 | Phase 44 P01 | ~35 min | 3 tasks | 6 files |
+| Phase 44 P02 | ~55 min | 3 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -303,6 +304,10 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - [Phase ?]: La lista de referencia del gate se lee de content/categories.json en tiempo de test (.categories.map), nunca escrita a mano: un gate que se compara consigo mismo es verde para siempre
 - [Phase ?]: El anclaje del gate es por slug COMPLETO escapado dentro de slug: '<slug>'; includes() a pelo daria falso verde entre fare-indicativo y fare-indefiniti por el prefijo fare-ind (D-40-03)
 - [Phase ?]: INT-03 e INT-04 quedan Pending en Traceability aunque 44-01 cierre: los 3 cruces de 44-02 nacen pending y marcar 'TODAS las variantes validadas' seria un verde que el disco no respalda
+- [Phase ?]: El sentido invertido de D-44-02 en los 3 cruces: la key vive en la categoria vecina y la forma de fare va escrita como contexto — solape cero con los 22 slots del paradigma
+- [Phase ?]: CONJUGATE de content-fare-indefiniti.test.js acotado a los slots de PARADIGMA de las otras tres categorias: las options de un cruce ajeno NO son formas de fare por diseno, e incluirlas contaminaba el gate
+- [Phase ?]: El gloss ES del cruce hacia modali glosa el COMPLEMENTO y nunca el modal: traducirlo seria leak C5 porque ahi la key ES el modal (divergencia consciente respecto a modali-300)
+- [Phase ?]: El criterio grep -c '^-[^-]' = 0 es inalcanzable para un append a notes (string JSON de una linea); se sustituye por notes.startsWith(anterior) byte a byte, que es mas fuerte
 
 ### Pending Todos
 
@@ -362,9 +367,9 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Session Continuity
 
-**Last session:** 2026-08-11T13:52:22.869Z
-**Stopped at:** Completed 44-01-PLAN.md
-**Resume file:** None
+**Last session:** 2026-08-11T14:17:37.665Z
+**Stopped at:** Checkpoint Tarea 4 de 44-02: hand-off del quorum TOP-LEVEL sobre los 3 cruces (pending)
+**Resume file:** .planning/phases/44-integraci-n-lockstep-cierre-v2-0/44-02-SUMMARY.md
 
 ### Last Session
 
