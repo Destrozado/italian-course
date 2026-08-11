@@ -260,7 +260,18 @@ Plans:
   3. Existen los cruces multi-categoría de `fare` (`↔ avere` en los compuestos, `↔ modali` en `devo/posso/voglio fare`, `↔ presente-regolare` como contraste irregular-vs-regular) con `categoryIds` de 2, propagan la cascada D-54 al fallar, y NO añaden call-sites: `grep -c 'applyImmediateFailure(this.state' src/screens/app.js` sigue dando **2** y `git diff src/screens/app.js src/domain/` queda vacío.
   4. La suite completa `node --test tests/*.test.js` (y con `VAL_07_STRICT=1`) queda verde sobre las 18 categorías sin fails nuevos, y las ≈107 variantes nuevas están validadas 1-por-1 por quórum cross-vendor R1-R7 con rondas EXTRA registradas en los 3 magnets de doble validez (imperativo `tu`, homógrafas de congiuntivo, `fatto` invariable-vs-concordado).
 
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+**Wave 1**
+
+- [ ] 44-01-PLAN.md — counts + gate anti-ceguera + documentos: las 4 categorías de `fare` enganchadas a los 2 arrays de conteo que quedaron ciegos (`CATEGORIES` del reporter y `REAL_CATEGORIES` del back-compat) con `expected` dinámico, `tests/count-arrays-lockstep.test.js` nuevo (source-assert contra `content/categories.json`, con golden-negative de la colisión de prefijo `fare-ind`), y la corrección de REQUIREMENTS.md, ROADMAP §Phase 44 (vía skill `gsd-phase`) y `### 7.5` del prompt de validación. El reporter pasa de `225/225 PASS` mintiendo a `247/247 PASS`
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
+- [ ] 44-02-PLAN.md — los 3 cruces multi-categoría (`fare-indicativo-300` ↔ `avere`, `fare-indicativo-301` ↔ `presente-regolare`, `fare-indefiniti-300` ↔ `modali`; 9 variantes, key en la categoría VECINA por D-44-02) con sus gates HARD G1/G2/G3 declarados antes de autorar, más la partición `BASE_SLOTS`/`CROSS_SLOTS` que re-apunta los gates de paradigma de `tests/content-fare-indicativo.test.js` y `tests/content-fare-indefiniti.test.js` sin debilitar ninguno, y `### 7.6` del prompt de validación
+
+> **Nota de planificación (D-44-10):** los dos plans van en **waves distintas y no en paralelo** porque 44-02 añade slots que los arrays de 44-01 tienen que contar y ambos tocan la suite de tests. El orden importa por honestidad del marcador: con los counts primero el reporter deja de mentir de inmediato, y el rojo que provocan los cruces `pending` es un rojo que dice la verdad. El quórum base canónico Opus+Sonnet **no corre dentro del executor** (`[[executor_cannot_run_task_quorum]]`, D-44-11): los 3 cruces cierran 44-02 en `validation.status: "pending"` con `passes: []` y el quórum se estampa en una pasada TOP-LEVEL posterior, un ejercicio por contexto fresco y NUNCA en lote (VAL-03). **El estado `VAL-06 (250/250): FAIL (247/250 — pending=3)` entre que los cruces aterrizan y el quórum termina es el estado ESPERADO y honesto** — no se arregla tocando contenido ni relajando un gate. El gate de cierre del milestone toma el diff del motor contra la BASE de v2.0 (`0a9a2e5`) con el scope acotado a `src/screens/app.js` y `src/domain/`: **`src/data/` NO entra**, porque divergió legítimamente en Phases 40 y 42 (D-44-09).
 
 ## Progress
 
