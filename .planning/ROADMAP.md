@@ -260,12 +260,12 @@ Plans:
   3. Existen los **3 cruces** multi-categoría de `fare` con `categoryIds` de 2 y el sentido de D-44-02 —**la key vive en la categoría VECINA y la forma de `fare` va ESCRITA en el prompt como contexto**, no al revés—: `fare-indicativo-300` (`["fare-indicativo","avere"]`, hueco = auxiliar de `avere`, con `fatto` escrito), `fare-indicativo-301` (`["fare-indicativo","presente-regolare"]`, hueco = presente del verbo regular, con el compuesto de `fare` escrito) y `fare-indefiniti-300` (`["fare-indefiniti","modali"]`, hueco = modal conjugado, con el infinito `fare` escrito). Propagan la cascada D-54 al fallar y NO añaden call-sites: `grep -c 'applyImmediateFailure(this.state' src/screens/app.js` sigue dando **2** y `git diff 0a9a2e5..HEAD -- src/screens/app.js src/domain/` queda vacío (`src/data/` NO entra en el scope: divergió legítimamente en Phases 40 y 42, D-44-09).
   4. La suite completa `node --test tests/*.test.js` (y con `VAL_07_STRICT=1`) queda verde sobre las 18 categorías sin fails nuevos, y las **113 variantes** nuevas (48 + 30 + 17 + 18) están validadas 1-por-1 por quórum cross-vendor R1-R7 con rondas EXTRA registradas en los **4 magnets** de doble validez: imperativo `tu` (`fa'`/`fai`/`fa`), homógrafas de congiuntivo, `fatto` invariable-vs-concordado, y el par `aver fatto` / `avere fatto` del infinito passato (apócope frente a forma plena, D-43-17).
 
-**Plans**: 2 plans
+**Plans**: 1/2 plans executed
 
 Plans:
 **Wave 1**
 
-- [ ] 44-01-PLAN.md — counts + gate anti-ceguera + documentos: las 4 categorías de `fare` enganchadas a los 2 arrays de conteo que quedaron ciegos (`CATEGORIES` del reporter y `REAL_CATEGORIES` del back-compat) con `expected` dinámico, `tests/count-arrays-lockstep.test.js` nuevo (source-assert contra `content/categories.json`, con golden-negative de la colisión de prefijo `fare-ind`), y la corrección de REQUIREMENTS.md, ROADMAP §Phase 44 (vía skill `gsd-phase`) y `### 7.5` del prompt de validación. El reporter pasa de `225/225 PASS` mintiendo a `247/247 PASS`
+- [x] 44-01-PLAN.md — counts + gate anti-ceguera + documentos: las 4 categorías de `fare` enganchadas a los 2 arrays de conteo que quedaron ciegos (`CATEGORIES` del reporter y `REAL_CATEGORIES` del back-compat) con `expected` dinámico, `tests/count-arrays-lockstep.test.js` nuevo (source-assert contra `content/categories.json`, con golden-negative de la colisión de prefijo `fare-ind`), y la corrección de REQUIREMENTS.md, ROADMAP §Phase 44 (vía skill `gsd-phase`) y `### 7.5` del prompt de validación. El reporter pasa de `225/225 PASS` mintiendo a `247/247 PASS`
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
@@ -295,7 +295,7 @@ Plans:
 | 41. `fare-indicativo` (8 slots) | v2.0 | 2/2 | Complete    | 2026-08-04 |
 | 42. `fare-congiuntivo` (4 slots) | v2.0 | 2/2 | Complete    | 2026-08-06 |
 | 43. `fare-cond-imperativo` + `fare-indefiniti` (3+6 slots) | v2.0 | 2/2 | Complete    | 2026-08-10 |
-| 44. Integración lockstep + cierre v2.0 | v2.0 | 0/? | Not started | - |
+| 44. Integración lockstep + cierre v2.0 | v2.0 | 1/2 | In Progress|  |
 
 ## Backlog
 
