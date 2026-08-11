@@ -130,7 +130,7 @@ Cerrar el milestone v2.0: **re-sincronizar los conteos que quedaron ciegos**, **
 
   **TRAMPA QUE EL PLANNER TIENE QUE EVITAR:** contra esa base **`src/data/` NO sale vacío, y es correcto**. Phase 40 metió `migrate12to13`/`hydrateV13` en `storage.js` (+189 líneas) y tocó `backup.js`; Phase 42 amplió `validation-state.js` con `by:"autor"` + `override:true`. **SC#3 nombra literalmente solo `src/screens/app.js` y `src/domain/`** — el scope está bien acotado. El `notes` de Phase 43 dice «`git diff src/screens/app.js src/domain/ src/data/` debe quedar vacío», que era cierto **por fase** y es **falso por milestone**: si alguien copia esa línea al gate de cierre, falla por diseño.
 
-- **D-44-10 (2 plans secuenciales: counts+docs PRIMERO, cruces DESPUÉS):**
+- **D-44-10 (2 plans secuenciales — counts+docs PRIMERO, cruces DESPUÉS):** El orden de los dos plans y el estado del marcador en cada uno:
 
   ```
   44-01  counts + gate anti-ceguera + docs   →  reporter 247/247 PASS   (verde honesto)
