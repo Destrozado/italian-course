@@ -10,8 +10,10 @@
 //   2) lo pasa por validateContent con categorías reales -> ok true,
 //   3) lo normaliza con la MISMA función pura que usa loadContent
 //      (normalizeExerciseToSlot) y afirma el shape de slotById,
-//   4) afirma back-compat (SLOT-06): las 10 categorías reales del registry siguen
+//   4) afirma back-compat (SLOT-06): las 18 categorías reales del registry siguen
 //      validando con el validator extendido, y el conteo por categoría no cambia.
+//      (el literal decía «10» desde Phase 15 y ya mentía con 14; v2.0 Phase 44
+//      lo pone al día junto con el enganche de las 4 categorías de `fare`.)
 //
 // El snapshot append-only de avere se verifica vía
 //   scripts/assert-avere-prefix-unchanged.mjs (no se duplica en JS).
@@ -157,10 +159,10 @@ describe('integración slot+variantes — pipeline sobre slot-demo.json', () => 
 });
 
 // ────────────────────────────────────────────────────────────────────────────
-// Back-compat gate SLOT-06 (Task 2): las 10 categorías reales + conteo intacto
+// Back-compat gate SLOT-06 (Task 2): las 18 categorías reales + conteo intacto
 // ────────────────────────────────────────────────────────────────────────────
 
-describe('back-compat SLOT-06 — las 10 categorías reales validan con el validator extendido', () => {
+describe('back-compat SLOT-06 — las 18 categorías reales validan con el validator extendido', () => {
   // Conteos esperados (espejo del registry actual). Si una alta de contenido
   // futura cambia un conteo, este test obliga a actualizarlo conscientemente.
   // v1.7 Phase 31 (INT-01): presente-regolare con expected DINÁMICO (D-31-06) =
@@ -181,7 +183,12 @@ describe('back-compat SLOT-06 — las 10 categorías reales validan con el valid
     { slug: 'dimostrativi', expected: readJson('content/exercises/dimostrativi.json').exercises.length },
     { slug: 'possessivi', expected: readJson('content/exercises/possessivi.json').exercises.length },
     { slug: 'modali', expected: readJson('content/exercises/modali.json').exercises.length },
-    { slug: 'riflessivi', expected: readJson('content/exercises/riflessivi.json').exercises.length }
+    { slug: 'riflessivi', expected: readJson('content/exercises/riflessivi.json').exercises.length },
+    // v2.0 Phase 44 (INT-02, D-44-06): las categorías de `fare` llevaban tres fases
+    // registradas en content/categories.json y AUSENTES de este array. expected
+    // DINÁMICO (D-31-06); slug COMPLETO byte a byte porque `fare-ind` es prefijo
+    // ambiguo (D-40-03).
+    { slug: 'fare-indicativo', expected: readJson('content/exercises/fare-indicativo.json').exercises.length }
   ];
 
   for (const { slug, expected } of REAL_CATEGORIES) {
@@ -210,7 +217,7 @@ describe('back-compat SLOT-06 — las 10 categorías reales validan con el valid
     });
   }
 
-  test('las 10 categorías reales validan TODAS juntas en un solo bundle (ids únicos globales)', () => {
+  test('las 18 categorías reales validan TODAS juntas en un solo bundle (ids únicos globales)', () => {
     const exercisesByFile = {};
     for (const { slug } of REAL_CATEGORIES) {
       const file = `content/exercises/${slug}.json`;

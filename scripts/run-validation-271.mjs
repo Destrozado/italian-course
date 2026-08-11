@@ -176,6 +176,12 @@ const CATEGORIES = [
   { slug: 'avere',                    file: 'content/exercises/avere.json',                    expected: 20 },
   { slug: 'dimostrativi',             file: 'content/exercises/dimostrativi.json',             expected: slotCountOf('content/exercises/dimostrativi.json') },
   { slug: 'essere',                   file: 'content/exercises/essere.json',                   expected: 26 },
+  // v2.0 Phase 44 (INT-02, D-44-06): las categorías de `fare` estaban registradas en
+  // content/categories.json desde las Phases 41/42/43 pero AUSENTES de este array, así
+  // que el reporter emitía `Milestone gate PASS` ciego a sus slots. expected DINÁMICO
+  // (D-31-06) = exercises.length real en disco, NUNCA número mágico. Slug COMPLETO byte
+  // a byte: `fare-ind` es prefijo ambiguo (D-40-03) y no se trunca jamás.
+  { slug: 'fare-indicativo',          file: 'content/exercises/fare-indicativo.json',          expected: slotCountOf('content/exercises/fare-indicativo.json') },
   { slug: 'genero-numero',            file: 'content/exercises/genero-numero.json',            expected: 13 },
   { slug: 'modali',                   file: 'content/exercises/modali.json',                   expected: slotCountOf('content/exercises/modali.json') },
   { slug: 'partitivos',               file: 'content/exercises/partitivos.json',               expected: 19 },
