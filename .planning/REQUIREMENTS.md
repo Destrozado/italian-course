@@ -54,10 +54,12 @@ Requisitos comprometidos para este milestone. Cada uno mapea a una fase del road
 
 ### Integración lockstep (INT)
 
-- [ ] **INT-01**: 4 entradas nuevas en `categories.json` (append, order 15–18) con `origen: "ia-quorum"` (PROV-01, v1.9), sin romper el display de la tabla del home.
-- [ ] **INT-02**: Counts re-sincronizados — los 3 arrays hardcoded de count + `TOTAL_EXPECTED` + la fórmula del baseline-guard + 4 entradas nuevas en el smoke paramétrico; el dynamic-count mantiene la honestidad (nunca número mágico).
-- [ ] **INT-03**: Cruces multi-categoría de `fare` (`↔ avere` en los compuestos, `↔ verbi-modali` en `devo/posso/voglio fare`, `↔ presente-regolare` como contraste irregular-vs-regular) reusando `applyResultToSession` — la cascada D-54 permanece en EXACTAMENTE 2 call-sites de `applyImmediateFailure` (verificable por grep).
-- [ ] **INT-04**: Todas las variantes nuevas validadas 1-por-1 por quórum cross-vendor R1-R7, con **rondas EXTRA en los magnets de doble validez**: imperativo `tu` (`fa'`/`fai`/`fa`), las homógrafas de congiuntivo, y el par `fatto` invariable-vs-concordado.
+- [x] **INT-01**: 4 entradas nuevas en `categories.json` (append, order 15–18) con `origen: "ia-quorum"` (PROV-01, v1.9), sin romper el display de la tabla del home.
+- [x] **INT-02**: Counts re-sincronizados — los **2** arrays hardcoded de count que quedaban ciegos (`CATEGORIES` de `scripts/run-validation-271.mjs` y `REAL_CATEGORIES` de `tests/fixtures/slot-variants-integration.test.js`) más el **gate anti-ceguera** (`tests/count-arrays-lockstep.test.js`), que pone rojo cualquier categoría registrada en `categories.json` y no enganchada. `TOTAL_EXPECTED` y la fórmula del baseline-guard ya eran `reduce` sobre `CATEGORIES`, así que se re-suman solos y NO se editan; el smoke paramétrico y `CATEGORIES_WITH_EXPLANATIONS` ya llevaban las 4 entradas desde las Phases 41/42/43. El dynamic-count mantiene la honestidad (nunca número mágico).
+  <!-- v2.0 Phase 44 (D-44-08): el requisito decía «los 3 arrays hardcoded». Eran 3 en v1.9; para v2.0 solo 2 quedaron sin enganchar, porque el tercero (`CATEGORIES_WITH_EXPLANATIONS`) lo fueron ampliando las propias fases de contenido. Y el gate anti-ceguera no estaba en el requisito original: se añade porque el fallo se repitió tres fases seguidas sin que nada se pusiera rojo. -->
+- [ ] **INT-03**: Cruces multi-categoría de `fare` (`↔ avere` en los compuestos, `↔ modali` en `devo/posso/voglio fare`, `↔ presente-regolare` como contraste irregular-vs-regular) reusando `applyResultToSession` — la cascada D-54 permanece en EXACTAMENTE 2 call-sites de `applyImmediateFailure` (verificable por grep).
+  <!-- v2.0 Phase 44 (D-44-08): el requisito escribía un slug con prefijo `verbi-` que NO existe en el registro — `src/data/schema-validator.js` rechazaría el fichero. El slug real registrado en content/categories.json es `modali`, y se sustituye en vez de anotarse al lado. -->
+- [ ] **INT-04**: Todas las variantes nuevas validadas 1-por-1 por quórum cross-vendor R1-R7, con **rondas EXTRA en los 4 magnets de doble validez**: imperativo `tu` (`fa'`/`fai`/`fa`), las homógrafas de congiuntivo, el par `fatto` invariable-vs-concordado, y el par `aver fatto` / `avere fatto` del infinito passato (apócope frente a forma plena, D-43-17).
 
 ## Future Requirements
 
@@ -101,10 +103,12 @@ Requisitos comprometidos para este milestone. Cada uno mapea a una fase del road
 | INDEF-02 | Phase 43 — `fare-cond-imperativo` + `fare-indefiniti` | Complete |
 | INDEF-03 | Phase 43 — `fare-cond-imperativo` + `fare-indefiniti` | Complete |
 | INDEF-04 | Phase 43 — `fare-cond-imperativo` + `fare-indefiniti` | Complete |
-| INT-01 | Phase 44 — Integración lockstep + cierre | Pending |
-| INT-02 | Phase 44 — Integración lockstep + cierre | Pending |
-| INT-03 | Phase 44 — Integración lockstep + cierre | Pending |
-| INT-04 | Phase 44 — Integración lockstep + cierre | Pending |
+| INT-01 | Phase 44 — Integración lockstep + cierre | Complete |
+| INT-02 | Phase 44 — Integración lockstep + cierre | Complete |
+| INT-03 | Phase 44 — Integración lockstep + cierre | Pending (plan 44-02) |
+| INT-04 | Phase 44 — Integración lockstep + cierre | Pending (mitad documental hecha en 44-01; el quórum de los 3 cruces es de 44-02) |
+
+> **INT-03 e INT-04 siguen `Pending` a propósito al cerrar el plan 44-01.** El plan 44-01 solo cubre la mitad mecánica y documental: INT-01 verificado y congelado por gate, INT-02 cerrado con los 2 arrays y el gate anti-ceguera, e INT-04 declarado (los 4 magnets verificados en disco y escritos en `### 7.5` del prompt de validación). Los 3 cruces multi-categoría de INT-03 nacen en 44-02 con `status: pending` y `passes: []`, y hasta que su quórum corra, INT-04 —«TODAS las variantes nuevas validadas»— sería falso en verde. Marcarlos completos aquí es exactamente la clase de mentira que el reporter llevaba tres fases contando.
 
 **Coverage: 23/23 requisitos mapeados — 0 huérfanos, 0 duplicados, 0 gaps.**
 Cada requisito vive en EXACTAMENTE una fase; cada criterio de éxito del ROADMAP está respaldado por ≥1 requisito.
@@ -120,5 +124,15 @@ Cada requisito vive en EXACTAMENTE una fase; cada criterio de éxito del ROADMAP
 ### Estado del codebase al fijar el roadmap (2026-07-28)
 
 - `CURRENT_SCHEMA_VERSION` = **12** (`src/data/storage.js:35`, `src/data/backup.js:56`) → la migración de v2.0 es **`12→13`**.
-- **14 categorías** registradas (orders 1-14) / **225 slots** en disco → las 4 nuevas van a **order 15-18** y `TOTAL_EXPECTED` pasa de 225 a 225 + los 21 slots nuevos.
+- **14 categorías** registradas (orders 1-14) / **225 slots** en disco → las 4 nuevas van a **order 15-18** y `TOTAL_EXPECTED` pasa de 225 a 225 más los slots nuevos.
+
+### Estado real al cerrar el plan 44-01 (2026-08-11)
+
+Lo de arriba es la foto de plan-time y se conserva como tal. Lo que hay en disco hoy:
+
+- **18 categorías** registradas (orders 1-18, las 4 de `fare` con `origen: "ia-quorum"`) / **247 slots** en disco = 225 previos + los **22 slots nuevos** del paradigma de `fare` (8 indicativo + 5 congiuntivo + 3 cond-imperativo + 6 indefiniti), **113 variantes** (48 + 30 + 17 + 18).
+- El plan estimó 21 slots y salieron 22: `fare-congiuntivo` añadió el slot del disparador (CONG-04), que no es una casilla del paradigma.
+- `node scripts/run-validation-271.mjs` → `VAL-06 (247/247 validated): PASS`. Antes de este plan decía `225/225 PASS` estando **ciego a los 22 slots de `fare`** durante tres fases.
+- Con los 3 cruces multi-categoría del plan 44-02 el total pasará a **250**.
+- `CURRENT_SCHEMA_VERSION` = **13** desde Phase 40 (MIG-01).
 - `grep -c 'applyImmediateFailure(this.state' src/screens/app.js` = **2** — invariante D-54 verificable al cierre.

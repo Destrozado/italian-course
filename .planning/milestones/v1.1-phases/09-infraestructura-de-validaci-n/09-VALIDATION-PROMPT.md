@@ -320,6 +320,23 @@ El gloss léxico de conjunción o locución subordinante declarado en R1 y en C5
 
 **La frontera, y aquí NO hay indulgencia.** Esto **no** relaja el caso inverso. Cuando el objeto directo va **ANTEPUESTO como pronombre** (`li ha ___`, `le abbiamo ___`), la concordancia es **OBLIGATORIA** en italiano moderno y la forma invariable **SÍ es un error**. En esas variantes C2 debe seguir mordiendo con todo: si detectas que la invariable sería defendible con un clítico antepuesto, márcalo. Y como las anteriores, esta excepción no toca C5 ni ningún otro criterio — ver 7.3.
 
+### 7.5 Apócope del infinito passato: `aver fatto` frente a `avere fatto` — categoría `fare-indefiniti`, slot `fare-indefiniti-infinito-passato` (v2.0 Phase 44)
+
+**Qué es.** El auxiliar `avere` del infinito compuesto admite en italiano moderno estándar **dos grafías, las dos norma**: la **apocopada** `aver fatto` y la **plena** `avere fatto`. La apócope del infinitivo ante otra palabra (`aver`, `esser`, `far`, `voler`) no es coloquial ni regional ni antigua: es un registro perfectamente corriente, mayoritario en la lengua escrita cuidada precisamente en el infinito compuesto. Las dos formas son intercambiables aquí, y ninguna de las dos es un error que corregir en la otra.
+
+**Qué NO es un fallo.** Las tres variantes de ese slot llevan como respuesta correcta la forma **apocopada** `aver fatto`, y la forma plena `avere fatto` **no aparece entre las `options`** de ninguna de ellas. Eso es decisión de autoría declarada, no un olvido:
+
+1. **Marcar `avere fatto` como distractora plausible ausente es un FALSO POSITIVO de C3.** Ofrecerla como opción «incorrecta» daría por errónea una forma correcta y enseñaría un error al alumno — es el principio RECONOCER, NO PRODUCIR de 7.2, aplicado a este par.
+2. **Marcar la key `aver fatto` como segunda respuesta defendible frente a una plena que no está en el pool es un FALSO POSITIVO de C2.** Con la plena fuera, hay UNA sola opción defendible, y la hay *gracias* a esa ausencia, no a pesar de ella.
+3. **Ver las dos grafías conviviendo en el corpus no es una incoherencia que haya que marcar.** Si en la `explanation` del slot, en otro slot de la categoría o en otro ejercicio del proyecto aparece la forma plena mientras la key es la apocopada, eso es la lengua, no un descuido de autoría. No es materia de C1 ni de C4.
+
+**La frontera, y aquí NO hay indulgencia.** La indulgencia es **solo sobre el par apócope / forma plena del auxiliar**, y nada más:
+
+- El **auxiliar equivocado** sigue mordiendo con todo. `essere` en lugar de `avere` (`esser fatto`, `essere fatto` como infinito compuesto activo de `fare`) es un error, y C2/C3 deben marcarlo si se cuela como key.
+- La **forma del hueco** sigue mordiendo con todo. El slot examina la elección entre infinito **presente** (`fare`) e infinito **passato** por anterioridad respecto a la principal: si el marco de la frase no impone la anterioridad, o si el infinito presente sería igual de defendible en ese hueco, es fallo de C2 y hay que marcarlo. La apócope no compra nada aquí.
+- El **participio** sigue siendo invariable en este contexto: `aver fatta` / `aver fatti` son error, no variante de registro.
+- **C5 intacto.** Un gloss sobre la forma verbal del blank o sobre la palabra del hueco sigue prohibido sin excepción — ver 7.3.
+
 ---
 
 *Fin del prompt. A continuación se adjunta el ejercicio bajo evaluación.*
