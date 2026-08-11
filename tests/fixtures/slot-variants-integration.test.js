@@ -188,7 +188,10 @@ describe('back-compat SLOT-06 — las 18 categorías reales validan con el valid
     // registradas en content/categories.json y AUSENTES de este array. expected
     // DINÁMICO (D-31-06); slug COMPLETO byte a byte porque `fare-ind` es prefijo
     // ambiguo (D-40-03).
-    { slug: 'fare-indicativo', expected: readJson('content/exercises/fare-indicativo.json').exercises.length }
+    { slug: 'fare-indicativo', expected: readJson('content/exercises/fare-indicativo.json').exercises.length },
+    { slug: 'fare-congiuntivo', expected: readJson('content/exercises/fare-congiuntivo.json').exercises.length },
+    { slug: 'fare-cond-imperativo', expected: readJson('content/exercises/fare-cond-imperativo.json').exercises.length },
+    { slug: 'fare-indefiniti', expected: readJson('content/exercises/fare-indefiniti.json').exercises.length }
   ];
 
   for (const { slug, expected } of REAL_CATEGORIES) {

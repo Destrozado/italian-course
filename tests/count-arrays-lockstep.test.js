@@ -39,7 +39,7 @@
 
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 
 // Las DOS fuentes de conteo, leidas como TEXTO (nunca importadas — ver cabecera).
 const COUNT_ARRAY_SOURCES = [
@@ -49,10 +49,15 @@ const COUNT_ARRAY_SOURCES = [
 
 const readSrc = (rel) => readFileSync(new URL(`../${rel}`, import.meta.url), 'utf8');
 
-// TRACER (Tarea 1 de 44-01): el gate se estrena con UNA sola categoria, la del
-// prefijo ambiguo. La Tarea 2 sustituye esta constante por la lista REAL leida de
-// content/categories.json.
-const TRACER_SLUGS = ['fare-indicativo'];
+// La lista de REFERENCIA se lee del DISCO, de content/categories.json — la misma
+// fuente que consume el schema (categoryIds) y categoriesForDisplay. Escribirla a
+// mano aqui haria el gate vacuo: se compararia consigo mismo y seria verde para
+// siempre, incluida el alta de la categoria 19.
+const CATEGORIES = JSON.parse(
+  readFileSync(new URL('../content/categories.json', import.meta.url), 'utf-8')
+);
+const ENTRADAS = CATEGORIES.categories;
+const SLUGS_REGISTRADOS = CATEGORIES.categories.map((c) => c.id);
 
 // ───────────────────────────────────────────────────────────────────────────
 // 1. El helper puro
@@ -166,7 +171,7 @@ describe('gate anti-ceguera — las dos fuentes de conteo enganchan las categori
     const SRC = readSrc(rel);
 
     test(`${rel}: ninguna categoria registrada queda fuera del array de conteo`, () => {
-      const ciegas = slugsCiegos(SRC, TRACER_SLUGS);
+      const ciegas = slugsCiegos(SRC, SLUGS_REGISTRADOS);
       assert.deepEqual(
         ciegas,
         [],
@@ -174,4 +179,120 @@ describe('gate anti-ceguera — las dos fuentes de conteo enganchan las categori
       );
     });
   }
+});
+
+// ───────────────────────────────────────────────────────────────────────────
+// 4. Los casos VACIOS que el guard dinamico del reporter NO puede ver
+// ───────────────────────────────────────────────────────────────────────────
+//
+// El guard de coherencia de scripts/run-validation-271.mjs compara Σ de los
+// `expected` con Σ de slotCountOf(disco). Con `expected` DINAMICO los dos lados de
+// la resta leen el MISMO fichero en el MISMO arranque, asi que un JSON con cero
+// ejercicios da cero en los dos lados y la resta cuadra: el guard no distingue un
+// fichero vaciado de un cero legitimo. Y un fichero AUSENTE no da un error de
+// nombre sino un ENOENT en runtime, porque la ruta se DERIVA del slug. El rojo con
+// mensaje tiene que venir de aqui.
+
+describe('gate anti-ceguera — el fichero de cada categoria registrada existe y no esta vacio (D-44-06)', () => {
+  test('cada categoria registrada tiene content/exercises/<slug>.json presente, parseable y con exercises no vacio', () => {
+    const roto = [];
+    for (const slug of SLUGS_REGISTRADOS) {
+      const rel = `content/exercises/${slug}.json`;
+      const url = new URL(`../${rel}`, import.meta.url);
+      if (!existsSync(url)) {
+        roto.push(`${slug}: FALTA el fichero ${rel}`);
+        continue;
+      }
+      let data;
+      try {
+        data = JSON.parse(readFileSync(url, 'utf-8'));
+      } catch (e) {
+        roto.push(`${slug}: ${rel} no parsea (${e.message})`);
+        continue;
+      }
+      if (!Array.isArray(data.exercises)) {
+        roto.push(`${slug}: ${rel} no declara un array exercises`);
+      } else if (data.exercises.length === 0) {
+        roto.push(`${slug}: ${rel} tiene exercises de longitud 0`);
+      }
+    }
+    assert.deepEqual(
+      roto,
+      [],
+      `D-44-06: con expected DINAMICO el guard del reporter no puede ver esto:\n  ${roto.join('\n  ')}`
+    );
+  });
+});
+
+// ───────────────────────────────────────────────────────────────────────────
+// 5. Orden de display y key set del registro (INT-01, generalizado desde WR-05)
+// ───────────────────────────────────────────────────────────────────────────
+//
+// El ARRAY de content/categories.json es lo que categoriesForDisplay recorre para
+// pintar home, picker, Repaso y Examen; `order` es DOCUMENTAL. Si los dos divergen,
+// el display deja de coincidir con el numero escrito. Es la forma estable que WR-05
+// fijo en tests/content-fare-indicativo.test.js para UNA categoria, aqui
+// generalizada a las 18 para que INT-01 quede congelado como invariante permanente
+// y no como observacion de una vez.
+
+describe('gate anti-ceguera — registro de categorias: orden de display y key set (INT-01)', () => {
+  test('los order son unicos y contiguos de 1 a N', () => {
+    const orders = ENTRADAS.map((c) => c.order);
+    assert.deepEqual(
+      [...new Set(orders)].length === orders.length,
+      true,
+      `INT-01: hay order duplicados: ${orders.join(', ')}`
+    );
+    assert.deepEqual(
+      [...orders].sort((a, b) => a - b),
+      ENTRADAS.map((_, i) => i + 1),
+      `INT-01: los order deben cubrir 1..${ENTRADAS.length} sin huecos`
+    );
+  });
+
+  test('cada entrada ocupa en el array la posicion que dice su order, que es el orden de display (indice = order - 1)', () => {
+    const desalineadas = ENTRADAS
+      .filter((c) => ENTRADAS.indexOf(c) !== c.order - 1)
+      .map((c) => `${c.id}(order ${c.order} pide indice ${c.order - 1}, esta en ${ENTRADAS.indexOf(c)})`);
+    assert.deepEqual(
+      desalineadas,
+      [],
+      'INT-01 / WR-05: el ARRAY define el display y el order es documental; si divergen, el display miente'
+    );
+  });
+
+  test('el key set de cada entrada es exacto y las de origen ia-quorum lo declaran asi (PROV-01)', () => {
+    const sucio = [];
+    for (const c of ENTRADAS) {
+      const keys = Object.keys(c).sort();
+      const conOrigen = Object.prototype.hasOwnProperty.call(c, 'origen');
+      const esperado = conOrigen
+        ? ['id', 'name', 'order', 'origen']
+        : ['id', 'name', 'order'];
+      if (JSON.stringify(keys) !== JSON.stringify(esperado)) {
+        sucio.push(`${c.id}: key set ${JSON.stringify(keys)} != ${JSON.stringify(esperado)}`);
+      }
+      if (conOrigen && c.origen !== 'ia-quorum') {
+        sucio.push(`${c.id}: origen "${c.origen}" != "ia-quorum"`);
+      }
+      if (typeof c.name !== 'string' || c.name.trim().length === 0) {
+        sucio.push(`${c.id}: name vacio`);
+      }
+    }
+    assert.deepEqual(sucio, [], `INT-01 / PROV-01: registro con forma inesperada:\n  ${sucio.join('\n  ')}`);
+  });
+
+  test('las 4 categorias de fare estan registradas con origen ia-quorum (INT-01, PROV-01)', () => {
+    const fare = ENTRADAS.filter((c) => c.id.startsWith('fare-'));
+    assert.deepEqual(
+      fare.map((c) => `${c.id}:${c.order}`),
+      ['fare-indicativo:15', 'fare-congiuntivo:16', 'fare-cond-imperativo:17', 'fare-indefiniti:18'],
+      'INT-01: las 4 categorias de fare, en el orden y con el order documental de las Phases 41/42/43'
+    );
+    assert.deepEqual(
+      fare.map((c) => c.origen),
+      ['ia-quorum', 'ia-quorum', 'ia-quorum', 'ia-quorum'],
+      'PROV-01: las 4 nacen de quorum de IA y lo declaran'
+    );
+  });
 });

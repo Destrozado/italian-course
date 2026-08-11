@@ -181,6 +181,9 @@ const CATEGORIES = [
   // que el reporter emitía `Milestone gate PASS` ciego a sus slots. expected DINÁMICO
   // (D-31-06) = exercises.length real en disco, NUNCA número mágico. Slug COMPLETO byte
   // a byte: `fare-ind` es prefijo ambiguo (D-40-03) y no se trunca jamás.
+  { slug: 'fare-cond-imperativo',     file: 'content/exercises/fare-cond-imperativo.json',     expected: slotCountOf('content/exercises/fare-cond-imperativo.json') },
+  { slug: 'fare-congiuntivo',         file: 'content/exercises/fare-congiuntivo.json',         expected: slotCountOf('content/exercises/fare-congiuntivo.json') },
+  { slug: 'fare-indefiniti',          file: 'content/exercises/fare-indefiniti.json',          expected: slotCountOf('content/exercises/fare-indefiniti.json') },
   { slug: 'fare-indicativo',          file: 'content/exercises/fare-indicativo.json',          expected: slotCountOf('content/exercises/fare-indicativo.json') },
   { slug: 'genero-numero',            file: 'content/exercises/genero-numero.json',            expected: 13 },
   { slug: 'modali',                   file: 'content/exercises/modali.json',                   expected: slotCountOf('content/exercises/modali.json') },
