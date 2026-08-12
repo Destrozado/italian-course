@@ -116,15 +116,46 @@ const STATE_PATH = '.planning/STATE.md';
 // comilla suelta aquí desalinearía su escaneo de esta línea. Por lo mismo vive en su
 // propia línea y lejos de `CATEGORIES`: ninguna línea de entrada del array puede
 // compartir línea con un literal regex (T-45-03-05).
-const milestoneActivo = (() => {
+//
+// LA SEGUNDA LECTURA ES DIAGNOSTICO, NO DATO (WR-04). El regex de arriba exige un token
+// único, así que una edición benigna del frontmatter —`milestone: v2.0 final`— degrada el
+// banner sin que nada diga por qué. Medido: el reporter imprimía «no se pudo derivar» y el
+// pie afirmaba «las dos causas son reales: o falta el fichero, o no declara la clave
+// milestone», con la clave delante y declarada. Un diagnóstico FALSO en un mensaje de
+// error es del mismo tipo que un banner desfasado: le hace perder el tiempo al lector
+// justo donde el fichero promete no hacerlo. Así que se distinguen las TRES causas reales,
+// y la única que hacía falta añadir se detecta con una segunda lectura que solo mira si la
+// clave está ahí. `[^\n]*` no cruza saltos de línea y no anida cuantificadores, las dos
+// propiedades por las que el de arriba está escrito así.
+//
+// Y la línea se SANEA antes de salir a pantalla. El comentario de arriba razona que
+// capturar el resto de la línea permitiría inyectar un banner arbitrario en la salida que
+// el autor lee para decidir un cierre de milestone; esa cautela vale igual para el
+// diagnóstico, que es el único sitio donde ese resto de línea llega a imprimirse. Se
+// quitan los caracteres de control (una secuencia ANSI en STATE.md repintaría el banner) y
+// se acota la longitud.
+const saneada = (s) => s.replace(/[\x00-\x1F\x7F]/g, '').slice(0, 80);
+
+const derivacionDelMilestone = (() => {
+  let raw;
   try {
-    const raw = readFileSync(resolve(projectRoot, STATE_PATH), 'utf8');
-    const encontrado = raw.match(/^milestone:[^\S\n]*(\S+)[^\S\n]*$/m);
-    return encontrado ? encontrado[1].trim() : null;
+    raw = readFileSync(resolve(projectRoot, STATE_PATH), 'utf8');
   } catch {
-    return null;
+    return { valor: null, causa: `falta el fichero ${STATE_PATH}` };
   }
+  const conToken = raw.match(/^milestone:[^\S\n]*(\S+)[^\S\n]*$/m);
+  if (conToken) return { valor: conToken[1].trim(), causa: null };
+  const conClave = raw.match(/^milestone:[^\n]*$/m);
+  if (conClave) {
+    return {
+      valor: null,
+      causa: `${STATE_PATH} declara \`${saneada(conClave[0].trim())}\`, que no es un token único`,
+    };
+  }
+  return { valor: null, causa: `${STATE_PATH} existe pero no declara ninguna clave milestone` };
 })();
+
+const milestoneActivo = derivacionDelMilestone.valor;
 
 // Cuando no se puede derivar, la etiqueta dice QUE es desconocido y POR QUÉ, nombrando
 // el fichero. Una etiqueta muda («milestone ?») sería un tercer modo de mentir: el autor
@@ -612,8 +643,8 @@ if (gatePass) {
     milestoneActivo
       ? `  → si OK: /gsd-complete-milestone ${milestoneActivo}`
       : `  → si OK: /gsd-complete-milestone <milestone>, con el que declare ${STATE_PATH}. ` +
-        `No se pudo derivar y las dos causas son reales: o falta el fichero, o no declara ` +
-        `la clave milestone. Por eso el banner de arriba tampoco lo nombra.`
+        `No se pudo derivar: ${derivacionDelMilestone.causa}. Por eso el banner de arriba ` +
+        `tampoco lo nombra.`
   );
   console.log('');
   process.exit(0);

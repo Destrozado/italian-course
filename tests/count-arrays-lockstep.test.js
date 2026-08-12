@@ -1394,14 +1394,24 @@ const milestoneEnDisco = () => {
     );
   }
   const encontrado = raw.match(/^milestone:[^\S\n]*(\S+)[^\S\n]*$/m);
-  if (!encontrado) {
-    throw new Error(
-      `DEUDA-03: ${STATE_MD} existe pero no declara ninguna clave \`milestone:\` en una linea ` +
-        `propia, asi que no hay REFERENCIA contra la que comprobar la derivacion del banner del ` +
-        `reporter. Es la misma clave de la que ${REPORTER} deriva su etiqueta.`
-    );
-  }
-  return encontrado[1].trim();
+  if (encontrado) return encontrado[1].trim();
+  // TRES causas, no dos (WR-04). Este throw decia «no declara ninguna clave milestone» tanto
+  // cuando la clave faltaba como cuando estaba y su valor no era un token unico. Medido con
+  // `milestone: v2.0 final`: el rojo mandaba al autor a buscar una clave que estaba delante
+  // de el. Un diagnostico falso en un mensaje de error es del mismo tipo de defecto que un
+  // banner desfasado, y este fichero no puede permitirselo. Misma distincion que hace
+  // `derivacionDelMilestone` en el reporter, por simetria deliberada.
+  const conClave = raw.match(/^milestone:[^\n]*$/m);
+  throw new Error(
+    conClave
+      ? `DEUDA-03: ${STATE_MD} declara \`${conClave[0].trim().replace(/[\x00-\x1F\x7F]/g, '').slice(0, 80)}\`, ` +
+          `y eso no es un token unico: el valor de \`milestone:\` tiene que ser UNA sola palabra ` +
+          `sin espacios, que es lo que ${REPORTER} sabe derivar. Con este valor el banner del ` +
+          `reporter se degrada a «milestone desconocido» y este gate se queda sin REFERENCIA.`
+      : `DEUDA-03: ${STATE_MD} existe pero no declara ninguna clave \`milestone:\` en una linea ` +
+          `propia, asi que no hay REFERENCIA contra la que comprobar la derivacion del banner del ` +
+          `reporter. Es la misma clave de la que ${REPORTER} deriva su etiqueta.`
+  );
 };
 
 describe('DEUDA-03 — el reporter DERIVA el milestone de su banner y su pie, y no lo transcribe', () => {
