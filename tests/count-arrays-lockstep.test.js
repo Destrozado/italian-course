@@ -106,6 +106,39 @@ export function slugsCiegos(src, slugs) {
   });
 }
 
+/**
+ * Extrae los pares `{ slug, file }` que el texto fuente DECLARA por entrada.
+ *
+ * Comparte el ancla de entrada de `slugsCiegos` (linea que abre con `{`, flag `m`),
+ * asi que una entrada comentada no declara ningun par. Tolera:
+ *   - varios espacios de ALINEACION entre `slug: '...',` y `file:` — que es la forma
+ *     REAL del reporter, con las columnas cuadradas. Un extractor que no la tolerase
+ *     devolveria lista vacia y el gate seria vacuo sobre la unica fuente que gobierna
+ *     el conteo del milestone (T-44-03-01).
+ *   - las tres formas de entrecomillado del proyecto (`'`, `"`, backtick), con la
+ *     comilla de cierre forzada a ser la misma que la de apertura (backreference).
+ *
+ * @param {string} src texto fuente completo del fichero de conteo
+ * @returns {{slug: string, file: string}[]} los pares declarados, en orden de aparicion
+ */
+export function paresSlugFile(src) {
+  const ENTRADA_CON_FILE =
+    /^[^\S\n]*\{[^\n]*?slug:[^\S\n]*(['"`])([^'"`\n]+)\1[^\S\n]*,[^\S\n]*file:[^\S\n]*(['"`])([^'"`\n]+)\3/gm;
+  return [...src.matchAll(ENTRADA_CON_FILE)].map((m) => ({ slug: m[2], file: m[4] }));
+}
+
+/**
+ * Los pares en los que `file` NO es el fichero del propio `slug` (D-40-03),
+ * formateados como `slug -> file` para que el diagnostico del rojo sea verdadero.
+ *
+ * @param {string} src texto fuente completo del fichero de conteo
+ * @returns {string[]} los pares CRUZADOS, vacio si todos cuadran
+ */
+export const paresCruzados = (src) =>
+  paresSlugFile(src)
+    .filter(({ slug, file }) => file !== `content/exercises/${slug}.json`)
+    .map(({ slug, file }) => `${slug} -> ${file}`);
+
 // ───────────────────────────────────────────────────────────────────────────
 // 2. Los goldens del helper — la prueba mecanica de que el gate SABE ponerse rojo
 // ───────────────────────────────────────────────────────────────────────────
@@ -229,6 +262,111 @@ describe('gate anti-ceguera — goldens de slugsCiegos: ausencia, colision de pr
 });
 
 // ───────────────────────────────────────────────────────────────────────────
+// 2-bis. Los goldens del par slug ↔ file (G-44-3-WR01 via 2, D-40-03)
+// ───────────────────────────────────────────────────────────────────────────
+//
+// La segunda via que el code review encontro abierta. Una entrada con
+// `slug: 'fare-indefiniti'` y el `file` de `fare-indicativo` —el copia-pega entre
+// los dos slugs que comparten el prefijo `fare-ind`— hace que `expected` y el
+// baseline dinamico lean el MISMO fichero: el guard de coherencia del reporter
+// cuadra, el gate anti-ceguera del bloque 3 esta VERDE porque el slug si aparece
+// anclado, `fare-indicativo` se cuenta DOS veces y los slots de `fare-indefiniti`
+// desaparecen del total. El bloque 4 comprueba que content/exercises/<slug>.json
+// existe, pero nunca que la entrada del array apunte a ese fichero.
+
+describe('gate anti-ceguera — goldens de paresSlugFile / paresCruzados: par coherente, par cruzado, columnas alineadas y fuente sin file (fail-first, D-44-06)', () => {
+  const SRC_PAR_COHERENTE = `
+    const CATEGORIES = [
+      { slug: 'avere', file: 'content/exercises/avere.json', expected: 20 },
+      { slug: 'fare-indefiniti', file: 'content/exercises/fare-indefiniti.json', expected: slotCountOf('content/exercises/fare-indefiniti.json') },
+    ];
+  `;
+
+  // El copia-pega de D-40-03: el slug de un hermano con el fichero del otro.
+  const SRC_PAR_CRUZADO = `
+    const CATEGORIES = [
+      { slug: 'avere', file: 'content/exercises/avere.json', expected: 20 },
+      { slug: 'fare-indefiniti', file: 'content/exercises/fare-indicativo.json', expected: slotCountOf('content/exercises/fare-indicativo.json') },
+    ];
+  `;
+
+  // La forma REAL del reporter: columnas ALINEADAS con varios espacios. Si el
+  // extractor no la tolera devuelve lista vacia y el gate seria vacuo sobre la
+  // unica fuente que gobierna el conteo del milestone (T-44-03-01).
+  const SRC_ALINEADO = `
+    const CATEGORIES = [
+      { slug: 'preposiciones',            file: 'content/exercises/preposiciones.json',            expected: 50 },
+      { slug: 'fare-indefiniti',          file: 'content/exercises/fare-indefiniti.json',          expected: slotCountOf('content/exercises/fare-indefiniti.json') },
+    ];
+  `;
+
+  // La forma de la SEGUNDA fuente: no declara `file` por entrada, lo DERIVA del slug.
+  const SRC_SIN_FILE = `
+    const REAL_CATEGORIES = [
+      { slug: 'avere', expected: 20 },
+      { slug: 'fare-indefiniti', expected: readJson('content/exercises/fare-indefiniti.json').exercises.length },
+    ];
+    for (const { slug, expected } of REAL_CATEGORIES) {
+      const file = \`content/exercises/\${slug}.json\`;
+    }
+  `;
+
+  test('golden-POSITIVO: extrae los pares tal cual los declara el texto y ninguno esta cruzado', () => {
+    assert.deepEqual(paresSlugFile(SRC_PAR_COHERENTE), [
+      { slug: 'avere', file: 'content/exercises/avere.json' },
+      { slug: 'fare-indefiniti', file: 'content/exercises/fare-indefiniti.json' },
+    ]);
+    assert.deepEqual(
+      paresCruzados(SRC_PAR_COHERENTE),
+      [],
+      'D-40-03: el gate no debe inventar cruces donde el par cuadra'
+    );
+  });
+
+  test('golden-NEGATIVO de PAR CRUZADO: el slug de un hermano con el fichero del otro se delata (D-40-03)', () => {
+    assert.deepEqual(paresSlugFile(SRC_PAR_CRUZADO), [
+      { slug: 'avere', file: 'content/exercises/avere.json' },
+      { slug: 'fare-indefiniti', file: 'content/exercises/fare-indicativo.json' },
+    ]);
+    assert.deepEqual(
+      paresCruzados(SRC_PAR_CRUZADO),
+      ['fare-indefiniti -> content/exercises/fare-indicativo.json'],
+      'D-40-03: la entrada declara el fichero de OTRA categoria y el gate tiene que nombrar el par'
+    );
+  });
+
+  test('golden de COLUMNAS ALINEADAS: la forma real del reporter (varios espacios) se parsea, o el gate seria vacuo', () => {
+    assert.deepEqual(paresSlugFile(SRC_ALINEADO), [
+      { slug: 'preposiciones', file: 'content/exercises/preposiciones.json' },
+      { slug: 'fare-indefiniti', file: 'content/exercises/fare-indefiniti.json' },
+    ]);
+    assert.deepEqual(paresCruzados(SRC_ALINEADO), []);
+  });
+
+  test('golden de FUENTE SIN file: la que DERIVA la ruta del slug no declara pares (0), y no es un cruce', () => {
+    assert.deepEqual(
+      paresSlugFile(SRC_SIN_FILE),
+      [],
+      'la segunda fuente no declara `file` por entrada: su inmunidad viene de la derivacion, no del par'
+    );
+    assert.deepEqual(paresCruzados(SRC_SIN_FILE), []);
+  });
+
+  test('golden de ENTRADA COMENTADA: un par dentro de una entrada comentada no se extrae', () => {
+    const SRC_PAR_COMENTADO = `
+    const CATEGORIES = [
+      // { slug: 'fare-indefiniti', file: 'content/exercises/fare-indicativo.json', expected: 7 },
+    ];
+  `;
+    assert.deepEqual(
+      paresSlugFile(SRC_PAR_COMENTADO),
+      [],
+      'el extractor comparte el ancla de entrada con slugsCiegos: una entrada comentada no declara nada'
+    );
+  });
+});
+
+// ───────────────────────────────────────────────────────────────────────────
 // 3. El gate real sobre las dos fuentes (source-assert, D-44-07)
 // ───────────────────────────────────────────────────────────────────────────
 
@@ -245,6 +383,85 @@ describe('gate anti-ceguera — las dos fuentes de conteo enganchan las categori
       );
     });
   }
+});
+
+// ───────────────────────────────────────────────────────────────────────────
+// 3-bis. El par slug ↔ file de cada entrada (G-44-3-WR01 via 2, D-40-03)
+// ───────────────────────────────────────────────────────────────────────────
+//
+// POR QUE EL GUARD DINAMICO DEL REPORTER NO PUEDE VER ESTO. El guard de coherencia de
+// scripts/run-validation-271.mjs resta Σ(expected) − Σ(slotCountOf(disco)); y con el
+// `expected` DERIVADO del propio `file` de la entrada (D-31-06), un `file` cruzado
+// desplaza LOS DOS lados de la resta a la vez, asi que la resta cuadra. El reporter
+// imprime `Milestone gate PASS`, el gate del bloque 3 esta verde porque el slug SI
+// aparece anclado, el fichero del hermano se cuenta DOS veces y los slots de la
+// categoria cruzada desaparecen del total. El bloque 4 comprueba que
+// content/exercises/<slug>.json existe, pero nunca que la entrada APUNTE a el. El rojo
+// con mensaje verdadero solo puede venir de aqui.
+
+const REPORTER = 'scripts/run-validation-271.mjs';
+
+// La expresion de plantilla con la que una fuente DERIVA la ruta del slug en su bucle
+// de consumo. Declararla asi (cadena en comillas simples, sin interpolar) es lo que
+// permite buscarla como TEXTO en la fuente.
+const DERIVA_LA_RUTA = 'content/exercises/${slug}.json';
+
+describe('gate anti-ceguera — el par slug ↔ file de cada entrada apunta a su PROPIO fichero (INT-02, D-40-03)', () => {
+  test(`${REPORTER}: declara un par slug↔file por categoria registrada y ninguno esta cruzado`, () => {
+    const SRC = readSrc(REPORTER);
+    const pares = paresSlugFile(SRC);
+
+    // CLAUSULA DE NO-VACUIDAD, y va PRIMERO. Un extractor por regex que deja de casar
+    // devuelve lista vacia, y un deepEqual de [] contra [] pasa en VERDE: es la especie
+    // exacta de CR-01 de esta misma fase, un gate verde certificando nada. El numero de
+    // referencia se DERIVA del disco (content/categories.json via SLUGS_REGISTRADOS) y
+    // no se escribe a mano aqui, porque una cifra escrita aqui se compararia consigo
+    // misma y seria verde para siempre.
+    assert.equal(
+      pares.length,
+      SLUGS_REGISTRADOS.length,
+      `T-44-03-01: el extractor ve ${pares.length} pares y content/categories.json registra ` +
+        `${SLUGS_REGISTRADOS.length} categorias: o ${REPORTER} dejo de declarar una entrada, ` +
+        `o el extractor dejo de ver su array de conteo`
+    );
+
+    const cruzados = paresCruzados(SRC);
+    assert.deepEqual(
+      cruzados,
+      [],
+      `D-40-03 / INT-02: una entrada de ${REPORTER} declara el fichero de OTRA categoria ` +
+        `(el copia-pega del prefijo ambiguo \`fare-ind\`): ${cruzados.join(', ')}`
+    );
+  });
+
+  test('las DOS fuentes de conteo estan cubiertas: la que declara el fichero, por su par; la que lo deriva, por su derivacion', () => {
+    // La disyuntiva, explicita para que ninguna fuente se quede fuera de cobertura EN
+    // SILENCIO: o una fuente declara el fichero por entrada (y entonces el par tiene que
+    // cuadrar), o lo DERIVA del slug (y entonces es inmune por construccion). Una fuente
+    // que no haga ninguna de las dos cosas es un canal de ceguera NUEVO, y eso es
+    // exactamente lo que este gate existe para nombrar.
+    const sinCobertura = [];
+    for (const rel of COUNT_ARRAY_SOURCES) {
+      const SRC = readSrc(rel);
+      const pares = paresSlugFile(SRC);
+      if (pares.length > 0) {
+        const cruzados = paresCruzados(SRC);
+        if (cruzados.length > 0) {
+          sinCobertura.push(`${rel}: declara el fichero por entrada y hay pares CRUZADOS: ${cruzados.join(', ')}`);
+        }
+      } else if (!SRC.includes(DERIVA_LA_RUTA)) {
+        sinCobertura.push(
+          `${rel}: NO declara \`file\` por entrada y tampoco DERIVA la ruta del slug ` +
+            `(no contiene \`${DERIVA_LA_RUTA}\`): canal de ceguera nuevo, sin cobertura por ninguna de las dos vias`
+        );
+      }
+    }
+    assert.deepEqual(
+      sinCobertura,
+      [],
+      `INT-02 / D-40-03: fuentes de conteo sin cobertura del par:\n  ${sinCobertura.join('\n  ')}`
+    );
+  });
 });
 
 // ───────────────────────────────────────────────────────────────────────────
