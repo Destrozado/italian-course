@@ -260,7 +260,7 @@ Plans:
   3. Existen los **3 cruces** multi-categoría de `fare` con `categoryIds` de 2 y el sentido de D-44-02 —**la key vive en la categoría VECINA y la forma de `fare` va ESCRITA en el prompt como contexto**, no al revés—: `fare-indicativo-300` (`["fare-indicativo","avere"]`, hueco = auxiliar de `avere`, con `fatto` escrito), `fare-indicativo-301` (`["fare-indicativo","presente-regolare"]`, hueco = presente del verbo regular, con el compuesto de `fare` escrito) y `fare-indefiniti-300` (`["fare-indefiniti","modali"]`, hueco = modal conjugado, con el infinito `fare` escrito). Propagan la cascada D-54 al fallar y NO añaden call-sites: `grep -c 'applyImmediateFailure(this.state' src/screens/app.js` sigue dando **2** y `git diff 0a9a2e5..HEAD -- src/screens/app.js src/domain/` queda vacío (`src/data/` NO entra en el scope: divergió legítimamente en Phases 40 y 42, D-44-09).
   4. La suite completa `node --test tests/*.test.js` (y con `VAL_07_STRICT=1`) queda verde sobre las 18 categorías sin fails nuevos, y las **113 variantes** nuevas (48 + 30 + 17 + 18) están validadas 1-por-1 por quórum cross-vendor R1-R7 con rondas EXTRA registradas en los **4 magnets** de doble validez: imperativo `tu` (`fa'`/`fai`/`fa`), homógrafas de congiuntivo, `fatto` invariable-vs-concordado, y el par `aver fatto` / `avere fatto` del infinito passato (apócope frente a forma plena, D-43-17).
 
-**Plans**: 4 plans (2/2 del alcance original ejecutados; 2 de cierre de gaps del UAT pendientes)
+**Plans**: 3/4 plans executed (2/2 del alcance original ejecutados; 2 de cierre de gaps del UAT pendientes)
 
 Plans:
 **Wave 1**
@@ -271,7 +271,7 @@ Plans:
 
 - [x] 44-02-PLAN.md — los 3 cruces multi-categoría (`fare-indicativo-300` ↔ `avere`, `fare-indicativo-301` ↔ `presente-regolare`, `fare-indefiniti-300` ↔ `modali`; 9 variantes, key en la categoría VECINA por D-44-02) con sus gates HARD G1/G2/G3 declarados antes de autorar, más la partición `BASE_SLOTS`/`CROSS_SLOTS` que re-apunta los gates de paradigma de `tests/content-fare-indicativo.test.js` y `tests/content-fare-indefiniti.test.js` sin debilitar ninguno, y `### 7.6` del prompt de validación
 
-- [ ] 44-03-PLAN.md — **cierre de gap G-44-3-WR01**: endurecer el gate anti-ceguera de `tests/count-arrays-lockstep.test.js` por las dos vías que el code review encontró abiertas — ancla a inicio de ENTRADA (una entrada comentada con `//` deja de satisfacerla) y gate D-40-03 nuevo del par `slug` ↔ `file` del reporter con cláusula de no-vacuidad derivada del disco. Solo test, verificado por mutación sobre el reporter real y revertido
+- [x] 44-03-PLAN.md — **cierre de gap G-44-3-WR01**: endurecer el gate anti-ceguera de `tests/count-arrays-lockstep.test.js` por las dos vías que el code review encontró abiertas — ancla a inicio de ENTRADA (una entrada comentada con `//` deja de satisfacerla) y gate D-40-03 nuevo del par `slug` ↔ `file` del reporter con cláusula de no-vacuidad derivada del disco. Solo test, verificado por mutación sobre el reporter real y revertido
 
 **Wave 3** *(cierre de gaps del UAT; serializado tras 44-03 porque los dos verifican por mutación)*
 
@@ -305,7 +305,7 @@ Plans:
 | 41. `fare-indicativo` (8 slots) | v2.0 | 2/2 | Complete    | 2026-08-04 |
 | 42. `fare-congiuntivo` (4 slots) | v2.0 | 2/2 | Complete    | 2026-08-06 |
 | 43. `fare-cond-imperativo` + `fare-indefiniti` (3+6 slots) | v2.0 | 2/2 | Complete    | 2026-08-10 |
-| 44. Integración lockstep + cierre v2.0 | v2.0 | 2/2 | In Progress|  |
+| 44. Integración lockstep + cierre v2.0 | v2.0 | 3/4 | In Progress|  |
 
 ## Backlog
 

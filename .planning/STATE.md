@@ -4,17 +4,17 @@ milestone: v2.0
 milestone_name: Paradigma completo de `fare` (4 categorías por modo)
 current_phase: 44
 current_phase_name: Integración lockstep + cierre v2.0
-status: verifying
-stopped_at: "44-02 completo: los 3 cruces validated por quorum top-level (Opus + Sonnet); milestone gate PASS 250/250"
-last_updated: "2026-08-11T14:50:59.100Z"
-last_activity: 2026-08-11
-last_activity_desc: "44-02 completo — quórum top-level cerrado: 3/3 cruces validated, INT-03 e INT-04 Complete"
+status: executing
+stopped_at: "44-03 completo: G-44-3-WR01 cerrado por las 2 vías (ancla de entrada + gate del par slug↔file), las 3 mutaciones vistas rojas"
+last_updated: "2026-08-12T08:09:40.299Z"
+last_activity: 2026-08-12
+last_activity_desc: 44-03 completo — gate anti-ceguera endurecido y VERIFICADO POR MUTACIÓN; queda 44-04
 progress:
   total_phases: 5
-  completed_phases: 5
-  total_plans: 9
-  completed_plans: 9
-  percent: 100
+  completed_phases: 4
+  total_plans: 11
+  completed_plans: 10
+  percent: 80
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -29,12 +29,12 @@ See: `.planning/PROJECT.md` (updated 2026-08-06 — Phase 42 `fare-congiuntivo` 
 
 ## Current Position
 
-Phase: 44 (Integración lockstep + cierre v2.0) — EXECUTED, ready for verification
-Plan: 2 of 2 — **44-02 COMPLETO** (checkpoint de la Tarea 4 resuelto)
-Status: los 2 planes cerrados. Quórum top-level ejecutado: `fare-indicativo-300`, `fare-indicativo-301` y `fare-indefiniti-300` los 3 `validated` (Opus + Sonnet, 2 pases de `by` distintos cada uno, cero `disputed`). Milestone gate en verde: `VAL-06 (250/250 validated): PASS`, `VAL_07_STRICT` 1081/0, suite 1063/0. INT-03 e INT-04 → `Complete`.
-Last activity: 2026-08-11 — 44-02 cerrado tras 6 rondas de quórum sobre los 3 cruces (2 rechazos reales: C5-leak + C4 en `-301`, C2 ×2 en `fare-indefiniti-300`)
+Phase: 44 (Integración lockstep + cierre v2.0) — EXECUTING
+Plan: 3 of 4 — **44-03 COMPLETO** (queda 44-04)
+Status: G-44-3-WR01 cerrado por las DOS vías que el code review encontró abiertas. `slugsCiegos` ancla ahora al INICIO DE UNA ENTRADA del array (flag `m`), así que una entrada comentada con `//` devuelve la categoría como CIEGA; y el par `slug` ↔ `file` del reporter tiene gate propio (`paresSlugFile` / `paresCruzados`) con cláusula de no-vacuidad derivada de `content/categories.json`. Las TRES mutaciones sobre el reporter real se vieron ROJAS con mensaje verdadero y se revirtieron: entrada comentada (`quedaria CIEGO a estas categorias: fare-indefiniti`), par cruzado (`fare-indefiniti -> content/exercises/fare-indicativo.json`) y clave `file` renombrada (`17 !== 18`, por la cláusula del conteo). Suite 1073/0 (era 1064/0), `Milestone gate PASS` intacto, un único fichero en el diff.
+Last activity: 2026-08-12 — 44-03 cerrado: el gate que impide la cuarta repetición del bug ya no es sordo a comentar una entrada ni a cruzar el `file` del hermano
 
-Progress: [████████████████████] 5/5 plans ([██████████] 100%) · 4/5 fases (80%)
+Progress: [████████████████████] 5/5 plans ([█████████░] 91%) · 4/5 fases (80%)
 
 ## Deferred Items
 
@@ -177,6 +177,7 @@ Items reconocidos y diferidos en el cierre del milestone v1.9 (2026-07-02, ackno
 | Phase 43 P02 | 26min | 5 tasks | 7 files |
 | Phase 44 P01 | ~35 min | 3 tasks | 6 files |
 | Phase 44 P02 | ~55 min | 3 tasks | 5 files |
+| Phase 44 P03 | 18min | 2 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -310,6 +311,9 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - [Phase ?]: El criterio grep -c '^-[^-]' = 0 es inalcanzable para un append a notes (string JSON de una linea); se sustituye por notes.startsWith(anterior) byte a byte, que es mas fuerte
 - [Phase ?]: D-44-13 (44-02, quórum): el gloss ES de un cruce es decisión POR SLOT y no por plan — el quórum forzó a fare-indicativo-301 al 0-gloss (glosar el verbo del hueco entrega persona y tiempo = leak C5) mientras fare-indicativo-300 lo conserva (allí el hueco pide el AUXILIAR y el gloss usa pretérito simple castellano). La asimetría está declarada en el notes
 - [Phase ?]: D-44-14 (44-02, quórum): un gate de lista cerrada comprueba que el marcador ESTÉ, nunca que EXCLUYA — condición necesaria y no suficiente. G3 pasó verde dos veces sobre un complemento sin fuerza excluyente; lo cazó Sonnet, no el test. Quien herede G3 tiene que LEER el complemento, no confiar en el verde
+- [Phase ?]: Un gate nuevo solo está verificado si se ha visto ROJO por mutación sobre la fuente REAL: commit del gate primero, mutar, observar el rojo con su mensaje verdadero, `git checkout --` y verde. Precedente de esta misma fase: CR-01 era una suite en verde certificando una cifra obsoleta (Phase 44 P03, G-44-3-WR01).
+- [Phase ?]: Todo gate que compare listas extraídas por regex necesita cláusula de NO-VACUIDAD antes de la comparación: un extractor que deja de casar devuelve [] y un `deepEqual([], [])` pasa en verde certificando nada. El conteo de referencia se DERIVA del disco (`SLUGS_REGISTRADOS.length` de content/categories.json), nunca se escribe a mano (Phase 44 P03, T-44-03-01).
+- [Phase ?]: El ancla de un slug tiene dos mitades independientes: IDENTIDAD (slug completo byte a byte, D-40-03, prefijo ambiguo `fare-ind`) y POSICIÓN (línea que ABRE una entrada del array, `^[^\S\n]*\{` con flag `m`). Endurecer la posición nunca relaja la identidad; usar whitespace HORIZONTAL y no `\s*`, que cruza saltos de línea (Phase 44 P03).
 
 ### Pending Todos
 
@@ -369,8 +373,8 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Session Continuity
 
-**Last session:** 2026-08-11T14:49:53.319Z
-**Stopped at:** 44-02 completo: los 3 cruces validated por quorum top-level (Opus + Sonnet); milestone gate PASS 250/250
+**Last session:** 2026-08-12T08:08:47.119Z
+**Stopped at:** Completed 44-03-PLAN.md
 **Resume file:** None
 
 ### Last Session
