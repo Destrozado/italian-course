@@ -1,0 +1,1 @@
+No external API integration: la fase toca solo el arnés de tests local (`tests/`), el reporter de cierre de milestone (`scripts/run-validation-271.mjs`), la documentación que registra la invocación canónica y `.planning/REQUIREMENTS.md` — todo son ficheros del propio repo leídos con builtins de Node en una web estática mono-usuario sin backend, sin `package.json` y sin red.
