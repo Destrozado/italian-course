@@ -327,8 +327,9 @@ Las tres del plan (D-45-12, D-45-13, D-45-14) se aplicaron tal cual. Una cuarta 
 medición:
 
 **D-45-15 — el gate caza la edición a medias, no la ausencia total.** Ver desviación 1.
-**ID elegido para no colisionar:** la fase tiene dos `D-45-05` vivos (45-01 y 45-02) con el
-renumerado pendiente del cierre, y `D-45-09` y `D-45-12` ya están usados. `D-45-15` es libre.
+**ID elegido para no colisionar:** cuando se escribió esto la fase tenía dos `D-45-05` vivos
+(45-01 y 45-02) con el renumerado pendiente, y `D-45-09` y `D-45-12` ya usados. `D-45-15` era
+libre. El cierre de fase resolvió la colisión renumerando la de 45-01 a `D-45-16`.
 
 ## Criterios de aceptación
 
@@ -383,8 +384,8 @@ Ninguno. Nada quedó sin cablear, ningún test saltado, ningún `<verify>` sin c
   en vez de dejar que la cobertura deje de verificarse en silencio. La cabecera de sección se
   reconoce por patrón (`## … Requirements`), así que el cambio de número de milestone **no** la
   rompe; solo un cambio de plantilla.
-- Heredados sin tocar: la colisión de IDs **`D-45-05`** entre 45-01 y 45-02 (renumerado pendiente
-  del cierre de fase; este plan no toca SUMMARY ajenos), **WR-12** (D-45-06), el **`271`** del
+- ~~la colisión de IDs **`D-45-05`** entre 45-01 y 45-02~~ — **RESUELTA** en el cierre de fase
+  (la de 45-01 pasó a **D-45-16**). Heredados sin tocar: **WR-12** (D-45-06), el **`271`** del
   nombre del reporter (D-45-09), y `.planning/research/.cache/` sin ignorar más
   `.planning/phases/45-*/.gitkeep`.
 

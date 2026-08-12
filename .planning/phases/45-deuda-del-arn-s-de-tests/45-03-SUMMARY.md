@@ -299,8 +299,9 @@ La ultima fila es DEUDA-03 entera.
 Las cuatro del plan (D-45-08..11) se aplicaron tal cual. Una quinta salio de un rojo medido:
 
 **D-45-12 — el gate mira TODA linea no-comentario, no solo las que contienen `console.log`.**
-Ver Desviacion 1. **ID elegido para no colisionar**: la fase tiene dos `D-45-05` vivos (45-01 y
-45-02) y el renumerado esta pendiente para el cierre; `D-45-12` no colisiona con ninguno.
+Ver Desviacion 1. **ID elegido para no colisionar**: cuando se escribio esto la fase tenia dos
+`D-45-05` vivos (45-01 y 45-02) con el renumerado pendiente; `D-45-12` no colisionaba con ninguno.
+El cierre de fase resolvio la colision renumerando la de 45-01 a `D-45-16`.
 
 ## Desviaciones del plan
 
@@ -396,8 +397,8 @@ Ninguno. Nada quedo sin cablear, ningun test saltado, ningun `<verify>` sin corr
   sigue codificando un conteo obsoleto (hoy 250). Mitigacion entregada: la cabecera declara que es
   historico, donde vive el conteo real y por que no se paga aqui (17 call-sites load-bearing, dos
   dentro del propio gate). Si el autor lo quiere, va a quick task aparte.
-- **Colision de IDs `D-45-05`** entre 45-01 y 45-02 — heredada, renumerado pendiente del cierre de
-  fase. Este plan usa `D-45-08..12`, sin colisionar.
+- ~~**Colision de IDs `D-45-05`** entre 45-01 y 45-02~~ — **RESUELTA** en el cierre de fase: la de
+  45-01 paso a `D-45-16`. Este plan usa `D-45-08..12`, sin colisionar.
 - Heredados sin tocar: `.planning/research/.cache/` sin ignorar y
   `.planning/phases/45-*/.gitkeep` (ya en `deferred-items.md` del plan 45-01).
 

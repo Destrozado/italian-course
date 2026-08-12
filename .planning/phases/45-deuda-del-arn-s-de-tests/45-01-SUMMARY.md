@@ -42,7 +42,7 @@ decisions:
   - "D-45-02 — NO se mueven los ficheros de tests/fixtures/ a tests/"
   - "D-45-03 — las cabeceras de tests/ entran en el lockstep, no se declaran prosa no-contractual"
   - "D-45-04 — ninguna cifra de conteo nueva se transcribe: el invariante documentado es `# fail 0` + exit 0"
-  - "D-45-05 (nueva, no prevista) — el lockstep documental CUENTA ocurrencias en vez de hacer includes()"
+  - "D-45-16 (nueva, no prevista) — el lockstep documental CUENTA ocurrencias en vez de hacer includes()"
 
 metrics:
   duration: "~50 min"
@@ -174,7 +174,7 @@ Retirado el segundo glob de UNA de las dos invocaciones de `README.md`:
 exit=1
 ```
 
-**Este rojo NO se produjo al primer intento** — ver Desviaciones, D-45-05. Revertido.
+**Este rojo NO se produjo al primer intento** — ver Desviaciones, D-45-16. Revertido.
 
 ### 5. Regla de prefijo — una cabecera devuelta a la forma corta (tarea 2)
 
@@ -249,7 +249,7 @@ en un conteo entero de ficheros). Se mantiene.
 Las cuatro del plan (D-45-01..04) se aplicaron tal cual. Una quinta surgió de un rojo que no se
 produjo:
 
-**D-45-05 — el lockstep documental CUENTA ocurrencias, no hace `includes()`.** Ver Desviaciones.
+**D-45-16 — el lockstep documental CUENTA ocurrencias, no hace `includes()`.** Ver Desviaciones.
 
 ## Desviaciones del plan
 
@@ -314,7 +314,7 @@ cambio dentro de `SRC_TRAMPA`.
 | ROJO de la mutación de `REAL_CATEGORIES` | ✅ mensaje y exit code verbatim arriba |
 | ROJO del gate de cobertura (boundary) | ✅ nombra `tests/fixtures/sub/tmp.test.js` |
 | ROJO de la cláusula de no-vacuidad | ✅ mensaje de ancla ausente, no verde |
-| ROJO del lockstep | ✅ tras D-45-05; con el diseño del plan salía verde |
+| ROJO del lockstep | ✅ tras D-45-16; con el diseño del plan salía verde |
 | ROJO de la regla de prefijo (tarea 2) | ✅ nombra `tests/screen-examen.test.js` |
 | `grep -c` canónica en README / los 2 SKILL.md | ✅ `2` en los tres |
 | `grep -n 'pass 14' README.md` vacío; `grep -c '1164'` = 0 | ✅ |

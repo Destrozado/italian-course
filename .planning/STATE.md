@@ -329,8 +329,8 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - [Phase ?]: Un gate que RESTA se verifica en las dos direcciones: rojo con lo que debe morder y VERDE con lo que la resta autoriza — la mitad verde es el cierre real del falso rojo
 - [Phase ?]: D-45-01 — invocacion canonica: node --test tests/*.test.js tests/fixtures/*.test.js (los DOS globs; ni tests/, ni --recursive, ni ** sin comillas)
 - [Phase ?]: D-45-04 — ninguna cifra de conteo se transcribe en README ni en la memoria: el invariante documentado es # fail 0 + exit 0
-- [Phase ?]: D-45-05 — el lockstep documental CUENTA ocurrencias en vez de includes(): con includes, un fichero con dos invocaciones y una sola actualizada pasaba en verde
-- [Phase ?]: D-45-05 (45-02) — DEUDA-02 por Opcion A: CATEGORIES_WITH_EXPLANATIONS declara par slug+file y entra en COUNT_ARRAY_SOURCES; cero cambios en el extractor y cobertura por los dos gates
+- [Phase ?]: D-45-05 — DEUDA-02 por Opcion A: CATEGORIES_WITH_EXPLANATIONS declara par slug+file y entra en COUNT_ARRAY_SOURCES; cero cambios en el extractor y cobertura por los dos gates
+- [Phase ?]: D-45-16 — el lockstep documental CUENTA ocurrencias en vez de includes(): con includes, un fichero con dos invocaciones y una sola actualizada pasaba en verde (era un segundo D-45-05 improvisado en 45-01; renumerado al cierre de fase, ver 45-VERIFICATION.md)
 - [Phase ?]: D-45-06 — WR-07 SI (el ancla de slugsCiegos pasa a horizontal, con golden fail-first), WR-12 NO: queda como deuda abierta por escrito
 - [Phase ?]: D-45-07 — la prosa del gate se redacta en terminos de COUNT_ARRAY_SOURCES, no enumerando 'las dos fuentes': el nombre de los tests tambien
 - [Phase ?]: D-45-12 — el gate de DEUDA-03 mira TODA linea no-comentario del reporter, no solo las que contienen el token console.log: las lineas de continuacion de un console.log multilinea emiten salida y el esqueleto del research las dejaba pasar en verde

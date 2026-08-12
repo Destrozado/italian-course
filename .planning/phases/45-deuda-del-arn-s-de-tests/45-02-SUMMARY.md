@@ -294,10 +294,15 @@ queda verdadero por sí solo, y el resultado final es el que el plan describe.
 
 `45-02-PLAN.md` reserva **D-45-05** para «Opción A» desde el momento de planificar. El plan 45-01,
 al descubrir en ejecución que su lockstep era vacuo, registró su decisión improvisada también como
-**D-45-05** («el lockstep cuenta ocurrencias»). Hay dos D-45-05 vivos en la fase. Aquí se registra
-como **D-45-05 (45-02)** y no se toca el SUMMARY del otro plan (artefacto ajeno). **Propuesta para
-el cierre de fase:** renumerar la del 45-01 a **D-45-08**, que es la improvisada. Se deja escrito
-para que la auditoría lo encuentre en vez de descubrirlo.
+**D-45-05** («el lockstep cuenta ocurrencias»). Hubo dos D-45-05 vivos en la fase. Aquí se registró
+como **D-45-05 (45-02)** y no se tocó el SUMMARY del otro plan (artefacto ajeno). Se dejó escrito
+para que la auditoría lo encontrase en vez de descubrirlo.
+
+> **RESUELTO en el cierre de fase (2026-08-13).** La propuesta original de esta sección —renumerar
+> la del 45-01 a **D-45-08**— quedó inservible: el plan 45-03 reclamó `D-45-08` antes de que nadie
+> la aplicase. Con `D-45-01`..`D-45-15` ya ocupados, la improvisada de 45-01 se renumeró a
+> **D-45-16**. Este `D-45-05` (Opción A) conserva el ID por prioridad de plan-time, y el sufijo
+> «(45-02)» deja de hacer falta. Ver `45-VERIFICATION.md`.
 
 ## Deuda abierta (D-45-06) — WR-12
 
@@ -344,7 +349,8 @@ nuevos corren en la suite y los 7 rojos se observaron.
 ## Deferred Issues
 
 - **WR-12** — arriba, con motivo (D-45-06).
-- Colisión de ID **D-45-05** entre 45-01 y 45-02 — propuesta de renumerado arriba.
+- ~~Colisión de ID **D-45-05** entre 45-01 y 45-02~~ — **RESUELTA** en el cierre de fase: la
+  improvisada de 45-01 pasó a **D-45-16** (la propuesta de arriba, `D-45-08`, ya no servía).
 - `.planning/research/.cache/` sin ignorar y `.planning/phases/45-*/.gitkeep` siguen sin tocar
   (heredados, ya registrados en `deferred-items.md` del plan 45-01).
 
