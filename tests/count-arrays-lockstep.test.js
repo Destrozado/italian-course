@@ -127,6 +127,17 @@ const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
  * salto de linea (`comilla` se declara dentro del map) y solo el estado de bloque
  * cruza lineas — que es lo que tiene que cruzarlas.
  *
+ * Y EL PRECIO DE ESE RESET, que hasta CR-02 este comentario no nombraba y presentaba
+ * solo como virtud. Que el estado de cadena muera en el salto de linea significa que las
+ * lineas de CONTINUACION de un template literal multilinea se escanean como CODIGO. Un
+ * `//` en una de ellas —una URL, que es el caso mas plausible que hay— blanquea el resto
+ * de esa linea aunque sea texto que el reporter IMPRIME; y si la continuacion llevase un
+ * `/*`, se abre bloque y el dano deja de estar acotado a una linea: llega hasta el
+ * siguiente `*\/` o hasta el final del fichero. Las dos cosas estan MEDIDAS. Los dos
+ * limites —el literal de regex y la continuacion de template— los vigila ahora el guard
+ * diferencial del bloque 7, que contrasta este escaner contra `sinComentariosNaive`.
+ * La limitacion sigue siendo deliberada; lo que ya no es, es silenciosa.
+ *
  * EL INVENTARIO REAL de literales regex, contado hoy sobre las fuentes declaradas en
  * COUNT_ARRAY_SOURCES (v2.0 Phase 45, DEUDA-02). Ya NO es «uno solo y sin comillas»:
  *   - scripts/run-validation-271.mjs: CERO literales de expresion regular.
@@ -1322,6 +1333,37 @@ const lineasQueEmiten = (lineasLimpias) =>
   lineasLimpias.filter((l) => /console\.(log|error)/.test(l));
 
 /**
+ * Un SEGUNDO reconocedor de comentarios, deliberadamente INGENUO e independiente.
+ *
+ * No entiende cadenas: decide linea a linea mirando solo como empieza. Por eso NO puede
+ * desalinearse DENTRO de una cadena — que es el unico modo de fallo de `sinComentarios`.
+ * El sesgo es el contrario, y esa oposicion es todo el valor: los dos se equivocan en
+ * sitios distintos, asi que un desacuerdo entre ellos es la firma de que uno se
+ * desalineo. No sustituye al escaner (seria peor: blanquearia el `/*` de
+ * `content/exercises/*.json` de un comentario de linea, el falso rojo que el bloque 3-ter
+ * congela); solo lo contrasta.
+ *
+ * @param {string} src texto fuente
+ * @returns {string[]} las lineas, con las que son comentario ENTERO vaciadas
+ */
+const sinComentariosNaive = (src) => {
+  let bloque = false;
+  return src.split('\n').map((l) => {
+    const t = l.trim();
+    if (bloque) {
+      if (t.includes('*/')) bloque = false;
+      return '';
+    }
+    if (t.startsWith('/*')) {
+      if (!t.includes('*/')) bloque = true;
+      return '';
+    }
+    if (t.startsWith('//') || t.startsWith('*')) return '';
+    return l;
+  });
+};
+
+/**
  * El milestone que declara el frontmatter de STATE.md, leido del DISCO.
  *
  * FAIL-LOUD, y es la POLARIDAD OPUESTA a la del reporter — la diferencia es deliberada y
@@ -1363,6 +1405,50 @@ const milestoneEnDisco = () => {
 };
 
 describe('DEUDA-03 — el reporter DERIVA el milestone de su banner y su pie, y no lo transcribe', () => {
+  // GUARD DIFERENCIAL, y va PRIMERO porque es lo que hace que los dos veredictos de abajo
+  // valgan algo (CR-02 del review de esta fase).
+  //
+  // EL AGUJERO QUE TAPA. Los dos tests de abajo escanean sobre `sinComentarios(REPORTER)`.
+  // Si ese escaner se desalinea, blanquea CODIGO real y el escaneo de versiones se queda
+  // ciego justo ahi — en verde. La clausula de no-vacuidad de abajo NO puede verlo, y lo
+  // dice su propio comentario: solo detecta el blanqueo TOTAL. El blanqueo PARCIAL, que es
+  // el realista, pasa. Las dos formas, MEDIDAS sobre el arbol antes de este guard:
+  //   - un literal de expresion regular con un `/*` dentro (`/tests\/*.test.js/`) abre
+  //     bloque, no encuentra `*/`, y blanquea DESDE AHI HASTA EL FINAL DEL FICHERO. Con la
+  //     inyeccion despues del primer `console.log`, los emisores de antes sobreviven, la
+  //     no-vacuidad no dispara, y un `v1.1` escrito a mano en la COLA del reporter salia
+  //     `# pass 36 / # fail 0`.
+  //   - un template literal MULTILINEA cuya linea de continuacion lleve un `//` (una URL,
+  //     el caso mas plausible que existe): como el estado de cadena se resetea en cada
+  //     salto de linea, esa continuacion se escanea como CODIGO y el `//` blanquea el
+  //     resto de la linea. Un `v1.1` detras salia igualmente `# pass 36 / # fail 0`.
+  //
+  // POR QUE ASI Y NO DE OTRA MANERA. El primer candidato que se probo —un guard byte a
+  // byte sobre las lineas que contienen `console.`— cazaba el primer caso y NO el segundo,
+  // y por eso se descarto: un guard que tapa la mitad de un agujero certifica la otra
+  // mitad. Contrastar el veredicto de DOS reconocedores con sesgos opuestos los caza a los
+  // dos, porque no existe desalineamiento que enganie a la vez al que entiende cadenas y
+  // al que las ignora.
+  //
+  // ALCANCE, escrito para no prometer de mas: el guard compara lo que los dos reconocedores
+  // dicen sobre las lineas QUE ESCRIBEN UNA VERSION, no el fichero entero. Si el escaner
+  // blanquease una cola sin ninguna version, esto callaria — y es correcto que calle: no
+  // hay nada escondido. Dispara el dia que aparezca una version en la parte blanqueada,
+  // que es exactamente el dia en que importa.
+  test(`${REPORTER}: los dos reconocedores de comentario ven las MISMAS versiones (CR-02)`, () => {
+    const src = readSrc(REPORTER);
+    assert.deepEqual(
+      versionesEscritasAMano(sinComentarios(src).split('\n')),
+      versionesEscritasAMano(sinComentariosNaive(src)),
+      `DEUDA-03 / CR-02: el escaner de comentarios y el reconocedor naive DISCREPAN sobre ` +
+        `${REPORTER}. O un literal de expresion regular con un \`/*\` abrio bloque y blanqueo ` +
+        `la cola del fichero, o un template literal multilinea trae un \`//\` en una linea de ` +
+        `continuacion. En los dos casos el escaneo de versiones de los tests de abajo dejo de ` +
+        `mirar parte del reporter, y su clausula de no-vacuidad no puede verlo porque solo ` +
+        `detecta el blanqueo TOTAL. Hasta que los dos coincidan, su verde no significa nada`
+    );
+  });
+
   test(`${REPORTER}: ninguna linea fuera de comentario escribe una version de milestone a mano`, () => {
     const limpio = sinComentarios(readSrc(REPORTER)).split('\n');
 
