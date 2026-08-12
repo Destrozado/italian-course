@@ -418,10 +418,25 @@ describe('fare-indicativo — SCOPE-GATE lexico de perifrasis (D-41-06)', () => 
     }
   });
 
+  test('golden CR-04: `soprattutto` NO cuenta como el objeto `tutto` (clonado del hermano)', () => {
+    // `tutto` es miembro de OBJECTS y subcadena de `soprattutto` y `tuttora`. Con
+    // `includes`, el gate de presencia de abajo dejaba de morder: aprobaba en silencio
+    // un prompt SIN objeto directo. El golden vive en los DOS ficheros porque los dos
+    // tenian el mismo defecto y `wordish` esta duplicado entre ellos.
+    assert.equal('___ soprattutto in fretta'.includes('tutto'), true, 'asi es como `includes` se dejaba enganar');
+    assert.equal(wordish('tutto').test('___ soprattutto in fretta'), false, 'CR-04: `soprattutto` no lleva el objeto `tutto`');
+    assert.equal(wordish('tutto').test('___ tuttora in fretta'), false, 'CR-04: `tuttora` tampoco');
+    assert.equal(wordish('tutto').test('___ tutto in fretta'), true, 'CR-04: el objeto real se sigue viendo');
+  });
+
   test('cada prompt lleva un objeto del conjunto CERRADO de 7', () => {
     for (const { slot, v, k } of allVariants()) {
       assert.ok(
-        OBJECTS.some((o) => v.prompt.includes(o)),
+        // CR-04: por `wordish` y NO por `includes` a pelo. `tutto` es miembro de
+        // OBJECTS y es SUBCADENA de `soprattutto` y de `tuttora`, dos palabras
+        // italianas corrientes: con `includes` este gate de PRESENCIA deja de morder y
+        // aprueba en silencio una variante que no tiene objeto directo ninguno.
+        OBJECTS.some((o) => wordish(o).test(v.prompt)),
         `D-41-06: ${slot.id}#${k} no usa ningun objeto del conjunto cerrado: "${v.prompt}"`
       );
     }
@@ -1093,7 +1108,8 @@ describe('fare-indicativo — invariantes de los cruces multi-categoria -300+ (I
   test('cada prompt de cruce lleva un objeto del conjunto CERRADO de 7 (D-41-06)', () => {
     for (const { slot, v, k } of crossVariants()) {
       assert.ok(
-        OBJECTS.some((o) => v.prompt.includes(o)),
+        // CR-04: `wordish` y no `includes` — `soprattutto` contiene `tutto`.
+        OBJECTS.some((o) => wordish(o).test(v.prompt)),
         `D-41-06: ${slot.id}#${k} no usa ningun objeto del conjunto cerrado: "${v.prompt}"`
       );
     }

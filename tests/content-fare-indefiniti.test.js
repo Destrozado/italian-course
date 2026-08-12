@@ -925,6 +925,40 @@ describe('fare-indefiniti — SCOPE-GATE lexico con la excepcion acotada del par
     }
   });
 
+  test('golden CR-04: `soprattutto` NO cuenta como el objeto `tutto`, en las DOS direcciones', () => {
+    // El agujero que este golden congela. La cabecera de este fichero declara en
+    // mayusculas que «NINGUN cue se compara con `includes`, `endsWith` ni `startsWith`
+    // a pelo … Un gate de presencia matcheado por subcadena no se pone rojo: deja de
+    // morder, que es peor, porque aprueba en silencio la variante futura que existia
+    // para cazar». Cuatro gates de objeto rompian esa regla, y `tutto` —miembro de
+    // OBJECTS— es subcadena de `soprattutto` y de `tuttora`.
+    //
+    // DIRECCION 1, el falso VERDE: una variante cuyo objeto se sustituye por una
+    // palabra que meramente lo CONTIENE se queda sin objeto directo, y el gate que
+    // existe para garantizarlo la certificaba.
+    assert.equal('___ soprattutto in fretta'.includes('tutto'), true, 'asi es como `includes` se dejaba enganar');
+    assert.equal(wordish('tutto').test('___ soprattutto in fretta'), false, 'CR-04: `soprattutto` no lleva el objeto `tutto`');
+    assert.equal(wordish('tutto').test('___ tuttora in fretta'), false, 'CR-04: `tuttora` tampoco');
+    // Y sigue mordiendo donde el objeto SI esta.
+    assert.equal(wordish('tutto').test('___ tutto in fretta'), true, 'CR-04: el objeto real se sigue viendo');
+    assert.equal(wordish('tutto').test('Lui ha fatto tutto.'), true, 'CR-04: tambien a final de frase con puntuacion');
+
+    // DIRECCION 2, el falso ROJO: un prompt legitimo que ABRIERA por `Soprattutto`
+    // contaba DOS objetos en la clausula del hueco y se ponia rojo con el mensaje
+    // «2 objetos en la clausula del hueco», cuyo arreglo plausible es relajar el gate.
+    const CLAUSULA = 'Soprattutto io ___ i compiti in fretta';
+    assert.deepEqual(
+      OBJECTS.filter((o) => CLAUSULA.includes(o)),
+      ['i compiti', 'tutto'],
+      'asi contaba 2 objetos el gate viejo, y el segundo no existe'
+    );
+    assert.deepEqual(
+      OBJECTS.filter((o) => wordish(o).test(CLAUSULA)),
+      ['i compiti'],
+      'CR-04: con frontera de palabra hay UN objeto, que es la verdad'
+    );
+  });
+
   test('las 16 variantes NO exentas llevan el objeto de la tabla, del conjunto cerrado ampliado, y UNO solo por clausula', () => {
     const sucio = [];
     let contadas = 0;
@@ -935,8 +969,14 @@ describe('fare-indefiniti — SCOPE-GATE lexico con la excepcion acotada del par
         const obj = filaDe(id, k).object;
         if (!OBJECTS.includes(obj)) { sucio.push(`${id}#${k}: "${obj}" no esta en el conjunto cerrado`); return; }
         const clausula = segmentoDelHueco(v.prompt);
-        if (!clausula.includes(obj)) { sucio.push(`${id}#${k}: la clausula del hueco no lleva "${obj}"`); return; }
-        const enClausula = OBJECTS.filter((o) => clausula.includes(o));
+        // CR-04: por `wordish` y NO por `includes` a pelo. `tutto` es miembro de
+        // OBJECTS y es SUBCADENA de `soprattutto` y de `tuttora`, dos palabras
+        // italianas corrientes. Con `includes`, este gate de PRESENCIA deja de morder
+        // —aprueba en silencio una variante SIN objeto directo— y ademas produce
+        // falsos rojos: un prompt que abriera por `Soprattutto` contaria 2 objetos en
+        // la clausula. Las dos direcciones estan congeladas por los goldens de abajo.
+        if (!wordish(obj).test(clausula)) { sucio.push(`${id}#${k}: la clausula del hueco no lleva "${obj}"`); return; }
+        const enClausula = OBJECTS.filter((o) => wordish(o).test(clausula));
         if (enClausula.length !== 1) {
           sucio.push(`${id}#${k}: ${enClausula.length} objetos en la clausula del hueco (${enClausula.join(', ')})`);
         }
@@ -2366,7 +2406,8 @@ describe('fare-indefiniti — invariantes del cruce multi-categoria -300 (INT-03
     // participio presente y NO se extiende al cruce.
     for (const { slot, v, k } of crossVariants()) {
       assert.ok(
-        OBJECTS.some((o) => v.prompt.includes(o)),
+        // CR-04: `wordish` y no `includes` — `soprattutto` contiene `tutto`.
+        OBJECTS.some((o) => wordish(o).test(v.prompt)),
         `D-41-06: ${slot.id}#${k} no usa ningun objeto del conjunto cerrado: "${v.prompt}"`
       );
     }
