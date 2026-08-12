@@ -362,7 +362,7 @@ Verbos IRREGULARES en presente (andare/fare/venire/dire…) son categoría apart
 
 **Depends on**: Phase 44 (los tres hallazgos salen de `44-REVIEW.md` y de `.planning/v2.0-MILESTONE-AUDIT.md`)
 **Requirements**: DEUDA-01, DEUDA-02, DEUDA-03
-**Plans:** 0 plans
+**Plans:** 4 plans
 
 **Success Criteria** (what must be TRUE):
 
@@ -374,7 +374,10 @@ Verbos IRREGULARES en presente (andare/fare/venire/dire…) son categoría apart
 
 Plans:
 
-- [ ] TBD (run /gsd-plan-phase 45 to break down)
+- [ ] 45-01-PLAN.md — DEUDA-01: `tests/fixtures/` entra en la invocación canónica (tracer end-to-end: contrato + gate derivado del disco + rojo observado), las ~19 cabeceras de `tests/` en lockstep y COVERAGE.md
+- [ ] 45-02-PLAN.md — DEUDA-02: `CATEGORIES_WITH_EXPLANATIONS` toma forma parseable y entra en el gate anti-ceguera; WR-07 con golden fail-first; guard de integridad del escáner
+- [ ] 45-03-PLAN.md — DEUDA-03: encabezado y pie del reporter derivados de `.planning/STATE.md` con lectura fail-soft, gate source-assert que lo congela y checkpoint humano sobre la salida
+- [ ] 45-04-PLAN.md — Trazabilidad: DEUDA-01/02/03 definidos y mapeados en `REQUIREMENTS.md`, y la línea de Coverage derivada del disco por un gate nuevo
 
 ---
 *Roadmap created: 2026-05-23*
