@@ -858,6 +858,85 @@ describe('goldens de pareceFare: muerde toda forma de fare y NO las de essere qu
 });
 
 // ───────────────────────────────────────────────────────────────────────────
+// 12-ter. El gloss de los cruces (G-44-3-WR03) — helpers y goldens
+// ───────────────────────────────────────────────────────────────────────────
+
+// Matcher con frontera de PALABRA UNICODE, clonado de `tests/content-fare-indefiniti.test.js`.
+// El `\b` de JS es ASCII-only y aqui se compara contra glosses castellanos con
+// `ñ`, `í` y `é`. POR QUE NO `includes` A PELO, que es lo que el fix esbozado en
+// el code review proponia: `mucha` y `fecha` contienen `ha` como SUFIJO y `hace`
+// lo contiene como PREFIJO, asi que un `includes` pondria rojo un gloss futuro
+// perfectamente legitimo (`mucha gente`, `la fecha de hoy`, `hace tiempo`). Poner
+// rojo contenido legitimo es exactamente el bug que WR-02 cierra en la otra mitad
+// de este plan, y el arreglo siguiente seria relajar el gate.
+const wordish = (s) =>
+  new RegExp(`(^|[^\\p{L}])${s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}([^\\p{L}]|$)`, 'iu');
+
+// El contenido del PRIMER parentesis del prompt, o `null` si no hay gloss. El
+// `null` es deliberado y no `''`: los dos gates de abajo distinguen «no hay
+// gloss» de «el gloss esta vacio», y con `''` para los dos casos el gate del
+// `-300` pasaria en verde sobre una cadena vacia (T-44-04-01, la especie de CR-01).
+const glosDe = (prompt) => {
+  const m = prompt.match(/\(([^)]*)\)/);
+  return m ? m[1] : null;
+};
+
+// Las formas del auxiliar castellano `haber` que pueden aparecer en un gloss de
+// `fare-indicativo-300`, cuyo hueco ES el auxiliar italiano. El pase de Opus dejo
+// la frontera escrita como condicion de supervivencia del slot: los 3 glosses
+// usan el PRETERITO SIMPLE (`hice` / `hicimos` / `hicieron`) y con un `he hecho`
+// o un `hemos hecho` el slot pasa a leak R1 inmediato, porque el gloss seria el
+// espejo exacto de la casilla examinada.
+//
+// Se enumeran los cuatro tiempos compuestos que un gloss de este slot podria
+// producir —presente, imperfecto, futuro y preterito de `haber`—, en su ortografia
+// acentuada RAE (`[[explanations_must_be_accented]]`) y TAMBIEN sin tilde por
+// defensa: un gloss futuro escrito sin acentos seria el mismo leak con otra
+// grafia, y el gate no puede depender de que la autoria acentue.
+const HABER_ES = [
+  'he', 'has', 'ha', 'hemos', 'habéis', 'habeis', 'han',
+  'había', 'habia', 'habías', 'habias', 'habíamos', 'habiamos',
+  'habíais', 'habiais', 'habían', 'habian',
+  'habré', 'habre', 'habrás', 'habras', 'habrá', 'habra',
+  'habremos', 'habréis', 'habreis', 'habrán', 'habran',
+  'hube', 'hubiste', 'hubo', 'hubimos', 'hubisteis', 'hubieron',
+];
+const auxHaberEn = (gloss) => HABER_ES.filter((f) => wordish(f).test(gloss));
+
+describe('goldens de glosDe y auxHaberEn: la frontera del gloss de los cruces (G-44-3-WR03)', () => {
+  test('glosDe devuelve el contenido del parentesis cuando hay gloss', () => {
+    assert.equal(
+      glosDe('Ieri noi ___ fatto una torta. (en español: ayer hicimos un pastel)'),
+      'en español: ayer hicimos un pastel'
+    );
+  });
+
+  test('glosDe devuelve NULO cuando el prompt no lleva gloss (la forma del -301)', () => {
+    assert.equal(glosDe('Tu fai i compiti da solo, ma noi ___ tutto insieme.'), null);
+  });
+
+  test('auxHaberEn: el preterito simple pasa limpio, que es la forma que los 3 glosses del -300 usan', () => {
+    assert.deepEqual(auxHaberEn('esta mañana hice los deberes antes de salir'), []);
+    assert.deepEqual(auxHaberEn('el mes pasado hicieron todo sin ayuda'), []);
+  });
+
+  test('auxHaberEn: el compuesto castellano se delata — he hecho, hemos hecho', () => {
+    assert.deepEqual(auxHaberEn('esta mañana he hecho los deberes'), ['he']);
+    assert.deepEqual(auxHaberEn('ayer hemos hecho un pastel'), ['hemos']);
+  });
+
+  test('auxHaberEn: guardia de FALSO POSITIVO — mucha / fecha llevan la forma como subcadena y NO son el auxiliar', () => {
+    // Es lo unico que distingue este gate del `includes` crudo del esbozo del
+    // code review: con `gloss.includes('ha ')` esta linea seria roja.
+    assert.deepEqual(auxHaberEn('mucha gente en la fecha de hoy'), []);
+  });
+
+  test('auxHaberEn: segundo guardia de FALSO POSITIVO — hace lleva la forma como prefijo', () => {
+    assert.deepEqual(auxHaberEn('hace tiempo que no'), []);
+  });
+});
+
+// ───────────────────────────────────────────────────────────────────────────
 // 13. Cruces multi-categoria -300+ (INT-03, D-44-01..D-44-04) — G1 y G2
 // ───────────────────────────────────────────────────────────────────────────
 
@@ -1044,6 +1123,87 @@ describe('fare-indicativo — invariantes de los cruces multi-categoria -300+ (I
     for (const { slot, v, k } of crossVariants()) {
       const sucio = v.options.filter((o) => o.split(/\s+/).some((w) => pareceFare(w)));
       assert.deepEqual(sucio, [], `D-44-02: ${slot.id}#${k} mete una forma de fare en options —descontadas las formas de essere que la whitelist de auxiliares autoriza—: ${sucio.join(' | ')} — el hueco es de la categoria VECINA`);
+    }
+  });
+
+  // EL GLOSS DE LOS CRUCES, POR PARTICION (G-44-3-WR03, R1, D-41-05).
+  //
+  // El 0-gloss del bloque 4 itera `allVariants()`, es decir los slots BASE, asi
+  // que desde la particion de Phase 44 dejo de cubrir los cruces. La cabecera de
+  // este bloque promete «RE-ASERTAR los gates que siguen rigiendo sobre ellos», y
+  // esta es esa contrapartida — pero NO puede ser un gate uniforme sobre los dos
+  // cruces, porque la politica real que el `notes` declara es ASIMETRICA:
+  //
+  //   - `fare-indicativo-301` va a 0-gloss. Su resolucion documentada fue BORRAR
+  //     los 3 glosses por leak C5: el gloss CONJUGABA el verbo del hueco
+  //     (`repasamos` / `comete` / `revisáis`), que es la casilla examinada. La
+  //     ambiguedad vivia en el PROMPT y no en las `options`, asi que lo que la
+  //     cerro fue borrar el gloss, y lo que impide que vuelva es inspeccionar el
+  //     parentesis del prompt.
+  //   - `fare-indicativo-300` CONSERVA gloss, y es legitimo: glosa el
+  //     complemento y no la casilla. Su frontera es otra (gate B).
+  //
+  // Un gate uniforme seria falso en las DOS direcciones: pondria rojo un gloss
+  // legitimo del `-300`, o dejaria reponer en el `-301` el que el quorum obligo a
+  // borrar. La asimetria es la que el `notes` declara deliberada y no uniformable.
+  test('WR-03 gate A — fare-indicativo-301 esta FIJADO al 0-gloss: el leak C5 que el quorum cerro no puede volver (R1, D-41-05)', () => {
+    const variantes = byId('fare-indicativo-301').variants;
+    // NO-VACUIDAD primero, derivada del disco: sin esto, un slot que se quedara
+    // sin variantes dejaria el bucle sin iteraciones y el gate pasaria en verde
+    // sin haber mirado un solo prompt (T-44-04-01).
+    assert.ok(
+      variantes.length > 0,
+      'G-44-3-WR03: fare-indicativo-301 no tiene variantes que inspeccionar, asi que este gate estaria pasando sin mirar nada'
+    );
+    for (const [k, v] of variantes.entries()) {
+      assert.ok(
+        !/[()]/.test(v.prompt),
+        `C5-leak / R1: fare-indicativo-301#${k} recupero el gloss que el quorum obligo a BORRAR — el gloss de este cruce conjuga el verbo del hueco y entrega la casilla examinada: "${v.prompt}"`
+      );
+      // El gloss podria reponerse SIN parentesis, asi que se cierra tambien la
+      // mencion del idioma, igual que hace el 0-gloss de los slots base.
+      assert.ok(
+        !/espa/i.test(v.prompt),
+        `C5-leak / R1: fare-indicativo-301#${k} menciona el espanol, asi que el gloss volvio por otra redaccion: "${v.prompt}"`
+      );
+    }
+  });
+
+  test('WR-03 gate B — fare-indicativo-300 CONSERVA su gloss y el gloss NO exhibe el auxiliar castellano espejo del hueco (R1)', () => {
+    const variantes = byId('fare-indicativo-300').variants;
+    assert.ok(
+      variantes.length > 0,
+      'G-44-3-WR03: fare-indicativo-300 no tiene variantes que inspeccionar, asi que este gate estaria pasando sin mirar nada'
+    );
+    for (const [k, v] of variantes.entries()) {
+      // PRIMERA CLAUSULA, y en este orden a proposito: que el gloss EXISTE. Sin
+      // ella, borrar el gloss dejaria la lista negra corriendo sobre una cadena
+      // vacia y el gate certificaria en verde justo lo contrario de lo que dice
+      // (T-44-04-01). El gloss de este cruce es legitimo y su ausencia es tan
+      // reportable como su contaminacion.
+      const abre = (v.prompt.match(/\(/g) || []).length;
+      assert.equal(
+        abre,
+        1,
+        `G-44-3-WR03: fare-indicativo-300#${k} tiene ${abre} parentesis de apertura y necesita EXACTAMENTE 1 — aqui el gloss glosa el COMPLEMENTO y es legitimo, al contrario que en el -301: "${v.prompt}"`
+      );
+      const gloss = glosDe(v.prompt);
+      assert.ok(
+        gloss !== null && gloss.trim().length > 0,
+        `G-44-3-WR03: fare-indicativo-300#${k} se quedo sin contenido de gloss, asi que la lista negra de abajo estaria pasando sobre una cadena vacia: "${v.prompt}"`
+      );
+      // SEGUNDA CLAUSULA: la frontera, tal como el pase de Opus la dejo escrita.
+      // El hueco de este cruce ES el auxiliar de `avere`, asi que el auxiliar
+      // castellano en el gloss es su espejo exacto: los 3 glosses usan el
+      // PRETERITO SIMPLE (`hice` / `hicimos` / `hicieron`) y con un `he hecho` o
+      // un `hemos hecho` el slot pasa a leak R1 inmediato. Por la cascada D-54 eso
+      // no cuesta un ejercicio: cuesta `fare-indicativo` Y `avere` a la vez.
+      const sucio = auxHaberEn(gloss);
+      assert.deepEqual(
+        sucio,
+        [],
+        `R1: fare-indicativo-300#${k} exhibe en el gloss el auxiliar castellano espejo del hueco (${sucio.join(', ')}) — el hueco ES el auxiliar, asi que el gloss tiene que ir en preterito simple: "${gloss}"`
+      );
     }
   });
 
