@@ -261,6 +261,50 @@ El rediseño visual "Editoriale" aplicado a las 8 pantallas (papel cálido, seri
 
 ---
 
+## Milestone: v2.0 — Paradigma completo de `fare`
+
+**Shipped:** 2026-08-13
+**Phases:** 6 (40-45) | **Plans:** 15 | **Tasks:** 47 | **Commits:** 224
+
+### What Was Built
+El paradigma entero de `fare` en 4 categorías por modo: `fare-indicativo` (8 slots / 48 variantes), `fare-congiuntivo` (5 / 30), `fare-cond-imperativo` (3 / 17), `fare-indefiniti` (6 / 18) = **22 slots / 113 variantes** autoradas desde cero por quórum cross-vendor R1-R7. Migración `12→13` con reset selectivo, integración lockstep y gate anti-ceguera. **18 categorías / 250 slots.** Y una sexta fase que no estaba en el plan: la Phase 45, añadida a raíz de la auditoría del propio milestone para pagar la deuda del **arnés de tests**. Suite 1182 (1178 pass / 4 skip), motor v1.4 byte-intacto.
+
+### What Worked
+- **La auditoría de milestone se ganó su coste por primera vez de forma inequívoca.** No confirmó que todo estuviera bien: encontró 28 hallazgos y produjo una fase entera de trabajo real (la 45). Una auditoría que solo dice «passed» no habría pagado su precio.
+- **El quórum cross-vendor siguió cazando lo que el human-verify deja pasar**, y esta vez también al revés: en Phase 42 el flag C5 lo levantó *Sonnet*, la mitad de la base de aprobación que el plan daba por segura — y la incoherencia entre vendors *fue* el diagnóstico (la excepción vivía en un `notes` que el subagent nunca ve).
+- **Verificación por mutación como estándar de aceptación**, no como ceremonia: 21 rojos observados, transcritos verbatim y revertidos a lo largo de la fase 45. Es lo que separó los gates que muerden de los que no.
+- **El invariante «motor NO tocado» aguantó 10 días y 224 commits**, verificado con un `git diff` vacío al cierre. Declararlo por escrito en cada plan hizo que se sostuviera solo.
+
+### What Was Inefficient
+- **La Phase 44 costó dos ciclos de review-and-fix**, y el segundo encontró 4 blockers *dentro de los arreglos del primero*. Arreglar sin volver a mutar es arreglar a ciegas.
+- **Dos de cuatro snippets propuestos por code review eran incorrectos, y uno era peor que el bug** (habría blanqueado el array `CATEGORIES` entero). Se repitió en la Phase 45: el fix propuesto para CR-01 se autodelataba dentro del fichero que arreglaba.
+- **Colisión de IDs de decisión** entre plan-time y run-time (dos `D-45-05` vivos), y la propia propuesta de arreglo quedó inservible porque otro plan reclamó el ID antes de aplicarla. Se resolvió a mano en el cierre.
+- **El extractor de `one_liner` devolvió basura en 6 de 15 SUMMARYs** — `MILESTONES.md` se pobló con líneas como `C5-leak.` y `ANTES` y hubo que reescribirlo a mano.
+
+### Patterns Established
+- **Verificación por mutación: mutar → correr → ver el ROJO → transcribir verbatim → revertir.** El criterio de aceptación exige el rojo *observado*, no que la suite siga verde.
+- **Cláusula de no-vacuidad primero, con la referencia derivada del disco**, en todo gate que enumera. Sin ella, un reconocedor que deja de casar pasa en verde certificando nada.
+- **Lockstep documental por conteo de ocurrencias, no por `includes()`** — un `includes` es ciego a la regresión parcial en ficheros con el contrato repetido.
+- **Guard diferencial** (dos reconocedores + `deepEqual` sobre lo que ve cada uno) cuando un escáner puede desincronizarse parcialmente.
+- **Redactar la prosa contra el identificador, no contra el número** (`COUNT_ARRAY_SOURCES`, no «las TRES fuentes»): el texto deja de envejecer con el alta siguiente.
+- **Marca literal como escape hatch, nunca heurística sobre la prosa** — adivinar la intención del texto convierte cualquier reescritura en un falso verde.
+- **Escribir la limitación del gate en la cabecera del propio gate**, y ajustar el título del test cuando promete de más: un título que promete de más es parte del defecto.
+
+### Key Lessons
+1. **Un artefacto que dice «gate cerrado» no es evidencia de que el gate muerda.** La Phase 45 encontró **cinco gates vacuos** —tres en sus propios planes, dos que el code review halló en trabajo firmado en cuatro SUMMARY— y los cinco se cazaron corriendo la mutación, ninguno leyendo.
+2. **Un fix propuesto por un revisor es una hipótesis y merece la misma mutación que el código que arregla.** Tres confirmaciones independientes en este milestone.
+3. **Un fallo de CARGA no es un gate poniéndose rojo.** Si el runner dice `# tests 1 / exit 1`, has roto el fichero; el rojo bueno reporta el total normal y *nombra la aserción*. Mordió tres veces, incluida una en el propio cierre del milestone.
+4. **`git checkout -- <fichero>` sobre trabajo sin committear revierte la tarea, no la mutación.** Documentado en la ola 2 y volvió a morder en la ola 4.
+5. **Fail-loud o fail-soft no es preferencia, es función de qué fracción queda inservible sin la referencia.** Tres decisiones opuestas en el mismo milestone, cada una con su motivo escrito en el código — y una cuarta descubierta al cerrar: la *ausencia legítima* de un fichero no es una avería y merece un skip visible, no un throw.
+6. **Un requisito ausente de las DOS mitades de un documento lo deja internamente consistente.** El gate que cruza mitades entre sí no puede echar de menos lo que no aparece por ningún lado — medido, contra la afirmación contraria del plan y del revisor de planes.
+
+### Cost Observations
+- Model mix: autoría/planning/ejecución en Opus, verificación/checker en Sonnet, refuerzo cross-vendor DeepSeek en los MAGNETs de doble validez.
+- Timeline: 10 días (2026-08-03 → 2026-08-13), 224 commits, 135 ficheros (+38.825/−259).
+- **La calibración de estimaciones del proyecto salió `factor 0.5` con `clamped: true`** — es decir, la corrección real era aún más agresiva y el sistema la topó en el mínimo. Este proyecto estima consistentemente el doble de lo que tarda. Ejemplo del milestone: un plan registrado de memoria como «~35 min» duró 8.
+
+---
+
 ## Cross-Milestone Trends
 
 ### Process Evolution
@@ -277,6 +321,7 @@ El rediseño visual "Editoriale" aplicado a las 8 pantallas (papel cálido, seri
 | v1.7 | ~2 días | 3 | Alta de categoría nacida-en-slots (sin conversión); conteo dinámico del JSON (`TOTAL_EXPECTED` computado, no mágico); cruces multi-cat slot+variantes; deuda de conteo AJENA preexistente aflora al recomputar |
 | v1.8 | 1 día | 3 | Rediseño visual brownfield UI puro: Pico eliminado, `app.css` base, lenguaje Editoriale en las 8 pantallas; motor intacto; hotfix post-cierre CSS reset `<figure>` |
 | v1.9 | 1 día | 5 | 4 categorías nuevas nacidas-en-slots (Dimostrativi/Possessivi/Modali/Riflessivi) + PROV-01 origen + lockstep cierre; quórum con ronda EXTRA en magnets de doble-validez; baseline-guard reframeado dinámico |
+| v2.0 | 10 días | 6 | Paradigma completo de un verbo (4 categorías por modo, 22 slots/113 variantes); 4 MAGNETs de doble validez resueltos con audit trail; **la auditoría del milestone generó una fase entera de trabajo real** (la 45, deuda del arnés); verificación por mutación como estándar de aceptación |
 
 ### Cumulative Quality
 
@@ -292,8 +337,10 @@ El rediseño visual "Editoriale" aplicado a las 8 pantallas (papel cálido, seri
 | v1.7 | 473/474 (483/484 strict) | 11/11 requirements · 10ª categoría `presente-regolare` (8 base + 4 cruces) | `migrate10to11` reset de 1 prefijo; conteo dinámico `slotCountOf`; cruces multi-cat slot+variantes |
 | v1.8 | 574/575 | 19/19 requirements · 8 pantallas Editoriale | Pico eliminado → `app.css`; `migrate11to12` (pendiente en v1.9); fuentes auto-hospedadas |
 | v1.9 | 624/624 (638/638 strict) | 25/25 requirements · 14 categorías / 225 slots · 4 categorías nuevas + PROV-01 | `migrate11to12` reset de 4 prefijos; `origen` opcional; baseline-guard dinámico; ronda EXTRA DeepSeek |
+| v2.0 | 1182 (1178 pass / 4 skip; 1196 strict) | 26/26 requirements · 18 categorías / 250 slots · paradigma completo de `fare` | `migrate12to13` reset de 4 prefijos; gate anti-ceguera de 3 fuentes; invocación canónica con los DOS globs (+63 tests huérfanos enganchados); banner del reporter derivado del disco; gate de trazabilidad de requisitos |
 
 ### Top Lessons (Verified Across Milestones)
 1. **Reutilizar un único call-site central paga** — `applyResultToSession` (v1.0) absorbió tanto los tipos nuevos de v1.0 como el modo canción de v1.3 sin duplicar la cascada.
 2. **El human-verify deja pasar bugs que otra capa caza** — en v1.2 fue el cross-vendor (8 bugs en Articoli); en v1.3 fue el UAT de contenido real (`bankWithKeys`). La verificación de una sola capa no basta.
-3. **Brownfield disciplinado mantiene los milestones pequeños** — declarar "NO reconstruir el motor" y sostenerlo deja que el coste sea de contenido, no de ingeniería (v1.2 y v1.3).
+3. **Un gate solo está cerrado cuando se le ha visto el rojo** — v2.0 encontró cinco gates vacuos que cuatro SUMMARY daban por cerrados; los cinco se destaparon mutando, ninguno leyendo. Aplica igual a un fix propuesto por un revisor: es hipótesis hasta que se muta.
+4. **Brownfield disciplinado mantiene los milestones pequeños** — declarar "NO reconstruir el motor" y sostenerlo deja que el coste sea de contenido, no de ingeniería (v1.2 y v1.3).
