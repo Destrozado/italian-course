@@ -10,12 +10,16 @@
 //   1. VAL-04 — todos los validated tienen passes con ≥2 entries `correcta`
 //      con `by` DISTINTOS (Set size ≥2). El override del autor en path-B
 //      D-VAL-25 cuenta como una entry `by:"autor"` válida.
-//   2. VAL-06 — los 271 con `validation.status === "validated"` (vía el
-//      helper `effectiveStatus()` que relaja sticky ante override del
-//      autor — RESEARCH Open Q #1 opción c).
+//   2. VAL-06 — los 271 con `validation.status === "validated"` derivado por
+//      `deriveStatus` (fuente única). El relax local que vivía aquí se borró en
+//      CR-03: era estrictamente MÁS PERMISIVO que la fuente única.
 //   3. VAL-08 — cero ejercicios con `effectiveStatus === "disputed"`. La
 //      cola D-VAL-25/26 procesa cada disputed hasta uno de los 3 caminos
 //      cerrados (accept-fix / reject+override / rewrite manual).
+//   4. VAL-09 (CR-03) — cero desincronías entre el `status` ESCRITO en el JSON y
+//      el que deriva la fuente única. Era un warning meramente impreso, y
+//      mientras lo fue el reporter podía cerrar el milestone contradiciendo el
+//      fichero que acababa de leer.
 //
 // CONSTRAINT (arquitectónica): este script es POST-processing PURO. NO invoca
 // Task(), NO orquesta subagents, NO muta JSONs, NO corre `node --test` (el
@@ -223,26 +227,35 @@ const TOTAL_EXPECTED = CATEGORIES.reduce((s, c) => s + c.expected, 0);
 }
 
 /**
- * Relax path-B (RESEARCH Open Q #1 opción c): si `deriveStatus` da `disputed`
- * pero existe entry `{by:"autor", verdict:"correcta"}` en `passes[]`, el
- * ejercicio se trata como `validated`. Esto materializa el override consciente
- * del autor (D-VAL-25 camino b) sin requerir whitelist externa ni BYPASS del
- * sticky D-VAL-07 que vive en el JSON escrito.
+ * El status efectivo de un ejercicio ES el que dicta `deriveStatus`. Sin relax
+ * local, sin segunda opinión: `src/data/validation-state.js` es la fuente ÚNICA
+ * (WR-01) que consumen el gate VAL-07, los scripts de pase y los tests de
+ * contenido, y este reporter es el ÚLTIMO gate antes de `/gsd:complete-milestone`.
  *
- * Razón: D-VAL-25 camino b escribe `validation.status = "validated"` directo
- * en el JSON sin tocar `passes[]` (las dos entries `incorrecta` históricas
- * siguen presentes para audit trail). Sin este relax, `deriveStatus` vería
- * la `incorrecta` y devolvería `disputed` → inconsistencia ruidosa pero
- * legítima (override del autor = validated efectivo).
+ * POR QUÉ SE BORRÓ EL RELAX QUE VIVÍA AQUÍ (CR-03, code review de Phase 44).
+ * Había una reimplementación local del override del autor: si `deriveStatus` daba
+ * `disputed` pero existía una entry `{by:"autor", verdict:"correcta"}`, este
+ * fichero la promovía a `validated`. Dejaba caer las TRES guardas que la fuente
+ * única exige:
+ *   1. el flag `override: true`, que es OBLIGATORIO y explícito precisamente
+ *      «para que el override nunca ocurra por accidente ni por lectura de un
+ *      prefijo en `concerns`»;
+ *   2. el quórum (>=2 `correcta` con `by` distintos) — un override resuelve una
+ *      disidencia, NO fabrica quórum;
+ *   3. al menos una `correcta` de un MODELO, que es la propiedad
+ *      anti-falsificación de T-42-03.
+ * Era por tanto redundante Y estrictamente MÁS PERMISIVO que la función que
+ * envolvía, y con la desincronía escrito-vs-derivado degradada a warning
+ * impreso, el resultado era `Milestone gate PASS` sobre un ejercicio que la
+ * fuente única llama `disputed`.
+ *
+ * La justificación que llevaba («D-VAL-25 camino b escribe
+ * `validation.status = "validated"` directo en el JSON sin tocar `passes[]`»)
+ * describía el mundo PRE-G-42-3. Ese mundo ya no existe: desde Phase 42
+ * `deriveStatus` implementa el override del autor nativamente, con el flag
+ * explícito y sin fabricar quórum.
  */
-function effectiveStatus(passes) {
-  const derived = deriveStatus(passes);
-  if (derived !== 'disputed') return derived;
-  const hasAuthorOverride = Array.isArray(passes) && passes.some(
-    (p) => p?.by === 'autor' && p?.verdict === 'correcta'
-  );
-  return hasAuthorOverride ? 'validated' : 'disputed';
-}
+const effectiveStatus = (passes) => deriveStatus(passes);
 
 /**
  * Carga defensiva de una categoría completa. Devuelve `{ok, exercises}` o
@@ -332,9 +345,12 @@ for (const { slug, file, expected } of CATEGORIES) {
       pending++;
     }
 
-    // Warning de consistencia: si el `status` escrito en el JSON difiere del
-    // `effectiveStatus(passes)` derivado, hay desincronía (edición manual
-    // descuidada, race condition, etc.). NO es FAIL — solo warning informativo.
+    // Sub-gate de consistencia (CR-03): si el `status` escrito en el JSON difiere
+    // del derivado por la fuente única, hay desincronía (edición manual descuidada,
+    // override legacy sin el flag `override: true`, race condition). Esto ERA un
+    // warning meramente impreso que ningún gate consumía, y eso es lo que permitía
+    // que el reporter imprimiera PASS mientras contradecía el JSON que acababa de
+    // leer. Ahora entra en VAL-09 y el gate no puede cerrar por encima de él.
     if (typeof v.status === 'string' && v.status !== eff) {
       inconsistencyIds.push(`${ex.id} (escrito="${v.status}", derivado="${eff}")`);
     }
@@ -357,7 +373,7 @@ for (const { slug, file, expected } of CATEGORIES) {
 
 // ─── Imprimir tabla colorizada ────────────────────────────────────────────
 console.log('');
-console.log(`${BOLD}Milestone v1.1 — gate Phase 10 (VAL-04 + VAL-06 + VAL-08)${RESET}`);
+console.log(`${BOLD}Milestone v1.1 — gate Phase 10 (VAL-04 + VAL-06 + VAL-08 + VAL-09)${RESET}`);
 console.log('');
 
 const colWidths = {
@@ -469,7 +485,22 @@ console.log(
   }`
 );
 
-const gatePass = val06Pass && val08Pass && val04Pass;
+// VAL-09 (CR-03): cero desincronías entre el `status` ESCRITO en el JSON y el
+// derivado por la fuente única. Era un warning impreso que ningún gate consumía;
+// mientras lo fue, el reporter podía imprimir `Milestone gate PASS` discrepando del
+// fichero que acababa de leer, que es la mitad de CR-03 que no arregla el borrado
+// del relax local.
+const allInconsistencyIds = perCategory.flatMap(r => r.inconsistencyIds);
+const val09Pass = allInconsistencyIds.length === 0;
+console.log(
+  `  VAL-09 (status escrito == derivado): ${
+    val09Pass
+      ? ok(`PASS`)
+      : fail(`FAIL (${allInconsistencyIds.length} desincronizados: ${allInconsistencyIds.join('; ')})`)
+  }`
+);
+
+const gatePass = val06Pass && val08Pass && val04Pass && val09Pass;
 
 // ─── Exit gate ────────────────────────────────────────────────────────────
 console.log('');
@@ -494,6 +525,14 @@ if (gatePass) {
   }
   if (!val04Pass) {
     console.log('  - VAL-04: investiga manualmente los IDs sin ≥2 distinct by (probable corrupción del JSON o passes[] con by duplicado).');
+  }
+  if (!val09Pass) {
+    console.log('  - VAL-09: el `status` escrito discrepa del que deriva src/data/validation-state.js.');
+    console.log('    Causa típica: un override del autor ANTERIOR a G-42-3 (Phase 42), escrito como');
+    console.log('    `[override]` dentro de `concerns` pero SIN el flag `override: true` en la entry.');
+    console.log('    La fuente única se niega deliberadamente a inferir el override desde el prefijo');
+    console.log('    de `concerns`, así que la migración es explícita: añade `"override": true` a la');
+    console.log('    entry `by:"autor"` de cada ID listado, o retira el `status` escrito a mano.');
   }
   if (anyLoadError) {
     console.log('  - Carga: uno o más JSONs no se pudieron leer/parsear (ver warnings arriba). Repara el JSON corrupto antes de re-correr.');
