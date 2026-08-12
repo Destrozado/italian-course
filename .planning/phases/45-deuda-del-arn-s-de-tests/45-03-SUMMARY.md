@@ -40,13 +40,13 @@ decisions:
   - "D-45-12 (nueva, no prevista) — el gate mira TODA linea no-comentario, no solo las que contienen el token `console.log`: el esqueleto del research dejaba fuera las lineas de continuacion"
 
 metrics:
-  duration: "~45 min"
-  completed: 2026-08-12
+  duration: "~45 min + checkpoint humano (aprobado 2026-08-13)"
+  completed: 2026-08-13
 
 actuals:
   tokens: 7100
-  tasks: 2
-  commits: 2
+  tasks: 3
+  commits: 3
 ---
 
 # Phase 45 Plan 03: DEUDA-03 — el reporter deja de mentir sobre su propio objeto Summary
@@ -353,6 +353,14 @@ se lee. Reescrito para nombrar las dos causas —«o falta el fichero, o no decl
 siguiendo el precedente del bloque 3-ter: cuando las dos causas son reales, atribuir una sola es
 un diagnostico plausible y falso.
 
+### 5. [Rule 1 — bug] Residuo de markup de herramienta al final de este SUMMARY
+
+La escritura original de este fichero (commit `26f0874`) dejo pegadas dos lineas de markup del
+propio tool-call (`</content>` y `</invoke>`) despues del `Self-Check`. No afectaba a codigo ni a
+ningun gate —ningun test lee este fichero— pero un SUMMARY que termina en markup de andamiaje es
+exactamente el tipo de residuo que esta fase existe para no normalizar. Retiradas al cerrar la
+Tarea 3. El frontmatter y el cuerpo estaban intactos; solo sobraba la cola.
+
 ## Criterios de aceptacion
 
 | Criterio | Resultado |
@@ -376,6 +384,7 @@ un diagnostico plausible y falso.
 | Canonica `# fail 0` | OK — **1176/1176**, exit 0 |
 | `VAL_07_STRICT=1` | OK — **1194/1194** |
 | `git status --short` sin residuo ni `.bak` | OK |
+| Tarea 3 — el autor lee la salida real y la aprueba | OK — `approved` 2026-08-13, sin cambios solicitados |
 
 ## Known Stubs
 
@@ -399,13 +408,41 @@ extraccion de una cadena, y las unicas cifras del banner son enteros ya computad
 por el guard de coherencia. No hay redondeo, desbordamiento ni desempate que especificar. No se
 fabrica un criterio.
 
-## Tarea 3 — checkpoint humano: PENDIENTE
+## Tarea 3 — checkpoint humano: APROBADO (2026-08-13)
 
 El plan es `autonomous: false` y su ultima tarea es un `checkpoint:human-verify` sobre la salida
-real. **No se auto-aprueba**: el codigo esta entregado y verificado, pero el criterio de esa tarea
-—si el texto le dice la verdad **al autor** sobre que gate acaba de correr— no es asertable y
-queda a la espera de su lectura. Es la unica parte de la fase que no puede verificarse por
-asercion, y es precisamente el punto: la deuda era un banner que nadie miraba.
+real. **No se auto-aprobo**: el codigo se entrego y se verifico, se paro, y el veredicto lo emitio
+el autor tras correr `node scripts/run-validation-271.mjs` y leer la salida **entera**. El criterio
+de esa tarea —si el texto le dice la verdad **a el** sobre que gate acaba de correr— no es
+asertable, y es precisamente el punto: la deuda era un banner que nadie miraba.
+
+**Veredicto: `approved`, sin cambios solicitados.** Los tres puntos que confirmo, en sus terminos:
+
+1. **El encabezado nombra el cierre del milestone, no una fase**, y dice la verdad sobre lo que se
+   esta gateando (D-45-10 validada por lectura, no solo por assert).
+2. **El comando del pie es el que de verdad ejecutaria** — la invocacion canonica de dos globs del
+   plan 45-01 seguida de `/gsd-complete-milestone v2.0` (D-45-11 validada igual).
+3. **Nada en la salida sigue sonando a otra epoca del proyecto.** Era la pregunta 5 del checkpoint
+   y es la que ningun test puede hacer: el gate de la Tarea 2 congela que no se transcriba una
+   version, pero no puede juzgar si la prosa envejecio.
+
+Salida aprobada, verbatim (sin ANSI), en el estado en que el autor la leyo:
+
+```
+Gate de cierre de v2.0 — VAL-04 + VAL-06 + VAL-08 + VAL-09 (18 categorías, 250 slots)
+…
+Milestone gate PASS.
+
+Siguiente paso (manual, gesto consciente del autor):
+  VAL_07_STRICT=1 node --test tests/*.test.js tests/fixtures/*.test.js
+  → verifica smoke test paramétrico exit 0.
+  → si OK: /gsd-complete-milestone v2.0
+```
+
+Con esto **DEUDA-03 queda cerrada de las dos maneras que exigia**: por asercion (el gate
+source-assert, con su rojo observado) y por lectura humana (este checkpoint). La segunda no es
+ceremonia — el modo de fallo original era precisamente un texto correcto en su sintaxis y falso en
+su contenido, que ningun test de entonces habria distinguido.
 
 ## Self-Check: PASSED
 
@@ -414,5 +451,3 @@ asercion, y es precisamente el punto: la deuda era un banner que nadie miraba.
 - `.planning/phases/45-deuda-del-arn-s-de-tests/45-03-SUMMARY.md` — FOUND
 - commit `1b107e2` — FOUND
 - commit `31df042` — FOUND
-</content>
-</invoke>
