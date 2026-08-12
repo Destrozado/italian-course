@@ -150,7 +150,7 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
 - [x] **Phase 41: `fare-indicativo` — 8 slots (el bloque grande)** — 4 tiempos simples + 3 compuestos con `avere` + trapassato remoto enmarcado; ≈48 variantes por quórum (casi la mitad del milestone). (completed 2026-08-04)
 - [x] **Phase 42: `fare-congiuntivo` — 4 slots (homógrafas + disparador)** — presente/imperfetto/passato/trapassato con sujeto explícito obligatorio y un slot de disparador; ≈24 variantes. (completed 2026-08-06)
 - [x] **Phase 43: `fare-cond-imperativo` + `fare-indefiniti` — 3 + 6 slots** — condizionale pres/pass + imperativo de 5 variantes (MAGNET `fa'`/`fai`) y las 6 indefinidas con eje de variante = contexto; ≈35 variantes. (completed 2026-08-10)
-- [ ] **Phase 44: Integración lockstep + cierre v2.0** — `categories.json` order 15-18, counts + `TOTAL_EXPECTED` + baseline-guard + smoke paramétrico, cruces multi-cat y gate de cierre (D-54 = 2 call-sites, suite estricta verde).
+- [x] **Phase 44: Integración lockstep + cierre v2.0** — `categories.json` order 15-18, counts + `TOTAL_EXPECTED` + baseline-guard + smoke paramétrico, cruces multi-cat y gate de cierre (D-54 = 2 call-sites, suite estricta verde). (completed 2026-08-12)
 
 ## Phase Details
 
@@ -305,7 +305,7 @@ Plans:
 | 41. `fare-indicativo` (8 slots) | v2.0 | 2/2 | Complete    | 2026-08-04 |
 | 42. `fare-congiuntivo` (4 slots) | v2.0 | 2/2 | Complete    | 2026-08-06 |
 | 43. `fare-cond-imperativo` + `fare-indefiniti` (3+6 slots) | v2.0 | 2/2 | Complete    | 2026-08-10 |
-| 44. Integración lockstep + cierre v2.0 | v2.0 | 4/4 | In Progress|  |
+| 44. Integración lockstep + cierre v2.0 | v2.0 | 4/4 | Complete    | 2026-08-12 |
 
 ## Backlog
 

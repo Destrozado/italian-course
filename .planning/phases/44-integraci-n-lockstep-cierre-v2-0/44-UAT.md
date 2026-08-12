@@ -1,9 +1,9 @@
 ---
-status: diagnosed
+status: complete
 phase: 44-integraci-n-lockstep-cierre-v2-0
 source: [44-VERIFICATION.md]
 started: 2026-08-11T15:30:00Z
-updated: 2026-08-11T17:35:00Z
+updated: 2026-08-12T00:00:00Z
 ---
 
 ## Current Test
@@ -54,7 +54,18 @@ blocked: 0
 
 - gap_id: G-44-3-WR01
   truth: "El gate anti-ceguera de `tests/count-arrays-lockstep.test.js` se pone rojo si el reporter deja de ver una categoría"
-  status: failed
+  status: resolved
+  resolved_by: 44-03-PLAN.md + commit 5482f2f
+  resolved_at: 2026-08-12
+  resolution_note: |
+    Hizo falta DOS pases. `44-03` ancló la entrada contra comentarios `//`, pero el code
+    review posterior (CR-01) reprodujo el bug entero con las 4 entradas de `fare` envueltas
+    en `/* */`: `VAL-06 (225/225 validated): PASS` con el gate en verde. El ancla se
+    completó en `5482f2f` con un escáner con estado que blanquea los comentarios antes de
+    anclar — el `String.replace` de dos pasadas que el review proponía habría blanqueado el
+    array `CATEGORIES` entero, porque `content/exercises/*.json` dentro de un comentario de
+    línea contiene un `/*` literal. El verificador re-provocó la mutación de bloque y el
+    gate ahora va 22 pass / 2 fail.
   reason: "User reported: `fix WR-01 WR-02 WR-03` — decisión de cerrar WR-01 en vez de aceptarlo como deuda"
   severity: major
   test: 3
@@ -69,7 +80,9 @@ blocked: 0
 
 - gap_id: G-44-3-WR02
   truth: "Los gates de options de los cruces sólo se ponen rojos ante contenido realmente ilegítimo, con un diagnóstico verdadero"
-  status: failed
+  status: resolved
+  resolved_by: 44-04-PLAN.md
+  resolved_at: 2026-08-12
   reason: "User reported: `fix WR-01 WR-02 WR-03` — decisión de cerrar WR-02 en vez de aceptarlo como deuda"
   severity: major
   test: 3
@@ -87,7 +100,9 @@ blocked: 0
 
 - gap_id: G-44-3-WR03
   truth: "El gloss ES de los 3 cruces no puede regalar la casilla examinada (R1/C5), y un intento de reponerlo pone la suite roja"
-  status: failed
+  status: resolved
+  resolved_by: 44-04-PLAN.md
+  resolved_at: 2026-08-12
   reason: "User reported: `fix WR-01 WR-02 WR-03` — decisión de cerrar WR-03 en vez de aceptarlo como deuda; es el gate que protege el Core Value"
   severity: major
   test: 3

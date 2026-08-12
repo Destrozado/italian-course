@@ -3,10 +3,9 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Paradigma completo de `fare` (4 categorías por modo)
 current_phase: 44
-current_phase_name: Integración lockstep + cierre v2.0
-status: executing
+status: completed
 stopped_at: Completed 44-04-PLAN.md
-last_updated: "2026-08-12T08:23:49.661Z"
+last_updated: "2026-08-12T10:48:16.876Z"
 last_activity: 2026-08-12
 last_activity_desc: 44-03 completo — gate anti-ceguera endurecido y VERIFICADO POR MUTACIÓN; queda 44-04
 progress:
@@ -15,6 +14,7 @@ progress:
   total_plans: 11
   completed_plans: 11
   percent: 100
+current_phase_name: Integración lockstep + cierre v2.0
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -29,10 +29,10 @@ See: `.planning/PROJECT.md` (updated 2026-08-06 — Phase 42 `fare-congiuntivo` 
 
 ## Current Position
 
-Phase: 44 (Integración lockstep + cierre v2.0) — 4/4 PLANES COMPLETOS
-Plan: 4 of 4 — **44-04 COMPLETO** (los 4 planes de la fase cerrados)
-Status: G-44-3-WR02 y G-44-3-WR03 cerrados, y con ellos los TRES gaps del code review de la fase. WR-02: el gate de `options` de los cruces ya no prohíbe la inicial `f-` a ciegas — `pareceFare` se DERIVA de `ESSERE_FORMS` (la whitelist cuyos miembros el gate G1 autoriza EXPLÍCITAMENTE como distractora de auxiliar) y está declarado detrás de su fuente para no ser un `ReferenceError` de TDZ; el mismo arreglo en `CRUCES_AJENOS` del fichero hermano, cuya whitelist local va ANCLADA por source-assert al literal del primero (nunca por import, que correría sus `describe` dos veces). Verificado en las DOS direcciones: ROJO con `fatto` y **VERDE con `fui`**, que es el cierre real del falso rojo. WR-03: los 3 cruces tienen por fin gate de gloss, POR PARTICIÓN y no uniforme — `fare-indicativo-301` FIJADO al 0-gloss que el quórum impuso por leak C5, `fare-indicativo-300` con su frontera del auxiliar castellano `haber`, y `fare-indefiniti-300` con la del modal (su propia lista negra: `nadie nos lo ha pedido` es legítimo aquí y leak allí), los tres con la cláusula de EXISTENCIA del gloss POR DELANTE de la lista negra. 9 mutaciones observadas con su mensaje literal, `content/` BYTE-IDÉNTICO, suite 1092/0 (era 1073/0), `Milestone gate PASS` intacto, exactamente 2 ficheros en el diff.
-Last activity: 2026-08-12 — 44-04 cerrado: el gate dejó de contradecir al gate de al lado, y el gloss de los cruces pasó de política escrita en prosa a predicado mecánico
+Phase: 44
+Plan: Not started
+Status: All phases complete
+Last activity: 2026-08-12 — Phase 44 complete
 
 Progress: [████████████████████] 4/4 planes de la fase 44 ([██████████] 100%) · 5/5 fases del milestone v2.0 (100%)
 
