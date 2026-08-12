@@ -274,6 +274,45 @@ const CRUCES_AJENOS = OTRAS_TRES.flatMap(({ slug, data }) =>
     .flatMap((s) => s.variants.flatMap((v, k) => v.options.map((o) => ({ slug, id: s.id, k, o }))))
 );
 
+// El predicado «esto parece una forma de `fare`» aplicado a los cruces AJENOS
+// (G-44-3-WR02, code review de Phase 44).
+//
+// La version anterior prohibia la inicial f- A CIEGAS, apoyandose en la premisa
+// «en los pools de los cruces (auxiliares, personas de un verbo regular,
+// modales) no hay ninguna palabra legitima con esa inicial». Es FALSA, y la
+// contraprueba vive en el fichero HERMANO: la whitelist de auxiliares de
+// `tests/content-fare-indicativo.test.js` incluye el passato remoto de `essere`
+// —`fui, fosti, fu, fummo, foste, furono`— y su gate G1 autoriza
+// EXPLICITAMENTE cualquier miembro de esa whitelist como distractora de auxiliar
+// de `fare-indicativo-300`, que es uno de los cruces que este gate recorre. Con
+// la prohibicion ciega, el dia que la autoria use una de esas seis formas este
+// fichero se pondria rojo con el mensaje igualmente FALSO «la exclusion de
+// CONJUGATE dejaria de ser inocua», que no es lo que estaria pasando.
+//
+// La lista se escribe aqui porque importar el fichero hermano haria correr sus
+// `describe` una segunda vez bajo `node --test tests/*.test.js` y falsearia el
+// conteo de la suite. Para que no derive en SILENCIO —que seria la misma clase de
+// duplicado que produjo el falso rojo— el bloque de gates de mas abajo lleva un
+// source-assert que lee el TEXTO del hermano, extrae su whitelist y exige
+// igualdad de conjunto con esta.
+const FORMAS_CON_F_AUTORIZADAS = new Set(['fui', 'fosti', 'fu', 'fummo', 'foste', 'furono']);
+const pareceFare = (w) => /^f/i.test(w) && !FORMAS_CON_F_AUTORIZADAS.has(w.toLowerCase());
+
+// Las formas con inicial f- de la whitelist de auxiliares del fichero HERMANO,
+// extraidas de su TEXTO. Es el ancla que impide que la lista de arriba derive.
+// Devuelve `null` si la extraccion no encuentra el literal: un `[]` silencioso
+// haria que el source-assert comparara dos conjuntos vacios y pasara en verde
+// habiendo perdido su fuente de verdad (la especie de CR-01).
+const formasConFDelHermano = () => {
+  const src = readFileSync(new URL('./content-fare-indicativo.test.js', import.meta.url), 'utf-8');
+  const m = src.match(/const ESSERE_FORMS = \[([\s\S]*?)\];/);
+  if (!m) return null;
+  const formas = [...m[1].matchAll(/'([^']+)'/g)].map((x) => x[1]);
+  if (formas.length === 0) return null;
+  const conF = formas.filter((f) => /^f/i.test(f)).map((f) => f.toLowerCase());
+  return conF.length === 0 ? null : conF;
+};
+
 // BLACKLIST (D-43-17, D-43-07, heredada de D-41-08 y D-42-11). La primera es la
 // grafia NO ELIDIDA del infinito compuesto, que es el CUARTO MAGNET: es correcta
 // y atestiguada, asi que ofrecerla como distractora incorrecta daria por erroneo
@@ -977,18 +1016,71 @@ describe('fare-indefiniti — blacklist de formas atestiguadas y defendibles (D-
     }
   });
 
+  test('goldens de pareceFare: muerde las formas de fare y NO el passato remoto de essere (G-44-3-WR02)', () => {
+    for (const w of ['fatto', 'faccio', 'farò']) {
+      assert.ok(pareceFare(w), `G-44-3-WR02: "${w}" es forma de fare y el predicado tiene que morderla`);
+    }
+    for (const w of ['fui', 'fosti', 'fu', 'fummo', 'foste', 'furono']) {
+      assert.ok(
+        !pareceFare(w),
+        `G-44-3-WR02: "${w}" es una forma de essere que el gate G1 del fichero hermano autoriza EXPLICITAMENTE como distractora de auxiliar, y el predicado la esta llamando forma de fare`
+      );
+    }
+    assert.ok(!pareceFare('Fu'), 'G-44-3-WR02: la resta se compara en minusculas por los dos lados');
+    for (const w of ['ho', 'abbiamo', 'devo']) {
+      assert.ok(!pareceFare(w), `"${w}" no empieza por f- y el predicado no deberia mirarlo`);
+    }
+  });
+
+  test('ANCLA: la whitelist con inicial f- de este fichero es EXACTAMENTE la del hermano, leida de su TEXTO (G-44-3-WR02)', () => {
+    // Va por LECTURA de texto y NUNCA por import: bajo `node --test tests/*.test.js`
+    // importar un fichero de test desde otro registraria y correria sus `describe`
+    // una segunda vez y falsearia el conteo de la suite.
+    const delHermano = formasConFDelHermano();
+    assert.ok(
+      delHermano !== null,
+      'G-44-3-WR02: la extraccion de ESSERE_FORMS de tests/content-fare-indicativo.test.js devolvio nada — esta whitelist local acaba de perder su fuente de verdad y hay que re-anclarla, no comparar dos conjuntos vacios'
+    );
+    assert.deepEqual(
+      [...FORMAS_CON_F_AUTORIZADAS].sort(),
+      [...delHermano].sort(),
+      'G-44-3-WR02: la whitelist local DERIVO de la del hermano — es la misma clase de duplicado que produjo el falso rojo'
+    );
+  });
+
   test('EN POSITIVO: lo que CONJUGATE excluye —las options de los cruces ajenos— no contiene ninguna forma de fare (D-44-02)', () => {
     // Es la contrapartida auditable de la exclusion de los cruces `-300`+ al
     // construir CONJUGATE: si alguna de esas options fuera una forma de `fare`,
     // la exclusion SI le estaria bajando la barra al gate de arriba y habria que
-    // revisar la frontera en vez de mantenerla. Toda forma de `fare` empieza por
-    // f-, y en los pools de los cruces (auxiliares, personas de un verbo regular,
-    // modales) no hay ninguna palabra legitima con esa inicial, asi que la
-    // prohibicion de la inicial es la comprobacion robusta.
+    // revisar la frontera en vez de mantenerla.
+    //
+    // Toda forma de `fare` empieza por f-, pero la reciproca es FALSA y por eso el
+    // gate resta: el passato remoto de `essere` (`fui`..`furono`) tambien empieza
+    // por f- y el gate G1 del fichero hermano lo autoriza EXPLICITAMENTE como
+    // distractora de auxiliar de `fare-indicativo-300`, que es uno de los cruces
+    // que este bucle recorre. Con la prohibicion ciega el rojo llegaria con este
+    // mismo mensaje sin que la exclusion de CONJUGATE hubiera dejado de ser
+    // inocua (G-44-3-WR02).
+    //
+    // CLAUSULA DE NO-VACUIDAD primero: si un refactor dejara de recolectar las
+    // options de los cruces ajenos, el `deepEqual([], [])` de abajo pasaria en
+    // verde sin haber mirado nada. Hoy son las 24 options de los 2 cruces de
+    // `fare-indicativo`, pero la cifra NO se transcribe: solo se exige que la
+    // lista tenga contenido y que los cruces que la alimentan existan.
+    assert.ok(
+      CRUCES_AJENOS.length > 0,
+      'D-44-02: la lista de options de los cruces ajenos esta VACIA — o las otras tres categorias perdieron sus cruces, o el recolector dejo de verlos, y este gate estaria pasando sin mirar nada'
+    );
+    const idsAjenos = [...new Set(CRUCES_AJENOS.map(({ slug, id }) => `${slug}/${id}`))];
+    assert.ok(
+      idsAjenos.length > 0,
+      'D-44-02: ningun cruce ajeno identificado, asi que la auditoria de la exclusion no vale en ninguna direccion'
+    );
+
     const sucio = CRUCES_AJENOS
-      .filter(({ o }) => o.split(/\s+/).some((w) => /^f/i.test(w)))
+      .filter(({ o }) => o.split(/\s+/).some((w) => pareceFare(w)))
       .map(({ slug, id, k, o }) => `${slug}/${id}#${k}: "${o}"`);
-    assert.deepEqual(sucio, [], 'D-44-02: un cruce ajeno mete una forma de fare en options — la exclusion de CONJUGATE dejaria de ser inocua');
+    assert.deepEqual(sucio, [], `D-44-02: un cruce ajeno mete una forma de fare en options —descontadas las formas de essere que la whitelist de auxiliares autoriza— y la exclusion de CONJUGATE dejaria de ser inocua: ${sucio.join(' | ')}`);
   });
 
   test('EN POSITIVO: el notes documenta cada forma de la blacklist entre apostrofes ASCII', () => {

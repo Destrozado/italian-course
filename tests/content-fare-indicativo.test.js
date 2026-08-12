@@ -111,16 +111,13 @@ const CROSS_SLOTS = SLOTS.filter((s) => CROSS_IDS.includes(s.id));
 // abriria una segunda lectura defendible. Es D-43-16 aplicado al reves.
 const OBJECT_PRONOUN_RE = /(^|[^\p{L}])(lo|la|li|le)([^\p{L}]|$)/iu;
 
-// G1/G2/G3 (D-44-04): en los cruces el hueco NO es una forma de `fare` — la key
-// vive en la categoria vecina—, asi que ninguna opcion puede contener una. Se
-// prohibe la INICIAL entera y no una lista de formas, por el mismo motivo por el
-// que el 0-gloss se guarda exigiendo la ausencia de parentesis: toda forma de
-// `fare` empieza por f-, y una lista enumerada se queda corta en cuanto la
-// autoria inventa una forma nueva. En los pools de los cruces (auxiliares de
-// `avere`/`essere`, personas de un verbo regular, modales conjugados) no hay
-// ninguna palabra legitima con inicial f-, asi que la sobre-cobertura no cuesta
-// nada y cierra el agujero de raiz.
-const FARE_INITIAL_RE = /^(f|fa|fe)/i;
+// G1/G2/G3 (D-44-04): el predicado de «esto parece una forma de `fare`», que
+// gobierna las `options` de los cruces del bloque 13, NO vive aqui. Vive justo
+// detras de la whitelist de auxiliares `essere` de este mismo fichero, mas abajo,
+// porque se DERIVA de ella: derivar un `Set` de una `const` antes de su
+// declaracion es un `ReferenceError` de TDZ al evaluar el modulo y el fichero
+// entero dejaria de correr. El comentario que lo acompaña alli explica por que la
+// prohibicion de la inicial f- a ciegas que habia AQUI era falsa (G-44-3-WR02).
 
 // D-41-07: el eje de variante es la persona, y el pronombre sujeto explicito
 // es lo que la hace inequivoca. Tercera singular admite las dos formas.
@@ -221,6 +218,45 @@ const ESSERE_FORMS = [
   'sarò', 'sarai', 'sarà', 'saremo', 'sarete', 'saranno',
   'fui', 'fosti', 'fu', 'fummo', 'foste', 'furono',
 ];
+
+// G1/G2/G3 (D-44-04) — «esto parece una forma de `fare`», el predicado que
+// gobierna las `options` de los cruces del bloque 13. Su unico consumidor esta
+// 700 lineas mas abajo; vive AQUI, pegado a `ESSERE_FORMS`, por una razon
+// mecanica y no de estilo: DERIVA de esa whitelist, y un `Set` derivado de una
+// `const` antes de su declaracion es un `ReferenceError` de TDZ al evaluar el
+// modulo.
+//
+// LA VERDAD, tras G-44-3-WR02 (code review de Phase 44). En los cruces el hueco
+// NO es una forma de `fare` —la key vive en la categoria VECINA—, asi que
+// ninguna opcion puede contener una, y la inicial f- se prohibe entera en vez de
+// enumerar formas porque una lista se queda corta en cuanto la autoria inventa
+// una forma nueva. Eso sigue en pie. Lo que era FALSO es la premisa con la que
+// este predicado se justificaba: «en los pools de los cruces (auxiliares de
+// `avere`/`essere`, personas de un verbo regular, modales conjugados) no hay
+// ninguna palabra legitima con inicial f-». Su contraprueba esta en la linea de
+// arriba: `ESSERE_FORMS` incluye el passato remoto `fui, fosti, fu, fummo,
+// foste, furono`, y el gate G1 de este mismo fichero autoriza EXPLICITAMENTE
+// cualquier miembro de esta whitelist como distractora de auxiliar
+// (`AVERE.has(o) || ESSERE.has(o)`). Con la prohibicion a ciegas, la autoria que
+// usara una de esas seis formas —legitima y ya autorizada— veria el gate rojo
+// con el diagnostico FALSO «mete una forma de fare en options».
+//
+// Asi que se prohibe la inicial f- MENOS las formas de `essere` que la whitelist
+// de auxiliares autoriza. La resta se DERIVA de `ESSERE_FORMS` y no se escribe a
+// mano: el dia que la whitelist gane otra forma con inicial f- (el congiuntivo
+// `fossi` / `fosse` / `fossero`, por ejemplo), la resta la sigue sola. Una
+// whitelist paralela escrita a mano seria la misma clase de duplicado que
+// produjo el falso rojo.
+//
+// Y la inicial va SIMPLE: la alternacion `/^(f|fa|fe)/i` que habia aqui
+// equivalia EXACTAMENTE a `/^f/i`, porque el resultado solo se consume via
+// `.test()` y la primera rama ya casa todo lo que casan las otras dos. Una
+// alternacion que finge cubrir tres casos cuando cubre uno es una afirmacion
+// falsa incrustada en el gate.
+const FORMAS_CON_F_AUTORIZADAS = new Set(
+  ESSERE_FORMS.filter((f) => /^f/i.test(f)).map((f) => f.toLowerCase())
+);
+const pareceFare = (w) => /^f/i.test(w) && !FORMAS_CON_F_AUTORIZADAS.has(w.toLowerCase());
 
 // D-41-03: los 3 conectores del trapassato remoto y su reparto 2+2+2 por
 // persona (indice de variante).
@@ -767,6 +803,61 @@ describe('fare-indicativo — registro de la categoria (D-41-16, SC-5)', () => {
 });
 
 // ───────────────────────────────────────────────────────────────────────────
+// 12-bis. Goldens de `pareceFare` (G-44-3-WR02) — el predicado del bloque 13
+// ───────────────────────────────────────────────────────────────────────────
+
+describe('goldens de pareceFare: muerde toda forma de fare y NO las de essere que G1 autoriza (G-44-3-WR02)', () => {
+  // Vive pegado a su unico consumidor, el bloque 13. Un predicado que decide
+  // rojo/verde sin goldens committeados es una afirmacion: el dia que alguien lo
+  // "simplifique" a la prohibicion ciega de antes, estos tests son lo unico que
+  // se lo dice. Los seis casos del passato remoto de `essere` son LITERALMENTE el
+  // falso rojo que WR-02 describe.
+
+  test('sigue mordiendo las formas de fare: fatto, faccio, farò', () => {
+    for (const w of ['fatto', 'faccio', 'farò']) {
+      assert.ok(pareceFare(w), `G1/G2: "${w}" es forma de fare y el predicado tiene que morderla`);
+    }
+  });
+
+  test('NO muerde el passato remoto de essere, que la whitelist de auxiliares autoriza (el falso rojo de WR-02)', () => {
+    for (const w of ['fui', 'fosti', 'fu', 'fummo', 'foste', 'furono']) {
+      assert.ok(
+        !pareceFare(w),
+        `G-44-3-WR02: "${w}" es una forma de essere que el gate G1 autoriza EXPLICITAMENTE como distractora de auxiliar, y el predicado la esta llamando forma de fare`
+      );
+    }
+  });
+
+  test('la resta NO depende de la capitalizacion: Fu tampoco se muerde', () => {
+    assert.ok(!pareceFare('Fu'), 'G-44-3-WR02: la resta se compara en minusculas por los dos lados');
+  });
+
+  test('las palabras sin inicial f- quedan fuera por construccion: ho, abbiamo, devo', () => {
+    for (const w of ['ho', 'abbiamo', 'devo']) {
+      assert.ok(!pareceFare(w), `"${w}" no empieza por f- y el predicado no deberia mirarlo`);
+    }
+  });
+
+  test('la whitelist derivada NO esta vacia y todos sus miembros vienen de ESSERE_FORMS', () => {
+    // La no-vacuidad primero: si el `filter` dejara de encontrar nada —porque la
+    // whitelist de auxiliares se reordenara, se renombrara o perdiera el passato
+    // remoto—, `pareceFare` volveria a ser la prohibicion ciega y estos goldens
+    // seguirian verdes salvo por esta linea.
+    assert.ok(
+      FORMAS_CON_F_AUTORIZADAS.size > 0,
+      'G-44-3-WR02: la resta se quedo vacia, asi que el predicado volvio a ser la prohibicion ciega'
+    );
+    const enMinusculas = ESSERE_FORMS.map((f) => f.toLowerCase());
+    const intrusas = [...FORMAS_CON_F_AUTORIZADAS].filter((f) => !enMinusculas.includes(f));
+    assert.deepEqual(
+      intrusas,
+      [],
+      `G-44-3-WR02: la whitelist derivada contiene formas que NO estan en ESSERE_FORMS (seria una lista escrita a mano): ${intrusas.join(', ')}`
+    );
+  });
+});
+
+// ───────────────────────────────────────────────────────────────────────────
 // 13. Cruces multi-categoria -300+ (INT-03, D-44-01..D-44-04) — G1 y G2
 // ───────────────────────────────────────────────────────────────────────────
 
@@ -946,9 +1037,13 @@ describe('fare-indicativo — invariantes de los cruces multi-categoria -300+ (I
   });
 
   test('G1/G2 — ninguna opcion de ningun cruce contiene una forma de fare: la key vive en la vecina (D-44-02)', () => {
+    // Usa `pareceFare` y no la inicial a ciegas: el passato remoto de `essere`
+    // (`fui`..`furono`) empieza por f- y el gate G1 lo autoriza EXPLICITAMENTE
+    // como distractora de auxiliar, asi que la prohibicion ciega ponia rojo
+    // contenido legitimo con un diagnostico falso (G-44-3-WR02).
     for (const { slot, v, k } of crossVariants()) {
-      const sucio = v.options.filter((o) => o.split(/\s+/).some((w) => FARE_INITIAL_RE.test(w)));
-      assert.deepEqual(sucio, [], `D-44-02: ${slot.id}#${k} mete una forma de fare en options: ${sucio.join(' | ')} — el hueco es de la categoria VECINA`);
+      const sucio = v.options.filter((o) => o.split(/\s+/).some((w) => pareceFare(w)));
+      assert.deepEqual(sucio, [], `D-44-02: ${slot.id}#${k} mete una forma de fare en options —descontadas las formas de essere que la whitelist de auxiliares autoriza—: ${sucio.join(' | ')} — el hueco es de la categoria VECINA`);
     }
   });
 
