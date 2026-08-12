@@ -1175,3 +1175,273 @@ describe('invocacion canonica — ningun fichero de test queda fuera de la suite
     );
   });
 });
+
+// ───────────────────────────────────────────────────────────────────────────
+// 7. La derivacion del banner del reporter (DEUDA-03, D-45-08)
+// ───────────────────────────────────────────────────────────────────────────
+//
+// POR QUE EXISTE ESTE BLOQUE. El encabezado y el pie que scripts/run-validation-271.mjs
+// IMPRIME transcribian un milestone y una fase concretos, y asi se quedaron durante
+// CUATRO milestones: el banner anunciaba el gate de una version de hace cuatro mientras
+// el proyecto cerraba la actual, en el fichero cuyo trabajo es precisamente que los
+// numeros no enganen. Y la razon de que durase tanto NO es que nadie mirase: es que no
+// existia NI UN SOLO TEST que cubriera la salida impresa de ese fichero
+// (`grep -rn "Milestone v1.1" tests/` daba CERO resultados). Los counts del reporter
+// llevan desde D-31-06 sin poder ser un numero magico; su banner podia ser cualquier
+// cosa. Este bloque es lo UNICO que impide la quinta repeticion.
+//
+// QUE CONGELA, Y QUE NO. No congela QUE milestone es: escribir aqui la version de hoy
+// seria un literal que envejece EXACTAMENTE IGUAL que el que se acaba de quitar, y el
+// gate se limitaria a certificar su propia copia. Congela que el reporter NO LO
+// TRANSCRIBE — ni siquiera el correcto de hoy. Que el valor salga del disco en runtime
+// es cosa de la derivacion (`milestoneActivo`); que no vuelva a escribirse a mano, de
+// este bloque.
+//
+// POR QUE SOURCE-ASSERT Y NO EJECUTAR EL REPORTER. La razon general de este fichero
+// (D-44-07) y una propia: el reporter corre un guard con `process.exit(1)` AL CARGAR y
+// declara en su cabecera que no se le shellea. Se lee su TEXTO, como a las demas fuentes.
+//
+// POR QUE SE MIRAN TODAS LAS LINEAS NO-COMENTARIO Y NO SOLO LAS QUE DICEN `console.log`.
+// El esqueleto del research proponia quedarse con las lineas que contienen el token
+// `console.log` y buscar la version ahi. Se MIDIO antes de adoptarlo —era hipotesis no
+// ejecutada— y tiene un agujero: las llamadas MULTILINEA emiten salida en lineas que no
+// contienen ese token. Con el literal de version viviendo en una linea de continuacion,
+// la forma del research se queda VERDE. No es hipotetico: el pie que la Tarea 1 escribio
+// es exactamente esa forma (un `console.log(` y el template literal en las lineas de
+// abajo), asi que ese gate habria nacido vacuo sobre el codigo que existe para vigilar.
+// La forma de aqui es mas ancha y no tiene el hueco: en un fichero que ya no debe nombrar
+// ninguna version a mano, CUALQUIER version fuera de un comentario es la infraccion.
+// Los comentarios quedan fuera A PROPOSITO, via `sinComentarios`: el bloque de historial
+// contable del reporter es audit trail deliberado y TIENE derecho a nombrar milestones
+// viejos, fechados y leidos como historia.
+
+const STATE_MD = '.planning/STATE.md';
+
+// El patron de una version de milestone escrita a mano: `v` minuscula pegada a
+// digito-punto-digito, con limite de palabra delante. El research avisaba de que podia
+// dar falsos positivos sobre otras cadenas impresas, asi que se MIDIO sobre el reporter
+// real antes de aceptarlo: las cadenas impresas legitimas que mas se le parecen son
+// `VAL_07_STRICT=1`, la enumeracion `VAL-04 + VAL-06 + VAL-08 + VAL-09` y la ruta
+// `src/data/validation-state.js`, y NINGUNA dispara — las dos primeras van en mayuscula
+// y sin punto decimal, la tercera no lleva digitos tras la `v`. No hubo que acotar nada.
+// Lo que si es deliberado es que sea CASE-SENSITIVE: con el flag `i`, `VAL_07_STRICT=1`
+// pasaria a ser candidato a falso rojo en cuanto alguien le pusiera un decimal al lado,
+// y un falso rojo es un defecto igual que un falso verde — ademas invita a relajar el gate.
+const VERSION_DE_MILESTONE = /\bv\d+\.\d+/;
+
+/**
+ * Las lineas de un texto YA LIMPIO de comentarios que escriben una version a mano,
+ * numeradas para que el rojo diga DONDE y no solo QUE.
+ *
+ * @param {string[]} lineasLimpias texto pasado por `sinComentarios` y partido por lineas
+ * @returns {string[]} `<n>: <linea>` por cada infraccion, en orden de aparicion
+ */
+const versionesEscritasAMano = (lineasLimpias) =>
+  lineasLimpias
+    .map((linea, i) => ({ linea, n: i + 1 }))
+    .filter(({ linea }) => VERSION_DE_MILESTONE.test(linea))
+    .map(({ linea, n }) => `${n}: ${linea.trim()}`);
+
+/**
+ * Las lineas que EMITEN salida. Se usa solo para la clausula de no-vacuidad: si tras
+ * `sinComentarios` no queda ninguna, lo que se esta escaneando ya no es un reporter.
+ */
+const lineasQueEmiten = (lineasLimpias) =>
+  lineasLimpias.filter((l) => /console\.(log|error)/.test(l));
+
+/**
+ * El milestone que declara el frontmatter de STATE.md, leido del DISCO.
+ *
+ * FAIL-LOUD, y es la POLARIDAD OPUESTA a la del reporter — la diferencia es deliberada y
+ * por eso va escrita. El reporter tiene que poder imprimir su tabla entera aunque este
+ * fichero falte: una etiqueta cosmetica no puede convertirse en un blocker del gate
+ * (WR-09), asi que alli es `try/catch` con `?? null`. Aqui no: un TEST que no puede leer
+ * su referencia no puede pasar en VERDE, porque su veredicto seria sobre nada. Misma
+ * silueta que tests/content-fare-indefiniti.test.js, el unico precedente del repo de leer
+ * un `.planning/*.md` desde el arnes.
+ *
+ * Se llama DENTRO del test y no a nivel de modulo (que es donde vive el precedente) por
+ * ATRIBUCION: a nivel de modulo, mover STATE.md tumbaria los otros 31 tests de este
+ * fichero con un fallo de CARGA, y un fallo de carga no se lee como «este gate se puso
+ * rojo» sino como «este fichero esta roto» — la leccion de la Phase 45-02. Aqui la
+ * referencia solo la necesita este bloque, asi que el rojo se queda donde se origina.
+ */
+const milestoneEnDisco = () => {
+  const url = new URL(`../${STATE_MD}`, import.meta.url);
+  let raw;
+  try {
+    raw = readFileSync(url, 'utf-8');
+  } catch (e) {
+    throw new Error(
+      `DEUDA-03: no se puede leer ${STATE_MD} (${url.pathname}), que es la REFERENCIA de disco ` +
+        `contra la que se comprueba que el banner del reporter DERIVA el milestone en vez de ` +
+        `transcribirlo. Sin ella este gate no puede emitir ningun veredicto, asi que no puede ` +
+        `pasar en verde. Causa: ${e.message}`
+    );
+  }
+  const encontrado = raw.match(/^milestone:[^\S\n]*(\S+)[^\S\n]*$/m);
+  if (!encontrado) {
+    throw new Error(
+      `DEUDA-03: ${STATE_MD} existe pero no declara ninguna clave \`milestone:\` en una linea ` +
+        `propia, asi que no hay REFERENCIA contra la que comprobar la derivacion del banner del ` +
+        `reporter. Es la misma clave de la que ${REPORTER} deriva su etiqueta.`
+    );
+  }
+  return encontrado[1].trim();
+};
+
+describe('DEUDA-03 — el reporter DERIVA el milestone de su banner y su pie, y no lo transcribe', () => {
+  test(`${REPORTER}: ninguna linea fuera de comentario escribe una version de milestone a mano`, () => {
+    const limpio = sinComentarios(readSrc(REPORTER)).split('\n');
+
+    // CLAUSULA DE NO-VACUIDAD, y va PRIMERO (mismo razonamiento que los bloques 3-bis y
+    // 3-ter). Si `sinComentarios` blanquease el fichero ENTERO —el modo de fallo
+    // catastrofico que CR-01 reprodujo: un `/*` mal reconocido abre bloque y se come
+    // doscientas lineas— no quedaria ninguna version que encontrar y este test pasaria en
+    // VERDE certificando NADA. Que sobrevivan lineas que emiten salida es la prueba de que
+    // lo que se ha escaneado sigue siendo el reporter y no un fichero en blanco.
+    const emiten = lineasQueEmiten(limpio);
+    assert.ok(
+      emiten.length > 0,
+      `DEUDA-03 / T-45-03-06: tras pasar ${REPORTER} por sinComentarios no queda NI UNA linea ` +
+        `que emita salida. O el reporter dejo de imprimir, o el escaner blanqueo el fichero ` +
+        `entero (CR-01) — y con cero lineas la comprobacion de abajo pasaria en verde sin ` +
+        `haber mirado nada`
+    );
+
+    const transcritas = versionesEscritasAMano(limpio);
+    assert.deepEqual(
+      transcritas,
+      [],
+      `DEUDA-03: estas lineas de ${REPORTER} escriben una version de milestone A MANO en vez ` +
+        `de derivarla de ${STATE_MD}. Es exactamente la forma en que el banner acabo cuatro ` +
+        `milestones desfasado sin que nada se pusiera rojo:\n  ${transcritas.join('\n  ')}`
+    );
+  });
+
+  test(`${REPORTER}: ni siquiera el milestone CORRECTO de hoy aparece transcrito`, () => {
+    const deDisco = milestoneEnDisco();
+    const limpio = sinComentarios(readSrc(REPORTER)).split('\n');
+
+    // La misma clausula de no-vacuidad, y por la misma razon: sin lineas que emitan, el
+    // filtro de abajo devolveria [] y el gate certificaria nada.
+    const emiten = lineasQueEmiten(limpio);
+    assert.ok(
+      emiten.length > 0,
+      `DEUDA-03 / T-45-03-06: tras sinComentarios no queda ninguna linea que emita salida en ` +
+        `${REPORTER}, asi que buscar en ellas el valor \`${deDisco}\` no demostraria nada`
+    );
+
+    const conElValorDeHoy = limpio
+      .map((linea, i) => ({ linea, n: i + 1 }))
+      .filter(({ linea }) => linea.includes(deDisco))
+      .map(({ linea, n }) => `${n}: ${linea.trim()}`);
+
+    assert.deepEqual(
+      conElValorDeHoy,
+      [],
+      `DEUDA-03: ${REPORTER} contiene el valor \`${deDisco}\` escrito a mano. Que hoy sea el ` +
+        `milestone CORRECTO no lo salva: es un literal, y envejecera exactamente igual que el ` +
+        `que esta fase acaba de quitar. Tiene que derivarse de ${STATE_MD} en runtime:\n  ` +
+        `${conElValorDeHoy.join('\n  ')}`
+    );
+  });
+});
+
+// Los goldens de este bloque. Como los demas del fichero, operan sobre cadenas literales
+// de aqui mismo y no sobre el disco: es lo que los hace deterministas y lo que los
+// convierte en fail-first COMMITTEADO. Un gate probado solo en verde es una afirmacion,
+// no una garantia.
+
+describe('DEUDA-03 — goldens del gate del banner: reporter que transcribe, reporter que deriva y salida legitima (fail-first)', () => {
+  // El reporter ANTES de esta fase, en miniatura. Las dos formas del pecado a la vez:
+  // el banner en UNA linea y el pie en una linea de CONTINUACION de un console.log
+  // multilinea — que es la que el esqueleto del research dejaba pasar en verde.
+  const SRC_REPORTER_QUE_TRANSCRIBE = [
+    '    // Reporter del milestone v1.1 Phase 10 — historia, y por eso NO cuenta.',
+    '    console.log(`${BOLD}Milestone v1.1 — gate Phase 10${RESET}`);',
+    '    console.log(',
+    '      `  → si OK: /gsd-complete-milestone v1.1`',
+    '    );',
+  ].join('\n');
+
+  // El reporter DESPUES: mismas dos salidas, interpoladas. Y con un comentario de
+  // historial contable que nombra milestones viejos, que es lo que el bloque de
+  // procedencia del reporter real hace y tiene derecho a seguir haciendo.
+  const SRC_REPORTER_QUE_DERIVA = [
+    '    //   → 195 (v1.7 Phase 31): historial contable, audit trail deliberado.',
+    '    //   → 183 (v1.6 Phase 27): idem, fechado y leido como historia.',
+    '    console.log(`${BOLD}Gate de cierre de ${etiquetaMilestone}${RESET}`);',
+    '    console.log(',
+    '      `  → si OK: /gsd-complete-milestone ${milestoneActivo}`',
+    '    );',
+  ].join('\n');
+
+  // Las cadenas impresas LEGITIMAS que mas se parecen a una version. Si alguna de estas
+  // disparase, el gate daria un falso rojo sobre el reporter sano.
+  const SRC_SALIDA_LEGITIMA = [
+    "    console.log('  VAL_07_STRICT=1 node --test tests/*.test.js tests/fixtures/*.test.js');",
+    '    console.log(`  VAL-06 (${TOTAL_EXPECTED}/${TOTAL_EXPECTED} validated)`);',
+    '    console.log(`${BOLD}Gate de cierre — VAL-04 + VAL-06 + VAL-08 + VAL-09${RESET}`);',
+    "    console.log('  - VAL-09: discrepa del que deriva src/data/validation-state.js.');",
+    "    console.log('  - VAL-04: investiga los IDs sin 2 distinct by.');",
+  ].join('\n');
+
+  test('golden-NEGATIVO: un reporter que transcribe el milestone en su salida sale en la lista, banner Y pie', () => {
+    const transcritas = versionesEscritasAMano(sinComentarios(SRC_REPORTER_QUE_TRANSCRIBE).split('\n'));
+    assert.equal(
+      transcritas.length,
+      2,
+      `DEUDA-03: las DOS lineas de salida transcriben y las dos tienen que salir; ` +
+        `se encontraron ${transcritas.length}: ${transcritas.join(' | ')}`
+    );
+    // El banner, que vive en la MISMA linea que su console.log.
+    assert.ok(
+      transcritas.some((l) => l.includes('Milestone v1.1 — gate Phase 10')),
+      'DEUDA-03: el banner transcrito tiene que salir en la lista de infracciones'
+    );
+    // Y el pie, que vive en una linea de CONTINUACION. Este es el que el esqueleto del
+    // research dejaba pasar: su filtro se quedaba con las lineas que contienen el token
+    // `console.log`, y esta no lo contiene. Es ademas la forma EXACTA del pie que escribe
+    // la Tarea 1, asi que ese gate habria nacido vacuo sobre el codigo que vigila.
+    assert.ok(
+      transcritas.some((l) => l.includes('/gsd-complete-milestone v1.1')),
+      'DEUDA-03: la linea de CONTINUACION de un console.log multilinea tambien emite salida; ' +
+        'un gate que solo mira las lineas con el token console.log no la ve'
+    );
+    // Y el comentario de la primera linea NO cuenta: es historia y tiene derecho a nombrar
+    // milestones viejos.
+    assert.ok(
+      !transcritas.some((l) => l.includes('historia, y por eso NO cuenta')),
+      'DEUDA-03: sinComentarios va antes que el patron; un comentario que nombra un milestone ' +
+        'viejo es audit trail, no una transcripcion'
+    );
+  });
+
+  test('golden-POSITIVO: un reporter que DERIVA no infringe, y su historial contable puede nombrar milestones viejos', () => {
+    assert.deepEqual(
+      versionesEscritasAMano(sinComentarios(SRC_REPORTER_QUE_DERIVA).split('\n')),
+      [],
+      'DEUDA-03: interpolar el milestone es justo lo que el gate pide; y las dos lineas de ' +
+        'historial contable que nombran v1.7 y v1.6 son comentarios, asi que no pueden ' +
+        'convertirse en un falso rojo sobre el audit trail'
+    );
+  });
+
+  test('golden de NO-FALSO-ROJO: las cadenas impresas legitimas del reporter no disparan el patron', () => {
+    assert.deepEqual(
+      versionesEscritasAMano(sinComentarios(SRC_SALIDA_LEGITIMA).split('\n')),
+      [],
+      'DEUDA-03: `VAL_07_STRICT=1`, la enumeracion de sub-gates, las acciones sugeridas y la ' +
+        'ruta src/data/validation-state.js son salida legitima; un falso rojo aqui invitaria a ' +
+        'relajar el gate igual que un falso verde invitaria a confiar en el'
+    );
+    // Y la no-vacuidad de este propio golden: si el reconocimiento de salida no viera
+    // ninguna de estas lineas, el [] de arriba no probaria nada.
+    assert.ok(
+      lineasQueEmiten(sinComentarios(SRC_SALIDA_LEGITIMA).split('\n')).length === 5,
+      'DEUDA-03: las 5 lineas de salida legitima tienen que reconocerse como salida, o el ' +
+        'golden de arriba pasaria en verde sin haber mirado ninguna'
+    );
+  });
+});
