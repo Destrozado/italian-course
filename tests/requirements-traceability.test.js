@@ -76,20 +76,41 @@ const REQUIREMENTS_URL = new URL('../.planning/REQUIREMENTS.md', import.meta.url
 // como «este fichero esta roto», no como «este gate se puso rojo». Aqui la
 // necesitan LOS TRES tests del fichero: no hay nada que salvar tumbando solo
 // uno. Silueta copiada de tests/content-fare-indefiniti.test.js.
+// EXCEPCION MEDIDA, no supuesta (2026-08-13, cierre de v2.0): ENTRE MILESTONES
+// el fichero NO EXISTE, y es un estado LEGITIMO del proyecto, no una averia.
+// `/gsd-complete-milestone` lo archiva a `.planning/milestones/vX.Y-REQUIREMENTS.md`
+// y lo retira con `git rm`; `/gsd-new-milestone` lo recrea. Se descubrio al cerrar
+// v2.0: el borrado dejo la suite canonica en 1178/1179 con `# tests 1 / exit 1`
+// — es decir, un fallo de CARGA, que el SUMMARY del plan 45-02 documenta
+// explicitamente como «no es un gate poniendose rojo, es un fichero roto».
+//
+// Por eso la AUSENCIA se distingue de la CORRUPCION:
+//   - fichero ausente (ENOENT)  -> los tres tests se SALTAN con motivo VISIBLE
+//   - fichero presente pero ilegible/deforme -> fail-loud, como estaba
+// Saltar en verde y en silencio seria justo el pase mudo que esta fase pago;
+// `t.skip(motivo)` deja el motivo impreso en el TAP, asi que el hueco se ve.
+const AUSENCIA = { ausente: true };
 const SRC = (() => {
   try {
     return readFileSync(REQUIREMENTS_URL, 'utf-8');
   } catch (e) {
+    if (e && e.code === 'ENOENT') return AUSENCIA;
     throw new Error(
       `No se puede leer ${REQUIREMENTS_REL} (${REQUIREMENTS_URL.pathname}), que es la ` +
         `REFERENCIA de disco contra la que se comprueba que la cobertura de requisitos se ` +
-        `DERIVA en vez de transcribirse. Sin ella este gate no puede emitir ningun ` +
-        `veredicto, asi que no puede pasar en verde. Causa: ${e.message}`
+        `DERIVA en vez de transcribirse. El fichero EXISTE pero no se puede leer, asi que ` +
+        `esto no es el hueco legitimo de entre-milestones: es una averia. Causa: ${e.message}`
     );
   }
 })();
 
-const LINEAS = SRC.split('\n');
+const ENTRE_MILESTONES = SRC === AUSENCIA;
+const MOTIVO_SKIP =
+  `${REQUIREMENTS_REL} no existe: el proyecto esta ENTRE MILESTONES (el fichero se archiva ` +
+  `en .planning/milestones/ al cerrar y se recrea con /gsd-new-milestone). No hay documento ` +
+  `que gatear; este gate vuelve solo en cuanto exista.`;
+
+const LINEAS = ENTRE_MILESTONES ? [] : SRC.split('\n');
 
 // ─────────────────────────────────────────────────────────────────────────
 // Las anclas de forma del documento. Todas sin cuantificadores anidados
@@ -172,7 +193,8 @@ const cifraEscrita = (() => {
 })();
 
 describe('trazabilidad de requisitos — la cobertura se DERIVA del disco (DEUDA, D-45-12)', () => {
-  test('la forma del documento sigue donde este gate la busca', () => {
+  test('la forma del documento sigue donde este gate la busca', (t) => {
+    if (ENTRE_MILESTONES) return t.skip(MOTIVO_SKIP);
     // Este test es el diagnostico que separa «un requisito esta huerfano» de
     // «el documento cambio de forma y el gate dejo de ver nada». Sin el, lo
     // segundo se manifestaria como lo primero, o peor: como verde.
@@ -194,7 +216,8 @@ describe('trazabilidad de requisitos — la cobertura se DERIVA del disco (DEUDA
     );
   });
 
-  test('la cifra escrita en la linea de Coverage cuadra con el conteo real de filas', () => {
+  test('la cifra escrita en la linea de Coverage cuadra con el conteo real de filas', (t) => {
+    if (ENTRE_MILESTONES) return t.skip(MOTIVO_SKIP);
     // CLAUSULA DE NO-VACUIDAD, y va PRIMERO. Un extractor por regex que deja
     // de casar devuelve lista vacia; comparar 0 contra 0 pasaria en VERDE
     // certificando nada, que es CR-01 verbatim. La referencia de esta clausula
@@ -233,7 +256,8 @@ describe('trazabilidad de requisitos — la cobertura se DERIVA del disco (DEUDA
     );
   });
 
-  test('cero DUPLICADOS en las dos mitades, que es lo que la linea de Coverage afirma (WR-01)', () => {
+  test('cero DUPLICADOS en las dos mitades, que es lo que la linea de Coverage afirma (WR-01)', (t) => {
+    if (ENTRE_MILESTONES) return t.skip(MOTIVO_SKIP);
     // POR QUE EXISTE ESTE TEST. La linea que este fichero congela dice, literalmente,
     // «0 huerfanos, 0 duplicados, 0 gaps». De las tres, la unicidad era la unica que
     // NADIE comprobaba: `idsMapeados.length` cuenta FILAS, no IDs distintos, y el cruce
@@ -266,7 +290,8 @@ describe('trazabilidad de requisitos — la cobertura se DERIVA del disco (DEUDA
     );
   });
 
-  test('cero huerfanos en las DOS direcciones: lo definido esta mapeado y lo mapeado esta definido', () => {
+  test('cero huerfanos en las DOS direcciones: lo definido esta mapeado y lo mapeado esta definido', (t) => {
+    if (ENTRE_MILESTONES) return t.skip(MOTIVO_SKIP);
     // CLAUSULA DE NO-VACUIDAD, y va PRIMERO, por las dos extracciones: un
     // deepEqual de [] contra [] con los dos conjuntos vacios pasa en verde
     // habiendo cruzado exactamente nada.
