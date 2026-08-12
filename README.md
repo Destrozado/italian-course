@@ -30,7 +30,7 @@ Si todo va bien verás `App cargada. La sesión arrancará en Plan 02.` debajo d
 node --test tests/*.test.js tests/fixtures/*.test.js
 ```
 
-**Los DOS globs, siempre.** `tests/*.test.js` a secas no casa `tests/fixtures/`, y sus ficheros de test se quedan sin correr en silencio. `node --test tests/` falla en Node 22 (`Cannot find module`), `--recursive` no existe, y `tests/**/*.test.js` sin comillas corre solo una fracción de la suite con exit code 0 — un verde mentiroso.
+**Los DOS globs, siempre.** `tests/*.test.js` a secas no casa `tests/fixtures/`, y sus ficheros de test se quedan sin correr en silencio. `node --test tests/` falla en Node 22 (`Cannot find module`), `--recursive` no existe, y `tests/**/*.test.js` sin comillas corre solo una fracción de la suite con exit code 0 — un verde mentiroso. <!-- FORMA-PROHIBIDA: esta línea CATALOGA las formas malas en vez de documentar la buena; la marca es lo que la exime del gate de lockstep (CR-01). -->
 
 Debe terminar con `# fail 0` y exit code 0. Deliberadamente **no** se documenta aquí un número de tests esperado: una cifra escrita a mano en un README envejece en silencio y no la verifica nadie. El invariante que no envejece es `# fail 0`. Los tests cubren funciones puras (fechas, sampler de sesión, contadores, validador, exercise-types). Los módulos que tocan `localStorage` y `fetch` (`storage.js`, `content-loader.js`) se verifican manualmente vía `npx serve`.
 

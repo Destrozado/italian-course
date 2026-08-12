@@ -1041,7 +1041,10 @@ const INVOCACION_CANONICA = 'node --test tests/*.test.js tests/fixtures/*.test.j
 // documenta una corrida de la suite entera» (los tres primeros tokens = la forma corta
 // historica, que es prefijo de la canonica).
 const GLOBS_CANONICOS = INVOCACION_CANONICA.split(/\s+/).filter((t) => t.endsWith('.test.js'));
-const PREFIJO_SUITE = INVOCACION_CANONICA.split(/\s+/).slice(0, 3).join(' ');
+// La CABECERA del comando (`node --test`), derivada. Se usa para construir el reconocedor
+// de invocaciones de abajo SIN volver a transcribirla: si la forma cambiara de binario,
+// se edita INVOCACION_CANONICA y nada mas (Pattern B).
+const CABECERA_COMANDO = INVOCACION_CANONICA.split(/\s+/).slice(0, 2).join(' ');
 
 // Los ficheros de CONTRATO: los que le dicen al autor (o a un agente) como se corre la
 // suite. Los ficheros de tests/ NO van aqui — los cubre la regla de prefijo, que no hay
@@ -1053,30 +1056,76 @@ const CALL_SITES_INVOCACION = [
   'scripts/run-validation-271.mjs',
 ];
 
-// Cuenta ocurrencias NO SOLAPADAS de una aguja literal. Se cuenta, no se hace
-// `includes`, y la razon es un rojo que NO se produjo: con un `includes` sobre la forma
-// completa, retirar el segundo glob de UNA de las dos invocaciones de README.md dejaba
-// el gate VERDE, porque la OTRA seguia conteniendo la cadena. Un fichero de contrato
-// con dos invocaciones y una sola actualizada es exactamente la desincronizacion que
-// este bloque existe para delatar, y el `includes` la certificaba.
-const cuentaOcurrencias = (texto, aguja) => {
-  let n = 0;
-  let desde = 0;
-  for (;;) {
-    const i = texto.indexOf(aguja, desde);
-    if (i === -1) return n;
-    n += 1;
-    desde = i + aguja.length;
-  }
-};
+// POR QUE SE RECONOCE LO QUE HAY Y NO UNA FORMA MALA CONCRETA (CR-01 del review de esta
+// misma fase). La version anterior contaba ocurrencias de UNA sola forma degradada
+// —`node --test tests/*.test.js`— y deducia las malas por aritmetica:
+// `cortas = cuenta(prefijo) - cuenta(canonica)`. Cualquier OTRA manera de escribirlo mal
+// aportaba CERO ocurrencias de prefijo, salia `cortas = 0` y el gate pasaba en VERDE.
+// Medido sobre una copia del arbol: revertir UNA de las dos invocaciones de README.md a
+// `node --test tests/` dejaba `# fail 0`; una cabecera de test nueva con
+// `node --test tests/` o con `node --test --recursive tests/`, tambien. Es decir: el gate
+// era ciego a la forma exacta que este repositorio TENIA antes de la fase, y a la que
+// propuso el code review de la Phase 44. El titulo del test («en TODAS sus menciones»)
+// afirmaba una cobertura que el codigo no tenia.
+//
+// Ahora se extraen las invocaciones REALES y se comparan contra la canonica: la forma
+// numero 5 de escribirlo mal nace delatada en vez de invisible.
+//
+// Los argumentos se cortan en el primer caracter que no puede formar parte de uno:
+// espacio en blanco (fin de token), backtick/comillas/parentesis (delimitadores de la
+// prosa que envuelve el comando en Markdown y en comentarios) y `#` (comentario de shell,
+// que es como `.claude/skills/it-add-song/SKILL.md:263` anota su invocacion canonica).
+const RE_INVOCACION = new RegExp(`${escapeRe(CABECERA_COMANDO)}(?:[^\\S\\n]+[^\\s\`'"()#]+)*`, 'g');
 
-// Las menciones en FORMA CORTA de un texto: las que documentan una corrida de la suite
-// (llevan el prefijo) y NO son la cabeza de una invocacion canonica completa. Como la
-// canonica EMPIEZA por el prefijo, cada canonica aporta exactamente una ocurrencia de
-// prefijo; la resta deja las que se quedaron cortas.
+// ALCANCE DECLARADO, con su limitacion escrita porque es REAL y no vale fingir que no.
+// Una mencion A PELO (la cabecera sin ningun argumento) NO se juzga. En este arbol hay 7 y
+// las 7 son referencias EN PROSA al runner («commitImport en si no es testeable bajo
+// node --test», «localStorage no existe en el runtime de node --test»), no invocaciones de
+// la suite. Pero `node --test` a pelo es TAMBIEN una de las cuatro formas prohibidas por
+// D-45-01 (barre tests/util/test-helpers.js y lo cuenta como test), asi que esa forma
+// concreta queda FUERA de la vigilancia de este gate: separarla de la referencia en prosa
+// exigiria una heuristica SOBRE LA PROSA, que es exactamente el defecto que esta fase
+// existe para pagar. Queda prohibida por escrito en el catalogo de arriba; lo que no
+// queda es vigilada. Se prefiere una garantia mas estrecha y honesta a una mas ancha y
+// falsa — que es la leccion entera de CR-01.
+const esAPelo = (inv) => inv === CABECERA_COMANDO;
+
+// Una invocacion de FICHERO SUELTO es legitima: documenta como correr ESE fichero (11
+// cabeceras lo hacen), no la suite entera, y no compite con la canonica. Se reconoce por
+// no llevar ningun glob y terminar en un unico `.test.js`.
+const RE_FICHERO_SUELTO = new RegExp(`^${escapeRe(CABECERA_COMANDO)} [^ *]+\\.test\\.js$`);
+
+// LA MARCA DE CATALOGO, y por que existe una marca en vez de una heuristica. Hay lineas
+// que escriben una forma no canonica LEGITIMAMENTE: la nombran para PROHIBIRLA (el parrafo
+// de README.md:33, los avisos «NO `node --test tests/`» de tres cabeceras, el catalogo de
+// las cuatro formas medidas de :1004-1017) o la usan como DATO (los goldens SRC_TRAMPA).
+// Adivinar esa intencion de la prosa —buscar «NO», «falla», «prohibida»— seria la misma
+// clase de heuristica fragil que este bloque existe para eliminar, y ademas convertiria
+// cualquier reescritura del parrafo en un falso verde. Asi que no se adivina: se DECLARA,
+// con esta marca literal, y la marca es lo UNICO que exime. Un agente que escriba una
+// forma mala sin marcarla no tiene donde esconderse; uno que la marque deja constancia.
+const MARCA_CATALOGO = 'FORMA-PROHIBIDA';
+
+/**
+ * Las invocaciones de un texto, clasificadas.
+ *
+ * @param {string} texto contenido de un fichero
+ * @returns {{canonicas: number, cortas: string[]}} las canonicas se cuentan (la
+ *   no-vacuidad necesita saber si hay alguna); las NO canonicas se devuelven `<n>: <inv>`
+ *   para que el rojo diga DONDE y QUE, y no solo cuantas.
+ */
 const menciones = (texto) => {
-  const canonicas = cuentaOcurrencias(texto, INVOCACION_CANONICA);
-  return { canonicas, cortas: cuentaOcurrencias(texto, PREFIJO_SUITE) - canonicas };
+  let canonicas = 0;
+  const cortas = [];
+  texto.split('\n').forEach((linea, i) => {
+    if (linea.includes(MARCA_CATALOGO)) return;
+    for (const m of linea.matchAll(RE_INVOCACION)) {
+      const inv = m[0].trimEnd();
+      if (inv === INVOCACION_CANONICA) canonicas += 1;
+      else if (!esAPelo(inv) && !RE_FICHERO_SUELTO.test(inv)) cortas.push(`${i + 1}: ${inv}`);
+    }
+  });
+  return { canonicas, cortas };
 };
 
 // `*` NO cruza `/` — es justo la propiedad que hace DISJUNTOS a los dos globs (ningun
@@ -1124,7 +1173,11 @@ describe('invocacion canonica — ningun fichero de test queda fuera de la suite
     );
   });
 
-  test('lockstep: los ficheros de contrato documentan la invocacion canonica COMPLETA, en TODAS sus menciones', () => {
+  // «con argumentos» no es un matiz de estilo: es el alcance real del reconocedor, y va en
+  // el TITULO porque el titulo de un test es una afirmacion. La cabecera a pelo no se
+  // juzga (ver `esAPelo`), y prometer aqui «todas» volveria a ser prosa mas ancha que el
+  // codigo — que es el defecto que CR-01 encontro en este mismo titulo.
+  test('lockstep: los ficheros de contrato documentan la invocacion canonica COMPLETA, en TODAS sus invocaciones con argumentos', () => {
     const desincronizados = [];
     for (const rel of CALL_SITES_INVOCACION) {
       // Un call-site RENOMBRADO vaciaria este gate en silencio (readSrc lanzaria, o
@@ -1139,8 +1192,8 @@ describe('invocacion canonica — ningun fichero de test queda fuera de la suite
       if (canonicas === 0) {
         desincronizados.push(`${rel}: no documenta la invocacion canonica en ningun sitio`);
       }
-      if (cortas > 0) {
-        desincronizados.push(`${rel}: ${cortas} mencion(es) se quedaron en la forma corta`);
+      if (cortas.length > 0) {
+        desincronizados.push(`${rel}: invocacion(es) NO canonicas sin marcar → ${cortas.join(' | ')}`);
       }
     }
     assert.deepEqual(
@@ -1151,27 +1204,28 @@ describe('invocacion canonica — ningun fichero de test queda fuera de la suite
     );
   });
 
-  test('regla de prefijo: ninguna cabecera de tests/ documenta la suite en la forma corta', () => {
-    // Las ~19 cabeceras de tests/ documentan como se corre la suite entera, y dejarlas
-    // diciendo la forma ciega seria «la prosa es mas cuidadosa que el codigo» AL REVES
-    // — el patron exacto que esta fase existe para pagar. Esta regla es lo que las
-    // mantiene en lockstep SIN una lista que mantener a mano: la cabecera numero 20
-    // nace correcta o el gate la nombra.
-    const enFormaCorta = TESTS_EN_DISCO.filter((rel) => {
+  test('regla de forma: ninguna cabecera de tests/ documenta la suite en una forma NO canonica', () => {
+    // Las cabeceras de tests/ que documentan como se corre la suite entera no pueden
+    // decir la forma ciega: seria «la prosa es mas cuidadosa que el codigo» AL REVES — el
+    // patron exacto que esta fase existe para pagar. Esta regla es lo que las mantiene en
+    // lockstep SIN una lista que mantener a mano: la cabecera numero 30 nace correcta, o
+    // marca su forma mala como catalogo, o el gate la nombra.
+    const enFormaCorta = TESTS_EN_DISCO.flatMap((rel) => {
       // EXENCION, unica y con motivo escrito: este propio fichero. Sus goldens
       // SRC_TRAMPA contienen la forma corta como DATO —reproducen el `/*` de
       // `tests/*.test.js` viviendo dentro de una CADENA, que es lo que prueba que
       // `sinComentarios` no lo trata como comentario—. Cambiarlos destruiria el caso
       // que congelan. La exencion no es un pase libre: el test de arriba ya exige que
       // este fichero declare INVOCACION_CANONICA, y su cabecera la lleva completa.
-      if (rel === 'tests/count-arrays-lockstep.test.js') return false;
-      return menciones(readSrc(rel)).cortas > 0;
+      if (rel === 'tests/count-arrays-lockstep.test.js') return [];
+      return menciones(readSrc(rel)).cortas.map((c) => `${rel}:${c}`);
     });
     assert.deepEqual(
       enFormaCorta,
       [],
       `DEUDA-01: estas suites documentan una corrida de la suite en una forma que NO corre ` +
-        `tests/fixtures/ (\`${PREFIJO_SUITE}\` a secas): ${enFormaCorta.join(', ')}`
+        `\`${INVOCACION_CANONICA}\` entera. O se corrigen, o —si la nombran para prohibirla— ` +
+        `la linea declara la marca \`${MARCA_CATALOGO}\`: ${enFormaCorta.join(', ')}`
     );
   });
 });
