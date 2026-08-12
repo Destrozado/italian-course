@@ -69,11 +69,29 @@ const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 /**
  * Devuelve la sublista de `slugs` que NO aparece ANCLADA en el texto fuente `src`.
  *
- * El ancla es el slug COMPLETO dentro de una cadena entrecomillada precedida de la
- * clave `slug:` — es decir la forma en que las dos fuentes declaran sus entradas.
- * NUNCA `src.includes(slug)` a pelo: `fare-ind` es prefijo de `fare-indicativo` y
- * de `fare-indefiniti` (D-40-03), asi que un includes daria verde a una de las dos
- * con solo la otra presente.
+ * El ancla tiene DOS mitades y las dos son necesarias:
+ *
+ *  1. IDENTIDAD (D-40-03): el slug COMPLETO byte a byte dentro de una cadena
+ *     entrecomillada precedida de la clave `slug:`. NUNCA `src.includes(slug)` a
+ *     pelo: `fare-ind` es prefijo de `fare-indicativo` y de `fare-indefiniti`, asi
+ *     que un includes daria verde a una de las dos con solo la otra presente.
+ *
+ *  2. POSICION (G-44-3-WR01): el slug tiene que estar en una linea que ABRE UNA
+ *     ENTRADA del array — indentacion horizontal, `{`, y el resto de la entrada en
+ *     esa misma linea. Antes bastaba con que el TEXTO `slug: '<slug>'` existiera en
+ *     CUALQUIER posicion del fichero, y eso deja dos vias abiertas al bug historico:
+ *       - `// { slug: 'fare-indefiniti', ... }` — comentar una entrada
+ *         «temporalmente» es el gesto MAS PLAUSIBLE de todos los que producen la
+ *         ceguera, y satisfacia el ancla vieja tal cual.
+ *       - un comentario de prosa que nombra la clave (`// ... slug: 'x' ...`)
+ *         tampoco engancha nada, y tambien la satisfacia.
+ *     Una entrada comentada NO satisface el ancla nueva porque el `//` no es
+ *     whitespace y por tanto la linea no abre con `{`. El flag `m` es lo que hace
+ *     que `^` signifique inicio de LINEA y no inicio de FICHERO: sin el, el ancla
+ *     solo miraria la primera linea del fichero y el gate seria vacuo.
+ *
+ * El endurecimiento es de la POSICION, jamas de la IDENTIDAD: el slug se sigue
+ * exigiendo completo, que es lo que resuelve la colision `fare-ind`.
  *
  * @param {string} src texto fuente completo del fichero de conteo
  * @param {string[]} slugs slugs de categoria registrados
@@ -81,20 +99,22 @@ const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
  */
 export function slugsCiegos(src, slugs) {
   return slugs.filter((slug) => {
-    const anclado = new RegExp(`slug:\\s*(['"\`])${escapeRe(slug)}\\1`);
+    // `[^\S\n]*` = whitespace HORIZONTAL: acota el ancla a una sola linea (un `\s*`
+    // podria cruzar saltos de linea) y no anida cuantificadores (T-44-03-03).
+    const anclado = new RegExp(`^[^\\S\\n]*\\{[^\\n]*slug:\\s*(['"\`])${escapeRe(slug)}\\1`, 'm');
     return !anclado.test(src);
   });
 }
 
 // ───────────────────────────────────────────────────────────────────────────
-// 2. Los TRES goldens — la prueba mecanica de que el gate SABE ponerse rojo
+// 2. Los goldens del helper — la prueba mecanica de que el gate SABE ponerse rojo
 // ───────────────────────────────────────────────────────────────────────────
 //
 // Operan sobre cadenas literales de este propio fichero, no sobre el disco: es lo
 // que los hace deterministas y lo que los convierte en fail-first committeado. Un
 // gate probado solo en verde es una afirmacion, no una garantia.
 
-describe('gate anti-ceguera — goldens del helper slugsCiegos (fail-first, D-44-06)', () => {
+describe('gate anti-ceguera — goldens de slugsCiegos: ausencia, colision de prefijo y entrada comentada (fail-first, D-44-06)', () => {
   const SRC_VACIO = `
     const CATEGORIES = [
       { slug: 'avere', expected: 20 },
@@ -124,6 +144,30 @@ describe('gate anti-ceguera — goldens del helper slugsCiegos (fail-first, D-44
     ];
   `;
 
+  // v2.0 Phase 44 plan 03 (G-44-3-WR01, via 1). Los dos goldens de abajo son la vía
+  // que el code review encontró ABIERTA: el ancla vieja solo exigía que el TEXTO
+  // `slug: '<slug>'` existiera en ALGUN sitio del fichero, así que una entrada
+  // comentada —el gesto más plausible de todos los que producen el bug histórico— la
+  // seguía satisfaciendo y la categoría salía como enganchada estando ciega.
+
+  const SRC_COMENTADO = `
+    const CATEGORIES = [
+      { slug: 'avere', expected: 20 },
+      { slug: 'fare-indicativo', expected: slotCountOf('content/exercises/fare-indicativo.json') },
+      // { slug: 'fare-indefiniti', expected: slotCountOf('content/exercises/fare-indefiniti.json') },
+    ];
+  `;
+
+  const SRC_SLUG_EN_PROSA = `
+    // TODO(v2.1): cuando se engancha una categoria nueva, la entrada se escribe con
+    // slug: 'fare-indefiniti' y su expected DINAMICO. Esta prosa NO es una entrada:
+    // hoy fare-indefiniti sigue fuera del array y el gate tiene que decirlo.
+    const CATEGORIES = [
+      { slug: 'avere', expected: 20 },
+      { slug: 'fare-indicativo', expected: slotCountOf('content/exercises/fare-indicativo.json') },
+    ];
+  `;
+
   test('golden-NEGATIVO simple: una categoria ausente del array se devuelve como ciega', () => {
     assert.deepEqual(
       slugsCiegos(SRC_VACIO, ['fare-indicativo']),
@@ -150,6 +194,28 @@ describe('gate anti-ceguera — goldens del helper slugsCiegos (fail-first, D-44
       slugsCiegos(SRC_SOLO_HERMANO, ['fare-indefiniti', 'fare-indicativo']),
       ['fare-indicativo'],
       'D-40-03: el helper distingue los dos slugs del prefijo ambiguo'
+    );
+  });
+
+  test('golden-NEGATIVO de ENTRADA COMENTADA: una entrada comentada con // NO ancla nada (G-44-3-WR01)', () => {
+    assert.deepEqual(
+      slugsCiegos(SRC_COMENTADO, ['fare-indefiniti']),
+      ['fare-indefiniti'],
+      'G-44-3-WR01: comentar una entrada «temporalmente» la saca del array; el gate tiene que verla CIEGA'
+    );
+    // Y el hermano que sigue sano NO se contagia: la ceguera es de la entrada comentada.
+    assert.deepEqual(
+      slugsCiegos(SRC_COMENTADO, ['fare-indicativo', 'fare-indefiniti']),
+      ['fare-indefiniti'],
+      'G-44-3-WR01: el ancla endurecida sigue distinguiendo la entrada viva de la comentada'
+    );
+  });
+
+  test('golden-NEGATIVO de SLUG EN PROSA: la clave dentro de un comentario de prosa no ancla (G-44-3-WR01)', () => {
+    assert.deepEqual(
+      slugsCiegos(SRC_SLUG_EN_PROSA, ['fare-indefiniti']),
+      ['fare-indefiniti'],
+      'G-44-3-WR01: nombrar el slug en un comentario no es engancharlo en el array de conteo'
     );
   });
 
