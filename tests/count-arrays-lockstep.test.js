@@ -7,9 +7,13 @@
 //
 //     node --test tests/count-arrays-lockstep.test.js
 //
-// y entra en el glob de la suite completa:
+// y entra en la INVOCACION CANONICA de la suite completa:
 //
-//     node --test tests/*.test.js
+//     node --test tests/*.test.js tests/fixtures/*.test.js
+//
+// (los DOS globs, siempre. Ver el bloque 6 al pie de este fichero: es el gate
+// que congela esa forma y la razon por la que no es `tests/`, ni `--recursive`,
+// ni `tests/**/*.test.js`.)
 //
 // POR QUE EXISTE ESTE FICHERO. El reporter de cierre de milestone
 // (scripts/run-validation-271.mjs) no lee content/categories.json: construye su
@@ -39,7 +43,7 @@
 
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
 
 // Las DOS fuentes de conteo, leidas como TEXTO (nunca importadas — ver cabecera).
 const COUNT_ARRAY_SOURCES = [
@@ -104,8 +108,10 @@ const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
  *
  * ALCANCE DELIBERADO, y su razon. El escaner reconoce cadenas (`'`, `"`, backtick)
  * para no confundir un `//` o un `/*` de dentro de una cadena con un comentario —que
- * es exactamente el caso de `run-validation-271.mjs:480`,
- * `'… node --test tests/*.test.js'`. NO reconoce literales de expresion regular: un
+ * es exactamente el caso de la linea de `run-validation-271.mjs` que imprime
+ * `'  VAL_07_STRICT=1 node --test tests/*.test.js tests/fixtures/*.test.js'` (hoy la
+ * 511; el numero se relocaliza por el contenido, no se hereda). NO reconoce literales
+ * de expresion regular: un
  * `/…/` que contuviera una comilla suelta desalinearia el escaneo. El dano esta
  * ACOTADO A UNA LINEA por construccion, porque el estado de cadena se resetea en cada
  * salto de linea (`comilla` se declara dentro del map) y solo el estado de bloque
@@ -819,6 +825,171 @@ describe('gate anti-ceguera — registro de categorias: orden de display y key s
       fare.map((c) => c.origen),
       ['ia-quorum', 'ia-quorum', 'ia-quorum', 'ia-quorum'],
       'PROV-01: las 4 nacen de quorum de IA y lo declaran'
+    );
+  });
+});
+
+// ───────────────────────────────────────────────────────────────────────────
+// 6. La INVOCACION CANONICA de la suite (DEUDA-01, D-45-01)
+// ───────────────────────────────────────────────────────────────────────────
+//
+// POR QUE EXISTE ESTE BLOQUE. Este proyecto no tiene package.json, asi que no hay
+// `npm test` que canonice nada: «la suite» es literalmente el argumento que el autor
+// teclea. Y ese argumento estuvo TRES fases diciendo `node --test tests/*.test.js`,
+// que NO casa tests/fixtures/*.test.js. Los dos ficheros de ahi —63 aserciones, una
+// de ellas el back-compat gate de las 18 categorias reales— llevaban desde la Phase 15
+// y la Phase 39 sin correr NUNCA en la suite. Desincronizar un `expected` de
+// REAL_CATEGORIES dejaba la suite en `# pass 1101 / # fail 0 / exit 0`: verde sobre
+// una asercion que nadie ejecutaba.
+//
+// POR QUE ESTA FORMA Y NO OTRA (D-45-01, las cuatro medidas en v22.20.0):
+//   - `node --test tests/`            → exit 1, `Cannot find module '…/tests'`. Node
+//                                        resuelve el path como MODULO. No funciona.
+//   - `node --test --recursive tests/` → `node: bad option: --recursive`. La opcion NO
+//                                        EXISTE en v22.20.0. Es el fix que proponia el
+//                                        code review de la Phase 44: hipotesis de
+//                                        revisor, no evidencia.
+//   - `node --test tests/**/*.test.js` → sin `globstar` (el estado por defecto de este
+//                                        shell) y bajo sh/dash, `**` degrada a `*` y
+//                                        expande SOLO a tests/fixtures/: corre 63 de
+//                                        1164 tests, todo verde, exit 0. Un verde
+//                                        silencioso NUEVO dentro de la fase que existe
+//                                        para eliminarlos. Prohibida por escrito.
+//   - `node --test` a pelo             → barre tests/util/test-helpers.js, que no es un
+//                                        test, y lo cuenta como 1 test que pasa.
+// Los dos globs explicitos dan el mismo total bajo los cuatro regimenes medidos (bash
+// con comillas, bash sin comillas, bash con globstar, sh) porque no usan ningun
+// metacaracter cuyo significado dependa del shell.
+//
+// POR QUE NO SE MUEVEN LOS FICHEROS A tests/ (D-45-02). Los dos hacen
+// `resolve(__dirname, '..', '..')` e importan `'../../src/data/…'`: moverlos rompe la
+// raiz del proyecto y ~6 rutas, ademas de la cadena literal de COUNT_ARRAY_SOURCES. Y
+// tests/fixtures/ seguiria existiendo (guarda song-golden.json y
+// validation-pilot-disputed.json). Ampliar el glob es 1 linea de contrato contra ~6
+// ediciones fragiles.
+//
+// POR QUE NINGUN CONTEO SE ASSERTA AQUI. La leccion CR-01 de la Phase 44: la suite
+// firmaba 247 con el reporter en 250 porque un test asserto una cifra transcrita de la
+// prosa de al lado. Escribir aqui «deben correr 1164 tests» seria una cifra
+// comparandose consigo misma. Lo que se congela es la FORMA (que ningun fichero de test
+// quede fuera de los globs) y el LOCKSTEP (que los ficheros de contrato documenten esa
+// forma), los dos DERIVADOS del disco.
+
+// La UNICA transcripcion de la forma en todo el arbol de tests. Todo lo demas de este
+// bloque se DERIVA de esta cadena; cambiar la forma es editar esta linea y nada mas.
+const INVOCACION_CANONICA = 'node --test tests/*.test.js tests/fixtures/*.test.js';
+
+// DERIVADOS, no transcritos: los tokens que son globs, y la firma de «este texto
+// documenta una corrida de la suite entera» (los tres primeros tokens = la forma corta
+// historica, que es prefijo de la canonica).
+const GLOBS_CANONICOS = INVOCACION_CANONICA.split(/\s+/).filter((t) => t.endsWith('.test.js'));
+const PREFIJO_SUITE = INVOCACION_CANONICA.split(/\s+/).slice(0, 3).join(' ');
+
+// Los ficheros de CONTRATO: los que le dicen al autor (o a un agente) como se corre la
+// suite. Los ficheros de tests/ NO van aqui — los cubre la regla de prefijo, que no hay
+// que mantener a mano cuando nace la suite numero 30.
+const CALL_SITES_INVOCACION = [
+  'README.md',
+  '.claude/skills/gsd-validate-batch/SKILL.md',
+  '.claude/skills/it-add-song/SKILL.md',
+  'scripts/run-validation-271.mjs',
+];
+
+// Cuenta ocurrencias NO SOLAPADAS de una aguja literal. Se cuenta, no se hace
+// `includes`, y la razon es un rojo que NO se produjo: con un `includes` sobre la forma
+// completa, retirar el segundo glob de UNA de las dos invocaciones de README.md dejaba
+// el gate VERDE, porque la OTRA seguia conteniendo la cadena. Un fichero de contrato
+// con dos invocaciones y una sola actualizada es exactamente la desincronizacion que
+// este bloque existe para delatar, y el `includes` la certificaba.
+const cuentaOcurrencias = (texto, aguja) => {
+  let n = 0;
+  let desde = 0;
+  for (;;) {
+    const i = texto.indexOf(aguja, desde);
+    if (i === -1) return n;
+    n += 1;
+    desde = i + aguja.length;
+  }
+};
+
+// Las menciones en FORMA CORTA de un texto: las que documentan una corrida de la suite
+// (llevan el prefijo) y NO son la cabeza de una invocacion canonica completa. Como la
+// canonica EMPIEZA por el prefijo, cada canonica aporta exactamente una ocurrencia de
+// prefijo; la resta deja las que se quedaron cortas.
+const menciones = (texto) => {
+  const canonicas = cuentaOcurrencias(texto, INVOCACION_CANONICA);
+  return { canonicas, cortas: cuentaOcurrencias(texto, PREFIJO_SUITE) - canonicas };
+};
+
+// `*` NO cruza `/` — es justo la propiedad que hace DISJUNTOS a los dos globs (ningun
+// fichero se ejecuta dos veces) y la que hace que un fichero un nivel mas hondo
+// (tests/fixtures/sub/x.test.js) quede FUERA y este gate lo delate.
+const globARegex = (glob) => new RegExp(`^${escapeRe(glob).replace(/\\\*/g, '[^/]*')}$`);
+
+// Enumeracion RECURSIVA del disco. La referencia nunca se escribe a mano (Pattern B):
+// una lista de ficheros transcrita aqui seria verde para siempre y ciega a la suite 30.
+const TESTS_EN_DISCO = readdirSync(new URL('../tests', import.meta.url), { recursive: true })
+  .map((f) => String(f).replace(/\\/g, '/'))
+  .filter((f) => f.endsWith('.test.js'))
+  .map((f) => `tests/${f}`)
+  .sort();
+
+// Una ancla POR GLOB: un fichero que sabemos que existe y que solo puede casar ese
+// glob. Si la enumeracion se rompe (ruta mal, API cambiada, cwd distinto) devuelve
+// lista vacia y un deepEqual de [] contra [] pasa en VERDE certificando nada — el modo
+// de fallo exacto de CR-01. Las anclas son lo que impide ese verde.
+const ANCLAS_DE_ENUMERACION = [
+  'tests/count-arrays-lockstep.test.js',
+  'tests/fixtures/slot-variants-integration.test.js',
+];
+
+describe('invocacion canonica — ningun fichero de test queda fuera de la suite, y el contrato la documenta entera (DEUDA-01)', () => {
+  test('cobertura: todo *.test.js del disco lo casa alguno de los globs canonicos', () => {
+    // CLAUSULA DE NO-VACUIDAD, y va PRIMERO (mismo razonamiento que :657-669).
+    const anclasAusentes = ANCLAS_DE_ENUMERACION.filter((a) => !TESTS_EN_DISCO.includes(a));
+    assert.deepEqual(
+      anclasAusentes,
+      [],
+      `DEUDA-01 / T-45-01-03: la enumeracion del disco no ve ${anclasAusentes.join(', ')}, ` +
+        `asi que la lista de ${TESTS_EN_DISCO.length} ficheros no es de fiar y la comprobacion ` +
+        `de cobertura de abajo pasaria en verde sin haber mirado nada`
+    );
+
+    const regex = GLOBS_CANONICOS.map(globARegex);
+    const fuera = TESTS_EN_DISCO.filter((rel) => !regex.some((re) => re.test(rel)));
+    assert.deepEqual(
+      fuera,
+      [],
+      `DEUDA-01: estos ficheros de test existen en disco y \`${INVOCACION_CANONICA}\` NO los ` +
+        `corre, asi que sus aserciones no vigilan nada: ${fuera.join(', ')}. ` +
+        `O se mueven a un directorio que los globs cubran, o se anade su glob a INVOCACION_CANONICA`
+    );
+  });
+
+  test('lockstep: los ficheros de contrato documentan la invocacion canonica COMPLETA, en TODAS sus menciones', () => {
+    const desincronizados = [];
+    for (const rel of CALL_SITES_INVOCACION) {
+      // Un call-site RENOMBRADO vaciaria este gate en silencio (readSrc lanzaria, o
+      // peor: la lista quedaria corta). Se acumula como infraccion explicita.
+      if (!existsSync(new URL(`../${rel}`, import.meta.url))) {
+        desincronizados.push(`${rel}: NO EXISTE`);
+        continue;
+      }
+      const { canonicas, cortas } = menciones(readSrc(rel));
+      // NO-VACUIDAD por fichero: un fichero de contrato que dejo de nombrar la suite no
+      // esta «en lockstep», esta mudo, y el gate no puede darlo por bueno.
+      if (canonicas === 0) {
+        desincronizados.push(`${rel}: no documenta la invocacion canonica en ningun sitio`);
+      }
+      if (cortas > 0) {
+        desincronizados.push(`${rel}: ${cortas} mencion(es) se quedaron en la forma corta`);
+      }
+    }
+    assert.deepEqual(
+      desincronizados,
+      [],
+      `DEUDA-01: estos ficheros de contrato le dicen al autor una forma de correr la suite que ` +
+        `no es \`${INVOCACION_CANONICA}\`: ${desincronizados.join(', ')}`
     );
   });
 });

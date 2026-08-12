@@ -39,7 +39,8 @@
 //
 // Exit codes:
 //   0 — los 3 sub-gates VAL-04 + VAL-06 + VAL-08 PASS. Milestone gate PASS.
-//       Autor procede al paso manual: `VAL_07_STRICT=1 node --test tests/*.test.js`
+//       Autor procede al paso manual:
+//       `VAL_07_STRICT=1 node --test tests/*.test.js tests/fixtures/*.test.js`
 //       y luego `/gsd:complete-milestone v1.1`.
 //   1 — al menos 1 sub-gate FAIL. Itera `/gsd-validate-batch` antes de cerrar.
 
@@ -508,7 +509,7 @@ if (gatePass) {
   console.log(ok(`${BOLD}Milestone gate PASS.${RESET}`));
   console.log('');
   console.log(`${BOLD}Siguiente paso (manual, gesto consciente del autor):${RESET}`);
-  console.log('  VAL_07_STRICT=1 node --test tests/*.test.js');
+  console.log('  VAL_07_STRICT=1 node --test tests/*.test.js tests/fixtures/*.test.js');
   console.log('  → verifica smoke test paramétrico exit 0.');
   console.log('  → si OK: /gsd:complete-milestone v1.1');
   console.log('');

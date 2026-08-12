@@ -476,7 +476,7 @@ Si TODAS las categorías procesadas son validated AND deferred==0 AND pending==0
        node scripts/run-validation-271.mjs
        # Gate final del milestone — verifica VAL-04 + VAL-06 + VAL-08.
 
-       VAL_07_STRICT=1 node --test tests/*.test.js
+       VAL_07_STRICT=1 node --test tests/*.test.js tests/fixtures/*.test.js
        # Smoke test paramétrico estricto — previene regresiones editoriales futuras.
 
      Si ambos exit 0: el milestone v1.1 está listo para `/gsd:complete-milestone v1.1`."
@@ -623,7 +623,7 @@ NO leer:
 
 <gate_reminder>
 
-Este sub-skill es la MÁQUINA del bucle Phase 10. La calidad del milestone v1.1 se cierra con el reporter `scripts/run-validation-271.mjs` (Plan 10-02 wave 1, paralelo a este plan) — verifica los 3 sub-gates VAL-04 + VAL-06 + VAL-08 sobre los 271 ejercicios. Si el reporter exit 0, el autor flippea conscientemente `VAL_07_STRICT=1 node --test tests/*.test.js` como gesto de milestone-close. Solo entonces procede `/gsd:complete-milestone v1.1`.
+Este sub-skill es la MÁQUINA del bucle Phase 10. La calidad del milestone v1.1 se cierra con el reporter `scripts/run-validation-271.mjs` (Plan 10-02 wave 1, paralelo a este plan) — verifica los 3 sub-gates VAL-04 + VAL-06 + VAL-08 sobre los 271 ejercicios. Si el reporter exit 0, el autor flippea conscientemente `VAL_07_STRICT=1 node --test tests/*.test.js tests/fixtures/*.test.js` como gesto de milestone-close. Solo entonces procede `/gsd:complete-milestone v1.1`.
 
 Este sub-skill NO invoca el reporter ni flippea el feature flag — son pasos manuales del autor al cierre del scope `--all-pending`, sugeridos literalmente en el Paso 4.2 al final del run.
 

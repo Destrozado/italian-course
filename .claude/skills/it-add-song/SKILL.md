@@ -23,7 +23,7 @@ y reconstruye la traducción arrastrando palabras (`answer`, troceada por tokens
   y un bloque `validation` por frase con `status: "validated"`.
 - Registro en `content/songs.json` con `{id, title, phraseCount}` y `phraseCount`
   = `phrases.length`.
-- `node --test tests/*.test.js` en verde.
+- `node --test tests/*.test.js tests/fixtures/*.test.js` en verde (los DOS globs).
 - Commits atómicos (feat de contenido + docs de STATE) y fila en la tabla
   "Quick Tasks Completed" de `.planning/STATE.md`.
 - `decoyBank` por frase validado por su propio quórum (D1-D5) para el modo
@@ -260,7 +260,7 @@ Read: docs/DECOY-VALIDATION-PROMPT.md   (reglas D1-D5)
 
 **Paso 9 — Tests + commits + STATE**
 ```
-node --test tests/*.test.js        # verde
+node --test tests/*.test.js tests/fixtures/*.test.js        # verde
 ```
 - Commit atómico de contenido: `feat(quick-<qid>): añadir canción "<title>" — N frases it→es`.
 - (Si hay decoyBank, el caso por defecto) commit separado del decoyBank.

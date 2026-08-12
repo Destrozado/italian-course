@@ -27,10 +27,12 @@ Si todo va bien verás `App cargada. La sesión arrancará en Plan 02.` debajo d
 ## Tests del dominio
 
 ```bash
-node --test tests/*.test.js
+node --test tests/*.test.js tests/fixtures/*.test.js
 ```
 
-Debe terminar con `pass 14` (o más) y exit code 0. Los tests cubren funciones puras (fechas, sampler de sesión, contadores, validador, exercise-types). Los módulos que tocan `localStorage` y `fetch` (`storage.js`, `content-loader.js`) se verifican manualmente vía `npx serve`.
+**Los DOS globs, siempre.** `tests/*.test.js` a secas no casa `tests/fixtures/`, y sus ficheros de test se quedan sin correr en silencio. `node --test tests/` falla en Node 22 (`Cannot find module`), `--recursive` no existe, y `tests/**/*.test.js` sin comillas corre solo una fracción de la suite con exit code 0 — un verde mentiroso.
+
+Debe terminar con `# fail 0` y exit code 0. Deliberadamente **no** se documenta aquí un número de tests esperado: una cifra escrita a mano en un README envejece en silencio y no la verifica nadie. El invariante que no envejece es `# fail 0`. Los tests cubren funciones puras (fechas, sampler de sesión, contadores, validador, exercise-types). Los módulos que tocan `localStorage` y `fetch` (`storage.js`, `content-loader.js`) se verifican manualmente vía `npx serve`.
 
 > Los tests usan el reloj LOCAL del runner. En un huso muy exótico el test de medianoche local podría fallar; documentado en `tests/domain.test.js`.
 
@@ -93,11 +95,11 @@ El milestone v1.1 garantiza que cada uno de los 271 ejercicios curados en v1.0 e
 
 ### Smoke test estricto al cierre del milestone
 
-Durante Phase 9 y Phase 10 el smoke test paramétrico VAL-07 vive tras un feature flag `VAL_07_STRICT=1` para no bloquear el desarrollo mientras los 269 ejercicios pendientes aún no están validados. Una vez el reporter `scripts/run-validation-271.mjs` sale exit 0 (271/271 validated, cero disputed), el autor activa MANUALMENTE el smoke test estricto:
+El smoke test paramétrico VAL-07 vive tras un feature flag `VAL_07_STRICT=1` para no bloquear el desarrollo mientras quedan ejercicios sin validar. Una vez el reporter `scripts/run-validation-271.mjs` sale **exit 0** (todos los ejercicios `validated`, cero `disputed` — el reporter deriva los conteos del disco y los imprime él), el autor activa MANUALMENTE el smoke test estricto:
 
 ```bash
-# Linux/macOS — gate del milestone v1.1
-VAL_07_STRICT=1 node --test tests/*.test.js
+# Linux/macOS — gate de cierre de milestone
+VAL_07_STRICT=1 node --test tests/*.test.js tests/fixtures/*.test.js
 ```
 
 Una vez activo, cualquier ejercicio nuevo o modificado sin `validation.status === "validated"` rompe el test inmediatamente → previene regresión editorial.
