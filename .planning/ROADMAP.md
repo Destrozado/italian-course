@@ -260,7 +260,7 @@ Plans:
   3. Existen los **3 cruces** multi-categoría de `fare` con `categoryIds` de 2 y el sentido de D-44-02 —**la key vive en la categoría VECINA y la forma de `fare` va ESCRITA en el prompt como contexto**, no al revés—: `fare-indicativo-300` (`["fare-indicativo","avere"]`, hueco = auxiliar de `avere`, con `fatto` escrito), `fare-indicativo-301` (`["fare-indicativo","presente-regolare"]`, hueco = presente del verbo regular, con el compuesto de `fare` escrito) y `fare-indefiniti-300` (`["fare-indefiniti","modali"]`, hueco = modal conjugado, con el infinito `fare` escrito). Propagan la cascada D-54 al fallar y NO añaden call-sites: `grep -c 'applyImmediateFailure(this.state' src/screens/app.js` sigue dando **2** y `git diff 0a9a2e5..HEAD -- src/screens/app.js src/domain/` queda vacío (`src/data/` NO entra en el scope: divergió legítimamente en Phases 40 y 42, D-44-09).
   4. La suite completa `node --test tests/*.test.js` (y con `VAL_07_STRICT=1`) queda verde sobre las 18 categorías sin fails nuevos, y las **113 variantes** nuevas (48 + 30 + 17 + 18) están validadas 1-por-1 por quórum cross-vendor R1-R7 con rondas EXTRA registradas en los **4 magnets** de doble validez: imperativo `tu` (`fa'`/`fai`/`fa`), homógrafas de congiuntivo, `fatto` invariable-vs-concordado, y el par `aver fatto` / `avere fatto` del infinito passato (apócope frente a forma plena, D-43-17).
 
-**Plans**: 3/4 plans executed (2/2 del alcance original ejecutados; 2 de cierre de gaps del UAT pendientes)
+**Plans**: 4/4 plans executed (2/2 del alcance original ejecutados; 2 de cierre de gaps del UAT pendientes)
 
 Plans:
 **Wave 1**
@@ -275,7 +275,7 @@ Plans:
 
 **Wave 3** *(cierre de gaps del UAT; serializado tras 44-03 porque los dos verifican por mutación)*
 
-- [ ] 44-04-PLAN.md — **cierre de gaps G-44-3-WR02 y G-44-3-WR03**: el predicado de `fare` en las `options` de los cruces pasa a RESTAR las formas que `ESSERE_FORMS` ya autoriza (el passato remoto de `essere` producía un rojo con diagnóstico falso en dos ficheros), y los 3 cruces ganan gate de gloss POR PARTICIÓN — `fare-indicativo-301` fijado al 0-gloss que el quórum impuso, la frontera del gloss de `fare-indicativo-300` (sin auxiliar compuesto castellano) y el gloss de `fare-indefiniti-300` (que no traduce el modal). Solo test, cero cambios en `content/`
+- [x] 44-04-PLAN.md — **cierre de gaps G-44-3-WR02 y G-44-3-WR03**: el predicado de `fare` en las `options` de los cruces pasa a RESTAR las formas que `ESSERE_FORMS` ya autoriza (el passato remoto de `essere` producía un rojo con diagnóstico falso en dos ficheros), y los 3 cruces ganan gate de gloss POR PARTICIÓN — `fare-indicativo-301` fijado al 0-gloss que el quórum impuso, la frontera del gloss de `fare-indicativo-300` (sin auxiliar compuesto castellano) y el gloss de `fare-indefiniti-300` (que no traduce el modal). Solo test, cero cambios en `content/`
 
 > **Nota de planificación (D-44-10):** los dos plans van en **waves distintas y no en paralelo** porque 44-02 añade slots que los arrays de 44-01 tienen que contar y ambos tocan la suite de tests. El orden importa por honestidad del marcador: con los counts primero el reporter deja de mentir de inmediato, y el rojo que provocan los cruces `pending` es un rojo que dice la verdad. El quórum base canónico Opus+Sonnet **no corre dentro del executor** (`[[executor_cannot_run_task_quorum]]`, D-44-11): los 3 cruces cierran 44-02 en `validation.status: "pending"` con `passes: []` y el quórum se estampa en una pasada TOP-LEVEL posterior, un ejercicio por contexto fresco y NUNCA en lote (VAL-03). **El estado `VAL-06 (250/250): FAIL (247/250 — pending=3)` entre que los cruces aterrizan y el quórum termina es el estado ESPERADO y honesto** — no se arregla tocando contenido ni relajando un gate. El gate de cierre del milestone toma el diff del motor contra la BASE de v2.0 (`0a9a2e5`) con el scope acotado a `src/screens/app.js` y `src/domain/`: **`src/data/` NO entra**, porque divergió legítimamente en Phases 40 y 42 (D-44-09).
 >
@@ -305,7 +305,7 @@ Plans:
 | 41. `fare-indicativo` (8 slots) | v2.0 | 2/2 | Complete    | 2026-08-04 |
 | 42. `fare-congiuntivo` (4 slots) | v2.0 | 2/2 | Complete    | 2026-08-06 |
 | 43. `fare-cond-imperativo` + `fare-indefiniti` (3+6 slots) | v2.0 | 2/2 | Complete    | 2026-08-10 |
-| 44. Integración lockstep + cierre v2.0 | v2.0 | 3/4 | In Progress|  |
+| 44. Integración lockstep + cierre v2.0 | v2.0 | 4/4 | In Progress|  |
 
 ## Backlog
 

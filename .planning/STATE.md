@@ -5,16 +5,16 @@ milestone_name: Paradigma completo de `fare` (4 categorías por modo)
 current_phase: 44
 current_phase_name: Integración lockstep + cierre v2.0
 status: executing
-stopped_at: "44-03 completo: G-44-3-WR01 cerrado por las 2 vías (ancla de entrada + gate del par slug↔file), las 3 mutaciones vistas rojas"
-last_updated: "2026-08-12T08:09:40.299Z"
+stopped_at: Completed 44-04-PLAN.md
+last_updated: "2026-08-12T08:23:49.661Z"
 last_activity: 2026-08-12
 last_activity_desc: 44-03 completo — gate anti-ceguera endurecido y VERIFICADO POR MUTACIÓN; queda 44-04
 progress:
   total_phases: 5
-  completed_phases: 4
+  completed_phases: 5
   total_plans: 11
-  completed_plans: 10
-  percent: 80
+  completed_plans: 11
+  percent: 100
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -29,12 +29,12 @@ See: `.planning/PROJECT.md` (updated 2026-08-06 — Phase 42 `fare-congiuntivo` 
 
 ## Current Position
 
-Phase: 44 (Integración lockstep + cierre v2.0) — EXECUTING
-Plan: 3 of 4 — **44-03 COMPLETO** (queda 44-04)
-Status: G-44-3-WR01 cerrado por las DOS vías que el code review encontró abiertas. `slugsCiegos` ancla ahora al INICIO DE UNA ENTRADA del array (flag `m`), así que una entrada comentada con `//` devuelve la categoría como CIEGA; y el par `slug` ↔ `file` del reporter tiene gate propio (`paresSlugFile` / `paresCruzados`) con cláusula de no-vacuidad derivada de `content/categories.json`. Las TRES mutaciones sobre el reporter real se vieron ROJAS con mensaje verdadero y se revirtieron: entrada comentada (`quedaria CIEGO a estas categorias: fare-indefiniti`), par cruzado (`fare-indefiniti -> content/exercises/fare-indicativo.json`) y clave `file` renombrada (`17 !== 18`, por la cláusula del conteo). Suite 1073/0 (era 1064/0), `Milestone gate PASS` intacto, un único fichero en el diff.
-Last activity: 2026-08-12 — 44-03 cerrado: el gate que impide la cuarta repetición del bug ya no es sordo a comentar una entrada ni a cruzar el `file` del hermano
+Phase: 44 (Integración lockstep + cierre v2.0) — 4/4 PLANES COMPLETOS
+Plan: 4 of 4 — **44-04 COMPLETO** (los 4 planes de la fase cerrados)
+Status: G-44-3-WR02 y G-44-3-WR03 cerrados, y con ellos los TRES gaps del code review de la fase. WR-02: el gate de `options` de los cruces ya no prohíbe la inicial `f-` a ciegas — `pareceFare` se DERIVA de `ESSERE_FORMS` (la whitelist cuyos miembros el gate G1 autoriza EXPLÍCITAMENTE como distractora de auxiliar) y está declarado detrás de su fuente para no ser un `ReferenceError` de TDZ; el mismo arreglo en `CRUCES_AJENOS` del fichero hermano, cuya whitelist local va ANCLADA por source-assert al literal del primero (nunca por import, que correría sus `describe` dos veces). Verificado en las DOS direcciones: ROJO con `fatto` y **VERDE con `fui`**, que es el cierre real del falso rojo. WR-03: los 3 cruces tienen por fin gate de gloss, POR PARTICIÓN y no uniforme — `fare-indicativo-301` FIJADO al 0-gloss que el quórum impuso por leak C5, `fare-indicativo-300` con su frontera del auxiliar castellano `haber`, y `fare-indefiniti-300` con la del modal (su propia lista negra: `nadie nos lo ha pedido` es legítimo aquí y leak allí), los tres con la cláusula de EXISTENCIA del gloss POR DELANTE de la lista negra. 9 mutaciones observadas con su mensaje literal, `content/` BYTE-IDÉNTICO, suite 1092/0 (era 1073/0), `Milestone gate PASS` intacto, exactamente 2 ficheros en el diff.
+Last activity: 2026-08-12 — 44-04 cerrado: el gate dejó de contradecir al gate de al lado, y el gloss de los cruces pasó de política escrita en prosa a predicado mecánico
 
-Progress: [████████████████████] 5/5 plans ([█████████░] 91%) · 4/5 fases (80%)
+Progress: [████████████████████] 4/4 planes de la fase 44 ([██████████] 100%) · 5/5 fases del milestone v2.0 (100%)
 
 ## Deferred Items
 
@@ -178,6 +178,7 @@ Items reconocidos y diferidos en el cierre del milestone v1.9 (2026-07-02, ackno
 | Phase 44 P01 | ~35 min | 3 tasks | 6 files |
 | Phase 44 P02 | ~55 min | 3 tasks | 5 files |
 | Phase 44 P03 | 18min | 2 tasks | 1 files |
+| Phase 44 P04 | 15min | 3 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -314,6 +315,13 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - [Phase ?]: Un gate nuevo solo está verificado si se ha visto ROJO por mutación sobre la fuente REAL: commit del gate primero, mutar, observar el rojo con su mensaje verdadero, `git checkout --` y verde. Precedente de esta misma fase: CR-01 era una suite en verde certificando una cifra obsoleta (Phase 44 P03, G-44-3-WR01).
 - [Phase ?]: Todo gate que compare listas extraídas por regex necesita cláusula de NO-VACUIDAD antes de la comparación: un extractor que deja de casar devuelve [] y un `deepEqual([], [])` pasa en verde certificando nada. El conteo de referencia se DERIVA del disco (`SLUGS_REGISTRADOS.length` de content/categories.json), nunca se escribe a mano (Phase 44 P03, T-44-03-01).
 - [Phase ?]: El ancla de un slug tiene dos mitades independientes: IDENTIDAD (slug completo byte a byte, D-40-03, prefijo ambiguo `fare-ind`) y POSICIÓN (línea que ABRE una entrada del array, `^[^\S\n]*\{` con flag `m`). Endurecer la posición nunca relaja la identidad; usar whitespace HORIZONTAL y no `\s*`, que cruza saltos de línea (Phase 44 P03).
+- [Phase ?]: WR-02 cerrado DERIVANDO el predicado de fare de la whitelist de auxiliares en vez de duplicarla: el dia que ESSERE_FORMS gane el congiuntivo fossi/fosse/fossero la resta lo sigue sola
+- [Phase ?]: El predicado que deriva de una const va declarado DETRAS de su fuente: derivarlo antes es ReferenceError de TDZ al evaluar el modulo y el fichero entero deja de correr sin que ningun test se ponga rojo
+- [Phase ?]: El ancla entre dos ficheros de test va por SOURCE-ASSERT sobre el texto y nunca por import (bajo el glob de la suite correria sus describe dos veces); su extraccion devuelve null y no [] cuando pierde su literal
+- [Phase ?]: El gate de gloss de los cruces es por PARTICION y no uniforme: el -301 va a 0-gloss por el leak C5 que el quorum cerro y los otros dos conservan gloss porque glosan el complemento — un gate uniforme seria falso en las dos direcciones
+- [Phase ?]: Cada lista negra de gloss mira SU espejo del hueco: la del auxiliar castellano haber donde el hueco es el auxiliar, la del modal donde el hueco es el modal; reutilizar la del vecino pone rojo contenido validado (nadie nos lo ha pedido)
+- [Phase ?]: La clausula de EXISTENCIA del gloss va POR DELANTE de la lista negra: sin ella borrar el gloss deja la lista negra corriendo sobre '' y el gate certifica en verde lo contrario de lo que dice
+- [Phase ?]: Un gate que RESTA se verifica en las dos direcciones: rojo con lo que debe morder y VERDE con lo que la resta autoriza — la mitad verde es el cierre real del falso rojo
 
 ### Pending Todos
 
@@ -373,8 +381,8 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Session Continuity
 
-**Last session:** 2026-08-12T08:08:47.119Z
-**Stopped at:** Completed 44-03-PLAN.md
+**Last session:** 2026-08-12T08:23:35.229Z
+**Stopped at:** Completed 44-04-PLAN.md
 **Resume file:** None
 
 ### Last Session

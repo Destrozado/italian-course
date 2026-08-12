@@ -1,10 +1,10 @@
 ---
 schema_version: 1
-open_count: 10
+open_count: 11
 waived_count: 0
 fixed_count: 3
-total_count: 13
-last_updated: 2026-08-12T08:09:57.888Z
+total_count: 14
+last_updated: 2026-08-12T08:23:55.767Z
 ---
 
 # Broken Windows Ledger
@@ -28,6 +28,7 @@ last_updated: 2026-08-12T08:09:57.888Z
 | 11 | 44 | unrun-verify | content/exercises/fare-indicativo.json |  | fare-indicativo-300 y -301 quedan en validation.status pending con passes vacio: el quorum base Opus+Sonnet corre en pasada TOP-LEVEL posterior, no dentro del executor (D-44-11, VAL-03) | fixed |  | 2026-08-11T14:18:24.665Z | 2026-08-11T14:45:03.446Z |
 | 12 | 44 | unrun-verify | content/exercises/fare-indefiniti.json |  | fare-indefiniti-300 queda en validation.status pending con passes vacio; G3 (el complemento que excluye dos de los tres modales) es el gate mas delicado de la fase y el quorum top-level debe pronunciarse explicitamente sobre las 3 variantes (D-44-04, D-44-11, VAL-03) | fixed |  | 2026-08-11T14:18:24.730Z | 2026-08-11T14:45:03.510Z |
 | 13 | 44 | deviation | tests/count-arrays-lockstep.test.js |  | 44-03: el describe del bloque 2 se retituló para que el grep '^ok .*comentada' del verify del plan case (el TAP de Node indenta los sub-tests); desviación de forma, no de fondo | open |  | 2026-08-12T08:09:57.888Z |  |
+| 14 | 44 | deviation | tests/content-fare-indicativo.test.js |  | El comentario puntero mencionaba el token pareceFare y defeteaba el criterio de posicion del TDZ del propio plan; reescrito en prosa sin el token | open |  | 2026-08-12T08:23:55.767Z |  |
 
 ````json
 [
@@ -185,6 +186,18 @@ last_updated: 2026-08-12T08:09:57.888Z
     "status": "open",
     "reason": "",
     "recorded_at": "2026-08-12T08:09:57.888Z",
+    "resolved_at": null
+  },
+  {
+    "id": 14,
+    "kind": "deviation",
+    "phase": "44",
+    "file": "tests/content-fare-indicativo.test.js",
+    "line": null,
+    "description": "El comentario puntero mencionaba el token pareceFare y defeteaba el criterio de posicion del TDZ del propio plan; reescrito en prosa sin el token",
+    "status": "open",
+    "reason": "",
+    "recorded_at": "2026-08-12T08:23:55.767Z",
     "resolved_at": null
   }
 ]
