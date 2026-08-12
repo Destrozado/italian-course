@@ -235,9 +235,14 @@ export function slugsCiegos(src, slugs) {
   // (CR-01). Los goldens de bloque de mas abajo lo prueban en las dos formas.
   const limpio = sinComentarios(src);
   return slugs.filter((slug) => {
-    // `[^\S\n]*` = whitespace HORIZONTAL: acota el ancla a una sola linea (un `\s*`
-    // podria cruzar saltos de linea) y no anida cuantificadores (T-44-03-03).
-    const anclado = new RegExp(`^[^\\S\\n]*\\{[^\\n]*slug:\\s*(['"\`])${escapeRe(slug)}\\1`, 'm');
+    // `[^\S\n]*` = whitespace HORIZONTAL en los DOS huecos, el de la indentacion y el
+    // de despues de `slug:`: el ancla que gobierna las fuentes declaradas en
+    // COUNT_ARRAY_SOURCES ES horizontal, no cruza saltos de linea, y no anida
+    // cuantificadores (T-44-03-03). El hueco de despues de `slug:` usaba `\s*` —que SI
+    // cruza el salto— hasta el fix de WR-07 (v2.0 Phase 45), a dos lineas de este mismo
+    // comentario que ya lo prohibia; quien lo congela ahora es el golden de WR-07 de
+    // mas abajo, no esta prosa. Es tambien el ancla EXACTA de `paresSlugFile`.
+    const anclado = new RegExp(`^[^\\S\\n]*\\{[^\\n]*slug:[^\\S\\n]*(['"\`])${escapeRe(slug)}\\1`, 'm');
     return !anclado.test(limpio);
   });
 }
@@ -372,6 +377,41 @@ describe('gate anti-ceguera — goldens de slugsCiegos: ausencia, colision de pr
       */
     ];
   `;
+
+  // WR-07 (v2.0 Phase 45, DEUDA-02). El hueco entre `slug:` y la comilla de apertura
+  // usaba `\s*`, que casa TAMBIEN el salto de linea, a dos lineas del comentario que
+  // prohibia justo eso. Esta forma —la clave al final de una linea y el valor
+  // entrecomillado en la SIGUIENTE— CASABA antes del fix: el slug se reportaba
+  // enganchado sin que ninguna linea de entrada lo declarase. Con la Opcion A de
+  // DEUDA-02 ese ancla gobierna TRES fuentes, asi que el agujero valia por tres.
+  const SRC_SLUG_A_DOS_LINEAS = `
+    const CATEGORIES = [
+      { slug: 'avere', expected: 20 },
+      { slug:
+        'fare-indefiniti', expected: 25 },
+    ];
+  `;
+
+  test('golden-NEGATIVO de ANCLA A DOS LINEAS: la clave y su valor en lineas distintas NO anclan (WR-07)', () => {
+    assert.deepEqual(
+      slugsCiegos(SRC_SLUG_A_DOS_LINEAS, ['fare-indefiniti']),
+      ['fare-indefiniti'],
+      'WR-07: el hueco tras `slug:` es whitespace HORIZONTAL; con `\\s*` esta forma pasaba por enganchada'
+    );
+    // Y la entrada sana de al lado no se contagia: el fix es mas ESTRICTO, no mas ruidoso.
+    assert.deepEqual(
+      slugsCiegos(SRC_SLUG_A_DOS_LINEAS, ['avere']),
+      [],
+      'WR-07: acotar el ancla a una linea no puede inventar ceguera en la entrada bien formada'
+    );
+    // La forma del ancla es la MISMA que la de `paresSlugFile`, que ya la usaba bien:
+    // una entrada partida tampoco declara par, y las dos funciones coinciden.
+    assert.deepEqual(
+      paresSlugFile(SRC_SLUG_A_DOS_LINEAS).map((p) => p.slug),
+      [],
+      'WR-07: slugsCiegos y paresSlugFile comparten ancla de verdad, no solo en el comentario'
+    );
+  });
 
   test('golden-NEGATIVO simple: una categoria ausente del array se devuelve como ciega', () => {
     assert.deepEqual(
