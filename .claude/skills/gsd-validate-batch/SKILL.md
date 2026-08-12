@@ -16,9 +16,11 @@ allowed-tools:
 ---
 
 <objective>
-Orquestador inline en la sesión principal del autor para validar los 269 ejercicios pendientes del proyecto (271 totales − 2 piloto Phase 9) hasta llegar a `validation.status === "validated"` en los 7 archivos `content/exercises/<cat>.json`, salvo los que el autor difiera conscientemente vía camino (d) skip/defer (D-VAL-25). Cubre los requirements VAL-04 (≥2 pases AIs distintos por ejercicio), VAL-06 (271/271 validated) y VAL-08 (escalada disputed con UX inline accept/reject/rewrite/skip).
+Orquestador inline en la sesión principal del autor para validar los ejercicios pendientes del proyecto hasta llegar a `validation.status === "validated"` en los archivos `content/exercises/<cat>.json`, salvo los que el autor difiera conscientemente vía camino (d) skip/defer (D-VAL-25). Cubre los requirements VAL-04 (≥2 pases AIs distintos por ejercicio), VAL-06 (todos los slots declarados, validated) y VAL-08 (escalada disputed con UX inline accept/reject/rewrite/skip).
 
-Salida observable: tras un run completo de `--all-pending` con la cola disputed resuelta (0 deferred), los 7 archivos `content/exercises/*.json` tienen `validation.status === "validated"` en todos sus ejercicios, con audit trail completo en `git log` (1 commit por ejercicio en el path normal + 1-2 commits adicionales por cada disputed resuelto vía paths a/b/c) y la sección `## Deferred-disputed` de `.planning/STATE.md` vacía o ausente. El reporter `scripts/run-validation-271.mjs` cierra el gate del milestone con exit 0.
+**Cuántos ejercicios, cuántas categorías y qué milestone: NO se escriben aquí.** Los cuenta y los imprime `scripts/run-validation-271.mjs`, derivados del disco. Este documento tuvo transcritos «271 ejercicios», «7 archivos» y «milestone v1.1» durante cuatro milestones, instruyendo a un agente con cifras muertas (WR-02 del review de la Phase 45). El `271` del nombre del script es histórico y deuda aceptada (D-45-09); el conteo real lo computa el propio script.
+
+Salida observable: tras un run completo de `--all-pending` con la cola disputed resuelta (0 deferred), los archivos `content/exercises/*.json` tienen `validation.status === "validated"` en todos sus ejercicios, con audit trail completo en `git log` (1 commit por ejercicio en el path normal + 1-2 commits adicionales por cada disputed resuelto vía paths a/b/c) y la sección `## Deferred-disputed` de `.planning/STATE.md` vacía o ausente. El reporter `scripts/run-validation-271.mjs` cierra el gate del milestone con exit 0.
 </objective>
 
 <critical_constraints>
@@ -435,7 +437,7 @@ el siguiente ciclo (no se cierra hasta validated o skip/defer).
     Línea exacta del append:
       "- <id> (<ISO hoy YYYY-MM-DD>): deferred por autor — razón: \"<RAZON_DEFER si no vacía, si vacía '(sin razón)'>\""
 
-(iv) NOTA al autor: VAL-06 (271/271 validated) impide cerrar el milestone con deferred.
+(iv) NOTA al autor: VAL-06 (TODOS los slots declarados, validated) impide cerrar el milestone con deferred.
      El reporter `scripts/run-validation-271.mjs` listará este ID en su tabla de sub-gates.
      El autor puede re-invocar `/gsd-validate-batch <id>` en otra sesión para resolverlo
      vía paths a/b/c.
@@ -474,12 +476,15 @@ Si TODAS las categorías procesadas son validated AND deferred==0 AND pending==0
     "Scope <scope> completo. Siguientes pasos sugeridos (gesto consciente del autor):
 
        node scripts/run-validation-271.mjs
-       # Gate final del milestone — verifica VAL-04 + VAL-06 + VAL-08.
+       # Gate final del milestone — el propio banner enumera qué sub-gates verifica
+       # y sobre cuántas categorías y slots. No lo transcribas: léelo de su salida.
 
        VAL_07_STRICT=1 node --test tests/*.test.js tests/fixtures/*.test.js
        # Smoke test paramétrico estricto — previene regresiones editoriales futuras.
 
-     Si ambos exit 0: el milestone v1.1 está listo para `/gsd:complete-milestone v1.1`."
+     Si ambos exit 0: el milestone está listo para cerrarse. El comando exacto —con el
+     milestone ya interpolado— lo imprime el pie del reporter, que lo deriva de
+     `.planning/STATE.md`. Cópialo de esa salida; no lo escribas de memoria ni de aquí."
 
 Si hay disputed deferred o pending:
   Imprimir lista de IDs problemáticos + comandos de remediación:
@@ -526,7 +531,7 @@ Phase 9 cerró el bug class arquitectónicamente vía `gsd-validate-exercise`: c
 
 **Phase 10 escala el bucle, NO afloja el aislamiento.** Este sub-skill batch ITERA N veces, pero el skill hijo `gsd-validate-exercise` que invoca SIGUE siendo single-exercise con context aislado por `Task()` spawn. El batch NO compone N ejercicios en mismo subagent — sería un regreso al bug class de los 4 motivadores. La iteración vive en el LLM principal (que sí ve los 269 IDs pero NO los emite a un Task compartido); cada llamada al skill hijo es independiente.
 
-**Coste aceptado:** ~269 ejercicios × 2 pases = ~538 invocaciones de `Task()` durante Phase 10. ~1.5-2M tokens proyectados. ~14-22h de subagent time distribuidos en varias sesiones del autor con resume idempotente entre días. El autor lo acepta a cambio de garantía editorial duradera para los 271 ejercicios del proyecto.
+**Coste aceptado** (cifrado en Phase 10, milestone v1.1 — es HISTORIA de aquella decisión, no el tamaño del corpus de hoy)**:** ~269 ejercicios × 2 pases = ~538 invocaciones de `Task()`. ~1.5-2M tokens proyectados. ~14-22h de subagent time distribuidos en varias sesiones del autor con resume idempotente entre días. El autor lo aceptó a cambio de garantía editorial duradera. El tamaño actual del corpus lo imprime el reporter.
 
 </workflow_justification_no_batched>
 
@@ -623,7 +628,9 @@ NO leer:
 
 <gate_reminder>
 
-Este sub-skill es la MÁQUINA del bucle Phase 10. La calidad del milestone v1.1 se cierra con el reporter `scripts/run-validation-271.mjs` (Plan 10-02 wave 1, paralelo a este plan) — verifica los 3 sub-gates VAL-04 + VAL-06 + VAL-08 sobre los 271 ejercicios. Si el reporter exit 0, el autor flippea conscientemente `VAL_07_STRICT=1 node --test tests/*.test.js tests/fixtures/*.test.js` como gesto de milestone-close. Solo entonces procede `/gsd:complete-milestone v1.1`.
+Este sub-skill es la MÁQUINA del bucle de validación (nació en Phase 10). La calidad del milestone la cierra el reporter `scripts/run-validation-271.mjs` — su banner enumera qué sub-gates verifica y sobre cuántas categorías y slots, todo derivado del disco. Si el reporter exit 0, el autor flippea conscientemente `VAL_07_STRICT=1 node --test tests/*.test.js tests/fixtures/*.test.js` como gesto de milestone-close. Solo entonces procede el cierre, con el comando que el pie del reporter imprime.
+
+Ni el milestone ni el número de sub-gates se escriben en este documento. Estuvieron escritos, y estuvieron mal cuatro milestones seguidos: decía «los 3 sub-gates VAL-04 + VAL-06 + VAL-08» cuando eran cuatro, y nombraba el comando de cierre con un milestone que ya no era el activo, escrito además con la variante de dos puntos que D-45-11 declaró vieja (la viva lleva guion). Un gate lo impide ahora: `tests/count-arrays-lockstep.test.js`, bloque 8.
 
 Este sub-skill NO invoca el reporter ni flippea el feature flag — son pasos manuales del autor al cierre del scope `--all-pending`, sugeridos literalmente en el Paso 4.2 al final del run.
 

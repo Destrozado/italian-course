@@ -1613,3 +1613,76 @@ describe('DEUDA-03 — goldens del gate del banner: reporter que transcribe, rep
     );
   });
 });
+
+// ───────────────────────────────────────────────────────────────────────────
+// 8. La forma DEPRECADA del comando de cierre (WR-02, D-45-11)
+// ───────────────────────────────────────────────────────────────────────────
+//
+// POR QUE EXISTE ESTE BLOQUE, y por que es TAN estrecho. El review de la Phase 45 (WR-02)
+// encontro que `.claude/skills/gsd-validate-batch/SKILL.md` —un artefacto que un AGENTE LEE
+// PARA ACTUAR, y que esta misma fase edito— seguia instruyendo `/gsd:complete-milestone
+// v1.1`: milestone equivocado por cuatro versiones Y la forma con DOS PUNTOS, que D-45-11
+// acababa de declarar vieja y sustituir por la de guion en el pie del reporter. La fase
+// aplico su estandar al reporter y no al documento que instruye SOBRE el reporter.
+//
+// POR QUE NO SE GATEA TAMBIEN LA VERSION DE MILESTONE EN ESOS FICHEROS, que es lo que WR-02
+// sugeria de paso. Se midio y se descarto: tras limpiar las instrucciones, los `v1.1` que
+// quedan en `gsd-validate-batch/SKILL.md` son (a) parte de una RUTA real del disco
+// (`.planning/milestones/v1.1-phases/…/09-VALIDATION-PROMPT.md`), que tiene que quedarse
+// verbatim o el documento manda a leer un fichero que no existe, y (b) prosa historica
+// FECHADA sobre por que se decidio algo en su momento. Un gate como el del bloque 7 sobre
+// estos ficheros exigiria una exencion por cada una, y una exencion por caso es un gate que
+// no vigila: acabaria siendo verde por construccion. Un falso rojo es un defecto igual que
+// un falso verde, y ademas invita a relajar el gate. Asi que la version se arregla por
+// escrito y NO se congela, y esta decision queda aqui para que nadie la lea como un olvido.
+//
+// Lo que SI se congela es esto: la forma deprecada del comando. Es una prohibicion pura —no
+// una cifra, no una version—, no tiene ninguna excepcion legitima en un artefacto
+// ejecutable, y es exactamente el gesto que un agente COPIA Y EJECUTA. `.planning/` queda
+// fuera a proposito: alli la forma vieja aparece en decenas de registros historicos que
+// describen lo que se hizo, y reescribir el pasado seria el defecto contrario.
+const COMANDO_DEPRECADO = '/gsd:complete-milestone';
+
+// Los artefactos EJECUTABLES: los que alguien (autor o agente) lee para hacer algo ahora.
+// Es la misma lista de contrato del bloque 6 menos los ficheros de test, que no instruyen.
+const ARTEFACTOS_EJECUTABLES = [
+  'README.md',
+  '.claude/skills/gsd-validate-batch/SKILL.md',
+  '.claude/skills/it-add-song/SKILL.md',
+  'scripts/run-validation-271.mjs',
+];
+
+describe('ningun artefacto ejecutable instruye la forma deprecada del cierre (WR-02, D-45-11)', () => {
+  test(`ningun call-site escribe \`${COMANDO_DEPRECADO}\``, () => {
+    // CLAUSULA DE NO-VACUIDAD, y va PRIMERO: si un fichero se renombrase, `readSrc`
+    // lanzaria o la lista quedaria corta y el deepEqual de [] contra [] pasaria en verde
+    // sin haber leido nada — el modo de fallo que este arnes lleva toda la fase cerrando.
+    const ausentes = ARTEFACTOS_EJECUTABLES.filter(
+      (rel) => !existsSync(new URL(`../${rel}`, import.meta.url))
+    );
+    assert.deepEqual(
+      ausentes,
+      [],
+      `WR-02: estos artefactos ejecutables no existen donde este gate los busca, asi que la ` +
+        `comprobacion de abajo no estaria mirando nada: ${ausentes.join(', ')}`
+    );
+
+    const infracciones = ARTEFACTOS_EJECUTABLES.flatMap((rel) =>
+      readSrc(rel)
+        .split('\n')
+        .map((linea, i) => ({ linea, n: i + 1 }))
+        .filter(({ linea }) => linea.includes(COMANDO_DEPRECADO))
+        .map(({ n }) => `${rel}:${n}`)
+    );
+
+    assert.deepEqual(
+      infracciones,
+      [],
+      `WR-02 / D-45-11: estos artefactos EJECUTABLES instruyen \`${COMANDO_DEPRECADO}\`, la ` +
+        `forma con DOS PUNTOS que D-45-11 declaro vieja. La forma viva lleva GUION, y en el ` +
+        `caso del cierre de milestone el comando entero —con el milestone ya interpolado— lo ` +
+        `imprime el pie de ${REPORTER}, derivado del disco: se copia de esa salida, no se ` +
+        `escribe de memoria. ${infracciones.join(', ')}`
+    );
+  });
+});
