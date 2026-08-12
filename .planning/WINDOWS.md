@@ -1,10 +1,10 @@
 ---
 schema_version: 1
-open_count: 12
+open_count: 13
 waived_count: 0
 fixed_count: 3
-total_count: 15
-last_updated: 2026-08-12T21:40:28.548Z
+total_count: 16
+last_updated: 2026-08-12T22:25:03.976Z
 ---
 
 # Broken Windows Ledger
@@ -30,6 +30,7 @@ last_updated: 2026-08-12T21:40:28.548Z
 | 13 | 44 | deviation | tests/count-arrays-lockstep.test.js |  | 44-03: el describe del bloque 2 se retituló para que el grep '^ok .*comentada' del verify del plan case (el TAP de Node indenta los sub-tests); desviación de forma, no de fondo | open |  | 2026-08-12T08:09:57.888Z |  |
 | 14 | 44 | deviation | tests/content-fare-indicativo.test.js |  | El comentario puntero mencionaba el token pareceFare y defeteaba el criterio de posicion del TDZ del propio plan; reescrito en prosa sin el token | open |  | 2026-08-12T08:23:55.767Z |  |
 | 15 | 45 | deviation | scripts/run-validation-271.mjs |  | D-45-09: el 271 del nombre del fichero codifica un conteo obsoleto (hoy 250). Deuda ACEPTADA y declarada en la cabecera; rename fuera de alcance por 17 call-sites load-bearing | open |  | 2026-08-12T21:40:28.548Z |  |
+| 16 | 45 | deviation | tests/requirements-traceability.test.js |  | El gate no cruza con ROADMAP.md: un requisito ausente de las DOS mitades de REQUIREMENTS.md sigue sin gate (D-45-15, medido) | open |  | 2026-08-12T22:25:03.976Z |  |
 
 ````json
 [
@@ -211,6 +212,18 @@ last_updated: 2026-08-12T21:40:28.548Z
     "status": "open",
     "reason": "",
     "recorded_at": "2026-08-12T21:40:28.548Z",
+    "resolved_at": null
+  },
+  {
+    "id": 16,
+    "kind": "deviation",
+    "phase": "45",
+    "file": "tests/requirements-traceability.test.js",
+    "line": null,
+    "description": "El gate no cruza con ROADMAP.md: un requisito ausente de las DOS mitades de REQUIREMENTS.md sigue sin gate (D-45-15, medido)",
+    "status": "open",
+    "reason": "",
+    "recorded_at": "2026-08-12T22:25:03.976Z",
     "resolved_at": null
   }
 ]
