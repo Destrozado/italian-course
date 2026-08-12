@@ -11,7 +11,7 @@
 //   - aserciones de presencia sobre app.css (tokens) y app.js (forma+guards), y
 //   - aserciones behaviorales instanciando el factory y fijando estado mínimo.
 //
-// Se ejecuta con:  node --test tests/*.test.js   (Node 22 LTS o superior)
+// Se ejecuta con:  node --test tests/*.test.js tests/fixtures/*.test.js   (Node 22 LTS o superior)
 //
 // BROWNFIELD UI-ONLY: estos getters son lecturas derivadas read-only; NO tocan
 // el motor (cascada D-54, applyResultToSession, sampler, persistencia).

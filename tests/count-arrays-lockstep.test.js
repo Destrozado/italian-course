@@ -992,4 +992,28 @@ describe('invocacion canonica — ningun fichero de test queda fuera de la suite
         `no es \`${INVOCACION_CANONICA}\`: ${desincronizados.join(', ')}`
     );
   });
+
+  test('regla de prefijo: ninguna cabecera de tests/ documenta la suite en la forma corta', () => {
+    // Las ~19 cabeceras de tests/ documentan como se corre la suite entera, y dejarlas
+    // diciendo la forma ciega seria «la prosa es mas cuidadosa que el codigo» AL REVES
+    // — el patron exacto que esta fase existe para pagar. Esta regla es lo que las
+    // mantiene en lockstep SIN una lista que mantener a mano: la cabecera numero 20
+    // nace correcta o el gate la nombra.
+    const enFormaCorta = TESTS_EN_DISCO.filter((rel) => {
+      // EXENCION, unica y con motivo escrito: este propio fichero. Sus goldens
+      // SRC_TRAMPA contienen la forma corta como DATO —reproducen el `/*` de
+      // `tests/*.test.js` viviendo dentro de una CADENA, que es lo que prueba que
+      // `sinComentarios` no lo trata como comentario—. Cambiarlos destruiria el caso
+      // que congelan. La exencion no es un pase libre: el test de arriba ya exige que
+      // este fichero declare INVOCACION_CANONICA, y su cabecera la lleva completa.
+      if (rel === 'tests/count-arrays-lockstep.test.js') return false;
+      return menciones(readSrc(rel)).cortas > 0;
+    });
+    assert.deepEqual(
+      enFormaCorta,
+      [],
+      `DEUDA-01: estas suites documentan una corrida de la suite en una forma que NO corre ` +
+        `tests/fixtures/ (\`${PREFIJO_SUITE}\` a secas): ${enFormaCorta.join(', ')}`
+    );
+  });
 });

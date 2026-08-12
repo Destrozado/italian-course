@@ -9,7 +9,7 @@
 //
 // y entra tambien en el glob de la suite completa:
 //
-//     node --test tests/*.test.js
+//     node --test tests/*.test.js tests/fixtures/*.test.js
 //
 // ADVERTENCIA DE ESCANEO (heredada de 41-01, 42-01 y 43-01, no negociable):
 // todos los escaneos de AUSENCIA de este fichero van SIEMPRE por campo —
@@ -290,7 +290,8 @@ const CRUCES_AJENOS = OTRAS_TRES.flatMap(({ slug, data }) =>
 // CONJUGATE dejaria de ser inocua», que no es lo que estaria pasando.
 //
 // La lista se escribe aqui porque importar el fichero hermano haria correr sus
-// `describe` una segunda vez bajo `node --test tests/*.test.js` y falsearia el
+// `describe` una segunda vez bajo
+// `node --test tests/*.test.js tests/fixtures/*.test.js` y falsearia el
 // conteo de la suite. Para que no derive en SILENCIO —que seria la misma clase de
 // duplicado que produjo el falso rojo— el bloque de gates de mas abajo lleva un
 // source-assert que lee el TEXTO del hermano, extrae su whitelist y exige
@@ -1073,7 +1074,8 @@ describe('fare-indefiniti — blacklist de formas atestiguadas y defendibles (D-
   });
 
   test('ANCLA: la whitelist con inicial f- de este fichero es EXACTAMENTE la del hermano, leida de su TEXTO (G-44-3-WR02)', () => {
-    // Va por LECTURA de texto y NUNCA por import: bajo `node --test tests/*.test.js`
+    // Va por LECTURA de texto y NUNCA por import: bajo la invocacion canonica
+    // `node --test tests/*.test.js tests/fixtures/*.test.js`,
     // importar un fichero de test desde otro registraria y correria sus `describe`
     // una segunda vez y falsearia el conteo de la suite.
     const delHermano = formasConFDelHermano();

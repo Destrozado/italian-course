@@ -9,7 +9,7 @@
 //
 // y entra tambien en el glob de la suite completa:
 //
-//     node --test tests/*.test.js
+//     node --test tests/*.test.js tests/fixtures/*.test.js
 //
 // ADVERTENCIA DE ESCANEO (heredada de 41-01 y de 42-01, no negociable): todos
 // los escaneos de AUSENCIA de este fichero van SIEMPRE por campo —

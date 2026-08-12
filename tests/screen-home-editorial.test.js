@@ -16,7 +16,7 @@
 //   - la capa móvil Phase-28 NO regresa (44px / @media 640px) (Task 3).
 //
 // Se ejecuta con:
-//     node --test tests/*.test.js
+//     node --test tests/*.test.js tests/fixtures/*.test.js
 //
 // Requiere Node 22 LTS o superior.
 

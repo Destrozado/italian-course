@@ -8,7 +8,7 @@
 // índice (`wordButtonsPlacedIdx` → getter `wordButtonsAnswer`), lo que además
 // maneja correctamente palabras repetidas.
 //
-// Se ejecuta con:  node --test tests/*.test.js   (Node 22 LTS+)
+// Se ejecuta con:  node --test tests/*.test.js tests/fixtures/*.test.js   (Node 22 LTS+)
 
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';

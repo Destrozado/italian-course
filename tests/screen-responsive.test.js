@@ -13,7 +13,7 @@
 //   - DESKTOP INTACTO: ningún @media nuevo apunta a >=641px.
 //
 // Se ejecuta con:
-//     node --test tests/*.test.js
+//     node --test tests/*.test.js tests/fixtures/*.test.js
 //
 // Requiere Node 22 LTS o superior.
 

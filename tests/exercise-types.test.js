@@ -7,7 +7,7 @@
 // iteración 1 — wording SIN referencia a plan ID).
 //
 // Se ejecuta con:
-//     node --test tests/*.test.js
+//     node --test tests/*.test.js tests/fixtures/*.test.js
 //
 // Requiere Node 22 LTS o superior.
 
@@ -1489,7 +1489,7 @@ describe('Categorías con explanation coverage (Phase 7.1+)', () => {
 // Al cierre de Phase 10 (los 271 validados 1-por-1 con quórum Opus+Sonnet) el
 // autor invoca:
 //
-//   VAL_07_STRICT=1 node --test tests/*.test.js
+//   VAL_07_STRICT=1 node --test tests/*.test.js tests/fixtures/*.test.js
 //
 // y este bloque pasa con 271/271 `validation.status === "validated"`.
 //

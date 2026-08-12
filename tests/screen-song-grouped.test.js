@@ -4,7 +4,7 @@
 // getter bankGroups (vista sobre el banco plano), toggle setSongBankMode,
 // colapso de grupos, y la regresión clave: el modo CLÁSICO nunca inyecta
 // decoys (invariante que protege las 10 canciones existentes).
-//     node --test tests/*.test.js
+//     node --test tests/*.test.js tests/fixtures/*.test.js
 
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';

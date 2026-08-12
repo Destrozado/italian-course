@@ -2,7 +2,11 @@
 //
 // Tests del dominio puro + validator. Se ejecutan con:
 //
-//     node --test tests/
+//     node --test tests/*.test.js tests/fixtures/*.test.js
+//
+// (NO `node --test tests/`: en Node 22.20 eso sale con exit 1 y `Cannot find
+// module`, porque Node resuelve el path como MODULO. Ni `--recursive`, que no
+// existe. Los DOS globs, siempre — DEUDA-01 / D-45-01.)
 //
 // Requiere Node 22 LTS o superior (por `t.mock.timers.enable({apis:['Date']})`).
 //

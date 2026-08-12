@@ -12,7 +12,8 @@
 //     "cero timers huérfanos" y la presencia del checkbox + display.
 //
 // Se ejecuta con:
-//     node --test tests/*.test.js   (glob obligatorio en Node 22.20)
+//     node --test tests/*.test.js tests/fixtures/*.test.js
+//     (los DOS globs son obligatorios en Node 22.20 — DEUDA-01 / D-45-01)
 //
 // Requiere Node 22 LTS o superior.
 

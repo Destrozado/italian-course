@@ -1,7 +1,7 @@
 // tests/file-lock.test.js — quick-260728-8pg
 //
 // Tests del módulo de exclusión mutua entre procesos vía lockfile.
-//     node --test tests/*.test.js
+//     node --test tests/*.test.js tests/fixtures/*.test.js
 //
 // Invariante crítico: la región crítica read-modify-write de los scripts de pase
 // no puede solaparse. Si dos titulares entran a la vez, uno pisa el pase del otro
