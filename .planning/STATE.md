@@ -3,18 +3,18 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Paradigma completo de `fare` (4 categorías por modo)
 current_phase: 45
-status: completed
-stopped_at: Completed 44-04-PLAN.md
-last_updated: "2026-08-12T20:56:32.560Z"
+current_phase_name: Deuda del arnés de tests
+status: executing
+stopped_at: Completed 45-01-PLAN.md
+last_updated: "2026-08-12T21:11:23.321Z"
 last_activity: 2026-08-12
 last_activity_desc: Phase 45 añadida desde v2.0-MILESTONE-AUDIT.md — deuda del arnés (DEUDA-01/02/03); sin planificar
 progress:
   total_phases: 6
   completed_phases: 5
   total_plans: 15
-  completed_plans: 11
-  percent: 73
-current_phase_name: Integración lockstep + cierre v2.0
+  completed_plans: 12
+  percent: 80
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -25,16 +25,16 @@ See: `.planning/PROJECT.md` (updated 2026-08-06 — Phase 42 `fare-congiuntivo` 
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 45 — Deuda del arnés de tests (pagar la ceguera del arnés antes de cerrar v2.0)
+**Current Focus:** Phase 45 — Deuda del arnés de tests
 
 ## Current Position
 
-Phase: 45
-Plan: Not started
-Status: Not planned yet
-Last activity: 2026-08-12 — Phase 45 añadida desde la auditoría de v2.0; fases 40-44 completas y verificadas
+Phase: 45 (Deuda del arnés de tests) — EXECUTING
+Plan: 2 of 4
+Status: Ready to execute
+Last activity: 2026-08-12 — Phase 45 execution started
 
-Progress: [████████████████████] 4/4 planes de la fase 44 ([██████████] 100%) · 5/5 fases del milestone v2.0 (100%)
+Progress: [████████████████████] 4/4 planes de la fase 44 ([████████░░] 80%) · 5/5 fases del milestone v2.0 (100%)
 
 ## Deferred Items
 
@@ -179,6 +179,7 @@ Items reconocidos y diferidos en el cierre del milestone v1.9 (2026-07-02, ackno
 | Phase 44 P02 | ~55 min | 3 tasks | 5 files |
 | Phase 44 P03 | 18min | 2 tasks | 1 files |
 | Phase 44 P04 | 15min | 3 tasks | 2 files |
+| Phase 45 P01 | ~50 min | 2 tasks | 26 files |
 
 ## Accumulated Context
 
@@ -323,6 +324,9 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - [Phase ?]: Cada lista negra de gloss mira SU espejo del hueco: la del auxiliar castellano haber donde el hueco es el auxiliar, la del modal donde el hueco es el modal; reutilizar la del vecino pone rojo contenido validado (nadie nos lo ha pedido)
 - [Phase ?]: La clausula de EXISTENCIA del gloss va POR DELANTE de la lista negra: sin ella borrar el gloss deja la lista negra corriendo sobre '' y el gate certifica en verde lo contrario de lo que dice
 - [Phase ?]: Un gate que RESTA se verifica en las dos direcciones: rojo con lo que debe morder y VERDE con lo que la resta autoriza — la mitad verde es el cierre real del falso rojo
+- [Phase ?]: D-45-01 — invocacion canonica: node --test tests/*.test.js tests/fixtures/*.test.js (los DOS globs; ni tests/, ni --recursive, ni ** sin comillas)
+- [Phase ?]: D-45-04 — ninguna cifra de conteo se transcribe en README ni en la memoria: el invariante documentado es # fail 0 + exit 0
+- [Phase ?]: D-45-05 — el lockstep documental CUENTA ocurrencias en vez de includes(): con includes, un fichero con dos invocaciones y una sola actualizada pasaba en verde
 
 ### Pending Todos
 
@@ -382,8 +386,8 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Session Continuity
 
-**Last session:** 2026-08-12T08:23:35.229Z
-**Stopped at:** Completed 44-04-PLAN.md
+**Last session:** 2026-08-12T21:11:17.041Z
+**Stopped at:** Completed 45-01-PLAN.md
 **Resume file:** None
 
 ### Last Session

@@ -362,7 +362,7 @@ Verbos IRREGULARES en presente (andare/fare/venire/dire…) son categoría apart
 
 **Depends on**: Phase 44 (los tres hallazgos salen de `44-REVIEW.md` y de `.planning/v2.0-MILESTONE-AUDIT.md`)
 **Requirements**: DEUDA-01, DEUDA-02, DEUDA-03
-**Plans:** 4 plans
+**Plans:** 1/4 plans executed
 
 **Success Criteria** (what must be TRUE):
 
@@ -375,7 +375,7 @@ Verbos IRREGULARES en presente (andare/fare/venire/dire…) son categoría apart
 Plans:
 **Wave 1**
 
-- [ ] 45-01-PLAN.md — DEUDA-01: `tests/fixtures/` entra en la invocación canónica (tracer end-to-end: contrato + gate derivado del disco + rojo observado), las ~19 cabeceras de `tests/` en lockstep y COVERAGE.md
+- [x] 45-01-PLAN.md — DEUDA-01: `tests/fixtures/` entra en la invocación canónica (tracer end-to-end: contrato + gate derivado del disco + rojo observado), las ~19 cabeceras de `tests/` en lockstep y COVERAGE.md
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
