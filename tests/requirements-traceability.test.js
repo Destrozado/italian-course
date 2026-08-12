@@ -233,6 +233,39 @@ describe('trazabilidad de requisitos — la cobertura se DERIVA del disco (DEUDA
     );
   });
 
+  test('cero DUPLICADOS en las dos mitades, que es lo que la linea de Coverage afirma (WR-01)', () => {
+    // POR QUE EXISTE ESTE TEST. La linea que este fichero congela dice, literalmente,
+    // «0 huerfanos, 0 duplicados, 0 gaps». De las tres, la unicidad era la unica que
+    // NADIE comprobaba: `idsMapeados.length` cuenta FILAS, no IDs distintos, y el cruce
+    // de huerfanos usa `Array.prototype.includes`, que es ciego a las repeticiones.
+    // Medido antes de este test: duplicar la fila de `DEUDA-03` y escribir
+    // `Coverage: 27/27` dejaba la suite en `# pass 39 / # fail 0`. O sea, el documento
+    // podia afirmar 27 requisitos teniendo 26 —con la propia linea diciendo «0
+    // duplicados»— y el gate lo firmaba. Es la misma especie de cifra que miente que este
+    // fichero existe para eliminar, un peldano mas abajo.
+    assert.ok(
+      idsMapeados.length > 0 && idsDefinidos.length > 0,
+      `DEUDA / WR-01: la comprobacion de unicidad veria ${idsDefinidos.length} definiciones y ` +
+        `${idsMapeados.length} filas en ${REQUIREMENTS_REL}, y sobre una lista vacia no hay ` +
+        `duplicado posible: pasaria en verde sin haber mirado un solo ID`
+    );
+
+    const repetidos = (xs) => [...new Set(xs.filter((x, i) => xs.indexOf(x) !== i))];
+    const duplicados = [
+      ...repetidos(idsMapeados).map((id) => `${id}: fila de trazabilidad DUPLICADA`),
+      ...repetidos(idsDefinidos).map((id) => `${id}: definido como requisito DOS veces`),
+    ];
+
+    assert.deepEqual(
+      duplicados,
+      [],
+      `DEUDA / WR-01: la linea de Coverage de ${REQUIREMENTS_REL} afirma «0 duplicados» y hasta ` +
+        `ahora nadie lo comprobaba. Una fila repetida infla el conteo de filas y deja pasar una ` +
+        `cifra inflada EN VERDE, porque la cifra se compara contra el numero de filas y no ` +
+        `contra el de requisitos distintos: ${duplicados.join('; ')}`
+    );
+  });
+
   test('cero huerfanos en las DOS direcciones: lo definido esta mapeado y lo mapeado esta definido', () => {
     // CLAUSULA DE NO-VACUIDAD, y va PRIMERO, por las dos extracciones: un
     // deepEqual de [] contra [] con los dos conjuntos vacios pasa en verde
