@@ -644,6 +644,7 @@
             "by": "autor",
             "date": "2026-05-27",
             "verdict": "correcta",
+            "override": true,
             "concerns": [
               "[override] autor mantiene: mostrar el masculino y pedir el femenino es el mecanismo para testear invariabilidad (elegir collega frente a colleghessa/colleghe); coherente con las demas invariables validadas (cantante, dentista, pianista, tassista, pilota)."
             ]

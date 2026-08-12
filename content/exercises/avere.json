@@ -469,6 +469,7 @@
             "by": "autor",
             "date": "2026-05-27",
             "verdict": "correcta",
+            "override": true,
             "concerns": [
               "[override] autor mantiene original tras revisión: falso positivo C5-leak — el concern confunde explanation/notes con el prompt; R1 limita C5-leak al prompt, que está limpio. Opus confirma correcta."
             ]
