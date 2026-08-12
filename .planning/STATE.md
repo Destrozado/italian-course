@@ -5,16 +5,16 @@ milestone_name: Paradigma completo de `fare` (4 categorías por modo)
 current_phase: 45
 current_phase_name: Deuda del arnés de tests
 status: executing
-stopped_at: Completed 45-02-PLAN.md
-last_updated: "2026-08-12T21:23:12.833Z"
+stopped_at: "45-03-PLAN.md — tareas 1 y 2 completas; Tarea 3 (checkpoint:human-verify) PENDIENTE de aprobacion del autor"
+last_updated: "2026-08-12T21:40:23.137Z"
 last_activity: 2026-08-12
 last_activity_desc: Phase 45 añadida desde v2.0-MILESTONE-AUDIT.md — deuda del arnés (DEUDA-01/02/03); sin planificar
 progress:
   total_phases: 6
   completed_phases: 5
   total_plans: 15
-  completed_plans: 12
-  percent: 80
+  completed_plans: 14
+  percent: 83
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -34,7 +34,7 @@ Plan: 3 of 4
 Status: Ready to execute
 Last activity: 2026-08-12 — Phase 45 execution started
 
-Progress: [████████████████████] 4/4 planes de la fase 44 ([████████░░] 80%) · 5/5 fases del milestone v2.0 (100%)
+Progress: [████████████████████] 4/4 planes de la fase 44 ([█████████░] 93%) · 5/5 fases del milestone v2.0 (100%)
 
 ## Deferred Items
 
@@ -181,6 +181,7 @@ Items reconocidos y diferidos en el cierre del milestone v1.9 (2026-07-02, ackno
 | Phase 44 P04 | 15min | 3 tasks | 2 files |
 | Phase 45 P01 | ~50 min | 2 tasks | 26 files |
 | Phase 45 P02 | ~55 min | 3 tasks | 2 files |
+| Phase 45 P03 | ~45 min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -331,6 +332,7 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - [Phase ?]: D-45-05 (45-02) — DEUDA-02 por Opcion A: CATEGORIES_WITH_EXPLANATIONS declara par slug+file y entra en COUNT_ARRAY_SOURCES; cero cambios en el extractor y cobertura por los dos gates
 - [Phase ?]: D-45-06 — WR-07 SI (el ancla de slugsCiegos pasa a horizontal, con golden fail-first), WR-12 NO: queda como deuda abierta por escrito
 - [Phase ?]: D-45-07 — la prosa del gate se redacta en terminos de COUNT_ARRAY_SOURCES, no enumerando 'las dos fuentes': el nombre de los tests tambien
+- [Phase ?]: D-45-12 — el gate de DEUDA-03 mira TODA linea no-comentario del reporter, no solo las que contienen el token console.log: las lineas de continuacion de un console.log multilinea emiten salida y el esqueleto del research las dejaba pasar en verde
 
 ### Pending Todos
 
@@ -390,9 +392,9 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Session Continuity
 
-**Last session:** 2026-08-12T21:23:12.804Z
-**Stopped at:** Completed 45-02-PLAN.md
-**Resume file:** None
+**Last session:** 2026-08-12T21:40:12.627Z
+**Stopped at:** 45-03-PLAN.md — tareas 1 y 2 completas; Tarea 3 (checkpoint:human-verify) PENDIENTE de aprobacion del autor
+**Resume file:** .planning/phases/45-deuda-del-arn-s-de-tests/45-03-PLAN.md
 
 ### Last Session
 
