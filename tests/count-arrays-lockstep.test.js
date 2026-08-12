@@ -140,6 +140,11 @@ const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
  *     desalineado — y ahi se acaba, porque el estado de cadena muere en el salto.
  * Por eso el dano sigue acotado, y la clausula que lo acota es esta: ninguna linea de
  * ENTRADA de un array de conteo comparte linea con un literal de expresion regular.
+ * Esa clausula NO se queda en esta prosa —es justo la clase de cosa que deja de ser
+ * cierta sin que nadie se entere—: la congela el guard de integridad del escaner del
+ * bloque 3-ter, que exige que toda linea de entrada sobreviva BYTE A BYTE a esta
+ * funcion. La limitacion de alcance sigue siendo deliberada; lo que ya no es, es
+ * silenciosa.
  *
  * @param {string} src texto fuente de un fichero JS/MJS
  * @returns {string} el mismo texto con los comentarios blanqueados a espacios
@@ -772,6 +777,96 @@ describe('gate anti-ceguera — el par slug ↔ file de cada entrada apunta a su
       sinCobertura,
       [],
       `INT-02 / D-40-03: fuentes de conteo sin cobertura del par:\n  ${sinCobertura.join('\n  ')}`
+    );
+  });
+});
+
+// ───────────────────────────────────────────────────────────────────────────
+// 3-ter. Integridad del escaner sobre las lineas de entrada (DEUDA-02)
+// ───────────────────────────────────────────────────────────────────────────
+//
+// POR QUE EXISTE. Todo el gate de los bloques 3 y 3-bis mira el texto DESPUES de
+// pasarlo por `sinComentarios`. Si el escaner altera una linea de entrada que en el
+// fichero real esta viva, esa entrada desaparece del ancla y la categoria sale
+// «ciega» sin estarlo (falso rojo); y al reves, una linea alterada en el sentido
+// contrario la haria pasar por enganchada. La tercera fuente —tests/exercise-types.test.js,
+// dada de alta en la Phase 45— es la primera que trae ese riesgo de verdad: contiene
+// una veintena de literales de expresion regular, y `sinComentarios` DECLARA que no
+// los reconoce (ver su cabecera). Uno de ellos, el `mdPattern` que caza tokens de
+// markdown, termina en una comilla invertida DESPAREJADA, asi que el escaneo de esa
+// linea va desalineado de ahi al final de la linea.
+//
+// Hoy el dano esta acotado —el estado de cadena muere en el salto de linea, y ninguna
+// linea de entrada comparte linea con un literal regex—, y esa acotacion es
+// exactamente la clase de clausula que se escribe en un comentario y deja de ser
+// cierta sin que nadie se entere. Lo que faltaba no era la acotacion: era que algo se
+// pusiera ROJO el dia que deje de valer. El peor caso no es hipotetico: un literal que
+// contuviera la apertura de un comentario de bloque SI cruza lineas (es el unico
+// estado que las cruza) y blanquearia entradas enteras — CR-01 de la Phase 44,
+// reproducido.
+
+// La MITAD POSICIONAL del ancla que ya comparten `slugsCiegos` y `paresSlugFile`:
+// whitespace horizontal, `{`, y la clave `slug:` con su comilla de apertura en ESA
+// MISMA linea. Sin la mitad de IDENTIDAD, porque aqui no importa QUE slug declara la
+// linea sino que la linea sea una entrada. No es un tercer extractor: es el mismo
+// ancla sin el trozo interpolado.
+const LINEA_DE_ENTRADA = /^[^\S\n]*\{[^\n]*slug:[^\S\n]*['"`]/;
+
+describe('integridad del escaner — ninguna linea de entrada de array de conteo es alterada por sinComentarios (DEUDA-02)', () => {
+  test('las lineas de entrada de las fuentes declaradas sobreviven BYTE A BYTE al escaner', () => {
+    const infracciones = [];
+    let lineasDeEntrada = 0;
+    for (const rel of COUNT_ARRAY_SOURCES) {
+      const crudo = readSrc(rel).split('\n');
+      const limpio = sinComentarios(readSrc(rel)).split('\n');
+      crudo.forEach((linea, i) => {
+        if (!LINEA_DE_ENTRADA.test(linea)) return;
+        lineasDeEntrada += 1;
+        if (limpio[i] !== linea) infracciones.push(`${rel}:${i + 1}: ${linea.trim()}`);
+      });
+    }
+
+    // CLAUSULA DE NO-VACUIDAD, y va PRIMERO (mismo razonamiento que el bloque 3-bis).
+    // Si el reconocimiento de lineas de entrada deja de casar —regex retocada, forma
+    // del array cambiada, fuente renombrada— este test recorre CERO lineas, el
+    // `deepEqual` de abajo compara [] contra [] y pasa en VERDE certificando NADA, que
+    // es CR-01 verbatim. La referencia se DERIVA del disco (content/categories.json):
+    // cada fuente engancha las categorias registradas (bloque 3), asi que el conjunto
+    // tiene que traer al menos tantas lineas de entrada como categorias hay.
+    assert.ok(
+      lineasDeEntrada >= SLUGS_REGISTRADOS.length,
+      `DEUDA-02 / T-45-02-03: el reconocimiento de lineas de entrada ve ${lineasDeEntrada} ` +
+        `lineas en las ${COUNT_ARRAY_SOURCES.length} fuentes declaradas y content/categories.json ` +
+        `registra ${SLUGS_REGISTRADOS.length} categorias: o las fuentes dejaron de declarar sus ` +
+        `entradas, o el ancla dejo de reconocerlas — y con lista vacia esta comprobacion pasaria ` +
+        `en verde sin haber mirado ni una linea`
+    );
+
+    assert.deepEqual(
+      infracciones,
+      [],
+      `DEUDA-02: estas lineas de entrada NO sobreviven identicas a sinComentarios, asi que el ` +
+        `ancla del gate no las ve como el fichero las escribe. Las dos causas son reales y el ` +
+        `diagnostico no puede elegir una: o estas entradas estan envueltas en un comentario de ` +
+        `bloque —deliberado o accidental, y entonces la ceguera ya existe—, o un literal de ` +
+        `expresion regular con comilla desparejada desalineo el escaner en esa linea:\n  ` +
+        `${infracciones.join('\n  ')}`
+    );
+  });
+
+  test('los slugs registrados son ASCII puro, asi que la comparacion byte a byte del ancla ES la igualdad correcta', () => {
+    // Dos lineas y su razon: el ancla compara el slug BYTE A BYTE (interpolado y
+    // escapado, con la comilla de cierre forzada por backreference). Si un `id`
+    // llevase un acento, habria dos codificaciones Unicode equivalentes de la misma
+    // cadena (precompuesta y descompuesta) y «igual» dejaria de ser «mismos bytes».
+    // Con los 18 ids en ASCII puro esa ambiguedad no existe y no hace falta normalizar.
+    assert.ok(SLUGS_REGISTRADOS.length > 0, 'INT-01: content/categories.json no registra ninguna categoria');
+    const noAscii = SLUGS_REGISTRADOS.filter((s) => !/^[a-z0-9-]+$/.test(s));
+    assert.deepEqual(
+      noAscii,
+      [],
+      `DEUDA-02: estos id de content/categories.json no son ASCII puro, asi que la identidad ` +
+        `byte a byte del ancla podria fallar por composicion Unicode: ${noAscii.join(', ')}`
     );
   });
 });
