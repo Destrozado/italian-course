@@ -67,6 +67,104 @@ const SLUGS_REGISTRADOS = CATEGORIES.categories.map((c) => c.id);
 const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 /**
+ * Blanquea el CONTENIDO de los comentarios de JS —`//` de linea y de bloque—
+ * PRESERVANDO los saltos de linea y la longitud del fichero, para que el flag `m`
+ * de los anclas siga significando «inicio de LINEA» y los numeros de linea no se
+ * desplacen.
+ *
+ * POR QUE EXISTE (CR-01, code review de Phase 44). El endurecimiento G-44-3-WR01
+ * intento codificar «esto no es un comentario» DENTRO del ancla: la linea tiene que
+ * abrir con whitespace horizontal y `{`, y el razonamiento escrito era que «el `//`
+ * no es whitespace y por tanto la linea no abre con `{`». Ese razonamiento solo vale
+ * para el comentario de LINEA. Un `/* … *\/` de bloque deja las lineas que envuelve
+ * BYTE A BYTE IDENTICAS: siguen abriendo con whitespace y `{`, asi que el ancla
+ * casaba y la categoria se reportaba enganchada mientras el reporter habia dejado de
+ * contarla. Reproducido end-to-end: envolviendo las 4 entradas de `fare` de
+ * scripts/run-validation-271.mjs en `/* *\/`, el reporter imprimia
+ * `VAL-06 (225/225 validated): PASS` —la cifra VERBATIM del bug que corrio tres
+ * fases— y este fichero se quedaba en `# fail 0`. Y el `/* *\/` es el gesto MAS
+ * plausible de los dos, porque es lo que produce el «toggle block comment» de un
+ * editor sobre una seleccion de varias lineas.
+ *
+ * La leccion de forma: la ausencia de comentario NO se codifica en el ancla, se
+ * garantiza ANTES quitando los comentarios. Asi el ancla vuelve a hablar solo de lo
+ * que sabe (identidad + posicion) y no de lexico de JS.
+ *
+ * POR QUE NO EL `String.replace` DE DOS PASADAS. La forma corta y tentadora
+ * —`src.replace(/\/\*[\s\S]*?\*\//g, …)` primero y los `//` despues— produce un
+ * FALSO ROJO CATASTROFICO sobre el fichero real, y un falso rojo es un defecto igual
+ * que un falso verde. scripts/run-validation-271.mjs:5 dice
+ * `los 7 archivos \`content/exercises/*.json\`` DENTRO de un comentario de linea, y
+ * ese `s/*` es un `/*` literal: el regex de bloque abre ahi y cierra en el primer
+ * `*\/` del fichero, que esta en la linea 237, asi que blanquea las lineas 5-237 —
+ * el array CATEGORIES entero incluido— y las 18 categorias salen ciegas de golpe.
+ * Verificado: tras esa limpieza, la linea 174 queda en blanco. De ahi que esto sea
+ * un escaner y no un `replace`: hay que saber si un `/*` esta dentro de una cadena o
+ * de otro comentario ANTES de tratarlo como apertura.
+ *
+ * ALCANCE DELIBERADO, y su razon. El escaner reconoce cadenas (`'`, `"`, backtick)
+ * para no confundir un `//` o un `/*` de dentro de una cadena con un comentario —que
+ * es exactamente el caso de `run-validation-271.mjs:480`,
+ * `'… node --test tests/*.test.js'`. NO reconoce literales de expresion regular: un
+ * `/…/` que contuviera una comilla suelta desalinearia el escaneo. El dano esta
+ * ACOTADO A UNA LINEA por construccion, porque el estado de cadena se resetea en cada
+ * salto de linea (`comilla` se declara dentro del map) y solo el estado de bloque
+ * cruza lineas — que es lo que tiene que cruzarlas. Las dos fuentes de conteo de hoy
+ * tienen un unico literal regex (`/<[^>]+>/` en la fixture) y no lleva comillas.
+ *
+ * @param {string} src texto fuente de un fichero JS/MJS
+ * @returns {string} el mismo texto con los comentarios blanqueados a espacios
+ */
+export function sinComentarios(src) {
+  let enBloque = false;
+  return src
+    .split('\n')
+    .map((linea) => {
+      const out = linea.split('');
+      // `comilla` se declara AQUI, por linea: una cadena sin cerrar no puede
+      // arrastrar el escaneo a las lineas siguientes (dano acotado a una linea).
+      let comilla = '';
+      let i = 0;
+      while (i < linea.length) {
+        const c = linea[i];
+        if (enBloque) {
+          if (c === '*' && linea[i + 1] === '/') {
+            out[i] = ' ';
+            out[i + 1] = ' ';
+            i += 2;
+            enBloque = false;
+            continue;
+          }
+          out[i] = ' ';
+          i += 1;
+          continue;
+        }
+        if (comilla) {
+          if (c === '\\') { i += 2; continue; }
+          if (c === comilla) comilla = '';
+          i += 1;
+          continue;
+        }
+        if (c === "'" || c === '"' || c === '`') { comilla = c; i += 1; continue; }
+        if (c === '/' && linea[i + 1] === '/') {
+          for (let k = i; k < linea.length; k += 1) out[k] = ' ';
+          break;
+        }
+        if (c === '/' && linea[i + 1] === '*') {
+          out[i] = ' ';
+          out[i + 1] = ' ';
+          i += 2;
+          enBloque = true;
+          continue;
+        }
+        i += 1;
+      }
+      return out.join('');
+    })
+    .join('\n');
+}
+
+/**
  * Devuelve la sublista de `slugs` que NO aparece ANCLADA en el texto fuente `src`.
  *
  * El ancla tiene DOS mitades y las dos son necesarias:
@@ -85,10 +183,16 @@ const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
  *         ceguera, y satisfacia el ancla vieja tal cual.
  *       - un comentario de prosa que nombra la clave (`// ... slug: 'x' ...`)
  *         tampoco engancha nada, y tambien la satisfacia.
- *     Una entrada comentada NO satisface el ancla nueva porque el `//` no es
- *     whitespace y por tanto la linea no abre con `{`. El flag `m` es lo que hace
- *     que `^` signifique inicio de LINEA y no inicio de FICHERO: sin el, el ancla
- *     solo miraria la primera linea del fichero y el gate seria vacuo.
+ *     El flag `m` es lo que hace que `^` signifique inicio de LINEA y no inicio de
+ *     FICHERO: sin el, el ancla solo miraria la primera linea del fichero y el gate
+ *     seria vacuo.
+ *
+ *  3. AUSENCIA DE COMENTARIO (CR-01), y NO la codifica el ancla. El texto se pasa
+ *     por `sinComentarios` ANTES de anclar. La version anterior confiaba en que «el
+ *     `//` no es whitespace y por tanto la linea no abre con `{`», que solo cierra el
+ *     comentario de LINEA: un `/* … *\/` de bloque deja las lineas envueltas byte a
+ *     byte identicas y el ancla las aceptaba. Ver la cabecera de `sinComentarios`
+ *     para la reproduccion completa del `225/225 PASS`.
  *
  * El endurecimiento es de la POSICION, jamas de la IDENTIDAD: el slug se sigue
  * exigiendo completo, que es lo que resuelve la colision `fare-ind`.
@@ -98,19 +202,26 @@ const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
  * @returns {string[]} los slugs CIEGOS, en el orden de entrada
  */
 export function slugsCiegos(src, slugs) {
+  // Va PRIMERO: sin esto, el ancla de abajo acepta una entrada envuelta en `/* *\/`
+  // (CR-01). Los goldens de bloque de mas abajo lo prueban en las dos formas.
+  const limpio = sinComentarios(src);
   return slugs.filter((slug) => {
     // `[^\S\n]*` = whitespace HORIZONTAL: acota el ancla a una sola linea (un `\s*`
     // podria cruzar saltos de linea) y no anida cuantificadores (T-44-03-03).
     const anclado = new RegExp(`^[^\\S\\n]*\\{[^\\n]*slug:\\s*(['"\`])${escapeRe(slug)}\\1`, 'm');
-    return !anclado.test(src);
+    return !anclado.test(limpio);
   });
 }
 
 /**
  * Extrae los pares `{ slug, file }` que el texto fuente DECLARA por entrada.
  *
- * Comparte el ancla de entrada de `slugsCiegos` (linea que abre con `{`, flag `m`),
- * asi que una entrada comentada no declara ningun par. Tolera:
+ * Comparte el ancla de entrada de `slugsCiegos` (linea que abre con `{`, flag `m`) Y
+ * su paso previo por `sinComentarios`, asi que una entrada comentada no declara ningun
+ * par — ni con `//` ni con `/* *\/` (CR-01: los dos helpers comparten el ancla, asi que
+ * el agujero de bloque estaba en LOS DOS y habia que cerrarlo en los dos a la vez; con
+ * `paresSlugFile` ciego al bloque, los pares fantasma seguian contando para la clausula
+ * de no-vacuidad de mas abajo y ese gate tambien se quedaba verde). Tolera:
  *   - varios espacios de ALINEACION entre `slug: '...',` y `file:` — que es la forma
  *     REAL del reporter, con las columnas cuadradas. Un extractor que no la tolerase
  *     devolveria lista vacia y el gate seria vacuo sobre la unica fuente que gobierna
@@ -124,7 +235,9 @@ export function slugsCiegos(src, slugs) {
 export function paresSlugFile(src) {
   const ENTRADA_CON_FILE =
     /^[^\S\n]*\{[^\n]*?slug:[^\S\n]*(['"`])([^'"`\n]+)\1[^\S\n]*,[^\S\n]*file:[^\S\n]*(['"`])([^'"`\n]+)\3/gm;
-  return [...src.matchAll(ENTRADA_CON_FILE)].map((m) => ({ slug: m[2], file: m[4] }));
+  // El MISMO `sinComentarios` que `slugsCiegos`, y por la misma razon (CR-01).
+  const limpio = sinComentarios(src);
+  return [...limpio.matchAll(ENTRADA_CON_FILE)].map((m) => ({ slug: m[2], file: m[4] }));
 }
 
 /**
@@ -201,6 +314,36 @@ describe('gate anti-ceguera — goldens de slugsCiegos: ausencia, colision de pr
     ];
   `;
 
+  // CR-01 (code review de Phase 44). Los dos goldens de BLOQUE son la via que quedo
+  // abierta cuando G-44-3-WR01 cerro la de `//`: un `/* */` deja las lineas envueltas
+  // BYTE A BYTE IDENTICAS —siguen abriendo con whitespace y `{`— asi que el ancla las
+  // aceptaba y la categoria salia enganchada estando ciega. Y es el gesto MAS plausible
+  // de los dos, porque es lo que produce el «toggle block comment» de un editor sobre
+  // una seleccion de varias lineas. El set de goldens anterior, que solo probaba `//`,
+  // es lo que hizo que este agujero PARECIERA cerrado.
+
+  const SRC_BLOQUE_UNA = `
+    const CATEGORIES = [
+      { slug: 'avere', expected: 20 },
+      { slug: 'fare-indicativo', expected: slotCountOf('content/exercises/fare-indicativo.json') },
+      /* { slug: 'fare-indefiniti', expected: slotCountOf('content/exercises/fare-indefiniti.json') }, */
+    ];
+  `;
+
+  // La forma REAL del gesto del editor: el `/*` y el `*/` en lineas propias y las
+  // entradas envueltas SIN TOCAR — es esta la que el ancla vieja aceptaba entera.
+  const SRC_BLOQUE_VARIAS = `
+    const CATEGORIES = [
+      { slug: 'avere', expected: 20 },
+      /*
+      { slug: 'fare-cond-imperativo', expected: slotCountOf('content/exercises/fare-cond-imperativo.json') },
+      { slug: 'fare-congiuntivo', expected: slotCountOf('content/exercises/fare-congiuntivo.json') },
+      { slug: 'fare-indefiniti', expected: slotCountOf('content/exercises/fare-indefiniti.json') },
+      { slug: 'fare-indicativo', expected: slotCountOf('content/exercises/fare-indicativo.json') },
+      */
+    ];
+  `;
+
   test('golden-NEGATIVO simple: una categoria ausente del array se devuelve como ciega', () => {
     assert.deepEqual(
       slugsCiegos(SRC_VACIO, ['fare-indicativo']),
@@ -249,6 +392,83 @@ describe('gate anti-ceguera — goldens de slugsCiegos: ausencia, colision de pr
       slugsCiegos(SRC_SLUG_EN_PROSA, ['fare-indefiniti']),
       ['fare-indefiniti'],
       'G-44-3-WR01: nombrar el slug en un comentario no es engancharlo en el array de conteo'
+    );
+  });
+
+  test('golden-NEGATIVO de ENTRADA EN BLOQUE: una entrada envuelta en /* */ en UNA linea NO ancla nada (CR-01)', () => {
+    assert.deepEqual(
+      slugsCiegos(SRC_BLOQUE_UNA, ['fare-indefiniti']),
+      ['fare-indefiniti'],
+      'CR-01: el /* */ deja la linea abriendo con `{`; sin quitar comentarios el ancla la aceptaba'
+    );
+    // Y el hermano vivo NO se contagia: la ceguera es de la entrada envuelta.
+    assert.deepEqual(
+      slugsCiegos(SRC_BLOQUE_UNA, ['fare-indicativo', 'fare-indefiniti']),
+      ['fare-indefiniti'],
+      'CR-01: quitar comentarios no puede inventar ceguera en la entrada viva de al lado'
+    );
+  });
+
+  test('golden-NEGATIVO de BLOQUE MULTILINEA: las 4 entradas envueltas por un toggle de editor salen TODAS ciegas (CR-01)', () => {
+    assert.deepEqual(
+      slugsCiegos(SRC_BLOQUE_VARIAS, [
+        'fare-cond-imperativo',
+        'fare-congiuntivo',
+        'fare-indefiniti',
+        'fare-indicativo',
+      ]),
+      ['fare-cond-imperativo', 'fare-congiuntivo', 'fare-indefiniti', 'fare-indicativo'],
+      'CR-01: es la reproduccion exacta del `VAL-06 (225/225 validated): PASS`, la cifra ' +
+        'verbatim del bug que corrio durante las Phases 41, 42 y 43'
+    );
+    assert.deepEqual(
+      slugsCiegos(SRC_BLOQUE_VARIAS, ['avere']),
+      [],
+      'CR-01: la entrada de fuera del bloque sigue anclada'
+    );
+  });
+
+  test('golden de NO-FALSO-ROJO: un `/*` dentro de un comentario de LINEA o de una CADENA no abre bloque (CR-01)', () => {
+    // Esta es la trampa del fichero real. scripts/run-validation-271.mjs:5 nombra
+    // `content/exercises/*.json` DENTRO de un comentario de linea, y ese `s/*` es un
+    // `/*` literal. Un limpiador por `String.replace` de dos pasadas abre bloque ahi y
+    // cierra en el primer `*/` del fichero (linea 237), blanqueando el array CATEGORIES
+    // entero: las 18 categorias saldrian ciegas de golpe. Un falso rojo es un defecto
+    // igual que un falso verde, y ademas invita a relajar el gate.
+    const SRC_TRAMPA = `
+    // Lee los ejercicios de los archivos content/exercises/*.json (orden lockeado).
+    const CATEGORIES = [
+      { slug: 'fare-indefiniti', expected: 25 },
+    ];
+    /** Un bloque de verdad, mucho despues. */
+    console.log('  VAL_07_STRICT=1 node --test tests/*.test.js');
+  `;
+    assert.deepEqual(
+      slugsCiegos(SRC_TRAMPA, ['fare-indefiniti']),
+      [],
+      'CR-01: el `/*` de `exercises/*.json` esta dentro de un comentario de linea y no abre bloque'
+    );
+    // Y el `/*` de dentro de la cadena del console.log tampoco.
+    assert.equal(
+      sinComentarios(SRC_TRAMPA).includes("node --test tests/*.test.js"),
+      true,
+      'CR-01: el `/*` de `tests/*.test.js` vive en una CADENA y el escaner no lo trata como comentario'
+    );
+  });
+
+  test('golden de FORMA de sinComentarios: preserva saltos de linea y longitud (los numeros de linea y el flag `m` siguen valiendo)', () => {
+    const SRC = 'a\n/* b\n   c */\nd // e\n';
+    const limpio = sinComentarios(SRC);
+    assert.equal(limpio.length, SRC.length, 'la longitud se conserva: solo se sustituye por espacios');
+    assert.deepEqual(
+      limpio.split('\n').map((l) => l.length),
+      SRC.split('\n').map((l) => l.length),
+      'cada linea conserva su longitud, asi que los numeros de linea no se desplazan'
+    );
+    assert.deepEqual(
+      limpio.split('\n').map((l) => (l.trim() === '' ? '<blanca>' : l.trim())),
+      ['a', '<blanca>', '<blanca>', 'd', '<blanca>'],
+      'las 2 lineas del bloque quedan blancas enteras y de la de `//` solo sobrevive el codigo'
     );
   });
 
@@ -363,6 +583,29 @@ describe('gate anti-ceguera — goldens de paresSlugFile / paresCruzados: par co
       [],
       'el extractor comparte el ancla de entrada con slugsCiegos: una entrada comentada no declara nada'
     );
+  });
+
+  test('golden de ENTRADA EN BLOQUE: los pares de dentro de un /* */ no se extraen, ni cuentan como PARES FANTASMA (CR-01)', () => {
+    // La segunda mitad de CR-01, y es la que mantenia verde la clausula de NO-VACUIDAD
+    // de mas abajo: los dos helpers COMPARTEN el ancla de entrada, asi que el agujero de
+    // bloque estaba en los dos. Con `paresSlugFile` ciego al bloque, las entradas
+    // envueltas seguian declarando pares, `pares.length` seguia cuadrando con las 18
+    // categorias registradas y el gate que existe para delatar la ceguera la certificaba.
+    const SRC_PARES_EN_BLOQUE = `
+    const CATEGORIES = [
+      { slug: 'avere', file: 'content/exercises/avere.json', expected: 20 },
+      /*
+      { slug: 'fare-indefiniti', file: 'content/exercises/fare-indefiniti.json', expected: 25 },
+      { slug: 'fare-indicativo', file: 'content/exercises/fare-indicativo.json', expected: 30 },
+      */
+    ];
+  `;
+    assert.deepEqual(
+      paresSlugFile(SRC_PARES_EN_BLOQUE),
+      [{ slug: 'avere', file: 'content/exercises/avere.json' }],
+      'CR-01: solo la entrada VIVA declara par; las dos envueltas en /* */ eran pares fantasma'
+    );
+    assert.deepEqual(paresCruzados(SRC_PARES_EN_BLOQUE), []);
   });
 });
 
