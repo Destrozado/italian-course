@@ -5,15 +5,15 @@ milestone_name: Paradigma completo de `fare` (4 categorías por modo)
 current_phase: 44
 status: completed
 stopped_at: Completed 44-04-PLAN.md
-last_updated: "2026-08-12T10:48:16.876Z"
+last_updated: "2026-08-12T15:18:22.033Z"
 last_activity: 2026-08-12
-last_activity_desc: 44-03 completo — gate anti-ceguera endurecido y VERIFICADO POR MUTACIÓN; queda 44-04
+last_activity_desc: Phase 45 añadida desde v2.0-MILESTONE-AUDIT.md — deuda del arnés (DEUDA-01/02/03); sin planificar
 progress:
-  total_phases: 5
+  total_phases: 6
   completed_phases: 5
   total_plans: 11
   completed_plans: 11
-  percent: 100
+  percent: 83
 current_phase_name: Integración lockstep + cierre v2.0
 ---
 
@@ -25,14 +25,14 @@ See: `.planning/PROJECT.md` (updated 2026-08-06 — Phase 42 `fare-congiuntivo` 
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 44 — Integración lockstep + cierre v2.0
+**Current Focus:** Phase 45 — Deuda del arnés de tests (pagar la ceguera del arnés antes de cerrar v2.0)
 
 ## Current Position
 
-Phase: 44
+Phase: 45
 Plan: Not started
-Status: All phases complete
-Last activity: 2026-08-12 — Phase 44 complete
+Status: Not planned yet
+Last activity: 2026-08-12 — Phase 45 añadida desde la auditoría de v2.0; fases 40-44 completas y verificadas
 
 Progress: [████████████████████] 4/4 planes de la fase 44 ([██████████] 100%) · 5/5 fases del milestone v2.0 (100%)
 
@@ -233,6 +233,7 @@ Items reconocidos y diferidos en el cierre del milestone v1.9 (2026-07-02, ackno
 - **2026-06-05 — Milestone v1.5 shipped.** 3 fases (18-20), 7 plans, 9/9 requirements, 358/358 tests. Articoli (56→34 slots) + Partitivi (44→19 slots) a slot+variantes (14 superficies nuevas por quórum cross-vendor R1-R7) + migración 7→8 reset selectivo. schemaVersion 7→8. 3/9 categorías en formato slot+variantes.
 - **2026-06-05 — Milestone v1.6 abierto + roadmap fijado.** Conversión a slots: categorías restantes (CONV-01 cierre). Numeración CONTINÚA desde v1.5 (Phase 20) → **Phases 21-27, NO reset** (mismo criterio que v1.1/v1.2/v1.3/v1.4/v1.5). 7 fases coarse (1 migración + 6 conversiones, 1 fase por categoría): **Phase 21 (Migración 8→9, reset selectivo de las 6 categorías)** mapea MIG-03/04 — `migrate8to9`/`hydrateV9` idempotente + deep-clone, reset de progreso SOLO de las 6 a convertir (avere, essere, verbos-movimiento, genero-numero, profesiones, sustantivos-irregulares) vía predicado de 6 prefijos, las 3 ya convertidas (preposiciones, articoli, partitivos) byte-intactas, `backup.js` round-trip v9 + import v8→v9 + rechazo >9; va PRIMERA porque la renumeración de ids de contenido no se puede hacer con progreso vivo (mismo criterio que Phase 18 v1.5 y el plan 17-01 del piloto); **Phase 22 (Avere)** AVE-01/02, **Phase 23 (Essere)** ESS-01/02, **Phase 24 (Verbi di movimento)** MOV-01/02 — verbos; **Phase 25 (Genere e numero)** GEN-01/02 — morfología; **Phase 26 (Professioni)** PROF-01/02, **Phase 27 (Sostantivi irregolari)** SOST-01/02 — léxicas (decisión regla-con-variantes O slots-de-1 en discuss/plan de cada una). Cada conversión replica el patrón de Phases 19/20: reagrupar a slots por regla con explanation a nivel de slot → autorar variantes nuevas por quórum cross-vendor R1-R7 (+ huecos→slots) → sincronizar counts derivados del JSON; validator + smoke verdes. **Cobertura: 14/14 mapped, 0 orphans, 0 duplicados, 0 gaps.** Phases 22-27 dependen de Phase 21; independientes entre sí tras la migración (cualquier orden o paralelo). **Brownfield puro contenido + migración:** toda la maquinaria slot+variantes del motor v1.4 (`normalizeExerciseToSlot`, `pickVariantIndex`, getter slot-aware con `.payload` sintético, sampler por slot, cascada D-54 con 2 call-sites, smoke bifurcado por shape) YA EXISTE y NO se toca. Phase 27 cierra CONV-01 (9/9 categorías unificadas).
 - Phase 44 edited: edited fields: goal, success_criteria (SC#2/SC#3/SC#4) — 22 slots / 113 variantes / 247 en disco / 250 con los 3 cruces, 2 arrays de conteo + gate anti-ceguera, ids concretos de los cruces con el sentido de D-44-02, 4 magnets (D-44-08)
+- Phase 45 added: Deuda del arnés de tests: fixtures sin gate (DEUDA-01), 3er array de conteo fuera del gate anti-ceguera (DEUDA-02), cabecera del reporter desfasada (DEUDA-03) — de v2.0-MILESTONE-AUDIT.md
 
 ### Decisions
 

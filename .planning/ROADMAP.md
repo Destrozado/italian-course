@@ -144,13 +144,14 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
 **Total:** 5 fases, 10 plans, 14 categorías / 225 slots, 25/25 requirements (5 DEMOS + 5 POSS + 2 MODAL + 5 REFLEX + 2 PROV + 2 MIG + 4 INT), suite 624/624 (638 strict).
 </details>
 
-### 🚧 v2.0 — ACTIVE (Phases 40-44) — Paradigma completo de `fare`
+### 🚧 v2.0 — ACTIVE (Phases 40-45) — Paradigma completo de `fare`
 
 - [x] **Phase 40: Migración `12→13` (reset selectivo preventivo de las 4 categorías de `fare`)** — el eslabón de state que deja nacer limpias a las 4 nuevas; espejo de `migrate11to12` (v1.9). Va PRIMERA. (completed 2026-08-03)
 - [x] **Phase 41: `fare-indicativo` — 8 slots (el bloque grande)** — 4 tiempos simples + 3 compuestos con `avere` + trapassato remoto enmarcado; ≈48 variantes por quórum (casi la mitad del milestone). (completed 2026-08-04)
 - [x] **Phase 42: `fare-congiuntivo` — 4 slots (homógrafas + disparador)** — presente/imperfetto/passato/trapassato con sujeto explícito obligatorio y un slot de disparador; ≈24 variantes. (completed 2026-08-06)
 - [x] **Phase 43: `fare-cond-imperativo` + `fare-indefiniti` — 3 + 6 slots** — condizionale pres/pass + imperativo de 5 variantes (MAGNET `fa'`/`fai`) y las 6 indefinidas con eje de variante = contexto; ≈35 variantes. (completed 2026-08-10)
 - [x] **Phase 44: Integración lockstep + cierre v2.0** — `categories.json` order 15-18, counts + `TOTAL_EXPECTED` + baseline-guard + smoke paramétrico, cruces multi-cat y gate de cierre (D-54 = 2 call-sites, suite estricta verde). (completed 2026-08-12)
+- [ ] **Phase 45: Deuda del arnés de tests** — los tres sitios donde el arnés no vigila lo que dice vigilar: `tests/fixtures/` fuera de la suite canónica, el 3er array de conteo fuera del gate anti-ceguera, y la cabecera del reporter cuatro milestones desfasada.
 
 ## Phase Details
 
@@ -354,6 +355,26 @@ Verbos IRREGULARES en presente (andare/fare/venire/dire…) son categoría apart
 ### Bridges multi-cat Partitivos + responsive móvil
 
 **Status:** Backlog. Bridges multi-categoría Partitivos↔género-número/sustantivos (PART-X1, diferido para acotar v1.2). Responsive móvil ya ejecutado parcialmente como trabajo huérfano (Phase 28, archivada) + capa `@media (max-width: 640px)` shippeada como quick tasks; el responsive completo de las pantallas Editoriale (tamaño de prompt + breakpoints) queda diferido de v1.8 (desktop-only por diseño) — re-evaluar si se reactiva como milestone formal.
+
+### Phase 45: Deuda del arnés de tests
+
+**Goal**: Cerrar los tres sitios donde el arnés de tests **no vigila lo que su propia prosa dice que vigila** — el patrón que la auditoría de v2.0 identificó como causa raíz de la deuda de las Phases 41-44 y que, sin pagar, produce el siguiente CR-01. No es limpieza cosmética: dos de los tres dejan un camino por el que una categoría puede volver a quedarse sin contar con todos los gates en verde, que es exactamente el bug que se repitió tres fases seguidas emitiendo `225/225 PASS`. Transversal y de bajo riesgo (solo `tests/` y `scripts/`, cero contenido, cero motor).
+
+**Depends on**: Phase 44 (los tres hallazgos salen de `44-REVIEW.md` y de `.planning/v2.0-MILESTONE-AUDIT.md`)
+**Requirements**: DEUDA-01, DEUDA-02, DEUDA-03
+**Plans:** 0 plans
+
+**Success Criteria** (what must be TRUE):
+
+  1. **DEUDA-01 — `tests/fixtures/` entra en el gate.** Las 44 aserciones de `tests/fixtures/slot-variants-integration.test.js` corren en la invocación canónica de la suite. Hoy no: `node --test tests/*.test.js` no globea ese subdirectorio, así que uno de los DOS arrays de conteo que la Phase 44 existía para re-enganchar (`REAL_CATEGORIES`) vive sin gate automático. La auditoría las corrió aparte y dan **44/44 pass**, así que no hay ningún fallo escondido — el trabajo es engancharlas, no arreglarlas. Verificación por mutación: desincronizar `REAL_CATEGORIES` y comprobar que la suite canónica se pone ROJA (hoy se queda verde).
+  2. **DEUDA-02 — el tercer array de conteo entra en el gate anti-ceguera.** `CATEGORIES_WITH_EXPLANATIONS` (`tests/exercise-types.test.js:1338`) queda fuera de `tests/count-arrays-lockstep.test.js` porque no declara clave `slug:` y el extractor no puede parsearlo. Hoy está en sync (verificado en la auditoría), pero es la misma forma del olvido de tres fases. Cerrar exige o darle forma parseable o enseñar al extractor a leer la suya — y en cualquier caso el gate debe ponerse rojo ante una categoría registrada en `categories.json` y ausente de ESE array. Ligado a WR-07 y WR-12 de `44-REVIEW.md`, que tocan el mismo extractor.
+  3. **DEUDA-03 — el reporter deja de mentir sobre su propio objeto.** `scripts/run-validation-271.mjs` imprime «Milestone v1.1 — gate Phase 10» y recomienda `/gsd:complete-milestone v1.1` (líneas 4, 7, 43, 70, 376) — cuatro milestones de retraso. Las cifras computadas SÍ son correctas y actuales; es el texto literal el que engaña sobre qué se está gateando, en el fichero cuyo trabajo es precisamente que los números no engañen. Cierre: el encabezado y el pie se DERIVAN del milestone activo, no se transcriben — mismo principio que ya rige los counts (nunca número mágico). Absorbe WR-06 y WR-10 de `44-REVIEW.md`.
+
+**Fuera de alcance**: los otros 23 hallazgos de deuda del informe de auditoría. En particular NO entran los juicios de diseño de ejercicio de la Phase 41 (WR-01/04/05) ni la deuda de cobertura de test de la Phase 42 (WR-01..06, IN-01..06), cuyo contenido ya se verificó correcto a mano. Esta fase paga solo los tres sitios donde el arnés está ciego o miente, no la deuda de calidad editorial.
+
+Plans:
+
+- [ ] TBD (run /gsd-plan-phase 45 to break down)
 
 ---
 *Roadmap created: 2026-05-23*
