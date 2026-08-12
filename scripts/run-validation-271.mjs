@@ -1,18 +1,41 @@
 #!/usr/bin/env node
 // scripts/run-validation-271.mjs
 //
-// Reporter del milestone v1.1 Phase 10 — gate VAL-04 + VAL-06 + VAL-08.
-// Lee los 271 ejercicios distribuidos en los 7 archivos `content/exercises/*.json`
-// (orden lockeado D-VAL-22), aplica `deriveStatus` de Plan 09-01 sobre cada
-// `validation.passes[]`, y verifica los 3 sub-gates del milestone v1.1.
+// Reporter de CIERRE DE MILESTONE — gate VAL-04 + VAL-06 + VAL-08 + VAL-09.
+//
+// QUÉ milestone está cerrando NO se transcribe en este fichero: se DERIVA en runtime
+// del frontmatter de `.planning/STATE.md` (ver `milestoneActivo` más abajo, D-45-08).
+// El encabezado impreso transcribía un milestone y una fase concretos, y así se quedó
+// durante CUATRO milestones: nada podía ponerse rojo, porque no existía ni un solo test
+// que cubriera la salida impresa de este fichero (v2.0 Phase 45, DEUDA-03). La cita
+// verbatim de aquel banner, fechada, vive en 45-03-SUMMARY.md — aquí no, para que este
+// fichero no vuelva a contener ninguna versión escrita a mano. Quien lo congela ahora es
+// el bloque 7 de tests/count-arrays-lockstep.test.js, no esta prosa.
+//
+// EL `271` DEL NOMBRE DEL FICHERO ES HISTÓRICO (D-45-09). Codifica el conteo de v1.0.
+// El conteo REAL lo computa este mismo fichero: `TOTAL_EXPECTED` (Σ de los `expected`
+// de `CATEGORIES`), confrontado contra el disco por el guard de coherencia. El rename
+// queda como DEUDA ACEPTADA y escrita, no como olvido: arrastra 17 call-sites
+// load-bearing —dos de ellos DENTRO del gate anti-ceguera: la cadena de
+// `COUNT_ARRAY_SOURCES` y la constante `REPORTER` de
+// tests/count-arrays-lockstep.test.js— más cinco en un SKILL.md ejecutable, y dejaría
+// de ser grepeable el historial de `.planning/`. El nombre no engaña sobre QUÉ gate
+// corre; el que engañaba era el banner.
+//
+// Lee las categorías declaradas en `CATEGORIES`, un archivo `content/exercises/*.json`
+// por categoría (orden lockeado D-VAL-22), aplica `deriveStatus` de Plan 09-01 sobre
+// cada `validation.passes[]`, y verifica los sub-gates de abajo. Cuántas categorías y
+// cuántos slots son NO se escribe aquí: los imprime el banner, interpolados.
 //
 // SUB-GATES (RESEARCH §Q5 + PATTERNS.md §run-validation-271):
 //   1. VAL-04 — todos los validated tienen passes con ≥2 entries `correcta`
 //      con `by` DISTINTOS (Set size ≥2). El override del autor en path-B
 //      D-VAL-25 cuenta como una entry `by:"autor"` válida.
-//   2. VAL-06 — los 271 con `validation.status === "validated"` derivado por
-//      `deriveStatus` (fuente única). El relax local que vivía aquí se borró en
-//      CR-03: era estrictamente MÁS PERMISIVO que la fuente única.
+//   2. VAL-06 — TODOS los slots declarados en `CATEGORIES` con
+//      `validation.status === "validated"` derivado por `deriveStatus` (fuente
+//      única). Cuántos son lo dicta `TOTAL_EXPECTED`, nunca una cifra escrita aquí.
+//      El relax local que vivía aquí se borró en CR-03: era estrictamente MÁS
+//      PERMISIVO que la fuente única.
 //   3. VAL-08 — cero ejercicios con `effectiveStatus === "disputed"`. La
 //      cola D-VAL-25/26 procesa cada disputed hasta uno de los 3 caminos
 //      cerrados (accept-fix / reject+override / rewrite manual).
@@ -38,10 +61,11 @@
 //   node scripts/run-validation-271.mjs
 //
 // Exit codes:
-//   0 — los 3 sub-gates VAL-04 + VAL-06 + VAL-08 PASS. Milestone gate PASS.
+//   0 — los sub-gates VAL-04 + VAL-06 + VAL-08 + VAL-09 PASS. Milestone gate PASS.
 //       Autor procede al paso manual:
 //       `VAL_07_STRICT=1 node --test tests/*.test.js tests/fixtures/*.test.js`
-//       y luego `/gsd:complete-milestone v1.1`.
+//       y luego `/gsd-complete-milestone <el milestone que el pie imprime>`. Qué
+//       milestone es lo dice la salida, derivado del disco — nunca este comentario.
 //   1 — al menos 1 sub-gate FAIL. Itera `/gsd-validate-batch` antes de cerrar.
 
 import { readFileSync } from 'node:fs';
@@ -53,6 +77,60 @@ import { deriveStatus } from '../src/data/validation-state.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const projectRoot = resolve(__dirname, '..');
+
+// Ruta del fichero de estado del proyecto. CONSTANTE: ningún componente procede de
+// input, así que no hay superficie de path-traversal que modelar (T-45-03-02). Se
+// resuelve con `resolve(projectRoot, …)`, que es la convención de `scripts/` — NO con
+// `new URL('../…', import.meta.url)`, que es la de `tests/`. Son dos convenciones
+// distintas y cada tier mantiene la suya.
+const STATE_PATH = '.planning/STATE.md';
+
+// El milestone que este gate está cerrando se DERIVA del disco, por el mismo principio
+// que gobierna los counts (D-31-06: nunca número mágico). Transcrito estuvo CUATRO
+// milestones desfasado —el banner nombraba una versión de hace cuatro— y nada podía
+// ponerse rojo. Fuente: el frontmatter de STATE.md (D-45-08), que es YAML plano de una
+// clave por línea y está trackeado en git, así que viaja con el código y no depende de
+// tooling GSD ni de red. NO se deriva de `.planning/MILESTONES.md`: ese fichero solo
+// registra los milestones YA ENTREGADOS, así que cambiaría un desfase de cuatro por uno
+// de uno, con aire de estar arreglado.
+//
+// FAIL-SOFT DELIBERADO, y la razón va escrita porque leído junto al guard de coherencia
+// de más abajo —que sí hace `process.exit(1)`— parece una inconsistencia y no lo es.
+// Aquel guard protege el VEREDICTO del gate: si el conteo no cuadra, el veredicto no
+// vale y el reporter no debe emitirlo. Esto de aquí es una ETIQUETA COSMÉTICA. Un
+// `throw` (o un `exit`) a nivel de módulo por no poder leer un fichero de planning mata
+// el proceso sin imprimir UNA SOLA FILA y convierte la etiqueta en un blocker del gate
+// —lección WR-09, y por eso es `try/catch` con `?? null` y no una lectura desnuda.
+//
+// La regex captura UN SOLO TOKEN no-blanco, y las tres propiedades son deliberadas:
+// (1) `[^\S\n]` es whitespace HORIZONTAL —la misma clase que el ancla del gate
+// anti-ceguera—, así que no cruza saltos de línea; (2) no anida cuantificadores
+// (T-44-03-03), así que no hay retroceso catastrófico sobre un fichero arbitrario;
+// (3) `\S` excluye el retorno de carro, así que un STATE.md con terminación CRLF no
+// arrastra el `\r` al banner, y el `.trim()` es cinturón y tirantes sobre esa misma
+// propiedad. Capturar el resto de la línea en vez de un token dejaría que un fichero de
+// estado malformado inyectase varias líneas —un banner arbitrario— en la salida que el
+// autor lee para decidir un cierre de milestone (T-45-03-03).
+// Y no lleva NINGUNA comilla, a propósito: `sinComentarios` —el escáner del gate
+// anti-ceguera, que lee ESTE fichero— no reconoce literales de expresión regular, y una
+// comilla suelta aquí desalinearía su escaneo de esta línea. Por lo mismo vive en su
+// propia línea y lejos de `CATEGORIES`: ninguna línea de entrada del array puede
+// compartir línea con un literal regex (T-45-03-05).
+const milestoneActivo = (() => {
+  try {
+    const raw = readFileSync(resolve(projectRoot, STATE_PATH), 'utf8');
+    const encontrado = raw.match(/^milestone:[^\S\n]*(\S+)[^\S\n]*$/m);
+    return encontrado ? encontrado[1].trim() : null;
+  } catch {
+    return null;
+  }
+})();
+
+// Cuando no se puede derivar, la etiqueta dice QUE es desconocido y POR QUÉ, nombrando
+// el fichero. Una etiqueta muda («milestone ?») sería un tercer modo de mentir: el autor
+// no sabría si está leyendo un gate sobre el milestone que cree o sobre ninguno.
+const etiquetaMilestone =
+  milestoneActivo ?? `milestone desconocido (no se pudo derivar de ${STATE_PATH})`;
 
 // ANSI colors zero-deps (clonar literal de run-validation-pilot.mjs).
 const GREEN = '\x1b[32m';
@@ -66,7 +144,12 @@ const fail = (txt) => `${RED}${txt}${RESET}`;
 const warn = (txt) => `${YELLOW}${txt}${RESET}`;
 
 // D-VAL-22 orden lockeado: riesgo-first (preposiciones) + alfabético resto.
-// La suma de `expected` es 195. Historial del total:
+// La suma de `expected` la COMPUTA `TOTAL_EXPECTED` unas líneas más abajo; aquí no se
+// escribe ninguna cifra que pretenda decir cuánto vale hoy. Lo que sigue es HISTORIAL
+// CONTABLE — audit trail deliberado que reconstruye la procedencia del total a lo largo
+// de los milestones. Cada cifra de aquí abajo va fechada por su milestone y su fase y
+// se lee como HISTORIA, no como descripción del comportamiento actual; el guard de
+// coherencia no la consume. Historial del total:
 //   373 = 272 (271 originales v1.0 + 1 ejercicio preposiciones-051 creado durante
 //   la validación editorial de Phase 10) + 56 de la 8ª categoría `articoli`
 //   (v1.2 Phase 11: 48 base + 2 match + 6 bridges) + 44 de la 9ª categoría
@@ -231,7 +314,7 @@ const TOTAL_EXPECTED = CATEGORIES.reduce((s, c) => s + c.expected, 0);
  * El status efectivo de un ejercicio ES el que dicta `deriveStatus`. Sin relax
  * local, sin segunda opinión: `src/data/validation-state.js` es la fuente ÚNICA
  * (WR-01) que consumen el gate VAL-07, los scripts de pase y los tests de
- * contenido, y este reporter es el ÚLTIMO gate antes de `/gsd:complete-milestone`.
+ * contenido, y este reporter es el ÚLTIMO gate antes de `/gsd-complete-milestone`.
  *
  * POR QUÉ SE BORRÓ EL RELAX QUE VIVÍA AQUÍ (CR-03, code review de Phase 44).
  * Había una reimplementación local del override del autor: si `deriveStatus` daba
@@ -374,7 +457,15 @@ for (const { slug, file, expected } of CATEGORIES) {
 
 // ─── Imprimir tabla colorizada ────────────────────────────────────────────
 console.log('');
-console.log(`${BOLD}Milestone v1.1 — gate Phase 10 (VAL-04 + VAL-06 + VAL-08 + VAL-09)${RESET}`);
+// El banner no transcribe NADA: el milestone viene del disco y las dos cifras son las
+// que este mismo fichero ya computa. La fase desapareció a propósito (D-45-10): lo que
+// se está gateando es el CIERRE DEL MILESTONE, no una fase, y «gate Phase 10» no
+// significaba nada desde hacía cuatro milestones. La enumeración de sub-gates se queda:
+// es verdad y no es una cifra.
+console.log(
+  `${BOLD}Gate de cierre de ${etiquetaMilestone} — VAL-04 + VAL-06 + VAL-08 + VAL-09 ` +
+  `(${CATEGORIES.length} categorías, ${TOTAL_EXPECTED} slots)${RESET}`
+);
 console.log('');
 
 const colWidths = {
@@ -451,7 +542,9 @@ const totalActual    = perCategory.reduce((s, r) => s + r.total, 0);
 console.log('');
 console.log(`${BOLD}Sub-gates:${RESET}`);
 
-// VAL-06: 271/271 con effectiveStatus === "validated" Y total real = 271.
+// VAL-06: los TOTAL_EXPECTED slots con effectiveStatus === "validated" Y total real en
+// disco == TOTAL_EXPECTED. La cifra la interpola el propio mensaje impreso; escribirla
+// aquí sería plantar la siguiente CR-01 (una prosa que envejece sola).
 const val06Pass =
   totalValidated === TOTAL_EXPECTED &&
   totalActual === TOTAL_EXPECTED &&
@@ -511,7 +604,17 @@ if (gatePass) {
   console.log(`${BOLD}Siguiente paso (manual, gesto consciente del autor):${RESET}`);
   console.log('  VAL_07_STRICT=1 node --test tests/*.test.js tests/fixtures/*.test.js');
   console.log('  → verifica smoke test paramétrico exit 0.');
-  console.log('  → si OK: /gsd:complete-milestone v1.1');
+  // Forma con GUION (D-45-11): la de dos puntos era la vieja y el resto del repo usa
+  // esta. Y si el milestone no se pudo derivar, la línea NO deja un comando roto
+  // pegado — dice que falta el dato y de dónde sale, que es accionable; recomendar
+  // `/gsd-complete-milestone milestone desconocido (…)` no lo sería.
+  console.log(
+    milestoneActivo
+      ? `  → si OK: /gsd-complete-milestone ${milestoneActivo}`
+      : `  → si OK: /gsd-complete-milestone <milestone>, con el que declare ${STATE_PATH}. ` +
+        `No se pudo derivar y las dos causas son reales: o falta el fichero, o no declara ` +
+        `la clave milestone. Por eso el banner de arriba tampoco lo nombra.`
+  );
   console.log('');
   process.exit(0);
 } else {
