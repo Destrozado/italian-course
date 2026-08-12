@@ -362,7 +362,7 @@ Verbos IRREGULARES en presente (andare/fare/venire/dire…) son categoría apart
 
 **Depends on**: Phase 44 (los tres hallazgos salen de `44-REVIEW.md` y de `.planning/v2.0-MILESTONE-AUDIT.md`)
 **Requirements**: DEUDA-01, DEUDA-02, DEUDA-03
-**Plans:** 1/4 plans executed
+**Plans:** 2/4 plans executed
 
 **Success Criteria** (what must be TRUE):
 
@@ -379,7 +379,7 @@ Plans:
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 45-02-PLAN.md — DEUDA-02: `CATEGORIES_WITH_EXPLANATIONS` toma forma parseable y entra en el gate anti-ceguera; WR-07 con golden fail-first; guard de integridad del escáner
+- [x] 45-02-PLAN.md — DEUDA-02: `CATEGORIES_WITH_EXPLANATIONS` toma forma parseable y entra en el gate anti-ceguera; WR-07 con golden fail-first; guard de integridad del escáner
 
 **Wave 3** *(blocked on Wave 2 completion)*
 

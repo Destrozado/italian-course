@@ -5,8 +5,8 @@ milestone_name: Paradigma completo de `fare` (4 categorías por modo)
 current_phase: 45
 current_phase_name: Deuda del arnés de tests
 status: executing
-stopped_at: Completed 45-01-PLAN.md
-last_updated: "2026-08-12T21:11:23.321Z"
+stopped_at: Completed 45-02-PLAN.md
+last_updated: "2026-08-12T21:23:12.833Z"
 last_activity: 2026-08-12
 last_activity_desc: Phase 45 añadida desde v2.0-MILESTONE-AUDIT.md — deuda del arnés (DEUDA-01/02/03); sin planificar
 progress:
@@ -30,7 +30,7 @@ See: `.planning/PROJECT.md` (updated 2026-08-06 — Phase 42 `fare-congiuntivo` 
 ## Current Position
 
 Phase: 45 (Deuda del arnés de tests) — EXECUTING
-Plan: 2 of 4
+Plan: 3 of 4
 Status: Ready to execute
 Last activity: 2026-08-12 — Phase 45 execution started
 
@@ -180,6 +180,7 @@ Items reconocidos y diferidos en el cierre del milestone v1.9 (2026-07-02, ackno
 | Phase 44 P03 | 18min | 2 tasks | 1 files |
 | Phase 44 P04 | 15min | 3 tasks | 2 files |
 | Phase 45 P01 | ~50 min | 2 tasks | 26 files |
+| Phase 45 P02 | ~55 min | 3 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -327,6 +328,9 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - [Phase ?]: D-45-01 — invocacion canonica: node --test tests/*.test.js tests/fixtures/*.test.js (los DOS globs; ni tests/, ni --recursive, ni ** sin comillas)
 - [Phase ?]: D-45-04 — ninguna cifra de conteo se transcribe en README ni en la memoria: el invariante documentado es # fail 0 + exit 0
 - [Phase ?]: D-45-05 — el lockstep documental CUENTA ocurrencias en vez de includes(): con includes, un fichero con dos invocaciones y una sola actualizada pasaba en verde
+- [Phase ?]: D-45-05 (45-02) — DEUDA-02 por Opcion A: CATEGORIES_WITH_EXPLANATIONS declara par slug+file y entra en COUNT_ARRAY_SOURCES; cero cambios en el extractor y cobertura por los dos gates
+- [Phase ?]: D-45-06 — WR-07 SI (el ancla de slugsCiegos pasa a horizontal, con golden fail-first), WR-12 NO: queda como deuda abierta por escrito
+- [Phase ?]: D-45-07 — la prosa del gate se redacta en terminos de COUNT_ARRAY_SOURCES, no enumerando 'las dos fuentes': el nombre de los tests tambien
 
 ### Pending Todos
 
@@ -386,8 +390,8 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Session Continuity
 
-**Last session:** 2026-08-12T21:11:17.041Z
-**Stopped at:** Completed 45-01-PLAN.md
+**Last session:** 2026-08-12T21:23:12.804Z
+**Stopped at:** Completed 45-02-PLAN.md
 **Resume file:** None
 
 ### Last Session
