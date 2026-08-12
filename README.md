@@ -89,9 +89,9 @@ Fase actual: **Phase 1 — Loop mínimo end-to-end (Avere + multiple-choice)**.
 
 Phase 1 entrega el esqueleto + 12 ejercicios seed de Avere derivados del PDF `material-profesora/Clase_Italiano_Auxiliar_Avere.pdf`. La UI interactiva (sesión, feedback verde/rojo, indicador X/N) la conecta Plan 02 sobre este esqueleto.
 
-## Validación editorial (milestone v1.1)
+## Validación editorial (nació en el milestone v1.1)
 
-El milestone v1.1 garantiza que cada uno de los 271 ejercicios curados en v1.0 está validado individualmente contra los criterios R1-R7 (frase italiana natural, una única opción válida, distractoras plausibles, explanation coherente sin meta-staging y cero leak de la regla en el prompt) mediante un quórum multi-modelo (≥2 AIs distintos). El outcome esperado es que los 271 ejercicios queden con `validation.status === "validated"` en sus archivos JSON. La validación importa porque cierra el bug class de batched-curation que motivó el milestone tras descubrir 4 ambigüedades semánticas reales en uso (preposiciones-040, -032, -047, -031).
+El régimen de validación editorial garantiza que cada ejercicio del corpus está validado individualmente contra los criterios R1-R7 (frase italiana natural, una única opción válida, distractoras plausibles, explanation coherente sin meta-staging y cero leak de la regla en el prompt) mediante un quórum multi-modelo (≥2 AIs distintos). El outcome esperado es que todos los ejercicios queden con `validation.status === "validated"` en sus archivos JSON. Cuántos son no se escribe aquí — lo cuenta e imprime el reporter, como dice el párrafo de abajo. La validación importa porque cierra el bug class de batched-curation que motivó el milestone v1.1 tras descubrir 4 ambigüedades semánticas reales en uso (preposiciones-040, -032, -047, -031).
 
 ### Smoke test estricto al cierre del milestone
 
@@ -108,10 +108,10 @@ El flip es MANUAL por diseño — no hay auto-flip al cerrar la 7ª categoría p
 
 ### Workflow editorial — comandos
 
-Los comandos del autor para Phase 10 son:
+Los comandos del autor para el ciclo editorial son:
 
-- `/gsd-validate-exercise <id>` — valida 1 ejercicio (Phase 9 skill).
-- `/gsd-validate-batch <category> | --all-pending | <id1,id2,...>` — valida en bucle (Phase 10 sub-skill).
-- `node scripts/run-validation-271.mjs` — reporter del milestone gate (Phase 10 reporter).
+- `/gsd-validate-exercise <id>` — valida 1 ejercicio.
+- `/gsd-validate-batch <category> | --all-pending | <id1,id2,...>` — valida en bucle.
+- `node scripts/run-validation-271.mjs` — reporter de cierre de milestone: deriva del disco qué milestone se está cerrando, cuántas categorías y cuántos slots hay, y los imprime. El `271` del nombre es histórico (codifica el conteo de v1.0); el conteo real lo computa el propio script.
 
 El sub-skill batch ofrece cola disputed VAL-08 con 4 caminos terminales (Accept fix / Reject + override / Rewrite manualmente / Skip defer) y un checkpoint AskUserQuestion por cada categoría procesada.
