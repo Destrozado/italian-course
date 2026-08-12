@@ -2,18 +2,18 @@
 gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Paradigma completo de `fare` (4 categorías por modo)
-current_phase: 44
+current_phase: 45
 status: completed
 stopped_at: Completed 44-04-PLAN.md
-last_updated: "2026-08-12T15:18:22.033Z"
+last_updated: "2026-08-12T20:56:32.560Z"
 last_activity: 2026-08-12
 last_activity_desc: Phase 45 añadida desde v2.0-MILESTONE-AUDIT.md — deuda del arnés (DEUDA-01/02/03); sin planificar
 progress:
   total_phases: 6
   completed_phases: 5
-  total_plans: 11
+  total_plans: 15
   completed_plans: 11
-  percent: 83
+  percent: 73
 current_phase_name: Integración lockstep + cierre v2.0
 ---
 

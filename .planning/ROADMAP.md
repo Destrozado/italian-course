@@ -373,10 +373,20 @@ Verbos IRREGULARES en presente (andare/fare/venire/dire…) son categoría apart
 **Fuera de alcance**: los otros 23 hallazgos de deuda del informe de auditoría. En particular NO entran los juicios de diseño de ejercicio de la Phase 41 (WR-01/04/05) ni la deuda de cobertura de test de la Phase 42 (WR-01..06, IN-01..06), cuyo contenido ya se verificó correcto a mano. Esta fase paga solo los tres sitios donde el arnés está ciego o miente, no la deuda de calidad editorial.
 
 Plans:
+**Wave 1**
 
 - [ ] 45-01-PLAN.md — DEUDA-01: `tests/fixtures/` entra en la invocación canónica (tracer end-to-end: contrato + gate derivado del disco + rojo observado), las ~19 cabeceras de `tests/` en lockstep y COVERAGE.md
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
 - [ ] 45-02-PLAN.md — DEUDA-02: `CATEGORIES_WITH_EXPLANATIONS` toma forma parseable y entra en el gate anti-ceguera; WR-07 con golden fail-first; guard de integridad del escáner
+
+**Wave 3** *(blocked on Wave 2 completion)*
+
 - [ ] 45-03-PLAN.md — DEUDA-03: encabezado y pie del reporter derivados de `.planning/STATE.md` con lectura fail-soft, gate source-assert que lo congela y checkpoint humano sobre la salida
+
+**Wave 4** *(blocked on Wave 3 completion)*
+
 - [ ] 45-04-PLAN.md — Trazabilidad: DEUDA-01/02/03 definidos y mapeados en `REQUIREMENTS.md`, y la línea de Coverage derivada del disco por un gate nuevo
 
 ---
