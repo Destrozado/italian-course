@@ -2,19 +2,19 @@
 gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Paradigma completo de `fare` (4 categorías por modo)
-current_phase: 45
-status: completed
+status: Awaiting next milestone
 stopped_at: Completed 45-04-PLAN.md (trazabilidad DEUDA-01/02/03 + gate de cobertura derivada)
-last_updated: "2026-08-12T23:30:59.069Z"
+last_updated: "2026-08-12T23:52:06.861Z"
 last_activity: 2026-08-13
+last_activity_desc: Phase 45 complete
 progress:
   total_phases: 6
   completed_phases: 6
   total_plans: 15
   completed_plans: 15
   percent: 100
+current_phase: 45
 current_phase_name: Deuda del arnés de tests
-last_activity_desc: Phase 45 complete
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -29,12 +29,10 @@ See: `.planning/PROJECT.md` (updated 2026-08-06 — Phase 42 `fare-congiuntivo` 
 
 ## Current Position
 
-Phase: 45
-Plan: Not started
-Status: All phases complete
-Last activity: 2026-08-13
-
-Progress: [████████████████████] 4/4 planes de la fase 44 ([██████████] 100%) · 5/5 fases del milestone v2.0 (100%)
+Phase: Milestone v2.0 complete
+Plan: —
+Status: Awaiting next milestone
+Last activity: 2026-08-13 — Milestone v2.0 completed and archived
 
 ## Deferred Items
 
@@ -82,6 +80,21 @@ Items reconocidos y diferidos en el cierre del milestone v1.9 (2026-07-02, ackno
 | quick_task | 260629-whf-a-adir-canci-n-piccola-stella-ultimo-al- | missing |
 | quick_task | 260629-wya-a-adir-canci-n-la-stella-pi-fragile-dell | missing |
 | todo | (sin slug) | open |
+
+Items reconocidos y diferidos en el cierre del milestone v2.0 (2026-08-13, acknowledged por el autor):
+
+| Category | Item | Status |
+|----------|------|--------|
+| todo | `decoybank-pos-multi-categoria.md` — `decoyBank.pos` indexado por texto de palabra; una palabra repetida con función distinta colisiona | deferred — content-pipeline, ajeno a v2.0 |
+| todo | `mobile-responsive-exercise-home.md` — gutters del figure (Home) + tamaño del prompt en ejercicios | deferred — v1 es desktop-only por diseño (CLAUDE.md, UI-SPEC); arrastra desde v1.8 |
+| deferred | `.planning/research/.cache/` sin trackear ni ignorar — ruido de tooling en cada `git status` | deferred — 1-2 líneas de `.gitignore`, quick task |
+| deferred | El nombre `scripts/run-validation-271.mjs` codifica un `271` obsoleto (250 hoy) | **deuda ACEPTADA por escrito (D-45-09)** — 17 call-sites load-bearing, dos dentro del propio gate; declarada en la cabecera del fichero y en `.planning/WINDOWS.md` |
+
+**Closeout type:** `override_closeout` — las 6 fases están verificadas (`status: passed`, `behavior_unverified: 0`, `overrides_applied: 0`) y los 26 requirements satisfechos, pero se cierra con 4 items de artefacto abiertos, reconocidos aquí. **Known verification overrides: 0.**
+
+Dos items que el pre-close audit listaba como abiertos se **cerraron** antes del archivado en vez de diferirse, porque ya estaban hechos: el todo `fare-paradigma-completo.md` (las 4 categorías de `fare` están en `categories.json`) y el diferido «el reporter imprime `/gsd:complete-milestone v1.1`» (la Phase 45 lo pagó; `grep` da 0 ocurrencias). Diferir dos registros ya resueltos habría sido exactamente la clase de registro que miente contra la que existió la Phase 45.
+
+Deuda técnica del milestone (~25 items, cero blockers) en `.planning/milestones/v2.0-MILESTONE-AUDIT.md`. Es deuda **editorial y de precisión de gates**, no de ceguera del arnés — esa la pagó la Phase 45.
 
 ## Quick Tasks Completed
 
@@ -450,4 +463,4 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Operator Next Steps
 
-- Plan the first phase of v2.0 with `/gsd-plan-phase 40` (migración `12→13`, reset selectivo preventivo de las 4 categorías de `fare`).
+- Start the next milestone with /gsd-new-milestone

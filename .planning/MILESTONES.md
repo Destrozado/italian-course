@@ -1,5 +1,24 @@
 # Milestones
 
+## v2.0 Paradigma completo de `fare` (4 categorías por modo) (Shipped: 2026-08-13)
+
+**Phases completed:** 6 phases (40-45), 15 plans, 47 tasks, 26/26 requirements (6 IND + 4 CONG + 3 CI + 4 INDEF + 2 MIG + 4 INT + 3 DEUDA)
+**Stats:** 224 commits, 135 ficheros (+38.825/−259). **18 categorías / 250 slots.** Migración `schemaVersion 12→13` con reset selectivo. Suite **1182/1182** (1200 strict), reporter `Gate de cierre de v2.0` exit 0 con VAL-04/06/08/09 los cuatro PASS. Timeline 2026-08-03 → 2026-08-13 (10 días). Audit `tech_debt` (cero blockers, ~25 items). **Brownfield PURO: motor v1.4 byte-intacto — `git diff 0a9a2e5..HEAD -- src/screens/app.js src/domain/` vacío, cascada D-54 con exactamente 2 call-sites.**
+**Closeout:** `override_closeout` — 6/6 fases verificadas y 26/26 requirements satisfechos, con 4 items de artefacto reconocidos y diferidos (ver `STATE.md` §Deferred Items). Known verification overrides: **0**.
+
+**Key accomplishments:**
+
+- **El paradigma entero de `fare` en 4 categorías por modo**, 22 slots / 113 variantes autoradas desde cero por quórum cross-vendor R1-R7 — `fare-indicativo` (8 slots, 48 variantes), `fare-congiuntivo` (5 slots, 30), `fare-cond-imperativo` (3 slots, 17), `fare-indefiniti` (6 slots, 18). La estimación de plan-time decía 21 slots / ≈107 variantes; el congiuntivo salió con un slot de más porque CONG-04 pidió uno para el DISPARADOR (D-42-01).
+- **Cuatro MAGNETs de doble validez resueltos con audit trail**, no evitados: `fa'`/`fai` del imperativo, `aver fatto` vs `avere fatto`, y las 5 keys homógrafas del congiuntivo (`faccia` ×3, `facessi` ×2) que solo desambigua el pronombre sujeto explícito en la frase.
+- **Migración `12→13` con reset selectivo por prefijo** (pura, idempotente, anti-prototype-pollution), espejada en `backup.js` con round-trip v13 e import `v12→v13`: las 14 categorías legacy y `songProgress` quedan byte-intactas.
+- **El gate anti-ceguera** (`tests/count-arrays-lockstep.test.js`): pone rojo cualquier categoría registrada en `categories.json` y no enganchada a los arrays de conteo — el olvido que se repitió **tres fases seguidas** con el reporter emitiendo `225/225 PASS` mientras estaba ciego a 22 slots.
+- **La Phase 45 pagó la deuda del propio arnés**, añadida a raíz de la auditoría de este mismo milestone: `tests/fixtures/` entra en la suite canónica (+63 tests que nunca habían corrido), un tercer array de conteo entra en el gate, y la cabecera del reporter deja de mentir sobre qué gatea (ahora derivada de `.planning/STATE.md`, fail-soft).
+- **El motor v1.4 no se tocó en 10 días y 224 commits.** Es la afirmación estructural que el milestone repitió desde el primer plan, y la auditoría final la verificó con un diff vacío.
+
+**La lección que merece sobrevivir al milestone:** la Phase 45 encontró **cinco gates vacuos** — tres en sus propios planes, dos que un code review halló en trabajo ya dado por cerrado y firmado en cuatro SUMMARY — y los cinco se cazaron **corriendo la mutación**, ninguno leyendo. Un artefacto que dice «gate cerrado» no es evidencia de que el gate muerda. Un fix propuesto por un revisor tampoco: en este milestone, 2 de 4 snippets de review eran incorrectos y uno era peor que el bug que arreglaba. Learnings completos en `.planning/milestones/v2.0-phases/45-deuda-del-arn-s-de-tests/45-LEARNINGS.md`.
+
+---
+
 ## v1.9 Determinantes + verbos A1/A2 (Shipped: 2026-07-01)
 
 **Phases completed:** 5 phases (35-39), 10 plans, 25/25 requirements (5 DEMOS + 5 POSS + 2 MODAL + 5 REFLEX + 2 PROV + 2 MIG + 4 INT)
