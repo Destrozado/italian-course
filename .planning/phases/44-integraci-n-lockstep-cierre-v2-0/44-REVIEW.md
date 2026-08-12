@@ -1,330 +1,745 @@
 ---
 phase: 44-integraci-n-lockstep-cierre-v2-0
-reviewed: 2026-08-11T00:00:00Z
+reviewed: 2026-08-12T00:00:00Z
 depth: standard
 files_reviewed: 7
 files_reviewed_list:
+  - content/exercises/fare-indefiniti.json
+  - content/exercises/fare-indicativo.json
   - scripts/run-validation-271.mjs
+  - tests/content-fare-indefiniti.test.js
+  - tests/content-fare-indicativo.test.js
   - tests/count-arrays-lockstep.test.js
   - tests/fixtures/slot-variants-integration.test.js
-  - tests/content-fare-indicativo.test.js
-  - tests/content-fare-indefiniti.test.js
-  - content/exercises/fare-indicativo.json
-  - content/exercises/fare-indefiniti.json
 findings:
-  critical: 2
-  warning: 9
-  info: 3
-  total: 14
+  critical: 4
+  warning: 13
+  info: 0
+  total: 17
 status: issues_found
 ---
 
 # Phase 44: Code Review Report
 
-**Reviewed:** 2026-08-11
+**Reviewed:** 2026-08-12
 **Depth:** standard
 **Files Reviewed:** 7
 **Status:** issues_found
 
 ## Summary
 
-El enganche de conteo está **correcto en su estado actual** y lo verifiqué de forma independiente, sin fiarme de que la suite esté verde:
+The phase's stated purpose is to kill the lockstep lie: a registered category can no
+longer disappear from the count arrays without something going red. The suite is green
+(`# tests 1092 / # pass 1092 / # fail 0`) and `run-validation-271.mjs` prints
+`VAL-06 (250/250 validated): PASS`.
 
-- Los dos arrays de conteo tienen exactamente los 18 slugs registrados en `content/categories.json`, sin duplicados ni entradas extra, y en `run-validation-271.mjs` cada `file:` apunta al `content/exercises/<slug>.json` de su propio slug (comprobado slug a slug, sin truncar `fare-ind`).
-- Los 9 `expected` literales que quedan coinciden byte a byte con el disco (preposiciones 50, articoli 34, avere 20, essere 26, genero-numero 13, partitivos 19, profesiones 11, sustantivos-irregulares 5, verbos-movimiento 7). Σ disco = 250, que es lo que el reporter emite.
-- Integridad del contenido: 250 ids únicos globalmente, cero `options` con miembros duplicados, cero `correctIndex` fuera de rango, y las 3 keys nuevas concuerdan con el sujeto de su frase (`io→ho`, `noi→abbiamo`, `loro→hanno`; `noi→ripassiamo`, `lui→commette`, `voi→controllate`; `io→devo`, `tu→puoi`, `noi→vogliamo`).
-- La re-focalización de `CONJUGATE` en `content-fare-indefiniti.test.js` (excluir los `-300`+ ajenos) **sí** está compensada de verdad por el sub-gate `CRUCES_AJENOS`, que examina palabra a palabra lo excluido. No es una relajación.
+Neither of those facts is evidence. Every finding below was **reproduced by mutation**
+against the working tree and then reverted; the repo is back to its pre-review state
+(only the pre-existing `.planning/config.json` edit remains).
 
-Dicho eso, la fase tiene dos defectos de la clase exacta que existe para erradicar —un gate verde sobre un número falso, y un gate que mide la cláusula equivocada— más nueve puntos donde la barra baja sin contrapartida o donde la prosa del fichero afirma cosas que el código desmiente. Ninguno de los dos BLOCKER se ve corriendo la suite: los dos son verdes hoy.
+The headline result: **the exact historical bug this phase exists to prevent still
+reproduces, with the exact same number.** Block-commenting the four `fare` entries out
+of the reporter's `CATEGORIES` makes it print `VAL-06 (225/225 validated): PASS` —
+`225/225`, verbatim the figure `tests/count-arrays-lockstep.test.js:19` cites as the
+three-phase blindness — while `count-arrays-lockstep.test.js` itself stays at
+`# pass 19 / # fail 0`. The gate hardening of G-44-3-WR01 closed `//` and left `/* */`
+open, and `/* */` is the more plausible gesture of the two because it is what an editor's
+"toggle block comment" produces over a multi-line selection.
 
-Fuera de alcance, según lo pedido: calidad pedagógica del italiano/castellano y las discrepancias históricas de `genero-numero`/`preposiciones`.
+Three further Critical findings: `fare-indefiniti-300` has no key↔person gate at all
+(the CR-02 fix was applied to the sibling only, and a mutated `correctIndex` teaching the
+wrong modal passes all 1092 tests); the reporter's `effectiveStatus` bypasses the
+mandatory `override: true` flag and will emit `Milestone gate PASS` over an exercise the
+single source of truth calls `disputed`; and the object-presence gates match by raw
+substring, so a prompt with **no direct object at all** passes because `soprattutto`
+contains `tutto`.
+
+Cross-cutting pattern worth naming, because it recurs in all three test files: **the
+prose is more careful than the code.** Several comments declare, in capital letters, an
+invariant the adjacent line does not implement (`//` vs `/* */`; `[^\S\n]` vs `\s*`;
+"NINGUN cue se compara con `includes`" three lines above four raw `includes` calls; "la
+prohibicion ciega de la inicial f- era FALSA" 2000 lines above a surviving `/^f/i`). In a
+codebase where the tests *are* the enforcement mechanism, a comment that over-promises is
+the same defect class as a gate that under-checks.
+
+## Structural Findings (fallow)
+
+No `<structural_findings>` block was supplied with this review request. All findings below
+are narrative (direct-inspection + mutation) findings.
+
+## Narrative Findings (AI reviewer)
 
 ## Critical Issues
 
-### CR-01: El `notes` de `fare-indefiniti` quedó factualmente falso, y un gate congela el conteo obsoleto
+### CR-01: The anti-blindness gate is blind to block-commented entries — the 225/225 bug reproduces verbatim
 
-**File:** `content/exercises/fare-indefiniti.json:1` (campo `notes`, párrafo de cabecera) + `tests/content-fare-indefiniti.test.js:1054-1058`
+**File:** `tests/count-arrays-lockstep.test.js:100-107` (and `:124-128`)
 
-**Issue:** Phase 44 añadió `fare-indefiniti-300` **apendando** prosa al final del `notes` sin corregir la cabecera, que sigue diciendo lo contrario del disco. Estas frases son hoy falsas:
+**Issue:** `slugsCiegos` anchors on a line that opens with horizontal whitespace then `{`.
+The file's own justification (lines 84-89) claims this defeats a commented-out entry:
+*"Una entrada comentada NO satisface el ancla nueva porque el `//` no es whitespace y por
+tanto la linea no abre con `{`."*
 
-1. `"Ningún id de este fichero usa el espacio de sufijos numéricos de tres cifras: fare-indefiniti-300 y siguientes quedan libres para los cruces multi-categoría de Phase 44, y no se pre-crean ni se reservan con placeholder, simplemente no se usan."` — el slot que la propia fase añade es `fare-indefiniti-300`. **No hay retractación en ninguna parte del campo**, a diferencia de `fare-indicativo.json`, que sí escribe su `CORRECCIÓN DEL QUÓRUM TOP-LEVEL`. Un re-pase que lea la cabecera concluirá que el cruce es un error y lo borrará.
-2. `"Son 6 slots y 18 variantes"` → disco: 7 slots y 21 variantes.
-3. `"Los 6 slots llevan categoryIds con exactamente un id"` y `"categoryIds de exactamente uno en los 6 slots"` → el cruce lleva 2.
-4. `"CERO MATCH y CERO WORD-BUTTONS en los 6 slots"` y `"Los 6 slots nacen con status pending"` → describen 6 de 7 sin decirlo.
+That reasoning only holds for **line** comments. A `/* … */` block leaves the wrapped
+lines byte-identical — they still open with whitespace then `{` — so the anchor matches and
+the category is reported as hooked while the reporter has stopped counting it.
+`paresSlugFile` has the same hole, so the new non-vacuity clause at `:420-426` also stays
+green (the phantom pairs still count toward `pares.length`).
 
-Y lo grave: el knock-on aritmético `"con esta categoría y con fare-cond-imperativo el milestone queda en 22 slots y 113 variantes, y TOTAL_EXPECTED pasa de 225 a 247"` es ahora falso en los tres números (disco: **25 slots** de `fare`, **122 variantes**, **TOTAL_EXPECTED = 250**), y el gate de la línea 1054 **asserta que esos números sigan escritos**:
+Reproduced end-to-end. Wrapping the four `fare` entries of
+`scripts/run-validation-271.mjs:184-187` in `/* */`:
 
-```js
-test('EN POSITIVO: el notes declara el knock-on aritmetico que Phase 44 / INT-02 necesita', () => {
-  for (const n of ['22 slots', '113', '247']) {
-    assert.ok(CONTENT.notes.includes(n), `INT-02: el notes no declara "${n}"`);
-  }
-});
+```
+--- reporter with the 4 fare entries BLOCK-COMMENTED ---
+  VAL-06 (225/225 validated): PASS
+  Milestone gate PASS.
+--- the anti-blindness gate ---
+# tests 19
+# pass 19
+# fail 0
 ```
 
-Es decir: la suite está verde **certificando** un TOTAL_EXPECTED de 247 mientras el reporter imprime 250, y el gate impide activamente corregirlo. Es la misma patología que la fase existe para erradicar (`225/225 PASS` sobre un conteo ciego), sólo que ahora con un test firmándola.
+`225/225 PASS` is the exact string the header of this very file cites as the bug that ran
+for three phases. The coherence guard at `run-validation-271.mjs:213-223` cannot see it
+either, because both sides of its subtraction iterate the *same* (now shorter)
+`CATEGORIES`. This is a `/* */` away from a fourth repetition, and the file that exists as
+*"lo UNICO que impide la cuarta repeticion"* certifies it green.
 
-**Fix:** corregir la cabecera del `notes` (7 slots / 21 variantes, `categoryIds` de 1 salvo el cruce, y reescribir el párrafo del espacio `-300` para que declare que Phase 44 lo aterriza) y derivar el knock-on del disco en vez de congelar literales:
+Also confirmed in isolation:
 
 ```js
-test('EN POSITIVO: el notes declara el knock-on aritmetico que INT-02 necesita, con los numeros del DISCO', () => {
-  const files = ['fare-indicativo', 'fare-congiuntivo', 'fare-cond-imperativo', 'fare-indefiniti']
-    .map((f) => JSON.parse(readFileSync(new URL(`../content/exercises/${f}.json`, import.meta.url), 'utf-8')));
-  const slots = files.reduce((a, d) => a + d.exercises.length, 0);              // 25
-  const variantes = files.reduce((a, d) => a + d.exercises.reduce((b, e) => b + e.variants.length, 0), 0); // 122
-  for (const n of [`${slots} slots`, String(variantes), String(TOTAL_EN_DISCO)]) {
-    assert.ok(CONTENT.notes.includes(n), `INT-02: el notes no declara "${n}"`);
-  }
-});
+slugsCiegos(SRC_BLOCK_COMMENT, ['fare-indefiniti','fare-indicativo'])  // => []  (expected both)
+paresSlugFile(SRC_BLOCK_COMMENT)                                       // => 2 phantom pairs
 ```
 
-(`TOTAL_EN_DISCO` = Σ `exercises.length` de `content/exercises/*.json`, la misma derivación que ya usa el reporter — nunca un literal.)
-
-### CR-02: El gate de eje de persona de los cruces lee el pronombre de la cláusula EQUIVOCADA en `fare-indicativo-301`
-
-**File:** `tests/content-fare-indicativo.test.js:791-798` (y el mismo patrón en `tests/content-fare-indefiniti.test.js:2072-2078`)
-
-**Issue:** el gate toma el **primer** pronombre del prompt como "la persona de la variante":
+**Fix:** strip comments before anchoring, rather than trying to encode "not a comment" in
+the anchor. A tokenizer is overkill; a two-pass blank-out is enough and is testable:
 
 ```js
-const personas = s.variants.map((v) => (v.prompt.match(PRONOUN_RE) || [''])[0].toLowerCase());
-assert.equal(new Set(personas).size, 3, `D-44-03: ${s.id} repite persona ...`);
+// Reemplaza el contenido de comentarios de bloque y de linea por espacios,
+// PRESERVANDO los saltos de linea para que el flag `m` y los numeros de linea
+// sigan valiendo. Va PRIMERO, y los goldens de abajo lo prueban en las dos formas.
+const sinComentarios = (src) =>
+  src
+    .replace(/\/\*[\s\S]*?\*\//g, (m) => m.replace(/[^\n]/g, ' '))
+    .replace(/(^|[^:])\/\/[^\n]*/g, (m) => m.replace(/[^\n]/g, ' '));
+
+export function slugsCiegos(src, slugs) {
+  const limpio = sinComentarios(src);
+  return slugs.filter((slug) => {
+    const anclado = new RegExp(
+      `^[^\\S\\n]*\\{[^\\n]*slug:[^\\S\\n]*(['"\`])${escapeRe(slug)}\\1`, 'm'
+    );
+    return !anclado.test(limpio);
+  });
+}
+// paresSlugFile aplica el MISMO `sinComentarios` sobre `src` antes del matchAll.
 ```
 
-Pero `fare-indicativo-301` es por diseño una frase de DOS cláusulas, y el primer pronombre es el sujeto de la cláusula de **contexto** (la que trae escrita la forma de `fare`), no el del hueco. Con el contenido actual el gate compara `{tu, io, noi}` cuando las personas realmente examinadas son `{noi, lui, voi}`:
+Then add the two missing fail-first goldens next to `SRC_COMENTADO` — one for `/* */`
+around a single entry and one around a run of entries — because the current golden set is
+what made this hole look closed.
 
-| variante | prompt | primer pronombre (lo que mide el gate) | persona del hueco (lo que debería medir) |
-|---|---|---|---|
-| #0 | `Tu fai i compiti da solo, ma noi ___ tutto insieme.` | `tu` | `noi` |
-| #1 | `Io faccio una foto senza problemi, ma lui ___ un errore ogni volta.` | `io` | `lui` |
-| #2 | `Noi facciamo il letto ogni mattina, e voi ___ il lavoro con calma.` | `noi` | `voi` |
+---
 
-Que hoy las dos columnas sean ambas distintas es **coincidencia**. Dos variantes que examinaran `noi` en el hueco con sujetos de contexto distintos pasarían el gate en verde, y el eje de variante de la categoría (D-44-03) dejaría de existir sin señal.
+### CR-02: `fare-indefiniti-300` has no key↔person gate — a mutated `correctIndex` teaching the wrong modal passes all 1092 tests
 
-Agravante: **ningún gate ata `options[correctIndex]` a la persona del sujeto del hueco**. En la base eso lo cubre el bloque 3 (`PRONOUNS[k].includes(hit)`), y ese gate se re-apuntó a `BASE_SLOTS`; el bloque 13 re-aserta estructura (hueco, 4 opciones, raíz común, `correctIndex` en rango) pero nunca concordancia. Un `correctIndex` movido a `commetti` en la variante de `lui`, o a `hai` en la de `io`, atraviesa los 12 gates del bloque 13 en verde. Es el defecto de contenido más caro posible aquí (por la cascada D-54 arrastra la categoría vecina entera) y es el único que no está cubierto.
+**File:** `tests/content-fare-indefiniti.test.js:2160-2413` (missing gate); content at
+`content/exercises/fare-indefiniti.json` (`fare-indefiniti-300`)
 
-**Fix:** derivar la persona de la cláusula del hueco y añadir el gate de concordancia:
+**Issue:** The sibling file closed exactly this hole for its own crosses — see
+`tests/content-fare-indicativo.test.js:995-1046`, *"El gate que ataba
+`options[correctIndex]` a la persona del sujeto vivia en el bloque del paradigma y la
+particion lo re-apunto a BASE_SLOTS, asi que los cruces se quedaron SIN el … Este lo
+cierra. Es el gate mas importante de los cruces."* Block 14 of `fare-indefiniti` never
+gained the counterpart. Its twelve gates check that options are modal-stemmed
+(`:2383`), that there are 4 distinct options (`:2320`), that `correctIndex` is in range and
+not constant (`:2325-2335`), and that exactly one disambiguating complement is present
+(`:2390`) — but **nothing ties the key to the subject or to the complement.**
+
+Reproduced. Moving `fare-indefiniti-300` variant 1 (`Qui tu ___ fare una foto, perché il
+museo dà il permesso.`) from `correctIndex: 2` (`puoi`) to `correctIndex: 3` (`possono`) —
+wrong person *and* wrong modal — leaves the whole suite green:
+
+```
+# tests 1092
+# pass 1092
+# fail 0
+```
+
+The exercise now teaches that `tu … possono` is correct, and by the D-54 cascade a failure
+on it resets `fare-indefiniti` **and** `modali`. Note that the person gate at `:2297-2303`
+cannot help: it reads `(v.prompt.match(PRONOUN_RE) || [''])[0]` — the **first** pronoun in
+the whole prompt — which is the very defect CR-02 diagnosed and fixed in the sibling with
+`personaDelHueco`. It is green today only because each of the three prompts happens to
+carry exactly one pronoun.
+
+**Fix:** port both halves from the sibling. The person of the hole first:
 
 ```js
-// El sujeto del hueco es el ULTIMO pronombre que aparece antes de `___`.
+// El sujeto del hueco es el ULTIMO pronombre ANTES del hueco, nunca el primero del
+// prompt (CR-02, cerrado en el fichero hermano y no aqui).
 const personaDelHueco = (prompt) => {
-  const antes = prompt.split('___')[0];
-  const hits = antes.match(PRONOUN_RE) || [];
-  return (hits[hits.length - 1] || '').toLowerCase();
-};
-
-// (a) el eje de variante se mide sobre el hueco, no sobre el contexto
-const personas = s.variants.map((v) => personaDelHueco(v.prompt));
-assert.ok(personas.every(Boolean), `${s.id}: variante sin sujeto explicito en la clausula del hueco`);
-assert.equal(new Set(personas).size, 3, `D-44-03: ${s.id} repite persona en el hueco: ${personas.join(', ')}`);
-
-// (b) NUEVO: la key concuerda con esa persona (tabla congelada por cruce)
-const PERSONA_DE_LA_KEY = {
-  'fare-indicativo-300': { io: 'ho', tu: 'hai', lui: 'ha', lei: 'ha', noi: 'abbiamo', voi: 'avete', loro: 'hanno' },
-  // -301: 4 personas del MISMO verbo -> comprobar la DESINENCIA por persona
+  const hits = prompt.split('___')[0].match(PRONOUN_RE) || [];
+  return hits.length ? hits[hits.length - 1].toLowerCase() : '';
 };
 ```
 
-Para `-301`, donde el lexema varía, basta congelar la desinencia esperada por persona (`-o/-i/-a|-e/-iamo/-ate|-ete/-ano|-ono`) y asertar que `keyOf(v)` termina en la del sujeto del hueco.
+then the gate the block is missing — and it has to check **both** axes, because in this
+cross the person alone does not single out the answer (`devo`/`posso` are both 1sg in
+variant 0):
+
+```js
+test('la KEY concuerda con la persona del sujeto DEL HUECO y con el modal que el complemento EXIGE (D-44-02, D-44-04)', () => {
+  const PERSONA_DE = { // por raiz+desinencia, mapeo cerrado de los 3 modales
+    devo:'io', devi:'tu', deve:'lui', dobbiamo:'noi', dovete:'voi', devono:'loro',
+    posso:'io', puoi:'tu', può:'lui', possiamo:'noi', potete:'voi', possono:'loro',
+    voglio:'io', vuoi:'tu', vuole:'lui', vogliamo:'noi', volete:'voi', vogliono:'loro',
+  };
+  const MODAL_DEL_COMPLEMENTO = { altrimenti:'dev', permesso:'poss', desiderio:'vogl' };
+  const variantes = byId('fare-indefiniti-300').variants;
+  assert.ok(variantes.length > 0, 'no-vacuidad: sin variantes este gate no mira nada');
+  for (const [k, v] of variantes.entries()) {
+    const key = v.options[v.correctIndex];
+    const p = personaDelHueco(v.prompt);
+    assert.equal(PERSONA_DE[key], p,
+      `#${k}: sujeto "${p}" y key "${key}", que es de la persona "${PERSONA_DE[key]}": "${v.prompt}"`);
+    const compl = COMPLEMENTOS_QUE_EXCLUYEN.find((m) => wordish(m).test(v.prompt));
+    assert.ok(key.startsWith(MODAL_DEL_COMPLEMENTO[compl]),
+      `#${k}: el complemento "${compl}" exige el modal ${MODAL_DEL_COMPLEMENTO[compl]}- y la key es "${key}"`);
+    // Y ninguna distractora puede satisfacer las DOS cosas a la vez.
+    const tambien = v.options.filter((o) => o !== key &&
+      PERSONA_DE[o] === p && o.startsWith(MODAL_DEL_COMPLEMENTO[compl]));
+    assert.deepEqual(tambien, [], `#${k}: segunda respuesta defendible: ${tambien.join(', ')}`);
+  }
+});
+```
+
+Verify by mutation before committing: flip `correctIndex` on each of the three variants and
+confirm three distinct reds.
+
+---
+
+### CR-03: `effectiveStatus` bypasses the mandatory `override: true` flag — `Milestone gate PASS` over a `disputed` exercise
+
+**File:** `scripts/run-validation-271.mjs:238-245`
+
+**Issue:** `deriveStatus` (`src/data/validation-state.js`) is the documented single source
+of truth (WR-01) and its contract is explicit: an override is *"una entry con
+`by: "autor"`, `verdict: "correcta"` y `override: true`. El flag es OBLIGATORIO y
+explícito … para que el override nunca ocurra por accidente"*, and it *"NO fabrica
+quórum"* — it still requires ≥2 distinct `correcta` including one from a model.
+
+`effectiveStatus` reimplements the relax and drops all three guards: it only looks for
+`p?.by === 'autor' && p?.verdict === 'correcta'`. No `override: true`, no quorum check, no
+model-pass check. Since the reporter counts by `effectiveStatus` and treats the
+written-vs-derived mismatch as a **printed warning only** (`:338-340`, `:419-421`), the
+milestone gate will green-light an exercise the source of truth calls `disputed`:
+
+```
+passes = [opus:correcta, sonnet:correcta, deepseek:incorrecta, autor:correcta]  // no override flag
+deriveStatus (source of truth) = disputed
+reporter effectiveStatus       = validated
+VAL-04 distinct by = 3  (>= 2, so VAL-04 PASSES)
+=> VAL-08 sees 0 disputed; Milestone gate PASS
+```
+
+The comment at `:227-236` justifying the relax describes the pre-G-42-3 world ("D-VAL-25
+camino b escribe `validation.status = "validated"` directo en el JSON sin tocar
+`passes[]`"). That world is gone: `deriveStatus` has handled the override natively since
+Phase 42. `effectiveStatus` is now redundant *and* strictly weaker than the function it
+wraps, and it is the last gate before `/gsd:complete-milestone`.
+
+**Fix:** delete the duplicate and defer to the source of truth.
+
+```js
+// v2.0: `deriveStatus` implementa el override del autor desde G-42-3 (flag
+// `override: true` OBLIGATORIO, sin fabricar quorum). El relax local de path-B ya
+// no hace falta y era mas PERMISIVO que la fuente unica: aceptaba cualquier pase
+// `by:"autor"` sin el flag, sin quorum y sin ningun pase de modelo.
+const effectiveStatus = (passes) => deriveStatus(passes);
+```
+
+(or drop the indirection and call `deriveStatus(passes)` at `:312`). Then promote the
+written-vs-derived mismatch from warning to a fourth sub-gate, so the reporter cannot
+print PASS while disagreeing with the JSON it just read.
+
+---
+
+### CR-04: object-presence gates match by raw substring — `soprattutto` satisfies `tutto`, so a prompt with no object passes
+
+**File:** `tests/content-fare-indefiniti.test.js:938-939` and `:2353`;
+`tests/content-fare-indicativo.test.js:424` and `:1096`
+
+**Issue:** `tests/content-fare-indefiniti.test.js:30-39` declares the rule in capitals:
+*"en este fichero NINGUN cue se compara con `includes`, `endsWith` ni `startsWith` a pelo …
+Un gate de presencia matcheado por subcadena no se pone rojo: deja de morder, que es peor,
+porque aprueba en silencio la variante futura que existia para cazar."* Four object gates
+break exactly that rule, and `tutto` — a member of `OBJECTS` — is a substring of
+`soprattutto` and `tuttora`, two ordinary Italian words.
+
+Reproduced. Replacing the object in `fare-indefiniti-gerundio-presente` variant 2 with a
+word that merely *contains* it (`___ tutto in fretta …` → `___ soprattutto in fretta …`)
+leaves the file green:
+
+```
+# tests 108 / # pass 108 / # fail 0
+```
+
+The variant now has no direct object for `fare` at all, and the gate that exists to
+guarantee one certifies it. The defect cuts both ways — it also produces false reds:
+
+```js
+'Soprattutto io ___ i compiti in fretta'  ->  ['i compiti', 'tutto']
+// tests/content-fare-indefiniti.test.js:940 asserts enClausula.length === 1  =>  RED
+'Lui ___ soprattutto ogni giorno'         ->  ['tutto']       // no object, gate green
+```
+
+so a legitimate future prompt opening with `Soprattutto` goes red with the message
+"2 objetos en la clausula del hueco", and the plausible next move is to relax the gate.
+
+**Fix:** route all four call sites through the `wordish` matcher the file already owns
+(`:143-144`). It is Unicode-aware and it is the tool the header mandates.
+
+```js
+// tests/content-fare-indefiniti.test.js:938-942
+const clausula = segmentoDelHueco(v.prompt);
+if (!wordish(obj).test(clausula)) { sucio.push(`${id}#${k}: la clausula del hueco no lleva "${obj}"`); return; }
+const enClausula = OBJECTS.filter((o) => wordish(o).test(clausula));
+
+// :2353 y content-fare-indicativo.test.js:424 / :1096
+OBJECTS.some((o) => wordish(o).test(v.prompt))
+```
+
+Add a golden that pins the discrimination, so the hole cannot reopen silently:
+
+```js
+test('golden: `soprattutto` NO cuenta como el objeto `tutto` (CR-04)', () => {
+  assert.ok(!wordish('tutto').test('___ soprattutto in fretta'));
+  assert.ok(wordish('tutto').test('___ tutto in fretta'));
+});
+```
+
+---
 
 ## Warnings
 
-### WR-01: El gate anti-ceguera acepta anclas en comentarios y no comprueba la coherencia `slug` ↔ `file`
+### WR-01: a third hardcoded count array sits outside the anti-blindness gate, and the gate cannot parse it
 
-**File:** `tests/count-arrays-lockstep.test.js:82-87` y `196-225`
+**File:** `tests/count-arrays-lockstep.test.js:45-48`, `:437-464`
 
-**Issue:** `slugsCiegos` sólo exige que el TEXTO `slug: '<slug>'` exista en algún sitio del fichero. El anclaje por slug completo está bien resuelto (el golden de colisión `fare-ind` es correcto y muerde en las dos direcciones — lo verifiqué), pero quedan dos vías por las que el reporter vuelve a quedarse ciego con el gate en verde:
+**Issue:** `COUNT_ARRAY_SOURCES` is a hardcoded list of two files, and the header states
+flatly *"Las DOS fuentes de conteo"*. There is a third: `CATEGORIES_WITH_EXPLANATIONS` in
+`tests/exercise-types.test.js:1338-1366`, an 18-entry array of `{ file, expected }` whose
+`expected` gates `data.exercises.length` at `:1391`. It is complete today, but nothing
+makes a 19th category appear in it. Worse, the gate's second test claims to name any
+uncovered source — *"Una fuente que no haga ninguna de las dos cosas es un canal de
+ceguera NUEVO, y eso es exactamente lo que este gate existe para nombrar"* — while the
+enumeration it iterates is a literal of length 2, so a new channel is unnameable by
+construction. And `CATEGORIES_WITH_EXPLANATIONS` keys by `file` with no `slug:` key, so
+merely appending it to `COUNT_ARRAY_SOURCES` would report all 18 categories blind.
 
-1. **Entrada comentada.** `// { slug: 'fare-indefiniti', file: ..., expected: ... },` sigue satisfaciendo la regex. Comentar una línea "temporalmente" es exactamente el gesto que produce el bug histórico, y es el más plausible de todos.
-2. **`file:` del hermano.** Si una entrada declara `slug: 'fare-indefiniti'` con `file: 'content/exercises/fare-indicativo.json'` (copia-pega entre los dos slugs que comparten `fare-ind`), entonces `expected = slotCountOf(fichero equivocado)` y `total` leen el MISMO fichero: el guard dinámico cuadra, el gate anti-ceguera está verde, `fare-indicativo` se cuenta dos veces y los 7 slots de `fare-indefiniti` desaparecen del total. El bloque 4 del test comprueba que `content/exercises/<slug>.json` existe y no está vacío, pero nunca que la entrada del array apunte a ese fichero.
-
-**Fix:** endurecer el ancla y añadir el par:
+**Fix:** discover sources instead of listing them, and make `slugsCiegos` accept either
+shape. Minimum viable version — anchor on `content/exercises/<slug>.json` as an
+alternative identity when no `slug:` key is present:
 
 ```js
-// 1) el ancla no puede estar comentada: se exige que la linea empiece por `{`
-const anclado = new RegExp(`^\\s*\\{[^\\n]*slug:\\s*(['"\`])${escapeRe(slug)}\\1`, 'm');
-
-// 2) NUEVO gate: en el reporter, slug y file tienen que ser el mismo slug
-const pares = [...SRC.matchAll(/\{\s*slug:\s*'([^']+)'\s*,\s*file:\s*'([^']+)'/g)];
-const cruzados = pares
-  .filter(([, slug, file]) => file !== `content/exercises/${slug}.json`)
-  .map(([, slug, file]) => `${slug} -> ${file}`);
-assert.deepEqual(cruzados, [], 'D-40-03: una entrada declara el fichero de OTRA categoria');
+// Un slug esta anclado si la entrada lo nombra por la clave `slug:` O por la RUTA
+// de su fichero: hay arrays de conteo que solo declaran `file` (CATEGORIES_WITH_EXPLANATIONS).
+const anclas = (slug) => [
+  new RegExp(`^[^\\S\\n]*\\{[^\\n]*slug:[^\\S\\n]*(['"\`])${escapeRe(slug)}\\1`, 'm'),
+  new RegExp(`^[^\\S\\n]*\\{[^\\n]*content/exercises/${escapeRe(slug)}\\.json`, 'm'),
+];
 ```
 
-### WR-02: `FARE_INITIAL_RE` se apoya en una premisa que el propio fichero desmiente, y contradice a G1
+and add a source-assert that *no other* file under `tests/` or `scripts/` contains a
+`{ … expected: … }` entry list, so the third channel cannot be joined by a fourth in
+silence.
 
-**File:** `tests/content-fare-indicativo.test.js:112-123, 870-875, 952-969` y `tests/content-fare-indefiniti.test.js:980-992`
+---
 
-**Issue:** el comentario justifica prohibir toda inicial `f-` en las options de los cruces diciendo *"En los pools de los cruces (auxiliares de `avere`/`essere`, ...) no hay ninguna palabra legítima con inicial f-"*. Es falso, y la contraprueba está 700 líneas más arriba en el mismo fichero: `ESSERE_FORMS` incluye `fui, fosti, fu, fummo, foste, furono`. El gate G1 (línea 961) **autoriza explícitamente** cualquier miembro de `ESSERE_FORMS` como distractora de auxiliar; si la autoría usa el passato remoto de `essere` (perfectamente legítimo y ya en la whitelist), el gate G1/G2 de la línea 872 se pone **rojo con un diagnóstico falso**: `"mete una forma de fare en options"`. Y arrastra un tercer fichero: `CRUCES_AJENOS` en `content-fare-indefiniti.test.js:988` aplica `/^f/i` a las options de los cruces de las OTRAS tres categorías, así que el mismo contenido legítimo rompería también la suite de `fare-indefiniti` con el mensaje *"la exclusion de CONJUGATE dejaria de ser inocua"*, que no es lo que estaría pasando.
+### WR-02: `pareceFare` still assumes no legitimate f-initial word can appear in a cross pool
 
-Aparte: `(f|fa|fe)` es una alternación redundante — equivale exactamente a `^f` porque el motor casa la primera alternativa y el resultado sólo se usa vía `.test()`.
+**File:** `tests/content-fare-indicativo.test.js:256-259`;
+`tests/content-fare-indefiniti.test.js:298-299`
 
-**Fix:** restar las formas ya autorizadas en vez de prohibir la inicial a ciegas, y simplificar:
+**Issue:** WR-02 correctly identified the premise as false and subtracted the `essere`
+passato remoto. The subtraction is not the general fix, because the premise was not
+specifically about `essere` — it was *"en los pools de los cruces … no hay ninguna palabra
+legitima con inicial f-"*, and Italian regular verbs beginning with `f-` are ordinary
+(`finire`, `firmare`, `fumare`, `finanziare`). `fare-indicativo-301`'s pool is four
+persons of a regular verb (`ripasso/ripassi/ripassiamo/ripassano` today); the day the
+authoring picks `finire`, `pareceFare('finiamo')` is `true` and the G1/G2 gate at
+`:1118-1127` goes red with the same false diagnosis WR-02 removed — *"mete una forma de
+fare en options"* — and the `CRUCES_AJENOS` gate at
+`tests/content-fare-indefiniti.test.js:1051-1084` goes red at the same time with a second
+false message.
+
+**Fix:** stop guessing from the initial letter and derive the actual thing being tested.
+The set of `fare` forms is already computable from disk:
 
 ```js
-const FORMAS_PERMITIDAS_CON_F = new Set(ESSERE_FORMS.filter((f) => /^f/i.test(f))); // fui, fosti, fu, fummo, foste, furono
-const pareceFare = (w) => /^f/i.test(w) && !FORMAS_PERMITIDAS_CON_F.has(w.toLowerCase());
+// Las formas de `fare` de las CUATRO categorias, leidas del disco: es lo que el gate
+// dice prohibir. La inicial f- era un proxy, y un proxy que muerde `finiamo`.
+const FORMAS_DE_FARE = new Set(
+  ['fare-indicativo','fare-congiuntivo','fare-cond-imperativo','fare-indefiniti']
+    .flatMap((f) => JSON.parse(readFileSync(new URL(`../content/exercises/${f}.json`, import.meta.url),'utf-8'))
+      .exercises.filter((s) => !/-\d{3}$/.test(s.id))
+      .flatMap((s) => s.variants.flatMap((v) => v.options.flatMap((o) => o.split(/\s+/)))))
+);
+const pareceFare = (w) => FORMAS_DE_FARE.has(w.toLowerCase());
 ```
 
-### WR-03: El gloss ES de los cruces queda sin ningún gate — justo donde el quórum encontró el leak
+If the initial-letter proxy is kept deliberately, say so in the comment and add a golden
+asserting the *known* false positive (`assert.ok(pareceFare('finiamo'))` with a comment
+explaining it is accepted), so the next reader is not told the problem is solved.
 
-**File:** `tests/content-fare-indicativo.test.js:344-368` (0-gloss re-apuntado a `BASE_SLOTS`), bloque 13 (sin contrapartida); `tests/content-fare-indefiniti.test.js:823-843` (ídem)
+---
 
-**Issue:** el 0-gloss (`sin paréntesis` + `sin mencionar el español`) dejó de cubrir los cruces y el bloque de cruces **no lo re-aserta en ninguna forma**. La cabecera promete *"RE-ASERTA los gates que siguen rigiendo sobre ellos"*; aquí no rige ninguno, y son tres agujeros concretos, todos sobre el defecto que esta misma fase tuvo que arreglar:
+### WR-03: the G3 gate still carries the blind `/^f/i` the same file calls FALSE
 
-1. **`fare-indicativo-301` no está fijado al 0-gloss.** Su resolución documentada fue *borrar* los 3 glosses por C5-leak (el gloss conjugaba el verbo del hueco: `repasamos / comete / revisáis`). Nada impide reponerlos: la suite entera seguiría en 1081 pass. La asimetría que el `notes` declara "deliberada y no uniformable" no tiene ni un assert.
-2. **La frontera del gloss de `fare-indicativo-300` no está codificada.** El pase de Opus la deja escrita como condición de supervivencia del slot: los glosses usan el pretérito simple (`hice / hicimos / hicieron`) y *"si alguien reescribe un gloss con 'he hecho' o 'hemos hecho', el slot pasa a leak R1 inmediato"*. Es un predicado mecánico trivial y no existe.
-3. **`fare-indefiniti-300`: "el gloss NO traduce el modal"** es la frontera que declara su `notes`, y tampoco tiene gate. Un gloss con `tengo que / puedo / quiero` entregaría el modal examinado.
+**File:** `tests/content-fare-indefiniti.test.js:2369-2381` (line `:2378`)
 
-**Fix:** un gate por partición en cada fichero, con lista negra explícita:
+**Issue:** `pareceFare` is defined at `:299` of this file and used at `:1081`, under a
+25-line comment (`:277-297`) explaining that the blind f- prohibition is false and
+produced a false red. The G3 gate 2000 lines later ignores it:
 
 ```js
-test('gloss de los cruces: puede glosar el complemento, NUNCA la casilla examinada (R1)', () => {
-  // (a) el -301 vuelve al 0-gloss de la categoria y se queda ahi
-  for (const v of byId('fare-indicativo-301').variants) {
-    assert.ok(!/[()]/.test(v.prompt), `C5-leak: el -301 recupero el gloss que el quorum obligo a borrar: "${v.prompt}"`);
-  }
-  // (b) el -300 conserva gloss, pero sin auxiliar compuesto castellano
-  const AUX_ES = ['he ', 'has ', 'ha ', 'hemos ', 'habéis ', 'han ', 'había', 'habré'];
-  for (const v of byId('fare-indicativo-300').variants) {
-    const gloss = (v.prompt.match(/\(([^)]*)\)/) || ['', ''])[1].toLowerCase();
-    const sucio = AUX_ES.filter((a) => gloss.includes(a));
-    assert.deepEqual(sucio, [], `R1: el gloss exhibe el auxiliar castellano espejo del hueco: ${sucio.join(', ')}`);
-  }
-});
+const sucio = v.options.filter((o) => o.split(/\s+/).some((w) => /^f/i.test(w)));
 ```
 
-### WR-04: El conteo de pronombres deja de estar acotado en los cruces de una cláusula
+and its comment at `:2373-2375` re-asserts the retracted premise as fact: *"Se prohibe la
+inicial f- entera y no una lista de formas, porque toda forma de `fare` empieza por f- y en
+un pool de modales conjugados no hay ninguna palabra legitima con esa inicial."* Two gates
+in one file, one hardened and one not, with contradictory comments — the pattern this
+project's memory records as *"el modelo marca un patron y aprueba otro identico"*.
 
-**File:** `tests/content-fare-indicativo.test.js:320-325` (base: EXACTAMENTE 1) frente a `791-798` (cruces: sólo `≥1` vía first-match)
+**Fix:** use `pareceFare` at `:2378` (or the derived set from WR-02) and delete the
+retracted justification from the comment, replacing it with a pointer to `:277-297`.
 
-**Issue:** el gate base exige exactamente un pronombre sujeto por prompt, y es lo que garantiza que la persona del hueco quede fijada. Para `fare-indicativo-300` y `fare-indefiniti-300` el bloque de cruces sólo comprueba que el primer match no sea vacío (`personas.every((p) => p.length > 0)`), así que un prompt con dos sujetos de personas distintas —el escenario que G2 declara letal para el `-301`— pasa en verde en el `-300`, donde el hueco es el auxiliar y la ambigüedad de persona hace defendibles dos opciones del pool.
+---
 
-**Fix:** exigir el número exacto por cruce, no `≥1`:
+### WR-04: `250` in the `notes` is transcribed, not derived — the exact number CR-01 was about is still unanchored
+
+**File:** `tests/content-fare-indefiniti.test.js:1146-1187`
+
+**Issue:** The CR-01 (Phase 44) fix is half done. The comment promises *"se comprueba
+contra el DISCO para que el literal no pueda divergir otra vez sin ponerse rojo"*, and the
+disk anchor at `:1164-1186` does derive `fare`'s own two numbers (`25 slots`, `122`
+variants). But `250` — the project-wide `TOTAL_EXPECTED`, i.e. **the number that went
+stale and caused CR-01** — is asserted as a bare literal at `:1158`:
 
 ```js
-const PRONOMBRES_ESPERADOS = { 'fare-indicativo-300': 1, 'fare-indicativo-301': 2 };
-for (const s of CROSS_SLOTS) {
-  for (const [k, v] of s.variants.entries()) {
-    const hits = v.prompt.match(PRONOUN_RE) || [];
-    assert.equal(hits.length, PRONOMBRES_ESPERADOS[s.id], `${s.id}#${k}: ${hits.length} sujetos (${hits.join(', ')})`);
+for (const n of ['25 slots', '122', '250']) {
+  assert.ok(CONTENT.notes.includes(n), ...);
+}
+```
+
+Add one slot to any non-`fare` category and the reporter prints 251, the `notes` still says
+250, and this assert still passes because the literal `'250'` is still in the string. The
+memory entry `[[gate_congela_literal_debe_anclar_disco]]` describes this precisely.
+
+Two secondary weaknesses in the same gate: `notes.includes(String(variantes))` is a
+**numeric substring** check (`'122'` is satisfied by `1220`, `3122`, a date, a decision
+id), and `notes.includes('113')` / `'247'` have the same property.
+
+**Fix:** derive the total from the reporter, the way the lockstep test derives its
+reference from `categories.json`:
+
+```js
+// El total del milestone se DERIVA del array de conteo del reporter, no se transcribe:
+// es el numero que CR-01 dejo obsoleto.
+const REPORTER_SRC = readFileSync(new URL('../scripts/run-validation-271.mjs', import.meta.url), 'utf-8');
+const totalDelReporter = [...REPORTER_SRC.matchAll(/file: '([^']+)'/g)]
+  .reduce((a, m) => a + JSON.parse(readFileSync(new URL(`../${m[1]}`, import.meta.url), 'utf-8')).exercises.length, 0);
+assert.ok(CONTENT.notes.includes(String(totalDelReporter)),
+  `INT-02: el reporter cuenta ${totalDelReporter} slots y el notes no lo declara`);
+```
+
+and delimit the numeric checks so they cannot be satisfied by a substring (e.g. match
+`/\b122 variantes\b/` rather than `includes('122')`).
+
+---
+
+### WR-05: the reporter's coherence guard is aggregate-only — compensating literal drifts pass
+
+**File:** `scripts/run-validation-271.mjs:213-223`, `:422-424`
+
+**Issue:** The guard compares `Σ expected` with `Σ slotCountOf(disk)`. The comment at
+`:163-166` claims per-file protection: *"El reporter falla si la suma encontrada en disco
+no coincide con el expected — protege contra archivos JSON con ejercicios
+borrados/duplicados."* It protects the sum, not the files. Two offsetting drifts cancel,
+and the per-category mismatch at `:422-424` is a **printed warning that no gate consumes**.
+
+Reproduced (`preposiciones` 50→49, `articoli` 34→35):
+
+```
+        → Total 50 ≠ esperado 49 para preposiciones
+        → Total 34 ≠ esperado 35 para articoli
+  Milestone gate PASS.
+exit=0
+```
+
+Note also that for the ten categories with dynamic `expected`, the guard is tautological
+(both sides read the same file in the same run), so it only ever constrained the eight
+literals — in aggregate.
+
+**Fix:** gate per category, not on the sum:
+
+```js
+{
+  const desalineadas = CATEGORIES
+    .filter((c) => c.expected !== slotCountOf(c.file))
+    .map((c) => `${c.slug}: expected=${c.expected} disco=${slotCountOf(c.file)}`);
+  if (desalineadas.length > 0) {
+    console.error(`Incoherencia de conteo POR CATEGORIA:\n  ${desalineadas.join('\n  ')}`);
+    process.exit(1);
   }
 }
 ```
 
-### WR-05: El guard de coherencia mata el camino defensivo del reporter y deja tres bloques de código muerto
+and fold `r.total !== r.expected` into `val06Pass` so it stops being advisory.
 
-**File:** `scripts/run-validation-271.mjs:170-171, 213-223, 247-265, 271-291, 422-424, 498-500`
+---
 
-**Issue:** el guard de coherencia (213-223) llama a `slotCountOf` sobre **las 18** categorías, en el ámbito del módulo, antes del bucle, y `slotCountOf` no captura nada. Consecuencias verificables leyendo el orden de ejecución:
+### WR-06: `tests/fixtures/slot-variants-integration.test.js` never runs in the canonical suite
 
-- Cualquier JSON ausente, no parseable o sin `exercises` aborta el reporter con un `ENOENT`/`SyntaxError`/`TypeError` crudo. Con eso, `loadCategory` (que el comentario describe como *"NUNCA throws — el batch debe poder continuar reportando el resto de categorías aunque una esté corrupta (defensa en profundidad frente a T-10-02-02)"*) **nunca puede devolver `{ok:false}`**: el fichero que rompe a `loadCategory` ya rompió a `slotCountOf`. La fila `ERROR DE CARGA`, la variable `anyLoadError` y la sugerencia final `"- Carga: uno o más JSONs no se pudieron leer/parsear"` son código muerto y el operador recibe un stack trace en lugar de la remediación documentada.
-- El warning `r.total !== r.expected` (422-424) tampoco puede dispararse nunca: para las 9 categorías dinámicas ambos lados derivan del mismo fichero en el mismo arranque, y para las 9 literales el guard ya hizo `process.exit(1)` antes de imprimir. El comentario de 165-166 (*"El reporter falla si la suma encontrada en disco no coincide con el expected — protege contra archivos JSON con ejercicios borrados/duplicados"*) describe un mecanismo que en la ruta real no se alcanza.
+**File:** `tests/fixtures/slot-variants-integration.test.js:170-231`
 
-La fase editó este fichero y extendió el patrón a 4 categorías más, así que la deuda es ahora un 22 % mayor. **Fix:** envolver `slotCountOf` para que el fallo se convierta en dato y no en excepción, y dejar que el bucle reporte:
+**Issue:** `node --test tests/*.test.js` — the project's documented command, per
+`[[test_command_node_glob]]` and every acceptance criterion in `44-04-PLAN.md` — does not
+glob into `tests/fixtures/`. Confirmed: the suite output contains no
+`integración slot+variantes` or `back-compat SLOT-06` describe, and the only occurrence of
+the filename is the source-assert test name from `count-arrays-lockstep`. So this file's
+own gates — the per-category `expected` count at `:213-220` and the all-18-categories
+bundle validation at `:223-231` — are dead in the canonical run. Phase 44 added four
+entries to `REAL_CATEGORIES` and hardened the gate over its *source text*, but the
+assertions inside it are never executed.
+
+Consequence beyond dead code: a cross-wired `expected` (`{ slug: 'fare-indefiniti',
+expected: readJson('content/exercises/fare-indicativo.json')…}`, the `fare-ind` copy-paste
+D-40-03 warns about) is not detectable by `paresSlugFile` — that helper is deliberately a
+no-op on this file, since it declares no `file` key — and the assert that *would* catch it
+does not run.
+
+**Fix:** bring the file into the canonical run. Either move it to `tests/` (its two
+sibling `tests/fixtures/*.test.js` files have the same problem), or standardise on
+`node --test --recursive tests/` and update the memory entry plus the plan/summary
+templates. Whichever is chosen, record the pre/post `# tests` count in the summary — the
+number will jump, and an unexplained jump is what invites the next "it was already
+covered" assumption.
+
+---
+
+### WR-07: `slug:\s*` crosses newlines, two lines under the comment that forbids it
+
+**File:** `tests/count-arrays-lockstep.test.js:102-104`
+
+**Issue:** The comment states the rule: *"`[^\S\n]*` = whitespace HORIZONTAL: acota el
+ancla a una sola linea (un `\s*` podria cruzar saltos de linea)"*. The very next line uses
+`slug:\s*` for the gap between the key and the opening quote. Confirmed:
+
+```js
+slugsCiegos("    { slug:\n'fare-indefiniti', x }", ['fare-indefiniti'])  // => []  (anchored)
+```
+
+`paresSlugFile` at `:126` gets this right (`slug:[^\S\n]*`), so the two helpers that the
+file says share an anchor do not.
+
+**Fix:** `slug:[^\S\n]*(['"\`])` in `slugsCiegos`, matching `paresSlugFile`.
+
+---
+
+### WR-08: `OBJECT_PRONOUN_RE` matches definite articles anywhere in the prompt
+
+**File:** `tests/content-fare-indicativo.test.js:112`, consumed at `:1273-1283`
+
+**Issue:** `/(^|[^\p{L}])(lo|la|li|le)([^\p{L}]|$)/iu` cannot distinguish the object
+clitics it targets from the definite articles `lo`, `la`, `li`, `le`, which are among the
+commonest words in Italian. The stated concern is narrow and positional — a clitic
+*immediately before the auxiliary* forces participle agreement (`li ho fatti`) — but the
+gate is unanchored, so any future `-300` prompt containing `la torta`, `le foto` or
+`li vedo` goes red with the message "lleva un pronombre objeto antepuesto" while carrying
+no clitic at all. It is green today only because `OBJECTS` happens to contain no
+`la`/`le`/`lo`/`li`-initial phrase.
+
+The sibling file solved this shape properly: `terminaEnPalabra(antesDelHueco(prompt), cue)`
+(`tests/content-fare-indefiniti.test.js:164-165`) tests adjacency, not presence.
+
+**Fix:** test adjacency to the hole, which is also what the comment actually describes:
+
+```js
+// El clitico solo fuerza la concordancia si es la palabra INMEDIATAMENTE anterior al
+// auxiliar. Sin la adyacencia, el gate confunde el clitico con el articulo homografo.
+const CLITICOS_OBJETO = ['lo', 'la', 'li', 'le'];
+const antesDelHueco = (p) => p.split('___')[0].trimEnd();
+const terminaEnPalabra = (t, c) => t.endsWith(c) && !/\p{L}/u.test(t.slice(0, t.length - c.length).slice(-1) || '');
+// ...
+assert.ok(!CLITICOS_OBJETO.some((c) => terminaEnPalabra(antesDelHueco(v.prompt), c)), ...);
+```
+
+---
+
+### WR-09: the reporter's "never throws" defence is defeated by module-scope reads of the same files
+
+**File:** `scripts/run-validation-271.mjs:170-171`, `:213-223`, `:253-265`
+
+**Issue:** `loadCategory` is documented as *"NUNCA throws — el batch debe poder continuar
+reportando el resto de categorias aunque una este corrupta (defensa en profundidad frente
+a T-10-02-02 del threat model)"*, and the reporter has a whole rendering path for
+`r.loadError` (`:389-397`). That path is unreachable for any file that also feeds
+`slotCountOf`: eleven `slotCountOf(...)` calls run at module-evaluation time inside the
+`CATEGORIES` literal, and the guard at `:214` calls it for **all eighteen**. A single
+corrupt or missing JSON therefore kills the process with a raw `SyntaxError`/`ENOENT`
+stack before a single row is printed, which is precisely the outcome the defensive design
+exists to avoid — and it also makes the `process.exit(1)` at `:221` an import-time
+side effect (documented as a hazard in `count-arrays-lockstep.test.js:26-28`).
+
+**Fix:** make `slotCountOf` fail soft and let the existing report path do its job:
 
 ```js
 const slotCountOf = (file) => {
   try {
-    const d = JSON.parse(readFileSync(resolve(projectRoot, file), 'utf8'));
-    return Array.isArray(d.exercises) ? d.exercises.length : null;   // null = corrupta
+    const data = JSON.parse(readFileSync(resolve(projectRoot, file), 'utf8'));
+    return Array.isArray(data.exercises) ? data.exercises.length : null;
   } catch { return null; }
 };
 ```
-…y en el guard tratar `null` como FAIL explícito con el mensaje de remediación, en vez de dejar escapar el throw.
 
-### WR-06: Contabilidad obsoleta en la cabecera del reporter, el fichero cuyo trabajo es que los números no mientan
-
-**File:** `scripts/run-validation-271.mjs:5-6, 64, 154-162, 360, 437, 481-482`
-
-**Issue:** la fase añadió 4 entradas y dejó intacta la prosa que las contradice:
-
-- Línea 5-6: *"Lee los 271 ejercicios distribuidos en los 7 archivos"* → hoy son 250 en 18 archivos.
-- Línea 64: *"La suma de `expected` es 195."* → hoy 250. Es la frase que está inmediatamente encima del array que la fase editó.
-- El historial contable acaba en *"→ 195 (v1.7 Phase 31)"*: no hay entrada de Phase 39 (4 categorías + `genero-numero` 12→13) ni de Phase 44 (4 categorías de `fare`). El único rastro de las nuevas es el comentario del guard, que dice *"el total lo dicta el disco"* — cierto pero insuficiente como audit trail en un proyecto donde el historial numérico ES el artefacto.
-- Línea 360 sigue imprimiendo `Milestone v1.1 — gate Phase 10` y las líneas 481-482 remiten a `/gsd:complete-milestone v1.1` en un cierre de v2.0.
-
-**Fix:** añadir la entrada `→ 250 (v2.0 Phase 44, INT-02)` al historial con el mismo formato que las anteriores, corregir las dos cifras de la cabecera y el banner/mensaje de cierre a v2.0.
-
-### WR-07: La lista de fuentes de conteo del gate anti-ceguera es, a su vez, una lista a mano
-
-**File:** `tests/count-arrays-lockstep.test.js:45-48`
-
-**Issue:** el invariante congelado es *"ninguna categoría registrada queda fuera de los arrays"*, pero no *"ningún array de conteo queda fuera del gate"*. `COUNT_ARRAY_SOURCES` son dos rutas escritas a mano: una tercera fuente futura nace ciega, exactamente un nivel por encima del bug que la fase arregla. Verifiqué que hoy la lista es completa (sólo `run-validation-271.mjs` y `slot-variants-integration.test.js` declaran entradas `slug: '...'`; el `expected: 12` de `run-validation-pilot.mjs:202` es un ancho de columna, no un conteo), así que es deuda latente y no un fallo actual.
-
-**Fix:** cerrar el bucle con un descubrimiento por disco:
-
-```js
-test('no hay ninguna fuente de conteo fuera de COUNT_ARRAY_SOURCES', () => {
-  const candidatos = [...globSync('{scripts,tests}/**/*.{js,mjs}')]
-    .filter((f) => /slug:\s*['"][a-z-]+['"][^\n]*expected/.test(readSrc(f)))
-    .filter((f) => !COUNT_ARRAY_SOURCES.includes(f) && f !== 'tests/count-arrays-lockstep.test.js');
-  assert.deepEqual(candidatos, [], `INT-02: fuente de conteo no vigilada por el gate: ${candidatos.join(', ')}`);
-});
-```
-
-### WR-08: `OBJECT_PRONOUN_RE` no distingue el clítico del artículo y escanea también el gloss castellano
-
-**File:** `tests/content-fare-indicativo.test.js:112` y `940-950`
-
-**Issue:** `/(^|[^\p{L}])(lo|la|li|le)([^\p{L}]|$)/iu` se aplica al prompt COMPLETO, paréntesis del gloss incluido, y `la/le/lo/li` son artículos legítimos tanto en italiano como en castellano. Un prompt válido del tipo `"Ieri noi ___ fatto le foto"` (objeto pospuesto, participio invariable, cero ambigüedad) o un gloss con `"la torta"` pondría el gate rojo con el mensaje *"lleva un pronombre objeto antepuesto y el participio fatto tendría que concordar"*, que sería falso. Hoy pasa por suerte: los 7 objetos del conjunto cerrado empiezan por `i/un/una/il` y los 3 glosses actuales no contienen ningún `la`/`le` suelto. El predicado que de verdad importa es la **anteposición al auxiliar**, no la presencia en cualquier parte de la frase.
-
-**Fix:** acotar al segmento relevante:
-
-```js
-// Solo el tramo ANTES del hueco cuenta (el clitico antepuesto precede al auxiliar),
-// y el gloss entre parentesis se descarta porque es castellano.
-const tramoAnteHueco = (p) => p.replace(/\([^)]*\)/g, '').split('___')[0];
-assert.ok(!OBJECT_PRONOUN_RE.test(tramoAnteHueco(v.prompt)), ...);
-```
-
-### WR-09: RegExp construida sin escapar desde datos, y satisfacible por el adverbio `fa`
-
-**File:** `tests/content-fare-indicativo.test.js:80` y `924-932`
-
-**Issue:** dos problemas en el mismo gate (`la forma de fare va ESCRITA en los 3 prompts`):
-
-1. `new RegExp(\`(^|\\W)${f}(\\W|$)\`)` interpola `f` **sin escapar**, mientras el fichero hermano de esta misma fase (`count-arrays-lockstep.test.js:67`) sí define `escapeRe` para exactamente este caso. Hoy `ALL_CANON_FORMS_SIMPLES` no contiene metacaracteres, así que es latente; en cuanto el paradigma incluya una forma apostrofada tipo `fa'` (que ya vive en `OTHER_MOODS` y en `ATESTIGUADAS`) el patrón cambia de significado en silencio.
-2. El gate acepta `fa` como "forma de `fare` escrita", pero `fa` es también el adverbio temporal italiano, y el propio fichero lo usa en `REMOTE_FRAMES` (`'anni fa'`) y en `FRAMES` (`'Molti anni fa'`, `'Tanti anni fa'`). Un prompt de cruce cuyo único hit fuera `"Molti anni fa"` satisfaría D-44-02 sin traer escrita **ninguna** forma verbal de `fare` — el gate quedaría verde sobre el contexto ausente.
-
-**Fix:** escapar y exigir que el hit esté en la cláusula sin hueco, excluyendo `fa` del repertorio de anclas o exigiéndolo adyacente a un sujeto pronominal:
-
-```js
-const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-const ANCLAS = ALL_CANON_FORMS_SIMPLES.filter((f) => f !== 'fa');  // `fa` = adverbio 'anni fa'
-const contexto = v.prompt.split('___')[0];
-const escritas = ANCLAS.filter((f) => new RegExp(`(^|\\W)${escapeRe(f)}(\\W|$)`).test(contexto));
-```
-
-## Info
-
-### IN-01: La evidencia de "el `test(` count creció 42→67 y 86→126" mide otra cosa
-
-**File:** `tests/content-fare-indicativo.test.js`, `tests/content-fare-indefiniti.test.js`
-
-**Issue:** ese conteo incluye las llamadas `.test()` de regex (`wordish(f).test(texto)`, `PRONOUN_RE.test(...)`, decenas por fichero). Las declaraciones reales de test son **42 → 58** y **86 → 97** (`grep -c "^\s*test("`). No es un defecto de código, pero como métrica de "no se debilitó ningún gate" es engañosa en un fichero que usa `.test(` en cada gate. Relacionado: el comentario de `content-fare-indicativo.test.js:235` dice *"acota de golpe los 14 call-sites"* y los call-sites de `allVariants()` son 10 (el de `fare-indefiniti` sí dice 13 y son 13).
-
-**Fix:** usar `node --test --reporter=tap ... | grep -c '^ok'` o el resumen del runner como evidencia, y corregir el 14 → 10.
-
-### IN-02: Detalles de higiene en `count-arrays-lockstep.test.js`
-
-**File:** `tests/count-arrays-lockstep.test.js:59-60, 82, 241-245`
-
-**Issue:** (a) `slugsCiegos` se exporta y nadie lo importa — export muerto (defendible por testabilidad, pero conviene declararlo en el comentario o quitarlo); (b) `SLUGS_REGISTRADOS` recorre `CATEGORIES.categories` en vez de reutilizar `ENTRADAS`, que es la misma referencia declarada la línea anterior; (c) `assert.deepEqual(<boolean>, true, ...)` en el gate de unicidad de `order` debería ser `assert.equal(...)` o `assert.ok(...)` — `deepEqual` sobre un booleano funciona pero oscurece la intención y el diff que imprime en rojo no dice nada útil.
-
-**Fix:** `assert.ok(new Set(orders).size === orders.length, ...)` y `const SLUGS_REGISTRADOS = ENTRADAS.map((c) => c.id);`.
-
-### IN-03: `esCruce` acopla la exclusión de `CONJUGATE` a una convención que se enforcea en OTRO fichero
-
-**File:** `tests/content-fare-indefiniti.test.js:250`
-
-**Issue:** `const esCruce = (id) => /-\d{3}$/.test(id);` decide qué slots de las otras tres categorías se excluyen de `CONJUGATE`. Que "sufijo de 3 cifras" ⇔ "es un cruce" sólo está garantizado por el gate invertido de `content-fare-indicativo.test.js:279-292` (y sus gemelos), es decir por un fichero distinto. Si una categoría futura usa el espacio numérico para otra cosa, la exclusión se ensancha en silencio. El sub-gate `CRUCES_AJENOS` limita el daño (verifica que lo excluido no contenga formas de `fare`), así que hoy es acoplamiento documentable, no bug.
-
-**Fix:** un comentario explícito de dependencia, o mejor, excluir por `categoryIds.length > 1` (la propiedad que define un cruce) en vez de por la forma del id.
+then treat `null` as a category-level load error rather than a crash, and move the
+coherence guard out of module scope into the main flow so importing the module is safe.
 
 ---
 
-_Reviewed: 2026-08-11_
+### WR-10: reporter header and printed output are stale by three milestones
+
+**File:** `scripts/run-validation-271.mjs:5-7`, `:64`, `:360`, `:437`, `:481`
+
+**Issue:** The file documents itself as reading *"los 271 ejercicios distribuidos en los 7
+archivos"* with *"La suma de `expected` es 195"*; reality is 18 files and 250 slots. The
+banner it prints to the author is `Milestone v1.1 — gate Phase 10 (VAL-04 + VAL-06 +
+VAL-08)` and the success path tells him to run `/gsd:complete-milestone v1.1` — at v2.0
+Phase 44. This is the console output that decides whether a milestone closes; a stale
+banner is how a reader concludes the wrong gate ran. `VAL-06`'s comment at `:437` still
+says "271/271".
+
+**Fix:** derive the banner from the data it already has and delete the frozen counts from
+the prose:
+
+```js
+console.log(`${BOLD}Gate de cierre de milestone — VAL-04 + VAL-06 + VAL-08 (${CATEGORIES.length} categorías, ${TOTAL_EXPECTED} slots)${RESET}`);
+```
+
+Keep the accounting history block (`:64-162`) — it is a deliberate audit trail — but move
+the two numbers that claim to describe *current* behaviour out of it.
+
+---
+
+### WR-11: correctness-critical helpers are duplicated, and the anchor between copies is one-way
+
+**File:** `tests/content-fare-indefiniti.test.js:143-144` / `tests/content-fare-indicativo.test.js:872-873`
+(`wordish`); `:298-299` / `:256-259` (`pareceFare`);
+`tests/content-fare-indicativo.test.js:1016-1025` and `:1229-1238` (`raizComun`)
+
+**Issue:** Three duplications, with three different risk profiles:
+
+1. `wordish` is copy-pasted between the two files (the comment says "clonado"). It is the
+   matcher on which every CR-02-class guarantee in both files rests. A fix to one copy
+   does not reach the other — and the WR-10 lesson recorded in the comment (the missing
+   `i` flag) is exactly the kind of fix that would be applied once.
+2. `pareceFare` + `FORMAS_CON_F_AUTORIZADAS` are duplicated with a **one-way** anchor:
+   `formasConFDelHermano()` (`:306-314`) reads `fare-indicativo`'s `ESSERE_FORMS` and
+   `fare-indefiniti` asserts equality. Nothing anchors in the other direction, and nothing
+   anchors the `pareceFare` *body* — the two predicates can diverge in logic while the two
+   whitelists stay equal. WR-03 is that divergence, already present.
+3. `raizComunDe` (`:1016-1025`) and `raizComun` (`:1229-1238`) are byte-identical in the
+   same file under two names.
+
+**Fix:** extract `wordish`, `terminaEnPalabra`, `empiezaPorPalabra` and `raizComun` into
+`tests/util/` (the directory already exists) and import from both files — importing a
+**non-test** helper module does not re-register `describe`s, so the constraint recorded in
+`44-04-PLAN.md:68` does not apply to it. That constraint applies to importing a *test
+file*, which is a different thing; the source-assert workaround is only needed for
+`ESSERE_FORMS`, which lives inside a test file. Merge `raizComunDe`/`raizComun` into one
+name at first use.
+
+---
+
+### WR-12: the pair gate's non-vacuity clause couples the reporter's array length to `categories.json`
+
+**File:** `tests/count-arrays-lockstep.test.js:420-426`
+
+**Issue:** `assert.equal(pares.length, SLUGS_REGISTRADOS.length)` is a good non-vacuity
+clause and a poor equality. It holds today (18 = 18) but it asserts something the gate does
+not mean: that the reporter declares *exactly as many pairs as there are registered
+categories*. A count entry for a file that is legitimately not a display category (a
+`canciones` bundle, a fixture) makes it red with a message blaming the extractor. And in
+the other direction it is offsettable: one pair for an unregistered slug plus one missing
+registered slug leaves the length equal — `slugsCiegos` catches the missing one, so the
+composite is covered, but this assert's own message would be misleading about which
+failure occurred.
+
+**Fix:** assert the property that is actually meant — every registered slug appears exactly
+once among the extracted pairs — which is non-vacuous *and* true:
+
+```js
+const declarados = paresSlugFile(SRC).map((p) => p.slug);
+assert.deepEqual(
+  [...declarados].sort(),
+  [...SLUGS_REGISTRADOS].sort(),
+  `T-44-03-01: los pares declarados por ${REPORTER} y las categorias registradas no coinciden`
+);
+```
+
+---
+
+### WR-13: `assert.deepEqual` used on a boolean expression
+
+**File:** `tests/count-arrays-lockstep.test.js:526-530`
+
+**Issue:**
+
+```js
+assert.deepEqual(
+  [...new Set(orders)].length === orders.length,
+  true,
+  `INT-01: hay order duplicados: ${orders.join(', ')}`
+);
+```
+
+`deepEqual(<boolean>, true)` collapses the comparison before the assertion runs, so the
+failure output is `false !== true` plus the message — the diff that makes `deepEqual`
+worth using is discarded. Same file, `:529-533`, uses `deepEqual` correctly on arrays.
+
+**Fix:** assert the sets directly so the failure names the duplicates:
+
+```js
+const duplicados = orders.filter((o, i) => orders.indexOf(o) !== i);
+assert.deepEqual(duplicados, [], `INT-01: hay order duplicados: ${duplicados.join(', ')}`);
+```
+
+---
+
+## Verification notes
+
+Every Critical finding was reproduced by mutation against the working tree and reverted.
+`git status --short` at the end of the review shows only `M .planning/config.json`, which
+was already modified before the review started. Post-revert confirmation:
+
+```
+# tests 1092 / # pass 1092 / # fail 0
+VAL-06 (250/250 validated): PASS
+Milestone gate PASS.
+```
+
+Suggested fix order, because two of these interact: CR-01 first (it is the phase's own
+premise), then CR-03 (it is the last gate before milestone close), then CR-02 and CR-04
+(content-correctness). WR-02/WR-03 should be fixed together or the two `pareceFare` copies
+will disagree again. WR-06 should be settled before the next phase measures a `# tests`
+delta, since it changes the baseline.
+
+---
+
+_Reviewed: 2026-08-12_
 _Reviewer: Claude (gsd-code-reviewer)_
 _Depth: standard_
