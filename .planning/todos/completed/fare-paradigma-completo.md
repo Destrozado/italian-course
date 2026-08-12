@@ -4,9 +4,19 @@ area: content
 created: 2026-07-27
 source: conversación con el autor 2026-07-27
 severity: feature
-status: pending
+status: completed
 target: milestone v2.0
+resolved: 2026-08-13
+resolved_by: "Milestone v2.0 (Phases 40-45)"
 ---
+
+> **CERRADO 2026-08-13 al cerrar el milestone v2.0.** Entregado tal cual: las 4 categorías
+> (`fare-indicativo`, `fare-congiuntivo`, `fare-cond-imperativo`, `fare-indefiniti`) están
+> registradas en `content/categories.json` (orders 15-18). Volumen real **22 slots / 113
+> variantes** frente a los «21 slots ≈ 107» estimados aquí: `fare-congiuntivo` salió con 5
+> slots, no 4, porque CONG-04 pidió un slot para el DISPARADOR (ver D-42-01). Las 6 trampas
+> de contenido listadas abajo se resolvieron todas en plan-time y quedan documentadas en los
+> SUMMARY de las Phases 41-43.
 
 ## Qué
 
