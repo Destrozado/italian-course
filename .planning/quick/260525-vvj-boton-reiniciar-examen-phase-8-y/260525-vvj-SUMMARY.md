@@ -1,7 +1,8 @@
 ---
 quick_id: 260525-vvj
 type: execute
-status: shipped
+status: complete
+prior_status: shipped
 completed: 2026-05-25
 duration_min: ~15
 files_modified:

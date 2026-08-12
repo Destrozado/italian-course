@@ -39,6 +39,7 @@ metrics:
   completed: 2026-06-15
   tasks: 3
   files: 5
+status: complete
 ---
 
 # Quick 260615-vkr: Validador de frases de canción ES — INFRAESTRUCTURA Summary

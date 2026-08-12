@@ -3,7 +3,8 @@ phase: quick-260615-r3b
 plan: 01
 subsystem: motor de sesión + dominio de progreso + UI home
 tags: [auto-avance, contrarreloj, contador-vecesFallada, UAT-refinements]
-status: shipped
+status: complete
+prior_status: shipped
 requires:
   - applySessionResult / applyImmediateFailure (src/domain/progress.js)
   - applyResultToSession / _launchExamen (src/screens/app.js)

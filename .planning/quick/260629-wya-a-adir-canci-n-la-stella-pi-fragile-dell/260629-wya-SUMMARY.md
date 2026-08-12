@@ -24,6 +24,7 @@ metrics:
   files: 2
   disputed: 4
   disputed_resolved: 4
+status: complete
 ---
 
 # La stella più fragile dell'universo — Ultimo (quick-260629-wya)

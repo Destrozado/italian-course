@@ -1,7 +1,8 @@
 ---
 quick_id: 260614-hxn
 title: "Separar variants de concordancia de adjetivo de la categoría essere"
-status: shipped
+status: complete
+prior_status: shipped
 type: execute
 date: 2026-06-14
 files_modified:

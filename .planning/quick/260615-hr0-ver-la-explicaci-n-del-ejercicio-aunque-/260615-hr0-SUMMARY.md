@@ -32,6 +32,7 @@ decisions:
 metrics:
   duration: ~25min
   completed: 2026-06-15
+status: complete
 ---
 
 # Quick Task 260615-hr0: Ver la explicación del ejercicio aunque aciertes - Summary

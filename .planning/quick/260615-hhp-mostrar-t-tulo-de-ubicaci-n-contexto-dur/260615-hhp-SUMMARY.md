@@ -3,7 +3,8 @@ phase: quick-260615-hhp
 plan: 01
 subsystem: ui
 tags: [ui, alpine, context-label, screens]
-status: shipped
+status: complete
+prior_status: shipped
 requires:
   - "appShell factory + getters reactivos (src/screens/app.js)"
   - "sessionMode/pickerCheckedCategoryIds/sessionExerciseIds/songActiveId/content.categories/content.songsById (estado existente)"

@@ -40,6 +40,7 @@ metrics:
   files: 4
   commits: 3
   tests_delta: "+20 (411→431 total; 410→430 pass; 1 fail preexistente ajeno)"
+status: complete
 ---
 
 # Quick Task 260615-puq: Modo examen contrarreloj (tiempo por respuesta) Summary

@@ -21,6 +21,7 @@ metrics:
   tasks: 2
   files: 2
   disputed: 0
+status: complete
 ---
 
 # 22 settembre — Ultimo (quick-260629-rl3)

@@ -3,7 +3,8 @@ phase: quick-260710-w6y
 plan: 01
 subsystem: validation
 tags: [song-validation, prompt-engineering, anti-calco, idiomatic-naturalness]
-status: shipped
+status: complete
+prior_status: shipped
 requires: []
 provides:
   - "Criterio S6 (anti-calco) en el contrato de validación de canciones"

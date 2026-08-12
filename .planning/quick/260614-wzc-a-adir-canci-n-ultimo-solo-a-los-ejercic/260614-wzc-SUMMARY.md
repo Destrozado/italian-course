@@ -3,7 +3,8 @@ phase: quick-260614-wzc
 plan: 01
 subsystem: contenido / canciones
 tags: [contenido, canciones, ultimo, traduccion]
-status: shipped
+status: complete
+prior_status: shipped
 requires: [content/songs/equilibrio-mentale.json (formato de referencia)]
 provides: ["content/songs/solo.json", "entrada 'solo' en content/songs.json"]
 affects: [tests/song-validator.test.js (lockstep + validateSongs sobre el repo)]

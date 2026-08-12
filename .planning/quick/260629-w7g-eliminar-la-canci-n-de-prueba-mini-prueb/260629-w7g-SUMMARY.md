@@ -19,6 +19,7 @@ metrics:
   completed: "2026-06-29"
   tasks: 1
   files: 2
+status: complete
 ---
 
 # Eliminar canción de prueba mini-prueba (quick-260629-w7g)

@@ -23,6 +23,7 @@ metrics:
   files: 2
   disputed: 2
   disputed_resolved: 2
+status: complete
 ---
 
 # Sogni appesi — Ultimo (quick-260629-rq0)

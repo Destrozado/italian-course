@@ -3,7 +3,8 @@ phase: quick-260615-nzi
 plan: 01
 subsystem: progreso / persistencia / UI home
 tags: [schema-migration, localStorage, progress-tracking, alpine, pico]
-status: shipped
+status: complete
+prior_status: shipped
 requires:
   - schemaVersion 9 (Phase 21) + migrate8to9/hydrateV9 + cadena de backup hasta v9
 provides:

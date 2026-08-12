@@ -3,7 +3,8 @@ phase: quick-260615-str
 plan: 01
 subsystem: UI / word-buttons
 tags: [ui, word-buttons, canciones, ux]
-status: shipped
+status: complete
+prior_status: shipped
 provides: ["banco word-buttons con huecos estables (sin reflow)"]
 affects: [src/screens/app.js, index.html, styles.css, tests/]
 key-files:

@@ -3,7 +3,8 @@ phase: quick-260713-ng7
 plan: 01
 subsystem: screens/session
 tags: [repaso, review-only, summary, invariante-persistencia]
-status: shipped
+status: complete
+prior_status: shipped
 requires:
   - summarySessionResults (snapshot de la ronda terminada)
   - sessionCurrentExercise getter slot-aware (Phase 16)

@@ -22,6 +22,7 @@ metrics:
   files: 2
   disputed: 5
   disputed_resolved: 5
+status: complete
 ---
 
 # Buongiorno vita — Ultimo (quick-260629-re3)

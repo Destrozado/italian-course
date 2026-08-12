@@ -21,6 +21,7 @@ metrics:
   files: 2
   disputed: 1
   disputed_resolved: 1
+status: complete
 ---
 
 # Piccola stella — Ultimo (quick-260629-whf)

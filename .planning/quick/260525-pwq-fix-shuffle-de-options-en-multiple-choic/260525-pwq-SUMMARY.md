@@ -34,6 +34,7 @@ metrics:
   completed_at: "2026-05-25T16:47:33Z"
   tests: "199 baseline → 202 (3 nuevos sub-tests shuffle invariants)"
   commits: "1 atómico (esperado)"
+status: complete
 ---
 
 # Phase quick-260525-pwq Plan 01: Fix shuffle de options en multi-choice — Summary
