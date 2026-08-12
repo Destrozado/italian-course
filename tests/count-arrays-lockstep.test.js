@@ -515,8 +515,13 @@ describe('gate anti-ceguera — goldens de slugsCiegos: ausencia, colision de pr
       { slug: 'fare-indefiniti', expected: 25 },
     ];
     /** Un bloque de verdad, mucho despues. */
-    console.log('  VAL_07_STRICT=1 node --test tests/*.test.js');
+    console.log('  VAL_07_STRICT=1 node --test tests/*.test.js');  // FORMA-PROHIBIDA: dato del golden
   `;
+    // La marca de la linea de arriba vive DENTRO del golden a proposito. La forma corta
+    // esta ahi como DATO —es el `/*` que tiene que sobrevivir dentro de una cadena—, no
+    // como instruccion, y desde que este fichero es call-site del lockstep (WR-05) hace
+    // falta declararlo. Va como comentario de linea del pseudo-fuente, asi que
+    // `sinComentarios` lo blanquea y ninguna de las dos aserciones de abajo lo ve.
     assert.deepEqual(
       slugsCiegos(SRC_TRAMPA, ['fare-indefiniti']),
       [],
@@ -524,7 +529,7 @@ describe('gate anti-ceguera — goldens de slugsCiegos: ausencia, colision de pr
     );
     // Y el `/*` de dentro de la cadena del console.log tampoco.
     assert.equal(
-      sinComentarios(SRC_TRAMPA).includes("node --test tests/*.test.js"),
+      sinComentarios(SRC_TRAMPA).includes("node --test tests/*.test.js"), // FORMA-PROHIBIDA: dato
       true,
       'CR-01: el `/*` de `tests/*.test.js` vive en una CADENA y el escaner no lo trata como comentario'
     );
@@ -993,21 +998,24 @@ describe('gate anti-ceguera — registro de categorias: orden de display y key s
 //
 // POR QUE EXISTE ESTE BLOQUE. Este proyecto no tiene package.json, asi que no hay
 // `npm test` que canonice nada: «la suite» es literalmente el argumento que el autor
-// teclea. Y ese argumento estuvo TRES fases diciendo `node --test tests/*.test.js`,
+// teclea. Y ese argumento estuvo TRES fases diciendo `node --test tests/*.test.js`, // FORMA-PROHIBIDA
 // que NO casa tests/fixtures/*.test.js. Los dos ficheros de ahi —63 aserciones, una
 // de ellas el back-compat gate de las 18 categorias reales— llevaban desde la Phase 15
 // y la Phase 39 sin correr NUNCA en la suite. Desincronizar un `expected` de
 // REAL_CATEGORIES dejaba la suite en `# pass 1101 / # fail 0 / exit 0`: verde sobre
 // una asercion que nadie ejecutaba.
 //
-// POR QUE ESTA FORMA Y NO OTRA (D-45-01, las cuatro medidas en v22.20.0):
-//   - `node --test tests/`            → exit 1, `Cannot find module '…/tests'`. Node
+// POR QUE ESTA FORMA Y NO OTRA (D-45-01, las cuatro medidas en v22.20.0). Cada linea de
+// este catalogo lleva la marca FORMA-PROHIBIDA: es lo que la exime del gate de lockstep,
+// que desde WR-05 tambien mira ESTE fichero. La marca dice «aqui la forma mala es el
+// SUJETO, no la instruccion»; sin ella, documentar una prohibicion se pondria rojo.
+//   - `node --test tests/`            → exit 1, `Cannot find module '…/tests'`. Node   // FORMA-PROHIBIDA
 //                                        resuelve el path como MODULO. No funciona.
-//   - `node --test --recursive tests/` → `node: bad option: --recursive`. La opcion NO
+//   - `node --test --recursive tests/` → `node: bad option: --recursive`. La opcion NO  // FORMA-PROHIBIDA
 //                                        EXISTE en v22.20.0. Es el fix que proponia el
 //                                        code review de la Phase 44: hipotesis de
 //                                        revisor, no evidencia.
-//   - `node --test tests/**/*.test.js` → sin `globstar` (el estado por defecto de este
+//   - `node --test tests/**/*.test.js` → sin `globstar` (el estado por defecto de este   // FORMA-PROHIBIDA
 //                                        shell) y bajo sh/dash, `**` degrada a `*` y
 //                                        expande SOLO a tests/fixtures/: corre 63 de
 //                                        1164 tests, todo verde, exit 0. Un verde
@@ -1047,23 +1055,34 @@ const GLOBS_CANONICOS = INVOCACION_CANONICA.split(/\s+/).filter((t) => t.endsWit
 const CABECERA_COMANDO = INVOCACION_CANONICA.split(/\s+/).slice(0, 2).join(' ');
 
 // Los ficheros de CONTRATO: los que le dicen al autor (o a un agente) como se corre la
-// suite. Los ficheros de tests/ NO van aqui — los cubre la regla de prefijo, que no hay
-// que mantener a mano cuando nace la suite numero 30.
+// suite. Los ficheros de tests/ NO van aqui —los cubre la regla de forma, que no hay que
+// mantener a mano cuando nace la suite numero 30— con UNA excepcion, este mismo fichero.
+//
+// POR QUE ESTA ESTE FICHERO AQUI (WR-05). El comentario de la exencion de la regla de
+// forma afirmaba: «la exencion no es un pase libre: el test de arriba ya exige que este
+// fichero declare INVOCACION_CANONICA». NINGUN test exigia eso — esta lista no lo
+// contenia. Medido: degradar la cabecera de ESTE fichero a la forma corta dejaba la suite
+// en `# pass 36 / # fail 0`. Era una justificacion falsa sosteniendo una exencion de 1448
+// lineas, y la exencion cubria tambien la cabecera, que no es un golden. Ahora la
+// afirmacion es cierta porque el fichero esta en la lista, y la exencion global sobra: lo
+// que legitimamente escribe formas malas (los goldens SRC_TRAMPA y el catalogo de
+// :1008-1026) lo declara linea a linea con la marca FORMA-PROHIBIDA.
 const CALL_SITES_INVOCACION = [
   'README.md',
   '.claude/skills/gsd-validate-batch/SKILL.md',
   '.claude/skills/it-add-song/SKILL.md',
   'scripts/run-validation-271.mjs',
+  'tests/count-arrays-lockstep.test.js',
 ];
 
 // POR QUE SE RECONOCE LO QUE HAY Y NO UNA FORMA MALA CONCRETA (CR-01 del review de esta
 // misma fase). La version anterior contaba ocurrencias de UNA sola forma degradada
-// —`node --test tests/*.test.js`— y deducia las malas por aritmetica:
+// —`node --test tests/*.test.js`— y deducia las malas por aritmetica:   // FORMA-PROHIBIDA
 // `cortas = cuenta(prefijo) - cuenta(canonica)`. Cualquier OTRA manera de escribirlo mal
 // aportaba CERO ocurrencias de prefijo, salia `cortas = 0` y el gate pasaba en VERDE.
 // Medido sobre una copia del arbol: revertir UNA de las dos invocaciones de README.md a
-// `node --test tests/` dejaba `# fail 0`; una cabecera de test nueva con
-// `node --test tests/` o con `node --test --recursive tests/`, tambien. Es decir: el gate
+// `node --test tests/` dejaba `# fail 0`; una cabecera de test nueva con   // FORMA-PROHIBIDA
+// `node --test tests/` o con `node --test --recursive tests/`, tambien. Es decir: el gate // FORMA-PROHIBIDA
 // era ciego a la forma exacta que este repositorio TENIA antes de la fase, y a la que
 // propuso el code review de la Phase 44. El titulo del test («en TODAS sus menciones»)
 // afirmaba una cobertura que el codigo no tenia.
@@ -1097,7 +1116,7 @@ const RE_FICHERO_SUELTO = new RegExp(`^${escapeRe(CABECERA_COMANDO)} [^ *]+\\.te
 
 // LA MARCA DE CATALOGO, y por que existe una marca en vez de una heuristica. Hay lineas
 // que escriben una forma no canonica LEGITIMAMENTE: la nombran para PROHIBIRLA (el parrafo
-// de README.md:33, los avisos «NO `node --test tests/`» de tres cabeceras, el catalogo de
+// de README.md:33, los avisos «NO `node --test tests/`» de tres cabeceras, el catalogo de // FORMA-PROHIBIDA
 // las cuatro formas medidas de :1004-1017) o la usan como DATO (los goldens SRC_TRAMPA).
 // Adivinar esa intencion de la prosa —buscar «NO», «falla», «prohibida»— seria la misma
 // clase de heuristica fragil que este bloque existe para eliminar, y ademas convertiria
@@ -1210,16 +1229,15 @@ describe('invocacion canonica — ningun fichero de test queda fuera de la suite
     // patron exacto que esta fase existe para pagar. Esta regla es lo que las mantiene en
     // lockstep SIN una lista que mantener a mano: la cabecera numero 30 nace correcta, o
     // marca su forma mala como catalogo, o el gate la nombra.
-    const enFormaCorta = TESTS_EN_DISCO.flatMap((rel) => {
-      // EXENCION, unica y con motivo escrito: este propio fichero. Sus goldens
-      // SRC_TRAMPA contienen la forma corta como DATO —reproducen el `/*` de
-      // `tests/*.test.js` viviendo dentro de una CADENA, que es lo que prueba que
-      // `sinComentarios` no lo trata como comentario—. Cambiarlos destruiria el caso
-      // que congelan. La exencion no es un pase libre: el test de arriba ya exige que
-      // este fichero declare INVOCACION_CANONICA, y su cabecera la lleva completa.
-      if (rel === 'tests/count-arrays-lockstep.test.js') return [];
-      return menciones(readSrc(rel)).cortas.map((c) => `${rel}:${c}`);
-    });
+    // YA NO HAY EXENCION DE FICHERO (WR-05). La habia para este mismo fichero, de 1448
+    // lineas, justificada por dos goldens de las lineas 518 y 527 y por una afirmacion
+    // falsa («el test de arriba ya exige que este fichero declare INVOCACION_CANONICA»:
+    // no estaba en CALL_SITES_INVOCACION, y degradar su cabecera salia VERDE). Lo que
+    // legitimamente escribe una forma mala se declara ahora linea a linea con la marca,
+    // que es una exencion del tamano del motivo en vez del tamano del fichero.
+    const enFormaCorta = TESTS_EN_DISCO.flatMap((rel) =>
+      menciones(readSrc(rel)).cortas.map((c) => `${rel}:${c}`)
+    );
     assert.deepEqual(
       enFormaCorta,
       [],
