@@ -2193,6 +2193,102 @@ describe('fare-indefiniti — invariantes del cruce multi-categoria -300 (INT-03
   // una constante de la categoria, es una del cruce.
   const PRONOUN_RE = /\b(io|tu|lui|lei|noi|voi|loro)\b/gi;
 
+  // LA FRONTERA DEL GLOSS DE ESTE CRUCE (G-44-3-WR03, R1, G3, D-44-04).
+  //
+  // El `notes` del fichero la declara: **el gloss NO traduce el modal**; glosa el
+  // COMPLEMENTO que desambigua la intencion. Lo que faltaba no era la decision,
+  // era el predicado mecanico que la hace incumplible — el 0-gloss de la categoria
+  // itera los slots BASE y este cruce no esta ahi. Aqui el hueco es el MODAL
+  // CONJUGADO, asi que un gloss con `tengo que`, `puedo` o `quiero` entrega
+  // exactamente la casilla que el cruce pregunta: leak R1, tres respuestas
+  // defendibles, `disputed` sticky y por la cascada D-54 el reset de
+  // `fare-indefiniti` Y `modali` a la vez.
+  //
+  // POR QUE ESTA LISTA NEGRA NO ES LA DE `fare-indicativo-300`, que gobierna el
+  // auxiliar castellano `haber`: alli el hueco ES el auxiliar y un `he hecho` en el
+  // gloss es el leak; AQUI el hueco es el modal y un compuesto con `haber` en el
+  // gloss es LEGITIMO — el gloss real de la tercera variante contiene `nadie nos lo
+  // ha pedido`. Aplicarle la lista del vecino pondria rojo contenido ya validado
+  // por quorum, que es la misma clase de error que G-44-3-WR02 cierra en este
+  // mismo plan. Cada cruce mira su propio espejo y no el del vecino.
+  //
+  // Se enumeran las formas conjugadas de los TRES modales que el cruce examina
+  // —obligacion, permiso y voluntad— en su ortografia acentuada RAE y tambien sin
+  // tilde por defensa, mas la perifrasis de obligacion. La perifrasis va como
+  // BIGRAMA COMPLETO y NUNCA por su primera palabra suelta: el gloss real de la
+  // primera variante contiene `no tengo elección`, que NO es la perifrasis, y
+  // compararlo por `tengo` a secas pondria rojo contenido validado.
+  const MODALES_ES = [
+    // deber — obligacion
+    'debo', 'debes', 'debe', 'debemos', 'debéis', 'debeis', 'deben',
+    // poder — permiso
+    'puedo', 'puedes', 'puede', 'podemos', 'podéis', 'podeis', 'pueden',
+    // querer — voluntad
+    'quiero', 'quieres', 'quiere', 'queremos', 'queréis', 'quereis', 'quieren',
+    // la perifrasis de obligacion, SIEMPRE como bigrama
+    'tengo que', 'tienes que', 'tiene que', 'tenemos que', 'tenéis que', 'teneis que', 'tienen que',
+  ];
+  const modalesEsEn = (gloss) => MODALES_ES.filter((f) => wordish(f).test(gloss));
+
+  test('goldens de modalesEsEn: muerde los tres modales castellanos y la perifrasis (G-44-3-WR03)', () => {
+    assert.deepEqual(modalesEsEn('tengo que hacer los deberes'), ['tengo que']);
+    assert.deepEqual(modalesEsEn('puedo hacer una foto'), ['puedo']);
+    assert.deepEqual(modalesEsEn('queremos hacer un pastel'), ['queremos']);
+    assert.deepEqual(modalesEsEn('debemos hacer los deberes'), ['debemos']);
+  });
+
+  test('goldens de modalesEsEn: guardia de FALSO POSITIVO del contenido REAL — `no tengo elección` NO es la perifrasis de obligacion', () => {
+    // Es el gloss de la primera variante del cruce, ya validado por quorum. La
+    // perifrasis se compara como bigrama por esto exactamente: con `tengo` suelto
+    // en la lista negra, esta linea seria roja y el arreglo siguiente seria
+    // relajar el gate o —peor— tocar contenido validado.
+    assert.deepEqual(
+      modalesEsEn('es una obligación del colegio, no tengo elección; si no, saco mala nota'),
+      []
+    );
+  });
+
+  test('goldens de modalesEsEn: segundo guardia del contenido REAL — el compuesto con `haber` es LEGITIMO en este cruce', () => {
+    // Es el gloss de la tercera variante. La frontera de ESTE cruce es el MODAL y
+    // no el auxiliar: la lista negra de `haber` que gobierna
+    // `fare-indicativo-300` NO se reutiliza aqui.
+    assert.deepEqual(modalesEsEn('es un deseo nuestro, nadie nos lo ha pedido'), []);
+  });
+
+  test('WR-03 — el gloss del cruce CONSERVA su contenido y NO traduce el modal examinado (R1, G3)', () => {
+    const variantes = byId('fare-indefiniti-300').variants;
+    // NO-VACUIDAD primero, derivada del disco: sin esto un slot sin variantes
+    // dejaria el bucle sin iteraciones y el gate pasaria en verde sin haber
+    // mirado un solo prompt (T-44-04-01).
+    assert.ok(
+      variantes.length > 0,
+      'G-44-3-WR03: fare-indefiniti-300 no tiene variantes que inspeccionar, asi que este gate estaria pasando sin mirar nada'
+    );
+    for (const [k, v] of variantes.entries()) {
+      // PRIMERA CLAUSULA y en este orden: que el gloss EXISTE. Sin ella, borrar
+      // el gloss dejaria la lista negra corriendo sobre una cadena vacia y el
+      // gate certificaria en verde lo contrario de lo que dice (T-44-04-01).
+      const abre = (v.prompt.match(/\(/g) || []).length;
+      assert.equal(
+        abre,
+        1,
+        `G-44-3-WR03: fare-indefiniti-300#${k} tiene ${abre} parentesis de apertura y necesita EXACTAMENTE 1 — el gloss de este cruce glosa el COMPLEMENTO y es legitimo: "${v.prompt}"`
+      );
+      const gloss = (v.prompt.match(/\(([^)]*)\)/) || [null, null])[1];
+      assert.ok(
+        gloss !== null && gloss.trim().length > 0,
+        `G-44-3-WR03: fare-indefiniti-300#${k} se quedo sin contenido de gloss, asi que la lista negra de abajo estaria pasando sobre una cadena vacia: "${v.prompt}"`
+      );
+      // SEGUNDA CLAUSULA: la frontera del `notes`.
+      const sucio = modalesEsEn(gloss);
+      assert.deepEqual(
+        sucio,
+        [],
+        `R1 / G3: fare-indefiniti-300#${k} traduce en el gloss el modal EXAMINADO (${sucio.join(', ')}) — es la casilla que el cruce pregunta, y por la cascada D-54 el fallo resetea fare-indefiniti Y modali a la vez: "${gloss}"`
+      );
+    }
+  });
+
   test('el cruce en disco es EXACTAMENTE el declarado en CROSS_IDS', () => {
     assert.deepEqual(CROSS_SLOTS.map((s) => s.id), CROSS_IDS, 'D-44-05: la lista de cruces esta CERRADA');
     assert.ok(byId('fare-indefiniti-300'), 'INT-03: el cruce declarado no esta en disco');
