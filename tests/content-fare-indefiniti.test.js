@@ -2193,6 +2193,21 @@ describe('fare-indefiniti — invariantes del cruce multi-categoria -300 (INT-03
   // una constante de la categoria, es una del cruce.
   const PRONOUN_RE = /\b(io|tu|lui|lei|noi|voi|loro)\b/gi;
 
+  // EL SUJETO DEL HUECO ES EL ULTIMO PRONOMBRE ANTES DEL HUECO, NUNCA EL PRIMERO
+  // DEL PROMPT (CR-02, code review de Phase 44). Clonado del hermano
+  // `tests/content-fare-indicativo.test.js`, donde este mismo defecto se cerro y
+  // aqui no. Tomar el primer pronombre del prompt entero mide el sujeto de la
+  // clausula de CONTEXTO en cuanto una variante lleve dos pronombres: hoy los 3
+  // prompts del cruce llevan exactamente uno, asi que el resultado es identico y el
+  // gate estaba verde POR CASUALIDAD, no por construccion. La casualidad no es una
+  // garantia, y el molde de este cruce invita a la segunda clausula (`perché il
+  // museo dà il permesso`, `nessuno ce lo ha chiesto`).
+  const personaDelHueco = (prompt) => {
+    const antes = prompt.split('___')[0];
+    const hits = antes.match(PRONOUN_RE) || [];
+    return hits.length ? hits[hits.length - 1].toLowerCase() : '';
+  };
+
   // LA FRONTERA DEL GLOSS DE ESTE CRUCE (G-44-3-WR03, R1, G3, D-44-04).
   //
   // El `notes` del fichero la declara: **el gloss NO traduce el modal**; glosa el
@@ -2297,8 +2312,9 @@ describe('fare-indefiniti — invariantes del cruce multi-categoria -300 (INT-03
   test('3 variantes y 3 personas DISTINTAS con sujeto pronominal explicito (D-44-03)', () => {
     const s = byId('fare-indefiniti-300');
     assert.equal(s.variants.length, 3, 'D-44-03: 3 variantes, el volumen medio de los cruces del proyecto');
-    const personas = s.variants.map((v) => (v.prompt.match(PRONOUN_RE) || [''])[0].toLowerCase());
-    assert.ok(personas.every((p) => p.length > 0), `D-44-04: una variante no lleva sujeto pronominal explicito: ${personas.join(', ')}`);
+    // CR-02: por `personaDelHueco` y NO por el primer pronombre del prompt.
+    const personas = s.variants.map((v) => personaDelHueco(v.prompt));
+    assert.ok(personas.every((p) => p.length > 0), `D-44-04: una variante no lleva sujeto pronominal explicito ANTES del hueco: ${personas.join(', ')}`);
     assert.equal(new Set(personas).size, 3, `D-44-03: el cruce repite persona: ${personas.join(', ')}`);
   });
 
@@ -2410,5 +2426,152 @@ describe('fare-indefiniti — invariantes del cruce multi-categoria -300 (INT-03
       3,
       `G3: las 3 variantes tienen que apuntar a los TRES modales distintos, y apuntan a ${usados.join(', ')}`
     );
+  });
+
+  // CR-02 (code review de Phase 44) — EL GATE QUE FALTABA, Y ES EL MAS IMPORTANTE
+  // DEL CRUCE.
+  //
+  // El hermano `tests/content-fare-indicativo.test.js` cerro exactamente este
+  // agujero para SUS cruces y dejo escrito que «es el gate mas importante de los
+  // cruces». El bloque 14 de este fichero nunca recibio la contraparte: sus doce
+  // gates comprueban que las options son modales conjugados, que hay 4 distintas,
+  // que `correctIndex` esta en rango y no es constante, y que hay exactamente un
+  // complemento desambiguador — pero NADA ataba la KEY ni al sujeto ni al
+  // complemento. Reproducido: mover la variante 1 de `correctIndex: 2` (`puoi`) a
+  // `correctIndex: 3` (`possono`) —persona equivocada Y, por tanto, un ejercicio que
+  // ensena `tu … possono`— dejaba la suite entera en verde.
+  //
+  // TIENE QUE MIRAR LOS DOS EJES A LA VEZ, porque ninguno de los dos aisla la
+  // respuesta: en la variante 0 el sujeto es `io` y `devo` y `posso` son las dos de
+  // 1sg, asi que la persona sola no basta; y el complemento solo fija el LEMA, no la
+  // persona. La conjuncion de los dos es lo que hace la key unica, y la tercera
+  // clausula lo comprueba por el otro lado: ninguna distractora puede satisfacer las
+  // dos cosas, o habria dos respuestas defendibles y el quorum la marcaria
+  // `disputed` —sticky— arrastrando por la cascada D-54 el reset de
+  // `fare-indefiniti` Y `modali` a la vez.
+  //
+  // POR QUE UNA TABLA CERRADA DE FORMAS Y NO UN PREFIJO DE RAIZ. La forma tentadora
+  // —mapear cada complemento a una raiz (`permesso` -> `poss-`) y pedir
+  // `key.startsWith(raiz)`— es un FALSO ROJO sobre el contenido REAL, y un falso rojo
+  // es un defecto igual que un falso verde: la key de la variante 1 es `puoi`, que NO
+  // empieza por `poss-`. Los tres modales italianos son IRREGULARES y alternan raiz
+  // dentro del propio paradigma (`posso`/`puoi`/`può`/`potete`,
+  // `devo`/`dobbiamo`/`dovete`, `voglio`/`vuoi`/`volete`), asi que ningun prefijo
+  // identifica el lema. De las 18 formas legitimas, el prefijo se equivoca en 4
+  // (`dobbiamo`, `potete`, `volete`, `può`) mas la `puoi` que ya esta en disco. Por
+  // eso el mapeo es una tabla EXHAUSTIVA forma -> {persona, lema}: 18 entradas, cero
+  // inferencia morfologica.
+  const MODAL_FORMS = {
+    // dovere — obligacion
+    devo: { persona: 'io', lema: 'dovere' },
+    devi: { persona: 'tu', lema: 'dovere' },
+    deve: { persona: 'lui', lema: 'dovere' },
+    dobbiamo: { persona: 'noi', lema: 'dovere' },
+    dovete: { persona: 'voi', lema: 'dovere' },
+    devono: { persona: 'loro', lema: 'dovere' },
+    // potere — permiso
+    posso: { persona: 'io', lema: 'potere' },
+    puoi: { persona: 'tu', lema: 'potere' },
+    può: { persona: 'lui', lema: 'potere' },
+    possiamo: { persona: 'noi', lema: 'potere' },
+    potete: { persona: 'voi', lema: 'potere' },
+    possono: { persona: 'loro', lema: 'potere' },
+    // volere — voluntad
+    voglio: { persona: 'io', lema: 'volere' },
+    vuoi: { persona: 'tu', lema: 'volere' },
+    vuole: { persona: 'lui', lema: 'volere' },
+    vogliamo: { persona: 'noi', lema: 'volere' },
+    volete: { persona: 'voi', lema: 'volere' },
+    vogliono: { persona: 'loro', lema: 'volere' },
+  };
+
+  // `lui` y `lei` son la MISMA persona gramatical: la 3ª singular.
+  const mismaPersona = (a, b) => (a === 'lei' ? 'lui' : a) === (b === 'lei' ? 'lui' : b);
+
+  // Que lema EXIGE cada complemento del conjunto cerrado. Es la otra mitad del
+  // contrato que `COMPLEMENTOS_QUE_EXCLUYEN` ya declara en prosa: si `altrimenti`
+  // «excluye permiso y voluntad», entonces exige `dovere`.
+  const LEMA_DEL_COMPLEMENTO = {
+    altrimenti: 'dovere',
+    permesso: 'potere',
+    desiderio: 'volere',
+  };
+
+  test('goldens de MODAL_FORMS: la tabla cubre las 18 formas de los 3 modales y el prefijo de raiz NO habria servido (CR-02)', () => {
+    assert.equal(Object.keys(MODAL_FORMS).length, 18, 'CR-02: 3 modales x 6 personas, tabla CERRADA');
+    // Las 3 raices por lema, para que se vea que la irregularidad no es teorica.
+    assert.deepEqual(
+      ['devo', 'dobbiamo', 'dovete'].map((f) => MODAL_FORMS[f].lema),
+      ['dovere', 'dovere', 'dovere']
+    );
+    assert.deepEqual(
+      ['posso', 'puoi', 'può', 'potete'].map((f) => MODAL_FORMS[f].lema),
+      ['potere', 'potere', 'potere', 'potere']
+    );
+    assert.deepEqual(
+      ['voglio', 'vuoi', 'volete'].map((f) => MODAL_FORMS[f].lema),
+      ['volere', 'volere', 'volere']
+    );
+    // Y el golden que congela por que la tabla existe: `puoi` es la key REAL de la
+    // variante 1 y no empieza por la raiz `poss-` que un mapeo por prefijo pediria.
+    assert.equal('puoi'.startsWith('poss'), false, 'CR-02: por esto el mapeo NO puede ser por prefijo de raiz');
+    assert.equal(MODAL_FORMS.puoi.lema, 'potere');
+    // Cada lema aparece 6 veces y cada persona 3, o la tabla tiene un hueco.
+    for (const lema of ['dovere', 'potere', 'volere']) {
+      assert.equal(Object.values(MODAL_FORMS).filter((m) => m.lema === lema).length, 6, `CR-02: faltan formas de ${lema}`);
+    }
+    for (const persona of ['io', 'tu', 'lui', 'noi', 'voi', 'loro']) {
+      assert.equal(Object.values(MODAL_FORMS).filter((m) => m.persona === persona).length, 3, `CR-02: falta una persona ${persona}`);
+    }
+  });
+
+  test('CR-02 — la KEY concuerda con la persona del sujeto DEL HUECO y con el modal que el complemento EXIGE (D-44-02, D-44-04)', () => {
+    const variantes = byId('fare-indefiniti-300').variants;
+    // NO-VACUIDAD primero: sin variantes este gate no mira nada y pasaria en verde
+    // sin haber comprobado una sola key (T-44-04-01).
+    assert.ok(
+      variantes.length > 0,
+      'CR-02: fare-indefiniti-300 no tiene variantes, asi que este gate estaria pasando sin mirar ninguna key'
+    );
+    for (const [k, v] of variantes.entries()) {
+      const key = v.options[v.correctIndex];
+      const info = MODAL_FORMS[key];
+      assert.ok(
+        info,
+        `CR-02: #${k} tiene la key "${key}", que no es ninguna de las 18 formas de dovere/potere/volere: "${v.prompt}"`
+      );
+
+      // EJE 1 — la persona del sujeto del hueco.
+      const p = personaDelHueco(v.prompt);
+      assert.ok(
+        mismaPersona(info.persona, p),
+        `CR-02: #${k} tiene sujeto "${p}" y su key "${key}" es de la persona "${info.persona}": "${v.prompt}"`
+      );
+
+      // EJE 2 — el lema que exige el complemento desambiguador. Por `wordish`, que es
+      // el matcher que la cabecera de este fichero manda usar para la presencia.
+      const compl = COMPLEMENTOS_QUE_EXCLUYEN.find((m) => wordish(m).test(v.prompt));
+      assert.ok(compl, `CR-02: #${k} no lleva complemento desambiguador, asi que el eje del modal no se puede medir: "${v.prompt}"`);
+      assert.equal(
+        info.lema,
+        LEMA_DEL_COMPLEMENTO[compl],
+        `CR-02: #${k} lleva el complemento "${compl}", que exige ${LEMA_DEL_COMPLEMENTO[compl]}, y su key "${key}" es de ${info.lema}: "${v.prompt}"`
+      );
+
+      // EJE 3 — y ninguna DISTRACTORA satisface los dos ejes a la vez, o habria dos
+      // respuestas defendibles y el quorum marcaria la variante `disputed`.
+      const tambienDefendibles = v.options.filter(
+        (o) =>
+          o !== key &&
+          MODAL_FORMS[o] &&
+          mismaPersona(MODAL_FORMS[o].persona, p) &&
+          MODAL_FORMS[o].lema === LEMA_DEL_COMPLEMENTO[compl]
+      );
+      assert.deepEqual(
+        tambienDefendibles,
+        [],
+        `CR-02: #${k} tiene una segunda respuesta defendible (misma persona Y mismo modal que la key): ${tambienDefendibles.join(', ')}`
+      );
+    }
   });
 });
