@@ -4,17 +4,17 @@ milestone: v2.0
 milestone_name: Paradigma completo de `fare` (4 categorías por modo)
 current_phase: 45
 current_phase_name: Deuda del arnés de tests
-status: executing
-stopped_at: "Completed 45-03-PLAN.md (DEUDA-03) — Tarea 3 checkpoint:human-verify APROBADA por el autor 2026-08-13"
-last_updated: "2026-08-12T22:08:17.091Z"
+status: verifying
+stopped_at: Completed 45-04-PLAN.md (trazabilidad DEUDA-01/02/03 + gate de cobertura derivada)
+last_updated: "2026-08-12T22:24:47.785Z"
 last_activity: 2026-08-12
 last_activity_desc: Phase 45 añadida desde v2.0-MILESTONE-AUDIT.md — deuda del arnés (DEUDA-01/02/03); sin planificar
 progress:
   total_phases: 6
-  completed_phases: 5
+  completed_phases: 6
   total_plans: 15
-  completed_plans: 14
-  percent: 83
+  completed_plans: 15
+  percent: 100
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -31,10 +31,10 @@ See: `.planning/PROJECT.md` (updated 2026-08-06 — Phase 42 `fare-congiuntivo` 
 
 Phase: 45 (Deuda del arnés de tests) — EXECUTING
 Plan: 4 of 4
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-08-12 — Phase 45 execution started
 
-Progress: [████████████████████] 4/4 planes de la fase 44 ([█████████░] 93%) · 5/5 fases del milestone v2.0 (100%)
+Progress: [████████████████████] 4/4 planes de la fase 44 ([██████████] 100%) · 5/5 fases del milestone v2.0 (100%)
 
 ## Deferred Items
 
@@ -182,6 +182,7 @@ Items reconocidos y diferidos en el cierre del milestone v1.9 (2026-07-02, ackno
 | Phase 45 P01 | ~50 min | 2 tasks | 26 files |
 | Phase 45 P02 | ~55 min | 3 tasks | 2 files |
 | Phase 45 P03 | ~45 min | 3 tasks | 2 files |
+| Phase 45 P04 | ~8 min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -333,6 +334,7 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - [Phase ?]: D-45-06 — WR-07 SI (el ancla de slugsCiegos pasa a horizontal, con golden fail-first), WR-12 NO: queda como deuda abierta por escrito
 - [Phase ?]: D-45-07 — la prosa del gate se redacta en terminos de COUNT_ARRAY_SOURCES, no enumerando 'las dos fuentes': el nombre de los tests tambien
 - [Phase ?]: D-45-12 — el gate de DEUDA-03 mira TODA linea no-comentario del reporter, no solo las que contienen el token console.log: las lineas de continuacion de un console.log multilinea emiten salida y el esqueleto del research las dejaba pasar en verde
+- [Phase 45]: D-45-15 — el gate de trazabilidad NO detecta un requisito ausente de las DOS mitades de REQUIREMENTS.md; caza la edicion a medias — Medido contra el estado real previo (HEAD~1): 23 definiciones / 23 filas / Coverage 23/23 es internamente CONSISTENTE y el gate pasa VERDE con los tres DEUDA ausentes. El plan afirmaba que el cruce definiciones-mapeos era 'literalmente lo que habria cazado que DEUDA-01/02/03 no existieran'; es FALSO. Contra la ausencia total la unica defensa es el cruce con ROADMAP.md, fuera del alcance de este plan. Escrito en la cabecera del propio test para que nadie le atribuya una garantia que no da.
 
 ### Pending Todos
 
@@ -392,8 +394,8 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Session Continuity
 
-**Last session:** 2026-08-12T22:08:16.962Z
-**Stopped at:** Completed 45-03-PLAN.md (DEUDA-03) — Tarea 3 checkpoint:human-verify APROBADA por el autor 2026-08-13
+**Last session:** 2026-08-12T22:24:47.752Z
+**Stopped at:** Completed 45-04-PLAN.md (trazabilidad DEUDA-01/02/03 + gate de cobertura derivada)
 **Resume file:** None
 
 ### Last Session
