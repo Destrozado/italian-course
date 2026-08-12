@@ -1335,33 +1335,43 @@ const __explCountDir = dirname(__explCountFile);
 const slotCountOf = (relFile) =>
   JSON.parse(readFileSync(resolve(__explCountDir, '..', relFile), 'utf-8')).exercises.length;
 
+// v2.0 Phase 45 (DEUDA-02): cada entrada declara ademas su `slug`, DELANTE del `file` y
+// en la MISMA linea. La clave es INERTE para el consumo —el bucle de abajo destructura
+// solo `file` y `expected`— y existe para el ANCLA del gate anti-ceguera
+// (tests/count-arrays-lockstep.test.js): este array es la tercera fuente de conteo, y
+// hasta ahora borrarle una entrada encogia la suite en silencio con exit 0. Con el par
+// `slug` ↔ `file` declarado, la fuente queda cubierta por los DOS gates —`slugsCiegos`
+// (categoria registrada y no enganchada) y `paresCruzados` (el copia-pega del prefijo
+// ambiguo `fare-ind`, D-40-03)— en vez de por ninguno. El orden y la co-linealidad no
+// son estetica: `paresSlugFile` exige `slug: '<valor>',` seguido de `file:` en la misma
+// linea; un `slug` puesto detras del `file` NO produce par. Slug COMPLETO byte a byte.
 const CATEGORIES_WITH_EXPLANATIONS = [
-  { file: 'content/exercises/preposiciones.json', expected: 50 },
-  { file: 'content/exercises/genero-numero.json', expected: 13 },
-  { file: 'content/exercises/avere.json', expected: 20 },
-  { file: 'content/exercises/sustantivos-irregulares.json', expected: 5 },
-  { file: 'content/exercises/verbos-movimiento.json', expected: 7 },
-  { file: 'content/exercises/essere.json', expected: 26 },
-  { file: 'content/exercises/profesiones.json', expected: 11 },
-  { file: 'content/exercises/articoli.json', expected: 34 },
-  { file: 'content/exercises/partitivos.json', expected: 19 },
+  { slug: 'preposiciones',            file: 'content/exercises/preposiciones.json',            expected: 50 },
+  { slug: 'genero-numero',            file: 'content/exercises/genero-numero.json',            expected: 13 },
+  { slug: 'avere',                    file: 'content/exercises/avere.json',                    expected: 20 },
+  { slug: 'sustantivos-irregulares',  file: 'content/exercises/sustantivos-irregulares.json',  expected: 5 },
+  { slug: 'verbos-movimiento',        file: 'content/exercises/verbos-movimiento.json',        expected: 7 },
+  { slug: 'essere',                   file: 'content/exercises/essere.json',                   expected: 26 },
+  { slug: 'profesiones',              file: 'content/exercises/profesiones.json',              expected: 11 },
+  { slug: 'articoli',                 file: 'content/exercises/articoli.json',                 expected: 34 },
+  { slug: 'partitivos',               file: 'content/exercises/partitivos.json',               expected: 19 },
   // v1.7 Phase 31 (INT-01): 10ª categoría presente-regolare. expected DINÁMICO
   // (D-31-06) = exercises.length real (12 = 8 slots base Phase 30 + 4 cruces Plan 01).
-  { file: 'content/exercises/presente-regolare.json', expected: slotCountOf('content/exercises/presente-regolare.json') },
+  { slug: 'presente-regolare',        file: 'content/exercises/presente-regolare.json',        expected: slotCountOf('content/exercises/presente-regolare.json') },
   // v1.9 Phase 39 (INT-02): 4 categorías nuevas (determinantes + verbos A1/A2).
   // expected DINÁMICO (D-31-06) = exercises.length real en disco, NUNCA número mágico.
-  { file: 'content/exercises/dimostrativi.json', expected: slotCountOf('content/exercises/dimostrativi.json') },
-  { file: 'content/exercises/possessivi.json', expected: slotCountOf('content/exercises/possessivi.json') },
-  { file: 'content/exercises/modali.json', expected: slotCountOf('content/exercises/modali.json') },
-  { file: 'content/exercises/riflessivi.json', expected: slotCountOf('content/exercises/riflessivi.json') },
+  { slug: 'dimostrativi',             file: 'content/exercises/dimostrativi.json',             expected: slotCountOf('content/exercises/dimostrativi.json') },
+  { slug: 'possessivi',               file: 'content/exercises/possessivi.json',               expected: slotCountOf('content/exercises/possessivi.json') },
+  { slug: 'modali',                   file: 'content/exercises/modali.json',                   expected: slotCountOf('content/exercises/modali.json') },
+  { slug: 'riflessivi',               file: 'content/exercises/riflessivi.json',               expected: slotCountOf('content/exercises/riflessivi.json') },
   // v2.0 Phase 41 (IND-01..IND-06): fare-indicativo, 8 slots x 6 personas.
-  { file: 'content/exercises/fare-indicativo.json', expected: slotCountOf('content/exercises/fare-indicativo.json') },
+  { slug: 'fare-indicativo',          file: 'content/exercises/fare-indicativo.json',          expected: slotCountOf('content/exercises/fare-indicativo.json') },
   // v2.0 Phase 42 (CONG-01..CONG-04): fare-congiuntivo, 5 slots (4 del paradigma + el disparador).
-  { file: 'content/exercises/fare-congiuntivo.json', expected: slotCountOf('content/exercises/fare-congiuntivo.json') },
+  { slug: 'fare-congiuntivo',         file: 'content/exercises/fare-congiuntivo.json',         expected: slotCountOf('content/exercises/fare-congiuntivo.json') },
   // v2.0 Phase 43 (CI-01..CI-03): fare-cond-imperativo, 3 slots (cond. presente + cond. passato + imperativo).
-  { file: 'content/exercises/fare-cond-imperativo.json', expected: slotCountOf('content/exercises/fare-cond-imperativo.json') },
+  { slug: 'fare-cond-imperativo',     file: 'content/exercises/fare-cond-imperativo.json',     expected: slotCountOf('content/exercises/fare-cond-imperativo.json') },
   // v2.0 Phase 43 (INDEF-01..INDEF-04): fare-indefiniti, 6 slots de formas no personales (infinito, participio y gerundio).
-  { file: 'content/exercises/fare-indefiniti.json', expected: slotCountOf('content/exercises/fare-indefiniti.json') },
+  { slug: 'fare-indefiniti',          file: 'content/exercises/fare-indefiniti.json',          expected: slotCountOf('content/exercises/fare-indefiniti.json') },
   // Cobertura editorial: 370 con explanation curada tras el piloto v1.4 (Phase 17): Preposiciones pasó de 52 ejercicios a 49 slots (explanation a nivel de slot); las otras 8 categorías por ejercicio.
 ];
 

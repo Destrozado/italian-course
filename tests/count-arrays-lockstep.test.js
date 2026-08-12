@@ -25,15 +25,19 @@
 // documento con `presente-regolare`, que estuvo ausente de los arrays desde
 // Phase 30 hasta Phase 31. Este gate es lo UNICO que impide la cuarta repeticion.
 //
-// POR QUE VA POR SOURCE-ASSERT Y NO POR IMPORT (D-44-07). Ninguna de las dos
-// fuentes es importable:
+// POR QUE VA POR SOURCE-ASSERT Y NO POR IMPORT (D-44-07). Ninguna de las fuentes
+// declaradas en COUNT_ARRAY_SOURCES es importable, y cada una por SU razon:
 //   - scripts/run-validation-271.mjs ejecuta un guard de coherencia AL CARGAR el
 //     modulo y llama a process.exit(1) si el conteo no cuadra. Importarlo desde un
 //     test es una bomba: mata el runner sin mensaje util.
 //   - tests/fixtures/slot-variants-integration.test.js declara REAL_CATEGORIES como
 //     un `const` DENTRO del callback de su describe, asi que no hay nada que
 //     exportar.
-// Por eso se lee el TEXTO FUENTE de las dos y se aserta sobre el, igual que
+//   - tests/exercise-types.test.js declara CATEGORIES_WITH_EXPLANATIONS como un
+//     `const` a nivel de MODULO y NO lo exporta; y aunque lo exportase, importar un
+//     fichero de test re-registra sus describe/test en este runner y falsearia el
+//     conteo de la suite. (v2.0 Phase 45, DEUDA-02.)
+// Por eso se lee el TEXTO FUENTE de todas y se aserta sobre el, igual que
 // tests/exercise-types.test.js hace con APP_SRC (`readFileSync(new URL(...))`).
 //
 // POR QUE LA LISTA DE REFERENCIA SE LEE DEL DISCO. Comparar los arrays contra una
@@ -45,10 +49,16 @@ import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 
-// Las DOS fuentes de conteo, leidas como TEXTO (nunca importadas — ver cabecera).
+// Las fuentes de conteo, leidas como TEXTO (nunca importadas — ver cabecera). Esta
+// lista es la que gobierna el gate: todo lo que dice este fichero sobre «las fuentes»
+// se redacta en terminos de ella, y no enumerando un numero, para que dar de alta la
+// cuarta no exija reescribir la prosa.
 const COUNT_ARRAY_SOURCES = [
   'scripts/run-validation-271.mjs',
   'tests/fixtures/slot-variants-integration.test.js',
+  // v2.0 Phase 45 (DEUDA-02): la tercera. Borrarle una entrada ENCOGIA la suite en
+  // silencio con exit 0 — la misma forma del olvido que corrio tres fases.
+  'tests/exercise-types.test.js',
 ];
 
 const readSrc = (rel) => readFileSync(new URL(`../${rel}`, import.meta.url), 'utf8');
@@ -115,8 +125,21 @@ const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
  * `/…/` que contuviera una comilla suelta desalinearia el escaneo. El dano esta
  * ACOTADO A UNA LINEA por construccion, porque el estado de cadena se resetea en cada
  * salto de linea (`comilla` se declara dentro del map) y solo el estado de bloque
- * cruza lineas — que es lo que tiene que cruzarlas. Las dos fuentes de conteo de hoy
- * tienen un unico literal regex (`/<[^>]+>/` en la fixture) y no lleva comillas.
+ * cruza lineas — que es lo que tiene que cruzarlas.
+ *
+ * EL INVENTARIO REAL de literales regex, contado hoy sobre las fuentes declaradas en
+ * COUNT_ARRAY_SOURCES (v2.0 Phase 45, DEUDA-02). Ya NO es «uno solo y sin comillas»:
+ *   - scripts/run-validation-271.mjs: CERO literales de expresion regular.
+ *   - tests/fixtures/slot-variants-integration.test.js: uno (`htmlLike`), sin comillas.
+ *   - tests/exercise-types.test.js: una veintena. Varios LLEVAN comillas, casi todos
+ *     EMPAREJADAS dentro de la misma linea (`'a'` y `'i'` del handler de teclado, las
+ *     dos dobles de un atributo `x-show`), asi que el escaner entra y sale de cadena
+ *     antes del salto de linea y no se desalinea nada. Hay UNO con la comilla
+ *     DESPAREJADA: el `mdPattern` que caza tokens de markdown, que termina en una
+ *     comilla invertida suelta. De esa comilla al final de SU linea el escaneo va
+ *     desalineado — y ahi se acaba, porque el estado de cadena muere en el salto.
+ * Por eso el dano sigue acotado, y la clausula que lo acota es esta: ninguna linea de
+ * ENTRADA de un array de conteo comparte linea con un literal de expresion regular.
  *
  * @param {string} src texto fuente de un fichero JS/MJS
  * @returns {string} el mismo texto con los comentarios blanqueados a espacios
@@ -616,10 +639,10 @@ describe('gate anti-ceguera — goldens de paresSlugFile / paresCruzados: par co
 });
 
 // ───────────────────────────────────────────────────────────────────────────
-// 3. El gate real sobre las dos fuentes (source-assert, D-44-07)
+// 3. El gate real sobre las fuentes de COUNT_ARRAY_SOURCES (source-assert, D-44-07)
 // ───────────────────────────────────────────────────────────────────────────
 
-describe('gate anti-ceguera — las dos fuentes de conteo enganchan las categorias registradas (INT-02)', () => {
+describe('gate anti-ceguera — las fuentes de conteo declaradas enganchan las categorias registradas (INT-02)', () => {
   for (const rel of COUNT_ARRAY_SOURCES) {
     const SRC = readSrc(rel);
 
@@ -683,7 +706,7 @@ describe('gate anti-ceguera — el par slug ↔ file de cada entrada apunta a su
     );
   });
 
-  test('las DOS fuentes de conteo estan cubiertas: la que declara el fichero, por su par; la que lo deriva, por su derivacion', () => {
+  test('toda fuente de COUNT_ARRAY_SOURCES esta cubierta: la que declara el fichero, por su par; la que lo deriva, por su derivacion', () => {
     // La disyuntiva, explicita para que ninguna fuente se quede fuera de cobertura EN
     // SILENCIO: o una fuente declara el fichero por entrada (y entonces el par tiene que
     // cuadrar), o lo DERIVA del slug (y entonces es inmune por construccion). Una fuente
