@@ -2,9 +2,13 @@
 gsd_state_version: 1.0
 milestone: v2.1
 milestone_name: Traducción al español por variante (TRAD-X1)
+current_phase: 46
+current_phase_name: Pipeline de traducción end-to-end   — not started
 status: planning
-last_updated: "2026-08-13T12:00:00.000Z"
+stopped_at: Phase 46 context gathered
+last_updated: "2026-08-13T11:37:25.397Z"
 last_activity: 2026-08-13
+last_activity_desc: Roadmap v2.1 creado
 progress:
   total_phases: 8
   completed_phases: 0
@@ -427,9 +431,9 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Session Continuity
 
-**Last session:** 2026-08-13T12:00:00.000Z
-**Stopped at:** Roadmap del milestone v2.1 creado (Phases 46-53)
-**Resume file:** None
+**Last session:** 2026-08-13T11:37:25.366Z
+**Stopped at:** Phase 46 context gathered
+**Resume file:** .planning/phases/46-pipeline-de-traducci-n-end-to-end-piloto-preposiciones/46-CONTEXT.md
 
 ### Last Session
 
