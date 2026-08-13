@@ -28,6 +28,9 @@ import {
   parseAddress,
   fillGap,
   run,
+  contratoVigente,
+  parseContrato,
+  motivosNoRegistrable,
 } from '../scripts/validate-translation-pass.mjs';
 
 const ROOT = new URL('..', import.meta.url).pathname;
@@ -617,5 +620,159 @@ describe('deriveStatus — fuente única de status de las traducciones (TVAL-03)
 
     const sinFlag = [pase('modelo-x'), pase('modelo-y'), pase('modelo-z', 'incorrecta'), pase('autor')];
     assert.equal(deriveStatus(sinFlag), 'disputed', 'un pase del autor SIN override:true es un voto normal');
+  });
+});
+
+// ══════════════════════════════════════════════════════════════════════════
+// CR-03 · el veredicto se valida contra el contrato del §4 ANTES de registrarlo
+//
+// El agujero, reproducido ejecutando en el code review de la fase: `run()` solo
+// comprobaba que las claves EXISTIERAN y escribía `verdict.verdict` tal cual.
+// `deriveStatus` compara por igualdad exacta y case-sensitive, así que un negativo
+// mal escrito (`"Incorrecta"`) no dispara el sticky-disputed y se ignora como si no
+// existiera — con dos `correcta` al lado, la traducción alcanza `validated`. Es una
+// `incorrecta` PERDIDA fabricando un quórum falso.
+//
+// El contrato NO se transcribe aquí: se DERIVA del mismo doc que el script envía en
+// el prompt, y estos tests congelan esa derivación para que un reformateo del §4
+// salga rojo en la suite y no solo en tiempo de ejecución.
+// ══════════════════════════════════════════════════════════════════════════
+
+describe('CR-03 — el contrato del §4 se deriva del doc y el veredicto se valida contra él', () => {
+  const contrato = contratoVigente(abs(PROMPT_DOC));
+
+  test('CLÁUSULA DE NO-VACUIDAD (va primero): el contrato se deriva y no sale vacío', () => {
+    // Con `VERDICTS` vacío se rechazaría TODO y con `CRITERIA` vacío no se
+    // comprobaría NADA. Las dos degradaciones pasan desapercibidas leyendo la salida.
+    assert.ok(contrato.VERDICTS.size >= 2, `el §4 declara ${contrato.VERDICTS.size} verdict(s)`);
+    assert.ok(contrato.CRITERIA.length > 0, 'el §4 no declara ninguna key de criteria');
+  });
+
+  test('el enum y las keys derivadas son las que el doc declara (una sola fuente)', () => {
+    // Los valores se comparan contra el DOC, no contra una lista escrita aquí: se
+    // vuelven a extraer del texto por un camino distinto del que usa el script.
+    const doc = readAbs(PROMPT_DOC);
+    const SRC = readAbs(SCRIPT);
+    for (const v of contrato.VERDICTS) {
+      assert.ok(doc.includes(`"${v}"`), `el doc no menciona el verdict derivado "${v}"`);
+    }
+    for (const c of contrato.CRITERIA) {
+      assert.ok(doc.includes(c), `el doc no menciona la key de criteria derivada "${c}"`);
+    }
+    // Y el script NO puede llevar el enum escrito a mano en paralelo al doc.
+    assert.ok(
+      !/\bnew Set\(\s*\[\s*'correcta'\s*,\s*'incorrecta'\s*\]\s*\)/.test(SRC),
+      'el enum de verdict está transcrito en el script: tiene que derivarse del doc de criterios'
+    );
+  });
+
+  test('un shape del §4 ilegible NO degrada a permisivo: lanza', () => {
+    // Fail-loud, nunca fallback silencioso. Un contrato desconocido no puede validar
+    // nada, y gastar una llamada de pago contra él es el agujero que esto cierra.
+    assert.throws(() => parseContrato('# doc sin seccion 4'), /secci[oó]n "## 4\."/i);
+    assert.throws(() => parseContrato('## 4. Contrato\n\nsin bloque\n'), /bloque/i);
+  });
+
+  const criteriaOk = Object.fromEntries(contrato.CRITERIA.map((c) => [c, true]));
+
+  test('los tres veredictos del hallazgo son NO registrables, y el motivo lo dice', () => {
+    const fuera = motivosNoRegistrable({ verdict: 'PASS', criteria: criteriaOk, concerns: [] }, contrato);
+    assert.ok(fuera.length > 0, 'un verdict fuera del enum tiene que ser rechazado');
+    assert.match(fuera.join(' '), /fuera del enum/);
+
+    // EL CASO GRAVE: el negativo mal escrito. Sin este rechazo se pierde y el quórum
+    // se fabrica — comprobado abajo con `deriveStatus`.
+    const mayuscula = motivosNoRegistrable(
+      { verdict: 'Incorrecta', criteria: criteriaOk, concerns: ['[S1-natural] mal'] },
+      contrato
+    );
+    assert.ok(mayuscula.length > 0, '"Incorrecta" con mayúscula tiene que ser rechazado');
+
+    const concernsString = motivosNoRegistrable(
+      { verdict: 'incorrecta', criteria: criteriaOk, concerns: 'motivo en string' },
+      contrato
+    );
+    assert.ok(concernsString.length > 0, 'concerns no-array tiene que ser rechazado, no coercionado');
+    assert.match(concernsString.join(' '), /ARRAY/);
+  });
+
+  test('POR QUÉ IMPORTA: el negativo mal escrito fabrica un quórum falso', () => {
+    // No es una preferencia de formato — es la propiedad que se pierde.
+    const conErrata = [
+      { by: 'm1', verdict: 'Incorrecta', concerns: ['mal'] },
+      { by: 'm2', verdict: 'correcta', concerns: [] },
+      { by: 'm3', verdict: 'correcta', concerns: [] },
+    ];
+    const bienEscrito = conErrata.map((p) => ({ ...p, verdict: p.verdict.toLowerCase() }));
+    assert.equal(deriveStatus(conErrata), 'validated', 'control: con la errata el negativo se pierde');
+    assert.equal(deriveStatus(bienEscrito), 'disputed', 'control: bien escrito, el negativo es sticky');
+    // Y por eso la errata no puede llegar al disco.
+    assert.ok(motivosNoRegistrable(conErrata[0], contrato).length > 0);
+  });
+
+  test('un negativo SIN motivo escrito no es registrable (§4 exige al menos un concern)', () => {
+    const sinMotivo = motivosNoRegistrable(
+      { verdict: 'incorrecta', criteria: { ...criteriaOk, [contrato.CRITERIA[0]]: false }, concerns: [] },
+      contrato
+    );
+    assert.ok(sinMotivo.length > 0, 'un `incorrecta` con concerns: [] es indistinguible de un bug de registro');
+  });
+
+  test('los veredictos LEGÍTIMOS siguen siendo registrables (cero falsos rojos)', () => {
+    // Incluida la `correcta` CON concerns declarativas: es un caso real del corpus
+    // (precedente riflessivi.json), no una anomalía.
+    const legitimos = [
+      { verdict: 'correcta', criteria: criteriaOk, concerns: [] },
+      { verdict: 'correcta', criteria: criteriaOk, concerns: ['[S6-naturalidad] matiz declarativo'] },
+      {
+        verdict: 'incorrecta',
+        criteria: { ...criteriaOk, [contrato.CRITERIA[0]]: false },
+        concerns: ['[S1-natural] con su motivo escrito'],
+      },
+    ];
+    for (const v of legitimos) {
+      assert.deepEqual(
+        motivosNoRegistrable(v, contrato),
+        [],
+        `un veredicto legítimo fue rechazado: ${JSON.stringify(v)}`
+      );
+    }
+  });
+
+  test('los pases de traducción YA EN DISCO cumplen el contrato (cero re-validación)', () => {
+    // Si el arreglo de CR-03 implicara re-validar contenido ya pagado, esto saldría
+    // rojo — y re-validar es decisión del autor, no del arreglo. Sale verde: el
+    // contrato que se empieza a exigir es el que el corpus ya cumplía.
+    //
+    // OJO A LA FRONTERA, que la primera redacción de este test se saltó: un pase
+    // PERSISTIDO no es una RESPUESTA de modelo. La respuesta trae `criteria` (las 5
+    // booleanas) y el pase NO las guarda — solo `by`, `date`, `verdict` y `concerns`.
+    // Aplicarle `motivosNoRegistrable` entero marcaría las 192 entradas legítimas por
+    // «faltan las keys de criteria». Aquí se comprueba el SUBCONJUNTO del contrato que
+    // sí sobrevive a la persistencia.
+    const doc = JSON.parse(readAbs(PREPOS));
+    const pases = [];
+    for (const slot of doc.exercises) {
+      if (slot.type !== 'multiple-choice') continue;
+      for (const [k, v] of (slot.variants || []).entries()) {
+        const ps = v?.translationES?.validation?.passes;
+        if (Array.isArray(ps)) ps.forEach((p, i) => pases.push([`${slot.id}#${k}[${i}]`, p]));
+      }
+    }
+    assert.ok(pases.length > 0, 'no-vacuidad: no se localizó ni un pase de traducción en disco');
+
+    const infractores = [];
+    for (const [addr, p] of pases) {
+      if (!contrato.VERDICTS.has(p.verdict)) {
+        infractores.push(`${addr}: verdict ${JSON.stringify(p.verdict)} fuera del enum`);
+      }
+      if (!Array.isArray(p.concerns)) {
+        infractores.push(`${addr}: concerns no es array`);
+      } else {
+        if (p.concerns.some((c) => typeof c !== 'string')) infractores.push(`${addr}: concerns con entradas no-string`);
+        if (p.verdict === 'incorrecta' && p.concerns.length === 0) infractores.push(`${addr}: incorrecta sin motivo escrito`);
+      }
+    }
+    assert.deepEqual(infractores, [], `pases en disco que el contrato rechazaría:\n  ${infractores.join('\n  ')}`);
   });
 });

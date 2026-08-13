@@ -271,6 +271,99 @@ async function callModel(model, composed, temp) {
   return { text };
 }
 
+// ── el CONTRATO del §4, derivado del propio doc de criterios (CR-03) ────────
+//
+// POR QUÉ SE DERIVA Y NO SE TRANSCRIBE. El enum de `verdict` y los nombres de las
+// 5 keys de `criteria` son el contrato que este mismo script acaba de ENVIAR en el
+// prompt. Escribirlos otra vez aquí crea dos copias que envejecen por separado, y la
+// doctrina del proyecto es justo la contraria: la regla vive en el doc de criterios,
+// que es lo único que el evaluador llega a leer. Derivándolo, editar el §4 mueve la
+// validación con él y no hay forma de que discrepen en silencio.
+//
+// FAIL-LOUD, NUNCA FALLBACK SILENCIOSO: si el §4 no se puede parsear, el contrato que
+// se le está pidiendo al modelo es DESCONOCIDO, y gastar una llamada de pago contra un
+// contrato desconocido es exactamente el agujero que este bloque cierra. Se lanza, y el
+// entrypoint lo traduce a exit 2 (dirección/target inválidos = no se llamó a nadie).
+export function parseContrato(docText) {
+  const iSeccion = docText.search(/^##\s*4\.\s/m);
+  if (iSeccion === -1) throw new Error('el doc de criterios no declara la sección "## 4." (contrato de output)');
+  const resto = docText.slice(iSeccion);
+  // La valla se ancla a PRINCIPIO DE LÍNEA. El §4 menciona la valla EN PROSA («emite
+  // EXACTAMENTE un bloque fenced ```json con este shape:»), así que una regex sin
+  // ancla casa desde esa mención hasta la apertura del bloque real y captura la prosa
+  // en vez del shape. Lo delató la propia cláusula de no-vacuidad al fallar en ruidoso.
+  const bloque = /^```json\s*\n([\s\S]*?)^```/m.exec(resto);
+  if (!bloque) throw new Error('la sección §4 del doc de criterios no declara ningún bloque ```json con el shape');
+  const shape = bloque[1];
+
+  const lineaVerdict = /"verdict"\s*:\s*(.+)/.exec(shape);
+  if (!lineaVerdict) throw new Error('el shape del §4 no declara la clave "verdict"');
+  const verdicts = [...lineaVerdict[1].matchAll(/"([^"]+)"/g)].map((m) => m[1]);
+
+  const bloqueCriteria = /"criteria"\s*:\s*\{([\s\S]*?)\}/.exec(shape);
+  if (!bloqueCriteria) throw new Error('el shape del §4 no declara el objeto "criteria"');
+  const criteria = [...bloqueCriteria[1].matchAll(/"([^"]+)"\s*:/g)].map((m) => m[1]);
+
+  // CLÁUSULA DE NO-VACUIDAD. Un extractor que deja de casar devuelve lista vacía, y
+  // sobre la lista vacía `VERDICTS.has(x)` es false SIEMPRE (rechazaría todo) y
+  // `CRITERIA.filter(...)` no comprueba nada (aceptaría todo). Las dos degradaciones
+  // son inaceptables y ninguna se nota leyendo la salida.
+  if (verdicts.length < 2) {
+    throw new Error(`el §4 declara ${verdicts.length} valor(es) de "verdict"; el enum tiene que ser cerrado y tener al menos 2`);
+  }
+  if (criteria.length === 0) {
+    throw new Error('el §4 no declara ninguna key dentro de "criteria"');
+  }
+  return { VERDICTS: new Set(verdicts), CRITERIA: criteria };
+}
+
+/** El contrato vigente, leído del doc que se envía en el prompt. */
+export function contratoVigente(promptPath = PROMPT_PATH) {
+  return parseContrato(fs.readFileSync(promptPath, 'utf8'));
+}
+
+/**
+ * Comprueba UN veredicto contra el contrato del §4 y devuelve la lista de motivos
+ * por los que NO es registrable. Lista vacía = registrable.
+ *
+ * Es deliberadamente una LISTA y no un booleano: el mensaje de reintento tiene que
+ * poder nombrar qué está mal, porque el reintento va contra el mismo modelo y un
+ * «formato inválido» a secas no le dice qué corregir.
+ */
+export function motivosNoRegistrable(verdict, contrato) {
+  const motivos = [];
+  if (!contrato.VERDICTS.has(verdict?.verdict)) {
+    motivos.push(
+      `"verdict" fuera del enum del §4: ${JSON.stringify(verdict?.verdict)} ` +
+        `(los únicos válidos son ${[...contrato.VERDICTS].map((v) => `"${v}"`).join(' | ')}, en minúsculas y sin puntuación)`
+    );
+  }
+  if (!Array.isArray(verdict?.concerns)) {
+    // NO se coerciona a []. El `.filter(typeof === 'string')` que había aquí convertía
+    // un `concerns` string en array vacío EN SILENCIO, y con él desaparecía el motivo
+    // escrito — que en este proyecto es la evidencia de que una disidencia se resolvió
+    // con trabajo. Un `incorrecta` con `concerns: []` es indistinguible de un bug de
+    // registro.
+    motivos.push(`"concerns" debe ser un ARRAY de strings (llegó ${typeof verdict?.concerns})`);
+  } else if (verdict.concerns.some((c) => typeof c !== 'string')) {
+    motivos.push('"concerns" contiene entradas que no son string');
+  }
+  const faltan = contrato.CRITERIA.filter((c) => typeof verdict?.criteria?.[c] !== 'boolean');
+  if (faltan.length) {
+    motivos.push(`faltan (o no son booleanas) las keys de "criteria": ${faltan.join(', ')}`);
+  }
+  // §4: «Si alguna criteria es false, DEBE existir al menos 1 concern». Un negativo sin
+  // motivo escrito no es registrable: es la mitad del pase que hace falta para poder
+  // resolver el disputed después.
+  const hayNegativo =
+    verdict?.verdict === 'incorrecta' ||
+    contrato.CRITERIA.some((c) => verdict?.criteria?.[c] === false);
+  if (hayNegativo && Array.isArray(verdict?.concerns) && verdict.concerns.length === 0) {
+    motivos.push('un veredicto negativo sin NI UN concern: el §4 exige al menos uno con su tag de criterio');
+  }
+  return motivos;
+}
+
 export function extractJsonBlock(text) {
   const re = /```json\s*([\s\S]*?)\s*```/g;
   let m, last;
@@ -291,7 +384,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
  * respondió. Un `by` pinneado fabricaría un quórum falso de dos entradas del mismo
  * modelo real y `deriveStatus` no podría distinguirlo (T-46-10).
  */
-export async function run(cfg, target, composed, caller = callModel) {
+export async function run(cfg, target, composed, caller = callModel, contrato = contratoVigente()) {
   const { MODEL_QUEUE, TEMP, WRITE } = cfg;
   for (let qi = 0; qi < MODEL_QUEUE.length; qi++) {
     const model = MODEL_QUEUE[qi];
@@ -307,14 +400,37 @@ export async function run(cfg, target, composed, caller = callModel) {
           if (attempt === maxRetries) break;
           continue;
         }
+        // EL VEREDICTO SE VALIDA CONTRA EL CONTRATO §4 ANTES DE REGISTRARLO (CR-03).
+        // Antes solo se comprobaba que las claves EXISTIERAN y se escribía
+        // `verdict.verdict` tal cual. `deriveStatus` compara por igualdad exacta y
+        // case-sensitive, así que cualquier desviación se tragaba en silencio:
+        // reproducido, un `"Incorrecta"` con mayúscula NO dispara el sticky-disputed
+        // y la misma traducción pasa de `disputed` a `validated` a costa de otros dos
+        // `correcta`. Es una `incorrecta` PERDIDA fabricando un quórum falso — el
+        // mismo daño que el invariante del `by` real existe para impedir, por la otra
+        // puerta. Se reutiliza el camino de reintento que ya existe para «sin bloque
+        // JSON válido»: mismo comportamiento, ninguna rama nueva.
+        const motivos = motivosNoRegistrable(verdict, contrato);
+        if (motivos.length) {
+          console.error(
+            `[${model}] veredicto NO registrable (intento ${attempt}):\n` +
+              motivos.map((m) => `  - ${m}`).join('\n') +
+              '\nNo se escribe nada. Reintentando…'
+          );
+          if (attempt === maxRetries) break;
+          continue;
+        }
         console.error(`── Razonamiento (${model}) ──\n${r.text}\n──`);
         // `by` = el modelo que DE VERDAD respondió (no el pinneado de la cola): tras
         // un auto-fallback por 429 este `model` ya es el del proveedor que contestó.
+        // `concerns` se copia TAL CUAL: ya se ha comprobado que es un array de strings,
+        // así que no hay nada que coercionar — y coercionar aquí es lo que borraba el
+        // motivo escrito.
         const pass = {
           by: model,
           date: new Date().toISOString().slice(0, 10),
           verdict: verdict.verdict,
-          concerns: Array.isArray(verdict.concerns) ? verdict.concerns.filter((c) => typeof c === 'string') : [],
+          concerns: [...verdict.concerns],
         };
         if (WRITE) await writeTranslationPass(target.file, target.slot.id, target.k, pass);
         return pass;
@@ -652,7 +768,23 @@ async function main(argv) {
     process.exit(2);
   }
   if (cfg.DRY) { console.log(composed); process.exit(0); }
-  const pass = await run(cfg, target, composed);
+
+  // El contrato §4 se deriva ANTES de llamar a nadie (CR-03). Si el doc de criterios no
+  // declara un shape parseable, el contrato que se le está pidiendo al modelo es
+  // desconocido y no se gasta ni una llamada de pago: exit 2, la misma familia que
+  // «dirección o target inválidos» — fallos de invocación, cero tokens quemados.
+  let contrato;
+  try {
+    contrato = contratoVigente();
+  } catch (e) {
+    console.error(
+      `Error: no se pudo derivar el contrato del §4 de ${PROMPT_PATH}: ${e.message}\n` +
+        `Sin contrato no se puede comprobar el veredicto que devuelva el modelo, así que no se llama a nadie.`
+    );
+    process.exit(2);
+  }
+
+  const pass = await run(cfg, target, composed, callModel, contrato);
   if (!pass) process.exit(1);
   console.log(JSON.stringify(pass, null, 2));
 }
