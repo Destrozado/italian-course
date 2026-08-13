@@ -58,9 +58,16 @@
 // El pase Claude (Sonnet/Opus) NO se hace aquí: corre vía subagente Task con el
 // mismo doc de criterios, en la sesión principal.
 //
-// Exit codes: 0 ok · 1 la cola de modelos se agotó sin pase · 2 dirección o target
-// inválidos (fail-fast: slot inexistente, k fuera de rango, type != multiple-choice,
-// variante sin `translationES`).
+// Exit codes: 0 ok · 1 la cola de modelos se agotó sin pase · 2 fallo de INVOCACIÓN,
+// cero tokens gastados (dirección o target inválidos: slot inexistente, k fuera de
+// rango, type != multiple-choice, variante sin `translationES`; cola de modelos vacía;
+// contrato §4 ilegible) · 3 un modelo SÍ respondió y el pase NO se pudo escribir — el
+// pase va impreso en stdout para aplicarlo a mano (WR-02).
+//
+// El 3 existe porque el 1 y él son situaciones opuestas para el autor: en el 1 no se
+// gastó nada, en el 3 se gastó la llamada y el veredicto es recuperable. Cuando los dos
+// compartían código, un lockfile huérfano quemaba una llamada por invocación sin que se
+// pudiera distinguir de un rate-limit.
 
 import https from 'node:https';
 import fs from 'node:fs';
@@ -432,7 +439,29 @@ export async function run(cfg, target, composed, caller = callModel, contrato = 
           verdict: verdict.verdict,
           concerns: [...verdict.concerns],
         };
-        if (WRITE) await writeTranslationPass(target.file, target.slot.id, target.k, pass);
+        if (WRITE) {
+          // EL PASE YA ESTÁ PAGADO (WR-02). Cualquier throw del escritor salía de
+          // `run`, salía de `main` y —como `main()` se invocaba sin `.catch()`— Node
+          // lo trataba como unhandled rejection: stack crudo y exit 1, el MISMO código
+          // que «la cola se agotó». El autor no podía distinguir «ningún modelo
+          // contestó» de «un modelo contestó, pagaste los tokens y el pase se perdió al
+          // escribir». Reproducido con un lockfile huérfano de un pid vivo: 30 s de
+          // espera, throw, exit 1, y el pase sin aparecer NUNCA en stdout.
+          //
+          // Así que el pase se IMPRIME ANTES de propagar —para que sea recuperable a
+          // mano— y el error viaja con su propio exit code.
+          try {
+            await writeTranslationPass(target.file, target.slot.id, target.k, pass);
+          } catch (e) {
+            console.log(JSON.stringify(pass, null, 2));
+            console.error(
+              `El pase NO se pudo escribir (${e.message}).\n` +
+                `Está IMPRESO ARRIBA en stdout: aplícalo a mano o re-corre cuando la causa esté resuelta. ` +
+                `No se ha perdido el veredicto, pero sí se ha gastado la llamada.`
+            );
+            throw Object.assign(e, { exitCode: 3 });
+          }
+        }
         return pass;
       }
 
@@ -791,4 +820,13 @@ async function main(argv) {
 
 const invokedDirectly =
   process.argv[1] && path.resolve(process.argv[1]) === path.resolve(fileURLToPath(import.meta.url));
-if (invokedDirectly) main(process.argv.slice(2));
+// El `.catch` es obligatorio (WR-02): sin él, cualquier throw de `main` es una
+// unhandled rejection —stack crudo y exit 1— y el exit code deja de significar lo que
+// el doc-block promete. Con él, cada fallo sale con SU código y con un mensaje, no con
+// un volcado.
+if (invokedDirectly) {
+  main(process.argv.slice(2)).catch((e) => {
+    console.error(e?.message ?? String(e));
+    process.exit(e?.exitCode ?? 1);
+  });
+}
