@@ -69,16 +69,103 @@ function refPreFase46(rel) {
   const lineas = git('log', '--format=%H%x1f%s', '--', rel).split('\n').filter(Boolean);
   for (const linea of lineas) {
     const [sha, asunto] = linea.split('\x1f');
-    if (!/\(46-\d+\)/.test(asunto || '')) return sha;
+    if (!/\(46-\d+\)/.test(asunto || '')) {
+      // GUARD ANTI-COLAPSO DE LA REFERENCIA (WR-01, segunda vuelta). La búsqueda de
+      // arriba filtra por el SCOPE del asunto, así que un commit hecho DURANTE la
+      // fase con un asunto sin `(46-NN)` —un `chore:` cualquiera— se convierte en el
+      // «pre-fase» de esa ruta, y el gate vuelve a comparar el fichero consigo mismo.
+      // Medido en un clon: con las violaciones committeadas bajo `chore: …`, los
+      // gates de `@media` y de `x-html` volvían a verde.
+      //
+      // El anclaje correcto se DERIVA de la historia, no se transcribe un sha: el
+      // pre-fase de una ruta tiene que ser un ANTEPASADO del punto en el que la fase
+      // 46 empezó. Si no lo es, la referencia está contaminada y esta función NO
+      // devuelve un valor con el que se pueda decidir nada.
+      if (!esAntepasado(sha, baselinePreFase46())) {
+        _causaSinRef =
+          `la referencia pre-fase de ${rel} está CONTAMINADA: el commit más reciente sin scope ` +
+          `(46-NN) que la tocó (${sha.slice(0, 9)}) NO es antepasado del arranque de la fase ` +
+          `(${baselinePreFase46().slice(0, 9)}). O sea que se committeó un cambio de ${rel} ` +
+          `durante o después de la fase con un asunto sin scope, y usarlo como "antes" haría que ` +
+          `el gate comparase el fichero consigo mismo`;
+        return null;
+      }
+      _causaSinRef = null;
+      return sha;
+    }
   }
+  _causaSinRef = `no hay ningún commit sin scope (46-NN) en la historia de ${rel}`;
   return null;
+}
+
+// Diagnóstico de la última llamada a `refPreFase46` que devolvió null. Las dos causas
+// son REALES y distintas (no hay historia pre-fase / la referencia está contaminada), y
+// fundirlas en un solo mensaje manda al lector a investigar la equivocada — el mismo
+// defecto que el reporter arregló en su etiqueta de milestone (WR-04).
+let _causaSinRef = null;
+
+/** ¿`sha` es antepasado de `otro` (o el mismo commit)? */
+function esAntepasado(sha, otro) {
+  try {
+    git('merge-base', '--is-ancestor', sha, otro);
+    return true;
+  } catch {
+    return false; // exit 1 = no lo es
+  }
+}
+
+/**
+ * El punto de la historia INMEDIATAMENTE ANTERIOR a la fase 46: el padre del commit
+ * con scope `(46-NN)` más antiguo. Derivado de la historia — cero shas transcritos.
+ * Memoizado porque lo consulta cada llamada a `refPreFase46`.
+ */
+let _baseline46;
+function baselinePreFase46() {
+  if (_baseline46 !== undefined) return _baseline46;
+  const lineas = git('log', '--format=%H%x1f%s').split('\n').filter(Boolean);
+  const deLaFase = lineas.filter((l) => /\(46-\d+\)/.test(l.split('\x1f')[1] || ''));
+  // No-vacuidad: este fichero ES un artefacto de la fase 46, así que si la historia
+  // no declara NI UN commit de la fase, el extractor dejó de casar y ninguna
+  // comparación «contra el pre-fase» significa nada.
+  assert.ok(
+    deLaFase.length > 0,
+    'no-vacuidad: la historia no declara ningún commit con scope (46-NN), así que no se ' +
+      'puede derivar el punto de arranque de la fase'
+  );
+  const masAntiguo = deLaFase[deLaFase.length - 1].split('\x1f')[0];
+  _baseline46 = git('rev-parse', `${masAntiguo}^`).trim();
+  return _baseline46;
 }
 
 /** Lee `rel` en su último estado PRE-fase-46. */
 function readPreFase46(rel) {
   const sha = refPreFase46(rel);
-  assert.ok(sha, `no-vacuidad: no se encuentra ningún commit pre-fase-46 que tocara ${rel}`);
+  assert.ok(sha, `no-vacuidad: sin referencia pre-fase-46 utilizable para ${rel} — ${_causaSinRef}`);
   return git('show', `${sha}:${rel}`);
+}
+
+/**
+ * Diff del WORKING TREE contra el último estado PRE-fase-46 de `rel`. Sirve para
+ * rutas que son DIRECTORIOS, donde `readPreFase46` (que hace `git show <sha>:<rel>`)
+ * no vale.
+ *
+ * Por qué no `git diff HEAD -- <rel>`: sobre un árbol limpio ese comando devuelve
+ * la cadena vacía POR CONSTRUCCIÓN, así que el `assert.equal(sucio, '')` que lo
+ * consumía pasaba siempre. Verificado en un clon: una línea añadida a
+ * `src/screens/app.js` ponía el gate rojo mientras estaba sin committear y lo
+ * devolvía a verde en cuanto se committeaba con un asunto SIN el scope `(46-NN)`
+ * — el único subtest que sí mira la historia filtra por ese scope, así que entre
+ * los dos quedaba un agujero por el que cabía el cambio de motor entero.
+ *
+ * Anclado al pre-fase el gate cubre las dos formas a la vez (committeado y sin
+ * committear) y además se AUTO-REPARA cuando una fase POSTERIOR toque el motor
+ * legítimamente: `refPreFase46` devolverá ese commit nuevo y el diff volverá a
+ * estar vacío, sin que nadie tenga que ablandar nada.
+ */
+function diffContraPreFase46(rel) {
+  const sha = refPreFase46(rel);
+  assert.ok(sha, `no-vacuidad: sin referencia pre-fase-46 utilizable para ${rel} — ${_causaSinRef}`);
+  return git('diff', '--stat', sha, '--', rel).trim();
 }
 
 /** ¿Tocó algún commit de la fase 46 esta ruta? (gate NO vacuo: mira la historia,
@@ -535,9 +622,14 @@ describe('V1 — criterio compartido + margen por superficie (UI-SPEC §CSS Cont
   });
 
   test('la fase no añade ningún @media (desktop-only, UI-SPEC §Design System)', () => {
+    // Contra el PRE-FASE, no contra HEAD (WR-01 del code review). Con la fase ya
+    // committeada, `readHead('app.css')` y el working tree son el MISMO contenido
+    // byte a byte —comprobado por md5— así que la aserción comparaba un valor
+    // consigo mismo: la tautología que el invariante 5 del proyecto prohíbe. El
+    // helper correcto ya vivía en este fichero y se aplicó a V3, V8 y V9, no aquí.
     assert.equal(
       countOf(cssSrc, /@media/g),
-      countOf(readHead('app.css'), /@media/g),
+      countOf(readPreFase46('app.css'), /@media/g),
       'el recuento de @media de app.css cambió: esta fase no añade responsive'
     );
   });
@@ -608,16 +700,23 @@ describe('V2 — un solo CRITERIO DE ESTILO para las dos superficies (D-46-08 en
 // ─────────────────────────────────────────────────────────────────────────────
 
 describe('V4 — la traducción fluye por x-text y nunca por HTML crudo (T-02-01)', () => {
-  test('el recuento de la directiva de HTML crudo en index.html es IDÉNTICO al de HEAD', () => {
-    // Dos magnitudes de DOS fuentes distintas (working tree vs HEAD), no un
+  test('el recuento de la directiva de HTML crudo en index.html es IDÉNTICO al PRE-FASE', () => {
+    // Dos magnitudes de DOS fuentes distintas (working tree vs pre-fase-46), no un
     // `=== 0` desnudo: si un día el repo tuviera un x-html legítimo, este gate
     // sigue cazando el que añada ESTA fase.
-    const enHead = countOf(readHead('index.html'), /x-html/g);
+    //
+    // La referencia era `readHead` y por eso dejó de morder al committear la fase
+    // (WR-01). Reproducido en un clon, inyectando un `x-html` en un nodo FUERA de
+    // los de traducción: rojo sin committear, VERDE en cuanto se committeaba como
+    // `feat(46-06): …`, con el `x-html` todavía en disco. El segundo subtest de
+    // este bloque no depende de git y por eso sí cazaba siempre el caso de los
+    // nodos de traducción; el agujero era el resto del fichero.
+    const enPreFase = countOf(readPreFase46('index.html'), /x-html/g);
     const enDisco = countOf(htmlSrc, /x-html/g);
     assert.equal(
       enDisco,
-      enHead,
-      `index.html pasó de ${enHead} a ${enDisco} usos de inyección de HTML crudo: T-02-01 prohíbe añadir ninguno`
+      enPreFase,
+      `index.html pasó de ${enPreFase} a ${enDisco} usos de inyección de HTML crudo: T-02-01 prohíbe añadir ninguno`
     );
   });
 
@@ -632,11 +731,13 @@ describe('V4 — la traducción fluye por x-text y nunca por HTML crudo (T-02-01
   });
 
   test('la fase no introduce fetch, await, skeleton ni spinner en index.html (E1/E2 · loading)', () => {
-    const head = readHead('index.html');
+    // Mismo cambio de referencia que los dos de arriba, y por el mismo motivo:
+    // contra HEAD esto comparaba el fichero consigo mismo (WR-01).
+    const pre = readPreFase46('index.html');
     for (const patron of [/\bfetch\(/g, /\bawait\b/g, /skeleton/gi, /spinner/gi]) {
       assert.equal(
         countOf(htmlSrc, patron),
-        countOf(head, patron),
+        countOf(pre, patron),
         `index.html cambió su recuento de ${patron}: esta fase no añade frontera de carga`
       );
     }
@@ -934,9 +1035,39 @@ describe('V8 — el motor queda byte-intacto (D-46-01 / D-46-11)', () => {
     }
   });
 
-  test('tampoco hay cambios sin committear en las rutas del motor', () => {
-    const sucio = git('diff', '--stat', 'HEAD', '--', ...RUTAS_MOTOR).trim();
-    assert.equal(sucio, '', `hay cambios sin committear en el motor:\n${sucio}`);
+  test('CONTROL POSITIVO: el diff contra el pre-fase SÍ ve los cambios de la fase', () => {
+    // Va PRIMERO y es la cláusula de no-vacuidad del subtest de abajo. Un
+    // `assert.equal(diff, '')` sobre una ruta mal escrita, un ref que no resuelve o
+    // un `git` que devuelve vacío por cualquier motivo pasa en VERDE sin haber
+    // mirado nada. Aquí se ejerce el MISMO helper sobre una ruta que la fase 46 SÍ
+    // cambió: si esto no sale no-vacío, la maquinaria no mide y el rojo de abajo no
+    // valdría nada.
+    const diffDeUnaRutaTocada = diffContraPreFase46('index.html');
+    assert.notEqual(
+      diffDeUnaRutaTocada,
+      '',
+      'el diff contra el pre-fase-46 sale VACÍO sobre index.html, que la fase sí cambió: ' +
+        'la comparación no está midiendo nada y el gate del motor sería vacuo'
+    );
+  });
+
+  test('el motor es byte-idéntico al PRE-FASE, committeado o no', () => {
+    // Antes esto era `git diff --stat HEAD -- <rutas>`, que sobre un árbol limpio
+    // devuelve la cadena vacía POR CONSTRUCCIÓN: pasaba siempre (WR-01). Verificado
+    // en un clon con una línea añadida a `src/screens/app.js`:
+    //   sin committear                → rojo (el único caso que cazaba)
+    //   committeada como `chore: …`   → VERDE, con la línea en disco
+    //   committeada como `feat(46-06)`→ rojo, pero por el OTRO subtest (la historia)
+    // O sea que el cambio de motor committeado bajo un asunto sin scope `(46-NN)` se
+    // colaba por el hueco entre los dos. Anclado al pre-fase, las tres formas caen.
+    for (const rel of RUTAS_MOTOR) {
+      const diff = diffContraPreFase46(rel);
+      assert.equal(
+        diff,
+        '',
+        `${rel} difiere de su estado anterior a la fase 46 (D-46-01 exige el motor BYTE-INTACTO):\n${diff}`
+      );
+    }
   });
 
   test('SESSION_AUTO_ADVANCE_MS conserva el valor que tenía antes de la fase (derivado)', () => {
