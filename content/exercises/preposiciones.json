@@ -18,7 +18,7 @@
           ],
           "correctIndex": 0,
           "translationES": {
-            "text": "María viene desde Pisa, pero es de Roma de nacimiento.",
+            "text": "María viene de Pisa, pero es de Roma de nacimiento.",
             "validation": {
               "status": "pending",
               "passes": []
@@ -413,7 +413,7 @@
           ],
           "correctIndex": 0,
           "translationES": {
-            "text": "Dentro de tres días nos vamos a Roma.",
+            "text": "Dentro de tres días salimos hacia Roma.",
             "validation": {
               "status": "pending",
               "passes": []
@@ -457,7 +457,7 @@
           ],
           "correctIndex": 1,
           "translationES": {
-            "text": "Ayer estudié dos horas.",
+            "text": "Ayer estudié durante dos horas.",
             "validation": {
               "status": "pending",
               "passes": []
@@ -474,7 +474,7 @@
           ],
           "correctIndex": 1,
           "translationES": {
-            "text": "Ayer dormí ocho horas.",
+            "text": "Ayer dormí durante ocho horas.",
             "validation": {
               "status": "pending",
               "passes": []
@@ -1023,7 +1023,7 @@
           ],
           "correctIndex": 0,
           "translationES": {
-            "text": "He leído un libro sobre la antigua Roma.",
+            "text": "He leído un libro sobre la Roma antigua.",
             "validation": {
               "status": "pending",
               "passes": []
@@ -1433,7 +1433,7 @@
           ],
           "correctIndex": 1,
           "translationES": {
-            "text": "Las llaves están en el cajón.",
+            "text": "Las llaves están dentro del cajón.",
             "validation": {
               "status": "pending",
               "passes": []
@@ -1450,7 +1450,7 @@
           ],
           "correctIndex": 1,
           "translationES": {
-            "text": "La leche está en el frigorífico.",
+            "text": "La leche está dentro del frigorífico.",
             "validation": {
               "status": "pending",
               "passes": []
@@ -2026,7 +2026,7 @@
           ],
           "correctIndex": 2,
           "translationES": {
-            "text": "Les escribo una carta a mis amigas.",
+            "text": "Escribo una carta a mis amigas.",
             "validation": {
               "status": "pending",
               "passes": []
@@ -2043,7 +2043,7 @@
           ],
           "correctIndex": 2,
           "translationES": {
-            "text": "Les regalo unas flores a mis primas.",
+            "text": "Regalo unas flores a mis primas.",
             "validation": {
               "status": "pending",
               "passes": []
