@@ -6,6 +6,7 @@ source: conversación con el autor 2026-08-13 (cierre de v2.0)
 severity: feature
 status: pending
 target: milestone candidato (post-v2.0)
+resolves_phase: 46
 ---
 
 ## Qué
