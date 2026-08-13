@@ -5,15 +5,15 @@ milestone_name: Traducción al español por variante (TRAD-X1)
 current_phase: 46
 current_phase_name: Pipeline de traducción end-to-end (piloto Preposiciones)
 status: executing
-stopped_at: Completed 46-03-PLAN.md
-last_updated: "2026-08-13T19:02:56.843Z"
+stopped_at: Completed 46-04-PLAN.md
+last_updated: "2026-08-13T19:47:33.606Z"
 last_activity: 2026-08-13
 last_activity_desc: Roadmap v2.1 creado
 progress:
   total_phases: 8
   completed_phases: 0
   total_plans: 5
-  completed_plans: 3
+  completed_plans: 4
   percent: 0
 ---
 
@@ -31,9 +31,9 @@ See: `.planning/PROJECT.md` (updated 2026-08-13 — milestone v2.1 abierto: trad
 
 Milestone: v2.1 — Traducción al español por variante (TRAD-X1) — Phases **46-53** (numeración CONTINÚA desde Phase 45, sin reset)
 Phase: 46 (Pipeline de traducción end-to-end (piloto Preposiciones)) — EXECUTING
-Plan: 4 of 5
+Plan: 5 of 5
 Status: Ready to execute
-Progress: [██████░░░░] 60%
+Progress: [████████░░] 80%
 Last activity: 2026-08-13 — Phase 46 execution started
 
 **Estructura del milestone:**
@@ -223,6 +223,7 @@ Deuda técnica del milestone (~25 items, cero blockers) en `.planning/milestones
 | Phase 46 P01 | 11min | 2 tasks | 6 files |
 | Phase 46 P02 | 25min | 3 tasks | 4 files |
 | Phase 46 P03 | 26min | 3 tasks | 2 files |
+| Phase 46 P04 | 32min | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -385,6 +386,9 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - [Phase 46]: GATE-01: el actual que muerde es el recuento de traducciones validated; la igualdad estructural (variantes recorridas == esperadas) se declara EN EL CODIGO como tautologica, espejo de VAL-06
 - [Phase 46]: GATE-02: la referencia del anti-ceguera de traduccion se DERIVA del disco por PRESENCIA del campo translationES, no de content/categories.json — exigir las 18 hoy seria un rojo permanente e inservible
 - [Phase 46]: Cuando un fichero declara DOS arrays vigilados, la clausula de no-vacuidad se ACOTA a la region de cada uno (regionDeArray); sumarle un margen la deja comparando una cifra que ya no describe nada (CR-01)
+- [Phase ?]: El gloss ES del prompt es CANON tambien frente al criterio del autor: 7 de los 11 disputed eran traducciones que lo contradecian, y el quorum cazo una eleccion mia que lo ignoraba (alle#1)
+- [Phase ?]: Un gate se repara DERIVANDO la poblacion del disco, nunca transcribiendo la cifra nueva: el invariante se assertea y la cifra la mide el reporter (D-31-06)
+- [Phase ?]: Una excepcion que dos vendors marcan por separado es un hueco del doc de criterios (se escribe en TRANSLATION-VALIDATION-PROMPT.md), no 2N falsos positivos que overridear
 
 ### Pending Todos
 
@@ -445,8 +449,8 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Session Continuity
 
-**Last session:** 2026-08-13T19:02:47.150Z
-**Stopped at:** Completed 46-03-PLAN.md
+**Last session:** 2026-08-13T19:47:33.577Z
+**Stopped at:** Completed 46-04-PLAN.md
 **Resume file:** None
 
 ### Last Session

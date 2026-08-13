@@ -190,12 +190,12 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
   4. **El quórum juzga traducciones con criterios de traducción.** Existe un prompt propio con criterios derivados de los S1-S6 de canciones (fidelidad it→es, acentos RAE según PRES-05, naturalidad, registro) y explícitamente NO R1-R7, más un script hermano de `scripts/validate-song-pass.mjs` que corre el quórum cross-vendor y escribe el pase; cada traducción lleva su `validation.passes[]` y su status sale de `deriveStatus` — misma fuente única que ejercicios y canciones, con el override de autor de primera clase (`override: true`) disponible y sin reimplementaciones locales.
   5. **Preposiciones al 100% y los gates mordiendo, probados por mutación.** Las 96 variantes `multiple-choice` de Preposiciones están traducidas y `validated`. Romper una a propósito (dejarla `pending`, quitarle los acentos) pone ROJO el gate de traducción; declarar la categoría cubierta y NO engancharla al array de cobertura pone ROJO el gate anti-ceguera; el `expected` de cobertura se DERIVA del disco y no está transcrito como número mágico en ningún sitio. Las tres mutaciones se ejecutan y se observa el rojo — leer el código del gate no cuenta como verificación (lección de la Phase 45: cinco gates vacuos, los cinco cazados corriendo la mutación).
 
-**Plans**: 3/5 plans executed en 5 waves (tracer-first: el camino de producto se demuestra sobre UNA frase antes de expandir a las 96)
+**Plans**: 4/5 plans executed en 5 waves (tracer-first: el camino de producto se demuestra sobre UNA frase antes de expandir a las 96)
 
 - [x] 46-01-PLAN.md
 - [x] 46-02-PLAN.md
 - [x] 46-03-PLAN.md
-- [ ] 46-04-PLAN.md
+- [x] 46-04-PLAN.md
 - [ ] 46-05-PLAN.md
 
 - [ ] `46-01-PLAN.md` — Tracer: la frase canónica atraviesa schema y las DOS superficies (SCH-01..03, REND-01..05)

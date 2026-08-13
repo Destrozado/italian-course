@@ -32,7 +32,7 @@
 
 ### Contenido — 722 traducciones, 18 categorías
 
-- [ ] **TRAD-01**: Preposiciones traducida y validada al 100% (96 variantes) — es el piloto: la primera categoría que atraviesa el pipeline entero (schema → render → validador → gate) sobre contenido real.
+- [x] **TRAD-01**: Preposiciones traducida y validada al 100% (96 variantes) — es el piloto: la primera categoría que atraviesa el pipeline entero (schema → render → validador → gate) sobre contenido real.
 - [ ] **TRAD-02**: Bloque Artículos traducido y validado al 100%: Articoli (62) + Partitivos (48) = 110 variantes.
 - [ ] **TRAD-03**: Bloque `fare` traducido y validado al 100%: fare-indicativo (54) + fare-congiuntivo (30) + fare-indefiniti (21) + fare-cond-imperativo (17) = 122 variantes.
 - [ ] **TRAD-04**: Bloque morfología traducido y validado al 100%: Genero e numero (60) + Sostantivi irregolari (44) = 104 variantes.
@@ -94,7 +94,7 @@ Rellenado durante la creación del roadmap.
 | TVAL-02 | Phase 46 | Complete |
 | TVAL-03 | Phase 46 | Complete |
 | TVAL-04 | Phase 46 | Complete |
-| TRAD-01 | Phase 46 | Pending |
+| TRAD-01 | Phase 46 | Complete |
 | TRAD-02 | Phase 47 | Pending |
 | TRAD-03 | Phase 48 | Pending |
 | TRAD-04 | Phase 49 | Pending |
