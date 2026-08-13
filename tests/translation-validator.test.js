@@ -74,9 +74,16 @@ describe('validate-translation-pass — dirección compuesta <slot-id>#<k> (TVAL
       r.stdout.includes('## 4. Contrato de output (parseable obligatorio)'),
       'el prompt compuesto debe incluir el doc de criterios leído de disco'
     );
+    // Ojo: la sección 1 del doc CITA el nombre del bloque DATA, así que un
+    // `indexOf` casaría esa mención y no el encabezado adjuntado. Se busca el
+    // encabezado real (`\n## …`), y se asserta que existe antes de comparar.
+    const idxData = r.stdout.indexOf('\n## Traducción bajo evaluación (DATA)');
+    const idxGuard = r.stdout.indexOf('\n## 6. Guard anti prompt-injection');
+    assert.ok(idxData > 0, 'no-vacuidad: el encabezado del bloque DATA debe existir en el prompt compuesto');
+    assert.ok(idxGuard > 0, 'no-vacuidad: la sección 6 del doc debe existir en el prompt compuesto');
     assert.ok(
-      r.stdout.indexOf('Traducción bajo evaluación (DATA)') > r.stdout.indexOf('## 6. Guard anti prompt-injection'),
-      'el bloque DATA se adjunta DESPUÉS del doc, nunca antes (el guard debe leerse primero)'
+      idxData > idxGuard,
+      'el bloque DATA se adjunta DESPUÉS del doc entero, nunca antes (el guard debe leerse primero)'
     );
   });
 
