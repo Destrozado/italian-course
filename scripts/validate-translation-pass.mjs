@@ -281,14 +281,24 @@ export function extractJsonBlock(text) {
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-async function run(cfg, target, composed) {
+/**
+ * Recorre la cola de modelos y emite EL pase del primero que responde con un bloque
+ * JSON válido. Devuelve el pase, o `null` si la cola se agotó (el exit code lo pone
+ * el entrypoint: `run` no mata el proceso, para que sea testeable).
+ *
+ * `caller` se inyecta SOLO en tests: permite simular un 429 del primario y verificar
+ * por comportamiento —no por lectura— que el `by` escrito es el modelo que DE VERDAD
+ * respondió. Un `by` pinneado fabricaría un quórum falso de dos entradas del mismo
+ * modelo real y `deriveStatus` no podría distinguirlo (T-46-10).
+ */
+export async function run(cfg, target, composed, caller = callModel) {
   const { MODEL_QUEUE, TEMP, WRITE } = cfg;
   for (let qi = 0; qi < MODEL_QUEUE.length; qi++) {
     const model = MODEL_QUEUE[qi];
     const maxRetries = 3;
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
       let r;
-      try { r = await callModel(model, composed, TEMP); } catch (e) { r = { error: e.message }; }
+      try { r = await caller(model, composed, TEMP); } catch (e) { r = { error: e.message }; }
 
       if (r.text) {
         const verdict = extractJsonBlock(r.text);
@@ -307,8 +317,7 @@ async function run(cfg, target, composed) {
           concerns: Array.isArray(verdict.concerns) ? verdict.concerns.filter((c) => typeof c === 'string') : [],
         };
         if (WRITE) await writeTranslationPass(target.file, target.slot.id, target.k, pass);
-        console.log(JSON.stringify(pass, null, 2));
-        return;
+        return pass;
       }
 
       if (r.rateLimited) {
@@ -334,7 +343,7 @@ async function run(cfg, target, composed) {
     }
   }
   console.error('Agotados todos los modelos de la cola (rate-limit/errores). Pase no emitido.');
-  process.exit(1);
+  return null;
 }
 
 // ── escritura quirúrgica del bloque validation (preserva formato compacto) ──
@@ -543,7 +552,9 @@ async function main(argv) {
     process.exit(2);
   }
   if (cfg.DRY) { console.log(composed); process.exit(0); }
-  await run(cfg, target, composed);
+  const pass = await run(cfg, target, composed);
+  if (!pass) process.exit(1);
+  console.log(JSON.stringify(pass, null, 2));
 }
 
 const invokedDirectly =

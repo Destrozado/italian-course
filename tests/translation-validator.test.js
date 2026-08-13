@@ -27,6 +27,7 @@ import {
   resolveTarget,
   parseAddress,
   fillGap,
+  run,
 } from '../scripts/validate-translation-pass.mjs';
 
 const ROOT = new URL('..', import.meta.url).pathname;
@@ -453,6 +454,55 @@ describe('validate-translation-pass — escritura quirúrgica en variants[k].tra
     assert.equal(bloque.passes.length, 2, 'dos `by` distintos son DOS pases');
     assert.equal(bloque.status, deriveStatus(bloque.passes), 'el status escrito debe ser el derivado');
     assert.equal(bloque.status, 'validated', 'dos `by` distintos con verdict correcta = validated');
+  });
+
+  test('el `by` escrito es el modelo que DE VERDAD respondió, no el primero de la cola (T-46-10)', async () => {
+    const file = copiaFixture();
+    const target = { file, slot: { id: 'pilot-tr-gemelas' }, k: 1 };
+    const llamados = [];
+    // Simula el auto-fallback: el primario rate-limitea (429) y contesta el segundo.
+    const caller = async (model) => {
+      llamados.push(model);
+      if (model === 'modelo-primario') return { rateLimited: true, retryAfter: 0 };
+      return {
+        text: '```json\n' + JSON.stringify({
+          verdict: 'correcta',
+          criteria: { s1_natural: true, s2_fidelidad: true, s4_acentos: true, s5_italiano: true, s6_naturalidad: true },
+          concerns: [],
+        }) + '\n```',
+      };
+    };
+
+    const pass = await run(
+      { MODEL_QUEUE: ['modelo-primario', 'modelo-de-fallback'], TEMP: 0.2, WRITE: true },
+      target,
+      'prompt-compuesto-irrelevante-para-este-test',
+      caller
+    );
+
+    // No-vacuidad: el fallback tiene que haberse ejercitado de verdad.
+    assert.deepEqual(llamados, ['modelo-primario', 'modelo-de-fallback'],
+      'el 429 del primario debe provocar UN salto al fallback');
+    assert.equal(pass.by, 'modelo-de-fallback', 'el `by` no puede ser el modelo pinneado de la cola');
+
+    const bloque = JSON.parse(fs.readFileSync(file, 'utf8')).exercises[0].variants[1].translationES.validation;
+    assert.equal(bloque.passes.length, 1);
+    assert.equal(bloque.passes[0].by, 'modelo-de-fallback',
+      'un `by` que miente fabricaría un quórum de dos entradas del mismo modelo real');
+    assert.deepEqual(bloque.passes[0].concerns, []);
+  });
+
+  test('la cola agotada devuelve null en vez de matar el proceso (y no escribe nada)', async () => {
+    const file = copiaFixture();
+    const antes = fs.readFileSync(file, 'utf8');
+    const pass = await run(
+      { MODEL_QUEUE: ['modelo-caido'], TEMP: 0.2, WRITE: true },
+      { file, slot: { id: 'pilot-tr-gemelas' }, k: 1 },
+      'prompt',
+      async () => ({ rateLimited: false, error: 'falta API key para deepseek (.env)' })
+    );
+    assert.equal(pass, null, 'sin pase emitido, run devuelve null y el entrypoint decide el exit code');
+    assert.equal(fs.readFileSync(file, 'utf8'), antes, 'un fallo de red no puede tocar el corpus');
   });
 
   test('la dirección compuesta y el relleno del hueco son funciones puras y verificables', () => {
