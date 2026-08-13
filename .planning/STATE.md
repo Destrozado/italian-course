@@ -5,15 +5,15 @@ milestone_name: Traducción al español por variante (TRAD-X1)
 current_phase: 46
 current_phase_name: Pipeline de traducción end-to-end (piloto Preposiciones)
 status: executing
-stopped_at: Completed 46-02-PLAN.md
-last_updated: "2026-08-13T13:34:50.414Z"
+stopped_at: Completed 46-03-PLAN.md
+last_updated: "2026-08-13T19:02:56.843Z"
 last_activity: 2026-08-13
 last_activity_desc: Roadmap v2.1 creado
 progress:
   total_phases: 8
   completed_phases: 0
   total_plans: 5
-  completed_plans: 2
+  completed_plans: 3
   percent: 0
 ---
 
@@ -31,9 +31,9 @@ See: `.planning/PROJECT.md` (updated 2026-08-13 — milestone v2.1 abierto: trad
 
 Milestone: v2.1 — Traducción al español por variante (TRAD-X1) — Phases **46-53** (numeración CONTINÚA desde Phase 45, sin reset)
 Phase: 46 (Pipeline de traducción end-to-end (piloto Preposiciones)) — EXECUTING
-Plan: 3 of 5
+Plan: 4 of 5
 Status: Ready to execute
-Progress: [████░░░░░░] 40%
+Progress: [██████░░░░] 60%
 Last activity: 2026-08-13 — Phase 46 execution started
 
 **Estructura del milestone:**
@@ -222,6 +222,7 @@ Deuda técnica del milestone (~25 items, cero blockers) en `.planning/milestones
 | Phase 45 P04 | ~8 min | 2 tasks | 2 files |
 | Phase 46 P01 | 11min | 2 tasks | 6 files |
 | Phase 46 P02 | 25min | 3 tasks | 4 files |
+| Phase 46 P03 | 26min | 3 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -381,6 +382,9 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - [Phase ?]: La dirección compuesta `<slot-id>#<k>` con índice OBLIGATORIO: asumir la variante 0 escribiría el pase en la frase equivocada en silencio
 - [Phase ?]: El script de pase se hace importable (entrypoint tras guard de invocación directa) porque el analog de canciones no lo es y el escritor debe probarse por escritura real
 - [Phase ?]: `run()` devuelve el pase o null en vez de `process.exit`: el exit code lo pone el entrypoint y el auto-fallback se prueba por comportamiento
+- [Phase 46]: GATE-01: el actual que muerde es el recuento de traducciones validated; la igualdad estructural (variantes recorridas == esperadas) se declara EN EL CODIGO como tautologica, espejo de VAL-06
+- [Phase 46]: GATE-02: la referencia del anti-ceguera de traduccion se DERIVA del disco por PRESENCIA del campo translationES, no de content/categories.json — exigir las 18 hoy seria un rojo permanente e inservible
+- [Phase 46]: Cuando un fichero declara DOS arrays vigilados, la clausula de no-vacuidad se ACOTA a la region de cada uno (regionDeArray); sumarle un margen la deja comparando una cifra que ya no describe nada (CR-01)
 
 ### Pending Todos
 
@@ -397,6 +401,7 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 
 - **⚠️ Discrepancia de schemaVersion (REQUIREMENTS vs codebase) — resolver en plan-time Phase 29.** MIG-05/06 asumen `schemaVersion 9` y migración `9→10`, pero `CURRENT_SCHEMA_VERSION` YA está en **10** (`src/data/storage.js:35` y `src/data/backup.js:49`) por el quick task `260615-nzi` (migrate9to10/hydrateV10 nominal del contador `vecesFallada`). La migración de reset selectivo de v1.7 va realmente **`10→11`** (`migrate10to11`/`hydrateV11`/`CURRENT_SCHEMA_VERSION=11`; round-trip v11 + import v10→v11 + rechazo `>11`). Verificar el valor REAL antes de hardcodear el número de migración. Documentado en ROADMAP §v1.7 nota de numeración + REQUIREMENTS MIG-05/06 nota de implementación.
 - (Sin otros bloqueos — motor slot+variantes v1.4 DONE y operativo (`normalizeExerciseToSlot`, `pickVariantIndex`, getter slot-aware, sampler por slot, cascada D-54 con 2 call-sites, smoke bifurcado por shape, todos reutilizables); patrón de alta de categoría validado en v1.2 + patrón slot en v1.6, replicable; infra de quórum cross-vendor disponible; roadmap v1.7 fijado.)
+- El reporter sale en ROJO por diseno al cierre de 46-03 (TRAD-COV 0/96). NO se ablanda el gate: lo cierra el plan 46-04 autorando y validando las 95 traducciones que faltan.
 
 ### Decisions Pending (a resolver en plan-time) — v2.0
 
@@ -440,8 +445,8 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Session Continuity
 
-**Last session:** 2026-08-13T13:34:43.022Z
-**Stopped at:** Completed 46-02-PLAN.md
+**Last session:** 2026-08-13T19:02:47.150Z
+**Stopped at:** Completed 46-03-PLAN.md
 **Resume file:** None
 
 ### Last Session

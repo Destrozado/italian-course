@@ -28,7 +28,7 @@
 - [x] **TVAL-01**: Existe un prompt de validación propio para traducciones con criterios explícitos derivados de los S1-S6 de canciones (fidelidad it→es, acentos RAE según PRES-05, naturalidad, registro) y NO de R1-R7, que examinan la gramática del slot y aquí no aplican.
 - [x] **TVAL-02**: Existe un script hermano de `scripts/validate-song-pass.mjs` que corre el quórum cross-vendor sobre las traducciones y escribe el pase en el JSON.
 - [x] **TVAL-03**: Cada traducción lleva su propio `validation.passes[]` y su status se deriva por `deriveStatus` — misma fuente única que ejercicios y canciones, con el override de autor de primera clase (`override: true`) incluido, sin reimplementaciones locales.
-- [ ] **TVAL-04**: El reporter tiene un gate de traducción que sale ROJO si alguna traducción presente en el corpus no está `validated`, y ese gate se verifica por MUTACIÓN (romper una traducción a propósito lo pone rojo), no leyendo su código.
+- [x] **TVAL-04**: El reporter tiene un gate de traducción que sale ROJO si alguna traducción presente en el corpus no está `validated`, y ese gate se verifica por MUTACIÓN (romper una traducción a propósito lo pone rojo), no leyendo su código.
 
 ### Contenido — 722 traducciones, 18 categorías
 
@@ -42,8 +42,8 @@
 
 ### Integración y cierre
 
-- [ ] **GATE-01**: Un gate paramétrico exige 100% de cobertura de traducción en cada categoría declarada cubierta, con el `expected` DERIVADO del disco y nunca transcrito como número mágico.
-- [ ] **GATE-02**: El gate anti-ceguera (heredado de Phases 44/45) pone ROJO cualquier categoría declarada cubierta que no esté enganchada al array de cobertura, para que el olvido de enganchar no pueda emitir un PASS.
+- [x] **GATE-01**: Un gate paramétrico exige 100% de cobertura de traducción en cada categoría declarada cubierta, con el `expected` DERIVADO del disco y nunca transcrito como número mágico.
+- [x] **GATE-02**: El gate anti-ceguera (heredado de Phases 44/45) pone ROJO cualquier categoría declarada cubierta que no esté enganchada al array de cobertura, para que el olvido de enganchar no pueda emitir un PASS.
 - [ ] **GATE-03**: Al cierre del milestone: 18/18 categorías y 722/722 traducciones cubiertas y `validated`, suite verde, reporter exit 0, y el motor v1.4 **byte-intacto** — `src/domain/` sin cambios, `SESSION_AUTO_ADVANCE_MS` sin tocar, y la cascada D-54 con exactamente 2 call-sites. *(Corregido en la discusión de la Phase 46, 2026-08-13: ya no hay «ÚNICO cambio declarado» — ver REND-02. El invariante es más fuerte y más fácil de verificar: `git diff` vacío en `src/domain/` y en la constante.)*
 
 ## Future Requirements
@@ -93,7 +93,7 @@ Rellenado durante la creación del roadmap.
 | TVAL-01 | Phase 46 | Complete |
 | TVAL-02 | Phase 46 | Complete |
 | TVAL-03 | Phase 46 | Complete |
-| TVAL-04 | Phase 46 | Pending |
+| TVAL-04 | Phase 46 | Complete |
 | TRAD-01 | Phase 46 | Pending |
 | TRAD-02 | Phase 47 | Pending |
 | TRAD-03 | Phase 48 | Pending |
@@ -101,8 +101,8 @@ Rellenado durante la creación del roadmap.
 | TRAD-05 | Phase 50 | Pending |
 | TRAD-06 | Phase 51 | Pending |
 | TRAD-07 | Phase 52 | Pending |
-| GATE-01 | Phase 46 | Pending |
-| GATE-02 | Phase 46 | Pending |
+| GATE-01 | Phase 46 | Complete |
+| GATE-02 | Phase 46 | Complete |
 | GATE-03 | Phase 53 | Pending |
 
 **Coverage:**

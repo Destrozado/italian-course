@@ -1,10 +1,10 @@
 ---
 schema_version: 1
-open_count: 15
+open_count: 16
 waived_count: 0
 fixed_count: 3
-total_count: 18
-last_updated: 2026-08-13T13:30:40.095Z
+total_count: 19
+last_updated: 2026-08-13T19:02:40.435Z
 ---
 
 # Broken Windows Ledger
@@ -33,6 +33,7 @@ last_updated: 2026-08-13T13:30:40.095Z
 | 16 | 45 | deviation | tests/requirements-traceability.test.js |  | El gate no cruza con ROADMAP.md: un requisito ausente de las DOS mitades de REQUIREMENTS.md sigue sin gate (D-45-15, medido) | open |  | 2026-08-12T22:25:03.976Z |  |
 | 17 | 46 | deviation | tests/requirements-traceability.test.js |  | 4 subtests pre-existentes en rojo (deuda de la transicion a v2.1): falta el ancla **Coverage: N/N** en REQUIREMENTS.md y la tabla de trazabilidad no tiene filas. Impide exit 0 de la suite; ver deferred-items.md de la fase 46 | open |  | 2026-08-13T13:00:26.706Z |  |
 | 18 | 46 | unrun-verify | scripts/validate-translation-pass.mjs |  | El camino HTTP real (callModel/httpPost contra DeepSeek o Gemini) NO se ejecutó en el plan 46-02: los tests cubren dry-run, fail-fast y run() con caller inyectado, pero ninguna llamada de red de verdad. Se cierra al correr el quorum real en el plan 46-04 | open |  | 2026-08-13T13:30:40.095Z |  |
+| 19 | 46 | unmet-truth | content/exercises/preposiciones.json |  | TRAD-COV en ROJO por diseño al cierre de 46-03: 0/96 traducciones validated (95 missing, 1 pending). Lo cierra el plan 46-04 autorando y validando las 95 que faltan. | open |  | 2026-08-13T19:02:40.435Z |  |
 
 ````json
 [
@@ -250,6 +251,18 @@ last_updated: 2026-08-13T13:30:40.095Z
     "status": "open",
     "reason": "",
     "recorded_at": "2026-08-13T13:30:40.095Z",
+    "resolved_at": null
+  },
+  {
+    "id": 19,
+    "kind": "unmet-truth",
+    "phase": "46",
+    "file": "content/exercises/preposiciones.json",
+    "line": null,
+    "description": "TRAD-COV en ROJO por diseño al cierre de 46-03: 0/96 traducciones validated (95 missing, 1 pending). Lo cierra el plan 46-04 autorando y validando las 95 que faltan.",
+    "status": "open",
+    "reason": "",
+    "recorded_at": "2026-08-13T19:02:40.435Z",
     "resolved_at": null
   }
 ]
