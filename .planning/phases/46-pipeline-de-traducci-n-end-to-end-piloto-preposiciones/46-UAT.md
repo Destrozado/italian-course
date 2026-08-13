@@ -1,42 +1,30 @@
 ---
-status: testing
+status: complete
 phase: 46-pipeline-de-traducci-n-end-to-end-piloto-preposiciones
 source: [46-VERIFICATION.md]
 started: 2026-08-13T22:58:02Z
-updated: 2026-08-13T22:58:02Z
+updated: 2026-08-13T23:24:09Z
 ---
 
 ## Current Test
 
-number: 3
-name: TRAD-01/encoding — lectura de muestra de 3-4 slots completos de Preposiciones
-expected: |
-  Las traducciones se leen como español natural y correcto, acentuado según la RAE, con registro
-  adecuado, sin convertirse en explicación gramatical ni limitarse a repetir el gloss del prompt.
-awaiting: user response
+[testing complete]
 
 ## Tests
 
 ### 1. E1 · long-text — envoltura multilínea en la pantalla de ejercicio
 expected: Una traducción de 2+ líneas dentro de `.session-translation` (entre `.session-feedback` y el CTA) envuelve por espacios sin desbordar, sin truncarse y sin desplazar el botón «Continuar →».
-result: [pending — ABSTENIDO por ausencia de sujeto]
-note: |
-  La premisa NO tiene sujeto en el corpus del piloto. La traducción más larga de Preposiciones
-  (`preposiciones-sugli#1`, 57 caracteres) mide 390 px y cabe en UNA línea a los 5 anchos de
-  escritorio medidos (1400/1100/900/800/700 px). Decisión explícita del autor el 2026-08-13:
-  abstener, no cerrar. Se re-prueba en la primera de las Phases 47-53 cuyo corpus produzca una
-  traducción real de 2+ líneas. Ledger: WINDOWS.md id 21.
+result: skipped
+reason: "Deferred follow-up: backstop abstenido por ausencia de sujeto — la traducción más larga del piloto (preposiciones-sugli#1, 57 caracteres, 390px) cabe en UNA línea a los 5 anchos medidos. Se re-prueba en la primera de las Phases 47-53 cuyo corpus dé una traducción real de 2+ líneas. WINDOWS.md id 21."
 
 ### 2. E2 · long-text — la misma envoltura en la card de «Errores cometidos»
 expected: Envuelve sin desbordar ni truncarse dentro de la card, igual que E1.
-result: [pending — ABSTENIDO por ausencia de sujeto]
-note: |
-  Misma ausencia de sujeto que E1. Esta superficie no cambió con la enmienda de D-46-06/D-46-08:
-  la traducción sigue DENTRO de la card, porque en el resumen no hay CTA. Ledger: WINDOWS.md id 22.
+result: skipped
+reason: "Deferred follow-up: misma ausencia de sujeto que E1. Esta superficie no cambió con la enmienda de D-46-06/D-46-08. WINDOWS.md id 22."
 
 ### 3. TRAD-01/encoding — lectura de muestra de 3-4 slots completos
 expected: Español natural y correcto, acentuado según la RAE, registro adecuado, sin deriva hacia explanation ni repetición del gloss.
-result: [pending]
+result: pass
 note: |
   La autoridad MECÁNICA ya pasó y fue verificada de forma independiente: quórum cross-vendor,
   96/96 `validated`, 2 `by` distintos (deepseek-chat + gemini-3.5-flash-lite), cero overrides
@@ -48,11 +36,20 @@ note: |
 ## Summary
 
 total: 3
-passed: 0
+passed: 1
 issues: 0
-pending: 1
-skipped: 0
-blocked: 2
+pending: 0
+skipped: 2
+blocked: 0
+
+## Deferred Follow-Ups
+
+- test: 1
+  idea: "E1 · long-text — re-probar la envoltura multilínea cuando exista una traducción de 2+ líneas real (Phases 47-53)."
+  deferred_at: 2026-08-14
+- test: 2
+  idea: "E2 · long-text — ídem en la card de «Errores cometidos»."
+  deferred_at: 2026-08-14
 
 ## Gaps
 
