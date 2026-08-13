@@ -1,7 +1,7 @@
 ---
 phase: 46
 slug: pipeline-de-traducci-n-end-to-end-piloto-preposiciones
-status: draft
+status: approved
 shadcn_initialized: false
 preset: none
 created: 2026-08-13
@@ -343,22 +343,45 @@ No es UI de pantalla, pero **es copy que un humano lee** y debe seguir el estilo
 
 ## UI Considerations
 
-Applicable state considerations resolved: **7 covered, 1 backstop, 0 unresolved**
+**Probe:** `ui-consideration-probe.cjs`, ejecutado TRAS la aprobación del checker (2026-08-13).
+**Cobertura: 14 aplicables · 14 resueltas · 0 sin resolver — 12 `explicit`, 2 `backstop`.**
 
-| Category | Element(s) | Status | Resolution / Reason |
-|----------|------------|--------|---------------------|
-| empty | traducción ausente en la variante (`.session-translation`) | ✅ covered | El doble guard `x-show` no pinta nodo: la caja de feedback conserva su anatomía previa exacta y no aparece hueco, etiqueta ni placeholder (REND-05 / D-121). Copy: ver fila *Empty state*. |
-| empty | traducción ausente en la card de error (`.summary-error-translation`) | ✅ covered | Mismo guard con optional chaining; la card muestra prompt → tu respuesta → respuesta correcta → explanation, idéntica a hoy. |
-| populated | ambas superficies con traducción | ✅ covered | Serif 16/400 `--ed-ink`, `margin-top: 8px`, entre «Respuesta correcta:» y la `explanation` — orden DOM obligatorio de `## Anatomía`. |
-| loading | ninguno | ✅ covered | No aplica: sin fetch ni estado async. El JSON de contenido ya está en memoria cuando la caja de feedback puede existir; la traducción no introduce ninguna frontera de carga nueva. |
-| error | ninguno en pantalla | ✅ covered | Un `translationES` malformado no llega a runtime: lo rechaza el schema-validator (SCH-01/02) con los mensajes de `## Copywriting Contract`. No se añade superficie de error a la UI. |
-| partial | slot con varias variantes donde solo algunas tienen traducción | ✅ covered | El campo vive **por variante** (D-46-02), y el guard se evalúa por variante mostrada → una variante traducida la muestra, su hermana sin traducir no pinta nada. Ninguna hereda de la otra. En el piloto las 96/96 la tendrán, pero el render es correcto en el estado intermedio del propio trabajo de autoría. |
-| zero-one-many | 0 / 1 / N fallos en «Errores cometidos» | ✅ covered | La traducción vive **dentro** del `li` que el `x-for` ya repite; con 0 fallos la `<section class="summary-errors">` entera no se renderiza (`x-if` en `:1259`), con N fallos cada card lleva la suya de la variante EXACTA fallada (`summaryVariantSurface` resuelve por `variantIndex`, no por slot). |
-| long-text | traducción de 2+ líneas dentro de `.session-feedback` y de la card de error | 🧪 backstop | Flujo normal por espacios, `line-height: 1.5`, ancho heredado de la caja; sin `overflow-wrap`, sin `max-width`, sin truncado. Verificación: inspección visual del autor sobre la traducción **más larga del piloto** en las dos superficies (derivada del disco, no elegida a ojo) confirmando que envuelve dentro de la caja sin desbordar ni empujar al CTA fuera de vista. |
-| overflow | — | ✅ covered | No hay contenedor de alto fijo ni scroll interno: `.session-feedback` y `.summary-errors li` crecen con su contenido (`padding: 14px 16px`, sin `height`/`max-height`). Una línea más no puede recortar nada. |
+Elementos y sus *kinds* (**override autorado**: el cue-match heurístico del motor detectó solo
+`overflow`+`long-text` en E1 y omitió `long-text` en E2; la unión detected+missed se autoró a mano en
+el paso propose-then-confirm, porque `autoResolve` es un suelo de RESOLUCIÓN y no puede recuperar un
+kind que nunca se propuso):
 
-<!-- Status vocabulary: ✅ covered → truth string; 🧪 backstop → { statement, verification: backstop };
-     ⚠ unresolved → planner assumption. Rows are REPLACED on a probe re-run. -->
+| Elemento | Superficie | Kinds |
+|---|---|---|
+| **E1** | `.session-translation` dentro de `.session-feedback` (pantalla de ejercicio) | `static-content`, `media` |
+| **E2** | `.summary-error-translation` dentro del `x-for` de «Errores cometidos» | `list-collection`, `static-content` |
+
+### Resueltas — `explicit` (el planner las lifta a `must_haves.truths` como string plano)
+
+1. **E1 · empty** — Variante `multiple-choice` SIN `translationES`: el doble guard `x-show` (`sessionFeedback !== null && payload.translationES?.text`) no pinta el nodo, y la caja `.session-feedback` conserva su anatomía previa exacta — sin hueco, sin etiqueta, sin placeholder, sin «—» (REND-05 / D-121).
+2. **E1 · loading** — No existe estado de carga: el JSON de contenido ya está en memoria antes de que la caja de feedback pueda existir. El diff de la fase no introduce `fetch`, `await`, skeleton ni spinner en `index.html`.
+3. **E1 · error** — Cero superficie de error en pantalla. Un `translationES` malformado no llega a runtime: lo rechaza `src/data/schema-validator.js` con los tres mensajes de `## Copywriting Contract`, y hay un test por cada uno de los tres casos (`text` no-string-no-vacío, `text` con `___`, campo presente en `match`/`word-buttons`).
+4. **E1 · populated** — Traducción presente: párrafo `.session-translation` en `--ed-font-serif` 16px/400/1.5 `var(--ed-ink)` con `margin: 8px 0 0`, situado en el DOM ENTRE `.session-feedback-correct` y `.session-explanation` (aserciones V1 y V6 de `## Verification Hooks`).
+5. **E1 · overflow** — Sin recorte posible: la regla CSS nueva no declara `height`, `max-height`, `overflow` ni `text-overflow`, y `.session-feedback` (`padding: 14px 16px`, sin altura fijada) queda sin cambios, así que crece con su contenido.
+6. **E2 · empty** — Variante fallada SIN `translationES`: el guard con optional chaining (`summaryVariantSurface(result)?.payload?.translationES?.text`) no pinta el nodo y la card muestra prompt → tu respuesta → respuesta correcta → `explanation`, idéntica a hoy.
+7. **E2 · loading** — No aplica por la misma razón que en E1: el resumen se construye sobre resultados ya en memoria. La fase no añade ninguna frontera de carga a la card de error.
+8. **E2 · error** — Cero superficie de error: los mismos tres rechazos del schema-validator, en la consola del autor y nunca en pantalla. El optional chaining defensivo del guard impide un throw si `summaryVariantSurface` devolviera `undefined`.
+9. **E2 · populated** — Misma anatomía y mismo criterio de estilo que en pantalla: `.summary-error-translation` comparte el bloque CSS con `.session-translation` (declarado UNA sola vez, aserción V2) y va ENTRE la respuesta correcta y `.summary-error-explanation`, cuyo muted+itálica (`app.css:1982-1985`) produce el mismo contraste serif/comentario.
+10. **E2 · partial** — Slot con varias variantes donde solo algunas están traducidas: el campo vive POR VARIANTE (D-46-02) y `summaryVariantSurface` resuelve por `variantIndex`, no por slot, así que la variante traducida pinta su traducción y su hermana sin traducir no pinta nada; ninguna hereda de la otra. Test: slot de 2 variantes, una con `translationES` y otra sin, assertando que solo la fallada-con-traducción pinta el nodo.
+11. **E2 · overflow** — El `li` de `.summary-errors` no tiene alto fijo ni scroll interno y crece con su contenido; la regla nueva no añade `height`, `max-height` ni `overflow`. Una línea más no puede recortar nada.
+12. **E2 · zero-one-many** — Con 0 fallos la `<section class="summary-errors">` entera no se renderiza (`x-if` en `index.html:1259`), así que no hay estado vacío propio que diseñar. Con 1 o N fallos la traducción vive DENTRO del `li` que el `x-for` ya repite, y cada card lleva la de la variante EXACTA fallada. Ningún copy singular/plural nuevo: el contador de la cabecera ya existe.
+
+### Resueltas — `backstop` (el planner las lifta como `{ statement, verification: backstop }`)
+
+- **E1 · long-text** — `statement`: la traducción de 2+ líneas dentro de `.session-feedback` fluye por espacios con `line-height: 1.5` y ancho heredado de la caja, sin `overflow-wrap`, sin `max-width` y sin truncado. `verification: backstop` — inspección visual del autor sobre la traducción **más larga del piloto** (derivada del disco, no elegida a ojo), confirmando que envuelve dentro de la caja sin desbordar ni empujar el CTA fuera de vista.
+- **E2 · long-text** — `statement`: la misma envoltura multilínea dentro de la card de «Errores cometidos». `verification: backstop` — la misma inspección visual del autor, comprobada también en esta segunda superficie.
+
+<!-- Formato de lift (regla ## UI Considerations de plan-phase): resolved/explicit → truth string;
+     resolved/backstop → { statement, verification: backstop } con clave escalar PLANA (nunca objeto
+     anidado, ADR-550 #1278); unresolved → assumption explícita del planner. Una backstop que el
+     verificador no pueda confirmar con evidencia se abstiene → human_needed, nunca pasa en silencio.
+     Esta sección se REEMPLAZA en cada re-run del probe, jamás se concatena. El copy de los estados
+     vacío/error vive en ## Copywriting Contract; aquí se referencia, no se repite. -->
 
 ---
 
@@ -397,14 +420,14 @@ declarase uno, el gate se ejecuta antes de que el bloque entre en un UI-SPEC.
 
 ## Checker Sign-Off
 
-- [ ] Dimension 1 Copywriting: PASS
-- [ ] Dimension 2 Visuals: PASS
-- [ ] Dimension 3 Color: PASS
-- [ ] Dimension 4 Typography: PASS
-- [ ] Dimension 5 Spacing: PASS
-- [ ] Dimension 6 Registry Safety: PASS
+- [x] Dimension 1 Copywriting: PASS
+- [x] Dimension 2 Visuals: PASS
+- [x] Dimension 3 Color: PASS
+- [x] Dimension 4 Typography: PASS
+- [x] Dimension 5 Spacing: PASS
+- [x] Dimension 6 Registry Safety: PASS
 
-**Approval:** pending
+**Approval:** APPROVED por `gsd-ui-checker` el 2026-08-13 — 6/6 dimensiones PASS, cero recomendaciones. Verificó contra disco las líneas citadas, los nombres de token, los selectores y los ratios de contraste. UI-consideration probe ejecutado después: 14/14 resueltas (12 explicit, 2 backstop).
 
 ---
 
