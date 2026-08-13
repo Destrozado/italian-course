@@ -635,12 +635,35 @@
                 quedaría pegada a una frase italiana que no le corresponde.
 
                 Doble guard VERBATIM (resuelto + dato presente) → sin traducción no
-                hay nodo, ni hueco ni placeholder (REND-05 / D-121). Que exija
-                `sessionFeedback !== null` es el invariante de no-leak R1 / D-46-11:
-                "verla siempre" es siempre en el MISMO SITIO, nunca antes de
-                responder. El dato entra por `x-text` y nunca por inyección de HTML
-                crudo (T-02-01). Sin affordance propio: no se esconde detrás del
-                botón que revela la explanation bajo demanda (D-46-10).
+                se PINTA nada: ni frase, ni hueco, ni etiqueta, ni placeholder
+                (REND-05 / D-121). Que exija `sessionFeedback !== null` es el
+                invariante de no-leak R1 / D-46-11: "verla siempre" es siempre en el
+                MISMO SITIO, nunca antes de responder. El dato entra por `x-text` y
+                nunca por inyección de HTML crudo (T-02-01). Sin affordance propio:
+                no se esconde detrás del botón que revela la explanation bajo
+                demanda (D-46-10).
+
+                PRECISIÓN DEL REGISTRO (2026-08-14, WR-05 del code review): lo que
+                el guard da es INVISIBILIDAD, no AUSENCIA. `x-show` alterna
+                `style.display` y `x-text` fija `textContent` en un efecto
+                independiente, así que el nodo existe oculto — exactamente igual que
+                la `explanation` de arriba, que usa la misma mecánica. La ausencia
+                estructural se consigue con la directiva `x-if` sobre un template
+                (el de :547), y aquí NO se usa a propósito: envolver este párrafo
+                metería un template entre la traducción y el CTA, y el gate de
+                screen-translation exige que ese tramo quede vacío. Es aceptable por
+                la razón de D-46-11: el payload ya expone `correctIndex` y
+                `options`, así que la respuesta ya está en el DOM antes de responder
+                y esconder la traducción no compra nada real contra inspección. Se
+                anota para que nadie lea "no-leak" y entienda una garantía
+                estructural que este nodo no da.
+
+                NOTA PARA QUIEN EDITE ESTE COMENTARIO: nada de etiquetas literales
+                en la prosa. Los gates de screen-translation acotan regiones
+                contando aperturas de template y localizando etiquetas de párrafo
+                por regex, y una etiqueta escrita aquí dentro les descuadra el
+                conteo. La primera redacción de esta nota lo hizo y puso en rojo las
+                cuatro aserciones de V6 — las cláusulas de no-vacuidad lo cazaron.
               -->
               <p x-show="sessionFeedback !== null && sessionCurrentExercise.payload.translationES?.text"
                  class="session-translation"
