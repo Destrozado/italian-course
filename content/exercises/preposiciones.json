@@ -20,8 +20,21 @@
           "translationES": {
             "text": "María viene de Pisa, pero es de Roma de nacimiento.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -37,8 +50,21 @@
           "translationES": {
             "text": "Paolo es de Nápoles de nacimiento.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -81,8 +107,21 @@
           "translationES": {
             "text": "Voy a casa.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -125,8 +164,21 @@
           "translationES": {
             "text": "Vengo a Roma desde Milán esta mañana.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -142,8 +194,21 @@
           "translationES": {
             "text": "Llego a Nápoles desde Florencia esta noche.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -186,8 +251,21 @@
           "translationES": {
             "text": "Vivo en Italia.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -203,8 +281,21 @@
           "translationES": {
             "text": "Vivo en Francia desde hace tres años.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -220,8 +311,21 @@
           "translationES": {
             "text": "Iré a Italia gratis.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -276,8 +380,21 @@
           "translationES": {
             "text": "Salgo con los amigos esta noche.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -293,8 +410,21 @@
           "translationES": {
             "text": "Voy al cine con mi hermana, no voy solo.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -337,8 +467,21 @@
           "translationES": {
             "text": "Estudio para aprender italiano.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -354,8 +497,21 @@
           "translationES": {
             "text": "Trabajo para ganar bien.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -398,8 +554,21 @@
           "translationES": {
             "text": "Dentro de dos días me voy.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -415,8 +584,21 @@
           "translationES": {
             "text": "Dentro de tres días salimos hacia Roma.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -459,8 +641,21 @@
           "translationES": {
             "text": "Ayer estudié durante dos horas.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -476,8 +671,21 @@
           "translationES": {
             "text": "Ayer dormí durante ocho horas.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -520,8 +728,21 @@
           "translationES": {
             "text": "El libro de Marco es interesante.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -537,8 +758,21 @@
           "translationES": {
             "text": "El coche de María es rojo.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -581,8 +815,21 @@
           "translationES": {
             "text": "El gato está sobre la mesa.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -598,8 +845,21 @@
           "translationES": {
             "text": "Las llaves están sobre la mesa.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -615,8 +875,21 @@
           "translationES": {
             "text": "El cuaderno está sobre el pupitre.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -659,8 +932,21 @@
           "translationES": {
             "text": "Vamos al cine.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -676,8 +962,21 @@
           "translationES": {
             "text": "Hablo por teléfono.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -718,10 +1017,23 @@
           ],
           "correctIndex": 0,
           "translationES": {
-            "text": "Vengo ahora de la estación.",
+            "text": "Vengo desde la estación ahora.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -737,8 +1049,21 @@
           "translationES": {
             "text": "Salgo del banco a las cinco.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -781,8 +1106,21 @@
           "translationES": {
             "text": "Voy a Roma este verano.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -798,8 +1136,21 @@
           "translationES": {
             "text": "Este invierno voy a Milán por trabajo.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -842,8 +1193,21 @@
           "translationES": {
             "text": "Almorzamos al mediodía.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -859,8 +1223,21 @@
           "translationES": {
             "text": "Cenamos a medianoche.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -903,8 +1280,21 @@
           "translationES": {
             "text": "El libro está escrito por él.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -920,8 +1310,21 @@
           "translationES": {
             "text": "La cena está preparada por ella.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -964,8 +1367,21 @@
           "translationES": {
             "text": "Voy al trabajo en coche.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -981,8 +1397,21 @@
           "translationES": {
             "text": "Voy a la escuela en tren.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -1025,8 +1454,21 @@
           "translationES": {
             "text": "He leído un libro sobre la Roma antigua.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -1069,8 +1511,21 @@
           "translationES": {
             "text": "El color del cielo es azul.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -1086,8 +1541,21 @@
           "translationES": {
             "text": "El tejado del edificio es rojo.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -1130,8 +1598,21 @@
           "translationES": {
             "text": "El libro del estudiante está sobre el pupitre.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -1147,8 +1628,21 @@
           "translationES": {
             "text": "El final del espectáculo es triste.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -1191,8 +1685,21 @@
           "translationES": {
             "text": "La puerta de la casa está abierta.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -1208,8 +1715,21 @@
           "translationES": {
             "text": "El color del coche es rojo.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -1252,8 +1772,21 @@
           "translationES": {
             "text": "El ruido de los niños es fuerte.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -1269,8 +1802,21 @@
           "translationES": {
             "text": "Las voces de los chicos son alegres.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -1313,8 +1859,21 @@
           "translationES": {
             "text": "Las clases de los estudiantes han terminado.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -1330,8 +1889,21 @@
           "translationES": {
             "text": "El ruido de los aviones es fuerte.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -1374,8 +1946,21 @@
           "translationES": {
             "text": "Los libros de las chicas son nuevos.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -1391,8 +1976,21 @@
           "translationES": {
             "text": "Las páginas de las revistas son coloridas.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -1435,8 +2033,21 @@
           "translationES": {
             "text": "Las llaves están dentro del cajón.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -1452,8 +2063,21 @@
           "translationES": {
             "text": "La leche está dentro del frigorífico.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -1496,8 +2120,21 @@
           "translationES": {
             "text": "Los libros están en la mochila.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -1513,8 +2150,21 @@
           "translationES": {
             "text": "Trabajo en la consulta del dentista.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -1557,8 +2207,21 @@
           "translationES": {
             "text": "Vivo en la ciudad de Milán.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -1574,8 +2237,21 @@
           "translationES": {
             "text": "Los niños juegan en la habitación.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -1618,8 +2294,21 @@
           "translationES": {
             "text": "Los niños juegan en los jardines públicos.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -1635,8 +2324,21 @@
           "translationES": {
             "text": "Los libros están en los cajones.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -1679,8 +2381,21 @@
           "translationES": {
             "text": "Los bolígrafos están en los estuches.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -1696,8 +2411,21 @@
           "translationES": {
             "text": "Los documentos están archivados en las oficinas.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -1740,8 +2468,21 @@
           "translationES": {
             "text": "Las fotos están en los marcos.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -1784,8 +2525,21 @@
           "translationES": {
             "text": "Voy al estadio el domingo.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -1801,8 +2555,21 @@
           "translationES": {
             "text": "Llevo a los niños al zoo.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -1845,8 +2612,21 @@
           "translationES": {
             "text": "Vamos a la estación en taxi.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -1862,8 +2642,21 @@
           "translationES": {
             "text": "Vamos juntos a la fiesta.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -1906,8 +2699,21 @@
           "translationES": {
             "text": "Doy un regalo a los niños.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -1923,8 +2729,21 @@
           "translationES": {
             "text": "Escribo un correo a los compañeros.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -1967,8 +2786,21 @@
           "translationES": {
             "text": "Explico la lección a los estudiantes.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -1984,8 +2816,21 @@
           "translationES": {
             "text": "Doy de comer a los pájaros.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -2028,8 +2873,21 @@
           "translationES": {
             "text": "Escribo una carta a mis amigas.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -2043,10 +2901,23 @@
           ],
           "correctIndex": 2,
           "translationES": {
-            "text": "Regalo unas flores a mis primas.",
+            "text": "Regalo flores a mis primas.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -2089,8 +2960,21 @@
           "translationES": {
             "text": "Salgo del trabajo a las seis.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -2106,8 +2990,21 @@
           "translationES": {
             "text": "Vuelvo del mercado ahora.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -2150,8 +3047,21 @@
           "translationES": {
             "text": "Salgo de la consulta del dentista.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -2167,8 +3077,21 @@
           "translationES": {
             "text": "Salgo del estadio después del partido.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -2211,8 +3134,21 @@
           "translationES": {
             "text": "Vuelvo a casa de los primos mañana.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -2228,8 +3164,21 @@
           "translationES": {
             "text": "Vuelvo a casa de los abuelos esta noche.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -2272,8 +3221,21 @@
           "translationES": {
             "text": "Salgo de casa de los estudiantes después de la clase.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -2289,8 +3251,21 @@
           "translationES": {
             "text": "Vengo de casa de los tíos en el campo.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -2333,8 +3308,21 @@
           "translationES": {
             "text": "Vengo de casa de mis tías.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -2350,8 +3338,21 @@
           "translationES": {
             "text": "Vuelvo a casa de las abuelas mañana.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -2394,8 +3395,21 @@
           "translationES": {
             "text": "El azúcar está en la estantería.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -2411,8 +3425,21 @@
           "translationES": {
             "text": "La chaqueta está en el taburete.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -2455,8 +3482,21 @@
           "translationES": {
             "text": "El bolígrafo está sobre la silla.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -2472,8 +3512,21 @@
           "translationES": {
             "text": "El libro está sobre el escritorio, encima de las hojas.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -2516,8 +3569,21 @@
           "translationES": {
             "text": "Los cuadros están en las paredes.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -2560,8 +3626,21 @@
           "translationES": {
             "text": "Los pájaros se posan sobre los árboles.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -2577,8 +3656,21 @@
           "translationES": {
             "text": "Las fotos están sobre los estantes, encima de los libros.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -2621,8 +3713,21 @@
           "translationES": {
             "text": "Los libros están sobre los escritorios.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -2638,8 +3743,21 @@
           "translationES": {
             "text": "Los vasos están sobre las repisas.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -2682,8 +3800,21 @@
           "translationES": {
             "text": "Como la pasta con el tenedor.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -2699,8 +3830,21 @@
           "translationES": {
             "text": "Corto el pan con el cuchillo.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -2743,8 +3887,21 @@
           "translationES": {
             "text": "Mañana tengo un examen de matemáticas.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -2787,8 +3944,21 @@
           "translationES": {
             "text": "Paso por tu casa a las ocho.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -2831,8 +4001,21 @@
           "translationES": {
             "text": "En verano vamos a la playa todos los días.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -2848,8 +4031,21 @@
           "translationES": {
             "text": "Este invierno voy a la montaña a esquiar.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -2865,8 +4061,21 @@
           "translationES": {
             "text": "Los abuelos viven en el campo.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -2909,8 +4118,21 @@
           "translationES": {
             "text": "Este verano vamos a la playa en Sicilia.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -2953,8 +4175,21 @@
           "translationES": {
             "text": "Vivo con el abuelo.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -2970,8 +4205,21 @@
           "translationES": {
             "text": "Vivo con el abuelo.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-13",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
