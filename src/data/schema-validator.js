@@ -522,6 +522,16 @@ function validateWordButtonsPayload(ex, file, push) {
 function validateWordButtonsSurface(surface, exId, file, push, label) {
   const { prompt, answer, distractors } = surface;
 
+  // Phase 46 plan 01 (SCH-02, D-46-04): `translationES` NO tiene sitio aquí. Un
+  // ejercicio de armar-la-frase ya SE resuelve produciendo la frase, así que una
+  // traducción española post-respuesta no añade nada que la propia mecánica no
+  // enseñe. El rechazo es por PRESENCIA de la clave y NUNCA por su contenido: no
+  // se inspecciona `text`, así que ninguna forma de acento, escape o codificación
+  // puede esquivarlo. Sin early-return (D-08): conviven con los demás errores.
+  if (surface.translationES !== undefined) {
+    push(file, exId, `"${label}.translationES" no está permitido en variantes de tipo "match" / "word-buttons"`);
+  }
+
   if (typeof prompt !== 'string' || !prompt.trim()) {
     push(file, exId, `"${label}.prompt" debe ser string no vacío`);
   }
@@ -587,6 +597,14 @@ function validateMatchPayload(ex, file, push) {
  */
 function validateMatchSurface(surface, exId, file, push, label) {
   const { prompt, pairs } = surface;
+
+  // Phase 46 plan 01 (SCH-02, D-46-04): nota gemela de la de
+  // `validateWordButtonsSurface`. Va ANTES del early-return de `pairs`: el
+  // rechazo no depende de nada más de la superficie, así que una variante con
+  // `pairs` malformado Y `translationES` debe reportar los DOS errores.
+  if (surface.translationES !== undefined) {
+    push(file, exId, `"${label}.translationES" no está permitido en variantes de tipo "match" / "word-buttons"`);
+  }
 
   if (typeof prompt !== 'string' || !prompt.trim()) {
     push(file, exId, `"${label}.prompt" debe ser string no vacío`);

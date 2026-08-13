@@ -43,13 +43,82 @@ const readJson = (rel) => JSON.parse(readRepo(rel));
 const cssSrc = readRepo('app.css');
 const htmlSrc = readRepo('index.html');
 
+const git = (...args) =>
+  execFileSync('git', args, { cwd: projectRoot, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
+
 /**
  * Lee un fichero tal y como está en HEAD. Es la SEGUNDA fuente, distinta del
  * working tree, que convierte los recuentos de V3 y V4 en una comparación entre
  * dos magnitudes reales — en lugar de un `=== 0` desnudo o de una cifra a mano.
  */
-const readHead = (rel) =>
-  execFileSync('git', ['show', `HEAD:${rel}`], { cwd: projectRoot, encoding: 'utf8', maxBuffer: 32 * 1024 * 1024 });
+const readHead = (rel) => git('show', `HEAD:${rel}`);
+
+/**
+ * Devuelve el sha del commit MÁS RECIENTE que tocó `rel` y que NO pertenece a la
+ * fase 46 (su asunto no lleva el scope `(46-NN)`).
+ *
+ * Por qué existe: comparar el working tree contra HEAD deja de morder en cuanto
+ * la fase committea, porque HEAD pasa a contener el cambio que el gate vigila.
+ * Anclar la referencia al último estado PRE-fase convierte «cero tokens nuevos»
+ * y «cero HTML crudo nuevo» en invariantes de toda la fase, no solo del último
+ * commit. Devuelve `null` si no hay ninguno (el llamador lo trata como
+ * no-vacuidad, nunca como verde).
+ */
+function refPreFase46(rel) {
+  const lineas = git('log', '--format=%H%x1f%s', '--', rel).split('\n').filter(Boolean);
+  for (const linea of lineas) {
+    const [sha, asunto] = linea.split('\x1f');
+    if (!/\(46-\d+\)/.test(asunto || '')) return sha;
+  }
+  return null;
+}
+
+/** Lee `rel` en su último estado PRE-fase-46. */
+function readPreFase46(rel) {
+  const sha = refPreFase46(rel);
+  assert.ok(sha, `no-vacuidad: no se encuentra ningún commit pre-fase-46 que tocara ${rel}`);
+  return git('show', `${sha}:${rel}`);
+}
+
+/** ¿Tocó algún commit de la fase 46 esta ruta? (gate NO vacuo: mira la historia,
+ *  no un `git diff` sobre un árbol limpio, que pasaría siempre). */
+function tocadaPorFase46(rel) {
+  const asuntos = git('log', '--format=%s', '--', rel).split('\n').filter(Boolean);
+  assert.ok(asuntos.length > 0, `no-vacuidad: git no devuelve historia para ${rel}`);
+  return asuntos.filter((s) => /\(46-\d+\)/.test(s));
+}
+
+/**
+ * Acota el rango [inicio, fin) de un `<template …>` a partir del índice de su
+ * apertura, contando anidamientos. Un `indexOf('</template>')` desnudo cerraría
+ * en el primer template hijo y el gate de región mediría el trozo equivocado.
+ */
+function rangoTemplate(src, idxApertura) {
+  const ABRE = /<template\b/g;
+  const CIERRA = /<\/template>/g;
+  let profundidad = 0;
+  let cursor = idxApertura;
+  while (cursor < src.length) {
+    ABRE.lastIndex = cursor;
+    CIERRA.lastIndex = cursor;
+    const abre = ABRE.exec(src);
+    const cierra = CIERRA.exec(src);
+    if (!cierra) return null; // template sin cerrar → el llamador lo trata como no-vacuidad
+    if (abre && abre.index < cierra.index) {
+      profundidad += 1;
+      cursor = abre.index + 1;
+      continue;
+    }
+    profundidad -= 1;
+    if (profundidad === 0) return [idxApertura, cierra.index + '</template>'.length];
+    cursor = cierra.index + 1;
+  }
+  return null;
+}
+
+/** Extrae las etiquetas `<p …>` de `src` cuyo texto contiene `aguja`. */
+const nodosPCon = (src, aguja) =>
+  (src.match(/<p\b[^>]*>/g) || []).filter((tag) => tag.includes(aguja));
 
 /** Cuenta ocurrencias de un patrón global. Devuelve 0 si no casa (nunca null). */
 const countOf = (src, re) => (src.match(re) || []).length;
@@ -274,5 +343,293 @@ describe('V6 — orden DOM: qué era → qué significa → por qué (D-46-06 / 
     const iCorrecta = htmlSrc.lastIndexOf('Respuesta correcta:', iTrad);
     assert.ok(iCorrecta !== -1, 'no hay línea "Respuesta correcta:" antes del nodo de traducción');
     assert.ok(iCorrecta < iTrad);
+  });
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// V3 · cero tokens --ed-* nuevos (recuento derivado de DOS fuentes)
+// ─────────────────────────────────────────────────────────────────────────────
+
+describe('V3 — app.css no gana ningún token nuevo (UI-SPEC §Color)', () => {
+  /** Definiciones de token (`--ed-x: valor;`) declaradas en el `:root`. */
+  function tokensDeRoot(src) {
+    const limpio = cssSinComentarios(src);
+    const iRoot = limpio.indexOf(':root');
+    if (iRoot === -1) return null;
+    const bloque = limpio.slice(limpio.indexOf('{', iRoot) + 1, limpio.indexOf('}', iRoot));
+    return [...bloque.matchAll(/(--ed-[a-z0-9-]+)\s*:/g)].map((m) => m[1]);
+  }
+
+  const enDisco = tokensDeRoot(cssSrc);
+  const enPreFase = tokensDeRoot(readPreFase46('app.css'));
+
+  test('no-vacuidad: el extractor ve tokens en las DOS fuentes', () => {
+    assert.ok(Array.isArray(enDisco) && enDisco.length > 0, 'el extractor no ve tokens en el app.css de disco');
+    assert.ok(Array.isArray(enPreFase) && enPreFase.length > 0, 'el extractor no ve tokens en el app.css pre-fase');
+  });
+
+  test('el recuento de tokens del :root es idéntico al de antes de la fase', () => {
+    assert.equal(
+      enDisco.length,
+      enPreFase.length,
+      `app.css pasó de ${enPreFase.length} a ${enDisco.length} tokens --ed-*: esta fase declara CERO tokens nuevos`
+    );
+  });
+
+  test('y el conjunto de nombres es exactamente el mismo (ni añadidos ni renombrados)', () => {
+    assert.deepEqual([...enDisco].sort(), [...enPreFase].sort());
+  });
+
+  test('las reglas nuevas no usan hex literales: consumen tokens', () => {
+    const selectorRe = /\.session-translation,\s*\n\.summary-error-translation\s*\{/;
+    const limpio = cssSinComentarios(cssSrc);
+    const inicio = limpio.search(selectorRe);
+    assert.ok(inicio !== -1, 'no-vacuidad: selector no localizado');
+    const bloque = limpio.slice(inicio, limpio.indexOf('}', inicio) + 1);
+    assert.equal(countOf(bloque, /#[0-9a-fA-F]{3,8}\b/g), 0, 'la regla nueva declara un hex literal');
+  });
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// V5 · no-leak: nadie pinta la traducción sin guard de estado resuelto (D-46-11)
+// ─────────────────────────────────────────────────────────────────────────────
+
+describe('V5 — no-leak: ningún template pinta translationES sin guard (R1 / D-46-11)', () => {
+  // La cifra de referencia se DERIVA del disco: tantos nodos como clases de
+  // traducción declaradas en el markup.
+  const clasesDeclaradas = countOf(htmlSrc, /class="(?:session-translation|summary-error-translation)"/g);
+  const nodosConCampo = nodosPCon(htmlSrc, 'translationES');
+  const ocurrencias = [...htmlSrc.matchAll(/translationES/g)].map((m) => m.index);
+
+  test('CLÁUSULA DE NO-VACUIDAD (va primero): el escáner ve tantos nodos como clases declaradas', () => {
+    // Un escáner que deja de casar devuelve lista vacía, y sobre la lista vacía
+    // el "ninguno sin guard" de abajo pasaría en VERDE sin haber mirado nada.
+    assert.ok(clasesDeclaradas > 0, 'index.html no declara ninguna clase de traducción');
+    assert.equal(
+      nodosConCampo.length,
+      clasesDeclaradas,
+      `el escáner ve ${nodosConCampo.length} nodos con translationES y el markup declara ` +
+        `${clasesDeclaradas} clases de traducción: o se añadió un nodo sin clase, o el escáner dejó de casar`
+    );
+    assert.ok(ocurrencias.length >= nodosConCampo.length, 'menos ocurrencias que nodos: imposible');
+  });
+
+  test('cada ocurrencia de translationES vive DENTRO de uno de esos nodos', () => {
+    // Cierra la puerta de atrás: una ocurrencia suelta fuera de un <p> con clase
+    // (en un x-text de otro elemento, por ejemplo) escaparía al chequeo de guard.
+    const rangos = [];
+    let desde = 0;
+    for (const tag of nodosConCampo) {
+      const idx = htmlSrc.indexOf(tag, desde);
+      assert.notEqual(idx, -1, 'no-vacuidad: nodo localizado por regex pero no por índice');
+      rangos.push([idx, idx + tag.length]);
+      desde = idx + tag.length;
+    }
+    const fuera = ocurrencias.filter((i) => !rangos.some(([a, b]) => i >= a && i < b));
+    assert.deepEqual(
+      fuera,
+      [],
+      `hay ${fuera.length} ocurrencia(s) de translationES fuera de los nodos de traducción declarados`
+    );
+  });
+
+  test('todos los nodos llevan guard de estado resuelto (explícito o estructural)', () => {
+    for (const tag of nodosConCampo) {
+      const guardExplicito = tag.includes('sessionFeedback !== null');           // superficie 1
+      const guardEstructural = tag.includes('summaryVariantSurface(result)');    // superficie 2 (x-for de fallos)
+      assert.ok(
+        guardExplicito || guardEstructural,
+        `un nodo pinta translationES sin guard de estado resuelto: ${tag}`
+      );
+    }
+  });
+
+  test('el guard de la superficie 1 exige TAMBIÉN la presencia del dato (doble guard, D-46-09)', () => {
+    const nodo = nodosConCampo.find((t) => t.includes('sessionFeedback !== null'));
+    assert.ok(nodo, 'no-vacuidad: no se localiza el nodo de la superficie 1');
+    assert.match(
+      nodo,
+      /x-show="sessionFeedback !== null && sessionCurrentExercise\.payload\.translationES\?\.text"/,
+      'el x-show de la superficie 1 no es el doble guard del UI-SPEC'
+    );
+  });
+
+  test('el guard de la superficie 2 usa optional chaining defensivo espejo de la explanation', () => {
+    const nodo = nodosConCampo.find((t) => t.includes('summaryVariantSurface(result)'));
+    assert.ok(nodo, 'no-vacuidad: no se localiza el nodo de la superficie 2');
+    assert.match(nodo, /x-show="summaryVariantSurface\(result\)\?\.payload\?\.translationES\?\.text"/);
+    assert.match(nodo, /x-text="summaryVariantSurface\(result\)\?\.payload\?\.translationES\?\.text"/);
+  });
+
+  test('el nodo de la superficie 2 vive dentro de la sección de errores del resumen', () => {
+    const iSeccion = htmlSrc.indexOf('<section class="summary-errors">');
+    assert.notEqual(iSeccion, -1, 'no-vacuidad: no se localiza la sección de errores');
+    const iCierre = htmlSrc.indexOf('</section>', iSeccion);
+    assert.notEqual(iCierre, -1, 'no-vacuidad: la sección de errores no cierra');
+    const iNodo = htmlSrc.indexOf('summary-error-translation');
+    assert.ok(iNodo > iSeccion && iNodo < iCierre, 'el nodo del resumen está fuera de la sección de errores');
+  });
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// V7 · translationES no aparece en los sub-templates word-buttons ni match
+// ─────────────────────────────────────────────────────────────────────────────
+
+describe('V7 — el campo no asoma en los sub-templates de word-buttons ni match (SCH-02)', () => {
+  const APERTURAS = [
+    `<template x-if="sessionCurrentExercise.type === 'word-buttons'">`,
+    `<template x-if="sessionCurrentExercise.type === 'match'">`,
+    `<template x-if="summaryVariantSurface(result).type === 'word-buttons'">`,
+    `<template x-if="summaryVariantSurface(result).type === 'match' && result.userAnswer">`
+  ];
+
+  const regiones = APERTURAS.map((apertura) => {
+    const idx = htmlSrc.indexOf(apertura);
+    const rango = idx === -1 ? null : rangoTemplate(htmlSrc, idx);
+    return { apertura, idx, rango };
+  });
+
+  test('CLÁUSULA DE NO-VACUIDAD: las CUATRO regiones se localizaron y se acotaron', () => {
+    const noLocalizadas = regiones.filter((r) => r.idx === -1).map((r) => r.apertura);
+    assert.deepEqual(noLocalizadas, [], 'sub-templates no localizados (¿cambió el markup?)');
+    const noAcotadas = regiones.filter((r) => r.rango === null).map((r) => r.apertura);
+    assert.deepEqual(noAcotadas, [], 'sub-templates sin `</template>` de cierre emparejado');
+    // Sin longitud, un "cero ocurrencias dentro" mediría la cadena vacía.
+    for (const { apertura, rango } of regiones) {
+      assert.ok(rango[1] - rango[0] > apertura.length, `región vacía para ${apertura}`);
+    }
+  });
+
+  test('cero ocurrencias de translationES dentro de las cuatro regiones', () => {
+    for (const { apertura, rango } of regiones) {
+      const region = htmlSrc.slice(rango[0], rango[1]);
+      assert.equal(
+        countOf(region, /translationES/g),
+        0,
+        `translationES asoma dentro de ${apertura}, pero SCH-02 lo rechaza en ese tipo`
+      );
+    }
+  });
+
+  test('las regiones de match/word-buttons SÍ contienen su explanation (control positivo)', () => {
+    // Control de que las regiones acotadas son las de verdad y no trozos vacíos:
+    // los cuatro sub-templates sí pintan `explanation`.
+    for (const { apertura, rango } of regiones) {
+      const region = htmlSrc.slice(rango[0], rango[1]);
+      assert.ok(
+        countOf(region, /explanation/g) > 0,
+        `la región de ${apertura} no contiene ni una explanation: seguramente está mal acotada`
+      );
+    }
+  });
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// V8 · motor BYTE-INTACTO (D-46-01)
+// ─────────────────────────────────────────────────────────────────────────────
+
+describe('V8 — el motor queda byte-intacto (D-46-01 / D-46-11)', () => {
+  const RUTAS_MOTOR = ['src/domain', 'src/screens/app.js'];
+
+  test('ningún commit de la fase 46 tocó src/domain/ ni src/screens/app.js', () => {
+    for (const rel of RUTAS_MOTOR) {
+      const deLaFase = tocadaPorFase46(rel);
+      assert.deepEqual(
+        deLaFase,
+        [],
+        `${rel} fue modificado por la fase 46: ${deLaFase.join(' | ')}. El render de esta fase es HTML + CSS puro`
+      );
+    }
+  });
+
+  test('tampoco hay cambios sin committear en las rutas del motor', () => {
+    const sucio = git('diff', '--stat', 'HEAD', '--', ...RUTAS_MOTOR).trim();
+    assert.equal(sucio, '', `hay cambios sin committear en el motor:\n${sucio}`);
+  });
+
+  test('SESSION_AUTO_ADVANCE_MS conserva el valor que tenía antes de la fase (derivado)', () => {
+    const leerConstante = (src) => {
+      const m = src.match(/SESSION_AUTO_ADVANCE_MS\s*=\s*(\d+)/);
+      return m ? Number(m[1]) : null;
+    };
+    const enDisco = leerConstante(readRepo('src/screens/app.js'));
+    const enPreFase = leerConstante(readPreFase46('src/screens/app.js'));
+    const enHead = leerConstante(readHead('src/screens/app.js'));
+
+    // No-vacuidad en las TRES fuentes: un extractor que deja de casar devuelve
+    // null en las tres y `null === null` pasaría en verde.
+    assert.notEqual(enDisco, null, 'el extractor no ve la constante en el disco');
+    assert.notEqual(enPreFase, null, 'el extractor no ve la constante pre-fase');
+    assert.notEqual(enHead, null, 'el extractor no ve la constante en HEAD');
+
+    assert.equal(enDisco, enPreFase, 'la fase cambió SESSION_AUTO_ADVANCE_MS');
+    assert.equal(enDisco, enHead);
+  });
+
+  test('la fase no añade ningún temporizador (REND-03: el toggle es síncrono)', () => {
+    for (const rel of ['index.html', 'src/screens/app.js']) {
+      assert.equal(
+        countOf(readRepo(rel), /setTimeout|setInterval/g),
+        countOf(readPreFase46(rel), /setTimeout|setInterval/g),
+        `${rel} cambió su recuento de temporizadores: esta fase no introduce estado async`
+      );
+    }
+  });
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// V9 · el resto de la pantalla, sin cambios (D-46-01 / D-46-10, REND-03)
+// ─────────────────────────────────────────────────────────────────────────────
+
+describe('V9 — prompt, "¿Por qué?" y CTA siguen intactos (D-46-01 / D-46-10)', () => {
+  test('las tres clases y sus literales de copy siguen presentes', () => {
+    for (const clase of ['session-prompt', 'session-why', 'session-cta']) {
+      assert.ok(htmlSrc.includes(`class="${clase}"`), `falta class="${clase}"`);
+    }
+    for (const literal of ['Continuar →', '¿Por qué?', '¡Esatto!', 'Quasi…']) {
+      assert.ok(htmlSrc.includes(literal), `falta el literal de copy "${literal}"`);
+    }
+  });
+
+  test('el recuento de esos literales es el mismo que antes de la fase (ni uno nuevo)', () => {
+    const pre = readPreFase46('index.html');
+    for (const literal of ['Continuar →', '¿Por qué?', '¡Esatto!', 'Quasi…']) {
+      const re = new RegExp(literal.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
+      assert.equal(
+        countOf(htmlSrc, re),
+        countOf(pre, re),
+        `el recuento del literal "${literal}" cambió: esta fase no añade ni cambia copy de interfaz`
+      );
+    }
+  });
+
+  test('el guard de la traducción NO referencia el flag de explanation-revelada', () => {
+    // El botón "¿Por qué?" y la tecla `e` togglan `sessionExplanationRevealed`.
+    // Si el x-show de la traducción lo mirase, pulsar el botón repetidamente
+    // podría ocultarla o duplicarla (REND-03).
+    const nodos = nodosPCon(htmlSrc, 'translationES');
+    assert.ok(nodos.length > 0, 'no-vacuidad: sin nodos localizados no hay guard que inspeccionar');
+    for (const nodo of nodos) {
+      assert.ok(
+        !nodo.includes('sessionExplanationRevealed'),
+        `el nodo de traducción referencia sessionExplanationRevealed: ${nodo}`
+      );
+    }
+    // Control positivo: el nodo de la explanation SÍ lo referencia, así que el
+    // flag existe y la aserción de arriba no es verde por ausencia del símbolo.
+    const nodoExplanation = nodosPCon(htmlSrc, 'class="session-explanation"');
+    assert.ok(nodoExplanation.length > 0, 'no-vacuidad: no se localiza el nodo de la explanation');
+    assert.ok(
+      nodoExplanation.some((t) => t.includes('sessionExplanationRevealed')),
+      'la explanation dejó de mirar sessionExplanationRevealed: el control positivo ya no controla nada'
+    );
+  });
+
+  test('la traducción no añade affordance propio: cero botones nuevos en index.html', () => {
+    assert.equal(
+      countOf(htmlSrc, /<button\b/g),
+      countOf(readPreFase46('index.html'), /<button\b/g),
+      'el recuento de botones cambió: la traducción aparece SIEMPRE al resolver, sin affordance (D-46-10)'
+    );
   });
 });
