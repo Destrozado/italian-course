@@ -1309,9 +1309,14 @@
                         <div>Tu respuesta: <span class="user-answer" x-text="result.userAnswer"></span></div>
                         <div>Respuesta correcta: <strong x-text="summaryVariantSurface(result).payload.options[summaryVariantSurface(result).payload.correctIndex]"></strong></div>
                         <!--
-                          Phase 46 (REND-04/05, D-46-08/09) — Misma anatomía y mismo criterio de estilo
-                          que en pantalla. Optional chaining defensivo espejo del de la explanation
-                          (:1294): el filter exterior ya excluye exerciseIds stale. `x-text` exclusivo.
+                          Phase 46 (REND-04/05, D-46-08 enmendada el 2026-08-13, D-46-09) — MISMO
+                          CRITERIO DE ESTILO que en pantalla (serif ink, regla CSS compartida), en
+                          POSICIÓN distinta: aquí la traducción se queda DENTRO de la card, tras
+                          "Respuesta correcta:" y antes de la explanation, porque en el resumen no
+                          hay CTA de avance y por tanto no existe el hueco que ocupa en pantalla.
+                          La card es su contenedor semántico: pertenece al error que comenta.
+                          Optional chaining defensivo espejo del de la explanation de abajo: el
+                          filter exterior ya excluye exerciseIds stale. `x-text` exclusivo.
                         -->
                         <p x-show="summaryVariantSurface(result)?.payload?.translationES?.text"
                            class="summary-error-translation"

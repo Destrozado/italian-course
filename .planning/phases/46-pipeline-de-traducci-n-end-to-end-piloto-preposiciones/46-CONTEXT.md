@@ -72,28 +72,54 @@ Bajar el pipeline COMPLETO de traducción al español y demostrarlo end-to-end s
 
 ### Render
 
-- **D-46-06: La traducción se pinta DENTRO de la caja de feedback existente (`.session-feedback`).** Va inmediatamente bajo «Respuesta correcta:» y ANTES de la `explanation`. — **Reversibility:** reversible
+- **D-46-06 (ENMENDADA el 2026-08-13): la traducción se pinta FUERA de la caja de feedback, entre ella y el CTA de avance.** — **Reversibility:** reversible
+
+  **Qué se decidió ANTES** (plan-time, 2026-08-13): la traducción vivía DENTRO de `.session-feedback`, inmediatamente bajo «Respuesta correcta:» y ANTES de la `explanation`, con el orden narrativo **qué era → qué significa → por qué**:
 
   ```
   ┌─ ¡Esatto! / Quasi… ──────────────┐
   │  Respuesta correcta: **di**       │  ← solo al fallar (ya existe)
-  │  Paolo es de Nápoles de nacim…    │  ← TRADUCCIÓN (nueva)
+  │  Paolo es de Nápoles de nacim…    │  ← la TRADUCCIÓN vivía AQUÍ
   │  La preposición Di indica ori…    │  ← explanation (ya existe)
   │  [ ¿Por qué? ]                    │  ← solo al acertar (ya existe)
   └───────────────────────────────────┘
   ```
 
-  Orden narrativo: **qué era → qué significa → por qué**.
+  **Qué se decide AHORA** (enmienda del 2026-08-13): el nodo sale de la caja y se sitúa entre el `</div>` de `.session-feedback` y el botón de avance. Sitio **fijo**: el mismo acertando y fallando.
 
-  **Por qué NO bajo el prompt italiano:** post-corrección el hueco del prompt se rellena con **la opción que el usuario seleccionó**, no con la correcta (`index.html:537`: `options?.[sessionSelectedIndex]`). Al fallar, la frase italiana de arriba muestra la palabra EQUIVOCADA tachada en rojo; pegarle debajo la traducción de la frase CORRECTA dejaría dos frases contiguas que no se corresponden.
+  ```
+  ┌─ ¡Esatto! / Quasi… ──────────────┐
+  │  Respuesta correcta: **di**       │
+  │  La preposición Di indica ori…    │
+  │  [ ¿Por qué? ]                    │
+  └───────────────────────────────────┘
+     Paolo es de Nápoles de nacim…      ← la TRADUCCIÓN, fuera de la caja
+     [ Continuar → ]
+  ```
 
-- **D-46-07: La traducción se distingue de la `explanation` TIPOGRÁFICAMENTE, en serif, y NO lleva etiqueta.** — **Reversibility:** reversible
+  **Quién lo decidió y por qué:** el **autor**, viendo la app funcionando con las 96 traducciones ya en pantalla, durante el `checkpoint:human-verify` del plan 46-05:
+
+  > «creo que en vez de meterlo en el cuadro del error, me gusta más que esté fuera, que se vea claro, […] o justo encima del botón de continuar para verlo siempre, se me hace difícil verlo dentro de la caja de error, cuando aciertas está perfecto»
+
+  El orden narrativo de la decisión original no era falso, pero perdía contra un hecho de uso que solo se ve con la app delante: al ACERTAR la caja apenas tiene una línea y al FALLAR está tintada de rojo y densa, así que la traducción cambiaba de sitio visual entre un caso y otro y en el caso de fallo se camuflaba dentro del recuadro de error. Fuera de la caja el sitio es siempre el mismo y siempre justo antes del gesto de avanzar.
+
+  **Lo que la enmienda NO cambia — la razón de no ir bajo el prompt italiano SIGUE EN PIE:** post-corrección el hueco del prompt se rellena con **la opción que el usuario seleccionó**, no con la correcta (`index.html:537`: `options?.[sessionSelectedIndex]`). Al fallar, la frase italiana de arriba muestra la palabra EQUIVOCADA tachada en rojo; pegarle debajo la traducción de la frase CORRECTA dejaría dos frases contiguas que no se corresponden. Se le planteó ese sitio al autor junto con este y **lo descartó explícitamente por ese motivo**.
+
+  **Tampoco cambia el no-leak (R1 / D-46-11):** el doble guard `sessionFeedback !== null && …translationES?.text` se conserva VERBATIM. «Verlo siempre» significa **siempre en el mismo sitio, aciertes o falles**, nunca antes de responder: la traducción revela la palabra correcta y no puede existir en el DOM pre-respuesta.
+
+  **Precedente de forma:** D-46-01 también se corrigió en sesión y lo dice en su propio cuerpo. Una decisión LOCKED se enmienda por escrito con fecha, autoría y motivo — nunca se sobreescribe en silencio, porque un registro que miente certifica en verde (CR-01 de la Phase 44).
+
+- **D-46-07 (ENMENDADA el 2026-08-13): la traducción se distingue de la `explanation` TIPOGRÁFICAMENTE, en serif, y NO lleva etiqueta.** — **Reversibility:** reversible
+
+  **La sustancia de esta decisión se mantiene intacta:** lo que cambió el 2026-08-13 es el SITIO (ver la enmienda de D-46-06), no la distinción tipográfica.
 
   La traducción va en `var(--ed-font-serif)` (Spectral) porque es **texto de la frase** — hermana del prompt italiano, que es serif 30 (`app.css:858`) — mientras que la `explanation` es Hanken sans 13/400 muted (`app.css:970`) porque es comentario. La distinción es semántica, no decorativa. Beneficio extra: sin etiqueta, el caso «ejercicio sin traducción» es trivialmente limpio (REND-05) — no hay etiqueta ni contenedor que esconder aparte del propio nodo.
 
   **Sin etiqueta «Traducción:»** y **sin comillas latinas envolventes**: ambas se consideraron y se descartaron (ruido para un autor único que sabe qué está mirando; y las comillas serían literales de template envolviendo un `x-text`).
 
-- **D-46-08: REND-04 — en «Errores cometidos» del resumen se repite EXACTAMENTE la misma anatomía y la misma lógica de estilo.** — **Reversibility:** reversible
+  **Lo único que la enmienda toca de esta decisión es el MARGEN.** Fuera de la caja, la frase ya no colapsa contra el `margin-top` de la `explanation`, y `.session-cta` no declara `margin-top` ninguno (`app.css:907-923`): sin aire propio arriba **y abajo** quedaría pegada al recuadro tintado y al botón. Medido en Chrome headless sobre el CSS real (`styles.css` + `app.css`, fuentes de `vendor/fonts/`) con la ancestría DOM real: el hueco traducción→CTA era **0 px**. Por eso las cinco declaraciones tipográficas siguen en la regla compartida —un solo criterio de estilo— y el margen se declara por superficie: `16px 0` (md, el mismo valor con el que `.session-feedback` se separa de las opciones) en pantalla, y el `8px 0 0` (sm) de siempre en el resumen. **Cero tokens nuevos, cero valores fuera de la escala de 4px.**
+
+- **D-46-08 (ENMENDADA el 2026-08-13): REND-04 — en «Errores cometidos» del resumen se repite el mismo CRITERIO DE ESTILO, en posición distinta.** — **Reversibility:** reversible
 
   ```
   ┌─ ERRORES COMETIDOS · 3 ──────────────┐
@@ -105,6 +131,10 @@ Bajar el pipeline COMPLETO de traducción al español y demostrarlo end-to-end s
   ```
 
   Un solo criterio de estilo que mantener en dos sitios; al revisar errores reconoces el mismo bloque que viste en pantalla. La `explanation` del resumen ya es `--ed-muted` + `italic` (`app.css:1982-1985`), así que el contraste serif/muted-itálica funciona igual que en pantalla.
+
+  **Enmienda del 2026-08-13 — qué significa exactamente «lo mismo».** Antes esta decisión significaba *«misma anatomía en las dos superficies»*. Con D-46-06 enmendada significa **«mismo CRITERIO DE ESTILO (serif 16/400/1.5 ink, declarado UNA sola vez), posición distinta porque el contexto es distinto»**. La superficie 2 **NO se toca**: en la card de «Errores cometidos» la traducción sigue dentro de la card, después de «Respuesta correcta:» y antes de la `explanation`, con su `8px 0 0`.
+
+  **Por qué la divergencia es correcta y no una incoherencia:** en el resumen **no hay botón de avance**, así que el hueco equivalente —«justo encima del CTA»— simplemente no existe ahí. Repetir la posición nueva en el resumen habría significado sacar la traducción de la card, y entonces dejaría de pertenecer al error que comenta; la card ES su contenedor semántico. Lo que el autor pidió es que la traducción esté siempre en el mismo sitio **dentro de la pantalla de ejercicio**, que es donde estudia. Consecuencia práctica en el CSS: la tipografía sigue en el selector doble (una declaración) y solo el margen se declara por superficie.
 
 - **D-46-09: REND-01/REND-05 — mismo doble guard `x-show` que ya usa `explanation`, `x-text` exclusivo (T-02-01), y graceful degradation D-121.** — **Reversibility:** reversible
 
