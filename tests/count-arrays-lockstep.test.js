@@ -302,6 +302,122 @@ export const paresCruzados = (src) =>
     .filter(({ slug, file }) => file !== `content/exercises/${slug}.json`)
     .map(({ slug, file }) => `${slug} -> ${file}`);
 
+/**
+ * La REGION de texto que ocupa la declaracion de un array de conteo con nombre, YA
+ * LIMPIA de comentarios: desde la linea `const <nombre> = [` hasta su `];`.
+ *
+ * POR QUE EXISTE (v2.1 Phase 46, D-46-17). Hasta la Phase 46 el reporter tenia UN solo
+ * array que declaraba pares `slug` ↔ `file`, asi que contar sobre el fuente ENTERO era
+ * lo mismo que contar sobre su region y no habia nada que acotar. Con el array de
+ * cobertura de traduccion al lado ya no lo es, y las dos consecuencias son reales:
+ *   1. La clausula de no-vacuidad del bloque 3-bis contaba 18 pares contra las 18
+ *      categorias registradas, y con el array nuevo cuenta 19. Ese rojo es CORRECTO —la
+ *      clausula muerde—, y la forma que admite un segundo array vigilado NO es sumarle
+ *      un margen (eso la dejaria comparando una cifra que ya no describe nada, que es
+ *      CR-01 verbatim) sino medir cada array en SU region.
+ *   2. Sin acotar, un slug borrado de `CATEGORIES` pero vivo en el array de traduccion
+ *      seguiria APARECIENDO anclado en el fuente entero: el gate del bloque 3 lo daria
+ *      por enganchado estando ciego. Canal de ceguera NUEVO, abierto por el propio
+ *      array que la Phase 46 añade, y cerrado por el acotado.
+ *
+ * DEVUELVE CADENA VACIA cuando la declaracion no aparece, y eso es deliberado: la
+ * alternativa —devolver el fuente completo como «fallback»— volveria a mezclar los dos
+ * arrays en silencio el dia que el reconocedor deje de casar. Una region vacia produce
+ * cero pares, y cero pares ponen ROJA la clausula de no-vacuidad de quien la consuma,
+ * que es el comportamiento correcto: renombrar el array no puede pasar desapercibido.
+ *
+ * El texto se pasa por `sinComentarios` ANTES de acotar, por la misma razon que
+ * `slugsCiegos` y `paresSlugFile` (CR-01): un array entero envuelto en `/* *\/` no debe
+ * declarar region. Y como `sinComentarios` PRESERVA la longitud de cada linea, la region
+ * limpia sigue siendo comparable por posicion con el fichero crudo.
+ *
+ * @param {string} src texto fuente completo del fichero de conteo
+ * @param {string} nombre identificador del array (`CATEGORIES`, …)
+ * @returns {string} la region limpia, o `''` si el array no se declara
+ */
+export function regionDeArray(src, nombre) {
+  const lineas = sinComentarios(src).split('\n');
+  // Whitespace HORIZONTAL en los tres huecos, como todas las anclas de este fichero:
+  // `\s*` cruzaria el salto de linea y fue un bug real (WR-07). Y la linea de apertura
+  // tiene que ACABAR en el `[`, que es la forma en que este proyecto declara sus arrays
+  // de conteo — un `[` seguido de la primera entrada en la misma linea no la declara.
+  const apertura = new RegExp(
+    `^[^\\S\\n]*const[^\\S\\n]+${escapeRe(nombre)}[^\\S\\n]*=[^\\S\\n]*\\[[^\\S\\n]*$`
+  );
+  const cierre = /^[^\S\n]*\];/;
+  const i = lineas.findIndex((l) => apertura.test(l));
+  if (i === -1) return '';
+  for (let j = i + 1; j < lineas.length; j += 1) {
+    if (cierre.test(lineas[j])) return lineas.slice(i, j + 1).join('\n');
+  }
+  return '';
+}
+
+// El directorio del contenido, del que se DERIVA que una categoria este cubierta de
+// traduccion. Declarado como cadena para que el `grep` que lo busca lo encuentre.
+const DIR_EJERCICIOS = 'content/exercises';
+
+/**
+ * Las categorias DECLARADAS CUBIERTAS de traduccion, DERIVADAS DEL DISCO: aquellas cuyo
+ * fichero de contenido tiene al menos una variante `multiple-choice` con la clave
+ * `translationES` presente.
+ *
+ * POR QUE NO `content/categories.json` (que es la referencia del bloque 3). Alli TODAS
+ * las categorias registradas tienen que estar enganchadas; aqui solo las que YA estan
+ * cubiertas, porque el milestone traduce por fases y exigir las 18 hoy seria un rojo
+ * permanente e inservible — y un rojo inservible invita a relajar el gate.
+ *
+ * POR QUE NO UNA LISTA ESCRITA EN ESTE FICHERO. Es la doctrina literal de la cabecera:
+ * seria un gate vacuo, verde para siempre, ciego al alta de la traduccion 97. La
+ * consecuencia de derivarla es deliberada y es justo lo que se quiere: en cuanto una
+ * categoria recibe su PRIMERA traduccion, el gate EXIGE que este enganchada. No hay
+ * ventana en la que traducir sin enganchar salga verde.
+ *
+ * FAIL-LOUD, igual que `milestoneEnDisco`: un test que no puede leer su referencia no
+ * puede pasar en VERDE, porque su veredicto seria sobre nada. Un `catch { continue }`
+ * aqui convertiria un JSON corrupto en «esta categoria no esta cubierta» — silenciar la
+ * referencia es exactamente la forma de gate vacuo que este fichero persigue. Se llama
+ * DENTRO de los tests y no a nivel de modulo por ATRIBUCION (leccion de la Phase 45-02):
+ * a nivel de modulo, un fichero corrupto tumbaria los demas tests con un fallo de CARGA,
+ * que no se lee como «este gate se puso rojo» sino como «este fichero esta roto».
+ *
+ * @returns {string[]} los slugs cubiertos, en orden alfabetico de fichero
+ */
+export function categoriasDeclaradasCubiertas() {
+  const dir = new URL(`../${DIR_EJERCICIOS}/`, import.meta.url);
+  const ficheros = readdirSync(dir).filter((f) => f.endsWith('.json')).sort();
+  if (ficheros.length === 0) {
+    throw new Error(
+      `D-46-17: ${DIR_EJERCICIOS} no contiene ningun .json, asi que no hay REFERENCIA de disco ` +
+        `contra la que medir la ceguera del array de cobertura de traduccion.`
+    );
+  }
+  const cubiertas = [];
+  for (const f of ficheros) {
+    let data;
+    try {
+      data = JSON.parse(readFileSync(new URL(f, dir), 'utf-8'));
+    } catch (e) {
+      throw new Error(
+        `D-46-17: ${DIR_EJERCICIOS}/${f} no parsea (${e.message}), asi que no se puede saber si ` +
+          `declara traducciones. Tratarlo como «no cubierta» convertiria un JSON corrupto en un ` +
+          `gate verde, que es el modo de fallo que este fichero existe para cerrar.`
+      );
+    }
+    if (!Array.isArray(data?.exercises)) continue;
+    const declara = data.exercises.some(
+      (ex) =>
+        ex?.type === 'multiple-choice' &&
+        Array.isArray(ex.variants) &&
+        ex.variants.some(
+          (v) => v && typeof v === 'object' && Object.prototype.hasOwnProperty.call(v, 'translationES')
+        )
+    );
+    if (declara) cubiertas.push(f.replace(/\.json$/, ''));
+  }
+  return cubiertas;
+}
+
 // ───────────────────────────────────────────────────────────────────────────
 // 2. Los goldens del helper — la prueba mecanica de que el gate SABE ponerse rojo
 // ───────────────────────────────────────────────────────────────────────────
@@ -734,6 +850,13 @@ describe('gate anti-ceguera — las fuentes de conteo declaradas enganchan las c
 
 const REPORTER = 'scripts/run-validation-271.mjs';
 
+// Los NOMBRES de los dos arrays parametricos del reporter, la unica transcripcion de cada
+// uno en todo el arbol de tests: el de SLOTS (desde v1.0) y el de cobertura de TRADUCCION
+// (v2.1 Phase 46, GATE-01). Van aqui arriba y no junto a su bloque porque el acotado por
+// region los necesita en los DOS gates, el de slots y el de traduccion.
+const ARRAY_DE_SLOTS = 'CATEGORIES';
+const ARRAY_DE_TRADUCCION = 'TRANSLATION_COVERAGE';
+
 // La expresion de plantilla con la que una fuente DERIVA la ruta del slug en su bucle
 // de consumo. Declararla asi (cadena en comillas simples, sin interpolar) es lo que
 // permite buscarla como TEXTO en la fuente.
@@ -742,7 +865,15 @@ const DERIVA_LA_RUTA = 'content/exercises/${slug}.json';
 describe('gate anti-ceguera — el par slug ↔ file de cada entrada apunta a su PROPIO fichero (INT-02, D-40-03)', () => {
   test(`${REPORTER}: declara un par slug↔file por categoria registrada y ninguno esta cruzado`, () => {
     const SRC = readSrc(REPORTER);
-    const pares = paresSlugFile(SRC);
+    // ACOTADO POR REGION (v2.1 Phase 46, D-46-17). Hasta la Phase 46 el reporter tenia UN
+    // solo array que declaraba pares, asi que contar sobre el fuente entero era lo mismo
+    // que contar sobre esta region. Con el array de cobertura de traduccion al lado, el
+    // recuento subio a 19 contra las 18 categorias registradas y esta clausula se puso
+    // ROJA — correctamente: dejaba de contar lo que dice contar. La forma que admite un
+    // segundo array vigilado es medir cada uno en SU region, no sumarle un margen; un
+    // margen la habria dejado comparando una cifra que ya no describe nada (CR-01).
+    const region = regionDeArray(SRC, ARRAY_DE_SLOTS);
+    const pares = paresSlugFile(region);
 
     // CLAUSULA DE NO-VACUIDAD, y va PRIMERO. Un extractor por regex que deja de casar
     // devuelve lista vacia, y un deepEqual de [] contra [] pasa en VERDE: es la especie
@@ -758,7 +889,24 @@ describe('gate anti-ceguera — el par slug ↔ file de cada entrada apunta a su
         `o el extractor dejo de ver su array de conteo`
     );
 
-    const cruzados = paresCruzados(SRC);
+    // Y las 18 registradas tienen que estar ancladas DENTRO de esta region, no en
+    // cualquier parte del fichero. Es un canal de ceguera NUEVO, abierto por el propio
+    // array que la Phase 46 añade: el gate del bloque 3 escanea el fuente ENTERO, asi que
+    // una categoria BORRADA de `CATEGORIES` y viva en el array de cobertura de traduccion
+    // seguiria apareciendo anclada y el bloque 3 la daria por enganchada estando ciega
+    // para el conteo de slots. El acotado por region es lo que lo cierra, y sin esta
+    // asercion el cierre no estaria comprobado.
+    const ciegasEnLaRegion = slugsCiegos(region, SLUGS_REGISTRADOS);
+    assert.deepEqual(
+      ciegasEnLaRegion,
+      [],
+      `INT-02 / D-46-17: estas categorias registradas NO estan ancladas dentro de la region de ` +
+        `\`${ARRAY_DE_SLOTS}\` de ${REPORTER}. Que el bloque 3 las vea ancladas en el fichero no ` +
+        `basta desde que hay un segundo array que declara los mismos slugs: el conteo de SLOTS ` +
+        `sale de este array y solo de este: ${ciegasEnLaRegion.join(', ')}`
+    );
+
+    const cruzados = paresCruzados(region);
     assert.deepEqual(
       cruzados,
       [],
@@ -957,9 +1105,6 @@ describe('integridad del escaner — ninguna linea de entrada de array de conteo
 // muerde—, y la forma que admite un segundo array vigilado no es relajar el recuento
 // sino medir cada array en SU region. Sumar un margen habria dejado la clausula
 // contando una cifra que ya no describe nada.
-
-const ARRAY_DE_SLOTS = 'CATEGORIES';
-const ARRAY_DE_TRADUCCION = 'TRANSLATION_COVERAGE';
 
 describe('GATE-02 — goldens del array de cobertura de traduccion: ausencia, prefijo, un byte, comentario, dos lineas y cruce (fail-first, D-46-17)', () => {
   // Los DOS arrays en el mismo pseudo-fuente, que es la forma REAL del reporter desde
