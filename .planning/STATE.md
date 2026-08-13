@@ -1,20 +1,16 @@
 ---
 gsd_state_version: 1.0
-milestone: v2.0
-milestone_name: Paradigma completo de `fare` (4 categorías por modo)
-status: Awaiting next milestone
-stopped_at: Completed 45-04-PLAN.md (trazabilidad DEUDA-01/02/03 + gate de cobertura derivada)
-last_updated: "2026-08-12T23:52:06.861Z"
+milestone: v2.1
+milestone_name: Traducción al español por variante (TRAD-X1)
+status: planning
+last_updated: "2026-08-13T00:18:23.407Z"
 last_activity: 2026-08-13
-last_activity_desc: Phase 45 complete
 progress:
-  total_phases: 6
-  completed_phases: 6
-  total_plans: 15
-  completed_plans: 15
-  percent: 100
-current_phase: 45
-current_phase_name: Deuda del arnés de tests
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -29,10 +25,10 @@ See: `.planning/PROJECT.md` (updated 2026-08-06 — Phase 42 `fare-congiuntivo` 
 
 ## Current Position
 
-Phase: Milestone v2.0 complete
+Phase: Not started (defining requirements)
 Plan: —
-Status: Awaiting next milestone
-Last activity: 2026-08-13 — Milestone v2.0 completed and archived
+Status: Defining requirements
+Last activity: 2026-08-13 — Milestone v2.1 started
 
 ## Deferred Items
 
