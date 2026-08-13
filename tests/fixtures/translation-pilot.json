@@ -1,0 +1,197 @@
+{
+  "notes": "FIXTURE DE PILOTO Phase 46 — forma REAL de un fichero de contenido (indentación 2, options uno por línea) para probar el escritor quirúrgico de scripts/validate-translation-pass.mjs. NO usar en producción. NO cargar via content-loader. Los cuatro slots son deliberadamente adversariales: (1) dos variantes con translationES BYTE-IDÉNTICO y prompts distintos, para que solo la posición ordinal distinga el target; (2) un slot mixto con una variante traducida y otra sin; (3) un slot word-buttons sin traducción, para el fail-fast por tipo; (4) un slot cuyo validation de SLOT va ANTES de variants, que es donde el branch por substring del script de canciones escribiría en el bloque equivocado.",
+  "exercises": [
+    {
+      "id": "pilot-tr-gemelas",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "preposiciones"
+      ],
+      "explanation": "Slot de fixture: dos variantes cuyo bloque translationES es byte-idéntico. Solo el índice de variante las distingue.",
+      "variants": [
+        {
+          "prompt": "Marco è ___ Napoli di nascita.",
+          "options": [
+            "di",
+            "a",
+            "da",
+            "in"
+          ],
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Es de Nápoles de nacimiento.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
+        },
+        {
+          "prompt": "Lucia è ___ Napoli di nascita.",
+          "options": [
+            "di",
+            "a",
+            "da",
+            "in"
+          ],
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Es de Nápoles de nacimiento.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "fixture-modelo-uno",
+            "date": "2026-08-13",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "fixture-modelo-dos",
+            "date": "2026-08-13",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "pilot-tr-mixta",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "preposiciones"
+      ],
+      "explanation": "Slot de fixture mixto: la variante 0 no está traducida todavía y la 1 sí.",
+      "variants": [
+        {
+          "prompt": "Vado ___ scuola a piedi.",
+          "options": [
+            "a",
+            "di",
+            "da",
+            "in"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "prompt": "Abito ___ Italia da tre anni.",
+          "options": [
+            "in",
+            "a",
+            "di",
+            "da"
+          ],
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Vivo en Italia desde hace tres años.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "fixture-modelo-uno",
+            "date": "2026-08-13",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "fixture-modelo-dos",
+            "date": "2026-08-13",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "pilot-tr-word-buttons",
+      "type": "word-buttons",
+      "categoryIds": [
+        "preposiciones"
+      ],
+      "explanation": "Slot de fixture de tipo word-buttons: no admite translationES (SCH-02) y el script debe rechazarlo por tipo.",
+      "variants": [
+        {
+          "prompt": "Voy a casa a pie.",
+          "answer": [
+            "vado",
+            "a",
+            "casa",
+            "a",
+            "piedi"
+          ]
+        }
+      ],
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "fixture-modelo-uno",
+            "date": "2026-08-13",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "fixture-modelo-dos",
+            "date": "2026-08-13",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "pilot-tr-validation-primero",
+      "type": "multiple-choice",
+      "categoryIds": [
+        "preposiciones"
+      ],
+      "explanation": "Slot de fixture con el validation del SLOT declarado ANTES de variants: es la disposición en la que el branch por substring del script de canciones escribiría en el bloque del slot en lugar de en el de la traducción.",
+      "validation": {
+        "status": "validated",
+        "passes": [
+          {
+            "by": "fixture-modelo-uno",
+            "date": "2026-08-13",
+            "verdict": "correcta",
+            "concerns": []
+          },
+          {
+            "by": "fixture-modelo-dos",
+            "date": "2026-08-13",
+            "verdict": "correcta",
+            "concerns": []
+          }
+        ]
+      },
+      "variants": [
+        {
+          "prompt": "Il libro ___ Marco è sul tavolo.",
+          "options": [
+            "di",
+            "a",
+            "da",
+            "in"
+          ],
+          "correctIndex": 0,
+          "translationES": {
+            "text": "El libro de Marco está sobre la mesa."
+          }
+        }
+      ]
+    }
+  ]
+}

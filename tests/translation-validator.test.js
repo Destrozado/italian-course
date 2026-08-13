@@ -13,16 +13,27 @@
 // de la primera llamada HTTP; los tests de escritura invocan el escritor con un
 // objeto `pass` construido a mano.
 
-import { test, describe } from 'node:test';
+import { test, describe, after } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
+
+import { deriveStatus } from '../src/data/validation-state.js';
+import {
+  applyPassToText,
+  writeTranslationPass,
+  resolveTarget,
+  parseAddress,
+  fillGap,
+} from '../scripts/validate-translation-pass.mjs';
 
 const ROOT = new URL('..', import.meta.url).pathname;
 const SCRIPT = 'scripts/validate-translation-pass.mjs';
 const PROMPT_DOC = 'docs/TRANSLATION-VALIDATION-PROMPT.md';
 const PREPOS = 'content/exercises/preposiciones.json';
+const FIXTURE = 'tests/fixtures/translation-pilot.json';
 
 const abs = (rel) => path.join(ROOT, rel);
 const readAbs = (rel) => fs.readFileSync(abs(rel), 'utf8');
@@ -191,5 +202,339 @@ describe('validate-translation-pass — invariantes de fuente (TVAL-03 / T-46-07
   test('lee el doc de criterios de disco, no una copia inline', () => {
     assert.ok(SRC.includes(PROMPT_DOC), `el script debe apuntar a ${PROMPT_DOC}`);
     assert.ok(fs.existsSync(abs(PROMPT_DOC)), 'el doc de criterios debe existir en disco');
+  });
+});
+
+// ══════════════════════════════════════════════════════════════════════════
+// Escritura quirúrgica: se prueba POR ESCRITURA REAL Y DIFF DE LÍNEAS sobre una
+// COPIA temporal del fixture, nunca leyendo el código ni tocando el committeado
+// (§Delta de 46-PATTERNS.md: aquí es donde el branch por substring del script de
+// canciones corrompe el corpus).
+// ══════════════════════════════════════════════════════════════════════════
+
+const TMP = fs.mkdtempSync(path.join(os.tmpdir(), 'translation-pilot-'));
+after(() => fs.rmSync(TMP, { recursive: true, force: true }));
+
+let seq = 0;
+/** Copia temporal del fixture: los tests que escriben JAMÁS tocan el committeado. */
+function copiaFixture() {
+  const p = path.join(TMP, `pilot-${seq++}.json`);
+  fs.copyFileSync(abs(FIXTURE), p);
+  return p;
+}
+const pase = (by, verdict = 'correcta', extra = {}) => ({
+  by, date: '2026-08-13', verdict, concerns: [], ...extra,
+});
+
+const FIX = JSON.parse(readAbs(FIXTURE));
+const slotFix = (id) => FIX.exercises.find((e) => e.id === id);
+const GEMELAS = slotFix('pilot-tr-gemelas');
+const MIXTA = slotFix('pilot-tr-mixta');
+const VAL_PRIMERO = slotFix('pilot-tr-validation-primero');
+
+/**
+ * Ventana de líneas del objeto-variante que contiene `promptTexto`, acotada de
+ * forma INDEPENDIENTE del código bajo prueba: desde la línea del prompt hasta la
+ * primera línea posterior que cierra el objeto-variante a su indentación (8).
+ * Devuelve null si el ancla no casa (la cláusula de no-vacuidad lo comprueba).
+ */
+function ventanaDeVariante(lineas, promptTexto) {
+  const inicio = lineas.findIndex((l) => l.includes(promptTexto));
+  if (inicio === -1) return null;
+  let fin = inicio + 1;
+  while (fin < lineas.length && !/^ {8}\},?$/.test(lineas[fin])) fin++;
+  if (fin >= lineas.length) return null;
+  return { inicio, fin };
+}
+
+/** Región de líneas realmente cambiada entre dos fotos del fichero. */
+function regionCambiada(antes, despues) {
+  const a = antes.split('\n');
+  const b = despues.split('\n');
+  let p = 0;
+  while (p < a.length && p < b.length && a[p] === b[p]) p++;
+  let s = 0;
+  while (s < a.length - p && s < b.length - p && a[a.length - 1 - s] === b[b.length - 1 - s]) s++;
+  return { a, b, inicio: p, finA: a.length - s, finB: b.length - s };
+}
+
+/** Asserta que TODO lo cambiado cae dentro de la variante que se quería tocar. */
+function assertCambioContenidoEn(antes, despues, promptTexto, etiqueta) {
+  const r = regionCambiada(antes, despues);
+  const ventana = ventanaDeVariante(r.a, promptTexto);
+  // No-vacuidad PRIMERO: un extractor que deja de casar devuelve null/vacío y una
+  // comparación contra vacío pasaría en VERDE (el modo de fallo real de este repo).
+  assert.ok(ventana, `no-vacuidad (${etiqueta}): el acotador no encontró la variante con prompt "${promptTexto}"`);
+  assert.ok(r.finB > r.inicio, `no-vacuidad (${etiqueta}): la escritura no cambió NINGUNA línea`);
+  assert.ok(
+    r.inicio > ventana.inicio,
+    `${etiqueta}: la primera línea cambiada (${r.inicio}) está FUERA de la variante objetivo ` +
+      `(empieza en ${ventana.inicio}) — el escritor apuntó al bloque equivocado`
+  );
+  assert.ok(
+    r.finA <= ventana.fin,
+    `${etiqueta}: el cambio se extiende hasta la línea ${r.finA}, más allá del cierre de la ` +
+      `variante objetivo (${ventana.fin}) — el escritor desbordó su objetivo`
+  );
+  return r;
+}
+
+describe('validate-translation-pass — escritura quirúrgica en variants[k].translationES (TVAL-02)', () => {
+  test('el fixture declara los cuatro slots adversariales que estos tests necesitan (no-vacuidad)', () => {
+    assert.equal(FIX.exercises.length, 4, 'el fixture debe declarar 4 slots');
+    assert.ok(GEMELAS && MIXTA && VAL_PRIMERO, 'los tres slots multiple-choice del fixture deben existir');
+    assert.equal(
+      GEMELAS.variants[0].translationES.text,
+      GEMELAS.variants[1].translationES.text,
+      'las dos variantes gemelas deben tener translationES.text IDÉNTICO'
+    );
+    assert.notEqual(GEMELAS.variants[0].prompt, GEMELAS.variants[1].prompt, 'sus prompts deben diferir');
+    assert.equal(GEMELAS.validation.passes.length, 2, 'el slot gemelas debe llevar 2 pases a nivel de SLOT');
+    assert.equal(MIXTA.variants[0].translationES, undefined, 'la variante 0 del slot mixto NO debe estar traducida');
+    assert.ok(MIXTA.variants[1].translationES, 'la variante 1 del slot mixto SÍ debe estar traducida');
+    assert.equal(VAL_PRIMERO.variants[0].translationES.validation, undefined,
+      'la variante del slot validation-primero debe nacer SIN bloque validation (prueba la rama INSERT)');
+    // El orden de claves importa: es la disposición adversarial del test de no-falso-UPDATE.
+    const claves = Object.keys(VAL_PRIMERO);
+    assert.ok(
+      claves.indexOf('validation') < claves.indexOf('variants'),
+      'en pilot-tr-validation-primero el validation del SLOT debe ir ANTES de variants'
+    );
+    assert.equal(slotFix('pilot-tr-word-buttons').type, 'word-buttons', 'el cuarto slot prueba el fail-fast por tipo');
+  });
+
+  test('idempotencia: dos pasadas con el mismo `by` dejan UN ÚNICO pase para ese `by`', async () => {
+    const file = copiaFixture();
+    const antes = fs.readFileSync(file, 'utf8');
+    const slotAntes = JSON.stringify(JSON.parse(antes).exercises[0].validation);
+
+    await writeTranslationPass(file, 'pilot-tr-gemelas', 1, pase('modelo-x'));
+    const tras1 = fs.readFileSync(file, 'utf8');
+    await writeTranslationPass(file, 'pilot-tr-gemelas', 1, pase('modelo-x'));
+    const tras2 = fs.readFileSync(file, 'utf8');
+
+    const doc = JSON.parse(tras2);
+    const passes = doc.exercises[0].variants[1].translationES.validation.passes;
+    assert.equal(passes.length, 1, `la segunda pasada NO puede duplicar el pase; passes: ${JSON.stringify(passes)}`);
+    assert.equal(passes[0].by, 'modelo-x');
+    assert.equal(passes.filter((p) => p.by === 'modelo-x').length, 1, 'un solo pase por `by`');
+    assert.equal(doc.exercises[0].variants[1].translationES.validation.status, deriveStatus(passes));
+
+    // El validation del SLOT queda byte-idéntico tras las dos pasadas.
+    assert.equal(JSON.stringify(JSON.parse(tras2).exercises[0].validation), slotAntes,
+      'el validation del SLOT no puede cambiar');
+    assert.equal(tras1, tras2, 'la segunda pasada idéntica debe dejar el fichero byte-idéntico');
+    // La primera pasada ya tenía que estar contenida en la variante objetivo: si se
+    // hubiera desbordado, la segunda pasada "idéntica" lo sería sobre un fichero ya
+    // corrupto y el byte-a-byte de arriba pasaría en verde igualmente.
+    assertCambioContenidoEn(antes, tras1, GEMELAS.variants[1].prompt, 'idempotencia/1ª pasada');
+  });
+
+  test('aislamiento entre hermanas de texto IDÉNTICO: escribir en la 1 deja la 0 con passes: []', async () => {
+    const file = copiaFixture();
+    const antes = fs.readFileSync(file, 'utf8');
+
+    await writeTranslationPass(file, 'pilot-tr-gemelas', 1, pase('modelo-x'));
+    const despues = fs.readFileSync(file, 'utf8');
+
+    const doc = JSON.parse(despues);
+    assert.deepEqual(
+      doc.exercises[0].variants[0].translationES.validation.passes,
+      [],
+      'la hermana de texto idéntico NO puede recibir el pase'
+    );
+    assert.equal(doc.exercises[0].variants[0].translationES.validation.status, 'pending');
+    assert.equal(doc.exercises[0].variants[1].translationES.validation.passes.length, 1);
+    assertCambioContenidoEn(antes, despues, GEMELAS.variants[1].prompt, 'aislamiento');
+  });
+
+  test('no-falso-UPDATE: el validation del SLOT (declarado ANTES de variants) queda intacto', async () => {
+    const file = copiaFixture();
+    const antes = fs.readFileSync(file, 'utf8');
+    const slotAntes = JSON.parse(antes).exercises[3].validation;
+
+    await writeTranslationPass(file, 'pilot-tr-validation-primero', 0, pase('modelo-x'));
+    const despues = fs.readFileSync(file, 'utf8');
+    const doc = JSON.parse(despues);
+
+    assert.deepEqual(doc.exercises[3].validation, slotAntes,
+      'el bloque validation del SLOT no puede tocarse (ni sus passes ni su status)');
+    assert.equal(doc.exercises[3].variants[0].translationES.validation.passes.length, 1,
+      'el pase debe aterrizar DENTRO de translationES');
+    assert.equal(doc.exercises[3].variants[0].translationES.validation.passes[0].by, 'modelo-x');
+    assertCambioContenidoEn(antes, despues, VAL_PRIMERO.variants[0].prompt, 'no-falso-UPDATE');
+  });
+
+  test('round-trip UTF-8: los acentos siguen literales y el resto del fichero es byte-idéntico', async () => {
+    const file = copiaFixture();
+    const antes = fs.readFileSync(file, 'utf8'); // foto 1, ANTES de escribir
+    assert.ok(antes.includes('Nápoles'), 'no-vacuidad: el fixture debe traer un acento literal que preservar');
+
+    await writeTranslationPass(file, 'pilot-tr-mixta', 1, pase('modelo-x', 'correcta', {
+      concerns: [],
+    }));
+    const despues = fs.readFileSync(file, 'utf8'); // foto 2, DESPUÉS de escribir
+
+    assert.ok(despues.includes('Nápoles'), 'el acento del slot vecino debe seguir en UTF-8 literal');
+    assert.ok(despues.includes('Vivo en Italia desde hace tres años.'), 'la ñ y el acento del target intactos');
+    assert.equal((despues.match(/\\u00/g) || []).length, 0, 'ningún carácter puede quedar como escape \\uXXXX');
+    assertCambioContenidoEn(antes, despues, MIXTA.variants[1].prompt, 'round-trip');
+  });
+
+  test('el índice es solo la dirección de ENTRADA: reordenar variants mueve el pase CON su frase', async () => {
+    const file = copiaFixture();
+    await writeTranslationPass(file, 'pilot-tr-gemelas', 1, pase('modelo-x'));
+
+    const doc = JSON.parse(fs.readFileSync(file, 'utf8'));
+    const slot = doc.exercises[0];
+    const promptConPase = slot.variants
+      .filter((v) => v.translationES?.validation?.passes?.length)
+      .map((v) => v.prompt);
+    assert.deepEqual(promptConPase, [GEMELAS.variants[1].prompt],
+      'no-vacuidad: exactamente UNA variante debe llevar el pase antes de reordenar');
+
+    // Reordenar el array y re-serializar: el pase viaja DENTRO de su variante.
+    slot.variants.reverse();
+    const reordenado = path.join(TMP, `pilot-reordenado-${seq++}.json`);
+    fs.writeFileSync(reordenado, JSON.stringify(doc, null, 2) + '\n');
+
+    const releido = JSON.parse(fs.readFileSync(reordenado, 'utf8')).exercises[0];
+    assert.equal(releido.variants[0].prompt, GEMELAS.variants[1].prompt, 'el reverse debe haber ocurrido');
+    assert.equal(releido.variants[0].translationES.validation.passes.length, 1,
+      'el pase sigue con SU frase tras el reordenado');
+    assert.deepEqual(releido.variants[1].translationES.validation.passes, [],
+      'la otra frase sigue sin pase: ninguno se reasignó por posición');
+  });
+
+  test('variante sin translationES: el escritor no escribe nada ni crea un bloque validation vacío', async () => {
+    const file = copiaFixture();
+    const antes = fs.readFileSync(file, 'utf8');
+
+    assert.throws(
+      () => applyPassToText(antes, 'pilot-tr-mixta', 0, pase('modelo-x')),
+      /translationES/,
+      'el escritor debe negarse explícitamente sobre una variante sin traducción'
+    );
+    assert.equal(fs.readFileSync(file, 'utf8'), antes, 'el fichero no puede haberse tocado');
+
+    // Y la resolución del target lo salta ANTES de llegar al escritor.
+    const r = resolveTarget('pilot-tr-mixta', 0, [abs('tests/fixtures')]);
+    assert.ok(r.error, 'resolveTarget debe devolver error para una variante sin traducción');
+    assert.ok(/translationES/.test(r.error), `el mensaje debe nombrar translationES: ${r.error}`);
+    assert.equal((antes.match(/"validation"/g) || []).length,
+      (fs.readFileSync(file, 'utf8').match(/"validation"/g) || []).length,
+      'cero bloques validation nuevos');
+  });
+
+  test('concurrencia: dos escrituras simultáneas sobre variantes distintas conservan ambos pases', async () => {
+    const file = copiaFixture();
+    await Promise.all([
+      writeTranslationPass(file, 'pilot-tr-gemelas', 0, pase('modelo-a')),
+      writeTranslationPass(file, 'pilot-tr-mixta', 1, pase('modelo-b')),
+    ]);
+
+    const raw = fs.readFileSync(file, 'utf8');
+    const doc = JSON.parse(raw); // si el JSON se corrompió, esto lanza
+    assert.equal(doc.exercises[0].variants[0].translationES.validation.passes.length, 1,
+      `el pase de modelo-a debe sobrevivir (lost update). Fichero: ${raw.slice(0, 200)}`);
+    assert.equal(doc.exercises[0].variants[0].translationES.validation.passes[0].by, 'modelo-a');
+    assert.equal(doc.exercises[1].variants[1].translationES.validation.passes.length, 1,
+      'el pase de modelo-b debe sobrevivir');
+    assert.equal(doc.exercises[1].variants[1].translationES.validation.passes[0].by, 'modelo-b');
+    assert.equal(fs.existsSync(`${file}.lock`), false, 'el lockfile debe quedar liberado');
+  });
+
+  test('un segundo `by` DISTINTO forma quórum, y el status escrito sale de deriveStatus', async () => {
+    const file = copiaFixture();
+    await writeTranslationPass(file, 'pilot-tr-gemelas', 1, pase('modelo-x'));
+    await writeTranslationPass(file, 'pilot-tr-gemelas', 1, pase('modelo-y'));
+
+    const bloque = JSON.parse(fs.readFileSync(file, 'utf8')).exercises[0].variants[1].translationES.validation;
+    assert.equal(bloque.passes.length, 2, 'dos `by` distintos son DOS pases');
+    assert.equal(bloque.status, deriveStatus(bloque.passes), 'el status escrito debe ser el derivado');
+    assert.equal(bloque.status, 'validated', 'dos `by` distintos con verdict correcta = validated');
+  });
+
+  test('la dirección compuesta y el relleno del hueco son funciones puras y verificables', () => {
+    assert.deepEqual(parseAddress('preposiciones-di-origen#1'), { slotId: 'preposiciones-di-origen', k: 1 });
+    assert.equal(parseAddress('preposiciones-di-origen'), null, 'el índice es OBLIGATORIO');
+    assert.equal(parseAddress('preposiciones-di-origen#'), null);
+    assert.equal(parseAddress('preposiciones-di-origen#x'), null);
+    assert.equal(parseAddress('#0'), null);
+    const v = GEMELAS.variants[0];
+    assert.equal(fillGap(v.prompt, v.options, v.correctIndex), 'Marco è di Napoli di nascita.');
+    assert.equal(fillGap('sin hueco', ['di'], 0), null, 'un prompt sin "___" no se puede rellenar');
+    assert.equal(fillGap(v.prompt, v.options, 99), null, 'un correctIndex fuera de rango no se puede rellenar');
+  });
+});
+
+// ══════════════════════════════════════════════════════════════════════════
+// deriveStatus — fuente única de status (TVAL-03). Se IMPORTA de
+// src/data/validation-state.js: ni el script ni estos tests lo reimplementan.
+// Es puro (sin disco ni estado compartido), así que no tiene modo de fallo
+// concurrente: toda la serialización vive en withFileLock, del lado del escritor.
+// ══════════════════════════════════════════════════════════════════════════
+
+describe('deriveStatus — fuente única de status de las traducciones (TVAL-03)', () => {
+  test('dos pases `correcta` del MISMO `by` NO forman quórum', () => {
+    const passes = [pase('modelo-x'), { ...pase('modelo-x'), date: '2026-08-14' }];
+    assert.equal(deriveStatus(passes), 'pending',
+      'el quórum exige dos `by` DISTINTOS: de ahí que la CLI ofrezca --avoid');
+    assert.notEqual(deriveStatus(passes), 'validated');
+  });
+
+  test('passes vacío, ausente o no-array → pending, jamás validated', () => {
+    for (const entrada of [[], undefined, null, 'no-un-array', {}]) {
+      assert.equal(deriveStatus(entrada), 'pending', `entrada: ${JSON.stringify(entrada)}`);
+    }
+  });
+
+  test('el status no depende del ORDEN de passes[] (incluido el override de autor)', () => {
+    const casos = [
+      [pase('modelo-x'), pase('modelo-y')],
+      [pase('modelo-x'), pase('modelo-y', 'incorrecta')],
+      [pase('modelo-x'), pase('modelo-y'), pase('autor', 'correcta', { override: true }), pase('modelo-z', 'incorrecta')],
+    ];
+    assert.ok(casos.length >= 3, 'no-vacuidad: debe haber casos que permutar');
+    for (const passes of casos) {
+      const esperado = deriveStatus(passes);
+      const permutaciones = [
+        [...passes].reverse(),
+        [passes[passes.length - 1], ...passes.slice(0, -1)],
+        [...passes.slice(1), passes[0]],
+      ];
+      for (const perm of permutaciones) {
+        assert.equal(deriveStatus(perm), esperado,
+          `permutar no puede cambiar el status (${esperado}) — passes: ${JSON.stringify(perm.map((p) => [p.by, p.verdict]))}`);
+      }
+    }
+  });
+
+  test('deriveStatus es puro: re-derivar sobre el mismo passes[] da el mismo status', () => {
+    const passes = [pase('modelo-x'), pase('modelo-y'), pase('modelo-z', 'incorrecta')];
+    const copia = JSON.parse(JSON.stringify(passes));
+    const a = deriveStatus(passes);
+    const b = deriveStatus(passes);
+    assert.equal(a, b, 'dos derivaciones consecutivas deben coincidir');
+    assert.deepEqual(passes, copia, 'deriveStatus no puede mutar su entrada');
+  });
+
+  test('el override de autor NO fabrica quórum por sí solo, y el `incorrecta` se queda en passes[]', () => {
+    const soloAutor = [pase('autor', 'correcta', { override: true }), pase('modelo-x', 'incorrecta')];
+    assert.equal(deriveStatus(soloAutor), 'disputed',
+      'un override sin quórum de modelos sigue siendo disputed: se resuelve con trabajo y motivo escrito, no con atajo');
+
+    const conQuorum = [
+      pase('modelo-x'),
+      pase('modelo-y'),
+      pase('modelo-z', 'incorrecta'),
+      pase('autor', 'correcta', { override: true }),
+    ];
+    assert.equal(deriveStatus(conQuorum), 'validated', 'con quórum de modelos el override sí promueve');
+    assert.equal(conQuorum.filter((p) => p.verdict === 'incorrecta').length, 1,
+      'el `incorrecta` permanece en el audit trail');
+
+    const sinFlag = [pase('modelo-x'), pase('modelo-y'), pase('modelo-z', 'incorrecta'), pase('autor')];
+    assert.equal(deriveStatus(sinFlag), 'disputed', 'un pase del autor SIN override:true es un voto normal');
   });
 });
