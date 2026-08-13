@@ -786,6 +786,28 @@ async function main(argv) {
     console.error(`Error: falta o es inválida la dirección compuesta '<slot-id>#<k>' (k = índice de variante, base 0).\n${USAGE}`);
     process.exit(2);
   }
+  // FAIL-FAST DE COLA VACÍA (WR-03), antes de resolver el target y de componer nada.
+  // `MODEL_QUEUE` filtra los evitados INCLUIDO el primario por defecto. El flujo
+  // documentado del segundo pase es `--model=gemini-2.5-flash --avoid=deepseek-chat`;
+  // si se olvida el `--model`, el primario sigue siendo `deepseek-chat`, `--avoid` lo
+  // elimina y la cola queda VACÍA. Reproducido: `run()` no itera ni una vez y sale por
+  // su mensaje final, «Agotados todos los modelos de la cola (rate-limit/errores)»,
+  // con exit 1 y CERO llamadas intentadas. O sea que el diagnóstico atribuía a un
+  // rate-limit lo que es un error de invocación — y sobre 722 traducciones eso es una
+  // sesión entera perdida buscando una cuota que nunca se agotó.
+  if (cfg.MODEL_QUEUE.length === 0) {
+    console.error(
+      `Error: la cola de modelos ha quedado VACÍA, así que no se ha llamado a nadie ` +
+        `(no es un rate-limit).\n` +
+        `  --avoid=${[...cfg.AVOID].join(',')} elimina el primario '${cfg.PRIMARY}'` +
+        (cfg.FALLBACK.length ? ` y todos los --fallback declarados` : ` y no hay --fallback`) +
+        `.\n` +
+        `  Pasa --model=<otro modelo> para el segundo pase del quórum: los dos pases ` +
+        `necesitan \`by\` DISTINTOS.\n${USAGE}`
+    );
+    process.exit(2);
+  }
+
   const target = resolveTarget(parsed.slotId, parsed.k);
   if (target.error) {
     console.error(`Error: ${target.error}`);
