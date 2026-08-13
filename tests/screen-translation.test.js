@@ -33,6 +33,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 
 import { validateContent } from '../src/data/schema-validator.js';
+import { deriveStatus } from '../src/data/validation-state.js'; // fuente única del status (WR-01)
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const projectRoot = resolve(__dirname, '..');
@@ -133,25 +134,50 @@ const cssSinComentarios = (src) => src.replace(/\/\*[\s\S]*?\*\//g, '');
 const PREPOSICIONES_REL = 'content/exercises/preposiciones.json';
 const preposiciones = readJson(PREPOSICIONES_REL);
 const slotCanonico = preposiciones.exercises.find((e) => e.id === 'preposiciones-di-origen');
-const varianteCanonica = slotCanonico?.variants?.find((v) => v?.translationES !== undefined);
+
+// CÓMO SE DIRECCIONA LA VARIANTE CANÓNICA, y por qué NO por «la que lleva
+// traducción». La primera redacción de este fichero la localizaba con
+// `find(v => v.translationES !== undefined)`, que funcionaba SÓLO mientras el
+// piloto del plan 46-01 tenía UNA traducción en todo el corpus. Desde el plan
+// 46-04 las 96 variantes multiple-choice de Preposiciones la llevan, así que ese
+// `find` devuelve la variante 0 (`Maria viene da Pisa…`) y los tests de abajo
+// medían una frase que no es la canónica. La identidad ESTABLE de una variante es
+// su `prompt` italiano — el ejercicio en sí —, no el artefacto que este bloque
+// está verificando. Se ancla ahí, con cláusula de no-vacuidad delante.
+const PROMPT_CANONICO = 'Paolo è ___ Napoli di nascita.';
+const varianteCanonica = slotCanonico?.variants?.find((v) => v?.prompt === PROMPT_CANONICO);
+const IDX_CANONICO = slotCanonico?.variants?.findIndex((v) => v?.prompt === PROMPT_CANONICO) ?? -1;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Camino end-to-end · el contenido real con el campo nuevo VALIDA
 // ─────────────────────────────────────────────────────────────────────────────
 
 describe('Phase 46 — la frase canónica atraviesa contenido → schema (end-to-end)', () => {
-  test('el slot canónico existe y una de sus variantes lleva translationES', () => {
-    // No-vacuidad: sin este assert, los tests de abajo mirarían `undefined` y
+  test('el slot canónico existe, se localiza por su PROMPT, y esa variante lleva translationES', () => {
+    // No-vacuidad: sin estos asserts, los tests de abajo mirarían `undefined` y
     // un corpus que perdiera el campo pasaría en verde.
     assert.ok(slotCanonico, `falta el slot "preposiciones-di-origen" en ${PREPOSICIONES_REL}`);
     assert.ok(
       varianteCanonica,
-      `ninguna variante de "preposiciones-di-origen" declara translationES en ${PREPOSICIONES_REL}`
+      `ninguna variante de "preposiciones-di-origen" tiene el prompt canónico ` +
+        `"${PROMPT_CANONICO}" en ${PREPOSICIONES_REL}`
     );
-    assert.equal(varianteCanonica.prompt, 'Paolo è ___ Napoli di nascita.');
+    // El índice se DERIVA del disco y se afirma coherente con el objeto hallado:
+    // así el `find` y el `findIndex` no pueden divergir en silencio.
+    assert.ok(IDX_CANONICO >= 0, 'no-vacuidad: el índice de la variante canónica no se pudo derivar');
+    assert.equal(slotCanonico.variants[IDX_CANONICO], varianteCanonica);
+    assert.ok(
+      varianteCanonica.translationES !== undefined,
+      'la variante canónica dejó de declarar translationES'
+    );
   });
 
   test('la traducción canónica está en disco con sus acentos RAE (PRES-05)', () => {
+    // Este literal NO es una cifra derivable: es el MOLDE de contenido que el plan
+    // 46-01 committeó y que el 46-01-SUMMARY registra byte a byte. Congelarlo es
+    // deliberado — si una resolución de `disputed` reescribiera esta frase, el rojo
+    // de aquí es la señal correcta de que el molde cambió y hay que actualizarlo a
+    // conciencia, no un gate caducado.
     assert.equal(varianteCanonica.translationES.text, 'Paolo es de Nápoles de nacimiento.');
     // El texto de la traducción es de la frase YA RESUELTA: sin hueco (D-46-03).
     assert.ok(
@@ -160,8 +186,21 @@ describe('Phase 46 — la frase canónica atraviesa contenido → schema (end-to
     );
   });
 
-  test('nace con validation propia en pending y passes vacío (D-46-02)', () => {
-    assert.deepEqual(varianteCanonica.translationES.validation, { status: 'pending', passes: [] });
+  test('lleva validation PROPIA y su status es el DERIVADO de sus passes (D-46-02 / VAL-09)', () => {
+    const val = varianteCanonica.translationES.validation;
+    assert.ok(val && typeof val === 'object', 'la traducción canónica no declara validation propia');
+    assert.ok(Array.isArray(val.passes), 'validation.passes debe ser un array');
+    // El status NO se transcribe: se DERIVA de los passes que hay en disco con la
+    // fuente única (`deriveStatus`). La primera redacción congelaba
+    // `{ status: 'pending', passes: [] }`, que era el estado TRANSITORIO del tracer
+    // — el quórum del plan 46-04 lo promueve a `validated` y el gate habría muerto
+    // en la misma fase. Así sigue mordiendo: cualquier `status` escrito a mano que
+    // no cuadre con sus propios passes se pone rojo aquí y en el sub-gate VAL-09.
+    assert.equal(
+      val.status,
+      deriveStatus(val.passes),
+      `el status escrito ("${val.status}") no es el que derivan sus ${val.passes.length} pase(s)`
+    );
   });
 
   test('el validation a nivel de SLOT queda intacto (no se toca, D-46-02)', () => {

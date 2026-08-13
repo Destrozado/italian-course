@@ -277,19 +277,44 @@ describe('SCH-02 — translationES se rechaza en word-buttons y match (D-46-04)'
 // Retrocompatibilidad sobre el CORPUS REAL (no sobre un fixture)
 // ═════════════════════════════════════════════════════════════════════════════
 
-describe('retrocompat — el corpus v2.0 real valida con el campo nuevo en una sola variante', () => {
+describe('retrocompat — el corpus v2.0 real valida con el campo nuevo presente', () => {
   // Todas las cifras de este bloque se DERIVAN del disco (D-31-06). Un literal
   // aquí certificaría en verde el corpus de ayer.
+  //
+  // POR QUÉ ESTE BLOQUE SE REESCRIBIÓ EN EL PLAN 46-04. Su primera redacción
+  // congelaba la POBLACIÓN del tracer: «exactamente UNA variante lleva
+  // translationES» y «las sin traducir son variantesTotales - 1». Las dos cifras
+  // eran el estado TRANSITORIO del piloto de una frase (plan 46-01) y caducaron
+  // en cuanto el 46-04 autoró las 95 restantes — el propio mensaje del test lo
+  // anticipaba. Cambiar el `1` por un `96` habría repetido exactamente el error
+  // que D-31-06 prohíbe (y que el CR-01 de la Phase 44 ya pagó: una suite
+  // firmando 247 con el reporter en 250). Lo que este bloque vigila NO es cuántas
+  // traducciones hay — eso lo mide el sub-gate TRAD-COV del reporter, derivado
+  // del disco — sino el INVARIANTE que la población no cambia:
+  //   · el bundle completo sigue validando con el campo presente,
+  //   · toda traducción presente está bien formada (no vacía, sin el hueco),
+  //   · SÓLO las variantes multiple-choice lo llevan (SCH-02),
+  //   · y siguen existiendo variantes SIN el campo, que es lo que hace que la
+  //     palabra «retrocompat» signifique algo.
   const categoriasReales = readJson('content/categories.json').categories;
   const ficheros = categoriasReales.map((c) => `content/exercises/${c.id}.json`);
 
   const exercisesByFile = {};
   for (const rel of ficheros) exercisesByFile[rel] = readJson(rel).exercises;
 
-  const slotsTotales = Object.values(exercisesByFile).reduce((s, arr) => s + arr.length, 0);
-  const variantesTotales = Object.values(exercisesByFile)
-    .flat()
-    .reduce((s, ex) => s + (Array.isArray(ex.variants) ? ex.variants.length : 1), 0);
+  const slots = Object.values(exercisesByFile).flat();
+  const slotsTotales = slots.length;
+
+  // Cada variante ACOMPAÑADA del tipo de su slot: el tipo es lo que gobierna
+  // SCH-02, y sin él las aserciones de abajo no podrían distinguir una infracción
+  // de un caso legítimo.
+  const variantes = slots.flatMap((ex) =>
+    (Array.isArray(ex.variants) ? ex.variants : []).map((v) => ({ tipo: ex.type, id: ex.id, v }))
+  );
+  const variantesTotales = variantes.length;
+  const conTraduccion = variantes.filter(({ v }) => v?.translationES !== undefined);
+  const sinTraduccion = variantes.filter(({ v }) => v?.translationES === undefined);
+  const noMultipleChoice = variantes.filter(({ tipo }) => tipo !== 'multiple-choice');
 
   test('no-vacuidad: el corpus leído del disco tiene categorías, slots y variantes', () => {
     assert.ok(categoriasReales.length > 0, 'content/categories.json no declara ninguna categoría');
@@ -303,30 +328,68 @@ describe('retrocompat — el corpus v2.0 real valida con el campo nuevo en una s
     assert.deepEqual(r.errors, []);
   });
 
-  test('exactamente UNA variante del corpus lleva translationES en este plan (piloto de 1 frase)', () => {
-    const conTraduccion = Object.values(exercisesByFile)
-      .flat()
-      .flatMap((ex) => (Array.isArray(ex.variants) ? ex.variants : []))
-      .filter((v) => v?.translationES !== undefined);
-    assert.equal(
-      conTraduccion.length,
-      1,
-      `el plan 46-01 cablea UNA sola frase; encontradas ${conTraduccion.length}. ` +
-        `La expansión a las 95 restantes es del plan 46-04 y actualizará esta cifra.`
+  test('el corpus SÍ lleva traducciones y TODAS están bien formadas (no vacías, sin el hueco)', () => {
+    // NO-VACUIDAD PRIMERO: con cero traducciones el «todas bien formadas» de abajo
+    // pasaría en VERDE sin haber mirado ninguna (deepEqual([], []) pasa — precedente
+    // tests/count-arrays-lockstep.test.js:747-759). Y ese verde es justo el que hay
+    // que impedir: describiría un corpus que perdió el campo entero.
+    assert.ok(
+      conTraduccion.length > 0,
+      'ninguna variante del corpus lleva translationES: o el corpus perdió las traducciones, ' +
+        'o el extractor dejó de reconocer el campo'
     );
-    assert.equal(conTraduccion[0].translationES.text, 'Paolo es de Nápoles de nacimiento.');
+    const malformadas = conTraduccion
+      .filter(({ v }) => {
+        const t = v.translationES?.text;
+        return typeof t !== 'string' || !t.trim() || t.includes('___');
+      })
+      .map(({ id, v }) => `${id}: ${JSON.stringify(v.translationES?.text)}`);
+    assert.deepEqual(
+      malformadas,
+      [],
+      `hay traducciones vacías o que arrastran el hueco "___" (D-46-03): ${malformadas.join(' | ')}`
+    );
   });
 
-  test('las variantes SIN translationES siguen siendo la inmensa mayoría y todas válidas', () => {
-    const sinTraduccion = Object.values(exercisesByFile)
-      .flat()
-      .flatMap((ex) => (Array.isArray(ex.variants) ? ex.variants : []))
-      .filter((v) => v?.translationES === undefined);
+  test('SCH-02 sobre el corpus REAL: cero variantes match / word-buttons llevan translationES', () => {
+    // No-vacuidad: sin variantes de esos dos tipos en el corpus, el «cero
+    // infractoras» de abajo sería verde por ausencia de población.
+    assert.ok(
+      noMultipleChoice.length > 0,
+      'no-vacuidad: el corpus no tiene ni una variante que NO sea multiple-choice, ' +
+        'así que este gate no tendría dónde buscar una infracción de SCH-02'
+    );
+    const infractoras = noMultipleChoice
+      .filter(({ v }) => v?.translationES !== undefined)
+      .map(({ id, tipo }) => `${id} (${tipo})`);
+    assert.deepEqual(
+      infractoras,
+      [],
+      `translationES sólo existe en variantes multiple-choice (SCH-02 / D-46-04): ${infractoras.join(' | ')}`
+    );
+  });
+
+  test('la retrocompat sigue probada sobre el disco: quedan variantes SIN el campo', () => {
     assert.ok(
       sinTraduccion.length > 0,
-      'no-vacuidad: si NINGUNA variante quedara sin traducir, este test no probaría retrocompat'
+      'no-vacuidad: si NINGUNA variante quedara sin translationES, este bloque dejaría de probar retrocompat'
     );
-    assert.equal(sinTraduccion.length, variantesTotales - 1);
+    // Las dos mitades son una PARTICIÓN del total: si un extractor dejara de casar,
+    // sumarían menos que `variantesTotales` y el resto del bloque estaría midiendo
+    // un subconjunto silencioso del corpus.
+    assert.equal(
+      conTraduccion.length + sinTraduccion.length,
+      variantesTotales,
+      'las variantes con y sin traducción no suman el total: el extractor perdió variantes'
+    );
+    // Cota inferior DERIVADA (no transcrita): toda variante que no es
+    // multiple-choice tiene PROHIBIDO el campo, así que esta mitad no puede bajar
+    // de ese suelo mientras el corpus tenga match o word-buttons.
+    assert.ok(
+      sinTraduccion.length >= noMultipleChoice.length,
+      `las variantes sin traducción (${sinTraduccion.length}) no pueden ser menos que las que ` +
+        `no son multiple-choice (${noMultipleChoice.length}): SCH-02 les prohíbe el campo`
+    );
   });
 });
 

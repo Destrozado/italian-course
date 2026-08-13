@@ -49,21 +49,52 @@ function runCli(args) {
   return { status: r.status, stdout: r.stdout ?? '', stderr: r.stderr ?? '' };
 }
 
-// La dirección compuesta del corpus real: slot con 2 variantes, la #1 traducida y
-// la #0 sin traducir. Se derivan del DISCO, no se transcriben (D-31-06).
+// La dirección compuesta del corpus real. Se deriva del DISCO, no se transcribe
+// (D-31-06).
 const PREPOS_DOC = JSON.parse(readAbs(PREPOS));
 const SLOT_CANONICO = PREPOS_DOC.exercises[0];
 const IDX_TRADUCIDA = SLOT_CANONICO.variants.findIndex((v) => v && v.translationES);
-const IDX_SIN_TRADUCIR = SLOT_CANONICO.variants.findIndex((v) => v && !v.translationES);
+
+// Los anclajes del FIXTURE adversarial. Se declaran AQUÍ arriba (y no junto a los
+// tests de escritura, que es donde vivían) porque los cuerpos de `describe` se
+// ejecutan al registrarse: una referencia desde el primer bloque a un `const`
+// declarado más abajo caería en su TDZ.
+const FIX = JSON.parse(readAbs(FIXTURE));
+const slotFix = (id) => FIX.exercises.find((e) => e.id === id);
+const GEMELAS = slotFix('pilot-tr-gemelas');
+const MIXTA = slotFix('pilot-tr-mixta');
+const VAL_PRIMERO = slotFix('pilot-tr-validation-primero');
+
+// EL CASO «VARIANTE SIN translationES» VIVE EN EL FIXTURE, NO EN EL CORPUS REAL.
+// La primera redacción lo derivaba del slot canónico de Preposiciones, cuya
+// variante 0 estaba sin traducir durante el piloto del plan 46-01. Desde el 46-04
+// las 96 variantes multiple-choice de Preposiciones están traducidas, así que ese
+// `findIndex` devuelve -1 y el test dejaba de tener sujeto. La reparación correcta
+// NO es reintroducir una variante sin traducir en el contenido de producción para
+// que un test tenga con qué trabajar — un test no dicta la forma del corpus —, sino
+// direccionar el fixture adversarial, que existe precisamente para esto (su slot
+// `pilot-tr-mixta` declara la variante 0 sin traducir y la 1 traducida).
+const IDX_SIN_TRADUCIR = (MIXTA?.variants ?? []).findIndex((v) => v && !v.translationES);
 
 describe('validate-translation-pass — dirección compuesta <slot-id>#<k> (TVAL-02)', () => {
-  test('el fixture de partida del corpus tiene lo que estos tests necesitan (no-vacuidad)', () => {
+  test('el punto de partida en disco tiene lo que estos tests necesitan (no-vacuidad)', () => {
     assert.equal(SLOT_CANONICO.type, 'multiple-choice', 'el slot canónico debe ser multiple-choice');
     assert.ok(IDX_TRADUCIDA >= 0, 'el slot canónico debe tener AL MENOS una variante con translationES');
-    assert.ok(IDX_SIN_TRADUCIR >= 0, 'el slot canónico debe tener AL MENOS una variante SIN translationES');
     assert.ok(
       SLOT_CANONICO.variants.length >= 2,
       `el slot canónico debe tener >=2 variantes para probar el aislamiento; tiene ${SLOT_CANONICO.variants.length}`
+    );
+    // El sujeto del caso «sin traducir» sale del FIXTURE, no del corpus real.
+    assert.ok(MIXTA, `falta el slot "pilot-tr-mixta" en ${FIXTURE}`);
+    assert.equal(MIXTA.type, 'multiple-choice', 'el slot mixto del fixture debe ser multiple-choice');
+    assert.ok(
+      IDX_SIN_TRADUCIR >= 0,
+      `el slot "pilot-tr-mixta" de ${FIXTURE} debe tener AL MENOS una variante SIN translationES: ` +
+        `es el único sujeto del test de fail-fast, y sin él ese test no probaría nada`
+    );
+    assert.ok(
+      MIXTA.variants.some((v) => v && v.translationES),
+      'y AL MENOS una traducida, o el slot no sería mixto y el aislamiento no se probaría'
     );
   });
 
@@ -126,12 +157,18 @@ describe('validate-translation-pass — dirección compuesta <slot-id>#<k> (TVAL
   });
 
   test('variante SIN translationES → se SALTA con exit 2, y no crea bloque validation vacío', () => {
-    const antes = readAbs(PREPOS);
-    const r = runCli([`${SLOT_CANONICO.id}#${IDX_SIN_TRADUCIR}`, '--write']);
+    // Se fotografían los DOS ficheros que el escáner del script recorre: el fixture
+    // (donde vive el sujeto) y el corpus real (que no tiene nada que ver y debe
+    // quedar igual). Un `--write` que se desviara al fichero equivocado se vería.
+    const anteFixture = readAbs(FIXTURE);
+    const antePrepos = readAbs(PREPOS);
+    const r = runCli([`${MIXTA.id}#${IDX_SIN_TRADUCIR}`, '--write']);
     assert.notEqual(r.status, 0, 'una variante sin traducción no puede terminar en éxito');
     assert.equal(r.status, 2, `esperaba exit 2; stderr: ${r.stderr}`);
     assert.ok(/translationES/.test(r.stderr), `el error debe nombrar translationES; stderr: ${r.stderr}`);
-    assert.equal(readAbs(PREPOS), antes, 'no puede tocar el disco: cero bloques validation vacíos');
+    assert.ok(r.stderr.includes(MIXTA.id), `el error debe nombrar el slot; stderr: ${r.stderr}`);
+    assert.equal(readAbs(FIXTURE), anteFixture, 'no puede tocar el fixture: cero bloques validation vacíos');
+    assert.equal(readAbs(PREPOS), antePrepos, 'y tampoco el corpus real');
   });
 
   test('dirección ausente o mal formada → exit 2 con el uso', () => {
@@ -226,12 +263,6 @@ function copiaFixture() {
 const pase = (by, verdict = 'correcta', extra = {}) => ({
   by, date: '2026-08-13', verdict, concerns: [], ...extra,
 });
-
-const FIX = JSON.parse(readAbs(FIXTURE));
-const slotFix = (id) => FIX.exercises.find((e) => e.id === id);
-const GEMELAS = slotFix('pilot-tr-gemelas');
-const MIXTA = slotFix('pilot-tr-mixta');
-const VAL_PRIMERO = slotFix('pilot-tr-validation-primero');
 
 /**
  * Ventana de líneas del objeto-variante que contiene `promptTexto`, acotada de
