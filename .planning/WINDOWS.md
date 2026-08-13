@@ -1,10 +1,10 @@
 ---
 schema_version: 1
-open_count: 15
+open_count: 16
 waived_count: 0
 fixed_count: 4
-total_count: 19
-last_updated: 2026-08-13T19:44:26.378Z
+total_count: 20
+last_updated: 2026-08-13T21:37:01.935Z
 ---
 
 # Broken Windows Ledger
@@ -34,6 +34,7 @@ last_updated: 2026-08-13T19:44:26.378Z
 | 17 | 46 | deviation | tests/requirements-traceability.test.js |  | 4 subtests pre-existentes en rojo (deuda de la transicion a v2.1): falta el ancla **Coverage: N/N** en REQUIREMENTS.md y la tabla de trazabilidad no tiene filas. Impide exit 0 de la suite; ver deferred-items.md de la fase 46 | open |  | 2026-08-13T13:00:26.706Z |  |
 | 18 | 46 | unrun-verify | scripts/validate-translation-pass.mjs |  | El camino HTTP real (callModel/httpPost contra DeepSeek o Gemini) NO se ejecutó en el plan 46-02: los tests cubren dry-run, fail-fast y run() con caller inyectado, pero ninguna llamada de red de verdad. Se cierra al correr el quorum real en el plan 46-04 | fixed |  | 2026-08-13T13:30:40.095Z | 2026-08-13T19:44:26.378Z |
 | 19 | 46 | unmet-truth | content/exercises/preposiciones.json |  | TRAD-COV en ROJO por diseño al cierre de 46-03: 0/96 traducciones validated (95 missing, 1 pending). Lo cierra el plan 46-04 autorando y validando las 95 que faltan. | open |  | 2026-08-13T19:02:40.435Z |  |
+| 20 | 46 | deviation | content/exercises/preposiciones.json |  | OBSERVACION para las Phases 47-53 (decision del autor 2026-08-13: se dejan): 16 de las 96 variantes con traduccion llevan en el prompt una glosa espanola de frase completa (en espanol: '...') que coincide palabra por palabra con la traduccion, asi que el espanol sale dos veces en pantalla. El quorum las aprobo por la excepcion E1 de docs/TRANSLATION-VALIDATION-PROMPT.md (si la glosa ES la frase completa, coincidir es traducir bien). Si al usar la app molesta, la palanca es acortar la glosa del prompt, no la traduccion. Derivado del disco; ojo: 14 glosas van entre comillas y 2 no (preposiciones-col#0 y #1) | open |  | 2026-08-13T21:37:01.935Z |  |
 
 ````json
 [
@@ -263,6 +264,18 @@ last_updated: 2026-08-13T19:44:26.378Z
     "status": "open",
     "reason": "",
     "recorded_at": "2026-08-13T19:02:40.435Z",
+    "resolved_at": null
+  },
+  {
+    "id": 20,
+    "kind": "deviation",
+    "phase": "46",
+    "file": "content/exercises/preposiciones.json",
+    "line": null,
+    "description": "OBSERVACION para las Phases 47-53 (decision del autor 2026-08-13: se dejan): 16 de las 96 variantes con traduccion llevan en el prompt una glosa espanola de frase completa (en espanol: '...') que coincide palabra por palabra con la traduccion, asi que el espanol sale dos veces en pantalla. El quorum las aprobo por la excepcion E1 de docs/TRANSLATION-VALIDATION-PROMPT.md (si la glosa ES la frase completa, coincidir es traducir bien). Si al usar la app molesta, la palanca es acortar la glosa del prompt, no la traduccion. Derivado del disco; ojo: 14 glosas van entre comillas y 2 no (preposiciones-col#0 y #1)",
+    "status": "open",
+    "reason": "",
+    "recorded_at": "2026-08-13T21:37:01.935Z",
     "resolved_at": null
   }
 ]
