@@ -498,11 +498,29 @@ export function applyPassToText(text, slotId, k, pass) {
       status,
       mode: 'update',
       passCount: passes.length,
+      // El array EXACTO que se serializó, para que la post-condición pueda confrontar
+      // lo que quedó en el fichero con lo que esta función dice haber compuesto.
+      passesEscritos: passes,
     };
   }
 
   // INSERT: translationES no tiene validation todavía. Se inserta justo antes del
   // `}` de cierre de translationES, derivando la indentación del disco.
+  //
+  // FAIL-LOUD ANTES DE COMPONER (CR-02): la rama INSERT asume que hay un campo
+  // previo del que colgar la coma —`headTrimmed` acaba en `{` e `insertion` empieza
+  // en `,`—, así que sobre un `translationES` SIN campos produce `"translationES": {,`
+  // y deja el fichero de contenido con JSON inválido en disco. Reproducido ejecutando.
+  // Por la CLI el caso es hoy inalcanzable (`resolveTarget` exige `translationES.text`
+  // no vacío y sale con exit 2), pero esta función es un export PÚBLICO y los tests ya
+  // la invocan saltándose `resolveTarget`: el escritor tiene que defenderse solo.
+  const cuerpoTranslation = text.slice(loc.tStart + 1, loc.tEnd).trim();
+  if (!cuerpoTranslation) {
+    throw new Error(
+      `"translationES" de ${slotId}#${k} no declara ningún campo: no hay traducción que validar, ` +
+        `y colgar aquí un bloque validation dejaría el fichero con JSON inválido. No se compone nada.`
+    );
+  }
   const passes = [pass];
   const status = deriveStatus(passes);
   const before = text.slice(0, loc.tEnd);
@@ -513,19 +531,101 @@ export function applyPassToText(text, slotId, k, pass) {
   // último campo (no en línea propia).
   const headTrimmed = before.replace(/\s+$/, '');
   const insertion = `,\n${fieldIndent}"validation": ${body}\n${closingIndent}`;
-  return { text: headTrimmed + insertion + text.slice(loc.tEnd), status, mode: 'insert', passCount: 1 };
+  return {
+    text: headTrimmed + insertion + text.slice(loc.tEnd),
+    status,
+    mode: 'insert',
+    passCount: 1,
+    passesEscritos: passes,
+  };
+}
+
+/**
+ * POST-CONDICIÓN DEL SPLICE (CR-02). `applyPassToText` es una transformación de
+ * TEXTO, no una serialización: nada garantiza por construcción que su salida siga
+ * siendo el mismo documento con un solo bloque cambiado. Esto lo comprueba ANTES de
+ * que nada toque el disco, y lanza con el motivo si no se cumple.
+ *
+ * Verifica TRES cosas, de menos a más específica:
+ *   1. que el resultado PARSEA (el modo de fallo reproducido en el review: la rama
+ *      INSERT sobre un `translationES` vacío producía `"translationES": {,`);
+ *   2. que el bloque escrito es exactamente el que la función dice haber escrito;
+ *   3. que NO se tocó nada más — la propiedad de «cero contaminación» del
+ *      re-estrechado (invariante 8 de la fase), que hasta ahora solo se había
+ *      comprobado a mano en un barrido puntual. Este escritor va a correr cientos de
+ *      veces sobre 722 traducciones en las fases 47-53; la comprobación cuesta un
+ *      par de `JSON.parse` y convierte ese barrido en un invariante de cada escritura.
+ */
+function verificarPostcondicion(textoAntes, out, slotId, k) {
+  let despues;
+  try {
+    despues = JSON.parse(out.text);
+  } catch (e) {
+    throw new Error(
+      `el pase de ${slotId}#${k} habría dejado el fichero con JSON INVÁLIDO (${e.message}); ` +
+        `no se ha escrito nada`
+    );
+  }
+  const antes = JSON.parse(textoAntes);
+
+  const localizar = (doc) => {
+    const slot = (doc?.exercises || []).find((e) => e?.id === slotId);
+    return slot?.variants?.[k]?.translationES;
+  };
+  const tDespues = localizar(despues);
+  if (!tDespues || typeof tDespues !== 'object') {
+    throw new Error(`tras el splice, ${slotId}#${k} ya no declara un "translationES" objeto; no se ha escrito nada`);
+  }
+  const escrito = JSON.stringify(tDespues.validation);
+  const esperado = JSON.stringify({ status: out.status, passes: out.passesEscritos });
+  if (escrito !== esperado) {
+    throw new Error(
+      `el bloque validation que quedó en ${slotId}#${k} no es el que se compuso ` +
+        `(quedó ${escrito}, se compuso ${esperado}); no se ha escrito nada`
+    );
+  }
+
+  // Cero contaminación: con el bloque objetivo neutralizado en AMBOS documentos, el
+  // resto del fichero tiene que ser idéntico. Así se caza un splice que además haya
+  // tocado el `validation` del SLOT, el de una variante HERMANA o cualquier otro campo.
+  const neutralizar = (doc) => {
+    const t = localizar(doc);
+    if (t && typeof t === 'object') delete t.validation;
+    return JSON.stringify(doc);
+  };
+  if (neutralizar(antes) !== neutralizar(despues)) {
+    throw new Error(
+      `el pase de ${slotId}#${k} habría cambiado algo MÁS que su propio bloque validation ` +
+        `(contaminación del splice); no se ha escrito nada`
+    );
+  }
 }
 
 /**
  * La región crítica es el read-modify-write COMPLETO: el readFileSync inicial y la
  * escritura viven dentro del callback del lock (dos corridas simultáneas sobre el
  * mismo fichero perderían un pase si no).
+ *
+ * ESCRITURA ATÓMICA (CR-02): temp en el MISMO directorio + `rename`. Antes era un
+ * `writeFileSync` sobre el fichero original, así que un proceso que muriese a mitad
+ * —y muere, ver WR-02— dejaba el corpus TRUNCADO. `withFileLock` protege del *lost
+ * update* entre procesos, no de esto. El temp no acaba en `.json`, así que `findSlot`
+ * (que filtra por esa extensión) no puede llegar a verlo ni aunque quede huérfano.
  */
 export async function writeTranslationPass(file, slotId, k, pass) {
   return withFileLock(file, () => {
     const text = fs.readFileSync(file, 'utf8');
     const out = applyPassToText(text, slotId, k, pass);
-    fs.writeFileSync(file, out.text);
+    verificarPostcondicion(text, out, slotId, k);
+
+    const tmp = `${file}.tmp-${process.pid}`;
+    try {
+      fs.writeFileSync(tmp, out.text);
+      fs.renameSync(tmp, file);
+    } catch (e) {
+      try { fs.unlinkSync(tmp); } catch { /* el temp puede no existir: no enmascarar el error real */ }
+      throw e;
+    }
     console.error(
       `✔ ${out.mode === 'update' ? 'actualizado' : 'INSERTADO'} pase ${pass.by} → ${slotId}#${k}.translationES (status: ${out.status})`
     );
