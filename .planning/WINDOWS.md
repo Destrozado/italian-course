@@ -1,10 +1,10 @@
 ---
 schema_version: 1
-open_count: 16
+open_count: 20
 waived_count: 0
-fixed_count: 4
-total_count: 20
-last_updated: 2026-08-13T21:37:01.935Z
+fixed_count: 5
+total_count: 25
+last_updated: 2026-08-13T21:53:36.138Z
 ---
 
 # Broken Windows Ledger
@@ -33,8 +33,13 @@ last_updated: 2026-08-13T21:37:01.935Z
 | 16 | 45 | deviation | tests/requirements-traceability.test.js |  | El gate no cruza con ROADMAP.md: un requisito ausente de las DOS mitades de REQUIREMENTS.md sigue sin gate (D-45-15, medido) | open |  | 2026-08-12T22:25:03.976Z |  |
 | 17 | 46 | deviation | tests/requirements-traceability.test.js |  | 4 subtests pre-existentes en rojo (deuda de la transicion a v2.1): falta el ancla **Coverage: N/N** en REQUIREMENTS.md y la tabla de trazabilidad no tiene filas. Impide exit 0 de la suite; ver deferred-items.md de la fase 46 | open |  | 2026-08-13T13:00:26.706Z |  |
 | 18 | 46 | unrun-verify | scripts/validate-translation-pass.mjs |  | El camino HTTP real (callModel/httpPost contra DeepSeek o Gemini) NO se ejecutó en el plan 46-02: los tests cubren dry-run, fail-fast y run() con caller inyectado, pero ninguna llamada de red de verdad. Se cierra al correr el quorum real en el plan 46-04 | fixed |  | 2026-08-13T13:30:40.095Z | 2026-08-13T19:44:26.378Z |
-| 19 | 46 | unmet-truth | content/exercises/preposiciones.json |  | TRAD-COV en ROJO por diseño al cierre de 46-03: 0/96 traducciones validated (95 missing, 1 pending). Lo cierra el plan 46-04 autorando y validando las 95 que faltan. | open |  | 2026-08-13T19:02:40.435Z |  |
+| 19 | 46 | unmet-truth | content/exercises/preposiciones.json |  | TRAD-COV en ROJO por diseño al cierre de 46-03: 0/96 traducciones validated (95 missing, 1 pending). Lo cierra el plan 46-04 autorando y validando las 95 que faltan. | fixed |  | 2026-08-13T19:02:40.435Z | 2026-08-13T21:53:07.145Z |
 | 20 | 46 | deviation | content/exercises/preposiciones.json |  | OBSERVACION para las Phases 47-53 (decision del autor 2026-08-13: se dejan): 16 de las 96 variantes con traduccion llevan en el prompt una glosa espanola de frase completa (en espanol: '...') que coincide palabra por palabra con la traduccion, asi que el espanol sale dos veces en pantalla. El quorum las aprobo por la excepcion E1 de docs/TRANSLATION-VALIDATION-PROMPT.md (si la glosa ES la frase completa, coincidir es traducir bien). Si al usar la app molesta, la palanca es acortar la glosa del prompt, no la traduccion. Derivado del disco; ojo: 14 glosas van entre comillas y 2 no (preposiciones-col#0 y #1) | open |  | 2026-08-13T21:37:01.935Z |  |
+| 21 | 46 | unmet-truth | .planning/phases/46-pipeline-de-traducci-n-end-to-end-piloto-preposiciones/46-UI-SPEC.md |  | BACKSTOP E1 long-text ABSTENIDO (decision del autor 2026-08-13, commit 4291c8a): la envoltura multilinea de .session-translation entre la caja de feedback y el CTA NO se puede confirmar porque la premisa no tiene SUJETO en el piloto — la traduccion mas larga (preposiciones-sugli#1, 57 chars = 390 px medidos en Chrome headless sobre el CSS real) cabe en UNA linea a 1400/1100/900/800/700 px de viewport. La prueba sintetica de 165 chars (2 lineas limpias, overflow-wrap normal, max-width none, cero desborde y cero truncado) es PREPARACION, no cierre. El cambio de sitio del 2026-08-13 no lo revierte: mueve el nodo, no alarga el contenido. Se re-prueba en la primera de las Phases 47-53 con frases mas largas. NO es covered aunque el autor aprobara el render | open |  | 2026-08-13T21:53:22.989Z |  |
+| 22 | 46 | unmet-truth | .planning/phases/46-pipeline-de-traducci-n-end-to-end-piloto-preposiciones/46-UI-SPEC.md |  | BACKSTOP E2 long-text ABSTENIDO (misma decision del autor, commit 4291c8a): la misma envoltura multilinea dentro de la card de Errores cometidos (.summary-error-translation), medida igual (57 chars = 390 px = 1 linea). Esta superficie NO cambio con la enmienda de D-46-06/08. Ausencia de sujeto, no indulgencia — mismo patron que PRES-05 en el plan 46-04. Se arrastra a las Phases 47-53 | open |  | 2026-08-13T21:53:23.054Z |  |
+| 23 | 46 | unmet-truth | content/exercises/preposiciones.json |  | BACKSTOP TRAD-01/encoding ABSTENIDO en su mitad HUMANA: la lectura de muestra de 3-4 slots completos (punto 7 del checkpoint del plan 46-05) no se realizo. Su autoridad mecanica es el quorum cross-vendor y ESA mitad paso (96/96 validated, 2 by distintos: deepseek-chat + gemini-3.5-flash-lite). El Perfecto del autor del 2026-08-13 fue sobre los 4 puntos de render (REND-01..05), no sobre una lectura de muestra. Un backstop sin evidencia se abstiene, nunca pasa en silencio | open |  | 2026-08-13T21:53:23.119Z |  |
+| 24 | 46 | deviation | src/main.js | 74 | NOTA DE UAT para las Phases 47-53 (nos costo una ronda de diagnostico en vivo en el plan 46-05): el contenido se hace fetch UNA SOLA VEZ al arrancar la app. src/main.js:74 (await loadContent en bootstrap, resuelve appDataReady) -> src/screens/app.js:389 (await appDataReady en init, queda en this.content para toda la vida de la pestana). grep fetch( en src/screens/app.js = 0 ocurrencias: startSession NO vuelve a leer el JSON. Consecuencia: empezar un Examen nuevo NO recarga el contenido, asi que una pestana abierta desde antes de editar el JSON sirve contenido viejo y el sintoma se lee como un bug de render que no existe. TODA UAT de contenido empieza recargando la pestana (F5), nunca empezando una sesion nueva | open |  | 2026-08-13T21:53:36.063Z |  |
+| 25 | 46 | deviation | tests/screen-translation.test.js |  | HALLAZGO de diseno de gates (plan 46-05): V4 y V9 cuentan literales sobre TODO index.html como texto, COMENTARIOS INCLUIDOS. V4 compara countOf(htmlSrc, /x-html/g) contra readHead(index.html); V9 hace lo propio con los 4 literales de copy contra readPreFase46(index.html). La primera redaccion del comentario del nodo movido nombraba los literales de copy y la directiva de inyeccion de HTML crudo, y los DOS gates se pusieron rojos solos sin mutacion (V4: paso de 9 a 10 usos; V9: el recuento de Continuar cambio, 3 !== 2). Obligo a reescribir la prosa del comentario sin esos tokens. Es la deuda id 14 de la Phase 44 reapareciendo (un comentario que menciona el token que su propio gate cuenta), cazada esta vez POR EL GATE y no por un humano. Dato de diseno para las Phases 47-53, que escribiran 17 tandas de comentarios sobre estas mismas superficies; anotado tambien en 46-UI-SPEC.md seccion DOM Contract | open |  | 2026-08-13T21:53:36.138Z |  |
 
 ````json
 [
@@ -261,10 +266,10 @@ last_updated: 2026-08-13T21:37:01.935Z
     "file": "content/exercises/preposiciones.json",
     "line": null,
     "description": "TRAD-COV en ROJO por diseño al cierre de 46-03: 0/96 traducciones validated (95 missing, 1 pending). Lo cierra el plan 46-04 autorando y validando las 95 que faltan.",
-    "status": "open",
+    "status": "fixed",
     "reason": "",
     "recorded_at": "2026-08-13T19:02:40.435Z",
-    "resolved_at": null
+    "resolved_at": "2026-08-13T21:53:07.145Z"
   },
   {
     "id": 20,
@@ -276,6 +281,66 @@ last_updated: 2026-08-13T21:37:01.935Z
     "status": "open",
     "reason": "",
     "recorded_at": "2026-08-13T21:37:01.935Z",
+    "resolved_at": null
+  },
+  {
+    "id": 21,
+    "kind": "unmet-truth",
+    "phase": "46",
+    "file": ".planning/phases/46-pipeline-de-traducci-n-end-to-end-piloto-preposiciones/46-UI-SPEC.md",
+    "line": null,
+    "description": "BACKSTOP E1 long-text ABSTENIDO (decision del autor 2026-08-13, commit 4291c8a): la envoltura multilinea de .session-translation entre la caja de feedback y el CTA NO se puede confirmar porque la premisa no tiene SUJETO en el piloto — la traduccion mas larga (preposiciones-sugli#1, 57 chars = 390 px medidos en Chrome headless sobre el CSS real) cabe en UNA linea a 1400/1100/900/800/700 px de viewport. La prueba sintetica de 165 chars (2 lineas limpias, overflow-wrap normal, max-width none, cero desborde y cero truncado) es PREPARACION, no cierre. El cambio de sitio del 2026-08-13 no lo revierte: mueve el nodo, no alarga el contenido. Se re-prueba en la primera de las Phases 47-53 con frases mas largas. NO es covered aunque el autor aprobara el render",
+    "status": "open",
+    "reason": "",
+    "recorded_at": "2026-08-13T21:53:22.989Z",
+    "resolved_at": null
+  },
+  {
+    "id": 22,
+    "kind": "unmet-truth",
+    "phase": "46",
+    "file": ".planning/phases/46-pipeline-de-traducci-n-end-to-end-piloto-preposiciones/46-UI-SPEC.md",
+    "line": null,
+    "description": "BACKSTOP E2 long-text ABSTENIDO (misma decision del autor, commit 4291c8a): la misma envoltura multilinea dentro de la card de Errores cometidos (.summary-error-translation), medida igual (57 chars = 390 px = 1 linea). Esta superficie NO cambio con la enmienda de D-46-06/08. Ausencia de sujeto, no indulgencia — mismo patron que PRES-05 en el plan 46-04. Se arrastra a las Phases 47-53",
+    "status": "open",
+    "reason": "",
+    "recorded_at": "2026-08-13T21:53:23.054Z",
+    "resolved_at": null
+  },
+  {
+    "id": 23,
+    "kind": "unmet-truth",
+    "phase": "46",
+    "file": "content/exercises/preposiciones.json",
+    "line": null,
+    "description": "BACKSTOP TRAD-01/encoding ABSTENIDO en su mitad HUMANA: la lectura de muestra de 3-4 slots completos (punto 7 del checkpoint del plan 46-05) no se realizo. Su autoridad mecanica es el quorum cross-vendor y ESA mitad paso (96/96 validated, 2 by distintos: deepseek-chat + gemini-3.5-flash-lite). El Perfecto del autor del 2026-08-13 fue sobre los 4 puntos de render (REND-01..05), no sobre una lectura de muestra. Un backstop sin evidencia se abstiene, nunca pasa en silencio",
+    "status": "open",
+    "reason": "",
+    "recorded_at": "2026-08-13T21:53:23.119Z",
+    "resolved_at": null
+  },
+  {
+    "id": 24,
+    "kind": "deviation",
+    "phase": "46",
+    "file": "src/main.js",
+    "line": 74,
+    "description": "NOTA DE UAT para las Phases 47-53 (nos costo una ronda de diagnostico en vivo en el plan 46-05): el contenido se hace fetch UNA SOLA VEZ al arrancar la app. src/main.js:74 (await loadContent en bootstrap, resuelve appDataReady) -> src/screens/app.js:389 (await appDataReady en init, queda en this.content para toda la vida de la pestana). grep fetch( en src/screens/app.js = 0 ocurrencias: startSession NO vuelve a leer el JSON. Consecuencia: empezar un Examen nuevo NO recarga el contenido, asi que una pestana abierta desde antes de editar el JSON sirve contenido viejo y el sintoma se lee como un bug de render que no existe. TODA UAT de contenido empieza recargando la pestana (F5), nunca empezando una sesion nueva",
+    "status": "open",
+    "reason": "",
+    "recorded_at": "2026-08-13T21:53:36.063Z",
+    "resolved_at": null
+  },
+  {
+    "id": 25,
+    "kind": "deviation",
+    "phase": "46",
+    "file": "tests/screen-translation.test.js",
+    "line": null,
+    "description": "HALLAZGO de diseno de gates (plan 46-05): V4 y V9 cuentan literales sobre TODO index.html como texto, COMENTARIOS INCLUIDOS. V4 compara countOf(htmlSrc, /x-html/g) contra readHead(index.html); V9 hace lo propio con los 4 literales de copy contra readPreFase46(index.html). La primera redaccion del comentario del nodo movido nombraba los literales de copy y la directiva de inyeccion de HTML crudo, y los DOS gates se pusieron rojos solos sin mutacion (V4: paso de 9 a 10 usos; V9: el recuento de Continuar cambio, 3 !== 2). Obligo a reescribir la prosa del comentario sin esos tokens. Es la deuda id 14 de la Phase 44 reapareciendo (un comentario que menciona el token que su propio gate cuenta), cazada esta vez POR EL GATE y no por un humano. Dato de diseno para las Phases 47-53, que escribiran 17 tandas de comentarios sobre estas mismas superficies; anotado tambien en 46-UI-SPEC.md seccion DOM Contract",
+    "status": "open",
+    "reason": "",
+    "recorded_at": "2026-08-13T21:53:36.138Z",
     "resolved_at": null
   }
 ]

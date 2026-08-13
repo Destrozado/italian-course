@@ -5,15 +5,15 @@ milestone_name: Traducción al español por variante (TRAD-X1)
 current_phase: 46
 current_phase_name: Pipeline de traducción end-to-end (piloto Preposiciones)
 status: executing
-stopped_at: Completed 46-04-PLAN.md
-last_updated: "2026-08-13T19:47:33.606Z"
+stopped_at: Completed 46-05-PLAN.md (los 5 planes de la Phase 46 ejecutados; pendientes los gates de cierre de fase)
+last_updated: "2026-08-13T21:55:00.000Z"
 last_activity: 2026-08-13
-last_activity_desc: Roadmap v2.1 creado
+last_activity_desc: "Plan 46-05 COMPLETO — 3 mutaciones de D-46-18 con rojo observado, checkpoint del autor aprobado (REND-01..05), 3 backstops ABSTENIDOS"
 progress:
   total_phases: 8
   completed_phases: 0
   total_plans: 5
-  completed_plans: 4
+  completed_plans: 5
   percent: 0
 ---
 
@@ -30,11 +30,13 @@ See: `.planning/PROJECT.md` (updated 2026-08-13 — milestone v2.1 abierto: trad
 ## Current Position
 
 Milestone: v2.1 — Traducción al español por variante (TRAD-X1) — Phases **46-53** (numeración CONTINÚA desde Phase 45, sin reset)
-Phase: 46 (Pipeline de traducción end-to-end (piloto Preposiciones)) — EXECUTING
-Plan: 5 of 5
-Status: Ready to execute
-Progress: [████████░░] 80%
-Last activity: 2026-08-13 — Phase 46 execution started
+Phase: 46 (Pipeline de traducción end-to-end (piloto Preposiciones)) — EXECUTING (5/5 planes ejecutados; faltan los gates de cierre de fase)
+Plan: 5 of 5 — **COMPLETO**
+Status: Los 5 planes tienen SUMMARY. Siguiente: los gates de cierre de fase (aggregate → code review → verify), que corre el orquestador
+Progress: [██████████] 100% de los planes de la fase
+Last activity: 2026-08-13 — Plan 46-05 cerrado: las 3 mutaciones de D-46-18 ejecutadas con rojo observado, el checkpoint del autor aprobado (REND-01..05 confirmados en pantalla) y 3 backstops ABSTENIDOS por escrito
+
+**Estado verificado en disco al cierre de 46-05 (2026-08-13T21:49Z):** reporter `node scripts/run-validation-271.mjs` → **exit 0** (`TRAD-COV: PASS (96/96)`, VAL-04/06/08/09 PASS, `VAL-06 250/250`); suite `node --test tests/*.test.js tests/fixtures/*.test.js` → **1308 / 1304 pass / 4 fail** (exit 1, único rojo = la deuda pre-existente de trazabilidad, id 17 del ledger); `tests/screen-translation.test.js` → **50/50**; motor **byte-intacto**; corpus con md5 idéntico a la foto verde y sin mutaciones residuales.
 
 **Estructura del milestone:**
 
@@ -224,6 +226,7 @@ Deuda técnica del milestone (~25 items, cero blockers) en `.planning/milestones
 | Phase 46 P02 | 25min | 3 tasks | 4 files |
 | Phase 46 P03 | 26min | 3 tasks | 2 files |
 | Phase 46 P04 | 32min | 2 tasks | 5 files |
+| Phase 46 P05 | ~2h 01m | 3 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -389,6 +392,15 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - [Phase ?]: El gloss ES del prompt es CANON tambien frente al criterio del autor: 7 de los 11 disputed eran traducciones que lo contradecian, y el quorum cazo una eleccion mia que lo ignoraba (alle#1)
 - [Phase ?]: Un gate se repara DERIVANDO la poblacion del disco, nunca transcribiendo la cifra nueva: el invariante se assertea y la cifra la mide el reporter (D-31-06)
 - [Phase ?]: Una excepcion que dos vendors marcan por separado es un hueco del doc de criterios (se escribe en TRANSLATION-VALIDATION-PROMPT.md), no 2N falsos positivos que overridear
+- [Phase 46]: 46-05: D-46-06/07 ENMENDADAS por el autor viendo la app — la traduccion sale de la caja de feedback y vive en sitio FIJO justo encima del CTA, el mismo acertando y fallando; al fallar la caja esta tintada y densa y la traduccion se camuflaba dentro del recuadro de error
+- [Phase 46]: 46-05: la razon de NO poner la traduccion bajo el prompt italiano SIGUE VIGENTE aunque ya no sea el sitio elegido — post-correccion el hueco se rellena con la opcion SELECCIONADA (index.html:537), asi que la frase de arriba puede mostrar la palabra equivocada tachada y quedarian dos frases contiguas que no se corresponden
+- [Phase 46]: 46-05: D-46-08 pasa a significar MISMO CRITERIO DE ESTILO en las dos superficies, NO misma posicion — en el resumen no hay CTA, asi que el hueco equivalente no existe y la card sigue siendo el contenedor semantico de la traduccion
+- [Phase 46]: 46-05: un gate REESCRITO se verifica con la misma mutacion que verificaria el codigo que arregla — M-A prueba el invariante nuevo (nodo fuera de la caja) y M-B que el viejo mas importante (no-leak V5) sigue mordiendo tras mover el nodo; sin las dos, el invariante nuevo es prosa
+- [Phase 46]: 46-05: un backstop cuya PREMISA no tiene sujeto en el corpus se ABSTIENE (human_needed) y NO se convierte en covered porque el autor aprobara otra cosa — el Perfecto del autor fue sobre el render (REND-01..05), no sobre una envoltura multilinea que este corpus no produce
+- [Phase 46]: 46-05: V4 y V9 cuentan literales sobre TODO index.html, COMENTARIOS INCLUIDOS — documentar la prohibicion nombrando el token prohibido pone el gate rojo (deuda id 14 de la Phase 44 reapareciendo, cazada esta vez por el gate y no por un humano)
+- [Phase 46]: 46-05: el contenido se hace fetch UNA SOLA VEZ al arrancar la app (src/main.js:74 -> src/screens/app.js:389; cero fetch en app.js) — empezar un Examen nuevo NO recarga el JSON, asi que toda UAT de contenido empieza recargando la pestana o el sintoma se lee como un bug de render que no existe
+- [Phase 46]: 46-05: los disputed de nivel TRADUCCION los consume TRAD-COV y no VAL-08 (que reduce sobre perCategory, el bucle de SLOTS) — la Task 2 esperaba el rojo en el sub-gate equivocado y el gate NO se ensancho: no queda via de escape porque una traduccion disputed no es validated
+- [Phase 46]: 46-05: la cifra de baseline que 46-05-MUTACIONES-EVIDENCIA.md afirmaba (1299/1295/4 en 19f41a9) es FALSA — re-medida con git archive da 1182/1178/4; lo verdadero es el invariante (mismo unico fichero rojo, mismos 4 subtests), no el total. Retractada por escrito en el SUMMARY en vez de corregida en silencio
 
 ### Pending Todos
 
@@ -449,11 +461,13 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Session Continuity
 
-**Last session:** 2026-08-13T19:47:33.577Z
-**Stopped at:** Completed 46-04-PLAN.md
+**Last session:** 2026-08-13T21:55:00.000Z
+**Stopped at:** Completed 46-05-PLAN.md — los 5 planes de la Phase 46 tienen SUMMARY; faltan los gates de cierre de fase (aggregate → code review → verify), que corre el orquestador
 **Resume file:** None
 
 ### Last Session
+
+- **Fecha:** 2026-08-13 — **Phase 46 Plan 05 (mutaciones de D-46-18 + verificación visual del autor) COMPLETO.** **Tasks 1 y 2:** las mutaciones **1** (`preposiciones-di-origen#0` con `passes: []` → `pending`) y **2** (`preposiciones-sullo#0`, «El azúcar está en la estantería.» → «El azucar esta en la estanteria.») **EJECUTADAS**, no leídas, con el rojo **OBSERVADO en exit 1** y su línea transcrita: `TRAD-COV (96/96 traducciones validated): FAIL (95/96 — pending=1, missing=0, disputed=0)` y `FAIL (95/96 — pending=0, missing=0, disputed=1)` + `→ Disputed: preposiciones-sullo#0`. Las dos cifras del FAIL las interpola el reporter desde valores computados; ninguna la transcribió el ejecutor. **S4 (acentos RAE) queda PROBADO por primera vez con sujeto real:** el plan 46-04 cerró con CERO flags `[S4-acentos]` en 192 respuestas y lo declaró sin probar «por ausencia de sujeto»; aquí los **DOS** vendors (`deepseek-chat` y `gemini-3.5-flash-lite`) devolvieron `incorrecta` con el tag literal, nombrando las tres tildes exactas, y Gemini citó la regla RAE de cada una. El camino de refuerzo del doc NO se activó: el prompt no cambió, así que nada que re-validar. **Ningún escáner mecánico de acentos se creó** (T-46-25, `git status` de `scripts/ tests/ docs/` vacío): la autoridad sobre acentos es el quórum (D-46-12). Restauración por **copia de fichero** con md5 `54d278382195464a8adfed62f9a32c19` idéntico a los dos lados y verde re-verificado; **sin commit de producción por diseño** — commitear una mutación habría materializado T-46-23. **Task 3 (`checkpoint:human-verify`, `gate="blocking"`) APROBADA por el autor**, pero antes produjo un **CAMBIO DE DISEÑO**: viendo la app con las 96 traducciones en pantalla, el autor pidió mover la traducción FUERA de la caja de feedback, a sitio fijo justo encima del CTA («se me hace difícil verlo dentro de la caja de error, cuando aciertas está perfecto»). **D-46-06/07/08 ENMENDADAS por escrito con fecha, autoría, cita y motivo**, conservando el cuerpo original; V6 reescrita del invariante viejo al nuevo y **verificada por MUTACIÓN**: **M-A** (devolver el nodo dentro de la caja) → exit 1, 3 subtests rojos (47/50), y **M-B** (quitar `sessionFeedback !== null &&` del `x-show`) → exit 1, 2 subtests de V5 rojos (48/50) imprimiendo el nodo infractor, o sea que **el no-leak sigue mordiendo en el sitio nuevo**. `index.html` restaurado con md5 idéntico y 50/50 después. **La razón de NO poner la traducción bajo el prompt italiano SIGUE VIGENTE** (post-corrección el hueco se rellena con la opción SELECCIONADA, `index.html:537`), y **D-46-08 pasa a significar «mismo criterio de ESTILO en las dos superficies», no misma posición** — en el resumen no hay CTA, así que el hueco equivalente no existe y la card sigue siendo el contenedor semántico. **Aprobación del autor, literal: «Perfecto»**, sobre cuatro puntos que se le pidió comprobar al recargar → **REND-01, REND-02, REND-03, REND-04 y REND-05 confirmados en pantalla**. **3 backstops ABSTENIDOS, no cerrados** (ledger ids 21/22/23): E1 y E2 `long-text` por **ausencia de sujeto** (la traducción más larga del piloto, `preposiciones-sugli#1`, 57 chars = 390 px medidos, cabe en UNA línea a 1400/1100/900/800/700 px; la prueba sintética de 165 chars es preparación, no cierre) y el de TRAD-01/encoding en su mitad humana (la lectura de muestra no se hizo; su autoridad mecánica, el quórum, sí pasó). **Tres hallazgos:** (1) **V4 y V9 cuentan literales sobre TODO `index.html`, comentarios incluidos** — el comentario del nodo movido puso los dos gates rojos solo y obligó a reescribir la prosa; es la deuda id 14 de la Phase 44 reapareciendo, cazada esta vez por el gate; (2) la Task 2 esperaba el rojo en **VAL-08** y salió en **TRAD-COV** — VAL-08 reduce sobre `perCategory`, el bucle de SLOTS, y los `disputed` de traducción los consume TRAD-COV; **el gate NO se ensanchó** y no queda vía de escape; (3) **el contenido se hace `fetch` UNA sola vez** (`src/main.js:74` → `src/screens/app.js:389`, cero `fetch` en `app.js`): empezar un Examen nuevo NO recarga el JSON, nos costó una ronda de diagnóstico y queda como nota de UAT para las 17 comprobaciones de las Phases 47-53. **Contradicción MEDIDA y retractada:** `46-05-MUTACIONES-EVIDENCIA.md` afirmaba que el baseline `19f41a9` daba «las mismas cifras exactas (1299/1295/4)»; re-medido con `git archive` da **1182 / 1178 / 4**. Lo verdadero es el invariante (mismo único fichero rojo, mismos 4 subtests), no el total: era una cifra en prosa que nadie volvió a medir, el mecanismo exacto del CR-01 de la Phase 44. **Cifras finales derivadas del disco (2026-08-13T21:49Z):** reporter **exit 0** (`TRAD-COV: PASS (96/96)`, VAL-04/06/08/09 PASS, `VAL-06 250/250`); suite **1308 / 1304 pass / 4 fail** (exit 1, único rojo = la deuda pre-existente de trazabilidad, ledger id 17, ABIERTA y con quick task propio pendiente verificado por mutación); `tests/screen-translation.test.js` **50/50**; 96 variantes `multiple-choice` · 96 `validated` · 0 `pending` · 0 `disputed` · 0 traducciones con `___`; motor **byte-intacto**; `git status` sin mutaciones residuales. **Desviación heredada declarada, no re-litigada:** la autoría de 46-04 fue por lotes de ~5 slots por subagent en vez de 1 (D-46-15) — coherencia entre hermanas preservada, independencia generador/validador intacta, lo degradado fue el aislamiento de contexto. Commits: `de6293f` (evidencia mutaciones 1 y 2) · `4291c8a` (abstención de los backstops) · `ad9097c` (feat: la traducción fuera de la caja) · `bcb2ccd` (enmiendas + contrato UI) · `dac1dda` (M-A y M-B) · `e97b495` (las 16 glosas al ledger) + el de cierre. `ROADMAP.md` **sin tocar** (`update_roadmap` es del orquestador). Stopped at: 46-05 completo. Resume file: None. Siguiente: los gates de cierre de la fase 46 (aggregate → code review → verify).
 
 - **Fecha:** 2026-08-13 — **Roadmap del milestone v2.1 (Traducción al español por variante, TRAD-X1) creado por el roadmapper.** Numeración CONTINÚA desde Phase 45 → **Phases 46-53, NO reset**. Sin research (diseño cerrado por el autor; todos los precedentes son in-repo). Estructura derivada del patrón validado del propio proyecto para esta forma exacta — **Phases 7 / 7.1 / 7.2 de v1.0**, que bajaron `explanation` a 271 ejercicios: primero UNA fase con schema + render + una categoría entera end-to-end, después fases incrementales de contenido. **Phase 46** baja el pipeline completo (campo opcional SCH-01..03 + render en acierto y fallo REND-01..05 + validador propio derivado de S1-S6 TVAL-01..04 + gates GATE-01/02) y lo prueba sobre el piloto **TRAD-01 Preposiciones (96 variantes)** — los gates van en la PRIMERA fase por la lección de v2.0 (un array de conteo añadido tarde emitió `225/225 PASS` con una categoría entera desenganchada). **Phases 47-52** son un bloque TRAD-xx cada una (110 · 122 · 104 · 109 · 103 · 78 variantes), independientes entre sí salvo el lockstep del array de cobertura; no se colapsan porque 626 traducciones a mano + quórum no caben en una fase ejecutable. **Phase 53** cierra con GATE-03 (722/722 validated, suite verde, reporter exit 0, motor intacto salvo `SESSION_AUTO_ADVANCE_MS`, D-54 con 2 call-sites). **Cobertura 22/22 mapped, 0 orphans, 0 duplicados.** Volumen verificado contra disco, no transcrito: 250 slots / 758 variantes, de las que **722 son `multiple-choice`** (22 `word-buttons` + 14 `match` fuera de scope) y los 7 bloques suman exactamente 722. Archivos escritos: `.planning/ROADMAP.md` (histórico v1.0-v2.0 PRESERVADO + sección v2.1 ACTIVE + Phase Details 46-53 + tablas de Progress + Backlog con TRAD-X1 promovido y VOCAB-X1 abierto), `.planning/REQUIREMENTS.md` (Traceability 22 filas + Coverage + rationale de agrupación + volumen por fase), `.planning/STATE.md` (este). Stopped at: roadmap creado. Resume file: None. Siguiente: `/gsd-discuss-phase 46` o `/gsd-plan-phase 46`.
 
