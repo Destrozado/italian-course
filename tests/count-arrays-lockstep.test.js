@@ -870,6 +870,43 @@ describe('integridad del escaner — ninguna linea de entrada de array de conteo
     );
   });
 
+  test('las lineas de entrada del array de cobertura de TRADUCCION tambien sobreviven byte a byte (D-46-17)', () => {
+    // La extension de DEUDA-02 al array nuevo. El bloque de arriba recorre las fuentes
+    // ENTERAS, asi que una linea de entrada del array de traduccion ya entra en su
+    // recuento; lo que le falta es una clausula de no-vacuidad PROPIA. Sin ella, el dia
+    // que el array se renombre o el acotado deje de casar, la comprobacion de arriba
+    // seguiria verde con las lineas del array de SLOTS y nadie sabria que las del de
+    // traduccion dejaron de mirarse. La referencia se DERIVA del disco, como todo aqui.
+    const declaradas = categoriasDeclaradasCubiertas();
+    const crudo = readSrc(REPORTER);
+    const regionCruda = regionDeArray(crudo, ARRAY_DE_TRADUCCION).split('\n');
+    const lineasDeEntrada = regionCruda.filter((l) => LINEA_DE_ENTRADA.test(l));
+
+    assert.ok(
+      lineasDeEntrada.length >= declaradas.length,
+      `D-46-17 / DEUDA-02: el reconocimiento de lineas de entrada ve ${lineasDeEntrada.length} ` +
+        `lineas en la region de \`${ARRAY_DE_TRADUCCION}\` de ${REPORTER} y el disco declara ` +
+        `${declaradas.length} categorias cubiertas: o el reporter dejo de declararlas, o el ` +
+        `acotado por region dejo de encontrar el array — y con cero lineas la comprobacion de ` +
+        `abajo pasaria en verde sin haber mirado ninguna`
+    );
+
+    // `regionDeArray` devuelve el texto YA LIMPIO de comentarios, y `sinComentarios`
+    // preserva la longitud de cada linea, asi que las dos vistas son comparables por
+    // posicion: la region limpia y las mismas lineas leidas del fichero crudo.
+    const lineasCrudas = crudo.split('\n');
+    const alteradas = lineasDeEntrada.filter((linea) => !lineasCrudas.includes(linea));
+    assert.deepEqual(
+      alteradas,
+      [],
+      `D-46-17 / DEUDA-02: estas lineas de entrada del array de cobertura de traduccion NO ` +
+        `sobreviven identicas al escaner, asi que el ancla del gate no las ve como el fichero las ` +
+        `escribe. O estan envueltas en un comentario de bloque —y entonces la ceguera ya existe—, ` +
+        `o un literal de expresion regular con comilla desparejada desalineo el escaner en esa ` +
+        `linea:\n  ${alteradas.join('\n  ')}`
+    );
+  });
+
   test('los slugs registrados son ASCII puro, asi que la comparacion byte a byte del ancla ES la igualdad correcta', () => {
     // Dos lineas y su razon: el ancla compara el slug BYTE A BYTE (interpolado y
     // escapado, con la comilla de cierre forzada por backreference). Si un `id`
@@ -883,6 +920,337 @@ describe('integridad del escaner — ninguna linea de entrada de array de conteo
       [],
       `DEUDA-02: estos id de content/categories.json no son ASCII puro, asi que la identidad ` +
         `byte a byte del ancla podria fallar por composicion Unicode: ${noAscii.join(', ')}`
+    );
+  });
+});
+
+// ───────────────────────────────────────────────────────────────────────────
+// 3-quater. GATE-02 — el array de cobertura de TRADUCCION (v2.1 Phase 46, D-46-17)
+// ───────────────────────────────────────────────────────────────────────────
+//
+// POR QUE EXISTE, Y POR QUE AQUI Y NO DENTRO DEL REPORTER. El reporter gana en la
+// Phase 46 un SEGUNDO array parametrico, el de cobertura de traduccion, con la misma
+// forma que `CATEGORIES` y expuesto al MISMO modo de fallo: una categoria que ya
+// tiene traducciones en disco y no esta enganchada al array desaparece del total sin
+// que nada se ponga rojo, y el reporter emite un PASS de cobertura ciego a esas
+// variantes. Es literalmente el `225/225 PASS` de las Phases 41/42/43 trasladado de
+// los slots a las variantes. El anti-ceguera necesita MUTAR el array y comprobar que
+// aparece el rojo: eso es un test, y meterlo dentro del reporter significaria que el
+// reporter se testea a si mismo (D-46-17).
+//
+// LA REFERENCIA SE DERIVA DEL DISCO, y no de una lista escrita aqui. Es la doctrina
+// literal de la cabecera de este fichero: una lista a mano seria un gate vacuo, verde
+// para siempre. Pero la referencia NO puede ser `content/categories.json` como en el
+// bloque 3: alli TODAS las categorias registradas tienen que estar enganchadas, y aqui
+// solo las que ya estan CUBIERTAS de traduccion — el milestone traduce por fases, asi
+// que exigir las 18 hoy seria un rojo permanente e inservible. La referencia correcta
+// es la que el DISCO declara: una categoria esta declarada cubierta cuando su fichero
+// de contenido tiene al menos una variante `multiple-choice` con la clave
+// `translationES`. Consecuencia deliberada: en cuanto una categoria recibe su PRIMERA
+// traduccion, este gate EXIGE que este enganchada. No hay ventana en la que traducir
+// sin enganchar salga verde.
+//
+// POR QUE HACE FALTA ACOTAR POR REGION. Con DOS arrays que declaran pares en el mismo
+// fichero, `paresSlugFile(SRC)` sobre el fuente ENTERO mezcla los de los dos: la
+// clausula de no-vacuidad del bloque 3-bis contaba 18 pares contra 18 categorias
+// registradas y con el array nuevo cuenta 19. Ese rojo es CORRECTO —la clausula
+// muerde—, y la forma que admite un segundo array vigilado no es relajar el recuento
+// sino medir cada array en SU region. Sumar un margen habria dejado la clausula
+// contando una cifra que ya no describe nada.
+
+const ARRAY_DE_SLOTS = 'CATEGORIES';
+const ARRAY_DE_TRADUCCION = 'TRANSLATION_COVERAGE';
+
+describe('GATE-02 — goldens del array de cobertura de traduccion: ausencia, prefijo, un byte, comentario, dos lineas y cruce (fail-first, D-46-17)', () => {
+  // Los DOS arrays en el mismo pseudo-fuente, que es la forma REAL del reporter desde
+  // la Phase 46. Sin el hermano de slots delante, ningun golden probaria el acotado por
+  // region — y el acotado es justo lo que este bloque introduce.
+  const SRC_TRAD_VACIO = `
+    const CATEGORIES = [
+      { slug: 'avere',                    file: 'content/exercises/avere.json',                    expected: 20 },
+      { slug: 'preposiciones',            file: 'content/exercises/preposiciones.json',            expected: 50 },
+    ];
+
+    const TRANSLATION_COVERAGE = [
+    ];
+  `;
+
+  const SRC_TRAD_SOLO_HERMANO = `
+    const CATEGORIES = [
+      { slug: 'avere',                    file: 'content/exercises/avere.json',                    expected: 20 },
+      { slug: 'preposiciones',            file: 'content/exercises/preposiciones.json',            expected: 50 },
+    ];
+
+    const TRANSLATION_COVERAGE = [
+      { slug: 'avere',                    file: 'content/exercises/avere.json',                    expected: mcVariantCountOf('content/exercises/avere.json') },
+    ];
+  `;
+
+  // La colision de prefijo (D-40-03) sobre el array nuevo: `fare-ind` es prefijo de
+  // `fare-indicativo` y de `fare-indefiniti`, asi que un `includes` daria verde a una
+  // de las dos con solo la otra presente. El slug se exige COMPLETO byte a byte.
+  const SRC_TRAD_PREFIJO = `
+    const TRANSLATION_COVERAGE = [
+      { slug: 'fare-ind',                 file: 'content/exercises/fare-ind.json',                 expected: mcVariantCountOf('content/exercises/fare-ind.json') },
+    ];
+  `;
+
+  // UN SOLO BYTE de diferencia (la `s` final). El copia-pega con un dedo torcido es el
+  // gesto plausible, y sin identidad byte a byte pasaria por enganche.
+  const SRC_TRAD_UN_BYTE = `
+    const TRANSLATION_COVERAGE = [
+      { slug: 'preposicione',             file: 'content/exercises/preposicione.json',             expected: mcVariantCountOf('content/exercises/preposicione.json') },
+    ];
+  `;
+
+  const SRC_TRAD_COMENTADO_LINEA = `
+    const TRANSLATION_COVERAGE = [
+      // { slug: 'preposiciones',            file: 'content/exercises/preposiciones.json',            expected: mcVariantCountOf('content/exercises/preposiciones.json') },
+    ];
+  `;
+
+  // El gesto del «toggle block comment» del editor, que es el que CR-01 encontro
+  // abierto: el `/* */` deja las lineas envueltas byte a byte identicas.
+  const SRC_TRAD_COMENTADO_BLOQUE = `
+    const TRANSLATION_COVERAGE = [
+      /*
+      { slug: 'preposiciones',            file: 'content/exercises/preposiciones.json',            expected: mcVariantCountOf('content/exercises/preposiciones.json') },
+      */
+    ];
+  `;
+
+  // WR-07 sobre el array nuevo: la clave al final de una linea y el valor en la
+  // siguiente. Con `\\s*` en el hueco esto CASABA; con whitespace horizontal no.
+  const SRC_TRAD_DOS_LINEAS = `
+    const TRANSLATION_COVERAGE = [
+      { slug:
+        'preposiciones', file: 'content/exercises/preposiciones.json', expected: 96 },
+    ];
+  `;
+
+  const SRC_TRAD_CRUZADO = `
+    const TRANSLATION_COVERAGE = [
+      { slug: 'preposiciones',            file: 'content/exercises/avere.json',                    expected: mcVariantCountOf('content/exercises/avere.json') },
+    ];
+  `;
+
+  const SRC_TRAD_COMPLETO = `
+    const CATEGORIES = [
+      { slug: 'avere',                    file: 'content/exercises/avere.json',                    expected: 20 },
+      { slug: 'preposiciones',            file: 'content/exercises/preposiciones.json',            expected: 50 },
+    ];
+
+    const TRANSLATION_COVERAGE = [
+      { slug: 'preposiciones',            file: 'content/exercises/preposiciones.json',            expected: mcVariantCountOf('content/exercises/preposiciones.json') },
+      { slug: 'avere',                    file: 'content/exercises/avere.json',                    expected: mcVariantCountOf('content/exercises/avere.json') },
+    ];
+  `;
+
+  test('golden de ACOTADO POR REGION: la region del array de traduccion NO ve las entradas del array de slots', () => {
+    // Es la aserción que hace que todos los demas goldens de este bloque signifiquen
+    // algo. Sin acotado, `preposiciones` sale enganchada por la entrada del array de
+    // SLOTS y la ceguera del array de TRADUCCION se certifica en verde: el bug exacto
+    // que este bloque existe para cazar, con la forma de un gate que mira el fichero
+    // entero en vez del array que le toca.
+    const regionSlots = regionDeArray(SRC_TRAD_VACIO, ARRAY_DE_SLOTS);
+    const regionTrad = regionDeArray(SRC_TRAD_VACIO, ARRAY_DE_TRADUCCION);
+
+    assert.deepEqual(
+      slugsCiegos(regionSlots, ['preposiciones']),
+      [],
+      'D-46-17: el array de SLOTS si engancha preposiciones, y la region tiene que verlo'
+    );
+    assert.deepEqual(
+      slugsCiegos(regionTrad, ['preposiciones']),
+      ['preposiciones'],
+      'D-46-17: la region del array de TRADUCCION esta vacia; la entrada del hermano no la salva'
+    );
+    assert.deepEqual(
+      paresSlugFile(regionTrad),
+      [],
+      'D-46-17: cero pares en la region vacia — y son los pares del hermano los que los inventarian'
+    );
+  });
+
+  test('golden de REGION AUSENTE: un array que no se declara devuelve region vacia, no el fichero entero', () => {
+    // El modo de fallo del propio acotador: si el reconocedor de la declaracion deja de
+    // casar y el helper devolviese el fuente completo, el gate volveria a mezclar los dos
+    // arrays en silencio. Y si devolviese algo no vacio, la clausula de no-vacuidad de
+    // mas abajo no podria delatar la desaparicion del array.
+    assert.equal(
+      regionDeArray(SRC_TRAD_PREFIJO, ARRAY_DE_SLOTS),
+      '',
+      'D-46-17: el pseudo-fuente no declara el array de slots, asi que su region no existe'
+    );
+    assert.equal(
+      regionDeArray('const OTRA_COSA = 1;\n', ARRAY_DE_TRADUCCION),
+      '',
+      'D-46-17: sin declaracion no hay region, y una region vacia pone rojo la no-vacuidad'
+    );
+  });
+
+  test('golden-NEGATIVO de ARRAY VACIO: la categoria declarada cubierta sale CIEGA', () => {
+    const region = regionDeArray(SRC_TRAD_VACIO, ARRAY_DE_TRADUCCION);
+    assert.deepEqual(
+      slugsCiegos(region, ['preposiciones']),
+      ['preposiciones'],
+      'D-46-17: es la MUTACION 3 de D-46-18 en miniatura — declarada cubierta y sin enganchar'
+    );
+  });
+
+  test('golden-NEGATIVO de SOLO EL HERMANO: ciega la ausente y solo la ausente', () => {
+    const region = regionDeArray(SRC_TRAD_SOLO_HERMANO, ARRAY_DE_TRADUCCION);
+    assert.deepEqual(
+      slugsCiegos(region, ['avere', 'preposiciones']),
+      ['preposiciones'],
+      'D-46-17: la entrada viva de avere no puede hacer pasar por enganchada a preposiciones'
+    );
+  });
+
+  test('golden-NEGATIVO de COLISION DE PREFIJO: un slug que es prefijo del declarado NO engancha (D-40-03)', () => {
+    const region = regionDeArray(SRC_TRAD_PREFIJO, ARRAY_DE_TRADUCCION);
+    assert.deepEqual(
+      slugsCiegos(region, ['fare-indicativo', 'fare-indefiniti']),
+      ['fare-indicativo', 'fare-indefiniti'],
+      'D-40-03: `fare-ind` no ancla a ninguno de los dos hermanos del prefijo ambiguo'
+    );
+  });
+
+  test('golden-NEGATIVO de UN SOLO BYTE: un slug que difiere en un byte deja la categoria CIEGA', () => {
+    const region = regionDeArray(SRC_TRAD_UN_BYTE, ARRAY_DE_TRADUCCION);
+    assert.deepEqual(
+      slugsCiegos(region, ['preposiciones']),
+      ['preposiciones'],
+      'D-46-17: la identidad del ancla es byte a byte; `preposicione` no es `preposiciones`'
+    );
+  });
+
+  test('golden-NEGATIVO de ENTRADA COMENTADA CON //: no ancla nada (sinComentarios va PRIMERO)', () => {
+    const region = regionDeArray(SRC_TRAD_COMENTADO_LINEA, ARRAY_DE_TRADUCCION);
+    assert.deepEqual(
+      slugsCiegos(region, ['preposiciones']),
+      ['preposiciones'],
+      'G-44-3-WR01: comentar la entrada «temporalmente» la saca del array de cobertura'
+    );
+    assert.deepEqual(paresSlugFile(region), [], 'la entrada comentada no declara par');
+  });
+
+  test('golden-NEGATIVO de ENTRADA EN BLOQUE: envuelta en /* */ no ancla nada (CR-01)', () => {
+    const region = regionDeArray(SRC_TRAD_COMENTADO_BLOQUE, ARRAY_DE_TRADUCCION);
+    assert.deepEqual(
+      slugsCiegos(region, ['preposiciones']),
+      ['preposiciones'],
+      'CR-01: el /* */ deja la linea abriendo con `{`; sin quitar comentarios el ancla la aceptaba'
+    );
+    assert.deepEqual(paresSlugFile(region), [], 'CR-01: cero pares fantasma dentro del bloque');
+  });
+
+  test('golden-NEGATIVO de SLUG A DOS LINEAS: la clave y su valor en lineas distintas NO forman par (WR-07)', () => {
+    const region = regionDeArray(SRC_TRAD_DOS_LINEAS, ARRAY_DE_TRADUCCION);
+    assert.deepEqual(
+      paresSlugFile(region),
+      [],
+      'WR-07: el hueco tras `slug:` es whitespace HORIZONTAL; esta forma no declara par'
+    );
+    // Y es la mutacion que hace VACUO el gate sin dejar ninguna categoria «ausente» a la
+    // vista: la entrada esta ahi, escrita, y el extractor no la ve. Por eso la clausula de
+    // no-vacuidad tiene que ir ANTES del deepEqual de ciegas.
+    assert.deepEqual(
+      slugsCiegos(region, ['preposiciones']),
+      ['preposiciones'],
+      'WR-07: los dos helpers comparten ancla de verdad, no solo en el comentario'
+    );
+  });
+
+  test('golden-NEGATIVO de PAR CRUZADO: el slug de una categoria con el fichero de otra se delata (D-40-03)', () => {
+    const region = regionDeArray(SRC_TRAD_CRUZADO, ARRAY_DE_TRADUCCION);
+    assert.deepEqual(
+      paresCruzados(region),
+      ['preposiciones -> content/exercises/avere.json'],
+      'D-40-03: con el fichero cruzado, el expected derivado leeria las variantes de OTRA categoria'
+    );
+  });
+
+  test('golden-POSITIVO: con las declaradas enganchadas a su propio fichero, cero ciegas y cero cruzadas', () => {
+    const region = regionDeArray(SRC_TRAD_COMPLETO, ARRAY_DE_TRADUCCION);
+    assert.deepEqual(
+      slugsCiegos(region, ['preposiciones', 'avere']),
+      [],
+      'D-46-17: el gate no debe inventar ceguera donde el enganche existe'
+    );
+    assert.deepEqual(paresCruzados(region), []);
+    assert.equal(paresSlugFile(region).length, 2);
+  });
+
+  test('ORDERING: permutar las entradas del array no cambia el conjunto de ciegas ni de cruzadas', () => {
+    // El veredicto agrega y compara CONJUNTOS; no cortocircuita en la primera entrada ni
+    // depende del orden de recorrido. Un gate sensible al orden se pondria verde o rojo
+    // por reordenar columnas, que es una edicion cosmetica.
+    const permutado = SRC_TRAD_COMPLETO.replace(
+      /(\{ slug: 'preposiciones',[^\n]*\n)(\s*\{ slug: 'avere',[^\n]*\n)/,
+      '$2$1'
+    );
+    assert.notEqual(permutado, SRC_TRAD_COMPLETO, 'la permutacion tiene que haber ocurrido de verdad');
+
+    const region = regionDeArray(SRC_TRAD_COMPLETO, ARRAY_DE_TRADUCCION);
+    const regionPermutada = regionDeArray(permutado, ARRAY_DE_TRADUCCION);
+    assert.deepEqual(
+      slugsCiegos(regionPermutada, ['preposiciones', 'avere']),
+      slugsCiegos(region, ['preposiciones', 'avere'])
+    );
+    assert.deepEqual(paresCruzados(regionPermutada), paresCruzados(region));
+    assert.deepEqual(
+      [...paresSlugFile(regionPermutada)].map((p) => p.slug).sort(),
+      [...paresSlugFile(region)].map((p) => p.slug).sort(),
+      'el gate compara CONJUNTOS de slugs, no secuencias'
+    );
+  });
+});
+
+describe('GATE-02 — el array de cobertura de traduccion del reporter engancha cada categoria DECLARADA CUBIERTA (D-46-17)', () => {
+  test(`${REPORTER}: ninguna categoria con traduccion en disco queda fuera del array de cobertura de traduccion`, () => {
+    const declaradas = categoriasDeclaradasCubiertas();
+    const region = regionDeArray(readSrc(REPORTER), ARRAY_DE_TRADUCCION);
+    const pares = paresSlugFile(region);
+    const ciegas = slugsCiegos(region, declaradas);
+    const cruzados = paresCruzados(region);
+
+    // CLAUSULA DE NO-VACUIDAD, y va PRIMERO, por el mismo motivo que en el bloque 3-bis:
+    // un extractor por regex que deja de casar devuelve [] y `deepEqual([], [])` pasa en
+    // VERDE certificando NADA. La referencia se DERIVA del disco y las dos causas reales
+    // se nombran las dos, porque el diagnostico no puede elegir una.
+    assert.ok(
+      declaradas.length > 0,
+      `D-46-17: ningun fichero de content/exercises declara una variante multiple-choice con ` +
+        `translationES, asi que este gate no tiene referencia contra la que medir la ceguera ` +
+        `del array de cobertura de traduccion. O el corpus perdio todas sus traducciones, o el ` +
+        `recorrido del disco dejo de reconocer el campo`
+    );
+    assert.equal(
+      pares.length,
+      declaradas.length,
+      `D-46-17: el extractor ve ${pares.length} pares en la region de \`${ARRAY_DE_TRADUCCION}\` ` +
+        `de ${REPORTER} y el disco declara ${declaradas.length} categorias cubiertas de traduccion ` +
+        `(${declaradas.join(', ')}). Las dos causas son reales: o el reporter dejo de declarar una ` +
+        `entrada —y entonces la ceguera ya existe, y quedarian CIEGAS: ${ciegas.join(', ') || 'ninguna'}—, ` +
+        `o el extractor dejo de ver su array (una entrada partida en dos lineas, un slug detras del ` +
+        `file, la declaracion renombrada). Con lista vacia esta comprobacion pasaria en verde`
+    );
+
+    assert.deepEqual(
+      ciegas,
+      [],
+      `D-46-17 / GATE-02: estas categorias tienen traducciones en disco y NO estan enganchadas al ` +
+        `array de cobertura de traduccion de ${REPORTER}, asi que sus variantes desaparecen del ` +
+        `total y el sub-gate de cobertura emite un PASS ciego a ellas — el \`225/225 PASS\` de las ` +
+        `Phases 41/42/43 trasladado a las variantes: ${ciegas.join(', ')}`
+    );
+    assert.deepEqual(
+      cruzados,
+      [],
+      `D-40-03 / GATE-02: una entrada del array de cobertura de traduccion declara el fichero de ` +
+        `OTRA categoria, asi que su expected derivado cuenta las variantes equivocadas: ` +
+        `${cruzados.join(', ')}`
     );
   });
 });
