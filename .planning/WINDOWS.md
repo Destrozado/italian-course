@@ -1,10 +1,10 @@
 ---
 schema_version: 1
-open_count: 13
+open_count: 14
 waived_count: 0
 fixed_count: 3
-total_count: 16
-last_updated: 2026-08-12T22:25:03.976Z
+total_count: 17
+last_updated: 2026-08-13T13:00:26.706Z
 ---
 
 # Broken Windows Ledger
@@ -31,6 +31,7 @@ last_updated: 2026-08-12T22:25:03.976Z
 | 14 | 44 | deviation | tests/content-fare-indicativo.test.js |  | El comentario puntero mencionaba el token pareceFare y defeteaba el criterio de posicion del TDZ del propio plan; reescrito en prosa sin el token | open |  | 2026-08-12T08:23:55.767Z |  |
 | 15 | 45 | deviation | scripts/run-validation-271.mjs |  | D-45-09: el 271 del nombre del fichero codifica un conteo obsoleto (hoy 250). Deuda ACEPTADA y declarada en la cabecera; rename fuera de alcance por 17 call-sites load-bearing | open |  | 2026-08-12T21:40:28.548Z |  |
 | 16 | 45 | deviation | tests/requirements-traceability.test.js |  | El gate no cruza con ROADMAP.md: un requisito ausente de las DOS mitades de REQUIREMENTS.md sigue sin gate (D-45-15, medido) | open |  | 2026-08-12T22:25:03.976Z |  |
+| 17 | 46 | deviation | tests/requirements-traceability.test.js |  | 4 subtests pre-existentes en rojo (deuda de la transicion a v2.1): falta el ancla **Coverage: N/N** en REQUIREMENTS.md y la tabla de trazabilidad no tiene filas. Impide exit 0 de la suite; ver deferred-items.md de la fase 46 | open |  | 2026-08-13T13:00:26.706Z |  |
 
 ````json
 [
@@ -224,6 +225,18 @@ last_updated: 2026-08-12T22:25:03.976Z
     "status": "open",
     "reason": "",
     "recorded_at": "2026-08-12T22:25:03.976Z",
+    "resolved_at": null
+  },
+  {
+    "id": 17,
+    "kind": "deviation",
+    "phase": "46",
+    "file": "tests/requirements-traceability.test.js",
+    "line": null,
+    "description": "4 subtests pre-existentes en rojo (deuda de la transicion a v2.1): falta el ancla **Coverage: N/N** en REQUIREMENTS.md y la tabla de trazabilidad no tiene filas. Impide exit 0 de la suite; ver deferred-items.md de la fase 46",
+    "status": "open",
+    "reason": "",
+    "recorded_at": "2026-08-13T13:00:26.706Z",
     "resolved_at": null
   }
 ]

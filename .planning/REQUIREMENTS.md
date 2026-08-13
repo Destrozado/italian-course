@@ -11,17 +11,17 @@
 
 ### Modelo de datos y schema
 
-- [ ] **SCH-01**: Cada variante `multiple-choice` puede llevar la traducción española de su frase; el validator la acepta como string no vacío cuando está presente y las 250 slots existentes siguen validando sin ella (retrocompatible, patrón `explanation` de Phase 7).
-- [ ] **SCH-02**: El validator RECHAZA el campo de traducción en variantes `match` y `word-buttons`, de modo que es imposible autorar traducción donde el diseño dice que no aporta (el prompt de `word-buttons` ya es español; `match` no tiene frase).
-- [ ] **SCH-03**: El alta del campo NO toca `schemaVersion` (sigue en 13) ni resetea progreso — es contenido en `content/`, no state; verificado por test explícito, no por afirmación.
+- [x] **SCH-01**: Cada variante `multiple-choice` puede llevar la traducción española de su frase; el validator la acepta como string no vacío cuando está presente y las 250 slots existentes siguen validando sin ella (retrocompatible, patrón `explanation` de Phase 7).
+- [x] **SCH-02**: El validator RECHAZA el campo de traducción en variantes `match` y `word-buttons`, de modo que es imposible autorar traducción donde el diseño dice que no aporta (el prompt de `word-buttons` ya es español; `match` no tiene frase).
+- [x] **SCH-03**: El alta del campo NO toca `schemaVersion` (sigue en 13) ni resetea progreso — es contenido en `content/`, no state; verificado por test explícito, no por afirmación.
 
 ### Render en pantalla
 
-- [ ] **REND-01**: Al FALLAR un `multiple-choice` que tiene traducción, el autor la ve junto al feedback rojo, visualmente distinguible de la `explanation` (son cosas distintas: una traduce, la otra explica la regla).
-- [ ] **REND-02**: Al ACERTAR, el autor ve la traducción igualmente y dispone de tiempo real de leerla. *(Corregido en la discusión de la Phase 46, 2026-08-13: la redacción original decía «`SESSION_AUTO_ADVANCE_MS` sube desde 600 ms», pero en los modos de ejercicio **no existe auto-avance** — se eliminó en el quick `260615-r3b` y el avance es manual con «Continuar →» (`src/screens/app.js:1741-1750`, `index.html:628`); `SESSION_AUTO_ADVANCE_MS` solo gobierna el modo canción, fuera de scope. En modo contrarreloj el cronómetro se cancela al responder y tampoco auto-avanza (`app.js:1897-1908`). El tiempo de lectura ya es ilimitado en las tres superficies de ejercicio, así que este requirement **no exige ningún cambio de motor**.)*
-- [ ] **REND-03**: El botón "¿Por qué?" / tecla `e` sigue revelando la `explanation` bajo demanda tras acertar y sigue cancelando el auto-avance — la traducción no le roba el sitio ni cambia su comportamiento.
-- [ ] **REND-04**: En la sección "Errores cometidos" del resumen, cada fallo muestra la traducción de la frase que falló, junto a su explanation.
-- [ ] **REND-05**: Un ejercicio SIN traducción no deja hueco, etiqueta ni placeholder en ninguna de las dos superficies (graceful degradation D-121), y el render usa `x-text` exclusivamente (invariante anti-XSS T-02-01).
+- [x] **REND-01**: Al FALLAR un `multiple-choice` que tiene traducción, el autor la ve junto al feedback rojo, visualmente distinguible de la `explanation` (son cosas distintas: una traduce, la otra explica la regla).
+- [x] **REND-02**: Al ACERTAR, el autor ve la traducción igualmente y dispone de tiempo real de leerla. *(Corregido en la discusión de la Phase 46, 2026-08-13: la redacción original decía «`SESSION_AUTO_ADVANCE_MS` sube desde 600 ms», pero en los modos de ejercicio **no existe auto-avance** — se eliminó en el quick `260615-r3b` y el avance es manual con «Continuar →» (`src/screens/app.js:1741-1750`, `index.html:628`); `SESSION_AUTO_ADVANCE_MS` solo gobierna el modo canción, fuera de scope. En modo contrarreloj el cronómetro se cancela al responder y tampoco auto-avanza (`app.js:1897-1908`). El tiempo de lectura ya es ilimitado en las tres superficies de ejercicio, así que este requirement **no exige ningún cambio de motor**.)*
+- [x] **REND-03**: El botón "¿Por qué?" / tecla `e` sigue revelando la `explanation` bajo demanda tras acertar y sigue cancelando el auto-avance — la traducción no le roba el sitio ni cambia su comportamiento.
+- [x] **REND-04**: En la sección "Errores cometidos" del resumen, cada fallo muestra la traducción de la frase que falló, junto a su explanation.
+- [x] **REND-05**: Un ejercicio SIN traducción no deja hueco, etiqueta ni placeholder en ninguna de las dos superficies (graceful degradation D-121), y el render usa `x-text` exclusivamente (invariante anti-XSS T-02-01).
 
 ### Validación de las traducciones
 
@@ -82,14 +82,14 @@ Rellenado durante la creación del roadmap.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SCH-01 | Phase 46 | Pending |
-| SCH-02 | Phase 46 | Pending |
-| SCH-03 | Phase 46 | Pending |
-| REND-01 | Phase 46 | Pending |
-| REND-02 | Phase 46 | Pending |
-| REND-03 | Phase 46 | Pending |
-| REND-04 | Phase 46 | Pending |
-| REND-05 | Phase 46 | Pending |
+| SCH-01 | Phase 46 | Complete |
+| SCH-02 | Phase 46 | Complete |
+| SCH-03 | Phase 46 | Complete |
+| REND-01 | Phase 46 | Complete |
+| REND-02 | Phase 46 | Complete |
+| REND-03 | Phase 46 | Complete |
+| REND-04 | Phase 46 | Complete |
+| REND-05 | Phase 46 | Complete |
 | TVAL-01 | Phase 46 | Pending |
 | TVAL-02 | Phase 46 | Pending |
 | TVAL-03 | Phase 46 | Pending |
@@ -106,6 +106,7 @@ Rellenado durante la creación del roadmap.
 | GATE-03 | Phase 53 | Pending |
 
 **Coverage:**
+
 - v2.1 requirements: 22 total
 - Mapped to phases: 22
 - Unmapped: 0 ✓ (sin huérfanos, sin duplicados — cada requirement va a EXACTAMENTE una fase)

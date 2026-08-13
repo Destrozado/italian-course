@@ -3,17 +3,17 @@ gsd_state_version: 1.0
 milestone: v2.1
 milestone_name: Traducción al español por variante (TRAD-X1)
 current_phase: 46
-current_phase_name: Pipeline de traducción end-to-end   — not started
-status: planning
-stopped_at: Phase 46 UI-SPEC approved
-last_updated: "2026-08-13T12:40:05.392Z"
+current_phase_name: Pipeline de traducción end-to-end (piloto Preposiciones)
+status: executing
+stopped_at: Completed 46-01-PLAN.md
+last_updated: "2026-08-13T13:00:11.794Z"
 last_activity: 2026-08-13
 last_activity_desc: Roadmap v2.1 creado
 progress:
   total_phases: 8
   completed_phases: 0
   total_plans: 5
-  completed_plans: 0
+  completed_plans: 1
   percent: 0
 ---
 
@@ -30,11 +30,11 @@ See: `.planning/PROJECT.md` (updated 2026-08-13 — milestone v2.1 abierto: trad
 ## Current Position
 
 Milestone: v2.1 — Traducción al español por variante (TRAD-X1) — Phases **46-53** (numeración CONTINÚA desde Phase 45, sin reset)
-Phase: 46 — Pipeline de traducción end-to-end (piloto Preposiciones) — not started
-Plan: —
-Status: Roadmap creado (8 fases, 22/22 requirements mapped, 0 huérfanos) — pendiente de planificar
-Progress: [░░░░░░░░░░░░░░░░░░░░] 0/8 fases · 0/722 traducciones
-Last activity: 2026-08-13 — Roadmap v2.1 creado
+Phase: 46 (Pipeline de traducción end-to-end (piloto Preposiciones)) — EXECUTING
+Plan: 2 of 5
+Status: Ready to execute
+Progress: [██░░░░░░░░] 20%
+Last activity: 2026-08-13 — Phase 46 execution started
 
 **Estructura del milestone:**
 
@@ -220,6 +220,7 @@ Deuda técnica del milestone (~25 items, cero blockers) en `.planning/milestones
 | Phase 45 P02 | ~55 min | 3 tasks | 2 files |
 | Phase 45 P03 | ~45 min | 3 tasks | 2 files |
 | Phase 45 P04 | ~8 min | 2 tasks | 2 files |
+| Phase 46 P01 | 11min | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -372,6 +373,10 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - [Phase ?]: D-45-07 — la prosa del gate se redacta en terminos de COUNT_ARRAY_SOURCES, no enumerando 'las dos fuentes': el nombre de los tests tambien
 - [Phase ?]: D-45-12 — el gate de DEUDA-03 mira TODA linea no-comentario del reporter, no solo las que contienen el token console.log: las lineas de continuacion de un console.log multilinea emiten salida y el esqueleto del research las dejaba pasar en verde
 - [Phase 45]: D-45-15 — el gate de trazabilidad NO detecta un requisito ausente de las DOS mitades de REQUIREMENTS.md; caza la edicion a medias — Medido contra el estado real previo (HEAD~1): 23 definiciones / 23 filas / Coverage 23/23 es internamente CONSISTENTE y el gate pasa VERDE con los tres DEUDA ausentes. El plan afirmaba que el cruce definiciones-mapeos era 'literalmente lo que habria cazado que DEUDA-01/02/03 no existieran'; es FALSO. Contra la ausencia total la unica defensa es el cruce con ROADMAP.md, fuera del alcance de este plan. Escrito en la cabecera del propio test para que nadie le atribuya una garantia que no da.
+- [Phase ?]: translationES se valida en la capa *Surface (variantes), no en los wrappers validate*Payload: el campo vive en la VARIANTE y las 250 slots del corpus van por la rama variants[]
+- [Phase ?]: El rechazo SCH-02 va ANTES del early-return de pairs en validateMatchSurface: una variante con pairs malformado Y translationES debe reportar los dos errores (D-08)
+- [Phase ?]: Los gates de no-crecimiento (tokens --ed-*, x-html, setTimeout, copy) se anclan al ultimo commit PRE-fase del fichero, no a HEAD: contra HEAD el gate deja de morder en cuanto la fase committea
+- [Phase ?]: V8 (motor byte-intacto) se verifica sobre la HISTORIA de git (ningun commit con scope de fase toco la ruta), no con git diff --stat: sobre arbol limpio ese diff esta vacio siempre y el gate seria vacuo
 
 ### Pending Todos
 
@@ -431,9 +436,9 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Session Continuity
 
-**Last session:** 2026-08-13T12:01:45.250Z
-**Stopped at:** Phase 46 UI-SPEC approved
-**Resume file:** /home/vcompanyb/italian-course/.planning/phases/46-pipeline-de-traducci-n-end-to-end-piloto-preposiciones/46-UI-SPEC.md
+**Last session:** 2026-08-13T13:00:01.455Z
+**Stopped at:** Completed 46-01-PLAN.md
+**Resume file:** None
 
 ### Last Session
 
