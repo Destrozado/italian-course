@@ -117,6 +117,73 @@ function rangoTemplate(src, idxApertura) {
   return null;
 }
 
+/**
+ * Acota el rango [inicio, fin) de un `<div …>` a partir del índice de su
+ * apertura, contando anidamientos. Es el mismo problema que `rangoTemplate`
+ * resuelve para los templates: un `indexOf('</div>')` desnudo cerraría en el
+ * primer div hijo y el gate de «dentro / fuera de la caja» mediría una región
+ * que no es la caja.
+ */
+function rangoDiv(src, idxApertura) {
+  const ABRE = /<div\b/g;
+  const CIERRA = /<\/div>/g;
+  let profundidad = 0;
+  let cursor = idxApertura;
+  while (cursor < src.length) {
+    ABRE.lastIndex = cursor;
+    CIERRA.lastIndex = cursor;
+    const abre = ABRE.exec(src);
+    const cierra = CIERRA.exec(src);
+    if (!cierra) return null; // div sin cerrar → el llamador lo trata como no-vacuidad
+    if (abre && abre.index < cierra.index) {
+      profundidad += 1;
+      cursor = abre.index + 1;
+      continue;
+    }
+    profundidad -= 1;
+    if (profundidad === 0) return [idxApertura, cierra.index + '</div>'.length];
+    cursor = cierra.index + 1;
+  }
+  return null;
+}
+
+/**
+ * Parte una hoja CSS (ya SIN comentarios) en reglas planas `{ selector, cuerpo }`.
+ * No entiende at-rules anidadas — las reglas de dentro de un `@media` salen como
+ * si fueran de primer nivel, que es inocuo aquí porque esta fase no añade
+ * ninguno (V1) y las clases que inspecciona no viven en uno. Cualquier fallo de
+ * parseo degrada a lista vacía, y de eso se encargan las cláusulas de
+ * no-vacuidad: nunca a un verde silencioso.
+ */
+const reglasCss = (limpio) =>
+  [...limpio.matchAll(/([^{}]+)\{([^{}]*)\}/g)].map((m) => ({
+    selector: m[1].trim(),
+    cuerpo: m[2]
+  }));
+
+/** Nombres de propiedad declarados en el cuerpo de una regla. */
+const propiedadesDe = (cuerpo) => [...cuerpo.matchAll(/([a-z-]+)\s*:/g)].map((m) => m[1]);
+
+/**
+ * Lee el shorthand `margin` de una regla y devuelve `{ top, bottom }` en px,
+ * resolviendo la expansión de CSS (1 valor → los cuatro; 2 → vertical/horizontal;
+ * 3 → top/horizontal/bottom). Devuelve `null` si no hay margin o si algún valor
+ * no es px ni `0`, para que el llamador lo trate como no-vacuidad en vez de
+ * comparar `NaN` con `NaN`.
+ */
+function margenDe(regla) {
+  const m = /margin\s*:\s*([^;]+);/.exec(regla?.cuerpo || '');
+  if (!m) return null;
+  const partes = m[1].trim().split(/\s+/).map((v) => {
+    if (v === '0') return 0;
+    return /^\d+px$/.test(v) ? parseInt(v, 10) : NaN;
+  });
+  if (partes.length === 0 || partes.some(Number.isNaN)) return null;
+  const [top, , tercero] = partes;
+  const bottom = partes.length >= 3 ? tercero : top;
+  return { top, bottom };
+}
+
 /** Extrae las etiquetas `<p …>` de `src` cuyo texto contiene `aguja`. */
 const nodosPCon = (src, aguja) =>
   (src.match(/<p\b[^>]*>/g) || []).filter((tag) => tag.includes(aguja));
@@ -224,53 +291,116 @@ describe('Phase 46 — la frase canónica atraviesa contenido → schema (end-to
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
-// V1 · el bloque CSS compartido con sus seis declarantes exactos
+// V1 · el criterio tipográfico COMPARTIDO + un margen POR SUPERFICIE
+//
+// D-46-06 quedó ENMENDADA el 2026-08-13 (decisión del autor en el checkpoint del
+// plan 46-05): en pantalla la traducción vive FUERA de `.session-feedback`, justo
+// encima del CTA. Por eso el margen dejó de ser compartido — sale de la regla
+// doble y se declara por superficie —, mientras la TIPOGRAFÍA sigue declarada una
+// sola vez, que es lo que D-46-08 exige tras su propia enmienda: mismo criterio
+// de estilo, posición distinta porque el contexto es distinto.
 // ─────────────────────────────────────────────────────────────────────────────
 
-describe('V1 — app.css declara el bloque compartido de la traducción (UI-SPEC §CSS Contract)', () => {
-  // El bloque se acota por índices para que los seis declarantes se busquen
-  // DENTRO de la regla nueva y no en cualquier parte de las ~2000 líneas.
-  const selectorRe = /\.session-translation,\s*\n\.summary-error-translation\s*\{/;
+describe('V1 — criterio compartido + margen por superficie (UI-SPEC §CSS Contract)', () => {
+  const limpio = cssSinComentarios(cssSrc);
+  const reglasTrad = reglasCss(limpio).filter((r) =>
+    /\.(?:session-translation|summary-error-translation)\b/.test(r.selector)
+  );
+  // La regla compartida se localiza por lo que HACE (declarar tipografía), no por
+  // su posición en el fichero.
+  const compartida = reglasTrad.find((r) => /font-family\s*:/.test(r.cuerpo));
+  const pantalla = reglasTrad.find((r) => r.selector === '.session-translation');
+  const resumen = reglasTrad.find((r) => r.selector === '.summary-error-translation');
 
-  test('el selector doble existe, en una sola regla y en el orden del contrato', () => {
-    assert.match(cssSinComentarios(cssSrc), selectorRe, 'falta el selector doble compartido');
+  test('CLÁUSULA DE NO-VACUIDAD (va primero): el parser ve las tres reglas de traducción', () => {
+    // Un parser que deja de casar devuelve lista vacía, y sobre la lista vacía
+    // cualquier "ninguna declara X" de abajo pasaría en VERDE sin mirar nada.
+    assert.ok(reglasTrad.length > 0, 'el parser de CSS no ve NINGUNA regla de traducción en app.css');
+    assert.ok(compartida, 'ninguna regla de traducción declara font-family: falta el criterio compartido');
+    assert.ok(pantalla, 'falta la regla de margen propia de .session-translation');
+    assert.ok(resumen, 'falta la regla de margen propia de .summary-error-translation');
   });
 
-  test('la regla declara los seis valores exactos del contrato', () => {
-    const limpio = cssSinComentarios(cssSrc);
-    const inicio = limpio.search(selectorRe);
-    assert.ok(inicio !== -1, 'no-vacuidad: sin el selector localizado no hay bloque que inspeccionar');
-    const bloque = limpio.slice(inicio, limpio.indexOf('}', inicio) + 1);
-
-    assert.ok(bloque.includes('font-family: var(--ed-font-serif)'), 'font-family serif');
-    assert.ok(bloque.includes('font-size: 16px'), 'font-size 16px');
-    assert.ok(bloque.includes('font-weight: 400'), 'font-weight 400');
-    assert.ok(bloque.includes('line-height: 1.5'), 'line-height 1.5');
-    assert.ok(bloque.includes('color: var(--ed-ink)'), 'color ink');
-    assert.ok(bloque.includes('margin: 8px 0 0'), 'margin 8px 0 0');
+  test('el selector doble de la regla compartida va en el orden del contrato', () => {
+    assert.ok(compartida, 'no-vacuidad: sin regla compartida no hay selector que inspeccionar');
+    assert.match(compartida.selector, /^\.session-translation,\s*\n\.summary-error-translation$/);
   });
 
-  test('la regla no puede recortar la traducción: cero height/overflow (E1/E2 · overflow)', () => {
-    const limpio = cssSinComentarios(cssSrc);
-    const inicio = limpio.search(selectorRe);
-    assert.ok(inicio !== -1, 'no-vacuidad: selector no localizado');
-    const bloque = limpio.slice(inicio, limpio.indexOf('}', inicio) + 1);
+  test('la regla compartida declara los CINCO valores tipográficos exactos del contrato', () => {
+    assert.ok(compartida, 'no-vacuidad: sin regla compartida no hay bloque que inspeccionar');
+    assert.ok(compartida.cuerpo.includes('font-family: var(--ed-font-serif)'), 'font-family serif');
+    assert.ok(compartida.cuerpo.includes('font-size: 16px'), 'font-size 16px');
+    assert.ok(compartida.cuerpo.includes('font-weight: 400'), 'font-weight 400');
+    assert.ok(compartida.cuerpo.includes('line-height: 1.5'), 'line-height 1.5');
+    assert.ok(compartida.cuerpo.includes('color: var(--ed-ink)'), 'color ink');
+  });
 
-    // Se comparan NOMBRES DE PROPIEDAD declarados, no substrings: `line-height`
-    // contiene "height" y un `includes('height')` desnudo daría un rojo falso
-    // sobre una declaración que el contrato EXIGE.
-    const cuerpo = bloque.slice(bloque.indexOf('{') + 1, bloque.lastIndexOf('}'));
-    const propiedades = [...cuerpo.matchAll(/([a-z-]+)\s*:/g)].map((m) => m[1]);
-    assert.ok(propiedades.length > 0, 'no-vacuidad: el extractor no ve ninguna declaración en el bloque');
-
-    const PROHIBIDAS = ['height', 'max-height', 'min-height', 'overflow', 'text-overflow', 'overflow-wrap', 'max-width', 'text-wrap'];
-    const infractoras = propiedades.filter((p) => PROHIBIDAS.includes(p));
+  test('el MARGEN ya NO vive en la regla compartida: depende del contexto (D-46-06 enmendada)', () => {
+    assert.ok(compartida, 'no-vacuidad: sin regla compartida no hay cuerpo que inspeccionar');
     assert.deepEqual(
-      infractoras,
+      propiedadesDe(compartida.cuerpo).filter((p) => p.startsWith('margin')),
       [],
-      `la regla nueva declara propiedades prohibidas por el UI-SPEC §CSS Contract: ${infractoras.join(', ')}`
+      'la regla compartida volvió a declarar margen: las dos superficies ya no comparten posición'
     );
-    assert.ok(!bloque.includes('!important'), 'el UI-SPEC prohíbe !important en esta fase');
+  });
+
+  test('el margen de pantalla despega la frase de la caja Y del CTA; el del resumen no cambia', () => {
+    const mPantalla = margenDe(pantalla);
+    const mResumen = margenDe(resumen);
+    // No-vacuidad del extractor de shorthand: sin esto, `null` vs `null` compararía
+    // dos ausencias y pasaría en verde.
+    assert.ok(mPantalla, 'no-vacuidad: no se lee el margen de .session-translation');
+    assert.ok(mResumen, 'no-vacuidad: no se lee el margen de .summary-error-translation');
+
+    // Comparación DERIVADA entre las dos superficies, no un literal suelto: fuera
+    // de la caja tintada hace falta más aire que dentro de ella.
+    assert.ok(
+      mPantalla.top > mResumen.top,
+      `la traducción de pantalla vive FUERA de la caja: su margen superior (${mPantalla.top}px) ` +
+        `debe superar el de la card del resumen (${mResumen.top}px)`
+    );
+    // `.session-cta` no declara margin-top (se assertea abajo), así que este margen
+    // inferior es LO ÚNICO que separa la frase del botón. Medido en Chrome headless
+    // sobre el CSS real: sin él, hueco = 0 px.
+    assert.ok(mPantalla.bottom > 0, 'sin margen inferior la traducción queda pegada al CTA "Continuar →"');
+    assert.equal(mResumen.bottom, 0, 'en el resumen el margen inferior sigue en 0: colapsa contra la explanation');
+
+    // Escala de 4px del proyecto: ningún valor off-grid nuevo (UI-SPEC §Spacing).
+    for (const v of [mPantalla.top, mPantalla.bottom, mResumen.top]) {
+      assert.equal(v % 4, 0, `${v}px está fuera de la escala de 4px del proyecto`);
+    }
+  });
+
+  test('.session-cta sigue sin declarar margen: el aire inferior de la traducción es el único hueco', () => {
+    // Ancla al disco la medición que justifica el margen inferior. Si el CTA gana
+    // un margin-top, ese razonamiento caduca y hay que volver a medir.
+    const cta = reglasCss(limpio).find((r) => r.selector === '.session-cta');
+    assert.ok(cta, 'no-vacuidad: no se localiza la regla .session-cta en app.css');
+    assert.ok(propiedadesDe(cta.cuerpo).length > 0, 'no-vacuidad: la regla .session-cta sale vacía');
+    assert.deepEqual(
+      propiedadesDe(cta.cuerpo).filter((p) => p.startsWith('margin')),
+      [],
+      '.session-cta ganó un margen: el hueco traducción→CTA ya no lo produce solo la traducción, re-medir'
+    );
+  });
+
+  test('ninguna de las tres reglas puede recortar la traducción: cero height/overflow (E1/E2 · overflow)', () => {
+    assert.ok(reglasTrad.length > 0, 'no-vacuidad: sin reglas localizadas no hay nada que inspeccionar');
+    const PROHIBIDAS = ['height', 'max-height', 'min-height', 'overflow', 'text-overflow', 'overflow-wrap', 'max-width', 'text-wrap'];
+    for (const regla of reglasTrad) {
+      // Se comparan NOMBRES DE PROPIEDAD declarados, no substrings: `line-height`
+      // contiene "height" y un `includes('height')` desnudo daría un rojo falso
+      // sobre una declaración que el contrato EXIGE.
+      const propiedades = propiedadesDe(regla.cuerpo);
+      assert.ok(propiedades.length > 0, `no-vacuidad: la regla ${regla.selector} sale sin declaraciones`);
+      const infractoras = propiedades.filter((p) => PROHIBIDAS.includes(p));
+      assert.deepEqual(
+        infractoras,
+        [],
+        `${regla.selector} declara propiedades prohibidas por el UI-SPEC §CSS Contract: ${infractoras.join(', ')}`
+      );
+      assert.ok(!regla.cuerpo.includes('!important'), `${regla.selector} usa !important, prohibido en esta fase`);
+    }
   });
 
   test('la fase no añade ningún @media (desktop-only, UI-SPEC §Design System)', () => {
@@ -286,16 +416,48 @@ describe('V1 — app.css declara el bloque compartido de la traducción (UI-SPEC
 // V2 · el criterio de estilo se declara UNA sola vez (D-46-08)
 // ─────────────────────────────────────────────────────────────────────────────
 
-describe('V2 — un solo criterio de estilo para las dos superficies (D-46-08)', () => {
-  test('.session-translation se declara una sola vez en app.css (recuento derivado)', () => {
-    assert.equal(countOf(cssSrc, /\.session-translation\b/g), 1);
+describe('V2 — un solo CRITERIO DE ESTILO para las dos superficies (D-46-08 enmendada)', () => {
+  // Sobre el CSS SIN comentarios: el comentario de referencia cruzada de la
+  // sección de Resultados es prosa, no una segunda declaración. Contar sobre el
+  // texto crudo confundiría una mención con un criterio duplicado.
+  const limpio = cssSinComentarios(cssSrc);
+  const reglasTrad = reglasCss(limpio).filter((r) =>
+    /\.(?:session-translation|summary-error-translation)\b/.test(r.selector)
+  );
+  const TIPOGRAFICAS = /(?:font-family|font-size|font-weight|line-height|font-style|color)\s*:/;
+
+  test('CLÁUSULA DE NO-VACUIDAD (va primero): el parser ve reglas de traducción', () => {
+    assert.ok(reglasTrad.length > 0, 'el parser de CSS no ve NINGUNA regla de traducción en app.css');
   });
 
-  test('.summary-error-translation se declara una sola vez (sin duplicar en Resultados)', () => {
-    // Sobre el CSS SIN comentarios: el comentario de referencia cruzada de la
-    // sección de Resultados es prosa, no una segunda declaración. Contar sobre
-    // el texto crudo confundiría una mención con un criterio duplicado.
-    assert.equal(countOf(cssSinComentarios(cssSrc), /\.summary-error-translation\b/g), 1);
+  test('exactamente UNA regla declara tipografía, y es la del selector doble', () => {
+    const conTipografia = reglasTrad.filter((r) => TIPOGRAFICAS.test(r.cuerpo));
+    assert.equal(
+      conTipografia.length,
+      1,
+      `el criterio de estilo (serif 16/400/1.5 ink) se declara ${conTipografia.length} veces: ` +
+        `D-46-08 exige UNO solo para las dos superficies (${conTipografia.map((r) => r.selector).join(' | ')})`
+    );
+    assert.match(conTipografia[0].selector, /^\.session-translation,\s*\n\.summary-error-translation$/);
+  });
+
+  test('las demás reglas de traducción declaran SOLO el margen, nada tipográfico', () => {
+    const soloMargen = reglasTrad.filter((r) => !TIPOGRAFICAS.test(r.cuerpo));
+    assert.ok(soloMargen.length > 0, 'no-vacuidad: no hay reglas de margen por superficie que inspeccionar');
+    for (const regla of soloMargen) {
+      assert.deepEqual(
+        propiedadesDe(regla.cuerpo),
+        ['margin'],
+        `${regla.selector} declara algo más que el margen: lo único que divergió entre superficies es la POSICIÓN`
+      );
+    }
+  });
+
+  test('cada superficie tiene exactamente UNA regla de margen propia', () => {
+    for (const clase of ['.session-translation', '.summary-error-translation']) {
+      const propias = reglasTrad.filter((r) => r.selector === clase);
+      assert.equal(propias.length, 1, `${clase} tiene ${propias.length} reglas propias, debe tener 1`);
+    }
   });
 
   test('la sección de Resultados NO declara regla propia para la traducción', () => {
@@ -351,22 +513,76 @@ describe('V4 — la traducción fluye por x-text y nunca por HTML crudo (T-02-01
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
-// V6 · orden DOM en las dos superficies (D-46-06 / D-46-08)
+// V6 · posición en el DOM de las dos superficies (D-46-06 ENMENDADA / D-46-08)
+//
+// La primera redacción congelaba el orden DENTRO de la caja de feedback
+// (`session-translation` entre `session-feedback-correct` y `session-explanation`).
+// Eso dejó de describir el diseño el 2026-08-13, cuando el autor —viendo la app en
+// el checkpoint del plan 46-05— pidió el nodo FUERA de la caja, justo encima del
+// CTA. El invariante que se congela ahora es el que él pidió, y es más fuerte:
+// NO dentro de `.session-feedback`, y SÍ antes del CTA. La superficie 2 no cambia.
 // ─────────────────────────────────────────────────────────────────────────────
 
-describe('V6 — orden DOM: qué era → qué significa → por qué (D-46-06 / D-46-08)', () => {
-  test('superficie 1: feedback-correct < translation < explanation', () => {
-    const iCorrect = htmlSrc.indexOf('session-feedback-correct');
-    const iTrad = htmlSrc.indexOf('session-translation');
-    const iExpl = htmlSrc.indexOf('class="session-explanation"');
+describe('V6 — la traducción vive FUERA de la caja y encima del CTA (D-46-06 enmendada / D-46-08)', () => {
+  // Los anclajes se buscan DENTRO del sub-template multiple-choice: `index.html`
+  // tiene TRES bloques `.session-feedback` (multiple-choice, word-buttons y match)
+  // y un `indexOf` global mediría cualquiera de ellos.
+  const APERTURA_SUB = `<template x-if="sessionCurrentExercise.type === 'multiple-choice'">`;
+  const iSub = htmlSrc.indexOf(APERTURA_SUB);
+  const rangoSub = iSub === -1 ? null : rangoTemplate(htmlSrc, iSub);
+  const sub = rangoSub ? htmlSrc.slice(rangoSub[0], rangoSub[1]) : '';
 
-    // No-vacuidad: los tres anclajes tienen que existir antes de ordenarlos.
-    assert.ok(iCorrect !== -1, 'falta .session-feedback-correct');
-    assert.ok(iTrad !== -1, 'falta .session-translation');
-    assert.ok(iExpl !== -1, 'falta .session-explanation');
+  const iClaseCaja = sub.indexOf('class="session-feedback"');
+  const iAperturaCaja = iClaseCaja === -1 ? -1 : sub.lastIndexOf('<div', iClaseCaja);
+  const rangoCaja = iAperturaCaja === -1 ? null : rangoDiv(sub, iAperturaCaja);
+  const iTrad = sub.indexOf('class="session-translation"');
+  const iCta = sub.indexOf('class="session-cta"');
 
-    assert.ok(iCorrect < iTrad, 'la traducción debe ir DESPUÉS de "Respuesta correcta:"');
-    assert.ok(iTrad < iExpl, 'la traducción debe ir ANTES de la explanation');
+  test('CLÁUSULA DE NO-VACUIDAD (va primero): la región y los tres anclajes se localizaron', () => {
+    // Sin esto, un extractor que deja de casar devolvería región vacía e índices
+    // -1, y los "está fuera de la caja" de abajo pasarían en VERDE sin mirar nada.
+    assert.ok(rangoSub, `no se acota el sub-template multiple-choice (${APERTURA_SUB})`);
+    assert.ok(rangoCaja, 'no se acota el <div class="session-feedback"> del sub-template');
+    assert.ok(rangoCaja[1] - rangoCaja[0] > 'class="session-feedback"'.length, 'la región de la caja sale vacía');
+    assert.ok(iTrad !== -1, 'falta class="session-translation" en el sub-template multiple-choice');
+    assert.ok(iCta !== -1, 'falta class="session-cta" en el sub-template multiple-choice');
+
+    // Control positivo: la región acotada es la caja DE VERDAD, no un trozo suelto.
+    const caja = sub.slice(rangoCaja[0], rangoCaja[1]);
+    assert.ok(
+      caja.includes('class="session-explanation"') && caja.includes('¡Esatto!'),
+      'la región acotada no contiene la explanation ni el título italiano: está mal acotada'
+    );
+  });
+
+  test('EL INVARIANTE NUEVO: el nodo NO está dentro del bloque .session-feedback', () => {
+    assert.ok(rangoCaja, 'no-vacuidad: sin la caja acotada no hay dentro/fuera que decidir');
+    assert.ok(iTrad !== -1, 'no-vacuidad: no se localiza el nodo de traducción');
+    assert.ok(
+      iTrad < rangoCaja[0] || iTrad >= rangoCaja[1],
+      `la traducción está DENTRO de la caja de feedback (índice ${iTrad} en el rango ` +
+        `[${rangoCaja[0]}, ${rangoCaja[1]})): el autor la quiere FUERA, en sitio fijo, acertando y fallando`
+    );
+  });
+
+  test('va DESPUÉS del cierre de la caja y ANTES del CTA "Continuar →"', () => {
+    assert.ok(rangoCaja && iTrad !== -1 && iCta !== -1, 'no-vacuidad: anclajes sin localizar');
+    assert.ok(iTrad > rangoCaja[1], 'la traducción debe ir después del cierre de la caja de feedback');
+    assert.ok(iTrad < iCta, 'la traducción debe ir ANTES del CTA: es el sitio fijo donde el autor la busca');
+  });
+
+  test('está JUSTO encima del CTA: entre los dos no se cuela ningún otro elemento', () => {
+    assert.ok(iTrad !== -1 && iCta !== -1, 'no-vacuidad: anclajes sin localizar');
+    const finTrad = sub.indexOf('</p>', iTrad);
+    const iAperturaCta = sub.lastIndexOf('<button', iCta);
+    assert.ok(finTrad !== -1, 'no-vacuidad: el nodo de traducción no cierra con </p>');
+    assert.ok(iAperturaCta > finTrad, 'no-vacuidad: no se acota el tramo traducción→CTA');
+    const entre = sub.slice(finTrad + '</p>'.length, iAperturaCta).replace(/<!--[\s\S]*?-->/g, '');
+    assert.equal(
+      entre.trim(),
+      '',
+      `entre la traducción y el CTA hay markup: ${entre.trim().slice(0, 120)}`
+    );
   });
 
   test('superficie 2: la traducción va antes de summary-error-explanation', () => {
@@ -420,12 +636,18 @@ describe('V3 — app.css no gana ningún token nuevo (UI-SPEC §Color)', () => {
   });
 
   test('las reglas nuevas no usan hex literales: consumen tokens', () => {
-    const selectorRe = /\.session-translation,\s*\n\.summary-error-translation\s*\{/;
     const limpio = cssSinComentarios(cssSrc);
-    const inicio = limpio.search(selectorRe);
-    assert.ok(inicio !== -1, 'no-vacuidad: selector no localizado');
-    const bloque = limpio.slice(inicio, limpio.indexOf('}', inicio) + 1);
-    assert.equal(countOf(bloque, /#[0-9a-fA-F]{3,8}\b/g), 0, 'la regla nueva declara un hex literal');
+    const reglasTrad = reglasCss(limpio).filter((r) =>
+      /\.(?:session-translation|summary-error-translation)\b/.test(r.selector)
+    );
+    assert.ok(reglasTrad.length > 0, 'no-vacuidad: el parser no ve ninguna regla de traducción');
+    for (const regla of reglasTrad) {
+      assert.equal(
+        countOf(regla.cuerpo, /#[0-9a-fA-F]{3,8}\b/g),
+        0,
+        `${regla.selector} declara un hex literal`
+      );
+    }
   });
 });
 

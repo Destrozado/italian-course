@@ -605,18 +605,6 @@
                   <strong x-text="sessionCurrentExercise.payload.options[sessionCurrentExercise.payload.correctIndex]"></strong>
                 </p>
                 <!--
-                  Phase 46 (REND-01/02/05, D-46-06/07/09) — Traducción española de la frase YA
-                  RESUELTA. Va bajo "Respuesta correcta:" y ANTES de la explanation: orden
-                  narrativo qué era → qué significa → por qué. NO va bajo el prompt italiano
-                  porque post-corrección el hueco se rellena con la opción SELECCIONADA
-                  (:537), no con la correcta. Doble guard (resuelto + dato presente) → sin
-                  traducción no hay nodo (D-121). `x-text` exclusivo (T-02-01). Aparece SIEMPRE
-                  al resolver, acertando o fallando, sin affordance propio (D-46-10).
-                -->
-                <p x-show="sessionFeedback !== null && sessionCurrentExercise.payload.translationES?.text"
-                   class="session-translation"
-                   x-text="sessionCurrentExercise.payload.translationES?.text"></p>
-                <!--
                   Phase 7 plan 01 (D-118, EXPL-02) — Explicación pedagógica
                   inline. Doble guard preservado: aparece al fallar, o al
                   acertar tras pulsar "¿Por qué?", y solo si hay explanation
@@ -631,6 +619,32 @@
                         x-show="sessionFeedback === 'correct' && sessionCurrentExercise.payload.explanation && !sessionExplanationRevealed"
                         @click="revealSessionExplanation()">¿Por qué?</button>
               </div>
+
+              <!--
+                Phase 46 (REND-01/02/05, D-46-06 ENMENDADA el 2026-08-13, D-46-07/09)
+                — Traducción española de la frase YA RESUELTA. Vive FUERA de la caja
+                `.session-feedback`, entre ella y el CTA inferior primario de avance:
+                un sitio FIJO que no cambia al acertar ni al fallar. Lo eligió el
+                autor viendo la app en el checkpoint del plan 46-05 ("dentro del
+                cuadro del error se me hace difícil verla; fuera se ve claro").
+
+                Sigue sin ir bajo el prompt italiano, y esa razón NO ha caducado:
+                post-corrección el hueco del prompt se rellena con la opción que el
+                usuario SELECCIONÓ (:537, `options?.[sessionSelectedIndex]`), no con
+                la correcta, así que al fallar la traducción de la frase CORRECTA
+                quedaría pegada a una frase italiana que no le corresponde.
+
+                Doble guard VERBATIM (resuelto + dato presente) → sin traducción no
+                hay nodo, ni hueco ni placeholder (REND-05 / D-121). Que exija
+                `sessionFeedback !== null` es el invariante de no-leak R1 / D-46-11:
+                "verla siempre" es siempre en el MISMO SITIO, nunca antes de
+                responder. El dato entra por `x-text` y nunca por inyección de HTML
+                crudo (T-02-01). Sin affordance propio: no se esconde detrás del
+                botón que revela la explanation bajo demanda (D-46-10).
+              -->
+              <p x-show="sessionFeedback !== null && sessionCurrentExercise.payload.translationES?.text"
+                 class="session-translation"
+                 x-text="sessionCurrentExercise.payload.translationES?.text"></p>
 
               <!--
                 Phase 33 (EX-03 / D-04) — CTA inferior primaria "Continuar →"

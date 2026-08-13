@@ -981,8 +981,10 @@ th, td { padding: 8px 10px; text-align: left; }
  * app.css:858), frente a la explanation que es sans muted porque comenta.
  * Sin etiqueta y sin comillas envolventes (D-46-07). Ink neutro en acierto y en
  * fallo: la traducción no es un veredicto. Selector compartido por las dos
- * superficies (precedente styles.css:453) — un solo criterio de estilo.
- * Cero tokens nuevos. */
+ * superficies (precedente styles.css:453) — UN SOLO CRITERIO DE ESTILO, que es
+ * lo que exige D-46-08. El MARGEN sale de aquí y se declara por superficie más
+ * abajo: desde la enmienda de D-46-06 (2026-08-13) las dos posiciones son
+ * distintas porque el contexto es distinto. Cero tokens nuevos. */
 .session-translation,
 .summary-error-translation {
   font-family: var(--ed-font-serif);
@@ -990,7 +992,25 @@ th, td { padding: 8px 10px; text-align: left; }
   font-weight: 400;
   line-height: 1.5;
   color: var(--ed-ink);
-  margin: 8px 0 0;                 /* sm — colapsa a 8px contra el margin-top de la explanation */
+}
+
+/* Margen de la superficie 1 — la traducción vive FUERA de la caja tintada, entre
+ * ella y el CTA "Continuar →" (D-46-06 enmendada el 2026-08-13, a petición del
+ * autor). Necesita aire de bloque por ARRIBA y por ABAJO: `.session-cta` no
+ * declara `margin-top` ninguno (app.css:907-923), así que sin el margen inferior
+ * la frase queda literalmente pegada al botón — medido en Chrome headless sobre
+ * el CSS real, hueco traducción→CTA = 0 px. 16px = md, exactamente el valor con
+ * el que `.session-feedback` se separa de las opciones (app.css:933): las tres
+ * separaciones de bloque de la pantalla quedan en la misma unidad de la escala. */
+.session-translation {
+  margin: 16px 0;                  /* md arriba y abajo */
+}
+
+/* Margen de la superficie 2 — en «Errores cometidos» la traducción sigue DENTRO
+ * de la card, antes de la explanation, así que conserva el sm de siempre: 8px que
+ * colapsan contra el margin-top de `.summary-error-explanation`. */
+.summary-error-translation {
+  margin: 8px 0 0;                 /* sm */
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
