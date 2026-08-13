@@ -5,15 +5,15 @@ milestone_name: Traducción al español por variante (TRAD-X1)
 current_phase: 46
 current_phase_name: Pipeline de traducción end-to-end (piloto Preposiciones)
 status: executing
-stopped_at: Completed 46-01-PLAN.md
-last_updated: "2026-08-13T13:00:11.794Z"
+stopped_at: Completed 46-02-PLAN.md
+last_updated: "2026-08-13T13:34:50.414Z"
 last_activity: 2026-08-13
 last_activity_desc: Roadmap v2.1 creado
 progress:
   total_phases: 8
   completed_phases: 0
   total_plans: 5
-  completed_plans: 1
+  completed_plans: 2
   percent: 0
 ---
 
@@ -31,9 +31,9 @@ See: `.planning/PROJECT.md` (updated 2026-08-13 — milestone v2.1 abierto: trad
 
 Milestone: v2.1 — Traducción al español por variante (TRAD-X1) — Phases **46-53** (numeración CONTINÚA desde Phase 45, sin reset)
 Phase: 46 (Pipeline de traducción end-to-end (piloto Preposiciones)) — EXECUTING
-Plan: 2 of 5
+Plan: 3 of 5
 Status: Ready to execute
-Progress: [██░░░░░░░░] 20%
+Progress: [████░░░░░░] 40%
 Last activity: 2026-08-13 — Phase 46 execution started
 
 **Estructura del milestone:**
@@ -221,6 +221,7 @@ Deuda técnica del milestone (~25 items, cero blockers) en `.planning/milestones
 | Phase 45 P03 | ~45 min | 3 tasks | 2 files |
 | Phase 45 P04 | ~8 min | 2 tasks | 2 files |
 | Phase 46 P01 | 11min | 2 tasks | 6 files |
+| Phase 46 P02 | 25min | 3 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -377,6 +378,9 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - [Phase ?]: El rechazo SCH-02 va ANTES del early-return de pairs en validateMatchSurface: una variante con pairs malformado Y translationES debe reportar los dos errores (D-08)
 - [Phase ?]: Los gates de no-crecimiento (tokens --ed-*, x-html, setTimeout, copy) se anclan al ultimo commit PRE-fase del fichero, no a HEAD: contra HEAD el gate deja de morder en cuanto la fase committea
 - [Phase ?]: V8 (motor byte-intacto) se verifica sobre la HISTORIA de git (ningun commit con scope de fase toco la ruta), no con git diff --stat: sobre arbol limpio ese diff esta vacio siempre y el gate seria vacuo
+- [Phase ?]: La dirección compuesta `<slot-id>#<k>` con índice OBLIGATORIO: asumir la variante 0 escribiría el pase en la frase equivocada en silencio
+- [Phase ?]: El script de pase se hace importable (entrypoint tras guard de invocación directa) porque el analog de canciones no lo es y el escritor debe probarse por escritura real
+- [Phase ?]: `run()` devuelve el pase o null en vez de `process.exit`: el exit code lo pone el entrypoint y el auto-fallback se prueba por comportamiento
 
 ### Pending Todos
 
@@ -436,8 +440,8 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Session Continuity
 
-**Last session:** 2026-08-13T13:00:01.455Z
-**Stopped at:** Completed 46-01-PLAN.md
+**Last session:** 2026-08-13T13:34:43.022Z
+**Stopped at:** Completed 46-02-PLAN.md
 **Resume file:** None
 
 ### Last Session

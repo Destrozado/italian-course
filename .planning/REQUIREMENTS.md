@@ -25,9 +25,9 @@
 
 ### Validación de las traducciones
 
-- [ ] **TVAL-01**: Existe un prompt de validación propio para traducciones con criterios explícitos derivados de los S1-S6 de canciones (fidelidad it→es, acentos RAE según PRES-05, naturalidad, registro) y NO de R1-R7, que examinan la gramática del slot y aquí no aplican.
-- [ ] **TVAL-02**: Existe un script hermano de `scripts/validate-song-pass.mjs` que corre el quórum cross-vendor sobre las traducciones y escribe el pase en el JSON.
-- [ ] **TVAL-03**: Cada traducción lleva su propio `validation.passes[]` y su status se deriva por `deriveStatus` — misma fuente única que ejercicios y canciones, con el override de autor de primera clase (`override: true`) incluido, sin reimplementaciones locales.
+- [x] **TVAL-01**: Existe un prompt de validación propio para traducciones con criterios explícitos derivados de los S1-S6 de canciones (fidelidad it→es, acentos RAE según PRES-05, naturalidad, registro) y NO de R1-R7, que examinan la gramática del slot y aquí no aplican.
+- [x] **TVAL-02**: Existe un script hermano de `scripts/validate-song-pass.mjs` que corre el quórum cross-vendor sobre las traducciones y escribe el pase en el JSON.
+- [x] **TVAL-03**: Cada traducción lleva su propio `validation.passes[]` y su status se deriva por `deriveStatus` — misma fuente única que ejercicios y canciones, con el override de autor de primera clase (`override: true`) incluido, sin reimplementaciones locales.
 - [ ] **TVAL-04**: El reporter tiene un gate de traducción que sale ROJO si alguna traducción presente en el corpus no está `validated`, y ese gate se verifica por MUTACIÓN (romper una traducción a propósito lo pone rojo), no leyendo su código.
 
 ### Contenido — 722 traducciones, 18 categorías
@@ -90,9 +90,9 @@ Rellenado durante la creación del roadmap.
 | REND-03 | Phase 46 | Complete |
 | REND-04 | Phase 46 | Complete |
 | REND-05 | Phase 46 | Complete |
-| TVAL-01 | Phase 46 | Pending |
-| TVAL-02 | Phase 46 | Pending |
-| TVAL-03 | Phase 46 | Pending |
+| TVAL-01 | Phase 46 | Complete |
+| TVAL-02 | Phase 46 | Complete |
+| TVAL-03 | Phase 46 | Complete |
 | TVAL-04 | Phase 46 | Pending |
 | TRAD-01 | Phase 46 | Pending |
 | TRAD-02 | Phase 47 | Pending |
