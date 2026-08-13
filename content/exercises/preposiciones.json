@@ -16,7 +16,14 @@
             "da",
             "in"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "María viene desde Pisa, pero es de Roma de nacimiento.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Paolo è ___ Napoli di nascita.",
@@ -70,7 +77,14 @@
             "da",
             "per"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Voy a casa.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -107,7 +121,14 @@
             "da",
             "in"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Vengo a Roma desde Milán esta mañana.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Arrivo a Napoli ___ Firenze stasera.",
@@ -117,7 +138,14 @@
             "da",
             "in"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Llego a Nápoles desde Florencia esta noche.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -154,7 +182,14 @@
             "da",
             "su"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Vivo en Italia.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Vivo ___ Francia da tre anni.",
@@ -164,7 +199,14 @@
             "da",
             "su"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Vivo en Francia desde hace tres años.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Andrò ___ Italia gratis.",
@@ -174,7 +216,14 @@
             "da",
             "per"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Iré a Italia gratis.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -223,7 +272,14 @@
             "con",
             "tra"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Salgo con los amigos esta noche.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Vado al cinema ___ mia sorella, non da solo.",
@@ -233,7 +289,14 @@
             "con",
             "tra"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Voy al cine con mi hermana, no voy solo.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -270,7 +333,14 @@
             "per",
             "con"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Estudio para aprender italiano.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Lavoro ___ guadagnare bene.",
@@ -280,7 +350,14 @@
             "per",
             "con"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Trabajo para ganar bien.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -317,7 +394,14 @@
             "Tra",
             "Da"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Dentro de dos días me voy.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "___ tre giorni partiamo per Roma. (en español: 'Dentro de tres días salimos hacia Roma')",
@@ -327,7 +411,14 @@
             "in",
             "per"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Dentro de tres días nos vamos a Roma.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -364,7 +455,14 @@
             "in",
             "da"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Ayer estudié dos horas.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Ieri ho dormito ___ otto ore. (en español: 'Ayer dormí durante ocho horas')",
@@ -374,7 +472,14 @@
             "in",
             "da"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Ayer dormí ocho horas.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -411,7 +516,14 @@
             "per",
             "a"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "El libro de Marco es interesante.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "La macchina ___ Maria è rossa.",
@@ -421,7 +533,14 @@
             "dalla",
             "alla"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "El coche de María es rojo.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -458,7 +577,14 @@
             "al",
             "dal"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "El gato está sobre la mesa.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Le chiavi sono ___ tavolo.",
@@ -468,7 +594,14 @@
             "al",
             "dal"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Las llaves están sobre la mesa.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Il quaderno è ___ banco.",
@@ -478,7 +611,14 @@
             "sulla",
             "nel"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "El cuaderno está sobre el pupitre.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -515,7 +655,14 @@
             "nel",
             "in"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Vamos al cine.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Parlo ___ telefono.",
@@ -525,7 +672,14 @@
             "nel",
             "con"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Hablo por teléfono.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -562,7 +716,14 @@
             "nella",
             "sulla"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Vengo ahora de la estación.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Esco ___ banca alle cinque. (en español: 'Salgo del banco a las cinco')",
@@ -572,7 +733,14 @@
             "nella",
             "sulla"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Salgo del banco a las cinco.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -609,7 +777,14 @@
             "da",
             "per"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Voy a Roma este verano.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Quest'inverno vado ___ Milano per lavoro.",
@@ -619,7 +794,14 @@
             "da",
             "per"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Este invierno voy a Milán por trabajo.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -656,7 +838,14 @@
             "a",
             "tra"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Almorzamos al mediodía.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Ceniamo ___ mezzanotte.",
@@ -666,7 +855,14 @@
             "a",
             "tra"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Cenamos a medianoche.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -703,7 +899,14 @@
             "per",
             "con"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "El libro está escrito por él.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "La cena è preparata ___ lei. (en español: 'La cena está preparada por ella')",
@@ -713,7 +916,14 @@
             "per",
             "con"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "La cena está preparada por ella.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -750,7 +960,14 @@
             "in",
             "per"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Voy al trabajo en coche.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Vado a scuola ___ treno.",
@@ -760,7 +977,14 @@
             "in",
             "per"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Voy a la escuela en tren.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -797,7 +1021,14 @@
             "in",
             "con"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "He leído un libro sobre la antigua Roma.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -834,7 +1065,14 @@
             "dal",
             "nel"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "El color del cielo es azul.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Il tetto ___ palazzo è rosso.",
@@ -844,7 +1082,14 @@
             "dal",
             "nel"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "El tejado del edificio es rojo.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -881,7 +1126,14 @@
             "della",
             "dei"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "El libro del estudiante está sobre el pupitre.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "La fine ___ spettacolo è triste.",
@@ -891,7 +1143,14 @@
             "della",
             "dei"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "El final del espectáculo es triste.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -928,7 +1187,14 @@
             "della",
             "dalla"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "La puerta de la casa está abierta.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Il colore ___ macchina è rosso.",
@@ -938,7 +1204,14 @@
             "della",
             "dalla"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "El color del coche es rojo.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -975,7 +1248,14 @@
             "delle",
             "del"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "El ruido de los niños es fuerte.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Le voci ___ ragazzi sono allegre.",
@@ -985,7 +1265,14 @@
             "delle",
             "del"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Las voces de los chicos son alegres.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -1022,7 +1309,14 @@
             "delle",
             "dello"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Las clases de los estudiantes han terminado.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Il rumore ___ aerei è forte.",
@@ -1032,7 +1326,14 @@
             "delle",
             "dello"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "El ruido de los aviones es fuerte.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -1069,7 +1370,14 @@
             "delle",
             "della"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Los libros de las chicas son nuevos.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Le pagine ___ riviste sono colorate.",
@@ -1079,7 +1387,14 @@
             "delle",
             "della"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Las páginas de las revistas son coloridas.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -1116,7 +1431,14 @@
             "al",
             "dal"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Las llaves están en el cajón.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Il latte è ___ frigorifero. (en español: 'La leche está dentro del frigorífico')",
@@ -1126,7 +1448,14 @@
             "al",
             "dal"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "La leche está en el frigorífico.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -1163,7 +1492,14 @@
             "nella",
             "negli"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Los libros están en la mochila.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Lavoro ___ studio del dentista.",
@@ -1173,7 +1509,14 @@
             "nella",
             "negli"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Trabajo en la consulta del dentista.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -1210,7 +1553,14 @@
             "alla",
             "dalla"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Vivo en la ciudad de Milán.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "I bambini giocano ___ stanza.",
@@ -1220,7 +1570,14 @@
             "alla",
             "dalla"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Los niños juegan en la habitación.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -1257,7 +1614,14 @@
             "nelle",
             "dei"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Los niños juegan en los jardines públicos.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "I libri sono ___ cassetti.",
@@ -1267,7 +1631,14 @@
             "nelle",
             "dei"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Los libros están en los cajones.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -1304,7 +1675,14 @@
             "nelle",
             "sugli"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Los bolígrafos están en los estuches.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "I documenti sono archiviati ___ uffici.",
@@ -1314,7 +1692,14 @@
             "nelle",
             "sugli"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Los documentos están archivados en las oficinas.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -1351,7 +1736,14 @@
             "nelle",
             "sulle"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Las fotos están en los marcos.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -1388,7 +1780,14 @@
             "alla",
             "agli"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Voy al estadio el domingo.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Porto i bambini ___ zoo.",
@@ -1398,7 +1797,14 @@
             "alla",
             "agli"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Llevo a los niños al zoo.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -1435,7 +1841,14 @@
             "alla",
             "alle"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Vamos a la estación en taxi.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Andiamo ___ festa insieme.",
@@ -1445,7 +1858,14 @@
             "alla",
             "alle"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Vamos juntos a la fiesta.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -1482,7 +1902,14 @@
             "alle",
             "dei"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Doy un regalo a los niños.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Scrivo una mail ___ colleghi.",
@@ -1492,7 +1919,14 @@
             "alle",
             "dei"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Escribo un correo a los compañeros.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -1529,7 +1963,14 @@
             "alle",
             "allo"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Explico la lección a los estudiantes.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Do da mangiare ___ uccelli.",
@@ -1539,7 +1980,14 @@
             "alle",
             "allo"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Doy de comer a los pájaros.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -1576,7 +2024,14 @@
             "alle",
             "delle"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Les escribo una carta a mis amigas.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Regalo dei fiori ___ mie cugine. (en español: 'Regalo flores a mis primas')",
@@ -1586,7 +2041,14 @@
             "alle",
             "delle"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Les regalo unas flores a mis primas.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -1623,7 +2085,14 @@
             "dalla",
             "dai"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Salgo del trabajo a las seis.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Torno ___ mercato adesso.",
@@ -1633,7 +2102,14 @@
             "dalla",
             "dai"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Vuelvo del mercado ahora.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -1670,7 +2146,14 @@
             "dalla",
             "dai"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Salgo de la consulta del dentista.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Esco ___ stadio dopo la partita.",
@@ -1680,7 +2163,14 @@
             "dalla",
             "dai"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Salgo del estadio después del partido.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -1717,7 +2207,14 @@
             "dalle",
             "degli"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Vuelvo a casa de los primos mañana.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Torno ___ nonni stasera.",
@@ -1727,7 +2224,14 @@
             "dalle",
             "degli"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Vuelvo a casa de los abuelos esta noche.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -1764,7 +2268,14 @@
             "dalle",
             "degli"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Salgo de casa de los estudiantes después de la clase.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Vengo ___ zii in campagna.",
@@ -1774,7 +2285,14 @@
             "dalle",
             "degli"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Vengo de casa de los tíos en el campo.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -1811,7 +2329,14 @@
             "dalle",
             "delle"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Vengo de casa de mis tías.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Torno ___ nonne domani.",
@@ -1821,7 +2346,14 @@
             "dalle",
             "delle"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Vuelvo a casa de las abuelas mañana.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -1858,7 +2390,14 @@
             "sulla",
             "sui"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "El azúcar está en la estantería.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "La giacca è ___ sgabello.",
@@ -1868,7 +2407,14 @@
             "sulla",
             "sui"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "La chaqueta está en el taburete.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -1905,7 +2451,14 @@
             "sulla",
             "alla"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "El bolígrafo está sobre la silla.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Il libro è ___ scrivania, sopra i fogli.",
@@ -1915,7 +2468,14 @@
             "sulla",
             "alla"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "El libro está sobre el escritorio, encima de las hojas.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -1952,7 +2512,14 @@
             "sulle",
             "nei"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Los cuadros están en las paredes.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -1989,7 +2556,14 @@
             "sulle",
             "negli"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Los pájaros se posan sobre los árboles.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Le foto sono ___ scaffali, sopra i libri.",
@@ -1999,7 +2573,14 @@
             "sulle",
             "negli"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Las fotos están sobre los estantes, encima de los libros.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -2036,7 +2617,14 @@
             "sulle",
             "nelle"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Los libros están sobre los escritorios.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "I bicchieri sono ___ mensole.",
@@ -2046,7 +2634,14 @@
             "sulle",
             "nelle"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Los vasos están sobre las repisas.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -2083,7 +2678,14 @@
             "di",
             "per"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Como la pasta con el tenedor.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Taglio il pane ___ il coltello.",
@@ -2093,7 +2695,14 @@
             "di",
             "per"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Corto el pan con el cuchillo.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -2130,7 +2739,14 @@
             "per",
             "a"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Mañana tengo un examen de matemáticas.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -2167,7 +2783,14 @@
             "da",
             "in"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Paso por tu casa a las ocho.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -2204,7 +2827,14 @@
             "su",
             "da"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "En verano vamos a la playa todos los días.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Quest'inverno vado ___ montagna a sciare.",
@@ -2214,7 +2844,14 @@
             "su",
             "da"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Este invierno voy a la montaña a esquiar.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "I nonni vivono ___ campagna.",
@@ -2224,7 +2861,14 @@
             "su",
             "da"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Los abuelos viven en el campo.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -2261,7 +2905,14 @@
             "in",
             "su"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Este verano vamos a la playa en Sicilia.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -2298,7 +2949,14 @@
             "sul",
             "dal"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Vivo con el abuelo.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Vivo ___ nonno. (en español: Vivo con el abuelo.)",
@@ -2308,7 +2966,14 @@
             "con la",
             "con i"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Vivo con el abuelo.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
