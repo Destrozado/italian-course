@@ -60,7 +60,7 @@ Bajar el pipeline COMPLETO de traducción al español y demostrarlo end-to-end s
 
   **Clave interna `text`:** el nombre de la clave externa ya declara el idioma, un `.es` anidado sería redundante.
 
-- **D-46-03: SCH-01 se cumple sobre `translationES.text` (string no vacío), y el schema añade UN guard estructural extra: rechazar que el texto contenga `___`.** — **Reversibility:** reversible
+- **D-46-03: SCH-01 se cumple sobre `translationES.text` (string no vacío), y el schema añade UN guard estructural extra.** Ese guard rechaza que el texto contenga `___`. — **Reversibility:** reversible
 
   La traducción es de la frase YA RESUELTA. Un `___` dentro solo puede significar que se copió el `prompt` con el hueco sin rellenar: error mecánico, baratísimo de cazar en el validator y caro de cazar a ojo en 722 frases.
 
@@ -72,7 +72,7 @@ Bajar el pipeline COMPLETO de traducción al español y demostrarlo end-to-end s
 
 ### Render
 
-- **D-46-06: La traducción se pinta DENTRO de la caja de feedback existente (`.session-feedback`), inmediatamente bajo «Respuesta correcta:» y ANTES de la `explanation`.** — **Reversibility:** reversible
+- **D-46-06: La traducción se pinta DENTRO de la caja de feedback existente (`.session-feedback`).** Va inmediatamente bajo «Respuesta correcta:» y ANTES de la `explanation`. — **Reversibility:** reversible
 
   ```
   ┌─ ¡Esatto! / Quasi… ──────────────┐

@@ -5,14 +5,14 @@ milestone_name: Traducción al español por variante (TRAD-X1)
 current_phase: 46
 current_phase_name: Pipeline de traducción end-to-end   — not started
 status: planning
-stopped_at: Phase 46 context gathered
-last_updated: "2026-08-13T11:37:25.397Z"
+stopped_at: Phase 46 UI-SPEC approved
+last_updated: "2026-08-13T12:40:05.392Z"
 last_activity: 2026-08-13
 last_activity_desc: Roadmap v2.1 creado
 progress:
   total_phases: 8
   completed_phases: 0
-  total_plans: 0
+  total_plans: 5
   completed_plans: 0
   percent: 0
 ---
@@ -431,9 +431,9 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Session Continuity
 
-**Last session:** 2026-08-13T11:37:25.366Z
-**Stopped at:** Phase 46 context gathered
-**Resume file:** .planning/phases/46-pipeline-de-traducci-n-end-to-end-piloto-preposiciones/46-CONTEXT.md
+**Last session:** 2026-08-13T12:01:45.250Z
+**Stopped at:** Phase 46 UI-SPEC approved
+**Resume file:** /home/vcompanyb/italian-course/.planning/phases/46-pipeline-de-traducci-n-end-to-end-piloto-preposiciones/46-UI-SPEC.md
 
 ### Last Session
 

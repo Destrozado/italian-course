@@ -1,0 +1,481 @@
+{
+  "items": [
+    {
+      "requirement_id": "SCH-01",
+      "category": "adjacency",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "Dos variantes hermanas del mismo slot con translationES.text IDENTICO son ambas validas: el schema no exige unicidad de texto. Test: slot con 2 variantes de texto identico valida sin error.",
+      "reason": null,
+      "probe": "When two things are exactly equal or just touch, do they merge, collide, or separate?"
+    },
+    {
+      "requirement_id": "SCH-01",
+      "category": "empty",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "Tres casos asserteados: translationES AUSENTE -> valida (retrocompat, las 250 slots del corpus siguen verdes); translationES presente con text \"\" o solo espacios -> RECHAZA; translationES presente con text conteniendo ___ -> RECHAZA (D-46-03).",
+      "reason": null,
+      "probe": "What is the result for empty, single-element, or null input?"
+    },
+    {
+      "requirement_id": "SCH-01",
+      "category": "encoding",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "El schema NO normaliza ni recorta: \"Napoles\" en NFC y en NFD son ambos string no vacio y ambos pasan. La correccion de acentos es criterio del QUORUM (S4/RAE), no del schema. Test: texto con tildes pasa y no se aplica NFKC ni trim destructivo.",
+      "reason": null,
+      "probe": "Whose definition of length/equality applies — bytes, code points, grapheme clusters, or normalized form?"
+    },
+    {
+      "requirement_id": "SCH-01",
+      "category": "ordering",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "La validacion no depende del orden del array variants: reordenar las variantes de un slot da veredicto identico y no mueve una traduccion de una frase a otra -- precisamente por lo que se descarto la validacion a nivel de slot indexada por posicion (D-46-02). Test: reordenar variantes y re-validar produce el mismo resultado.",
+      "reason": null,
+      "probe": "When elements compare equal, is output order specified and stable?"
+    },
+    {
+      "requirement_id": "SCH-02",
+      "category": "adjacency",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "Si el slot declara type match o word-buttons, NINGUNA de sus variantes admite translationES, sin importar cuantas variantes hermanas tenga. Test: slot match con 3 variantes, translationES en la segunda -> RECHAZA.",
+      "reason": null,
+      "probe": "When two things are exactly equal or just touch, do they merge, collide, or separate?"
+    },
+    {
+      "requirement_id": "SCH-02",
+      "category": "empty",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "El rechazo es ESTRUCTURAL (por presencia de la clave), no por contenido: translationES: {} o con text \"\" en una variante match / word-buttons se rechaza igualmente. Test para las dos formas vacias.",
+      "reason": null,
+      "probe": "What is the result for empty, single-element, or null input?"
+    },
+    {
+      "requirement_id": "SCH-02",
+      "category": "encoding",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "El rechazo no inspecciona el texto, asi que ninguna forma de codificacion, acento o escape puede esquivarlo. Test: translationES con texto acentuado en match -> RECHAZA.",
+      "reason": null,
+      "probe": "Whose definition of length/equality applies — bytes, code points, grapheme clusters, or normalized form?"
+    },
+    {
+      "requirement_id": "SCH-02",
+      "category": "ordering",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "El rechazo se evalua por variante de forma independiente; ninguna posicion del array puede colar una. Test: translationES en la primera y en la ultima variante de un word-buttons -> RECHAZA en ambos casos, con el label de la variante correcta en el mensaje.",
+      "reason": null,
+      "probe": "When elements compare equal, is output order specified and stable?"
+    },
+    {
+      "requirement_id": "SCH-03",
+      "category": "idempotency",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "Arrancar la app dos veces con el contenido nuevo no migra ni resetea nada: NO existe migracion 13->14. Test explicito: con un state pre-existente en localStorage, tras boot el progreso queda intacto y schemaVersion sigue en 13.",
+      "reason": null,
+      "probe": "What happens if this runs twice on the same input?"
+    },
+    {
+      "requirement_id": "SCH-03",
+      "category": "concurrency",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "Esta fase no escribe state en ningun momento -- el campo es contenido en content/. Assercion: el diff de la fase no toca ninguna ruta de state ni de migracion.",
+      "reason": null,
+      "probe": "If interrupted or run in parallel, what is guaranteed?"
+    },
+    {
+      "requirement_id": "REND-01",
+      "category": "empty",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "Al fallar una variante SIN traduccion no se pinta nodo y la caja de feedback conserva su anatomia previa exacta (REND-05 / D-121). Cubierto por E1-empty del UI-SPEC.",
+      "reason": null,
+      "probe": "What is the result for empty, single-element, or null input?"
+    },
+    {
+      "requirement_id": "REND-01",
+      "category": "encoding",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "x-text escapa: una traduccion que contenga <, >, & o comillas se muestra literal y nunca se interpreta como HTML (T-02-01). Test: cero ocurrencias de x-html en el diff de index.html, y el nodo de traduccion usa x-text.",
+      "reason": null,
+      "probe": "Whose definition of length/equality applies — bytes, code points, grapheme clusters, or normalized form?"
+    },
+    {
+      "requirement_id": "REND-02",
+      "category": "empty",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "Al ACERTAR una variante sin traduccion tampoco hay hueco: el guard es el mismo nodo y la misma expresion en los dos desenlaces, no hay rama separada para acierto.",
+      "reason": null,
+      "probe": "What is the result for empty, single-element, or null input?"
+    },
+    {
+      "requirement_id": "REND-02",
+      "category": "encoding",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "Mismo nodo, mismo x-text, mismo escapado al acertar que al fallar -- la traduccion no se duplica en un segundo template.",
+      "reason": null,
+      "probe": "Whose definition of length/equality applies — bytes, code points, grapheme clusters, or normalized form?"
+    },
+    {
+      "requirement_id": "REND-03",
+      "category": "idempotency",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "Pulsar el boton Por que o la tecla e repetidamente no duplica, oculta ni altera la traduccion: la expresion x-show del nodo de traduccion NO referencia el flag de explanation-revelada. Assercion de fuente sobre la expresion del guard.",
+      "reason": null,
+      "probe": "What happens if this runs twice on the same input?"
+    },
+    {
+      "requirement_id": "REND-03",
+      "category": "concurrency",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "El toggle es sincrono y no hay estado async implicado; la fase no anade ningun temporizador. Assercion: SESSION_AUTO_ADVANCE_MS sin tocar y cero setTimeout nuevos en el diff.",
+      "reason": null,
+      "probe": "If interrupted or run in parallel, what is guaranteed?"
+    },
+    {
+      "requirement_id": "REND-04",
+      "category": "adjacency",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "Dos fallos de DOS VARIANTES DEL MISMO SLOT muestran cada card SU propia traduccion, no la de la hermana: summaryVariantSurface resuelve por variantIndex, no por slot. Test con un slot de 2 variantes falladas ambas.",
+      "reason": null,
+      "probe": "When two things are exactly equal or just touch, do they merge, collide, or separate?"
+    },
+    {
+      "requirement_id": "REND-04",
+      "category": "empty",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "El fallo de una variante sin traduccion produce una card sin el nodo, identica a la de hoy. Cubierto por E2-empty del UI-SPEC.",
+      "reason": null,
+      "probe": "What is the result for empty, single-element, or null input?"
+    },
+    {
+      "requirement_id": "REND-04",
+      "category": "encoding",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "x-text tambien en el resumen: la segunda superficie usa el mismo mecanismo de escapado, sin x-html. Assercion sobre el nodo de la card.",
+      "reason": null,
+      "probe": "Whose definition of length/equality applies — bytes, code points, grapheme clusters, or normalized form?"
+    },
+    {
+      "requirement_id": "REND-04",
+      "category": "ordering",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "El orden de las cards de Errores cometidos sigue siendo el orden de fallos existente; anadir la traduccion no lo altera, y dentro de la card el orden DOM es respuesta correcta -> traduccion -> explanation (aserciones V6).",
+      "reason": null,
+      "probe": "When elements compare equal, is output order specified and stable?"
+    },
+    {
+      "requirement_id": "REND-05",
+      "category": "adjacency",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "En un slot con una variante traducida y su hermana sin traducir, mostrar la sin-traducir NO hereda el nodo de la hermana: el guard se evalua por variante mostrada (E2-partial del UI-SPEC).",
+      "reason": null,
+      "probe": "When two things are exactly equal or just touch, do they merge, collide, or separate?"
+    },
+    {
+      "requirement_id": "REND-05",
+      "category": "empty",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "Doble guard x-show (estado resuelto Y presencia del dato) en las dos superficies: sin traduccion no hay nodo, hueco, etiqueta, placeholder ni guion. Test de fuente sobre las dos expresiones de guard.",
+      "reason": null,
+      "probe": "What is the result for empty, single-element, or null input?"
+    },
+    {
+      "requirement_id": "REND-05",
+      "category": "encoding",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "x-text EXCLUSIVO: el gate asserta cero x-html en index.html (invariante T-02-01 de todo el proyecto, no solo de estos dos nodos).",
+      "reason": null,
+      "probe": "Whose definition of length/equality applies — bytes, code points, grapheme clusters, or normalized form?"
+    },
+    {
+      "requirement_id": "REND-05",
+      "category": "ordering",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "La ausencia del nodo no altera el orden de sus hermanos: respuesta correcta y explanation quedan contiguos exactamente como hoy, sin margen huerfano (el margin vive en el nodo de traduccion, no en un contenedor).",
+      "reason": null,
+      "probe": "When elements compare equal, is output order specified and stable?"
+    },
+    {
+      "requirement_id": "TVAL-01",
+      "category": "empty",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "El prompt y el script definen que una variante SIN translationES no se envia al quorum y no genera bloque validation vacio; el prompt no admite una traduccion vacia como PASS. Assercion: el doc contiene la regla y el script salta la variante.",
+      "reason": null,
+      "probe": "What is the result for empty, single-element, or null input?"
+    },
+    {
+      "requirement_id": "TVAL-01",
+      "category": "encoding",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "El doc conserva el criterio S4 de acentos RAE (PRES-05: un flag de acento sobre el espanol es bug REAL, no falso positivo) e incluye al menos un few-shot FAIL cuyo motivo es una tilde ausente. Assercion de contenido sobre el doc.",
+      "reason": null,
+      "probe": "Whose definition of length/equality applies — bytes, code points, grapheme clusters, or normalized form?"
+    },
+    {
+      "requirement_id": "TVAL-02",
+      "category": "adjacency",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "Dos variantes con el MISMO texto de traduccion reciben pases separados: la direccion compuesta (id de slot + indice de variante) las distingue y writePass no puede escribir en la hermana. Test con dos variantes de texto identico.",
+      "reason": null,
+      "probe": "When two things are exactly equal or just touch, do they merge, collide, or separate?"
+    },
+    {
+      "requirement_id": "TVAL-02",
+      "category": "empty",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "Variante sin translationES: el script la salta sin crear un bloque validation vacio ni un pase huerfano. Test en --dry-run sobre un slot mixto.",
+      "reason": null,
+      "probe": "What is the result for empty, single-element, or null input?"
+    },
+    {
+      "requirement_id": "TVAL-02",
+      "category": "encoding",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "El re-serializado preserva UTF-8 literal: tras --write, \"Napoles\" con tilde sigue escrito con tilde y no como escape \\uXXXX, y el resto del fichero no cambia mas alla del bloque tocado. Test de round-trip byte-a-byte fuera del bloque.",
+      "reason": null,
+      "probe": "Whose definition of length/equality applies — bytes, code points, grapheme clusters, or normalized form?"
+    },
+    {
+      "requirement_id": "TVAL-02",
+      "category": "ordering",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "El indice de variante es solo la DIRECCION DE ENTRADA de la CLI, no el almacenamiento: el pase se guarda DENTRO de translationES.validation de esa variante, asi que reordenar variantes mueve el pase CON su frase y nunca lo reasigna a otra. Test: reordenar y comprobar que cada pase sigue con su texto.",
+      "reason": null,
+      "probe": "When elements compare equal, is output order specified and stable?"
+    },
+    {
+      "requirement_id": "TVAL-02",
+      "category": "idempotency",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "Correr el script dos veces sobre la misma variante con el mismo modelo no duplica el pase: writePass debe re-estrechar el objetivo a variants[k].translationES ANTES de decidir UPDATE vs INSERT -- el branch por substring \"validation\" del script de canciones daria un falso UPDATE sobre el bloque validation del SLOT, que en Preposiciones ya existe siempre. Test: dos pasadas dejan un unico pase por by.",
+      "reason": null,
+      "probe": "What happens if this runs twice on the same input?"
+    },
+    {
+      "requirement_id": "TVAL-02",
+      "category": "concurrency",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "withFileLock serializa el read-modify-write: dos invocaciones simultaneas sobre el mismo fichero no pierden un pase ni corrompen el JSON. Test: dos escrituras concurrentes sobre variantes distintas del mismo fichero conservan ambos pases.",
+      "reason": null,
+      "probe": "If interrupted or run in parallel, what is guaranteed?"
+    },
+    {
+      "requirement_id": "TVAL-03",
+      "category": "adjacency",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "Dos pases con el MISMO by NO forman quorum: deriveStatus exige dos by distintos (de ahi --avoid en la CLI). Test sobre deriveStatus con dos pases del mismo modelo -> no validated.",
+      "reason": null,
+      "probe": "When two things are exactly equal or just touch, do they merge, collide, or separate?"
+    },
+    {
+      "requirement_id": "TVAL-03",
+      "category": "empty",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "passes[] vacio o ausente -> status pending, jamas validated. Test sobre deriveStatus con array vacio.",
+      "reason": null,
+      "probe": "What is the result for empty, single-element, or null input?"
+    },
+    {
+      "requirement_id": "TVAL-03",
+      "category": "ordering",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "El status no depende del orden de passes[]: permutar los pases da el mismo veredicto (incluido el caso del override de autor, que gana esté donde esté en el array). Test de permutacion.",
+      "reason": null,
+      "probe": "When elements compare equal, is output order specified and stable?"
+    },
+    {
+      "requirement_id": "TVAL-03",
+      "category": "idempotency",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "deriveStatus es puro: re-derivar sobre el mismo passes[] devuelve el mismo status. Se IMPORTA de src/data/validation-state.js; assercion de fuente de que el script y el reporter no reimplementan la derivacion en local.",
+      "reason": null,
+      "probe": "What happens if this runs twice on the same input?"
+    },
+    {
+      "requirement_id": "TVAL-03",
+      "category": "concurrency",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "deriveStatus no toca estado compartido ni disco, asi que no tiene modo de fallo concurrente; toda la serializacion vive en withFileLock del escritor (TVAL-02 concurrency).",
+      "reason": null,
+      "probe": "If interrupted or run in parallel, what is guaranteed?"
+    },
+    {
+      "requirement_id": "TVAL-04",
+      "category": "adjacency",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "UNA sola traduccion no-validated entre 96 pone el gate ROJO: no se promedia ni se tolera un umbral. MUTACION 1 de la fase (dejar una traduccion en pending) se EJECUTA y se observa el rojo.",
+      "reason": null,
+      "probe": "When two things are exactly equal or just touch, do they merge, collide, or separate?"
+    },
+    {
+      "requirement_id": "TVAL-04",
+      "category": "empty",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "CLAUSULA DE NO-VACUIDAD obligatoria: un gate cuyo extractor devuelve lista vacia sale VERDE con deepEqual([],[]) -- el modo de fallo real de este repo. El gate lleva su assercion de no-vacuidad con la cifra DERIVADA del disco, siguiendo el precedente de tests/count-arrays-lockstep.test.js:747-759.",
+      "reason": null,
+      "probe": "What is the result for empty, single-element, or null input?"
+    },
+    {
+      "requirement_id": "TVAL-04",
+      "category": "ordering",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "El veredicto no depende del orden de recorrido de categorias ni de variantes: el gate agrega y compara, no cortocircuita en la primera. Test: permutar el array de cobertura da el mismo veredicto.",
+      "reason": null,
+      "probe": "When elements compare equal, is output order specified and stable?"
+    },
+    {
+      "requirement_id": "GATE-01",
+      "category": "boundary",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "95/96 -> ROJO; 96/96 -> VERDE. Los dos lados del umbral se ejecutan, no solo el verde.",
+      "reason": null,
+      "probe": "What happens exactly at each min/max/threshold — and one step either side?"
+    },
+    {
+      "requirement_id": "GATE-01",
+      "category": "adjacency",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "El expected y el actual NO pueden salir de la misma lectura del mismo campo, o el assert es TAUTOLOGICO (caveat documentado en tests/exercise-types.test.js:1328-1334). El gate compara DOS magnitudes distintas derivadas del disco: numero de variantes multiple-choice del fichero de la categoria (expected) frente a numero de translationES con status validated (actual). Assercion: ninguna de las dos cifras aparece transcrita como literal.",
+      "reason": null,
+      "probe": "When two things are exactly equal or just touch, do they merge, collide, or separate?"
+    },
+    {
+      "requirement_id": "GATE-01",
+      "category": "empty",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "No-vacuidad: un array de cobertura vacio, o una categoria cuyo fichero no se pudo leer, NO puede emitir PASS -- sale ROJO por ausencia de datos, no verde por lista vacia.",
+      "reason": null,
+      "probe": "What is the result for empty, single-element, or null input?"
+    },
+    {
+      "requirement_id": "GATE-01",
+      "category": "ordering",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "El gate es independiente del orden del array de cobertura; anadir una categoria al final o al principio no cambia el veredicto.",
+      "reason": null,
+      "probe": "When elements compare equal, is output order specified and stable?"
+    },
+    {
+      "requirement_id": "GATE-01",
+      "category": "precision",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "El 100% se expresa como IGUALDAD DE ENTEROS (validated === expected), nunca como un float redondeado ni un porcentaje >= 0.999 que dejaria pasar 95/96 con formateo a 99%. Assercion de fuente: el gate no formatea porcentajes para decidir.",
+      "reason": null,
+      "probe": "Where can precision loss, overflow, or rounding/tie-breaking occur — and what is the exact contract (e.g. half-up vs half-to-even, ceil/floor/truncate)?"
+    },
+    {
+      "requirement_id": "GATE-02",
+      "category": "adjacency",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "Una categoria declarada cubierta y enganchada con un slug que difiera en un solo byte -> ROJO. La forma de la entrada del array es load-bearing (slug: '<v>', seguido de file: en la MISMA linea): si el extractor no forma el par, el gate se vuelve vacuo. Test con un slug alterado.",
+      "reason": null,
+      "probe": "When two things are exactly equal or just touch, do they merge, collide, or separate?"
+    },
+    {
+      "requirement_id": "GATE-02",
+      "category": "empty",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "Clausula de no-vacuidad propia, por la misma razon que TVAL-04-empty: deepEqual([], []) pasa verde. MUTACION 3 de la fase (declarar Preposiciones cubierta y NO engancharla al array) se EJECUTA y se observa el rojo.",
+      "reason": null,
+      "probe": "What is the result for empty, single-element, or null input?"
+    },
+    {
+      "requirement_id": "GATE-02",
+      "category": "ordering",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "El lockstep compara CONJUNTOS de slugs, no secuencias: reordenar el array no puede poner rojo ni verde por si solo.",
+      "reason": null,
+      "probe": "When elements compare equal, is output order specified and stable?"
+    },
+    {
+      "requirement_id": "TRAD-01",
+      "category": "adjacency",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "El 96 es una suma DERIVADA del disco (variantes multiple-choice de preposiciones.json), no una cifra transcrita en el plan, en el test ni en el reporter. Assercion: grep de 96 como literal en los gates nuevos devuelve cero.",
+      "reason": null,
+      "probe": "When two things are exactly equal or just touch, do they merge, collide, or separate?"
+    },
+    {
+      "requirement_id": "TRAD-01",
+      "category": "empty",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "Cero variantes de Preposiciones quedan sin traduccion y cero quedan sin validated: ambas cifras derivadas del disco al correr el gate, no afirmadas en un SUMMARY.",
+      "reason": null,
+      "probe": "What is the result for empty, single-element, or null input?"
+    },
+    {
+      "requirement_id": "TRAD-01",
+      "category": "encoding",
+      "status": "resolved",
+      "verification": "backstop",
+      "resolution": "Las 96 traducciones llevan acentuacion RAE correcta y registro adecuado. verification: backstop -- la autoridad es el QUORUM cross-vendor (criterio S4), no un escaner mecanico de tildes, que produce falsos positivos sobre nombres propios y monosilabos. El backstop es el propio pase validated de las 96 mas la revision del autor de cualquier disputed, resuelto con trabajo y motivo escrito y NUNCA con override-atajo.",
+      "reason": null,
+      "probe": "Whose definition of length/equality applies — bytes, code points, grapheme clusters, or normalized form?"
+    },
+    {
+      "requirement_id": "TRAD-01",
+      "category": "ordering",
+      "status": "resolved",
+      "verification": "explicit",
+      "resolution": "La autoria es slot-a-slot e independiente: el orden en que los subagents procesan los 50 slots no afecta el resultado, y cada subagent ve su slot entero (explanation + 1-3 variantes hermanas) para mantener coherencia interna.",
+      "reason": null,
+      "probe": "When elements compare equal, is output order specified and stable?"
+    }
+  ],
+  "coverage": {
+    "applicable": 52,
+    "resolved": 52,
+    "unresolved": 0,
+    "byVerification": {
+      "explicit": 51,
+      "backstop": 1
+    }
+  }
+}
