@@ -343,3 +343,31 @@ aquí. Ninguna se leyó; las tres se corrieron y las tres dieron rojo con exit c
 destructivas-y-restauradas por diseño, y el corpus vuelve byte a byte a la foto verde. Commitear
 cualquier cosa del contenido aquí sería materializar T-46-23 (una mutación que queda committeada),
 que es el único riesgo real del plan.
+
+---
+
+## Decisión del autor sobre los dos backstops `long-text` (2026-08-13)
+
+**Pregunta planteada:** la traducción más larga del piloto (`preposiciones-sugli#1`, 57 caracteres,
+390 px medidos contra el CSS real en Chrome headless) se pinta en **UNA sola línea** en las dos
+superficies y a todos los anchos de escritorio (1400 / 1100 / 900 / 800 / 700 px; la caja conserva
+624 px de contenido en el más estrecho). La premisa de los dos `statement` del UI-SPEC —«traducción de
+2+ líneas»— **no tiene sujeto en este corpus**.
+
+**Decisión: ABSTENER por ausencia de sujeto.** Los dos ítems `backstop` (E1 · long-text y E2 ·
+long-text del §UI Considerations de `46-UI-SPEC.md`) quedan **abstenidos**, NO cerrados y NO
+aprobados. Se arrastran para re-probarse cuando llegue una categoría con frases más largas
+(Phases 47-53).
+
+**Por qué esta es la lectura honesta:** un `backstop` que el verificador no puede confirmar con
+evidencia explícita se abstiene → `human_needed`, nunca pasa en silencio (`references/honest-verifier.md`,
+#1154). La prueba sintética existe y es limpia —una cadena de 165 caracteres envuelve por espacios en
+las dos superficies, con `overflow-wrap: normal`, `max-width: none`, cero desbordamiento y cero
+truncado— pero **una cadena sintética no es el contenido del piloto**, así que se registra como
+preparación y no como cierre. Mismo patrón que PRES-05 en el plan 46-04: ausencia de sujeto, no
+indulgencia.
+
+**Lo que sigue abierto de la Task 3:** la confirmación visual del autor sobre las dos superficies
+(REND-01/02/04/05 en el navegador) y la lectura de muestra de 3-4 slots. No se ha recibido «aprobado»
+para esa parte, así que la Task 3 NO está cerrada y el plan 46-05 NO tiene SUMMARY todavía —
+escribirlo haría que el índice de planes leyera el plan como completo y saltara este gate bloqueante.
