@@ -894,23 +894,58 @@ for (const r of perTranslationCategory) {
 // coherente es TAUTOLÓGICA, porque sus dos lados cuentan variantes del mismo fichero. No
 // es la que muerde; se queda porque sí caza que el fichero cambie entre las dos lecturas
 // o que no se pueda recorrer.
+//
+// Y LA DESINCRONÍA ESCRITO-VS-DERIVADO ENTRA EN EL VEREDICTO (CR-01 del code review de
+// esta fase), espejo exacto de `val09Pass`. Antes se computaba, se IMPRIMÍA y se dejaba
+// fuera de `tradPass`, que es literalmente la forma que la cabecera de este fichero
+// declara arreglada para los slots en su sub-gate 4: «Era un warning meramente impreso, y
+// mientras lo fue el reporter podía cerrar el milestone contradiciendo el fichero que
+// acababa de leer». La fase reintrodujo esa forma para la unidad nueva, y se verificó por
+// mutación: con `preposiciones-col#1` en `status: "pending"` mentiroso —los `passes`
+// intactos, derivando `validated`— el reporter imprimía la violación y dos líneas después
+// `Milestone gate PASS` con exit 0.
+//
+// LA DIRECCIÓN QUE SE COLABA ES LA QUE SUBESTIMA. Escribir `pending` sobre una traducción
+// cuyos pases derivan `validated` NO baja el conteo de `validated` (que se computa con la
+// fuente única, no con el `status` escrito), así que las dos igualdades de arriba seguían
+// cuadrando. La contraria —escrito `validated`, derivado `pending`— sí bajaba el conteo y
+// sí se cazaba. Por eso hace falta el término propio: ninguna de las otras tres condiciones
+// puede sustituirlo.
 const tradPass =
   tradAusenciaDeDatos.length === 0 &&
   !anyTranslationLoadError &&
+  allTranslationInconsistencyAddrs.length === 0 &&
   totalTranslationValidated === TOTAL_TRANSLATION_EXPECTED &&
   totalTranslationActual === TOTAL_TRANSLATION_EXPECTED;
+
+// LAS TRES CAUSAS DE ROJO SE DISTINGUEN, y no por estética: con la desincronía dentro del
+// veredicto pero sin rama propia aquí, el rojo de una traducción desincronizada imprimía
+// `FAIL (96/96 — pending=0, missing=0, disputed=0)`, o sea una cifra de cobertura COMPLETA
+// junto a la palabra FAIL. Un diagnóstico falso en un mensaje de error es del mismo tipo
+// que un banner desfasado (WR-04 de este mismo fichero): manda al autor a traducir lo que
+// ya está traducido, en vez de al `status` que miente.
+const tradDiagnostico = () => {
+  if (tradAusenciaDeDatos.length > 0) {
+    return `FAIL (AUSENCIA DE DATOS — ${tradAusenciaDeDatos.join('; ')})`;
+  }
+  if (allTranslationInconsistencyAddrs.length > 0) {
+    return (
+      `FAIL (${allTranslationInconsistencyAddrs.length} traducción(es) con status escrito ≠ ` +
+      `derivado: ${allTranslationInconsistencyAddrs.join('; ')})`
+    );
+  }
+  return (
+    `FAIL (${totalTranslationValidated}/${TOTAL_TRANSLATION_EXPECTED} — ` +
+    `pending=${totalTranslationPending}, missing=${totalTranslationMissing}, ` +
+    `disputed=${totalTranslationDisputed})`
+  );
+};
 
 console.log(
   `  TRAD-COV (${TOTAL_TRANSLATION_EXPECTED}/${TOTAL_TRANSLATION_EXPECTED} traducciones validated): ${
     tradPass
       ? ok(`PASS (${totalTranslationValidated}/${TOTAL_TRANSLATION_EXPECTED})`)
-      : tradAusenciaDeDatos.length > 0
-        ? fail(`FAIL (AUSENCIA DE DATOS — ${tradAusenciaDeDatos.join('; ')})`)
-        : fail(
-            `FAIL (${totalTranslationValidated}/${TOTAL_TRANSLATION_EXPECTED} — ` +
-            `pending=${totalTranslationPending}, missing=${totalTranslationMissing}, ` +
-            `disputed=${totalTranslationDisputed})`
-          )
+      : fail(tradDiagnostico())
   }`
 );
 if (allTranslationDisputedAddrs.length > 0) {
@@ -971,6 +1006,16 @@ if (gatePass) {
       console.log('  - TRAD-COV: ROJO por AUSENCIA DE DATOS, no por cobertura incompleta. Causa:');
       console.log(`      ${tradAusenciaDeDatos.join('; ')}`);
       console.log('    Repara la declaración o el fichero antes de leer ninguna cifra de cobertura.');
+    } else if (allTranslationInconsistencyAddrs.length > 0) {
+      // Misma acción que VAL-09 pero sobre la unidad TRADUCCIÓN, con su dirección
+      // compuesta: el `status` escrito discrepa del que deriva la fuente única.
+      console.log('  - TRAD-COV: ROJO por DESINCRONÍA, no por cobertura incompleta. La cobertura');
+      console.log(`      es ${totalTranslationValidated}/${TOTAL_TRANSLATION_EXPECTED}; lo que discrepa es el \`status\` ESCRITO en:`);
+      console.log(`      ${allTranslationInconsistencyAddrs.join('; ')}`);
+      console.log('    El status de una traducción NO se escribe a mano: lo deriva');
+      console.log('    src/data/validation-state.js de sus propios `passes`. Corrige el `status`');
+      console.log('    escrito para que sea el derivado, o añade/retira el pase que falte —');
+      console.log('    nunca al revés. NO re-traduzcas: la traducción no es el problema.');
     } else {
       console.log('  - TRAD-COV: la cobertura de traducción está incompleta. Autora la traducción que');
       console.log('    falta y pásala por el quórum cross-vendor, 1 por 1 (VAL-03), con la dirección');

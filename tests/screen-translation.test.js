@@ -27,7 +27,7 @@
 
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
@@ -287,6 +287,137 @@ describe('Phase 46 — la frase canónica atraviesa contenido → schema (end-to
   test('la traducción canónica aparece UNA sola vez en el fichero de contenido', () => {
     const ocurrencias = countOf(readRepo(PREPOSICIONES_REL), /Paolo es de Nápoles de nacimiento\./g);
     assert.equal(ocurrencias, 1, 'la traducción canónica está duplicada en el corpus');
+  });
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// El invariante `status === deriveStatus(passes)` sobre TODAS las traducciones
+// del corpus (CR-01 del code review de la fase 46)
+//
+// POR QUÉ ESTE BLOQUE EXISTE. El de arriba comprueba el invariante SOLO sobre la
+// variante canónica, y esa era la única aserción del árbol que lo comprobaba sobre
+// una traducción. El code review de la fase eligió a propósito la ÚLTIMA traducción
+// del fichero (`preposiciones-col#1`), le escribió un `status: "pending"` mentiroso
+// dejando sus `passes` intactos —que derivan `validated`— y observó la suite entera
+// en su baseline y el reporter en `Milestone gate PASS` con exit 0. El sub-gate
+// TRAD-COV ya se arregló para que la desincronía entre en su veredicto; este bloque
+// es la mitad de CONTENIDO del mismo arreglo, y muerde sin depender de qué
+// categorías estén declaradas cubiertas en el reporter.
+//
+// LA DIRECCIÓN QUE SE COLABA es la que SUBESTIMA (escrito `pending`, derivado
+// `validated`): no baja ningún conteo de `validated`, porque los conteos se computan
+// con la fuente única y no con el `status` escrito. La contraria sí bajaba el conteo
+// y sí se cazaba. De ahí que el término tenga que ser propio.
+// ─────────────────────────────────────────────────────────────────────────────
+
+describe('CR-01 — el status ESCRITO de cada traducción es el DERIVADO de sus passes (VAL-09 a nivel de traducción)', () => {
+  const DIR_CONTENIDO = 'content/exercises';
+
+  /**
+   * Recorre TODO el corpus de ejercicios en disco y devuelve una entrada por
+   * traducción que declare un bloque `validation`. Se escanea el directorio
+   * entero —no una lista de categorías escrita aquí— para que el gate cubra
+   * automáticamente las categorías que traduzcan las fases 47-53 sin que nadie
+   * tenga que acordarse de engancharlas.
+   *
+   * Las traducciones que todavía NO tienen `validation` (texto autorado y quórum
+   * pendiente, el estado intermedio legítimo de una fase de contenido) quedan
+   * FUERA: no hay `status` escrito que confrontar. Que estén cubiertas o no es
+   * cosa de TRAD-COV, que mide cobertura; esto mide coherencia.
+   */
+  function traduccionesConValidation() {
+    const out = [];
+    const ficheros = readdirSync(resolve(projectRoot, DIR_CONTENIDO))
+      .filter((f) => f.endsWith('.json'))
+      .sort();
+    for (const f of ficheros) {
+      const rel = `${DIR_CONTENIDO}/${f}`;
+      const data = readJson(rel);
+      for (const slot of data.exercises || []) {
+        if (slot?.type !== 'multiple-choice') continue;
+        (Array.isArray(slot.variants) ? slot.variants : []).forEach((variant, k) => {
+          const val = variant?.translationES?.validation;
+          if (!val || typeof val !== 'object' || Array.isArray(val)) return;
+          out.push({ rel, addr: `${slot.id}#${k}`, val });
+        });
+      }
+    }
+    return out;
+  }
+
+  const traducciones = traduccionesConValidation();
+
+  // Magnitud de referencia DERIVADA del disco, y de una lectura DISTINTA de la que
+  // produce `traducciones`: cuántas variantes `multiple-choice` declara la categoría
+  // del piloto. Preposiciones está traducida y validada al 100% (TRAD-01), así que el
+  // escáner tiene que ver AL MENOS esas. Un `> 0` desnudo dejaría pasar un escáner
+  // que se quedara en una sola traducción.
+  const MC_VARIANTES_PILOTO = preposiciones.exercises
+    .filter((ex) => ex?.type === 'multiple-choice')
+    .reduce((s, ex) => s + (Array.isArray(ex.variants) ? ex.variants.length : 0), 0);
+
+  test('CLÁUSULA DE NO-VACUIDAD (va primero): el escáner ve al menos las traducciones del piloto', () => {
+    // Sin esto, un escáner que dejara de casar devolvería lista vacía y el
+    // "ninguna desincronizada" de abajo pasaría en VERDE sin mirar nada:
+    // `deepEqual([], [])` es verde.
+    assert.ok(MC_VARIANTES_PILOTO > 0, 'no-vacuidad: el piloto no declara variantes multiple-choice');
+    assert.ok(
+      traducciones.length >= MC_VARIANTES_PILOTO,
+      `el escáner ve ${traducciones.length} traducciones con bloque validation y la categoría del ` +
+        `piloto declara ${MC_VARIANTES_PILOTO} variantes multiple-choice, todas validadas (TRAD-01): ` +
+        `o el corpus perdió bloques validation, o el escáner dejó de casar`
+    );
+  });
+
+  test('cada bloque validation declara un status string y un passes array', () => {
+    assert.ok(traducciones.length > 0, 'no-vacuidad: sin traducciones localizadas no hay nada que inspeccionar');
+    for (const { rel, addr, val } of traducciones) {
+      assert.equal(typeof val.status, 'string', `${rel} · ${addr}: validation.status debe ser string`);
+      assert.ok(Array.isArray(val.passes), `${rel} · ${addr}: validation.passes debe ser array`);
+    }
+  });
+
+  test('NINGUNA traducción del corpus tiene un status escrito distinto del derivado', () => {
+    assert.ok(traducciones.length > 0, 'no-vacuidad: sin traducciones localizadas no hay nada que comparar');
+    // Dos magnitudes de procedencia DISTINTA, no dos lecturas del mismo dato: el
+    // `status` sale del texto en disco y el derivado sale de aplicar la fuente única
+    // a los `passes`. Se acumulan TODAS las desincronías antes de fallar (D-08), para
+    // que el rojo nombre el conjunto entero y no obligue a re-correr una por una.
+    const desincronizadas = traducciones
+      .filter(({ val }) => val.status !== deriveStatus(val.passes))
+      .map(({ rel, addr, val }) =>
+        `${rel} · ${addr} (escrito="${val.status}", derivado="${deriveStatus(val.passes)}")`
+      );
+    assert.deepEqual(
+      desincronizadas,
+      [],
+      `${desincronizadas.length} traducción(es) con el status escrito a mano discrepando de sus ` +
+        `propios passes:\n  ${desincronizadas.join('\n  ')}`
+    );
+  });
+
+  test('toda traducción validated cumple el quórum de verdad: ≥2 correcta, ≥2 by distintos, 0 incorrecta', () => {
+    // Molde de tests/content-fare-indicativo.test.js. Redundante con `deriveStatus`
+    // MIENTRAS la aserción de arriba esté verde — y ahí está el valor: si alguien
+    // relajara la fuente única, este bloque sigue exigiendo el quórum por su cuenta.
+    const validadas = traducciones.filter(({ val }) => val.status === 'validated');
+    assert.ok(
+      validadas.length > 0,
+      'no-vacuidad: ninguna traducción del corpus está validated, así que el quórum no se comprueba sobre nada'
+    );
+    for (const { rel, addr, val } of validadas) {
+      const correctas = val.passes.filter((p) => p?.verdict === 'correcta');
+      assert.ok(correctas.length >= 2, `${rel} · ${addr}: validated con ${correctas.length} pase(s) correcta`);
+      assert.ok(
+        new Set(correctas.map((p) => p?.by)).size >= 2,
+        `${rel} · ${addr}: validated sin 2 \`by\` distintos (dos pases del mismo modelo no son quórum)`
+      );
+      assert.equal(
+        val.passes.filter((p) => p?.verdict === 'incorrecta').length,
+        0,
+        `${rel} · ${addr}: validated con un pase incorrecta y sin override del autor`
+      );
+    }
   });
 });
 
