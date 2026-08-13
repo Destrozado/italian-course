@@ -3,10 +3,10 @@ gsd_state_version: 1.0
 milestone: v2.1
 milestone_name: Traducción al español por variante (TRAD-X1)
 status: planning
-last_updated: "2026-08-13T00:18:23.407Z"
+last_updated: "2026-08-13T12:00:00.000Z"
 last_activity: 2026-08-13
 progress:
-  total_phases: 0
+  total_phases: 8
   completed_phases: 0
   total_plans: 0
   completed_plans: 0
@@ -17,18 +17,42 @@ progress:
 
 ## Project Reference
 
-See: `.planning/PROJECT.md` (updated 2026-08-06 — Phase 42 `fare-congiuntivo` verificada y completa: UAT 3/3, 5/5 slots validated, VAL_07_STRICT 858/858)
+See: `.planning/PROJECT.md` (updated 2026-08-13 — milestone v2.1 abierto: traducción al español por variante, 722 variantes `multiple-choice` en 18 categorías)
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 45 — Deuda del arnés de tests
+**Current Focus:** Phase 46 — Pipeline de traducción end-to-end (piloto Preposiciones)
 
 ## Current Position
 
-Phase: Not started (defining requirements)
+Milestone: v2.1 — Traducción al español por variante (TRAD-X1) — Phases **46-53** (numeración CONTINÚA desde Phase 45, sin reset)
+Phase: 46 — Pipeline de traducción end-to-end (piloto Preposiciones) — not started
 Plan: —
-Status: Defining requirements
-Last activity: 2026-08-13 — Milestone v2.1 started
+Status: Roadmap creado (8 fases, 22/22 requirements mapped, 0 huérfanos) — pendiente de planificar
+Progress: [░░░░░░░░░░░░░░░░░░░░] 0/8 fases · 0/722 traducciones
+Last activity: 2026-08-13 — Roadmap v2.1 creado
+
+**Estructura del milestone:**
+
+| Fase | Qué entrega | Requirements | Variantes |
+|------|-------------|--------------|-----------|
+| 46 | Pipeline entero (campo + render + validador + gates) probado end-to-end sobre Preposiciones | SCH-01..03, REND-01..05, TVAL-01..04, GATE-01, GATE-02, TRAD-01 | 96 |
+| 47 | Bloque Artículos (Articoli + Partitivos) | TRAD-02 | 110 |
+| 48 | Paradigma `fare` (4 categorías) | TRAD-03 | 122 |
+| 49 | Morfología (Genero e numero + Sostantivi irregolari) | TRAD-04 | 104 |
+| 50 | Léxico y movimiento (Professioni + Verbi di movimento) | TRAD-05 | 109 |
+| 51 | Auxiliares y presente (Essere + Avere + Presente regolare) | TRAD-06 | 103 |
+| 52 | Determinantes y verbos A1/A2 (Dimostrativi + Possessivi + Riflessivi + Modali) | TRAD-07 | 78 |
+| 53 | Cierre: 722/722 validated, suite verde, reporter exit 0, motor intacto | GATE-03 | — |
+
+**Invariantes que este milestone NO puede romper:**
+
+- **Motor brownfield-congelado con UNA excepción declarada:** el valor de `SESSION_AUTO_ADVANCE_MS`. `src/domain/` no se toca; la cascada D-54 sigue con EXACTAMENTE 2 call-sites de `applyImmediateFailure`.
+- **Los gates se verifican por MUTACIÓN, no leyendo.** «El gate existe» no es criterio; «romper X lo pone rojo» sí (Phase 45: cinco gates vacuos, los cinco cazados corriendo la mutación).
+- **Un fix propuesto en un code review se verifica con la misma mutación que el código que arregla** (2 de 4 fixes de revisor en la Phase 44 eran incorrectos; uno era peor que el bug).
+- **Render `x-text`-only, nunca `x-html`** (anti-XSS T-02-01).
+- **Español acentuado RAE (PRES-05):** un flag de acento del quórum sobre el español es un bug REAL, no un falso positivo.
+- **Sin migración `13→14`:** el campo es opcional y vive en `content/`, no en state.
 
 ## Deferred Items
 
@@ -403,11 +427,13 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Session Continuity
 
-**Last session:** 2026-08-12T22:24:47.752Z
-**Stopped at:** Completed 45-04-PLAN.md (trazabilidad DEUDA-01/02/03 + gate de cobertura derivada)
+**Last session:** 2026-08-13T12:00:00.000Z
+**Stopped at:** Roadmap del milestone v2.1 creado (Phases 46-53)
 **Resume file:** None
 
 ### Last Session
+
+- **Fecha:** 2026-08-13 — **Roadmap del milestone v2.1 (Traducción al español por variante, TRAD-X1) creado por el roadmapper.** Numeración CONTINÚA desde Phase 45 → **Phases 46-53, NO reset**. Sin research (diseño cerrado por el autor; todos los precedentes son in-repo). Estructura derivada del patrón validado del propio proyecto para esta forma exacta — **Phases 7 / 7.1 / 7.2 de v1.0**, que bajaron `explanation` a 271 ejercicios: primero UNA fase con schema + render + una categoría entera end-to-end, después fases incrementales de contenido. **Phase 46** baja el pipeline completo (campo opcional SCH-01..03 + render en acierto y fallo REND-01..05 + validador propio derivado de S1-S6 TVAL-01..04 + gates GATE-01/02) y lo prueba sobre el piloto **TRAD-01 Preposiciones (96 variantes)** — los gates van en la PRIMERA fase por la lección de v2.0 (un array de conteo añadido tarde emitió `225/225 PASS` con una categoría entera desenganchada). **Phases 47-52** son un bloque TRAD-xx cada una (110 · 122 · 104 · 109 · 103 · 78 variantes), independientes entre sí salvo el lockstep del array de cobertura; no se colapsan porque 626 traducciones a mano + quórum no caben en una fase ejecutable. **Phase 53** cierra con GATE-03 (722/722 validated, suite verde, reporter exit 0, motor intacto salvo `SESSION_AUTO_ADVANCE_MS`, D-54 con 2 call-sites). **Cobertura 22/22 mapped, 0 orphans, 0 duplicados.** Volumen verificado contra disco, no transcrito: 250 slots / 758 variantes, de las que **722 son `multiple-choice`** (22 `word-buttons` + 14 `match` fuera de scope) y los 7 bloques suman exactamente 722. Archivos escritos: `.planning/ROADMAP.md` (histórico v1.0-v2.0 PRESERVADO + sección v2.1 ACTIVE + Phase Details 46-53 + tablas de Progress + Backlog con TRAD-X1 promovido y VOCAB-X1 abierto), `.planning/REQUIREMENTS.md` (Traceability 22 filas + Coverage + rationale de agrupación + volumen por fase), `.planning/STATE.md` (este). Stopped at: roadmap creado. Resume file: None. Siguiente: `/gsd-discuss-phase 46` o `/gsd-plan-phase 46`.
 
 - **Fecha:** 2026-08-04 — **Phase 41 (`fare-indicativo`, 8 slots) VERIFICADA Y COMPLETA.** UAT 2/2 pass, gap G-41-1 resuelto, `41-VERIFICATION.md` canonizado a `passed`, ROADMAP/STATE avanzados a Phase 42. **La pasada TOP-LEVEL de quórum base se corrió en esta sesión** (era la mitad mecánica de SC-4 que D-41-15 dejó fuera del executor: el quórum canónico spawnea Task subagents y no está disponible dentro de `gsd-executor` ni del verificador). `claude-opus-5` + `claude-sonnet-5`, **un subagent por ejercicio con contexto fresco y aislado — nunca batched (VAL-03)**, más la ronda EXTRA `deepseek-reasoner` obligatoria (D-41-12) sobre `passato-remoto` y `trapassato-remoto`. **NO pasó a la primera: 5/8 → 6/8 → 8/8, con 3 rondas de accept-fix y 6 defectos editoriales reales corregidos, TODOS en `explanation`, ninguno en las 48 variantes ni en las keys.** Ronda 1: `presente` [C4] (afirmación falsa — "la doble c sale en las dos personas donde el castellano también hace algo raro", pero `hacemos` es regular y el propio párrafo lo desmentía dos líneas después — + registro de curador), `passato-remoto` [C4] cazado SOLO por la ronda EXTRA DeepSeek (Opus y Sonnet lo habían dado correcta), `trapassato-remoto` [C2] por las 2 variantes con `quando` (disputa 2-vs-1). **Hallazgo sistémico:** el registro de curador ("el autor puede ENCONTRAR", "no aparecen nunca entre las opciones de este ejercicio") estaba en **5 de las 8** explanations, e `imperfetto` lo arrastraba **con status `validated`** — falso negativo de los 2 pases Claude sobre el mismo defecto que otro vendor marcó en sus hermanos. Ronda 2 (tras el fix): 2 hallazgos NUEVOS **por unanimidad Opus+Sonnet**, no disputas 1-vs-1 — `passato-remoto` [C4] "el pretérito castellano reparte la raíz por personas" es falso (`hacer` tiene raíz única `hic-`), el atajo de la raíz corta era autocontradictorio y la taxonomía de "dos trampas" no cubría la distractora que es forma real de otra persona; `passato-prossimo` [C4] "y sono fatto no es italiano" es falso en absoluto (existe en lectura copulativa; lo que lo invalida es el objeto directo). Ronda 3: la apertura de `passato-remoto` afirmaba por exclusividad ser "la casilla donde la raíz alterna dentro de un mismo tiempo", pero el presente ya alterna `facc-`/`fa-`. **La objeción C2 del `quando` NO reapareció** tras el re-pase: Opus, Sonnet y `deepseek-reasoner` coinciden en que C2/R7 se juega sobre las opciones OFRECIDAS y ninguna forma válida alternativa está entre ellas → el override del autor quedó innecesario y se conserva el reparto deliberado 2 `dopo che` + 2 `appena` + 2 `quando`. Las 5 adjudicaciones del backstop lingüístico (test 2) quedan registradas como **concerns declarativas** en el pase Opus de los slots afectados (mirror de `content/exercises/riflessivi.json:245`): `quando`, `facetti`/`facerono` (los 3 pases coinciden en que NO son atestiguadas para esas personas — la autoría las había marcado como no descartadas con certeza), colocación preverbal de `già` (atestiguada y enfática, estructuralmente necesaria porque el hueco absorbe el compuesto entero), `essere + fatto` (bloqueo estructural por objeto directo, doble en noi/loro por discordancia), y la **ratificación de CR-01**. Gate final: **`VAL_07_STRICT=1 node --test tests/*.test.js` → 781/781, 0 fallos**; `tests/content-fare-indicativo.test.js` 62/62 con `status === deriveStatus(passes)` en los 8. **WR-01 / WR-04 / WR-05 del code review SIGUEN ABIERTOS** y el UAT declara explícitamente que no los cierra: son juicios de diseño del ejercicio (colapso de discriminación efectiva, explanations que no nombran la familia de distractora), no de validez lingüística. Commits: `60453b7` (quórum ronda 1) · `02d4ae2` (UAT issue) · `419f2e4` (fix C4 curador) · `fd663a8` (ronda 2) · `6437756` (fix C4 afirmaciones falsas) · `ef7bb4f` (ronda 3, 8/8) · UAT completo + backstop. Stopped at: Phase 41 completa. Resume file: None. Siguiente: `/gsd-discuss-phase 42`.
 
@@ -459,4 +485,6 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Operator Next Steps
 
-- Start the next milestone with /gsd-new-milestone
+- Planificar la Phase 46 con `/gsd-plan-phase 46` (o discutirla antes con `/gsd-discuss-phase 46`).
+- La Phase 46 toca render de pantalla (REND-01/02/04/05) y está marcada con `UI hint: yes` en el ROADMAP: `/gsd-ui-phase 46` es opcional, y su valor real es acotar UNA decisión — cómo se distingue visualmente la traducción de la `explanation` en las dos superficies (feedback inline y "Errores cometidos").
+- El valor final de `SESSION_AUTO_ADVANCE_MS` lo fija el autor en UAT con uso real (REND-02): no se cierra con una estimación de plan-time.

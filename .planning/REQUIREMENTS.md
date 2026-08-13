@@ -82,34 +82,45 @@ Rellenado durante la creación del roadmap.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SCH-01 | — | Pending |
-| SCH-02 | — | Pending |
-| SCH-03 | — | Pending |
-| REND-01 | — | Pending |
-| REND-02 | — | Pending |
-| REND-03 | — | Pending |
-| REND-04 | — | Pending |
-| REND-05 | — | Pending |
-| TVAL-01 | — | Pending |
-| TVAL-02 | — | Pending |
-| TVAL-03 | — | Pending |
-| TVAL-04 | — | Pending |
-| TRAD-01 | — | Pending |
-| TRAD-02 | — | Pending |
-| TRAD-03 | — | Pending |
-| TRAD-04 | — | Pending |
-| TRAD-05 | — | Pending |
-| TRAD-06 | — | Pending |
-| TRAD-07 | — | Pending |
-| GATE-01 | — | Pending |
-| GATE-02 | — | Pending |
-| GATE-03 | — | Pending |
+| SCH-01 | Phase 46 | Pending |
+| SCH-02 | Phase 46 | Pending |
+| SCH-03 | Phase 46 | Pending |
+| REND-01 | Phase 46 | Pending |
+| REND-02 | Phase 46 | Pending |
+| REND-03 | Phase 46 | Pending |
+| REND-04 | Phase 46 | Pending |
+| REND-05 | Phase 46 | Pending |
+| TVAL-01 | Phase 46 | Pending |
+| TVAL-02 | Phase 46 | Pending |
+| TVAL-03 | Phase 46 | Pending |
+| TVAL-04 | Phase 46 | Pending |
+| TRAD-01 | Phase 46 | Pending |
+| TRAD-02 | Phase 47 | Pending |
+| TRAD-03 | Phase 48 | Pending |
+| TRAD-04 | Phase 49 | Pending |
+| TRAD-05 | Phase 50 | Pending |
+| TRAD-06 | Phase 51 | Pending |
+| TRAD-07 | Phase 52 | Pending |
+| GATE-01 | Phase 46 | Pending |
+| GATE-02 | Phase 46 | Pending |
+| GATE-03 | Phase 53 | Pending |
 
 **Coverage:**
 - v2.1 requirements: 22 total
-- Mapped to phases: 0
-- Unmapped: 22 ⚠️ (se resuelve al crear el roadmap)
+- Mapped to phases: 22
+- Unmapped: 0 ✓ (sin huérfanos, sin duplicados — cada requirement va a EXACTAMENTE una fase)
+
+**Cómo se agruparon (rationale):**
+
+| Fase | Requirements | Por qué juntos |
+|------|--------------|----------------|
+| **Phase 46** — Pipeline end-to-end (piloto Preposiciones) | SCH-01..03 · REND-01..05 · TVAL-01..04 · GATE-01 · GATE-02 · TRAD-01 | Es el patrón validado del propio proyecto para esta forma exacta (Phase 7 de v1.0: schema + render + UNA categoría entera end-to-end antes de escalar). El pipeline **debe probarse sobre contenido real antes de escalar**: un prompt de validación malo descubierto en la variante 500 es el modo de fallo caro. Los gates van AQUÍ, no al final — la lección de v2.0 es que un array de conteo añadido tarde emitió `225/225 PASS` con una categoría desenganchada. |
+| **Phases 47-52** — bloques de contenido | TRAD-02..07 (uno por fase) | Son 626 traducciones a mano + quórum tras el piloto. Una fase por bloque de 78-122 variantes mantiene cada fase ejecutable y su gate cerrable; colapsarlas produciría fases que no se pueden terminar. Independientes entre sí: solo comparten el array de cobertura, que cada fase engancha en lockstep dentro de su propio commit. |
+| **Phase 53** — cierre | GATE-03 | Solo se puede afirmar (y verificar por mutación) con los seis bloques cerrados: 722/722, suite verde, reporter exit 0 y motor intacto salvo `SESSION_AUTO_ADVANCE_MS`. |
+
+**Volumen por fase** (verificado contra `content/exercises/` el 2026-08-13, derivado del disco):
+`46` Preposiciones 96 · `47` Articoli 62 + Partitivos 48 = 110 · `48` fare-indicativo 54 + congiuntivo 30 + indefiniti 21 + cond-imperativo 17 = 122 · `49` Genero e numero 60 + Sostantivi irregolari 44 = 104 · `50` Professioni 55 + Verbi di movimento 54 = 109 · `51` Essere 46 + Avere 32 + Presente regolare 25 = 103 · `52` Dimostrativi 22 + Possessivi 21 + Riflessivi 18 + Modali 17 = 78. **Total 722.**
 
 ---
 *Requirements defined: 2026-08-13*
-*Last updated: 2026-08-13 after milestone v2.1 definition*
+*Last updated: 2026-08-13 after roadmap creation (Phases 46-53; 22/22 requirements mapped, 0 orphans)*

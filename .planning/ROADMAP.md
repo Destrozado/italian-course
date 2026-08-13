@@ -15,8 +15,9 @@
 - ✅ **v1.8 — Rediseño visual "Editoriale"** — Phases 32-34 (shipped 2026-06-30). Lenguaje Editoriale (papel cálido, serif Spectral, acento verde/rojo, fuentes auto-hospedadas) aplicado a las 8 pantallas sobre el stack real (vanilla + Alpine; Pico ELIMINADO en Phase 32, `app.css` es la base). Brownfield UI puro: motor NO tocado. 19/19 requirements. Ver [milestones/v1.8-ROADMAP.md](./milestones/v1.8-ROADMAP.md).
 - ✅ **v1.9 — Determinantes + verbos A1/A2 (4 categorías nuevas + procedencia)** — Phases 35-39 (shipped 2026-07-01). 4 categorías nuevas A1/A2 (Dimostrativi, Possessivi, Verbi modali, Verbi riflessivi) autoradas por quórum cross-vendor R1-R7 + PROV-01 marca de procedencia + migración 11→12 + lockstep de conteos; 14 categorías verdes (suite 624, strict 638). Motor v1.4 NO tocado. Ver [milestones/v1.9-ROADMAP.md](./milestones/v1.9-ROADMAP.md).
 - ✅ **v2.0 — Paradigma completo de `fare` (4 categorías por modo)** — Phases 40-45 (shipped 2026-08-13). El paradigma entero del verbo más frecuente e irregular con un ejercicio por casilla: `fare-indicativo` (8 slots) · `fare-congiuntivo` (5) · `fare-cond-imperativo` (3) · `fare-indefiniti` (6) = **22 slots / 113 variantes** por quórum cross-vendor R1-R7 + migración `12→13` con reset selectivo + integración lockstep, y la Phase 45 pagando la deuda del propio arnés de tests. **18 categorías / 250 slots.** 26/26 requirements, suite 1182/1182 (1200 strict). Motor v1.4 byte-intacto. Ver [milestones/v2.0-ROADMAP.md](./milestones/v2.0-ROADMAP.md).
+- 🚧 **v2.1 — Traducción al español por variante (TRAD-X1)** — Phases 46-53 (ACTIVE desde 2026-08-13). Cada variante `multiple-choice` muestra la traducción española de su frase YA RESUELTA al responder — se acierte o se falle — separada de la `explanation`. Campo OPCIONAL en schema (sin migración `13→14`), render en las dos superficies, validador propio derivado de S1-S6 (NO R1-R7) y **cobertura 100%: 18 categorías / 722 variantes**, atacada por fases de bloques. 22 requirements (3 SCH + 5 REND + 4 TVAL + 7 TRAD + 3 GATE).
 
-**Estado:** entre milestones. Siguiente vía `/gsd-new-milestone`. Dos candidatos redactados por el autor el 2026-08-13 y archivados en `.planning/todos/pending/`: **traducción al español por variante** (visible solo al resolver) y **aprendizaje de vocabulario** (ES→IT / IT→ES, con modo difícil de texto libre). El orden natural es traducción primero — sus pares ES↔IT son el léxico que el vocabulario necesita.
+**Estado:** v2.1 ACTIVE. La numeración de fases **CONTINÚA desde Phase 45** → **Phases 46-53, sin reset**. Sin fase de research: el diseño quedó cerrado por el autor el 2026-08-13 y todos los precedentes son in-repo (Phases 7 / 7.1 / 7.2 para el patrón campo-opcional-a-todo-el-corpus; `260615-vkr` para el validador de traducción). El candidato hermano **VOCAB-X1** (vocabulario ES↔IT) queda en backlog: se alimenta de los pares ES↔IT que produce este milestone, por eso va después.
 
 ## Phases
 
@@ -156,9 +157,177 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
 - [x] Phase 44: Integración lockstep + cierre v2.0 (4/4 plans) — completed 2026-08-12
 - [x] Phase 45: Deuda del arnés de tests (4/4 plans) — completed 2026-08-13
 
-**Total:** 6 fases, 15 plans, 47 tasks, 26/26 requirements, 224 commits. 18 categorías / 250 slots, `schemaVersion 13`. Suite 1182/1182 (1200 strict), reporter exit 0. Motor v1.4 byte-intacto. Audit `tech_debt` (cero blockers). Detalles en `.planning/milestones/v2.0-ROADMAP.md`.
+**Total:** 6 fases, 15 plans, 47 tasks, 26/26 requirements, 224 commits. 18 categorías / 250 slots, `schemaVersion 13`. Suite 1182/1182 (1200 strict), reporter exit 0. Motor v1.4 byte-intacto. Audit `tech_debt` (cero blockers). Detalles en `.planning/milestones/v2.0-ROADMAP.md` (incluye el detalle completo de la Phase 45, que esta sección ya no repite).
 
 </details>
+
+### 🚧 v2.1 (Phases 46-53) — ACTIVE desde 2026-08-13
+
+- [ ] **Phase 46: Pipeline de traducción end-to-end (piloto Preposiciones)** - Campo opcional + render en acierto y fallo + validador propio + gates verificados por mutación, todo probado sobre las 96 variantes reales de Preposiciones
+- [ ] **Phase 47: Traducción — bloque Artículos** - Articoli (62) + Partitivos (48) = 110 traducciones autoradas y validadas por quórum
+- [ ] **Phase 48: Traducción — paradigma `fare`** - fare-indicativo (54) + congiuntivo (30) + indefiniti (21) + cond-imperativo (17) = 122 traducciones donde el tiempo verbal se reconoce en español
+- [ ] **Phase 49: Traducción — morfología** - Genero e numero (60) + Sostantivi irregolari (44) = 104 traducciones sin degenerar en glosa de una palabra
+- [ ] **Phase 50: Traducción — léxico y movimiento** - Professioni (55) + Verbi di movimento (54) = 109 traducciones; el bloque más léxico, materia prima directa de VOCAB-X1
+- [ ] **Phase 51: Traducción — auxiliares y presente** - Essere (46) + Avere (32) + Presente regolare (25) = 103 traducciones con ser/estar y los idiomáticos de `avere` resueltos sin calco
+- [ ] **Phase 52: Traducción — determinantes y verbos A1/A2** - Dimostrativi (22) + Possessivi (21) + Riflessivi (18) + Modali (17) = 78 traducciones que cierran la cobertura del corpus
+- [ ] **Phase 53: Cierre v2.1 — cobertura 722/722, gates verdes y motor intacto** - 18/18 categorías validated, suite verde, reporter exit 0 y el motor con el ÚNICO cambio declarado
+
+## Phase Details
+
+### Phase 46: Pipeline de traducción end-to-end (piloto Preposiciones)
+
+**Goal**: Que el autor resuelva un ejercicio de Preposiciones — acertando o fallando — y vea la traducción española de la frase ya resuelta, con el campo, el render, el validador propio y los gates ya montados y demostrados sobre las 96 variantes reales de la categoría piloto. Es la fase que compra el derecho a escalar: un prompt de validación malo o un gate ciego descubierto en la variante 500 es el modo de fallo caro que este proyecto ya ha pagado.
+
+**Depends on**: Nothing (primera fase del milestone; parte del corpus v2.0 intacto — 18 categorías / 250 slots / 722 variantes `multiple-choice`, `schemaVersion 13`)
+
+**Requirements**: SCH-01, SCH-02, SCH-03, REND-01, REND-02, REND-03, REND-04, REND-05, TVAL-01, TVAL-02, TVAL-03, TVAL-04, GATE-01, GATE-02, TRAD-01
+
+**Success Criteria** (what must be TRUE):
+
+  1. **Al fallar, la traducción está ahí y no se confunde con la teoría.** El autor falla un `multiple-choice` con traducción y la ve junto al feedback rojo, visualmente distinguible de la `explanation`; la misma traducción reaparece bajo esa fila en "Errores cometidos" del resumen. Un ejercicio SIN traducción no deja hueco, etiqueta ni placeholder en ninguna de las dos superficies (graceful degradation D-121), y el render es `x-text` — nunca `x-html` (T-02-01).
+  2. **Al acertar, la traducción se lee de verdad.** El autor acierta y ve la traducción con tiempo real de leerla: `SESSION_AUTO_ADVANCE_MS` sube desde 600 ms y su valor final lo fija el autor en UAT con uso real, no una estimación de plan-time. El botón "¿Por qué?" / tecla `e` sigue revelando la `explanation` bajo demanda y sigue cancelando el auto-avance: la traducción no le roba el sitio ni cambia su comportamiento.
+  3. **El schema deja autorar la traducción exactamente donde aporta.** El validator la acepta como string no vacío en variantes `multiple-choice` y la RECHAZA en `match` y `word-buttons`; las 250 slots existentes siguen validando sin ella; `schemaVersion` sigue en 13 y el progreso del autor no se resetea — verificado por test explícito, no por afirmación en un SUMMARY.
+  4. **El quórum juzga traducciones con criterios de traducción.** Existe un prompt propio con criterios derivados de los S1-S6 de canciones (fidelidad it→es, acentos RAE según PRES-05, naturalidad, registro) y explícitamente NO R1-R7, más un script hermano de `scripts/validate-song-pass.mjs` que corre el quórum cross-vendor y escribe el pase; cada traducción lleva su `validation.passes[]` y su status sale de `deriveStatus` — misma fuente única que ejercicios y canciones, con el override de autor de primera clase (`override: true`) disponible y sin reimplementaciones locales.
+  5. **Preposiciones al 100% y los gates mordiendo, probados por mutación.** Las 96 variantes `multiple-choice` de Preposiciones están traducidas y `validated`. Romper una a propósito (dejarla `pending`, quitarle los acentos) pone ROJO el gate de traducción; declarar la categoría cubierta y NO engancharla al array de cobertura pone ROJO el gate anti-ceguera; el `expected` de cobertura se DERIVA del disco y no está transcrito como número mágico en ningún sitio. Las tres mutaciones se ejecutan y se observa el rojo — leer el código del gate no cuenta como verificación (lección de la Phase 45: cinco gates vacuos, los cinco cazados corriendo la mutación).
+
+**Plans**: TBD
+
+**UI hint**: yes
+
+---
+
+### Phase 47: Traducción — bloque Artículos (Articoli + Partitivos)
+
+**Goal**: Que las dos categorías del bloque Artículos muestren la traducción de su frase al resolverse, con las 110 traducciones autoradas y validadas por el quórum y enganchadas al gate de cobertura.
+
+**Depends on**: Phase 46 (independiente de los otros bloques TRAD-xx; lo único compartido es el array de cobertura, que cada fase engancha en lockstep dentro de su propio commit)
+
+**Requirements**: TRAD-02
+
+**Success Criteria** (what must be TRUE):
+
+  1. **Cobertura del bloque:** las 62 variantes `multiple-choice` de Articoli y las 48 de Partitivos (110) llevan la traducción de la frase COMPLETA YA RESUELTA — con el hueco relleno por la opción correcta, nunca la frase con el hueco — y el campo solo se pinta en estado resuelto (jamás antes de responder: sería regalar la respuesta, R1).
+  2. **Calidad validada:** las 110 traducciones están `validated` por el quórum cross-vendor con el prompt de traducción (nunca R1-R7); los `disputed` se resuelven con trabajo y motivo escrito, no con override-atajo, y un flag de acento sobre el español se trata como bug REAL y se arregla en el texto (RAE / PRES-05).
+  3. **El gate crece con el bloque:** las dos categorías entran en el array de cobertura con el `expected` derivado del disco; desengancharlas pone ROJO el gate anti-ceguera, verificado corriendo la mutación al cerrar la fase.
+  4. **Brownfield intacto:** `src/domain/` sin tocar, `schemaVersion` sigue en 13, el `gloss` ES del `prompt` sobrevive intacto (es pre-respuesta y desambigua; la traducción es post-respuesta y enseña vocabulario), y la suite queda verde con el reporter en exit 0.
+
+**Plans**: TBD
+
+---
+
+### Phase 48: Traducción — paradigma `fare` (4 categorías)
+
+**Goal**: Que las 4 categorías del paradigma de `fare` muestren la traducción de su frase al resolverse, con las 122 traducciones validadas — el bloque donde el objetivo declarado del milestone ("reconocer el tiempo verbal en contexto") se juega de verdad, porque cada casilla es un tiempo o modo distinto del mismo verbo.
+
+**Depends on**: Phase 46 (independiente de los otros bloques TRAD-xx salvo el lockstep del array de cobertura)
+
+**Requirements**: TRAD-03
+
+**Success Criteria** (what must be TRUE):
+
+  1. **Cobertura del bloque:** las 122 variantes `multiple-choice` (fare-indicativo 54 + fare-congiuntivo 30 + fare-indefiniti 21 + fare-cond-imperativo 17) llevan traducción de la frase ya resuelta.
+  2. **El tiempo verbal se reconoce en español:** la traducción de cada casilla deja ver qué tiempo/modo es (imperfetto vs passato remoto vs congiuntivo vs condizionale) sin convertirse en una explicación gramatical — la `explanation` tiene sus tres prohibiciones y una traducción no es una explicación; fundirlas re-engendraría la deuda de prosa de las Phases 41-44.
+  3. **Calidad validada:** las 122 están `validated` por el quórum con el prompt de traducción; `disputed` resueltos con trabajo, español acentuado RAE.
+  4. **Gate y brownfield:** las 4 categorías entran en el array de cobertura con `expected` derivado del disco (mutación observada en rojo), `src/domain/` sin tocar, `schemaVersion` en 13, suite verde y reporter exit 0.
+
+**Plans**: TBD
+
+---
+
+### Phase 49: Traducción — morfología (Genero e numero + Sostantivi irregolari)
+
+**Goal**: Que las dos categorías de morfología muestren la traducción de su frase al resolverse, con las 104 traducciones validadas, resolviendo el riesgo propio del bloque: frases mínimas donde una traducción perezosa degenera en glosa de una sola palabra.
+
+**Depends on**: Phase 46 (independiente de los otros bloques TRAD-xx salvo el lockstep del array de cobertura)
+
+**Requirements**: TRAD-04
+
+**Success Criteria** (what must be TRUE):
+
+  1. **Cobertura del bloque:** las 60 variantes `multiple-choice` de Genero e numero y las 44 de Sostantivi irregolari (104) llevan traducción de la frase ya resuelta.
+  2. **Traducción de frase, no glosa:** en las frases cortas la traducción sigue siendo la frase española completa y natural, y no se limita a repetir el `gloss` ES que ya vive dentro del `prompt` (funciones y momentos distintos: el gloss desambigua antes de responder, la traducción enseña vocabulario después).
+  3. **Calidad validada:** las 104 están `validated` por el quórum con el prompt de traducción; `disputed` resueltos con trabajo, español acentuado RAE.
+  4. **Gate y brownfield:** las dos categorías entran en el array de cobertura con `expected` derivado del disco (mutación observada en rojo), `src/domain/` sin tocar, `schemaVersion` en 13, suite verde y reporter exit 0.
+
+**Plans**: TBD
+
+---
+
+### Phase 50: Traducción — léxico y movimiento (Professioni + Verbi di movimento)
+
+**Goal**: Que las dos categorías léxicas muestren la traducción de su frase al resolverse, con las 109 traducciones validadas. Es el bloque de mayor densidad de vocabulario nuevo — el que más materia prima aporta al milestone siguiente (VOCAB-X1).
+
+**Depends on**: Phase 46 (independiente de los otros bloques TRAD-xx salvo el lockstep del array de cobertura)
+
+**Requirements**: TRAD-05
+
+**Success Criteria** (what must be TRUE):
+
+  1. **Cobertura del bloque:** las 55 variantes `multiple-choice` de Professioni y las 54 de Verbi di movimento (109) llevan traducción de la frase ya resuelta.
+  2. **El passato prossimo se traduce sin calco:** las frases que juegan la regla de auxiliar (`essere` vs `avere`) y la concordancia del participio se traducen al español natural, sin arrastrar la estructura italiana a un español que ningún hispanohablante diría.
+  3. **Calidad validada:** las 109 están `validated` por el quórum con el prompt de traducción; `disputed` resueltos con trabajo, español acentuado RAE.
+  4. **Gate y brownfield:** las dos categorías entran en el array de cobertura con `expected` derivado del disco (mutación observada en rojo), `src/domain/` sin tocar, `schemaVersion` en 13, suite verde y reporter exit 0.
+
+**Plans**: TBD
+
+---
+
+### Phase 51: Traducción — auxiliares y presente (Essere + Avere + Presente regolare)
+
+**Goal**: Que las tres categorías de auxiliares y presente muestren la traducción de su frase al resolverse, con las 103 traducciones validadas, incluido el terreno donde el español y el italiano dejan de solaparse: ser/estar y los idiomáticos de `avere`.
+
+**Depends on**: Phase 46 (independiente de los otros bloques TRAD-xx salvo el lockstep del array de cobertura)
+
+**Requirements**: TRAD-06
+
+**Success Criteria** (what must be TRUE):
+
+  1. **Cobertura del bloque:** las 46 variantes `multiple-choice` de Essere, las 32 de Avere y las 25 de Presente regolare (103) llevan traducción de la frase ya resuelta.
+  2. **Ser/estar e idiomáticos resueltos:** el colapso italiano `essere` → las dos cópulas españolas se traduce con la que corresponde en cada frase, y los idiomáticos de `avere` van al equivalente español real (`ho fame` → «tengo hambre»), nunca palabra por palabra.
+  3. **Calidad validada:** las 103 están `validated` por el quórum con el prompt de traducción; `disputed` resueltos con trabajo, español acentuado RAE.
+  4. **Gate y brownfield:** las tres categorías entran en el array de cobertura con `expected` derivado del disco (mutación observada en rojo), `src/domain/` sin tocar, `schemaVersion` en 13, suite verde y reporter exit 0.
+
+**Plans**: TBD
+
+---
+
+### Phase 52: Traducción — determinantes y verbos A1/A2 (Dimostrativi + Possessivi + Riflessivi + Modali)
+
+**Goal**: Que las cuatro categorías de determinantes y verbos A1/A2 muestren la traducción de su frase al resolverse, con las 78 traducciones validadas — el bloque que cierra la cobertura del corpus.
+
+**Depends on**: Phase 46 (independiente de los otros bloques TRAD-xx salvo el lockstep del array de cobertura)
+
+**Requirements**: TRAD-07
+
+**Success Criteria** (what must be TRUE):
+
+  1. **Cobertura del bloque:** las 22 variantes `multiple-choice` de Dimostrativi, 21 de Possessivi, 18 de Riflessivi y 17 de Modali (78) llevan traducción de la frase ya resuelta.
+  2. **Los desajustes ES↔IT del bloque se traducen, no se calcan:** el artículo obligatorio del posesivo italiano (`il mio libro` → «mi libro»), el sistema demostrativo de 2 vías frente al español de 3, y los reflexivos donde el clítico no se corresponde uno-a-uno, salen en español natural.
+  3. **Calidad validada:** las 78 están `validated` por el quórum con el prompt de traducción; `disputed` resueltos con trabajo, español acentuado RAE.
+  4. **Gate y brownfield:** las cuatro categorías entran en el array de cobertura con `expected` derivado del disco (mutación observada en rojo), `src/domain/` sin tocar, `schemaVersion` en 13, suite verde y reporter exit 0.
+
+**Plans**: TBD
+
+---
+
+### Phase 53: Cierre v2.1 — cobertura 722/722, gates verdes y motor intacto
+
+**Goal**: Cerrar el milestone con la afirmación verificada, no declarada: las 18 categorías y las 722 traducciones cubiertas y `validated`, el arnés verde de punta a punta, y el motor v1.4 demostrablemente intacto salvo el ÚNICO cambio declarado del milestone.
+
+**Depends on**: Phases 47, 48, 49, 50, 51, 52 (necesita los seis bloques de contenido cerrados; Phase 46 aporta el pipeline y el piloto)
+
+**Requirements**: GATE-03
+
+**Success Criteria** (what must be TRUE):
+
+  1. **Cobertura total y derivada:** 18/18 categorías y 722/722 variantes `multiple-choice` con traducción presente y `validated`, con el total DERIVADO del disco por el gate y por el reporter — ninguna de las dos cifras transcrita a mano en ningún fichero (el precedente CR-01 de la Phase 44: un test que congela una cifra escrita en un `notes` certifica en verde un número obsoleto).
+  2. **Arnés verde:** la suite pasa en su invocación canónica (incluido `tests/fixtures/`, enganchado en la Phase 45) y el reporter sale con exit 0 con el gate de traducción en PASS.
+  3. **Motor intacto salvo la excepción declarada:** `src/domain/` sin cambios frente al arranque del milestone, y en la capa de pantalla el único cambio de comportamiento del motor es el valor de `SESSION_AUTO_ADVANCE_MS`; la cascada D-54 sigue con EXACTAMENTE 2 call-sites de `applyImmediateFailure`, verificado por `git diff` + grep + test, no por afirmación.
+  4. **El gate de cierre muerde, comprobado por mutación:** dejar una traducción `pending`, desacentuar una frase española, o declarar una categoría cubierta sin engancharla al array, ponen el reporter en ROJO al ejecutarlo — cada mutación se corre y se revierte, y si un fix propuesto por el code review de la fase toca un gate, ese fix se verifica con la misma mutación que el código que arregla (2 de 4 fixes de revisor en la Phase 44 eran incorrectos y uno era peor que el bug).
+
+**Plans**: TBD
+
+---
 
 ## Progress
 
@@ -174,19 +343,43 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
 | v1.7 | 29-31 | 6/6 | Complete | 2026-06-17 |
 | v1.8 | 32-34 | 12/12 | Complete | 2026-06-30 |
 | v1.9 | 35-39 | 10/10 | Complete | 2026-07-02 |
-| **v2.0** | **40-45** | **15/15** | **Complete** | **2026-08-13** |
+| v2.0 | 40-45 | 15/15 | Complete | 2026-08-13 |
+| **v2.1** | **46-53** | **0/TBD** | **In progress** | **—** |
 
 *Phase 28 quedó huérfana (trabajo "responsive-mobile" archivado); la numeración no se reutiliza.*
 
+### v2.1 — detalle por fase
+
+| Phase | Variantes | Plans Complete | Status | Completed |
+|-------|-----------|----------------|--------|-----------|
+| 46. Pipeline de traducción end-to-end (piloto Preposiciones) | 96 | 0/TBD | Not started | - |
+| 47. Traducción — bloque Artículos | 110 | 0/TBD | Not started | - |
+| 48. Traducción — paradigma `fare` | 122 | 0/TBD | Not started | - |
+| 49. Traducción — morfología | 104 | 0/TBD | Not started | - |
+| 50. Traducción — léxico y movimiento | 109 | 0/TBD | Not started | - |
+| 51. Traducción — auxiliares y presente | 103 | 0/TBD | Not started | - |
+| 52. Traducción — determinantes y verbos A1/A2 | 78 | 0/TBD | Not started | - |
+| 53. Cierre v2.1 (cobertura, gates, motor) | — (722 acumuladas) | 0/TBD | Not started | - |
+
+**Suma de contenido:** 96 + 110 + 122 + 104 + 109 + 103 + 78 = **722** variantes `multiple-choice` (verificado contra `content/exercises/` el 2026-08-13: 250 slots / 758 variantes totales, de las que 22 son `word-buttons` y 14 `match` — ambas fuera de scope).
+
 ## Backlog
+
+### 🎯 Traducción al español por variante (TRAD-X1) — ✅ PROMOVIDO a v2.1 (ACTIVE)
+
+**Status:** ✅ **PROMOVIDO** — el 2026-08-13 pasó de candidato redactado por el autor a milestone **v2.1** (Phases 46-53). Diseño cerrado sin fase de research: todos los precedentes son in-repo. El patrón estructural es el de las Phases **7 / 7.1 / 7.2** de v1.0 (campo opcional nuevo aplicado a TODO el corpus: primero una fase que baja schema + render + una categoría end-to-end, después fases incrementales de contenido); el validador se deriva de **`260615-vkr`** (`docs/SONG-VALIDATION-PROMPT.md` + `scripts/validate-song-pass.mjs`, criterios S1-S6), NO de R1-R7. **Fuera de scope explícito:** `word-buttons` (22 variantes — su `prompt` ya es español), `match` (14 — no hay frase), el bloque Canciones (ya es traducción validada), reducir el `gloss` ES del `prompt` (canon R7: pre-respuesta y desambigua), fundir traducción con `explanation`, migración `13→14` y mostrar la traducción antes de responder.
+
+### 🎯 Vocabulario ES↔IT (VOCAB-X1) — candidato al milestone siguiente
+
+**Status:** Backlog, **dependiente de v2.1**. Modo de vocabulario con modalidades ES→IT / IT→ES / mezclado (VOCAB-01), dificultad fácil por selección de opciones reutilizando el motor existente — el `decoyBank` de canciones es precedente directo para generar distractoras (VOCAB-02), dificultad difícil por texto libre, que sí es motor nuevo de verdad: normalización de acentos, mayúsculas, artículo (`il`/`la`/`lo`), apóstrofo y respuestas múltiples válidas (VOCAB-03), y decidir A PROPÓSITO cuál es la unidad de reset del vocabulario en vez de heredar por defecto «un fallo re-arrastra la categoría entera» (VOCAB-04). **Va después de v2.1 porque se alimenta de los pares ES↔IT que v2.1 produce.**
 
 ### 🎯 Determinantes + verbos A1/A2 — ✅ ENTREGADO en v1.9 (SHIPPED 2026-07-01)
 
 **Status:** ✅ ENTREGADO — shipped 2026-07-01 como milestone **v1.9** (Phases 35-39; detalles en `.planning/milestones/v1.9-ROADMAP.md`). Las 4 categorías nuevas A1/A2 (Dimostrativi, Possessivi, Verbi modali, Verbi riflessivi) autoradas por quórum R1-R7 en slot+variantes + PROV-01 marca de procedencia transversal. **Scope decidido en requirements:** MODAL passato prossimo DIFERIDO (ver "Tiempos verbales" abajo); REFLEX passato prossimo con essere+concordancia INCLUIDO; PROV legacy `origen` AUSENTE (procedencia mixta, no se etiqueta en grueso). Motor v1.4 intacto (brownfield puro de contenido). Numeración de fases CONTINÚA desde Phase 34.
 
-### 🎯 Paradigma completo de `fare` (FARE-X1) — ✅ PROMOVIDO a v2.0 (ACTIVE)
+### 🎯 Paradigma completo de `fare` (FARE-X1) — ✅ ENTREGADO en v2.0
 
-**Status:** ✅ **ENTREGADO** — promovido 2026-07-28 a milestone **v2.0**, shipped 2026-08-13 (Phases 40-**45**; detalles en `.planning/milestones/v2.0-ROADMAP.md`). El rango que esta línea decía al promoverlo era 40-44; la Phase 45 se añadió el 2026-08-12 a raíz de la auditoría del propio milestone. Diseño cerrado con el autor el 2026-07-27 en `.planning/todos/pending/fare-paradigma-completo.md`; **sin fase de research** (el autor la saltó: el diseño ya estaba decidido). 4 categorías por MODO (`fare-indicativo` 8 slots · `fare-congiuntivo` 4 · `fare-cond-imperativo` 3 · `fare-indefiniti` 6) = 21 slots y ≈107 variantes por quórum **según la estimación de esta promoción**; el volumen real resultó **22 slots / 113 variantes** (D-42-01, el slot del DISPARADOR de CONG-04). La cifra de arriba se conserva porque es el registro de lo que se prometió el 2026-07-28, no de lo que se entregó. **La categoría es la unidad de reset** — la agrupación es decisión de diseño, no estética (precedente `260614-hxn`). **Riesgo asumido:** `fare-indicativo` mezcla *presente* (diario) con *trapassato remoto* (extinto en el habla) en la misma unidad de reset; si se atasca y nunca se pone verde, partirla en semplici/composti (barato, con precedente) — anotado en REQUIREMENTS.md §Future. **Out of scope explicito:** tocar el motor v1.4, ejes de variante nuevos, `fare` en perifrasis/modismos (`fare la spesa`, `fa freddo`, `farcela`, causativo) y el passato remoto de otros verbos. `andare`/`venire`/`dire` quedan como candidatos a v2.1+ con el mismo patrón.
+**Status:** ✅ **ENTREGADO** — promovido 2026-07-28 a milestone **v2.0**, shipped 2026-08-13 (Phases 40-**45**; detalles en `.planning/milestones/v2.0-ROADMAP.md`). El rango que esta línea decía al promoverlo era 40-44; la Phase 45 se añadió el 2026-08-12 a raíz de la auditoría del propio milestone. Diseño cerrado con el autor el 2026-07-27; **sin fase de research** (el autor la saltó: el diseño ya estaba decidido). 4 categorías por MODO (`fare-indicativo` 8 slots · `fare-congiuntivo` 4 · `fare-cond-imperativo` 3 · `fare-indefiniti` 6) = 21 slots y ≈107 variantes por quórum **según la estimación de esta promoción**; el volumen real resultó **22 slots / 113 variantes** (D-42-01, el slot del DISPARADOR de CONG-04). La cifra de arriba se conserva porque es el registro de lo que se prometió el 2026-07-28, no de lo que se entregó. **La categoría es la unidad de reset** — la agrupación es decisión de diseño, no estética (precedente `260614-hxn`). **Riesgo asumido:** `fare-indicativo` mezcla *presente* (diario) con *trapassato remoto* (extinto en el habla) en la misma unidad de reset; si se atasca y nunca se pone verde, partirla en semplici/composti (barato, con precedente). **Out of scope explícito:** tocar el motor v1.4, ejes de variante nuevos, `fare` en perifrasis/modismos (`fare la spesa`, `fa freddo`, `farcela`, causativo) y el passato remoto de otros verbos. `andare`/`venire`/`dire` quedan como candidatos a v2.2+ con el mismo patrón.
 
 ### Tiempos verbales y categorías derivadas (post-v1.7)
 
@@ -196,11 +389,11 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
 - **TENSE-X1..X4**: Pretérito imperfetto / Futuro semplice / Condizionale / Congiuntivo — milestone SEPARADO conforme la profesora entregue material.
 - **PASSPROX-01**: passato prossimo como categoría dedicada (elección de auxiliar + participio).
 
-Verbos IRREGULARES en presente (andare/fare/venire/dire…) son categoría aparte (out-of-scope explícito de v1.7). **v2.0 cubre `fare` ENTERO** (paradigma completo en 4 categorías); `andare`, `venire` y `dire` siguen abiertos como candidatos v2.1+. **Nota:** los tiempos que v2.0 da de alta (imperfetto, passato remoto, futuro, condizionale, congiuntivo…) entran SOLO como casillas del paradigma de `fare`; TENSE-X1..X4 sigue abierto como cobertura general del tiempo verbal sobre verbos regulares. Reflexivos recíprocos (`si amano`, `ci scriviamo` "el uno al otro") y modal + clítico (`voglio farlo`/`lo voglio fare`) diferidos a un milestone posterior de pronombres (out-of-scope de v1.9).
+Verbos IRREGULARES en presente (andare/fare/venire/dire…) son categoría aparte (out-of-scope explícito de v1.7). **v2.0 cubre `fare` ENTERO** (paradigma completo en 4 categorías); `andare`, `venire` y `dire` siguen abiertos como candidatos v2.2+. **Nota:** los tiempos que v2.0 dio de alta (imperfetto, passato remoto, futuro, condizionale, congiuntivo…) entraron SOLO como casillas del paradigma de `fare`; TENSE-X1..X4 sigue abierto como cobertura general del tiempo verbal sobre verbos regulares. Reflexivos recíprocos (`si amano`, `ci scriviamo` "el uno al otro") y modal + clítico (`voglio farlo`/`lo voglio fare`) diferidos a un milestone posterior de pronombres (out-of-scope de v1.9).
 
 ### Procedencia — granularidad fina (PROV-X1 — diferido)
 
-**Status:** Backlog post-v1.9. **PROV-X1**: marca de procedencia por-slot o por-variante para representar con honestidad la mezcla del legado (aumentos por quórum sobre base de PDF de la profesora en v1.4-v1.7). v1.9 estampa `origen` solo a nivel de categoría en las 4 nuevas (nacidas `ia-quorum` puras) y deja las 10 legacy con `origen` AUSENTE (etiquetarlas en grueso mentiría, ver PROV-02). La granularidad fina es diferida: coste de validador + etiquetado retroactivo alto; category-level absente basta para v1.9.
+**Status:** Backlog post-v1.9. **PROV-X1**: marca de procedencia por-slot o por-variante para representar con honestidad la mezcla del legado (aumentos por quórum sobre base de PDF de la profesora en v1.4-v1.7). v1.9 estampa `origen` solo a nivel de categoría en las 4 nuevas (nacidas `ia-quorum` puras) y deja las 10 legacy con `origen` AUSENTE (etiquetarlas en grueso mentiría, ver PROV-02). La granularidad fina es diferida: coste de validador + etiquetado retroactivo alto; category-level ausente basta.
 
 ### CONV-01 — ✅ CERRADO en v1.6
 
@@ -208,7 +401,7 @@ Verbos IRREGULARES en presente (andare/fare/venire/dire…) son categoría apart
 
 ### Autoría asistida de variantes (AUTHOR-01 — diferido)
 
-**Status:** Backlog post-v1.4. UI o proceso asistido para autorar/revisar variantes de un slot sin editar JSON a mano. En v1.4/v1.5/v1.6/v1.7 (y v1.9) las variantes se autoran a mano + quórum (patrón D-85).
+**Status:** Backlog post-v1.4. UI o proceso asistido para autorar/revisar variantes de un slot sin editar JSON a mano. En v1.4/v1.5/v1.6/v1.7 (y v1.9/v2.0) las variantes se autoran a mano + quórum (patrón D-85).
 
 ### Categorización asistida de frases de canciones (CATPROC — diferido a milestone futuro)
 
@@ -224,40 +417,7 @@ Verbos IRREGULARES en presente (andare/fare/venire/dire…) son categoría apart
 
 ### Bridges multi-cat Partitivos + responsive móvil
 
-**Status:** Backlog. Bridges multi-categoría Partitivos↔género-número/sustantivos (PART-X1, diferido para acotar v1.2). Responsive móvil ya ejecutado parcialmente como trabajo huérfano (Phase 28, archivada) + capa `@media (max-width: 640px)` shippeada como quick tasks; el responsive completo de las pantallas Editoriale (tamaño de prompt + breakpoints) queda diferido de v1.8 (desktop-only por diseño) — re-evaluar si se reactiva como milestone formal.
-
-### Phase 45: Deuda del arnés de tests
-
-**Goal**: Cerrar los tres sitios donde el arnés de tests **no vigila lo que su propia prosa dice que vigila** — el patrón que la auditoría de v2.0 identificó como causa raíz de la deuda de las Phases 41-44 y que, sin pagar, produce el siguiente CR-01. No es limpieza cosmética: dos de los tres dejan un camino por el que una categoría puede volver a quedarse sin contar con todos los gates en verde, que es exactamente el bug que se repitió tres fases seguidas emitiendo `225/225 PASS`. Transversal y de bajo riesgo (solo `tests/` y `scripts/`, cero contenido, cero motor).
-
-**Depends on**: Phase 44 (los tres hallazgos salen de `44-REVIEW.md` y de `.planning/v2.0-MILESTONE-AUDIT.md`)
-**Requirements**: DEUDA-01, DEUDA-02, DEUDA-03
-**Plans:** 4/4 plans executed
-
-**Success Criteria** (what must be TRUE):
-
-  1. **DEUDA-01 — `tests/fixtures/` entra en el gate.** Las 44 aserciones de `tests/fixtures/slot-variants-integration.test.js` corren en la invocación canónica de la suite. Hoy no: `node --test tests/*.test.js` no globea ese subdirectorio, así que uno de los DOS arrays de conteo que la Phase 44 existía para re-enganchar (`REAL_CATEGORIES`) vive sin gate automático. La auditoría las corrió aparte y dan **44/44 pass**, así que no hay ningún fallo escondido — el trabajo es engancharlas, no arreglarlas. Verificación por mutación: desincronizar `REAL_CATEGORIES` y comprobar que la suite canónica se pone ROJA (hoy se queda verde).
-  2. **DEUDA-02 — el tercer array de conteo entra en el gate anti-ceguera.** `CATEGORIES_WITH_EXPLANATIONS` (`tests/exercise-types.test.js:1338`) queda fuera de `tests/count-arrays-lockstep.test.js` porque no declara clave `slug:` y el extractor no puede parsearlo. Hoy está en sync (verificado en la auditoría), pero es la misma forma del olvido de tres fases. Cerrar exige o darle forma parseable o enseñar al extractor a leer la suya — y en cualquier caso el gate debe ponerse rojo ante una categoría registrada en `categories.json` y ausente de ESE array. Ligado a WR-07 y WR-12 de `44-REVIEW.md`, que tocan el mismo extractor.
-  3. **DEUDA-03 — el reporter deja de mentir sobre su propio objeto.** `scripts/run-validation-271.mjs` imprime «Milestone v1.1 — gate Phase 10» y recomienda `/gsd:complete-milestone v1.1` (líneas 4, 7, 43, 70, 376) — cuatro milestones de retraso. Las cifras computadas SÍ son correctas y actuales; es el texto literal el que engaña sobre qué se está gateando, en el fichero cuyo trabajo es precisamente que los números no engañen. Cierre: el encabezado y el pie se DERIVAN del milestone activo, no se transcriben — mismo principio que ya rige los counts (nunca número mágico). Absorbe WR-06 y WR-10 de `44-REVIEW.md`.
-
-**Fuera de alcance**: los otros 23 hallazgos de deuda del informe de auditoría. En particular NO entran los juicios de diseño de ejercicio de la Phase 41 (WR-01/04/05) ni la deuda de cobertura de test de la Phase 42 (WR-01..06, IN-01..06), cuyo contenido ya se verificó correcto a mano. Esta fase paga solo los tres sitios donde el arnés está ciego o miente, no la deuda de calidad editorial.
-
-Plans:
-**Wave 1**
-
-- [x] 45-01-PLAN.md — DEUDA-01: `tests/fixtures/` entra en la invocación canónica (tracer end-to-end: contrato + gate derivado del disco + rojo observado), las ~19 cabeceras de `tests/` en lockstep y COVERAGE.md
-
-**Wave 2** *(blocked on Wave 1 completion)*
-
-- [x] 45-02-PLAN.md — DEUDA-02: `CATEGORIES_WITH_EXPLANATIONS` toma forma parseable y entra en el gate anti-ceguera; WR-07 con golden fail-first; guard de integridad del escáner
-
-**Wave 3** *(blocked on Wave 2 completion)*
-
-- [x] 45-03-PLAN.md — DEUDA-03: encabezado y pie del reporter derivados de `.planning/STATE.md` con lectura fail-soft, gate source-assert que lo congela y checkpoint humano sobre la salida
-
-**Wave 4** *(blocked on Wave 3 completion)*
-
-- [x] 45-04-PLAN.md — Trazabilidad: DEUDA-01/02/03 definidos y mapeados en `REQUIREMENTS.md`, y la línea de Coverage derivada del disco por un gate nuevo
+**Status:** Backlog. Bridges multi-categoría Partitivos↔género-número/sustantivos (PART-X1, diferido para acotar v1.2). Responsive móvil (MOBILE-01) ya ejecutado parcialmente como trabajo huérfano (Phase 28, archivada) + capa `@media (max-width: 640px)` shippeada como quick tasks; el responsive completo de las pantallas Editoriale (tamaño de prompt + breakpoints) queda diferido desde v1.8 (desktop-only por diseño) — re-evaluar si se reactiva como milestone formal.
 
 ---
 *Roadmap created: 2026-05-23*
@@ -271,4 +431,5 @@ Plans:
 *Milestone v1.7 shipped 2026-06-17 — Phases 29-31 (numeración EMPIEZA en 29, NO en 28 — Phase 28 ya existe como trabajo huérfano "responsive-mobile" archivado en `.planning/milestones/orphan-phases/`; la numeración no se reutiliza). Presente regolare (10ª categoría de gramática): alta nacida directamente en slot+variantes + migración con reset selectivo + integración lockstep. 11 requirements (7 PRES + 2 MIG + 2 INT), 11/11 mapped, 0 orphans. **Brownfield puro contenido + migración: motor v1.4 NO tocado.** La migración fue `10→11` (codebase ya en schemaVersion 10 tras el quick `260615-nzi`).*
 *Milestone v1.8 SHIPPED 2026-06-30 — Phases 32-34 (numeración CONTINÚA desde Phase 31). Rediseño visual "Editoriale": brownfield UI puro que aplicó la dirección visual del handoff a las 8 pantallas en el stack real (vanilla + Alpine; Pico eliminado, `app.css` base). 19/19 requirements, audit passed. Motor NO tocado. Detalles archivados en `.planning/milestones/v1.8-ROADMAP.md`.*
 *Milestone v1.9 SHIPPED 2026-07-01 — Phases 35-39 (numeración CONTINÚA desde Phase 34). Determinantes + verbos A1/A2: 4 categorías nuevas (Dimostrativi/Possessivi/Modali/Riflessivi) autoradas desde cero por quórum cross-vendor R1-R7 en slot+variantes + PROV-01 marca de procedencia transversal + migración `11→12` + integración lockstep. 25 requirements (5 DEMOS + 5 POSS + 2 MODAL + 5 REFLEX + 2 PROV + 2 MIG + 4 INT). 14 categorías / 225 slots. Suite 624/624 (638 strict). **Brownfield PURO DE CONTENIDO: motor v1.4 NO tocado (cascada D-54 con EXACTAMENTE 2 call-sites).** Detalles archivados en `.planning/milestones/v1.9-ROADMAP.md`.*
-*Milestone v2.0 ACTIVE desde 2026-07-28 — Phases 40-44 (numeración CONTINÚA desde Phase 39). Paradigma completo de `fare`: 4 categorías por modo (`fare-indicativo` 8 slots · `fare-congiuntivo` 4 · `fare-cond-imperativo` 3 · `fare-indefiniti` 6 = **22 slots / 113 variantes** reales; 21 slots y ≈107 variantes en la estimación de plan-time, ver D-42-01) autoradas desde cero por quórum cross-vendor R1-R7 en slot+variantes + migración `12→13` con reset selectivo + integración lockstep. 23 requirements (6 IND + 4 CONG + 3 CI + 4 INDEF + 2 MIG + 4 INT), 23/23 mapped, 0 orphans, 0 duplicados. Phase 40 (migración) → 41 (indicativo, el bloque grande) → 42 (congiuntivo) → 43 (cond-imperativo + indefiniti) → 44 (lockstep + cierre). Phases 41/42/43 dependen solo de 40 y son independientes entre sí; Phase 44 depende de las tres. **Brownfield PURO DE CONTENIDO: motor v1.4 NO tocado (cascada D-54 con EXACTAMENTE 2 call-sites).***
+*Milestone v2.0 SHIPPED 2026-08-13 — Phases 40-45 (numeración CONTINÚA desde Phase 39). Paradigma completo de `fare`: 4 categorías por modo = **22 slots / 113 variantes** por quórum cross-vendor R1-R7 + migración `12→13` con reset selectivo + integración lockstep + Phase 45 (deuda del arnés de tests, añadida a raíz de la auditoría del propio milestone). 26/26 requirements. 18 categorías / 250 slots. Suite 1182/1182 (1200 strict), reporter exit 0. **Motor v1.4 byte-intacto.** Detalles archivados en `.planning/milestones/v2.0-ROADMAP.md`.*
+*Milestone v2.1 ACTIVE desde 2026-08-13 — Phases 46-53 (numeración CONTINÚA desde Phase 45, sin reset). Traducción al español por variante (TRAD-X1): campo OPCIONAL de traducción por variante `multiple-choice` (sin migración `13→14` — es contenido en `content/`, no state) + render en acierto Y fallo con `SESSION_AUTO_ADVANCE_MS` subido + validador propio derivado de S1-S6 (NO R1-R7) + gates de cobertura y anti-ceguera + **722 traducciones en 18 categorías**. 22 requirements (3 SCH + 5 REND + 4 TVAL + 7 TRAD + 3 GATE), 22/22 mapped, 0 orphans, 0 duplicados. Estructura: **Phase 46** baja el pipeline entero y lo prueba end-to-end sobre el piloto Preposiciones (patrón Phases 7/7.1/7.2 de v1.0), **Phases 47-52** son bloques de contenido independientes entre sí (solo comparten el array de cobertura, enganchado en lockstep), **Phase 53** cierra con cobertura, gates y motor. Los gates (GATE-01/02) van en la PRIMERA fase, no en la última — la lección de v2.0: un array de conteo añadido tarde emitió `225/225 PASS` con una categoría entera desenganchada. **Brownfield con UNA excepción declarada: el valor de `SESSION_AUTO_ADVANCE_MS`. `src/domain/` no se toca; la cascada D-54 sigue con EXACTAMENTE 2 call-sites.***
