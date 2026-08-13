@@ -18,7 +18,7 @@
 ### Render en pantalla
 
 - [ ] **REND-01**: Al FALLAR un `multiple-choice` que tiene traducción, el autor la ve junto al feedback rojo, visualmente distinguible de la `explanation` (son cosas distintas: una traduce, la otra explica la regla).
-- [ ] **REND-02**: Al ACERTAR, el autor ve la traducción igualmente y el auto-avance le deja tiempo real de leerla (`SESSION_AUTO_ADVANCE_MS` sube desde 600 ms; el valor final se fija en UAT con uso real).
+- [ ] **REND-02**: Al ACERTAR, el autor ve la traducción igualmente y dispone de tiempo real de leerla. *(Corregido en la discusión de la Phase 46, 2026-08-13: la redacción original decía «`SESSION_AUTO_ADVANCE_MS` sube desde 600 ms», pero en los modos de ejercicio **no existe auto-avance** — se eliminó en el quick `260615-r3b` y el avance es manual con «Continuar →» (`src/screens/app.js:1741-1750`, `index.html:628`); `SESSION_AUTO_ADVANCE_MS` solo gobierna el modo canción, fuera de scope. En modo contrarreloj el cronómetro se cancela al responder y tampoco auto-avanza (`app.js:1897-1908`). El tiempo de lectura ya es ilimitado en las tres superficies de ejercicio, así que este requirement **no exige ningún cambio de motor**.)*
 - [ ] **REND-03**: El botón "¿Por qué?" / tecla `e` sigue revelando la `explanation` bajo demanda tras acertar y sigue cancelando el auto-avance — la traducción no le roba el sitio ni cambia su comportamiento.
 - [ ] **REND-04**: En la sección "Errores cometidos" del resumen, cada fallo muestra la traducción de la frase que falló, junto a su explanation.
 - [ ] **REND-05**: Un ejercicio SIN traducción no deja hueco, etiqueta ni placeholder en ninguna de las dos superficies (graceful degradation D-121), y el render usa `x-text` exclusivamente (invariante anti-XSS T-02-01).
@@ -44,7 +44,7 @@
 
 - [ ] **GATE-01**: Un gate paramétrico exige 100% de cobertura de traducción en cada categoría declarada cubierta, con el `expected` DERIVADO del disco y nunca transcrito como número mágico.
 - [ ] **GATE-02**: El gate anti-ceguera (heredado de Phases 44/45) pone ROJO cualquier categoría declarada cubierta que no esté enganchada al array de cobertura, para que el olvido de enganchar no pueda emitir un PASS.
-- [ ] **GATE-03**: Al cierre del milestone: 18/18 categorías y 722/722 traducciones cubiertas y `validated`, suite verde, reporter exit 0, y el motor v1.4 intacto salvo el ÚNICO cambio declarado (`SESSION_AUTO_ADVANCE_MS`) — la cascada D-54 sigue con exactamente 2 call-sites.
+- [ ] **GATE-03**: Al cierre del milestone: 18/18 categorías y 722/722 traducciones cubiertas y `validated`, suite verde, reporter exit 0, y el motor v1.4 **byte-intacto** — `src/domain/` sin cambios, `SESSION_AUTO_ADVANCE_MS` sin tocar, y la cascada D-54 con exactamente 2 call-sites. *(Corregido en la discusión de la Phase 46, 2026-08-13: ya no hay «ÚNICO cambio declarado» — ver REND-02. El invariante es más fuerte y más fácil de verificar: `git diff` vacío en `src/domain/` y en la constante.)*
 
 ## Future Requirements
 

@@ -47,7 +47,7 @@ Last activity: 2026-08-13 — Roadmap v2.1 creado
 
 **Invariantes que este milestone NO puede romper:**
 
-- **Motor brownfield-congelado con UNA excepción declarada:** el valor de `SESSION_AUTO_ADVANCE_MS`. `src/domain/` no se toca; la cascada D-54 sigue con EXACTAMENTE 2 call-sites de `applyImmediateFailure`.
+- **Motor BYTE-INTACTO (sin excepciones):** `src/domain/` no se toca, `SESSION_AUTO_ADVANCE_MS` no se toca y la cascada D-54 sigue con EXACTAMENTE 2 call-sites de `applyImmediateFailure`. *(La «excepción declarada» de la redacción original se retiró en la discusión de la Phase 46, 2026-08-13: en los modos de ejercicio no existe auto-avance que alargar — se eliminó en el quick `260615-r3b` y el avance es manual; esa constante solo gobierna el modo canción, fuera de scope.)*
 - **Los gates se verifican por MUTACIÓN, no leyendo.** «El gate existe» no es criterio; «romper X lo pone rojo» sí (Phase 45: cinco gates vacuos, los cinco cazados corriendo la mutación).
 - **Un fix propuesto en un code review se verifica con la misma mutación que el código que arregla** (2 de 4 fixes de revisor en la Phase 44 eran incorrectos; uno era peor que el bug).
 - **Render `x-text`-only, nunca `x-html`** (anti-XSS T-02-01).
