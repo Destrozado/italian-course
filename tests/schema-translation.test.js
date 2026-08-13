@@ -492,3 +492,93 @@ describe('SCH-03 — el campo es contenido, no state: cero migración (D-46-05)'
     }
   });
 });
+
+// ══════════════════════════════════════════════════════════════════════════
+// WR-04 · el guard estructural de `translationES` ya no se queda en `text`
+//
+// El code review de la fase pasó seis payloads adversariales por `validateContent`
+// y CUATRO se aceptaban: `validation: "basura"`, `validation.passes: 7`, una clave
+// hermana desconocida y un `text` con salto de línea. El daño concreto: un
+// `validation` malformado hace que TRAD-COV cuente la variante como `missing` y que
+// el rojo diga «Sin traducir o sin passes[]» sobre una traducción que SÍ está
+// escrita — mandando al autor a re-traducir en vez de a arreglar el bloque.
+//
+// LA FRONTERA ES D-46-03 y estos tests la congelan por LOS DOS LADOS: lo estructural
+// se rechaza, y lo que es CALIDAD se sigue aceptando aquí porque lo juzga el quórum.
+// ══════════════════════════════════════════════════════════════════════════
+
+describe('WR-04 — guard estructural de translationES (D-46-03: estructura sí, calidad no)', () => {
+  const conTraduccion = (translationES) => validarSlot({ type: 'multiple-choice', variants: [mc({ translationES })] });
+
+  test('CLÁUSULA DE NO-VACUIDAD (va primero): el molde válido pasa', () => {
+    // Sin esto, un molde roto haría que TODOS los "rechaza" de abajo salieran verdes
+    // por el motivo equivocado, sin haber probado ni un guard.
+    const ok = conTraduccion({ text: 'Paolo es de Nápoles de nacimiento.', validation: { status: 'pending', passes: [] } });
+    assert.equal(ok.ok, true, `el molde válido no debería producir errores: ${JSON.stringify(razones(ok))}`);
+  });
+
+  test('`translationES` tiene que ser un OBJETO: array, string y null se rechazan', () => {
+    for (const valor of [[], 'Paolo es de Nápoles.', 42, true]) {
+      const r = conTraduccion(valor);
+      assert.equal(r.ok, false, `${JSON.stringify(valor)} debería rechazarse`);
+      assert.ok(hayError(r, 'translationES', 'debe ser objeto'), `mensaje inesperado: ${JSON.stringify(razones(r))}`);
+    }
+  });
+
+  test('una clave hermana desconocida se rechaza y se NOMBRA', () => {
+    // Es la puerta por la que un `traduccion:` mal escrito —el nombre que el autor
+    // RECHAZÓ explícitamente— viviría en el corpus sin que nada chillara.
+    const r = conTraduccion({ text: 'Paolo es de Nápoles.', traduccion: 'Otra cosa.' });
+    assert.equal(r.ok, false);
+    assert.ok(hayError(r, 'claves desconocidas', 'traduccion'), `mensaje inesperado: ${JSON.stringify(razones(r))}`);
+  });
+
+  test('`validation` con cualquier forma que no sea { passes: [] } se rechaza', () => {
+    for (const v of ['basura', 42, [], null, { status: 'validated' }, { status: 'validated', passes: 7 }]) {
+      const r = conTraduccion({ text: 'Paolo es de Nápoles.', validation: v });
+      assert.equal(r.ok, false, `validation: ${JSON.stringify(v)} debería rechazarse`);
+      assert.ok(hayError(r, 'translationES.validation'), `mensaje inesperado: ${JSON.stringify(razones(r))}`);
+    }
+  });
+
+  test('`validation` AUSENTE se sigue aceptando (el bloque nace vacío al autorar)', () => {
+    // Retrocompat del flujo real: primero se autora el texto, después lo valida el
+    // quórum. Rechazar aquí pondría rojo el estado intermedio legítimo.
+    const r = conTraduccion({ text: 'Paolo es de Nápoles de nacimiento.' });
+    assert.equal(r.ok, true, `${JSON.stringify(razones(r))}`);
+  });
+
+  test('un `text` con salto de línea se rechaza: es la traducción de UNA frase', () => {
+    for (const text of ['Uno.\nDos.', 'Uno.\r\nDos.']) {
+      const r = conTraduccion({ text });
+      assert.equal(r.ok, false, `${JSON.stringify(text)} debería rechazarse`);
+      assert.ok(hayError(r, 'saltos de línea'), `mensaje inesperado: ${JSON.stringify(razones(r))}`);
+    }
+  });
+
+  test('LA FRONTERA, por el otro lado: lo que es CALIDAD se sigue aceptando aquí', () => {
+    // D-46-03 — el quórum es autoridad única sobre calidad. Si algún día el schema
+    // empieza a rechazar esto, es que la frontera se movió y hay que decidirlo, no
+    // que se coló un bug.
+    const deCalidad = [
+      { text: 'paolo es de napoles de nacimiento.' },   // sin tildes ni mayúscula (S4, del quórum)
+      { text: '<b>Paolo es de Nápoles.</b>' },          // el render va por x-text (T-02-01)
+      { text: 'de' },                                    // una sola palabra (descartado en D-46-03)
+      { text: 'Paolo es de Nápoles de nacimiento.', validation: { status: 'validated', passes: [] } }, // status forjado
+    ];
+    for (const t of deCalidad) {
+      const r = conTraduccion(t);
+      assert.equal(r.ok, true, `el schema NO debe juzgar esto: ${JSON.stringify(t)} → ${JSON.stringify(razones(r))}`);
+    }
+    // Y el `status` forjado del último caso NO queda sin vigilancia: lo cazan el
+    // sub-gate TRAD-COV del reporter y el gate de contenido de CR-01, que es su capa.
+  });
+
+  test('SCH-02 no se debilita: en word-buttons y match se sigue rechazando por PRESENCIA', () => {
+    for (const [type, surface] of [['word-buttons', wb], ['match', mt]]) {
+      const r = validarSlot({ type, variants: [surface({ translationES: { text: 'Paolo es de Nápoles.' } })] });
+      assert.equal(r.ok, false, `${type} debería rechazar translationES`);
+      assert.ok(hayError(r, 'no está permitido'), `mensaje inesperado en ${type}: ${JSON.stringify(razones(r))}`);
+    }
+  });
+});

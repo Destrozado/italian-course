@@ -469,12 +469,51 @@ function validateMultipleChoiceSurface(surface, exId, file, push, label) {
   // NFD pasan igual), no recorta el dato, no exige unicidad entre variantes
   // hermanas y no exige un mínimo de palabras. Toda la calidad —acentos RAE
   // incluidos— la juzga el QUÓRUM, autoridad única sobre calidad.
+  // WR-04 (code review de la fase): el guard validaba `text` y NADA MÁS, así que se
+  // colaban seis formas estructuralmente rotas — verificadas ejecutando
+  // `validateContent`: `validation: "basura"`, `validation.passes: 7`, una clave
+  // hermana desconocida (`traduccion:`, justo el nombre que el autor RECHAZÓ), y un
+  // `text` con salto de línea, todas ACEPTADAS.
+  //
+  // Por qué importa que no sea sólo fealdad: un `validation` malformado hace que
+  // TRAD-COV lo cuente como `missing` y que el rojo diga «Sin traducir o sin passes[]»
+  // sobre una traducción que SÍ está escrita — un diagnóstico que manda al autor a
+  // re-traducir en vez de a arreglar el bloque.
+  //
+  // LA FRONTERA SIGUE SIENDO D-46-03: esto es ESTRUCTURA, no calidad. No se mira si el
+  // español es natural, si lleva sus tildes ni si repite el gloss: eso lo juzga el
+  // quórum, autoridad única sobre calidad. El `<b>` de la sonda adversarial se acepta a
+  // propósito (el render va por `x-text`, T-02-01, así que es texto y no markup), y el
+  // `{status:'validated', passes:[]}` también: que el `status` escrito sea el DERIVADO
+  // es un invariante de la capa de validación, no de la forma del documento, y lo
+  // vigilan el sub-gate TRAD-COV y el gate de contenido de CR-01.
   if (surface.translationES !== undefined) {
-    const text = surface.translationES?.text;
-    if (typeof text !== 'string' || !text.trim()) {
-      push(file, exId, `"${label}.translationES.text" debe ser string no vacío si translationES está presente`);
-    } else if (text.includes('___')) {
-      push(file, exId, `"${label}.translationES.text" no puede contener "___" — la traducción es de la frase YA RESUELTA`);
+    const t = surface.translationES;
+    if (typeof t !== 'object' || t === null || Array.isArray(t)) {
+      push(file, exId, `"${label}.translationES" debe ser objeto { text, validation? } (encontrado: ${Array.isArray(t) ? 'array' : typeof t})`);
+    } else {
+      const desconocidas = Object.keys(t).filter((k) => k !== 'text' && k !== 'validation');
+      if (desconocidas.length) {
+        push(file, exId, `"${label}.translationES" declara claves desconocidas: ${desconocidas.join(', ')} (solo "text" y "validation")`);
+      }
+
+      if (t.validation !== undefined) {
+        const v = t.validation;
+        if (typeof v !== 'object' || v === null || Array.isArray(v) || !Array.isArray(v.passes)) {
+          push(file, exId, `"${label}.translationES.validation" debe ser objeto con "passes" array si está presente`);
+        }
+      }
+
+      const text = t.text;
+      if (typeof text !== 'string' || !text.trim()) {
+        push(file, exId, `"${label}.translationES.text" debe ser string no vacío si translationES está presente`);
+      } else if (text.includes('___')) {
+        push(file, exId, `"${label}.translationES.text" no puede contener "___" — la traducción es de la frase YA RESUELTA`);
+      } else if (/[\r\n]/.test(text)) {
+        // Estructural, no estilístico: la traducción es UNA frase de UNA variante. Un
+        // salto de línea dentro solo puede venir de un pegado accidental de varias.
+        push(file, exId, `"${label}.translationES.text" no puede contener saltos de línea — es la traducción de UNA frase`);
+      }
     }
   }
 }
