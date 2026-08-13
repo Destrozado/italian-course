@@ -196,6 +196,23 @@ parece ambiguo, si una distractora te parece también correcta, o si la regla te
 **no es asunto de esta evaluación**: la gramática del slot ya la juzgó el quórum de R1-R7 en su
 momento, con otro prompt. Aquí solo se juzga la traducción.
 
+### Excepción léxica: `da` + PERSONA se traduce «(a / de) casa de X»
+
+En italiano, `da` seguido de PERSONA (`da Marco`, `dai cugini`, `dalle zie`, `dagli studenti`,
+`dal dentista`) significa **en / a / de casa de esa persona**, o **donde esa persona**: el lugar va
+DENTRO de la preposición, no en un sustantivo aparte. El equivalente español estándar es exactamente
+`a casa de X` / `de casa de X`.
+
+- **Ese `casa` del español NO es contenido añadido: es la traducción del propio `da`.** Un concern
+  `[S2-fidelidad]` del tipo «la traducción añade "casa", que no aparece en el italiano» es un
+  **FALSO POSITIVO** y no debe emitirse.
+- Suprimirlo produce un español que no existe (`*Vuelvo de los abuelos`, `*Salgo de los estudiantes`).
+  La **guardia de fidelidad de S6** lo prohíbe de forma explícita: una sugerencia que suene más literal
+  pero traicione el sentido empeora el criterio en lugar de resolverlo.
+- Lo que SÍ tienes que vigilar aquí es la **DIRECCIÓN**, y esa sí es objetable: `andare` / `tornare da X`
+  es movimiento HACIA (`a casa de X`), mientras que `venire` / `uscire da X` es movimiento DESDE
+  (`de casa de X`). Invertir la dirección es `[S2-fidelidad]` false.
+
 ### Frontera con el `gloss` español del `prompt` (canon R7)
 
 Algunas frases italianas del corpus llevan, DENTRO del propio `prompt`, una glosa española entre
@@ -219,6 +236,30 @@ Por tanto:
   `aunque` y la traducción también dirá `aunque`. Eso no es repetir el gloss, es traducir bien. No lo
   penalices.
 - La traducción **no** debe reproducir los paréntesis del gloss. El español final es una frase limpia.
+
+#### El gloss viaja DENTRO de `italianoResuelto`, y eso NO es contaminación del italiano
+
+Como el gloss vive en el `prompt`, al rellenar el hueco el `italianoResuelto` **arrastra el paréntesis
+español** — por ejemplo `Vivo col nonno. (en español: Vivo con el abuelo.)`. Esa mezcla de idiomas está
+**autorada a propósito** y es canon R7. Tres consecuencias, todas obligatorias:
+
+- **NO marques `s5_italiano` como `false` porque `italianoResuelto` contenga el paréntesis español.**
+  Ese español no es una errata, ni basura de copia-pega, ni un carácter espurio, ni "texto añadido por
+  error": es el gloss. Para juzgar S5 y S2, la frase fuente es `italianoResuelto` **descontado su
+  gloss**.
+- **NO exijas que la traducción REPRODUZCA el gloss.** Un concern del tipo «la traducción omite el
+  gloss canónico R7 del prompt y debería reproducirlo» es un **FALSO POSITIVO**: contradice la regla de
+  arriba, que dice que el español final va limpio de paréntesis. Una traducción que no reproduce el
+  gloss está BIEN.
+- **Algunos glosses son de FRASE COMPLETA, no de una palabra**
+  (`(en español: 'Ayer estudié durante dos horas')`). Entonces la traducción coincidirá con el gloss
+  casi palabra por palabra, y eso es **correcto y esperable**: es la regla anterior llevada al límite.
+  La prohibición de «repetir el gloss» castiga SOLO a la traducción que se queda EN el gloss y omite el
+  resto de la frase; nunca a la que coincide con él por traducir bien.
+
+Y como el gloss es canon, **es la desambiguación autorizada del léxico**: si el gloss dice
+`durante dos horas`, la fiel es la que dice `durante dos horas`, y la que lo omite es la objetable. El
+gloss manda sobre tu preferencia de sinónimo.
 
 ### Gobernanza de excepciones
 
