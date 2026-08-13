@@ -1,4 +1,9 @@
-# Phase 46 · Plan 05 — Evidencia de las mutaciones 1 y 2 (D-46-18)
+# Phase 46 · Plan 05 — Evidencia de las mutaciones (D-46-18)
+
+> **Contenido:** las mutaciones **1 y 2** del plan (contenido → quórum → reporter), y las mutaciones
+> **M-A y M-B** del cambio de diseño que el autor pidió el 2026-08-13 durante el propio checkpoint
+> (traducción fuera de la caja de feedback). Las cuatro se EJECUTARON y en las cuatro se OBSERVÓ el
+> rojo con su exit code apuntado; ninguna se leyó.
 
 > **Este fichero NO es el SUMMARY del plan 05.** El plan 05 está **parcialmente ejecutado**:
 > las Tasks 1 y 2 están hechas, y la **Task 3 (`checkpoint:human-verify`, `gate="blocking"`)
@@ -301,6 +306,147 @@ No se cierran en silencio y no se dan por pasadas.** La decisión de qué hacer 
 
 ---
 
+# Mutaciones M-A y M-B — el gate del sitio NUEVO de la traducción (2026-08-13)
+
+> **Por qué existen.** Durante este mismo checkpoint el autor pidió mover la traducción **fuera** de la
+> caja `.session-feedback`, a justo encima del CTA de avance (enmienda de D-46-06/07/08). Ese cambio
+> **reescribe una aserción**, la V6, que hasta entonces congelaba el orden DENTRO de la caja. Y la regla
+> de la casa es que **un arreglo que toca un gate se verifica con la MISMA mutación que el código que
+> arregla**: si la aserción nueva no muerde, el «invariante» es prosa. Se ejecutan las dos direcciones
+> —la que prueba el gate nuevo (M-A) y la que prueba que el gate viejo más importante sigue mordiendo
+> después de mover el nodo (M-B)—.
+
+- **Fecha de la corrida:** 2026-08-13
+- **HEAD durante la corrida:** `4291c8a` (el cambio de diseño aún sin committear)
+- **Fichero mutado y restaurado:** `index.html`
+- **md5 antes y después:** `c8fc861125a8224be4b029525b1efc7c` (idéntico — restauración byte a byte)
+- **Método de restauración:** copia de fichero desde la foto verde (`cp`), **no** `git checkout` /
+  `git stash` / `git clean` — el mismo idioma que las mutaciones 1 y 2.
+
+## Foto verde de partida — 2026-08-13T21:25:31Z
+
+```
+$ md5sum index.html
+c8fc861125a8224be4b029525b1efc7c  index.html
+$ node --test tests/screen-translation.test.js ; echo $?
+# tests 50
+# pass 50
+# fail 0
+0
+```
+
+## MUTACIÓN M-A — devolver el nodo a DENTRO de `.session-feedback` deja V6 en ROJO
+
+Mutación aplicada con un script que **aborta si no localiza el nodo** (una mutación que no muta y sale
+verde sería el peor resultado posible): saca el `<p class="session-translation">` de entre la caja y el
+CTA y lo reinserta dentro de la caja, delante del comentario de la `explanation` — exactamente el sitio
+que la decisión ORIGINAL prescribía. `git diff --stat`: `1 file changed, 22 insertions(+), 9 deletions(-)`.
+
+### El rojo OBSERVADO — 2026-08-13T21:25:38Z
+
+```
+$ node --test tests/screen-translation.test.js ; echo $?
+    not ok 2 - EL INVARIANTE NUEVO: el nodo NO está dentro del bloque .session-feedback
+    not ok 3 - va DESPUÉS del cierre de la caja y ANTES del CTA "Continuar →"
+    not ok 4 - está JUSTO encima del CTA: entre los dos no se cuela ningún otro elemento
+not ok 5 - V6 — la traducción vive FUERA de la caja y encima del CTA (D-46-06 enmendada / D-46-08)
+# tests 50
+# pass 47
+# fail 3
+1
+```
+
+- **Exit code observado: `1`.**
+- **Mensaje literal del subtest 2:** `la traducción está DENTRO de la caja de feedback (índice 3845 en el
+  rango [2790, 5014)): el autor la quiere FUERA, en sitio fijo, acertando y fallando`.
+- Los tres índices del mensaje los **deriva el propio extractor** del `index.html` de disco (el rango de
+  la caja se acota contando anidamiento de `<div>`); ninguno está transcrito en el test.
+- Muerden **tres** subtests, que son las tres mitades del invariante nuevo: fuera de la caja, antes del
+  CTA, y sin markup intermedio.
+- La cláusula de no-vacuidad siguió en VERDE durante la mutación, que es lo correcto: la región se
+  localizó bien, el control positivo encontró la `explanation` y el título italiano dentro de la caja, y
+  el rojo vino del hecho medido, no de un extractor que dejó de casar.
+
+### Verde restaurado — 2026-08-13T21:25:50Z
+
+```
+$ cp <copia-de-la-foto-verde> index.html
+$ md5sum index.html
+c8fc861125a8224be4b029525b1efc7c
+$ node --test tests/screen-translation.test.js ; echo $?
+# pass 50 / # fail 0
+0
+```
+
+**Los dos lados del umbral quedan ejecutados: dentro de la caja → ROJO, fuera → VERDE.**
+
+## MUTACIÓN M-B — sin el guard `sessionFeedback !== null`, V5 sigue en ROJO tras el cambio de sitio
+
+Esta mutación no prueba el gate nuevo: prueba que **el invariante R1 de la fase sigue vivo después de
+mover el nodo**. El no-leak (D-46-11) es la razón por la que «verla siempre» significa siempre en el
+mismo sitio y **no** antes de responder; si al cambiar de sitio el guard hubiera quedado sin gate, el
+cambio de diseño habría abierto la puerta a filtrar la respuesta correcta pre-respuesta.
+
+Mutación: quitar `sessionFeedback !== null && ` del `x-show` de la superficie 1, dejando solo el guard de
+presencia del dato. El script aborta si no localiza el doble guard literal.
+
+### El rojo OBSERVADO — 2026-08-13T21:25:59Z
+
+```
+$ node --test tests/screen-translation.test.js ; echo $?
+    not ok 3 - todos los nodos llevan guard de estado resuelto (explícito o estructural)
+    not ok 4 - el guard de la superficie 1 exige TAMBIÉN la presencia del dato (doble guard, D-46-09)
+not ok 7 - V5 — no-leak: ningún template pinta translationES sin guard (R1 / D-46-11)
+# tests 50
+# pass 48
+# fail 2
+1
+```
+
+- **Exit code observado: `1`.**
+- **Mensaje literal:** `un nodo pinta translationES sin guard de estado resuelto: <p
+  x-show="sessionCurrentExercise.payload.translationES?.text" class="session-translation" …>` — el gate
+  **imprime el nodo infractor**, no solo un booleano.
+- Muerden dos subtests: el de «todos los nodos llevan guard» y el que exige el doble guard EXACTO del
+  UI-SPEC. **V5 sigue mordiendo con el nodo en su sitio nuevo.**
+
+### Verde restaurado — 2026-08-13T21:26:05Z
+
+```
+$ cp <copia-de-la-foto-verde> index.html
+$ md5sum index.html
+c8fc861125a8224be4b029525b1efc7c
+$ node --test tests/screen-translation.test.js ; echo $?
+# pass 50 / # fail 0
+0
+```
+
+## Lo que NO se verificó por mutación, y se dice
+
+El **margen** de 16 px arriba y abajo se verificó por **medición** (Chrome headless sobre el CSS real, con
+la ancestría DOM real: tabla en `46-UI-SPEC.md` §Spacing Scale) y por **gate derivado** (V1 compara el
+margen de las dos superficies entre sí y exige `bottom > 0`, y ancla la premisa asserteando que
+`.session-cta` sigue sin declarar `margin-top`). No se mutó el valor del margen: un `margin` distinto es
+una decisión de espaciado, no un invariante de corrección, y el juez de que 16 px se ve bien es el ojo del
+autor en el checkpoint, no un número en un test.
+
+## Los dos gates que cazaron la PROSA del comentario (no estaban planeados, y valen la pena)
+
+La primera redacción del comentario del nodo movido mencionaba los literales de copy y el nombre de la
+directiva de inyección de HTML crudo. **Dos gates existentes se pusieron rojos solos**, sin mutación:
+
+```
+V4: index.html pasó de 9 a 10 usos de inyección de HTML crudo: T-02-01 prohíbe añadir ninguno
+V9: el recuento del literal "Continuar →" cambió: esta fase no añade ni cambia copy de interfaz (3 !== 2)
+```
+
+Los dos comparan el recuento del disco contra el estado **pre-fase**, comentarios incluidos. El comentario
+se reescribió sin esos tokens. Es exactamente la deuda #14 del ledger de la Phase 44 —un comentario que
+menciona el token que su propio gate cuenta—, cazada esta vez por el gate y no por un humano, y queda
+anotada en `46-UI-SPEC.md` §DOM Contract para quien redacte el siguiente comentario.
+
+---
+
 ## Batería de verificación final — 2026-08-13
 
 | # | Comprobación | Resultado |
@@ -325,24 +471,47 @@ por tanto **abierto**, no cerrado.
 
 ---
 
+## Batería de verificación del cambio de diseño — 2026-08-13T21:35:46Z (SEGUNDA foto, fechada aparte)
+
+La tabla de arriba es la foto de las mutaciones 1 y 2 y **se deja intacta con sus cifras de entonces**
+(1299 / 1295 / 4). Esta es una foto distinta, de después del cambio de diseño: las dos se fechan por
+separado en vez de sobreescribir la primera, que es la lección de CR-01 de la Phase 44 —una suite firmando
+una cifra vieja pasa en verde—.
+
+| # | Comprobación | Resultado |
+|---|---|---|
+| 1 | `node --test tests/*.test.js tests/fixtures/*.test.js` | exit 1 — **1308 tests / 1304 pass / 4 fail**. Los 4 son los mismos de siempre (`tests/requirements-traceability.test.js`, deuda D-45-12 roja desde la baseline `19f41a9`); **cero fallos nuevos**. El total sube de 1299 a 1308 porque V1/V2/V6 aportan 9 subtests más. |
+| 2 | `node --test tests/screen-translation.test.js` | **exit 0** — 50 / 50 |
+| 3 | `node scripts/run-validation-271.mjs` | **exit 0** — `TRAD-COV: PASS (96/96)`, `Milestone gate PASS.` El cambio no toca contenido; un rojo aquí habría significado haber roto algo. |
+| 4 | `git diff --stat src/domain/ src/screens/app.js` (V8) | vacío — **motor byte-intacto** |
+| 5 | `md5sum index.html` frente a la foto verde de las mutaciones | `c8fc861125a8224be4b029525b1efc7c` — idéntico **inmediatamente tras M-A y M-B**, que es lo que prueba la restauración byte a byte. El fichero de disco de esta segunda batería es `3e50f31052a84c07f506a9f77ab3921e`, distinto **por un cambio posterior y committeado**: la reescritura del comentario de la superficie 2 (commit `bcb2ccd`, decía «misma anatomía» y dejó de ser verdad con la enmienda de D-46-08). No hay mutación residual: `git status --porcelain index.html` sale vacío. |
+
+---
+
 ## Estado del plan 05
 
 | Task | Estado |
 |---|---|
 | Task 1 — Mutación 1 (`pending` → gate rojo) | **HECHA** · rojo observado exit 1 · restaurada y re-verificada |
 | Task 2 — Mutación 2 (sin tildes → quórum → `disputed` → gate rojo) | **HECHA** · rojo observado exit 1 · restaurada y re-verificada |
-| Task 3 — `checkpoint:human-verify` `gate="blocking"` | **BLOQUEADA ESPERANDO AL AUTOR** |
-| `backstop` E1 · long-text | **ABSTENIDA** — pendiente de revisión humana (sin sujeto en el piloto) |
+| Task 3 — `checkpoint:human-verify` `gate="blocking"` | **BLOQUEADA ESPERANDO AL AUTOR** — sigue abierta: REND-02/03/04 no están confirmados en el navegador |
+| Cambio de diseño del checkpoint (traducción fuera de la caja) | **HECHO** · M-A y M-B con rojo observado exit 1 · commits `ad9097c` (código + gate) y `bcb2ccd` (enmiendas y contrato) |
+| `backstop` E1 · long-text | **ABSTENIDA** — pendiente de revisión humana (sin sujeto en el piloto). El cambio de sitio no la revierte: mueve el nodo, no alarga el contenido |
 | `backstop` E2 · long-text | **ABSTENIDA** — pendiente de revisión humana (sin sujeto en el piloto) |
 | `backstop` TRAD-01/encoding (lectura de muestra) | **ABSTENIDA** — pendiente de revisión humana |
 
 Las **tres** mutaciones de D-46-18 están ahora ejecutadas: la 3 en el plan 46-03 Task 3, y la 1 y la 2
-aquí. Ninguna se leyó; las tres se corrieron y las tres dieron rojo con exit code apuntado.
+aquí. Ninguna se leyó; las tres se corrieron y las tres dieron rojo con exit code apuntado. **Más las dos
+del cambio de diseño (M-A y M-B), que no estaban en el plan porque el cambio tampoco lo estaba**, y que se
+corrieron por la misma regla: un arreglo que toca un gate se verifica con la misma mutación que el código
+que arregla.
 
-**Sin commits de producción en este plan, y es lo correcto:** las dos mutaciones son
-destructivas-y-restauradas por diseño, y el corpus vuelve byte a byte a la foto verde. Commitear
-cualquier cosa del contenido aquí sería materializar T-46-23 (una mutación que queda committeada),
-que es el único riesgo real del plan.
+**Sobre los commits de este plan.** Las mutaciones 1 y 2 son destructivas-y-restauradas por diseño y el
+corpus vuelve byte a byte a la foto verde: commitear contenido aquí habría materializado T-46-23 (una
+mutación que queda committeada). El cambio de diseño **sí** tiene commits, y es lo correcto: no es una
+mutación, es lo que el autor pidió viendo la app, y es HTML + CSS + tests + documentación — cero
+contenido, motor byte-intacto. **Este fichero sigue NO siendo el SUMMARY del plan 05, y el plan 05 sigue
+sin SUMMARY**, porque el checkpoint no está cerrado.
 
 ---
 
@@ -371,3 +540,28 @@ indulgencia.
 (REND-01/02/04/05 en el navegador) y la lectura de muestra de 3-4 slots. No se ha recibido «aprobado»
 para esa parte, así que la Task 3 NO está cerrada y el plan 46-05 NO tiene SUMMARY todavía —
 escribirlo haría que el índice de planes leyera el plan como completo y saltara este gate bloqueante.
+
+---
+
+## Decisión del autor sobre las glosas duplicadas (2026-08-13)
+
+**Lo observado, derivado del disco** (`content/exercises/preposiciones.json`, no transcrito de ningún
+sitio): de las **96** variantes con traducción, **16** llevan en el `prompt` una glosa española de FRASE
+COMPLETA con la forma `(en español: '…')`, y en **las 16** la glosa coincide con la traducción palabra por
+palabra salvo el punto final. Consecuencia en pantalla: al resolver, el mismo español aparece dos veces —
+una en el prompt (pre-respuesta, para desambiguar) y otra como traducción (post-respuesta). Detalle de
+formato que conviene saber al re-derivarlo: **14 de las 16 glosas van entre comillas y 2 van sin ellas**
+(`preposiciones-col#0` y `#1`), así que un regex que exija comillas cuenta 14 y se deja 2 fuera.
+
+**Decisión del autor: SE DEJAN, y se anotan.** No se reescriben aquí.
+
+**Por qué es defendible y no deuda silenciada:** el quórum ya las aprobó razonando la excepción **E1** de
+`docs/TRANSLATION-VALIDATION-PROMPT.md` — si la glosa **es** la frase completa, que la traducción coincida
+con ella significa que la traducción es correcta, no que sea redundante. La glosa y la traducción tienen
+funciones distintas (canon R7: la glosa es PRE-respuesta y desambigua; la traducción es POST-respuesta y
+enseña vocabulario) y aquí, por construcción del prompt, sus textos convergen. Cambiar una de las dos por
+estética tocaría contenido ya `validated` y obligaría a re-validarlo.
+
+**Queda anotado como OBSERVACIÓN para las Phases 47-53** en `.planning/WINDOWS.md`: es dato para el autor
+—si al usar la app le molesta ver el español dos veces, la palanca es acortar la glosa del prompt, no la
+traducción—, no una tarea de esta fase.
