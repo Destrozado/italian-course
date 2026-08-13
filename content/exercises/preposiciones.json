@@ -26,7 +26,14 @@
             "da",
             "in"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Paolo es de Nápoles de nacimiento.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {

@@ -976,6 +976,23 @@ th, td { padding: 8px 10px; text-align: left; }
   font-style: normal;              /* anula el italic legacy de styles.css */
 }
 
+/* Traducción española de la frase ya resuelta (Phase 46 · REND-01/04, D-46-07).
+ * Texto de FRASE, no comentario: serif como el prompt italiano (.session-prompt,
+ * app.css:858), frente a la explanation que es sans muted porque comenta.
+ * Sin etiqueta y sin comillas envolventes (D-46-07). Ink neutro en acierto y en
+ * fallo: la traducción no es un veredicto. Selector compartido por las dos
+ * superficies (precedente styles.css:453) — un solo criterio de estilo.
+ * Cero tokens nuevos. */
+.session-translation,
+.summary-error-translation {
+  font-family: var(--ed-font-serif);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--ed-ink);
+  margin: 8px 0 0;                 /* sm — colapsa a 8px contra el margin-top de la explanation */
+}
+
 /* ═══════════════════════════════════════════════════════════════════════
  * Phase 33 / Plan 02 — Opción múltiple (EX-03) comprobado Editoriale
  *
@@ -1983,3 +2000,10 @@ th, td { padding: 8px 10px; text-align: left; }
   color: var(--ed-muted);
   font-style: italic;
 }
+/* Traducción de la frase resuelta: NO tiene regla aquí, a propósito. Su criterio
+ * de estilo se declara UNA sola vez, en el selector doble compartido junto a
+ * .session-explanation, dentro del banner "Caja de feedback" de más arriba
+ * (Phase 46 · D-46-08). Un nombre de clase nuevo, sin regla legacy que vencer,
+ * no necesita el descendiente `.summary-errors …` que sí hace falta para la
+ * explanation. No duplicar el criterio aquí: la suite asserta (V2) que las dos
+ * clases de traducción se declaran en un único sitio del fichero. */

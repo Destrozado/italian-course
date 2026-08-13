@@ -452,6 +452,31 @@ function validateMultipleChoiceSurface(surface, exId, file, push, label) {
   if (!Number.isInteger(correctIndex) || correctIndex < 0 || correctIndex >= optsLen) {
     push(file, exId, `"${label}.correctIndex" inválido: ${correctIndex} (debe ser entero en rango [0, ${optsLen}))`);
   }
+
+  // Phase 46 plan 01 (SCH-01, D-46-02/D-46-03): campo OPCIONAL `translationES`
+  // — la traducción española de la frase YA RESUELTA, por VARIANTE. Molde del
+  // campo opcional retrocompatible clonado de `payload.explanation` (:419):
+  // guard `!== undefined` (ausencia = aceptada, las 250 slots del corpus siguen
+  // verdes), `typeof !== 'string' || !trim()` (rechaza null, number, array,
+  // `""`, `"   "`) y `push()` SIN early-return (D-08 acumula todos los errores).
+  //
+  // Guard estructural extra (D-46-03): el texto no puede contener el hueco
+  // `___`. La traducción es de la frase ya resuelta, así que un hueco dentro
+  // solo puede significar que se copió el `prompt` sin rellenar — error
+  // mecánico baratísimo aquí y carísimo de cazar a ojo en 722 frases.
+  //
+  // Lo que este guard deliberadamente NO hace (D-46-03): no normaliza (NFC y
+  // NFD pasan igual), no recorta el dato, no exige unicidad entre variantes
+  // hermanas y no exige un mínimo de palabras. Toda la calidad —acentos RAE
+  // incluidos— la juzga el QUÓRUM, autoridad única sobre calidad.
+  if (surface.translationES !== undefined) {
+    const text = surface.translationES?.text;
+    if (typeof text !== 'string' || !text.trim()) {
+      push(file, exId, `"${label}.translationES.text" debe ser string no vacío si translationES está presente`);
+    } else if (text.includes('___')) {
+      push(file, exId, `"${label}.translationES.text" no puede contener "___" — la traducción es de la frase YA RESUELTA`);
+    }
+  }
 }
 
 /**

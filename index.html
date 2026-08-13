@@ -605,6 +605,18 @@
                   <strong x-text="sessionCurrentExercise.payload.options[sessionCurrentExercise.payload.correctIndex]"></strong>
                 </p>
                 <!--
+                  Phase 46 (REND-01/02/05, D-46-06/07/09) — Traducción española de la frase YA
+                  RESUELTA. Va bajo "Respuesta correcta:" y ANTES de la explanation: orden
+                  narrativo qué era → qué significa → por qué. NO va bajo el prompt italiano
+                  porque post-corrección el hueco se rellena con la opción SELECCIONADA
+                  (:537), no con la correcta. Doble guard (resuelto + dato presente) → sin
+                  traducción no hay nodo (D-121). `x-text` exclusivo (T-02-01). Aparece SIEMPRE
+                  al resolver, acertando o fallando, sin affordance propio (D-46-10).
+                -->
+                <p x-show="sessionFeedback !== null && sessionCurrentExercise.payload.translationES?.text"
+                   class="session-translation"
+                   x-text="sessionCurrentExercise.payload.translationES?.text"></p>
+                <!--
                   Phase 7 plan 01 (D-118, EXPL-02) — Explicación pedagógica
                   inline. Doble guard preservado: aparece al fallar, o al
                   acertar tras pulsar "¿Por qué?", y solo si hay explanation
@@ -1282,6 +1294,14 @@
                       <div>
                         <div>Tu respuesta: <span class="user-answer" x-text="result.userAnswer"></span></div>
                         <div>Respuesta correcta: <strong x-text="summaryVariantSurface(result).payload.options[summaryVariantSurface(result).payload.correctIndex]"></strong></div>
+                        <!--
+                          Phase 46 (REND-04/05, D-46-08/09) — Misma anatomía y mismo criterio de estilo
+                          que en pantalla. Optional chaining defensivo espejo del de la explanation
+                          (:1294): el filter exterior ya excluye exerciseIds stale. `x-text` exclusivo.
+                        -->
+                        <p x-show="summaryVariantSurface(result)?.payload?.translationES?.text"
+                           class="summary-error-translation"
+                           x-text="summaryVariantSurface(result)?.payload?.translationES?.text"></p>
                         <!--
                           Phase 7 plan 01 (D-119, EXPL-03) — Explicación
                           pedagógica en summary "Errores cometidos". Optional
