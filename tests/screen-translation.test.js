@@ -65,11 +65,27 @@ const readHead = (rel) => git('show', `HEAD:${rel}`);
  * commit. Devuelve `null` si no hay ninguno (el llamador lo trata como
  * no-vacuidad, nunca como verde).
  */
+/**
+ * ¿El asunto de este commit es trabajo de la fase 46?
+ *
+ * Reconoce las DOS formas de scope que la fase produce: `(46-NN)` para los commits de
+ * plan (`feat(46-03): …`) y `(46)` a secas para los de arreglo del code review
+ * (`fix(46): CR-01 …`). Antes solo reconocía la primera, y la consecuencia se vio
+ * ejecutando: los propios commits de arreglo de esta ronda quedaban clasificados como
+ * PRE-fase, se convertían en la referencia «de antes» y pusieron en rojo V4, V8 y V9
+ * por referencia contaminada.
+ *
+ * Ampliar el reconocedor sólo puede ENDURECER los dos gates que lo consumen, nunca
+ * ablandarlos: `refPreFase46` excluye más commits, así que la referencia retrocede a un
+ * estado más limpio; y `tocadaPorFase46` incluye más commits, así que caza más.
+ */
+const esDeFase46 = (asunto) => /\(46(?:-\d+)?\)/.test(asunto || '');
+
 function refPreFase46(rel) {
   const lineas = git('log', '--format=%H%x1f%s', '--', rel).split('\n').filter(Boolean);
   for (const linea of lineas) {
     const [sha, asunto] = linea.split('\x1f');
-    if (!/\(46-\d+\)/.test(asunto || '')) {
+    if (!esDeFase46(asunto)) {
       // GUARD ANTI-COLAPSO DE LA REFERENCIA (WR-01, segunda vuelta). La búsqueda de
       // arriba filtra por el SCOPE del asunto, así que un commit hecho DURANTE la
       // fase con un asunto sin `(46-NN)` —un `chore:` cualquiera— se convierte en el
@@ -123,7 +139,7 @@ let _baseline46;
 function baselinePreFase46() {
   if (_baseline46 !== undefined) return _baseline46;
   const lineas = git('log', '--format=%H%x1f%s').split('\n').filter(Boolean);
-  const deLaFase = lineas.filter((l) => /\(46-\d+\)/.test(l.split('\x1f')[1] || ''));
+  const deLaFase = lineas.filter((l) => esDeFase46(l.split('\x1f')[1]));
   // No-vacuidad: este fichero ES un artefacto de la fase 46, así que si la historia
   // no declara NI UN commit de la fase, el extractor dejó de casar y ninguna
   // comparación «contra el pre-fase» significa nada.
@@ -173,7 +189,7 @@ function diffContraPreFase46(rel) {
 function tocadaPorFase46(rel) {
   const asuntos = git('log', '--format=%s', '--', rel).split('\n').filter(Boolean);
   assert.ok(asuntos.length > 0, `no-vacuidad: git no devuelve historia para ${rel}`);
-  return asuntos.filter((s) => /\(46-\d+\)/.test(s));
+  return asuntos.filter(esDeFase46);
 }
 
 /**
