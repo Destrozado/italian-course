@@ -1,10 +1,10 @@
 ---
 schema_version: 1
-open_count: 20
+open_count: 25
 waived_count: 0
 fixed_count: 5
-total_count: 25
-last_updated: 2026-08-13T21:53:36.138Z
+total_count: 30
+last_updated: 2026-08-13T22:49:05.443Z
 ---
 
 # Broken Windows Ledger
@@ -40,6 +40,11 @@ last_updated: 2026-08-13T21:53:36.138Z
 | 23 | 46 | unmet-truth | content/exercises/preposiciones.json |  | BACKSTOP TRAD-01/encoding ABSTENIDO en su mitad HUMANA: la lectura de muestra de 3-4 slots completos (punto 7 del checkpoint del plan 46-05) no se realizo. Su autoridad mecanica es el quorum cross-vendor y ESA mitad paso (96/96 validated, 2 by distintos: deepseek-chat + gemini-3.5-flash-lite). El Perfecto del autor del 2026-08-13 fue sobre los 4 puntos de render (REND-01..05), no sobre una lectura de muestra. Un backstop sin evidencia se abstiene, nunca pasa en silencio | open |  | 2026-08-13T21:53:23.119Z |  |
 | 24 | 46 | deviation | src/main.js | 74 | NOTA DE UAT para las Phases 47-53 (nos costo una ronda de diagnostico en vivo en el plan 46-05): el contenido se hace fetch UNA SOLA VEZ al arrancar la app. src/main.js:74 (await loadContent en bootstrap, resuelve appDataReady) -> src/screens/app.js:389 (await appDataReady en init, queda en this.content para toda la vida de la pestana). grep fetch( en src/screens/app.js = 0 ocurrencias: startSession NO vuelve a leer el JSON. Consecuencia: empezar un Examen nuevo NO recarga el contenido, asi que una pestana abierta desde antes de editar el JSON sirve contenido viejo y el sintoma se lee como un bug de render que no existe. TODA UAT de contenido empieza recargando la pestana (F5), nunca empezando una sesion nueva | open |  | 2026-08-13T21:53:36.063Z |  |
 | 25 | 46 | deviation | tests/screen-translation.test.js |  | HALLAZGO de diseno de gates (plan 46-05): V4 y V9 cuentan literales sobre TODO index.html como texto, COMENTARIOS INCLUIDOS. V4 compara countOf(htmlSrc, /x-html/g) contra readHead(index.html); V9 hace lo propio con los 4 literales de copy contra readPreFase46(index.html). La primera redaccion del comentario del nodo movido nombraba los literales de copy y la directiva de inyeccion de HTML crudo, y los DOS gates se pusieron rojos solos sin mutacion (V4: paso de 9 a 10 usos; V9: el recuento de Continuar cambio, 3 !== 2). Obligo a reescribir la prosa del comentario sin esos tokens. Es la deuda id 14 de la Phase 44 reapareciendo (un comentario que menciona el token que su propio gate cuenta), cazada esta vez POR EL GATE y no por un humano. Dato de diseno para las Phases 47-53, que escribiran 17 tandas de comentarios sobre estas mismas superficies; anotado tambien en 46-UI-SPEC.md seccion DOM Contract | open |  | 2026-08-13T21:53:36.138Z |  |
+| 26 | 46 | deviation | scripts/validate-translation-pass.mjs |  | IN-01 (code review fase 46, NO arreglado — fuera del alcance critical+warning): 14 de los 20 exports del script no tienen ningun consumidor. Lo que importa no es la superficie muerta sino que locateVariantTranslation y childObjectRanges — el corazon del re-estrechado (invariante 8) — solo se prueban INDIRECTAMENTE via applyPassToText. Darles cobertura directa vale mas que quitarles el export. Mitigado en parte por la post-condicion de CR-02, que ahora verifica cero contaminacion en CADA escritura. | open |  | 2026-08-13T22:49:05.172Z |  |
+| 27 | 46 | deviation | scripts/validate-translation-pass.mjs |  | IN-02 (code review fase 46, NO arreglado): tres asperezas del bucle de run(). (1) el wait de rate-limit se calcula antes del break por fallback, valor muerto. (2) la guarda es 'if (r.text)': una respuesta con contenido vacio ('' es falsy, y es justo lo que produce el \|\| '' del provider deepseek) cae al fondo del bucle e imprime '[modelo] error: undefined' — diagnostico enganoso; el arreglo es 'typeof r.text === string' y tratar la cadena vacia como 'sin bloque JSON valido', que ya tiene su reintento. (3) --temp=abc da NaN y JSON.stringify lo serializa como temperature: null. | open |  | 2026-08-13T22:49:05.241Z |  |
+| 28 | 46 | deviation | scripts/validate-translation-pass.mjs |  | IN-03 (code review fase 46, NO arreglado): loadEnv hace split('\\n') y conserva el \\r final si .env tiene finales de linea CRLF; una clave con \\r la rechaza la validacion de cabeceras HTTP de Node (ERR_INVALID_CHAR), asi que falla RUIDOSAMENTE, no en silencio. El bloque es verbatim de scripts/validate-song-pass.mjs:75-84, asi que el arreglo (split(/\\r?\\n/) o trim sobre m[2]) le conviene a los DOS scripts. Este repo tiene .planning/WINDOWS.md por algo. No se leyo .env. | open |  | 2026-08-13T22:49:05.309Z |  |
+| 29 | 46 | deviation | scripts/validate-translation-pass.mjs |  | IN-04 (code review fase 46, NO arreglado): composePrompt envuelve JSON.stringify en una valla ```json y JSON.stringify no escapa los backticks, asi que un text o un prompt con ``` partiria la valla y dejaria parte del payload fuera del bloque de datos. Riesgo bajo y contenido (el §6 ordena tratar todo el payload como datos, y extractJsonBlock toma el ULTIMO bloque, que es el del evaluador). Ninguna de las 96 traducciones actuales lleva backticks. Arreglo: valla mas larga o rechazar ``` en buildDataBlock. | open |  | 2026-08-13T22:49:05.377Z |  |
+| 30 | 46 | unrun-verify | index.html |  | WR-05 (code review fase 46): la mecanica de x-show NO se pudo verificar en un DOM real. Alpine se sirve por CDN (index.html:32), el proyecto es zero-deps (sin package.json, sin jsdom) y las llamadas de red estaban prohibidas en la sesion de arreglo. El REGISTRO ya se corrigio por escrito (D-46-06 enmendada 2026-08-14 + comentario del nodo): el doble guard da INVISIBILIDAD, no ausencia del DOM. Lo verificado en disco: el nodo usa x-show y no la directiva x-if sobre template; la explanation usa la misma mecanica (:613); :547 es el precedente de presencia estructural. Queda abierta la observacion en un navegador de verdad. | open |  | 2026-08-13T22:49:05.443Z |  |
 
 ````json
 [
@@ -341,6 +346,66 @@ last_updated: 2026-08-13T21:53:36.138Z
     "status": "open",
     "reason": "",
     "recorded_at": "2026-08-13T21:53:36.138Z",
+    "resolved_at": null
+  },
+  {
+    "id": 26,
+    "kind": "deviation",
+    "phase": "46",
+    "file": "scripts/validate-translation-pass.mjs",
+    "line": null,
+    "description": "IN-01 (code review fase 46, NO arreglado — fuera del alcance critical+warning): 14 de los 20 exports del script no tienen ningun consumidor. Lo que importa no es la superficie muerta sino que locateVariantTranslation y childObjectRanges — el corazon del re-estrechado (invariante 8) — solo se prueban INDIRECTAMENTE via applyPassToText. Darles cobertura directa vale mas que quitarles el export. Mitigado en parte por la post-condicion de CR-02, que ahora verifica cero contaminacion en CADA escritura.",
+    "status": "open",
+    "reason": "",
+    "recorded_at": "2026-08-13T22:49:05.172Z",
+    "resolved_at": null
+  },
+  {
+    "id": 27,
+    "kind": "deviation",
+    "phase": "46",
+    "file": "scripts/validate-translation-pass.mjs",
+    "line": null,
+    "description": "IN-02 (code review fase 46, NO arreglado): tres asperezas del bucle de run(). (1) el wait de rate-limit se calcula antes del break por fallback, valor muerto. (2) la guarda es 'if (r.text)': una respuesta con contenido vacio ('' es falsy, y es justo lo que produce el || '' del provider deepseek) cae al fondo del bucle e imprime '[modelo] error: undefined' — diagnostico enganoso; el arreglo es 'typeof r.text === string' y tratar la cadena vacia como 'sin bloque JSON valido', que ya tiene su reintento. (3) --temp=abc da NaN y JSON.stringify lo serializa como temperature: null.",
+    "status": "open",
+    "reason": "",
+    "recorded_at": "2026-08-13T22:49:05.241Z",
+    "resolved_at": null
+  },
+  {
+    "id": 28,
+    "kind": "deviation",
+    "phase": "46",
+    "file": "scripts/validate-translation-pass.mjs",
+    "line": null,
+    "description": "IN-03 (code review fase 46, NO arreglado): loadEnv hace split('\\n') y conserva el \\r final si .env tiene finales de linea CRLF; una clave con \\r la rechaza la validacion de cabeceras HTTP de Node (ERR_INVALID_CHAR), asi que falla RUIDOSAMENTE, no en silencio. El bloque es verbatim de scripts/validate-song-pass.mjs:75-84, asi que el arreglo (split(/\\r?\\n/) o trim sobre m[2]) le conviene a los DOS scripts. Este repo tiene .planning/WINDOWS.md por algo. No se leyo .env.",
+    "status": "open",
+    "reason": "",
+    "recorded_at": "2026-08-13T22:49:05.309Z",
+    "resolved_at": null
+  },
+  {
+    "id": 29,
+    "kind": "deviation",
+    "phase": "46",
+    "file": "scripts/validate-translation-pass.mjs",
+    "line": null,
+    "description": "IN-04 (code review fase 46, NO arreglado): composePrompt envuelve JSON.stringify en una valla ```json y JSON.stringify no escapa los backticks, asi que un text o un prompt con ``` partiria la valla y dejaria parte del payload fuera del bloque de datos. Riesgo bajo y contenido (el §6 ordena tratar todo el payload como datos, y extractJsonBlock toma el ULTIMO bloque, que es el del evaluador). Ninguna de las 96 traducciones actuales lleva backticks. Arreglo: valla mas larga o rechazar ``` en buildDataBlock.",
+    "status": "open",
+    "reason": "",
+    "recorded_at": "2026-08-13T22:49:05.377Z",
+    "resolved_at": null
+  },
+  {
+    "id": 30,
+    "kind": "unrun-verify",
+    "phase": "46",
+    "file": "index.html",
+    "line": null,
+    "description": "WR-05 (code review fase 46): la mecanica de x-show NO se pudo verificar en un DOM real. Alpine se sirve por CDN (index.html:32), el proyecto es zero-deps (sin package.json, sin jsdom) y las llamadas de red estaban prohibidas en la sesion de arreglo. El REGISTRO ya se corrigio por escrito (D-46-06 enmendada 2026-08-14 + comentario del nodo): el doble guard da INVISIBILIDAD, no ausencia del DOM. Lo verificado en disco: el nodo usa x-show y no la directiva x-if sobre template; la explanation usa la misma mecanica (:613); :547 es el precedente de presencia estructural. Queda abierta la observacion en un navegador de verdad.",
+    "status": "open",
+    "reason": "",
+    "recorded_at": "2026-08-13T22:49:05.443Z",
     "resolved_at": null
   }
 ]
