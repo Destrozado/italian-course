@@ -43,6 +43,13 @@
 //      el que deriva la fuente única. Era un warning meramente impreso, y
 //      mientras lo fue el reporter podía cerrar el milestone contradiciendo el
 //      fichero que acababa de leer.
+//   5. TRAD-COV (GATE-01, D-46-16) — cobertura de traducción al español. TODAS las
+//      variantes `multiple-choice` de las categorías DECLARADAS CUBIERTAS en el
+//      array de cobertura de traducción tienen su `translationES` con status
+//      `validated` derivado por la fuente única. La unidad de conteo es la
+//      VARIANTE, no el slot: es la única cifra de este fichero que no se mide en
+//      `exercises.length`. Cuántas son lo dicta el total esperado que computa el
+//      propio array, nunca una cifra escrita aquí.
 //
 // CONSTRAINT (arquitectónica): este script es POST-processing PURO. NO invoca
 // Task(), NO orquesta subagents, NO muta JSONs, NO corre `node --test` (el
@@ -341,6 +348,70 @@ const TOTAL_EXPECTED = CATEGORIES.reduce((s, c) => s + c.expected, 0);
   }
 }
 
+// ─── GATE-01 · cobertura de traducción al español (D-46-16) ───────────────────
+//
+// LA UNIDAD DE CONTEO ES LA VARIANTE, y es NUEVA en este fichero. Todos los conteos de
+// arriba miden SLOTS (`exercises.length`); una traducción no vive en el slot, vive en
+// `variants[k].translationES`, así que su cobertura sólo se puede medir en variantes.
+//
+// Y LA POBLACIÓN ES DELIBERADAMENTE «variantes multiple-choice», no «variantes». El
+// schema RECHAZA `translationES` en `match` y en `word-buttons` (SCH-02 / D-46-04), así
+// que un denominador que las incluyera sería IMPOSIBLE de cerrar por construcción: el
+// gate se quedaría rojo para siempre y la única salida sería ablandarlo. El plan 46-01
+// midió la diferencia en disco y dejó el aviso escrito para este gate. La cifra no se
+// transcribe aquí ni en ningún otro sitio (D-31-06): se DERIVA del fichero de cada
+// categoría declarada, igual que los `expected` dinámicos de arriba.
+//
+// FAIL-LOUD CON DIAGNÓSTICO NOMBRADO, y la polaridad es la del guard de coherencia, no la
+// de la etiqueta del milestone: esto no es cosmético, es el `expected` del veredicto. Una
+// categoría DECLARADA CUBIERTA cuyo fichero no se puede leer deja el gate SIN DATOS, y un
+// gate sin datos no puede emitir ningún veredicto — ni un PASS ni una cifra de cobertura.
+// Lo que NO puede hacer es morir con un ENOENT desnudo: `slotCountOf` lo hace, y ese es
+// justo el rojo ilegible que el bloque 4 del meta-test anti-ceguera existe para traducir a
+// un mensaje. Aquí se dice el fichero, la causa y las dos salidas reales.
+const mcVariantCountOf = (file) => {
+  let data;
+  try {
+    data = JSON.parse(readFileSync(resolve(projectRoot, file), 'utf8'));
+  } catch (err) {
+    console.error(
+      `TRAD-COV: no se pudo derivar el expected de cobertura de traducción de ${file} ` +
+      `(${err.message}). Es una categoría declarada cubierta, así que el gate se queda sin ` +
+      `datos y no puede emitir veredicto. Repara el fichero, o retira su entrada del array ` +
+      `de cobertura de traducción si la categoría ya no está cubierta.`
+    );
+    process.exit(1);
+  }
+  if (!data || !Array.isArray(data.exercises)) {
+    console.error(
+      `TRAD-COV: ${file} no declara un array "exercises", así que no se puede contar ninguna ` +
+      `variante y el expected de cobertura de traducción no existe. Mismo razonamiento que ` +
+      `arriba: sin datos no hay veredicto.`
+    );
+    process.exit(1);
+  }
+  return data.exercises
+    .filter((ex) => ex?.type === 'multiple-choice')
+    .reduce((s, ex) => s + (Array.isArray(ex.variants) ? ex.variants.length : 0), 0);
+};
+
+// LA FORMA DE LA ENTRADA ES LOAD-BEARING, no estética, exactamente igual que en
+// `CATEGORIES`: `slug: '<valor>',` y a continuación `file:` en la MISMA línea, slug
+// COMPLETO byte a byte (`fare-ind` es prefijo ambiguo y no se trunca jamás, D-40-03),
+// columnas alineadas. El gate anti-ceguera de tests/count-arrays-lockstep.test.js
+// escanea esta región por regex; un `slug` puesto DETRÁS del `file` no produce par, el
+// extractor devuelve lista vacía y el gate que existe para delatar la ceguera se vuelve
+// vacuo (T-44-03-01). Una categoría entra aquí cuando queda DECLARADA CUBIERTA de
+// traducción, y el anti-ceguera deriva ese conjunto del disco: en cuanto una categoría
+// recibe su primera traducción, exige que esté enganchada aquí.
+const TRANSLATION_COVERAGE = [
+  { slug: 'preposiciones',            file: 'content/exercises/preposiciones.json',            expected: mcVariantCountOf('content/exercises/preposiciones.json') },
+];
+
+// Σ de los `expected` DERIVADOS de arriba, por el mismo motivo que `TOTAL_EXPECTED`: para
+// que nunca pueda divergir de una suma escrita a mano.
+const TOTAL_TRANSLATION_EXPECTED = TRANSLATION_COVERAGE.reduce((s, c) => s + c.expected, 0);
+
 /**
  * El status efectivo de un ejercicio ES el que dicta `deriveStatus`. Sin relax
  * local, sin segunda opinión: `src/data/validation-state.js` es la fuente ÚNICA
@@ -486,6 +557,102 @@ for (const { slug, file, expected } of CATEGORIES) {
   });
 }
 
+// ─── Iteración por VARIANTE: cobertura de traducción (GATE-01) ────────────
+//
+// DOS MAGNITUDES DISTINTAS, y ahí está toda la razón de que este gate muerda.
+// El `expected` cuenta VARIANTES `multiple-choice` en el fichero de la categoría; el
+// `actual` que decide el veredicto cuenta TRADUCCIONES cuyo status DERIVADO es
+// `validated`. Son dos recorridos que cuentan cosas distintas, así que ninguno puede
+// sustituir al otro «para simplificar». El caveat de tests/exercise-types.test.js:1328-1334
+// documenta qué pasa si se ceden a la tentación: cuando `expected` y `actual` resuelven a
+// la misma lectura del mismo campo, el assert deja de poder fallar y el gate se pierde
+// CONSERVANDO LA FORMA — verde para siempre, con aspecto de estar vigilando.
+const perTranslationCategory = [];
+let anyTranslationLoadError = false;
+
+for (const { slug, file, expected } of TRANSLATION_COVERAGE) {
+  const loaded = loadCategory(file);
+  if (!loaded.ok) {
+    anyTranslationLoadError = true;
+    perTranslationCategory.push({
+      slug,
+      file,
+      expected,
+      surfaces: 0,
+      validated: 0,
+      disputed: 0,
+      pending: 0,
+      missing: 0,
+      disputedAddrs: [],
+      inconsistencyAddrs: [],
+      loadError: loaded.error,
+    });
+    continue;
+  }
+
+  let surfaces = 0;
+  let validated = 0;
+  let disputed = 0;
+  let pending = 0;
+  let missing = 0;
+  const disputedAddrs = [];
+  const inconsistencyAddrs = [];
+
+  for (const ex of loaded.exercises) {
+    if (ex?.type !== 'multiple-choice') continue;
+    const variants = Array.isArray(ex.variants) ? ex.variants : [];
+    variants.forEach((variant, k) => {
+      surfaces += 1;
+      // Dirección compuesta `<slot-id>#<k>`, la convención de CLI que fijó el plan 46-02:
+      // lo que imprime el rojo se copia y se pega en el comando del quórum.
+      const addr = `${ex?.id}#${k}`;
+      const t = variant?.translationES;
+      // Una variante SIN traducir en una categoría DECLARADA CUBIERTA es un fallo de
+      // cobertura, no un caso benigno: cuenta como `missing` y no se salta.
+      if (!t || typeof t !== 'object') {
+        missing += 1;
+        return;
+      }
+      const v = t.validation;
+      // Misma rama defensiva que el bucle de slots: `validation` ausente o `passes`
+      // no-array no crashea el reporter, cuenta como missing.
+      if (!v || typeof v !== 'object' || !Array.isArray(v.passes)) {
+        missing += 1;
+        return;
+      }
+      // La fuente ÚNICA, importada. Prohibido reimplementar o relajar la derivación en
+      // local: es literalmente el relax que el CR-03 de la Phase 44 tuvo que borrar de
+      // este mismo fichero por ser más permisivo que la función que envolvía.
+      const eff = effectiveStatus(v.passes);
+      if (eff === 'validated') {
+        validated += 1;
+      } else if (eff === 'disputed') {
+        disputed += 1;
+        disputedAddrs.push(addr);
+      } else {
+        pending += 1;
+      }
+      // Misma desincronía que vigila VAL-09, a nivel de traducción.
+      if (typeof v.status === 'string' && v.status !== eff) {
+        inconsistencyAddrs.push(`${addr} (escrito="${v.status}", derivado="${eff}")`);
+      }
+    });
+  }
+
+  perTranslationCategory.push({
+    slug,
+    file,
+    expected,
+    surfaces,
+    validated,
+    disputed,
+    pending,
+    missing,
+    disputedAddrs,
+    inconsistencyAddrs,
+  });
+}
+
 // ─── Imprimir tabla colorizada ────────────────────────────────────────────
 console.log('');
 // El banner no transcribe NADA: el milestone viene del disco y las dos cifras son las
@@ -563,6 +730,67 @@ for (const r of perCategory) {
   }
 }
 
+// ─── Tabla de cobertura de traducción ─────────────────────────────────────
+// Las columnas son las mismas que arriba pero la unidad NO: aquí cada fila cuenta
+// VARIANTES `multiple-choice`, y eso se dice en la cabecera para que nadie lea estas
+// cifras como slots. Los rótulos van interpolados desde los valores computados.
+console.log('');
+console.log(
+  `${BOLD}Cobertura de traducción — unidad: VARIANTE multiple-choice ` +
+  `(${TRANSLATION_COVERAGE.length} categorías declaradas cubiertas, ` +
+  `${TOTAL_TRANSLATION_EXPECTED} variantes)${RESET}`
+);
+console.log('');
+if (perTranslationCategory.length === 0) {
+  console.log(
+    `        ${warn('→ El array de cobertura de traducción no declara ninguna categoría: no hay nada que medir.')}`
+  );
+}
+for (const r of perTranslationCategory) {
+  if (r.loadError) {
+    console.log(
+      r.slug.padEnd(colWidths.categoria) +
+        ' | ' +
+        fail('ERROR DE CARGA — el archivo no se pudo leer/parsear'),
+    );
+    console.log(`        ${warn('→ ' + r.loadError)}`);
+    continue;
+  }
+
+  console.log(
+    r.slug.padEnd(colWidths.categoria) +
+      ' | ' +
+      String(r.surfaces).padEnd(colWidths.total) +
+      ' | ' +
+      String(r.validated).padEnd(colWidths.validated) +
+      ' | ' +
+      String(r.disputed).padEnd(colWidths.disputed) +
+      ' | ' +
+      String(r.pending).padEnd(colWidths.pending) +
+      ' | ' +
+      String(r.missing).padEnd(colWidths.missing),
+  );
+
+  if (r.disputedAddrs.length > 0) {
+    console.log(`        ${warn('→ Traducciones disputed: ' + r.disputedAddrs.join(', '))}`);
+  }
+  if (r.missing > 0) {
+    console.log(
+      `        ${warn('→ Sin traducir o sin passes[]: ' + r.missing + ' variantes de una categoría DECLARADA CUBIERTA')}`
+    );
+  }
+  if (r.inconsistencyAddrs.length > 0) {
+    console.log(
+      `        ${warn('→ Traducción con status escrito ≠ derivado: ' + r.inconsistencyAddrs.join('; '))}`
+    );
+  }
+  if (r.surfaces !== r.expected) {
+    console.log(
+      `        ${warn(`→ Variantes recorridas ${r.surfaces} ≠ esperadas ${r.expected} para ${r.slug}`)}`
+    );
+  }
+}
+
 // ─── Sub-gates VAL-04 + VAL-06 + VAL-08 ───────────────────────────────────
 const totalValidated = perCategory.reduce((s, r) => s + r.validated, 0);
 const totalDisputed  = perCategory.reduce((s, r) => s + r.disputed, 0);
@@ -625,7 +853,76 @@ console.log(
   }`
 );
 
-const gatePass = val06Pass && val08Pass && val04Pass && val09Pass;
+// TRAD-COV (GATE-01, D-46-16): cobertura de traducción de las categorías declaradas.
+const totalTranslationValidated = perTranslationCategory.reduce((s, r) => s + r.validated, 0);
+const totalTranslationDisputed  = perTranslationCategory.reduce((s, r) => s + r.disputed, 0);
+const totalTranslationPending   = perTranslationCategory.reduce((s, r) => s + r.pending, 0);
+const totalTranslationMissing   = perTranslationCategory.reduce((s, r) => s + r.missing, 0);
+const totalTranslationActual    = perTranslationCategory.reduce((s, r) => s + r.surfaces, 0);
+const allTranslationDisputedAddrs = perTranslationCategory.flatMap((r) => r.disputedAddrs);
+const allTranslationInconsistencyAddrs = perTranslationCategory.flatMap((r) => r.inconsistencyAddrs);
+
+// LA CLÁUSULA DE NO-VACUIDAD, Y VA PRIMERO.
+// Un gate cuyo extractor deja de ver datos emite PASS sobre CERO datos, y con la forma
+// intacta: `deepEqual([], [])` pasa en verde. Es el modo de fallo que este repo ya ha
+// pagado dos veces —cinco gates vacuos en la Phase 45, y una suite firmando un total
+// distinto del del reporter en el CR-01 de la Phase 44—, así que ningún gate nuevo de
+// esta fase decide nada antes de comprobar que está mirando algo. Un array vacío, un
+// total esperado de cero, o un fichero declarado que no se pudo leer NO producen PASS:
+// producen ROJO POR AUSENCIA DE DATOS, que es un veredicto DISTINTO de «cobertura
+// incompleta» y por eso se imprime con su propia razón en vez de fundirse con él.
+const tradAusenciaDeDatos = [];
+if (TRANSLATION_COVERAGE.length === 0) {
+  tradAusenciaDeDatos.push('el array de cobertura de traducción no declara ninguna categoría');
+}
+if (TOTAL_TRANSLATION_EXPECTED === 0) {
+  tradAusenciaDeDatos.push(
+    'el total esperado es 0: ninguna categoría declarada aporta variantes multiple-choice'
+  );
+}
+for (const r of perTranslationCategory) {
+  if (r.loadError) tradAusenciaDeDatos.push(`${r.slug}: ${r.loadError}`);
+}
+
+// EL VEREDICTO ES IGUALDAD DE ENTEROS, deliberadamente.
+// Nada de porcentaje, redondeo ni umbral flotante: un `>= 0.999` formatea a 99% una
+// variante suelta sin traducir y la deja pasar, y ese es exactamente el ablandamiento
+// silencioso que T-46-14 modela. La cifra que muerde es la de `validated`, que cuenta
+// TRADUCCIONES validadas — una magnitud distinta del `expected`, que cuenta VARIANTES en
+// disco. La segunda igualdad es la mitad ESTRUCTURAL, espejo de
+// `totalActual === TOTAL_EXPECTED` en VAL-06, y se declara por lo que es: sobre un árbol
+// coherente es TAUTOLÓGICA, porque sus dos lados cuentan variantes del mismo fichero. No
+// es la que muerde; se queda porque sí caza que el fichero cambie entre las dos lecturas
+// o que no se pueda recorrer.
+const tradPass =
+  tradAusenciaDeDatos.length === 0 &&
+  !anyTranslationLoadError &&
+  totalTranslationValidated === TOTAL_TRANSLATION_EXPECTED &&
+  totalTranslationActual === TOTAL_TRANSLATION_EXPECTED;
+
+console.log(
+  `  TRAD-COV (${TOTAL_TRANSLATION_EXPECTED}/${TOTAL_TRANSLATION_EXPECTED} traducciones validated): ${
+    tradPass
+      ? ok(`PASS (${totalTranslationValidated}/${TOTAL_TRANSLATION_EXPECTED})`)
+      : tradAusenciaDeDatos.length > 0
+        ? fail(`FAIL (AUSENCIA DE DATOS — ${tradAusenciaDeDatos.join('; ')})`)
+        : fail(
+            `FAIL (${totalTranslationValidated}/${TOTAL_TRANSLATION_EXPECTED} — ` +
+            `pending=${totalTranslationPending}, missing=${totalTranslationMissing}, ` +
+            `disputed=${totalTranslationDisputed})`
+          )
+  }`
+);
+if (allTranslationDisputedAddrs.length > 0) {
+  console.log(`        ${warn('→ Disputed: ' + allTranslationDisputedAddrs.join(', '))}`);
+}
+if (allTranslationInconsistencyAddrs.length > 0) {
+  console.log(
+    `        ${warn('→ Status escrito ≠ derivado: ' + allTranslationInconsistencyAddrs.join('; '))}`
+  );
+}
+
+const gatePass = val06Pass && val08Pass && val04Pass && val09Pass && tradPass;
 
 // ─── Exit gate ────────────────────────────────────────────────────────────
 console.log('');
@@ -668,6 +965,20 @@ if (gatePass) {
     console.log('    La fuente única se niega deliberadamente a inferir el override desde el prefijo');
     console.log('    de `concerns`, así que la migración es explícita: añade `"override": true` a la');
     console.log('    entry `by:"autor"` de cada ID listado, o retira el `status` escrito a mano.');
+  }
+  if (!tradPass) {
+    if (tradAusenciaDeDatos.length > 0) {
+      console.log('  - TRAD-COV: ROJO por AUSENCIA DE DATOS, no por cobertura incompleta. Causa:');
+      console.log(`      ${tradAusenciaDeDatos.join('; ')}`);
+      console.log('    Repara la declaración o el fichero antes de leer ninguna cifra de cobertura.');
+    } else {
+      console.log('  - TRAD-COV: la cobertura de traducción está incompleta. Autora la traducción que');
+      console.log('    falta y pásala por el quórum cross-vendor, 1 por 1 (VAL-03), con la dirección');
+      console.log('    compuesta <slot-id>#<k> que imprimen los avisos de la tabla de arriba:');
+      console.log("      node scripts/validate-translation-pass.mjs '<slot-id>#<k>' --write");
+      console.log("      node scripts/validate-translation-pass.mjs '<slot-id>#<k>' --model=gemini-2.5-flash --avoid=deepseek-chat --write");
+      console.log('    Dos `by` DISTINTOS por traducción: dos pases del mismo modelo no son quórum.');
+    }
   }
   if (anyLoadError) {
     console.log('  - Carga: uno o más JSONs no se pudieron leer/parsear (ver warnings arriba). Repara el JSON corrupto antes de re-correr.');
