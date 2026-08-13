@@ -735,10 +735,15 @@ for (const r of perCategory) {
 // VARIANTES `multiple-choice`, y eso se dice en la cabecera para que nadie lea estas
 // cifras como slots. Los rótulos van interpolados desde los valores computados.
 console.log('');
+// WR-06: la interpolación era fija en plural y con UNA sola categoría declarada el
+// banner imprimía «1 categorías declaradas cubiertas». Es un mensaje de cara al autor,
+// en español, en el bloque que PRES-05 gobierna. Hoy hay una categoría cubierta y en
+// las fases 47-53 habrá dieciocho, así que las dos formas se van a ver.
+const plural = (n, singular, pluralForma) => `${n} ${n === 1 ? singular : pluralForma}`;
 console.log(
   `${BOLD}Cobertura de traducción — unidad: VARIANTE multiple-choice ` +
-  `(${TRANSLATION_COVERAGE.length} categorías declaradas cubiertas, ` +
-  `${TOTAL_TRANSLATION_EXPECTED} variantes)${RESET}`
+  `(${plural(TRANSLATION_COVERAGE.length, 'categoría declarada cubierta', 'categorías declaradas cubiertas')}, ` +
+  `${plural(TOTAL_TRANSLATION_EXPECTED, 'variante', 'variantes')})${RESET}`
 );
 console.log('');
 if (perTranslationCategory.length === 0) {
