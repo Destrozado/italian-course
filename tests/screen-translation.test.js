@@ -541,6 +541,30 @@ describe('CR-01 — el status ESCRITO de cada traducción es el DERIVADO de sus 
           correctas.some((p) => p?.by && p.by !== 'autor'),
           `${rel} · ${addr}: validated con override del autor pero SIN ninguna \`correcta\` de un modelo`
         );
+
+        // MOTIVO ESCRITO OBLIGATORIO (WR-04 del code review de la Phase 47).
+        // La guarda existe desde hace fases para las validaciones de SLOT
+        // (content-fare-cond-imperativo.test.js, content-fare-congiuntivo.test.js,
+        // content-fare-indefiniti.test.js) con el razonamiento explícito «un override
+        // sin motivo escrito es indistinguible de un descuido», y NO se replicó al
+        // crear la unidad TRADUCCIÓN. Los dos overrides que hoy tiene el corpus
+        // (partitivos-qualche#2, articoli-lo-z#1) llevan motivo largo, así que esta
+        // aserción pasa desde el minuto uno — el problema era que no podía FALLAR si
+        // el tercero llegaba vacío, y las Phases 48-53 traen ~720 traducciones más.
+        //
+        // La exigencia es de CONTENIDO, no de forma: `concerns` presente, array, y con
+        // al menos una entrada que no sea espacio en blanco. Un `[]` o un `[""]` es
+        // exactamente el descuido que se persigue.
+        const sinMotivo = val.passes
+          .filter(esOverrideDelAutor)
+          .filter((p) => !Array.isArray(p.concerns) || !p.concerns.some((c) => typeof c === 'string' && c.trim().length > 0));
+        assert.deepEqual(
+          sinMotivo,
+          [],
+          `${rel} · ${addr}: override del autor SIN motivo escrito — indistinguible de un descuido. ` +
+            `Un override es una decisión adjudicada: si no deja por escrito POR QUÉ, quien lea el ` +
+            `fichero ve una firma que promueve un disputed y nada más`
+        );
       } else {
         assert.equal(
           val.passes.filter((p) => p?.verdict === 'incorrecta').length,
