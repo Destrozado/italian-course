@@ -338,3 +338,318 @@ disco (DEUDA, D-45-12)` y las **mismas cifras exactas** que la línea base del p
 4). **Cero regresiones nuevas.** La suite **no** sale en exit 0 y **no debe salirlo**: arreglar la
 trazabilidad aquí sería editar un gate sin correr su mutación, que es justo lo que esta fase existe para
 no hacer.
+
+---
+
+## MUTACIÓN 3 — desenganchar las categorías pone ROJO el gate anti-ceguera
+
+Es la mutación que el **Success Criterion 3 del ROADMAP** exige por su nombre: *«desengancharlas pone
+ROJO el gate anti-ceguera, **verificado corriendo la mutación al cerrar la fase**»*. Se ejecuta en sus
+**dos formas** —quitar UNA entrada y quitar LAS DOS— porque el mensaje del gate distingue entre «falta
+una entrada» y «el extractor dejó de ver el array», y una mutación que quite las dos podría enmascarar
+la segunda causa.
+
+**Fichero mutado:** `scripts/run-validation-271.mjs` (la región de `TRANSLATION_COVERAGE`).
+**El contenido traducido NO se toca:** las 110 traducciones siguen en disco, íntegras y `validated`
+durante toda la mutación. Eso es lo que hace de esto una prueba de **ceguera** y no de ausencia.
+
+La entrada se **QUITA**, no se comenta ni se deforma: el script de mutación localiza la apertura
+`const TRANSLATION_COVERAGE = [` y su `];`, elimina la línea entera de la entrada nombrada, y **aborta**
+si no encuentra la apertura, si no encuentra el cierre, si alguna de las entradas pedidas no aparece, o
+si el fichero resultante es idéntico al de partida. Comentarla habría probado otra cosa (los goldens de
+`sinComentarios` ya cubren el `//` y el `/* */`); lo que aquí se quiere es la entrada **ausente**.
+
+### Foto verde de partida — 2026-08-14T17:50:12Z
+
+```
+$ git status --porcelain
+?? .planning/research/.cache/          ← untracked ajeno; ningún fichero rastreado modificado
+$ node --test tests/count-arrays-lockstep.test.js ; echo $?
+# tests 64
+# pass 64
+# fail 0
+0
+$ node scripts/run-validation-271.mjs ; echo $?
+Cobertura de traducción — unidad: VARIANTE multiple-choice (3 categorías declaradas cubiertas, 206 variantes)
+  TRAD-COV (206/206 traducciones validated): PASS (206/206)
+Milestone gate PASS.
+0
+```
+
+---
+
+### MUTACIÓN 3a — desenganchar UNA (Articoli)
+
+`git diff --stat`: `1 file changed, 1 deletion(-)`. El array queda con **2** entradas
+(`preposiciones`, `partitivos`) y las 62 traducciones de `articoli` siguen intactas en disco.
+
+#### El rojo OBSERVADO — 2026-08-14T17:50:30Z
+
+```
+$ node --test tests/count-arrays-lockstep.test.js ; echo $?
+    not ok 2 - las lineas de entrada del array de cobertura de TRADUCCION tambien sobreviven byte a byte (D-46-17)
+not ok 5 - integridad del escaner — ninguna linea de entrada de array de conteo es alterada por sinComentarios (DEUDA-02)
+    not ok 1 - scripts/run-validation-271.mjs: ninguna categoria con traduccion en disco queda fuera del array de cobertura de traduccion
+not ok 7 - GATE-02 — el array de cobertura de traduccion del reporter engancha cada categoria DECLARADA CUBIERTA (D-46-17)
+# tests 64
+# pass 62
+# fail 2
+1
+```
+
+- **Exit code observado: `1`** (distinto de 0, que es lo que el plan pide).
+- **Mensaje literal de GATE-02**, transcrito de la corrida:
+
+  > `D-46-17: el extractor ve 2 pares en la region de `TRANSLATION_COVERAGE` de
+  > scripts/run-validation-271.mjs y el disco declara 3 categorias cubiertas de traduccion (articoli,
+  > partitivos, preposiciones). Las dos causas son reales: o el reporter dejo de declarar una entrada
+  > —y entonces la ceguera ya existe, y quedarian CIEGAS: **articoli**—, o el extractor dejo de ver su
+  > array (una entrada partida en dos lineas, un slug detras del file, la declaracion renombrada). Con
+  > lista vacia esta comprobacion pasaria en verde`
+  >
+  > `2 !== 3`
+
+  **Articoli queda nombrada como categoría con traducciones en disco no enganchada**, que es
+  literalmente lo que el criterio de aceptación pide.
+
+#### QUÉ aserción mordió — la atribución, que es lo que distingue «el gate muerde» de «el gate está averiado»
+
+| Aserción | Fichero:línea | ¿Mordió? | Qué significaría |
+|---|---|---|---|
+| **Cláusula de no-vacuidad** `declaradas.length > 0` | `count-arrays-lockstep.test.js:1367` | **NO — siguió VERDE** | Si hubiera mordido, el diagnóstico sería *avería del gate*: el recorrido del disco habría dejado de reconocer `translationES` |
+| **Igualdad pares ↔ declaradas** (`2 !== 3`) | `:1374` (lanza en `:1374:12`) | **SÍ ← es la que mordió** | El disco declara 3 cubiertas y la región del array declara 2: **la ceguera es real y medida** |
+| Lista de ciegas `deepEqual(ciegas, [])` | `:1385` | no llegó a evaluarse | La igualdad de arriba lanza antes; su **mensaje ya nombra a `articoli` como ciega**, así que la atribución no se pierde |
+| Pares cruzados | `:1393` | no llegó a evaluarse | — |
+| **Guard de integridad del escáner** (`ve 2 lineas … y el disco declara 3`) | `:1021` / lanza en `:1033:12` | **SÍ — segunda aserción independiente** | Vigila lo mismo por otro camino (líneas de entrada frente a categorías cubiertas): dos gates independientes cazan el desenganche |
+
+**Que la cláusula de no-vacuidad se quedara VERDE es la mitad importante del resultado.** Significa que
+el extractor **sí** encontró la región, **sí** leyó el disco y **sí** contó bien; el rojo viene del
+**hecho medido** (falta una entrada) y no de un reconocedor que dejó de casar. Un rojo por no-vacuidad
+habría sido un rojo inútil.
+
+#### Y el reporter, mientras tanto, emite un PASS CIEGO — 2026-08-14T17:50:42Z
+
+Esta es la razón de ser del gate, observada en vivo y no argumentada:
+
+```
+$ node scripts/run-validation-271.mjs ; echo $?
+Cobertura de traducción — unidad: VARIANTE multiple-choice (2 categorías declaradas cubiertas, 144 variantes)
+preposiciones            | 96       | 96         | 0         | 0        | 0
+partitivos               | 48       | 48         | 0         | 0        | 0
+  TRAD-COV (144/144 traducciones validated): PASS (144/144)
+Milestone gate PASS.
+0
+```
+
+**El reporter sale en `exit 0` con `Milestone gate PASS` mientras 62 traducciones validadas están en
+disco sin contarse.** `206` se convirtió en `144` y nada se puso rojo: el total encogió en silencio y el
+gate de cierre certificó una cobertura que ignora una categoría entera. **Es el `225/225 PASS` de las
+Phases 41/42/43 trasladado a las variantes, reproducido literalmente.** Sin el gate anti-ceguera esta
+mutación es indetectable — y es exactamente el bug que corrió tres fases seguidas.
+
+---
+
+### MUTACIÓN 3b — desenganchar LAS DOS (Articoli y Partitivos)
+
+Restaurada antes 3a (`md5 37ae18c84377d8f4173b8ac0534323a7`, `porcelain` vacío) y vuelta a mutar.
+`git diff --stat`: `1 file changed, 2 deletions(-)`. El array queda con **1** entrada
+(`preposiciones`) y las 110 traducciones del bloque siguen intactas en disco.
+
+#### El rojo OBSERVADO — 2026-08-14T17:50:57Z
+
+```
+$ node --test tests/count-arrays-lockstep.test.js ; echo $?
+    not ok 2 - las lineas de entrada del array de cobertura de TRADUCCION tambien sobreviven byte a byte (D-46-17)
+not ok 5 - integridad del escaner — ninguna linea de entrada de array de conteo es alterada por sinComentarios (DEUDA-02)
+    not ok 1 - scripts/run-validation-271.mjs: ninguna categoria con traduccion en disco queda fuera del array de cobertura de traduccion
+not ok 7 - GATE-02 — el array de cobertura de traduccion del reporter engancha cada categoria DECLARADA CUBIERTA (D-46-17)
+# tests 64
+# pass 62
+# fail 2
+1
+```
+
+- **Exit code observado: `1`.**
+- **Mensaje literal de GATE-02**, con **las DOS categorías nombradas**:
+
+  > `D-46-17: el extractor ve 1 pares en la region de `TRANSLATION_COVERAGE` de
+  > scripts/run-validation-271.mjs y el disco declara 3 categorias cubiertas de traduccion (articoli,
+  > partitivos, preposiciones). Las dos causas son reales: o el reporter dejo de declarar una entrada
+  > —y entonces la ceguera ya existe, y quedarian CIEGAS: **articoli, partitivos**—, o el extractor dejo
+  > de ver su array (…). Con lista vacia esta comprobacion pasaria en verde`
+  >
+  > `1 !== 3`
+
+- **Mensaje literal del guard de integridad del escáner:**
+
+  > `D-46-17 / DEUDA-02: el reconocimiento de lineas de entrada ve 1 lineas en la region de
+  > `TRANSLATION_COVERAGE` de scripts/run-validation-271.mjs y el disco declara 3 categorias cubiertas:
+  > o el reporter dejo de declararlas, o el acotado por region dejo de encontrar el array — y con cero
+  > lineas la comprobacion de abajo pasaria en verde sin haber mirado ninguna`
+
+#### Atribución
+
+**La misma aserción mordió, y la cláusula de no-vacuidad volvió a quedarse VERDE.** Es justo lo que la
+segunda forma existe para comprobar: quitar las dos entradas **no** enmascara la segunda causa. Si el
+rojo hubiera migrado a la no-vacuidad, el gate estaría diagnosticando «el extractor dejó de ver el
+array» cuando el hecho es «faltan dos entradas», y el mensaje mentiría. No migró.
+
+#### El PASS CIEGO de 3b
+
+```
+$ node scripts/run-validation-271.mjs ; echo $?
+Cobertura de traducción — unidad: VARIANTE multiple-choice (1 categoría declarada cubierta, 96 variantes)
+  TRAD-COV (96/96 traducciones validated): PASS (96/96)
+Milestone gate PASS.
+0
+```
+
+**`PASS (96/96)` — el bloque Artículos entero, 110 traducciones, desaparecido del total sin un solo
+rojo.** El reporter vuelve exactamente a la cifra del piloto de la Phase 46 como si esta fase no
+hubiera existido.
+
+### Verde restaurado — 2026-08-14T17:51:13Z
+
+```
+$ cp <copia-de-la-foto-verde> scripts/run-validation-271.mjs
+$ md5sum scripts/run-validation-271.mjs
+37ae18c84377d8f4173b8ac0534323a7                     ← idéntico a la foto verde
+$ git status --porcelain scripts/run-validation-271.mjs
+(vacío)
+$ sed -n '407,411p' scripts/run-validation-271.mjs
+const TRANSLATION_COVERAGE = [
+  { slug: 'preposiciones',            file: 'content/exercises/preposiciones.json',            expected: mcVariantCountOf('content/exercises/preposiciones.json') },
+  { slug: 'partitivos',               file: 'content/exercises/partitivos.json',               expected: mcVariantCountOf('content/exercises/partitivos.json') },
+  { slug: 'articoli',                 file: 'content/exercises/articoli.json',                 expected: mcVariantCountOf('content/exercises/articoli.json') },
+];
+$ node --test tests/count-arrays-lockstep.test.js ; echo $?
+# tests 64
+# pass 64
+# fail 0
+0
+$ node scripts/run-validation-271.mjs ; echo $?
+Cobertura de traducción — unidad: VARIANTE multiple-choice (3 categorías declaradas cubiertas, 206 variantes)
+  TRAD-COV (206/206 traducciones validated): PASS (206/206)
+Milestone gate PASS.
+0
+```
+
+La restauración se verifica en **cuatro** planos: md5 byte a byte, `porcelain` vacío, **las tres
+entradas leídas del fichero con su forma load-bearing intacta** (`slug` delante, `slug` y `file` en la
+misma línea, `expected` derivado por `mcVariantCountOf`) y los **dos** gates en verde. El tercer plano
+es el que cubre T-47-24: una entrada restaurada con la **forma rota** daría verde en el reporter y ciego
+en el gate, así que hay que mirar las dos cosas y no solo el exit code del reporter.
+
+---
+
+## Tabla resumen de las tres mutaciones
+
+| # | Qué se mutó | Exit code OBSERVADO | Aserciones en rojo | Atribución |
+|---|---|---|---|---|
+| **1** | `articoli-il-cons#0` → `passes: []`, `status: pending` (texto intacto) | **1** (reporter) | `TRAD-COV` | Umbral de cobertura: `205 !== 206`, `pending=1` |
+| **2** | `articoli-gli-ps#0` → texto desacentuado + `passes: []` | **1** (reporter) | `TRAD-COV`, nombrando `articoli-gli-ps#0` | Quórum `[S4-acentos]` en los DOS vendors → `disputed` → `205 !== 206` |
+| **3a** | Quitada la entrada `articoli` de `TRANSLATION_COVERAGE` | **1** (gate) · reporter en **0 con PASS CIEGO 144/144** | GATE-02 (`2 !== 3`) + guard de integridad del escáner | **Lista de ciegas** (`articoli`), NO la no-vacuidad |
+| **3b** | Quitadas `articoli` **y** `partitivos` | **1** (gate) · reporter en **0 con PASS CIEGO 96/96** | GATE-02 (`1 !== 3`) + guard de integridad del escáner | **Lista de ciegas** (`articoli, partitivos`), NO la no-vacuidad |
+
+**Ninguna de las tres resultó no discriminante.** Las cuatro corridas dieron rojo por la razón que se
+buscaba y por ninguna otra, y en las dos del gate la cláusula de no-vacuidad se quedó verde, que es lo
+que separa «el gate muerde» de «el gate está averiado». Si alguna hubiera salido verde por una razón
+legítima, o su rojo lo hubiera producido también el código anterior, se declararía **no discriminante**
+y no se presentaría como prueba de nada — que es lo que la Phase 46 hizo con la suya.
+
+---
+
+## Medición del texto más largo del bloque — derivado del disco, MEDIDO, no supuesto
+
+Prepara los backstops heredados `WINDOWS` **21** y **22** (E1 y E2 · long-text), que la Phase 46 dejó
+**ABSTENIDOS por ausencia de sujeto** y arrastró a las Phases 47-53. **Esta medición NO los cierra:**
+es preparación para el ojo del autor, igual que la de la Phase 46.
+
+### Lo derivado del disco (no elegido a ojo)
+
+Recorrido de las 110 traducciones del bloque, ordenadas por longitud:
+
+| # | Dirección compuesta | chars | Texto |
+|---|---|---|---|
+| **1** | **`partitivos-dello-scons#0`** | **65** | `Para hacer deporte también hace falta algo de espíritu de equipo.` |
+| 2 | `articoli-lo-gn#1` | 58 | `En el restaurante he pedido el ñoqui de patata más grande.` |
+| 3 | `partitivos-degli-z#1` | 53 | `Para la excursión hacen falta unas mochilas robustas.` |
+| — | *(referencia Phase 46)* `preposiciones-sugli#1` | 57 | `Las fotos están sobre los estantes, encima de los libros.` |
+
+**La más larga del bloque supera a la del piloto en 8 caracteres (65 vs 57).**
+
+### Lo medido — Chrome headless sobre el CSS real y las fuentes reales
+
+Ancestría DOM real de las dos superficies (`main > div > article.session > div > p.session-translation`
+y `main > div > article > section.summary-errors > ul > li > div > p.summary-error-translation`), con
+`styles.css` + `app.css` y las `@font-face` de `vendor/fonts/`.
+
+| Nodo | chars | ancho de caja | **ancho del texto** | **líneas** | ¿desborda? | ¿truncado? |
+|---|---|---|---|---|---|---|
+| `.session-translation` (`partitivos-dello-scons#0`) | 65 | 1096 → 656 px | **462 px** | **1** | no | no |
+| `.summary-error-translation` (`partitivos-dello-scons#0`) | 65 | 1062 → 622 px | **462 px** | **1** | no | no |
+| `.session-translation` (`articoli-lo-gn#1`) | 58 | 1096 → 656 px | 418 px | **1** | no | no |
+| `.session-translation` (**piloto 46**, `sugli#1`) | 57 | 1096 → 656 px | **390 px** | **1** | no | no |
+| `.session-translation` (**sintético** 165 chars) | 165 | 1096 → 656 px | 944 → 485 px | **2 → 4** | no | no |
+| `.summary-error-translation` (**sintético** 165 chars) | 165 | 1062 → 622 px | 944 → 485 px | **2 → 4** | no | no |
+
+Medido a viewport **1400 / 1100 / 900 / 800 / 700 px**: `lineas: 1` en **los cinco** y en **las dos**
+superficies. La caja más estrecha de todas es la de la superficie 2 a 700 px de viewport, **622 px** —el
+ancho más angosto antes de que entre la capa móvil `@media (max-width: 640px)`, fuera de scope—, y
+**462 px no envuelven dentro de 622 px**.
+
+Estilo computado, verificado en la corrida: `font-family: Spectral, Georgia, serif` · `font-size: 16px`
+· `font-weight: 400` · `max-width: none` · `overflow-wrap: normal` · `text-overflow: clip` ·
+`margin 16px/16px` (superficie 1) y `8px/0px` (superficie 2). El **control positivo** de 165 caracteres
+envuelve limpiamente en las dos superficies, por espacios, con **cero desborde** y **cero truncado**: la
+mitad mecánica del enunciado está probada; lo que falta es el sujeto real.
+
+### El error de medición que casi se certifica, y cómo se cazó
+
+La **primera** corrida midió **414 px** para la frase de 65 caracteres, y era **falso**. `document.fonts.
+ready` resuelve **antes** de que una `@font-face` que aún no se ha pedido se cargue, así que la medición
+se hizo con la fallback **Georgia** y no con **Spectral**: 414 px en vez de 462 px, un **10 % de error**
+en la magnitud que decide si el ítem se cierra o se abstiene.
+
+Se cazó con un **control externo**: el arnés mide el texto del piloto de la Phase 46 (57 chars), cuyo
+ancho está publicado en `46-05-MUTACIONES-EVIDENCIA.md` como **390 px**. Con la fallback el arnés daba
+352 px —**no cuadraba**— y con `document.fonts.load('400 16px Spectral', …)` forzado antes de medir da
+**390 px exactos**. El arnés no se declaró bueno porque pareciera razonable, sino porque **reprodujo una
+cifra independiente publicada tres días antes**. Sin ese control, la tabla de arriba llevaría 414 px y
+nadie lo habría notado.
+
+### Consecuencia para los backstops 21 y 22
+
+**La premisa de los dos enunciados —«una traducción que envuelve en 2+ líneas»— SIGUE SIN SUJETO en el
+bloque Artículos.** La frase más larga de las 110 cabe en una línea en las dos superficies y a los cinco
+anchos de escritorio.
+
+**Los dos ítems siguen ABSTENIDOS y se arrastran a las Phases 48-53**, con la medida nueva escrita al
+lado: `partitivos-dello-scons#0` · **65 caracteres** · **462 px** · **1 línea** · caja mínima 622 px.
+**No se cierran, no se aprueban y no se reetiquetan como pasados.** Es el mismo tratamiento que la
+Phase 46, por la misma razón: *ausencia de sujeto, no indulgencia*. Un backstop que el verificador no
+puede confirmar con evidencia se abstiene; ablandar el gate porque su sujeto no aparece sería convertir
+un test sin sujeto en un verde.
+
+**Lo que esta medición SÍ aporta a las fases siguientes:** el umbral está ahora acotado por dos puntos
+medidos. 65 caracteres = 462 px = 1 línea; 165 caracteres = 944 px = 2 líneas. La envoltura empieza en
+algún punto entre ambos, y en la caja más estrecha (622 px) hará falta una traducción de en torno a
+**88 caracteres** para verla. Ninguna categoría traducida hasta hoy se acerca.
+
+---
+
+## Estado del plan 04
+
+| Task | Estado |
+|---|---|
+| Task 1 — Mutaciones 1 y 2 | **HECHA** · rojo observado exit 1 en las dos · restauradas y re-verificadas · commit `6ac7e9f` |
+| Task 2 — Mutación 3 (3a y 3b) + este fichero | **HECHA** · rojo observado exit 1 en las dos formas · restaurada y re-verificada |
+| Task 3 — `checkpoint:human-verify` `gate="blocking"` | **BLOQUEADA ESPERANDO AL AUTOR** |
+| `backstop` E1 · long-text (`WINDOWS` 21) | **SIGUE ABSTENIDA** · medida nueva escrita: 65 ch / 462 px / 1 línea |
+| `backstop` E2 · long-text (`WINDOWS` 22) | **SIGUE ABSTENIDA** · misma medida |
+| `backstop` lectura de muestra (`WINDOWS` 23) | **ABSTENIDA** — es del autor, y el checkpoint está abierto |
+
+**Ninguna mutación quedó committeada.** Los tres ficheros mutados vuelven byte a byte a su foto verde
+(md5 idénticos, `porcelain` vacío) y no existe ningún commit de esta fase que introduzca una mutación:
+los dos commits del plan tocan **solo** este fichero de evidencia. Es la mitigación de **T-47-21**
+ejecutada, no prometida.
