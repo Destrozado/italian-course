@@ -261,6 +261,52 @@ Y como el gloss es canon, **es la desambiguación autorizada del léxico**: si e
 `durante dos horas`, la fiel es la que dice `durante dos horas`, y la que lo omite es la objetable. El
 gloss manda sobre tu preferencia de sinónimo.
 
+### Excepción estructural: el `prompt` METALINGÜÍSTICO (frase italiana + flecha + pregunta española)
+
+Algunos slots del corpus no piden rellenar un hueco italiano: piden **clasificar la función
+gramatical** de una palabra que ya aparece en la frase. Su `prompt` tiene esta anatomía autorada:
+
+1. una **frase italiana completa y cerrada** (con su punto final),
+2. una **flecha** `->`,
+3. una **pregunta metalingüística en ESPAÑOL** sobre esa frase, cuyo hueco `___` se rellena con una
+   **etiqueta gramatical española** (`partitivo`, `preposición`, `artículo determinativo`), no con una
+   palabra italiana.
+
+Ejemplo real del corpus (slot `partitivos-clasificacion`):
+
+```json
+{
+  "prompt": "Ho mangiato del pane. -> Aquí 'del' funciona como ___",
+  "options": ["partitivo", "preposición", "artículo determinativo"],
+  "correctIndex": 0,
+  "italianoResuelto": "Ho mangiato del pane. -> Aquí 'del' funciona como partitivo",
+  "translationES": { "text": "He comido algo de pan." }
+}
+```
+
+Como el hueco vive en la cola española, `italianoResuelto` llega a ti como una **cadena mixta
+italiano+español que no es una frase italiana**. Tres consecuencias, todas obligatorias:
+
+- **NO marques `s5_italiano` ni `s2_fidelidad` como `false` porque `italianoResuelto` contenga la
+  flecha y la cola española.** Esa cola no es una errata, ni basura de copia-pega, ni texto añadido
+  por error: es la **anatomía autorada del slot**. Para juzgar S5 y S2, la frase fuente es
+  `italianoResuelto` **descontada su cola metalingüística**, es decir todo lo que precede a la flecha.
+- **NO exijas que la traducción REPRODUZCA la cola metalingüística.** Un concern del tipo «la
+  traducción omite `-> Aquí 'del' funciona como partitivo`» es un **FALSO POSITIVO**, por dos motivos
+  independientes: (a) esa cola **ya está en español**, así que "traducirla" sería copiarla, no
+  traducir; y (b) reproducirla haría que la traducción hablara de **la estructura del propio
+  ejercicio**, que es exactamente la **prohibición 2** de la frontera con la `explanation` que tienes
+  más arriba. Exigir esa reproducción te pone en contradicción con una regla que ya estás obligado a
+  aplicar.
+- **QUÉ SE SIGUE VIGILANDO, con todo el rigor y sin rebaja alguna:** la **frase italiana previa a la
+  flecha** sigue sujeta a **S5** (que sea italiano gramatical, natural y limpio, sin erratas ni
+  caracteres espurios) y a **S2** (que el español la traduzca entera, con fidelidad estricta, sin
+  omitir ni añadir contenido). Esta excepción **no absuelve nada de la frase italiana**: solo declara
+  que la cola española posterior a la flecha no forma parte de lo que hay que traducir. Una traducción
+  que omita una parte de la **frase italiana**, o que invente contenido en ella, sigue siendo
+  `incorrecta` bajo S2, igual que siempre. Y S1, S4 y S6 se aplican al español de la traducción sin
+  cambio ninguno.
+
 ### Gobernanza de excepciones
 
 **Toda excepción a estos criterios se escribe AQUÍ, en este doc — nunca solo en el `notes` de un

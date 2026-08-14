@@ -985,18 +985,16 @@
           "translationES": {
             "text": "He comido algo de pan.",
             "validation": {
-              "status": "disputed",
+              "status": "validated",
               "passes": [
                 {
-                  "by": "deepseek-chat",
+                  "by": "gemini-3.5-flash-lite",
                   "date": "2026-08-14",
-                  "verdict": "incorrecta",
-                  "concerns": [
-                    "[S2-fidelidad] La traducción omite la parte metalingüística del original: '-> Aquí 'del' funciona como partitivo' no está traducida. El original no es solo 'Ho mangiato del pane', sino la frase completa con la glosa explicativa. Sugerencia: \"He comido algo de pan. -> Aquí 'del' funciona como partitivo\""
-                  ]
+                  "verdict": "correcta",
+                  "concerns": []
                 },
                 {
-                  "by": "gemini-3.5-flash-lite",
+                  "by": "deepseek-chat",
                   "date": "2026-08-14",
                   "verdict": "correcta",
                   "concerns": []
@@ -1012,7 +1010,27 @@
             "partitivo",
             "artículo determinativo"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "El sabor del café es intenso.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Stamattina ho comprato delle mele. -> Aquí 'delle' funciona como ___",
@@ -1021,7 +1039,27 @@
             "preposición",
             "artículo determinativo"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Esta mañana he comprado unas manzanas.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "La casa del nonno è in campagna. -> Aquí 'del' funciona como ___",
@@ -1030,7 +1068,27 @@
             "partitivo",
             "artículo determinativo"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "La casa del abuelo está en el campo.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "A cena bevo sempre dell'acqua. -> Aquí 'dell'' funciona como ___",
@@ -1039,7 +1097,27 @@
             "preposición",
             "artículo determinativo"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "En la cena siempre bebo algo de agua.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         }
       ],
       "validation": {
