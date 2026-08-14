@@ -1006,3 +1006,58 @@ describe('el disenso no se borra en silencio (CR-01)', () => {
     );
   });
 });
+
+// ══════════════════════════════════════════════════════════════════════════
+// WR-05 del code review de la Phase 47 — la `option` es un VALOR, no un patrón.
+//
+// `String.prototype.replace` interpreta su segundo argumento como patrón de
+// SUSTITUCIÓN cuando es una cadena, así que `$&`, `$'`, `` $` `` y `$n` no
+// llegan literales a la frase. Contra el código anterior estas aserciones
+// fallan: devolvía `"Compro ___del pane."` y `"Compro d pane. pane."`.
+//
+// Inalcanzable hoy (cero `options` con `$` en el corpus, barrido en disco),
+// así que es robustez. Pero la rama afectada es la de las opciones con
+// apóstrofo, `$'` son dos caracteres, y el fallo sería silencioso: una frase
+// malformada enviada al evaluador de pago que ningún gate cazaría.
+// ══════════════════════════════════════════════════════════════════════════
+
+describe('la option se incrusta como VALOR, no como patrón de sustitución (WR-05)', () => {
+  test('los patrones de String.replace no se interpretan en la rama normal', () => {
+    assert.equal(fillGap('Compro ___ pane.', ['$&del'], 0), 'Compro $&del pane.', '`$&` reinsertaba el hueco');
+    assert.equal(fillGap('Compro ___ pane.', ["d$'"], 0), "Compro d$' pane.", '`$\'` duplicaba la cola');
+    assert.equal(fillGap('Compro ___ pane.', ['d$`'], 0), 'Compro d$` pane.', '`$`` reinsertaba la cabeza');
+    assert.equal(fillGap('Compro ___ pane.', ['$1x'], 0), 'Compro $1x pane.');
+    assert.equal(fillGap('Compro ___ pane.', ['$$'], 0), 'Compro $$ pane.', '`$$` se colapsaba a un solo `$`');
+  });
+
+  test('tampoco en la rama de las opciones ELIDIDAS, que es la que come el espacio', () => {
+    // El sujeto tiene que acabar en consonante + apóstrofo para caer en la rama elidida
+    // (`d$'` NO vale: lo que precede al apóstrofo es `$`, no una consonante — lo cazó
+    // este mismo test en su primera redacción). Con `$&` delante, la rama elidida es la
+    // que más daño hacía: su regex captura `___ ` CON el espacio, así que `$&` lo
+    // reinsertaba entero.
+    assert.equal(fillGap('Metti ___ aceto.', ["$&dell'"], 0), "Metti $&dell'aceto.");
+  });
+
+  test('BARRIDO EN DISCO: hoy ninguna option del corpus contiene `$` (por eso es robustez)', () => {
+    const dir = path.join(ROOT, 'content/exercises');
+    const conDolar = [];
+    let opciones = 0;
+    for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.json'))) {
+      const data = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'));
+      for (const ex of data.exercises || []) {
+        for (const v of ex.variants || []) {
+          for (const o of v?.options || []) {
+            opciones++;
+            if (typeof o === 'string' && o.includes('$')) conDolar.push(`${ex.id}: ${JSON.stringify(o)}`);
+          }
+        }
+      }
+    }
+    assert.ok(opciones > 0, 'no-vacuidad: el barrido no encontró ni una option en disco');
+    // NO es una aserción de que nunca pueda haberla: es la que documenta por qué el
+    // defecto estaba latente. Si algún día aparece una, este test se pone rojo y el
+    // lector va derecho al bloque de arriba, que ya cubre el comportamiento.
+    assert.deepEqual(conDolar, [], `options con \`$\`: ${conDolar.join('; ')}`);
+  });
+});

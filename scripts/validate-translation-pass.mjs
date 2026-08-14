@@ -271,8 +271,20 @@ export function fillGap(prompt, options, correctIndex) {
       prompt
     );
   }
-  if (OPCION_ELIDIDA.test(opt)) return capitalizarSiAbre(prompt.replace(/___\s*/, opt), prompt);
-  return capitalizarSiAbre(prompt.replace('___', opt), prompt);
+  // WR-05: la `option` va como FUNCIÓN de reemplazo, no como cadena. El segundo
+  // argumento de `String.replace` es un PATRÓN DE SUSTITUCIÓN, no un literal, así que
+  // `$&`, `$'`, `` $` `` y `$n` se interpretan: `fillGap('Compro ___ pane.', ['$&del'])`
+  // devolvía `Compro ___del pane.` (el `$&` reinserta el hueco) y `["d$'"]` devolvía
+  // `Compro d pane. pane.` (el `$'` duplica la cola). La forma de función trata el valor
+  // como literal y no admite ningún patrón.
+  //
+  // Hoy es inalcanzable —ninguna `option` del corpus contiene `$`, barrido antes de
+  // tocar nada—, así que es robustez y no un defecto vivo. Pero la rama afectada es
+  // justamente la de las opciones con apóstrofo y `$'` son dos caracteres; el fallo
+  // sería silencioso (frase malformada enviada al evaluador de pago) y no lo cazaría
+  // ningún gate, que es el mismo modo de fallo que WR-01.
+  if (OPCION_ELIDIDA.test(opt)) return capitalizarSiAbre(prompt.replace(/___\s*/, () => opt), prompt);
+  return capitalizarSiAbre(prompt.replace('___', () => opt), prompt);
 }
 
 /**
