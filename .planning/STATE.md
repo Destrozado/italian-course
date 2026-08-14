@@ -4,15 +4,15 @@ milestone: v2.1
 milestone_name: Traducción al español por variante (TRAD-X1)
 current_phase: 47
 current_phase_name: Traducción — bloque Artículos (Articoli + Partitivos)
-status: planning
+status: executing
 stopped_at: Completed 46-05-PLAN.md — los 5 planes de la Phase 46 tienen SUMMARY; faltan los gates de cierre de fase (aggregate → code review → verify), que corre el orquestador
-last_updated: "2026-08-14T07:32:18.989Z"
+last_updated: "2026-08-14T08:32:24.544Z"
 last_activity: 2026-08-14
 last_activity_desc: Phase 46 complete, transitioned to Phase 47
 progress:
   total_phases: 8
   completed_phases: 1
-  total_plans: 5
+  total_plans: 9
   completed_plans: 5
   percent: 13
 ---
@@ -32,7 +32,7 @@ See: `.planning/PROJECT.md` (updated 2026-08-13 — milestone v2.1 abierto: trad
 Milestone: v2.1 — Traducción al español por variante (TRAD-X1) — Phases **46-53** (numeración CONTINÚA desde Phase 45, sin reset)
 Phase: 47 — Traducción — bloque Artículos (Articoli + Partitivos)
 Plan: Not started
-Status: Ready to plan
+Status: Ready to execute
 Progress: [██████████] 100% de los planes de la fase
 Last activity: 2026-08-14 — Phase 46 complete, transitioned to Phase 47
 
