@@ -16,12 +16,15 @@ provides:
   - "La SEGUNDA NOTA de D-46-12: la primera vez que el carve-out de 47-01 FALLA su prueba y obliga a cumplimiento literal — la enmienda demostrada con dientes"
   - "El primer override de autor de TRADUCCIÓN del corpus (`partitivos-qualche#2`), con motivo escrito y con su déficit estructural declarado"
   - "La aserción de quórum de `tests/screen-translation.test.js` implementando el override que su propio mensaje ya prometía"
+  - "La DEUDA DE ALCANCE cerrada (seguimiento): las 32 con sujeto re-validadas desde cero — la condición 2 del carve-out CONFIRMADA POR MEDICIÓN, no solo argumentada"
+  - "La excepción léxica del ADVERBIAL DE COMIDA en el doc de criterios — TERCERA hermana de `da` + PERSONA y del PARTITIVO, y SEGUNDA enmienda del mismo plan"
+  - "La TERCERA y la CUARTA nota de D-46-12, con `WINDOWS` id 36 cerrada por decisión del autor e id 37 naciendo ya cerrada"
 affects: [47-03, 47-04, 48, 49, 50, 51, 52, 53]
 
 actuals:
-  tokens: 18752
+  tokens: 30543
   tasks: 2
-  commits: 10
+  commits: 16
 
 tech-stack:
   added: []
@@ -29,6 +32,8 @@ tech-stack:
     - "Una regla de criterios ABSOLVENTE se escribe declarando explícitamente que la construcción alternativa TAMBIÉN es fiel: así absuelve sin exigir, y no puede voltear ninguna `correcta` previa"
     - "Un test que reimplementa a propósito una invariante de la fuente única debe reimplementarla ENTERA, ramas de excepción incluidas: si no, su mensaje de fallo promete un carve-out que su código no aplica"
     - "Elegir el juez MÁS estricto —no el más indulgente— como pase adversarial extra antes de minar un override, y dejar escrito su veredicto aunque salga en contra"
+    - "Una excepción que ABSUELVE se ancla en una frase que el criterio YA contenía: así nombra el caso donde aplicar el criterio al pie de la letra lo contradice, en vez de rebajarlo"
+    - "Pagar el cumplimiento literal sobre TODO el sujeto no solo confirma la direccionalidad: destapa el defecto que vive en la parte del cuerpo que NO motivó la enmienda — 31 de 32 confirmaron, la 32.ª encontró el hueco siguiente"
 
 key-files:
   created: []
@@ -43,7 +48,8 @@ key-files:
 key-decisions:
   - "Checkpoint bloqueante resuelto por el AUTOR, decisión 1: `opción A` — escribir la regla del partitivo en el doc Y re-validar las 3 variantes de 47-01 que la llevan. La condición «ausencia de sujeto» del carve-out FALLA (35 con sujeto), luego cumplimiento literal de D-46-12"
   - "Checkpoint bloqueante resuelto por el AUTOR, decisión 2: `partitivos-qualche#2` conserva el singular «alguna chica simpática» con override de autor. Adjudicado a favor de la fidelidad estructural: `qualche` rige singular y es lo que el slot enseña"
-  - "Las 32 variantes con sujeto del propio Task 2 NO se re-validan: es DECISIÓN DE ALCANCE del autor cubierta por la condición 2, y se declara como tal — no como sujeto inexistente"
+  - "Las 32 variantes con sujeto del propio Task 2 NO se re-validaron AL CERRAR EL PLAN: decisión de alcance del autor cubierta por la condición 2, declarada como tal — no como sujeto inexistente. **ENMENDADO en el seguimiento del mismo día: el autor eligió cumplimiento literal y las 32 SÍ se re-validaron desde cero — 31 verdes, 1 escalada. `WINDOWS` id 36 pasa a `fixed`**"
+  - "Seguimiento, decisión del AUTOR: `opción A` otra vez sobre la 32.ª (`partitivos-delle-invariable#0`) — escribir en el doc la excepción léxica del ADVERBIAL DE COMIDA y re-validar su sujeto entero (4 variantes, no solo la `disputed`). El español NO se toca"
   - "TRAD-02 NO se marca completo: 48 de las 110 traducciones del bloque existen. Lo cierra el plan 47-03 con Articoli"
 
 patterns-established:
@@ -82,22 +88,34 @@ coverage:
         status: pass
     human_judgment: true
     rationale: "El override es una adjudicación del autor. Lo mecánico (que `deriveStatus` lo promueva, que el `incorrecta` siga en `passes[]`) está verificado; lo que ningún test puede juzgar es si la adjudicación era la correcta"
+  - id: D5
+    description: "Seguimiento: la deuda de alcance cerrada (32 re-validadas) y la excepción léxica del ADVERBIAL DE COMIDA escrita en el doc, con su propio cumplimiento literal sobre las 4 variantes con sujeto"
+    requirement: TRAD-02
+    verification:
+      - kind: integration
+        ref: "node scripts/run-validation-271.mjs — TRAD-COV PASS (144/144), disputed 0, exit 0"
+        status: pass
+      - kind: integration
+        ref: "git diff content/exercises/partitivos.json — cero líneas de `text`/`prompt`/`options`; `preposiciones.json` y `articoli.json` con cero diff"
+        status: pass
+    human_judgment: true
+    rationale: "Que la regla nueva absuelva EXACTAMENTE el flag del adverbial y ni un milímetro más —sin rebajar S2 en general, sin tocar S5— no lo certifica ningún test. Su evidencia mecánica (un `disputed` pasando a verde sin tocar el español, y 3 `validated` que siguen verdes) demuestra que MUERDE y que no voltea, no que esté bien acotada"
 
-duration: 41m28s
+duration: 2h22m
 completed: 2026-08-14
 status: complete
 ---
 
 # Phase 47 Plan 02: Traducción bloque Artículos — mitad Partitivos Summary
 
-**Las 48 traducciones de Partitivos quedan `validated` y el gate de traducción se pone verde por primera vez (144/144), pero lo que este plan deja de valor no son las traducciones: es la primera vez que el carve-out de alcance de 47-01 se aplica, FALLA su prueba y obliga a gastar llamadas — la enmienda demostrando que tiene dientes.**
+**Las 48 traducciones de Partitivos quedan `validated` y el gate de traducción se pone verde (144/144), pero lo que este plan deja de valor no son las traducciones: es la primera vez que el carve-out de alcance de 47-01 se aplica, FALLA su prueba y obliga a gastar llamadas — dos veces, con DOS enmiendas del doc de criterios, y sin dejar deuda de alcance detrás.**
 
 ## Performance
 
-- **Duration:** 41m 28s de reloj entre el primer commit del plan y el último. La continuación —descargar las dos decisiones del autor— fueron **27m 07s**.
-- **Started:** 2026-08-14T14:19:11 · **Completed:** 2026-08-14T15:00:39
-- **Tasks:** 2 de 2, más las dos decisiones del checkpoint bloqueante
-- **Commits:** 10 · **Files modified:** 6
+- **Duration:** 2h 22m de reloj entre el primer commit del plan y el último. Desglose: **41m 28s** el plan hasta su primer cierre (de los cuales **27m 07s** la continuación que descargó las dos decisiones del autor), y **1h 37m** el **seguimiento** que cerró la deuda de alcance y la segunda enmienda.
+- **Started:** 2026-08-14 14:19:11 · **Completed:** 2026-08-14 16:41 (hora local)
+- **Tasks:** 2 de 2, más las decisiones de DOS checkpoints bloqueantes (dos en el cierre, una en el seguimiento)
+- **Commits:** 16 · **Files modified:** 6
 
 ## Continuación: las dos decisiones del autor, descargadas
 
@@ -150,9 +168,11 @@ El prompt de continuación hablaba de **3** variantes con sujeto. El disco confi
 |---|---|---|---|
 | 47-01 (cuerpo CONGELADO que el carve-out había eximido) | **3** | Sí, quórum completo desde cero | 6/6 `correcta`, texto intacto byte a byte |
 | Los `disputed` que motivaron la enmienda | **4** | Sí, quórum completo desde cero | Las 4 en verde |
-| Task 2 de este plan (cuerpo EN VUELO) | **32** | **No** | Cubiertas por la condición 2 |
+| Task 2 de este plan (cuerpo EN VUELO) | **32** | **Al cerrar: no.** En el seguimiento: **sí** | Ver «Seguimiento» más abajo |
 
-**Las 32 se declaran DECISIÓN DE ALCANCE del autor, no sujeto inexistente.** Literalmente tienen sujeto igual que las 3; lo que las distingue es la naturaleza del cuerpo, no el disco. Está escrito así en `46-CONTEXT.md` y en el ledger, en vez de disimulado dentro de un «3».
+**Las 32 se declararon DECISIÓN DE ALCANCE del autor, no sujeto inexistente.** Literalmente tienen sujeto igual que las 3; lo que las distinguía es la naturaleza del cuerpo, no el disco. Está escrito así en `46-CONTEXT.md` y en el ledger, en vez de disimulado dentro de un «3».
+
+**Y esa deuda ya no existe: el autor la cerró el mismo día.** Lo que sigue en esta sección describe el estado del plan al cerrarse por primera vez y se conserva como historia; el estado final está en la sección **«Seguimiento del mismo día»**.
 
 **Dato que acota el riesgo y que era el temor de 47-01:** `preposiciones` tiene **sujeto CERO** para esta enmienda. El cuerpo cerrado de la Phase 46 **no está tocado**, así que el cumplimiento literal no llegó a costar las 192 llamadas que hicieron inasumible la `opción A` en 47-01. Costó **14**.
 
@@ -192,6 +212,77 @@ Resultado que **no se maquilla**:
 - **Pero el criterio de aceptación del plan pedía una barra MÁS ESTRICTA** —≥2 pases correctos de **modelos** distintos— **y esa barra NO se cumple**: este override **sí** aporta la segunda `correcta` que `deriveStatus` cuenta. El precedente contrario es `fare-congiuntivo-passato`, que tenía 2 `correcta` de modelo (Opus + Sonnet) más el override, y por eso allí el override no fabricaba quórum.
 - Se declara como lo que es, **no como si la barra se hubiera cumplido**. Registrado en `WINDOWS.md` **id 35**.
 - Lo que sostiene la decisión no es el recuento sino la **fidelidad estructural**: `qualche` rige singular en italiano y es exactamente lo que el slot enseña. Que la traducción dijera «algunas chicas» contradiría en español la regla que el ejercicio existe para enseñar.
+
+## Seguimiento del mismo día: la deuda de alcance CERRADA y la SEGUNDA enmienda
+
+Todo lo de arriba describe el plan tal como se cerró la primera vez. Después, el **AUTOR** decidió no quedarse con la deuda de alcance, y este seguimiento la cierra. **Dos enmiendas del doc de criterios en un solo plan**, que es lo bastante inusual como para decirlo en voz alta.
+
+### Paso 1 — cumplimiento literal sobre el sujeto ENTERO de la enmienda del PARTITIVO
+
+`N` **medido del disco, no transcrito**: 39 variantes con el rendering partitivo en el commit `1f46236`, menos las 3 de 47-01 y las 4 ex-`disputed` ya re-validadas ⇒ **N = 32**.
+
+| Recuento sobre las 32 | |
+|---|---|
+| Re-validadas desde cero (2 pases cada una) | **32** |
+| Cerradas en verde | **31** |
+| Escaladas al autor como `disputed` | **1** (`partitivos-delle-invariable#0`) |
+| Caracteres del español modificados | **0** |
+| Overrides nuevos | **0** |
+| Pases PRE-enmienda supervivientes | **0** |
+
+**Lo que esto demuestra, y lo que no.** Demuestra la **direccionalidad absolutoria** por la vía cara: 31 de 32 `correcta` previas siguieron siendo `correcta` sin tocar un carácter. Eso convierte en **medición** lo que la condición 2 solo tenía **argumentado**. No demuestra que el argumento sobrara: lo confirma.
+
+**Y destapó lo que un argumento no puede destapar.** La 32.ª volvió `disputed` con un concern **nuevo** que la enmienda del partitivo no cubría ni podía cubrir: `[S2-fidelidad] La traducción omite la preposición 'a' del original ('a merenda')`. El hallazgo estaba en el **resto** del cuerpo, no en la parte que había motivado la enmienda. Es el mejor argumento a favor de haber pagado las llamadas.
+
+### Paso 2 — la SEGUNDA enmienda: el ADVERBIAL DE COMIDA
+
+Decisión del **AUTOR**: `opción A` otra vez — escribir la regla que falta, no overridear la variante.
+
+**Qué se escribió** (commit `b8fc351`): *«Excepción léxica: el adverbial de comida `a pranzo` / `a cena` se traduce TRANSPONIENDO la preposición»*, tercera hermana de las dos que ya vivían en el doc:
+
+| Parte | `da` + PERSONA | PARTITIVO | ADVERBIAL DE COMIDA (nueva) |
+|---|---|---|---|
+| Qué declara falso positivo | «añade *casa*» | «añade *algo de*» | «**omite** la preposición *a*» |
+| Por qué no es defecto | el lugar va DENTRO de la preposición | la cantidad va DENTRO del artículo | la preposición **no se omite: se TRANSPONE** (`de merienda`, `en la cena`) |
+| Qué SÍ se sigue vigilando | la **DIRECCIÓN** | el **NÚMERO** | **QUÉ COMIDA** es, y que el adverbial **no desaparezca entero** |
+
+Dos cosas de su redacción, deliberadas:
+
+- **No rebaja S2 en general.** Se apoya en una frase que **S2 ya contenía** —«fidelidad estricta no significa palabra por palabra… las diferencias obligadas por la lengua son correctas y no se penalizan»—. La excepción no añade permiso: nombra el caso concreto en el que aplicar S2 al pie de la letra **contradice** a S2.
+- **No toca S5 ni el italiano**, y lo dice explícitamente en su última línea. Sus dos puntos de vigilancia reiteran S2 sin añadir exigencia: omitir el adverbial entero ya era `false` antes de existir esta regla.
+
+### La evidencia que justifica la enmienda, CONTADA DEL DISCO
+
+En **todo el corpus** (758 variantes, 144 traducidas) solo **4** variantes traducidas llevan el adverbial de comida italiano con `a` — las 4 en `partitivos`. `deepseek-chat` aprobó **3** el mismo día y marcó la cuarta por la estructura **idéntica**:
+
+| Variante | Italiano | Español | Veredicto |
+|---|---|---|---|
+| `della-cons#0` | `A pranzo mangio della carne…` | «**En** la comida como…» | `correcta` |
+| `della-cons#2` | `A pranzo cucino della pasta…` | «**Para** la comida cocino…» | `correcta` |
+| `clasificacion#4` | `A cena bevo dell'acqua.` | «**En** la cena siempre bebo…» | `correcta` |
+| `delle-invariable#0` | `…delle mele **a merenda**.` | «**De** merienda» | **`incorrecta`** |
+
+**Marcar un patrón y aprobar tres idénticos es la firma canónica de este proyecto para un hueco de criterios**, no para cuatro falsos positivos aislados: el mismo síntoma que ya obligó a escribir la excepción del gloss (Phase 42) y la del PARTITIVO (arriba). El trabajo adversarial fue al juez más estricto **y del mismo vendor que el objetor** —`deepseek-reasoner`—, que refutó el concern punto por punto. Con el objetor solo, del mismo pozo, y refutado por su hermano estricto, el diagnóstico no descansa en la comodidad de quien lo arregla.
+
+### Cumplimiento literal, otra vez, sobre las 4
+
+La prueba de dos condiciones falla la 1 (**4** con sujeto, la condición exige cero) y mantiene la 2. Luego se re-validaron **las 4 desde cero, no solo la `disputed`**:
+
+| | Resultado |
+|---|---|
+| Llamadas | **8** (2 por variante, `deepseek-chat` + `gemini-3.5-flash-lite`) |
+| Veredictos | **8 `correcta`** |
+| `by` escrito == `by` pinneado | **8 de 8** — cero auto-fallbacks |
+| Español modificado | **0 caracteres** |
+| Overrides nuevos | **0** |
+
+`partitivos-delle-invariable#0` pasa de `disputed` a `validated` **sin tocar el español y sin override**: «He comido unas manzanas de merienda.» se queda como estaba autorada. Es el mismo movimiento de `del-cons#1`, `del-cons#4` y `della-cons#0` con la enmienda anterior — **cuando el defecto está en los criterios, se arreglan los criterios y el texto se queda**.
+
+La cola de fallbacks se verificó contra `/v1beta/models` **antes** de gastar la primera llamada (`gemini-3.5-flash-lite` → `gemini-3.5-flash` → `gemini-3.1-flash-lite` → `gemini-2.5-flash`, los cuatro vivos), por el aviso de `WINDOWS` id 33. Concurrencia **1**.
+
+### Dato que hereda 47-03 y las Phases 48-53
+
+Hay **5** variantes **sin traducir** que llevan el adverbial de comida: 3 en `articoli` (`articoli-gli-gn#0`, `articoli-305#0`, `articoli-lo-yi#0`), 1 en `fare-indicativo`, 1 en `possessivi`. **No son sujeto de re-validación** —nunca se validaron— y nacerán ya bajo el doc amendado. Se cuenta aquí para que 47-03 no lo redescubra.
 
 ## Deviations from Plan
 
@@ -240,6 +331,22 @@ La `explanation` de `partitivos-qualche` abre con «**Qualche significa algunos*
 
 **Sobre el total de 1343 frente a los 1341 de 47-01:** los 2 tests nuevos son de `tests/translation-validator.test.js`, añadidos por los dos fixes de `fillGap` de este mismo plan (`5f10060`, `005e49c`). Diferencia atribuida, no inexplicada.
 
+## Verificación en disco al cerrar el SEGUIMIENTO
+
+| Comprobación | Resultado |
+|---|---|
+| Reporter `node scripts/run-validation-271.mjs` | **exit 0** |
+| `TRAD-COV` | **`PASS (144/144)`** — `pending` 0, `missing` 0, **`disputed` 0** |
+| `VAL-04` · `VAL-06` · `VAL-08` · `VAL-09` | `PASS` · `PASS (250/250)` · `PASS` · `PASS` |
+| Línea de Partitivos (literal) | `partitivos               \| 48       \| 48         \| 0         \| 0        \| 0` |
+| Línea de Preposiciones (literal) | `preposiciones            \| 96       \| 96         \| 0         \| 0        \| 0` — **intacta** |
+| Diff de `content/exercises/partitivos.json` | **solo bloques `validation`**: cero líneas de `"text"`, `"prompt"`, `"options"`, `"correctIndex"` o `"explanation"` |
+| `preposiciones.json` y `articoli.json` | **cero líneas de diff** en todo el seguimiento |
+| Overrides en todo el corpus | 6 ficheros con **1** cada uno; en `partitivos` sigue siendo **1** (`qualche#2`), con su texto y su motivo intactos |
+| Suite `node --test tests/*.test.js tests/fixtures/*.test.js` | **1343 / 1339 pass / 4 fail** — los mismos 4 pre-existentes de trazabilidad (`WINDOWS` id 17), **cero regresiones nuevas** |
+| Gate anti-ceguera | `tests/count-arrays-lockstep.test.js` **exit 0** |
+| Brownfield | `git diff --stat src/domain/ src/screens/app.js` **vacío**; `CURRENT_SCHEMA_VERSION` sigue en **13** |
+
 ## Cola de fallbacks verificada contra el proveedor
 
 Listada contra `/v1beta/models` **antes** de gastar la primera llamada de la continuación:
@@ -264,11 +371,18 @@ Concurrencia **1** en todo momento.
 | 5 | `b7c1ddb` | feat — override de autor sobre `qualche#2` |
 | 6 | `5f8abe9` | docs — segunda nota de D-46-12 + deuda + tensión aplazada |
 | 7 | `895a05b` | fix (Rule 1) — la aserción de quórum implementa su carve-out |
+| — | `e07017f` | docs — cierre del plan (primera vez) |
+| **S1** | `4afcdac` | fix — **seguimiento**: re-validar desde cero las **32** con rendering partitivo — 31 verdes, 1 `disputed` |
+| **S2** | `b8fc351` | docs — **seguimiento**: la excepción léxica del ADVERBIAL DE COMIDA en el doc |
+| **S3** | `a864399` | fix — **seguimiento**: re-validar desde cero las **4** con adverbial de comida — 8/8 verdes |
+| **S4** | `124285a` | docs — **seguimiento**: 3.ª y 4.ª nota de D-46-12, `WINDOWS` id 36 `fixed` + id 37 |
 
 ## Decisions Made
 
 - **`opción A` y el override, decididos por el AUTOR**, ejecutados sin reabrirlos.
 - **TRAD-02 NO se marca completo.** El requisito cubre las 110 traducciones del bloque y hoy hay **48**. `requirements-completed` va vacío deliberadamente: marcarlo sería un verde que el disco no respalda —el modo de fallo del CR-01 de la Phase 44—. Lo cierra el plan 47-03 con Articoli.
+- **Seguimiento, decidido por el AUTOR: cerrar la deuda de alcance en vez de convivir con ella.** Las 32 se re-validaron. La consecuencia práctica es que **el sujeto de la enmienda del PARTITIVO queda cubierto al 100 %** y `WINDOWS` id 36 pasa a `fixed`. La consecuencia de fondo es que la condición 2 del carve-out deja de ser solo un argumento: se midió, y aguantó 31 de 32.
+- **Seguimiento, decidido por el AUTOR: la 32.ª se cierra con una SEGUNDA enmienda del doc, no con un override.** La regla del ADVERBIAL DE COMIDA absuelve la transposición de la preposición y **nada más**; el español de `delle-invariable#0` no se toca. Overrides nuevos: **0**.
 - **Naturaleza del quórum, otra vez declarada y no maquillada:** cross-vendor POR SCRIPT (`deepseek-chat` + `gemini-3.5-flash-lite`), que es lo que D-46-13 establece para TRADUCCIONES. **No** es el canónico Opus+Sonnet por Task de VAL-03. Ya registrado en `WINDOWS` id 34.
 
 ## Known Stubs
@@ -280,14 +394,18 @@ Ninguno. Las 48 traducciones son frases españolas completas; cero provisionales
 - **`deepseek-chat` oscilando sobre `della-cons#2`** — tres concerns contradictorios, uno de ellos con sugerencia agramatical. Resuelto con trabajo (arriba).
 - **`deepseek-reasoner` confirmando la objeción sobre `qualche#2`** — el pase adversarial salió en contra del override. Se dejó escrito y se declaró el déficit en vez de descartarlo.
 - **El test de quórum en rojo por el primer override de traducción** — Rule 1, arreglado y verificado por mutación.
+- **Un SEGUNDO hueco del doc, destapado por el cumplimiento literal sobre las 32** — `deepseek-chat` marcando «omite la preposición *a*» sobre `a merenda` mientras aprobaba tres `A pranzo` / `A cena` idénticos. Cerrado con la segunda enmienda y su propio cumplimiento literal; cero overrides.
 
 ## Ledger
 
-- **id 35** — el override de `qualche#2` que no cumple la barra estructural del plan.
-- **id 36** — la deuda de alcance: 32 variantes con sujeto no re-validadas.
+- **id 35** — el override de `qualche#2` que no cumple la barra estructural del plan. **Sigue `open` a propósito**: es lo único de este plan que el autor debe revisar a sabiendas, y cerrarlo lo haría invisible.
+- **id 36** — la deuda de alcance: 32 variantes con sujeto no re-validadas. **`fixed` en el seguimiento**, por decisión del autor. La descripción original **se conserva entera** y el cierre se le **añade** detrás con su recuento: 31 verdes, 1 escalada, cero texto tocado, cero overrides nuevos. Historia amendada, no borrada.
+- **id 37** (nueva) — la SEGUNDA enmienda del doc, la del ADVERBIAL DE COMIDA. **Nace ya `fixed`**: se registra por trazabilidad, no como deuda, porque su cumplimiento literal se ejecutó completo (4 de 4). Lleva escrito lo que forzaría re-validarla y el dato de las 5 variantes sin traducir que heredan 47-03 y siguientes.
 
 ## User Setup Required
 
 Ninguno nuevo. `DEEPSEEK_API_KEY` y `GEMINI_API_KEY` ya estaban en `.env` desde la Phase 46.
 
 ## Self-Check: PASSED
+
+Re-ejecutado al cerrar el **seguimiento**: los 5 ficheros tocados existen en disco; los 4 commits del seguimiento (`4afcdac`, `b8fc351`, `a864399`, `124285a`) existen en `git log`; la tercera y la cuarta nota están en `46-CONTEXT.md`; la sección *«Excepción léxica: el adverbial de comida…»* es la **tercera** de las cuatro excepciones del doc (líneas 199, 216, **245**, 328); el frontmatter de este SUMMARY sigue parseando.
