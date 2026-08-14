@@ -839,6 +839,12 @@
                   "concerns": []
                 },
                 {
+                  "by": "gemini-3.5-flash",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
                   "by": "gemini-3.5-flash-lite",
                   "date": "2026-08-14",
                   "verdict": "correcta",
@@ -909,6 +915,12 @@
               "passes": [
                 {
                   "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash",
                   "date": "2026-08-14",
                   "verdict": "correcta",
                   "concerns": []
@@ -1253,19 +1265,21 @@
           "translationES": {
             "text": "He comido unas manzanas de merienda.",
             "validation": {
-              "status": "validated",
+              "status": "disputed",
               "passes": [
-                {
-                  "by": "deepseek-chat",
-                  "date": "2026-08-14",
-                  "verdict": "correcta",
-                  "concerns": []
-                },
                 {
                   "by": "gemini-3.5-flash-lite",
                   "date": "2026-08-14",
                   "verdict": "correcta",
                   "concerns": []
+                },
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "incorrecta",
+                  "concerns": [
+                    "[S2-fidelidad] La traducción omite la preposición 'a' del original ('a merenda'), que indica la ocasión o el momento en que se realiza la acción. La traducción correcta debería ser: \"He comido unas manzanas como merienda.\" o \"He comido unas manzanas para merendar.\""
+                  ]
                 }
               ]
             }
