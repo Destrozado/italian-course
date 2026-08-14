@@ -20,8 +20,21 @@
           "translationES": {
             "text": "Leo el libro en el jardín.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -37,8 +50,21 @@
           "translationES": {
             "text": "Conocí al chico ayer.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -54,8 +80,21 @@
           "translationES": {
             "text": "¿Dónde está el perro de Marco?",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -71,8 +110,21 @@
           "translationES": {
             "text": "Limpio la mesa de la cocina.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -115,8 +167,23 @@
           "translationES": {
             "text": "He visto al estudiante nuevo.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "disputed",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "incorrecta",
+                  "concerns": [
+                    "[S2-fidelidad] La traducción añade la preposición 'a' en 'al estudiante nuevo', que no está presente en el italiano original 'lo studente nuovo'. El italiano usa el artículo definido 'lo' sin preposición, mientras que el español 'al' es la contracción de 'a el', introduciendo un matiz de dirección o destinatario que el original no tiene. Sugerencia: \"He visto el estudiante nuevo.\""
+                  ]
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -132,8 +199,21 @@
           "translationES": {
             "text": "Continúo el estudio de piano.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -149,8 +229,21 @@
           "translationES": {
             "text": "Hablo con el español del curso.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -193,8 +286,21 @@
           "translationES": {
             "text": "Conozco bien al tío de Marco.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -210,8 +316,23 @@
           "translationES": {
             "text": "He perdido la mochila en el gimnasio.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "disputed",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "incorrecta",
+                  "concerns": [
+                    "[S2-fidelidad] el artículo italiano es masculino ('lo zaino', masculino singular), pero la traducción utiliza el femenino 'la mochila', alterando el género del objeto original; sugerencia: \"He perdido el bolso en el gimnasio.\" o utilizando un equivalente masculino adecuado."
+                  ]
+                }
+              ]
             }
           }
         },
@@ -227,8 +348,21 @@
           "translationES": {
             "text": "¿Me pasas el azúcar, por favor?",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -271,8 +405,23 @@
           "translationES": {
             "text": "Conozco al psicólogo famoso.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "disputed",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "incorrecta",
+                  "concerns": [
+                    "[S2-fidelidad] La traducción añade la preposición 'a' ('al' = 'a el') que no está en el original italiano 'Conosco lo psicologo famoso'. El verbo 'conoscere' rige objeto directo sin preposición, y el español 'conocer' también lo hace ('Conozco al psicólogo' implica 'conozco a esa persona', pero aquí el original no tiene la preposición 'a' de objeto personal; es un objeto directo inanimado/abstracto). La traducción fiel sería: \"Conozco el psicólogo famoso.\""
+                  ]
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -317,8 +466,21 @@
           "translationES": {
             "text": "El escritor firma con el seudónimo elegante.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -361,8 +523,21 @@
           "translationES": {
             "text": "En el cuento de hadas aparece el gnomo del bosque.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -407,8 +582,23 @@
           "translationES": {
             "text": "En el restaurante he pedido el ñoqui de patata más grande.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "disputed",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "incorrecta",
+                  "concerns": [
+                    "[S2-fidelidad] La traducción omite el partitivo 'lo' del italiano, que indica cantidad indeterminada; sugerencia: \"En el restaurante he pedido un ñoqui de patata más grande.\""
+                  ]
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -451,8 +641,23 @@
           "translationES": {
             "text": "En el aula está el xilófono para los niños.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "disputed",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "incorrecta",
+                  "concerns": [
+                    "[S2-fidelidad] La traducción cambia el significado del verbo: 'c'è' significa 'hay' (existencial), no 'está' (ubicación). La frase italiana afirma la existencia de un xilófono en el aula, no su posición. Sugerencia: \"En el aula hay un xilófono para los niños.\""
+                  ]
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -497,8 +702,21 @@
           "translationES": {
             "text": "El director entrevista al xenófobo del barrio.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -541,8 +759,21 @@
           "translationES": {
             "text": "Espero al amigo a la salida.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -558,8 +789,21 @@
           "translationES": {
             "text": "Me duele el ojo derecho.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -575,8 +819,21 @@
           "translationES": {
             "text": "Me he encontrado con el hombre de la tienda.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -592,8 +849,21 @@
           "translationES": {
             "text": "En el zoo el oso duerme todo el día.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -636,8 +906,21 @@
           "translationES": {
             "text": "La casa de mi abuela es grande.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -653,8 +936,21 @@
           "translationES": {
             "text": "Saludo a la tía de Florencia.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -670,8 +966,21 @@
           "translationES": {
             "text": "Conozco a la estudiante de Roma.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -714,8 +1023,23 @@
           "translationES": {
             "text": "La amiga de Sofía es española.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "disputed",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "incorrecta",
+                  "concerns": [
+                    "[S6-naturalidad] La traducción es un calco literal del italiano: 'l'amica' se traduce como 'la amiga', pero en español la forma natural y correcta es 'la amiga' (sin apóstrofo ni contracción). El italiano usa el apóstrofo para la elisión ('l''), pero en español no existe esa contracción con el artículo femenino; la forma idiomática es simplemente 'la amiga'. Sugerencia: \"La amiga de Sofía es española.\""
+                  ]
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -731,8 +1055,21 @@
           "translationES": {
             "text": "Esta noche vamos a ver la ópera en La Scala.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -748,8 +1085,21 @@
           "translationES": {
             "text": "La isla de Capri es bellísima.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -792,8 +1142,21 @@
           "translationES": {
             "text": "He comprado los libros para el examen.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -809,8 +1172,21 @@
           "translationES": {
             "text": "Los chicos juegan en el patio.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -853,8 +1229,21 @@
           "translationES": {
             "text": "He saludado a los estudiantes en el pasillo.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -897,8 +1286,21 @@
           "translationES": {
             "text": "El domingo vienen los tíos del pueblo.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -941,8 +1343,21 @@
           "translationES": {
             "text": "En el congreso hablan los psicólogos más conocidos.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -985,8 +1400,21 @@
           "translationES": {
             "text": "En la comida preparamos los ñoquis hechos en casa.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -1029,8 +1457,21 @@
           "translationES": {
             "text": "Esta noche salen los amigos de Luca.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -1046,8 +1487,21 @@
           "translationES": {
             "text": "Cierra los ojos y relájate.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -1090,8 +1544,21 @@
           "translationES": {
             "text": "Las casas del barrio son nuevas.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -1107,8 +1574,21 @@
           "translationES": {
             "text": "Invito a las amigas a la fiesta.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -1124,8 +1604,21 @@
           "translationES": {
             "text": "Las estudiantes preparan el examen juntas.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -1168,8 +1661,21 @@
           "translationES": {
             "text": "Me gustaría comprar un libro nuevo.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -1185,8 +1691,21 @@
           "translationES": {
             "text": "Hay un chico que te busca.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -1229,8 +1748,21 @@
           "translationES": {
             "text": "Me he encontrado con un amigo por la calle.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -1246,8 +1778,21 @@
           "translationES": {
             "text": "Marco tiene un ojo más claro que el otro.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -1290,8 +1835,23 @@
           "translationES": {
             "text": "Para la cena invito a un estudiante extranjero.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "disputed",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "incorrecta",
+                  "concerns": [
+                    "[S2-fidelidad] La traducción omite el adverbial de comida 'Per cena' (que significa 'para la cena' o 'en la cena'), dejando solo 'Para la cena' que no es una traducción completa del original. La frase italiana 'Per cena invito uno studente straniero.' significa 'Para la cena invito a un estudiante extranjero.' y la traducción correcta debería incluir 'para la cena' o 'en la cena' para transmitir el significado completo. Sugerencia: \"Para la cena invito a un estudiante extranjero.\""
+                  ]
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -1334,8 +1894,23 @@
           "translationES": {
             "text": "Necesito una mochila para la excursión.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "disputed",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "incorrecta",
+                  "concerns": [
+                    "[S2-fidelidad] La traducción cambia el artículo indeterminado del italiano: 'uno zaino' es masculino singular y debe traducirse como 'un mochila' (o 'un bolso'), no 'una mochila' (femenino). El género del sustantivo español 'mochila' es femenino, pero el italiano 'zaino' es masculino; la traducción debe respetar el género del sustantivo italiano. Sugerencia: \"Necesito un morral para la excursión.\""
+                  ]
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -1378,8 +1953,21 @@
           "translationES": {
             "text": "Me gustaría llegar a ser psicólogo.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -1424,8 +2012,21 @@
           "translationES": {
             "text": "El escritor ha elegido un seudónimo para la novela.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -1468,8 +2069,21 @@
           "translationES": {
             "text": "En el dibujo hay un gnomo con sombrero.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -1514,8 +2128,21 @@
           "translationES": {
             "text": "En el belén falta un gnomo de cerámica.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -1558,8 +2185,21 @@
           "translationES": {
             "text": "En el salón hay una casa de muñecas.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -1575,8 +2215,21 @@
           "translationES": {
             "text": "Tengo una tía que vive en Turín.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -1592,8 +2245,21 @@
           "translationES": {
             "text": "Es una estudiante muy buena.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -1636,8 +2302,21 @@
           "translationES": {
             "text": "Tengo una amiga que habla cinco idiomas.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -1653,8 +2332,21 @@
           "translationES": {
             "text": "Esta noche dan una ópera de Verdi.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -1670,8 +2362,21 @@
           "translationES": {
             "text": "Te espero desde hace una hora en la plaza.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -1831,8 +2536,21 @@
           "translationES": {
             "text": "Las chicas italianas estudian mucho.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -1876,8 +2594,21 @@
           "translationES": {
             "text": "Los estudiantes llegan tarde todos los días.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -1921,8 +2652,21 @@
           "translationES": {
             "text": "Los libros están sobre la mesa.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -1966,8 +2710,21 @@
           "translationES": {
             "text": "Los brazos están cansados después del trabajo.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -2011,8 +2768,21 @@
           "translationES": {
             "text": "Los huevos están en el frigorífico.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -2056,8 +2826,21 @@
           "translationES": {
             "text": "Los tíos vienen a cenar el domingo.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -2158,8 +2941,21 @@
           "translationES": {
             "text": "En el desayuno como el yogur de frutas.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -2204,8 +3000,21 @@
           "translationES": {
             "text": "El médico receta el yodo para la herida.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -2289,8 +3098,23 @@
           "translationES": {
             "text": "En el frigorífico están los yogures caducados.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "disputed",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "incorrecta",
+                  "concerns": [
+                    "[S2-fidelidad] La traducción cambia el verbo: 'ci sono' (hay) se traduce como 'están' en lugar de 'hay'. El italiano afirma la existencia de los yogures ('ci sono gli yogurt'), no su ubicación. Sugerencia: \"En el frigorífico hay los yogures caducados.\""
+                  ]
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
