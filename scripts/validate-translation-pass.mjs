@@ -195,6 +195,23 @@ export function resolveTarget(slotId, k, dirs = SCAN_DIRS) {
 const MARCADOR_NULO = /∅/;
 
 /**
+ * ELISIÓN: una `option` elidida (`l'`, `un'`, `dell'`, `quest'`, `quell'`) se SUELDA a la
+ * palabra siguiente — `dell'aceto`, no `dell' aceto`. El hueco del `prompt` lleva su
+ * espacio (`Metti ___ aceto`), así que rellenar sin más deja un espacio que el italiano
+ * no escribe nunca.
+ *
+ * El discriminador es ORTOGRÁFICO y sigue la morfología italiana: la elisión pierde la
+ * vocal final y deja una CONSONANTE ante el apóstrofo (`del·l'`, `un'`), mientras que la
+ * apócope de los imperativos monosilábicos deja una VOCAL (`fa'`, `va'`, `da'`, `sta'`,
+ * `di'`) y NO se suelda: `Marco, fa' una foto` conserva su espacio.
+ *
+ * Por eso NO se usa el criterio "la palabra siguiente empieza por vocal", que parece el
+ * natural y es incorrecto: el único caso de apócope del corpus, `fa' una foto`, va
+ * seguido justamente de vocal, y ese criterio lo habría soldado en `fa'una`.
+ */
+const OPCION_ELIDIDA = /[bcdfghjklmnpqrstvwxyz]'$/i;
+
+/**
  * La frase italiana fuente: el `prompt` con el hueco RELLENO por la opción correcta.
  *
  * EXCEPCIÓN DEL MARCADOR NULO (Phase 47, plan 47-02): si la opción correcta es un
@@ -223,6 +240,7 @@ export function fillGap(prompt, options, correctIndex) {
       .replace(/\s+([.,;:!?])/g, '$1')
       .trim();
   }
+  if (OPCION_ELIDIDA.test(opt)) return prompt.replace(/___\s*/, opt);
   return prompt.replace('___', opt);
 }
 

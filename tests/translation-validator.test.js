@@ -567,6 +567,23 @@ describe('validate-translation-pass — escritura quirúrgica en variants[k].tra
     // correcta es una palabra de verdad, el relleno sigue siendo el de siempre.
     assert.equal(fillGap('Compro ___ pane.', NULO, 1), 'Compro del pane.');
   });
+
+  // Phase 47, plan 47-02. Una opción ELIDIDA se suelda a la palabra siguiente. El
+  // discriminador es la letra que precede al apóstrofo —consonante = elisión, vocal =
+  // apócope del imperativo—, NO "la siguiente empieza por vocal": el único caso de
+  // apócope del corpus (`fa' una foto`) va seguido de vocal y ese criterio lo habría
+  // soldado en `fa'una`. La última aserción es justamente ese contraejemplo.
+  test('una opción elidida se suelda a la palabra siguiente, y la apócope NO', () => {
+    assert.equal(fillGap("Metti ___ aceto nell'insalata.", ["dell'"], 0), "Metti dell'aceto nell'insalata.");
+    assert.equal(fillGap('Ho ___ amica che parla cinque lingue.', ["un'"], 0), "Ho un'amica che parla cinque lingue.");
+    assert.equal(fillGap('Aspetto ___ amico.', ["l'"], 0), "Aspetto l'amico.");
+    assert.equal(
+      fillGap('Marco, ___ una foto con il tuo telefono!', ["fa'"], 0),
+      "Marco, fa' una foto con il tuo telefono!",
+      "apócope: `fa'` NO se suelda, aunque le siga una vocal"
+    );
+    assert.equal(fillGap('Compro ___ pane.', ['del'], 0), 'Compro del pane.', 'una opción sin apóstrofo no cambia');
+  });
 });
 
 // ══════════════════════════════════════════════════════════════════════════
