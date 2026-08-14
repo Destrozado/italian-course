@@ -314,7 +314,7 @@
           "translationES": {
             "text": "He perdido la mochila en el gimnasio.",
             "validation": {
-              "status": "disputed",
+              "status": "validated",
               "passes": [
                 {
                   "by": "deepseek-reasoner",
@@ -335,6 +335,15 @@
                   "date": "2026-08-14",
                   "verdict": "correcta",
                   "concerns": []
+                },
+                {
+                  "by": "autor",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "override": true,
+                  "concerns": [
+                    "[override] Adjudicación del AUTOR sobre articoli-lo-z#1 (2026-08-14, Phase 47 plan 47-03). MOTIVO: el concern es un ERROR DE CATEGORÍA, no un defecto. Exigir que el sustantivo español conserve el género gramatical del italiano confunde el género léxico —propiedad de cada lengua— con la fidelidad, y S2 ya cubre ese caso en su última viñeta: las diferencias obligadas por la lengua son correctas y no se penalizan. Las propias sugerencias del objetor lo delatan: «el bolso» y «el morral» son objetos DISTINTOS de una mochila, así que aceptarlas empeoraría la traducción y la haría FALSA. Y el objetor se contradice a sí mismo: gemini-3.5-flash-lite aprobó el MISMO par de sustantivos el MISMO día en articoli-uno-z#0 («Mi serve uno zaino» => «Necesito una mochila») y marcó este. Idéntico par, veredictos opuestos, mismo juez, mismo día: es LÍMITE DEL EVALUADOR, no hueco de criterios —un hueco de criterios habría marcado los dos—. El autor adjudica a favor del texto, que se queda exactamente como fue autorado. TRABAJO ADVERSARIAL PREVIO: (1) segunda muestra independiente del mismo modelo, desde cero, que REPRODUJO el concern (luego no es ruido de muestreo); (2) juez más ESTRICTO del MISMO vendor que el objetor, gemini-3.5-flash, que lo REFUTÓ punto por punto y dio correcta; (3) lado cross-vendor, deepseek-reasoner, correcta; (4) la inconsistencia del objetor contada del disco (articoli-uno-z#0). ESTE OVERRIDE NO FABRICA QUÓRUM, y es lo que lo distingue del de partitivos-qualche#2 (WINDOWS id 35): la variante YA tiene 2 pases correcta de 2 MODELOS de 2 VENDORS distintos —deepseek-reasoner y gemini-3.5-flash— ANTES de este override. El override no aporta la segunda correcta que deriveStatus cuenta: resuelve una DISIDENCIA sobre un quórum de modelos que ya está en pie, que es exactamente el caso de primera clase para el que se extendió deriveStatus en G-42-3, y cumple la barra estricta del criterio de aceptación del plan (>=2 pases correcta de MODELOS distintos) que el override de partitivos-qualche#2 NO cumple. El pase incorrecta de gemini-3.5-flash-lite se QUEDA en passes[]: el disenso sigue legible. Español modificado: 0 caracteres. Registrado en .planning/WINDOWS.md (id 39)."
+                  ]
                 }
               ]
             }
