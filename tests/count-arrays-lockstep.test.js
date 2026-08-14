@@ -2199,3 +2199,383 @@ describe('ningun artefacto ejecutable instruye la forma deprecada del cierre (WR
     );
   });
 });
+
+// ───────────────────────────────────────────────────────────────────────────
+// 9. La DUREZA DEL VEREDICTO de los sub-gates (T-46-14, v2.1 Phase 46)
+// ───────────────────────────────────────────────────────────────────────────
+//
+// POR QUE EXISTE, Y POR QUE LLEGA TARDE. El registro STRIDE de la Phase 46 declara
+// T-46-14 —«umbral ablandado silenciosamente», severidad high, disposicion mitigate— con
+// la mitigacion partida en DOS mitades: (1) que el veredicto del sub-gate sea IGUALDAD DE
+// ENTEROS, y (2) una «asercion de fuente sobre la region del sub-gate» que congele esa
+// forma. La primera mitad se implemento y muerde. La segunda NO EXISTIA: `grep` de
+// `toFixed`, `Math.round` y `0.99` sobre tests/ devolvia CERO. Y el SUMMARY del plan 46-03
+// la afirmaba como hecha, verbatim, en su tabla de mitigaciones.
+//
+// EL GATE DE SEGURIDAD DE LA FASE LO MIDIO POR MUTACION, no leyendo: debilitando
+// `allTranslationInconsistencyAddrs.length === 0` a `>= 0` en el reporter, la suite se
+// quedo en su baseline exacta —ni un subtest nuevo en rojo—. Un registro que afirma una
+// verificacion que nadie hizo certifica en verde, que es el CR-01 de la Phase 44 con otro
+// disfraz; la afirmacion queda RETRACTADA por escrito en 46-03-SUMMARY.md y este bloque es
+// la mitad que faltaba.
+//
+// LAS DOS FORMAS DE ABLANDAMIENTO, y la declarada NO es la que se colaba.
+//   (a) Aritmetica de ratio dentro del veredicto: `toFixed`, `Math.round`, una division,
+//       un umbral flotante tipo `>= 0.99`. Es la unica que el registro nombraba. Un
+//       `>= 0.99` formatea a 99% una variante suelta sin traducir y la deja pasar.
+//   (b) Debilitar una comparacion: un `===` que pasa a `>=` o a `>`. Es la que la
+//       mutacion demostro que se colaba, y no la nombraba nadie. Lleva su PROPIA
+//       asercion porque (a) no la ve: `>= 0` no tiene decimal, ni redondeo, ni division.
+//
+// POR QUE NO SE ANCLA CONTRA EL PRE-FASE, y no es un olvido. `readPreFase46` es un helper
+// con fecha de caducidad: deriva la referencia buscando el ultimo commit SIN scope
+// `(46-NN)`, asi que en la Phase 47 la referencia se mueve al primer commit de la 47 y su
+// guard anti-colapso la anula. Un candado de REGRESION que tiene que seguir mordiendo en
+// las Phases 47-53 no puede colgar de ese ancla. Y el invariante de aqui es ABSOLUTO
+// —cero patrones de ablandamiento en la region—, o sea estrictamente mas fuerte que
+// cualquier delta contra un «antes»: no hay cifra que anclar. Medido de paso: `tradPass`
+// no existe en el arbol pre-fase, asi que un diff contra el pre-fase sobre esta region no
+// tendria con que comparar. Lo que NO se hace, y por lo mismo, es comparar contra `HEAD`:
+// sobre un arbol limpio eso es vacio POR CONSTRUCCION y no prueba nada (WR-01).
+
+// El sub-gate que T-46-14 nombra. Se declara por NOMBRE y la region se DERIVA del
+// fichero: cero numeros de linea transcritos (D-31-06).
+const VEREDICTO_DEL_SUBGATE = 'tradPass';
+
+// El reconocedor de declaraciones de veredicto, DERIVADO del fuente: todo
+// `const <algo>Pass =` es el veredicto de un sub-gate y entra en el candado. Enumerarlos
+// a mano dejaria el sexto fuera en silencio el dia que se escriba, que es el mismo modo
+// de fallo que el bloque 6 cierra para los ficheros de test.
+const DECLARACION_DE_VEREDICTO = /^[^\S\n]*const[^\S\n]+([A-Za-z_$][\w$]*Pass)[^\S\n]*=/;
+
+/** Los nombres de los veredictos que un fuente declara, en orden de aparicion. */
+export const veredictosDeclarados = (src) =>
+  sinComentarios(src)
+    .split('\n')
+    .map((linea) => linea.match(DECLARACION_DE_VEREDICTO))
+    .filter(Boolean)
+    .map((m) => m[1]);
+
+/**
+ * La REGION de texto que ocupa la expresion de un veredicto con nombre, YA LIMPIA de
+ * comentarios: desde la linea `const <nombre> =` hasta la primera que acaba en `;`.
+ *
+ * POR QUE ES UNA REGION Y NO EL FICHERO. El reporter esta LLENO de aritmetica legitima
+ * —porcentajes de progreso, divisiones para formatear, redondeos en la cabecera—, asi que
+ * un gate que prohibiese `Math.round` en el fuente ENTERO seria rojo permanente y falso, y
+ * un falso rojo invita a relajar el gate hasta que deja de vigilar. Lo que no tiene
+ * NINGUNA excepcion legitima es un decimal o una division DENTRO de la expresion que
+ * decide un sub-gate. Es el mismo acotado, y por la misma razon, que `regionDeArray`.
+ *
+ * DEVUELVE CADENA VACIA cuando la declaracion no aparece o cuando no se le encuentra
+ * terminador, y es deliberado: el «fallback» de devolver el fuente completo volveria a
+ * mezclar prosa y veredicto en silencio el dia que el ancla deje de casar. Una region
+ * vacia pone ROJA la clausula de no-vacuidad de quien la consuma, que es el
+ * comportamiento correcto — renombrar el veredicto NO puede pasar desapercibido.
+ *
+ * @param {string} src texto fuente completo del reporter
+ * @param {string} nombre identificador del veredicto (`tradPass`, …)
+ * @returns {string} la region limpia, o `''` si no se localiza
+ */
+export function regionDelVeredicto(src, nombre) {
+  const lineas = sinComentarios(src).split('\n');
+  // Whitespace HORIZONTAL en los huecos, como todas las anclas de este fichero: `\s*`
+  // cruzaria el salto de linea y fue un bug real (WR-07). La apertura NO exige que la
+  // linea acabe en `=`, porque un veredicto de una sola linea (`const val08Pass =
+  // totalDisputed === 0;`) es tan legitimo como uno de cinco.
+  const apertura = new RegExp(
+    `^[^\\S\\n]*const[^\\S\\n]+${escapeRe(nombre)}[^\\S\\n]*=`
+  );
+  const i = lineas.findIndex((l) => apertura.test(l));
+  if (i === -1) return '';
+  const cierre = /;[^\S\n]*$/;
+  for (let j = i; j < lineas.length; j += 1) {
+    if (cierre.test(lineas[j])) return lineas.slice(i, j + 1).join('\n');
+  }
+  return '';
+}
+
+// Los patrones de la forma (a). Cada uno con su razon escrita, porque un gate cuyo
+// mensaje no dice POR QUE muerde acaba desactivado por quien no sabe que protege.
+const PATRONES_DE_ABLANDAMIENTO = [
+  {
+    nombre: 'toFixed',
+    re: /\btoFixed\b/,
+    razon: 'formatea un ratio a texto y convierte el veredicto en comparacion de cadenas',
+  },
+  {
+    nombre: 'toPrecision',
+    re: /\btoPrecision\b/,
+    razon: 'misma forma que toFixed, con otro nombre',
+  },
+  {
+    nombre: 'Math.round',
+    re: /\bMath[^\S\n]*\.[^\S\n]*round\b/,
+    razon: 'un redondeo hace que 95.5 de 96 sea 96 y deja pasar la variante que falta',
+  },
+  {
+    nombre: 'Math.floor',
+    re: /\bMath[^\S\n]*\.[^\S\n]*floor\b/,
+    razon: 'trunca la parte que delata la cobertura incompleta',
+  },
+  {
+    nombre: 'Math.ceil',
+    re: /\bMath[^\S\n]*\.[^\S\n]*ceil\b/,
+    razon: 'redondea al alza: 95 de 96 pasa a valer 96',
+  },
+  {
+    nombre: 'parseFloat',
+    re: /\bparseFloat\b/,
+    razon: 'introduce coma flotante donde el veredicto cuenta enteros',
+  },
+  {
+    nombre: 'literal decimal (`0.99` y parientes)',
+    re: /\d*\.\d+/,
+    razon:
+      'un umbral flotante es el ablandamiento canonico: `>= 0.99` formatea a 99% una ' +
+      'variante suelta sin traducir y la deja pasar',
+  },
+  {
+    nombre: 'division',
+    re: /\//,
+    razon: 'un cociente es un ratio, y un ratio pide un umbral; el veredicto cuenta enteros',
+  },
+  {
+    nombre: 'porcentaje (%)',
+    re: /%/,
+    razon: 'ni porcentaje ni modulo tienen nada que decidir en una igualdad de enteros',
+  },
+];
+
+/** Los nombres de los patrones de ablandamiento presentes en una region. */
+export const ablandamientos = (region) =>
+  PATRONES_DE_ABLANDAMIENTO.filter(({ re }) => new RegExp(re.source).test(region)).map(
+    ({ nombre }) => nombre
+  );
+
+// La forma (b). El `=>` se blanquea ANTES de buscar: una funcion flecha lleva un `>` que
+// no compara nada, y un falso rojo es un defecto igual que un falso verde.
+const COMPARACION_LAXA = /(?:>=|<=|>|<)/g;
+const IGUALDAD_ESTRICTA = /(?:===|!==)/g;
+
+/** Las comparaciones LAXAS de una region (las que admiten «mas de lo esperado»). */
+export const comparacionesLaxas = (region) =>
+  (region.replace(/=>/g, '  ').match(COMPARACION_LAXA) || []);
+
+/** Las igualdades ESTRICTAS de una region — la forma que T-46-14 exige. */
+export const igualdadesEstrictas = (region) => region.match(IGUALDAD_ESTRICTA) || [];
+
+describe('T-46-14 — goldens del candado de dureza del veredicto (fail-first: la prueba de que SABE ponerse rojo)', () => {
+  // El veredicto DURO, con un cociente legitimo DESPUES del `;`. Ese cociente es el
+  // control de acotado: si la region desbordase su terminador, `ablandamientos` lo
+  // marcaria y el gate real seria rojo permanente sobre un reporter correcto.
+  const SRC_VEREDICTO_DURO = `
+const totalEsperado = 96;
+const tradPass =
+  ausencia.length === 0 &&
+  !cargaFallida &&
+  desincronizados.length === 0 &&
+  validadas === totalEsperado;
+
+const porcentajeSoloParaImprimir = validadas / totalEsperado;
+`;
+
+  const SRC_VEREDICTO_UNA_LINEA = `
+const val08Pass = totalDisputed === 0;
+`;
+
+  const SRC_VEREDICTO_CON_UMBRAL = `
+const tradPass = (validadas / totalEsperado).toFixed(2) >= 0.99;
+`;
+
+  const SRC_VEREDICTO_REDONDEADO = `
+const tradPass =
+  Math.round((validadas / totalEsperado) * 100) === 100;
+`;
+
+  const SRC_VEREDICTO_LAXO = `
+const tradPass =
+  desincronizados.length >= 0 &&
+  validadas === totalEsperado;
+`;
+
+  const SRC_VEREDICTO_CON_FLECHA = `
+const tradPass =
+  entradas.every((r) => r.validated === r.expected) &&
+  fallos.length === 0;
+`;
+
+  const SRC_SIN_VEREDICTO = `
+const otraCosa = 1;
+`;
+
+  test('golden-POSITIVO: la region acaba en su `;` y NO se lleva el cociente de la linea siguiente', () => {
+    const region = regionDelVeredicto(SRC_VEREDICTO_DURO, 'tradPass');
+    assert.ok(region.includes('validadas === totalEsperado;'), 'la region tiene que llegar hasta su terminador');
+    assert.ok(
+      !region.includes('porcentajeSoloParaImprimir'),
+      'T-46-14: la region DESBORDA su `;` y se lleva aritmetica legitima de despues: el gate ' +
+        'real seria rojo permanente sobre un reporter correcto'
+    );
+    assert.deepEqual(ablandamientos(region), []);
+    assert.deepEqual(comparacionesLaxas(region), []);
+    assert.equal(igualdadesEstrictas(region).length, 3);
+  });
+
+  test('golden-POSITIVO de UNA LINEA: un veredicto que abre y cierra en la misma linea se acota igual', () => {
+    const region = regionDelVeredicto(SRC_VEREDICTO_UNA_LINEA, 'val08Pass');
+    assert.equal(region.trim(), 'const val08Pass = totalDisputed === 0;');
+    assert.deepEqual(ablandamientos(region), []);
+    assert.deepEqual(comparacionesLaxas(region), []);
+  });
+
+  test('golden-NEGATIVO de UMBRAL FLOTANTE: `toFixed` + `>= 0.99` se delatan por las DOS aserciones', () => {
+    const region = regionDelVeredicto(SRC_VEREDICTO_CON_UMBRAL, 'tradPass');
+    assert.deepEqual(ablandamientos(region), [
+      'toFixed',
+      'literal decimal (`0.99` y parientes)',
+      'division',
+    ]);
+    assert.deepEqual(comparacionesLaxas(region), ['>=']);
+  });
+
+  test('golden-NEGATIVO de REDONDEO: `Math.round` y la division se delatan aunque la comparacion siga siendo `===`', () => {
+    const region = regionDelVeredicto(SRC_VEREDICTO_REDONDEADO, 'tradPass');
+    assert.deepEqual(ablandamientos(region), ['Math.round', 'division']);
+    // Y esta es la razon de que la asercion (b) no baste sola: aqui NO hay comparacion
+    // laxa ninguna, y el gate esta igual de ablandado.
+    assert.deepEqual(comparacionesLaxas(region), []);
+  });
+
+  test('golden-NEGATIVO de COMPARACION LAXA: el `=== 0` debilitado a `>= 0` se delata (la mutacion que se colaba)', () => {
+    const region = regionDelVeredicto(SRC_VEREDICTO_LAXO, 'tradPass');
+    assert.deepEqual(comparacionesLaxas(region), ['>=']);
+    // Y esta es la razon de que la asercion (a) no baste sola: `>= 0` no lleva decimal,
+    // ni redondeo, ni division. Es EXACTAMENTE la mutacion que el gate de seguridad
+    // corrio sobre el reporter y que la suite entera dejo pasar en verde.
+    assert.deepEqual(ablandamientos(region), []);
+  });
+
+  test('golden de FALSO POSITIVO EVITADO: el `>` de una funcion flecha NO cuenta como comparacion laxa', () => {
+    const region = regionDelVeredicto(SRC_VEREDICTO_CON_FLECHA, 'tradPass');
+    assert.deepEqual(
+      comparacionesLaxas(region),
+      [],
+      'T-46-14: un `=>` marcado como comparacion laxa seria un falso rojo, y un falso rojo ' +
+        'invita a relajar el gate hasta que deja de vigilar'
+    );
+    assert.deepEqual(ablandamientos(region), []);
+    assert.equal(igualdadesEstrictas(region).length, 2);
+  });
+
+  test('golden-NEGATIVO de AUSENCIA: sin la declaracion no hay region, y la region vacia es lo que pone ROJA la no-vacuidad', () => {
+    assert.equal(regionDelVeredicto(SRC_SIN_VEREDICTO, 'tradPass'), '');
+    assert.deepEqual(veredictosDeclarados(SRC_SIN_VEREDICTO), []);
+    // La forma del bug: sobre una region vacia las dos aserciones del gate real pasan en
+    // VERDE sin haber leido nada (`deepEqual([], [])`). Por eso la no-vacuidad va PRIMERO.
+    assert.deepEqual(ablandamientos(''), []);
+    assert.deepEqual(comparacionesLaxas(''), []);
+  });
+
+  test('golden-NEGATIVO de VEREDICTO SIN TERMINADOR: no se devuelve media expresion como region', () => {
+    assert.equal(regionDelVeredicto('const tradPass =\n  a === b &&\n', 'tradPass'), '');
+  });
+
+  test('golden de RECONOCEDOR: los veredictos se derivan del fuente, y una entrada comentada no declara ninguno', () => {
+    assert.deepEqual(veredictosDeclarados(SRC_VEREDICTO_DURO), ['tradPass']);
+    assert.deepEqual(veredictosDeclarados('// const tradPass = a === b;\n'), []);
+    assert.deepEqual(veredictosDeclarados('/* const tradPass = a === b; */\n'), []);
+  });
+});
+
+describe('T-46-14 — el veredicto de cada sub-gate del reporter es igualdad de enteros y no se puede ablandar en silencio', () => {
+  test('NO-VACUIDAD: cada veredicto se localiza, su region esta ACOTADA, y la del sub-gate de la fase contiene comparaciones reales', () => {
+    // VA PRIMERO Y NO ES CEREMONIA. Las dos aserciones de abajo son `deepEqual(x, [])`
+    // sobre lo que un escaner encuentra en una region: si la region sale vacia —ancla
+    // renombrada, terminador perdido, fichero movido— salen VERDES sin haber leido nada.
+    // Es el modo de fallo que esta fase ya pago dos veces (CR-01 y WR-01), y este es el
+    // tercer sitio donde se cierra ANTES de decidir nada.
+    const SRC = readSrc(REPORTER);
+    const nombres = veredictosDeclarados(SRC);
+
+    assert.ok(
+      nombres.includes(VEREDICTO_DEL_SUBGATE),
+      `T-46-14: el reconocedor de veredictos NO encuentra \`${VEREDICTO_DEL_SUBGATE}\` en ` +
+        `${REPORTER}; ve estos: ${nombres.join(', ') || '(ninguno)'}. O el sub-gate se ` +
+        `renombro —y entonces este candado hay que REAPUNTARLO a mano, no dejarlo pasar— o el ` +
+        `ancla dejo de casar. En los dos casos las aserciones de abajo mirarian una region ` +
+        `VACIA y pasarian en verde sobre un reporter que nadie ha comprobado`
+    );
+
+    const sinRegion = nombres.filter((n) => regionDelVeredicto(SRC, n) === '');
+    assert.deepEqual(
+      sinRegion,
+      [],
+      `T-46-14: estos veredictos se declaran en ${REPORTER} pero el acotado no les encuentra ` +
+        `region (ningun terminador \`;\` ni en su linea ni en las siguientes): ` +
+        `${sinRegion.join(', ')}. Sin region no hay nada que congelar`
+    );
+
+    // Acotamiento REAL: una region que se comiese el fichero entero convertiria el gate
+    // en una prohibicion sobre todo el reporter —que esta lleno de aritmetica legitima—
+    // y el rojo seria constante y falso.
+    const desbordadas = nombres.filter(
+      (n) => regionDelVeredicto(SRC, n).length >= sinComentarios(SRC).length
+    );
+    assert.deepEqual(
+      desbordadas,
+      [],
+      `T-46-14: la region de estos veredictos abarca el fuente entero, asi que el acotado no ` +
+        `esta acotando: ${desbordadas.join(', ')}`
+    );
+
+    // Y la clausula que hace que la asercion de comparaciones SIGNIFIQUE algo: si en la
+    // region del sub-gate no queda ninguna igualdad, prohibir `>=` es prohibir algo que
+    // no hay. El dia que el veredicto se mueva a otro sitio esto sale ROJO y obliga a
+    // reapuntar el candado — que es exactamente lo que debe pasar.
+    const igualdades = igualdadesEstrictas(regionDelVeredicto(SRC, VEREDICTO_DEL_SUBGATE));
+    assert.ok(
+      igualdades.length > 0,
+      `T-46-14: la region de \`${VEREDICTO_DEL_SUBGATE}\` no contiene NINGUNA igualdad ` +
+        `estricta (\`===\`/\`!==\`). O el veredicto dejo de decidir por igualdad de enteros ` +
+        `—que es la mitigacion entera de T-46-14— o el acotado ya no lo esta viendo; en ambos ` +
+        `casos la prohibicion de comparaciones laxas de abajo no estaria vigilando nada`
+    );
+  });
+
+  test('(a) ningun veredicto lleva aritmetica de ratio: cero `toFixed`, `Math.round`, literal decimal (`0.99`), division ni `%`', () => {
+    const SRC = readSrc(REPORTER);
+    const infracciones = veredictosDeclarados(SRC).flatMap((nombre) =>
+      ablandamientos(regionDelVeredicto(SRC, nombre)).map((p) => `${nombre}: ${p}`)
+    );
+    assert.deepEqual(
+      infracciones,
+      [],
+      `T-46-14: la expresion que decide estos sub-gates de ${REPORTER} contiene aritmetica de ` +
+        `ratio: ${infracciones.join(' | ')}. El veredicto es IGUALDAD DE ENTEROS a proposito: ` +
+        `un umbral flotante formatea a 99% una variante suelta sin traducir y la deja pasar. Las ` +
+        `razones de cada patron estan escritas en PATRONES_DE_ABLANDAMIENTO, y ninguna admite ` +
+        `excepcion dentro de un veredicto — si hace falta un porcentaje, se IMPRIME fuera del ` +
+        `\`;\` y no decide nada`
+    );
+  });
+
+  test('(b) ninguna comparacion de un veredicto es LAXA: cero `>=`, `<=`, `>` y `<` (la forma que se colaba)', () => {
+    const SRC = readSrc(REPORTER);
+    const infracciones = veredictosDeclarados(SRC).flatMap((nombre) => {
+      const laxas = comparacionesLaxas(regionDelVeredicto(SRC, nombre));
+      return laxas.length === 0 ? [] : [`${nombre}: ${laxas.join(' ')}`];
+    });
+    assert.deepEqual(
+      infracciones,
+      [],
+      `T-46-14: estos veredictos de ${REPORTER} comparan con un operador LAXO: ` +
+        `${infracciones.join(' | ')}. Un \`.length === 0\` debilitado a \`.length >= 0\` es ` +
+        `verdadero SIEMPRE y desactiva su termino sin borrar ni una linea — la mutacion que el ` +
+        `gate de seguridad de la fase 46 corrio y que la suite entera dejo pasar en verde. Si ` +
+        `un veredicto necesita de verdad un umbral en vez de una igualdad, eso es un cambio de ` +
+        `diseño del gate: se decide por escrito y se verifica por mutacion, no se cuela ` +
+        `cambiando dos caracteres`
+    );
+  });
+});
