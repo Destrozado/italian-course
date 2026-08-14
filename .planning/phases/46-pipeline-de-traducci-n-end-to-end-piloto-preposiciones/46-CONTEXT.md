@@ -210,6 +210,41 @@ Bajar el pipeline COMPLETO de traducción al español y demostrarlo end-to-end s
 
   ---
 
+  **SEGUNDA NOTA (2026-08-14 — Phase 47, plan 47-02). Decidida por el AUTOR: `opción A`. La enmienda de arriba SÍ tenía sujeto esta vez, el carve-out NO se aplicó, y se ejecutó CUMPLIMIENTO LITERAL de D-46-12.**
+
+  Esta nota existe para dejar constancia de que **la enmienda de 47-01 tiene dientes**. Una regla que solo se invoca cuando exime es una regla decorativa: la primera vez que se escribió, sirvió para NO re-validar 96 traducciones. La segunda vez —hoy— se aplicó su prueba de dos condiciones, **falló una**, y la consecuencia que la propia regla prescribe («si falta cualquiera de las dos, se vuelve al cumplimiento literal») se ejecutó de verdad, gastando llamadas. Eso es lo que la nota certifica, y por eso se escribe aunque el coste haya sido pequeño.
+
+  **Qué se amendó hoy en el doc de criterios:** la *«Excepción léxica: el PARTITIVO italiano se traduce «algo de» / «un poco de» / «unos-unas»»*, hermana de la de `da` + PERSONA y con su misma anatomía. Motivo: `deepseek-chat` marcó `[S2-fidelidad] la traducción añade "algo de", que no está en el original` sobre **4 variantes distintas** mientras `gemini-3.5-flash-lite` aprobaba la construcción IDÉNTICA — el síntoma canónico de un hueco del doc, no de 2N falsos positivos que overridear uno a uno.
+
+  **Aplicación de la prueba de dos condiciones, con las cifras RECOMPUTADAS del disco hoy** (no transcritas del plan ni del prompt de continuación; el cuerpo «ya validado» se midió sobre el fichero tal como estaba en el commit `1f46236`, es decir ANTES de tocar nada). Se buscó el sujeto de forma ancha: presencia de `algo de`, `un poco de`, `unos` o `unas` en `translationES.text`:
+
+  | Categoría | Variantes `multiple-choice` | Con traducción | Con el rendering partitivo | `validated` bajo el prompt anterior Y con rendering |
+  |---|---|---|---|---|
+  | `preposiciones` (Phase 46, cerrada) | 96 | 96 | **0** | **0** |
+  | `articoli` (Phase 47, sin traducir aún) | 62 | 0 | **0** | **0** |
+  | `partitivos` (Phase 47) | 48 | 48 | **39** | **35** |
+
+  1. **Ausencia de sujeto: FALLA.** 35 variantes ya `validated` bajo el prompt anterior llevaban la construcción que la enmienda regula. La condición exige **cero**.
+  2. **Direccionalidad absolutoria: SE MANTIENE.** La regla nueva solo retira motivos-para-marcar: declara falso positivo el concern «añade "algo de"» y añade explícitamente que **el sustantivo escueto también es fiel**, de modo que no exige el cuantificador ni puede marcar a quien no lo use. Su tercera parte —el NÚMERO, gemela de la DIRECCIÓN en `da` + PERSONA— **reitera S2 sin añadir exigencia**. No introduce ningún imperativo de la forma «marca como incorrecta si…», que es el veto que la enmienda de 47-01 dejó escrito.
+
+  Falla una de las dos ⇒ **cumplimiento literal**, exactamente como la regla manda.
+
+  **Cumplimiento literal ejecutado, y su alcance REAL, dicho sin adornos.** El sujeto vive **entero dentro de `partitivos`**: `preposiciones` tiene **sujeto CERO**, así que —a diferencia de lo que se temía— el cuerpo cerrado de la Phase 46 **no está tocado por esta enmienda** y no había nada que re-validar allí. De las 35 con sujeto:
+
+  | Cuerpo | Variantes | Re-validadas hoy | Resultado |
+  |---|---|---|---|
+  | Las de 47-01 (cuerpo CONGELADO que el carve-out había eximido) | **3** de sus 5 (`partitivos-clasificacion` #0, #2, #4) | **Sí, quórum completo desde cero** | 6/6 `correcta`, texto intacto byte a byte |
+  | Las `disputed` que motivaron la enmienda | **4** (`del-cons#1`, `del-cons#4`, `della-cons#0`, `della-cons#2`) | **Sí, quórum completo desde cero** | Las 4 en verde |
+  | Las de este mismo plan 47-02, Task 2 (cuerpo EN VUELO) | **32** | **No** | Cubiertas por la condición 2 |
+
+  **Las 32 NO re-validadas se declaran como decisión de ALCANCE del autor, no como sujeto inexistente.** Literalmente tienen sujeto, igual que las 3 de 47-01. Lo que las distingue no es el disco, es la naturaleza del cuerpo: las 3 de 47-01 pertenecen a un plan **cerrado** que el carve-out había eximido por escrito, y re-validarlas es lo que demuestra que la exención no era un cheque en blanco; las 32 son trabajo **en vuelo del propio plan que está amendando**. Sobre ellas actúa la condición 2, que se mantiene íntegra: la enmienda solo puede convertir `incorrecta` en `correcta`, luego ninguna de sus `correcta` puede voltearse. **Esto es un argumento de por qué es seguro, no una demostración de que no había sujeto** — la diferencia importa, y por eso queda escrita aquí y en `.planning/WINDOWS.md` en vez de disimulada en una cifra.
+
+  **Corroboración empírica de la direccionalidad (consistencia, no prueba):** las 3 de 47-01 se re-validaron **sin cambiar un solo carácter** de su `text` y sin override, y las 6 llamadas volvieron `correcta`. Ninguna `correcta` previa se volteó. Y las 3 de `del-cons#1`, `del-cons#4` y `della-cons#0` pasaron de `disputed` a verde **sin tocar el español**: la regla absuelve, así que el texto se queda. El único movimiento observado, otra vez, fue en la dirección absolutoria.
+
+  **Lo que la re-validación destapó y que la regla NO cubre.** `della-cons#2` no se cerró con la enmienda: necesitó **tres rondas más de trabajo**, cada una con un concern NUEVO de `deepseek-chat` y sobre un objetivo distinto (`al pomodoro`; luego la dirección contraria del mismo punto; luego `A pranzo`), la última con una sugerencia agramatical en español. Se cerró **con trabajo y sin override**, arreglando dos defectos reales del español (`al pomodoro` nombra la preparación, no el tomate crudo; y no se cocina *durante* la comida). Texto final: `Para la comida cocino algo de pasta al tomate.` **Nada de esto se escribió como excepción en el doc de criterios**: eran defectos de la traducción, no huecos de los criterios, y meterlos en el doc habría forzado una tercera enmienda por un problema que no la necesitaba.
+
+  ---
+
 - **D-46-13: TVAL-02 — script hermano de `scripts/validate-song-pass.mjs`, con el quórum cross-vendor DeepSeek + Gemini, 1-por-1 (VAL-03).** — **Reversibility:** reversible
 
   Espejo exacto del script de canciones: `--model` / `--fallback` / `--avoid` (para garantizar 2 `by` distintos) / `--write` / `--dry-run` / `--temp`; auto-fallback en 429 registrando SIEMPRE el modelo que de verdad respondió; zero-deps; `withFileLock` para el read-modify-write; `deriveStatus` importado de `src/data/validation-state.js` como fuente única.
