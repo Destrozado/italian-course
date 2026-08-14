@@ -17,3 +17,12 @@ material-profesora/
 # de validación). Se crean y se borran solos en cada escritura; un `.lock` en el
 # árbol es residuo de una corrida muerta, nunca contenido. NO commitear.
 *.lock
+
+# Temporales de la escritura atómica de los scripts de pase (temp + `rename`).
+# Se crean junto al corpus (`content/exercises/<cat>.json.tmp-<pid>`) y se
+# renombran sobre el original en la misma operación. `findSlot` no puede verlos
+# porque filtra por `.json`, pero el otro consumidor sí: un `git add -A` tras una
+# corrida muerta commitearía una copia COMPLETA y desfasada del corpus. Mismo
+# razonamiento que los `.lock` de arriba — un `.tmp-<pid>` en el árbol es residuo
+# de una corrida muerta, nunca contenido. NO commitear.
+*.json.tmp-*

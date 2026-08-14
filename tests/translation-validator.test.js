@@ -1153,3 +1153,60 @@ describe('los invariantes de corpus de fillGap se derivan del disco (WR-02)', ()
     );
   });
 });
+
+// ══════════════════════════════════════════════════════════════════════════
+// WR-06 del code review de la Phase 47 — el temporal de la escritura atómica
+// está IGNORADO por git.
+//
+// El escritor crea `${file}.tmp-${process.pid}` en el MISMO directorio que el
+// corpus y lo renombra sobre el original. El doc-block razona que `findSlot` no
+// puede verlo porque filtra por `.json` —cierto—, pero no cubre al otro
+// consumidor: un `git add -A` tras una corrida muerta commitearía una copia
+// COMPLETA y desfasada del corpus. `.gitignore` ya ignora los `.lock` de
+// file-lock.mjs por el razonamiento equivalente; la misma frase valía aquí y no
+// se había escrito.
+//
+// Este gate corre `git check-ignore` de verdad en vez de grepear `.gitignore`:
+// lo que importa no es que exista una línea sino que la regla CASE, y las
+// precedencias de git (negaciones, reglas por directorio) no se leen a ojo.
+// ══════════════════════════════════════════════════════════════════════════
+
+describe('el temporal de la escritura atómica no puede colarse en un commit (WR-06)', () => {
+  test('git ignora `<corpus>.json.tmp-<pid>`, y NO ignora el .json de al lado', () => {
+    // El sufijo se DERIVA del escritor, no se transcribe: si algún día deja de ser
+    // `.tmp-<pid>`, este gate se pone rojo en vez de seguir vigilando un patrón muerto.
+    const escritor = readAbs(SCRIPT);
+    assert.match(
+      escritor,
+      /\$\{file\}\.tmp-\$\{process\.pid\}/,
+      'el escritor ya no construye su temporal como `${file}.tmp-${process.pid}`: ' +
+        'revisa que la regla de .gitignore siga cubriendo la forma nueva'
+    );
+
+    // `--no-index` es LOAD-BEARING, no un adorno: sin él, git se niega a declarar
+    // ignorado un fichero ya TRACKEADO, así que la mitad de direccionalidad de abajo
+    // pasaba en verde aunque la regla fuese `*.json*` y se estuviera tragando el corpus
+    // entero. Con `--no-index` la pregunta es sobre el PATRÓN, que es lo que este gate
+    // dice comprobar. Medido: `*.json*` da exit 1 sin la bandera y exit 0 con ella.
+    const checkIgnore = (rel) =>
+      spawnSync('git', ['check-ignore', '-q', '--no-index', rel], { cwd: ROOT, encoding: 'utf8' }).status;
+
+    // Sujeto derivado del corpus real, con un pid sintético: no se crea ningún fichero.
+    const objetivo = `content/exercises/articoli.json.tmp-${process.pid}`;
+    assert.equal(
+      checkIgnore(objetivo),
+      0,
+      `${objetivo} NO está ignorado: un \`git add -A\` tras una corrida muerta commitearía una ` +
+        `copia completa y desfasada del corpus`
+    );
+
+    // DIRECCIONALIDAD, y no es decorativa: una regla demasiado ancha (p. ej. `*.json*`)
+    // ignoraría el corpus ENTERO y dejaría de commitearse el contenido sin que nada lo
+    // dijera. Eso sería mucho peor que el defecto que se está arreglando.
+    assert.notEqual(
+      checkIgnore('content/exercises/articoli.json'),
+      0,
+      'la regla es DEMASIADO ancha: está ignorando el propio corpus'
+    );
+  });
+});
