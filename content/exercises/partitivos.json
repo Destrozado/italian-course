@@ -16,7 +16,14 @@
             "della",
             "dell'"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Compro algo de pan para la cena.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Al bar bevo sempre ___ vino rosso.",
@@ -26,7 +33,14 @@
             "dell'",
             "dei"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "En el bar siempre bebo algo de vino tinto.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Vuoi ___ latte nel caffè?",
@@ -36,7 +50,14 @@
             "dell'",
             "dello"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "¿Quieres algo de leche en el café?",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Sul tagliere c'è ancora ___ formaggio.",
@@ -46,7 +67,14 @@
             "della",
             "dei"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "En la tabla de cortar todavía hay algo de queso.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Ho comprato ___ pane.",
@@ -56,7 +84,14 @@
             "delle",
             "dello"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "He comprado algo de pan.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -93,7 +128,14 @@
             "della",
             "dell'"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Añade algo de azúcar a la masa.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "La ricetta chiede ___ zenzero fresco.",
@@ -103,7 +145,14 @@
             "dell'",
             "dei"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "La receta pide algo de jengibre fresco.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Ho preso ___ zucchero.",
@@ -113,7 +162,14 @@
             "degli",
             "del"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "He cogido algo de azúcar.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -150,7 +206,14 @@
             "della",
             "dell'"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Para hacer deporte también hace falta algo de espíritu de equipo.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Sento ___ stress per gli esami.",
@@ -160,7 +223,14 @@
             "della",
             "dell'"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Siento algo de estrés por los exámenes.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -215,7 +285,14 @@
             "dello",
             "dell'"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "En la comida como algo de carne con las verduras.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Al mercato compro ___ frutta di stagione.",
@@ -225,7 +302,14 @@
             "dell'",
             "delle"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "En el mercado compro algo de fruta de temporada.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "A pranzo cucino ___ pasta al pomodoro.",
@@ -235,7 +319,14 @@
             "dello",
             "dei"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "En la comida cocino algo de pasta con tomate.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -272,7 +363,14 @@
             "del",
             "delle"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Quisiera algo de agua natural, por favor.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "In cucina manca ___ olio d'oliva.",
@@ -282,7 +380,14 @@
             "dello",
             "della"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "En la cocina falta algo de aceite de oliva.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Metti ___ aceto nell'insalata.",
@@ -292,7 +397,14 @@
             "della",
             "dello"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Pon algo de vinagre en la ensalada.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -329,7 +441,14 @@
             "degli",
             "delle"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "He comprado unos libros en la librería.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Nel cortile giocano ___ ragazzi.",
@@ -339,7 +458,14 @@
             "del",
             "delle"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "En el patio juegan unos chicos.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Per la festa ho preparato ___ panini.",
@@ -349,7 +475,14 @@
             "delle",
             "del"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Para la fiesta he preparado unos bocadillos.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Ho preso ___ libri.",
@@ -359,7 +492,14 @@
             "del",
             "degli"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "He cogido unos libros.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -396,7 +536,14 @@
             "delle",
             "del"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "En el aula hay unos estudiantes extranjeros.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Per cena ho preparato ___ spaghetti.",
@@ -406,7 +553,14 @@
             "delle",
             "del"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Para la cena he preparado unos espaguetis.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -461,7 +615,14 @@
             "delle",
             "dell'"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Esta noche veo a unos amigos en el restaurante.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "In albergo ho conosciuto ___ uomini simpatici.",
@@ -471,7 +632,14 @@
             "delle",
             "dell'"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "En el hotel he conocido a unos hombres simpáticos.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -526,7 +694,14 @@
             "delle",
             "dello"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "En Navidad vienen unos tíos desde Sicilia.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Per la gita servono ___ zaini robusti.",
@@ -536,7 +711,14 @@
             "delle",
             "dello"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Para la excursión hacen falta unas mochilas robustas.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -591,7 +773,14 @@
             "delle",
             "dello"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Esta noche comemos unos ñoquis caseros.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -640,7 +829,14 @@
             "delle",
             "dello"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "En la clínica trabajan unos psicólogos expertos.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -689,7 +885,14 @@
             "degli",
             "della"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "He comido unas manzanas en la merienda.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "In quel quartiere ci sono ___ case antiche.",
@@ -699,7 +902,14 @@
             "degli",
             "della"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "En ese barrio hay unas casas antiguas.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Ho invitato ___ amiche alla mia festa.",
@@ -709,7 +919,14 @@
             "dei",
             "dell'"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "He invitado a unas amigas a mi fiesta.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Ho comprato ___ mele.",
@@ -719,7 +936,14 @@
             "della",
             "dei"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "He comprado unas manzanas.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -756,7 +980,14 @@
             "un po' di",
             "alcune"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Todavía tengo algún libro por leer.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "C'è ___ problema con la connessione.",
@@ -766,7 +997,14 @@
             "alcune",
             "un po' di"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Hay algún problema con la conexión.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Conosco ___ ragazza simpatica in classe.",
@@ -776,7 +1014,14 @@
             "alcuni",
             "un po' di"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Conozco a alguna chica simpática en clase.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -813,7 +1058,14 @@
             "alcune",
             "qualche"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Quisiera un poco de agua, tengo sed.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Metto ___ zucchero nel tè.",
@@ -823,7 +1075,14 @@
             "alcune",
             "qualche"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Pongo un poco de azúcar en el té.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -860,7 +1119,14 @@
             "alcuni",
             "alcuna"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "He comprado algunas manzanas en el mercado.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Ho letto ___ libri molto interessanti.",
@@ -870,7 +1136,14 @@
             "alcune",
             "alcuna"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "He leído algunos libros muy interesantes.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
@@ -907,7 +1180,14 @@
             "dei",
             "dello"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Compro algo de pan.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Non compro ___ pane.",
@@ -917,7 +1197,14 @@
             "dei",
             "dello"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "No compro pan.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Ho ___ amici a Roma.",
@@ -927,7 +1214,14 @@
             "dei",
             "delle"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Tengo unos amigos en Roma.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         },
         {
           "prompt": "Non ho ___ amici a Roma.",
@@ -937,7 +1231,14 @@
             "dei",
             "delle"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "No tengo amigos en Roma.",
+            "validation": {
+              "status": "pending",
+              "passes": []
+            }
+          }
         }
       ],
       "validation": {
