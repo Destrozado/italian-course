@@ -242,6 +242,41 @@ ante incontable, `unos` / `unas` ante contable plural— o bien con el sustantiv
   afirma y es `[S2-fidelidad]` false. Esto no añade exigencia ninguna: es S2 aplicado al número, que
   ya lo exigía.
 
+### Excepción léxica: el adverbial de comida `a pranzo` / `a cena` se traduce TRANSPONIENDO la preposición
+
+En italiano, `a` seguido de un NOMBRE DE COMIDA (`a pranzo`, `a cena`, `a colazione`, `a merenda`)
+forma un **adverbial de ocasión**: dice EN QUÉ COMIDA ocurre la acción. El español expresa esa misma
+ocasión con **otra preposición** —`en la comida`, `para la comida`, `en la cena`, `de merienda`,
+`de postre`— o con una **perífrasis verbal** (`para merendar`, `al desayunar`). Cuál de ellas pide el
+español lo decide el verbo y el sustantivo, no el italiano: `a merenda` es `de merienda`, nunca
+`*a merienda`.
+
+- **La preposición NO se omite: se TRANSPONE.** Un concern `[S2-fidelidad]` del tipo «la traducción
+  omite la preposición "a" del original ("a merenda")» es un **FALSO POSITIVO** y no debe emitirse. El
+  español SÍ lleva su preposición (`de merienda`, `en la cena`, `para la comida`); lo que no lleva es
+  la MISMA que el italiano, porque el español no la admite ahí. La propia S2 ya lo dice con estas
+  palabras: «fidelidad estricta **no** significa palabra por palabra: significa mismo contenido
+  proposicional. Las diferencias obligadas por la lengua son correctas y no se penalizan.» Esta
+  excepción no rebaja S2: nombra un caso concreto en el que aplicarla al pie de la letra la
+  contradice.
+- **Varias soluciones son fieles y NINGUNA es obligatoria.** `En la cena bebo agua.`,
+  `Para la cena bebo agua.` y `Bebo agua en la cena.` traducen las tres `A cena bevo dell'acqua.`
+  igual de bien. Esta regla **absuelve** la transposición, **no impone** ninguna preposición
+  concreta: no marques una traducción por haber elegido `en` donde tú habrías puesto `para`, ni al
+  revés. Y no marques tampoco una perífrasis verbal fiel (`para merendar` por `a merenda`).
+- Lo que SÍ tienes que vigilar aquí, y eso sí es objetable —igual que la DIRECCIÓN en `da` + PERSONA y
+  el NÚMERO en el partitivo—, son **estas dos cosas, y solo estas dos**:
+  1. **QUÉ COMIDA es.** `pranzo` = comida / almuerzo, `cena` = cena, `colazione` = desayuno,
+     `merenda` = merienda. Cambiar una por otra —`de merienda` por `a cena`, `desayuno` por
+     `almuerzo`— cambia lo que la frase afirma y es `[S2-fidelidad]` false.
+  2. **Que el adverbial SIGA ESTANDO.** Esta excepción absuelve la transposición de la preposición,
+     **no la desaparición del adverbial entero**. Una traducción de `Ho mangiato delle mele a merenda.`
+     que diga solo `He comido unas manzanas.` sí omite contenido, y sigue siendo `[S2-fidelidad]`
+     false como siempre.
+
+Esta excepción **no toca nada del italiano**: `italianoResuelto` sigue sujeto a S5 exactamente igual
+que antes, y S1, S4 y S6 se aplican al español sin cambio ninguno.
+
 ### Frontera con el `gloss` español del `prompt` (canon R7)
 
 Algunas frases italianas del corpus llevan, DENTRO del propio `prompt`, una glosa española entre
