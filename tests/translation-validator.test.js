@@ -810,3 +810,138 @@ describe('CR-03 — el contrato del §4 se deriva del doc y el veredicto se vali
     assert.deepEqual(infractores, [], `pases en disco que el contrato rechazaría:\n  ${infractores.join('\n  ')}`);
   });
 });
+
+// ══════════════════════════════════════════════════════════════════════════
+// CR-01 del code review de la Phase 47 (T-47-05 / T-47-11 / T-47-18) —
+// EL ESCRITOR NO PUEDE BORRAR UN `incorrecta` EN SILENCIO.
+//
+// La rama UPDATE deduplicaba por `by` ANTES de derivar el status, así que
+// re-correr un modelo que ya había objetado eliminaba su pase del array y
+// `deriveStatus` —que sólo aplica el sticky sobre un `incorrecta` que sigue
+// presente— devolvía `validated`. Sin override, sin motivo y sin rastro en
+// el JSON. Con `--temp=0.2` el veredicto del mismo modelo no es determinista,
+// o sea que era una ruta para re-tirar el dado hasta el verde, y más
+// silenciosa que el mecanismo `by:"autor"` + `override:true` + motivo que el
+// proyecto tiene justo para esto.
+//
+// Las cuatro primeras aserciones FALLAN contra el código anterior al guard:
+// hoy la primera devolvía `status: 'validated'` en vez de lanzar.
+// ══════════════════════════════════════════════════════════════════════════
+
+describe('el disenso no se borra en silencio (CR-01)', () => {
+  /** Documento sintético: un `translationES` con un bloque validation ya poblado. */
+  const docCon = (passes) =>
+    JSON.stringify(
+      {
+        exercises: [
+          {
+            id: 'sint-cr01',
+            type: 'multiple-choice',
+            variants: [
+              {
+                prompt: 'Compro ___ pane.',
+                options: ['del'],
+                correctIndex: 0,
+                translationES: { text: 'Compro pan.', validation: { status: 'x', passes } },
+              },
+            ],
+          },
+        ],
+      },
+      null,
+      2
+    );
+
+  test('re-correr un modelo que ya objetó NO puede limpiar el disputed: lanza y no compone nada', () => {
+    const texto = docCon([pase('gemini-x'), pase('deepseek-y', 'incorrecta', { concerns: ['[S2] objeción'] })]);
+    // Punto de partida: el disenso está en pie.
+    assert.equal(
+      deriveStatus(JSON.parse(texto).exercises[0].variants[0].translationES.validation.passes),
+      'disputed',
+      'no-vacuidad: sin un disputed de partida este test no probaría nada'
+    );
+
+    assert.throws(
+      () => applyPassToText(texto, 'sint-cr01', 0, pase('deepseek-y', 'correcta')),
+      /ya emitió un `incorrecta`/,
+      'el escritor debe negarse: sustituir el propio incorrecta limpiaría el disputed sin adjudicación'
+    );
+  });
+
+  test('el mensaje nombra la dirección compuesta, el modelo y las dos salidas legítimas', () => {
+    const texto = docCon([pase('gemini-x'), pase('deepseek-y', 'incorrecta', { concerns: ['[S2] objeción'] })]);
+    try {
+      applyPassToText(texto, 'sint-cr01', 0, pase('deepseek-y', 'correcta'));
+      assert.fail('debía lanzar');
+    } catch (e) {
+      assert.match(e.message, /sint-cr01#0/, 'sin la dirección, el autor no sabe sobre qué se estaba escribiendo');
+      assert.match(e.message, /deepseek-y/, 'debe nombrar al modelo que objetó');
+      assert.match(e.message, /--adjudicar=/, 'debe decir cuál es el camino deliberado');
+      assert.match(e.message, /impreso en stdout/, 'el pase está PAGADO: no puede perderse en silencio');
+    }
+  });
+
+  test('un `incorrecta` sustituido por otro `incorrecta` del mismo modelo SÍ pasa (el disenso no se borra)', () => {
+    const texto = docCon([pase('gemini-x'), pase('deepseek-y', 'incorrecta', { concerns: ['[S2] vieja'] })]);
+    const out = applyPassToText(texto, 'sint-cr01', 0, pase('deepseek-y', 'incorrecta', { concerns: ['[S4] nueva'] }));
+    assert.equal(out.status, 'disputed');
+    assert.deepEqual(out.passesEscritos.at(-1).concerns, ['[S4] nueva']);
+  });
+
+  test('CONTROL DE NO-REGRESIÓN: re-correr un modelo cuyo pase previo era `correcta` sigue sustituyendo', () => {
+    // Sin esto, la re-validación completa de 47-02 (las 32 + las 4 bajo el doc
+    // amendado) dejaría de ser posible, y el guard sería peor que el bug.
+    const texto = docCon([pase('gemini-x'), pase('deepseek-y', 'correcta')]);
+    const out = applyPassToText(texto, 'sint-cr01', 0, { ...pase('deepseek-y', 'correcta'), date: '2026-08-15' });
+    assert.equal(out.status, 'validated');
+    assert.equal(out.passesEscritos.length, 2, 'sigue deduplicando por `by`: no se acumulan pases del mismo modelo');
+    assert.equal(out.passesEscritos.at(-1).date, '2026-08-15');
+  });
+
+  test('la RETIRADA DELIBERADA sigue siendo posible, pero deja su motivo escrito DENTRO del JSON', () => {
+    // El precedente real: los 62 pases `deepseek-chat` retirados de `articoli` en
+    // 264dd19 al cambiar de juez sobre la categoría entera (WINDOWS id 38), 8 de
+    // ellos `incorrecta`. Esa decisión estaba adjudicada y registrada — pero el
+    // código no la distinguía de un borrado accidental. Ahora sí: el camino existe
+    // y cuesta un motivo escrito que acaba en disco.
+    const texto = docCon([pase('gemini-x'), pase('deepseek-y', 'incorrecta', { concerns: ['[S2] objeción'] })]);
+    const motivo = 'cambio de juez sobre la categoría entera, decidido por el autor (WINDOWS id 38)';
+    const out = applyPassToText(texto, 'sint-cr01', 0, pase('deepseek-y', 'correcta', { adjudicacion: motivo }));
+
+    assert.equal(out.status, 'validated');
+    const enDisco = JSON.parse(out.text).exercises[0].variants[0].translationES.validation;
+    assert.equal(
+      enDisco.passes.at(-1).adjudicacion,
+      motivo,
+      'el motivo TIENE que quedar en el fichero: si sólo vive en la CLI, la retirada vuelve a ser invisible'
+    );
+    assert.ok(
+      !enDisco.passes.some((p) => p.by === 'deepseek-y' && p.verdict === 'incorrecta'),
+      'la retirada es real (el pase viejo se va); lo que cambia es que ahora deja constancia'
+    );
+  });
+
+  test('el guard está en TODOS los escritores de pase, y la lista se DERIVA del disco', () => {
+    // Anti-ceguera: los otros tres escritores no tienen tests unitarios, así que la
+    // única forma de que un quinto escritor futuro no nazca sin guard es derivar el
+    // conjunto del directorio en vez de transcribir cuatro nombres aquí.
+    const dir = path.join(ROOT, 'scripts');
+    const escritores = fs
+      .readdirSync(dir)
+      .filter((f) => /^validate-.*-pass\.mjs$/.test(f))
+      .map((f) => [f, fs.readFileSync(path.join(dir, f), 'utf8')])
+      .filter(([, src]) => /\.filter\(\(p\) => p\.by !== pass\.by\)/.test(src));
+
+    assert.ok(escritores.length >= 4, `no-vacuidad: se esperaban >=4 escritores que deduplican por \`by\`, hay ${escritores.length}`);
+
+    const sinGuard = escritores
+      .filter(([, src]) => !/assertNoBorraIncorrectaEnSilencio\(/.test(src))
+      .map(([f]) => f);
+    assert.deepEqual(
+      sinGuard,
+      [],
+      `escritores que deduplican por \`by\` SIN el guard de CR-01: ${sinGuard.join(', ')} — ` +
+        `cada uno de ellos puede limpiar un disputed sin dejar rastro`
+    );
+  });
+});

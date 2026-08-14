@@ -75,11 +75,12 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { deriveStatus } from '../src/data/validation-state.js'; // fuente única (WR-01)
 import { withFileLock } from './lib/file-lock.mjs'; // exclusión mutua del read-modify-write
+import { assertNoBorraIncorrectaEnSilencio } from './lib/pass-guard.mjs'; // CR-01: el disenso no se borra en silencio
 
 export const PROMPT_PATH = 'docs/TRANSLATION-VALIDATION-PROMPT.md';
 export const SCAN_DIRS = ['content/exercises', 'tests/fixtures'];
 const USAGE =
-  "Uso: node scripts/validate-translation-pass.mjs '<slot-id>#<k>' [--model=] [--fallback=a,b] [--avoid=x] [--write] [--dry-run] [--temp=]";
+  "Uso: node scripts/validate-translation-pass.mjs '<slot-id>#<k>' [--model=] [--fallback=a,b] [--avoid=x] [--write] [--dry-run] [--temp=] [--adjudicar=\"<motivo>\"]";
 
 // ── args ──────────────────────────────────────────────────────────────────
 export function parseArgs(argv) {
@@ -95,9 +96,13 @@ export function parseArgs(argv) {
   const TEMP = parseFloat(getOpt('temp', '0.2'));
   const WRITE = args.includes('--write');
   const DRY = args.includes('--dry-run');
+  // CR-01: motivo escrito para RETIRAR deliberadamente un `incorrecta` propio del mismo
+  // modelo. Sin él, esa sustitución lanza. Se graba en el pase, así que la retirada del
+  // disenso queda en el JSON y no sólo en git.
+  const ADJUDICAR = getOpt('adjudicar', '').trim();
   // cola de modelos a intentar (primario + fallbacks), saltando los evitados
   const MODEL_QUEUE = [PRIMARY, ...FALLBACK].filter((m, i, a) => a.indexOf(m) === i && !AVOID.has(m));
-  return { address, PRIMARY, FALLBACK, AVOID, TEMP, WRITE, DRY, MODEL_QUEUE };
+  return { address, PRIMARY, FALLBACK, AVOID, TEMP, WRITE, DRY, ADJUDICAR, MODEL_QUEUE };
 }
 
 /**
@@ -491,6 +496,10 @@ export async function run(cfg, target, composed, caller = callModel, contrato = 
           verdict: verdict.verdict,
           concerns: [...verdict.concerns],
         };
+        // CR-01: el motivo de una retirada deliberada viaja DENTRO del pase, así que
+        // queda escrito en el corpus. Sólo se añade cuando el autor lo declara: un pase
+        // normal conserva exactamente las cuatro claves de siempre.
+        if (cfg.ADJUDICAR) pass.adjudicacion = cfg.ADJUDICAR;
         if (WRITE) {
           // EL PASE YA ESTÁ PAGADO (WR-02). Cualquier throw del escritor salía de
           // `run`, salía de `main` y —como `main()` se invocaba sin `.catch()`— Node
@@ -685,7 +694,12 @@ export function applyPassToText(text, slotId, k, pass) {
     const braceStart = text.indexOf('{', keyIdx);
     const braceEnd = matchBraceEnd(text, braceStart);
     const cur = JSON.parse(text.slice(braceStart, braceEnd + 1));
-    const passes = (Array.isArray(cur.passes) ? cur.passes : []).filter((p) => p.by !== pass.by);
+    const previos = Array.isArray(cur.passes) ? cur.passes : [];
+    // CR-01: antes del filtro, no después. Sustituir un `incorrecta` propio por un
+    // veredicto no-`incorrecta` limpiaría el disputed sin override ni rastro; sólo se
+    // permite con `--adjudicar="<motivo>"`, que graba el motivo dentro del pase.
+    assertNoBorraIncorrectaEnSilencio(previos, pass, `${slotId}#${k}`);
+    const passes = previos.filter((p) => p.by !== pass.by);
     passes.push(pass);
     const status = deriveStatus(passes);
     const ind = indentAtOffset(text, keyIdx); // derivada del disco, NO transcrita

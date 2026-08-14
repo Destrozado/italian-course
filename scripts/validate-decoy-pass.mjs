@@ -27,6 +27,7 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { deriveStatus } from '../src/data/validation-state.js';
 import { withFileLock } from './lib/file-lock.mjs'; // exclusión mutua del read-modify-write
+import { assertNoBorraIncorrectaEnSilencio } from './lib/pass-guard.mjs'; // CR-01: el disenso no se borra en silencio
 
 const PROMPT_PATH = 'docs/DECOY-VALIDATION-PROMPT.md';
 
@@ -127,10 +128,13 @@ function main() {
   const TEMP = parseFloat(getOpt('temp', '0.2'));
   const WRITE = args.includes('--write');
   const DRY = args.includes('--dry-run');
+  // CR-01: motivo escrito para RETIRAR deliberadamente un `incorrecta` propio del mismo
+  // modelo. Sin él, esa sustitución lanza (ver scripts/lib/pass-guard.mjs).
+  const ADJUDICAR = getOpt('adjudicar', '').trim();
   const MODEL_QUEUE = [PRIMARY, ...FALLBACK].filter((m, i, a) => a.indexOf(m) === i && !AVOID.has(m));
 
   if (!phraseId) {
-    console.error('Error: falta <phrase-id>. Uso: node scripts/validate-decoy-pass.mjs <id> [--model=] [--fallback=a,b] [--write]');
+    console.error('Error: falta <phrase-id>. Uso: node scripts/validate-decoy-pass.mjs <id> [--model=] [--fallback=a,b] [--write] [--adjudicar=\"<motivo>\"]');
     process.exit(2);
   }
 
@@ -266,6 +270,8 @@ function main() {
       if (!phrase.decoyBank) throw new Error(`la frase '${phraseId}' ya no tiene decoyBank en ${file}`);
       const cur = phrase.decoyBank.validation && Array.isArray(phrase.decoyBank.validation.passes)
         ? phrase.decoyBank.validation.passes : [];
+      // CR-01: antes del filtro, no después (ver scripts/lib/pass-guard.mjs).
+      assertNoBorraIncorrectaEnSilencio(cur, pass, phrase.id);
       const passes = cur.filter((p) => p.by !== pass.by);
       passes.push(pass);
       const status = deriveStatus(passes);
@@ -297,6 +303,8 @@ function main() {
             verdict: verdict.verdict,
             concerns: Array.isArray(verdict.concerns) ? verdict.concerns : [],
           };
+          // CR-01: el motivo de una retirada deliberada viaja DENTRO del pase.
+          if (ADJUDICAR) pass.adjudicacion = ADJUDICAR;
           if (WRITE) await writePass(pass);
           console.log(JSON.stringify(pass, null, 2));
           return;

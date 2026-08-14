@@ -34,6 +34,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { deriveStatus } from '../src/data/validation-state.js'; // fuente única (WR-01)
 import { withFileLock } from './lib/file-lock.mjs'; // exclusión mutua del read-modify-write
+import { assertNoBorraIncorrectaEnSilencio } from './lib/pass-guard.mjs'; // CR-01: el disenso no se borra en silencio
 
 const PROMPT_PATH =
   '.planning/milestones/v1.1-phases/09-infraestructura-de-validaci-n/09-VALIDATION-PROMPT.md';
@@ -51,12 +52,15 @@ const AVOID = new Set(getOpt('avoid', '').split(',').map((s) => s.trim()).filter
 const TEMP = parseFloat(getOpt('temp', '0.2'));
 const WRITE = args.includes('--write');
 const DRY = args.includes('--dry-run');
+// CR-01: motivo escrito para RETIRAR deliberadamente un `incorrecta` propio del mismo
+// modelo. Sin él, esa sustitución lanza (ver scripts/lib/pass-guard.mjs).
+const ADJUDICAR = getOpt('adjudicar', '').trim();
 
 // cola de modelos a intentar (primario + fallbacks), saltando los evitados
 const MODEL_QUEUE = [PRIMARY, ...FALLBACK].filter((m, i, a) => a.indexOf(m) === i && !AVOID.has(m));
 
 if (!exId) {
-  console.error('Error: falta <exercise-id>. Uso: node scripts/validate-ai-pass.mjs <id> [--model=] [--fallback=a,b] [--write]');
+  console.error('Error: falta <exercise-id>. Uso: node scripts/validate-ai-pass.mjs <id> [--model=] [--fallback=a,b] [--write] [--adjudicar="<motivo>"]');
   process.exit(2);
 }
 
@@ -202,6 +206,8 @@ async function run() {
           verdict: verdict.verdict,
           concerns: Array.isArray(verdict.concerns) ? verdict.concerns : [],
         };
+        // CR-01: el motivo de una retirada deliberada viaja DENTRO del pase.
+        if (ADJUDICAR) pass.adjudicacion = ADJUDICAR;
         if (WRITE) await writePass(found.file, exId, pass);
         console.log(JSON.stringify(pass, null, 2));
         return;
@@ -268,7 +274,10 @@ async function writePass(file, id, pass) {
     const braceStart = text.indexOf('{', vIdx);
     const braceEnd = matchBraceEnd(text, braceStart);
     const cur = JSON.parse(text.slice(braceStart, braceEnd + 1));
-    const passes = (Array.isArray(cur.passes) ? cur.passes : []).filter((p) => p.by !== pass.by);
+    const previos = Array.isArray(cur.passes) ? cur.passes : [];
+    // CR-01: antes del filtro, no después (ver scripts/lib/pass-guard.mjs).
+    assertNoBorraIncorrectaEnSilencio(previos, pass, id);
+    const passes = previos.filter((p) => p.by !== pass.by);
     passes.push(pass);
     const status = deriveStatus(passes);
     const ind = '      ';
