@@ -20,8 +20,21 @@
           "translationES": {
             "text": "Compro algo de pan para la cena.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -37,8 +50,23 @@
           "translationES": {
             "text": "En el bar siempre bebo algo de vino tinto.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "disputed",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "incorrecta",
+                  "concerns": [
+                    "[S2-fidelidad] La traducción añade 'algo de' que no está en el original italiano; el partitivo 'del' ya implica 'un poco de' o simplemente 'vino tinto' sin necesidad de explicitarlo. Sugerencia: \"En el bar siempre bebo vino tinto.\""
+                  ]
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -54,8 +82,21 @@
           "translationES": {
             "text": "¿Quieres algo de leche en el café?",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -71,8 +112,21 @@
           "translationES": {
             "text": "En la tabla de cortar todavía hay algo de queso.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -88,8 +142,23 @@
           "translationES": {
             "text": "He comprado algo de pan.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "disputed",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "incorrecta",
+                  "concerns": [
+                    "[S2-fidelidad] La traducción añade 'algo de' que no está en el italiano original. 'Ho comprato del pane' significa simplemente 'He comprado pan'. La partícula 'del' aquí es un artículo partitivo que indica una cantidad indeterminada, pero en español no se traduce como 'algo de' en este contexto; es un añadido que el original no tiene. Sugerencia: \"He comprado pan.\""
+                  ]
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -132,8 +201,21 @@
           "translationES": {
             "text": "Añade algo de azúcar a la masa.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -149,8 +231,21 @@
           "translationES": {
             "text": "La receta pide algo de jengibre fresco.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -164,10 +259,23 @@
           ],
           "correctIndex": 0,
           "translationES": {
-            "text": "He cogido algo de azúcar.",
+            "text": "He tomado algo de azúcar.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -210,8 +318,21 @@
           "translationES": {
             "text": "Para hacer deporte también hace falta algo de espíritu de equipo.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -227,8 +348,21 @@
           "translationES": {
             "text": "Siento algo de estrés por los exámenes.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -289,8 +423,23 @@
           "translationES": {
             "text": "En la comida como algo de carne con las verduras.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "disputed",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "incorrecta",
+                  "concerns": [
+                    "[S2-fidelidad] La traducción añade 'algo de' que no está en el original italiano. 'della carne' significa simplemente 'carne' (partitivo sin traducción literal al español). Sugerencia: \"En la comida como carne con las verduras.\""
+                  ]
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -306,8 +455,21 @@
           "translationES": {
             "text": "En el mercado compro algo de fruta de temporada.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -323,8 +485,23 @@
           "translationES": {
             "text": "En la comida cocino algo de pasta con tomate.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "disputed",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "incorrecta",
+                  "concerns": [
+                    "[S2-fidelidad] la traducción omite el matiz partitivo de 'della' y añade 'algo de' que no está en el original; sugerencia: \"En la comida cocino pasta al tomate.\""
+                  ]
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -367,8 +544,21 @@
           "translationES": {
             "text": "Quisiera algo de agua natural, por favor.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -384,8 +574,21 @@
           "translationES": {
             "text": "En la cocina falta algo de aceite de oliva.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -401,8 +604,21 @@
           "translationES": {
             "text": "Pon algo de vinagre en la ensalada.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -445,8 +661,21 @@
           "translationES": {
             "text": "He comprado unos libros en la librería.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -462,8 +691,21 @@
           "translationES": {
             "text": "En el patio juegan unos chicos.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -479,8 +721,21 @@
           "translationES": {
             "text": "Para la fiesta he preparado unos bocadillos.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -494,10 +749,23 @@
           ],
           "correctIndex": 0,
           "translationES": {
-            "text": "He cogido unos libros.",
+            "text": "He tomado unos libros.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -540,8 +808,21 @@
           "translationES": {
             "text": "En el aula hay unos estudiantes extranjeros.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -557,8 +838,21 @@
           "translationES": {
             "text": "Para la cena he preparado unos espaguetis.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -619,8 +913,21 @@
           "translationES": {
             "text": "Esta noche veo a unos amigos en el restaurante.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -636,8 +943,21 @@
           "translationES": {
             "text": "En el hotel he conocido a unos hombres simpáticos.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -698,8 +1018,21 @@
           "translationES": {
             "text": "En Navidad vienen unos tíos desde Sicilia.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -715,8 +1048,21 @@
           "translationES": {
             "text": "Para la excursión hacen falta unas mochilas robustas.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -777,8 +1123,21 @@
           "translationES": {
             "text": "Esta noche comemos unos ñoquis caseros.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -833,8 +1192,21 @@
           "translationES": {
             "text": "En la clínica trabajan unos psicólogos expertos.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -887,10 +1259,23 @@
           ],
           "correctIndex": 0,
           "translationES": {
-            "text": "He comido unas manzanas en la merienda.",
+            "text": "He comido unas manzanas de merienda.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -906,8 +1291,21 @@
           "translationES": {
             "text": "En ese barrio hay unas casas antiguas.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -923,8 +1321,21 @@
           "translationES": {
             "text": "He invitado a unas amigas a mi fiesta.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -940,8 +1351,21 @@
           "translationES": {
             "text": "He comprado unas manzanas.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -984,8 +1408,21 @@
           "translationES": {
             "text": "Todavía tengo algún libro por leer.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -1001,8 +1438,21 @@
           "translationES": {
             "text": "Hay algún problema con la conexión.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -1018,8 +1468,23 @@
           "translationES": {
             "text": "Conozco a alguna chica simpática en clase.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "disputed",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "incorrecta",
+                  "concerns": [
+                    "[S2-fidelidad] La traducción 'alguna' no transmite el significado de 'qualche' en este contexto. 'Qualche' con sustantivo singular indica 'algunas' (plural) o 'un par de', no 'alguna' (singular). La frase italiana significa 'Conozco a algunas chicas simpáticas en clase' (o 'Conozco a un par de chicas simpáticas en clase'), no 'Conozco a alguna chica simpática en clase'. Sugerencia: \"Conozco a algunas chicas simpáticas en clase.\""
+                  ]
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -1062,8 +1527,21 @@
           "translationES": {
             "text": "Quisiera un poco de agua, tengo sed.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -1079,8 +1557,21 @@
           "translationES": {
             "text": "Pongo un poco de azúcar en el té.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -1123,8 +1614,21 @@
           "translationES": {
             "text": "He comprado algunas manzanas en el mercado.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -1140,8 +1644,21 @@
           "translationES": {
             "text": "He leído algunos libros muy interesantes.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
@@ -1184,8 +1701,21 @@
           "translationES": {
             "text": "Compro algo de pan.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -1201,8 +1731,21 @@
           "translationES": {
             "text": "No compro pan.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -1218,8 +1761,21 @@
           "translationES": {
             "text": "Tengo unos amigos en Roma.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         },
@@ -1235,8 +1791,21 @@
           "translationES": {
             "text": "No tengo amigos en Roma.",
             "validation": {
-              "status": "pending",
-              "passes": []
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
             }
           }
         }
