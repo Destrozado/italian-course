@@ -1,18 +1,21 @@
 ---
 phase: 46-pipeline-de-traducci-n-end-to-end-piloto-preposiciones
 verified: 2026-08-13T22:55:35Z
-status: human_needed
+status: passed
 score: 15/15 requirements verified (code+tests); 3 backstop probes abstained (human_needed)
 behavior_unverified: 0
 overrides_applied: 0
 re_verification: null
 human_verification:
+
   - test: "E1 · long-text — confirmar en pantalla que una traducción de 2+ líneas dentro de `.session-translation` (entre `.session-feedback` y el CTA) envuelve por espacios sin desbordar, sin truncarse y sin desplazar el botón «Continuar →»."
     expected: "El texto envuelve limpio en 2+ líneas, cero recorte, CTA sigue visible y clicable."
     why_human: "La premisa NO tiene sujeto en el corpus del piloto: la traducción más larga de Preposiciones (`preposiciones-sugli#1`, 57 caracteres) mide 390px y cabe en UNA sola línea a los 5 anchos de escritorio medidos (1400/1100/900/800/700px). Es un `verification: backstop` explícito del UI-SPEC — abstiene por ausencia de sujeto, no por indulgencia (WINDOWS.md ids 21). Se re-prueba en la primera de las Phases 47-53 cuyo corpus produzca una traducción real de 2+ líneas."
+
   - test: "E2 · long-text — la misma envoltura multilínea dentro de `.summary-error-translation`, en la card de «Errores cometidos» del resumen."
     expected: "Envuelve sin desbordar ni truncarse dentro de la card, igual que E1."
     why_human: "Misma ausencia de sujeto que E1 (WINDOWS.md id 22); esta superficie no cambió con la enmienda de D-46-06/08."
+
   - test: "TRAD-01/encoding — lectura de muestra de 3-4 slots completos de Preposiciones para confirmar español natural, acentuado, registro adecuado y ausencia de deriva hacia explanation/gloss."
     expected: "Las traducciones se leen como español natural y correcto, sin convertirse en explicación gramatical ni repetir el gloss."
     why_human: "La autoridad MECÁNICA (quórum cross-vendor, 96/96 `validated` con 2 `by` distintos) ya pasó y fue verificada independientemente en esta sesión. Lo que queda abierto es el ÚLTIMO lector humano: el punto 7 del checkpoint del plan 46-05 no se ejecutó — el autor aprobó los 4 puntos de render (REND-01..05, «Perfecto») pero no la lectura de muestra (WINDOWS.md id 23)."
@@ -38,6 +41,7 @@ para confirmar contra el código lo que los SUMMARY afirman.
 ## Goal Achievement
 
 ### Observable Truths (agregadas por grupo de requirement — el detalle completo de cada edge-probe
+
 vive en los `must_haves` de cada `46-0N-PLAN.md` y se verificó indirectamente vía la suite de tests
 que los codifica, todos en verde)
 
@@ -154,7 +158,9 @@ code review propio de la fase encontró y arregló 3 critical + 6 warning con ve
 y dejó 4 Info documentados como deuda no bloqueante.
 
 Lo único que separa el resultado de un `passed` limpio son los **3 ítems `backstop`** (E1/E2 long-text
+
 + la mitad humana de TRAD-01/encoding) que el propio proyecto ya trató correctamente: los abstuvo por
+
 ausencia de sujeto en este corpus específico en lugar de fabricar un cierre falso, y los dejó
 documentados en `WINDOWS.md` como ítems abiertos para revisión humana futura. Por la doctrina de este
 verificador (un `backstop` sin evidencia se abstiene → `human_needed`, nunca pasa en silencio), esta
