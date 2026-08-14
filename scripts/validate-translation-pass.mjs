@@ -184,11 +184,45 @@ export function resolveTarget(slotId, k, dirs = SCAN_DIRS) {
   return { file, slot, variant, k };
 }
 
-/** La frase italiana fuente: el `prompt` con el hueco RELLENO por la opción correcta. */
+/**
+ * MARCADOR NULO: una `option` que NOTA la ausencia de palabra en lugar de aportar una.
+ * Hoy sólo existe una en todo el corpus, `"∅ / sin partitivo"` del slot
+ * `partitivos-negativa`, donde la regla que se enseña es justamente que el partitivo
+ * DESAPARECE en negativa. Se reconoce por el símbolo `∅` (U+2205) y no por la prosa que
+ * lo acompaña: la notación es inequívoca, mientras que casar `"sin ..."` podría marcar
+ * como nula una opción italiana legítima.
+ */
+const MARCADOR_NULO = /∅/;
+
+/**
+ * La frase italiana fuente: el `prompt` con el hueco RELLENO por la opción correcta.
+ *
+ * EXCEPCIÓN DEL MARCADOR NULO (Phase 47, plan 47-02): si la opción correcta es un
+ * marcador nulo, sustituir el hueco POR ÉL fabrica una frase que el ejercicio no
+ * resuelve nunca — `Non compro ∅ / sin partitivo pane.` no es italiano ni pretende
+ * serlo, es notación de "aquí no va nada" incrustada dentro de la frase. El evaluador
+ * que la recibe tiene razón al marcarla bajo S5, y ese `incorrecta` NO es un falso
+ * positivo del criterio: es un defecto de lo que le enviamos. Por eso el arreglo vive
+ * AQUÍ y no en `docs/TRANSLATION-VALIDATION-PROMPT.md`. Escribirlo como excepción del
+ * doc obligaría a cada evaluador de las 722 traducciones futuras a parchear
+ * mentalmente una cadena que podemos construir bien de entrada, y ablandaría S5 —
+ * "ignora esta basura"— en lugar de dejar de generarla. Los criterios se quedan
+ * intactos y siguen mordiendo: `Non compro pane.` es italiano limpio y S5 lo exige.
+ *
+ * La resolución fiel de un marcador nulo es la frase SIN el hueco: se retira el hueco
+ * junto a sus espacios adyacentes (o quedaría un espacio doble) y se recoge la
+ * puntuación que pudiera quedar suelta.
+ */
 export function fillGap(prompt, options, correctIndex) {
   const opt = Array.isArray(options) ? options[correctIndex] : undefined;
   if (typeof prompt !== 'string' || typeof opt !== 'string') return null;
   if (!prompt.includes('___')) return null;
+  if (MARCADOR_NULO.test(opt)) {
+    return prompt
+      .replace(/\s*___\s*/, ' ')
+      .replace(/\s+([.,;:!?])/g, '$1')
+      .trim();
+  }
   return prompt.replace('___', opt);
 }
 

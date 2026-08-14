@@ -550,6 +550,23 @@ describe('validate-translation-pass — escritura quirúrgica en variants[k].tra
     assert.equal(fillGap('sin hueco', ['di'], 0), null, 'un prompt sin "___" no se puede rellenar');
     assert.equal(fillGap(v.prompt, v.options, 99), null, 'un correctIndex fuera de rango no se puede rellenar');
   });
+
+  // Phase 47, plan 47-02. Una `option` con el símbolo ∅ NOTA la ausencia de palabra; no
+  // es una palabra. Sustituir el hueco por ella fabricaba `Non compro ∅ / sin partitivo
+  // pane.`, que no es la frase que el ejercicio resuelve y que un evaluador marca —con
+  // razón— bajo S5. Estas aserciones fallan contra la versión anterior de `fillGap`
+  // (devolvía la cadena con el marcador incrustado), así que el arreglo queda verificado
+  // por MUTACIÓN y no sólo afirmado.
+  test('un marcador nulo ∅ se resuelve como la frase SIN el hueco, no incrustándolo', () => {
+    const NULO = ['∅ / sin partitivo', 'del', 'dei', 'dello'];
+    assert.equal(fillGap('Non compro ___ pane.', NULO, 0), 'Non compro pane.');
+    assert.equal(fillGap('Non ho ___ amici a Roma.', NULO, 0), 'Non ho amici a Roma.');
+    assert.equal(fillGap('___ pane è buono.', NULO, 0), 'pane è buono.', 'hueco inicial: sin espacio suelto delante');
+    assert.equal(fillGap('Non ne compro ___.', NULO, 0), 'Non ne compro.', 'la puntuación no queda separada del verbo');
+    // Direccionalidad: el marcador nulo NO puede absolver a una opción normal. Cuando la
+    // correcta es una palabra de verdad, el relleno sigue siendo el de siempre.
+    assert.equal(fillGap('Compro ___ pane.', NULO, 1), 'Compro del pane.');
+  });
 });
 
 // ══════════════════════════════════════════════════════════════════════════
