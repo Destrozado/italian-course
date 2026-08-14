@@ -5,15 +5,15 @@ milestone_name: Traducción al español por variante (TRAD-X1)
 current_phase: 47
 current_phase_name: Traducción — bloque Artículos (Articoli + Partitivos)
 status: executing
-stopped_at: Completed 46-05-PLAN.md — los 5 planes de la Phase 46 tienen SUMMARY; faltan los gates de cierre de fase (aggregate → code review → verify), que corre el orquestador
-last_updated: "2026-08-14T08:32:24.544Z"
+stopped_at: "Completed 47-01-PLAN.md — tracer del bloque Artículos; checkpoint:decision del Task 3 RESUELTO por el autor (opcion-b), D-46-12 enmendada"
+last_updated: "2026-08-14T12:11:18.199Z"
 last_activity: 2026-08-14
 last_activity_desc: Phase 46 complete, transitioned to Phase 47
 progress:
   total_phases: 8
   completed_phases: 1
   total_plans: 9
-  completed_plans: 5
+  completed_plans: 6
   percent: 13
 ---
 
@@ -25,16 +25,16 @@ See: `.planning/PROJECT.md` (updated 2026-08-13 — milestone v2.1 abierto: trad
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 46 — Pipeline de traducción end-to-end (piloto Preposiciones)
+**Current Focus:** Phase 47 — Traducción — bloque Artículos (Articoli + Partitivos)
 
 ## Current Position
 
 Milestone: v2.1 — Traducción al español por variante (TRAD-X1) — Phases **46-53** (numeración CONTINÚA desde Phase 45, sin reset)
-Phase: 47 — Traducción — bloque Artículos (Articoli + Partitivos)
-Plan: Not started
+Phase: 47 (Traducción — bloque Artículos (Articoli + Partitivos)) — EXECUTING
+Plan: 2 of 4
 Status: Ready to execute
-Progress: [██████████] 100% de los planes de la fase
-Last activity: 2026-08-14 — Phase 46 complete, transitioned to Phase 47
+Progress: [███████░░░] 67% de los planes de la fase
+Last activity: 2026-08-14 — Phase 47 execution started
 
 **Estado verificado en disco al cierre de 46-05 (2026-08-13T21:49Z):** reporter `node scripts/run-validation-271.mjs` → **exit 0** (`TRAD-COV: PASS (96/96)`, VAL-04/06/08/09 PASS, `VAL-06 250/250`); suite `node --test tests/*.test.js tests/fixtures/*.test.js` → **1308 / 1304 pass / 4 fail** (exit 1, único rojo = la deuda pre-existente de trazabilidad, id 17 del ledger); `tests/screen-translation.test.js` → **50/50**; motor **byte-intacto**; corpus con md5 idéntico a la foto verde y sin mutaciones residuales.
 
@@ -227,6 +227,7 @@ Deuda técnica del milestone (~25 items, cero blockers) en `.planning/milestones
 | Phase 46 P03 | 26min | 3 tasks | 2 files |
 | Phase 46 P04 | 32min | 2 tasks | 5 files |
 | Phase 46 P05 | ~2h 01m | 3 tasks | 5 files |
+| Phase 47 P01 | 3h27m | 3 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -401,6 +402,10 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - [Phase 46]: 46-05: el contenido se hace fetch UNA SOLA VEZ al arrancar la app (src/main.js:74 -> src/screens/app.js:389; cero fetch en app.js) — empezar un Examen nuevo NO recarga el JSON, asi que toda UAT de contenido empieza recargando la pestana o el sintoma se lee como un bug de render que no existe
 - [Phase 46]: 46-05: los disputed de nivel TRADUCCION los consume TRAD-COV y no VAL-08 (que reduce sobre perCategory, el bucle de SLOTS) — la Task 2 esperaba el rojo en el sub-gate equivocado y el gate NO se ensancho: no queda via de escape porque una traduccion disputed no es validated
 - [Phase 46]: 46-05: la cifra de baseline que 46-05-MUTACIONES-EVIDENCIA.md afirmaba (1299/1295/4 en 19f41a9) es FALSA — re-medida con git archive da 1182/1178/4; lo verdadero es el invariante (mismo unico fichero rojo, mismos 4 subtests), no el total. Retractada por escrito en el SUMMARY en vez de corregida en silencio
+- [Phase ?]: Phase 47 / plan 47-01 Task 3 (checkpoint:decision bloqueante): el AUTOR eligió opcion-b — re-validar solo el bloque de esta fase y declarar la deuda por escrito. Las 96 de Preposiciones NO se re-validaron
+- [Phase ?]: D-46-12 ENMENDADA (2026-08-14, 46-CONTEXT.md): la obligación de re-validar se mantiene DONDE LA ENMIENDA TIENE SUJETO. El carve-out de alcance exige ausencia de sujeto MÁS direccionalidad absolutoria, derivadas del disco y escritas en el momento; si falta una, o si la enmienda endurece, se vuelve al cumplimiento literal
+- [Phase ?]: El quórum de traducción de las Phases 47-53 es CROSS-VENDOR POR SCRIPT (D-46-13), no el canónico Opus+Sonnet por Task de VAL-03: un gsd-executor no puede spawnear Task subagents. Se declara como tal, nunca como canónico
+- [Phase ?]: TRAD-02 NO se marca completo en 47-01: cubre las 110 traducciones del bloque y hoy hay 5. Lo cierran 47-02 y 47-03
 
 ### Pending Todos
 
@@ -461,8 +466,8 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Session Continuity
 
-**Last session:** 2026-08-13T21:55:00.000Z
-**Stopped at:** Completed 46-05-PLAN.md — los 5 planes de la Phase 46 tienen SUMMARY; faltan los gates de cierre de fase (aggregate → code review → verify), que corre el orquestador
+**Last session:** 2026-08-14T12:11:09.256Z
+**Stopped at:** Completed 47-01-PLAN.md — tracer del bloque Artículos; checkpoint:decision del Task 3 RESUELTO por el autor (opcion-b), D-46-12 enmendada
 **Resume file:** None
 
 ### Last Session
