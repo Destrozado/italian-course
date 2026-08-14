@@ -5,15 +5,15 @@ milestone_name: Traducción al español por variante (TRAD-X1)
 current_phase: 47
 current_phase_name: Traducción — bloque Artículos (Articoli + Partitivos)
 status: executing
-stopped_at: "Completed 47-01-PLAN.md — tracer del bloque Artículos; checkpoint:decision del Task 3 RESUELTO por el autor (opcion-b), D-46-12 enmendada"
-last_updated: "2026-08-14T12:11:18.199Z"
+stopped_at: Completed 47-02-PLAN.md
+last_updated: "2026-08-14T13:03:28.872Z"
 last_activity: 2026-08-14
 last_activity_desc: Phase 46 complete, transitioned to Phase 47
 progress:
   total_phases: 8
   completed_phases: 1
   total_plans: 9
-  completed_plans: 6
+  completed_plans: 7
   percent: 13
 ---
 
@@ -31,9 +31,9 @@ See: `.planning/PROJECT.md` (updated 2026-08-13 — milestone v2.1 abierto: trad
 
 Milestone: v2.1 — Traducción al español por variante (TRAD-X1) — Phases **46-53** (numeración CONTINÚA desde Phase 45, sin reset)
 Phase: 47 (Traducción — bloque Artículos (Articoli + Partitivos)) — EXECUTING
-Plan: 2 of 4
+Plan: 3 of 4
 Status: Ready to execute
-Progress: [███████░░░] 67% de los planes de la fase
+Progress: [████████░░] 78% de los planes de la fase
 Last activity: 2026-08-14 — Phase 47 execution started
 
 **Estado verificado en disco al cierre de 46-05 (2026-08-13T21:49Z):** reporter `node scripts/run-validation-271.mjs` → **exit 0** (`TRAD-COV: PASS (96/96)`, VAL-04/06/08/09 PASS, `VAL-06 250/250`); suite `node --test tests/*.test.js tests/fixtures/*.test.js` → **1308 / 1304 pass / 4 fail** (exit 1, único rojo = la deuda pre-existente de trazabilidad, id 17 del ledger); `tests/screen-translation.test.js` → **50/50**; motor **byte-intacto**; corpus con md5 idéntico a la foto verde y sin mutaciones residuales.
@@ -228,6 +228,7 @@ Deuda técnica del milestone (~25 items, cero blockers) en `.planning/milestones
 | Phase 46 P04 | 32min | 2 tasks | 5 files |
 | Phase 46 P05 | ~2h 01m | 3 tasks | 5 files |
 | Phase 47 P01 | 3h27m | 3 tasks | 5 files |
+| Phase 47 P02 | 41m28s | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -406,6 +407,8 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - [Phase ?]: D-46-12 ENMENDADA (2026-08-14, 46-CONTEXT.md): la obligación de re-validar se mantiene DONDE LA ENMIENDA TIENE SUJETO. El carve-out de alcance exige ausencia de sujeto MÁS direccionalidad absolutoria, derivadas del disco y escritas en el momento; si falta una, o si la enmienda endurece, se vuelve al cumplimiento literal
 - [Phase ?]: El quórum de traducción de las Phases 47-53 es CROSS-VENDOR POR SCRIPT (D-46-13), no el canónico Opus+Sonnet por Task de VAL-03: un gsd-executor no puede spawnear Task subagents. Se declara como tal, nunca como canónico
 - [Phase ?]: TRAD-02 NO se marca completo en 47-01: cubre las 110 traducciones del bloque y hoy hay 5. Lo cierran 47-02 y 47-03
+- [Phase ?]: 47-02: opción A del autor — la regla del PARTITIVO se escribe en el doc de criterios y la condición «ausencia de sujeto» del carve-out de 47-01 FALLA (35 con sujeto), luego cumplimiento LITERAL de D-46-12 sobre las 3 de 47-01 + las 4 disputed
+- [Phase ?]: 47-02: override de autor sobre partitivos-qualche#2 — el singular se queda por fidelidad estructural (qualche rige singular y es lo que el slot enseña). Único override del plan, con déficit declarado: 1 correcta de modelo frente a 2 incorrecta
 
 ### Pending Todos
 
@@ -466,8 +469,8 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Session Continuity
 
-**Last session:** 2026-08-14T12:11:09.256Z
-**Stopped at:** Completed 47-01-PLAN.md — tracer del bloque Artículos; checkpoint:decision del Task 3 RESUELTO por el autor (opcion-b), D-46-12 enmendada
+**Last session:** 2026-08-14T13:03:20.129Z
+**Stopped at:** Completed 47-02-PLAN.md
 **Resume file:** None
 
 ### Last Session

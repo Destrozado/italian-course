@@ -223,10 +223,10 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
   3. **El gate crece con el bloque:** las dos categorías entran en el array de cobertura con el `expected` derivado del disco; desengancharlas pone ROJO el gate anti-ceguera, verificado corriendo la mutación al cerrar la fase.
   4. **Brownfield intacto:** `src/domain/` sin tocar, `schemaVersion` sigue en 13, el `gloss` ES del `prompt` sobrevive intacto (es pre-respuesta y desambigua; la traducción es post-respuesta y enseña vocabulario), y la suite queda verde con el reporter en exit 0.
 
-**Plans**: 1/4 plans executed en 4 waves (tracer-first: el camino entero se demuestra sobre la variante de forma NUEVA del bloque antes de expandir a las 110)
+**Plans**: 2/4 plans executed en 4 waves (tracer-first: el camino entero se demuestra sobre la variante de forma NUEVA del bloque antes de expandir a las 110)
 
 - [x] 47-01-PLAN.md
-- [ ] 47-02-PLAN.md
+- [x] 47-02-PLAN.md
 - [ ] 47-03-PLAN.md
 - [ ] 47-04-PLAN.md
 
