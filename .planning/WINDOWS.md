@@ -1,10 +1,10 @@
 ---
 schema_version: 1
-open_count: 25
+open_count: 28
 waived_count: 0
 fixed_count: 6
-total_count: 31
-last_updated: 2026-08-14T07:09:04.617Z
+total_count: 34
+last_updated: 2026-08-14T12:07:48.227Z
 ---
 
 # Broken Windows Ledger
@@ -46,6 +46,9 @@ last_updated: 2026-08-14T07:09:04.617Z
 | 29 | 46 | deviation | scripts/validate-translation-pass.mjs |  | IN-04 (code review fase 46, NO arreglado): composePrompt envuelve JSON.stringify en una valla ```json y JSON.stringify no escapa los backticks, asi que un text o un prompt con ``` partiria la valla y dejaria parte del payload fuera del bloque de datos. Riesgo bajo y contenido (el §6 ordena tratar todo el payload como datos, y extractJsonBlock toma el ULTIMO bloque, que es el del evaluador). Ninguna de las 96 traducciones actuales lleva backticks. Arreglo: valla mas larga o rechazar ``` en buildDataBlock. | open |  | 2026-08-13T22:49:05.377Z |  |
 | 30 | 46 | unrun-verify | index.html |  | WR-05 (code review fase 46): la mecanica de x-show NO se pudo verificar en un DOM real. Alpine se sirve por CDN (index.html:32), el proyecto es zero-deps (sin package.json, sin jsdom) y las llamadas de red estaban prohibidas en la sesion de arreglo. El REGISTRO ya se corrigio por escrito (D-46-06 enmendada 2026-08-14 + comentario del nodo): el doble guard da INVISIBILIDAD, no ausencia del DOM. Lo verificado en disco: el nodo usa x-show y no la directiva x-if sobre template; la explanation usa la misma mecanica (:613); :547 es el precedente de presencia estructural. Queda abierta la observacion en un navegador de verdad. | open |  | 2026-08-13T22:49:05.443Z |  |
 | 31 | 46 | deviation | tests/count-arrays-lockstep.test.js |  | T-46-14 CERRADO el 2026-08-14 por el gate de seguridad de la fase (bloque 9, commit 632a190) — la leccion es la que queda abierta a la lectura: la mitigacion estaba declarada en DOS mitades en el <threat_model> (veredicto por igualdad de enteros + asercion de fuente sobre la region del sub-gate), solo se implemento la primera, y 46-03-SUMMARY.md afirmo las dos como verificadas. grep de toFixed/Math.round/0.99 sobre tests/ devolvia CERO. Se detecto POR MUTACION: con .length === 0 debilitado a >= 0 la suite se quedo en su baseline exacta (1329/1325/4) y el reporter en exit 0. Fila RETRACTADA por escrito, no reescrita. Regla que deriva: una mitigacion con DOS mitades en el plan necesita DOS verificaciones nombradas por separado, y la forma que se cuela (=== debilitado a >=) puede no ser la que el registro nombra (aritmetica de ratio) — cada una exige su propia asercion y su propia mutacion. M-1/M-2/M-3 ejecutadas con rojo observado, exit 1 las tres. | fixed |  | 2026-08-14T07:09:01.649Z | 2026-08-14T07:09:04.617Z |
+| 32 | 47 | deviation | .planning/phases/46-pipeline-de-traducci-n-end-to-end-piloto-preposiciones/46-CONTEXT.md |  | DEUDA ACEPTADA por decisión del AUTOR el 2026-08-14 (checkpoint:decision bloqueante del plan 47-01, Task 3: opcion-b). Las 96 traducciones de content/exercises/preposiciones.json siguen certificadas como validated bajo los criterios PRE-enmienda de docs/TRANSLATION-VALIDATION-PROMPT.md: NO se re-validaron tras añadir la excepción estructural del prompt metalingüístico (commit dc661e0). D-46-12 queda ENMENDADA por escrito, con fecha y firma, en 46-CONTEXT.md — no erosionada en silencio. Por qué se juzga seguro, con las dos condiciones derivadas del disco: (1) AUSENCIA DE SUJETO — buscando ancho (flecha -> => y etiquetas gramaticales españolas en options), 0 de 96 variantes mc de preposiciones y 0 de 62 de articoli llevan la anatomía metalingüística; las 5 únicas del bloque están en partitivos-clasificacion y se validaron con el doc YA amendado. (2) DIRECCIONALIDAD ABSOLUTORIA — las tres viñetas de la excepción retiran motivos-para-marcar o reiteran criterios vigentes, y ninguna añade uno nuevo; quitar elementos de un conjunto vacío lo deja vacío, así que ninguna correcta puede pasar a incorrecta. Corroborado (no demostrado) por partitivos-clasificacion#0: deepseek-chat pasó de incorrecta a correcta sin cambiar un carácter del text y sin override. QUÉ FORZARÍA UNA RE-VALIDACIÓN DE VERDAD: (a) una enmienda futura del doc que SÍ tenga sujeto en preposiciones, (b) cualquier enmienda que ENDUREZCA en vez de absolver — reconocible porque introduce un imperativo del tipo 'marca como incorrecta si...' o 'exige que...', (c) que aparezcan prompts metalingüísticos en preposiciones. En cualquiera de los tres casos se vuelve al cumplimiento literal de D-46-12 y se re-validan las 96 | open |  | 2026-08-14T12:07:27.453Z |  |
+| 33 | 47 | deviation | scripts/validate-translation-pass.mjs |  | HALLAZGO OPERATIVO (plan 47-01, reusable en las Phases 48-53): verificar un modelo LISTÁNDOLO contra el proveedor es NECESARIO pero NO SUFICIENTE. gemini-2.5-flash-lite aparece VIVO en el listado /v1beta/models de Gemini y sin embargo devuelve HTTP 404 al invocarlo ('no longer available to new users'): está listado y no es invocable con esta clave. El paso 5 del Task 1 del plan manda verificar la cola de fallbacks contra el listado ANTES de gastar llamadas — hacerlo NO garantiza que la cola funcione, solo descarta los modelos ya retirados del listado. La red de seguridad que sí funcionó fue el auto-fallback del script, que aterrizó en gemini-3.5-flash-lite, y el campo by, que registra el modelo que DE VERDAD respondió y no el pinneado: por eso un auto-fallback queda visible en el corpus en lugar de disimulado (T-47-05). Regla que deriva: pinnear un modelo es una preferencia, no una garantía; el único registro fiable de quién validó es el by escrito por el script, y jamás se edita a mano para que quede limpio | open |  | 2026-08-14T12:07:37.515Z |  |
+| 34 | 47 | deviation | content/exercises/partitivos.json |  | DECLARACIÓN DE NATURALEZA DEL QUÓRUM (plan 47-01, aplica a todas las traducciones de las Phases 47-53): las 5 variantes de partitivos-clasificacion se validaron con el quórum CROSS-VENDOR POR SCRIPT (deepseek-chat + gemini-3.5-flash-lite vía scripts/validate-translation-pass.mjs), que es lo que D-46-13 establece para la validación de TRADUCCIONES. NO es el quórum canónico Opus+Sonnet por Task subagent de VAL-03: un gsd-executor es él mismo un subagent y no puede spawnear los Task subagents que VAL-03 exige, así que ese camino solo existe en una pasada TOP-LEVEL posterior. Cumple la barra estructural (2 by DISTINTOS, de dos vendors distintos, deriveStatus como fuente única, cero overrides de autor) y por eso el status derivado validated es legítimo. Se declara como lo que es y NUNCA se escribe como canónico: mismo patrón ya registrado en las ids 6, 7, 11 y 12 de este ledger para el quórum de EJERCICIOS. Diferencia importante que no hay que confundir: para traducciones el quórum por script no es un sucedáneo sino el mecanismo DECIDIDO (D-46-13), porque DeepSeek es el estricto en acentos y S4/RAE es el criterio que más pesa aquí | open |  | 2026-08-14T12:07:48.227Z |  |
 
 ````json
 [
@@ -420,6 +423,42 @@ last_updated: 2026-08-14T07:09:04.617Z
     "reason": "",
     "recorded_at": "2026-08-14T07:09:01.649Z",
     "resolved_at": "2026-08-14T07:09:04.617Z"
+  },
+  {
+    "id": 32,
+    "kind": "deviation",
+    "phase": "47",
+    "file": ".planning/phases/46-pipeline-de-traducci-n-end-to-end-piloto-preposiciones/46-CONTEXT.md",
+    "line": null,
+    "description": "DEUDA ACEPTADA por decisión del AUTOR el 2026-08-14 (checkpoint:decision bloqueante del plan 47-01, Task 3: opcion-b). Las 96 traducciones de content/exercises/preposiciones.json siguen certificadas como validated bajo los criterios PRE-enmienda de docs/TRANSLATION-VALIDATION-PROMPT.md: NO se re-validaron tras añadir la excepción estructural del prompt metalingüístico (commit dc661e0). D-46-12 queda ENMENDADA por escrito, con fecha y firma, en 46-CONTEXT.md — no erosionada en silencio. Por qué se juzga seguro, con las dos condiciones derivadas del disco: (1) AUSENCIA DE SUJETO — buscando ancho (flecha -> => y etiquetas gramaticales españolas en options), 0 de 96 variantes mc de preposiciones y 0 de 62 de articoli llevan la anatomía metalingüística; las 5 únicas del bloque están en partitivos-clasificacion y se validaron con el doc YA amendado. (2) DIRECCIONALIDAD ABSOLUTORIA — las tres viñetas de la excepción retiran motivos-para-marcar o reiteran criterios vigentes, y ninguna añade uno nuevo; quitar elementos de un conjunto vacío lo deja vacío, así que ninguna correcta puede pasar a incorrecta. Corroborado (no demostrado) por partitivos-clasificacion#0: deepseek-chat pasó de incorrecta a correcta sin cambiar un carácter del text y sin override. QUÉ FORZARÍA UNA RE-VALIDACIÓN DE VERDAD: (a) una enmienda futura del doc que SÍ tenga sujeto en preposiciones, (b) cualquier enmienda que ENDUREZCA en vez de absolver — reconocible porque introduce un imperativo del tipo 'marca como incorrecta si...' o 'exige que...', (c) que aparezcan prompts metalingüísticos en preposiciones. En cualquiera de los tres casos se vuelve al cumplimiento literal de D-46-12 y se re-validan las 96",
+    "status": "open",
+    "reason": "",
+    "recorded_at": "2026-08-14T12:07:27.453Z",
+    "resolved_at": null
+  },
+  {
+    "id": 33,
+    "kind": "deviation",
+    "phase": "47",
+    "file": "scripts/validate-translation-pass.mjs",
+    "line": null,
+    "description": "HALLAZGO OPERATIVO (plan 47-01, reusable en las Phases 48-53): verificar un modelo LISTÁNDOLO contra el proveedor es NECESARIO pero NO SUFICIENTE. gemini-2.5-flash-lite aparece VIVO en el listado /v1beta/models de Gemini y sin embargo devuelve HTTP 404 al invocarlo ('no longer available to new users'): está listado y no es invocable con esta clave. El paso 5 del Task 1 del plan manda verificar la cola de fallbacks contra el listado ANTES de gastar llamadas — hacerlo NO garantiza que la cola funcione, solo descarta los modelos ya retirados del listado. La red de seguridad que sí funcionó fue el auto-fallback del script, que aterrizó en gemini-3.5-flash-lite, y el campo by, que registra el modelo que DE VERDAD respondió y no el pinneado: por eso un auto-fallback queda visible en el corpus en lugar de disimulado (T-47-05). Regla que deriva: pinnear un modelo es una preferencia, no una garantía; el único registro fiable de quién validó es el by escrito por el script, y jamás se edita a mano para que quede limpio",
+    "status": "open",
+    "reason": "",
+    "recorded_at": "2026-08-14T12:07:37.515Z",
+    "resolved_at": null
+  },
+  {
+    "id": 34,
+    "kind": "deviation",
+    "phase": "47",
+    "file": "content/exercises/partitivos.json",
+    "line": null,
+    "description": "DECLARACIÓN DE NATURALEZA DEL QUÓRUM (plan 47-01, aplica a todas las traducciones de las Phases 47-53): las 5 variantes de partitivos-clasificacion se validaron con el quórum CROSS-VENDOR POR SCRIPT (deepseek-chat + gemini-3.5-flash-lite vía scripts/validate-translation-pass.mjs), que es lo que D-46-13 establece para la validación de TRADUCCIONES. NO es el quórum canónico Opus+Sonnet por Task subagent de VAL-03: un gsd-executor es él mismo un subagent y no puede spawnear los Task subagents que VAL-03 exige, así que ese camino solo existe en una pasada TOP-LEVEL posterior. Cumple la barra estructural (2 by DISTINTOS, de dos vendors distintos, deriveStatus como fuente única, cero overrides de autor) y por eso el status derivado validated es legítimo. Se declara como lo que es y NUNCA se escribe como canónico: mismo patrón ya registrado en las ids 6, 7, 11 y 12 de este ledger para el quórum de EJERCICIOS. Diferencia importante que no hay que confundir: para traducciones el quórum por script no es un sucedáneo sino el mecanismo DECIDIDO (D-46-13), porque DeepSeek es el estricto en acentos y S4/RAE es el criterio que más pesa aquí",
+    "status": "open",
+    "reason": "",
+    "recorded_at": "2026-08-14T12:07:48.227Z",
+    "resolved_at": null
   }
 ]
 ````

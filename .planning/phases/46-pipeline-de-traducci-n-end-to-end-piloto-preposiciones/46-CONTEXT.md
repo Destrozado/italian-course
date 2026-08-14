@@ -177,6 +177,39 @@ Bajar el pipeline COMPLETO de traducción al español y demostrarlo end-to-end s
 
   **Frontera con `explanation` que el prompt debe hacer explícita:** una traducción NO es una explicación. Las tres prohibiciones de la `explanation` existen tras 4 rondas de quórum en las Phases 41-44; fundirlas re-engendraría esa deuda de prosa. **Y frontera con el `gloss` ES del `prompt` (canon R7):** el gloss es PRE-respuesta y desambigua; la traducción es POST-respuesta y enseña vocabulario. Conviven, no se solapan, y la traducción no puede limitarse a repetir el gloss.
 
+  ---
+
+  **ENMIENDA DEL REGISTRO (2026-08-14 — Phase 47, plan 47-01, Task 3). Decidida por el AUTOR en un `checkpoint:decision` bloqueante: `opcion-b`.** Nada del texto de arriba se retira: el mapeo criterio a criterio, las fronteras y la reversibility `costly` siguen vigentes palabra por palabra. Lo que esta enmienda toca es **el ALCANCE de la obligación de re-validar**, que la redacción original dejó en términos absolutos («todo lo ya `validated` con el prompt viejo») porque nació en una fase que era la ÚNICA que había producido contenido validado. La Phase 47 es la primera que amienda el doc estando ya cerrado un bloque de otra fase, y ahí la regla literal deja de discriminar entre una enmienda que puede cambiar veredictos y una que demostrablemente no puede.
+
+  **Regla enmendada — la obligación se mantiene DONDE LA ENMIENDA TIENE SUJETO.** Amendar `docs/TRANSLATION-VALIDATION-PROMPT.md` sigue obligando a re-validar todo lo `validated` bajo el prompt anterior, **salvo** que la enmienda sea DEMOSTRABLEMENTE INERTE sobre ese cuerpo de contenido. «Demostrablemente inerte» exige las **dos** condiciones a la vez, ambas derivadas del disco y **escritas en el momento**, nunca reconstruidas después:
+
+  1. **Ausencia de sujeto:** cero variantes del cuerpo ya validado presentan la construcción que la enmienda regula.
+  2. **Direccionalidad absolutoria:** la enmienda solo puede convertir un `incorrecta` en `correcta`, nunca al revés (ver el argumento de abajo, que es lo que hay que rehacer en cada caso — no una casilla que marcar).
+
+  Si falta cualquiera de las dos, o si la enmienda **endurece** algún criterio en lugar de absolver, se vuelve al **cumplimiento literal**: se re-valida todo, como hizo la Phase 46 descartando 75 `validated` y ~190 llamadas ya pagadas. La deuda aceptada se declara además en `.planning/WINDOWS.md`. Una decisión LOCKED se enmienda por escrito, con fecha y firma; nunca se erosiona en silencio (mismo precedente de forma que la enmienda de D-46-06).
+
+  **Cifras que sostienen la condición 1, RECOMPUTADAS del disco el 2026-08-14 al ejecutar el Task 3** (no transcritas de un plan ni de un SUMMARY). Se buscó la anatomía metalingüística de forma ANCHA: presencia de flecha (`->`, `=>`, `→`, `⇒`) en el `prompt` **o** alguna `option` que sea una etiqueta gramatical española:
+
+  | Categoría | Variantes `multiple-choice` | Con anatomía metalingüística | `validated` bajo el prompt anterior |
+  |---|---|---|---|
+  | `preposiciones` (Phase 46, cerrada) | 96 | **0** | 96 |
+  | `articoli` (Phase 47, sin traducir aún) | 62 | **0** | 0 |
+  | `partitivos` (Phase 47) | 48 | **5** (todas en `partitivos-clasificacion`) | 5, y las 5 **bajo el doc YA amendado** |
+
+  Las 5 únicas variantes con sujeto son justo las que motivaron la enmienda y ya se validaron con el doc nuevo delante. El cuerpo que la `opcion-a` obligaría a re-validar —las 96 de `preposiciones`— tiene **sujeto cero**.
+
+  **Argumento de la condición 2: por qué este carve-out NO PUEDE voltear una `correcta`.** Es un argumento comprobable, no una afirmación; quien lo dude puede rehacerlo leyendo la sección «Excepción estructural: el `prompt` METALINGÜÍSTICO» de `docs/TRANSLATION-VALIDATION-PROMPT.md`.
+
+  - **Mecánica del veredicto:** el evaluador emite `incorrecta` cuando encuentra **al menos un** motivo-para-marcar; `correcta` es exactamente el caso en que ese conjunto de motivos queda **vacío**. Voltear una `correcta` requiere, por tanto, **añadir** un motivo nuevo al conjunto.
+  - **Lo que la sección añadida instruye:** sus tres viñetas son (a) «**NO** marques `s5_italiano` ni `s2_fidelidad` por la flecha y la cola española», (b) «**NO** exijas que la traducción reproduzca la cola metalingüística», y (c) el recordatorio de que la frase italiana previa a la flecha **sigue** sujeta a S5 y S2 sin rebaja. Las dos primeras **retiran** motivos del conjunto; la tercera **no añade ninguno**: reitera criterios ya vigentes sin exigir nada que S5 y S2 no exigieran antes.
+  - **Conclusión:** quitar elementos de un conjunto que ya está vacío lo deja vacío. Ninguna `correcta` puede pasar a `incorrecta` por esta enmienda. Y el criterio para juzgar futuras enmiendas queda operativo: **si una enmienda futura introduce un imperativo de la forma «marca como incorrecta si…» o «exige que…», este argumento NO le aplica** y el carve-out de alcance queda vetado para ella.
+  - **El único camino de volteo que sí existe, y por qué tampoco tiene sujeto aquí.** Al re-anclar la fuente de S5/S2 a la frase italiana previa a la flecha, la sección **encoge** lo que hay que reproducir (antes la cadena mixta entera, ahora solo su mitad italiana), y encoger una exigencia no crea fallos. Pero abre un flanco honesto: una traducción que **sí** hubiera reproducido la cola metalingüística podría, bajo el doc nuevo, leerse como que **añade** contenido ausente de la fuente, y S2 castiga añadir igual que omitir. Ese flanco solo puede materializarse en traducciones de `prompt` metalingüísticos, y en `preposiciones` hay **0**. Sujeto cero otra vez, ahora por la vía estricta.
+  - **Corroboración empírica (no es la prueba, es consistencia con ella):** `partitivos-clasificacion#0` se re-validó bajo el doc amendado **sin cambiar un solo carácter** de su `translationES.text` (`"He comido algo de pan."`, idéntico en `da06087` y en `dc661e0`) y **sin override de autor**. `deepseek-chat` pasó de `incorrecta` —con el concern literal `[S2-fidelidad] La traducción omite la parte metalingüística del original…`— a `correcta`. El único movimiento observado fue en la dirección absolutoria. Una observación no demuestra la dirección general: eso lo hace el argumento de arriba. Lo que la observación aporta es que el argumento **no está desmentido por los hechos**.
+
+  **Deuda que esta enmienda acepta explícitamente:** las 96 traducciones de `preposiciones` siguen certificadas bajo los criterios PRE-enmienda. Queda declarada en `.planning/WINDOWS.md` con lo que la forzaría a re-validarse de verdad. **Alcance de esta enmienda:** la regla de alcance, no los criterios. `docs/TRANSLATION-VALIDATION-PROMPT.md` es y sigue siendo el único sitio donde viven los criterios.
+
+  ---
+
 - **D-46-13: TVAL-02 — script hermano de `scripts/validate-song-pass.mjs`, con el quórum cross-vendor DeepSeek + Gemini, 1-por-1 (VAL-03).** — **Reversibility:** reversible
 
   Espejo exacto del script de canciones: `--model` / `--fallback` / `--avoid` (para garantizar 2 `by` distintos) / `--write` / `--dry-run` / `--temp`; auto-fallback en 429 registrando SIEMPRE el modelo que de verdad respondió; zero-deps; `withFileLock` para el read-modify-write; `deriveStatus` importado de `src/data/validation-state.js` como fuente única.
