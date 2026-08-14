@@ -2579,3 +2579,95 @@ describe('T-46-14 — el veredicto de cada sub-gate del reporter es igualdad de 
     );
   });
 });
+
+// ---------------------------------------------------------------------------
+// GATE-03 - el DENOMINADOR de la cobertura de traduccion no puede encoger en
+// silencio (CR-02 del code review de la Phase 47 / T-47-27)
+//
+// GATE-02, arriba, protege la CATEGORIA: deriva del disco el conjunto de
+// categorias con >=1 variante traducida y exige que cada una este enganchada al
+// array del reporter. Lo que NO protege es la VARIANTE. Si desaparece una
+// variante multiple-choice ya traducida y validada, `expected`, `surfaces` y
+// `validated` bajan a la vez -- se derivan del MISMO fichero en la MISMA corrida
+// -- y las dos igualdades del veredicto siguen cuadrando: `PASS (205/205)`,
+// exit 0, y la suite entera sin morder. Verificado por mutacion en el review.
+//
+// El ancla no puede derivarse del corpus, o volveria a moverse con el borrado.
+// Es la marca de agua congelada de content/translation-coverage.lock.json.
+//
+// ES UN SUELO, NO UNA IGUALDAD: crecer no enrojece aqui. El rojo de una variante
+// nueva sin traducir lo pone TRAD-COV por cobertura, que es su causa propia; si
+// las dos causas se fundieran, el diagnostico dejaria de distinguir «falta
+// traducir» de «falta una variante».
+// ---------------------------------------------------------------------------
+
+const LOCK_COBERTURA = 'content/translation-coverage.lock.json';
+
+/** Conteo de variantes multiple-choice por categoria CUBIERTA, derivado del disco. */
+function conteoMcDeCategoriasCubiertas() {
+  const dir = new URL(`../${DIR_EJERCICIOS}/`, import.meta.url);
+  const out = {};
+  for (const f of readdirSync(dir).filter((x) => x.endsWith('.json')).sort()) {
+    let data;
+    try {
+      data = JSON.parse(readFileSync(new URL(f, dir), 'utf-8'));
+    } catch (e) {
+      throw new Error(
+        `GATE-03: ${DIR_EJERCICIOS}/${f} no se puede parsear (${e.message}), asi que el conteo de ` +
+          `variantes de referencia no existe. Un gate que no puede leer su referencia no pasa en verde.`
+      );
+    }
+    const mc = (data.exercises || []).filter((ex) => ex?.type === 'multiple-choice');
+    if (!mc.some((ex) => (ex.variants || []).some((v) => v && v.translationES))) continue;
+    out[f.replace(/\.json$/, '')] = mc.reduce((s, ex) => s + (Array.isArray(ex.variants) ? ex.variants.length : 0), 0);
+  }
+  return out;
+}
+
+describe('GATE-03 - el denominador de cobertura de traduccion no encoge en silencio (CR-02)', () => {
+  test(`${LOCK_COBERTURA} ancla TODAS las categorias cubiertas, y ninguna cayo por debajo de su suelo`, () => {
+    assert.ok(
+      existsSync(new URL(`../${LOCK_COBERTURA}`, import.meta.url)),
+      `GATE-03: falta ${LOCK_COBERTURA}. Sin ancla, borrar una variante traducida sale VERDE en el ` +
+        `reporter y en esta suite. Emitela con: node scripts/bump-translation-lock.mjs --write`
+    );
+    const lock = JSON.parse(readFileSync(new URL(`../${LOCK_COBERTURA}`, import.meta.url), 'utf-8'));
+    const ancladas = lock && typeof lock.categorias === 'object' && lock.categorias !== null ? lock.categorias : {};
+    const disco = conteoMcDeCategoriasCubiertas();
+
+    // NO-VACUIDAD, y va primero: un ancla vacia o un recorrido de disco que dejo de
+    // reconocer `translationES` haria pasar en verde las dos comparaciones de abajo
+    // certificando NADA. Es la forma de gate vacuo que este fichero entero persigue.
+    assert.ok(
+      Object.keys(ancladas).length > 0,
+      `GATE-03: ${LOCK_COBERTURA} no ancla ninguna categoria, asi que no vigila nada`
+    );
+    assert.ok(
+      Object.keys(disco).length > 0,
+      `GATE-03: ningun fichero de ${DIR_EJERCICIOS} declara una variante multiple-choice con ` +
+        `translationES, asi que no hay disco contra el que confrontar el ancla`
+    );
+
+    const hundidas = Object.entries(ancladas)
+      .filter(([slug, suelo]) => (disco[slug] ?? 0) < suelo)
+      .map(([slug, suelo]) => `${slug}: ancla ${suelo}, disco ${disco[slug] ?? 0}`);
+    assert.deepEqual(
+      hundidas,
+      [],
+      `GATE-03 / CR-02: el numero de variantes multiple-choice cayo por debajo del ancla. La cifra ` +
+        `de TRAD-COV seguira CUADRANDO (expected, surfaces y validated se derivan del mismo fichero ` +
+        `y bajan juntos), asi que este es el unico sitio donde se ve: ${hundidas.join('; ')}. ` +
+        `Si el borrado no era deliberado, restaura la variante; si lo era, re-emite el ancla con ` +
+        `node scripts/bump-translation-lock.mjs --write`
+    );
+
+    const sinAnclar = Object.keys(disco).filter((slug) => !(slug in ancladas));
+    assert.deepEqual(
+      sinAnclar,
+      [],
+      `GATE-03: estas categorias tienen traducciones en disco y NO estan ancladas, asi que su ` +
+        `denominador puede encoger sin que nada lo vea: ${sinAnclar.join(', ')}. ` +
+        `Ejecuta: node scripts/bump-translation-lock.mjs --write`
+    );
+  });
+});

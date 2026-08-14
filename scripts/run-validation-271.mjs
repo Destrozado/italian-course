@@ -414,6 +414,83 @@ const TRANSLATION_COVERAGE = [
 // que nunca pueda divergir de una suma escrita a mano.
 const TOTAL_TRANSLATION_EXPECTED = TRANSLATION_COVERAGE.reduce((s, c) => s + c.expected, 0);
 
+// ─── ANCLA DE TRAD-COV (CR-02 del code review / T-47-27) ─────────────────────
+//
+// TODO lo de arriba —`expected`, y más abajo `surfaces` y `validated`— se deriva del
+// MISMO fichero en la MISMA corrida. Esa es la propiedad que hace el gate honesto contra
+// un número mágico, y a la vez el agujero: si desaparece una variante multiple-choice ya
+// traducida y VALIDADA, los tres sumandos bajan a la vez y las dos igualdades del
+// veredicto siguen cuadrando. Verificado por mutación: `PASS (205/205)`, exit 0, y la
+// suite entera sin morder. El corpus perdió una traducción validada y todo salió verde
+// con una cifra distinta — el `PASS (144/144)` de la Phase 46 un nivel más abajo.
+//
+// El gate anti-ceguera de count-arrays-lockstep protege la CATEGORÍA
+// (`categoriasDeclaradasCubiertas()` exige >=1 variante con translationES), no la
+// VARIANTE. Y `VAL-06` no lo ve porque el número de slots no cambia.
+//
+// Hace falta, por tanto, algo que el borrado NO pueda mover consigo, y eso descarta
+// derivarlo del corpus: sería tautológico otra vez. El ancla es la marca de agua
+// congelada en `content/translation-coverage.lock.json`, fechada, con su propio diff en
+// git y re-emitible SÓLO con `node scripts/bump-translation-lock.mjs --write`.
+//
+// ES UN SUELO, NO UNA IGUALDAD. Crecer no lo enrojece: el rojo de una variante nueva sin
+// traducir lo pone la cobertura (`validated < expected`), que es su causa propia. Las dos
+// causas NO se funden — si lo hicieran, el autor no sabría si le falta traducir o si le
+// falta una variante.
+//
+// Y ANCLA TAMBIÉN LA CATEGORÍA ENTERA, que es el vector hermano: borrar TODAS las
+// traducciones de una categoría la saca de «declarada cubierta», permite retirar su
+// entrada del array sin que GATE-02 chiste, y sus variantes desaparecen del denominador.
+// Por eso se itera sobre el LOCK y no sobre el array del reporter.
+const anclaViolaciones = [];
+{
+  let lock;
+  try {
+    lock = JSON.parse(readFileSync(resolve(projectRoot, 'content/translation-coverage.lock.json'), 'utf8'));
+  } catch (err) {
+    console.error(
+      `TRAD-COV: no se pudo leer el ancla content/translation-coverage.lock.json (${err.message}). ` +
+      `Sin ancla, el denominador de cobertura puede encoger en silencio y el gate no puede emitir ` +
+      `veredicto. Emítela con: node scripts/bump-translation-lock.mjs --write`
+    );
+    process.exit(1);
+  }
+  const ancladas = lock && typeof lock.categorias === 'object' && lock.categorias !== null ? lock.categorias : null;
+  if (!ancladas || Object.keys(ancladas).length === 0) {
+    console.error(
+      `TRAD-COV: content/translation-coverage.lock.json no declara ninguna categoría en "categorias", ` +
+      `así que el ancla está vacía y no ancla nada. Un ancla vacía es un gate vacuo con aspecto de ` +
+      `vigilar. Emítela con: node scripts/bump-translation-lock.mjs --write`
+    );
+    process.exit(1);
+  }
+  const declarado = new Map(TRANSLATION_COVERAGE.map((c) => [c.slug, c]));
+  for (const [slug, suelo] of Object.entries(ancladas)) {
+    const entrada = declarado.get(slug);
+    if (!entrada) {
+      anclaViolaciones.push(
+        `${slug}: anclada con ${suelo} variante(s) y YA NO está declarada cubierta — sus ${suelo} ` +
+        `variantes desaparecieron del denominador`
+      );
+      continue;
+    }
+    if (entrada.expected < suelo) {
+      anclaViolaciones.push(
+        `${slug}: el ancla fija ${suelo} variante(s) multiple-choice y en disco quedan ` +
+        `${entrada.expected} (faltan ${suelo - entrada.expected})`
+      );
+    }
+  }
+  for (const c of TRANSLATION_COVERAGE) {
+    if (!(c.slug in ancladas)) {
+      anclaViolaciones.push(
+        `${c.slug}: declarada cubierta y SIN anclar — el ancla tiene un agujero justo donde debería ` +
+        `vigilar. Ejecuta: node scripts/bump-translation-lock.mjs --write`
+      );
+    }
+  }
+}
+
 /**
  * El status efectivo de un ejercicio ES el que dicta `deriveStatus`. Sin relax
  * local, sin segunda opinión: `src/data/validation-state.js` es la fuente ÚNICA
@@ -918,9 +995,15 @@ for (const r of perTranslationCategory) {
 // cuadrando. La contraria —escrito `validated`, derivado `pending`— sí bajaba el conteo y
 // sí se cazaba. Por eso hace falta el término propio: ninguna de las otras tres condiciones
 // puede sustituirlo.
+//
+// Y EL ANCLA ENTRA EN EL VEREDICTO (CR-02). Es el único término que NO se deriva del
+// corpus en esta corrida, así que es el único capaz de cazar que el denominador encoja.
+// Dejarlo fuera —meramente impreso— sería reproducir por tercera vez la forma que el
+// CR-03 de la Phase 44 arregló para VAL-09 y esta fase arregló para la desincronía.
 const tradPass =
   tradAusenciaDeDatos.length === 0 &&
   !anyTranslationLoadError &&
+  anclaViolaciones.length === 0 &&
   allTranslationInconsistencyAddrs.length === 0 &&
   totalTranslationValidated === TOTAL_TRANSLATION_EXPECTED &&
   totalTranslationActual === TOTAL_TRANSLATION_EXPECTED;
@@ -934,6 +1017,12 @@ const tradPass =
 const tradDiagnostico = () => {
   if (tradAusenciaDeDatos.length > 0) {
     return `FAIL (AUSENCIA DE DATOS — ${tradAusenciaDeDatos.join('; ')})`;
+  }
+  // El ancla va ANTES de la cobertura: si desapareció una variante, la cifra de cobertura
+  // sale CUADRADA (es el defecto entero de CR-02) y anunciar `FAIL (205/205)` mandaría al
+  // autor a buscar una traducción que falta cuando lo que falta es una variante.
+  if (anclaViolaciones.length > 0) {
+    return `FAIL (EL DENOMINADOR ENCOGIÓ — ${anclaViolaciones.join('; ')})`;
   }
   if (allTranslationInconsistencyAddrs.length > 0) {
     return (
@@ -1013,6 +1102,16 @@ if (gatePass) {
       console.log('  - TRAD-COV: ROJO por AUSENCIA DE DATOS, no por cobertura incompleta. Causa:');
       console.log(`      ${tradAusenciaDeDatos.join('; ')}`);
       console.log('    Repara la declaración o el fichero antes de leer ninguna cifra de cobertura.');
+    } else if (anclaViolaciones.length > 0) {
+      console.log('  - TRAD-COV: ROJO porque EL DENOMINADOR ENCOGIÓ, no por cobertura incompleta.');
+      console.log(`      ${anclaViolaciones.join('\n      ')}`);
+      console.log('    La cifra de cobertura de arriba CUADRA — y ése es exactamente el defecto:');
+      console.log('    `expected`, `surfaces` y `validated` se derivan del mismo fichero, así que');
+      console.log('    borrar una variante ya traducida y validada mueve los tres a la vez. El ancla');
+      console.log('    de content/translation-coverage.lock.json es lo único que no se movió con ella.');
+      console.log('    Si el borrado NO era deliberado: restaura la variante (git). Si SÍ lo era:');
+      console.log('    re-emite el ancla con `node scripts/bump-translation-lock.mjs --write`, que');
+      console.log('    deja su propio diff en git y convierte el borrado en una decisión legible.');
     } else if (allTranslationInconsistencyAddrs.length > 0) {
       // Misma acción que VAL-09 pero sobre la unidad TRADUCCIÓN, con su dirección
       // compuesta: el `status` escrito discrepa del que deriva la fuente única.
