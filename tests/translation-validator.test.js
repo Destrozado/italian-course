@@ -1061,3 +1061,95 @@ describe('la option se incrusta como VALOR, no como patrón de sustitución (WR-
     assert.deepEqual(conDolar, [], `options con \`$\`: ${conDolar.join('; ')}`);
   });
 });
+
+// ══════════════════════════════════════════════════════════════════════════
+// WR-02 del code review de la Phase 47 — los invariantes de corpus en que se
+// apoyan las ramas de `fillGap` se DERIVAN DEL DISCO, no viven en prosa.
+//
+// Las dos ramas nuevas descansan sobre afirmaciones fechadas escritas en
+// comentario: «hoy sólo existe UNA notación de marcador nulo en todo el
+// corpus» y «el único caso de apócope del corpus es `fa' una foto`». Las dos
+// son ciertas hoy — pero nada las deriva del disco. Si una fase futura da de
+// alta un segundo marcador con otra notación (`—`, `Ø` U+00D8, `(nada)`) o una
+// apócope nueva, `MARCADOR_NULO` / `OPCION_ELIDIDA` dejan de casar, la frase
+// malformada vuelve al evaluador de pago y ningún test se pone rojo.
+//
+// Es la lección que este repo ya congeló: un gate que assertea una cifra
+// escrita sin derivarla del disco certifica en verde un número obsoleto. Aquí
+// la cifra es «una notación / una apócope», y el riesgo es idéntico.
+// ══════════════════════════════════════════════════════════════════════════
+
+describe('los invariantes de corpus de fillGap se derivan del disco (WR-02)', () => {
+  /** Todas las `options` del corpus, con su dirección, derivadas del disco. */
+  function todasLasOpciones() {
+    const dir = path.join(ROOT, 'content/exercises');
+    const out = [];
+    for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.json'))) {
+      const data = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'));
+      for (const ex of data.exercises || []) {
+        (ex.variants || []).forEach((v, k) => {
+          for (const o of v?.options || []) if (typeof o === 'string') out.push([`${ex.id}#${k}`, o]);
+        });
+      }
+    }
+    return out;
+  }
+
+  test('no-vacuidad: el barrido de opciones ve corpus, y ve los dos sujetos que vigila', () => {
+    const opciones = todasLasOpciones();
+    assert.ok(opciones.length > 0, 'sin opciones en disco, los dos gates de abajo pasarían certificando nada');
+    // Los sujetos ACTUALES, derivados y no transcritos: si el corpus perdiera su único
+    // marcador nulo o su única apócope, los gates de abajo se volverían vacuos en
+    // silencio y este test lo dice antes.
+    assert.ok(
+      opciones.some(([, o]) => /∅/.test(o)),
+      'el corpus ya no declara ningún marcador nulo: la rama del marcador de fillGap se quedó sin sujeto'
+    );
+    assert.ok(
+      opciones.some(([, o]) => /[aeiou]'$/i.test(o)),
+      "el corpus ya no declara ninguna apócope: el contraejemplo de OPCION_ELIDIDA (`fa'`) se quedó sin sujeto"
+    );
+  });
+
+  test('ninguna NOTACIÓN DE AUSENCIA del corpus se le escapa a MARCADOR_NULO', () => {
+    // El barrido es DELIBERADAMENTE más ancho que `MARCADOR_NULO`: busca cualquier
+    // forma plausible de notar «aquí no va nada» y exige que el discriminador la
+    // reconozca. Una notación que el barrido ve y `MARCADOR_NULO` no, es una cadena que
+    // `fillGap` incrustaría dentro de la frase italiana.
+    const NOTACION_DE_AUSENCIA = /(^|\s)(∅|Ø|—|–|\(nada\)|\(niente\)|\(nulla\)|sin\s|senza\s)/i;
+    const sospechosas = todasLasOpciones()
+      .filter(([, o]) => NOTACION_DE_AUSENCIA.test(o))
+      .filter(([, o]) => !/∅/.test(o))
+      .map(([addr, o]) => `${addr}: ${JSON.stringify(o)}`);
+    assert.deepEqual(
+      sospechosas,
+      [],
+      `notación de ausencia que MARCADOR_NULO no reconoce — fillGap la incrustaría literalmente ` +
+        `en la frase italiana y la mandaría así al evaluador de pago:\n  ${sospechosas.join('\n  ')}`
+    );
+  });
+
+  test('toda opción que TERMINA en apóstrofo cae del lado correcto del discriminador', () => {
+    // El discriminador es la letra que precede al apóstrofo FINAL: consonante = elisión
+    // (se suelda a la palabra siguiente), vocal = apócope del imperativo (no se suelda).
+    // Sólo gobierna el apóstrofo final, que es donde se decide la soldadura: un
+    // apóstrofo a media opción (`un po' di`, 5 ocurrencias en partitivos) cae en la rama
+    // normal y se incrusta tal cual, que es lo correcto. La primera redacción de este
+    // test barría TODO apóstrofo y las marcó como infracción — la premisa equivocada era
+    // la del test, no el código.
+    //
+    // Lo que sí vigila: que no aparezca una TERCERA forma fuera de los dos lados, p. ej.
+    // un apóstrofo tipográfico `’` (hoy 0 ocurrencias), que haría que `OPCION_ELIDIDA`
+    // dejara de casar sin que nada se pusiera rojo.
+    const inclasificables = todasLasOpciones()
+      .filter(([, o]) => /['’]$/.test(o))
+      .filter(([, o]) => !/[bcdfghjklmnpqrstvwxyz]'$/i.test(o) && !/[aeiou]'$/i.test(o))
+      .map(([addr, o]) => `${addr}: ${JSON.stringify(o)}`);
+    assert.deepEqual(
+      inclasificables,
+      [],
+      `opción con apóstrofo que NO cae ni en elisión ni en apócope, así que el discriminador ` +
+        `ortográfico de fillGap no la gobierna:\n  ${inclasificables.join('\n  ')}`
+    );
+  });
+});
