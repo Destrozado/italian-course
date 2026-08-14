@@ -338,3 +338,7 @@ Ninguno. Las 62 traducciones son frases españolas completas y acentuadas; cero 
 ## User Setup Required
 
 Ninguno nuevo. `DEEPSEEK_API_KEY` y `GEMINI_API_KEY` ya estaban en `.env` desde la Phase 46.
+
+## Self-Check: PASSED
+
+Los 4 ficheros citados existen en disco; los 5 commits del plan (`d85b60d`, `f080fe3`, `264dd19`, `0a2885c`, `a4398b6`) más el de cierre existen en `git log`; el frontmatter de este SUMMARY parsea; `WINDOWS.md` sigue siendo JSON válido tras el cierre de la id 39, con la id 35 en `open` y la 39 en `fixed`.

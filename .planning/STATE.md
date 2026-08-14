@@ -5,15 +5,15 @@ milestone_name: Traducción al español por variante (TRAD-X1)
 current_phase: 47
 current_phase_name: Traducción — bloque Artículos (Articoli + Partitivos)
 status: executing
-stopped_at: "Seguimiento de 47-02 cerrado: deuda de alcance saldada (32 re-validadas, 31 verdes) + SEGUNDA enmienda del doc (adverbial de comida, 4/4 verdes). TRAD-COV PASS (144/144), disputed 0, reporter exit 0"
-last_updated: "2026-08-14T14:43:49.444Z"
+stopped_at: Completado 47-03-PLAN.md — bloque Articulos cerrado 110/110, reporter exit 0, TRAD-02 completo
+last_updated: "2026-08-14T17:43:16.045Z"
 last_activity: 2026-08-14
 last_activity_desc: Phase 46 complete, transitioned to Phase 47
 progress:
   total_phases: 8
   completed_phases: 1
   total_plans: 9
-  completed_plans: 7
+  completed_plans: 8
   percent: 13
 ---
 
@@ -31,9 +31,9 @@ See: `.planning/PROJECT.md` (updated 2026-08-13 — milestone v2.1 abierto: trad
 
 Milestone: v2.1 — Traducción al español por variante (TRAD-X1) — Phases **46-53** (numeración CONTINÚA desde Phase 45, sin reset)
 Phase: 47 (Traducción — bloque Artículos (Articoli + Partitivos)) — EXECUTING
-Plan: 3 of 4
+Plan: 4 of 4
 Status: Ready to execute
-Progress: [████████░░] 78% de los planes de la fase
+Progress: [█████████░] 89% de los planes de la fase
 Last activity: 2026-08-14 — Phase 47 execution started
 
 **Estado verificado en disco al cierre de 46-05 (2026-08-13T21:49Z):** reporter `node scripts/run-validation-271.mjs` → **exit 0** (`TRAD-COV: PASS (96/96)`, VAL-04/06/08/09 PASS, `VAL-06 250/250`); suite `node --test tests/*.test.js tests/fixtures/*.test.js` → **1308 / 1304 pass / 4 fail** (exit 1, único rojo = la deuda pre-existente de trazabilidad, id 17 del ledger); `tests/screen-translation.test.js` → **50/50**; motor **byte-intacto**; corpus con md5 idéntico a la foto verde y sin mutaciones residuales.
@@ -229,6 +229,7 @@ Deuda técnica del milestone (~25 items, cero blockers) en `.planning/milestones
 | Phase 46 P05 | ~2h 01m | 3 tasks | 5 files |
 | Phase 47 P01 | 3h27m | 3 tasks | 5 files |
 | Phase 47 P02 | 41m28s | 2 tasks | 6 files |
+| Phase 47 P03 | 2h46m | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -409,6 +410,10 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - [Phase ?]: TRAD-02 NO se marca completo en 47-01: cubre las 110 traducciones del bloque y hoy hay 5. Lo cierran 47-02 y 47-03
 - [Phase ?]: 47-02: opción A del autor — la regla del PARTITIVO se escribe en el doc de criterios y la condición «ausencia de sujeto» del carve-out de 47-01 FALLA (35 con sujeto), luego cumplimiento LITERAL de D-46-12 sobre las 3 de 47-01 + las 4 disputed
 - [Phase ?]: 47-02: override de autor sobre partitivos-qualche#2 — el singular se queda por fidelidad estructural (qualche rige singular y es lo que el slot enseña). Único override del plan, con déficit declarado: 1 correcta de modelo frente a 2 incorrecta
+- [Phase ?]: 47-03: los 9 disputed de Articoli se diagnosticaron como LIMITE DEL EVALUADOR, no hueco de criterios — el doc de criterios sale del plan con CERO lineas de diff, primera vez en la fase que un disputed masivo no cuesta enmienda
+- [Phase ?]: 47-03: opcion B+ del AUTOR — el juez del lado DeepSeek pasa a deepseek-reasoner sobre las 62 de articoli, NO sobre las 9 que fallaron (elimina el sesgo de seleccion). WINDOWS id 38: el corpus ya no esta juzgado de forma uniforme
+- [Phase ?]: 47-03: opcion A del AUTOR — override sobre articoli-lo-z#1. NO fabrica quorum (2 correcta de 2 modelos de 2 vendors ANTES del override), luego CUMPLE la barra estricta del plan que la id 35 no cumple. Espanol y doc intactos
+- [Phase ?]: 47-03: TRAD-02 marcado COMPLETO — 110/110 del bloque Articulos, cifra derivada del disco y confirmada por el reporter en exit 0. A diferencia de 47-01 y 47-02, aqui el disco lo respalda
 
 ### Pending Todos
 
@@ -469,8 +474,8 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Session Continuity
 
-**Last session:** 2026-08-14T14:43:49.414Z
-**Stopped at:** Seguimiento de 47-02 cerrado: deuda de alcance saldada (32 re-validadas, 31 verdes) + SEGUNDA enmienda del doc (adverbial de comida, 4/4 verdes). TRAD-COV PASS (144/144), disputed 0, reporter exit 0
+**Last session:** 2026-08-14T17:43:16.016Z
+**Stopped at:** Completado 47-03-PLAN.md — bloque Articulos cerrado 110/110, reporter exit 0, TRAD-02 completo
 **Resume file:** None
 
 ### Last Session
