@@ -503,6 +503,19 @@ describe('CR-01 — el status ESCRITO de cada traducción es el DERIVADO de sus 
     // Molde de tests/content-fare-indicativo.test.js. Redundante con `deriveStatus`
     // MIENTRAS la aserción de arriba esté verde — y ahí está el valor: si alguien
     // relajara la fuente única, este bloque sigue exigiendo el quórum por su cuenta.
+    //
+    // EL OVERRIDE DEL AUTOR (plan 47-02): la rama de cero-`incorrecta` de abajo se
+    // escribió con un mensaje que YA prometía la excepción («…y sin override del
+    // autor») y con una aserción que NO la implementaba. Mientras el corpus no tuvo
+    // ni un override de TRADUCCIÓN la promesa no se pudo cobrar; `partitivos-qualche#2`
+    // fue el primero y la destapó en rojo. Un mensaje que describe un carve-out
+    // inexistente es peor que no tenerlo: dice al que lee el rojo que su caso está
+    // contemplado cuando no lo está. Se implementa aquí la MISMA regla que
+    // `deriveStatus` (G-42-3), a propósito por separado y no importándola, para que
+    // este bloque siga siendo un juez independiente de la fuente única.
+    const esOverrideDelAutor = (p) =>
+      p?.by === 'autor' && p?.verdict === 'correcta' && p?.override === true;
+
     const validadas = traducciones.filter(({ val }) => val.status === 'validated');
     assert.ok(
       validadas.length > 0,
@@ -515,11 +528,26 @@ describe('CR-01 — el status ESCRITO de cada traducción es el DERIVADO de sus 
         new Set(correctas.map((p) => p?.by)).size >= 2,
         `${rel} · ${addr}: validated sin 2 \`by\` distintos (dos pases del mismo modelo no son quórum)`
       );
-      assert.equal(
-        val.passes.filter((p) => p?.verdict === 'incorrecta').length,
-        0,
-        `${rel} · ${addr}: validated con un pase incorrecta y sin override del autor`
-      );
+
+      const hayOverride = val.passes.some(esOverrideDelAutor);
+      if (hayOverride) {
+        // Un override RESUELVE la disidencia; no la borra ni fabrica quórum. El
+        // `incorrecta` se queda en `passes[]` a propósito (audit trail), así que
+        // aquí no se exige cero. Lo que SÍ se sigue exigiendo, sin rebaja, es que
+        // al menos una `correcta` venga de un MODELO: un `validated` sostenido
+        // sólo por la firma del autor es exactamente la falsificación que
+        // T-42-03 protege.
+        assert.ok(
+          correctas.some((p) => p?.by && p.by !== 'autor'),
+          `${rel} · ${addr}: validated con override del autor pero SIN ninguna \`correcta\` de un modelo`
+        );
+      } else {
+        assert.equal(
+          val.passes.filter((p) => p?.verdict === 'incorrecta').length,
+          0,
+          `${rel} · ${addr}: validated con un pase incorrecta y sin override del autor`
+        );
+      }
     }
   });
 });
