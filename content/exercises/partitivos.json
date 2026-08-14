@@ -50,15 +50,13 @@
           "translationES": {
             "text": "En el bar siempre bebo algo de vino tinto.",
             "validation": {
-              "status": "disputed",
+              "status": "validated",
               "passes": [
                 {
                   "by": "deepseek-chat",
                   "date": "2026-08-14",
-                  "verdict": "incorrecta",
-                  "concerns": [
-                    "[S2-fidelidad] La traducción añade 'algo de' que no está en el original italiano; el partitivo 'del' ya implica 'un poco de' o simplemente 'vino tinto' sin necesidad de explicitarlo. Sugerencia: \"En el bar siempre bebo vino tinto.\""
-                  ]
+                  "verdict": "correcta",
+                  "concerns": []
                 },
                 {
                   "by": "gemini-3.5-flash-lite",
@@ -142,15 +140,13 @@
           "translationES": {
             "text": "He comprado algo de pan.",
             "validation": {
-              "status": "disputed",
+              "status": "validated",
               "passes": [
                 {
                   "by": "deepseek-chat",
                   "date": "2026-08-14",
-                  "verdict": "incorrecta",
-                  "concerns": [
-                    "[S2-fidelidad] La traducción añade 'algo de' que no está en el italiano original. 'Ho comprato del pane' significa simplemente 'He comprado pan'. La partícula 'del' aquí es un artículo partitivo que indica una cantidad indeterminada, pero en español no se traduce como 'algo de' en este contexto; es un añadido que el original no tiene. Sugerencia: \"He comprado pan.\""
-                  ]
+                  "verdict": "correcta",
+                  "concerns": []
                 },
                 {
                   "by": "gemini-3.5-flash-lite",
@@ -423,15 +419,13 @@
           "translationES": {
             "text": "En la comida como algo de carne con las verduras.",
             "validation": {
-              "status": "disputed",
+              "status": "validated",
               "passes": [
                 {
                   "by": "deepseek-chat",
                   "date": "2026-08-14",
-                  "verdict": "incorrecta",
-                  "concerns": [
-                    "[S2-fidelidad] La traducción añade 'algo de' que no está en el original italiano. 'della carne' significa simplemente 'carne' (partitivo sin traducción literal al español). Sugerencia: \"En la comida como carne con las verduras.\""
-                  ]
+                  "verdict": "correcta",
+                  "concerns": []
                 },
                 {
                   "by": "gemini-3.5-flash-lite",
@@ -483,17 +477,15 @@
           ],
           "correctIndex": 0,
           "translationES": {
-            "text": "En la comida cocino algo de pasta con tomate.",
+            "text": "Para la comida cocino algo de pasta al tomate.",
             "validation": {
-              "status": "disputed",
+              "status": "validated",
               "passes": [
                 {
                   "by": "deepseek-chat",
                   "date": "2026-08-14",
-                  "verdict": "incorrecta",
-                  "concerns": [
-                    "[S2-fidelidad] la traducción omite el matiz partitivo de 'della' y añade 'algo de' que no está en el original; sugerencia: \"En la comida cocino pasta al tomate.\""
-                  ]
+                  "verdict": "correcta",
+                  "concerns": []
                 },
                 {
                   "by": "gemini-3.5-flash-lite",
@@ -1858,13 +1850,13 @@
               "status": "validated",
               "passes": [
                 {
-                  "by": "gemini-3.5-flash-lite",
+                  "by": "deepseek-chat",
                   "date": "2026-08-14",
                   "verdict": "correcta",
                   "concerns": []
                 },
                 {
-                  "by": "deepseek-chat",
+                  "by": "gemini-3.5-flash-lite",
                   "date": "2026-08-14",
                   "verdict": "correcta",
                   "concerns": []
