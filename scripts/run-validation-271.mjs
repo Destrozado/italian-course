@@ -407,6 +407,7 @@ const mcVariantCountOf = (file) => {
 const TRANSLATION_COVERAGE = [
   { slug: 'preposiciones',            file: 'content/exercises/preposiciones.json',            expected: mcVariantCountOf('content/exercises/preposiciones.json') },
   { slug: 'partitivos',               file: 'content/exercises/partitivos.json',               expected: mcVariantCountOf('content/exercises/partitivos.json') },
+  { slug: 'articoli',                 file: 'content/exercises/articoli.json',                 expected: mcVariantCountOf('content/exercises/articoli.json') },
 ];
 
 // Σ de los `expected` DERIVADOS de arriba, por el mismo motivo que `TOTAL_EXPECTED`: para
