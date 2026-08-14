@@ -2,9 +2,9 @@
 schema_version: 1
 open_count: 25
 waived_count: 0
-fixed_count: 5
-total_count: 30
-last_updated: 2026-08-13T22:49:05.443Z
+fixed_count: 6
+total_count: 31
+last_updated: 2026-08-14T07:09:04.617Z
 ---
 
 # Broken Windows Ledger
@@ -45,6 +45,7 @@ last_updated: 2026-08-13T22:49:05.443Z
 | 28 | 46 | deviation | scripts/validate-translation-pass.mjs |  | IN-03 (code review fase 46, NO arreglado): loadEnv hace split('\\n') y conserva el \\r final si .env tiene finales de linea CRLF; una clave con \\r la rechaza la validacion de cabeceras HTTP de Node (ERR_INVALID_CHAR), asi que falla RUIDOSAMENTE, no en silencio. El bloque es verbatim de scripts/validate-song-pass.mjs:75-84, asi que el arreglo (split(/\\r?\\n/) o trim sobre m[2]) le conviene a los DOS scripts. Este repo tiene .planning/WINDOWS.md por algo. No se leyo .env. | open |  | 2026-08-13T22:49:05.309Z |  |
 | 29 | 46 | deviation | scripts/validate-translation-pass.mjs |  | IN-04 (code review fase 46, NO arreglado): composePrompt envuelve JSON.stringify en una valla ```json y JSON.stringify no escapa los backticks, asi que un text o un prompt con ``` partiria la valla y dejaria parte del payload fuera del bloque de datos. Riesgo bajo y contenido (el §6 ordena tratar todo el payload como datos, y extractJsonBlock toma el ULTIMO bloque, que es el del evaluador). Ninguna de las 96 traducciones actuales lleva backticks. Arreglo: valla mas larga o rechazar ``` en buildDataBlock. | open |  | 2026-08-13T22:49:05.377Z |  |
 | 30 | 46 | unrun-verify | index.html |  | WR-05 (code review fase 46): la mecanica de x-show NO se pudo verificar en un DOM real. Alpine se sirve por CDN (index.html:32), el proyecto es zero-deps (sin package.json, sin jsdom) y las llamadas de red estaban prohibidas en la sesion de arreglo. El REGISTRO ya se corrigio por escrito (D-46-06 enmendada 2026-08-14 + comentario del nodo): el doble guard da INVISIBILIDAD, no ausencia del DOM. Lo verificado en disco: el nodo usa x-show y no la directiva x-if sobre template; la explanation usa la misma mecanica (:613); :547 es el precedente de presencia estructural. Queda abierta la observacion en un navegador de verdad. | open |  | 2026-08-13T22:49:05.443Z |  |
+| 31 | 46 | deviation | tests/count-arrays-lockstep.test.js |  | T-46-14 CERRADO el 2026-08-14 por el gate de seguridad de la fase (bloque 9, commit 632a190) — la leccion es la que queda abierta a la lectura: la mitigacion estaba declarada en DOS mitades en el <threat_model> (veredicto por igualdad de enteros + asercion de fuente sobre la region del sub-gate), solo se implemento la primera, y 46-03-SUMMARY.md afirmo las dos como verificadas. grep de toFixed/Math.round/0.99 sobre tests/ devolvia CERO. Se detecto POR MUTACION: con .length === 0 debilitado a >= 0 la suite se quedo en su baseline exacta (1329/1325/4) y el reporter en exit 0. Fila RETRACTADA por escrito, no reescrita. Regla que deriva: una mitigacion con DOS mitades en el plan necesita DOS verificaciones nombradas por separado, y la forma que se cuela (=== debilitado a >=) puede no ser la que el registro nombra (aritmetica de ratio) — cada una exige su propia asercion y su propia mutacion. M-1/M-2/M-3 ejecutadas con rojo observado, exit 1 las tres. | fixed |  | 2026-08-14T07:09:01.649Z | 2026-08-14T07:09:04.617Z |
 
 ````json
 [
@@ -407,6 +408,18 @@ last_updated: 2026-08-13T22:49:05.443Z
     "reason": "",
     "recorded_at": "2026-08-13T22:49:05.443Z",
     "resolved_at": null
+  },
+  {
+    "id": 31,
+    "kind": "deviation",
+    "phase": "46",
+    "file": "tests/count-arrays-lockstep.test.js",
+    "line": null,
+    "description": "T-46-14 CERRADO el 2026-08-14 por el gate de seguridad de la fase (bloque 9, commit 632a190) — la leccion es la que queda abierta a la lectura: la mitigacion estaba declarada en DOS mitades en el <threat_model> (veredicto por igualdad de enteros + asercion de fuente sobre la region del sub-gate), solo se implemento la primera, y 46-03-SUMMARY.md afirmo las dos como verificadas. grep de toFixed/Math.round/0.99 sobre tests/ devolvia CERO. Se detecto POR MUTACION: con .length === 0 debilitado a >= 0 la suite se quedo en su baseline exacta (1329/1325/4) y el reporter en exit 0. Fila RETRACTADA por escrito, no reescrita. Regla que deriva: una mitigacion con DOS mitades en el plan necesita DOS verificaciones nombradas por separado, y la forma que se cuela (=== debilitado a >=) puede no ser la que el registro nombra (aritmetica de ratio) — cada una exige su propia asercion y su propia mutacion. M-1/M-2/M-3 ejecutadas con rojo observado, exit 1 las tres.",
+    "status": "fixed",
+    "reason": "",
+    "recorded_at": "2026-08-14T07:09:01.649Z",
+    "resolved_at": "2026-08-14T07:09:04.617Z"
   }
 ]
 ````
