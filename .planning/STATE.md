@@ -4,17 +4,17 @@ milestone: v2.1
 milestone_name: Traducción al español por variante (TRAD-X1)
 current_phase: 47
 current_phase_name: Traducción — bloque Artículos (Articoli + Partitivos)
-status: executing
-stopped_at: Completado 47-03-PLAN.md — bloque Articulos cerrado 110/110, reporter exit 0, TRAD-02 completo
-last_updated: "2026-08-14T17:43:16.045Z"
+status: verifying
+stopped_at: Completado 47-04-PLAN.md — 3 mutaciones ejecutadas en 4 formas con rojo observado, autor aprobo, backstops 21/22 ABSTENIDOS y arrastrados a 48-53
+last_updated: "2026-08-14T21:58:34.799Z"
 last_activity: 2026-08-14
-last_activity_desc: Phase 46 complete, transitioned to Phase 47
+last_activity_desc: Phase 47 — 4/4 planes ejecutados; cierre por mutacion hecho y checkpoint del autor aprobado. Lista para verificacion de fase
 progress:
   total_phases: 8
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 9
-  completed_plans: 8
-  percent: 13
+  completed_plans: 9
+  percent: 25
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -30,13 +30,17 @@ See: `.planning/PROJECT.md` (updated 2026-08-13 — milestone v2.1 abierto: trad
 ## Current Position
 
 Milestone: v2.1 — Traducción al español por variante (TRAD-X1) — Phases **46-53** (numeración CONTINÚA desde Phase 45, sin reset)
-Phase: 47 (Traducción — bloque Artículos (Articoli + Partitivos)) — EXECUTING
+Phase: 47 (Traducción — bloque Artículos (Articoli + Partitivos)) — READY FOR VERIFICATION
 Plan: 4 of 4
-Status: Ready to execute
-Progress: [█████████░] 89% de los planes de la fase
-Last activity: 2026-08-14 — Phase 47 execution started
+Status: Phase complete — ready for verification
+Progress: [██████████] 100% de los planes de la fase
+Last activity: 2026-08-14 — Phase 47 ejecutada al completo (4/4 planes); checkpoint del autor aprobado
 
-**Estado verificado en disco al cierre de 46-05 (2026-08-13T21:49Z):** reporter `node scripts/run-validation-271.mjs` → **exit 0** (`TRAD-COV: PASS (96/96)`, VAL-04/06/08/09 PASS, `VAL-06 250/250`); suite `node --test tests/*.test.js tests/fixtures/*.test.js` → **1308 / 1304 pass / 4 fail** (exit 1, único rojo = la deuda pre-existente de trazabilidad, id 17 del ledger); `tests/screen-translation.test.js` → **50/50**; motor **byte-intacto**; corpus con md5 idéntico a la foto verde y sin mutaciones residuales.
+**Estado verificado en disco al cierre de 47-04 (2026-08-14T21:54Z):** reporter `node scripts/run-validation-271.mjs` → **exit 0** (`TRAD-COV: PASS (206/206)` sobre 3 categorías declaradas cubiertas, VAL-04/06/08/09 PASS, `VAL-06 250/250`, `Milestone gate PASS.`); gate anti-ceguera `node --test tests/count-arrays-lockstep.test.js` → **exit 0**, 64/64; suite `node --test tests/*.test.js tests/fixtures/*.test.js` → **1343 / 1339 pass / 4 fail** (exit 1, único rojo = la deuda pre-existente de trazabilidad, id 17 del ledger — **cero regresiones nuevas** frente a la línea base de 47-03); motor **byte-intacto** (`git diff --stat src/domain/ src/screens/app.js` vacío) y `schemaVersion` en **13**; corpus de traducción **206/206 `validated`**, 0 `disputed`, 0 `pending`, **2 overrides** en todo el corpus (`articoli-lo-z#1`, `partitivos-qualche#2`, ninguno nuevo en 47-04); los tres ficheros mutados con **md5 idéntico** a su foto verde y sin mutaciones residuales.
+
+**Las TRES mutaciones de cierre están EJECUTADAS en sus cuatro formas con el rojo observado** (`47-MUTACIONES-EVIDENCIA.md`): el Success Criterion 3 del ROADMAP quedó verificado **corriendo** la mutación, y el desenganche dejó al reporter emitiendo `PASS (144/144)` y `PASS (96/96)` en exit 0 con 62 y luego 110 traducciones desaparecidas del total — el `225/225 PASS` de las Phases 41-43 reproducido sobre variantes.
+
+**Backstops que SIGUEN ABSTENIDOS y viajan a las Phases 48-53:** `WINDOWS` **21** y **22** (long-text), con medida nueva derivada del disco (`partitivos-dello-scons#0`, 65 chars = 462 px = **1 línea**, caja mínima 622 px). El autor aceptó el **arrastre** el 2026-08-14; **no** aprobó la envoltura multilínea, que sigue sin sujeto. **No se reetiquetan como pasados.**
 
 **Estructura del milestone:**
 
@@ -230,6 +234,7 @@ Deuda técnica del milestone (~25 items, cero blockers) en `.planning/milestones
 | Phase 47 P01 | 3h27m | 3 tasks | 5 files |
 | Phase 47 P02 | 41m28s | 2 tasks | 6 files |
 | Phase 47 P03 | 2h46m | 2 tasks | 3 files |
+| Phase 47 P04 | 4h 09m | 3 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -414,6 +419,8 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - [Phase ?]: 47-03: opcion B+ del AUTOR — el juez del lado DeepSeek pasa a deepseek-reasoner sobre las 62 de articoli, NO sobre las 9 que fallaron (elimina el sesgo de seleccion). WINDOWS id 38: el corpus ya no esta juzgado de forma uniforme
 - [Phase ?]: 47-03: opcion A del AUTOR — override sobre articoli-lo-z#1. NO fabrica quorum (2 correcta de 2 modelos de 2 vendors ANTES del override), luego CUMPLE la barra estricta del plan que la id 35 no cumple. Espanol y doc intactos
 - [Phase ?]: 47-03: TRAD-02 marcado COMPLETO — 110/110 del bloque Articulos, cifra derivada del disco y confirmada por el reporter en exit 0. A diferencia de 47-01 y 47-02, aqui el disco lo respalda
+- [Phase ?]: Phase 47 · plan 04: los backstops WINDOWS 21 y 22 (long-text) SIGUEN ABSTENIDOS y se arrastran a las Phases 48-53 con medida nueva (partitivos-dello-scons#0, 65 chars = 462 px = 1 linea, caja minima 622 px). El autor acepto el ARRASTRE el 2026-08-14, no aprobo la envoltura multilinea: sigue sin sujeto. NO se reetiquetan como pasados
+- [Phase ?]: Phase 47 · plan 04: VAL-08 NO se ensancha (WINDOWS id 40). Es un gate de nivel SLOT por diseno y los disputed de TRADUCCION los consume TRAD-COV. Ensancharlo exigiria su propia mutacion. El arreglo va en el CRITERIO de los planes de las Phases 48-53, no en el gate. Hallazgo identico al de la Phase 46: el criterio se copio de plan a plan sin corregirse
 
 ### Pending Todos
 
@@ -474,8 +481,8 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Session Continuity
 
-**Last session:** 2026-08-14T17:43:16.016Z
-**Stopped at:** Completado 47-03-PLAN.md — bloque Articulos cerrado 110/110, reporter exit 0, TRAD-02 completo
+**Last session:** 2026-08-14T21:58:23.654Z
+**Stopped at:** Completado 47-04-PLAN.md — 3 mutaciones ejecutadas en 4 formas con rojo observado, autor aprobo, backstops 21/22 ABSTENIDOS y arrastrados a 48-53
 **Resume file:** None
 
 ### Last Session
