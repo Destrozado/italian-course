@@ -5,8 +5,8 @@ milestone_name: Traducción al español por variante (TRAD-X1)
 current_phase: 47
 current_phase_name: Traducción — bloque Artículos (Articoli + Partitivos)
 status: executing
-stopped_at: Completed 47-02-PLAN.md
-last_updated: "2026-08-14T13:03:28.872Z"
+stopped_at: "Seguimiento de 47-02 cerrado: deuda de alcance saldada (32 re-validadas, 31 verdes) + SEGUNDA enmienda del doc (adverbial de comida, 4/4 verdes). TRAD-COV PASS (144/144), disputed 0, reporter exit 0"
+last_updated: "2026-08-14T14:43:49.444Z"
 last_activity: 2026-08-14
 last_activity_desc: Phase 46 complete, transitioned to Phase 47
 progress:
@@ -469,8 +469,8 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Session Continuity
 
-**Last session:** 2026-08-14T13:03:20.129Z
-**Stopped at:** Completed 47-02-PLAN.md
+**Last session:** 2026-08-14T14:43:49.414Z
+**Stopped at:** Seguimiento de 47-02 cerrado: deuda de alcance saldada (32 re-validadas, 31 verdes) + SEGUNDA enmienda del doc (adverbial de comida, 4/4 verdes). TRAD-COV PASS (144/144), disputed 0, reporter exit 0
 **Resume file:** None
 
 ### Last Session
