@@ -981,7 +981,29 @@
             "preposición",
             "artículo determinativo"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "He comido algo de pan.",
+            "validation": {
+              "status": "disputed",
+              "passes": [
+                {
+                  "by": "deepseek-chat",
+                  "date": "2026-08-14",
+                  "verdict": "incorrecta",
+                  "concerns": [
+                    "[S2-fidelidad] La traducción omite la parte metalingüística del original: '-> Aquí 'del' funciona como partitivo' no está traducida. El original no es solo 'Ho mangiato del pane', sino la frase completa con la glosa explicativa. Sugerencia: \"He comido algo de pan. -> Aquí 'del' funciona como partitivo\""
+                  ]
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-14",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Il sapore del caffè è intenso. -> Aquí 'del' funciona como ___",
