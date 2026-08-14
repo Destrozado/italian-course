@@ -213,6 +213,35 @@ DENTRO de la preposición, no en un sustantivo aparte. El equivalente español e
   es movimiento HACIA (`a casa de X`), mientras que `venire` / `uscire da X` es movimiento DESDE
   (`de casa de X`). Invertir la dirección es `[S2-fidelidad]` false.
 
+### Excepción léxica: el PARTITIVO italiano se traduce «algo de» / «un poco de» / «unos-unas»
+
+En italiano, el **artículo partitivo** (`del`, `dello`, `della`, `dell'`, `dei`, `degli`, `delle`) y la
+locución `un po' di` expresan una **cantidad indeterminada**: `Ho comprato del pane`,
+`Bevo della birra`, `Ho comprato dei libri`, `Vorrei un po' d'acqua`. El español **no tiene artículo
+partitivo**: la misma cantidad indeterminada se dice con un cuantificador —`algo de` / `un poco de`
+ante incontable, `unos` / `unas` ante contable plural— o bien con el sustantivo escueto.
+
+- **Ese `algo de` / `un poco de` / `unos` / `unas` del español NO es contenido añadido: es la
+  traducción del propio partitivo.** Un concern `[S2-fidelidad]` del tipo «la traducción añade
+  "algo de", que no aparece en el italiano», «"del pane" significa simplemente "pan"» o «el partitivo
+  no se traduce en español» es un **FALSO POSITIVO** y no debe emitirse. El morfema italiano que porta
+  la cantidad indeterminada es precisamente `del`, y el español lo porta en el cuantificador: nada se
+  ha añadido, solo se ha trasladado de una pieza gramatical a otra.
+- **Las dos soluciones son fieles y NINGUNA es obligatoria.** `He comprado pan.` y
+  `He comprado algo de pan.` traducen ambas `Ho comprato del pane.`; el sustantivo escueto es
+  igualmente correcto. Esta regla **absuelve** el cuantificador, **no lo exige**: una traducción que
+  no lo use está bien y no se marca por ello, exactamente igual que una que sí lo use.
+- Aplicarlo al revés produce el mismo daño que en la excepción anterior. La **guardia de fidelidad de
+  S6** lo prohíbe de forma explícita: una sugerencia que suene más literal pero traicione el sentido
+  empeora el criterio en lugar de resolverlo.
+- Lo que SÍ tienes que vigilar aquí es el **NÚMERO**, y eso sí es objetable, exactamente como la
+  dirección lo es en `da` + PERSONA: el partitivo de incontable (`del pane`, `della carne`,
+  `un po' d'acqua`) es **singular** y pide `algo de` / `un poco de`; el partitivo de contable plural
+  (`dei libri`, `degli amici`, `delle mele`) es **plural** y pide `unos` / `unas`. Cruzar los dos
+  —`unos panes` por `del pane`, `algo de libro` por `dei libri`— cambia la cantidad que la frase
+  afirma y es `[S2-fidelidad]` false. Esto no añade exigencia ninguna: es S2 aplicado al número, que
+  ya lo exigía.
+
 ### Frontera con el `gloss` español del `prompt` (canon R7)
 
 Algunas frases italianas del corpus llevan, DENTRO del propio `prompt`, una glosa española entre
