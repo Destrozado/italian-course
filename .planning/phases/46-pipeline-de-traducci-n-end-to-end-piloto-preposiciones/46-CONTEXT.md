@@ -245,6 +245,59 @@ Bajar el pipeline COMPLETO de traducción al español y demostrarlo end-to-end s
 
   ---
 
+  **TERCERA NOTA (2026-08-14 — Phase 47, seguimiento del plan 47-02). Decidida por el AUTOR: `opción A`, otra vez. La DEUDA DE ALCANCE de la segunda nota queda CERRADA — las 32 se re-validaron, y con ellas el cumplimiento literal de D-46-12 cubre el sujeto ENTERO de la enmienda del PARTITIVO.**
+
+  La segunda nota dejó por escrito, sin disimularlo, que 32 variantes con sujeto **no** se habían re-validado y que eso era una **decisión de alcance del autor**, no una demostración de que no hubiera sujeto. Esa distinción era exactamente el punto débil que la nota señalaba de sí misma. El autor decidió cerrarlo: se re-validaron **las 32 desde cero** bajo el doc ya amendado, con quórum completo cross-vendor.
+
+  **La cifra, RECOMPUTADA del disco** (medida sobre `content/exercises/partitivos.json` tal como estaba en el commit `1f46236`, antes de tocar nada, y derivada — no transcrita de la segunda nota ni del prompt de continuación): **39** variantes traducidas llevaban el rendering partitivo; **−3** del cuerpo de 47-01 (`partitivos-clasificacion` #0, #2, #4) y **−4** de las `disputed` que motivaron la enmienda, ambas tandas ya re-validadas ese mismo día ⇒ **N = 32**.
+
+  | Recuento del cumplimiento literal sobre las 32 | |
+  |---|---|
+  | Re-validadas desde cero (2 pases cada una) | **32** |
+  | Cerradas en verde | **31** |
+  | Escaladas al autor como `disputed` | **1** (`partitivos-delle-invariable#0`) |
+  | Texto español modificado | **0** — byte a byte idéntico |
+  | Overrides nuevos | **0** |
+  | Pases PRE-enmienda supervivientes | **0** |
+
+  **Lo que esto demuestra, y lo que NO.** Demuestra la **direccionalidad absolutoria** de la enmienda del PARTITIVO por la vía cara: 31 de 32 `correcta` previas siguieron siendo `correcta` sin tocar un carácter, que es justo lo que la condición 2 predecía y lo que hasta ahora solo estaba *argumentado*. **No** demuestra que el argumento de la condición 2 fuera innecesario: lo confirma, y confirmar un argumento gastando llamadas es precisamente lo que la regla enmendada manda hacer cuando la condición 1 falla. La segunda nota decía «esto es un argumento de por qué es seguro, no una demostración»; esta nota convierte el argumento en medición.
+
+  **Y destapó lo que un argumento no puede destapar: la 32.ª.** `partitivos-delle-invariable#0` volvió `disputed` con un concern **NUEVO**, que la enmienda del partitivo no cubría ni podía cubrir —`[S2-fidelidad] La traducción omite la preposición 'a' del original ('a merenda')`—. Esa variante es el sujeto de la CUARTA nota, abajo. Es el argumento más fuerte a favor de haber pagado el cumplimiento literal: el hallazgo estaba en el resto del cuerpo, no en la parte que la enmienda había motivado.
+
+  — *Autor, 2026-08-14. Phase 47, seguimiento del plan 47-02.*
+
+  ---
+
+  **CUARTA NOTA (2026-08-14 — Phase 47, seguimiento del plan 47-02). SEGUNDA ENMIENDA DEL MISMO PLAN al doc de criterios: la excepción léxica del ADVERBIAL DE COMIDA. Tenía sujeto, y se ejecutó CUMPLIMIENTO LITERAL sobre él, decidido por el AUTOR.**
+
+  Dos enmiendas del doc de criterios en un solo plan es suficientemente inusual como para decirlo en voz alta en vez de dejarlo implícito en un commit. La primera (PARTITIVO) la motivaron 4 `disputed`; esta la motivó **una sola** variante que la primera no pudo cerrar.
+
+  **Qué se amendó:** *«Excepción léxica: el adverbial de comida `a pranzo` / `a cena` se traduce TRANSPONIENDO la preposición»*, tercera hermana de las de `da` + PERSONA y del PARTITIVO, con su misma anatomía. Declara **falso positivo** el concern «la traducción omite la preposición "a" de *a merenda*» y **nada más**: el español no omite la preposición, la **transpone** (`de merienda`, `en la cena`, `para la comida`) porque no admite la italiana ahí. La regla se apoya en una frase que **S2 ya contenía** —«fidelidad estricta no significa palabra por palabra; las diferencias obligadas por la lengua son correctas y no se penalizan»—, así que no rebaja S2: nombra el caso concreto en el que aplicarla al pie de la letra la contradice.
+
+  **Por qué era hueco del doc y no un falso positivo suelto, con la evidencia CONTADA DEL DISCO.** En **todo el corpus** solo **4** variantes traducidas llevan el adverbial de comida italiano con `a`, las 4 en `partitivos`. `deepseek-chat` aprobó **3** de ellas hoy mismo y marcó la **cuarta** por la estructura IDÉNTICA:
+
+  | Variante | Italiano | Español | Veredicto de `deepseek-chat` |
+  |---|---|---|---|
+  | `della-cons#0` | `A pranzo mangio della carne…` | «**En** la comida como…» | `correcta` |
+  | `della-cons#2` | `A pranzo cucino della pasta…` | «**Para** la comida cocino…» | `correcta` |
+  | `clasificacion#4` | `A cena bevo dell'acqua.` | «**En** la cena siempre bebo…» | `correcta` |
+  | `delle-invariable#0` | `…delle mele **a merenda**.` | «**De** merienda» | **`incorrecta`** |
+
+  **Marcar un patrón y aprobar tres idénticos es la firma canónica de este proyecto para un hueco de criterios**, no para cuatro falsos positivos aislados: es literalmente el mismo síntoma que ya obligó a escribir la excepción del gloss (Phase 42) y la del PARTITIVO (hoy, segunda nota). Y el trabajo adversarial fue al juez MÁS estricto y **del MISMO vendor que el objetor**: `deepseek-reasoner` refutó el concern punto por punto. Con un objetor solo, del mismo pozo, y refutado por su hermano estricto, el diagnóstico de hueco no descansa en la comodidad de quien lo arregla.
+
+  **Prueba de dos condiciones del carve-out de 47-01, aplicada a ESTA enmienda:**
+
+  1. **Ausencia de sujeto: FALLA.** **4** variantes traducidas la presentan (3 ya `validated`, 1 `disputed`). La condición exige cero. Medido sobre las **144** traducciones existentes del corpus: `preposiciones` **0**, `partitivos` **4**. (Hay además **5** variantes SIN traducir que llevan el adverbial —3 en `articoli`, 1 en `fare-indicativo`, 1 en `possessivi`—: no son sujeto de re-validación porque nunca se validaron, y nacerán ya bajo el doc amendado en 47-03 y siguientes.)
+  2. **Direccionalidad absolutoria: SE MANTIENE.** La regla retira un motivo-para-marcar y declara fieles varias soluciones sin imponer ninguna. Sus dos puntos de vigilancia —**qué comida** es, y que **el adverbial no desaparezca entero**— reiteran S2 sin añadir exigencia: omitir contenido ya era S2 `false` antes de esta regla. Cero imperativos de la forma «marca como incorrecta si…», que es el veto que 47-01 dejó escrito.
+
+  Falla una ⇒ **cumplimiento literal**, y se ejecutó: **las 4 re-validadas desde cero**, no solo la `disputed`. **8 llamadas, 8 `correcta`**, `by` escrito idéntico al pinneado en las 8 (cero auto-fallbacks; se dice porque `WINDOWS` id 33 advierte que listar un modelo no garantiza invocarlo, y la cola se verificó contra `/v1beta/models` antes de gastar la primera).
+
+  **El español de `delle-invariable#0` NO se tocó.** «He comido unas manzanas de merienda.» se queda tal cual, byte a byte, y pasa de `disputed` a `validated` **sin override**. Es el mismo movimiento que ya hicieron `del-cons#1`, `del-cons#4` y `della-cons#0` con la enmienda anterior: cuando el defecto está en los criterios, se arreglan los criterios y el texto se queda. Overrides nuevos en todo el seguimiento: **0**; el de `qualche#2` sigue siendo el único del plan.
+
+  — *Autor, 2026-08-14. Phase 47, seguimiento del plan 47-02.*
+
+  ---
+
 - **D-46-13: TVAL-02 — script hermano de `scripts/validate-song-pass.mjs`, con el quórum cross-vendor DeepSeek + Gemini, 1-por-1 (VAL-03).** — **Reversibility:** reversible
 
   Espejo exacto del script de canciones: `--model` / `--fallback` / `--avoid` (para garantizar 2 `by` distintos) / `--write` / `--dry-run` / `--temp`; auto-fallback en 429 registrando SIEMPRE el modelo que de verdad respondió; zero-deps; `withFileLock` para el read-modify-write; `deriveStatus` importado de `src/data/validation-state.js` como fuente única.
