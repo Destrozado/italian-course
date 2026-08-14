@@ -163,7 +163,7 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
 
 ### 🚧 v2.1 (Phases 46-53) — ACTIVE desde 2026-08-13
 
-- [ ] **Phase 46: Pipeline de traducción end-to-end (piloto Preposiciones)** - Campo opcional + render en acierto y fallo + validador propio + gates verificados por mutación, todo probado sobre las 96 variantes reales de Preposiciones
+- [x] **Phase 46: Pipeline de traducción end-to-end (piloto Preposiciones)** - Campo opcional + render en acierto y fallo + validador propio + gates verificados por mutación, todo probado sobre las 96 variantes reales de Preposiciones (completed 2026-08-14)
 - [ ] **Phase 47: Traducción — bloque Artículos** - Articoli (62) + Partitivos (48) = 110 traducciones autoradas y validadas por quórum
 - [ ] **Phase 48: Traducción — paradigma `fare`** - fare-indicativo (54) + congiuntivo (30) + indefiniti (21) + cond-imperativo (17) = 122 traducciones donde el tiempo verbal se reconoce en español
 - [ ] **Phase 49: Traducción — morfología** - Genero e numero (60) + Sostantivi irregolari (44) = 104 traducciones sin degenerar en glosa de una palabra
@@ -196,7 +196,7 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
 - [x] 46-02-PLAN.md
 - [x] 46-03-PLAN.md
 - [x] 46-04-PLAN.md
-- [ ] 46-05-PLAN.md
+- [x] 46-05-PLAN.md
 
 - [ ] `46-01-PLAN.md` — Tracer: la frase canónica atraviesa schema y las DOS superficies (SCH-01..03, REND-01..05)
 - [ ] `46-02-PLAN.md` — El validador propio: prompt de traducción + script de quórum con `writePass` re-estrechado (TVAL-01..03)

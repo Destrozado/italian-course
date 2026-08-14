@@ -2,19 +2,19 @@
 gsd_state_version: 1.0
 milestone: v2.1
 milestone_name: Traducción al español por variante (TRAD-X1)
-current_phase: 46
-current_phase_name: Pipeline de traducción end-to-end (piloto Preposiciones)
-status: executing
-stopped_at: Completed 46-05-PLAN.md (los 5 planes de la Phase 46 ejecutados; pendientes los gates de cierre de fase)
-last_updated: "2026-08-13T21:55:00.000Z"
-last_activity: 2026-08-13
-last_activity_desc: "Plan 46-05 COMPLETO — 3 mutaciones de D-46-18 con rojo observado, checkpoint del autor aprobado (REND-01..05), 3 backstops ABSTENIDOS"
+current_phase: 47
+current_phase_name: Traducción — bloque Artículos (Articoli + Partitivos)
+status: planning
+stopped_at: Completed 46-05-PLAN.md — los 5 planes de la Phase 46 tienen SUMMARY; faltan los gates de cierre de fase (aggregate → code review → verify), que corre el orquestador
+last_updated: "2026-08-14T07:32:18.989Z"
+last_activity: 2026-08-14
+last_activity_desc: Phase 46 complete, transitioned to Phase 47
 progress:
   total_phases: 8
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 5
   completed_plans: 5
-  percent: 0
+  percent: 13
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -30,11 +30,11 @@ See: `.planning/PROJECT.md` (updated 2026-08-13 — milestone v2.1 abierto: trad
 ## Current Position
 
 Milestone: v2.1 — Traducción al español por variante (TRAD-X1) — Phases **46-53** (numeración CONTINÚA desde Phase 45, sin reset)
-Phase: 46 (Pipeline de traducción end-to-end (piloto Preposiciones)) — EXECUTING (5/5 planes ejecutados; faltan los gates de cierre de fase)
-Plan: 5 of 5 — **COMPLETO**
-Status: Los 5 planes tienen SUMMARY. Siguiente: los gates de cierre de fase (aggregate → code review → verify), que corre el orquestador
+Phase: 47 — Traducción — bloque Artículos (Articoli + Partitivos)
+Plan: Not started
+Status: Ready to plan
 Progress: [██████████] 100% de los planes de la fase
-Last activity: 2026-08-13 — Plan 46-05 cerrado: las 3 mutaciones de D-46-18 ejecutadas con rojo observado, el checkpoint del autor aprobado (REND-01..05 confirmados en pantalla) y 3 backstops ABSTENIDOS por escrito
+Last activity: 2026-08-14 — Phase 46 complete, transitioned to Phase 47
 
 **Estado verificado en disco al cierre de 46-05 (2026-08-13T21:49Z):** reporter `node scripts/run-validation-271.mjs` → **exit 0** (`TRAD-COV: PASS (96/96)`, VAL-04/06/08/09 PASS, `VAL-06 250/250`); suite `node --test tests/*.test.js tests/fixtures/*.test.js` → **1308 / 1304 pass / 4 fail** (exit 1, único rojo = la deuda pre-existente de trazabilidad, id 17 del ledger); `tests/screen-translation.test.js` → **50/50**; motor **byte-intacto**; corpus con md5 idéntico a la foto verde y sin mutaciones residuales.
 
