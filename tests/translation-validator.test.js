@@ -561,7 +561,14 @@ describe('validate-translation-pass — escritura quirúrgica en variants[k].tra
     const NULO = ['∅ / sin partitivo', 'del', 'dei', 'dello'];
     assert.equal(fillGap('Non compro ___ pane.', NULO, 0), 'Non compro pane.');
     assert.equal(fillGap('Non ho ___ amici a Roma.', NULO, 0), 'Non ho amici a Roma.');
-    assert.equal(fillGap('___ pane è buono.', NULO, 0), 'pane è buono.', 'hueco inicial: sin espacio suelto delante');
+    // ESTA ASERCIÓN CAMBIÓ EN LA PHASE 47 (WR-01), y el cambio es deliberado, no un
+    // «hacer que pase». Lo que comprobaba —y sigue comprobando— es que el hueco inicial
+    // no deja un espacio suelto delante; su valor esperado congelaba ADEMÁS, de
+    // colateral, una `p` minúscula abriendo la frase, que es el defecto que WR-01
+    // reporta. La propiedad que este test existe para vigilar se conserva intacta (no
+    // hay espacio inicial); lo que se corrige es la parte del literal que nunca fue su
+    // sujeto y que, congelada, certificaba en verde una cadena que no es italiano.
+    assert.equal(fillGap('___ pane è buono.', NULO, 0), 'Pane è buono.', 'hueco inicial: sin espacio suelto delante, y la palabra que pasa a abrir la frase va en mayúscula');
     assert.equal(fillGap('Non ne compro ___.', NULO, 0), 'Non ne compro.', 'la puntuación no queda separada del verbo');
     // Direccionalidad: el marcador nulo NO puede absolver a una opción normal. Cuando la
     // correcta es una palabra de verdad, el relleno sigue siendo el de siempre.
@@ -583,6 +590,60 @@ describe('validate-translation-pass — escritura quirúrgica en variants[k].tra
       "apócope: `fa'` NO se suelda, aunque le siga una vocal"
     );
     assert.equal(fillGap('Compro ___ pane.', ['del'], 0), 'Compro del pane.', 'una opción sin apóstrofo no cambia');
+  });
+
+  // Phase 47, WR-01 del code review. Las `options` se autoran en minúscula porque casi
+  // siempre caen a media frase, pero cuando el `prompt` EMPIEZA por `___` la opción pasa
+  // a ser la primera palabra y el `italianoResuelto` deja de ser italiano
+  // ortográficamente válido. 13 de las 206 traducciones del corpus se enviaron así al
+  // quórum de pago (12 en articoli, 1 en preposiciones), medido en disco.
+  //
+  // Las cuatro primeras aserciones FALLAN contra la versión anterior de `fillGap`
+  // (devolvía la frase con minúscula inicial), así que el arreglo queda verificado por
+  // mutación y no sólo afirmado.
+  test('cuando el hueco ABRE la frase, la palabra que pasa a primera va en mayúscula', () => {
+    // Rama normal.
+    assert.equal(fillGap('___ casa di mia nonna è grande.', ['la'], 0), 'La casa di mia nonna è grande.');
+    assert.equal(fillGap('___ uova sono nel frigorifero.', ['le'], 0), 'Le uova sono nel frigorifero.');
+    // Rama elidida: la mayúscula cae sobre la elisión, no sobre la palabra soldada.
+    assert.equal(fillGap('___ amica di Sofia è spagnola.', ["l'"], 0), "L'amica di Sofia è spagnola.");
+    // Rama del marcador nulo: el marcador ya no está en la cadena, así que la mayúscula
+    // cae sobre la palabra que pasa a abrir la frase — que es justo lo que pide.
+    assert.equal(fillGap('___ pane è buono.', ['∅ / sin partitivo'], 0), 'Pane è buono.');
+
+    // DIRECCIONALIDAD: un hueco a MEDIA frase no toca nada. Sin esta mitad, un
+    // `toLocaleUpperCase` mal anclado capitalizaría las 193 restantes y el test no lo
+    // vería.
+    assert.equal(fillGap('Compro ___ pane.', ['del'], 0), 'Compro del pane.');
+    assert.equal(fillGap("Metti ___ aceto nell'insalata.", ["dell'"], 0), "Metti dell'aceto nell'insalata.");
+    assert.equal(fillGap('Non compro ___ pane.', ['∅ / sin partitivo'], 0), 'Non compro pane.');
+  });
+
+  test('BARRIDO EN DISCO: ninguna traducción del corpus produce un italiano con minúscula inicial', () => {
+    // Derivado del corpus, no una lista escrita: las 13 direcciones que WR-01 midió
+    // están arregladas Y ninguna futura puede colarse. Sin esta aserción, el arreglo
+    // valdría sólo para los tres casos sintéticos de arriba.
+    const dir = path.join(ROOT, 'content/exercises');
+    const infractoras = [];
+    let sujetos = 0;
+    for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.json'))) {
+      const data = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'));
+      for (const ex of data.exercises || []) {
+        if (ex.type !== 'multiple-choice') continue;
+        (ex.variants || []).forEach((v, k) => {
+          if (!v?.translationES?.text) return;
+          sujetos++;
+          const it = fillGap(v.prompt, v.options, v.correctIndex);
+          if (it && /^[a-zàèéìòùáíóú]/.test(it)) infractoras.push(`${ex.id}#${k} → ${JSON.stringify(it)}`);
+        });
+      }
+    }
+    assert.ok(sujetos > 0, 'no-vacuidad: el barrido no encontró ni una traducción en disco');
+    assert.deepEqual(
+      infractoras,
+      [],
+      `el italiano que viaja al quórum de pago no es ortográficamente válido en:\n  ${infractoras.join('\n  ')}`
+    );
   });
 });
 

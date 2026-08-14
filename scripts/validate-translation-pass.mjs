@@ -234,19 +234,45 @@ const OPCION_ELIDIDA = /[bcdfghjklmnpqrstvwxyz]'$/i;
  * La resolución fiel de un marcador nulo es la frase SIN el hueco: se retira el hueco
  * junto a sus espacios adyacentes (o quedaría un espacio doble) y se recoge la
  * puntuación que pudiera quedar suelta.
+ *
+ * MAYÚSCULA INICIAL CUANDO EL HUECO ABRE LA FRASE (Phase 47, WR-01 del code review).
+ * Las `options` se autoran en minúscula porque casi siempre caen a media frase
+ * (`Compro del pane`), pero cuando el `prompt` EMPIEZA por `___` la opción pasa a ser
+ * la primera palabra y el `italianoResuelto` deja de ser italiano ortográficamente
+ * válido: `le uova sono nel frigorifero.` no se escribe así en ninguna parte.
+ *
+ * Es EXACTAMENTE la misma clase de defecto que motivó la excepción del marcador nulo de
+ * arriba, y se le aplica su misma doctrina, que ya está escrita ahí: el evaluador que
+ * recibe una cadena mal construida tiene razón al marcarla bajo S5, y ese `incorrecta`
+ * no es un falso positivo del criterio sino un defecto de lo que le enviamos — así que
+ * el arreglo vive AQUÍ y no ablandando el doc de criterios.
+ *
+ * Comprobado en el corpus ANTES de tocar nada, que es la condición bajo la cual este
+ * arreglo es correcto: no existe ninguna `option` que deba permanecer en minúscula a
+ * principio de frase. La única notación del corpus es el marcador nulo `∅`, y en su rama
+ * el marcador ya no está en la cadena — la mayúscula cae sobre la palabra que pasa a
+ * abrir la frase, que es justo lo que el italiano pide.
  */
+const capitalizarSiAbre = (frase, promptOriginal) =>
+  /^\s*___/.test(promptOriginal) && frase
+    ? frase[0].toLocaleUpperCase('it') + frase.slice(1)
+    : frase;
+
 export function fillGap(prompt, options, correctIndex) {
   const opt = Array.isArray(options) ? options[correctIndex] : undefined;
   if (typeof prompt !== 'string' || typeof opt !== 'string') return null;
   if (!prompt.includes('___')) return null;
   if (MARCADOR_NULO.test(opt)) {
-    return prompt
-      .replace(/\s*___\s*/, ' ')
-      .replace(/\s+([.,;:!?])/g, '$1')
-      .trim();
+    return capitalizarSiAbre(
+      prompt
+        .replace(/\s*___\s*/, ' ')
+        .replace(/\s+([.,;:!?])/g, '$1')
+        .trim(),
+      prompt
+    );
   }
-  if (OPCION_ELIDIDA.test(opt)) return prompt.replace(/___\s*/, opt);
-  return prompt.replace('___', opt);
+  if (OPCION_ELIDIDA.test(opt)) return capitalizarSiAbre(prompt.replace(/___\s*/, opt), prompt);
+  return capitalizarSiAbre(prompt.replace('___', opt), prompt);
 }
 
 /**
