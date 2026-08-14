@@ -2671,3 +2671,68 @@ describe('GATE-03 - el denominador de cobertura de traduccion no encoge en silen
     );
   });
 });
+
+// ---------------------------------------------------------------------------
+// GATE-04 - los `expected` LITERALES de CATEGORIES cuadran con el disco, uno a
+// uno (WR-03 del code review de la Phase 47)
+//
+// 9 de las 18 entradas de CATEGORIES llevan una cifra escrita a mano y las
+// otras 9 la derivan. El guard de coherencia del reporter confronta
+// SIGMA-literales contra SIGMA-disco, asi que un drift en UNA categoria si se
+// caza pero DOS QUE SE COMPENSAN pasan: mover un slot de avere.json a
+// essere.json (20->19 y 26->27) imprimia los dos avisos y cerraba el milestone
+// con `VAL-06 PASS (250/250)`.
+//
+// EL REPORTER YA LO CONSUME EN SU VEREDICTO desde esta fase, pero eso solo
+// muerde cuando alguien corre el reporter. La suite tambien tiene que morder,
+// que es la mitad que el review midio ausente.
+//
+// POR QUE ESTE GATE MIRA SOLO LOS LITERALES, y no es una omision: para una
+// entrada `expected: slotCountOf(file)` la comparacion contra el disco es
+// TAUTOLOGICA -- los dos lados leen el mismo fichero en la misma corrida. Un
+// gate que las incluyera pareceria cubrir 18 categorias y solo cubriria 9, que
+// es exactamente la forma de gate vacuo que este fichero persigue. La cifra de
+// literales NO se transcribe: se cuenta de la region.
+// ---------------------------------------------------------------------------
+
+describe('GATE-04 - los expected literales de CATEGORIES cuadran con el disco uno a uno (WR-03)', () => {
+  test(`${REPORTER}: ninguna categoria con \`expected\` escrito a mano diverge de su JSON`, () => {
+    const src = readSrc(REPORTER);
+    const inicio = src.indexOf('const CATEGORIES = [');
+    assert.ok(inicio !== -1, `GATE-04: no se encontro la declaracion de CATEGORIES en ${REPORTER}`);
+    const region = src.slice(inicio, src.indexOf('];', inicio));
+
+    const entradas = [...region.matchAll(/\{ slug: '([^']+)',\s*file: '([^']+)',\s*expected: ([^}]+)\}/g)];
+    // NO-VACUIDAD, y va primero: si el extractor deja de casar (una entrada partida en
+    // dos lineas, un renombrado), `entradas` queda vacia y las comprobaciones de abajo
+    // pasarian en VERDE certificando nada.
+    assert.ok(
+      entradas.length > 0,
+      `GATE-04: el extractor no ve ni una entrada en la region de CATEGORIES de ${REPORTER}. ` +
+        `O el array cambio de forma, o este gate se quedo ciego`
+    );
+
+    const literales = entradas.filter(([, , , exp]) => /^\s*\d+\s*$/.test(exp));
+    assert.ok(
+      literales.length > 0,
+      `GATE-04: ninguna entrada de CATEGORIES lleva ya un \`expected\` literal, asi que este gate ` +
+        `no tiene sujeto. Si la uniformacion a slotCountOf() fue deliberada, RETIRA este gate por ` +
+        `escrito: dejarlo verde y vacuo es peor que no tenerlo. Ojo -- derivar las 18 vuelve la ` +
+        `comparacion tautologica y el drift COMPENSADO deja de cazarse (medido en la Phase 47)`
+    );
+
+    const divergentes = [];
+    for (const [, slug, file, exp] of literales) {
+      const enDisco = JSON.parse(readFileSync(new URL(`../${file}`, import.meta.url), 'utf-8')).exercises.length;
+      const escrito = Number(exp.trim());
+      if (escrito !== enDisco) divergentes.push(`${slug}: escrito ${escrito}, disco ${enDisco}`);
+    }
+    assert.deepEqual(
+      divergentes,
+      [],
+      `GATE-04 / WR-03: el \`expected\` escrito a mano no cuadra con el JSON real. La SUMA puede ` +
+        `seguir cuadrando -- dos drifts que se compensan dejan el guard de coherencia del reporter ` +
+        `en verde --, asi que este es el sitio donde se ve: ${divergentes.join('; ')}`
+    );
+  });
+});

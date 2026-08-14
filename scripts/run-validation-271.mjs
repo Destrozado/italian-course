@@ -888,15 +888,41 @@ console.log(`${BOLD}Sub-gates:${RESET}`);
 // VAL-06: los TOTAL_EXPECTED slots con effectiveStatus === "validated" Y total real en
 // disco == TOTAL_EXPECTED. La cifra la interpola el propio mensaje impreso; escribirla
 // aquí sería plantar la siguiente CR-01 (una prosa que envejece sola).
+// EL AVISO POR CATEGORÍA ENTRA EN EL VEREDICTO (WR-03 del code review de la Phase 47).
+// Las dos igualdades de arriba comparan SUMAS, así que un drift en una sola categoría sí
+// se caza pero DOS QUE SE COMPENSAN pasan. Verificado por mutación: moviendo un slot de
+// `avere.json` a `essere.json` (20→19 y 26→27) el reporter imprimía los DOS avisos
+// —«Total 19 ≠ esperado 20 para avere», «Total 27 ≠ esperado 26 para essere»— y dos
+// líneas después `VAL-06 PASS (250/250)` y `Milestone gate PASS`.
+//
+// Es literalmente la forma que el CR-03 de la Phase 44 arregló para VAL-09 («era un
+// warning meramente impreso, y mientras lo fue el reporter podía cerrar el milestone
+// contradiciendo el fichero que acababa de leer») dejada viva un nivel más abajo, en la
+// granularidad de categoría.
+//
+// `loadError` se exime porque esa categoría ya tumba el veredicto por `anyLoadError`, y
+// su `total: 0` sintético no es una medida del disco sino la ausencia de una.
+const categoriasDescuadradas = perCategory
+  .filter((r) => !r.loadError && r.total !== r.expected)
+  .map((r) => `${r.slug} (disco ${r.total}, esperado ${r.expected})`);
+
 const val06Pass =
   totalValidated === TOTAL_EXPECTED &&
   totalActual === TOTAL_EXPECTED &&
+  categoriasDescuadradas.length === 0 &&
   !anyLoadError;
 console.log(
   `  VAL-06 (${TOTAL_EXPECTED}/${TOTAL_EXPECTED} validated): ${
     val06Pass
       ? ok(`PASS (${totalValidated}/${TOTAL_EXPECTED})`)
-      : fail(`FAIL (${totalValidated}/${TOTAL_EXPECTED} — pending=${totalPending}, missing=${totalMissing}, disputed=${totalDisputed})`)
+      // LA CAUSA VA EN EL MENSAJE, y aquí importa especialmente: en el drift compensado
+      // las tres cifras de abajo salen a CERO y el total CUADRA, así que el diagnóstico
+      // genérico anunciaría `FAIL (250/250 — pending=0, missing=0, disputed=0)` — una
+      // foto perfecta junto a la palabra FAIL, que es el diagnóstico falso que este
+      // fichero persigue en su WR-04.
+      : categoriasDescuadradas.length > 0
+        ? fail(`FAIL (DRIFT POR CATEGORÍA — ${categoriasDescuadradas.join('; ')})`)
+        : fail(`FAIL (${totalValidated}/${TOTAL_EXPECTED} — pending=${totalPending}, missing=${totalMissing}, disputed=${totalDisputed})`)
   }`
 );
 
@@ -1080,6 +1106,13 @@ if (gatePass) {
   console.log(fail(`${BOLD}Milestone gate FAIL — itera /gsd-validate-batch antes de cerrar.${RESET}`));
   console.log('');
   console.log('Acciones sugeridas según qué sub-gate falla:');
+  if (!val06Pass && categoriasDescuadradas.length > 0) {
+    console.log('  - VAL-06: hay categorías cuyo conteo en disco NO cuadra con su `expected`:');
+    console.log(`      ${categoriasDescuadradas.join('; ')}`);
+    console.log('    Ojo: la SUMA puede seguir cuadrando (dos drifts que se compensan), y por eso');
+    console.log('    esto se mira por categoría y no sólo en el total. Si el movimiento de slots');
+    console.log('    fue deliberado, actualiza el `expected` de las categorías nombradas.');
+  }
   if (!val06Pass) {
     console.log('  - VAL-06: ejecuta /gsd-validate-batch --all-pending para procesar los pendientes/missing.');
   }
