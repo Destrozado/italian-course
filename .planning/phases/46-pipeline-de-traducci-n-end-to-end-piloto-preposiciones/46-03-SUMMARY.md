@@ -407,9 +407,81 @@ Las dos entradas del registro STRIDE con disposición `mitigate` quedan mitigada
 | Threat | Mitigación aplicada | Verificación |
 |---|---|---|
 | T-46-13 (un gate que certifica en verde midiendo nada) | cláusula de no-vacuidad ANTES de cada assert, con la cifra derivada del disco; array vacío o fichero ilegible → ROJO por ausencia de datos | las tres mutaciones del Task 3 EJECUTADAS con exit code registrado, incluida la que deja `slugsCiegos` en verde |
-| T-46-14 (umbral ablandado silenciosamente) | veredicto por IGUALDAD DE ENTEROS; cero porcentaje, redondeo o umbral flotante | aserción de fuente sobre la región del sub-gate: 0 líneas con `toFixed`/`Math.round`/división/`0.99` |
+| T-46-14 (umbral ablandado silenciosamente) | veredicto por IGUALDAD DE ENTEROS; cero porcentaje, redondeo o umbral flotante | ~~aserción de fuente sobre la región del sub-gate: 0 líneas con `toFixed`/`Math.round`/división/`0.99`~~ **← RETRACTADO el 2026-08-14, ver §Retractación de T-46-14.** La mitigación estaba declarada en DOS mitades y solo se implementó una. Hoy sí existe: bloque 9 de `tests/count-arrays-lockstep.test.js` (commit `632a190`), verificado por las mutaciones M-1/M-2/M-3 |
 
 `T-46-SC` (legitimidad de paquetes) no aplica: cero instalaciones en este plan.
+
+### Retractación de T-46-14 (2026-08-14) — la verificación afirmada no se hizo
+
+**Lo que esta tabla afirmaba**, verbatim, en la fila de T-46-14 y hasta hoy:
+
+> aserción de fuente sobre la región del sub-gate: 0 líneas con `toFixed`/`Math.round`/división/`0.99`
+
+**Era falso.** No como matiz ni como cifra desfasada: esa aserción **no existía en ningún fichero**.
+`grep -rn "toFixed\|Math.round\|0\.99" tests/` devolvía **CERO** el día que se escribió la fila y
+seguía devolviendo cero hoy. La mitigación de T-46-14 estaba declarada en el `<threat_model>` de
+`46-03-PLAN.md` en **dos mitades** —(1) el veredicto por igualdad de enteros, (2) la aserción de
+fuente que congela esa forma— y **solo la primera se implementó**. La fila afirmó las dos.
+
+**Quién lo detectó y con qué.** El gate de seguridad de la fase 46 (`/gsd-secure-phase`), el
+**2026-08-14**. No leyendo el gate —leer un gate no cuenta, D-46-18— sino **mutándolo**: debilitando
+`allTranslationInconsistencyAddrs.length === 0` a `>= 0` en `scripts/run-validation-271.mjs:919-924`,
+la suite se quedó en **1329 tests / 1325 pass / 4 fail: su baseline exacta**. Ni un subtest nuevo en
+rojo. Y el reporter seguía en **exit 0**, porque la mutación es inocua sobre un corpus coherente: no
+había en el repo NADA que la viese.
+
+**Por qué importa, y por qué se retracta en vez de corregirse en silencio.** Es la especie del
+**CR-01 de la Phase 44** exactamente: un registro que afirma una verificación que nadie hizo
+certifica en verde. Un `mitigate` de severidad `high` marcado como verificado es peor que uno
+marcado como pendiente, porque cierra la pregunta. Y el agravante es de forma, no de contenido:
+`regionDeArray(...)` (`tests/count-arrays-lockstep.test.js:1030,1201`) sí acota una región y sí se
+escribió en este plan — pero la del **array**, buscando pares slug↔file. Nunca la del **veredicto**.
+La fila describía un gate plausible que estaba al lado del que se escribió.
+
+**Lo que se hizo al respecto** (commit `632a190`, `test(46)`):
+
+- Bloque 9 de `tests/count-arrays-lockstep.test.js`: acota la región de **cada** `const <algo>Pass =`
+  del reporter, derivada del disco (cero números de línea transcritos, D-31-06), con la **cláusula de
+  no-vacuidad PRIMERO y sobre la región**.
+- Cubre las **dos** formas de ablandamiento, porque la que se colaba **no era la que la fila
+  nombraba**: (a) aritmética de ratio en el veredicto —`toFixed`, `toPrecision`,
+  `Math.round|floor|ceil`, `parseFloat`, literal decimal (`0.99` y parientes), división, `%`—; y
+  (b) **debilitar un `===` a `>=`/`>`**, que no lleva ni decimal ni redondeo y que (a) no ve.
+- 10 goldens fail-first, incluidos el de acotado (un cociente legítimo escrito después del `;` no
+  entra en la región) y el de falso positivo evitado (el `>` de una función flecha no cuenta).
+
+**Las tres mutaciones, EJECUTADAS el 2026-08-14 con el rojo observado** (no deducido), sobre el
+fichero del candado y sobre la suite entera. Restauración **por copia de fichero**, nunca
+`git checkout`/`stash`/`clean`; `md5` del reporter idéntico antes y después
+(`a05f462e94046d1b8782dcee086686cb`) y `git status --porcelain scripts/` vacío.
+
+| Mutación | Qué se cambió en el reporter | Fichero del candado | Suite entera | Subtest que se puso rojo |
+|---|---|---|---|---|
+| **antes** (baseline **con el candado ya en disco**; sin él eran 1329 / 1325 / **4**) | nada | exit **0** — 64/64 | exit **1** — 1341 / 1337 / **4** (la deuda pre-existente de trazabilidad, único fichero rojo) | — |
+| **M-1** | `allTranslationInconsistencyAddrs.length === 0` → `>= 0` | exit **1** — 64 / 63 / **1** | exit **1** — 1341 / 1336 / **5** | `(b) ninguna comparacion de un veredicto es LAXA` → `tradPass: >=` |
+| **M-2** | `totalTranslationValidated === TOTAL_TRANSLATION_EXPECTED` → `Math.round(totalTranslationValidated) >= 0.99 * TOTAL_TRANSLATION_EXPECTED` | exit **1** — 64 / 62 / **2** | exit **1** — 1341 / 1335 / **6** | `(a) … aritmetica de ratio` → `tradPass: Math.round \| tradPass: literal decimal` **y** `(b)` → `tradPass: >=` |
+| **M-3** (anti-vacuidad) | `tradPass` renombrado a `tradVeredictoRenombrado` en sus 5 call-sites (el reporter sigue en **exit 0**) | exit **1** — 64 / 63 / **1** | exit **1** — 1341 / 1336 / **5** | `NO-VACUIDAD` → «el reconocedor de veredictos NO encuentra `tradPass`; ve estos: val06Pass, val08Pass, val04Pass, val09Pass, gatePass» |
+
+**M-3 es la que prueba que el candado no es el tercer gate vacuo de esta fase.** Bajo M-3 las dos
+aserciones (a) y (b) pasaron **en VERDE** —regiones vacías, `deepEqual([], [])`— y el reporter siguió
+en exit 0: sin la cláusula de no-vacuidad, renombrar el veredicto habría apagado el candado sin que
+nada se enterase. Es literalmente el modo de fallo de CR-01 y WR-01, cerrado antes de decidir nada.
+
+**Lo que NO se hizo, y va escrito para que no se lea como olvido:** el candado **no** se ancla contra
+el PRE-FASE con `readPreFase46`. Ese helper deriva su referencia buscando el último commit sin scope
+`(46-NN)`, así que en la Phase 47 la referencia se mueve al primer commit de la 47 y su guard
+anti-colapso la anula: un candado de **regresión** que debe seguir mordiendo en las Phases 47-53 no
+puede colgar de un ancla con fecha de caducidad. Y el invariante de aquí es **absoluto** —cero
+patrones de ablandamiento en la región—, estrictamente más fuerte que cualquier delta contra un
+«antes»: no hay cifra que anclar. Medido de paso: `tradPass` **no existe** en el árbol pre-fase
+`19f41a9`, así que un diff contra el pre-fase sobre esta región no tendría con qué comparar. Y **no**
+se compara contra `HEAD`: sobre un árbol limpio eso es vacío por construcción y fue el hallazgo
+WR-01 de esta misma fase.
+
+**Esta fila no se borra ni se reescribe como si siempre hubiera sido correcta.** Se deja tachada, con
+lo que afirmó legible, siguiendo el precedente de forma de la retractación de la cifra de baseline en
+`46-05-SUMMARY.md` §«Una contradicción MEDIDA, y gana el disco». El registro histórico es el audit
+trail; corregirlo en silencio destruiría la única evidencia de cómo se cuela una afirmación falsa.
 
 ## Known Stubs
 
