@@ -781,8 +781,8 @@
                   "date": "2026-08-15",
                   "verdict": "incorrecta",
                   "concerns": [
-                    "[S5-italiano] el verbo fare en passato remoto para la segunda persona del plural (voi) es 'feceste', no 'faceste' (la opción 1 es incorrecta gramaticalmente en italiano).",
-                    "[S2-fidelidad] la frase fuente contiene una forma italiana gramaticalmente errónea por la selección de la opción incorrecta del ejercicio, lo que compromete la fidelidad de la traducción al no reflejar un uso real del passato remoto de 'fare'."
+                    "[S5-italiano] el verbo 'fare' en passato remoto para la segunda persona del plural (voi) es 'feceste', no 'faceste' (la opción correcta en el array es el índice 0, pero correctIndex indica 1).",
+                    "[S2-fidelidad] la traducción corresponde al passato remoto correcto 'feceste' ('hicisteis un pastel'), pero el italiano resuelto usa la forma errónea 'faceste'."
                   ]
                 }
               ]
@@ -799,17 +799,15 @@
           ],
           "correctIndex": 2,
           "translationES": {
-            "text": "Hace tantos años hicieron los deberes.",
+            "text": "Hace muchos años hicieron los deberes.",
             "validation": {
-              "status": "disputed",
+              "status": "validated",
               "passes": [
                 {
                   "by": "deepseek-reasoner",
                   "date": "2026-08-15",
-                  "verdict": "incorrecta",
-                  "concerns": [
-                    "[S6-naturalidad] calco de 'tanti anni fa' como 'hace tantos años'; en español la expresión idiomática es 'hace muchos años'. Sugerencia: \"Hace muchos años hicieron los deberes.\""
-                  ]
+                  "verdict": "correcta",
+                  "concerns": []
                 },
                 {
                   "by": "gemini-3.5-flash-lite",
