@@ -181,6 +181,20 @@ disidente cuesta un motivo grabado en el JSON; soltar el ancla de cobertura cues
 Encaja con el modelo de confianza del repo (autor único, local), por eso no bloquea — pero es una
 asimetría deliberada, no un descuido, y conviene que quede escrita.
 
+**Decisión del autor, 2026-08-15: el ancla se queda.** Su razón acota además para qué sirve y para qué
+no: *en este milestone la cantidad de ejercicios no cambia — solo se añade una clave (`translationES`)
+a cada variante ya existente.* De ahí se sigue algo que refuerza el ancla en vez de debilitarla:
+
+- Los valores por categoría, una vez emitidos, **no deben variar nunca** dentro del milestone.
+- El lock solo **crece**, al enganchar una categoría nueva (una entrada por fase, 48 → 53).
+- Por tanto **un número que cambia es siempre un bug**, jamás mantenimiento rutinario. El caso
+  «aflojar hacia abajo» que W-01 describe no tiene uso legítimo en este milestone.
+
+Queda como deuda menor y opcional: convertir `bump-translation-lock.mjs` en estrictamente aditivo
+—permitir añadir categorías, negarse a bajar un valor existente sin motivo escrito— cerraría la
+asimetría sin coste de fricción, precisamente porque bajar un valor no es una operación que este
+milestone necesite. No se hace ahora: no bloquea y nadie lo ha pedido.
+
 ### W-02 — `adjudicacion` como marcador forense es más débil de lo que parece
 
 `if (ADJUDICAR) pass.adjudicacion = ADJUDICAR` marca **cualquier** pase cuando se pasa la bandera, no
