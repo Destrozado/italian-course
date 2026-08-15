@@ -29,14 +29,18 @@ decisions:
   - "D-48-05: la objeción al pronombre sujeto omitido es HUECO DEL DOC, no defecto de la traducción ni límite del evaluador — decidido por el autor como tercera vía (opción C) frente a las dos que el executor propuso"
   - "D-48-06: el español de 301#1 NO se toca y D-48-03 sigue SIN carve-out; el arreglo va al doc de criterios, único fichero que el evaluador lee"
   - "D-48-07: el pase pre-enmienda se retira SIN --adjudicar y SIN override, reseteando passes[] a vacío, con su contenido literal transcrito en tres sitios"
-  - "D-48-08: el alcance del cumplimiento literal de D-46-12 sobre las 53 queda ESCALADO al autor por volumen (53 > umbral declarado de 40)"
+  - "D-48-08: el alcance del cumplimiento literal de D-46-12 sobre las 53 se ESCALÓ al autor por volumen (53 > umbral declarado de 40) — RESUELTO en el seguimiento: el autor eligió cumplimiento literal y se ejecutó"
+  - "D-48-09: el umbral de 40 era un supuesto del coordinador, no una instrucción del autor, y erró el blanco por composición del sujeto (206 con sujeto cero / 53 en vuelo)"
+  - "D-48-10: passato-remoto#5 se REESCRIBE («Hace muchos años…») porque el concern del calco era correcto — es el análogo de `a merenda`, hallazgo que justifica haber pagado el cumplimiento literal"
+  - "D-48-11: passato-remoto#4 se cierra por opción B — tercer juez fresco post-enmienda (gemini-2.5-flash) y DESPUÉS override de autor; no fabrica quórum (barra estricta de la id 39). D-48-01 no cambia para 48-03/48-04"
+  - "D-48-12: `--adjudicar` NO fija el veredicto, solo permite sobrescribir un `incorrecta` previo — defecto de mecanismo, asignado a 48-05"
 metrics:
-  duration: "~75 min"
+  duration: "~150 min (plan + seguimiento)"
   completed: "2026-08-15"
 actuals:
-  tokens: 21500
+  tokens: 34000
   tasks: 2
-  commits: 2
+  commits: 6
 ---
 
 # Phase 48 Plan 02: Cerrar `fare-indicativo` — 54/54 Summary
@@ -127,6 +131,11 @@ del disco, el propio objetor había aprobado la estructura idéntica en `#1` (`f
 
 Cerrado con **`--adjudicar` y motivo escrito grabado en el JSON**. Sin override.
 
+> **Superado por el seguimiento.** Esta variante volvió a salir `disputed` durante el cumplimiento
+> literal, y esta vez `--adjudicar` **no pudo cerrarla** — ver la sección de seguimiento. Se cerró
+> con un tercer juez fresco y un override de autor. Lo de arriba se conserva porque describe con
+> exactitud cómo quedó al terminar el plan.
+
 ### 2. `301#1` — el juez tenía razón sobre la rendija, y la rendija estaba en el doc
 
 Aquí la 2ª muestra **reprodujo** el concern y un **segundo vendor** (`deepseek-chat`) llegó solo
@@ -186,10 +195,14 @@ que una medida ancha sin refinar habría convertido en cifra falsa.
    **cero coincidencias**, frente a 4 marcas absolutorias. Además la regla **absuelve la omisión
    sin exigirla**, así que tampoco puede voltear a quien sí escriba el pronombre.
 
-### La deuda de alcance queda ABIERTA y escalada — decisión pendiente del autor
+### La deuda de alcance — declarada abierta, y CERRADA en el seguimiento
 
-Falla la condición 1 ⇒ **cumplimiento literal**. **No se ejecutó**, y esto es lo único que este
-plan deja abierto:
+> **Actualizado en el seguimiento del plan (ver la sección final).** Lo que sigue describe el
+> estado en que quedó el plan al declararse la deuda, y se conserva por eso. **El autor decidió
+> cumplimiento literal, se ejecutó sobre las 53, y la deuda ya no existe.**
+
+Falla la condición 1 ⇒ **cumplimiento literal**. **No se ejecutó en su momento**, y era lo único
+que este plan dejaba abierto:
 
 - **53 supera el umbral de 40** que el coordinador declaró para devolver la decisión al autor.
   **Ese umbral es un supuesto declarado del coordinador, no una instrucción del autor**, y se dice
@@ -338,11 +351,114 @@ Ninguno. Las 54 traducciones son contenido definitivo y `validated`.
    siguen **deliberadamente sin pre-arreglar**.
 6. **TRAD-03 sigue `Pending`** — solo 48-05 lo cierra.
 
+---
+
+# SEGUIMIENTO DEL PLAN (2026-08-15) — cumplimiento literal de D-46-12 y cierre del 54/54
+
+## La decisión del autor sobre el alcance
+
+**Cumplimiento literal.** Y antes de nada, la constancia que el propio coordinador pidió que
+quedara escrita: **el umbral de 40 era un supuesto suyo, no una instrucción del autor, y erró el
+blanco.** Se había calibrado temiendo que el sujeto alcanzara los cuerpos cerrados y costara «lo
+que las 206 que la rama `no-aplica` había evitado». La medición mostró otra composición —**206 con
+sujeto cero, 53 en vuelo**—, así que el umbral se disparó por volumen sobre un cuerpo que no era el
+que lo motivaba. Con esa corrección delante, el autor eligió lo mismo que en la tercera nota de
+D-46-12: **pagar**, citando el argumento del propio informe: *el precedente dice que pagarlo
+destapa lo que un argumento no destapa*.
+
+## Recuento del cumplimiento literal sobre las 53
+
+| Magnitud | Cifra, contada del disco |
+|---|---|
+| Re-validadas desde cero (`passes[]` reseteado, 2 pases cada una) | **53** |
+| Llamadas | **106** |
+| **Auto-fallbacks** | **0** — `by` escrito == `by` pinneado en las 106 |
+| Cerradas en verde a la primera | **51** |
+| Escaladas al autor | **2** |
+| Caracteres del español modificados **por el mero hecho de re-validar** | **0** |
+| Pases PRE-enmienda supervivientes | **0** — el campo `adjudicacion` desaparece del fichero |
+
+Cola de jueces verificada antes de gastar la primera llamada. `301#1` quedó fuera del sujeto por
+haber nacido ya bajo el doc enmendado.
+
+## Las dos escaladas — de vendors distintos, cerradas por vías opuestas
+
+**Que los dos objetores sean de vendors distintos** (`gemini-3.5-flash-lite` la `#4`,
+`deepseek-reasoner` la `#5`) **descarta un sesgo sistemático de un lado**, así que cada una se juzgó
+por su fondo.
+
+### `passato-remoto#4` — objeción falsa, y un defecto de herramienta por el camino
+
+El objetor repitió que el passato remoto de `fare` para `voi` es `feceste`. Falso: `faceste` es la
+forma correcta, `feceste` es `options[0]` con `correctIndex` en 1 — propone como respuesta la
+distractora que la `explanation` declara a propósito. Aprobó `#1` y `#3` en la misma pasada.
+Acumulado: **3 `incorrecta` / 2 `correcta` en 5 muestras**.
+
+**Hallazgo sobre la herramienta, y es el motivo de que hiciera falta otra vía:** `--adjudicar`
+**no fija el veredicto**, solo *permite* sobrescribir un `incorrecta` previo; lo que se escribe
+sigue siendo lo que devuelve el modelo. Al volver `incorrecta`, el motivo de refutación quedó
+**colgando de la propia pasada que levanta el concern**, con el status en `disputed` — un registro
+que se lee como adjudicado sin estarlo. Se retiró el campo (`verdict` y `concerns` intactos) y **no
+se re-invocó**: re-invocar hasta el verde es el dado que el `pass-guard` existe para impedir.
+Registrado en `WINDOWS` y **asignado a 48-05**, junto a la id 43 — misma familia de defecto de
+tubería de escritura de pases.
+
+**Cierre por opción B del autor:** invocación **fresca, pinneada y post-enmienda** de
+`gemini-2.5-flash` (el `correcta` previo de ese modelo **no se reutilizó** por ser PRE-enmienda) →
+`correcta`, `concerns: []`, cero auto-fallback. **Y solo entonces** el override de autor.
+**No fabrica quórum:** 2 `correcta` de 2 MODELOS y 2 VENDORS **antes** del override — barra estricta
+de la id 39, no la débil de la id 35. El `incorrecta` **se queda vivo** en `passes[]`. Español
+intacto. Única variante del corpus con un tercer juez: declarada como desviación de homogeneidad en
+el ledger. **D-48-01 no cambia** para 48-03 ni 48-04.
+
+### `passato-remoto#5` — el concern NUEVO que justifica haber pagado
+
+> `[S6-naturalidad] calco de 'tanti anni fa' como 'hace tantos años'; en español la expresión
+> idiomática es 'hace muchos años'.`
+
+**Es el análogo exacto de `a merenda` en la tercera nota:** un concern **nuevo**, que la enmienda del
+pronombre **no cubría ni podía cubrir**, que **vivía en el resto del cuerpo** y no en la parte que la
+motivó, y que **ambos jueces habían aprobado en la primera vuelta** — solo salió al re-muestrear.
+
+El concern es correcto, así que por decisión del autor se reescribió a **«Hace muchos años hicieron
+los deberes.»** y se re-validó desde cero: 2 llamadas, 2 `correcta`. La coincidencia del adjunto
+temporal con `#2` se evaluó y aceptó: no son byte-idénticas y no colisionan en la forma verbal.
+**Es el único carácter de español modificado en todo el seguimiento, y por decisión expresa.**
+
+## Lo que el cumplimiento literal demuestra, y lo que no
+
+**Demuestra la direccionalidad absolutoria por la vía cara:** ninguna `correcta` previa se volteó
+por efecto de la enmienda, y las 2 escaladas lo fueron por motivos **ajenos a ella**. **No**
+demuestra que el argumento de la condición 2 sobrara: lo confirma. Y destapó lo que un argumento no
+puede destapar — segunda vez consecutiva que se paga y segunda que encuentra algo real.
+
+## Estado final
+
+| # | Criterio | Resultado |
+|---|---|---|
+| 1 | Conteo del disco vía `deriveStatus` | **54 validated · 0 disputed · 0 pending**; escrito == derivado en las 54 |
+| 2 | TRAD-COV | **PASS (260/260)** |
+| 3 | Sub-gates | VAL-04 / VAL-06 / VAL-08 / VAL-09 en **PASS** |
+| 4 | **Overrides** | **7 en `HEAD` → 8 ahora. Primer override nuevo de la Phase 48**, no diluido |
+| 5 | Suite | **1297**/1293, **4 fallos** — los mismos pre-existentes |
+| 6 | Brownfield | `src/domain/` y `src/screens/app.js` sin diff; `schemaVersion` **13**; ancla sin tocar |
+
+## Registro
+
+- **SEXTA NOTA de D-46-12** en `46-CONTEXT.md`, con fecha y firma.
+- **`WINDOWS` id 42 → `fixed`**, con la historia íntegra conservada tras `|||`.
+- **Dos entradas nuevas:** desviación de homogeneidad (tercer juez en una variante) y el defecto de
+  `--adjudicar`, ésta asignada a **48-05**.
+
+## Sin cambios
+
+`WINDOWS` id 43 y el hallazgo de `--adjudicar` viven en **48-05**; la colisión `hiciste` sigue
+declarada para **48-05** sin deduplicar; **TRAD-03 sigue `Pending`**; `301#1` y D-48-03 intactos.
+
 ## Self-Check: PASSED
 
 - `content/exercises/fare-indicativo.json` — FOUND (54 `translationES`, las 54 `validated`)
 - `docs/TRANSLATION-VALIDATION-PROMPT.md` — FOUND (sección nueva, 43 líneas)
-- `.planning/phases/46-…/46-CONTEXT.md` — FOUND (QUINTA NOTA de D-46-12)
-- `.planning/WINDOWS.md` — FOUND (ids 41, 42, 43; `open_count` 34)
-- Commit `35bc8a4` — FOUND
-- Commit `4d20e1b` — FOUND
+- `.planning/phases/46-…/46-CONTEXT.md` — FOUND (QUINTA y SEXTA NOTA de D-46-12)
+- `.planning/WINDOWS.md` — FOUND (id 42 `fixed`; ids 41, 43, 44, 45)
+- Commits `35bc8a4`, `4d20e1b`, `9afbdb8`, `de80c23`, `bfd0038`, `170d371` — FOUND

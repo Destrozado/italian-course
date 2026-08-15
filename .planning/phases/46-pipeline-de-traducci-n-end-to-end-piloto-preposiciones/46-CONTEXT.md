@@ -356,6 +356,43 @@ Bajar el pipeline COMPLETO de traducción al español y demostrarlo end-to-end s
 
   ---
 
+  **SEXTA NOTA (2026-08-15 — Phase 48, seguimiento del plan 48-02). La DEUDA DE ALCANCE de la quinta nota queda CERRADA: el AUTOR eligió CUMPLIMIENTO LITERAL sobre el sujeto ENTERO, se ejecutó, y destapó un defecto que el argumento de la condición 2 no podía destapar.**
+
+  La quinta nota dejó la deuda abierta porque el sujeto (53) superaba el umbral de 40 que el coordinador había declarado —**como supuesto suyo, no como instrucción del autor**— para devolverle la decisión de alcance. **Ese umbral erró el blanco, y conviene decir por qué en vez de dejarlo pasar:** se había calibrado temiendo que el sujeto alcanzara los cuerpos cerrados y costara «lo que las 206 que la rama `no-aplica` había evitado». La medición mostró otra composición —**206 con sujeto CERO, 53 en vuelo**—, así que el umbral se disparó por volumen sobre un cuerpo que no era el que lo motivaba. El autor decidió con esa corrección delante, y eligió lo mismo que en la tercera nota: **pagar**. Su argumento, citado de la propia recomendación del executor: *el precedente dice que pagarlo destapa lo que un argumento no destapa*.
+
+  **Alcance ejecutado:** las **53** traducciones `validated` bajo el prompt PRE-enmienda, es decir todas las de `fare-indicativo` menos `301#1`, que ya había nacido bajo el doc enmendado y por tanto no era sujeto. **Quórum completo desde cero**, con `passes[]` reseteado a vacío en cada una para que ningún pase pre-enmienda sobreviviera, y con los jueces declarados del bloque (D-48-01). Cola verificada antes de gastar la primera llamada (id 33).
+
+  | Recuento del cumplimiento literal sobre las 53 | |
+  |---|---|
+  | Re-validadas desde cero (2 pases cada una) | **53** |
+  | Llamadas | **106** |
+  | Auto-fallbacks (`by` escrito ≠ `by` pinneado) | **0** |
+  | Cerradas en verde a la primera | **51** |
+  | Escaladas al autor | **2** |
+  | Caracteres del español modificados POR EL MERO HECHO DE RE-VALIDAR | **0** |
+  | Pases PRE-enmienda supervivientes | **0** — el campo `adjudicacion` desaparece del fichero |
+  | Overrides nuevos durante el barrido | **0** |
+
+  **Las dos escaladas son de VENDORS DISTINTOS**, así que no hay sesgo sistemático de un lado y cada una se juzgó por su fondo.
+
+  **(a) `passato-remoto#4` — el objetor repitió una objeción falsa de hecho.** `gemini-3.5-flash-lite` volvió a sostener que el passato remoto de `fare` para `voi` es `feceste` y no `faceste`. Es falso: el paradigma es feci / facesti / fece / facemmo / **faceste** / fecero, y `feceste` es `options[0]` mientras `correctIndex` es 1 — el objetor propone como respuesta correcta justamente la distractora de alternancia cruzada que la `explanation` del slot declara a propósito. Además el concern juzga el EJERCICIO, que la §3 del doc prohíbe. Y el propio objetor aprobó la estructura **idéntica** en `#1` (`facesti`) y `#3` (`facemmo`) en esta misma pasada.
+
+  **Lo que esta variante destapó no es sobre el contenido, sino sobre la herramienta, y es la razón de que necesitara una vía nueva.** El intento de cerrarla con `--adjudicar` **falló por diseño del mecanismo**: `--adjudicar` **no fija el veredicto**, solo PERMITE sobrescribir un `incorrecta` previo; lo que se escribe sigue siendo lo que devuelve el modelo, y en esa muestra volvió a ser `incorrecta`. El resultado en disco fue un pase `incorrecta` **llevando colgado un motivo que refutaba su propio concern**, con el status todavía en `disputed` — un registro que se lee como adjudicado sin estarlo. Se retiró el campo (dejando `verdict` y `concerns` intactos) y **no se re-invocó**, porque re-invocar hasta que el modelo dijera `correcta` es exactamente el dado que el `pass-guard` existe para impedir, con sus mismas palabras. Acumulado del juez declarado sobre esa variante: **3 `incorrecta` y 2 `correcta` en 5 muestras**. El hallazgo queda registrado en `.planning/WINDOWS.md` y asignado al plan 48-05.
+
+  **Cierre por decisión del autor (opción B):** invocación **fresca, pinneada y POST-enmienda** de un tercer modelo, `gemini-2.5-flash`, sobre esa única variante — el `correcta` que ese mismo modelo había dado durante el trabajo adversarial de la Task 2 **no se reutilizó**, porque era PRE-enmienda y reutilizarlo habría violado la condición de cero supervivientes que rige todo este seguimiento. Devolvió `correcta` con `concerns: []`, `by` escrito idéntico al pinneado. **Y solo entonces** se escribió el override de autor. La diferencia que importa: la variante ya tenía **2 pases `correcta` de 2 MODELOS distintos y 2 VENDORS distintos ANTES del override**, así que **el override NO fabrica quórum** —cumple la barra estricta de la `WINDOWS` id 39 y no la débil de la id 35— y el `incorrecta` de `gemini-3.5-flash-lite` **se queda vivo en `passes[]`**. El español no se tocó. Es la única variante del corpus juzgada por un tercer modelo, declarado como desviación de homogeneidad en el ledger; **D-48-01 no cambia** para 48-03 ni 48-04.
+
+  **(b) `passato-remoto#5` — el concern NUEVO, y la razón de que pagar mereciera la pena.** `deepseek-reasoner` marcó `[S6-naturalidad] calco de 'tanti anni fa' como 'hace tantos años'; en español la expresión idiomática es 'hace muchos años'`. **Es un concern nuevo, que la enmienda del pronombre no cubría ni podía cubrir, que vivía en el resto del cuerpo y no en la parte que motivó la enmienda, y que AMBOS jueces habían aprobado en la primera vuelta: solo salió al re-muestrear.** Es el **análogo exacto de `a merenda`** en la tercera nota, hasta en la forma de aparecer. El concern es correcto —`tanti` en ese marco es «muchos», y «hace tantos años» en declarativa neutra es calco—, así que por decisión del autor se reescribió el español a **«Hace muchos años hicieron los deberes.»** y se re-validó desde cero: 2 llamadas, 2 `correcta`. Se evaluó y aceptó que el adjunto temporal coincida con `#2` («Hace muchos años hizo una foto.»): no son byte-idénticas, el eje de variante del slot es la persona, y no colisionan en la forma verbal.
+
+  **Lo que esto demuestra, y lo que NO.** Demuestra la **direccionalidad absolutoria** de la aclaración del pronombre por la vía cara: **ninguna `correcta` previa se volteó por efecto de la enmienda**, y las 2 escaladas lo fueron por motivos **ajenos a ella** —una por inestabilidad del evaluador sobre una casilla, otra por un calco que la enmienda no tocaba—. **No** demuestra que el argumento de la condición 2 sobrara: lo confirma, y confirmarlo gastando llamadas es precisamente lo que la regla enmendada manda cuando la condición 1 falla. Y destapó lo que un argumento no puede destapar, que es la segunda vez consecutiva que el cumplimiento literal se paga y la segunda que encuentra algo real.
+
+  **Estado final, contado del disco con `deriveStatus` sobre `passes[]` y no leyendo el campo `status`:** `fare-indicativo` **54/54 `validated`**, 0 `disputed`, 0 `pending`, escrito == derivado en las 54. Corpus **260/260**, `TRAD-COV` en **PASS**. Overrides de traducción en todo el corpus: **7 antes, 8 ahora** — el de esta nota es el **primer override nuevo de la Phase 48**.
+
+  **LO QUE FORZARÍA RE-VALIDAR EN EL FUTURO:** una enmienda posterior que introduzca un imperativo de la forma «marca como incorrecta si…» o «exige que…» sobre el pronombre sujeto explícito, que es el veto que la primera nota dejó escrito y que esta aclaración respeta.
+
+  — *Autor, 2026-08-15. Phase 48, seguimiento del plan 48-02.*
+
+  ---
+
 - **D-46-13: TVAL-02 — script hermano de `scripts/validate-song-pass.mjs`, con el quórum cross-vendor DeepSeek + Gemini, 1-por-1 (VAL-03).** — **Reversibility:** reversible
 
   Espejo exacto del script de canciones: `--model` / `--fallback` / `--avoid` (para garantizar 2 `by` distintos) / `--write` / `--dry-run` / `--temp`; auto-fallback en 429 registrando SIEMPRE el modelo que de verdad respondió; zero-deps; `withFileLock` para el read-modify-write; `deriveStatus` importado de `src/data/validation-state.js` como fuente única.

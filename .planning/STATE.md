@@ -5,8 +5,8 @@ milestone_name: Traducción al español por variante (TRAD-X1)
 current_phase: 48
 current_phase_name: traducci-n-paradigma-fare-4-categor-as
 status: executing
-stopped_at: Completed 48-02-PLAN.md
-last_updated: "2026-08-15T15:07:07.153Z"
+stopped_at: "Completed 48-02-PLAN.md (con seguimiento: cumplimiento literal D-46-12)"
+last_updated: "2026-08-15T18:00:25.480Z"
 last_activity: 2026-08-15
 last_activity_desc: Phase 48 execution started
 progress:
@@ -431,6 +431,10 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - [Phase ?]: D-48-06: el español de 301#1 no se toca y D-48-03 sigue sin carve-out; el arreglo va al doc de criterios
 - [Phase ?]: D-48-07: el pase pre-enmienda se retira sin --adjudicar y sin override, con passes[] reseteado y el contenido literal transcrito
 - [Phase ?]: D-48-08: el alcance del cumplimiento literal de D-46-12 sobre las 53 queda escalado al autor (53 > umbral declarado de 40)
+- [Phase ?]: D-48-09: el umbral de 40 era un supuesto del coordinador, no del autor, y erró el blanco por composición del sujeto (206 con sujeto cero / 53 en vuelo)
+- [Phase ?]: D-48-10: passato-remoto#5 se reescribe a «Hace muchos años hicieron los deberes.» — el calco era real; análogo de a merenda
+- [Phase ?]: D-48-11: passato-remoto#4 cerrada por opción B — tercer juez fresco post-enmienda + override que NO fabrica quórum; D-48-01 sin cambios
+- [Phase ?]: D-48-12: --adjudicar no fija veredicto, solo permite sobrescribir — defecto de mecanismo asignado a 48-05
 
 ### Pending Todos
 
@@ -448,7 +452,7 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - **⚠️ Discrepancia de schemaVersion (REQUIREMENTS vs codebase) — resolver en plan-time Phase 29.** MIG-05/06 asumen `schemaVersion 9` y migración `9→10`, pero `CURRENT_SCHEMA_VERSION` YA está en **10** (`src/data/storage.js:35` y `src/data/backup.js:49`) por el quick task `260615-nzi` (migrate9to10/hydrateV10 nominal del contador `vecesFallada`). La migración de reset selectivo de v1.7 va realmente **`10→11`** (`migrate10to11`/`hydrateV11`/`CURRENT_SCHEMA_VERSION=11`; round-trip v11 + import v10→v11 + rechazo `>11`). Verificar el valor REAL antes de hardcodear el número de migración. Documentado en ROADMAP §v1.7 nota de numeración + REQUIREMENTS MIG-05/06 nota de implementación.
 - (Sin otros bloqueos — motor slot+variantes v1.4 DONE y operativo (`normalizeExerciseToSlot`, `pickVariantIndex`, getter slot-aware, sampler por slot, cascada D-54 con 2 call-sites, smoke bifurcado por shape, todos reutilizables); patrón de alta de categoría validado en v1.2 + patrón slot en v1.6, replicable; infra de quórum cross-vendor disponible; roadmap v1.7 fijado.)
 - El reporter sale en ROJO por diseno al cierre de 46-03 (TRAD-COV 0/96). NO se ablanda el gate: lo cierra el plan 46-04 autorando y validando las 95 traducciones que faltan.
-- 48-02: deuda de alcance ABIERTA (WINDOWS id 42) — decisión del autor sobre si re-validar las 53 variantes con sujeto bajo el doc amendado (106 llamadas). Cuerpos cerrados 46/47: sujeto CERO.
+- ~~48-02: deuda de alcance (WINDOWS id 42)~~ — RESUELTA 2026-08-15: el autor eligió cumplimiento literal, las 53 re-validadas desde cero (106 llamadas, 0 auto-fallbacks, 0 pases pre-enmienda supervivientes). 51 verdes a la primera, 2 escaladas y cerradas. WINDOWS id 42 en fixed.
 
 ### Decisions Pending (a resolver en plan-time) — v2.0
 
@@ -492,8 +496,8 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Session Continuity
 
-**Last session:** 2026-08-15T15:06:55.672Z
-**Stopped at:** Completed 48-02-PLAN.md
+**Last session:** 2026-08-15T18:00:25.451Z
+**Stopped at:** Completed 48-02-PLAN.md (con seguimiento: cumplimiento literal D-46-12)
 **Resume file:** None
 
 ### Last Session
