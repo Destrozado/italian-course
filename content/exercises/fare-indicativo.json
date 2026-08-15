@@ -768,7 +768,7 @@
           "translationES": {
             "text": "Aquel invierno hicisteis un pastel.",
             "validation": {
-              "status": "disputed",
+              "status": "validated",
               "passes": [
                 {
                   "by": "deepseek-reasoner",
@@ -783,6 +783,21 @@
                   "concerns": [
                     "[S5-italiano] el verbo 'fare' en passato remoto para la segunda persona del plural (voi) es 'feceste', no 'faceste' (la opción correcta en el array es el índice 0, pero correctIndex indica 1).",
                     "[S2-fidelidad] la traducción corresponde al passato remoto correcto 'feceste' ('hicisteis un pastel'), pero el italiano resuelto usa la forma errónea 'faceste'."
+                  ]
+                },
+                {
+                  "by": "gemini-2.5-flash",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "autor",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "override": true,
+                  "concerns": [
+                    "[override] Adjudicación del AUTOR sobre fare-indicativo-passato-remoto#4 (2026-08-15, Phase 48 plan 48-02, seguimiento del cumplimiento literal de D-46-12). MOTIVO, en cinco puntos verificados contra el disco. (1) El paradigma de 'fare' en passato remoto es feci / facesti / fece / facemmo / faceste / fecero: 'faceste' ES la forma correcta para 'voi', porque la raíz débil fac- es la que toca en tu, noi y voi, y la fuerte fec- solo en io, lui y loro. (2) 'feceste' es options[0] y correctIndex es 1, así que el objetor propone como respuesta correcta justamente la distractora de alternancia cruzada que la explanation del slot declara a propósito. (3) El objetor aprobó la estructura IDÉNTICA en passato-remoto#1 ('facesti') y en passato-remoto#3 ('facemmo') en la misma pasada de cumplimiento literal: un hueco de criterios habría marcado las tres, así que esto es inestabilidad del evaluador sobre una casilla concreta. Acumulado sobre esta variante: 3 incorrecta y 2 correcta en 5 muestras del juez declarado, con deepseek-reasoner y gemini-2.5-flash en correcta. (4) El concern juzga el EJERCICIO y no la traducción (afirma que la opción elegida es incorrecta), cosa que la sección 3 del doc de criterios prohíbe expresamente al evaluador. (5) POR QUÉ ESTA VÍA Y NO --adjudicar: --adjudicar NO fija el veredicto, solo PERMITE sobrescribir un incorrecta previo, y lo que se escribe sigue siendo lo que devuelve el modelo; en la quinta muestra volvió a ser incorrecta, así que la refutación no era grabable por el camino normal y el motivo quedaba colgando de la propia pasada que levanta el concern, leyéndose como adjudicado sin estarlo. Re-invocar hasta que saliera verde es el dado que el pass-guard existe para impedir. El override es el mecanismo que este proyecto declaró de primera clase para exactamente esto, y llega DESPUÉS del trabajo adversarial documentado, no en su lugar. ESTE OVERRIDE NO FABRICA QUÓRUM: la variante ya tenía 2 pases correcta de 2 MODELOS distintos y 2 VENDORS distintos (deepseek-reasoner y gemini-2.5-flash) ANTES del override, así que cumple la barra estricta de la id 39 y no la débil de la id 35. El incorrecta de gemini-3.5-flash-lite se QUEDA en passes[]: el disenso sigue legible. El español no se toca."
                   ]
                 }
               ]
