@@ -768,7 +768,7 @@
           "translationES": {
             "text": "Aquel invierno hicisteis un pastel.",
             "validation": {
-              "status": "validated",
+              "status": "disputed",
               "passes": [
                 {
                   "by": "deepseek-reasoner",
@@ -779,9 +779,11 @@
                 {
                   "by": "gemini-3.5-flash-lite",
                   "date": "2026-08-15",
-                  "verdict": "correcta",
-                  "concerns": [],
-                  "adjudicacion": "Refutado con trabajo adversarial (plan 48-02). El concern afirmaba que el passato remoto de 'fare' para 'voi' es 'feceste'; es FALSO: el paradigma es feci / facesti / fece / facemmo / faceste / fecero, y 'feceste' es justamente la distractora de alternancia cruzada que la explanation del slot declara a proposito. El concern ademas juzga el EJERCICIO ('la opcion elegida es incorrecta'), cosa que la seccion 3 del doc de criterios prohibe expresamente al evaluador. Evidencia: (a) segunda muestra independiente del MISMO gemini-3.5-flash-lite sobre la MISMA variante devolvio correcta con concerns vacios; (b) juez mas estricto del mismo vendor, gemini-2.5-flash, devolvio correcta con concerns vacios; (c) contado del disco, el propio objetor aprobo la estructura identica en passato-remoto#1 ('facesti') y en #3 ('facemmo'), ambas con la distractora fec- presente; (d) el quorum R1-R7 de Phase 41 (Opus, Sonnet y deepseek-reasoner) ya habia ratificado la key. El 'incorrecta' era ruido de muestreo, no disenso sostenido."
+                  "verdict": "incorrecta",
+                  "concerns": [
+                    "[S5-italiano] el verbo fare en passato remoto para la segunda persona del plural (voi) es 'feceste', no 'faceste' (la opción 1 es incorrecta gramaticalmente en italiano).",
+                    "[S2-fidelidad] la frase fuente contiene una forma italiana gramaticalmente errónea por la selección de la opción incorrecta del ejercicio, lo que compromete la fidelidad de la traducción al no reflejar un uso real del passato remoto de 'fare'."
+                  ]
                 }
               ]
             }
@@ -799,13 +801,15 @@
           "translationES": {
             "text": "Hace tantos años hicieron los deberes.",
             "validation": {
-              "status": "validated",
+              "status": "disputed",
               "passes": [
                 {
                   "by": "deepseek-reasoner",
                   "date": "2026-08-15",
-                  "verdict": "correcta",
-                  "concerns": []
+                  "verdict": "incorrecta",
+                  "concerns": [
+                    "[S6-naturalidad] calco de 'tanti anni fa' como 'hace tantos años'; en español la expresión idiomática es 'hace muchos años'. Sugerencia: \"Hace muchos años hicieron los deberes.\""
+                  ]
                 },
                 {
                   "by": "gemini-3.5-flash-lite",
