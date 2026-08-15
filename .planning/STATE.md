@@ -5,15 +5,15 @@ milestone_name: Traducción al español por variante (TRAD-X1)
 current_phase: 48
 current_phase_name: traducci-n-paradigma-fare-4-categor-as
 status: executing
-stopped_at: Completed 48-01-PLAN.md
-last_updated: "2026-08-15T14:15:49.851Z"
+stopped_at: Completed 48-02-PLAN.md
+last_updated: "2026-08-15T15:07:07.153Z"
 last_activity: 2026-08-15
 last_activity_desc: Phase 48 execution started
 progress:
   total_phases: 8
   completed_phases: 2
   total_plans: 14
-  completed_plans: 10
+  completed_plans: 11
   percent: 25
 ---
 
@@ -31,9 +31,9 @@ See: `.planning/PROJECT.md` (updated 2026-08-13 — milestone v2.1 abierto: trad
 
 Milestone: v2.1 — Traducción al español por variante (TRAD-X1) — Phases **46-53** (numeración CONTINÚA desde Phase 45, sin reset)
 Phase: 48 (traducci-n-paradigma-fare-4-categor-as) — EXECUTING
-Plan: 2 of 5
+Plan: 3 of 5
 Status: Ready to execute
-Progress: [███████░░░] 71% de los planes de la fase
+Progress: [████████░░] 79% de los planes de la fase
 Last activity: 2026-08-15 — Phase 48 execution started
 
 **Estado verificado en disco al cierre de 47-04 (2026-08-14T21:54Z):** reporter `node scripts/run-validation-271.mjs` → **exit 0** (`TRAD-COV: PASS (206/206)` sobre 3 categorías declaradas cubiertas, VAL-04/06/08/09 PASS, `VAL-06 250/250`, `Milestone gate PASS.`); gate anti-ceguera `node --test tests/count-arrays-lockstep.test.js` → **exit 0**, 64/64; suite `node --test tests/*.test.js tests/fixtures/*.test.js` → **1343 / 1339 pass / 4 fail** (exit 1, único rojo = la deuda pre-existente de trazabilidad, id 17 del ledger — **cero regresiones nuevas** frente a la línea base de 47-03); motor **byte-intacto** (`git diff --stat src/domain/ src/screens/app.js` vacío) y `schemaVersion` en **13**; corpus de traducción **206/206 `validated`**, 0 `disputed`, 0 `pending`, **2 overrides** en todo el corpus (`articoli-lo-z#1`, `partitivos-qualche#2`, ninguno nuevo en 47-04); los tres ficheros mutados con **md5 idéntico** a su foto verde y sin mutaciones residuales.
@@ -236,6 +236,7 @@ Deuda técnica del milestone (~25 items, cero blockers) en `.planning/milestones
 | Phase 47 P03 | 2h46m | 2 tasks | 3 files |
 | Phase 47 P04 | 4h 09m | 3 tasks | 3 files |
 | Phase 48 P01 | ~50 min | 3 tasks | 4 files |
+| Phase 48 P02 | ~75 min | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -426,6 +427,10 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - [Phase ?]: D-48-02: registro canónico del bloque — i compiti se traduce «los deberes» (decisión del autor)
 - [Phase ?]: D-48-03: el pronombre de sujeto español se OMITE aunque el italiano lo lleve explícito; la morfología verbal basta
 - [Phase ?]: D-48-04: el key set de variante de los tests de contenido fare admite translationES como hermano OPCIONAL, descontando ESA clave y ninguna otra
+- [Phase ?]: D-48-05: la objeción al pronombre sujeto omitido es HUECO DEL DOC (firma canónica id 37), no defecto de la traducción — tercera vía del autor
+- [Phase ?]: D-48-06: el español de 301#1 no se toca y D-48-03 sigue sin carve-out; el arreglo va al doc de criterios
+- [Phase ?]: D-48-07: el pase pre-enmienda se retira sin --adjudicar y sin override, con passes[] reseteado y el contenido literal transcrito
+- [Phase ?]: D-48-08: el alcance del cumplimiento literal de D-46-12 sobre las 53 queda escalado al autor (53 > umbral declarado de 40)
 
 ### Pending Todos
 
@@ -443,6 +448,7 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - **⚠️ Discrepancia de schemaVersion (REQUIREMENTS vs codebase) — resolver en plan-time Phase 29.** MIG-05/06 asumen `schemaVersion 9` y migración `9→10`, pero `CURRENT_SCHEMA_VERSION` YA está en **10** (`src/data/storage.js:35` y `src/data/backup.js:49`) por el quick task `260615-nzi` (migrate9to10/hydrateV10 nominal del contador `vecesFallada`). La migración de reset selectivo de v1.7 va realmente **`10→11`** (`migrate10to11`/`hydrateV11`/`CURRENT_SCHEMA_VERSION=11`; round-trip v11 + import v10→v11 + rechazo `>11`). Verificar el valor REAL antes de hardcodear el número de migración. Documentado en ROADMAP §v1.7 nota de numeración + REQUIREMENTS MIG-05/06 nota de implementación.
 - (Sin otros bloqueos — motor slot+variantes v1.4 DONE y operativo (`normalizeExerciseToSlot`, `pickVariantIndex`, getter slot-aware, sampler por slot, cascada D-54 con 2 call-sites, smoke bifurcado por shape, todos reutilizables); patrón de alta de categoría validado en v1.2 + patrón slot en v1.6, replicable; infra de quórum cross-vendor disponible; roadmap v1.7 fijado.)
 - El reporter sale en ROJO por diseno al cierre de 46-03 (TRAD-COV 0/96). NO se ablanda el gate: lo cierra el plan 46-04 autorando y validando las 95 traducciones que faltan.
+- 48-02: deuda de alcance ABIERTA (WINDOWS id 42) — decisión del autor sobre si re-validar las 53 variantes con sujeto bajo el doc amendado (106 llamadas). Cuerpos cerrados 46/47: sujeto CERO.
 
 ### Decisions Pending (a resolver en plan-time) — v2.0
 
@@ -486,8 +492,8 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Session Continuity
 
-**Last session:** 2026-08-15T14:15:43.454Z
-**Stopped at:** Completed 48-01-PLAN.md
+**Last session:** 2026-08-15T15:06:55.672Z
+**Stopped at:** Completed 48-02-PLAN.md
 **Resume file:** None
 
 ### Last Session
