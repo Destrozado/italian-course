@@ -654,7 +654,27 @@
             "avrò fatto",
             "ho fare"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Después de que hube hecho los deberes, salí de casa.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Quando tu ___ il letto, tua madre tornò.",
