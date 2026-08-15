@@ -252,7 +252,14 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
   3. **Calidad validada:** las 122 están `validated` por el quórum con el prompt de traducción; `disputed` resueltos con trabajo, español acentuado RAE.
   4. **Gate y brownfield:** las 4 categorías entran en el array de cobertura con `expected` derivado del disco (mutación observada en rojo), `src/domain/` sin tocar, `schemaVersion` en 13, suite verde y reporter exit 0.
 
-**Plans**: TBD
+**Plans**: 5 plans
+
+Plans:
+- [ ] 48-01-PLAN.md — Tracer: una casilla del trapassato remoto atraviesa las seis capas, `fare-indicativo` enganchada y anclada, y la decisión sobre el doc de criterios puesta delante del autor
+- [ ] 48-02-PLAN.md — Ejecutar la decisión del autor sobre el doc y cerrar `fare-indicativo` (54), con los ocho tiempos del indicativo distinguidos en español
+- [ ] 48-03-PLAN.md — `fare-congiuntivo` (30): enganchar, anclar, y resolver con el autor el caso donde el español no puede mostrar el modo
+- [ ] 48-04-PLAN.md — `fare-indefiniti` (21) y `fare-cond-imperativo` (17): las tres asimetrías entre lenguas traducidas y declaradas; las 122 completas
+- [ ] 48-05-PLAN.md — Cierre: mutaciones observadas en rojo, permutaciones de orden, colisiones contadas, backstops long-text re-probados y verificación del autor
 
 ---
 
