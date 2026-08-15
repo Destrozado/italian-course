@@ -1868,7 +1868,7 @@
           "translationES": {
             "text": "Hago una foto sin problemas, pero comete un error cada vez.",
             "validation": {
-              "status": "disputed",
+              "status": "validated",
               "passes": [
                 {
                   "by": "deepseek-reasoner",
@@ -1879,10 +1879,8 @@
                 {
                   "by": "gemini-3.5-flash-lite",
                   "date": "2026-08-15",
-                  "verdict": "incorrecta",
-                  "concerns": [
-                    "[S2-fidelidad] omite el sujeto pronominal explícito \"lui\" de la segunda proposición del original (\"pero él comete un error cada vez\"); sugerencia: \"Hago una foto sin problemas, pero él comete un error cada vez.\""
-                  ]
+                  "verdict": "correcta",
+                  "concerns": []
                 }
               ]
             }

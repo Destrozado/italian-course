@@ -277,6 +277,48 @@ español lo decide el verbo y el sustantivo, no el italiano: `a merenda` es `de 
 Esta excepción **no toca nada del italiano**: `italianoResuelto` sigue sujeto a S5 exactamente igual
 que antes, y S1, S4 y S6 se aplican al español sin cambio ninguno.
 
+### Aclaración de S2: el PRONOMBRE SUJETO explícito del italiano no tiene que reaparecer en el español
+
+El italiano, igual que el español, es una lengua de **sujeto nulo**: lo normal es no decir el
+pronombre, porque la desinencia del verbo ya marca la persona. Cuando un `prompt` del corpus **sí**
+escribe `io`, `tu`, `lui`, `lei`, `noi`, `voi` o `loro`, es casi siempre **andamiaje del ejercicio**:
+la frase necesita fijar de qué persona se pregunta para que el hueco tenga una sola respuesta válida.
+El español hace ese mismo trabajo con la morfología verbal —`hago` es primera persona y `hacéis` es
+segunda del plural sin ayuda de nadie—, así que la traducción fiel **normalmente no repite el
+pronombre**.
+
+- **Esa ausencia NO es contenido omitido: es la manera española de decir lo mismo.** Un concern
+  `[S2-fidelidad]` del tipo «la traducción omite el pronombre sujeto explícito `io` / `tu` / `lui`
+  del original» es un **FALSO POSITIVO** y no debe emitirse. La propia S2 ya lo dice con estas
+  palabras: «fidelidad estricta **no** significa palabra por palabra: significa mismo contenido
+  proposicional. Las diferencias obligadas por la lengua (…**un pronombre sujeto que el español
+  omite**) son correctas y no se penalizan.» Esta aclaración no rebaja S2: nombra el caso concreto en
+  el que leerla al pie de la letra la contradice, y deja dicho que la absolución vale **también
+  cuando el italiano lleva el pronombre escrito** — que es justo el punto que la redacción anterior
+  dejaba en el aire, porque hablaba de lo que el español omite sin decir nada de lo que el italiano
+  explicita.
+- **Las dos soluciones son fieles y NINGUNA es obligatoria.** `Hago los deberes todos los días.` y
+  `Yo hago los deberes todos los días.` traducen las dos `Io faccio i compiti ogni giorno.`; escribir
+  el pronombre o no es elección de estilo, no de fidelidad. Esta regla **absuelve** la omisión, **no
+  la exige**: una traducción que sí ponga el pronombre está igual de bien y tampoco se marca por
+  ello. Y vale igual cuando la frase encadena dos cláusulas con sujetos distintos y el italiano
+  escribe los dos.
+- **QUÉ SE SIGUE VIGILANDO, con todo el rigor y sin rebaja alguna** — los dos puntos son S2 aplicado,
+  no exigencia nueva:
+  1. **Que la PERSONA siga siendo recuperable.** Lo que la traducción no puede hacer es cambiar de
+     persona ni dejarla indeterminada: si el italiano dice `voi` y el español conjuga en tercera, o
+     si la frase se queda sin verbo que la marque, eso **ya era `[S2-fidelidad]` false antes de esta
+     aclaración** y lo sigue siendo exactamente igual. La omisión del pronombre está absuelta; la
+     confusión de persona no lo está y nunca lo estuvo.
+  2. **Que no se pierda un CONTRASTE que la frase afirma.** Si el italiano opone dos sujetos, el
+     español tiene que seguir oponiéndolos — con la morfología, con el orden de palabras o con el
+     pronombre, a elección del traductor. Lo que S2 castiga, aquí como siempre, es que el contraste
+     **desaparezca**; nunca que se haya resuelto sin pronombre, que es una de las formas correctas de
+     resolverlo.
+
+Esta aclaración **no toca nada del italiano**: `italianoResuelto` sigue sujeto a S5 exactamente igual
+que antes, y S1, S4 y S6 se aplican al español sin cambio ninguno.
+
 ### Frontera con el `gloss` español del `prompt` (canon R7)
 
 Algunas frases italianas del corpus llevan, DENTRO del propio `prompt`, una glosa española entre

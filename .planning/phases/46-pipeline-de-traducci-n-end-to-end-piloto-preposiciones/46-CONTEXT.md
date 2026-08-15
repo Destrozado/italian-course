@@ -298,6 +298,64 @@ Bajar el pipeline COMPLETO de traducción al español y demostrarlo end-to-end s
 
   ---
 
+  **QUINTA NOTA (2026-08-15 — Phase 48, plan 48-02). TERCERA ENMIENDA del doc de criterios: la aclaración de S2 sobre el PRONOMBRE SUJETO explícito. Decidida por el AUTOR en un `checkpoint:decision` bloqueante, resolviendo con una tercera vía («opción C») distinta de las dos que el executor había propuesto. El sujeto se midió, la condición 1 FALLA, y el alcance del cumplimiento literal queda ESCALADO al autor por volumen — declarado aquí como deuda abierta, no ejecutado en silencio.**
+
+  El executor llegó a este checkpoint proponiendo o mantener el español y cerrar con `--adjudicar`, o reescribirlo metiendo el pronombre. **El autor rechazó las dos**: el español no se toca, D-48-03 sigue sin carve-out, y el arreglo va **al doc de criterios**, que es el único fichero que el evaluador lee. Se registra la tercera vía porque es la que la doctrina del proyecto prescribía y ninguna de las dos propuestas contemplaba.
+
+  **Qué se amendó:** *«Aclaración de S2: el PRONOMBRE SUJETO explícito del italiano no tiene que reaparecer en el español»*, cuarta hermana de las de `da` + PERSONA, PARTITIVO y ADVERBIAL DE COMIDA, con su misma anatomía. Declara **falso positivo** el concern «la traducción omite el pronombre sujeto explícito `io` / `tu` / `lui` del original» y **nada más**. Se apoya en una frase que **S2 ya contenía** —«las diferencias obligadas por la lengua (…un pronombre sujeto que el español omite) son correctas y no se penalizan»—, así que no rebaja S2: cierra la rendija de que esa frase hablaba de lo que el ESPAÑOL omite sin decir nada del caso en que el ITALIANO lo explicita, que es una forma marcada en una lengua de sujeto nulo y es justo por donde entraron los concerns.
+
+  **Por qué era hueco del doc y no un defecto de la traducción, con la evidencia CONTADA DEL DISCO.** Firma canónica de la id 37 de `WINDOWS` («marcar un patrón y aprobar N idénticos»), reproducida aquí sobre el slot `fare-indicativo-301`, cuyas tres variantes omiten el pronombre por igual:
+
+  | Variante | Italiano resuelto | Español | Veredicto de `gemini-3.5-flash-lite` |
+  |---|---|---|---|
+  | `301#0` | `Tu fai i compiti da solo, ma noi ripassiamo…` | «Haces los deberes solo, pero repasamos…» | `correcta` |
+  | `301#2` | `Noi facciamo il letto…, e voi controllate…` | «Hacemos la cama…, y controláis…» | `correcta` |
+  | `301#1` | `Io faccio una foto…, ma lui commette…` | «Hago una foto…, pero comete…» | **`incorrecta`** |
+
+  El agravante que decidió el diagnóstico: **un segundo vendor llegó solo a la misma objeción**. `deepseek-chat` marcó `[S2-fidelidad] la traducción omite el pronombre sujeto 'lui' (él) del original, que es enfático y contrastivo en italiano`. Dos vendors independientes agarrándose a la misma rendija es evidencia de que la rendija existe, no de que el texto esté mal. Y el trabajo adversarial fue al juez MÁS estricto del MISMO vendor que el objetor: `gemini-2.5-flash` devolvió `correcta`. (`gemini-2.5-pro` se intentó dos veces y devolvió 429 en los 3 reintentos de cada una: sin veredicto, y se dice en vez de omitirlo.)
+
+  **Prueba de dos condiciones del carve-out de 47-01, aplicada a ESTA enmienda. Cifras RECOMPUTADAS del disco el 2026-08-15**, derivadas y no transcritas: se recorrieron las 260 traducciones del corpus, se derivó el status con `deriveStatus` sobre `passes[]` (no se leyó el campo `status`), y se buscó el sujeto de forma ANCHA —`italianoResuelto` con pronombre sujeto italiano explícito (`io`, `tu`, `lui`, `lei`, `noi`, `voi`, `loro`, `egli`, `ella`, `essi`, `esse`) y español que lo omite—, **descontando el gloss R7** del `italianoResuelto` como el propio doc manda:
+
+  | Categoría | Variantes `multiple-choice` | Con traducción | `validated` | CON SUJETO |
+  |---|---|---|---|---|
+  | `preposiciones` (Phase 46, cerrada) | 96 | 96 | 96 | **0** |
+  | `articoli` (Phase 47, cerrada) | 62 | 62 | 62 | **0** |
+  | `partitivos` (Phase 47, cerrada) | 48 | 48 | 48 | **0** |
+  | `fare-indicativo` (Phase 48, EN VUELO) | 54 | 54 | 53 | **53** |
+  | **TOTAL** | **260** | **260** | **259** | **53** |
+
+  La medida ancha daba **54** e incluía `preposiciones-da-encasade#0`; se descartó tras inspeccionarla: el `tu` que disparaba el match vive **dentro del gloss español** (`(en español: 'Paso por tu casa a las ocho')`) y es un **posesivo español**, no un sujeto italiano. Se deja escrito porque la diferencia entre 53 y 54 es exactamente la clase de falso positivo que una medida ancha sin refinar habría convertido en una cifra falsa.
+
+  1. **Ausencia de sujeto: FALLA.** **53** variantes ya `validated` bajo el prompt anterior presentan la construcción que la aclaración regula. La condición exige **cero**.
+  2. **Direccionalidad absolutoria: SE MANTIENE, y se verificó en vez de declararse.** La sección nueva tiene 43 líneas; un grep de los patrones de endurecimiento que el veto de 47-01 nombra —`marca (como) incorrecta`, `marca sX_… false`, `exige que`, `debes`, `tienes que marcar/exigir`— devuelve **cero coincidencias**, frente a 4 marcas absolutorias (`FALSO POSITIVO`, `no debe emitirse`, `absuelve … no la exige`, `ya era false antes`). Sus dos puntos de vigilancia —que la **persona** siga siendo recuperable y que no se pierda un **contraste** que la frase afirma— **reiteran S2 sin añadir exigencia**, y lo dicen con esas palabras: cambiar de persona y omitir contenido ya eran S2 `false` antes de esta aclaración. Además la regla **absuelve la omisión sin exigirla**: una traducción que sí escriba el pronombre tampoco se marca, de modo que no puede voltear una `correcta` por ninguno de los dos lados.
+
+  Falla una ⇒ **cumplimiento literal**. Y aquí es donde esta nota se aparta de las cuatro anteriores, en vez de disimularlo:
+
+  **EL ALCANCE DEL CUMPLIMIENTO LITERAL QUEDA ABIERTO Y ESCALADO AL AUTOR.** El sujeto son **53** variantes, por encima del umbral de **40** que el coordinador declaró —y declaró **como supuesto suyo, no como instrucción del autor**— para devolverle la decisión de alcance. Pero la composición del sujeto no es la que ese umbral anticipaba, y esa es la información que el autor necesita para decidir:
+
+  - **Los tres cuerpos CERRADOS tienen sujeto CERO.** Las 206 traducciones de las Phases 46 y 47 —`preposiciones` 96, `articoli` 62, `partitivos` 48— **no están tocadas por esta enmienda**. Es el mismo hallazgo que la segunda nota tuvo con el PARTITIVO, y por el mismo motivo: el sujeto vive entero dentro de la categoría que lo motivó.
+  - **Las 53 son trabajo EN VUELO del propio plan que está amendando.** Es literalmente la situación que la segunda nota analizó para sus 32: sobre ellas actúa la **condición 2**, que aquí se mantiene íntegra y verificada. **Esto es un argumento de por qué es seguro, no una demostración de que no haya sujeto** — la distinción importa y por eso queda escrita, igual que se escribió entonces.
+  - **Coste del cumplimiento literal si el autor lo elige:** 53 × 2 = **106 llamadas**, con los jueces declarados. La tercera nota es el precedente de que pagarlo destapa lo que un argumento no destapa: allí la variante 32 volvió con un concern nuevo que la enmienda no cubría.
+
+  **Corroboración empírica de la direccionalidad (consistencia, no prueba).** `fare-indicativo-301#1` se re-validó **desde cero** bajo el doc ya amendado, con los dos jueces declarados y `passes[]` reseteado a vacío: **2 llamadas, 2 `correcta`**, y pasa de `disputed` a `validated` **sin tocar un solo carácter del español** («Hago una foto sin problemas, pero comete un error cada vez.», byte a byte idéntica en `35bc8a4` y después) y **sin override**. Es exactamente el movimiento de `partitivos-delle-invariable#0` en la cuarta nota: cuando el defecto está en los criterios, se arreglan los criterios y el texto se queda. El único movimiento observado, otra vez, fue en la dirección absolutoria.
+
+  **El pase retirado, transcrito literal antes de retirarlo** —porque el disenso no se borra en silencio y `passes[]` se reseteó a vacío para re-validar desde cero:
+
+  ```
+  { "by": "gemini-3.5-flash-lite", "date": "2026-08-15", "verdict": "incorrecta",
+    "concerns": ["[S2-fidelidad] omite el sujeto pronominal explícito \"lui\" de la segunda
+      proposición del original (\"pero él comete un error cada vez\"); sugerencia:
+      \"Hago una foto sin problemas, pero él comete un error cada vez.\""] }
+  ```
+
+  Se retiró **sin `--adjudicar` y sin override**, por decisión expresa del autor: el pase juzgaba bajo unos criterios que ya no rigen, y su contenido sobrevive aquí, en `.planning/WINDOWS.md` y en el histórico de git. El acompañante `deepseek-reasoner: correcta` se retiró con él por la misma razón, para que el quórum nuevo sea íntegramente post-enmienda: **cero pases pre-enmienda supervivientes en esa variante**.
+
+  **Alcance de esta enmienda:** los criterios, no la regla de alcance. `docs/TRANSLATION-VALIDATION-PROMPT.md` es y sigue siendo el único sitio donde viven los criterios; la regla de alcance sigue siendo la de la primera nota, sin tocar.
+
+  — *Registrado por el executor del plan 48-02, 2026-08-15, ejecutando la decisión del autor. La deuda de alcance de las 53 queda ABIERTA y pendiente de su decisión.*
+
+  ---
+
 - **D-46-13: TVAL-02 — script hermano de `scripts/validate-song-pass.mjs`, con el quórum cross-vendor DeepSeek + Gemini, 1-por-1 (VAL-03).** — **Reversibility:** reversible
 
   Espejo exacto del script de canciones: `--model` / `--fallback` / `--avoid` (para garantizar 2 `by` distintos) / `--write` / `--dry-run` / `--temp`; auto-fallback en 429 registrando SIEMPRE el modelo que de verdad respondió; zero-deps; `withFileLock` para el read-modify-write; `deriveStatus` importado de `src/data/validation-state.js` como fuente única.
