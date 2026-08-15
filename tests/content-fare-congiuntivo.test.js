@@ -445,7 +445,20 @@ describe('fare-congiuntivo — estructura y conteos (D-42-01, D-42-03, D-42-18)'
         `key set del slot ${s.id}`
       );
       s.variants.forEach((v, k) => {
-        assert.deepEqual(Object.keys(v).sort(), ['correctIndex', 'options', 'prompt'], `key set de ${s.id}#${k}`);
+        // `translationES` (v2.1 / TRAD-X1, D-46-02) es un hermano OPCIONAL de
+        // prompt/options/correctIndex: una variante puede llevarlo o no, y su FORMA la
+        // juzga tests/schema-translation.test.js, que es su sitio. Aquí se descuenta esa
+        // clave y NADA MÁS, así que el gate conserva su mordida entera: las tres claves
+        // obligatorias siguen exigidas por igualdad de conjunto, y cualquier OTRA clave
+        // intrusa —un `note`, un `hint`, un typo de `promt`— sobrevive al filtro y
+        // enrojece el deepEqual exactamente igual que antes de este cambio. Verificado
+        // por mutación al abrirlo (Phase 48-03), no sólo por que pasara a verde.
+        const claves = Object.keys(v).sort();
+        assert.deepEqual(
+          claves.filter((c) => c !== 'translationES'),
+          ['correctIndex', 'options', 'prompt'],
+          `key set de ${s.id}#${k}`
+        );
       });
     }
   });

@@ -409,6 +409,7 @@ const TRANSLATION_COVERAGE = [
   { slug: 'partitivos',               file: 'content/exercises/partitivos.json',               expected: mcVariantCountOf('content/exercises/partitivos.json') },
   { slug: 'articoli',                 file: 'content/exercises/articoli.json',                 expected: mcVariantCountOf('content/exercises/articoli.json') },
   { slug: 'fare-indicativo',          file: 'content/exercises/fare-indicativo.json',          expected: mcVariantCountOf('content/exercises/fare-indicativo.json') },
+  { slug: 'fare-congiuntivo',         file: 'content/exercises/fare-congiuntivo.json',         expected: mcVariantCountOf('content/exercises/fare-congiuntivo.json') },
 ];
 
 // Σ de los `expected` DERIVADOS de arriba, por el mismo motivo que `TOTAL_EXPECTED`: para

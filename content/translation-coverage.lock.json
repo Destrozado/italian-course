@@ -1,8 +1,9 @@
 {
   "_doc": "ANCLA de TRAD-COV (CR-02 / T-47-27). Marca de agua del número de variantes multiple-choice por categoría CUBIERTA de traducción. El reporter la usa como SUELO: si el disco cae por debajo, desapareció una variante y sale ROJO. No se deriva del corpus en tiempo de corrida a propósito — un ancla derivada del mismo fichero se movería con el borrado y volvería a ser tautológica. Re-emitir SÓLO con `node scripts/bump-translation-lock.mjs --write`, que deja su propio diff en git.",
-  "emitido": "2026-08-15T13:41:59.349Z",
+  "emitido": "2026-08-15T18:04:54.561Z",
   "categorias": {
     "articoli": 62,
+    "fare-congiuntivo": 30,
     "fare-indicativo": 54,
     "partitivos": 48,
     "preposiciones": 96
