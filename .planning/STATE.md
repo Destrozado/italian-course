@@ -4,15 +4,15 @@ milestone: v2.1
 milestone_name: Traducción al español por variante (TRAD-X1)
 current_phase: 47
 current_phase_name: Traducción — bloque Artículos (Articoli + Partitivos)
-status: verifying
+status: executing
 stopped_at: Completado 47-04-PLAN.md — 3 mutaciones ejecutadas en 4 formas con rojo observado, autor aprobo, backstops 21/22 ABSTENIDOS y arrastrados a 48-53
-last_updated: "2026-08-14T21:58:34.799Z"
+last_updated: "2026-08-15T13:37:41.912Z"
 last_activity: 2026-08-14
 last_activity_desc: Phase 47 — 4/4 planes ejecutados; cierre por mutacion hecho y checkpoint del autor aprobado. Lista para verificacion de fase
 progress:
   total_phases: 8
   completed_phases: 2
-  total_plans: 9
+  total_plans: 14
   completed_plans: 9
   percent: 25
 ---
@@ -32,7 +32,7 @@ See: `.planning/PROJECT.md` (updated 2026-08-13 — milestone v2.1 abierto: trad
 Milestone: v2.1 — Traducción al español por variante (TRAD-X1) — Phases **46-53** (numeración CONTINÚA desde Phase 45, sin reset)
 Phase: 47 (Traducción — bloque Artículos (Articoli + Partitivos)) — READY FOR VERIFICATION
 Plan: 4 of 4
-Status: Phase complete — ready for verification
+Status: Ready to execute
 Progress: [██████████] 100% de los planes de la fase
 Last activity: 2026-08-14 — Phase 47 ejecutada al completo (4/4 planes); checkpoint del autor aprobado
 

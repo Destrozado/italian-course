@@ -255,10 +255,24 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
 **Plans**: 5 plans
 
 Plans:
+**Wave 1**
+
 - [ ] 48-01-PLAN.md — Tracer: una casilla del trapassato remoto atraviesa las seis capas, `fare-indicativo` enganchada y anclada, y la decisión sobre el doc de criterios puesta delante del autor
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
 - [ ] 48-02-PLAN.md — Ejecutar la decisión del autor sobre el doc y cerrar `fare-indicativo` (54), con los ocho tiempos del indicativo distinguidos en español
+
+**Wave 3** *(blocked on Wave 2 completion)*
+
 - [ ] 48-03-PLAN.md — `fare-congiuntivo` (30): enganchar, anclar, y resolver con el autor el caso donde el español no puede mostrar el modo
+
+**Wave 4** *(blocked on Wave 3 completion)*
+
 - [ ] 48-04-PLAN.md — `fare-indefiniti` (21) y `fare-cond-imperativo` (17): las tres asimetrías entre lenguas traducidas y declaradas; las 122 completas
+
+**Wave 5** *(blocked on Wave 4 completion)*
+
 - [ ] 48-05-PLAN.md — Cierre: mutaciones observadas en rojo, permutaciones de orden, colisiones contadas, backstops long-text re-probados y verificación del autor
 
 ---
