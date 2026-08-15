@@ -252,12 +252,12 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
   3. **Calidad validada:** las 122 están `validated` por el quórum con el prompt de traducción; `disputed` resueltos con trabajo, español acentuado RAE.
   4. **Gate y brownfield:** las 4 categorías entran en el array de cobertura con `expected` derivado del disco (mutación observada en rojo), `src/domain/` sin tocar, `schemaVersion` en 13, suite verde y reporter exit 0.
 
-**Plans**: 5 plans
+**Plans**: 1/5 plans executed
 
 Plans:
 **Wave 1**
 
-- [ ] 48-01-PLAN.md — Tracer: una casilla del trapassato remoto atraviesa las seis capas, `fare-indicativo` enganchada y anclada, y la decisión sobre el doc de criterios puesta delante del autor
+- [x] 48-01-PLAN.md — Tracer: una casilla del trapassato remoto atraviesa las seis capas, `fare-indicativo` enganchada y anclada, y la decisión sobre el doc de criterios puesta delante del autor
 
 **Wave 2** *(blocked on Wave 1 completion)*
 

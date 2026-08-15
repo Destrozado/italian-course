@@ -2,18 +2,18 @@
 gsd_state_version: 1.0
 milestone: v2.1
 milestone_name: Traducción al español por variante (TRAD-X1)
-current_phase: 47
-current_phase_name: Traducción — bloque Artículos (Articoli + Partitivos)
+current_phase: 48
+current_phase_name: traducci-n-paradigma-fare-4-categor-as
 status: executing
-stopped_at: Completado 47-04-PLAN.md — 3 mutaciones ejecutadas en 4 formas con rojo observado, autor aprobo, backstops 21/22 ABSTENIDOS y arrastrados a 48-53
-last_updated: "2026-08-15T13:37:41.912Z"
-last_activity: 2026-08-14
-last_activity_desc: Phase 47 — 4/4 planes ejecutados; cierre por mutacion hecho y checkpoint del autor aprobado. Lista para verificacion de fase
+stopped_at: Completed 48-01-PLAN.md
+last_updated: "2026-08-15T14:15:49.851Z"
+last_activity: 2026-08-15
+last_activity_desc: Phase 48 execution started
 progress:
   total_phases: 8
   completed_phases: 2
   total_plans: 14
-  completed_plans: 9
+  completed_plans: 10
   percent: 25
 ---
 
@@ -25,16 +25,16 @@ See: `.planning/PROJECT.md` (updated 2026-08-13 — milestone v2.1 abierto: trad
 
 **Core Value:** Que el sistema te obligue a no olvidar — re-verificación constante por categoría, fallar uno desmarca todos los temas que toca.
 
-**Current Focus:** Phase 47 — Traducción — bloque Artículos (Articoli + Partitivos)
+**Current Focus:** Phase 48 — traducci-n-paradigma-fare-4-categor-as
 
 ## Current Position
 
 Milestone: v2.1 — Traducción al español por variante (TRAD-X1) — Phases **46-53** (numeración CONTINÚA desde Phase 45, sin reset)
-Phase: 47 (Traducción — bloque Artículos (Articoli + Partitivos)) — READY FOR VERIFICATION
-Plan: 4 of 4
+Phase: 48 (traducci-n-paradigma-fare-4-categor-as) — EXECUTING
+Plan: 2 of 5
 Status: Ready to execute
-Progress: [██████████] 100% de los planes de la fase
-Last activity: 2026-08-14 — Phase 47 ejecutada al completo (4/4 planes); checkpoint del autor aprobado
+Progress: [███████░░░] 71% de los planes de la fase
+Last activity: 2026-08-15 — Phase 48 execution started
 
 **Estado verificado en disco al cierre de 47-04 (2026-08-14T21:54Z):** reporter `node scripts/run-validation-271.mjs` → **exit 0** (`TRAD-COV: PASS (206/206)` sobre 3 categorías declaradas cubiertas, VAL-04/06/08/09 PASS, `VAL-06 250/250`, `Milestone gate PASS.`); gate anti-ceguera `node --test tests/count-arrays-lockstep.test.js` → **exit 0**, 64/64; suite `node --test tests/*.test.js tests/fixtures/*.test.js` → **1343 / 1339 pass / 4 fail** (exit 1, único rojo = la deuda pre-existente de trazabilidad, id 17 del ledger — **cero regresiones nuevas** frente a la línea base de 47-03); motor **byte-intacto** (`git diff --stat src/domain/ src/screens/app.js` vacío) y `schemaVersion` en **13**; corpus de traducción **206/206 `validated`**, 0 `disputed`, 0 `pending`, **2 overrides** en todo el corpus (`articoli-lo-z#1`, `partitivos-qualche#2`, ninguno nuevo en 47-04); los tres ficheros mutados con **md5 idéntico** a su foto verde y sin mutaciones residuales.
 
@@ -235,6 +235,7 @@ Deuda técnica del milestone (~25 items, cero blockers) en `.planning/milestones
 | Phase 47 P02 | 41m28s | 2 tasks | 6 files |
 | Phase 47 P03 | 2h46m | 2 tasks | 3 files |
 | Phase 47 P04 | 4h 09m | 3 tasks | 3 files |
+| Phase 48 P01 | ~50 min | 3 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -421,6 +422,10 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - [Phase ?]: 47-03: TRAD-02 marcado COMPLETO — 110/110 del bloque Articulos, cifra derivada del disco y confirmada por el reporter en exit 0. A diferencia de 47-01 y 47-02, aqui el disco lo respalda
 - [Phase ?]: Phase 47 · plan 04: los backstops WINDOWS 21 y 22 (long-text) SIGUEN ABSTENIDOS y se arrastran a las Phases 48-53 con medida nueva (partitivos-dello-scons#0, 65 chars = 462 px = 1 linea, caja minima 622 px). El autor acepto el ARRASTRE el 2026-08-14, no aprobo la envoltura multilinea: sigue sin sujeto. NO se reetiquetan como pasados
 - [Phase ?]: Phase 47 · plan 04: VAL-08 NO se ensancha (WINDOWS id 40). Es un gate de nivel SLOT por diseno y los disputed de TRADUCCION los consume TRAD-COV. Ensancharlo exigiria su propia mutacion. El arreglo va en el CRITERIO de los planes de las Phases 48-53, no en el gate. Hallazgo identico al de la Phase 46: el criterio se copio de plan a plan sin corregirse
+- [Phase ?]: D-48-01: jueces del bloque fare fijados en deepseek-reasoner + gemini-3.5-flash-lite, sin cambiarlos a mitad de bloque
+- [Phase ?]: D-48-02: registro canónico del bloque — i compiti se traduce «los deberes» (decisión del autor)
+- [Phase ?]: D-48-03: el pronombre de sujeto español se OMITE aunque el italiano lo lleve explícito; la morfología verbal basta
+- [Phase ?]: D-48-04: el key set de variante de los tests de contenido fare admite translationES como hermano OPCIONAL, descontando ESA clave y ninguna otra
 
 ### Pending Todos
 
@@ -481,8 +486,8 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Session Continuity
 
-**Last session:** 2026-08-14T21:58:23.654Z
-**Stopped at:** Completado 47-04-PLAN.md — 3 mutaciones ejecutadas en 4 formas con rojo observado, autor aprobo, backstops 21/22 ABSTENIDOS y arrastrados a 48-53
+**Last session:** 2026-08-15T14:15:43.454Z
+**Stopped at:** Completed 48-01-PLAN.md
 **Resume file:** None
 
 ### Last Session
