@@ -17,7 +17,27 @@
             "facio",
             "fanno"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Hago los deberes todos los días.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Di solito tu ___ il letto.",
@@ -27,7 +47,27 @@
             "fai",
             "fate"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Normalmente haces la cama.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Adesso lui ___ una foto.",
@@ -37,7 +77,27 @@
             "facisce",
             "facciamo"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Ahora hace una foto.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Noi ___ sempre una torta.",
@@ -47,7 +107,27 @@
             "fate",
             "facciamo"
           ],
-          "correctIndex": 3
+          "correctIndex": 3,
+          "translationES": {
+            "text": "Siempre hacemos un pastel.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Ogni mattina voi ___ il lavoro.",
@@ -57,7 +137,27 @@
             "facate",
             "facciamo"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Todas las mañanas hacéis el trabajo.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "In questo momento loro ___ un errore.",
@@ -67,7 +167,27 @@
             "fanno",
             "faccio"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "En este momento cometen un error.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         }
       ],
       "validation": {
@@ -106,7 +226,27 @@
             "farevo",
             "facevano"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "De niño hacía los deberes todas las tardes.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Ogni estate tu ___ una torta.",
@@ -116,7 +256,27 @@
             "facevi",
             "facevate"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Todos los veranos hacías un pastel.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "A quei tempi lui ___ il lavoro.",
@@ -126,7 +286,27 @@
             "facava",
             "facevo"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "En aquellos tiempos hacía el trabajo.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Quando abitavamo a Roma noi ___ tutto.",
@@ -136,7 +316,27 @@
             "facevate",
             "facevamo"
           ],
-          "correctIndex": 3
+          "correctIndex": 3,
+          "translationES": {
+            "text": "Cuando vivíamos en Roma hacíamos todo.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "L'anno scorso voi ___ sempre il letto.",
@@ -146,7 +346,27 @@
             "facavate",
             "faceva"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "El año pasado hacíais siempre la cama.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Da piccoli loro ___ spesso un errore.",
@@ -156,7 +376,27 @@
             "facevano",
             "faceva"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "De pequeños cometían a menudo un error.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         }
       ],
       "validation": {
@@ -195,7 +435,27 @@
             "facrò",
             "faranno"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Mañana haré los deberes.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Stasera tu ___ il letto.",
@@ -205,7 +465,27 @@
             "farai",
             "farà"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Esta noche harás la cama.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "La settimana prossima lui ___ il lavoro.",
@@ -215,7 +495,27 @@
             "facrà",
             "farò"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "La semana que viene hará el trabajo.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Il mese prossimo noi ___ una torta.",
@@ -225,7 +525,27 @@
             "farete",
             "faremo"
           ],
-          "correctIndex": 3
+          "correctIndex": 3,
+          "translationES": {
+            "text": "El mes que viene haremos un pastel.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "L'anno prossimo voi ___ tutto.",
@@ -235,7 +555,27 @@
             "facrete",
             "faremo"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "El año que viene haréis todo.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Dopodomani loro ___ una foto.",
@@ -245,7 +585,27 @@
             "faranno",
             "farà"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Pasado mañana harán una foto.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         }
       ],
       "validation": {
@@ -314,7 +674,27 @@
             "facesti",
             "feci"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Aquel verano hiciste todo.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Molti anni fa lui ___ una foto.",
@@ -324,7 +704,27 @@
             "faciò",
             "fecero"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Hace muchos años hizo una foto.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Nel 1985 noi ___ il lavoro.",
@@ -334,7 +734,27 @@
             "feci",
             "facemmo"
           ],
-          "correctIndex": 3
+          "correctIndex": 3,
+          "translationES": {
+            "text": "En 1985 hicimos el trabajo.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Quell'inverno voi ___ una torta.",
@@ -344,7 +764,28 @@
             "facaste",
             "fece"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Aquel invierno hicisteis un pastel.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": [],
+                  "adjudicacion": "Refutado con trabajo adversarial (plan 48-02). El concern afirmaba que el passato remoto de 'fare' para 'voi' es 'feceste'; es FALSO: el paradigma es feci / facesti / fece / facemmo / faceste / fecero, y 'feceste' es justamente la distractora de alternancia cruzada que la explanation del slot declara a proposito. El concern ademas juzga el EJERCICIO ('la opcion elegida es incorrecta'), cosa que la seccion 3 del doc de criterios prohibe expresamente al evaluador. Evidencia: (a) segunda muestra independiente del MISMO gemini-3.5-flash-lite sobre la MISMA variante devolvio correcta con concerns vacios; (b) juez mas estricto del mismo vendor, gemini-2.5-flash, devolvio correcta con concerns vacios; (c) contado del disco, el propio objetor aprobo la estructura identica en passato-remoto#1 ('facesti') y en #3 ('facemmo'), ambas con la distractora fec- presente; (d) el quorum R1-R7 de Phase 41 (Opus, Sonnet y deepseek-reasoner) ya habia ratificado la key. El 'incorrecta' era ruido de muestreo, no disenso sostenido."
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Tanti anni fa loro ___ i compiti.",
@@ -354,7 +795,27 @@
             "fecero",
             "fece"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Hace tantos años hicieron los deberes.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         }
       ],
       "validation": {
@@ -401,7 +862,27 @@
             "ebbi fatto",
             "sono fatto"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Esta mañana he hecho los deberes y ahora estoy libre.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Ieri tu ___ il letto e la stanza è ancora in ordine.",
@@ -411,7 +892,27 @@
             "hai fare",
             "hai fatto"
           ],
-          "correctIndex": 3
+          "correctIndex": 3,
+          "translationES": {
+            "text": "Ayer hiciste la cama y la habitación todavía está ordenada.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Questa settimana lui ___ il lavoro e ora può riposare.",
@@ -421,7 +922,27 @@
             "ebbe fatto",
             "ha fare"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Esta semana ha hecho el trabajo y ahora puede descansar.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Oggi noi ___ una torta e la mangiamo a cena.",
@@ -461,7 +982,27 @@
             "avevate fatto",
             "aveste fatto"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Hace poco habéis hecho una foto y ahora la miráis juntos.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Questo mese loro ___ un errore e adesso lo pagano.",
@@ -471,7 +1012,27 @@
             "sono fatto",
             "hanno fatto"
           ],
-          "correctIndex": 3
+          "correctIndex": 3,
+          "translationES": {
+            "text": "Este mes han cometido un error y ahora lo pagan.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         }
       ],
       "validation": {
@@ -512,7 +1073,27 @@
             "ebbi fatto",
             "ero fatto"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Cuando mis amigos llegaron, ya había hecho los deberes.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Tu già ___ il letto quando tua madre è tornata.",
@@ -522,7 +1103,27 @@
             "avevi fatto",
             "hai fare"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Ya habías hecho la cama cuando tu madre volvió.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Quando la riunione è cominciata, lui già ___ il lavoro.",
@@ -532,7 +1133,27 @@
             "ebbe fatto",
             "ha fare"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Cuando la reunión empezó, ya había hecho el trabajo.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Noi già ___ una torta quando gli ospiti sono entrati.",
@@ -542,7 +1163,27 @@
             "avevamo fatto",
             "eravamo fatto"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Ya habíamos hecho un pastel cuando los invitados entraron.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Quando il treno è partito, voi già ___ una foto.",
@@ -552,7 +1193,27 @@
             "aveste fatto",
             "avevate fatto"
           ],
-          "correctIndex": 3
+          "correctIndex": 3,
+          "translationES": {
+            "text": "Cuando el tren salió, ya habíais hecho una foto.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Loro già ___ tutto quando il professore è entrato.",
@@ -562,7 +1223,27 @@
             "erano fatto",
             "avevano fatto"
           ],
-          "correctIndex": 3
+          "correctIndex": 3,
+          "translationES": {
+            "text": "Ya habían hecho todo cuando el profesor entró.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         }
       ],
       "validation": {
@@ -603,7 +1284,27 @@
             "avrò fatto",
             "sarò fatto"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Mañana, cuando el tren salga, ya habré hecho los deberes.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Appena arriverà tua sorella, tu già ___ il letto.",
@@ -613,7 +1314,27 @@
             "avevi fatto",
             "hai fare"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "En cuanto llegue tu hermana, ya habrás hecho la cama.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Quando comincerà la riunione, lui già ___ il lavoro.",
@@ -623,7 +1344,27 @@
             "aveva fatto",
             "ha fare"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Cuando empiece la reunión, ya habrá hecho el trabajo.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Quando arriveranno gli ospiti, noi già ___ una torta.",
@@ -633,7 +1374,27 @@
             "avremo fatto",
             "saremo fatto"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Cuando lleguen los invitados, ya habremos hecho un pastel.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Appena finirà la lezione, voi già ___ una foto.",
@@ -643,7 +1404,27 @@
             "avete fatto",
             "avrete fatto"
           ],
-          "correctIndex": 3
+          "correctIndex": 3,
+          "translationES": {
+            "text": "En cuanto termine la clase, ya habréis hecho una foto.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Quando tornerà il professore, loro già ___ tutto.",
@@ -653,7 +1434,27 @@
             "avevano fatto",
             "saranno fatto"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Cuando vuelva el profesor, ya habrán hecho todo.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         }
       ],
       "validation": {
@@ -724,7 +1525,27 @@
             "avrai fatto",
             "hai fare"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Cuando hubiste hecho la cama, tu madre volvió.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Appena lui ___ il lavoro, telefonò a suo padre.",
@@ -734,7 +1555,27 @@
             "ebbe fatto",
             "ha fare"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "En cuanto hubo hecho el trabajo, telefoneó a su padre.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Dopo che noi ___ una torta, arrivarono gli ospiti.",
@@ -744,7 +1585,27 @@
             "avemmo fatto",
             "abbiamo fare"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Después de que hubimos hecho un pastel, llegaron los invitados.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Quando voi ___ una foto, il treno partì.",
@@ -754,7 +1615,27 @@
             "avrete fatto",
             "aveste fatto"
           ],
-          "correctIndex": 3
+          "correctIndex": 3,
+          "translationES": {
+            "text": "Cuando hubisteis hecho una foto, el tren salió.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Appena loro ___ tutto, uscirono dall'aula.",
@@ -764,7 +1645,27 @@
             "ebbero fatto",
             "avranno fatto"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "En cuanto hubieron hecho todo, salieron del aula.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         }
       ],
       "validation": {
@@ -842,7 +1743,27 @@
             "avete",
             "siamo"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Ayer hicimos un pastel para el cumpleaños de Marco.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Il mese scorso loro ___ fatto tutto senza aiuto. (en español: el mes pasado hicieron todo sin ayuda)",
@@ -852,7 +1773,27 @@
             "sono",
             "hanno"
           ],
-          "correctIndex": 3
+          "correctIndex": 3,
+          "translationES": {
+            "text": "El mes pasado hicieron todo sin ayuda.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         }
       ],
       "validation": {
@@ -923,7 +1864,29 @@
             "commetto",
             "commettono"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Hago una foto sin problemas, pero comete un error cada vez.",
+            "validation": {
+              "status": "disputed",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "incorrecta",
+                  "concerns": [
+                    "[S2-fidelidad] omite el sujeto pronominal explícito \"lui\" de la segunda proposición del original (\"pero él comete un error cada vez\"); sugerencia: \"Hago una foto sin problemas, pero él comete un error cada vez.\""
+                  ]
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Noi facciamo il letto ogni mattina, e voi ___ il lavoro con calma.",
@@ -933,7 +1896,27 @@
             "controllano",
             "controllate"
           ],
-          "correctIndex": 3
+          "correctIndex": 3,
+          "translationES": {
+            "text": "Hacemos la cama todas las mañanas, y controláis el trabajo con calma.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         }
       ],
       "validation": {
