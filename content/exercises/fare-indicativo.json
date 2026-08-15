@@ -284,7 +284,27 @@
             "facetti",
             "fecero"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "En 1990 cometí un error.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Quell'estate tu ___ tutto.",
@@ -411,7 +431,27 @@
             "abbiamo fatto",
             "siamo fatto"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Hoy hemos hecho un pastel y lo comemos en la cena.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Poco fa voi ___ una foto e ora la guardate insieme.",
@@ -772,7 +812,27 @@
             "abbiamo",
             "sono"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Esta mañana he hecho los deberes antes de salir.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Ieri noi ___ fatto una torta per il compleanno di Marco. (en español: ayer hicimos un pastel para el cumpleaños de Marco)",
@@ -833,7 +893,27 @@
             "ripassiamo",
             "ripassano"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Haces los deberes solo, pero repasamos todo juntos.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-15",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Io faccio una foto senza problemi, ma lui ___ un errore ogni volta.",
