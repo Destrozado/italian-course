@@ -393,6 +393,41 @@ Bajar el pipeline COMPLETO de traducción al español y demostrarlo end-to-end s
 
   ---
 
+  **SÉPTIMA NOTA (2026-08-15 — Phase 48, plan 48-03). CUARTA ENMIENDA del doc de criterios: la aclaración de S2 sobre el MODO obligado del congiuntivo italiano. Decidida por el AUTOR tras un bloqueo escalado por el executor. Tenía sujeto, se midió, y se ejecutó CUMPLIMIENTO LITERAL sobre él.**
+
+  *Nota de numeración: el autor la encargó como «quinta nota». Es la SÉPTIMA — el seguimiento del plan 48-02 añadió la quinta y la sexta el día anterior. Se corrige aquí en vez de escribir un ordinal que chocaría con dos notas ya existentes.*
+
+  **Qué se amendó:** *«Aclaración de S2: el MODO obligado del congiuntivo italiano no tiene que reaparecer en el español»*, quinta hermana de `da` + PERSONA, PARTITIVO, ADVERBIAL DE COMIDA y PRONOMBRE SUJETO. Declara **falso positivo** el concern «traduce el subjuntivo italiano X por el indicativo español Y» / «altera la modalidad concesiva del original» y **nada más**, cuando el conector o el verbo matriz italiano rige congiuntivo **obligatoriamente** —de modo que el modo italiano no porta información, porque aparece igual con hecho real que con hipotético— y el español o bien no lo admite (`*Pienso que haga` es agramatical) o bien lo admite **cambiando el sentido** (`aunque hacemos` = hecho real frente a `aunque hagamos` = hipotético, matiz que `benché` no tiene). Espejar el modo italiano ahí **inyectaría** contenido ausente del original: es un defecto S2, no una mejora. La regla se apoya en la frase que **S2 ya contenía** —«las diferencias obligadas por la lengua son correctas y no se penalizan»—, así que no rebaja S2.
+
+  **Por qué era hueco del doc y no un falso positivo suelto, con la evidencia CONTADA DEL DISCO.** De las **5 concesivas estructuralmente idénticas** de `fare-congiuntivo`, `gemini-3.5-flash-lite` marcó **2** y aprobó **3**:
+
+  | Variante | Español | Veredicto de `gemini-3.5-flash-lite` |
+  |---|---|---|
+  | `presente#3` | «**Aunque hacemos** todo…» | `correcta` |
+  | `imperfetto#3` | «**A pesar de que hacíamos** un pastel…» | `correcta` |
+  | `trapassato#5` | «**A pesar de que habían cometido** un error…» | `correcta` |
+  | `passato#5` | «**Aunque han hecho** el trabajo…» | **`incorrecta`** |
+  | `disparador#1` | «**Aunque haces** los deberes ahora…» | **`incorrecta`** |
+
+  **Marcar un patrón y aprobar idénticos es la firma canónica de este proyecto para un hueco de criterios** (`WINDOWS` id 37), la misma que ya obligó a escribir la excepción del gloss, la del PARTITIVO y la del ADVERBIAL DE COMIDA. Refuerzo independiente: **las 6 divergencias DURAS —donde el español NO tiene elección— pasaron 12/12 sin una sola objeción.** Los jueces solo objetaron, e inconsistentemente, donde el español sí tiene elección. Eso separa el hueco de criterios de un defecto del texto mejor que cualquier argumento.
+
+  **Prueba de dos condiciones del carve-out de 47-01, aplicada a ESTA enmienda:**
+
+  1. **Ausencia de sujeto: FALLA.** El sujeto se midió **ancho primero y refinado después**, sobre las **290** traducciones del corpus. La medida ancha (disparador **o** morfología de congiuntivo) dio **36**, con **6 fuera** de `fare-congiuntivo`; las 6 se inspeccionaron una a una y son **falsos positivos por homografía** —`facciamo`, `faceste`, `abbiamo fatto`, `aveste fatto` en oración principal, sin ningún disparador subordinante, es decir indicativo puro—. Refinado por DISPARADOR, que es lo que hace el modo obligado y por tanto no informativo: **N = 30, las 30 de `fare-congiuntivo`, cero fuera.** Los cuatro cuerpos cerrados (`preposiciones` 96, `articoli` 62, `partitivos` 48, `fare-indicativo` 54 = **260**) tienen **cero** congiuntivo y no entran. El sujeto es íntegramente trabajo **en vuelo del propio plan que amienda**.
+  2. **Direccionalidad absolutoria: SE MANTIENE, verificada por GREP y no declarada.** Sobre las 49 líneas de la sección nueva: **cero** coincidencias de los patrones de endurecimiento que el veto de 47-01 nombra (`marca como incorrecta`, `marca sX false`, `exige que`, `debes`, `tienes que marcar/exigir`), frente a **6** marcas absolutorias. Los dos puntos de vigilancia —que el TIEMPO y la PERSONA sigan siendo los del original, y que el valor concesivo/condicional no desaparezca— **reiteran S2 sin añadir exigencia**: los dos ya eran S2 `false` antes. Y la regla **absuelve** el indicativo sin exigirlo, así que tampoco puede voltear a quien escriba subjuntivo cuando el original sí es hipotético.
+
+  Falla una ⇒ **cumplimiento literal**, y se ejecutó: **las 30 re-validadas desde cero**, `passes[]` reseteado a vacío, no solo las 2 `disputed`. **60 llamadas, 60 `correcta`**, `by` escrito idéntico al pinneado en las 60 (**cero auto-fallbacks**). Cero pases pre-enmienda supervivientes.
+
+  **`disparador#1` cierra SIN TOCAR UN CARÁCTER del español y SIN override** —«Aunque haces los deberes ahora, el profesor no está contento.» byte a byte idéntica antes y después—, que es el mismo movimiento de `301#1` (sexta nota) y de `delle-invariable#0` (cuarta). **Overrides nuevos: 0.** El corpus sigue en **8**, los mismos que en `HEAD`.
+
+  **Y el cumplimiento literal destapó, otra vez, lo que un argumento no destapa** — aunque esta vez el hallazgo llegó ANTES, por el camino: `passato#5` traía un concern **compuesto**, cuya segunda mitad («combina incorrectamente un pretérito perfecto con *el mes pasado*») era **correcta y ajena al modo**. Al investigarla apareció **`passato#2`, con el defecto IDÉNTICO y aprobada por los DOS jueces** — un falso negativo del quórum. Las dos se arreglaron (perfecto compuesto → simple: «hizo», «hicieron») por decisión del autor. Detalle que conviene no perder: **la sugerencia del propio juez («Aunque *hayan hecho* … el mes pasado») no arregla su propia segunda objeción.**
+
+  **LO QUE FORZARÍA RE-VALIDAR EN EL FUTURO:** una enmienda posterior que introduzca un imperativo de la forma «marca como incorrecta si…» o «exige que…» sobre el modo del congiuntivo, que es el veto que la primera nota dejó escrito y que esta aclaración respeta.
+
+  — *Autor, 2026-08-15. Phase 48, plan 48-03.*
+
+  ---
+
 - **D-46-13: TVAL-02 — script hermano de `scripts/validate-song-pass.mjs`, con el quórum cross-vendor DeepSeek + Gemini, 1-por-1 (VAL-03).** — **Reversibility:** reversible
 
   Espejo exacto del script de canciones: `--model` / `--fallback` / `--avoid` (para garantizar 2 `by` distintos) / `--write` / `--dry-run` / `--temp`; auto-fallback en 429 registrando SIEMPRE el modelo que de verdad respondió; zero-deps; `withFileLock` para el read-modify-write; `deriveStatus` importado de `src/data/validation-state.js` como fuente única.

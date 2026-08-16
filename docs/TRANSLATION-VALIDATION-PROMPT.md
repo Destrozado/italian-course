@@ -319,6 +319,54 @@ pronombre**.
 Esta aclaración **no toca nada del italiano**: `italianoResuelto` sigue sujeto a S5 exactamente igual
 que antes, y S1, S4 y S6 se aplican al español sin cambio ninguno.
 
+### Aclaración de S2: el MODO obligado del congiuntivo italiano no tiene que reaparecer en el español
+
+El italiano y el español reparten el subjuntivo de manera distinta. Hay conectores y verbos matrices
+italianos que rigen congiuntivo **siempre**, con hecho real y con hecho hipotético por igual, de modo
+que en esos contextos el modo italiano **no porta información**: es una servidumbre del conector, no
+una elección del hablante. Sus equivalentes españoles no funcionan igual, y se reparten en dos casos:
+
+- **El español no admite ahí el subjuntivo.** `penso che`, `mi sembra che`, `credeva che` y
+  `non sapeva che` rigen congiuntivo en italiano; sus equivalentes `pienso que`, `me parece que`,
+  `creía que` y `no sabía que` rigen **indicativo** en español afirmativo. `Penso che lui faccia il
+  lavoro` es `Pienso que hace el trabajo`, y `Pienso que haga el trabajo` no es una traducción más
+  fiel: es español agramatical, que **ya era `s1_natural` false antes de esta aclaración** y lo sigue
+  siendo igual.
+- **El español admite los dos modos, pero con SENTIDOS DISTINTOS.** `benché`, `sebbene`, `nonostante`
+  y `malgrado` rigen congiuntivo tanto si el hecho es real como si es hipotético. El español `aunque`
+  sí distingue: `aunque hacemos el trabajo` presenta el hecho como real y conocido, mientras que
+  `aunque hagamos el trabajo` lo presenta como hipotético. Como el italiano no hace esa distinción,
+  espejar su modo con un subjuntivo español **añadiría** al texto una lectura hipotética que el
+  original no tiene — y añadir contenido ausente del original es justamente lo que S2 castiga.
+
+- **Esa diferencia de modo NO es contenido omitido ni modalidad alterada: es la manera española de
+  decir lo mismo.** Un concern `[S2-fidelidad]` del tipo «traduce el subjuntivo italiano `faccia` /
+  `abbiano fatto` por el indicativo `hace` / `han hecho` en lugar del subjuntivo correspondiente», o
+  «altera la modalidad concesiva del original», es un **FALSO POSITIVO** y no debe emitirse. La propia
+  S2 ya lo dice con estas palabras: «fidelidad estricta **no** significa palabra por palabra: significa
+  mismo contenido proposicional. Las diferencias obligadas por la lengua (…) son correctas y no se
+  penalizan.» Esta aclaración no rebaja S2: nombra el caso concreto en el que leerla al pie de la letra
+  la contradice, porque el modo cuya reproducción se echaría en falta **no porta contenido en el
+  original**.
+- **Las dos soluciones son fieles donde el español de verdad admite las dos, y NINGUNA es
+  obligatoria.** Donde `aunque` acepta los dos modos con lecturas distintas, la elección la decide qué
+  lectura tiene el original, no cuál es el modo del italiano. Esta regla **absuelve** el indicativo
+  español, y no lo convierte en obligatorio: una traducción que use el subjuntivo porque el original sí
+  presenta el hecho como hipotético está igual de bien y tampoco se marca por ello.
+- **QUÉ SE SIGUE VIGILANDO, con todo el rigor y sin rebaja alguna** — los dos puntos son S2 aplicado,
+  no exigencia nueva:
+  1. **Que el TIEMPO y la PERSONA sigan siendo los del original.** Esta aclaración habla del MODO y de
+     nada más. Una traducción que cambie el tiempo verbal, o que confunda la persona, **ya era
+     `[S2-fidelidad]` false antes de esta aclaración** y lo sigue siendo exactamente igual.
+  2. **Que no se pierda el valor concesivo, condicional, temporal o de duda que la frase afirma.** El
+     conector tiene que seguir estando y seguir significando lo mismo: `aunque`, `a pesar de que`,
+     `antes de que`, `para que`. Lo que S2 castiga, aquí como siempre, es que ese valor
+     **desaparezca**; nunca que se haya expresado con indicativo, que es una de las formas correctas
+     de expresarlo en español.
+
+Esta aclaración **no toca nada del italiano**: `italianoResuelto` sigue sujeto a S5 exactamente igual
+que antes, y S1, S4 y S6 se aplican al español sin cambio ninguno.
+
 ### Frontera con el `gloss` español del `prompt` (canon R7)
 
 Algunas frases italianas del corpus llevan, DENTRO del propio `prompt`, una glosa española entre

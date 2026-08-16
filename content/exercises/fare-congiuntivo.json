@@ -17,7 +17,27 @@
             "faccia",
             "facciate"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Hace falta que yo haga los deberes esta noche.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "È necessario che tu ___ il letto ogni mattina.",
@@ -27,7 +47,27 @@
             "fai",
             "facciano"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Es necesario que hagas la cama todas las mañanas.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Sembra che lui ___ una foto ogni giorno.",
@@ -37,7 +77,27 @@
             "fa",
             "facciamo"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Parece que hace una foto todos los días.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Benché (aunque) noi ___ tutto, il professore non è mai contento.",
@@ -47,7 +107,27 @@
             "faccia",
             "facciamo"
           ],
-          "correctIndex": 3
+          "correctIndex": 3,
+          "translationES": {
+            "text": "Aunque hacemos todo, el profesor nunca está contento.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Mia madre vuole che voi ___ una torta per la festa.",
@@ -57,7 +137,27 @@
             "facciano",
             "facciate"
           ],
-          "correctIndex": 3
+          "correctIndex": 3,
+          "translationES": {
+            "text": "Mi madre quiere que hagáis un pastel para la fiesta.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "È importante che loro non ___ un errore adesso.",
@@ -67,7 +167,27 @@
             "fanno",
             "facciamo"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Es importante que no cometan un error ahora.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         }
       ],
       "validation": {
@@ -110,7 +230,27 @@
             "facessi",
             "facesse"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "El profesor quería que yo hiciera los deberes en casa.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Mia madre sperava che tu ___ il letto prima di uscire.",
@@ -120,7 +260,27 @@
             "facessi",
             "faressi"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Mi madre esperaba que hicieras la cama antes de salir.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Non credevo che lui ___ il lavoro da solo.",
@@ -130,7 +290,27 @@
             "faresse",
             "facessimo"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "No creía que él hiciera el trabajo solo.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Nonostante (a pesar de que) noi ___ una torta ogni domenica, nessuno la mangiava mai.",
@@ -140,7 +320,27 @@
             "faceste",
             "facessimo"
           ],
-          "correctIndex": 3
+          "correctIndex": 3,
+          "translationES": {
+            "text": "A pesar de que hacíamos un pastel todos los domingos, nadie lo comía nunca.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Era necessario che voi ___ una foto per il documento.",
@@ -150,7 +350,27 @@
             "facevate",
             "facessero"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Era necesario que hicierais una foto para el documento.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Bisognava che loro non ___ un errore in quel momento.",
@@ -160,7 +380,27 @@
             "facessero",
             "facessi"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Hacía falta que no cometieran un error en aquel momento.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         }
       ],
       "validation": {
@@ -203,7 +443,27 @@
             "avessi fatto",
             "faccia"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Mi madre no cree que yo haya hecho los deberes anoche.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Il professore dubita che tu ___ il lavoro ieri mattina.",
@@ -213,7 +473,27 @@
             "facessi",
             "abbia fatto"
           ],
-          "correctIndex": 3
+          "correctIndex": 3,
+          "translationES": {
+            "text": "El profesor duda que hayas hecho el trabajo ayer por la mañana.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Mi sembra che lui ___ una foto la settimana scorsa.",
@@ -223,7 +503,27 @@
             "avesse fatto",
             "faccia"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Me parece que hizo una foto la semana pasada.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "È strano che noi ___ un errore domenica scorsa.",
@@ -233,7 +533,27 @@
             "abbiamo fatto",
             "facessimo"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Es extraño que hayamos cometido un error el domingo pasado.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Mio fratello spera che voi ___ una torta sabato scorso.",
@@ -243,7 +563,27 @@
             "aveste fatto",
             "abbiate fatto"
           ],
-          "correctIndex": 3
+          "correctIndex": 3,
+          "translationES": {
+            "text": "Mi hermano espera que hayáis hecho un pastel el sábado pasado.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Benché (aunque) loro ___ il lavoro il mese scorso, il capo non è mai contento.",
@@ -253,7 +593,27 @@
             "facciano",
             "avessero fatto"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Aunque hicieron el trabajo el mes pasado, el jefe nunca está contento.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         }
       ],
       "validation": {
@@ -307,7 +667,27 @@
             "facessi",
             "faccia"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "El profesor no sabía que yo había hecho el trabajo el día anterior.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Mia madre credeva che tu ___ i compiti la settimana precedente.",
@@ -317,7 +697,27 @@
             "abbia fatto",
             "avessi fatto"
           ],
-          "correctIndex": 3
+          "correctIndex": 3,
+          "translationES": {
+            "text": "Mi madre creía que habías hecho los deberes la semana anterior.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Sembrava che lui ___ tutto molto tempo prima.",
@@ -327,7 +727,27 @@
             "abbia fatto",
             "faccia"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Parecía que él había hecho todo mucho tiempo antes.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Era strano che noi ___ una torta l'anno prima.",
@@ -337,7 +757,27 @@
             "avessimo fatto",
             "facessimo"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Era extraño que hubiéramos hecho un pastel el año anterior.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Non credevo che voi ___ una foto il mese precedente.",
@@ -347,7 +787,27 @@
             "facciate",
             "abbiate fatto"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "No creía que hubierais hecho una foto el mes anterior.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Nonostante (a pesar de que) loro ___ un errore la sera prima, il capo non disse niente.",
@@ -357,7 +817,27 @@
             "abbiano fatto",
             "avessero fatto"
           ],
-          "correctIndex": 3
+          "correctIndex": 3,
+          "translationES": {
+            "text": "A pesar de que habían cometido un error la noche anterior, el jefe no dijo nada.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         }
       ],
       "validation": {
@@ -408,13 +888,13 @@
               "passes": [
                 {
                   "by": "deepseek-reasoner",
-                  "date": "2026-08-15",
+                  "date": "2026-08-16",
                   "verdict": "correcta",
                   "concerns": []
                 },
                 {
                   "by": "gemini-3.5-flash-lite",
-                  "date": "2026-08-15",
+                  "date": "2026-08-16",
                   "verdict": "correcta",
                   "concerns": []
                 }
@@ -430,7 +910,27 @@
             "facevi",
             "faccia"
           ],
-          "correctIndex": 3
+          "correctIndex": 3,
+          "translationES": {
+            "text": "Aunque haces los deberes ahora, el profesor no está contento.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "È necessario che voi ___ il letto prima di uscire.",
@@ -440,7 +940,27 @@
             "fate",
             "faceste"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Es necesario que hagáis la cama antes de salir.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Prima che (antes de que) loro ___ un errore, il capo controlla tutto.",
@@ -450,7 +970,27 @@
             "facciano",
             "facessero"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Antes de que cometan un error, el jefe lo controla todo.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Se io ___ i compiti, mia madre sarebbe contenta.",
@@ -460,7 +1000,27 @@
             "facessi",
             "faccia"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Si yo hiciera los deberes, mi madre estaría contenta.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Io so che lui ___ il lavoro in questo momento.",
@@ -478,13 +1038,13 @@
               "passes": [
                 {
                   "by": "deepseek-reasoner",
-                  "date": "2026-08-15",
+                  "date": "2026-08-16",
                   "verdict": "correcta",
                   "concerns": []
                 },
                 {
                   "by": "gemini-3.5-flash-lite",
-                  "date": "2026-08-15",
+                  "date": "2026-08-16",
                   "verdict": "correcta",
                   "concerns": []
                 }
