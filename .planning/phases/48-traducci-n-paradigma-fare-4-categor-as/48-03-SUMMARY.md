@@ -39,6 +39,8 @@ decisions:
   - "D-48-15: la `opcion-c` se descarta — enmendar el SC-2 a mitad de fase es mover la portería; si el texto del SC-2 promete lo que el español no puede dar, es hallazgo para 48-05 o para el verificador"
   - "D-48-16: CUARTA ENMIENDA del doc de criterios (aclaración de S2 sobre el MODO obligado del congiuntivo), decidida por el autor tras bloqueo escalado; los concerns de modo se cierran enmendando el doc, NO con override"
   - "D-48-17: el pronombre sujeto español SÍ se escribe en las 7 variantes donde la morfología española sincretiza 1ª y 3ª del singular. NO es carve-out de D-48-03: su premisa («la morfología basta») es falsa ahí, y S2 exige que la PERSONA siga siendo recuperable"
+  - "D-48-19: PRECISIÓN de D-48-03, ratificada por el autor — el pronombre se omite CUANDO LA MORFOLOGÍA IDENTIFICA LA PERSONA SIN AMBIGÜEDAD; donde la forma es sincrética, se escribe. La lista de formas sincréticas NO se restringe al subjuntivo: incluye el imperfecto de indicativo (`hacía`), el pluscuamperfecto (`había hecho`) y el condicional (`haría`)"
+  - "D-48-20: la precisión SÍ tiene sujeto retroactivo — 4 variantes de `fare-indicativo` ya `validated` en 48-02 quedan FUERA del cumplimiento inmediato y ASIGNADAS a 48-05, que debe arreglarlas o aceptarlas formalmente por escrito. Anotarlas y seguir no cuenta como cierre"
   - "D-48-18: passato#2 y passato#5 se reescriben (compuesto → simple) porque el concern era correcto en su mitad ajena al modo; la norma peninsular excluye el perfecto compuesto con marco temporal cerrado"
 metrics:
   duration: "~115 min"
@@ -281,6 +283,87 @@ está igual de bien**. Así que el pronombre es aquí el recurso normal del espa
 `trapassato#0`, `trapassato#2`, `disparador#4`. Los 14 pases correspondientes salieron
 `correcta`. **Se declara para que el autor pueda revertirlo: son 7 palabras.**
 
+> **SUPERADO EN PARTE — el autor ratificó las 7 y precisó D-48-03 por escrito.** Lo de arriba
+> se conserva porque describe con exactitud el razonamiento con el que se escribieron las 7 y la
+> incertidumbre con la que se declararon. Lo que cambia es que ya no es una desviación pendiente
+> de ratificar: es **regla del proyecto** (D-48-19), y su alcance retroactivo está medido y
+> asignado (D-48-20). Ver la sección siguiente.
+
+## La precisión de D-48-03, y su excepción retroactiva
+
+**Regla precisada, ratificada por el autor.** El español omite el pronombre sujeto **cuando la
+morfología verbal identifica la persona sin ambigüedad**. Donde la forma es **sincrética**, el
+pronombre **se escribe**, porque omitirlo deja la persona **indeterminada** — y eso es
+exactamente lo que la aclaración de S2 de 48-02 declara **expresamente NO absuelto**:
+
+> «si la frase se queda sin verbo que la marque, eso **ya era `[S2-fidelidad]` false** antes de
+> esta aclaración y lo sigue siendo exactamente igual.»
+
+No es un carve-out de D-48-03: es **el borde de su premisa**. D-48-03 se apoya en que «la
+morfología verbal basta», y una regla no se aplica donde su premisa no se cumple.
+
+**Las formas sincréticas de 1ª y 3ª del singular — y la lista NO se restringe al subjuntivo:**
+
+| Forma | Ejemplo | Modo |
+|---|---|---|
+| presente de subjuntivo | `haga` | subjuntivo |
+| imperfecto de subjuntivo | `hiciera`, `hiciese` | subjuntivo |
+| compuestos con `haya` / `hubiera` | `haya hecho`, `hubiera hecho` | subjuntivo |
+| **imperfecto de indicativo** | **`hacía`** | **indicativo** |
+| **pluscuamperfecto de indicativo** | **`había hecho`** | **indicativo** |
+| **condicional** | **`haría`** | **condicional** |
+
+> **Corrección de una premisa falsa, atribuida donde corresponde.** Al encargar esta precisión,
+> **el coordinador** escribió que «en `fare-indicativo` el indicativo distingue las personas» y
+> que por tanto la regla no tenía sujeto retroactivo. **Es falso, y el error es del coordinador,
+> no del executor:** el sincretismo de 1ª/3ª singular es propiedad de **las desinencias**, no del
+> modo subjuntivo. El propio coordinador había pedido verificarlo del disco **antes** de
+> afirmarlo y parar si aparecía sujeto; se verificó, apareció, y el executor **paró sin escribir
+> nada**, de modo que el error no llegó a convertirse en documentación.
+
+### Excepción retroactiva: 4 variantes, asignadas a 48-05
+
+Las 4 están `validated` y **committeadas en 48-02**. Quedan **fuera del cumplimiento inmediato**
+y **no se tocan aquí**:
+
+| Variante | Italiano | Español | Forma | Gravedad |
+|---|---|---|---|---|
+| `fare-indicativo-imperfetto#2` | A quei tempi **lui** faceva… | En aquellos tiempos **hacía** el trabajo. | `hacía` | **ambigüedad limpia** — ningún otro referente; el italiano dice `lui` y el español leído solo se lee igual de bien como «yo» |
+| `fare-indicativo-trapassato-prossimo#2` | …**lui** già aveva fatto… | Cuando la reunión empezó, ya **había hecho** el trabajo. | `había hecho` | **ambigüedad limpia** — mismo caso |
+| `fare-indicativo-trapassato-prossimo#0` | …**io** già avevo fatto… | Cuando **mis** amigos llegaron, ya **había hecho** los deberes. | `había hecho` | **parcialmente anclado** — el posesivo `mis` ya sitúa un hablante de 1ª persona, que es la que el italiano pide |
+| `fare-indicativo-imperfetto#0` | Da bambino **io** facevo… | De niño **hacía** los deberes todas las tardes. | `hacía` | **débil pero real** — «De niño» concuerda en género, no en persona |
+
+**La gradación se conserva sin aplanar** porque es la información con la que 48-05 decide.
+
+**Qué se le exige a 48-05, con estas palabras: arreglarlas O ACEPTARLAS FORMALMENTE POR ESCRITO.
+Anotarlas y seguir NO cuenta como cierre.** Coste si se arreglan: 4 pronombres y re-quórum desde
+cero de las 4 = 8 llamadas.
+
+**Por qué no se arreglan aquí:** son cuerpo **cerrado** del plan 48-02, y reabrirlo desde un plan
+de `fare-congiuntivo` es más invasivo que agruparlas con lo que 48-05 ya tiene abierto sobre esa
+misma categoría — la colisión `hiciste` y el barrido mecánico perfecto/simple.
+
+### Alcance medido y cerrado
+
+| Hecho | Cifra, derivada del disco |
+|---|---|
+| Traducciones barridas | **290** |
+| Italiano con pronombre sujeto explícito + verbo objetivo español sincrético | **11** |
+| — **con** pronombre español (persona determinada) | **7** — las 7 de este plan, control limpio |
+| — **sin** pronombre español (persona indeterminada) | **4** — las de arriba |
+| Casos posibles **fuera** del bloque `fare` | **0** |
+
+**Por qué cero fuera:** `articoli` y `partitivos` no tienen ningún italiano con pronombre sujeto
+explícito; los 2 de `preposiciones` (`da-agente#0` y `#1`, `da lui` / `da lei`) son
+**complementos agentes**, no sujetos, y su español ya escribe `él` / `ella`. `fare-indefiniti` y
+`fare-cond-imperativo` aún no tienen traducción: **nacen bajo la regla precisada, sin deuda**.
+
+> **Nota de método: el bug de acentos mordió por TERCERA vez en este plan.** El detector de este
+> barrido dio cifras falsas dos veces por la misma causa — `\b` en JavaScript solo existe entre
+> `[A-Za-z0-9_]` y el resto, así que `\bél\b` **nunca** casa y las 7 variantes que **sí** llevan
+> pronombre aparecieron como si no lo llevaran. Se cazó por inspección de los resultados, no por
+> confianza en el regex. Tres veces el mismo bug en un solo plan es, en sí mismo, el dato.
+
 ### 3. [Numeración] La nota de D-46-12 es la SÉPTIMA, no la quinta
 
 El autor la encargó como «quinta nota». El seguimiento de 48-02 ya había añadido la quinta y la
@@ -359,6 +442,57 @@ Las cuatro categorías anteriores en sus cifras: 96, 48, 62, 54.
 
 Ninguno. Las 30 traducciones son contenido definitivo y `validated`.
 
+## El patrón que une tres falsos negativos: el quórum no ejerce lo que el doc RESERVA
+
+Las 4 variantes de arriba **las aprobaron los dos jueces** en 48-02, pese a que la aclaración de
+S2 que **ese mismo plan escribió** reserva expresamente la persona indeterminada. El criterio
+estaba escrito, estaba en el payload que los jueces leyeron, y ninguno lo aplicó.
+
+Con eso son **tres falsos negativos de la misma familia**:
+
+| # | Caso | Dónde | Qué se aprobó |
+|---|---|---|---|
+| 1 | `a merenda` | Phase 47, tercera nota de D-46-12 | adverbial entero omitido; ambos jueces `correcta` en la primera vuelta |
+| 2 | `passato#2` | 48-03, `WINDOWS` id 47 | perfecto compuesto con marco cerrado; ambos jueces `correcta` |
+| 3 | las 4 de `fare-indicativo` | 48-02, esta pasada | persona indeterminada; ambos jueces `correcta` |
+
+**En los tres, lo que falla no es que el criterio no exista: existe, está escrito, y el quórum no
+lo ejerce.** Los jueces son buenos detectando lo que el doc **absuelve** —por eso generan falsos
+positivos de modo, pronombre, partitivo y adverbial, que es lo que ha obligado a escribir
+**cuatro enmiendas absolutorias**— y malos ejerciendo lo que el doc **reserva**. Los puntos de
+vigilancia de las enmiendas son justo donde el quórum es más débil, que es el peor sitio posible:
+son lo único que impide que una enmienda absolutoria sea un cheque en blanco.
+
+**El dato incómodo, y es el más importante: el cumplimiento literal de D-46-12 NO habría cazado
+ninguno de los dos últimos.** A `passato#2` no, porque nunca salió `disputed` y los mismos dos
+jueces volvieron a aprobar la versión ya arreglada durante el re-quórum de las 30. A estas 4
+tampoco, porque no son sujeto de la enmienda del modo. La herramienta que el proyecto usa para
+verificar sus enmiendas es **eficaz contra los falsos positivos** —para lo que se diseñó— e
+**ineficaz contra los falsos negativos de los puntos de vigilancia**. Esto **acota** el precedente
+de que «el cumplimiento literal destapa lo que un argumento no destapa» en vez de contradecirlo:
+destapa **concerns nuevos que un modelo emite**, no **silencios que ningún modelo emite**. Los dos
+últimos hallazgos los produjo el **razonamiento** sobre por qué un defecto caía donde caía, no una
+corrida de validación.
+
+**Consecuencia operativa para 48-05:** dos de los tres se cazan con un barrido **mecánico** de dos
+regex y **cero llamadas**. Un grep encuentra lo que dos LLM aprobaron, y ya lo ha hecho dos veces.
+
+## Instrucción explícita para 48-04 (no deducir, leer)
+
+La **regla precisada de D-48-03** (D-48-19) **aplica** al contenido de 48-04 con el mismo test:
+**pronombre solo donde la forma española no identifique la persona.**
+
+- **`fare-cond-imperativo`:** en condicional, **`haría` es sincrética de 1ª y 3ª del singular**, así
+  que las variantes de `io` y de `lui`/`lei` **llevan pronombre**. `harías`, `haríamos`, `haríais`
+  y `harían` son inequívocas y **no** lo llevan. En imperativo la persona va en la desinencia y no
+  hay sincretismo de 1ª/3ª: **sin pronombre**.
+- **`fare-indefiniti`:** infinitivos y gerundios **no marcan persona en absoluto**, así que el test
+  se aplica al verbo **conjugado** de la frase, no a la forma no personal. Si la frase queda sin
+  ningún verbo que marque la persona y el italiano la declara explícita, el pronombre **se
+  escribe**.
+- Las cuatro enmiendas del doc están vigentes al nacer ese contenido: **no hay re-validación que
+  presupuestar**.
+
 ## Notas para 48-04 y 48-05
 
 1. **La aclaración del MODO ya está vigente**: el contenido de `fare-indefiniti` y
@@ -372,6 +506,10 @@ Ninguno. Las 30 traducciones son contenido definitivo y `validated`.
 5. **TRAD-03 sigue `Pending`**, verificado al terminar. Solo 48-05 lo cierra.
 6. Siguen abiertos y asignados a 48-05: la colisión `hiciste`, el saneo de `concerns` (id 43) y
    el defecto de `--adjudicar` (id 45).
+7. **NUEVO para 48-05 — las 4 variantes de la excepción retroactiva de D-48-19** (`WINDOWS` id 48):
+   **arreglarlas o aceptarlas formalmente por escrito. Anotarlas y seguir no cuenta como cierre.**
+8. **NUEVO para 48-05 — el tercer punto ciego del quórum** (`WINDOWS` id 49), con el patrón de los
+   tres falsos negativos y el dato de que el cumplimiento literal no caza esta clase.
 
 ## Self-Check: PASSED
 
