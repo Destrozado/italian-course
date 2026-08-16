@@ -48,6 +48,8 @@
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 
 // Las fuentes de conteo, leidas como TEXTO (nunca importadas — ver cabecera). Esta
 // lista es la que gobierna el gate: todo lo que dice este fichero sobre «las fuentes»
@@ -2624,6 +2626,95 @@ function conteoMcDeCategoriasCubiertas() {
   return out;
 }
 
+/**
+ * El ancla tal y como esta COMMITEADA en HEAD, que es la referencia del ratchet
+ * historico (CR-01 del code review de la Phase 48).
+ *
+ * DEVUELVE UN ESTADO, NUNCA LANZA POR AUSENCIA. El caso `ausente` es el bootstrap
+ * legitimo: el commit que da de alta el lock no tiene con que compararse. Lo que NO
+ * hace es pasar en silencio — quien lo consume imprime el motivo.
+ *
+ * @param {string} ruta ruta del ancla relativa a la raiz del repo
+ * @returns {{estado:'leida', categorias:Record<string, unknown>}|{estado:'ausente', motivo:string}}
+ */
+export function anclaCommiteadaEnHead(ruta = LOCK_COBERTURA) {
+  const cwd = fileURLToPath(new URL('../', import.meta.url));
+  let crudo;
+  try {
+    crudo = execFileSync('git', ['show', `HEAD:${ruta}`], {
+      cwd,
+      encoding: 'utf-8',
+      stdio: ['ignore', 'pipe', 'pipe'],
+    });
+  } catch (e) {
+    const detalle = String(e?.stderr || e?.message || e).trim().split('\n')[0];
+    return { estado: 'ausente', motivo: `git show HEAD:${ruta} no devolvio nada (${detalle})` };
+  }
+  let doc;
+  try {
+    doc = JSON.parse(crudo);
+  } catch (e) {
+    throw new Error(
+      `GATE-03 / CR-01: el ancla COMMITEADA en HEAD (${ruta}) no se puede parsear (${e.message}), ` +
+        `asi que el ratchet historico no tiene referencia. Un gate que no puede leer su referencia ` +
+        `no pasa en verde.`
+    );
+  }
+  const categorias = doc && typeof doc.categorias === 'object' && doc.categorias !== null ? doc.categorias : null;
+  if (!categorias) {
+    throw new Error(
+      `GATE-03 / CR-01: el ancla COMMITEADA en HEAD (${ruta}) no declara un objeto "categorias". ` +
+        `El ratchet historico no tiene referencia y este gate no pasa en verde sin ella.`
+    );
+  }
+  return { estado: 'leida', categorias };
+}
+
+/**
+ * Las claves cuyo suelo BAJO respecto del ancla commiteada en HEAD (CR-01).
+ *
+ * QUE VIGILA Y QUE NO, y la diferencia es la doctrina escrita en
+ * scripts/bump-translation-lock.mjs:19-25 y en run-validation-271.mjs:440-443: EL ANCLA
+ * ES UN SUELO, NO UNA IGUALDAD. Crecer sigue siendo VERDE aqui, igual que antes. Lo
+ * unico que este termino anade es la firma exacta del exploit de CR-01: la edicion
+ * HACIA ABAJO. Bajar un suelo a mano era un no-op silencioso porque los dos consumidores
+ * solo comparaban `disco < suelo`, y el ancla nunca se confrontaba con NADA que el
+ * borrado no pudiera mover consigo. Su valor commiteado si lo es.
+ *
+ * LOS DOS BOOTSTRAPS, tratados a proposito y no por accidente:
+ *   - Una clave NUEVA, ausente del ancla de HEAD: dar de alta una categoria NO es bajar
+ *     un suelo. Verde. El agujero de una categoria cubierta y sin anclar ya lo cierra la
+ *     clausula `sinAnclar`, que es su sitio.
+ *   - Una clave RETIRADA del ancla del arbol de trabajo: SI es una bajada, y la maxima —
+ *     retirar la clave entera es lo que permite sacar la categoria del denominador sin
+ *     que nadie chiste (el vector hermano que el reporter nombra en sus lineas 445-448).
+ *
+ * @param {Record<string, unknown>} head suelos commiteados en HEAD
+ * @param {Record<string, unknown>} hoy suelos del ancla en el arbol de trabajo
+ * @returns {string[]} un diagnostico por bajada, vacio si ninguna bajo
+ */
+export function suelosQueBajaronRespectoDeHead(head, hoy) {
+  return Object.entries(head).flatMap(([slug, sueloHead]) => {
+    if (!Number.isInteger(sueloHead)) {
+      return [
+        `${slug}: el ancla de HEAD declara ${JSON.stringify(sueloHead) ?? String(sueloHead)}, que no ` +
+          `es un entero, asi que el ratchet no puede comparar esta clave`,
+      ];
+    }
+    if (!(slug in hoy)) {
+      return [
+        `${slug}: HEAD ancla ${sueloHead} variante(s) y el arbol de trabajo RETIRO la clave entera ` +
+          `del ancla`,
+      ];
+    }
+    const sueloHoy = hoy[slug];
+    if (Number.isInteger(sueloHoy) && sueloHoy < sueloHead) {
+      return [`${slug}: HEAD ancla ${sueloHead} y el arbol de trabajo declara ${sueloHoy}`];
+    }
+    return [];
+  });
+}
+
 describe('GATE-03 - el denominador de cobertura de traduccion no encoge en silencio (CR-02)', () => {
   test(`${LOCK_COBERTURA} ancla TODAS las categorias cubiertas, y ninguna cayo por debajo de su suelo`, () => {
     assert.ok(
@@ -2669,6 +2760,73 @@ describe('GATE-03 - el denominador de cobertura de traduccion no encoge en silen
         `denominador puede encoger sin que nada lo vea: ${sinAnclar.join(', ')}. ` +
         `Ejecuta: node scripts/bump-translation-lock.mjs --write`
     );
+
+    // RATCHET HISTORICO (CR-01). Los tres terminos de arriba confrontan el ancla con el
+    // DISCO, y el disco es justo lo que el borrado mueve consigo. El ancla en si no se
+    // confrontaba con nada: bajar un suelo a mano era un no-op silencioso, y con el
+    // suelo bajado el borrado de la variante volvia a salir verde en los DOS gates.
+    // Su valor COMMITEADO es la unica referencia que la edicion del arbol de trabajo no
+    // puede mover. Sigue siendo un SUELO: crecer no enrojece; solo enrojece BAJAR.
+    const commiteada = anclaCommiteadaEnHead();
+    if (commiteada.estado === 'ausente') {
+      // BOOTSTRAP, dicho en voz alta y nunca en silencio: el commit que da de alta el
+      // ancla no tiene con que compararse. Los tres terminos de arriba SI se han
+      // ejecutado, asi que este gate no pasa vacuo; lo que falta es solo este cuarto.
+      console.warn(
+        `GATE-03 / CR-01: el ratchet historico NO se ha podido ejecutar en esta corrida porque ` +
+          `${commiteada.motivo}. Es el bootstrap legitimo (el ancla aun no esta commiteada en HEAD) ` +
+          `y por eso no enrojece, pero queda dicho: en esta corrida NADIE ha comprobado que los ` +
+          `suelos no hayan bajado a mano.`
+      );
+    } else {
+      const bajadas = suelosQueBajaronRespectoDeHead(commiteada.categorias, ancladas);
+      assert.deepEqual(
+        bajadas,
+        [],
+        `GATE-03 / CR-01: un suelo del ancla BAJO respecto de su valor commiteado en HEAD: ` +
+          `${bajadas.join('; ')}. Bajar un suelo desarma el ancla de esa categoria, y con el suelo ` +
+          `bajado borrar una variante traducida y validada vuelve a salir VERDE en este gate y en ` +
+          `el reporter (exit 0, con la cifra mas baja). El ancla es un SUELO, no una igualdad: ` +
+          `crecer sigue siendo verde. Si de verdad hay que bajarlo, re-emitelo con ` +
+          `node scripts/bump-translation-lock.mjs --write y COMMITEA ese diff, que es el gesto ` +
+          `deliberado que el ancla exige.`
+      );
+    }
+  });
+});
+
+// Goldens de los tres reconocedores de arriba. Van aqui y no en su propio fichero por lo
+// mismo que los del reconocedor de veredictos: el gate real solo puede mirar UN estado
+// del disco, y estas son las entradas que ese estado nunca produce.
+describe('GATE-03 - goldens de los reconocedores del ancla (CR-01 y CR-02)', () => {
+  test('CR-01: BAJAR un suelo respecto de HEAD es rojo, y RETIRAR la clave tambien', () => {
+    assert.equal(suelosQueBajaronRespectoDeHead({ a: 96 }, { a: 95 }).length, 1);
+    assert.match(suelosQueBajaronRespectoDeHead({ a: 96 }, { a: 95 })[0], /HEAD ancla 96 .* declara 95/);
+    assert.equal(suelosQueBajaronRespectoDeHead({ a: 96 }, {}).length, 1);
+    assert.match(suelosQueBajaronRespectoDeHead({ a: 96 }, {})[0], /RETIRO la clave entera/);
+  });
+
+  test('CR-01 / BOOTSTRAP: crecer es VERDE y una clave NUEVA ausente de HEAD tambien', () => {
+    // Es la mitad que separa este ratchet de la variante por IGUALDAD que se descarto:
+    // la doctrina escrita dice que el ancla es un suelo, y crecer no puede enrojecer.
+    assert.deepEqual(suelosQueBajaronRespectoDeHead({ a: 96 }, { a: 96 }), []);
+    assert.deepEqual(suelosQueBajaronRespectoDeHead({ a: 96 }, { a: 97 }), []);
+    assert.deepEqual(suelosQueBajaronRespectoDeHead({ a: 96 }, { a: 96, b: 17 }), []);
+    assert.deepEqual(suelosQueBajaronRespectoDeHead({}, { b: 17 }), []);
+  });
+
+  test('CR-01 / BOOTSTRAP: un ancla que no existe en HEAD devuelve `ausente` con motivo, no lanza', () => {
+    const r = anclaCommiteadaEnHead('content/no-existe-este-ancla.lock.json');
+    assert.equal(r.estado, 'ausente');
+    assert.match(r.motivo, /no devolvio nada/);
+  });
+
+  test('CR-01: el ancla REAL de HEAD se lee y declara un objeto de categorias', () => {
+    // NO-VACUIDAD del ratchet: si esto se pusiera `ausente` en el repo de verdad, la
+    // rama de bootstrap se tragaria el gate entero sin que nadie lo notara.
+    const r = anclaCommiteadaEnHead();
+    assert.equal(r.estado, 'leida');
+    assert.ok(Object.keys(r.categorias).length > 0);
   });
 });
 
