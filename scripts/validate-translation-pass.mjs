@@ -538,6 +538,37 @@ export async function run(cfg, target, composed, caller = callModel, contrato = 
         // queda escrito en el corpus. Sólo se añade cuando el autor lo declara: un pase
         // normal conserva exactamente las cuatro claves de siempre.
         if (cfg.ADJUDICAR) pass.adjudicacion = cfg.ADJUDICAR;
+        // `--adjudicar` NO FIJA EL VEREDICTO (`WINDOWS` id 45, cerrado aquí). Sólo
+        // PERMITE sobrescribir un `incorrecta` previo del mismo modelo; el veredicto
+        // que se escribe sigue siendo el que devuelve el modelo. CONSECUENCIA OBSERVADA
+        // en el plan 48-02, no hipotética: al adjudicar `fare-indicativo-passato-remoto#4`
+        // el modelo volvió a decir `incorrecta`, y en disco quedó un pase `incorrecta`
+        // LLEVANDO COLGADA una adjudicación que refuta su propio concern, con el status
+        // todavía en `disputed`. Ese registro SE LEE COMO ADJUDICADO SIN ESTARLO, que es
+        // justo lo contrario de lo que el campo documenta.
+        //
+        // Así que aquí se RECHAZA la escritura, y no se re-invoca: re-invocar hasta que
+        // el modelo diga `correcta` es literalmente el dado que `scripts/lib/pass-guard.mjs`
+        // existe para impedir. El pase se IMPRIME (mismo idioma que WR-02: está pagado y
+        // tiene que ser recuperable) y se nombra la salida legítima, que es el override de
+        // autor de primera clase — el único camino del proyecto para grabar una refutación
+        // sin depender de que el modelo coopere.
+        if (cfg.ADJUDICAR && pass.verdict === 'incorrecta') {
+          console.log(JSON.stringify(pass, null, 2));
+          console.error(
+            `--adjudicar NO se escribe: el modelo '${model}' ha vuelto a devolver \`incorrecta\`, así ` +
+              `que la adjudicación NO ha adjudicado nada y grabarla dejaría en el corpus un pase ` +
+              `\`incorrecta\` con un motivo colgado que refuta su propio concern (WINDOWS id 45).\n` +
+              `El pase está IMPRESO ARRIBA y NO se ha tocado el disco. Las salidas legítimas son ` +
+              `TRES y ninguna es re-invocar al mismo modelo (eso es el dado que el pass-guard ` +
+              `prohíbe): (1) arreglar el español si el concern tiene razón; (2) enmendar ` +
+              `docs/TRANSLATION-VALIDATION-PROMPT.md si el concern es un falso positivo de CLASE, y ` +
+              `re-validar desde cero; (3) override de autor (\`by: "autor"\`, \`override: true\`) con ` +
+              `el motivo escrito, que es el camino explícito para grabar una refutación sin que el ` +
+              `modelo coopere.`
+          );
+          return Object.assign(pass, { noEscrito: 'adjudicacion_sobre_incorrecta' });
+        }
         if (WRITE) {
           // EL PASE YA ESTÁ PAGADO (WR-02). Cualquier throw del escritor salía de
           // `run`, salía de `main` y —como `main()` se invocaba sin `.catch()`— Node
@@ -667,6 +698,59 @@ export function childObjectRanges(text, arrStart, arrEnd) {
   return ranges;
 }
 
+/**
+ * SANEO DE LA PROSA QUE ESCRIBEN LOS MODELOS (`WINDOWS` id 43, cerrado aquí).
+ *
+ * EL FALLO REAL, no hipotético: los ficheros de contenido con test propio corren un
+ * gate (T-41-01 / D-41-17) que recorre el JSON ENTERO —campos de validación
+ * incluidos— y prohíbe `<`, `>`, `&#`, `javascript:` y las comillas tipográficas en
+ * CUALQUIER string. `concerns[]` lo escriben LOS MODELOS y entraba al JSON sin
+ * sanear. En el plan 48-02 un `->` dentro de un motivo de adjudicación puso la suite
+ * en 5 fallos; se arregló a mano y el agujero se quedó abierto porque el vector real
+ * —la prosa del modelo— no se tocó. Reproducido ANTES de escribir este código: un
+ * solo concern con `->` y unas comillas tipográficas pone en rojo DOS aserciones de
+ * `tests/content-fare-indicativo.test.js`. Las comillas NO estaban en el enunciado
+ * del ledger y son el vector más probable de los dos: los modelos las usan solos.
+ *
+ * POR QUÉ SANEAR Y NO RECHAZAR. Rechazar el pase obligaría a re-invocar al modelo
+ * —el pase ya está PAGADO (WR-02)— y, si el modelo insiste, se pierde un concern
+ * legítimo. Y ensanchar el gate para que ignore los campos de validación sería
+ * ablandar un invariante de seguridad (x-text-only, T-02-01) desde el plan de
+ * cierre. Se conforma el escritor, no el gate.
+ *
+ * POR QUÉ ESTAS SUSTITUCIONES Y NO OTRAS. Todas preservan el significado y ninguna
+ * borra información:
+ *   - `->` y `=>` son la notación de sustitución que los modelos usan sin parar;
+ *     `→` y `⇒` son literalmente lo que quieren decir.
+ *   - `<` y `>` sueltos pasan a `‹` y `›`: un carácter por un carácter.
+ *   - `&#` y `javascript:` se parten con un espacio: CERO caracteres perdidos, la
+ *     secuencia peligrosa deja de existir y el texto se sigue leyendo igual.
+ *   - Las comillas tipográficas bajan a ASCII, que es lo que D-41-17 pide de todos
+ *     modos para el resto del corpus.
+ *
+ * Es PURA y exportada para poder mutarla en test sin tocar disco.
+ */
+export function sanearParaCorpus(s) {
+  if (typeof s !== 'string') return s;
+  return s
+    .replace(/->/g, '→')
+    .replace(/=>/g, '⇒')
+    .replace(/&#/g, '& #')
+    .replace(/javascript:/gi, (m) => `${m.slice(0, -1)} :`)
+    .replace(/</g, '‹')
+    .replace(/>/g, '›')
+    .replace(/[‘’]/g, "'")
+    .replace(/[“”]/g, '"');
+}
+
+/** Aplica `sanearParaCorpus` a los campos de PROSA de un pase. El resto no se toca. */
+export function sanearPase(pass) {
+  const out = { ...pass };
+  if (Array.isArray(out.concerns)) out.concerns = out.concerns.map(sanearParaCorpus);
+  if (typeof out.adjudicacion === 'string') out.adjudicacion = sanearParaCorpus(out.adjudicacion);
+  return out;
+}
+
 /** La indentación literal de la línea en la que cae `idx` (derivada del DISCO). */
 export function indentAtOffset(text, idx) {
   const lineStart = text.lastIndexOf('\n', idx) + 1;
@@ -720,7 +804,14 @@ function formatValidationBody(status, passes, ind) {
  * escrito en `variants[k].translationES.validation`. Se separa del I/O para poder
  * probarla por escritura real y diff de líneas.
  */
-export function applyPassToText(text, slotId, k, pass) {
+export function applyPassToText(text, slotId, k, passSinSanear) {
+  // EL SANEO VA AQUÍ y no en `run` (`WINDOWS` id 43): `applyPassToText` es el ÚNICO
+  // sitio por el que pasa todo lo que llega al disco —la CLI, los tests y cualquier
+  // llamador futuro—, así que ponerlo antes, en el compositor del pase, dejaría
+  // abierto el camino que los tests ya usan. El pase saneado es el que se serializa
+  // Y el que se devuelve en `passesEscritos`, para que la post-condición confronte
+  // el fichero contra lo MISMO que se escribió y no contra lo que llegó.
+  const pass = sanearPase(passSinSanear);
   const loc = locateVariantTranslation(text, slotId, k);
   const tSlice = text.slice(loc.tStart, loc.tEnd + 1);
   const vRel = tSlice.indexOf('"validation"');
@@ -941,6 +1032,10 @@ async function main(argv) {
 
   const pass = await run(cfg, target, composed, callModel, contrato);
   if (!pass) process.exit(1);
+  // `WINDOWS` id 45: una adjudicación rechazada NO es un pase escrito, y el exit code
+  // tiene que decirlo. Sin esto, el gesto sale en 0 y se lee como «adjudicado». El
+  // pase ya está impreso por `run`; no se re-imprime para no duplicarlo en stdout.
+  if (pass.noEscrito) process.exit(4);
   console.log(JSON.stringify(pass, null, 2));
 }
 

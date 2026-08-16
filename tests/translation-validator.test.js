@@ -31,6 +31,8 @@ import {
   contratoVigente,
   parseContrato,
   motivosNoRegistrable,
+  sanearParaCorpus,
+  sanearPase,
 } from '../scripts/validate-translation-pass.mjs';
 
 const ROOT = new URL('..', import.meta.url).pathname;
@@ -1208,5 +1210,153 @@ describe('el temporal de la escritura atómica no puede colarse en un commit (WR
       0,
       'la regla es DEMASIADO ancha: está ignorando el propio corpus'
     );
+  });
+});
+
+// ══════════════════════════════════════════════════════════════════════════
+// La prosa que escriben LOS MODELOS no puede romper el gate de higiene del
+// contenido (`WINDOWS` id 43) — y `--adjudicar` no puede fabricar un registro
+// que se lea como adjudicado sin estarlo (`WINDOWS` id 45)
+// ══════════════════════════════════════════════════════════════════════════
+
+describe('saneo de la prosa de los modelos antes de que toque el corpus (WINDOWS id 43)', () => {
+  // LA REFERENCIA SE DERIVA DEL GATE, no se transcribe: son las marcas que
+  // tests/content-*.test.js prohibe en CUALQUIER string del fichero (T-41-01 y
+  // D-41-17). Si el gate añade una marca y el saneador no, este bloque no lo
+  // veria — asi que la lista se lee del fichero del gate.
+  const SRC_GATE = fs.readFileSync(path.join(ROOT, 'tests/content-fare-indicativo.test.js'), 'utf8');
+
+  test('el gate que motiva el saneo SIGUE prohibiendo las marcas que el saneador quita (no-vacuidad)', () => {
+    // Sin esto, un gate relajado dejaria este bloque entero certificando NADA.
+    assert.match(
+      SRC_GATE,
+      /for \(const marca of \['<', '>', '&#', 'javascript:'\]\)/,
+      'T-41-01 dejo de prohibir las cuatro marcas, o cambio de forma: revisa sanearParaCorpus'
+    );
+    assert.match(
+      SRC_GATE,
+      /\[‘’“”\]/,
+      'D-41-17 dejo de prohibir las comillas tipograficas: revisa sanearParaCorpus'
+    );
+  });
+
+  test('las sustituciones preservan el significado y no pierden ni un caracter de informacion', () => {
+    assert.equal(sanearParaCorpus('hacia -> yo hacia'), 'hacia → yo hacia');
+    assert.equal(sanearParaCorpus('A => B'), 'A ⇒ B');
+    assert.equal(sanearParaCorpus('la entidad &#233; sobra'), 'la entidad & #233; sobra');
+    assert.equal(sanearParaCorpus('un javascript:alert(1)'), 'un javascript :alert(1)');
+    assert.equal(sanearParaCorpus('5 < 7 y 9 > 3'), '5 ‹ 7 y 9 › 3');
+    assert.equal(sanearParaCorpus('dice “hacia” y ‘eso’'), 'dice "hacia" y \'eso\'');
+  });
+
+  test('un string limpio sale IDENTICO: el saneador no toca lo que no tiene que tocar', () => {
+    const limpio = '[S4-acentos] falta la tilde en "psicologos": debe ser psicologos con tilde';
+    assert.equal(sanearParaCorpus(limpio), limpio);
+    const acentuado = '[S2-fidelidad] la traduccion omite el adverbial « a merenda »; él/ella';
+    assert.equal(sanearParaCorpus(acentuado), acentuado, 'el espanol acentuado y las comillas latinas se quedan');
+  });
+
+  test('NINGUNA marca prohibida sobrevive al saneador, ni combinada ni repetida', () => {
+    const sucio = 'X -> Y, A => B, <b>, &#39;, javascript:void, “q”, ‘r’, a>b, c<d';
+    const limpio = sanearParaCorpus(sucio);
+    for (const marca of ['<', '>', '&#', 'javascript:', '‘', '’', '“', '”']) {
+      assert.ok(!limpio.includes(marca), `sobrevive la marca ${marca} en: ${limpio}`);
+    }
+  });
+
+  test('el saneo ocurre en applyPassToText, que es el UNICO paso obligatorio hacia el disco', () => {
+    const doc = JSON.stringify(
+      {
+        exercises: [
+          {
+            id: 'sint-saneo',
+            type: 'multiple-choice',
+            variants: [
+              {
+                prompt: 'Io ___ i compiti.',
+                options: ['faccio'],
+                correctIndex: 0,
+                translationES: { text: 'Yo hago los deberes.' },
+              },
+            ],
+          },
+        ],
+      },
+      null,
+      2
+    );
+    const out = applyPassToText(doc, 'sint-saneo', 0, {
+      by: 'modelo-sucio',
+      date: '2026-08-16',
+      verdict: 'incorrecta',
+      concerns: ['[S2] hacia -> yo hacia, y “eso”'],
+      adjudicacion: 'el autor refuta: a -> b',
+    });
+    const enDisco = JSON.parse(out.text).exercises[0].variants[0].translationES.validation;
+    assert.deepEqual(enDisco.passes[0].concerns, ['[S2] hacia → yo hacia, y "eso"']);
+    assert.equal(enDisco.passes[0].adjudicacion, 'el autor refuta: a → b');
+    assert.deepEqual(
+      out.passesEscritos[0].concerns,
+      enDisco.passes[0].concerns,
+      'passesEscritos tiene que reflejar lo que quedo en el fichero, no lo que llego'
+    );
+  });
+
+  test('el verdict, el by y la date NO los toca el saneo', () => {
+    const pass = { by: 'deepseek-reasoner', date: '2026-08-16', verdict: 'incorrecta', concerns: ['a -> b'] };
+    const saneado = sanearPase(pass);
+    assert.equal(saneado.by, pass.by);
+    assert.equal(saneado.date, pass.date);
+    assert.equal(saneado.verdict, pass.verdict);
+    assert.notEqual(saneado.concerns[0], pass.concerns[0], 'el concern SI se sanea');
+    assert.deepEqual(pass.concerns, ['a -> b'], 'sanearPase no muta su argumento');
+  });
+});
+
+describe('--adjudicar rechaza escribir cuando el modelo NO se ha dejado adjudicar (WINDOWS id 45)', () => {
+  const target = () => ({ file: 'no-se-toca.json', slot: { id: 'sint-adj' }, k: 0 });
+  const respuesta = (verdict, concerns) => ({
+    text:
+      '```json\n' +
+      JSON.stringify({
+        verdict,
+        criteria: {
+          s1_natural: verdict === 'correcta',
+          s2_fidelidad: true,
+          s4_acentos: true,
+          s5_italiano: true,
+          s6_naturalidad: true,
+        },
+        concerns,
+      }) +
+      '\n```',
+  });
+
+  test('verdict `incorrecta` con --adjudicar: NO se escribe nada y el pase se devuelve marcado', async () => {
+    let escrituras = 0;
+    const cfg = { MODEL_QUEUE: ['modelo-terco'], TEMP: 0.2, WRITE: true, ADJUDICAR: 'refutacion de cuatro puntos' };
+    const caller = async () => { escrituras++; return respuesta('incorrecta', ['[S2] sigo sin verlo']); };
+    const pass = await run(cfg, target(), 'prompt', caller, contratoVigente());
+    assert.equal(pass.verdict, 'incorrecta');
+    assert.equal(pass.noEscrito, 'adjudicacion_sobre_incorrecta');
+    assert.equal(escrituras, 1, 'se invoco UNA vez: rechazar no puede convertirse en re-tirar el dado');
+  });
+
+  test('verdict `correcta` con --adjudicar: el camino legitimo sigue abierto y el motivo viaja en el pase', async () => {
+    const cfg = { MODEL_QUEUE: ['modelo-persuadido'], TEMP: 0.2, WRITE: false, ADJUDICAR: 'motivo real escrito' };
+    const caller = async () => respuesta('correcta', []);
+    const pass = await run(cfg, target(), 'prompt', caller, contratoVigente());
+    assert.equal(pass.verdict, 'correcta');
+    assert.equal(pass.adjudicacion, 'motivo real escrito');
+    assert.ok(!pass.noEscrito, 'una adjudicacion que SI adjudica no se rechaza');
+  });
+
+  test('verdict `incorrecta` SIN --adjudicar: se escribe como siempre (el rechazo no se ha comido el caso normal)', async () => {
+    const cfg = { MODEL_QUEUE: ['modelo-objetor'], TEMP: 0.2, WRITE: false, ADJUDICAR: '' };
+    const caller = async () => respuesta('incorrecta', ['[S4-acentos] falta una tilde']);
+    const pass = await run(cfg, target(), 'prompt', caller, contratoVigente());
+    assert.equal(pass.verdict, 'incorrecta');
+    assert.ok(!pass.noEscrito, 'un incorrecta normal NO se rechaza: el disenso se registra');
+    assert.ok(!('adjudicacion' in pass));
   });
 });
