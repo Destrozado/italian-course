@@ -165,7 +165,7 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
 
 - [x] **Phase 46: Pipeline de traducción end-to-end (piloto Preposiciones)** - Campo opcional + render en acierto y fallo + validador propio + gates verificados por mutación, todo probado sobre las 96 variantes reales de Preposiciones (completed 2026-08-14)
 - [ ] **Phase 47: Traducción — bloque Artículos** - Articoli (62) + Partitivos (48) = 110 traducciones autoradas y validadas por quórum
-- [ ] **Phase 48: Traducción — paradigma `fare`** - fare-indicativo (54) + congiuntivo (30) + indefiniti (21) + cond-imperativo (17) = 122 traducciones donde el tiempo verbal se reconoce en español
+- [x] **Phase 48: Traducción — paradigma `fare`** - fare-indicativo (54) + congiuntivo (30) + indefiniti (21) + cond-imperativo (17) = 122 traducciones donde el tiempo verbal se reconoce en español (completed 2026-08-16)
 - [ ] **Phase 49: Traducción — morfología** - Genero e numero (60) + Sostantivi irregolari (44) = 104 traducciones sin degenerar en glosa de una palabra
 - [ ] **Phase 50: Traducción — léxico y movimiento** - Professioni (55) + Verbi di movimento (54) = 109 traducciones; el bloque más léxico, materia prima directa de VOCAB-X1
 - [ ] **Phase 51: Traducción — auxiliares y presente** - Essere (46) + Avere (32) + Presente regolare (25) = 103 traducciones con ser/estar y los idiomáticos de `avere` resueltos sin calco
