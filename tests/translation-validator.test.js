@@ -31,6 +31,7 @@ import {
   contratoVigente,
   parseContrato,
   motivosNoRegistrable,
+  main,
   sanearParaCorpus,
   sanearPase,
 } from '../scripts/validate-translation-pass.mjs';
@@ -1315,6 +1316,63 @@ describe('saneo de la prosa de los modelos antes de que toque el corpus (WINDOWS
     assert.equal(saneado.verdict, pass.verdict);
     assert.notEqual(saneado.concerns[0], pass.concerns[0], 'el concern SI se sanea');
     assert.deepEqual(pass.concerns, ['a -> b'], 'sanearPase no muta su argumento');
+  });
+});
+
+describe('el exit code 4 esta en el contrato del fichero y ALGUIEN lo ejercita (WR-03)', () => {
+  // EL AGUJERO QUE CIERRA. El 4 se introdujo en la Phase 48 y no aparecia en la lista de
+  // exit codes del doc-block, que es el contrato que el propio fichero se impone. Y no
+  // estaba CUBIERTO: los tres tests de `--adjudicar` invocan `run()` y assertean
+  // `pass.noEscrito`; las pruebas de CLI corren con las API keys vacias, asi que ninguna
+  // invocacion real llega al modelo. Borrar la linea del 4 dejaba la suite entera en
+  // verde y la adjudicacion rechazada saliendo con exit 0 — que se lee como «adjudicado».
+  //
+  // `main` devuelve ahora el codigo en vez de llamar a `process.exit`, y acepta el
+  // `caller` inyectado igual que `run`. El rechazo de `--adjudicar` ocurre ANTES del
+  // bloque `if (WRITE)`, asi que esto NO toca disco: se invoca sin `--write`.
+  const DIRECCION = `${SLOT_CANONICO.id}#${IDX_TRADUCIDA}`;
+  const respuesta = (verdict) => ({
+    text:
+      '```json\n' +
+      JSON.stringify({
+        verdict,
+        criteria: {
+          s1_natural: verdict === 'correcta',
+          s2_fidelidad: true,
+          s4_acentos: true,
+          s5_italiano: true,
+          s6_naturalidad: true,
+        },
+        concerns: verdict === 'correcta' ? [] : ['[S2] sigo sin verlo'],
+      }) +
+      '\n```',
+  });
+
+  test('una adjudicacion RECHAZADA sale con 4, y el disco no se toca', async () => {
+    const antes = readAbs(PREPOS);
+    const code = await main([DIRECCION, '--model=modelo-terco', '--adjudicar=refutacion de cuatro puntos'], async () =>
+      respuesta('incorrecta')
+    );
+    assert.equal(code, 4, 'una adjudicacion rechazada NO es un pase escrito y el exit code tiene que decirlo');
+    assert.equal(readAbs(PREPOS), antes, 'el camino del 4 no escribe nada');
+  });
+
+  test('la misma invocacion con el modelo persuadido sale con 0: el 4 no se ha comido el caso normal', async () => {
+    const code = await main([DIRECCION, '--model=modelo-persuadido', '--adjudicar=refutacion de cuatro puntos'], async () =>
+      respuesta('correcta')
+    );
+    assert.equal(code, 0);
+  });
+
+  test('el doc-block DECLARA el 4 entre sus exit codes, y no solo el 0-1-2-3', () => {
+    // Se deriva del fichero, no se transcribe: si manana aparece un 5 sin declararse,
+    // este test no lo ve, pero el 4 no puede volver a caerse del contrato en silencio.
+    const cabecera = readAbs(SCRIPT).split('\nimport ')[0];
+    assert.ok(/Exit codes:/.test(cabecera), 'el doc-block declara una lista de exit codes');
+    assert.ok(
+      /·\s*4\s/.test(cabecera),
+      `el doc-block de ${SCRIPT} no declara el exit code 4 (adjudicacion rechazada), que el codigo SI devuelve`
+    );
   });
 });
 

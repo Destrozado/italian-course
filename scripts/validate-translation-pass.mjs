@@ -62,12 +62,22 @@
 // cero tokens gastados (dirección o target inválidos: slot inexistente, k fuera de
 // rango, type != multiple-choice, variante sin `translationES`; cola de modelos vacía;
 // contrato §4 ilegible) · 3 un modelo SÍ respondió y el pase NO se pudo escribir — el
-// pase va impreso en stdout para aplicarlo a mano (WR-02).
+// pase va impreso en stdout para aplicarlo a mano (WR-02) · 4 `--adjudicar` RECHAZADO:
+// el modelo volvió a devolver `incorrecta`, así que la adjudicación no adjudicó nada y
+// NO se ha tocado el disco — el pase va impreso en stdout (`WINDOWS` id 45).
 //
 // El 3 existe porque el 1 y él son situaciones opuestas para el autor: en el 1 no se
 // gastó nada, en el 3 se gastó la llamada y el veredicto es recuperable. Cuando los dos
 // compartían código, un lockfile huérfano quemaba una llamada por invocación sin que se
 // pudiera distinguir de un rate-limit.
+//
+// El 4 existe por la razón simétrica y hay que decirla igual de explícita: la llamada se
+// gastó, el veredicto es válido y el disco está INTACTO A PROPÓSITO, no por un fallo. Sin
+// un código propio el gesto saldría en 0 y se leería como «adjudicado» —que es justo el
+// registro que la id 45 existe para impedir— o en 1, que significa «no contestó nadie».
+// El 3 y el 4 se parecen en que el pase está impreso y no escrito, y se diferencian en
+// que el 3 es un ACCIDENTE recuperable re-corriendo y el 4 es una NEGATIVA deliberada
+// que re-correr no arregla: sus tres salidas legítimas van en el mensaje de error.
 
 import https from 'node:https';
 import fs from 'node:fs';
@@ -1005,12 +1015,31 @@ export async function writeTranslationPass(file, slotId, k, pass) {
 }
 
 // ── entrypoint CLI ──────────────────────────────────────────────────────────
-async function main(argv) {
+/**
+ * DEVUELVE EL EXIT CODE, no lo ejecuta (WR-03 del code review de la Phase 48).
+ *
+ * POR QUE CAMBIO. El exit 4 —una adjudicacion RECHAZADA— no lo ejercitaba ningun test:
+ * los tres de `--adjudicar` invocan `run()` directamente y assertean `pass.noEscrito`, y
+ * las pruebas de CLI corren con las API keys vacias, asi que ninguna invocacion real
+ * llega al modelo. `grep -rn "status, 4" tests/` daba CERO. Borrar la linea
+ * `if (pass.noEscrito) return 4;` dejaba la suite ENTERA en verde y la adjudicacion
+ * rechazada saliendo con exit 0 — que se lee como «adjudicado», o sea la mitad del
+ * defecto que el arreglo dice cerrar.
+ *
+ * Con `main` devolviendo el codigo y aceptando el `caller` inyectado (igual que `run`),
+ * el camino es ejercitable sin red y sin tocar disco: el rechazo de `--adjudicar` ocurre
+ * ANTES del bloque `if (WRITE)`, asi que basta invocar sin `--write`.
+ *
+ * @param {string[]} argv argumentos de linea de comandos, sin `node` ni el script.
+ * @param {Function} [caller] invocador del modelo, inyectable para test.
+ * @returns {Promise<number>} el exit code que el proceso debe devolver.
+ */
+export async function main(argv, caller = callModel) {
   const cfg = parseArgs(argv);
   const parsed = parseAddress(cfg.address);
   if (!parsed) {
     console.error(`Error: falta o es inválida la dirección compuesta '<slot-id>#<k>' (k = índice de variante, base 0).\n${USAGE}`);
-    process.exit(2);
+    return 2;
   }
   // FAIL-FAST DE COLA VACÍA (WR-03), antes de resolver el target y de componer nada.
   // `MODEL_QUEUE` filtra los evitados INCLUIDO el primario por defecto. El flujo
@@ -1031,20 +1060,20 @@ async function main(argv) {
         `  Pasa --model=<otro modelo> para el segundo pase del quórum: los dos pases ` +
         `necesitan \`by\` DISTINTOS.\n${USAGE}`
     );
-    process.exit(2);
+    return 2;
   }
 
   const target = resolveTarget(parsed.slotId, parsed.k);
   if (target.error) {
     console.error(`Error: ${target.error}`);
-    process.exit(2);
+    return 2;
   }
   const composed = composePrompt(target);
   if (composed.includes('"italianoResuelto": null')) {
     console.error(`Error: no se pudo rellenar el hueco de '${parsed.slotId}#${parsed.k}': el prompt no contiene "___" o correctIndex no apunta a una opción.`);
-    process.exit(2);
+    return 2;
   }
-  if (cfg.DRY) { console.log(composed); process.exit(0); }
+  if (cfg.DRY) { console.log(composed); return 0; }
 
   // El contrato §4 se deriva ANTES de llamar a nadie (CR-03). Si el doc de criterios no
   // declara un shape parseable, el contrato que se le está pidiendo al modelo es
@@ -1058,16 +1087,17 @@ async function main(argv) {
       `Error: no se pudo derivar el contrato del §4 de ${PROMPT_PATH}: ${e.message}\n` +
         `Sin contrato no se puede comprobar el veredicto que devuelva el modelo, así que no se llama a nadie.`
     );
-    process.exit(2);
+    return 2;
   }
 
-  const pass = await run(cfg, target, composed, callModel, contrato);
-  if (!pass) process.exit(1);
+  const pass = await run(cfg, target, composed, caller, contrato);
+  if (!pass) return 1;
   // `WINDOWS` id 45: una adjudicación rechazada NO es un pase escrito, y el exit code
   // tiene que decirlo. Sin esto, el gesto sale en 0 y se lee como «adjudicado». El
   // pase ya está impreso por `run`; no se re-imprime para no duplicarlo en stdout.
-  if (pass.noEscrito) process.exit(4);
+  if (pass.noEscrito) return 4;
   console.log(JSON.stringify(pass, null, 2));
+  return 0;
 }
 
 const invokedDirectly =
@@ -1077,8 +1107,10 @@ const invokedDirectly =
 // el doc-block promete. Con él, cada fallo sale con SU código y con un mensaje, no con
 // un volcado.
 if (invokedDirectly) {
-  main(process.argv.slice(2)).catch((e) => {
-    console.error(e?.message ?? String(e));
-    process.exit(e?.exitCode ?? 1);
-  });
+  main(process.argv.slice(2))
+    .then((code) => process.exit(code ?? 0))
+    .catch((e) => {
+      console.error(e?.message ?? String(e));
+      process.exit(e?.exitCode ?? 1);
+    });
 }
