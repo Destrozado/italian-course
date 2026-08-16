@@ -355,9 +355,31 @@ una elección del hablante. Sus equivalentes españoles no funcionan igual, y se
   presenta el hecho como hipotético está igual de bien y tampoco se marca por ello.
 - **QUÉ SE SIGUE VIGILANDO, con todo el rigor y sin rebaja alguna** — los dos puntos son S2 aplicado,
   no exigencia nueva:
-  1. **Que el TIEMPO y la PERSONA sigan siendo los del original.** Esta aclaración habla del MODO y de
-     nada más. Una traducción que cambie el tiempo verbal, o que confunda la persona, **ya era
-     `[S2-fidelidad]` false antes de esta aclaración** y lo sigue siendo exactamente igual.
+  1. **Que la RELACIÓN TEMPORAL y la PERSONA sigan siendo las del original.** Esta aclaración habla del
+     MODO, y lo que S2 vigila en el eje del tiempo es la RELACIÓN que la frase afirma —anterioridad,
+     simultaneidad o posterioridad respecto del verbo matriz—, no la forma simple-frente-a-compuesta con
+     la que cada lengua la expresa. Una traducción que mueva esa relación, o que confunda la persona,
+     **ya era `[S2-fidelidad]` false antes de esta aclaración** y lo sigue siendo exactamente igual.
+
+     **Corolario, porque al soltar el subjuntivo el español queda obligado por su propia norma.** Cuando
+     la absolución de arriba lleva el español al INDICATIVO y la frase lleva un marcador temporal
+     **CERRADO** (`ayer`, `anoche`, `la semana pasada`, `el mes pasado`, `el año pasado`,
+     `el domingo pasado`), la norma peninsular **excluye** ahí el pretérito perfecto compuesto y pide el
+     **simple**: `Mi sembra che lui abbia fatto una foto la settimana scorsa` es
+     `Me parece que hizo una foto la semana pasada`, y `ha hecho` en ese hueco no es más fiel — es
+     español que la norma no admite. Un concern `[S2-fidelidad]` del tipo «cambia el tiempo verbal: el
+     italiano usa el compuesto `abbia fatto` / `abbiano fatto` y la traducción usa el simple `hizo` /
+     `hicieron`» es, **en ese contexto y sólo en él, un FALSO POSITIVO** y no debe emitirse: la
+     anterioridad respecto del verbo matriz se conserva entera, y la forma la impone el marcador
+     español, no la preferencia del traductor. Es la misma frontera que la aclaración del condizionale
+     composto traza más abajo entre sus dos valores.
+
+     **Lo que este corolario NO absuelve**, y se dice para que la excepción quede estrecha: con marcador
+     temporal **ABIERTO** (`esta mañana`, `esta semana`, `hoy`, `hace poco`, `este mes`) la norma no
+     obliga a nada, así que ahí la forma compuesta española es la esperable y sigue juzgándose como
+     siempre; y donde el español **conserva el subjuntivo** —que sí tolera el compuesto con marco
+     cerrado, `que haya hecho los deberes anoche` es normal— rebajar ese compuesto al simple no está
+     absuelto por nada de lo escrito aquí.
   2. **Que no se pierda el valor concesivo, condicional, temporal o de duda que la frase afirma.** El
      conector tiene que seguir estando y seguir significando lo mismo: `aunque`, `a pesar de que`,
      `antes de que`, `para que`. Lo que S2 castiga, aquí como siempre, es que ese valor
