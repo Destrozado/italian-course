@@ -228,19 +228,19 @@
           ],
           "correctIndex": 1,
           "translationES": {
-            "text": "De niño hacía los deberes todas las tardes.",
+            "text": "De niño yo hacía los deberes todas las tardes.",
             "validation": {
               "status": "validated",
               "passes": [
                 {
                   "by": "deepseek-reasoner",
-                  "date": "2026-08-15",
+                  "date": "2026-08-16",
                   "verdict": "correcta",
                   "concerns": []
                 },
                 {
                   "by": "gemini-3.5-flash-lite",
-                  "date": "2026-08-15",
+                  "date": "2026-08-16",
                   "verdict": "correcta",
                   "concerns": []
                 }
@@ -288,19 +288,19 @@
           ],
           "correctIndex": 0,
           "translationES": {
-            "text": "En aquellos tiempos hacía el trabajo.",
+            "text": "En aquellos tiempos él hacía el trabajo.",
             "validation": {
               "status": "validated",
               "passes": [
                 {
                   "by": "deepseek-reasoner",
-                  "date": "2026-08-15",
+                  "date": "2026-08-16",
                   "verdict": "correcta",
                   "concerns": []
                 },
                 {
                   "by": "gemini-3.5-flash-lite",
-                  "date": "2026-08-15",
+                  "date": "2026-08-16",
                   "verdict": "correcta",
                   "concerns": []
                 }
@@ -1092,19 +1092,19 @@
           ],
           "correctIndex": 1,
           "translationES": {
-            "text": "Cuando mis amigos llegaron, ya había hecho los deberes.",
+            "text": "Cuando mis amigos llegaron, yo ya había hecho los deberes.",
             "validation": {
               "status": "validated",
               "passes": [
                 {
                   "by": "deepseek-reasoner",
-                  "date": "2026-08-15",
+                  "date": "2026-08-16",
                   "verdict": "correcta",
                   "concerns": []
                 },
                 {
                   "by": "gemini-3.5-flash-lite",
-                  "date": "2026-08-15",
+                  "date": "2026-08-16",
                   "verdict": "correcta",
                   "concerns": []
                 }
@@ -1152,19 +1152,19 @@
           ],
           "correctIndex": 0,
           "translationES": {
-            "text": "Cuando la reunión empezó, ya había hecho el trabajo.",
+            "text": "Cuando la reunión empezó, él ya había hecho el trabajo.",
             "validation": {
               "status": "validated",
               "passes": [
                 {
                   "by": "deepseek-reasoner",
-                  "date": "2026-08-15",
+                  "date": "2026-08-16",
                   "verdict": "correcta",
                   "concerns": []
                 },
                 {
                   "by": "gemini-3.5-flash-lite",
-                  "date": "2026-08-15",
+                  "date": "2026-08-16",
                   "verdict": "correcta",
                   "concerns": []
                 }

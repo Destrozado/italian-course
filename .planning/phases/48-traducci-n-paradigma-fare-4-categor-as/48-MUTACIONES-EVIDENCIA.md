@@ -926,3 +926,142 @@ pregunta por su nombre.
 El fichero de medición vivió en la raíz del repo (para que las rutas relativas a `styles.css`, `app.css`
 y `vendor/fonts/` resolvieran como en la app real) y **se borró al terminar**:
 `git status --porcelain` no lo ve, y el árbol queda con los dos ficheros de código del arreglo y nada más.
+
+---
+
+## D-48-20 — LAS 4 VARIANTES DE PERSONA INDETERMINADA, ARREGLADAS (decisión del autor)
+
+**Decisión del autor, 2026-08-16, en respuesta parcial al checkpoint del Task 3: `arreglar` las cuatro.**
+El executor las había puesto delante del autor con su gradación y **no las tocó por su cuenta**, porque
+el criterio de éxito del propio plan 48-05 exige el corpus **byte-idéntico** al cierre de 48-04. **El
+autor relaja ese criterio explícitamente y SÓLO para estas 4 variantes**; el resto del corpus sigue bajo
+el criterio original. Queda registrado como **desviación autorizada**, con constancia de que se detectó
+y de que no se ejecutó sin permiso.
+
+**El argumento que lo decidió no es de opinión: es la medida.** En el grupo «había hecho» de la cuenta
+de colisiones, las **dos** hermanas de `fare-congiuntivo` escribían el pronombre y las **dos** de
+`fare-indicativo` no. Eso no es una ambigüedad tolerable sino una **inconsistencia interna del mismo
+bloque**, y la produjo un barrido mecánico, no un argumento.
+
+### El cambio, variante a variante
+
+El pronombre va **pegado al verbo y antes de `ya`**, que es el precedente del corpus cerrado
+(`fare-indefiniti-gerundio-passato#1`: «…, **ella ya** estaba libre»), y espeja la posición del italiano
+(`io già ___`, `lui già ___`). El script **aborta** si el texto de partida no es el esperado, si la
+variante no estaba `validated`, o si el texto nuevo no es exactamente el viejo **más el pronombre**
+(comprobado por reconstrucción inversa, no por confianza).
+
+| Dirección | Italiano | ANTES | DESPUÉS |
+|---|---|---|---|
+| `fare-indicativo-imperfetto#0` | `Da bambino **io** ___ i compiti…` (`facevo`) | De niño hacía los deberes todas las tardes. | De niño **yo** hacía los deberes todas las tardes. |
+| `fare-indicativo-imperfetto#2` | `A quei tempi **lui** ___ il lavoro.` (`faceva`) | En aquellos tiempos hacía el trabajo. | En aquellos tiempos **él** hacía el trabajo. |
+| `fare-indicativo-trapassato-prossimo#0` | `Quando i miei amici sono arrivati, **io** già ___` (`avevo fatto`) | Cuando mis amigos llegaron, ya había hecho los deberes. | Cuando mis amigos llegaron, **yo** ya había hecho los deberes. |
+| `fare-indicativo-trapassato-prossimo#2` | `Quando la riunione è cominciata, **lui** già ___` (`aveva fatto`) | Cuando la reunión empezó, ya había hecho el trabajo. | Cuando la reunión empezó, **él** ya había hecho el trabajo. |
+
+**LA GRADACIÓN NO SE APLANA aunque las cuatro se arreglen**, porque es el dato que explica **por qué el
+quórum no las marcó**: `imperfetto#2` y `trapassato-prossimo#2` eran ambigüedades limpias sin otro
+referente; `trapassato-prossimo#0` estaba parcialmente anclada por «**mis** amigos»; `imperfetto#0` era
+débil pero real («De niño» concuerda en género, no en persona). Los dos jueces las aprobaron **todas** en
+48-02 pese a que la aclaración de S2 que ese mismo plan escribió declara **expresamente no absuelto** que
+la persona se quede sin marcar. Es el tercero de los tres falsos negativos de la misma familia.
+
+### Los 8 pases retirados, transcritos ANTES de retirarse
+
+`passes[]` reseteado a `[]` y `status` a `pending` en las cuatro: los pases anteriores validaron el texto
+**anterior**, y dejarlos habría sido un registro que miente sobre qué se validó.
+
+```
+fare-indicativo-imperfetto#0             deepseek-reasoner:correcta(2026-08-15), gemini-3.5-flash-lite:correcta(2026-08-15)
+fare-indicativo-imperfetto#2             deepseek-reasoner:correcta(2026-08-15), gemini-3.5-flash-lite:correcta(2026-08-15)
+fare-indicativo-trapassato-prossimo#0    deepseek-reasoner:correcta(2026-08-15), gemini-3.5-flash-lite:correcta(2026-08-15)
+fare-indicativo-trapassato-prossimo#2    deepseek-reasoner:correcta(2026-08-15), gemini-3.5-flash-lite:correcta(2026-08-15)
+```
+
+**El rojo intermedio, intencionado y observado** — el corpus no pasó de un verde a otro sin pasar por el
+rojo, que es lo que prueba que los pases se retiraron de verdad:
+
+```
+$ node scripts/run-validation-271.mjs ; echo $?
+  TRAD-COV (328/328 traducciones validated): FAIL (324/328 — pending=4, missing=0, disputed=0)
+1
+```
+
+### El re-quórum COMPLETO desde cero — 8 llamadas, 2026-08-16T17:36:11Z → 17:37:57Z
+
+Jueces declarados del bloque (D-48-01), concurrencia 1, `--avoid` en el segundo pase de cada variante
+para garantizar `by` distintos.
+
+| # | Dirección | Modelo pinneado | Modelo que respondió | Veredicto | concerns |
+|---|---|---|---|---|---|
+| 1 | `imperfetto#0` | `deepseek-reasoner` | `deepseek-reasoner` | **correcta** | `[]` |
+| 2 | `imperfetto#0` | `gemini-3.5-flash-lite` | `gemini-3.5-flash-lite` | **correcta** | `[]` |
+| 3 | `imperfetto#2` | `deepseek-reasoner` | `deepseek-reasoner` | **correcta** | `[]` |
+| 4 | `imperfetto#2` | `gemini-3.5-flash-lite` | `gemini-3.5-flash-lite` | **correcta** | `[]` |
+| 5 | `trapassato-prossimo#0` | `deepseek-reasoner` | `deepseek-reasoner` | **correcta** | `[]` |
+| 6 | `trapassato-prossimo#0` | `gemini-3.5-flash-lite` | `gemini-3.5-flash-lite` | **correcta** | `[]` |
+| 7 | `trapassato-prossimo#2` | `deepseek-reasoner` | `deepseek-reasoner` | **correcta** | `[]` |
+| 8 | `trapassato-prossimo#2` | `gemini-3.5-flash-lite` | `gemini-3.5-flash-lite` | **correcta** | `[]` |
+
+**8 de 8 `correcta`. Cero `disputed`, cero auto-fallbacks** (`by` escrito == `by` pinneado en las ocho),
+**cero adjudicaciones, cero overrides nuevos**. No hizo falta parar ni reportar.
+
+**ACOTACIÓN DEL PRECEDENTE, que es lo que este re-quórum aporta además del contenido:** las 8 llamadas
+volvieron limpias y **no destaparon nada**. Es la misma acotación que 48-04 escribió y aquí se confirma
+por segunda vez — el cumplimiento literal **destapa cuando el sujeto tiene historia y sólo confirma
+sobre trabajo en vuelo**. Estas cuatro llegaban ya arregladas: el trabajo de encontrar el defecto lo hizo
+el barrido mecánico de la cuenta de colisiones, **antes** y **sin gastar una llamada**.
+
+### Verificación, derivada del disco
+
+```
+$ node -e '<deriveStatus EJECUTADO sobre los pases del disco>'
+  fare-indicativo-imperfetto#0            escrito=validated | DERIVADO=validated | 2 by distintos | 2 vendors | override: false
+  fare-indicativo-imperfetto#2            escrito=validated | DERIVADO=validated | 2 by distintos | 2 vendors | override: false
+  fare-indicativo-trapassato-prossimo#0   escrito=validated | DERIVADO=validated | 2 by distintos | 2 vendors | override: false
+  fare-indicativo-trapassato-prossimo#2   escrito=validated | DERIVADO=validated | 2 by distintos | 2 vendors | override: false
+
+$ node scripts/run-validation-271.mjs ; echo $?
+  VAL-06 (250/250 validated): PASS (250/250)
+  VAL-08 (cero disputed): PASS
+  VAL-04 (≥2 distinct AIs por validated): PASS
+  VAL-09 (status escrito == derivado): PASS
+  TRAD-COV (328/328 traducciones validated): PASS (328/328)
+Milestone gate PASS.
+0
+```
+
+| Magnitud, derivada del disco | Cifra |
+|---|---|
+| Bloque `fare` | **122 variantes / 122 traducciones / 122 `validated`** |
+| Corpus | **328/328**, `TRAD-COV: PASS`, `Milestone gate PASS`, exit **0** |
+| Overrides en todo el corpus | **8** (sin cambios) |
+| `disputed` de traducción | **0** |
+| Pases `incorrecta` vivos | **4**, los cuatro históricos con entrada propia en el ledger |
+| Gates de contenido de las 4 categorías | **347/347**, exit 0 |
+| Anti-ceguera + ancla | **66/66**, exit 0 |
+| Suite completa | **1369 / 1365 pass / 4 fail** — los mismos 4 pre-existentes |
+| `git diff --stat src/domain/ src/screens/app.js` | **vacío** · `schemaVersion` **13** |
+| `git diff --stat content/` | **1 fichero, 12 inserciones / 12 borrados** — los 4 textos y las 8 fechas de pase, **y nada más** (verificado por `uniq -c` sobre el diff) |
+
+### La inconsistencia, RE-MEDIDA con el mismo barrido que la encontró
+
+```
+  CON pronombre  fare-indicativo-trapassato-prossimo#0 :: Cuando mis amigos llegaron, yo ya había hecho los deberes.
+  CON pronombre  fare-indicativo-trapassato-prossimo#2 :: Cuando la reunión empezó, él ya había hecho el trabajo.
+  CON pronombre  fare-congiuntivo-trapassato#0 :: El profesor no sabía que yo había hecho el trabajo el día anterior.
+  CON pronombre  fare-congiuntivo-trapassato#2 :: Parecía que él había hecho todo mucho tiempo antes.
+```
+
+**Las cuatro «había hecho» del bloque llevan ahora el pronombre.** Y el barrido de D-48-19 sobre las
+**328** traducciones del corpus entero da: **15 con pronombre, 0 sin él.** El «11 = 7 + 4» de 48-03 se
+convierte en **15 = 15 + 0**: los 4 que faltaban están puestos, y los 4 nuevos respecto de aquel recuento
+son los de `fare-cond-imperativo` que 48-04 autoró ya bajo la regla precisada.
+
+### CUARTA MORDEDURA DEL MISMO BUG DE ACENTOS, cazada otra vez mirando los resultados
+
+Al listar el precedente de colocación del pronombre, el primer patrón usó `\b(yo|él|ella)\b` y devolvió
+**5** variantes en vez de **7**: las dos de `él` desaparecieron. Es exactamente el bug que la entrada 48
+del ledger declara **por tercera vez** — `\b` en JavaScript sólo existe entre `[A-Za-z0-9_]` y el resto,
+así que `\bél` **nunca** casa. **Cuarta vez en dos fases.** Se cazó por inspección del resultado (faltaban
+justo las dos que se sabía que existían), no por confianza en el regex, y el patrón se rehízo como
+`(^|[\s,¡¿])(yo|él|ella)(?=[\s,.])`. **Todos los barridos de esta sección usan el patrón corregido.**
