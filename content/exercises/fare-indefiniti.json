@@ -17,7 +17,27 @@
             "facendo",
             "aver fatto"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Anna, ¡no cometas un error ahora!",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Prima di ___ i compiti, io guardo un film.",
@@ -27,7 +47,27 @@
             "fare",
             "fatto"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Antes de hacer los deberes, veo una película.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Io devo ___ il letto ogni mattina.",
@@ -37,7 +77,27 @@
             "fare",
             "facente"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Tengo que hacer la cama todas las mañanas.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         }
       ],
       "validation": {
@@ -74,7 +134,27 @@
             "facendo",
             "fatta"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Después de haber hecho los deberes, he salido con Anna.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Maria è contenta di ___ il lavoro la settimana scorsa.",
@@ -84,7 +164,27 @@
             "aver fatto",
             "fatta"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "María está contenta de haber hecho el trabajo la semana pasada.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Per ___ un errore ieri, lui ha perso tutto.",
@@ -94,7 +194,27 @@
             "avendo fatto",
             "aver fatto"
           ],
-          "correctIndex": 3
+          "correctIndex": 3,
+          "translationES": {
+            "text": "Por haber cometido un error ayer, lo perdió todo.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         }
       ],
       "validation": {
@@ -137,7 +257,27 @@
             "fatte",
             "fatti"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Ayer hice los deberes con Anna.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Maria ha ___ una torta per la festa.",
@@ -147,7 +287,27 @@
             "fatta",
             "fatto"
           ],
-          "correctIndex": 3
+          "correctIndex": 3,
+          "translationES": {
+            "text": "María ha hecho un pastel para la fiesta.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Marco ha preso i compiti e li ha ___ ieri sera.",
@@ -157,7 +317,27 @@
             "fatto",
             "fatta"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Marco cogió los deberes y los hizo anoche.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Anna vuole vedere le foto e noi le abbiamo ___ in montagna.",
@@ -167,7 +347,27 @@
             "fatte",
             "fatto"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Anna quiere ver las fotos y las hemos hecho en la montaña.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         }
       ],
       "validation": {
@@ -234,7 +434,27 @@
             "facenti",
             "fatto"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "El director en funciones ha firmado el documento hoy.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "I paesi ___ parte dell'accordo devono rispettare le nuove regole.",
@@ -244,7 +464,27 @@
             "facenti",
             "facendo"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Los países que forman parte del acuerdo deben respetar las nuevas reglas.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         }
       ],
       "validation": {
@@ -281,7 +521,27 @@
             "avendo fatto",
             "fatto"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Ahora estoy haciendo los deberes, no puedo salir.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Si impara l'italiano ___ un errore dopo l'altro.",
@@ -291,7 +551,27 @@
             "facendo",
             "facente"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "El italiano se aprende cometiendo un error tras otro.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "___ tutto in fretta, lei ha rotto un piatto.",
@@ -301,7 +581,27 @@
             "facente",
             "fatta"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Haciendo todo deprisa, ha roto un plato.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         }
       ],
       "validation": {
@@ -338,7 +638,27 @@
             "fare",
             "fatte"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Habiendo hecho los deberes la noche anterior, pude dormir hasta tarde.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "___ il lavoro il giorno prima, lei era già libera.",
@@ -348,7 +668,27 @@
             "fatta",
             "avendo fatto"
           ],
-          "correctIndex": 3
+          "correctIndex": 3,
+          "translationES": {
+            "text": "Habiendo hecho el trabajo el día anterior, ella ya estaba libre.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Pur ___ una torta per tutti, lui non è stato ringraziato.",
@@ -358,7 +698,27 @@
             "fatte",
             "aver fatto"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Aun habiendo hecho un pastel para todos, no le han dado las gracias.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         }
       ],
       "validation": {
@@ -396,7 +756,27 @@
             "dovete",
             "posso"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Mañana tengo que hacer los deberes: es una obligación del colegio, no tengo elección; si no, saco mala nota.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Qui tu ___ fare una foto, perché il museo dà il permesso. (en español: porque el museo da su autorización)",
@@ -406,7 +786,27 @@
             "puoi",
             "possono"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Aquí puedes hacer una foto, porque el museo da su autorización.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Sabato noi ___ fare una torta per il compleanno di Marco: è un desiderio nostro, nessuno ce lo ha chiesto. (en español: es un deseo nuestro, nadie nos lo ha pedido)",
@@ -416,7 +816,27 @@
             "vogliono",
             "possiamo"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "El sábado queremos hacer un pastel para el cumpleaños de Marco: es un deseo nuestro, nadie nos lo ha pedido.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         }
       ],
       "validation": {
