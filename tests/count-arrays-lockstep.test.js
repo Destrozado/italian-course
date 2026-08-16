@@ -2627,6 +2627,26 @@ function conteoMcDeCategoriasCubiertas() {
 }
 
 /**
+ * Los suelos del ancla que NO son enteros no negativos (CR-02 del code review de la
+ * Phase 48).
+ *
+ * POR QUE ESTO ES UN GATE Y NO UNA PARANOIA. Los dos consumidores del ancla —este
+ * GATE-03 y el reporter— comparan `disco < suelo` a pelo contra un valor que sale de un
+ * JSON editable a mano. Y `54 < null` es `false`; `54 < "cincuenta y cuatro"` es `false`
+ * (NaN); `54 < true` es `false`. En los tres casos el ancla de esa categoria queda MUDA
+ * y ninguno de los dos gates emite nada. La no-vacuidad se comprobaba a nivel de MAPA y
+ * se abandonaba a nivel de ENTRADA, que es donde vive el dato que decide.
+ *
+ * @param {Record<string, unknown>} categorias mapa slug -> suelo declarado
+ * @returns {string[]} un diagnostico por entrada invalida, con su clave y su valor
+ */
+export function suelosNoEnteros(categorias) {
+  return Object.entries(categorias)
+    .filter(([, suelo]) => !Number.isInteger(suelo) || suelo < 0)
+    .map(([slug, suelo]) => `${slug}: ${JSON.stringify(suelo) ?? String(suelo)}`);
+}
+
+/**
  * El ancla tal y como esta COMMITEADA en HEAD, que es la referencia del ratchet
  * historico (CR-01 del code review de la Phase 48).
  *
@@ -2739,6 +2759,20 @@ describe('GATE-03 - el denominador de cobertura de traduccion no encoge en silen
         `translationES, asi que no hay disco contra el que confrontar el ancla`
     );
 
+    // TIPO DE CADA SUELO (CR-02), y va ANTES de las comparaciones: un suelo no numerico
+    // hace `false` la comparacion `<` contra CUALQUIER conteo, asi que deja la categoria
+    // sin anclar sin borrar una sola clave. La no-vacuidad de arriba no lo ve porque
+    // mira el mapa, no la entrada.
+    const noEnteros = suelosNoEnteros(ancladas);
+    assert.deepEqual(
+      noEnteros,
+      [],
+      `GATE-03 / CR-02: estos suelos del ancla no son enteros no negativos: ` +
+        `${noEnteros.join('; ')}. La comparacion \`disco < suelo\` es FALSE contra cualquier ` +
+        `no-numero, asi que esas categorias NO estan ancladas aunque su clave siga ahi. ` +
+        `Re-emite el ancla con: node scripts/bump-translation-lock.mjs --write`
+    );
+
     const hundidas = Object.entries(ancladas)
       .filter(([slug, suelo]) => (disco[slug] ?? 0) < suelo)
       .map(([slug, suelo]) => `${slug}: ancla ${suelo}, disco ${disco[slug] ?? 0}`);
@@ -2799,6 +2833,16 @@ describe('GATE-03 - el denominador de cobertura de traduccion no encoge en silen
 // mismo que los del reconocedor de veredictos: el gate real solo puede mirar UN estado
 // del disco, y estas son las entradas que ese estado nunca produce.
 describe('GATE-03 - goldens de los reconocedores del ancla (CR-01 y CR-02)', () => {
+  test('CR-02: un suelo no entero se nombra con su clave y su valor; un entero no negativo no', () => {
+    assert.deepEqual(suelosNoEnteros({ a: 0, b: 54, c: 96 }), []);
+    assert.deepEqual(suelosNoEnteros({ a: null }), ['a: null']);
+    assert.deepEqual(suelosNoEnteros({ a: 'cincuenta y cuatro' }), ['a: "cincuenta y cuatro"']);
+    assert.deepEqual(suelosNoEnteros({ a: true }), ['a: true']);
+    assert.deepEqual(suelosNoEnteros({ a: 54.5 }), ['a: 54.5']);
+    assert.deepEqual(suelosNoEnteros({ a: -1 }), ['a: -1']);
+    assert.deepEqual(suelosNoEnteros({ a: undefined }), ['a: undefined']);
+  });
+
   test('CR-01: BAJAR un suelo respecto de HEAD es rojo, y RETIRAR la clave tambien', () => {
     assert.equal(suelosQueBajaronRespectoDeHead({ a: 96 }, { a: 95 }).length, 1);
     assert.match(suelosQueBajaronRespectoDeHead({ a: 96 }, { a: 95 })[0], /HEAD ancla 96 .* declara 95/);

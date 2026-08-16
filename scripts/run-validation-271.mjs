@@ -470,6 +470,21 @@ const anclaViolaciones = [];
   }
   const declarado = new Map(TRANSLATION_COVERAGE.map((c) => [c.slug, c]));
   for (const [slug, suelo] of Object.entries(ancladas)) {
+    // EL TIPO DEL SUELO, y va PRIMERO (CR-02 del code review de la Phase 48). La
+    // no-vacuidad de dos pantallas más arriba se comprueba a nivel de MAPA y se
+    // abandonaba a nivel de ENTRADA, que es donde vive el dato que decide: `54 < null`
+    // es `false`, `54 < "cincuenta y cuatro"` es `false` (NaN) y `54 < true` es `false`,
+    // así que un suelo no numérico dejaba MUDA el ancla de esa categoría —aquí y en
+    // GATE-03— sin borrar una sola clave y sin un solo diagnóstico.
+    if (!Number.isInteger(suelo) || suelo < 0) {
+      anclaViolaciones.push(
+        `${slug}: el ancla declara ${JSON.stringify(suelo) ?? String(suelo)}, que no es un entero no ` +
+        `negativo. La comparación \`disco < suelo\` es FALSE contra cualquier no-número, así que esta ` +
+        `categoría NO está anclada aunque su clave siga ahí. Re-emítela con: ` +
+        `node scripts/bump-translation-lock.mjs --write`
+      );
+      continue;
+    }
     const entrada = declarado.get(slug);
     if (!entrada) {
       anclaViolaciones.push(
