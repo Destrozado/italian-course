@@ -80,6 +80,10 @@ import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 
 import { deriveStatus } from '../src/data/validation-state.js';
+import {
+  anclaCommiteadaEnHead,
+  suelosQueBajaronRespectoDeHead,
+} from './lib/ancla-ratchet.mjs'; // CR-01: el suelo del ancla no baja a mano
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -447,6 +451,12 @@ const TOTAL_TRANSLATION_EXPECTED = TRANSLATION_COVERAGE.reduce((s, c) => s + c.e
 // entrada del array sin que GATE-02 chiste, y sus variantes desaparecen del denominador.
 // Por eso se itera sobre el LOCK y no sobre el array del reporter.
 const anclaViolaciones = [];
+// El ratchet histórico lleva su PROPIA lista, separada de `anclaViolaciones`, porque es
+// un sub-gate propio: su causa (alguien bajó un suelo) y su remedio (re-emitir el ancla y
+// COMMITEAR ese diff) no son los de «el denominador encogió», y fundir las dos causas en
+// un solo rojo es exactamente lo que este fichero se prohíbe en el resto de sus gates.
+const ratchetViolaciones = [];
+let ratchetSinReferencia = null;
 {
   let lock;
   try {
@@ -507,6 +517,37 @@ const anclaViolaciones = [];
         `vigilar. Ejecuta: node scripts/bump-translation-lock.mjs --write`
       );
     }
+  }
+
+  // ─── RATCHET HISTÓRICO DEL ANCLA (CR-01 del code review de la Phase 48) ────
+  //
+  // LOS CUATRO TÉRMINOS DE ARRIBA CONFRONTAN EL ANCLA CON EL DISCO, y el disco es
+  // justo lo que el borrado mueve consigo. El ancla EN SÍ no se confrontaba con nada:
+  // bajar un suelo a mano era un no-op silencioso, y con el suelo bajado el borrado de
+  // una variante traducida y validada volvía a salir VERDE aquí y en la suite.
+  // Probado end-to-end antes de escribir esto: `lock preposiciones 96 -> 95` más borrar
+  // `preposiciones-col#0` daba `TRAD-COV PASS (327/327)`, `Milestone gate PASS`, exit 0.
+  //
+  // POR QUÉ ESTÁ TAMBIÉN AQUÍ Y NO SÓLO EN GATE-03. Éste es el comando que el autor
+  // corre A MANO antes de `/gsd-complete-milestone`. Un gate que muerde en la suite
+  // pero no en la superficie que el humano mira deja la decisión de milestone tomándose
+  // sobre un verde falso — que es la misma forma de fallo que el propio fichero
+  // persigue cuando dice que un término «meramente impreso» no es un gate.
+  //
+  // SIGUE SIENDO UN SUELO, NO UNA IGUALDAD: crecer no enrojece. Sólo enrojece BAJAR.
+  const referenciaDelRatchet = anclaCommiteadaEnHead(
+    'content/translation-coverage.lock.json',
+    projectRoot
+  );
+  if (referenciaDelRatchet.estado === 'ausente') {
+    // BOOTSTRAP, dicho en voz alta y nunca en silencio: el commit que da de alta el
+    // ancla no tiene con qué compararse. Los cuatro términos de arriba SÍ se han
+    // ejecutado, así que el ancla no queda vacua; lo que falta es sólo este quinto.
+    ratchetSinReferencia = referenciaDelRatchet.motivo;
+  } else {
+    ratchetViolaciones.push(
+      ...suelosQueBajaronRespectoDeHead(referenciaDelRatchet.categorias, ancladas)
+    );
   }
 }
 
@@ -1098,7 +1139,36 @@ if (allTranslationInconsistencyAddrs.length > 0) {
   );
 }
 
-const gatePass = val06Pass && val08Pass && val04Pass && val09Pass && tradPass;
+// ─── Sub-gate ANCLA-RATCHET (CR-01) ───────────────────────────────────────
+//
+// VEREDICTO POR IGUALDAD DE ENTEROS, como todos los de este fichero (T-46-14): la
+// comparación que decide vive arriba, en `suelosQueBajaronRespectoDeHead`, y aquí sólo
+// se cuenta. Un `.length === 0` debilitado a `>= 0` es lo que el gate de laxitud caza.
+const anclaRatchetPass = ratchetViolaciones.length === 0;
+
+console.log(
+  `  ANCLA-RATCHET (ningún suelo bajó respecto de HEAD): ${
+    anclaRatchetPass
+      ? ok(
+          ratchetSinReferencia
+            ? 'PASS (sin referencia en HEAD: bootstrap, nadie lo ha comprobado)'
+            : 'PASS'
+        )
+      : fail(`FAIL (EL SUELO DEL ANCLA BAJÓ — ${ratchetViolaciones.join('; ')})`)
+  }`
+);
+if (ratchetSinReferencia) {
+  console.log(
+    `        ${warn(
+      '→ El ratchet NO se ha podido ejecutar en esta corrida porque ' +
+        `${ratchetSinReferencia}. Es el bootstrap legítimo (el ancla aún no está ` +
+        'commiteada en HEAD) y por eso no enrojece, pero queda dicho: en esta corrida ' +
+        'NADIE ha comprobado que los suelos no hayan bajado a mano.'
+    )}`
+  );
+}
+
+const gatePass = val06Pass && val08Pass && val04Pass && val09Pass && tradPass && anclaRatchetPass;
 
 // ─── Exit gate ────────────────────────────────────────────────────────────
 console.log('');
@@ -1148,6 +1218,20 @@ if (gatePass) {
     console.log('    La fuente única se niega deliberadamente a inferir el override desde el prefijo');
     console.log('    de `concerns`, así que la migración es explícita: añade `"override": true` a la');
     console.log('    entry `by:"autor"` de cada ID listado, o retira el `status` escrito a mano.');
+  }
+  if (!anclaRatchetPass) {
+    console.log('  - ANCLA-RATCHET: alguien BAJÓ un suelo del ancla respecto de su valor commiteado');
+    console.log('    en HEAD. No es lo mismo que «el denominador encogió» y por eso lleva sub-gate');
+    console.log('    propio: aquí el corpus puede estar intacto y lo que se movió es el VIGILANTE.');
+    console.log(`      ${ratchetViolaciones.join('\n      ')}`);
+    console.log('    Con el suelo bajado, borrar una variante ya traducida y validada vuelve a salir');
+    console.log('    VERDE en TRAD-COV con una cifra más baja, que es el defecto entero que el ancla');
+    console.log('    existe para cazar. El ancla es un SUELO, no una igualdad: CRECER sigue siendo');
+    console.log('    verde y no hay que re-emitir nada por crecer.');
+    console.log('    Si la bajada NO era deliberada: restaura el lock (git checkout --).');
+    console.log('    Si SÍ lo era: re-emítelo con `node scripts/bump-translation-lock.mjs --write` y');
+    console.log('    COMMITEA ese diff — el gesto deliberado, con su propio diff en git, es justo lo');
+    console.log('    que el ancla pide y lo que convierte la bajada en una decisión legible.');
   }
   if (!tradPass) {
     if (tradAusenciaDeDatos.length > 0) {

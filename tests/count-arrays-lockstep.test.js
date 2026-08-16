@@ -48,8 +48,16 @@
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
-import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+// LA LIB COMPARTIDA, y se importa a proposito (D-44-07 prohibe importar el REPORTER,
+// que ejecuta un guard y llama a process.exit al cargarse; una lib pura no tiene ese
+// problema). Las tres funciones las consumen DOS superficies -- este GATE-03 y el
+// sub-gate ANCLA-RATCHET del reporter --: dos copias de la misma doctrina divergen.
+import {
+  suelosNoEnteros,
+  anclaCommiteadaEnHead as anclaEnHead,
+  suelosQueBajaronRespectoDeHead,
+} from '../scripts/lib/ancla-ratchet.mjs';
 
 // Las fuentes de conteo, leidas como TEXTO (nunca importadas — ver cabecera). Esta
 // lista es la que gobierna el gate: todo lo que dice este fichero sobre «las fuentes»
@@ -2605,6 +2613,12 @@ describe('T-46-14 — el veredicto de cada sub-gate del reporter es igualdad de 
 
 const LOCK_COBERTURA = 'content/translation-coverage.lock.json';
 
+// La raiz del repo se deriva de la ubicacion de ESTE fichero, nunca de process.cwd():
+// el runner puede invocarse desde cualquier directorio y `git show` necesita un cwd
+// dentro del repo para resolver HEAD.
+const RAIZ_REPO = fileURLToPath(new URL('../', import.meta.url));
+const anclaCommiteadaEnHead = (ruta = LOCK_COBERTURA) => anclaEnHead(ruta, RAIZ_REPO);
+
 /** Conteo de variantes multiple-choice por categoria CUBIERTA, derivado del disco. */
 function conteoMcDeCategoriasCubiertas() {
   const dir = new URL(`../${DIR_EJERCICIOS}/`, import.meta.url);
@@ -2624,115 +2638,6 @@ function conteoMcDeCategoriasCubiertas() {
     out[f.replace(/\.json$/, '')] = mc.reduce((s, ex) => s + (Array.isArray(ex.variants) ? ex.variants.length : 0), 0);
   }
   return out;
-}
-
-/**
- * Los suelos del ancla que NO son enteros no negativos (CR-02 del code review de la
- * Phase 48).
- *
- * POR QUE ESTO ES UN GATE Y NO UNA PARANOIA. Los dos consumidores del ancla —este
- * GATE-03 y el reporter— comparan `disco < suelo` a pelo contra un valor que sale de un
- * JSON editable a mano. Y `54 < null` es `false`; `54 < "cincuenta y cuatro"` es `false`
- * (NaN); `54 < true` es `false`. En los tres casos el ancla de esa categoria queda MUDA
- * y ninguno de los dos gates emite nada. La no-vacuidad se comprobaba a nivel de MAPA y
- * se abandonaba a nivel de ENTRADA, que es donde vive el dato que decide.
- *
- * @param {Record<string, unknown>} categorias mapa slug -> suelo declarado
- * @returns {string[]} un diagnostico por entrada invalida, con su clave y su valor
- */
-export function suelosNoEnteros(categorias) {
-  return Object.entries(categorias)
-    .filter(([, suelo]) => !Number.isInteger(suelo) || suelo < 0)
-    .map(([slug, suelo]) => `${slug}: ${JSON.stringify(suelo) ?? String(suelo)}`);
-}
-
-/**
- * El ancla tal y como esta COMMITEADA en HEAD, que es la referencia del ratchet
- * historico (CR-01 del code review de la Phase 48).
- *
- * DEVUELVE UN ESTADO, NUNCA LANZA POR AUSENCIA. El caso `ausente` es el bootstrap
- * legitimo: el commit que da de alta el lock no tiene con que compararse. Lo que NO
- * hace es pasar en silencio — quien lo consume imprime el motivo.
- *
- * @param {string} ruta ruta del ancla relativa a la raiz del repo
- * @returns {{estado:'leida', categorias:Record<string, unknown>}|{estado:'ausente', motivo:string}}
- */
-export function anclaCommiteadaEnHead(ruta = LOCK_COBERTURA) {
-  const cwd = fileURLToPath(new URL('../', import.meta.url));
-  let crudo;
-  try {
-    crudo = execFileSync('git', ['show', `HEAD:${ruta}`], {
-      cwd,
-      encoding: 'utf-8',
-      stdio: ['ignore', 'pipe', 'pipe'],
-    });
-  } catch (e) {
-    const detalle = String(e?.stderr || e?.message || e).trim().split('\n')[0];
-    return { estado: 'ausente', motivo: `git show HEAD:${ruta} no devolvio nada (${detalle})` };
-  }
-  let doc;
-  try {
-    doc = JSON.parse(crudo);
-  } catch (e) {
-    throw new Error(
-      `GATE-03 / CR-01: el ancla COMMITEADA en HEAD (${ruta}) no se puede parsear (${e.message}), ` +
-        `asi que el ratchet historico no tiene referencia. Un gate que no puede leer su referencia ` +
-        `no pasa en verde.`
-    );
-  }
-  const categorias = doc && typeof doc.categorias === 'object' && doc.categorias !== null ? doc.categorias : null;
-  if (!categorias) {
-    throw new Error(
-      `GATE-03 / CR-01: el ancla COMMITEADA en HEAD (${ruta}) no declara un objeto "categorias". ` +
-        `El ratchet historico no tiene referencia y este gate no pasa en verde sin ella.`
-    );
-  }
-  return { estado: 'leida', categorias };
-}
-
-/**
- * Las claves cuyo suelo BAJO respecto del ancla commiteada en HEAD (CR-01).
- *
- * QUE VIGILA Y QUE NO, y la diferencia es la doctrina escrita en
- * scripts/bump-translation-lock.mjs:19-25 y en run-validation-271.mjs:440-443: EL ANCLA
- * ES UN SUELO, NO UNA IGUALDAD. Crecer sigue siendo VERDE aqui, igual que antes. Lo
- * unico que este termino anade es la firma exacta del exploit de CR-01: la edicion
- * HACIA ABAJO. Bajar un suelo a mano era un no-op silencioso porque los dos consumidores
- * solo comparaban `disco < suelo`, y el ancla nunca se confrontaba con NADA que el
- * borrado no pudiera mover consigo. Su valor commiteado si lo es.
- *
- * LOS DOS BOOTSTRAPS, tratados a proposito y no por accidente:
- *   - Una clave NUEVA, ausente del ancla de HEAD: dar de alta una categoria NO es bajar
- *     un suelo. Verde. El agujero de una categoria cubierta y sin anclar ya lo cierra la
- *     clausula `sinAnclar`, que es su sitio.
- *   - Una clave RETIRADA del ancla del arbol de trabajo: SI es una bajada, y la maxima —
- *     retirar la clave entera es lo que permite sacar la categoria del denominador sin
- *     que nadie chiste (el vector hermano que el reporter nombra en sus lineas 445-448).
- *
- * @param {Record<string, unknown>} head suelos commiteados en HEAD
- * @param {Record<string, unknown>} hoy suelos del ancla en el arbol de trabajo
- * @returns {string[]} un diagnostico por bajada, vacio si ninguna bajo
- */
-export function suelosQueBajaronRespectoDeHead(head, hoy) {
-  return Object.entries(head).flatMap(([slug, sueloHead]) => {
-    if (!Number.isInteger(sueloHead)) {
-      return [
-        `${slug}: el ancla de HEAD declara ${JSON.stringify(sueloHead) ?? String(sueloHead)}, que no ` +
-          `es un entero, asi que el ratchet no puede comparar esta clave`,
-      ];
-    }
-    if (!(slug in hoy)) {
-      return [
-        `${slug}: HEAD ancla ${sueloHead} variante(s) y el arbol de trabajo RETIRO la clave entera ` +
-          `del ancla`,
-      ];
-    }
-    const sueloHoy = hoy[slug];
-    if (Number.isInteger(sueloHoy) && sueloHoy < sueloHead) {
-      return [`${slug}: HEAD ancla ${sueloHead} y el arbol de trabajo declara ${sueloHoy}`];
-    }
-    return [];
-  });
 }
 
 describe('GATE-03 - el denominador de cobertura de traduccion no encoge en silencio (CR-02)', () => {
@@ -2871,6 +2776,81 @@ describe('GATE-03 - goldens de los reconocedores del ancla (CR-01 y CR-02)', () 
     const r = anclaCommiteadaEnHead();
     assert.equal(r.estado, 'leida');
     assert.ok(Object.keys(r.categorias).length > 0);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// GATE-05 - el ratchet historico tambien muerde en la SUPERFICIE QUE MIRA EL
+// HUMANO (CR-01, decision del autor tras el code review de la Phase 48)
+//
+// POR QUE HACE FALTA UN GATE PARA ESTO. GATE-03, arriba, pone en rojo la SUITE
+// cuando alguien baja un suelo del ancla. Pero el comando que el autor corre A
+// MANO antes de /gsd-complete-milestone es scripts/run-validation-271.mjs, y ese
+// salia exit 0 bajo el mismo exploit: `PASS (327/327)`, `Milestone gate PASS`.
+// Un gate que muerde en la suite pero no en la superficie que el humano mira deja
+// la decision de milestone tomandose sobre un verde falso.
+//
+// SE ASERTA SOBRE EL TEXTO FUENTE, por la razon de D-44-07 que la cabecera de
+// este fichero ya explica: el reporter NO es importable — ejecuta su guard de
+// coherencia AL CARGAR el modulo y llama a process.exit(1). La lib pura SI lo es,
+// y por eso sus tres funciones se prueban arriba por golden y aqui solo se
+// verifica el CABLEADO, que es lo unico que el fuente puede decir.
+//
+// LO QUE ESTE GATE CAZA, y es un modo de fallo con historia en este fichero: que
+// alguien compute el termino, lo IMPRIMA, y se olvide de meterlo en el veredicto.
+// El propio reporter lo dice de su termino del ancla: dejarlo fuera, meramente
+// impreso, seria reproducir por tercera vez la forma que el CR-03 de la Phase 44
+// arreglo para VAL-09.
+describe('GATE-05 - el sub-gate ANCLA-RATCHET existe en el reporter y ENTRA en el veredicto', () => {
+  const SRC_REPORTER = () => readSrc(REPORTER);
+
+  test('el reporter DECLARA el veredicto `anclaRatchetPass` y su region esta acotada', () => {
+    const src = SRC_REPORTER();
+    assert.ok(
+      veredictosDeclarados(src).includes('anclaRatchetPass'),
+      `GATE-05: ${REPORTER} no declara \`anclaRatchetPass\`. Sin el, bajar un suelo del ancla a ` +
+        `mano vuelve a salir exit 0 en el comando que el autor corre antes de cerrar milestone, ` +
+        `aunque la suite se ponga roja`
+    );
+    assert.notEqual(
+      regionDelVeredicto(src, 'anclaRatchetPass'),
+      '',
+      'GATE-05: el veredicto se declara pero no se le encuentra region; sin region no hay nada que congelar'
+    );
+  });
+
+  test('`anclaRatchetPass` ENTRA en `gatePass`: computarlo e imprimirlo sin usarlo no es un gate', () => {
+    const region = regionDelVeredicto(SRC_REPORTER(), 'gatePass');
+    assert.notEqual(region, '', 'GATE-05: no se localiza la region de `gatePass`');
+    assert.ok(
+      /\banclaRatchetPass\b/.test(region),
+      `GATE-05: \`gatePass\` de ${REPORTER} NO incluye \`anclaRatchetPass\`, asi que el sub-gate ` +
+        `se IMPRIME pero no decide el exit code. Es exactamente la forma que el CR-03 de la Phase ` +
+        `44 arreglo para VAL-09 y que esta fase arreglo para la desincronia de traduccion. ` +
+        `Region leida: ${region}`
+    );
+  });
+
+  test('el reporter CONSUME la lib compartida del ratchet, no una copia propia', () => {
+    // Dos copias de la misma doctrina divergen: la del reporter y la de GATE-03 tienen
+    // que ser la MISMA funcion, o el dia que una se arregle la otra se queda atras.
+    const src = SRC_REPORTER();
+    assert.ok(
+      /from\s+'\.\/lib\/ancla-ratchet\.mjs'/.test(src),
+      `GATE-05: ${REPORTER} no importa scripts/lib/ancla-ratchet.mjs`
+    );
+    assert.ok(
+      /\bsuelosQueBajaronRespectoDeHead\b/.test(src),
+      `GATE-05: ${REPORTER} no usa suelosQueBajaronRespectoDeHead`
+    );
+  });
+
+  test('el sub-gate IMPRIME su linea con nombre propio, para que el autor la vea entre las demas', () => {
+    assert.ok(
+      /ANCLA-RATCHET/.test(SRC_REPORTER()),
+      `GATE-05: ${REPORTER} no imprime ninguna linea ANCLA-RATCHET; un sub-gate que no se ve no ` +
+        `informa la decision de milestone`
+    );
   });
 });
 
