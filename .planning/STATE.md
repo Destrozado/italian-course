@@ -4,17 +4,17 @@ milestone: v2.1
 milestone_name: Traducción al español por variante (TRAD-X1)
 current_phase: 48
 current_phase_name: traducci-n-paradigma-fare-4-categor-as
-status: executing
-stopped_at: Completed 48-04-PLAN.md
-last_updated: "2026-08-16T17:07:05.786Z"
+status: verifying
+stopped_at: Completed 48-05-PLAN.md — fase 48 cerrada, TRAD-03 Complete
+last_updated: "2026-08-16T17:54:52.869Z"
 last_activity: 2026-08-15
 last_activity_desc: Phase 48 execution started
 progress:
   total_phases: 8
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 14
-  completed_plans: 13
-  percent: 25
+  completed_plans: 14
+  percent: 38
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -32,8 +32,8 @@ See: `.planning/PROJECT.md` (updated 2026-08-13 — milestone v2.1 abierto: trad
 Milestone: v2.1 — Traducción al español por variante (TRAD-X1) — Phases **46-53** (numeración CONTINÚA desde Phase 45, sin reset)
 Phase: 48 (traducci-n-paradigma-fare-4-categor-as) — EXECUTING
 Plan: 5 of 5
-Status: Ready to execute
-Progress: [█████████░] 93% de los planes de la fase
+Status: Phase complete — ready for verification
+Progress: [██████████] 100% de los planes de la fase
 Last activity: 2026-08-15 — Phase 48 execution started
 
 **Estado verificado en disco al cierre de 47-04 (2026-08-14T21:54Z):** reporter `node scripts/run-validation-271.mjs` → **exit 0** (`TRAD-COV: PASS (206/206)` sobre 3 categorías declaradas cubiertas, VAL-04/06/08/09 PASS, `VAL-06 250/250`, `Milestone gate PASS.`); gate anti-ceguera `node --test tests/count-arrays-lockstep.test.js` → **exit 0**, 64/64; suite `node --test tests/*.test.js tests/fixtures/*.test.js` → **1343 / 1339 pass / 4 fail** (exit 1, único rojo = la deuda pre-existente de trazabilidad, id 17 del ledger — **cero regresiones nuevas** frente a la línea base de 47-03); motor **byte-intacto** (`git diff --stat src/domain/ src/screens/app.js` vacío) y `schemaVersion` en **13**; corpus de traducción **206/206 `validated`**, 0 `disputed`, 0 `pending`, **2 overrides** en todo el corpus (`articoli-lo-z#1`, `partitivos-qualche#2`, ninguno nuevo en 47-04); los tres ficheros mutados con **md5 idéntico** a su foto verde y sin mutaciones residuales.
@@ -239,6 +239,7 @@ Deuda técnica del milestone (~25 items, cero blockers) en `.planning/milestones
 | Phase 48 P02 | ~75 min | 2 tasks | 4 files |
 | Phase 48 P03 | ~115 min | 3 tasks | 7 files |
 | Phase 48 P04 | ~95 min | 2 tasks | 9 files |
+| Phase 48 P05 | 35 min | 3 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -447,6 +448,12 @@ Las decisiones de proyecto se registran en `PROJECT.md` §Key Decisions. Decisio
 - [Phase ?]: D-48-24: el condizionale composto CONTRAFACTUAL queda FUERA de la enmienda y del cumplimiento literal
 - [Phase ?]: D-48-25: las 6 hermanas del condizionale passato NO se uniforman: 5 simple + 1 compuesto. Coherencia intra-slot subordinada a la fidelidad
 - [Phase ?]: D-48-26: el participio de presente se rinde con los recursos que el espanol si tiene; SC-2 NO CUMPLIDO en esas 2 variantes por imposibilidad de la lengua
+- [Phase ?]: D-48-21: --adjudicar rechaza escribir cuando el modelo no se deja adjudicar (exit 4); la segunda pregunta de la id 45 se responde nombrando el override de autor, sin construir nada nuevo
+- [Phase ?]: D-48-22: el saneo de la prosa de los modelos va en applyPassToText y SUSTITUYE preservando el significado, en vez de rechazar el pase o ablandar el gate
+- [Phase ?]: D-48-23 (AUTOR): D-48-20 se cierra ARREGLANDO las 4 variantes, y el criterio de corpus byte-identico del plan se relaja explicitamente solo para esas 4
+- [Phase ?]: D-48-24 (AUTOR): los backstops long-text 21 y 22 se CIERRAN con evidencia combinada (arnes mecanico validado contra control externo + confirmacion visual del autor) tras dos fases abstenidos
+- [Phase ?]: D-48-25 (AUTOR): el defecto de mayuscula inicial en 36 ejercicios de 7 categorias se registra y se asigna a una fase posterior; no se arregla desde el plan de cierre
+- [Phase ?]: D-48-26 (AUTOR): la lectura de muestra queda satisfecha POR DECISION, no por ejecucion, en 3 de sus 4 slots obligatorios
 
 ### Pending Todos
 
@@ -508,8 +515,8 @@ Items reconocidos y trasladados al backlog (REQUIREMENTS.md §Future / ROADMAP.m
 
 ## Session Continuity
 
-**Last session:** 2026-08-16T17:07:05.169Z
-**Stopped at:** Completed 48-04-PLAN.md
+**Last session:** 2026-08-16T17:54:41.651Z
+**Stopped at:** Completed 48-05-PLAN.md — fase 48 cerrada, TRAD-03 Complete
 **Resume file:** None
 
 ### Last Session
