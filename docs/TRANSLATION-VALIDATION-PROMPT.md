@@ -367,6 +367,54 @@ una elección del hablante. Sus equivalentes españoles no funcionan igual, y se
 Esta aclaración **no toca nada del italiano**: `italianoResuelto` sigue sujeto a S5 exactamente igual
 que antes, y S1, S4 y S6 se aplican al español sin cambio ninguno.
 
+### Aclaración de S2: el condizionale COMPOSTO italiano como FUTURO DEL PASADO se dice en español con condicional SIMPLE
+
+Cuando el italiano cuenta desde el pasado algo que entonces estaba por venir, usa el **condizionale
+composto** dentro de una subordinada que depende de un verbo matriz en pasado: `Sapevo che tu
+avresti fatto i compiti il giorno dopo`, `Ha detto che lui avrebbe fatto tutto la settimana
+successiva`. El español expresa ese mismo futuro del pasado con el **condicional simple**: «Sabía
+que harías los deberes al día siguiente», «Ha dicho que él haría todo la semana siguiente». Las dos
+lenguas reparten aquí sus formas de manera distinta, y la elección no es del hablante: es una
+servidumbre de cada lengua.
+
+- **Esa diferencia de forma NO es un cambio de tiempo verbal ni contenido omitido: es la manera
+  española de decir lo mismo.** Un concern `[S2-fidelidad]` del tipo «cambia el tiempo verbal: el
+  italiano usa el condicional compuesto `avresti fatto` y la traducción usa el condicional simple
+  `harías`» es un **FALSO POSITIVO** y no debe emitirse. La propia S2 ya lo dice con estas
+  palabras: «fidelidad estricta **no** significa palabra por palabra: significa mismo contenido
+  proposicional. Las diferencias obligadas por la lengua (…) son correctas y no se penalizan.» La
+  relación temporal que el italiano codifica en su forma compuesta —posterioridad respecto de un
+  punto de referencia pasado— es exactamente la que el condicional simple español codifica en la
+  suya: el contenido proposicional es el mismo y no se ha movido nada.
+- **Y la solución contraria empeora la traducción en lugar de arreglarla.** El condicional
+  compuesto español en ese mismo hueco —«Sabía que habrías hecho los deberes al día siguiente»—
+  **no** se lee como futuro del pasado: se lee como contrafactual o como probabilidad del pasado.
+  Espejar la forma italiana **añadiría** al texto una lectura que el original no tiene, y añadir
+  contenido ausente del original es justamente lo que S2 castiga. La **guardia de fidelidad de S6**
+  lo prohíbe de forma explícita: una sugerencia que suene más literal pero traicione el sentido
+  empeora el criterio en lugar de resolverlo.
+- **Esta regla ABSUELVE el condicional simple español, y no lo convierte en obligatorio.** Donde el
+  español admita además otra solución fiel, la elección es de estilo y no de fidelidad, y ninguna
+  de las dos se marca por serlo.
+- **QUÉ SE SIGUE VIGILANDO, con todo el rigor y sin rebaja alguna** — los dos puntos son S2
+  aplicado, no exigencia nueva:
+  1. **Que el valor sea de verdad el de FUTURO DEL PASADO.** El condizionale composto italiano
+     tiene un segundo valor, el **CONTRAFACTUAL**, que es la acción que se habría hecho y no se
+     hizo: `Voi avreste fatto una torta volentieri, ma alla fine non è successo`. Ese valor **sí**
+     se dice en español con el condicional COMPUESTO —«Habríais hecho un pastel de buena gana, pero
+     al final no ocurrió»—, y una traducción que lo rebaje al simple pierde la contrafactualidad
+     que la frase afirma: eso **ya era `[S2-fidelidad]` false antes de esta aclaración** y lo sigue
+     siendo exactamente igual. Esta aclaración habla del futuro del pasado y de nada más. Los dos
+     valores se distinguen por el marco de la propia frase: el futuro del pasado vive en
+     subordinada de un verbo matriz de decir, saber, prometer o jurar en pasado; el contrafactual
+     lleva su cláusula adversativa de no realización.
+  2. **Que el TIEMPO de la principal y la PERSONA sigan siendo los del original.** Una traducción
+     que mueva el verbo matriz de tiempo, o que confunda la persona, **ya era `[S2-fidelidad]`
+     false antes de esta aclaración** y lo sigue siendo exactamente igual.
+
+Esta aclaración **no toca nada del italiano**: `italianoResuelto` sigue sujeto a S5 exactamente igual
+que antes, y S1, S4 y S6 se aplican al español sin cambio ninguno.
+
 ### Frontera con el `gloss` español del `prompt` (canon R7)
 
 Algunas frases italianas del corpus llevan, DENTRO del propio `prompt`, una glosa española entre

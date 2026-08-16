@@ -428,6 +428,46 @@ Bajar el pipeline COMPLETO de traducción al español y demostrarlo end-to-end s
 
   ---
 
+  **OCTAVA NOTA (2026-08-16 — Phase 48, plan 48-04). QUINTA ENMIENDA del doc de criterios: la aclaración de S2 sobre el condizionale COMPOSTO italiano como FUTURO DEL PASADO. Decidida por el AUTOR tras un bloqueo escalado por el executor. Tenía sujeto, se midió, y se ejecutó CUMPLIMIENTO LITERAL sobre él.**
+
+  *Nota de numeración, contada del disco y no supuesta: el ordinal más alto ya escrito era el SÉPTIMO (plan 48-03). Ésta es la OCTAVA.*
+
+  **Qué se amendó:** *«Aclaración de S2: el condizionale COMPOSTO italiano como FUTURO DEL PASADO se dice en español con condicional SIMPLE»*, sexta hermana de `da` + PERSONA, PARTITIVO, ADVERBIAL DE COMIDA, PRONOMBRE SUJETO y MODO DEL CONGIUNTIVO. Declara **falso positivo** el concern «cambia el tiempo verbal: el italiano usa el condicional compuesto `avresti fatto` y la traducción usa el simple `harías`» y **nada más**, cuando el condizionale composto funciona como **futuro del pasado** en subordinada dependiente de un verbo matriz en pasado. El apoyo es que **el condicional compuesto español en ese hueco NO es futuro del pasado**: «Sabía que *habrías hecho* los deberes al día siguiente» se lee contrafactual o como probabilidad del pasado, así que espejar la forma italiana **inyectaría** una lectura ausente del original — defecto S2, no mejora. Mismo argumento con el que se descartó la `opcion-b` (D-48-14). La regla se apoya en la frase que **S2 ya contenía** —«las diferencias obligadas por la lengua son correctas y no se penalizan»—, así que no rebaja S2.
+
+  **El punto de vigilancia que la enmienda NO absuelve, y que es lo que la mantiene estrecha:** el condizionale composto **contrafactual** —`Voi avreste fatto una torta volentieri, ma alla fine non è successo`— **sí** pide el compuesto en español, y rebajarlo al simple perdería la contrafactualidad que la frase afirma. La aclaración cubre **un valor de los dos**, y el texto los distingue por el marco: el futuro del pasado vive bajo verbo matriz de decir, saber, prometer o jurar en pasado; el contrafactual lleva su cláusula adversativa de no realización.
+
+  **Por qué era hueco del doc y no un falso positivo suelto, con la evidencia CONTADA DEL DISCO y CERO llamadas nuevas.** De las **5 estructuras idénticas** de `fare-cond-imperativo-cond-passato` —las cinco de futuro del pasado, las cinco con condicional simple español—, `gemini-3.5-flash-lite` marcó **1** y aprobó **4**; `deepseek-reasoner` aprobó las **6**:
+
+  | Variante | Español | `gemini-3.5-flash-lite` | `deepseek-reasoner` |
+  |---|---|---|---|
+  | `cond-passato#0` | «Había jurado que yo **haría** el trabajo…» | `correcta` | `correcta` |
+  | `cond-passato#1` | «Sabía que **harías** los deberes…» | **`incorrecta`** | `correcta` |
+  | `cond-passato#2` | «Ha dicho que él **haría** todo…» | `correcta` | `correcta` |
+  | `cond-passato#3` | «Estaba seguro de que **cometeríamos** un error…» | `correcta` | `correcta` |
+  | `cond-passato#5` | «Me ha prometido que **harían** una foto…» | `correcta` | `correcta` |
+  | `cond-passato#4` *(contrafactual, compuesto)* | «**Habríais hecho** un pastel de buena gana…» | `correcta` | `correcta` |
+
+  **Marcar uno y aprobar cuatro idénticos es la firma canónica de la `WINDOWS` id 37.** Refuerzo independiente: **la variante contrafactual, que es la única donde el español SÍ usa el compuesto, pasó 2/2 sin objeción** — el objetor no está aplicando una regla, está siendo inconsistente. Y la sugerencia que propuso **no resuelve su propia objeción**: cambia el valor temporal de la frase, que es lo que S2 castiga.
+
+  **Constancia de proceso, porque el disparador falló y conviene que se sepa:** el plan 48-04 definía el disparador de escalada como «**dos** vendors marcando estructuras idénticas», y con un solo vendor marcando el executor recomendó cerrar por override y **no** amendar. **El disparador del plan era más estricto que la doctrina de la id 37**, que es *marcar uno y aprobar idénticos* — la misma que ya obligó a las cuatro enmiendas anteriores. Donde el plan y la doctrina discrepan, manda la doctrina. Y pesa un factor que las opciones del executor no capturaban: **el fenómeno es sistemático y reaparecerá en las categorías que quedan de TRAD-X1.** Un override cierra una casilla; la enmienda cierra la clase.
+
+  **Prueba de dos condiciones del carve-out de 47-01, aplicada a ESTA enmienda:**
+
+  1. **Ausencia de sujeto: FALLA.** Medido **ancho primero y refinado después**, sobre las **328** traducciones del corpus. La medida ancha (auxiliar en condizionale presente) dio **7**, con **1 fuera** de `fare-cond-imperativo`: `fare-congiuntivo-disparador#4`, `sarebbe contenta`, que es condizionale **PRESENTE + adjetivo** y no compuesto. Refinado exigiendo **auxiliar + PARTICIPIO**: **N = 6, las 6 de `fare-cond-imperativo-cond-passato`, cero fuera.** De ellas, **5 son de futuro del pasado** y son el sujeto; la sexta es el contrafactual `#4`, que **no entra** porque la enmienda no absuelve nada sobre él y su español ya usa el compuesto. Los cuerpos cerrados (`preposiciones` 96, `articoli` 62, `partitivos` 48, `fare-indicativo` 54, `fare-congiuntivo` 30 = **290**) tienen **cero** condizionale composto. El sujeto es íntegramente trabajo **en vuelo del propio plan que amienda**, sin una sola variante fuera de él.
+  2. **Direccionalidad absolutoria: SE MANTIENE, verificada por GREP y no declarada.** Sobre las **48 líneas** de la sección nueva: **cero** coincidencias de los patrones de endurecimiento del veto de 47-01 (`marca como incorrecta`, `marca sX false`, `exige que`, `debes`, `tienes que marcar/exigir`), frente a **4** marcas absolutorias. `git diff --numstat`: **48 inserciones, 0 borrados**. Los dos puntos de vigilancia —que el valor sea de verdad el de futuro del pasado, y que el tiempo de la principal y la persona sigan siendo los del original— **reiteran S2 sin añadir exigencia**: los dos ya eran S2 `false` antes. Y la regla **absuelve** el condicional simple sin exigirlo.
+
+  Falla una ⇒ **cumplimiento literal**, y se ejecutó: **las 5 re-validadas desde cero**, `passes[]` reseteado a vacío, no solo la `disputed`. **10 llamadas, 10 `correcta`**, `by` escrito idéntico al pinneado en las 10 (**cero auto-fallbacks**). Cero pases pre-enmienda supervivientes. Los pases retirados quedaron transcritos literalmente antes de retirarse.
+
+  **`cond-passato#1` cierra SIN TOCAR UN CARÁCTER del español y SIN override** —«Sabía que harías los deberes al día siguiente.» byte a byte idéntica antes y después—, que es el mismo movimiento de `disparador#1` (séptima nota), `301#1` (sexta) y `delle-invariable#0` (cuarta). **Overrides nuevos: 0.** El corpus sigue en **8**, los mismos que en `HEAD`. **Y ningún tercer juez:** D-48-01 queda sin desviaciones nuevas de homogeneidad.
+
+  **Qué NO destapó el cumplimiento literal, y se dice porque las dos veces anteriores sí destapó algo:** las 10 llamadas volvieron `correcta` sin un solo concern nuevo. No es un fallo del método — es que esta vez el sujeto eran 5 variantes recién autoradas bajo las cuatro enmiendas ya vigentes, no un cuerpo cerrado bajo un doc anterior. El precedente («pagarlo destapa lo que un argumento no destapa») **se acota**: destapa cuando el sujeto tiene historia; sobre trabajo en vuelo, confirma.
+
+  **LO QUE FORZARÍA RE-VALIDAR EN EL FUTURO:** una enmienda posterior que introduzca un imperativo de la forma «marca como incorrecta si…» o «exige que…» sobre el tiempo del condizionale, que es el veto que la primera nota dejó escrito y que esta aclaración respeta.
+
+  — *Autor, 2026-08-16. Phase 48, plan 48-04.*
+
+  ---
+
 - **D-46-13: TVAL-02 — script hermano de `scripts/validate-song-pass.mjs`, con el quórum cross-vendor DeepSeek + Gemini, 1-por-1 (VAL-03).** — **Reversibility:** reversible
 
   Espejo exacto del script de canciones: `--model` / `--fallback` / `--avoid` (para garantizar 2 `by` distintos) / `--write` / `--dry-run` / `--temp`; auto-fallback en 429 registrando SIEMPRE el modelo que de verdad respondió; zero-deps; `withFileLock` para el read-modify-write; `deriveStatus` importado de `src/data/validation-state.js` como fuente única.
