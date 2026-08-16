@@ -1313,6 +1313,84 @@ describe('saneo de la prosa de los modelos antes de que toque el corpus (WINDOWS
   });
 });
 
+describe('el pase que se IMPRIME es el pase que se ESCRIBE (WR-01 del code review de la Phase 48)', () => {
+  // POR QUE ESTE BLOQUE EXISTE. El saneo se puso en `applyPassToText` a proposito, y ahi
+  // se queda. La consecuencia NO declarada era que `run` componia el pase, se lo pasaba
+  // al escritor, IGNORABA el `out` que este devuelve y retornaba el pase ORIGINAL: lo
+  // que `main` imprime en las TRES salidas —exito, exit 3 y exit 4— llevaba las marcas
+  // sin sanear. Y las tres son caminos de recuperacion A MANO: el mensaje del exit 3
+  // dice literalmente «aplicalo a mano», asi que lo que el autor pega en el JSON es
+  // exactamente lo que el saneo existe para impedir.
+  const MARCAS = ['->', '=>', '&#', '<', '>', '‘', '’', '“', '”'];
+  const SUCIO = '[S1-natural] “hacia” -> “hacía”; ver <b>';
+  const target = () => ({ file: 'no-se-toca.json', slot: { id: 'sint-wr01' }, k: 0 });
+  const respuesta = (verdict, concerns) => ({
+    text:
+      '```json\n' +
+      JSON.stringify({
+        verdict,
+        criteria: {
+          s1_natural: verdict === 'correcta',
+          s2_fidelidad: true,
+          s4_acentos: true,
+          s5_italiano: true,
+          s6_naturalidad: true,
+        },
+        concerns,
+      }) +
+      '\n```',
+  });
+  const sinMarcas = (pass) => {
+    const texto = JSON.stringify([pass.concerns ?? [], pass.adjudicacion ?? '']);
+    return MARCAS.filter((m) => texto.includes(m));
+  };
+
+  test('el pase DEVUELTO por run() en el camino de exito no lleva marcas prohibidas', async () => {
+    const cfg = { MODEL_QUEUE: ['m'], TEMP: 0.2, WRITE: false, ADJUDICAR: '' };
+    const pass = await run(cfg, target(), 'prompt', async () => respuesta('incorrecta', [SUCIO]), contratoVigente());
+    assert.deepEqual(sinMarcas(pass), [], `el pase devuelto lleva marcas: ${JSON.stringify(pass.concerns)}`);
+    assert.ok(pass.concerns[0].includes('→'), 'el saneo SUSTITUYE preservando el significado, no borra');
+  });
+
+  test('el pase DEVUELTO por el camino del exit 4 (--adjudicar rechazado) tampoco', async () => {
+    const cfg = { MODEL_QUEUE: ['m'], TEMP: 0.2, WRITE: true, ADJUDICAR: 'el autor refuta: a -> b' };
+    const pass = await run(cfg, target(), 'prompt', async () => respuesta('incorrecta', [SUCIO]), contratoVigente());
+    assert.equal(pass.noEscrito, 'adjudicacion_sobre_incorrecta');
+    assert.deepEqual(sinMarcas(pass), [], 'el motivo del autor tambien viaja saneado por stdout');
+  });
+
+  test('NO se ha movido el saneo: applyPassToText sigue saneando por su cuenta (idempotencia)', () => {
+    // La mitad que impide que este arreglo REINTRODUZCA el agujero que 48-05 cerro: si
+    // alguien decidiese que «ya se sanea en run» y quitase el saneo del escritor, el
+    // camino que los tests usan —llamar a applyPassToText directamente— quedaria abierto.
+    const doc = JSON.stringify(
+      {
+        exercises: [
+          {
+            id: 'sint-wr01',
+            type: 'multiple-choice',
+            variants: [
+              { prompt: 'Io ___ i compiti.', options: ['faccio'], correctIndex: 0, translationES: { text: 'Yo hago los deberes.' } },
+            ],
+          },
+        ],
+      },
+      null,
+      2
+    );
+    const out = applyPassToText(doc, 'sint-wr01', 0, {
+      by: 'modelo-sucio',
+      date: '2026-08-16',
+      verdict: 'incorrecta',
+      concerns: [SUCIO],
+    });
+    const escrito = JSON.parse(out.text).exercises[0].variants[0].translationES.validation.passes[0];
+    assert.deepEqual(sinMarcas(escrito), []);
+    // Y el saneo es IDEMPOTENTE, que es lo que permite que viva en los DOS sitios.
+    assert.deepEqual(sanearPase(sanearPase({ concerns: [SUCIO] })), sanearPase({ concerns: [SUCIO] }));
+  });
+});
+
 describe('--adjudicar rechaza escribir cuando el modelo NO se ha dejado adjudicar (WINDOWS id 45)', () => {
   const target = () => ({ file: 'no-se-toca.json', slot: { id: 'sint-adj' }, k: 0 });
   const respuesta = (verdict, concerns) => ({

@@ -528,7 +528,7 @@ export async function run(cfg, target, composed, caller = callModel, contrato = 
         // `concerns` se copia TAL CUAL: ya se ha comprobado que es un array de strings,
         // así que no hay nada que coercionar — y coercionar aquí es lo que borraba el
         // motivo escrito.
-        const pass = {
+        const passSinSanear = {
           by: model,
           date: new Date().toISOString().slice(0, 10),
           verdict: verdict.verdict,
@@ -537,7 +537,27 @@ export async function run(cfg, target, composed, caller = callModel, contrato = 
         // CR-01: el motivo de una retirada deliberada viaja DENTRO del pase, así que
         // queda escrito en el corpus. Sólo se añade cuando el autor lo declara: un pase
         // normal conserva exactamente las cuatro claves de siempre.
-        if (cfg.ADJUDICAR) pass.adjudicacion = cfg.ADJUDICAR;
+        if (cfg.ADJUDICAR) passSinSanear.adjudicacion = cfg.ADJUDICAR;
+        // EL PASE QUE SE IMPRIME TIENE QUE SER EL QUE SE ESCRIBE (WR-01 del code review
+        // de la Phase 48). El saneo vive en `applyPassToText` —el único paso obligatorio
+        // hacia el disco— y eso sigue siendo así; pero la consecuencia no declarada era
+        // que `run` devolvía, y `main` imprimía, el pase SIN sanear: `run` compone el
+        // pase, se lo pasa al escritor, IGNORA el `out` que éste devuelve y retorna el
+        // original. Verificado ejecutando `run` con un modelo simulado que emite
+        // `[S1-natural] “hacia” -> “hacía”; ver <b>`: el pase devuelto contenía las
+        // marcas prohibidas por T-41-01 y por D-41-17, intactas.
+        //
+        // POR QUÉ IMPORTA, y no es teórico: las TRES salidas que imprimen el pase son
+        // caminos de RECUPERACIÓN A MANO —éxito, exit 3 («aplícalo a mano o re-corre») y
+        // exit 4—. El autor pega en el JSON lo que ve en stdout, y lo que veía era
+        // exactamente el `->` y las comillas tipográficas que pusieron en rojo
+        // `tests/content-fare-*.test.js` en el plan 48-02, llegando por la única puerta
+        // que el arreglo no tapaba.
+        //
+        // NO SUSTITUYE al saneo del escritor, que se queda donde está: `sanearPase` es
+        // IDEMPOTENTE, así que aplicarlo aquí NO deja sin cubrir el camino que los tests
+        // usan (llamar a `applyPassToText` directamente).
+        const pass = sanearPase(passSinSanear);
         // `--adjudicar` NO FIJA EL VEREDICTO (`WINDOWS` id 45, cerrado aquí). Sólo
         // PERMITE sobrescribir un `incorrecta` previo del mismo modelo; el veredicto
         // que se escribe sigue siendo el que devuelve el modelo. CONSECUENCIA OBSERVADA
