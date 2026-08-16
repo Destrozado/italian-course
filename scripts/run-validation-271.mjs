@@ -411,6 +411,7 @@ const TRANSLATION_COVERAGE = [
   { slug: 'fare-indicativo',          file: 'content/exercises/fare-indicativo.json',          expected: mcVariantCountOf('content/exercises/fare-indicativo.json') },
   { slug: 'fare-congiuntivo',         file: 'content/exercises/fare-congiuntivo.json',         expected: mcVariantCountOf('content/exercises/fare-congiuntivo.json') },
   { slug: 'fare-indefiniti',          file: 'content/exercises/fare-indefiniti.json',          expected: mcVariantCountOf('content/exercises/fare-indefiniti.json') },
+  { slug: 'fare-cond-imperativo',     file: 'content/exercises/fare-cond-imperativo.json',     expected: mcVariantCountOf('content/exercises/fare-cond-imperativo.json') },
 ];
 
 // Σ de los `expected` DERIVADOS de arriba, por el mismo motivo que `TOTAL_EXPECTED`: para

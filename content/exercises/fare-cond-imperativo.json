@@ -17,7 +17,27 @@
             "farei",
             "facerei"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Si estuviera en tu lugar, yo haría todo de otra manera.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Se potessi, tu ___ il lavoro da solo.",
@@ -27,7 +47,27 @@
             "faceresti",
             "farebbero"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Si pudieras, harías el trabajo solo.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Se non fosse così tardi, lui ___ una foto al tramonto.",
@@ -37,7 +77,27 @@
             "faremmo",
             "farebbe"
           ],
-          "correctIndex": 3
+          "correctIndex": 3,
+          "translationES": {
+            "text": "Si no fuera tan tarde, él haría una foto al atardecer.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Se avessimo un forno, noi ___ una torta per la festa.",
@@ -47,7 +107,27 @@
             "farei",
             "faceremmo"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Si tuviéramos un horno, haríamos un pastel para la fiesta.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Se fosse necessario, voi ___ i compiti anche di sabato.",
@@ -57,7 +137,27 @@
             "fareste",
             "farebbe"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Si fuera necesario, haríais los deberes incluso los sábados.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Se ci fosse più tempo, loro ___ il letto ogni mattina.",
@@ -67,7 +167,27 @@
             "faresti",
             "facerebbero"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Si hubiera más tiempo, harían la cama todas las mañanas.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         }
       ],
       "validation": {
@@ -104,7 +224,27 @@
             "farei",
             "avevo fatto"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Había jurado que yo haría el trabajo la semana siguiente.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Sapevo che tu ___ i compiti il giorno dopo.",
@@ -114,7 +254,29 @@
             "avresti fatto",
             "avresti fare"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Sabía que harías los deberes al día siguiente.",
+            "validation": {
+              "status": "disputed",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "incorrecta",
+                  "concerns": [
+                    "[S2-fidelidad] cambia el tiempo verbal: el italiano usa el condicional compuesto ('avresti fatto', 'habrías hecho'), pero la traducción usa el condicional simple ('harías'). Sugerencia: \"Sabía que habrías hecho los deberes al día siguiente.\""
+                  ]
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Ha detto che lui ___ tutto la settimana successiva.",
@@ -124,7 +286,27 @@
             "farebbe",
             "avrebbe fatto"
           ],
-          "correctIndex": 3
+          "correctIndex": 3,
+          "translationES": {
+            "text": "Ha dicho que él haría todo la semana siguiente.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Era sicuro che noi ___ un errore più tardi.",
@@ -134,7 +316,27 @@
             "avevamo fatto",
             "avremmo fare"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "Estaba seguro de que cometeríamos un error más tarde.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Voi ___ una torta volentieri, ma alla fine non è successo.",
@@ -144,7 +346,27 @@
             "avreste fatto",
             "avevate fatto"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Habríais hecho un pastel de buena gana, pero al final no ocurrió.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Mi ha promesso che loro ___ una foto al gruppo il giorno seguente.",
@@ -154,7 +376,27 @@
             "farebbero",
             "avrebbero fare"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Me ha prometido que harían una foto al grupo al día siguiente.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         }
       ],
       "validation": {
@@ -191,7 +433,27 @@
             "fate",
             "facciano"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Marco, ¡haz una foto con tu teléfono!",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Signor Rossi, ___ il lavoro con calma.",
@@ -200,7 +462,27 @@
             "faccia",
             "facciano"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Señor Rossi, haga el trabajo con calma.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Dai, noi due ___ una torta per la festa!",
@@ -210,7 +492,27 @@
             "fate",
             "facciano"
           ],
-          "correctIndex": 0
+          "correctIndex": 0,
+          "translationES": {
+            "text": "¡Venga, hagamos los dos un pastel para la fiesta!",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Bambini, ___ i compiti prima di cena!",
@@ -219,7 +521,27 @@
             "faccia",
             "fate"
           ],
-          "correctIndex": 2
+          "correctIndex": 2,
+          "translationES": {
+            "text": "Niños, ¡haced los deberes antes de la cena!",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         },
         {
           "prompt": "Signori, ___ tutto con comodo, come preferiscono Loro.",
@@ -228,7 +550,27 @@
             "facciano",
             "faccia"
           ],
-          "correctIndex": 1
+          "correctIndex": 1,
+          "translationES": {
+            "text": "Señores, hagan todo sin prisa, como ustedes prefieran.",
+            "validation": {
+              "status": "validated",
+              "passes": [
+                {
+                  "by": "deepseek-reasoner",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                },
+                {
+                  "by": "gemini-3.5-flash-lite",
+                  "date": "2026-08-16",
+                  "verdict": "correcta",
+                  "concerns": []
+                }
+              ]
+            }
+          }
         }
       ],
       "validation": {
