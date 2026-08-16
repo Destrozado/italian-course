@@ -66,3 +66,49 @@ export function assertNoBorraIncorrectaEnSilencio(previos, pass, addr) {
       `No se ha escrito nada; el pase va impreso en stdout.`
   );
 }
+
+/**
+ * Un pase `incorrecta` NO puede llevar `adjudicacion` colgada (WINDOWS id 45, WR-02 del
+ * code review de la Phase 48).
+ *
+ * EL ARTEFACTO QUE PROHIBE, observado y no hipotetico: al cerrar
+ * `fare-indicativo-passato-remoto#4` con `--adjudicar` y una refutacion escrita de cuatro
+ * puntos, el modelo volvio a devolver `incorrecta`, y en disco quedo un pase `incorrecta`
+ * LLEVANDO COLGADO un motivo que refuta su propio concern, con el status todavia en
+ * `disputed`. Ese registro SE LEE COMO ADJUDICADO SIN ESTARLO, que es justo lo contrario
+ * de lo que el campo documenta.
+ *
+ * POR QUE VIVE AQUI Y NO SOLO EN EL COMPOSITOR. La negativa se puso en `run()` — el mismo
+ * sitio que el saneo de la id 43 rechazo por dejar puertas abiertas. `applyPassToText` /
+ * `writeTranslationPass` seguian aceptandolo: `assertNoBorraIncorrectaEnSilencio` retorna
+ * EN SECO cuando el veredicto nuevo es `incorrecta` (es su tercera exencion declarada: el
+ * disenso no se borra), y nada mas lo miraba. Y no hay red aguas abajo: ningun gate del
+ * repo busca este artefacto en el corpus, porque todos comparan escrito-contra-derivado y
+ * aqui los dos lados coinciden en `disputed`. Si entra, se queda.
+ *
+ * NO SE SOLAPA con `assertNoBorraIncorrectaEnSilencio`: aquella mira la TRANSICION (que
+ * no se borre un `incorrecta` propio) y esta mira la FORMA del pase que se escribe. Un
+ * pase `correcta` con `adjudicacion` sigue siendo legitimo — es el camino que la id 38
+ * necesita — y esta funcion no lo toca.
+ *
+ * @param {{by?:string, verdict?:string, adjudicacion?:unknown}} pass el pase a escribir.
+ * @param {string} addr direccion legible de la unidad, para que el mensaje diga sobre que.
+ * @throws {Error} si el pase es `incorrecta` y trae una `adjudicacion` no vacia.
+ */
+export function assertNoAdjudicacionSobreIncorrecta(pass, addr) {
+  if (pass?.verdict !== 'incorrecta') return;
+  const motivo = typeof pass?.adjudicacion === 'string' ? pass.adjudicacion.trim() : '';
+  if (!motivo) return;
+
+  throw new Error(
+    `${addr}: un pase \`incorrecta\` NO puede llevar \`adjudicacion\`. El veredicto que devolvio ` +
+      `\`${pass?.by}\` sigue siendo \`incorrecta\`, asi que la adjudicacion NO ha adjudicado nada, y ` +
+      `grabarla dejaria en el corpus un pase que SE LEE COMO ADJUDICADO SIN ESTARLO — con el status ` +
+      `todavia en \`disputed\` y un motivo colgado que refuta su propio concern (WINDOWS id 45). ` +
+      `No se ha escrito nada. Las salidas legitimas son TRES y ninguna es re-invocar al mismo ` +
+      `modelo: (1) arreglar el texto si el concern tiene razon; (2) enmendar el doc de criterios si ` +
+      `el concern es un falso positivo de CLASE, y re-validar desde cero; (3) override de autor ` +
+      `(\`by: "autor"\`, \`override: true\`) con el motivo escrito, que es el camino explicito del ` +
+      `proyecto para grabar una refutacion sin que el modelo coopere.`
+  );
+}

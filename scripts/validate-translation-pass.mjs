@@ -75,7 +75,10 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { deriveStatus } from '../src/data/validation-state.js'; // fuente única (WR-01)
 import { withFileLock } from './lib/file-lock.mjs'; // exclusión mutua del read-modify-write
-import { assertNoBorraIncorrectaEnSilencio } from './lib/pass-guard.mjs'; // CR-01: el disenso no se borra en silencio
+import {
+  assertNoBorraIncorrectaEnSilencio, // CR-01: el disenso no se borra en silencio
+  assertNoAdjudicacionSobreIncorrecta, // WR-02: un `incorrecta` no lleva `adjudicacion` colgada
+} from './lib/pass-guard.mjs';
 
 export const PROMPT_PATH = 'docs/TRANSLATION-VALIDATION-PROMPT.md';
 export const SCAN_DIRS = ['content/exercises', 'tests/fixtures'];
@@ -832,6 +835,14 @@ export function applyPassToText(text, slotId, k, passSinSanear) {
   // Y el que se devuelve en `passesEscritos`, para que la post-condición confronte
   // el fichero contra lo MISMO que se escribió y no contra lo que llegó.
   const pass = sanearPase(passSinSanear);
+  // WR-02: la negativa de `--adjudicar` vivia SOLO en `run()`, el mismo sitio que el
+  // saneo de la id 43 rechazo por dejar puertas abiertas. `applyPassToText` seguia
+  // componiendo y escribiendo el artefacto prohibido por `WINDOWS` id 45 (un pase
+  // `incorrecta` con una `adjudicacion` colgada, status `disputed`), y aguas abajo no
+  // hay red: ningun gate del repo lo busca en el corpus. Va ANTES de localizar nada y
+  // fuera de las dos ramas —UPDATE e INSERT—, porque la prohibicion es sobre la FORMA
+  // del pase y no sobre el estado previo del fichero.
+  assertNoAdjudicacionSobreIncorrecta(pass, `${slotId}#${k}`);
   const loc = locateVariantTranslation(text, slotId, k);
   const tSlice = text.slice(loc.tStart, loc.tEnd + 1);
   const vRel = tSlice.indexOf('"validation"');

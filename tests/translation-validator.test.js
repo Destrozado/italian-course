@@ -1285,10 +1285,15 @@ describe('saneo de la prosa de los modelos antes de que toque el corpus (WINDOWS
       null,
       2
     );
+    // El verdict es `correcta` y NO `incorrecta` desde el arreglo de WR-02: un pase
+    // `incorrecta` con `adjudicacion` es el artefacto de WINDOWS id 45 y el escritor
+    // ahora lo rechaza. Lo que este test verifica —que los DOS campos de prosa
+    // (`concerns` y `adjudicacion`) se sanean— no depende del veredicto, y `correcta`
+    // con `adjudicacion` es ademas el shape LEGITIMO (el camino de la id 38).
     const out = applyPassToText(doc, 'sint-saneo', 0, {
       by: 'modelo-sucio',
       date: '2026-08-16',
-      verdict: 'incorrecta',
+      verdict: 'correcta',
       concerns: ['[S2] hacia -> yo hacia, y “eso”'],
       adjudicacion: 'el autor refuta: a -> b',
     });
@@ -1310,6 +1315,124 @@ describe('saneo de la prosa de los modelos antes de que toque el corpus (WINDOWS
     assert.equal(saneado.verdict, pass.verdict);
     assert.notEqual(saneado.concerns[0], pass.concerns[0], 'el concern SI se sanea');
     assert.deepEqual(pass.concerns, ['a -> b'], 'sanearPase no muta su argumento');
+  });
+});
+
+describe('el ESCRITOR tambien rechaza el artefacto de WINDOWS id 45 (WR-02 del code review de la Phase 48)', () => {
+  // POR QUE HACE FALTA ESTE BLOQUE Y NO BASTABA EL DE MAS ABAJO. Los tres tests de
+  // `--adjudicar` invocan `run()` con `target.file` = 'no-se-toca.json', y hoy pasan
+  // porque `run` corta ANTES de llamar al escritor. El guard del escritor no lo alcanza,
+  // asi que esos tests siguen VERDES con o sin este arreglo: no lo verifican. La
+  // cobertura tiene que estar al nivel de `applyPassToText`, que es donde estaba el
+  // agujero.
+  const docConIncorrectaPrevio = (by) =>
+    JSON.stringify(
+      {
+        exercises: [
+          {
+            id: 'sint-wr02',
+            type: 'multiple-choice',
+            variants: [
+              {
+                prompt: 'Io ___ i compiti.',
+                options: ['faccio'],
+                correctIndex: 0,
+                translationES: {
+                  text: 'Yo hago los deberes.',
+                  validation: {
+                    status: 'disputed',
+                    passes: [{ by, date: '2026-08-01', verdict: 'incorrecta', concerns: ['[S2] no lo veo'] }],
+                  },
+                },
+              },
+            ],
+          },
+        ],
+      },
+      null,
+      2
+    );
+
+  test('un pase `incorrecta` con `adjudicacion` NO se escribe: applyPassToText lanza', () => {
+    assert.throws(
+      () =>
+        applyPassToText(docConIncorrectaPrevio('m2'), 'sint-wr02', 0, {
+          by: 'm2',
+          date: '2026-08-16',
+          verdict: 'incorrecta',
+          concerns: ['[S2] sigo sin verlo'],
+          adjudicacion: 'el autor refuta el concern en cuatro puntos',
+        }),
+      /sint-wr02#0: un pase `incorrecta` NO puede llevar `adjudicacion`/
+    );
+  });
+
+  test('tampoco cuando no hay `incorrecta` previo: la prohibicion es sobre la FORMA del pase', () => {
+    // La rama INSERT y la rama UPDATE-sin-disenso-previo tambien quedan cubiertas: el
+    // guard va fuera de las dos, porque el artefacto es ilegible en el corpus se llegue
+    // por donde se llegue.
+    const virgen = JSON.stringify(
+      {
+        exercises: [
+          {
+            id: 'sint-wr02',
+            type: 'multiple-choice',
+            variants: [
+              { prompt: 'Io ___ i compiti.', options: ['faccio'], correctIndex: 0, translationES: { text: 'Yo hago los deberes.' } },
+            ],
+          },
+        ],
+      },
+      null,
+      2
+    );
+    assert.throws(
+      () =>
+        applyPassToText(virgen, 'sint-wr02', 0, {
+          by: 'm9',
+          date: '2026-08-16',
+          verdict: 'incorrecta',
+          concerns: ['[S2] no'],
+          adjudicacion: 'motivo',
+        }),
+      /NO puede llevar `adjudicacion`/
+    );
+  });
+
+  test('lo LEGITIMO sigue abierto: `correcta` con `adjudicacion` se escribe (el camino de la id 38)', () => {
+    const out = applyPassToText(docConIncorrectaPrevio('m2'), 'sint-wr02', 0, {
+      by: 'm2',
+      date: '2026-08-16',
+      verdict: 'correcta',
+      concerns: [],
+      adjudicacion: 'cambio de juez sobre la categoria entera, decidido por el autor',
+    });
+    const enDisco = JSON.parse(out.text).exercises[0].variants[0].translationES.validation;
+    assert.equal(enDisco.passes.at(-1).verdict, 'correcta');
+    assert.equal(enDisco.passes.at(-1).adjudicacion, 'cambio de juez sobre la categoria entera, decidido por el autor');
+  });
+
+  test('y un `incorrecta` NORMAL, sin adjudicacion, se sigue escribiendo: el disenso se registra', () => {
+    const out = applyPassToText(docConIncorrectaPrevio('otro'), 'sint-wr02', 0, {
+      by: 'm2',
+      date: '2026-08-16',
+      verdict: 'incorrecta',
+      concerns: ['[S4-acentos] falta una tilde'],
+    });
+    const enDisco = JSON.parse(out.text).exercises[0].variants[0].translationES.validation;
+    assert.equal(enDisco.passes.at(-1).verdict, 'incorrecta');
+    assert.ok(!('adjudicacion' in enDisco.passes.at(-1)));
+  });
+
+  test('una `adjudicacion` en blanco no cuenta como motivo y no bloquea nada', () => {
+    const out = applyPassToText(docConIncorrectaPrevio('otro'), 'sint-wr02', 0, {
+      by: 'm2',
+      date: '2026-08-16',
+      verdict: 'incorrecta',
+      concerns: ['[S4-acentos] falta una tilde'],
+      adjudicacion: '   ',
+    });
+    assert.equal(JSON.parse(out.text).exercises[0].variants[0].translationES.validation.passes.at(-1).verdict, 'incorrecta');
   });
 });
 
