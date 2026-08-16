@@ -22,15 +22,44 @@ findings:
   warning: 7
   info: 3
   total: 12
-status: issues_found
+status: fixes_applied
+fix_report: 48-REVIEW-FIX.md
+fixed_at: 2026-08-16
+disposition:
+  fixed: 7
+  refuted: 1
+  escalated: 1
+  out_of_scope: 3
+  ids:
+    CR-01: fixed
+    CR-02: fixed
+    WR-01: fixed
+    WR-02: fixed
+    WR-03: fixed
+    WR-04: fixed (dirección del fix propuesto INVERTIDA — la del review habría causado leak R1)
+    WR-05: refuted (falso hallazgo; WINDOWS id 60)
+    WR-06: fixed
+    WR-07: escalated (decisión del autor; WINDOWS id 53)
+    IN-01: out_of_scope
+    IN-02: out_of_scope (cifras reproducidas exactas: 21 = 7 + 14 en su alcance)
+    IN-03: out_of_scope
 ---
 
 # Phase 48: Code Review Report
 
+> **ESTADO ACTUALIZADO (2026-08-16).** Los hallazgos de abajo se conservan **tal y como se
+> escribieron** — no se borra ni se reescribe ninguno. Su disposición posterior vive en
+> **`48-REVIEW-FIX.md`**: 7 arreglados con evidencia de mutación, 1 refutado con evidencia
+> derivada del disco (WR-05, `WINDOWS` id 60), 1 escalado por decisión del autor (WR-07,
+> `WINDOWS` id 53) y 3 Info fuera de alcance. Dos matices que este documento no podía
+> saber y que el arreglo midió: la **dirección** del fix propuesto para WR-04 era errónea y
+> **peor que el bug** (habría convertido el slot en leak R1 inmediato), y WR-05 re-proponía
+> un concern que el autor ya había **rechazado por decisión expresa** en el plan 48-02.
+
 **Reviewed:** 2026-08-16
 **Depth:** standard
 **Files Reviewed:** 13
-**Status:** issues_found
+**Status:** issues_found (al escribirse) → fixes_applied (ver `48-REVIEW-FIX.md`)
 
 ## Summary
 
