@@ -252,7 +252,7 @@ Phase 28 fue trabajo huérfano de UI responsive (`@media (max-width: 640px)`, ta
   3. **Calidad validada:** las 122 están `validated` por el quórum con el prompt de traducción; `disputed` resueltos con trabajo, español acentuado RAE.
   4. **Gate y brownfield:** las 4 categorías entran en el array de cobertura con `expected` derivado del disco (mutación observada en rojo), `src/domain/` sin tocar, `schemaVersion` en 13, suite verde y reporter exit 0.
 
-**Plans**: 2/5 plans executed
+**Plans**: 3/5 plans executed
 
 Plans:
 **Wave 1**
@@ -265,7 +265,7 @@ Plans:
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
-- [ ] 48-03-PLAN.md — `fare-congiuntivo` (30): enganchar, anclar, y resolver con el autor el caso donde el español no puede mostrar el modo
+- [x] 48-03-PLAN.md — `fare-congiuntivo` (30): enganchar, anclar, y resolver con el autor el caso donde el español no puede mostrar el modo
 
 **Wave 4** *(blocked on Wave 3 completion)*
 
