@@ -6,15 +6,15 @@ current_phase: 49
 current_phase_name: Traducción — morfología (Genero e numero + Sostantivi irregolari)
 status: planning
 stopped_at: Completed 48-05-PLAN.md — fase 48 cerrada, TRAD-03 Complete
-last_updated: "2026-08-16T19:40:59.791Z"
+last_updated: "2026-08-16T21:00:40.754Z"
 last_activity: 2026-08-16
-last_activity_desc: Phase 48 complete, transitioned to Phase 49
 progress:
   total_phases: 8
   completed_phases: 3
   total_plans: 14
   completed_plans: 14
   percent: 38
+last_activity_desc: Phase 48 complete, transitioned to Phase 49
 ---
 
 # Project State: Italian Course — Ejercicios A1/A2
@@ -34,7 +34,7 @@ Phase: 49 — Traducción — morfología (Genero e numero + Sostantivi irregola
 Plan: Not started
 Status: Ready to plan
 Progress: [██████████] 100% de los planes de la fase
-Last activity: 2026-08-16 — Phase 48 complete, transitioned to Phase 49
+Last activity: 2026-08-16
 
 **Estado verificado en disco al cierre de 47-04 (2026-08-14T21:54Z):** reporter `node scripts/run-validation-271.mjs` → **exit 0** (`TRAD-COV: PASS (206/206)` sobre 3 categorías declaradas cubiertas, VAL-04/06/08/09 PASS, `VAL-06 250/250`, `Milestone gate PASS.`); gate anti-ceguera `node --test tests/count-arrays-lockstep.test.js` → **exit 0**, 64/64; suite `node --test tests/*.test.js tests/fixtures/*.test.js` → **1343 / 1339 pass / 4 fail** (exit 1, único rojo = la deuda pre-existente de trazabilidad, id 17 del ledger — **cero regresiones nuevas** frente a la línea base de 47-03); motor **byte-intacto** (`git diff --stat src/domain/ src/screens/app.js` vacío) y `schemaVersion` en **13**; corpus de traducción **206/206 `validated`**, 0 `disputed`, 0 `pending`, **2 overrides** en todo el corpus (`articoli-lo-z#1`, `partitivos-qualche#2`, ninguno nuevo en 47-04); los tres ficheros mutados con **md5 idéntico** a su foto verde y sin mutaciones residuales.
 

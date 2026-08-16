@@ -2,64 +2,60 @@
   "schema_version": 1,
   "samples": [
     {
-      "estimateTokens": 75000,
-      "actualTokens": 14891
+      "estimateTokens": 90000,
+      "actualTokens": 80519
     },
     {
-      "estimateTokens": 85000,
-      "actualTokens": 5707
+      "estimateTokens": 110000,
+      "actualTokens": 20995
     },
     {
       "estimateTokens": 90000,
-      "actualTokens": 14159
+      "actualTokens": 10729
     },
     {
-      "estimateTokens": 78000,
-      "actualTokens": 6667
+      "estimateTokens": 140000,
+      "actualTokens": 19304
     },
     {
-      "estimateTokens": 98000,
-      "actualTokens": 27188
+      "estimateTokens": 80000,
+      "actualTokens": 20218
     },
     {
-      "estimateTokens": 118000,
-      "actualTokens": 36200
+      "estimateTokens": 90000,
+      "actualTokens": 7273
     },
     {
-      "estimateTokens": 132000,
-      "actualTokens": 46239
+      "estimateTokens": 100000,
+      "actualTokens": 30543
     },
     {
-      "estimateTokens": 62000,
-      "actualTokens": 21000
+      "estimateTokens": 120000,
+      "actualTokens": 96000
     },
     {
-      "estimateTokens": 135000,
-      "actualTokens": 83638
+      "estimateTokens": 80000,
+      "actualTokens": 24300
     },
     {
-      "estimateTokens": 45000,
-      "actualTokens": 4950
+      "estimateTokens": 90000,
+      "actualTokens": 2028
     },
     {
-      "estimateTokens": 85000,
-      "actualTokens": 8329
+      "estimateTokens": 120000,
+      "actualTokens": 34000
     },
     {
-      "estimateTokens": 52000,
-      "actualTokens": 21000
+      "estimateTokens": 90000,
+      "actualTokens": 41000
     },
     {
-      "estimateTokens": 48000,
-      "actualTokens": 5700
+      "estimateTokens": 110000,
+      "actualTokens": 32000
     },
     {
-      "estimateTokens": 48000,
-      "actualTokens": 7100
-    },
-    {
-      "estimateTokens": 30000,
-      "actualTokens": 7300
+      "estimateTokens": 80000,
+      "actualTokens": 31616
     }
   ]
 }
