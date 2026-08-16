@@ -1732,19 +1732,19 @@
           ],
           "correctIndex": 0,
           "translationES": {
-            "text": "Esta mañana he hecho los deberes antes de salir.",
+            "text": "Esta mañana hice los deberes antes de salir.",
             "validation": {
               "status": "validated",
               "passes": [
                 {
                   "by": "deepseek-reasoner",
-                  "date": "2026-08-15",
+                  "date": "2026-08-16",
                   "verdict": "correcta",
                   "concerns": []
                 },
                 {
                   "by": "gemini-3.5-flash-lite",
-                  "date": "2026-08-15",
+                  "date": "2026-08-16",
                   "verdict": "correcta",
                   "concerns": []
                 }
